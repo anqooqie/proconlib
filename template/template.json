@@ -1,0 +1,7 @@
+{
+  "task": {
+    "program": ["Makefile", "main.cpp", "output_checker.cpp", "input_generator.cpp", "output_generator.cpp"],
+    "submit": "combined.cpp",
+    "testdir": "test"
+  }
+}
