@@ -15,7 +15,7 @@ namespace tools {
    * @param scale the count of decimal digits in the fractional part
    * @return $s * 10^{\mathrm{scale}}$
    */
-  ::std::int_fast64_t parse_fixed_point_number(::std::string s, const int scale) {
+  inline ::std::int_fast64_t parse_fixed_point_number(::std::string s, const int scale) {
     const auto pos = s.find('.');
     if (pos != ::std::string::npos) {
       const int real_scale = s.size() - (pos + 1);
