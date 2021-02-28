@@ -1,64 +1,80 @@
-#ifndef TOOLS_IS_PRIME_H
-#define TOOLS_IS_PRIME_H
+#ifndef TOOLS_IS_PRIME_HPP
+#define TOOLS_IS_PRIME_HPP
 
 #include <cstdint>
-#include <limits>
+#include <array>
 
 namespace tools {
   namespace detail {
     namespace is_prime {
-      constexpr ::std::uint_fast32_t mid(const ::std::uint_fast32_t low, const ::std::uint_fast32_t high) {
-        return (low + high) / 2;
+
+      // x * y (mod m)
+      constexpr ::std::uint_fast64_t prod_mod(const ::std::uint_fast64_t x, const ::std::uint_fast64_t y, const ::std::uint_fast64_t m) {
+        using u128 = unsigned __int128;
+        return ::std::uint_fast64_t((u128(x) * u128(y)) % u128(m));
       }
 
-      // precondition: low*low <= n, high*high > n.
-      constexpr ::std::uint_fast32_t ceilsqrt(const ::std::uint_fast32_t n, const ::std::uint_fast32_t low, const ::std::uint_fast32_t high) {
-        return low + 1 >= high
-          ? high
-          : (::tools::detail::is_prime::mid(low, high) * ::tools::detail::is_prime::mid(low, high) == n)
-          ? ::tools::detail::is_prime::mid(low, high)
-          : (::tools::detail::is_prime::mid(low, high) * ::tools::detail::is_prime::mid(low, high) <  n)
-          ? ::tools::detail::is_prime::ceilsqrt(n, ::tools::detail::is_prime::mid(low, high), high)
-          : ::tools::detail::is_prime::ceilsqrt(n, low, ::tools::detail::is_prime::mid(low, high));
-      }
-
-      // returns ceiling(sqrt(n))
-      constexpr ::std::uint_fast32_t ceilsqrt(const ::std::uint_fast32_t n) {
-        return n < 3
-          ? n
-          : ::tools::detail::is_prime::ceilsqrt(n, 1, ::std::uint_fast32_t(1) << (::std::numeric_limits<std::uint_fast32_t>::digits / 2));
-      }
-
-      // returns true if n is divisible by an odd integer in
-      // [2 * low + 1, 2 * high + 1).
-      constexpr bool find_factor(const ::std::uint_fast32_t n, const ::std::uint_fast32_t low, const ::std::uint_fast32_t high) {
-        return low + 1 >= high
-          ? (n % (2 * low + 1)) == 0
-          : (::tools::detail::is_prime::find_factor(n, low, ::tools::detail::is_prime::mid(low, high)) || ::tools::detail::is_prime::find_factor(n, ::tools::detail::is_prime::mid(low, high), high));
+      // x ** n (mod m)
+      constexpr ::std::uint_fast64_t pow_mod(const ::std::uint_fast64_t x, ::std::uint_fast64_t n, const ::std::uint_fast64_t m) {
+        if (m == 1) return 0;
+        ::std::uint_fast64_t r = 1;
+        ::std::uint_fast64_t y = x % m;
+        while (n > 0) {
+          if ((n & 1) > 0) {
+            r = ::tools::detail::is_prime::prod_mod(r, y, m);
+          }
+          y = ::tools::detail::is_prime::prod_mod(y, y, m);
+          n /= 2;
+        }
+        return r;
       }
     }
   }
 
   /**
    * check whether $n$ is a prime or not
-   * License: CC BY-SA 3.0
-   * Reference: Stack Overflow ( https://stackoverflow.com/questions/18303632/compile-time-prime-checking/18306693#18306693 )
+   * License: CC0
+   * References:
+   * ミラー-ラビン素数判定法 - Wikipedia ( https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%A9%E3%83%BC%E2%80%93%E3%83%A9%E3%83%93%E3%83%B3%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A%E6%B3%95 )
+   * Deterministic variants of the Miller-Rabin primality test. Miller-Rabin SPRP bases records ( http://miller-rabin.appspot.com/ )
    *
    * Usage:
    * ```
    * static_assert(tools::is_prime(P), "P must be prime.");
    * ```
    *
-   * @author Casey ( https://stackoverflow.com/users/923854/casey )
+   * @author anqooqie
    * @param n input
    * @return `true` if $n$ is a prime, and `false` if $n$ is not a prime
    */
-  constexpr bool is_prime(const ::std::uint_fast32_t n) {
-    return n > 1
-      && (n == 2
-        || (n % 2 == 1
-          && (n == 3
-            || !::tools::detail::is_prime::find_factor(n, 1, (::tools::detail::is_prime::ceilsqrt(n) + 1) / 2))));
+  constexpr bool is_prime(const ::std::uint_fast64_t n) {
+    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+
+    if (n <= 1) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+
+    ::std::uint_fast64_t d = n - 1;
+    for (; d % 2 == 0; d /= 2);
+
+    for (const ::std::uint_fast64_t a : bases) {
+      if (a % n == 0) return true;
+
+      ::std::uint_fast64_t power = d;
+      ::std::uint_fast64_t target = ::tools::detail::is_prime::pow_mod(a, power, n);
+
+      bool is_composite = true;
+      if (target == 1) is_composite = false;
+      for (; is_composite && power != n - 1; power *= 2, target = ::tools::detail::is_prime::prod_mod(target, target, n)) {
+        if (target == n - 1) is_composite = false;
+      }
+
+      if (is_composite) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 
