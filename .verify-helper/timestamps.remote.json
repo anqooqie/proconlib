@@ -5,5 +5,6 @@
 "tests/dijkstra.test.cpp": "2021-02-14 17:58:53 +0900",
 "tests/fact_mod_cache.test.cpp": "2021-02-14 17:58:53 +0900",
 "tests/floor_log.test.cpp": "2021-02-28 14:24:15 +0900",
-"tests/inversion_number.test.cpp": "2021-02-14 17:58:53 +0900"
+"tests/inversion_number.test.cpp": "2021-02-14 17:58:53 +0900",
+"tests/totient.test.cpp": "2021-02-28 16:15:59 +0900"
 }
