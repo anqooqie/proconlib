@@ -3,33 +3,10 @@
 
 #include <cstdint>
 #include <array>
+#include "tools/detail/prod_mod_u64.hpp"
+#include "tools/detail/pow_mod_u64.hpp"
 
 namespace tools {
-  namespace detail {
-    namespace is_prime {
-
-      // x * y (mod m)
-      constexpr ::std::uint_fast64_t prod_mod(const ::std::uint_fast64_t x, const ::std::uint_fast64_t y, const ::std::uint_fast64_t m) {
-        using u128 = unsigned __int128;
-        return ::std::uint_fast64_t((u128(x) * u128(y)) % u128(m));
-      }
-
-      // x ** n (mod m)
-      constexpr ::std::uint_fast64_t pow_mod(const ::std::uint_fast64_t x, ::std::uint_fast64_t n, const ::std::uint_fast64_t m) {
-        if (m == 1) return 0;
-        ::std::uint_fast64_t r = 1;
-        ::std::uint_fast64_t y = x % m;
-        while (n > 0) {
-          if ((n & 1) > 0) {
-            r = ::tools::detail::is_prime::prod_mod(r, y, m);
-          }
-          y = ::tools::detail::is_prime::prod_mod(y, y, m);
-          n /= 2;
-        }
-        return r;
-      }
-    }
-  }
 
   /**
    * check whether $n$ is a prime or not
@@ -61,11 +38,11 @@ namespace tools {
       if (a % n == 0) return true;
 
       ::std::uint_fast64_t power = d;
-      ::std::uint_fast64_t target = ::tools::detail::is_prime::pow_mod(a, power, n);
+      ::std::uint_fast64_t target = ::tools::detail::pow_mod_u64(a, power, n);
 
       bool is_composite = true;
       if (target == 1) is_composite = false;
-      for (; is_composite && power != n - 1; power *= 2, target = ::tools::detail::is_prime::prod_mod(target, target, n)) {
+      for (; is_composite && power != n - 1; power *= 2, target = ::tools::detail::prod_mod_u64(target, target, n)) {
         if (target == n - 1) is_composite = false;
       }
 
