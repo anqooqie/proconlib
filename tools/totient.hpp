@@ -1,9 +1,10 @@
 #ifndef TOOLS_TOTIENT_HPP
 #define TOOLS_TOTIENT_HPP
 
-#include <map>
+#include <vector>
+#include <iterator>
 #include <algorithm>
-#include <utility>
+#include <cstddef>
 #include "tools/prime_factorization.hpp"
 #include "tools/pow.hpp"
 
@@ -19,10 +20,17 @@ namespace tools {
    */
   template <typename T>
   T totient(const T& x) {
-    const ::std::map<T, T> map = ::tools::prime_factorization(x);
-    return ::std::accumulate(map.begin(), map.end(), static_cast<T>(1), [](const T& prod, const ::std::pair<T, T>& pair) {
-      return prod * ::tools::pow(pair.first, pair.second - 1) * (pair.first - 1);
-    });
+    assert(1 <= x && x <= 1000000000000000000);
+    ::std::vector<T> prime_factors;
+    ::tools::prime_factorization(x, ::std::back_inserter(prime_factors));
+    ::std::sort(prime_factors.begin(), prime_factors.end());
+    ::std::size_t r = 0;
+    T prod = 1;
+    for (::std::size_t l = 0; l < prime_factors.size(); l = r) {
+      for (; r < prime_factors.size() && prime_factors[l] == prime_factors[r]; ++r);
+      prod *= ::tools::pow(prime_factors[l], r - l - 1) * (prime_factors[l] - 1);
+    }
+    return prod;
   }
 }
 

@@ -2,7 +2,8 @@
 
 #include <cstdint>
 #include <iostream>
-#include <map>
+#include <vector>
+#include <iterator>
 #include <algorithm>
 #include "tools/prime_factorization.hpp"
 
@@ -18,12 +19,12 @@ int main() {
     i64 a_i;
     std::cin >> a_i;
 
-    const std::map<i64, i64> prime_factors = tools::prime_factorization(a_i);
-    std::cout << std::accumulate(prime_factors.begin(), prime_factors.end(), i64(0), [](const i64& sum, const std::pair<i64, i64>& pair) { return sum + pair.second; });
-    for (const auto& [distinct_prime, count] : prime_factors) {
-      for (i64 i = 0; i < count; ++i) {
-        std::cout << ' ' << distinct_prime;
-      }
+    std::vector<i64> prime_factors;
+    tools::prime_factorization(a_i, std::back_inserter(prime_factors));
+    std::cout << prime_factors.size();
+    std::sort(prime_factors.begin(), prime_factors.end());
+    for (const i64& prime_factor : prime_factors) {
+      std::cout << ' ' << prime_factor;
     }
     std::cout << '\n';
   }

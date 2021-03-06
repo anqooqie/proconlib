@@ -1,7 +1,6 @@
 #ifndef TOOLS_PRIME_FACTORIZATION_HPP
 #define TOOLS_PRIME_FACTORIZATION_HPP
 
-#include <map>
 #include <cassert>
 #include <array>
 #include <random>
@@ -17,41 +16,36 @@ namespace tools {
    * prime factorization
    * License: CC0
    * @author anqooqie
+   * @param <T> type of n
+   * @param <OutputIterator> type of result
    * @param n input
-   * @return map whose key is a disinct prime factor and value is the multiplicity.
+   * @param result output iterator as a storage of unordered prime factors
    */
-  template <typename T>
-  ::std::map<T, T> prime_factorization(T n) {
+  template <typename T, typename OutputIterator>
+  void prime_factorization(T n, OutputIterator result) {
     assert(1 <= n && n <= 1000000000000000000);
 
-    ::std::map<T, T> result;
-
-    constexpr ::std::array<T, 25> trivial_primes = {
-      2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-      31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-      73, 79, 83, 89, 97
-    };
-    for (auto it = trivial_primes.begin(); *it * *it <= n && it != trivial_primes.end(); ++it) {
-      for (; n % *it == 0; n /= *it) {
-        ++result[*it];
-      }
+    for (; n % 2 == 0; n /= 2) {
+      *result = 2;
+      ++result;
     }
+    if (n == 1) return;
 
-    if (n == 1) return result;
-
-    ::std::random_device seed_gen;
-    ::std::mt19937 engine(seed_gen());
-
+    ::std::minstd_rand engine;
     ::std::queue<T> factors({n});
     while (!factors.empty()) {
       const T factor = factors.front();
       factors.pop();
       if (::tools::is_prime(factor)) {
-        ++result[factor];
+        *result = factor;
+        ++result;
       } else {
-        ::std::uniform_int_distribution<T> dist(0, factor - 1);
+        ::std::uniform_int_distribution<T> dist(1, factor - 1);
         while (true) {
-          T c = dist(engine);
+          T c;
+          do {
+            c = dist(engine);
+          } while (c == n - 2);
           T x = 2;
           T y = 2;
           T d = 1;
@@ -75,8 +69,6 @@ namespace tools {
         }
       }
     }
-
-    return result;
   }
 }
 
