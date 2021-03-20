@@ -8,7 +8,7 @@
 #include <numeric>
 #include <cmath>
 #include "tools/is_prime.hpp"
-#include "tools/detail/prod_mod_u64.hpp"
+#include "tools/prod_mod.hpp"
 
 namespace tools {
 
@@ -40,23 +40,21 @@ namespace tools {
         *result = factor;
         ++result;
       } else {
-        ::std::uniform_int_distribution<T> dist(1, factor - 1);
+        ::std::uniform_int_distribution<T> dist(1, factor - 2);
         while (true) {
-          T c;
-          do {
-            c = dist(engine);
-          } while (c == n - 2);
+          T c = dist(engine);
+          if (c == factor - 2) c = factor - 1;
           T x = 2;
           T y = 2;
           T d = 1;
           while (d == 1) {
-            x = ::tools::detail::prod_mod_u64(x, x, factor);
+            x = ::tools::prod_mod(x, x, factor);
             x += c;
             if (x >= factor) x -= factor;
-            y = ::tools::detail::prod_mod_u64(y, y, factor);
+            y = ::tools::prod_mod(y, y, factor);
             y += c;
             if (y >= factor) y -= factor;
-            y = ::tools::detail::prod_mod_u64(y, y, factor);
+            y = ::tools::prod_mod(y, y, factor);
             y += c;
             if (y >= factor) y -= factor;
             d = ::std::gcd(::std::abs(x - y), factor);

@@ -16,12 +16,16 @@ namespace tools {
    * @return q, that satisfies $a = qb + r$ and $0 \leq r < |b|$
    */
   template <typename M, typename N>
-  constexpr ::std::common_type_t<M, N> quo(const M& lhs, const N& rhs) {
-    return lhs > ::std::common_type_t<M, N>(0)
-      ? lhs / rhs
-      : rhs > ::std::common_type_t<M, N>(0)
-        ? -((-lhs - 1 + rhs) / rhs)
-        : (-lhs - 1 + -rhs) / -rhs;
+  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {
+    if (lhs >= 0) {
+      return lhs / rhs;
+    } else {
+      if (rhs >= 0) {
+        return -((-lhs - 1 + rhs) / rhs);
+      } else {
+        return (-lhs - 1 + -rhs) / -rhs;
+      }
+    }
   }
 }
 

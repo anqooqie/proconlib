@@ -3,8 +3,8 @@
 
 #include <cstdint>
 #include <array>
-#include "tools/detail/prod_mod_u64.hpp"
-#include "tools/detail/pow_mod_u64.hpp"
+#include "tools/prod_mod.hpp"
+#include "tools/pow_mod.hpp"
 
 namespace tools {
 
@@ -38,11 +38,11 @@ namespace tools {
       if (a % n == 0) return true;
 
       ::std::uint_fast64_t power = d;
-      ::std::uint_fast64_t target = ::tools::detail::pow_mod_u64(a, power, n);
+      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);
 
       bool is_composite = true;
       if (target == 1) is_composite = false;
-      for (; is_composite && power != n - 1; power *= 2, target = ::tools::detail::prod_mod_u64(target, target, n)) {
+      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {
         if (target == n - 1) is_composite = false;
       }
 
