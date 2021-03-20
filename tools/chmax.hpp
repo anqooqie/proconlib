@@ -9,13 +9,14 @@ namespace tools {
    * runs `lhs = std::max(lhs, rhs);`
    * License: CC0
    * @author anqooqie
-   * @param <T> type of operands
+   * @param <M> type of lhs
+   * @param <N> type of rhs
    * @param lhs left hand side operand
    * @param rhs right hand side operand
    * @return `true` if `lhs` has been updated, `false` otherwise
    */
-  template <typename T>
-  bool chmax(T& lhs, const T& rhs) {
+  template <typename M, typename N>
+  bool chmax(M& lhs, const N& rhs) {
     const bool updated = lhs < rhs;
     if (updated) lhs = rhs;
     return updated;
