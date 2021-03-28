@@ -2,11 +2,12 @@
 #define TOOLS_PRIME_FACTORIZATION_HPP
 
 #include <cassert>
-#include <array>
+#include <vector>
 #include <random>
 #include <queue>
 #include <numeric>
 #include <cmath>
+#include <algorithm>
 #include "tools/is_prime.hpp"
 #include "tools/prod_mod.hpp"
 
@@ -19,11 +20,12 @@ namespace tools {
    * @param <T> type of n
    * @param <OutputIterator> type of result
    * @param n input
-   * @param result output iterator as a storage of unordered prime factors
+   * @param result output iterator as a storage of ordered prime factors
    */
   template <typename T, typename OutputIterator>
   void prime_factorization(T n, OutputIterator result) {
     assert(1 <= n && n <= 1000000000000000000);
+    ::std::vector<T> prime_factors;
 
     for (; n % 2 == 0; n /= 2) {
       *result = 2;
@@ -37,8 +39,7 @@ namespace tools {
       const T factor = factors.front();
       factors.pop();
       if (::tools::is_prime(factor)) {
-        *result = factor;
-        ++result;
+        prime_factors.push_back(factor);
       } else {
         ::std::uniform_int_distribution<T> dist(1, factor - 2);
         while (true) {
@@ -66,6 +67,12 @@ namespace tools {
           }
         }
       }
+    }
+
+    ::std::sort(prime_factors.begin(), prime_factors.end());
+    for (const T& prime_factor : prime_factors) {
+      *result = prime_factor;
+      ++result;
     }
   }
 }

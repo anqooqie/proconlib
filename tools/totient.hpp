@@ -23,7 +23,6 @@ namespace tools {
     assert(1 <= x && x <= 1000000000000000000);
     ::std::vector<T> prime_factors;
     ::tools::prime_factorization(x, ::std::back_inserter(prime_factors));
-    ::std::sort(prime_factors.begin(), prime_factors.end());
     ::std::size_t r = 0;
     T prod = 1;
     for (::std::size_t l = 0; l < prime_factors.size(); l = r) {
