@@ -5,16 +5,6 @@
 
 namespace tools {
 
-  template <typename T>
-  constexpr int signum(const T x, const ::std::false_type) noexcept {
-    return T(0) < x;
-  }
-
-  template <typename T>
-  constexpr int signum(const T x, const ::std::true_type) noexcept {
-    return (T(0) < x) - (x < T(0));
-  }
-
   /**
    * sign function
    * License: CC0
@@ -25,7 +15,11 @@ namespace tools {
    */
   template <typename T>
   constexpr int signum(const T x) noexcept {
-    return ::tools::signum(x, ::std::is_signed<T>());
+    if constexpr (::std::is_signed_v<T>) {
+      return (T(0) < x) - (x < T(0));
+    } else {
+      return T(0) < x;
+    }
   }
 }
 
