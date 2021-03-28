@@ -2,8 +2,6 @@
 #define TOOLS_EXTGCD_HPP
 
 #include <tuple>
-#include <cmath>
-#include <utility>
 #include "tools/quo.hpp"
 
 namespace tools {
@@ -16,14 +14,14 @@ namespace tools {
    * Usage:
    * ```
    * // a * x0 + b * y0 = gcd
-   * const auto [gcd, x0, y0] = tools::extgcd(a, b);
+   * const auto [x0, y0, gcd] = tools::extgcd(a, b);
    * ```
    *
    * @author anqooqie
    * @param <T> type of operands
    * @param prev_r $a$
    * @param r $b$
-   * @return $\[\gcd(a, b), x0, y0\]$ which satisfies $a * x0 + b * y0 = \gcd(a, b)$
+   * @return $\[x0, y0, \gcd(a, b)\]$ which satisfies $a * x0 + b * y0 = \gcd(a, b)$
    */
   template <typename T>
   ::std::tuple<T, T, T> extgcd(T prev_r, T r) {
@@ -43,7 +41,9 @@ namespace tools {
       prev_t = t;
       t = next_t;
     }
-    return ::std::make_tuple(::std::abs(prev_r), prev_s, prev_t);
+
+    if (prev_r < T(0)) prev_r = -prev_r;
+    return {prev_s, prev_t, prev_r};
   }
 }
 
