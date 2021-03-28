@@ -4,13 +4,13 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
-    title: tools/pow.hpp
+    title: $b^n$ under the given monoid
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
-    title: tools/square.hpp
+    title: $x^2$ under the given monoid
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
-    title: tools/totient.hpp
+    title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
@@ -70,8 +70,53 @@ data:
   - tests/totient.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
-redirect_from:
-- /library/tools/monoid.hpp
-- /library/tools/monoid.hpp.html
-title: tools/monoid.hpp
+title: Typical monoids
 ---
+
+```cpp
+namespace monoid {
+
+  template <typename Type, Type E = std::numeric_limits<Type>::min()>
+  struct max {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+  };
+
+  template <typename Type, Type E = std::numeric_limits<Type>::max()>
+  struct min {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+  };
+
+  template <typename Type>
+  struct multiplies {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+  };
+
+  template <typename Type>
+  struct gcd {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+  };
+
+  template <typename Type, Type E>
+  struct update {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+  };
+};
+```
+
+They are typical monoids.
+
+## License
+- CC0
+
+## Author
+- anqooqie

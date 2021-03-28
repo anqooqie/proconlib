@@ -3,13 +3,13 @@ data:
   _extendedDependsOn:
   - icon: ':warning:'
     path: tools/find_cycle.hpp
-    title: tools/find_cycle.hpp
+    title: Floyd's cycle-finding algorithm
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
-    title: tools/mod.hpp
+    title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
-    title: tools/quo.hpp
+    title: Quotient as integer division
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -20,10 +20,7 @@ data:
   bundledCode: "#line 1 \"tools/rich_pow_mod_cache.hpp\"\n\n\n\n#include <cstdint>\n\
     #include <vector>\n#include <numeric>\n#include <cassert>\n#include <iterator>\n\
     #line 1 \"tools/find_cycle.hpp\"\n\n\n\n#include <utility>\n#line 6 \"tools/find_cycle.hpp\"\
-    \n\nnamespace tools {\n\n  /**\n   * Floyd's cycle-finding algorithm\n   * License:\
-    \ CC0\n   * @author anqooqie\n   * @param seed the initial state\n   * @param\
-    \ f the function which generates the next state\n   * @return the length of head\
-    \ and the length of cycle\n   */\n  template <typename T, typename F>\n  ::std::pair<::std::int_fast64_t,\
+    \n\nnamespace tools {\n\n  template <typename T, typename F>\n  ::std::pair<::std::int_fast64_t,\
     \ ::std::int_fast64_t> find_cycle(const T& seed, const F& f) {\n    ::std::int_fast64_t\
     \ i = 1;\n    ::std::int_fast64_t j = 2;\n    T x = f(seed);\n    T y = f(f(seed));\n\
     \    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    i = 0;\n    x\
@@ -32,38 +29,25 @@ data:
     \ for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const ::std::int_fast64_t\
     \ cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\n#line\
     \ 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
-    \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  /**\n   * returns\
-    \ quotient as integer division\n   * License: CC0\n   * @author anqooqie\n   *\
-    \ @param <M> type of lhs\n   * @param <N> type of rhs\n   * @param lhs $a$\n \
-    \  * @param rhs $b$\n   * @return q, that satisfies $a = qb + r$ and $0 \\leq\
-    \ r < |b|$\n   */\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  /**\n\
-    \   * returns minimum non-negative reminder\n   * License: CC0\n   * @author anqooqie\n\
-    \   * @param <M> type of lhs\n   * @param <N> type of rhs\n   * @param lhs $a$\n\
-    \   * @param rhs $b$\n   * @return r, that satisfies $a = qb + r$ and $0 \\leq\
-    \ r < |b|$\n   */\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
-    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
-    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 11 \"tools/rich_pow_mod_cache.hpp\"\
-    \n\nnamespace tools {\n\n  /**\n   * b^n mod m, but provides a rich interface\
-    \ by using the pigeonhole principle\n   * License: CC0\n   *\n   * Usage:\n  \
-    \ * ```\n   * // calculates 10^n (mod 3), for every n\n   * tools::rich_pow_mod_cache<atcoder::static_modint<3>>\
-    \ cache(10);\n   *\n   * // obtains 10^123456789 (mod 3), that is 1\n   * cache[123456789];\n\
-    \   *\n   * // obtains 10^10000 + 10^10001 + 10^10002 (mod 3), that is 0\n   *\
-    \ cache.sum(10000, 10003);\n   * ```\n   *\n   * @author anqooqie\n   * @param\
-    \ <M> `atcoder::modint`\n   */\n  template <class M>\n  class rich_pow_mod_cache\
-    \ {\n  private:\n    bool m_exists_inv;\n    ::std::int_fast64_t m_head;\n   \
-    \ ::std::int_fast64_t m_cycle;\n    ::std::vector<M> m_data;\n    ::std::vector<M>\
-    \ m_cumsum;\n\n    M cumsum(const ::std::int_fast64_t l, const ::std::int_fast64_t\
-    \ r) const {\n      return this->m_cumsum[r] - this->m_cumsum[l];\n    }\n\n \
-    \ public:\n    rich_pow_mod_cache() = default;\n    rich_pow_mod_cache(const rich_pow_mod_cache&)\
-    \ = default;\n    rich_pow_mod_cache(rich_pow_mod_cache&&) = default;\n    ~rich_pow_mod_cache()\
-    \ = default;\n    rich_pow_mod_cache& operator=(const rich_pow_mod_cache&) = default;\n\
-    \    rich_pow_mod_cache& operator=(rich_pow_mod_cache&&) = default;\n\n    explicit\
-    \ rich_pow_mod_cache(const M& base) :\n      m_exists_inv(::std::gcd(base.val(),\
+    \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
+    \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
+    \ if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n\
+    \        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6\
+    \ \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n    if\
+    \ constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n      return\
+    \ lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs) * rhs;\n\
+    \    }\n  }\n}\n\n\n#line 11 \"tools/rich_pow_mod_cache.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <class M>\n  class rich_pow_mod_cache {\n  private:\n    bool\
+    \ m_exists_inv;\n    ::std::int_fast64_t m_head;\n    ::std::int_fast64_t m_cycle;\n\
+    \    ::std::vector<M> m_data;\n    ::std::vector<M> m_cumsum;\n\n    M cumsum(const\
+    \ ::std::int_fast64_t l, const ::std::int_fast64_t r) const {\n      return this->m_cumsum[r]\
+    \ - this->m_cumsum[l];\n    }\n\n  public:\n    rich_pow_mod_cache() = default;\n\
+    \    rich_pow_mod_cache(const rich_pow_mod_cache&) = default;\n    rich_pow_mod_cache(rich_pow_mod_cache&&)\
+    \ = default;\n    ~rich_pow_mod_cache() = default;\n    rich_pow_mod_cache& operator=(const\
+    \ rich_pow_mod_cache&) = default;\n    rich_pow_mod_cache& operator=(rich_pow_mod_cache&&)\
+    \ = default;\n\n    explicit rich_pow_mod_cache(const M& base) :\n      m_exists_inv(::std::gcd(base.val(),\
     \ M::mod()) == 1) {\n\n      const auto [head, cycle] = ::tools::find_cycle(M(1),\
     \ [&base](const M& prev) { return prev * base; });\n      this->m_head = head;\n\
     \      this->m_cycle = cycle;\n\n      // if modular multiplicative inverses exist,\
@@ -93,18 +77,12 @@ data:
   code: "#ifndef TOOLS_RICH_POW_MOD_CACHE_HPP\n#define TOOLS_RICH_POW_MOD_CACHE_HPP\n\
     \n#include <cstdint>\n#include <vector>\n#include <numeric>\n#include <cassert>\n\
     #include <iterator>\n#include \"tools/find_cycle.hpp\"\n#include \"tools/mod.hpp\"\
-    \n\nnamespace tools {\n\n  /**\n   * b^n mod m, but provides a rich interface\
-    \ by using the pigeonhole principle\n   * License: CC0\n   *\n   * Usage:\n  \
-    \ * ```\n   * // calculates 10^n (mod 3), for every n\n   * tools::rich_pow_mod_cache<atcoder::static_modint<3>>\
-    \ cache(10);\n   *\n   * // obtains 10^123456789 (mod 3), that is 1\n   * cache[123456789];\n\
-    \   *\n   * // obtains 10^10000 + 10^10001 + 10^10002 (mod 3), that is 0\n   *\
-    \ cache.sum(10000, 10003);\n   * ```\n   *\n   * @author anqooqie\n   * @param\
-    \ <M> `atcoder::modint`\n   */\n  template <class M>\n  class rich_pow_mod_cache\
-    \ {\n  private:\n    bool m_exists_inv;\n    ::std::int_fast64_t m_head;\n   \
-    \ ::std::int_fast64_t m_cycle;\n    ::std::vector<M> m_data;\n    ::std::vector<M>\
-    \ m_cumsum;\n\n    M cumsum(const ::std::int_fast64_t l, const ::std::int_fast64_t\
-    \ r) const {\n      return this->m_cumsum[r] - this->m_cumsum[l];\n    }\n\n \
-    \ public:\n    rich_pow_mod_cache() = default;\n    rich_pow_mod_cache(const rich_pow_mod_cache&)\
+    \n\nnamespace tools {\n\n  template <class M>\n  class rich_pow_mod_cache {\n\
+    \  private:\n    bool m_exists_inv;\n    ::std::int_fast64_t m_head;\n    ::std::int_fast64_t\
+    \ m_cycle;\n    ::std::vector<M> m_data;\n    ::std::vector<M> m_cumsum;\n\n \
+    \   M cumsum(const ::std::int_fast64_t l, const ::std::int_fast64_t r) const {\n\
+    \      return this->m_cumsum[r] - this->m_cumsum[l];\n    }\n\n  public:\n   \
+    \ rich_pow_mod_cache() = default;\n    rich_pow_mod_cache(const rich_pow_mod_cache&)\
     \ = default;\n    rich_pow_mod_cache(rich_pow_mod_cache&&) = default;\n    ~rich_pow_mod_cache()\
     \ = default;\n    rich_pow_mod_cache& operator=(const rich_pow_mod_cache&) = default;\n\
     \    rich_pow_mod_cache& operator=(rich_pow_mod_cache&&) = default;\n\n    explicit\
@@ -142,13 +120,32 @@ data:
   isVerificationFile: false
   path: tools/rich_pow_mod_cache.hpp
   requiredBy: []
-  timestamp: '2021-03-20 18:59:31+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/rich_pow_mod_cache.hpp
 layout: document
-redirect_from:
-- /library/tools/rich_pow_mod_cache.hpp
-- /library/tools/rich_pow_mod_cache.hpp.html
-title: tools/rich_pow_mod_cache.hpp
+title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
 ---
+
+It precomputes $b^n \pmod{M}$ for $0 \leq n < \infty$.
+It also provides some other rich interfaces.
+Their features are built on the pigeonhole principle.
+
+## Usage
+```cpp
+// calculates 10^n (mod 3), for every n
+tools::rich_pow_mod_cache<atcoder::static_modint<3>> cache(10);
+
+// obtains 10^123456789 (mod 3), that is 1
+cache[123456789];
+
+// obtains 10^10000 + 10^10001 + 10^10002 (mod 3), that is 0
+cache.sum(10000, 10003);
+```
+
+## License
+- CC0
+
+## Author
+- anqooqie

@@ -3,14 +3,14 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
-    title: tools/monoid.hpp
+    title: Typical monoids
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
-    title: tools/pow.hpp
+    title: $b^n$ under the given monoid
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
-    title: tools/totient.hpp
+    title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
@@ -39,22 +39,15 @@ data:
     \      using T = Type;\n      static T op(const T lhs, const T rhs) {\n      \
     \  return rhs == E ? lhs : rhs;\n      }\n      static T e() {\n        return\
     \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
-    \ {\n\n  /**\n   * calculates square\n   * License: CC0\n   * @author anqooqie\n\
-    \   * @param <M> monoid\n   * @param x input\n   * @return $x^2$\n   */\n  template\
-    \ <typename M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x,\
-    \ x);\n  }\n\n  /**\n   * calculates square\n   * License: CC0\n   * @author anqooqie\n\
-    \   * @param <T> type of input\n   * @param x input\n   * @return $x^2$\n   */\n\
-    \  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n"
-  code: "#ifndef TOOLS_SQUARE_HPP\n#define TOOLS_SQUARE_HPP\n\n#include \"tools/monoid.hpp\"\
-    \n\nnamespace tools {\n\n  /**\n   * calculates square\n   * License: CC0\n  \
-    \ * @author anqooqie\n   * @param <M> monoid\n   * @param x input\n   * @return\
-    \ $x^2$\n   */\n  template <typename M>\n  typename M::T square(const typename\
-    \ M::T& x) {\n    return M::op(x, x);\n  }\n\n  /**\n   * calculates square\n\
-    \   * License: CC0\n   * @author anqooqie\n   * @param <T> type of input\n   *\
-    \ @param x input\n   * @return $x^2$\n   */\n  template <typename T>\n  T square(const\
+    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
+    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
     \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n#endif\n"
+    }\n\n\n"
+  code: "#ifndef TOOLS_SQUARE_HPP\n#define TOOLS_SQUARE_HPP\n\n#include \"tools/monoid.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
+    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n#endif\n"
   dependsOn:
   - tools/monoid.hpp
   isVerificationFile: false
@@ -62,14 +55,27 @@ data:
   requiredBy:
   - tools/totient.hpp
   - tools/pow.hpp
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
 documentation_of: tools/square.hpp
 layout: document
-redirect_from:
-- /library/tools/square.hpp
-- /library/tools/square.hpp.html
-title: tools/square.hpp
+title: $x^2$ under the given monoid
 ---
+
+```cpp
+template <typename M>
+typename M::T square(typename M::T x);
+
+template <typename T>
+T square(T x);
+```
+
+It returns $x^2$ under the given monoid.
+
+## License
+- CC0
+
+## Author
+- anqooqie

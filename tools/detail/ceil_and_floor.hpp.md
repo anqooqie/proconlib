@@ -4,19 +4,19 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
-    title: tools/ceil.hpp
+    title: Ceiling function
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
-    title: tools/ceil_log.hpp
+    title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
-    title: tools/floor.hpp
+    title: Floor function
   - icon: ':heavy_check_mark:'
     path: tools/floor_log.hpp
-    title: tools/floor_log.hpp
+    title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':warning:'
     path: tools/round.hpp
-    title: tools/round.hpp
+    title: Banker's rounding function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
@@ -30,17 +30,23 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\
-    \nnamespace tools {\n\n  /**\n   * floor function\n   * License: CC0\n   * @author\
-    \ anqooqie\n   * @param <M> type of `lhs`\n   * @param <N> type of `rhs`\n   *\
-    \ @param lhs left hand side operand\n   * @param rhs right hand side operand\n\
-    \   * @return $\\left\\lfloor \\frac{\\mathrm{lhs}}{\\mathrm{rhs}} \\right\\rfloor$\n\
-    \   */\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  /**\n   * ceiling function\n   *\
-    \ License: CC0\n   * @author anqooqie\n   * @param <M> type of `lhs`\n   * @param\
-    \ <N> type of `rhs`\n   * @param lhs left hand side operand\n   * @param rhs right\
-    \ hand side operand\n   * @return $\\left\\lceil \\frac{\\mathrm{lhs}}{\\mathrm{rhs}}\
-    \ \\right\\rceil$\n   */\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
+    \nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
+    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
+    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
+    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
+    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
+    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
+    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
+    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_DETAIL_CEIL_AND_FLOOR_HPP\n#define TOOLS_DETAIL_CEIL_AND_FLOOR_HPP\n\
+    \n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs);\n\
+    \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
+    \ ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
     \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
     \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
     \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
@@ -49,29 +55,7 @@ data:
     \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_DETAIL_CEIL_AND_FLOOR_HPP\n#define TOOLS_DETAIL_CEIL_AND_FLOOR_HPP\n\
-    \n#include <type_traits>\n\nnamespace tools {\n\n  /**\n   * floor function\n\
-    \   * License: CC0\n   * @author anqooqie\n   * @param <M> type of `lhs`\n   *\
-    \ @param <N> type of `rhs`\n   * @param lhs left hand side operand\n   * @param\
-    \ rhs right hand side operand\n   * @return $\\left\\lfloor \\frac{\\mathrm{lhs}}{\\\
-    mathrm{rhs}} \\right\\rfloor$\n   */\n  template <typename M, typename N>\n  constexpr\
-    \ ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs);\n\n  /**\n   *\
-    \ ceiling function\n   * License: CC0\n   * @author anqooqie\n   * @param <M>\
-    \ type of `lhs`\n   * @param <N> type of `rhs`\n   * @param lhs left hand side\
-    \ operand\n   * @param rhs right hand side operand\n   * @return $\\left\\lceil\
-    \ \\frac{\\mathrm{lhs}}{\\mathrm{rhs}} \\right\\rceil$\n   */\n  template <typename\
-    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const\
-    \ N& rhs);\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        lhs / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n \
-    \       ::tools::floor(-lhs, -rhs);\n  }\n  \n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs)\
-    \ {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        (lhs - 1 + rhs) / rhs :\n\
-    \      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs, rhs) :\n      lhs\
-    \ >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n        ::tools::ceil(-lhs,\
-    \ -rhs);\n  }\n}\n\n#endif\n"
+    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/detail/ceil_and_floor.hpp
@@ -81,7 +65,7 @@ data:
   - tools/round.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
-  timestamp: '2021-02-15 00:21:24+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/floor_log.test.cpp

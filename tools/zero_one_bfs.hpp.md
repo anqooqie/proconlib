@@ -10,14 +10,9 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <limits>\n#include <cassert>\n#include <deque>\n\nnamespace\
-    \ tools {\n\n  /**\n   * 01-BFS\n   * License: CC0\n   *\n   * Usage:\n   * ```\n\
-    \   * tools::zero_one_bfs<int> bfs(node_count);\n   * bfs.add_edge(from_node,\
-    \ to_node, cost);\n   * const tools::zero_one_bfs<int>::result result = bfs.query(start_node);\n\
-    \   * for (const int& distance : result.distances) {\n   *   // ...\n   * }\n\
-    \   * ```\n   *\n   * @author anqooqie\n   * @param <T> type of weight of edges\n\
-    \   */\n  template <typename T>\n  class zero_one_bfs {\n  private:\n    class\
-    \ edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t to;\n  \
-    \    T distance;\n      edge(const ::std::size_t from, const ::std::size_t to,\
+    \ tools {\n\n  template <typename T>\n  class zero_one_bfs {\n  private:\n   \
+    \ class edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t to;\n\
+    \      T distance;\n      edge(const ::std::size_t from, const ::std::size_t to,\
     \ const T distance) :\n        from(from),\n        to(to),\n        distance(distance)\
     \ {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n\
     \    static constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr\
@@ -44,19 +39,14 @@ data:
     \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_ZERO_ONE_BFS_HPP\n#define TOOLS_ZERO_ONE_BFS_HPP\n\n#include\
     \ <cstddef>\n#include <vector>\n#include <limits>\n#include <cassert>\n#include\
-    \ <deque>\n\nnamespace tools {\n\n  /**\n   * 01-BFS\n   * License: CC0\n   *\n\
-    \   * Usage:\n   * ```\n   * tools::zero_one_bfs<int> bfs(node_count);\n   * bfs.add_edge(from_node,\
-    \ to_node, cost);\n   * const tools::zero_one_bfs<int>::result result = bfs.query(start_node);\n\
-    \   * for (const int& distance : result.distances) {\n   *   // ...\n   * }\n\
-    \   * ```\n   *\n   * @author anqooqie\n   * @param <T> type of weight of edges\n\
-    \   */\n  template <typename T>\n  class zero_one_bfs {\n  private:\n    class\
-    \ edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t to;\n  \
-    \    T distance;\n      edge(const ::std::size_t from, const ::std::size_t to,\
-    \ const T distance) :\n        from(from),\n        to(to),\n        distance(distance)\
-    \ {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n\
-    \    static constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr\
-    \ ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class\
-    \ result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
+    \ <deque>\n\nnamespace tools {\n\n  template <typename T>\n  class zero_one_bfs\
+    \ {\n  private:\n    class edge {\n    public:\n      ::std::size_t from;\n  \
+    \    ::std::size_t to;\n      T distance;\n      edge(const ::std::size_t from,\
+    \ const ::std::size_t to, const T distance) :\n        from(from),\n        to(to),\n\
+    \        distance(distance) {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>>\
+    \ edges;\n\n  public:\n    static constexpr T INF = ::std::numeric_limits<T>::max();\n\
+    \    static constexpr ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\
+    \n    class result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
     \ prev_nodes;\n      result(const ::std::size_t& node_count, const ::std::size_t&\
     \ start_node) :\n        distances(node_count, INF),\n        prev_nodes(node_count,\
     \ NONE) {\n        this->distances[start_node] = 0;\n      }\n    };\n\n    zero_one_bfs(const\
@@ -80,13 +70,30 @@ data:
   isVerificationFile: false
   path: tools/zero_one_bfs.hpp
   requiredBy: []
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/zero_one_bfs.hpp
 layout: document
-redirect_from:
-- /library/tools/zero_one_bfs.hpp
-- /library/tools/zero_one_bfs.hpp.html
-title: tools/zero_one_bfs.hpp
+title: 01-BFS
 ---
+
+It is 01-BFS.
+
+## Usage
+```cpp
+tools::zero_one_bfs<int> bfs(node_count);
+bfs.add_edge(from_node, to_node, cost);
+const tools::zero_one_bfs<int>::result result = bfs.query(start_node);
+for (const int& distance : result.distances) {
+  // ...
+}
+```
+
+The type parameter `<T>` is the type of weight of edges.
+
+## License
+- CC0
+
+## Author
+- anqooqie

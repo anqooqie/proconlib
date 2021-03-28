@@ -2,17 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/ac-library/atcoder/internal_math.hpp
-    title: lib/ac-library/atcoder/internal_math.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/ac-library/atcoder/internal_type_traits.hpp
-    title: lib/ac-library/atcoder/internal_type_traits.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/ac-library/atcoder/modint.hpp
-    title: lib/ac-library/atcoder/modint.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
-    title: tools/fact_mod_cache.hpp
+    title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -221,11 +212,7 @@ data:
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\
     \n\n\n\n#include <vector>\n#line 7 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools\
-    \ {\n\n  /**\n   * factorial mod\n   * License: CC0\n   *\n   * Usage:\n   * ```\n\
-    \   * // calculates n! (mod 3) for 0 <= n <= 5\n   * tools::fact_mod_cache<atcoder::static_modint<3>>\
-    \ cache(5);\n   *\n   * // obtains 5! (mod 3), that is 0\n   * cache.fact(5);\n\
-    \   * ```\n   *\n   * @author anqooqie\n   * @param <M> `atcoder::modint`\n  \
-    \ */\n  template <class M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M>\
+    \ {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M>\
     \ m_data;\n    ::std::vector<M> m_inv_data;\n\n  public:\n    fact_mod_cache()\
     \ = default;\n    fact_mod_cache(const fact_mod_cache&) = default;\n    fact_mod_cache(fact_mod_cache&&)\
     \ = default;\n    ~fact_mod_cache() = default;\n    fact_mod_cache& operator=(const\
@@ -254,14 +241,11 @@ data:
     \ n >> k;\n  tools::fact_mod_cache<mint> cache(n + k - 1);\n  std::cout << cache.combination(n\
     \ + k - 1, n).val() << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - lib/ac-library/atcoder/modint.hpp
-  - lib/ac-library/atcoder/internal_math.hpp
-  - lib/ac-library/atcoder/internal_type_traits.hpp
   - tools/fact_mod_cache.hpp
   isVerificationFile: true
   path: tests/fact_mod_cache.test.cpp
   requiredBy: []
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fact_mod_cache.test.cpp

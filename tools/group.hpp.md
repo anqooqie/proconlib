@@ -65,8 +65,34 @@ data:
   - tests/cumsum2d.test.cpp
 documentation_of: tools/group.hpp
 layout: document
-redirect_from:
-- /library/tools/group.hpp
-- /library/tools/group.hpp.html
-title: tools/group.hpp
+title: Typical groups
 ---
+
+```cpp
+namespace group {
+
+  template <typename Type>
+  struct plus {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+    static T inv(T x);
+  };
+
+  template <typename Type>
+  struct bit_xor {
+    using T = Type;
+    static T op(T x, T y);
+    static T e();
+    static T inv(T x);
+  };
+};
+```
+
+They are typical groups.
+
+## License
+- CC0
+
+## Author
+- anqooqie

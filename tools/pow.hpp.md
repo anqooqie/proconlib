@@ -3,14 +3,14 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
-    title: tools/monoid.hpp
+    title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
-    title: tools/square.hpp
+    title: $x^2$ under the given monoid
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
-    title: tools/totient.hpp
+    title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
@@ -39,38 +39,25 @@ data:
     \      using T = Type;\n      static T op(const T lhs, const T rhs) {\n      \
     \  return rhs == E ? lhs : rhs;\n      }\n      static T e() {\n        return\
     \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
-    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  /**\n   * calculates square\n\
-    \   * License: CC0\n   * @author anqooqie\n   * @param <M> monoid\n   * @param\
-    \ x input\n   * @return $x^2$\n   */\n  template <typename M>\n  typename M::T\
-    \ square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  /**\n  \
-    \ * calculates square\n   * License: CC0\n   * @author anqooqie\n   * @param <T>\
-    \ type of input\n   * @param x input\n   * @return $x^2$\n   */\n  template <typename\
-    \ T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  /**\n   * calculates\
-    \ power of `base`\n   * License: CC0\n   * @author anqooqie\n   * @param <M> monoid\n\
-    \   * @param base $b$\n   * @param exponent $n$\n   * @return $b^n$\n   */\n \
-    \ template <typename M>\n  typename M::T pow(const typename M::T& base, const\
-    \ ::std::size_t& exponent) {\n    return exponent == 0\n      ? M::e()\n     \
-    \ : exponent % 2 == 0\n        ? ::tools::square<M>(::tools::pow<M>(base, exponent\
-    \ / 2))\n        : M::op(::tools::pow<M>(base, exponent - 1), base);\n  }\n\n\
-    \  /**\n   * calculates power of `base`\n   * License: CC0\n   * @author anqooqie\n\
-    \   * @param <T> type of input\n   * @param base $b$\n   * @param exponent $n$\n\
-    \   * @return $b^n$\n   */\n  template <typename T>\n  T pow(const T& base, const\
-    \ ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
+    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
+    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
+    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
+    \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
+    \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T>\n  T pow(const T& base,\
+    \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
     \ exponent);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_POW_H\n#define TOOLS_POW_H\n\n#include <cstddef>\n#include\
     \ \"tools/monoid.hpp\"\n#include \"tools/square.hpp\"\n\nnamespace tools {\n\n\
-    \  /**\n   * calculates power of `base`\n   * License: CC0\n   * @author anqooqie\n\
-    \   * @param <M> monoid\n   * @param base $b$\n   * @param exponent $n$\n   *\
-    \ @return $b^n$\n   */\n  template <typename M>\n  typename M::T pow(const typename\
-    \ M::T& base, const ::std::size_t& exponent) {\n    return exponent == 0\n   \
-    \   ? M::e()\n      : exponent % 2 == 0\n        ? ::tools::square<M>(::tools::pow<M>(base,\
-    \ exponent / 2))\n        : M::op(::tools::pow<M>(base, exponent - 1), base);\n\
-    \  }\n\n  /**\n   * calculates power of `base`\n   * License: CC0\n   * @author\
-    \ anqooqie\n   * @param <T> type of input\n   * @param base $b$\n   * @param exponent\
-    \ $n$\n   * @return $b^n$\n   */\n  template <typename T>\n  T pow(const T& base,\
-    \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
-    \ exponent);\n  }\n}\n\n#endif\n"
+    \  template <typename M>\n  typename M::T pow(const typename M::T& base, const\
+    \ ::std::size_t& exponent) {\n    return exponent == 0\n      ? M::e()\n     \
+    \ : exponent % 2 == 0\n        ? ::tools::square<M>(::tools::pow<M>(base, exponent\
+    \ / 2))\n        : M::op(::tools::pow<M>(base, exponent - 1), base);\n  }\n\n\
+    \  template <typename T>\n  T pow(const T& base, const ::std::size_t& exponent)\
+    \ {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n\
+    \  }\n}\n\n#endif\n"
   dependsOn:
   - tools/monoid.hpp
   - tools/square.hpp
@@ -78,14 +65,28 @@ data:
   path: tools/pow.hpp
   requiredBy:
   - tools/totient.hpp
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
-redirect_from:
-- /library/tools/pow.hpp
-- /library/tools/pow.hpp.html
-title: tools/pow.hpp
+title: $b^n$ under the given monoid
 ---
+
+```cpp
+template <typename M>
+typename M::T pow(typename M::T b, std::size_t n);
+
+template <typename T>
+T pow(T b, ::std::size_t n);
+```
+
+It returns $b^n$ under the given monoid.
+The default monoid is $(\mathbb{Z}, \times)$.
+
+## License
+- CC0
+
+## Author
+- anqooqie

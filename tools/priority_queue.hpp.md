@@ -10,17 +10,11 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/priority_queue.hpp\"\n\n\n\n#include <functional>\n\
     #include <utility>\n#include <queue>\n#include <vector>\n#include <unordered_map>\n\
-    \nnamespace tools {\n\n  /**\n   * updatable priority queue\n   * License: CC0\n\
-    \   *\n   * Usage:\n   * ```\n   * tools::priority_queue<std::string, int> pq;\n\
-    \   * pq.push(std::make_pair(\"abc\", 5));\n   * const std::pair<std::string,\
-    \ int> pair = pq.top();\n   * pq.push(std::make_pair(\"abc\", 7));\n   * pq.erase(\"\
-    abc\");\n   * ```\n   *\n   * @author anqooqie\n   * @param <T> type of key\n\
-    \   * @param <Priority> type of priority\n   */\n  template <class T, class Priority,\
-    \ class Compare = ::std::less<Priority>>\n  class priority_queue {\n  private:\n\
-    \    class compare_by_priority {\n    private:\n      Compare compare;\n\n   \
-    \ public:\n      compare_by_priority(const Compare& compare) : compare(compare)\
-    \ {\n      }\n\n      bool operator()(const ::std::pair<T, Priority>& x, const\
-    \ ::std::pair<T, Priority>& y) const {\n        return this->compare(x.second,\
+    \nnamespace tools {\n\n  template <class T, class Priority, class Compare = ::std::less<Priority>>\n\
+    \  class priority_queue {\n  private:\n    class compare_by_priority {\n    private:\n\
+    \      Compare compare;\n\n    public:\n      compare_by_priority(const Compare&\
+    \ compare) : compare(compare) {\n      }\n\n      bool operator()(const ::std::pair<T,\
+    \ Priority>& x, const ::std::pair<T, Priority>& y) const {\n        return this->compare(x.second,\
     \ y.second) || (!this->compare(x.second, y.second) && !this->compare(y.second,\
     \ x.second) && x.first < y.first);\n      }\n    };\n\n    ::std::priority_queue<::std::pair<T,\
     \ Priority>, ::std::vector<::std::pair<T, Priority>>, compare_by_priority> heap;\n\
@@ -54,12 +48,7 @@ data:
     \       return 0;\n      }\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_PRIORITY_QUEUE_HPP\n#define TOOLS_PRIORITY_QUEUE_HPP\n\n#include\
     \ <functional>\n#include <utility>\n#include <queue>\n#include <vector>\n#include\
-    \ <unordered_map>\n\nnamespace tools {\n\n  /**\n   * updatable priority queue\n\
-    \   * License: CC0\n   *\n   * Usage:\n   * ```\n   * tools::priority_queue<std::string,\
-    \ int> pq;\n   * pq.push(std::make_pair(\"abc\", 5));\n   * const std::pair<std::string,\
-    \ int> pair = pq.top();\n   * pq.push(std::make_pair(\"abc\", 7));\n   * pq.erase(\"\
-    abc\");\n   * ```\n   *\n   * @author anqooqie\n   * @param <T> type of key\n\
-    \   * @param <Priority> type of priority\n   */\n  template <class T, class Priority,\
+    \ <unordered_map>\n\nnamespace tools {\n\n  template <class T, class Priority,\
     \ class Compare = ::std::less<Priority>>\n  class priority_queue {\n  private:\n\
     \    class compare_by_priority {\n    private:\n      Compare compare;\n\n   \
     \ public:\n      compare_by_priority(const Compare& compare) : compare(compare)\
@@ -100,13 +89,27 @@ data:
   isVerificationFile: false
   path: tools/priority_queue.hpp
   requiredBy: []
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/priority_queue.hpp
 layout: document
-redirect_from:
-- /library/tools/priority_queue.hpp
-- /library/tools/priority_queue.hpp.html
-title: tools/priority_queue.hpp
+title: Updatable priority queue
 ---
+
+It is nearly `std::prirority_queue`, but allows you to update priority.
+
+## Usage
+```cpp
+tools::priority_queue<std::string, int> pq;
+pq.push(std::make_pair("abc", 5));
+const std::pair<std::string, int> pair = pq.top();
+pq.push(std::make_pair("abc", 7));
+pq.erase("abc");
+```
+
+## License
+- CC0
+
+## Author
+- anqooqie

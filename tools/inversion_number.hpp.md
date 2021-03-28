@@ -2,17 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/ac-library/atcoder/fenwicktree.hpp
-    title: lib/ac-library/atcoder/fenwicktree.hpp
-  - icon: ':heavy_check_mark:'
-    path: lib/ac-library/atcoder/internal_type_traits.hpp
-    title: lib/ac-library/atcoder/internal_type_traits.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
-    title: tools/compress.hpp
+    title: Compress values
   - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
-    title: tools/lower_bound.hpp
+    title: std::lower_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -81,30 +75,19 @@ data:
     \        while (r > 0) {\n            s += data[r - 1];\n            r -= r &\
     \ -r;\n        }\n        return s;\n    }\n};\n\n}  // namespace atcoder\n\n\n\
     #line 1 \"tools/compress.hpp\"\n\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n\
-    #line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  /**\n   * `std::lower_bound`,\
-    \ but returns index\n   * License: CC0\n   * @author anqooqie\n   * @param <ForwardIterator>\
-    \ type of iterator\n   * @param <T> type of value\n   * @return `std::distance(first,\
-    \ std::lower_bound(first, last, value))`\n   */\n  template <class ForwardIterator,\
+    #line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class ForwardIterator,\
     \ class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
     \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
     \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
-    \  }\n}\n\n\n#line 8 \"tools/compress.hpp\"\n\nnamespace tools {\n\n  /**\n  \
-    \ * compresses the values while keeping its magnitude relationship\n   * License:\
-    \ CC0\n   * @author anqooqie\n   * @param <InputIterator> type of the input iterators\n\
-    \   * @param <OutputIterator> type of the output iterator\n   * @param begin beginning\
-    \ of the input iterator\n   * @param end end of the input iterator\n   * @param\
-    \ result beginning of the output iterator\n   */\n  template <typename InputIterator,\
-    \ typename OutputIterator>\n  void compress(InputIterator begin, InputIterator\
-    \ end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \  }\n}\n\n\n#line 8 \"tools/compress.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename InputIterator, typename OutputIterator>\n  void compress(InputIterator\
+    \ begin, InputIterator end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> orig(begin, end);\n    ::std::vector<T> sorted(orig);\n\
     \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
     \ sorted.end()), sorted.end());\n    for (auto it = orig.begin(); it != orig.end();\
     \ ++it, ++result) {\n      *result = ::tools::lower_bound(sorted.begin(), sorted.end(),\
     \ *it);\n    }\n  }\n}\n\n\n#line 9 \"tools/inversion_number.hpp\"\n\nnamespace\
-    \ tools {\n\n  /**\n   * returns the number of inversions\n   * License: CC0\n\
-    \   * @author anqooqie\n   * @param <Iterator> type of the iterators\n   * @param\
-    \ begin beginning iterator\n   * @param end end iterator\n   * @return the number\
-    \ of inversions\n   */\n  template <typename Iterator>\n  typename ::std::iterator_traits<Iterator>::value_type\
+    \ tools {\n\n  template <typename Iterator>\n  typename ::std::iterator_traits<Iterator>::value_type\
     \ inversion_number(Iterator begin, Iterator end) {\n    using T = typename ::std::iterator_traits<Iterator>::value_type;\n\
     \n    ::std::vector<T> compressed;\n    ::tools::compress(begin, end, ::std::back_inserter(compressed));\n\
     \n    if (compressed.empty()) return 0;\n\n    ::atcoder::fenwick_tree<T> fw(*::std::max_element(compressed.begin(),\
@@ -113,33 +96,38 @@ data:
     \      fw.add(compressed[i], 1);\n    }\n\n    return result;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_INVERSION_NUMBER_HPP\n#define TOOLS_INVERSION_NUMBER_HPP\n\n\
     #include <iterator>\n#include <algorithm>\n#include <cstddef>\n#include \"atcoder/fenwicktree.hpp\"\
-    \n#include \"tools/compress.hpp\"\n\nnamespace tools {\n\n  /**\n   * returns\
-    \ the number of inversions\n   * License: CC0\n   * @author anqooqie\n   * @param\
-    \ <Iterator> type of the iterators\n   * @param begin beginning iterator\n   *\
-    \ @param end end iterator\n   * @return the number of inversions\n   */\n  template\
-    \ <typename Iterator>\n  typename ::std::iterator_traits<Iterator>::value_type\
-    \ inversion_number(Iterator begin, Iterator end) {\n    using T = typename ::std::iterator_traits<Iterator>::value_type;\n\
+    \n#include \"tools/compress.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ Iterator>\n  typename ::std::iterator_traits<Iterator>::value_type inversion_number(Iterator\
+    \ begin, Iterator end) {\n    using T = typename ::std::iterator_traits<Iterator>::value_type;\n\
     \n    ::std::vector<T> compressed;\n    ::tools::compress(begin, end, ::std::back_inserter(compressed));\n\
     \n    if (compressed.empty()) return 0;\n\n    ::atcoder::fenwick_tree<T> fw(*::std::max_element(compressed.begin(),\
     \ compressed.end()) + 1);\n    T result = 0;\n    for (::std::size_t i = 0; i\
     \ < compressed.size(); ++i) {\n      result += i - fw.sum(0, compressed[i] + 1);\n\
     \      fw.add(compressed[i], 1);\n    }\n\n    return result;\n  }\n}\n\n#endif\n"
   dependsOn:
-  - lib/ac-library/atcoder/fenwicktree.hpp
-  - lib/ac-library/atcoder/internal_type_traits.hpp
   - tools/compress.hpp
   - tools/lower_bound.hpp
   isVerificationFile: false
   path: tools/inversion_number.hpp
   requiredBy: []
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/inversion_number.test.cpp
 documentation_of: tools/inversion_number.hpp
 layout: document
-redirect_from:
-- /library/tools/inversion_number.hpp
-- /library/tools/inversion_number.hpp.html
-title: tools/inversion_number.hpp
+title: The number of inversions
 ---
+
+```cpp
+template <typename Iterator>
+typename ::std::iterator_traits<Iterator>::value_type inversion_number(Iterator begin, Iterator end);
+```
+
+It returns the number of inversions.
+
+## License
+- CC0
+
+## Author
+- anqooqie

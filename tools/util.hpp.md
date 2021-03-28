@@ -1,19 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: template/input_generator.cpp
-    title: template/input_generator.cpp
-  - icon: ':warning:'
-    path: template/main.cpp
-    title: template/main.cpp
-  - icon: ':warning:'
-    path: template/output_checker.cpp
-    title: template/output_checker.cpp
-  - icon: ':warning:'
-    path: template/output_generator.cpp
-    title: template/output_generator.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -151,18 +139,19 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/util.hpp
-  requiredBy:
-  - template/input_generator.cpp
-  - template/main.cpp
-  - template/output_generator.cpp
-  - template/output_checker.cpp
+  requiredBy: []
   timestamp: '2021-03-28 15:31:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp
 layout: document
-redirect_from:
-- /library/tools/util.hpp
-- /library/tools/util.hpp.html
-title: tools/util.hpp
+title: Platform-dependent dirty utilities
 ---
+
+They are usable but dirty code snippets.
+
+## License
+- Not licensed
+
+## Author
+- Mainly anqooqie

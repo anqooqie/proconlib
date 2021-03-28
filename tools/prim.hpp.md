@@ -10,22 +10,18 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/prim.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
     #include <queue>\n#include <functional>\n#include <limits>\n\nnamespace tools\
-    \ {\n\n  /**\n   * Prim's algorithm\n   * License: CC0\n   *\n   * Usage:\n  \
-    \ * ```\n   * tools::prim<int> prim(node_count);\n   * prim.add_edge(from_node,\
-    \ to_node, cost);\n   * const tools::prim<int>::result result = prim.query();\n\
-    \   * result.total_distance;\n   * ```\n   *\n   * @author anqooqie\n   * @param\
-    \ <T> type of weight of edges\n   */\n  template <typename T>\n  class prim {\n\
-    \  public:\n    class edge {\n    private:\n      ::std::size_t m_from;\n    \
-    \  ::std::size_t m_to;\n      T m_distance;\n\n    public:\n      edge(const ::std::size_t&\
-    \ from, const ::std::size_t& to, const T& distance) :\n        m_from(from),\n\
-    \        m_to(to),\n        m_distance(distance) {\n      }\n\n      ::std::size_t\
-    \ from() const {\n        return this->m_from;\n      }\n      ::std::size_t to()\
-    \ const {\n        return this->m_to;\n      }\n      T distance() const {\n \
-    \       return this->m_distance;\n      }\n    };\n\n    class result {\n    public:\n\
-    \      T total_distance;\n      ::std::vector<edge> edges;\n      result() :\n\
-    \        total_distance(0), edges() {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>>\
-    \ edges;\n\n    prim(const ::std::size_t& node_count) :\n      edges(node_count)\
-    \ {\n    }\n\n    ::std::size_t node_count() const {\n      return this->edges.size();\n\
+    \ {\n\n  template <typename T>\n  class prim {\n  public:\n    class edge {\n\
+    \    private:\n      ::std::size_t m_from;\n      ::std::size_t m_to;\n      T\
+    \ m_distance;\n\n    public:\n      edge(const ::std::size_t& from, const ::std::size_t&\
+    \ to, const T& distance) :\n        m_from(from),\n        m_to(to),\n       \
+    \ m_distance(distance) {\n      }\n\n      ::std::size_t from() const {\n    \
+    \    return this->m_from;\n      }\n      ::std::size_t to() const {\n       \
+    \ return this->m_to;\n      }\n      T distance() const {\n        return this->m_distance;\n\
+    \      }\n    };\n\n    class result {\n    public:\n      T total_distance;\n\
+    \      ::std::vector<edge> edges;\n      result() :\n        total_distance(0),\
+    \ edges() {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\
+    \n    prim(const ::std::size_t& node_count) :\n      edges(node_count) {\n   \
+    \ }\n\n    ::std::size_t node_count() const {\n      return this->edges.size();\n\
     \    }\n\n    void add_edge(const ::std::size_t& v1, const ::std::size_t& v2,\
     \ const T& distance) {\n      this->edges[v1].emplace_back(v1, v2, distance);\n\
     \      this->edges[v2].emplace_back(v2, v1, distance);\n    }\n\n    result query()\
@@ -44,20 +40,16 @@ data:
     \ result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_PRIM_HPP\n#define TOOLS_PRIM_HPP\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <queue>\n#include <functional>\n#include <limits>\n\nnamespace\
-    \ tools {\n\n  /**\n   * Prim's algorithm\n   * License: CC0\n   *\n   * Usage:\n\
-    \   * ```\n   * tools::prim<int> prim(node_count);\n   * prim.add_edge(from_node,\
-    \ to_node, cost);\n   * const tools::prim<int>::result result = prim.query();\n\
-    \   * result.total_distance;\n   * ```\n   *\n   * @author anqooqie\n   * @param\
-    \ <T> type of weight of edges\n   */\n  template <typename T>\n  class prim {\n\
-    \  public:\n    class edge {\n    private:\n      ::std::size_t m_from;\n    \
-    \  ::std::size_t m_to;\n      T m_distance;\n\n    public:\n      edge(const ::std::size_t&\
-    \ from, const ::std::size_t& to, const T& distance) :\n        m_from(from),\n\
-    \        m_to(to),\n        m_distance(distance) {\n      }\n\n      ::std::size_t\
-    \ from() const {\n        return this->m_from;\n      }\n      ::std::size_t to()\
-    \ const {\n        return this->m_to;\n      }\n      T distance() const {\n \
-    \       return this->m_distance;\n      }\n    };\n\n    class result {\n    public:\n\
-    \      T total_distance;\n      ::std::vector<edge> edges;\n      result() :\n\
-    \        total_distance(0), edges() {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>>\
+    \ tools {\n\n  template <typename T>\n  class prim {\n  public:\n    class edge\
+    \ {\n    private:\n      ::std::size_t m_from;\n      ::std::size_t m_to;\n  \
+    \    T m_distance;\n\n    public:\n      edge(const ::std::size_t& from, const\
+    \ ::std::size_t& to, const T& distance) :\n        m_from(from),\n        m_to(to),\n\
+    \        m_distance(distance) {\n      }\n\n      ::std::size_t from() const {\n\
+    \        return this->m_from;\n      }\n      ::std::size_t to() const {\n   \
+    \     return this->m_to;\n      }\n      T distance() const {\n        return\
+    \ this->m_distance;\n      }\n    };\n\n    class result {\n    public:\n    \
+    \  T total_distance;\n      ::std::vector<edge> edges;\n      result() :\n   \
+    \     total_distance(0), edges() {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>>\
     \ edges;\n\n    prim(const ::std::size_t& node_count) :\n      edges(node_count)\
     \ {\n    }\n\n    ::std::size_t node_count() const {\n      return this->edges.size();\n\
     \    }\n\n    void add_edge(const ::std::size_t& v1, const ::std::size_t& v2,\
@@ -80,13 +72,28 @@ data:
   isVerificationFile: false
   path: tools/prim.hpp
   requiredBy: []
-  timestamp: '2021-02-14 17:58:53+09:00'
+  timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/prim.hpp
 layout: document
-redirect_from:
-- /library/tools/prim.hpp
-- /library/tools/prim.hpp.html
-title: tools/prim.hpp
+title: Prim's algorithm
 ---
+
+It is Prim's algorithm.
+
+## Usage
+```cpp
+tools::prim<int> prim(node_count);
+prim.add_edge(from_node, to_node, cost);
+const tools::prim<int>::result result = prim.query();
+result.total_distance;
+```
+
+The type parameter `<T>` is the type of weight of edges.
+
+## License
+- CC0
+
+## Author
+- anqooqie

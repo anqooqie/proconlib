@@ -1,333 +1,203 @@
 ---
 data:
   libraryCategories:
-  - name: lib/ac-library/atcoder
-    pages:
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/all.hpp
-      title: lib/ac-library/atcoder/all.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/all.hpp
-      title: lib/ac-library/atcoder/all.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/convolution.hpp
-      title: lib/ac-library/atcoder/convolution.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/convolution.hpp
-      title: lib/ac-library/atcoder/convolution.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/dsu.hpp
-      title: lib/ac-library/atcoder/dsu.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/dsu.hpp
-      title: lib/ac-library/atcoder/dsu.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/fenwicktree.hpp
-      title: lib/ac-library/atcoder/fenwicktree.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/fenwicktree.hpp
-      title: lib/ac-library/atcoder/fenwicktree.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_bit.hpp
-      title: lib/ac-library/atcoder/internal_bit.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_bit.hpp
-      title: lib/ac-library/atcoder/internal_bit.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_csr.hpp
-      title: lib/ac-library/atcoder/internal_csr.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_csr.hpp
-      title: lib/ac-library/atcoder/internal_csr.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/internal_math.hpp
-      title: lib/ac-library/atcoder/internal_math.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/internal_math.hpp
-      title: lib/ac-library/atcoder/internal_math.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_queue.hpp
-      title: lib/ac-library/atcoder/internal_queue.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_queue.hpp
-      title: lib/ac-library/atcoder/internal_queue.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_scc.hpp
-      title: lib/ac-library/atcoder/internal_scc.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/internal_scc.hpp
-      title: lib/ac-library/atcoder/internal_scc.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/internal_type_traits.hpp
-      title: lib/ac-library/atcoder/internal_type_traits.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/internal_type_traits.hpp
-      title: lib/ac-library/atcoder/internal_type_traits.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/lazysegtree.hpp
-      title: lib/ac-library/atcoder/lazysegtree.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/lazysegtree.hpp
-      title: lib/ac-library/atcoder/lazysegtree.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/math.hpp
-      title: lib/ac-library/atcoder/math.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/math.hpp
-      title: lib/ac-library/atcoder/math.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/maxflow.hpp
-      title: lib/ac-library/atcoder/maxflow.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/maxflow.hpp
-      title: lib/ac-library/atcoder/maxflow.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/mincostflow.hpp
-      title: lib/ac-library/atcoder/mincostflow.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/mincostflow.hpp
-      title: lib/ac-library/atcoder/mincostflow.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/modint.hpp
-      title: lib/ac-library/atcoder/modint.hpp
-    - icon: ':heavy_check_mark:'
-      path: lib/ac-library/atcoder/modint.hpp
-      title: lib/ac-library/atcoder/modint.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/scc.hpp
-      title: lib/ac-library/atcoder/scc.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/scc.hpp
-      title: lib/ac-library/atcoder/scc.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/segtree.hpp
-      title: lib/ac-library/atcoder/segtree.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/segtree.hpp
-      title: lib/ac-library/atcoder/segtree.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/string.hpp
-      title: lib/ac-library/atcoder/string.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/string.hpp
-      title: lib/ac-library/atcoder/string.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/twosat.hpp
-      title: lib/ac-library/atcoder/twosat.hpp
-    - icon: ':warning:'
-      path: lib/ac-library/atcoder/twosat.hpp
-      title: lib/ac-library/atcoder/twosat.hpp
-  - name: template
-    pages:
-    - icon: ':warning:'
-      path: template/input_generator.cpp
-      title: template/input_generator.cpp
-    - icon: ':warning:'
-      path: template/main.cpp
-      title: template/main.cpp
-    - icon: ':warning:'
-      path: template/output_checker.cpp
-      title: template/output_checker.cpp
-    - icon: ':warning:'
-      path: template/output_generator.cpp
-      title: template/output_generator.cpp
   - name: tools
     pages:
     - icon: ':warning:'
       path: tools/alphabetical_order.hpp
-      title: tools/alphabetical_order.hpp
+      title: Alphabetical order of the given character
     - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
-      title: tools/bellman_ford.hpp
+      title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
-      title: tools/ceil.hpp
+      title: Ceiling function
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
-      title: tools/ceil_log.hpp
+      title: $\left\lceil \log_b(x) \right\rceil$
     - icon: ':warning:'
       path: tools/ceil_log2.hpp
-      title: tools/ceil_log2.hpp
+      title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':warning:'
       path: tools/chmax.hpp
-      title: tools/chmax.hpp
+      title: chmax function
     - icon: ':warning:'
       path: tools/chmin.hpp
-      title: tools/chmin.hpp
+      title: chmin function
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
-      title: tools/compress.hpp
+      title: Compress values
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
-      title: tools/cumsum2d.hpp
+      title: 2D cumulative sum
     - icon: ':warning:'
       path: tools/digit_sum.hpp
-      title: tools/digit_sum.hpp
+      title: Sum of digits
     - icon: ':heavy_check_mark:'
       path: tools/dijkstra.hpp
-      title: tools/dijkstra.hpp
+      title: Dijkstra's algorithm
     - icon: ':warning:'
       path: tools/divisors.hpp
-      title: tools/divisors.hpp
+      title: List all divisors
     - icon: ':warning:'
       path: tools/dual_segtree.hpp
-      title: tools/dual_segtree.hpp
+      title: Dual segment tree
     - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
-      title: tools/extgcd.hpp
+      title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
-      title: tools/fact_mod_cache.hpp
+      title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
     - icon: ':warning:'
       path: tools/find_cycle.hpp
-      title: tools/find_cycle.hpp
+      title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
       path: tools/floor.hpp
-      title: tools/floor.hpp
+      title: Floor function
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
-      title: tools/floor_log.hpp
+      title: $\left\lfloor \log_b(x) \right\rfloor$
     - icon: ':warning:'
       path: tools/floor_log2.hpp
-      title: tools/floor_log2.hpp
+      title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':warning:'
       path: tools/floor_sqrt.hpp
-      title: tools/floor_sqrt.hpp
+      title: $\left\lfloor \sqrt{x} \right\rfloor$
     - icon: ':warning:'
       path: tools/greater_by.hpp
-      title: tools/greater_by.hpp
+      title: std::greater by key
     - icon: ':warning:'
       path: tools/greater_by_first.hpp
-      title: tools/greater_by_first.hpp
+      title: std::greater by first
     - icon: ':warning:'
       path: tools/greater_by_second.hpp
-      title: tools/greater_by_second.hpp
+      title: std::greater by second
     - icon: ':heavy_check_mark:'
       path: tools/group.hpp
-      title: tools/group.hpp
+      title: Typical groups
     - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
-      title: tools/inversion_number.hpp
+      title: The number of inversions
     - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
-      title: tools/is_prime.hpp
+      title: Primality test
     - icon: ':warning:'
       path: tools/join.hpp
-      title: tools/join.hpp
+      title: Join elements with delimiter
     - icon: ':warning:'
       path: tools/less_by.hpp
-      title: tools/less_by.hpp
+      title: std::less by key
     - icon: ':warning:'
       path: tools/less_by_first.hpp
-      title: tools/less_by_first.hpp
+      title: std::less by first
     - icon: ':warning:'
       path: tools/less_by_second.hpp
-      title: tools/less_by_second.hpp
+      title: std::less by second
     - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
-      title: tools/lower_bound.hpp
+      title: std::lower_bound, but returns index
     - icon: ':warning:'
       path: tools/median_solver.hpp
-      title: tools/median_solver.hpp
+      title: Median solver
     - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
-      title: tools/mod.hpp
+      title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
-      title: tools/monoid.hpp
+      title: Typical monoids
     - icon: ':warning:'
       path: tools/next_combination.hpp
-      title: tools/next_combination.hpp
+      title: Next combination with the manner of n-choose-r
     - icon: ':warning:'
       path: tools/next_permutation.hpp
-      title: tools/next_permutation.hpp
+      title: Next permutation
     - icon: ':warning:'
       path: tools/ntz.hpp
-      title: tools/ntz.hpp
+      title: Number of trailing zeros
     - icon: ':warning:'
       path: tools/osa_k.hpp
-      title: tools/osa_k.hpp
+      title: osa_k's algorithm
     - icon: ':warning:'
       path: tools/pair_hash.hpp
-      title: tools/pair_hash.hpp
+      title: Hash of std::pair
     - icon: ':warning:'
       path: tools/parse_fixed_point_number.hpp
-      title: tools/parse_fixed_point_number.hpp
+      title: Parse fixed point number
     - icon: ':warning:'
       path: tools/popcount.hpp
-      title: tools/popcount.hpp
+      title: Popcount
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
-      title: tools/pow.hpp
+      title: $b^n$ under the given monoid
     - icon: ':warning:'
       path: tools/pow2.hpp
-      title: tools/pow2.hpp
+      title: $2^x$
     - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
-      title: tools/pow_mod.hpp
+      title: $x^y \pmod{M}$
     - icon: ':warning:'
       path: tools/pow_mod_cache.hpp
-      title: tools/pow_mod_cache.hpp
+      title: Precompute $b^n \pmod{M}$ for $0 \leq n \leq N$
     - icon: ':warning:'
       path: tools/prim.hpp
-      title: tools/prim.hpp
+      title: Prim's algorithm
     - icon: ':heavy_check_mark:'
       path: tools/prime_factorization.hpp
-      title: tools/prime_factorization.hpp
+      title: Prime factorization
     - icon: ':warning:'
       path: tools/priority_queue.hpp
-      title: tools/priority_queue.hpp
+      title: Updatable priority queue
     - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
-      title: tools/prod_mod.hpp
+      title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
-      title: tools/quo.hpp
+      title: Quotient as integer division
     - icon: ':warning:'
       path: tools/rich_pow_mod_cache.hpp
-      title: tools/rich_pow_mod_cache.hpp
+      title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
     - icon: ':warning:'
       path: tools/rotate_left.hpp
-      title: tools/rotate_left.hpp
+      title: Circular shift to the left
     - icon: ':warning:'
       path: tools/rotate_right.hpp
-      title: tools/rotate_right.hpp
+      title: Circular shift to the right
     - icon: ':warning:'
       path: tools/round.hpp
-      title: tools/round.hpp
+      title: Banker's rounding function
     - icon: ':warning:'
       path: tools/safe_diff.hpp
-      title: tools/safe_diff.hpp
+      title: $A - B$ but not causing overflow
     - icon: ':heavy_check_mark:'
       path: tools/safe_sum.hpp
-      title: tools/safe_sum.hpp
+      title: $A + B$ but not causing overflow
     - icon: ':warning:'
       path: tools/signum.hpp
-      title: tools/signum.hpp
+      title: Sign function
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
-      title: tools/square.hpp
+      title: $x^2$ under the given monoid
     - icon: ':warning:'
       path: tools/to_signed.hpp
-      title: tools/to_signed.hpp
+      title: To signed value
     - icon: ':warning:'
       path: tools/to_unsigned.hpp
-      title: tools/to_unsigned.hpp
+      title: To unsigned value
     - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
-      title: tools/totient.hpp
+      title: Euler's totient function
     - icon: ':warning:'
       path: tools/upper_bound.hpp
-      title: tools/upper_bound.hpp
+      title: std::upper_bound, but returns index
     - icon: ':warning:'
       path: tools/util.hpp
-      title: tools/util.hpp
+      title: Platform-dependent dirty utilities
     - icon: ':warning:'
       path: tools/vector2.hpp
-      title: tools/vector2.hpp
+      title: 2D vector
     - icon: ':warning:'
       path: tools/zero_one_bfs.hpp
-      title: tools/zero_one_bfs.hpp
+      title: 01-BFS
   - name: tools/detail
     pages:
     - icon: ':heavy_check_mark:'
