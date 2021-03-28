@@ -115,7 +115,7 @@ template <class Key, class Hash, class Pred, class Allocator>
 template <class T, class Container>
 ::std::ostream& operator<<(::std::ostream& os, ::std::stack<T, Container>& stack) {
   ::std::stack<T, Container> other;
-  std::string delimiter = "";
+  ::std::string delimiter = "";
   os << '[';
   while (!stack.empty()) {
     os << delimiter << stack.top();
@@ -130,6 +130,22 @@ template <class T, class Container>
     other.pop();
   }
 
+  return os;
+}
+
+template <class T, class Container>
+::std::ostream& operator<<(::std::ostream& os, ::std::queue<T, Container>& queue) {
+  ::std::queue<T, Container> other = queue;
+  ::std::string delimiter = "";
+  os << '[';
+  while (!queue.empty()) {
+    os << delimiter << queue.front();
+    delimiter = ", ";
+    queue.pop();
+  }
+  os << ']';
+
+  queue = ::std::move(other);
   return os;
 }
 
