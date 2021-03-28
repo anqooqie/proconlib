@@ -6,18 +6,6 @@
 
 namespace tools {
 
-  /**
-   * x ** y (mod m)
-   * License: CC0
-   * @author anqooqie
-   * @param <T1> type of x
-   * @param <T2> type of y
-   * @param <T3> type of m
-   * @param x x
-   * @param y y
-   * @param m m
-   * @return x ** y (mod m)
-   */
   template <typename T1, typename T2, typename T3>
   constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {
     if (m == 1) return 0;

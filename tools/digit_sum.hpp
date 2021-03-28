@@ -3,13 +3,6 @@
 
 namespace tools {
 
-  /**
-   * sum of digits
-   * License: CC0
-   * @aurhor anqooqie
-   * @param n input
-   * @return sum of digits of `n`
-   */
   template <typename T>
   T digit_sum(T n) {
     T sum = 0;

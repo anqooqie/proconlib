@@ -5,13 +5,6 @@
 
 namespace tools {
 
-  /**
-   * gets the alphabetical order of the given character
-   * License: CC0
-   * @aurhor anqooqie
-   * @param c input
-   * @return 0 if c is 'A' or 'a', 1 if c is 'B' or 'b', ..., and 25 if c is 'Z' or 'z'
-   */
   int alphabetical_order(const char c) {
     static const std::unordered_map<char, int> map({
       {'A', 0}, {'B', 1}, {'C', 2}, {'D', 3}, {'E', 4}, {'F', 5}, {'G', 6}, {'H', 7}, {'I', 8}, {'J', 9},

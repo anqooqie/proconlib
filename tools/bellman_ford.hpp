@@ -9,23 +9,6 @@
 
 namespace tools {
 
-  /**
-   * Bellman-Ford algorithm
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::bellman_ford<int> bf(node_count);
-   * bf.add_edge(from_node, to_node, cost);
-   * const tools::bellman_ford<int>::result result = bf.query(start_node);
-   * for (const int& distance : result.distances) {
-   *   // ...
-   * }
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of weight of edges
-   */
   template <typename T>
   class bellman_ford {
   private:

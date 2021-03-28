@@ -5,14 +5,6 @@
 
 namespace tools {
 
-  /**
-   * computes $\left\lceil \log_2(x) \right\rceil$
-   * Reference: Stack Overflow ( https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567 )
-   * License: CC BY-SA 3.0
-   * @aurhor dgobbi ( https://stackoverflow.com/users/2154690/dgobbi )
-   * @param x input
-   * @return $\left\lceil \log_2(x) \right\rceil$
-   */
   inline std::uint32_t ceil_log2(std::uint32_t x) {
     static const ::std::uint32_t t[6] = {
       0xFFFF0000u,
@@ -35,14 +27,6 @@ namespace tools {
     return y;
   }
 
-  /**
-   * computes $\left\lceil \log_2(x) \right\rceil$
-   * Reference: Stack Overflow ( https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567 )
-   * License: CC BY-SA 3.0
-   * @aurhor dgobbi ( https://stackoverflow.com/users/2154690/dgobbi )
-   * @param x input
-   * @return $\left\lceil \log_2(x) \right\rceil$
-   */
   inline ::std::uint64_t ceil_log2(::std::uint64_t x) {
     static const ::std::uint64_t t[6] = {
       0xFFFFFFFF00000000u,
@@ -66,26 +50,10 @@ namespace tools {
     return y;
   }
 
-  /**
-   * computes $\left\lceil \log_2(x) \right\rceil$
-   * Reference: Stack Overflow ( https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567 )
-   * License: CC BY-SA 3.0
-   * @aurhor dgobbi ( https://stackoverflow.com/users/2154690/dgobbi )
-   * @param x input
-   * @return $\left\lceil \log_2(x) \right\rceil$
-   */
   inline ::std::int32_t ceil_log2(::std::int32_t x) {
     return static_cast<::std::int32_t>(::tools::ceil_log2(static_cast<::std::uint32_t>(x)));
   }
 
-  /**
-   * computes $\left\lceil \log_2(x) \right\rceil$
-   * Reference: Stack Overflow ( https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567 )
-   * License: CC BY-SA 3.0
-   * @aurhor dgobbi ( https://stackoverflow.com/users/2154690/dgobbi )
-   * @param x input
-   * @return $\left\lceil \log_2(x) \right\rceil$
-   */
   inline ::std::int64_t ceil_log2(::std::int64_t x) {
     return static_cast<::std::int64_t>(::tools::ceil_log2(static_cast<::std::uint64_t>(x)));
   }

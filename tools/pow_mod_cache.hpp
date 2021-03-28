@@ -6,22 +6,6 @@
 
 namespace tools {
 
-  /**
-   * b^n mod m
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * // calculates 10^n (mod 3) for 0 <= n <= 5
-   * tools::pow_mod_cache<atcoder::static_modint<3>> cache(10, 5);
-   *
-   * // obtains 10^5 (mod 3), that is 1
-   * cache[5];
-   * ```
-   *
-   * @author anqooqie
-   * @param <M> `atcoder::modint`
-   */
   template <class M>
   class pow_mod_cache {
   private:

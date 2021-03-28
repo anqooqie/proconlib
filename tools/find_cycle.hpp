@@ -6,14 +6,6 @@
 
 namespace tools {
 
-  /**
-   * Floyd's cycle-finding algorithm
-   * License: CC0
-   * @author anqooqie
-   * @param seed the initial state
-   * @param f the function which generates the next state
-   * @return the length of head and the length of cycle
-   */
   template <typename T, typename F>
   ::std::pair<::std::int_fast64_t, ::std::int_fast64_t> find_cycle(const T& seed, const F& f) {
     ::std::int_fast64_t i = 1;

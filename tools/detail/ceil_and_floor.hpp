@@ -5,29 +5,9 @@
 
 namespace tools {
 
-  /**
-   * floor function
-   * License: CC0
-   * @author anqooqie
-   * @param <M> type of `lhs`
-   * @param <N> type of `rhs`
-   * @param lhs left hand side operand
-   * @param rhs right hand side operand
-   * @return $\left\lfloor \frac{\mathrm{lhs}}{\mathrm{rhs}} \right\rfloor$
-   */
   template <typename M, typename N>
   constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs);
 
-  /**
-   * ceiling function
-   * License: CC0
-   * @author anqooqie
-   * @param <M> type of `lhs`
-   * @param <N> type of `rhs`
-   * @param lhs left hand side operand
-   * @param rhs right hand side operand
-   * @return $\left\lceil \frac{\mathrm{lhs}}{\mathrm{rhs}} \right\rceil$
-   */
   template <typename M, typename N>
   constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);
   

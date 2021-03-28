@@ -7,15 +7,6 @@
 
 namespace tools {
 
-  /**
-   * calculates power of `base`
-   * License: CC0
-   * @author anqooqie
-   * @param <M> monoid
-   * @param base $b$
-   * @param exponent $n$
-   * @return $b^n$
-   */
   template <typename M>
   typename M::T pow(const typename M::T& base, const ::std::size_t& exponent) {
     return exponent == 0
@@ -25,15 +16,6 @@ namespace tools {
         : M::op(::tools::pow<M>(base, exponent - 1), base);
   }
 
-  /**
-   * calculates power of `base`
-   * License: CC0
-   * @author anqooqie
-   * @param <T> type of input
-   * @param base $b$
-   * @param exponent $n$
-   * @return $b^n$
-   */
   template <typename T>
   T pow(const T& base, const ::std::size_t& exponent) {
     return ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);

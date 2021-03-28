@@ -8,25 +8,6 @@
 
 namespace tools {
 
-  /**
-   * 2D cumulative sum
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * // Assume that the value on (x, y) can be obtained as a[y][x].
-   * std::vector<std::vector<int>> a;
-   *
-   * // Builds the cumulative sum of a.
-   * const tools::cumsum2d<tools::group::plus<int>> cumsum(a.begin(), a.end());
-   *
-   * // Queries sum of a[y][x], for x1 <= x < x2 and y1 <= y < y2.
-   * cumsum.query(x1, y1, x2, y2);
-   * ```
-   *
-   * @author anqooqie
-   * @param <G> group
-   */
   template <typename G>
   class cumsum2d {
   private:

@@ -9,23 +9,6 @@
 
 namespace tools {
 
-  /**
-   * 01-BFS
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::zero_one_bfs<int> bfs(node_count);
-   * bfs.add_edge(from_node, to_node, cost);
-   * const tools::zero_one_bfs<int>::result result = bfs.query(start_node);
-   * for (const int& distance : result.distances) {
-   *   // ...
-   * }
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of weight of edges
-   */
   template <typename T>
   class zero_one_bfs {
   private:

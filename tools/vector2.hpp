@@ -13,18 +13,6 @@
 
 namespace tools {
 
-  /**
-   * 2D vector
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::vector2<int>(6, 5) //=> (6, 5)
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of scalar
-   */
   template <typename T>
   class vector2 {
   public:

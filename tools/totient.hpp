@@ -10,14 +10,6 @@
 
 namespace tools {
 
-  /**
-   * Euler's totient function
-   * License: CC0
-   * @author anqooqie
-   * @param <T> type of input
-   * @param x input
-   * @return $\varphi(x)$
-   */
   template <typename T>
   T totient(const T& x) {
     assert(1 <= x && x <= 1000000000000000000);

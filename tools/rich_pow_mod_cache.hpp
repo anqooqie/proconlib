@@ -11,25 +11,6 @@
 
 namespace tools {
 
-  /**
-   * b^n mod m, but provides a rich interface by using the pigeonhole principle
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * // calculates 10^n (mod 3), for every n
-   * tools::rich_pow_mod_cache<atcoder::static_modint<3>> cache(10);
-   *
-   * // obtains 10^123456789 (mod 3), that is 1
-   * cache[123456789];
-   *
-   * // obtains 10^10000 + 10^10001 + 10^10002 (mod 3), that is 0
-   * cache.sum(10000, 10003);
-   * ```
-   *
-   * @author anqooqie
-   * @param <M> `atcoder::modint`
-   */
   template <class M>
   class rich_pow_mod_cache {
   private:

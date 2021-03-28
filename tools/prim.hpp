@@ -9,21 +9,6 @@
 
 namespace tools {
 
-  /**
-   * Prim's algorithm
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::prim<int> prim(node_count);
-   * prim.add_edge(from_node, to_node, cost);
-   * const tools::prim<int>::result result = prim.query();
-   * result.total_distance;
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of weight of edges
-   */
   template <typename T>
   class prim {
   public:

@@ -9,24 +9,6 @@
 
 namespace tools {
 
-  /**
-   * calculates the median of an array.
-   * This also allows you to dynamically add values to the array.
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::median_solver<int> median;
-   * median.push(5);
-   * median.push(3);
-   * median.push(7);
-   * median.push(6);
-   * median.query(); // => 5
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of a value of the array
-   */
   template <typename T>
   class median_solver {
   private:

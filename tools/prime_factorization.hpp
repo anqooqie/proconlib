@@ -13,15 +13,6 @@
 
 namespace tools {
 
-  /**
-   * prime factorization
-   * License: CC0
-   * @author anqooqie
-   * @param <T> type of n
-   * @param <OutputIterator> type of result
-   * @param n input
-   * @param result output iterator as a storage of ordered prime factors
-   */
   template <typename T, typename OutputIterator>
   void prime_factorization(T n, OutputIterator result) {
     assert(1 <= n && n <= 1000000000000000000);

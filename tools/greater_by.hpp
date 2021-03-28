@@ -3,18 +3,6 @@
 
 namespace tools {
 
-  /**
-   * `std::greater` by key
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * std::sort(a.begin(), a.end(), tools::greater_by([](int a_i) { return std::abs(x); }));
-   * ```
-   *
-   * @author anqooqie
-   * @param <F> type of selector
-   */
   template <class F>
   class greater_by {
   private:

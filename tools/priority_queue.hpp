@@ -9,23 +9,6 @@
 
 namespace tools {
 
-  /**
-   * updatable priority queue
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::priority_queue<std::string, int> pq;
-   * pq.push(std::make_pair("abc", 5));
-   * const std::pair<std::string, int> pair = pq.top();
-   * pq.push(std::make_pair("abc", 7));
-   * pq.erase("abc");
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of key
-   * @param <Priority> type of priority
-   */
   template <class T, class Priority, class Compare = ::std::less<Priority>>
   class priority_queue {
   private:

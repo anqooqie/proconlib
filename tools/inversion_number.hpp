@@ -9,15 +9,6 @@
 
 namespace tools {
 
-  /**
-   * returns the number of inversions
-   * License: CC0
-   * @author anqooqie
-   * @param <Iterator> type of the iterators
-   * @param begin beginning iterator
-   * @param end end iterator
-   * @return the number of inversions
-   */
   template <typename Iterator>
   typename ::std::iterator_traits<Iterator>::value_type inversion_number(Iterator begin, Iterator end) {
     using T = typename ::std::iterator_traits<Iterator>::value_type;

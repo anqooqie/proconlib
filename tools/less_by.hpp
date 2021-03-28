@@ -3,18 +3,6 @@
 
 namespace tools {
 
-  /**
-   * `std::less` by key
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * std::sort(a.begin(), a.end(), tools::less_by([](int a_i) { return std::abs(x); }));
-   * ```
-   *
-   * @author anqooqie
-   * @param <F> type of selector
-   */
   template <class F>
   class less_by {
   private:

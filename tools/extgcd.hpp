@@ -6,23 +6,6 @@
 
 namespace tools {
 
-  /**
-   * extended Euclidean algorithm
-   * License: CC0
-   * Note: gcd in this function regards 0 as an identity element, so gcd in this function can be treated as a monoid.
-   *
-   * Usage:
-   * ```
-   * // a * x0 + b * y0 = gcd
-   * const auto [x0, y0, gcd] = tools::extgcd(a, b);
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of operands
-   * @param prev_r $a$
-   * @param r $b$
-   * @return $\[x0, y0, \gcd(a, b)\]$ which satisfies $a * x0 + b * y0 = \gcd(a, b)$
-   */
   template <typename T>
   ::std::tuple<T, T, T> extgcd(T prev_r, T r) {
     T prev_s = 1;

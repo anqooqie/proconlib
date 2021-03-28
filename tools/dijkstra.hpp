@@ -10,23 +10,6 @@
 
 namespace tools {
 
-  /**
-   * Dijkstra's algorithm
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * tools::dijkstra<int> dijkstra(node_count);
-   * dijkstra.add_edge(from_node, to_node, cost);
-   * const tools::dijkstra<int>::result result = dijkstra.query(start_node);
-   * for (const int& distance : result.distances) {
-   *   // ...
-   * }
-   * ```
-   *
-   * @author anqooqie
-   * @param <T> type of weight of edges
-   */
   template <typename T>
   class dijkstra {
   private:

@@ -9,16 +9,6 @@
 
 namespace tools {
 
-  /**
-   * hash of `std::pair<T1, T2>`
-   * License: Boost Software License, Version 1.0 ( http://www.boost.org/LICENSE_1_0.txt )
-   * Reference: Boost, Version 1.71.0 ( https://github.com/boostorg/container_hash/blob/boost-1.71.0/include/boost/container_hash/hash.hpp )
-   * @author Daniel James
-   * @param <T1> first type of `key`
-   * @param <T2> second type of `key`
-   * @param key value of `std::pair<T1, T2>`
-   * @return hash of `key`
-   */
   template <class T1, class T2>
   struct pair_hash {
     using result_type = ::std::size_t;
@@ -36,20 +26,6 @@ namespace tools {
     }
   };
 
-  /**
-   * hash of `std::pair<std::uint64_t, std::uint64_t>`
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * using u64 = std::uint64_t;
-   * std::unordered_map<std::pair<u64, u64>, int, tools::pair_hash<u64, u64>> map;
-   * ```
-   *
-   * @author anqooqie
-   * @param value of `std::pair<std::uint64_t, std::uint64_t>`
-   * @return hash of `key`
-   */
   template <>
   struct pair_hash<::std::uint64_t, ::std::uint64_t> {
     using result_type = ::std::size_t;
@@ -60,20 +36,6 @@ namespace tools {
     }
   };
 
-  /**
-   * hash of `std::pair<std::int64_t, std::int64_t>`
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * using i64 = std::int64_t;
-   * std::unordered_map<std::pair<i64, i64>, int, tools::pair_hash<i64, i64>> map;
-   * ```
-   *
-   * @author anqooqie
-   * @param value of `std::pair<std::int64_t, std::int64_t>`
-   * @return hash of `key`
-   */
   template <>
   struct pair_hash<::std::int64_t, ::std::int64_t> {
     using result_type = ::std::size_t;
@@ -84,20 +46,6 @@ namespace tools {
     }
   };
 
-  /**
-   * hash of `std::pair<std::uint32_t, std::uint32_t>`
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * using u32 = std::uint32_t;
-   * std::unordered_map<std::pair<u32, u32>, int, tools::pair_hash<u32, u32>> map;
-   * ```
-   *
-   * @author anqooqie
-   * @param value of `std::pair<std::uint32_t, std::uint32_t>`
-   * @return hash of `key`
-   */
   template <>
   struct pair_hash<::std::uint32_t, ::std::uint32_t> {
     using result_type = ::std::size_t;
@@ -108,20 +56,6 @@ namespace tools {
     }
   };
 
-  /**
-   * hash of `std::pair<std::int32_t, std::int32_t>`
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * using i32 = std::int32_t;
-   * std::unordered_map<std::pair<i32, i32>, int, tools::pair_hash<i32, i32>> map;
-   * ```
-   *
-   * @author anqooqie
-   * @param value of `std::pair<std::int32_t, std::int32_t>`
-   * @return hash of `key`
-   */
   template <>
   struct pair_hash<::std::int32_t, ::std::int32_t> {
     using result_type = ::std::size_t;

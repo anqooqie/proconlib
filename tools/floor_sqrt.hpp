@@ -5,13 +5,6 @@
 
 namespace tools {
 
-  /**
-   * computes $\left\lfloor \sqrt{x} \right\rfloor$
-   * License: CC0
-   * @author anqooqie
-   * @param x input
-   * @return $\left\lfloor \sqrt{x} \right\rfloor$
-   */
   template <typename T>
   T floor_sqrt(T n) {
     assert(n >= 0);

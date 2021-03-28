@@ -8,16 +8,6 @@
 
 namespace tools {
 
-  /**
-   * compresses the values while keeping its magnitude relationship
-   * License: CC0
-   * @author anqooqie
-   * @param <InputIterator> type of the input iterators
-   * @param <OutputIterator> type of the output iterator
-   * @param begin beginning of the input iterator
-   * @param end end of the input iterator
-   * @param result beginning of the output iterator
-   */
   template <typename InputIterator, typename OutputIterator>
   void compress(InputIterator begin, InputIterator end, OutputIterator result) {
     using T = typename ::std::iterator_traits<InputIterator>::value_type;

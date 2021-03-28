@@ -8,14 +8,6 @@
 
 namespace tools {
 
-  /**
-   * gets all divisors
-   * License: CC0
-   * @author anqooqie
-   * @param <T> type of input
-   * @param n input
-   * @return all divisors of $n$
-   */
   template <typename T>
   ::std::vector<T> divisors(const T& n) {
     ::std::vector<T> head;

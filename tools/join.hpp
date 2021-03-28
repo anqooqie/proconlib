@@ -6,16 +6,6 @@
 
 namespace tools {
 
-  /**
-   * join elements with `delimiter`
-   * License: CC0
-   * @author anqooqie
-   * @param <Iterator> type of iterator
-   * @param begin beginning iterator
-   * @param end end iterator
-   * @param delimiter delimiter
-   * @return string joined elements with `delimiter` 
-   */
   template <typename Iterator>
   ::std::string join(const Iterator begin, const Iterator end, const ::std::string delimiter) {
     ::std::ostringstream ss;

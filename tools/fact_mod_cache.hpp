@@ -7,22 +7,6 @@
 
 namespace tools {
 
-  /**
-   * factorial mod
-   * License: CC0
-   *
-   * Usage:
-   * ```
-   * // calculates n! (mod 3) for 0 <= n <= 5
-   * tools::fact_mod_cache<atcoder::static_modint<3>> cache(5);
-   *
-   * // obtains 5! (mod 3), that is 0
-   * cache.fact(5);
-   * ```
-   *
-   * @author anqooqie
-   * @param <M> `atcoder::modint`
-   */
   template <class M>
   class fact_mod_cache {
   private:

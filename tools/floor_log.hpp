@@ -7,16 +7,6 @@
 
 namespace tools {
 
-  /**
-   * floor of logarithm
-   * License: CC0
-   * @author anqooqie
-   * @param <M> type of base
-   * @param <N> type of antilogarithm
-   * @param base $b$
-   * @param antilogarithm $x$
-   * @return $\left\lfloor \log_b(x) \right\rfloor$
-   */
   template <typename M, typename N>
   ::std::common_type_t<M, N> floor_log(const M& base, const N& antilogarithm) {
     assert(2 <= base && base <= 1000000000000000000);
