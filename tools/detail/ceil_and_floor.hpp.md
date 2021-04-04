@@ -61,15 +61,15 @@ data:
   path: tools/detail/ceil_and_floor.hpp
   requiredBy:
   - tools/ceil_log.hpp
-  - tools/floor_log.hpp
   - tools/round.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
+  - tools/floor_log.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_log.test.cpp
   - tests/ceil_log.test.cpp
+  - tests/floor_log.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp
 layout: document
 redirect_from:

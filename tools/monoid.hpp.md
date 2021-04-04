@@ -61,9 +61,9 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
+  - tools/pow.hpp
   - tools/totient.hpp
   - tools/square.hpp
-  - tools/pow.hpp
   timestamp: '2021-02-14 17:58:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

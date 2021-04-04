@@ -2,13 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/binary_heap.hpp
+    title: Binary heap
   - icon: ':warning:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/binary_heap.test.cpp
+    title: tests/binary_heap.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -29,10 +35,12 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/binary_heap.hpp
   - tools/dual_segtree.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/binary_heap.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$

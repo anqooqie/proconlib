@@ -10,12 +10,15 @@ data:
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/binary_heap.hpp
+      title: Binary heap
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: Ceiling function
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':warning:'
@@ -129,7 +132,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under the given monoid
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
@@ -144,9 +147,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prime_factorization.hpp
       title: Prime factorization
-    - icon: ':warning:'
-      path: tools/priority_queue.hpp
-      title: Updatable priority queue
     - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
@@ -209,6 +209,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/binary_heap.test.cpp
+      title: tests/binary_heap.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/ceil_log.test.cpp
       title: tests/ceil_log.test.cpp
