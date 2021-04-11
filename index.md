@@ -14,7 +14,7 @@ data:
       title: Binary heap
     - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
-      title: Ceiling function
+      title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
@@ -56,7 +56,7 @@ data:
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
       path: tools/floor.hpp
-      title: Floor function
+      title: $\left\lfloor \frac{x}{y} \right\rfloor$
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
@@ -113,7 +113,7 @@ data:
       title: Next combination with the manner of n-choose-r
     - icon: ':warning:'
       path: tools/next_permutation.hpp
-      title: Next permutation
+      title: Next permutation with the manner of n-choose-r
     - icon: ':warning:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
@@ -155,7 +155,7 @@ data:
       title: Quotient as integer division
     - icon: ':warning:'
       path: tools/rich_pow_mod_cache.hpp
-      title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
+      title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
     - icon: ':warning:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
@@ -164,13 +164,13 @@ data:
       title: Circular shift to the right
     - icon: ':warning:'
       path: tools/round.hpp
-      title: Banker's rounding function
+      title: Apply banker's rounding to $\frac{x}{y}$
     - icon: ':warning:'
       path: tools/safe_diff.hpp
-      title: $A - B$ but not causing overflow
+      title: $x - y$ but not causing overflow
     - icon: ':heavy_check_mark:'
       path: tools/safe_sum.hpp
-      title: $A + B$ but not causing overflow
+      title: $x + y$ but not causing overflow
     - icon: ':warning:'
       path: tools/signum.hpp
       title: Sign function
@@ -186,6 +186,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
       title: Euler's totient function
+    - icon: ':heavy_check_mark:'
+      path: tools/tsort.hpp
+      title: Topological sorting
     - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
@@ -242,5 +245,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/tsort.test.cpp
+      title: tests/tsort.test.cpp
 layout: toppage
 ---

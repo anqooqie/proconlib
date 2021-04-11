@@ -4,19 +4,19 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
-    title: Ceiling function
+    title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
-    title: Floor function
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':warning:'
     path: tools/round.hpp
-    title: Banker's rounding function
+    title: Apply banker's rounding to $\frac{x}{y}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp

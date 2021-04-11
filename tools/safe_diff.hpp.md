@@ -35,7 +35,7 @@ data:
   verifiedWith: []
 documentation_of: tools/safe_diff.hpp
 layout: document
-title: $A - B$ but not causing overflow
+title: $x - y$ but not causing overflow
 ---
 
 ```cpp

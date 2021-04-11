@@ -6,7 +6,7 @@ data:
     title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
-    title: Floor function
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'

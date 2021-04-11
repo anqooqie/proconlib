@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/safe_sum.hpp
-    title: $A + B$ but not causing overflow
+    title: $x + y$ but not causing overflow
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'

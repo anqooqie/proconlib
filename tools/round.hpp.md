@@ -3,13 +3,13 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
-    title: Ceiling function
+    title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/detail/ceil_and_floor.hpp
     title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
-    title: Floor function
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
@@ -80,7 +80,7 @@ data:
   verifiedWith: []
 documentation_of: tools/round.hpp
 layout: document
-title: Banker's rounding function
+title: Apply banker's rounding to $\frac{x}{y}$
 ---
 
 ```cpp

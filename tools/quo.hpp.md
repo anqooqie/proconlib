@@ -19,10 +19,10 @@ data:
     title: Prime factorization
   - icon: ':warning:'
     path: tools/rich_pow_mod_cache.hpp
-    title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
+    title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
   - icon: ':warning:'
     path: tools/round.hpp
-    title: Banker's rounding function
+    title: Apply banker's rounding to $\frac{x}{y}$
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
@@ -85,7 +85,7 @@ template <typename M, typename N>
 constexpr std::common_type_t<M, N> quo(M a, N b);
 ```
 
-It returns $q$, which satisfies $a = qb + r \land 0 \leq r < |b|$.
+It returns $q$, which satisfies $a = qb + r \land 0 \leq r < \|b\|$.
 
 ## License
 - CC0

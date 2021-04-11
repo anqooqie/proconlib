@@ -10,7 +10,7 @@ data:
     title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':warning:'
     path: tools/round.hpp
-    title: Banker's rounding function
+    title: Apply banker's rounding to $\frac{x}{y}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
@@ -59,7 +59,7 @@ data:
   - tests/floor_log.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
-title: Floor function
+title: $\left\lfloor \frac{x}{y} \right\rfloor$
 ---
 
 ```cpp

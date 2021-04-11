@@ -43,7 +43,7 @@ data:
   - tests/bellman_ford.test.cpp
 documentation_of: tools/safe_sum.hpp
 layout: document
-title: $A + B$ but not causing overflow
+title: $x + y$ but not causing overflow
 ---
 
 ```cpp

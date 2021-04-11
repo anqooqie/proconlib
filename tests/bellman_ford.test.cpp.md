@@ -6,7 +6,7 @@ data:
     title: Bellman-Ford algorithm
   - icon: ':heavy_check_mark:'
     path: tools/safe_sum.hpp
-    title: $A + B$ but not causing overflow
+    title: $x + y$ but not causing overflow
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

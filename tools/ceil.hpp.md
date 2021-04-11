@@ -10,7 +10,7 @@ data:
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':warning:'
     path: tools/round.hpp
-    title: Banker's rounding function
+    title: Apply banker's rounding to $\frac{x}{y}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
@@ -59,7 +59,7 @@ data:
   - tests/ceil_log.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
-title: Ceiling function
+title: $\left\lceil \frac{x}{y} \right\rceil$
 ---
 
 ```cpp

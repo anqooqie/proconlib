@@ -4,7 +4,7 @@ data:
   _extendedRequiredBy:
   - icon: ':warning:'
     path: tools/rich_pow_mod_cache.hpp
-    title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
+    title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
