@@ -1,5 +1,5 @@
 ---
-title: $A - B$ but not causing overflow
+title: $x - y$ but not causing overflow
 documentation_of: //tools/safe_diff.hpp
 ---
 

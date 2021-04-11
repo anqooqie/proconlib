@@ -1,11 +1,11 @@
 ---
-title: Precompute $b^n \pmod{M}$ for $0 \leq n < \infty$
+title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
 documentation_of: //tools/rich_pow_mod_cache.hpp
 ---
 
 It precomputes $b^n \pmod{M}$ for $0 \leq n < \infty$.
-It also provides some other rich interfaces.
-Their features are built on the pigeonhole principle.
+Additionaly, it precomputes $b^n \pmod{M}$ for $-\infty < n < 0$ if $\gcd(b, M) = 1$.
+These features are based on the pigeonhole principle.
 
 ## Usage
 ```cpp

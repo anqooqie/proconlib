@@ -1,5 +1,5 @@
 ---
-title: Next permutation
+title: Next permutation with the manner of n-choose-r
 documentation_of: //tools/next_permutation.hpp
 ---
 

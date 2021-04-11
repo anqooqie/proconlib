@@ -1,5 +1,5 @@
 ---
-title: Banker's rounding function
+title: Apply banker's rounding to $\frac{x}{y}$
 documentation_of: //tools/round.hpp
 ---
 

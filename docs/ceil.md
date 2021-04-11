@@ -1,5 +1,5 @@
 ---
-title: Ceiling function
+title: $\left\lceil \frac{x}{y} \right\rceil$
 documentation_of: //tools/ceil.hpp
 ---
 

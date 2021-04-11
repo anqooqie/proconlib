@@ -1,5 +1,5 @@
 ---
-title: Floor function
+title: $\left\lfloor \frac{x}{y} \right\rfloor$
 documentation_of: //tools/floor.hpp
 ---
 
