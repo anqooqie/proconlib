@@ -97,8 +97,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
-  - tests/prime_factorization.test.cpp
   - tests/is_prime.test.cpp
+  - tests/prime_factorization.test.cpp
 documentation_of: tools/is_prime.hpp
 layout: document
 title: Primality test

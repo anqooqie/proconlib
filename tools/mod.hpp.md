@@ -60,18 +60,18 @@ data:
   isVerificationFile: false
   path: tools/mod.hpp
   requiredBy:
-  - tools/rich_pow_mod_cache.hpp
-  - tools/pow_mod.hpp
   - tools/totient.hpp
-  - tools/round.hpp
-  - tools/prime_factorization.hpp
+  - tools/pow_mod.hpp
   - tools/is_prime.hpp
+  - tools/round.hpp
+  - tools/rich_pow_mod_cache.hpp
+  - tools/prime_factorization.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
-  - tests/prime_factorization.test.cpp
   - tests/is_prime.test.cpp
+  - tests/prime_factorization.test.cpp
 documentation_of: tools/mod.hpp
 layout: document
 title: Minimum non-negative reminder

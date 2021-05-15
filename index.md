@@ -54,6 +54,9 @@ data:
     - icon: ':warning:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
+    - icon: ':warning:'
+      path: tools/fix.hpp
+      title: Fixed point combinator
     - icon: ':heavy_check_mark:'
       path: tools/floor.hpp
       title: $\left\lfloor \frac{x}{y} \right\rfloor$
