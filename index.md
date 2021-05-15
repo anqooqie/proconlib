@@ -24,7 +24,7 @@ data:
     - icon: ':warning:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -190,6 +190,9 @@ data:
       path: tools/totient.hpp
       title: Euler's totient function
     - icon: ':heavy_check_mark:'
+      path: tools/tree_diameter.hpp
+      title: tools/tree_diameter.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting
     - icon: ':warning:'
@@ -248,6 +251,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/tree_diameter.test.cpp
+      title: tests/tree_diameter.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp

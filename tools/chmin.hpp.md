@@ -1,11 +1,17 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/tree_diameter.hpp
+    title: tools/tree_diameter.hpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/tree_diameter.test.cpp
+    title: tests/tree_diameter.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -19,10 +25,12 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/chmin.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/tree_diameter.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/tree_diameter.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function
