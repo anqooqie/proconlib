@@ -11,5 +11,6 @@
 "tests/is_prime.test.cpp": "2021-03-29 00:30:01 +0900",
 "tests/prime_factorization.test.cpp": "2021-03-29 00:30:01 +0900",
 "tests/totient.test.cpp": "2021-03-29 00:30:01 +0900",
+"tests/tree_diameter.test.cpp": "2021-05-16 03:32:04 +0900",
 "tests/tsort.test.cpp": "2021-04-11 14:15:07 +0900"
 }
