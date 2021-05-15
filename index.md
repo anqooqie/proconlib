@@ -191,7 +191,7 @@ data:
       title: Euler's totient function
     - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
-      title: tools/tree_diameter.hpp
+      title: Diameter of tree
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting

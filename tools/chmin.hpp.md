@@ -4,7 +4,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
-    title: tools/tree_diameter.hpp
+    title: Diameter of tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp

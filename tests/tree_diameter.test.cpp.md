@@ -6,7 +6,7 @@ data:
     title: chmin function
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
-    title: tools/tree_diameter.hpp
+    title: Diameter of tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
