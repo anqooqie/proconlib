@@ -105,12 +105,19 @@ data:
     - icon: ':warning:'
       path: tools/median_solver.hpp
       title: Median solver
+    - icon: ':warning:'
+      path: tools/minus_clamp.hpp
+      title: $\min(\max(x - y, \text{lower_bound}), \text{upper_bound})$ without overflow
     - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
+    - icon: ':warning:'
+      path: tools/multiplies_clamp.hpp
+      title: $\min(\max(x \cdot y, \text{lower_bound}), \text{upper_bound})$ without
+        overflow
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination with the manner of n-choose-r
@@ -129,6 +136,9 @@ data:
     - icon: ':warning:'
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
+    - icon: ':warning:'
+      path: tools/plus_clamp.hpp
+      title: $\min(\max(x + y, \text{lower_bound}), \text{upper_bound})$ without overflow
     - icon: ':warning:'
       path: tools/popcount.hpp
       title: Popcount
