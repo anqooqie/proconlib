@@ -60,21 +60,21 @@ data:
   isVerificationFile: false
   path: tools/quo.hpp
   requiredBy:
-  - tools/totient.hpp
-  - tools/pow_mod.hpp
-  - tools/is_prime.hpp
   - tools/round.hpp
+  - tools/mod.hpp
+  - tools/is_prime.hpp
   - tools/rich_pow_mod_cache.hpp
   - tools/extgcd.hpp
-  - tools/mod.hpp
   - tools/prime_factorization.hpp
+  - tools/totient.hpp
+  - tools/pow_mod.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/prime_factorization.test.cpp
   - tests/totient.test.cpp
   - tests/extgcd.test.cpp
   - tests/is_prime.test.cpp
-  - tests/prime_factorization.test.cpp
 documentation_of: tools/quo.hpp
 layout: document
 title: Quotient as integer division

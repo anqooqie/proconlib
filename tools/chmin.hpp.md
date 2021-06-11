@@ -3,9 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bellman_ford.hpp
+    title: Bellman-Ford algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of tree
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bellman_ford.test.cpp
+    title: tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
@@ -26,11 +32,13 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
+  - tools/bellman_ford.hpp
   - tools/tree_diameter.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tree_diameter.test.cpp
+  - tests/bellman_ford.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

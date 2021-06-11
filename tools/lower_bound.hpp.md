@@ -35,13 +35,13 @@ data:
   isVerificationFile: false
   path: tools/lower_bound.hpp
   requiredBy:
-  - tools/inversion_number.hpp
   - tools/compress.hpp
+  - tools/inversion_number.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/inversion_number.test.cpp
   - tests/tsort.test.cpp
+  - tests/inversion_number.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index
