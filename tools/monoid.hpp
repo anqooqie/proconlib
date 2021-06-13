@@ -29,14 +29,14 @@ namespace tools {
       }
     };
 
-    template <typename Type>
+    template <typename Type, Type E = Type(1)>
     struct multiplies {
       using T = Type;
       static T op(const T lhs, const T rhs) {
         return lhs * rhs;
       }
       static T e() {
-        return static_cast<T>(1);
+        return E;
       }
     };
 
@@ -47,7 +47,7 @@ namespace tools {
         return ::std::gcd(lhs, rhs);
       }
       static T e() {
-        return static_cast<T>(0);
+        return Type(0);
       }
     };
 
