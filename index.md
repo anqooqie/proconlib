@@ -103,6 +103,9 @@ data:
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':warning:'
+      path: tools/matrix.hpp
+      title: tools/matrix.hpp
+    - icon: ':warning:'
       path: tools/median_solver.hpp
       title: Median solver
     - icon: ':heavy_check_mark:'
@@ -198,6 +201,9 @@ data:
     - icon: ':warning:'
       path: tools/util.hpp
       title: Platform-dependent dirty utilities
+    - icon: ':warning:'
+      path: tools/vector.hpp
+      title: tools/vector.hpp
     - icon: ':warning:'
       path: tools/vector2.hpp
       title: 2D vector

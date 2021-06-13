@@ -104,20 +104,20 @@ data:
     \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
     \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
     \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return static_cast<T>(1);\n      }\n   \
-    \ };\n\n    template <typename Type>\n    struct gcd {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return static_cast<T>(0);\n  \
-    \    }\n    };\n\n    template <typename Type, Type E>\n    struct update {\n\
-    \      using T = Type;\n      static T op(const T lhs, const T rhs) {\n      \
-    \  return rhs == E ? lhs : rhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
-    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
-    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
-    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \    template <typename Type, Type E = Type(1)>\n    struct multiplies {\n   \
+    \   using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
+    \ lhs * rhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \n    template <typename Type>\n    struct gcd {\n      using T = Type;\n    \
+    \  static T op(const T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n\
+    \      }\n      static T e() {\n        return Type(0);\n      }\n    };\n\n \
+    \   template <typename Type, Type E>\n    struct update {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return rhs == E ? lhs\
+    \ : rhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5 \"tools/square.hpp\"\n\
+    \nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const typename\
+    \ M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
+    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
+    }\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
     \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
     \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
@@ -153,7 +153,7 @@ data:
   isVerificationFile: false
   path: tools/totient.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-06-13 16:51:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
