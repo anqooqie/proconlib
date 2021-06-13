@@ -11,17 +11,17 @@ data:
   bundledCode: "#line 1 \"tools/next_permutation.hpp\"\n\n\n\n#include <algorithm>\n\
     \nnamespace tools {\n\n  template <typename Iterator>\n  bool next_permutation(const\
     \ Iterator first, const Iterator k, const Iterator last) {\n    ::std::reverse(k,\
-    \ last);\n    return ::std::next_permutation(first, end);\n  }\n}\n\n\n"
+    \ last);\n    return ::std::next_permutation(first, last);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_NEXT_PERMUTATION_HPP\n#define TOOLS_NEXT_PERMUTATION_HPP\n\n\
     #include <algorithm>\n\nnamespace tools {\n\n  template <typename Iterator>\n\
     \  bool next_permutation(const Iterator first, const Iterator k, const Iterator\
     \ last) {\n    ::std::reverse(k, last);\n    return ::std::next_permutation(first,\
-    \ end);\n  }\n}\n\n#endif\n"
+    \ last);\n  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/next_permutation.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-06-13 13:30:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/next_permutation.hpp
