@@ -1,20 +1,69 @@
 #ifndef TOOLS_ALPHABETICAL_ORDER
 #define TOOLS_ALPHABETICAL_ORDER
 
-#include <unordered_map>
+#include <array>
+#include <limits>
 
 namespace tools {
 
   int alphabetical_order(const char c) {
-    static const std::unordered_map<char, int> map({
-      {'A', 0}, {'B', 1}, {'C', 2}, {'D', 3}, {'E', 4}, {'F', 5}, {'G', 6}, {'H', 7}, {'I', 8}, {'J', 9},
-      {'K', 10}, {'L', 11}, {'M', 12}, {'N', 13}, {'O', 14}, {'P', 15}, {'Q', 16}, {'R', 17}, {'S', 18}, {'T', 19},
-      {'U', 20}, {'V', 21}, {'W', 22}, {'X', 23}, {'Y', 24}, {'Z', 25}, {'a', 0}, {'b', 1}, {'c', 2}, {'d', 3},
-      {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}, {'i', 8}, {'j', 9}, {'k', 10}, {'l', 11}, {'m', 12}, {'n', 13},
-      {'o', 14}, {'p', 15}, {'q', 16}, {'r', 17}, {'s', 18}, {'t', 19}, {'u', 20}, {'v', 21}, {'w', 22}, {'x', 23},
-      {'y', 24}, {'z', 25}
-    });
-    return map.at(c);
+    static const ::std::array<char, ::std::numeric_limits<char>::max()> map = []() {
+      ::std::array<char, ::std::numeric_limits<char>::max()> m;
+      m['A'] = 0;
+      m['B'] = 1;
+      m['C'] = 2;
+      m['D'] = 3;
+      m['E'] = 4;
+      m['F'] = 5;
+      m['G'] = 6;
+      m['H'] = 7;
+      m['I'] = 8;
+      m['J'] = 9;
+      m['K'] = 10;
+      m['L'] = 11;
+      m['M'] = 12;
+      m['N'] = 13;
+      m['O'] = 14;
+      m['P'] = 15;
+      m['Q'] = 16;
+      m['R'] = 17;
+      m['S'] = 18;
+      m['T'] = 19;
+      m['U'] = 20;
+      m['V'] = 21;
+      m['W'] = 22;
+      m['X'] = 23;
+      m['Y'] = 24;
+      m['Z'] = 25;
+      m['a'] = 0;
+      m['b'] = 1;
+      m['c'] = 2;
+      m['d'] = 3;
+      m['e'] = 4;
+      m['f'] = 5;
+      m['g'] = 6;
+      m['h'] = 7;
+      m['i'] = 8;
+      m['j'] = 9;
+      m['k'] = 10;
+      m['l'] = 11;
+      m['m'] = 12;
+      m['n'] = 13;
+      m['o'] = 14;
+      m['p'] = 15;
+      m['q'] = 16;
+      m['r'] = 17;
+      m['s'] = 18;
+      m['t'] = 19;
+      m['u'] = 20;
+      m['v'] = 21;
+      m['w'] = 22;
+      m['x'] = 23;
+      m['y'] = 24;
+      m['z'] = 25;
+      return m;
+    }();
+    return map[c];
   }
 }
 
