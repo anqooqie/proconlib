@@ -4,8 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/bezout.hpp
+    title: "B\xE9zout's identity"
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bezout.test.cpp
+    title: tests/bezout.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
@@ -41,11 +47,13 @@ data:
   - tools/quo.hpp
   isVerificationFile: false
   path: tools/extgcd.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/bezout.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extgcd.test.cpp
+  - tests/bezout.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document
 title: Extended Euclidean algorithm

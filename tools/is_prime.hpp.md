@@ -96,9 +96,9 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prime_factorization.test.cpp
-  - tests/totient.test.cpp
   - tests/is_prime.test.cpp
+  - tests/totient.test.cpp
+  - tests/prime_factorization.test.cpp
 documentation_of: tools/is_prime.hpp
 layout: document
 title: Primality test

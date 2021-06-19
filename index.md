@@ -10,6 +10,9 @@ data:
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/bezout.hpp
+      title: "B\xE9zout's identity"
+    - icon: ':heavy_check_mark:'
       path: tools/binary_heap.hpp
       title: Binary heap
     - icon: ':heavy_check_mark:'
@@ -221,6 +224,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bezout.test.cpp
+      title: tests/bezout.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/binary_heap.test.cpp
       title: tests/binary_heap.test.cpp

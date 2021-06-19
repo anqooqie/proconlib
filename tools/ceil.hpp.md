@@ -13,6 +13,9 @@ data:
     title: Apply banker's rounding to $\frac{x}{y}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bezout.test.cpp
+    title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
   _isVerificationFailed: false
@@ -57,6 +60,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_log.test.cpp
+  - tests/bezout.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
 title: $\left\lceil \frac{x}{y} \right\rceil$
