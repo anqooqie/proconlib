@@ -5,13 +5,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/dual_segtree.test.cpp
+    title: tests/dual_segtree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -61,6 +64,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/binary_heap.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

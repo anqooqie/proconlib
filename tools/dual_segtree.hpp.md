@@ -8,10 +8,13 @@ data:
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/dual_segtree.test.cpp
+    title: tests/dual_segtree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dual_segtree.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -42,12 +45,12 @@ data:
     \n\nnamespace tools {\n\n  template <typename M>\n  class dual_segtree {\n  private:\n\
     \    using T = typename M::T;\n    ::std::size_t height;\n    ::std::vector<T>\
     \ lazy;\n\n    void propagate(const ::std::size_t node_id) {\n      if(this->lazy[node_id]\
-    \ == M::e()) return;\n      this->lazy[(node_id << 1) | 0] = M::op(this->lazy[(node_id\
-    \ << 1) | 0], this->lazy[node_id]);\n      this->lazy[(node_id << 1) | 1] = M::op(this->lazy[(node_id\
-    \ << 1) | 1], this->lazy[node_id]);\n      this->lazy[node_id] = M::e();\n   \
-    \ }\n\n    void thrust(const ::std::size_t node_id) {\n      for (::std::size_t\
-    \ h = this->height; h > 0; --h) {\n        this->propagate(node_id >> h);\n  \
-    \    }\n    }\n\n    ::std::size_t capacity() const {\n      return this->lazy.size()\
+    \ == M::e()) return;\n      this->lazy[(node_id << 1) | 0] = M::op(this->lazy[node_id],\
+    \ this->lazy[(node_id << 1) | 0]);\n      this->lazy[(node_id << 1) | 1] = M::op(this->lazy[node_id],\
+    \ this->lazy[(node_id << 1) | 1]);\n      this->lazy[node_id] = M::e();\n    }\n\
+    \n    void thrust(const ::std::size_t node_id) {\n      for (::std::size_t h =\
+    \ this->height; h > 0; --h) {\n        this->propagate(node_id >> h);\n      }\n\
+    \    }\n\n    ::std::size_t capacity() const {\n      return this->lazy.size()\
     \ / 2;\n    }\n\n  public:\n    dual_segtree(const ::std::size_t& n) :\n     \
     \ height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height + 1),\
     \ M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
@@ -55,10 +58,10 @@ data:
     \ = a + this->capacity();\n      const ::std::size_t b_id = b + this->capacity()\
     \ - 1;\n\n      this->thrust(a_id);\n      this->thrust(b_id);\n\n      for (::std::size_t\
     \ l = a_id, r = b_id + 1; l < r; l >>= 1, r >>= 1) {\n        if (l & 1) {\n \
-    \         this->lazy[l] = M::op(this->lazy[l], x);\n          ++l;\n        }\n\
-    \        if (r & 1) {\n          --r;\n          this->lazy[r] = M::op(this->lazy[r],\
-    \ x);\n        }\n      }\n    }\n\n    T get(const ::std::size_t a) {\n     \
-    \ const ::std::size_t node_id = a + this->capacity();\n      this->thrust(node_id);\n\
+    \         this->lazy[l] = M::op(x, this->lazy[l]);\n          ++l;\n        }\n\
+    \        if (r & 1) {\n          --r;\n          this->lazy[r] = M::op(x, this->lazy[r]);\n\
+    \        }\n      }\n    }\n\n    T get(const ::std::size_t a) {\n      const\
+    \ ::std::size_t node_id = a + this->capacity();\n      this->thrust(node_id);\n\
     \      return this->lazy[node_id];\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_DUAL_SEGTREE_HPP\n#define TOOLS_DUAL_SEGTREE_HPP\n\n#include\
     \ <cstddef>\n#include <vector>\n#include \"tools/ceil_log2.hpp\"\n#include \"\
@@ -66,22 +69,22 @@ data:
     \ {\n  private:\n    using T = typename M::T;\n    ::std::size_t height;\n   \
     \ ::std::vector<T> lazy;\n\n    void propagate(const ::std::size_t node_id) {\n\
     \      if(this->lazy[node_id] == M::e()) return;\n      this->lazy[(node_id <<\
-    \ 1) | 0] = M::op(this->lazy[(node_id << 1) | 0], this->lazy[node_id]);\n    \
-    \  this->lazy[(node_id << 1) | 1] = M::op(this->lazy[(node_id << 1) | 1], this->lazy[node_id]);\n\
-    \      this->lazy[node_id] = M::e();\n    }\n\n    void thrust(const ::std::size_t\
-    \ node_id) {\n      for (::std::size_t h = this->height; h > 0; --h) {\n     \
-    \   this->propagate(node_id >> h);\n      }\n    }\n\n    ::std::size_t capacity()\
-    \ const {\n      return this->lazy.size() / 2;\n    }\n\n  public:\n    dual_segtree(const\
-    \ ::std::size_t& n) :\n      height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height\
-    \ + 1), M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
-    \ b, const T& x) {\n      if(a >= b) return;\n\n      const ::std::size_t a_id\
-    \ = a + this->capacity();\n      const ::std::size_t b_id = b + this->capacity()\
-    \ - 1;\n\n      this->thrust(a_id);\n      this->thrust(b_id);\n\n      for (::std::size_t\
-    \ l = a_id, r = b_id + 1; l < r; l >>= 1, r >>= 1) {\n        if (l & 1) {\n \
-    \         this->lazy[l] = M::op(this->lazy[l], x);\n          ++l;\n        }\n\
-    \        if (r & 1) {\n          --r;\n          this->lazy[r] = M::op(this->lazy[r],\
-    \ x);\n        }\n      }\n    }\n\n    T get(const ::std::size_t a) {\n     \
-    \ const ::std::size_t node_id = a + this->capacity();\n      this->thrust(node_id);\n\
+    \ 1) | 0] = M::op(this->lazy[node_id], this->lazy[(node_id << 1) | 0]);\n    \
+    \  this->lazy[(node_id << 1) | 1] = M::op(this->lazy[node_id], this->lazy[(node_id\
+    \ << 1) | 1]);\n      this->lazy[node_id] = M::e();\n    }\n\n    void thrust(const\
+    \ ::std::size_t node_id) {\n      for (::std::size_t h = this->height; h > 0;\
+    \ --h) {\n        this->propagate(node_id >> h);\n      }\n    }\n\n    ::std::size_t\
+    \ capacity() const {\n      return this->lazy.size() / 2;\n    }\n\n  public:\n\
+    \    dual_segtree(const ::std::size_t& n) :\n      height(::tools::ceil_log2(n)),\n\
+    \      lazy(::tools::pow2(this->height + 1), M::e()) {\n    }\n\n    void apply(const\
+    \ ::std::size_t a, const ::std::size_t b, const T& x) {\n      if(a >= b) return;\n\
+    \n      const ::std::size_t a_id = a + this->capacity();\n      const ::std::size_t\
+    \ b_id = b + this->capacity() - 1;\n\n      this->thrust(a_id);\n      this->thrust(b_id);\n\
+    \n      for (::std::size_t l = a_id, r = b_id + 1; l < r; l >>= 1, r >>= 1) {\n\
+    \        if (l & 1) {\n          this->lazy[l] = M::op(x, this->lazy[l]);\n  \
+    \        ++l;\n        }\n        if (r & 1) {\n          --r;\n          this->lazy[r]\
+    \ = M::op(x, this->lazy[r]);\n        }\n      }\n    }\n\n    T get(const ::std::size_t\
+    \ a) {\n      const ::std::size_t node_id = a + this->capacity();\n      this->thrust(node_id);\n\
     \      return this->lazy[node_id];\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/ceil_log2.hpp
@@ -89,9 +92,10 @@ data:
   isVerificationFile: false
   path: tools/dual_segtree.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-06-27 14:42:03+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/dual_segtree.hpp
 layout: document
 title: Dual segment tree

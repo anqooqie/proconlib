@@ -13,6 +13,9 @@ data:
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/dual_segtree.test.cpp
+    title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
   _isVerificationFailed: false
@@ -28,16 +31,16 @@ data:
     \        return E;\n      }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
     \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = Type(1)>\n    struct multiplies {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs * rhs;\n      }\n      static T e()\
     \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ gcd {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
-    \        return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n       \
-    \ return Type(0);\n      }\n    };\n\n    template <typename Type, Type E>\n \
-    \   struct update {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return rhs == E ? lhs : rhs;\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n  }\n}\n\n\n"
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_MONOID_HPP\n#define TOOLS_MONOID_HPP\n\n#include <algorithm>\n\
     #include <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
     \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
@@ -47,16 +50,15 @@ data:
     \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
     \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
     \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type, Type E = Type(1)>\n    struct multiplies {\n   \
-    \   using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ lhs * rhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct gcd {\n      using T = Type;\n    \
-    \  static T op(const T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n\
-    \      }\n      static T e() {\n        return Type(0);\n      }\n    };\n\n \
-    \   template <typename Type, Type E>\n    struct update {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return rhs == E ? lhs\
-    \ : rhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n#endif\n"
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/monoid.hpp
@@ -64,10 +66,11 @@ data:
   - tools/square.hpp
   - tools/pow.hpp
   - tools/totient.hpp
-  timestamp: '2021-06-13 16:51:19+09:00'
+  timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids
