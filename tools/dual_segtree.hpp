@@ -17,8 +17,8 @@ namespace tools {
 
     void propagate(const ::std::size_t node_id) {
       if(this->lazy[node_id] == M::e()) return;
-      this->lazy[(node_id << 1) | 0] = M::op(this->lazy[(node_id << 1) | 0], this->lazy[node_id]);
-      this->lazy[(node_id << 1) | 1] = M::op(this->lazy[(node_id << 1) | 1], this->lazy[node_id]);
+      this->lazy[(node_id << 1) | 0] = M::op(this->lazy[node_id], this->lazy[(node_id << 1) | 0]);
+      this->lazy[(node_id << 1) | 1] = M::op(this->lazy[node_id], this->lazy[(node_id << 1) | 1]);
       this->lazy[node_id] = M::e();
     }
 
@@ -49,12 +49,12 @@ namespace tools {
 
       for (::std::size_t l = a_id, r = b_id + 1; l < r; l >>= 1, r >>= 1) {
         if (l & 1) {
-          this->lazy[l] = M::op(this->lazy[l], x);
+          this->lazy[l] = M::op(x, this->lazy[l]);
           ++l;
         }
         if (r & 1) {
           --r;
-          this->lazy[r] = M::op(this->lazy[r], x);
+          this->lazy[r] = M::op(x, this->lazy[r]);
         }
       }
     }
