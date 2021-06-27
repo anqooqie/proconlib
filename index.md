@@ -93,7 +93,7 @@ data:
     - icon: ':warning:'
       path: tools/join.hpp
       title: Join elements with delimiter
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':warning:'
@@ -111,6 +111,9 @@ data:
     - icon: ':warning:'
       path: tools/median_solver.hpp
       title: Median solver
+    - icon: ':heavy_check_mark:'
+      path: tools/mex.hpp
+      title: Minimum excluded value
     - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
@@ -263,6 +266,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/mex.test.cpp
+      title: tests/mex.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
