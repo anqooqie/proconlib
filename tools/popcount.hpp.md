@@ -2,16 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':warning:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_log2.test.cpp
+    title: tests/floor_log2.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <cstdint>\n\nnamespace\
@@ -67,8 +70,9 @@ data:
   - tools/ntz.hpp
   - tools/floor_log2.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/floor_log2.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

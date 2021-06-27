@@ -66,7 +66,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':warning:'
@@ -135,7 +135,7 @@ data:
     - icon: ':warning:'
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -234,6 +234,9 @@ data:
       path: tests/ceil_log.test.cpp
       title: tests/ceil_log.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/ceil_log2.test.cpp
+      title: tests/ceil_log2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
     - icon: ':heavy_check_mark:'
@@ -251,6 +254,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_log.test.cpp
       title: tests/floor_log.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/floor_log2.test.cpp
+      title: tests/floor_log2.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp

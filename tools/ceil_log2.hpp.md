@@ -13,6 +13,9 @@ data:
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ceil_log2.test.cpp
+    title: tests/ceil_log2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
   _isVerificationFailed: false
@@ -63,6 +66,7 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/ceil_log2.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp
 documentation_of: tools/ceil_log2.hpp
