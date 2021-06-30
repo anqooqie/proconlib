@@ -162,8 +162,8 @@ data:
   timestamp: '2021-06-12 04:14:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bellman_ford.test.cpp
   - tests/safe_int.test.cpp
+  - tests/bellman_ford.test.cpp
 documentation_of: tools/safe_int.hpp
 layout: document
 title: Integer type with $\infty$ and $-\infty$

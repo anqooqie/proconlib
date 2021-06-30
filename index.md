@@ -85,6 +85,9 @@ data:
       path: tools/group.hpp
       title: Typical groups
     - icon: ':heavy_check_mark:'
+      path: tools/interval_set.hpp
+      title: Set of closed intervals
+    - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
     - icon: ':heavy_check_mark:'

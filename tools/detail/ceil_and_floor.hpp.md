@@ -66,8 +66,8 @@ data:
   - tools/round.hpp
   - tools/floor_log.hpp
   - tools/ceil_log.hpp
-  - tools/ceil.hpp
   - tools/floor.hpp
+  - tools/ceil.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

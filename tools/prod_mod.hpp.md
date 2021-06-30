@@ -45,15 +45,15 @@ data:
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
+  - tools/totient.hpp
+  - tools/is_prime.hpp
   - tools/pow_mod.hpp
   - tools/prime_factorization.hpp
-  - tools/is_prime.hpp
-  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/is_prime.test.cpp
   - tests/totient.test.cpp
+  - tests/is_prime.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document

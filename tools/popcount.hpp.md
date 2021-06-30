@@ -67,8 +67,8 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/ntz.hpp
   - tools/floor_log2.hpp
+  - tools/ntz.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
