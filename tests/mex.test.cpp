@@ -2,8 +2,9 @@
 
 #include <cstdint>
 #include <iostream>
-#include <utility>
 #include <vector>
+#include <algorithm>
+#include <utility>
 #include "tools/mex.hpp"
 #include "tools/less_by.hpp"
 
@@ -50,7 +51,7 @@ int main() {
     if (query.query_type == 0) {
       answers[query.id] = mex.query(query.from * 2) >= query.to * 2;
     } else {
-      mex.add(query.from * 2, query.to * 2 + 1);
+      mex.insert(query.from * 2, query.to * 2);
     }
   }
 
