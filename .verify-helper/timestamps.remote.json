@@ -6,6 +6,7 @@
 "tests/ceil_log2.test.cpp": "2021-06-27 15:14:05 +0900",
 "tests/cumsum2d.test.cpp": "2021-03-29 00:30:01 +0900",
 "tests/dijkstra.test.cpp": "2021-03-29 00:30:01 +0900",
+"tests/dp_with_rerooting.test.cpp": "2021-07-11 19:51:40 +0900",
 "tests/dual_segtree.test.cpp": "2021-06-27 14:42:03 +0900",
 "tests/extgcd.test.cpp": "2021-03-29 00:30:01 +0900",
 "tests/fact_mod_cache.test.cpp": "2021-03-29 00:30:01 +0900",
