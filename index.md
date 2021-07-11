@@ -46,6 +46,9 @@ data:
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
+      path: tools/dp_with_rerooting.hpp
+      title: DP with rerooting
+    - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':heavy_check_mark:'
@@ -248,6 +251,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/dijkstra.test.cpp
       title: tests/dijkstra.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/dp_with_rerooting.test.cpp
+      title: tests/dp_with_rerooting.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
