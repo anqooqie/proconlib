@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_D"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D"
 
 #include <cstdint>
 #include <iostream>
@@ -9,6 +9,9 @@ using i64 = std::int_fast64_t;
 using mint = atcoder::modint1000000007;
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   i64 n, k;
   std::cin >> n >> k;
   tools::fact_mod_cache<mint> cache(n + k - 1);

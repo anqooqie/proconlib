@@ -8,7 +8,13 @@ template <typename T>
 T round(T x, T y);
 ```
 
-It returns rounded value of $\frac{x}{y}$ with the manner of banker's rounding.
+It returns a rounded value of $\frac{x}{y}$ in the manner of banker's rounding.
+
+## Constraints
+- $y \neq 0$
+
+## Time Complexity
+- $O(1)$
 
 ## License
 - CC0

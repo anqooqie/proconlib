@@ -10,7 +10,13 @@ std::int64_t ntz(std::int64_t x);
 std::uint64_t ntz(std::uint64_t x);
 ```
 
-It returns the number of trailing zeros. (e.g., ntz(12300) = 2)
+It returns the number of trailing zeros. (e.g., ntz(0b10100) = 2)
+
+## Constraints
+- $x > 0$
+
+## Time Complexity
+- $O(\log\log x)$
 
 ## License
 - CC0

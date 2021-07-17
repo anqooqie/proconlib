@@ -12,6 +12,12 @@ std::uint64_t ceil_log2(std::uint64_t x);
 
 It returns $\left\lceil \log_2(x) \right\rceil$.
 
+## Constraints
+- None
+
+## Time Complexity
+- $O(\log\log x)$
+
 ## References
 - [Stack Overflow](https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567)
 

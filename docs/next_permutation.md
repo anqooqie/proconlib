@@ -1,5 +1,5 @@
 ---
-title: Next permutation with the manner of n-choose-r
+title: Next permutation in the manner of n-choose-r
 documentation_of: //tools/next_permutation.hpp
 ---
 
@@ -8,7 +8,7 @@ template <typename Iterator>
 bool next_permutation(Iterator first, Iterator k, Iterator last);
 ```
 
-It generates the next permutation with the manner of n-choose-r.
+It generates the next permutation in the manner of n-choose-r.
 It returns `true` if the next permutation exists, `false` otherwise.
 
 ## Usage
@@ -19,6 +19,12 @@ do {
   std::cout << std::string(s.begin(), std::next(s.begin(), k)) << std::endl;
 } while (tools::next_permutation(s.begin(), std::next(s.begin(), k), s.end()));
 ```
+
+## Constraints
+- `first` $\leq$ `k` $\leq$ `last`
+
+## Time Complexity
+- $O(\text{last} - \text{first})$
 
 ## License
 - CC0

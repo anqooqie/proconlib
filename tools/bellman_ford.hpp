@@ -43,7 +43,7 @@ namespace tools {
       }
     };
 
-    bellman_ford(const ::std::size_t& node_count) :
+    explicit bellman_ford(const ::std::size_t& node_count) :
       m_node_count(node_count),
       m_edges() {
     }

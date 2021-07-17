@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A"
 
 #include <cstdint>
 #include <iostream>
@@ -27,6 +27,9 @@ i64 f_ev(std::monostate, const i64 edge) {
 }
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   i64 n;
   std::cin >> n;
 

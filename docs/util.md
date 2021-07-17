@@ -1,12 +1,12 @@
 ---
-title: Platform-dependent dirty utilities
+title: Commonly used utilities for competitive programming
 documentation_of: //tools/util.hpp
 ---
 
-They are usable but dirty code snippets.
+They are miscellaneous code snippets for competitive programming.
 
 ## License
-- Not licensed
+- CC0
 
 ## Author
-- Mainly anqooqie
+- anqooqie

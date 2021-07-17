@@ -3,6 +3,10 @@
 
 #include <algorithm>
 
+// Source: https://stackoverflow.com/questions/5095407/all-combinations-of-k-elements-out-of-n/5097100#5097100
+// License: CC BY-SA 3.0
+// Author: Thomas Draper
+
 namespace tools {
 
   template <typename Iterator>

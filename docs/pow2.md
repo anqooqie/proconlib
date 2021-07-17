@@ -10,6 +10,12 @@ constexpr T pow2(T x);
 
 It returns $2^x$.
 
+## Constraints
+- $0 \leq x < $ `std::numeric_limits<T>::digits`
+
+## Time Complexity
+- $O(1)$
+
 ## License
 - CC0
 

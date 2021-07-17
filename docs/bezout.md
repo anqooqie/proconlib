@@ -16,6 +16,9 @@ They mean that $x$ can be denoted as $pm + q$ and $y$ can be denoted as $rm + s$
 - $a \neq 0$
 - $b \neq 0$
 
+## Time Complexity
+- $O(\log(\min(\|a\|, \|b\|)))$
+
 ## Note
 The solutions of the equation exist if and only if $c \equiv 0 \pmod{\gcd(a, b)}$.
 If the solutions exist, the following equations hold when we denote a particular solution of $a x' + b y' = \gcd(a, b)$ as $(x'_0, y'_0)$.

@@ -12,6 +12,12 @@ std::uint64_t popcount(std::uint64_t x);
 
 It returns the number of 1 bits in the value of $x$.
 
+## Constraints
+- None
+
+## Time Complexity
+- $O(\log\log x)$
+
 ## References
 - Henry S. Warren Jr. (2013). "Hacker's Delight (2nd edition)"
 

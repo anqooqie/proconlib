@@ -1,28 +1,26 @@
 #ifndef TOOLS_PRIME_FACTORIZATION_HPP
 #define TOOLS_PRIME_FACTORIZATION_HPP
 
+#include <map>
 #include <cassert>
-#include <vector>
 #include <random>
 #include <queue>
 #include <numeric>
 #include <cmath>
-#include <algorithm>
 #include "tools/is_prime.hpp"
 #include "tools/prod_mod.hpp"
 
 namespace tools {
 
-  template <typename T, typename OutputIterator>
-  void prime_factorization(T n, OutputIterator result) {
+  template <typename T>
+  ::std::map<T, T> prime_factorization(T n) {
     assert(1 <= n && n <= 1000000000000000000);
-    ::std::vector<T> prime_factors;
+    ::std::map<T, T> result;
 
     for (; n % 2 == 0; n /= 2) {
-      *result = 2;
-      ++result;
+      ++result[2];
     }
-    if (n == 1) return;
+    if (n == 1) return result;
 
     ::std::minstd_rand engine;
     ::std::queue<T> factors({n});
@@ -30,7 +28,7 @@ namespace tools {
       const T factor = factors.front();
       factors.pop();
       if (::tools::is_prime(factor)) {
-        prime_factors.push_back(factor);
+        ++result[factor];
       } else {
         ::std::uniform_int_distribution<T> dist(1, factor - 2);
         while (true) {
@@ -60,11 +58,7 @@ namespace tools {
       }
     }
 
-    ::std::sort(prime_factors.begin(), prime_factors.end());
-    for (const T& prime_factor : prime_factors) {
-      *result = prime_factor;
-      ++result;
-    }
+    return result;
   }
 }
 

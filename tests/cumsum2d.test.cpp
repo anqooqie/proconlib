@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/challenges/sources/JOI/Final/0560"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/0560"
 
 #include <cstdint>
 #include <iostream>
@@ -12,6 +12,9 @@
 using i64 = std::int_fast64_t;
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   i64 M, N, K;
   std::cin >> M >> N >> K;
   std::vector<std::string> map;

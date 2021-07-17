@@ -14,6 +14,9 @@ It returns $\left\lfloor \log_b(x) \right\rfloor$.
 - $2 \leq b \leq 10^{18}$
 - $1 \leq x \leq 10^{18}$
 
+## Time Complexity
+- $O(\log x)$
+
 ## License
 - CC0
 

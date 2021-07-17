@@ -1,5 +1,5 @@
-#ifndef TOOLS_ALPHABETICAL_ORDER
-#define TOOLS_ALPHABETICAL_ORDER
+#ifndef TOOLS_ALPHABETICAL_ORDER_HPP
+#define TOOLS_ALPHABETICAL_ORDER_HPP
 
 #include <array>
 #include <limits>

@@ -10,6 +10,9 @@
 using i64 = std::int_fast64_t;
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   i64 n;
   std::cin >> n;
   std::vector<i64> x;

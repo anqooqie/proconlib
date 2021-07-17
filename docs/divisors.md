@@ -8,7 +8,13 @@ template <typename T>
 std::vector<T> divisors(T n);
 ```
 
-It returns sorted divisors of $n$.
+It returns the sorted divisors of $n$.
+
+## Constraints
+- $1 \leq n \leq 10^{18}$
+
+## Time Complexity
+- Supposed to be $O\left(n^\frac{1}{4} \text{polylog}(n)\right)$
 
 ## License
 - CC0

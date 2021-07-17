@@ -9,7 +9,14 @@ bool chmax(M& lhs, N rhs);
 ```
 
 It runs `lhs = std::max(lhs, rhs);`.
-It returns `true` if `lhs` has been updated, `false` otherwise.
+It returns `true` if `lhs` has been updated.
+Otherwise, it returns `false`.
+
+## Constraints
+- None
+
+## Time Complexity
+- $O(1)$
 
 ## License
 - CC0

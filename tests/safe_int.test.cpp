@@ -11,6 +11,9 @@ void assert_that(const bool cond) {
 }
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   const int POS_INF = std::numeric_limits<int>::max();
   const int NEG_INF = std::numeric_limits<int>::min();
   const int INT_MAX = std::numeric_limits<int>::max();

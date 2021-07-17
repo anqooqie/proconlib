@@ -1,5 +1,5 @@
 ---
-title: $b^n$ under the given monoid
+title: $b^n$ under a given monoid
 documentation_of: //tools/pow.hpp
 ---
 
@@ -11,7 +11,7 @@ template <typename T>
 T pow(T b, ::std::size_t n);
 ```
 
-It returns $b^n$ under the given monoid.
+It returns $b^n$ under a given monoid.
 The default monoid is $(\mathbb{Z}, \times)$.
 
 ## License

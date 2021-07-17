@@ -1,5 +1,5 @@
 ---
-title: $x^2$ under the given monoid
+title: $x^2$ under a given monoid
 documentation_of: //tools/square.hpp
 ---
 
@@ -11,7 +11,8 @@ template <typename T>
 T square(T x);
 ```
 
-It returns $x^2$ under the given monoid.
+It returns $x^2$ under a given monoid.
+The default monoid is $(\mathbb{Z}, \times)$.
 
 ## License
 - CC0

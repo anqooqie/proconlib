@@ -1,6 +1,9 @@
 #ifndef TOOLS_UTIL_HPP
 #define TOOLS_UTIL_HPP
 
+// To see the details of my library, visit my GitHub Pages.
+// https://anqooqie.github.io/proconlib/
+
 #ifdef LOCAL
   #ifndef _GLIBCXX_DEBUG
     #define _GLIBCXX_DEBUG
@@ -12,6 +15,8 @@
 #endif
 
 #include <bits/stdc++.h>
+#include "tools/resize.hpp"
+#include "tools/fill.hpp"
 
 using i64 = ::std::int_fast64_t;
 using u64 = ::std::uint_fast64_t;
@@ -23,17 +28,6 @@ using u32 = ::std::uint_fast32_t;
 namespace tools {
   namespace detail {
     namespace util {
-      template <typename T>
-      class is_range {
-      private:
-        template <typename U>
-        static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});
-        static ::std::false_type check(...);
-
-      public:
-        static const bool value = decltype(check(::std::declval<T>()))::value;
-      };
-
       template <typename T>
       class has_val {
       private:
@@ -64,29 +58,6 @@ namespace tools {
         os << ']';
         return os;
       }
-    }
-  }
-
-  template <class T, class Allocator, typename Head>
-  void resize(::std::vector<T, Allocator>& vector, const Head& head) {
-    vector.resize(head);
-  }
-  template <class T, class Allocator, typename Head, typename... Tail>
-  void resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&... tail) {
-    vector.resize(head);
-    for (auto& child : vector) {
-      ::tools::resize(child, tail...);
-    }
-  }
-
-  template <class T, class Allocator, typename V>
-  auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::detail::util::is_range<T>::value, void> {
-    ::std::fill(::std::begin(vector), ::std::end(vector), value);
-  }
-  template <class T, class Allocator, typename V>
-  auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::detail::util::is_range<T>::value, void> {
-    for (auto& child : vector) {
-      ::tools::fill(child, value);
     }
   }
 }

@@ -10,6 +10,12 @@ std::common_type_t<M, N> floor(M x, N y);
 
 It returns $\left\lfloor \frac{x}{y} \right\rfloor$.
 
+## Constraints
+- $y \neq 0$
+
+## Time Complexity
+- $O(1)$
+
 ## License
 - CC0
 

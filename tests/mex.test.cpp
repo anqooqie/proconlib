@@ -26,6 +26,9 @@ struct query {
 };
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   i64 N, M, Q;
   std::cin >> N >> M >> Q;
 

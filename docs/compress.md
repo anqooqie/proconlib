@@ -10,6 +10,12 @@ void compress(InputIterator begin, InputIterator end, OutputIterator result);
 
 It compresses the values from `begin` to `end` while keeping its magnitude relationship.
 
+## Constraints
+- `begin` $\leq$ `end`
+
+## Time Complexity
+- $O(n \log n)$ where $n$ is `end` - `begin`
+
 ## License
 - CC0
 

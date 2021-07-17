@@ -3,6 +3,10 @@
 
 #include <cstdint>
 
+// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
+// License: CC BY-SA 3.0
+// Author: dgobbi
+
 namespace tools {
 
   inline std::uint32_t ceil_log2(std::uint32_t x) {

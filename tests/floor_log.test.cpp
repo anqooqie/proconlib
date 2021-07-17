@@ -11,6 +11,9 @@ void assert_that(const bool cond) {
 }
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   assert_that(tools::floor_log(2, 1) == 0);
   assert_that(tools::floor_log(2, 2) == 1);
   assert_that(tools::floor_log(2, 3) == 1);

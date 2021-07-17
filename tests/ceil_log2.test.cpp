@@ -12,6 +12,9 @@ void assert_that(const bool cond) {
 }
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   assert_that(tools::ceil_log2(INT32_C(1)) == 0);
   assert_that(tools::ceil_log2(INT32_C(2)) == 1);
   assert_that(tools::ceil_log2(INT32_C(3)) == 2);
