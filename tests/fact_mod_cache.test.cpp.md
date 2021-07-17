@@ -11,10 +11,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_D
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_D
-  bundledCode: "#line 1 \"tests/fact_mod_cache.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_D\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D
+  bundledCode: "#line 1 \"tests/fact_mod_cache.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D\"\
     \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
@@ -231,21 +231,23 @@ data:
     \ {\n      return 0 <= r && r <= n ? this->m_data[n] * this->m_inv_data[n - r]\
     \ * this->m_inv_data[r] : M(0);\n    }\n  };\n}\n\n\n#line 7 \"tests/fact_mod_cache.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint1000000007;\n\n\
-    int main() {\n  i64 n, k;\n  std::cin >> n >> k;\n  tools::fact_mod_cache<mint>\
-    \ cache(n + k - 1);\n  std::cout << cache.combination(n + k - 1, n).val() << '\\\
-    n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_D\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n\
-    #include \"tools/fact_mod_cache.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing\
-    \ mint = atcoder::modint1000000007;\n\nint main() {\n  i64 n, k;\n  std::cin >>\
-    \ n >> k;\n  tools::fact_mod_cache<mint> cache(n + k - 1);\n  std::cout << cache.combination(n\
-    \ + k - 1, n).val() << '\\n';\n  return 0;\n}\n"
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n, k;\n  std::cin >> n >> k;\n  tools::fact_mod_cache<mint> cache(n +\
+    \ k - 1);\n  std::cout << cache.combination(n + k - 1, n).val() << '\\n';\n  return\
+    \ 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include\
+    \ \"tools/fact_mod_cache.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint =\
+    \ atcoder::modint1000000007;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n, k;\n  std::cin >> n >> k;\n  tools::fact_mod_cache<mint> cache(n +\
+    \ k - 1);\n  std::cout << cache.combination(n + k - 1, n).val() << '\\n';\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/fact_mod_cache.hpp
   isVerificationFile: true
   path: tests/fact_mod_cache.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fact_mod_cache.test.cpp

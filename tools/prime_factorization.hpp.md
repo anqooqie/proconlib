@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
-    title: Primality test
+    title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
@@ -18,9 +18,15 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -32,16 +38,16 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <cassert>\n\
-    #include <vector>\n#include <random>\n#include <queue>\n#include <numeric>\n#include\
-    \ <cmath>\n#include <algorithm>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include\
-    \ <cstdint>\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace\
-    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
-    \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n\
-    \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
-    \    if (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return\
-    \ prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\
-    \n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
+  bundledCode: "#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <map>\n\
+    #include <cassert>\n#include <random>\n#include <queue>\n#include <numeric>\n\
+    #include <cmath>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <cstdint>\n#include\
+    \ <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if (((x >= 0)\
+    \ ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n\
+    }\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n\
+    #include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
     \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
@@ -67,49 +73,46 @@ data:
     \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
     \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
     \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 13 \"tools/prime_factorization.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T, typename OutputIterator>\n  void prime_factorization(T\
-    \ n, OutputIterator result) {\n    assert(1 <= n && n <= 1000000000000000000);\n\
-    \    ::std::vector<T> prime_factors;\n\n    for (; n % 2 == 0; n /= 2) {\n   \
-    \   *result = 2;\n      ++result;\n    }\n    if (n == 1) return;\n\n    ::std::minstd_rand\
-    \ engine;\n    ::std::queue<T> factors({n});\n    while (!factors.empty()) {\n\
-    \      const T factor = factors.front();\n      factors.pop();\n      if (::tools::is_prime(factor))\
-    \ {\n        prime_factors.push_back(factor);\n      } else {\n        ::std::uniform_int_distribution<T>\
-    \ dist(1, factor - 2);\n        while (true) {\n          T c = dist(engine);\n\
-    \          if (c == factor - 2) c = factor - 1;\n          T x = 2;\n        \
-    \  T y = 2;\n          T d = 1;\n          while (d == 1) {\n            x = ::tools::prod_mod(x,\
-    \ x, factor);\n            x += c;\n            if (x >= factor) x -= factor;\n\
-    \            y = ::tools::prod_mod(y, y, factor);\n            y += c;\n     \
-    \       if (y >= factor) y -= factor;\n            y = ::tools::prod_mod(y, y,\
-    \ factor);\n            y += c;\n            if (y >= factor) y -= factor;\n \
-    \           d = ::std::gcd(::std::abs(x - y), factor);\n          }\n        \
-    \  if (d < factor) {\n            factors.push(d);\n            factors.push(factor\
-    \ / d);\n            break;\n          }\n        }\n      }\n    }\n\n    ::std::sort(prime_factors.begin(),\
-    \ prime_factors.end());\n    for (const T& prime_factor : prime_factors) {\n \
-    \     *result = prime_factor;\n      ++result;\n    }\n  }\n}\n\n\n"
+    \ true;\n  }\n}\n\n\n#line 12 \"tools/prime_factorization.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  ::std::map<T, T> prime_factorization(T n) {\n\
+    \    assert(1 <= n && n <= 1000000000000000000);\n    ::std::map<T, T> result;\n\
+    \n    for (; n % 2 == 0; n /= 2) {\n      ++result[2];\n    }\n    if (n == 1)\
+    \ return result;\n\n    ::std::minstd_rand engine;\n    ::std::queue<T> factors({n});\n\
+    \    while (!factors.empty()) {\n      const T factor = factors.front();\n   \
+    \   factors.pop();\n      if (::tools::is_prime(factor)) {\n        ++result[factor];\n\
+    \      } else {\n        ::std::uniform_int_distribution<T> dist(1, factor - 2);\n\
+    \        while (true) {\n          T c = dist(engine);\n          if (c == factor\
+    \ - 2) c = factor - 1;\n          T x = 2;\n          T y = 2;\n          T d\
+    \ = 1;\n          while (d == 1) {\n            x = ::tools::prod_mod(x, x, factor);\n\
+    \            x += c;\n            if (x >= factor) x -= factor;\n            y\
+    \ = ::tools::prod_mod(y, y, factor);\n            y += c;\n            if (y >=\
+    \ factor) y -= factor;\n            y = ::tools::prod_mod(y, y, factor);\n   \
+    \         y += c;\n            if (y >= factor) y -= factor;\n            d =\
+    \ ::std::gcd(::std::abs(x - y), factor);\n          }\n          if (d < factor)\
+    \ {\n            factors.push(d);\n            factors.push(factor / d);\n   \
+    \         break;\n          }\n        }\n      }\n    }\n\n    return result;\n\
+    \  }\n}\n\n\n"
   code: "#ifndef TOOLS_PRIME_FACTORIZATION_HPP\n#define TOOLS_PRIME_FACTORIZATION_HPP\n\
-    \n#include <cassert>\n#include <vector>\n#include <random>\n#include <queue>\n\
-    #include <numeric>\n#include <cmath>\n#include <algorithm>\n#include \"tools/is_prime.hpp\"\
-    \n#include \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename OutputIterator>\n  void prime_factorization(T n, OutputIterator\
-    \ result) {\n    assert(1 <= n && n <= 1000000000000000000);\n    ::std::vector<T>\
-    \ prime_factors;\n\n    for (; n % 2 == 0; n /= 2) {\n      *result = 2;\n   \
-    \   ++result;\n    }\n    if (n == 1) return;\n\n    ::std::minstd_rand engine;\n\
-    \    ::std::queue<T> factors({n});\n    while (!factors.empty()) {\n      const\
-    \ T factor = factors.front();\n      factors.pop();\n      if (::tools::is_prime(factor))\
-    \ {\n        prime_factors.push_back(factor);\n      } else {\n        ::std::uniform_int_distribution<T>\
-    \ dist(1, factor - 2);\n        while (true) {\n          T c = dist(engine);\n\
-    \          if (c == factor - 2) c = factor - 1;\n          T x = 2;\n        \
-    \  T y = 2;\n          T d = 1;\n          while (d == 1) {\n            x = ::tools::prod_mod(x,\
-    \ x, factor);\n            x += c;\n            if (x >= factor) x -= factor;\n\
-    \            y = ::tools::prod_mod(y, y, factor);\n            y += c;\n     \
-    \       if (y >= factor) y -= factor;\n            y = ::tools::prod_mod(y, y,\
-    \ factor);\n            y += c;\n            if (y >= factor) y -= factor;\n \
-    \           d = ::std::gcd(::std::abs(x - y), factor);\n          }\n        \
-    \  if (d < factor) {\n            factors.push(d);\n            factors.push(factor\
-    \ / d);\n            break;\n          }\n        }\n      }\n    }\n\n    ::std::sort(prime_factors.begin(),\
-    \ prime_factors.end());\n    for (const T& prime_factor : prime_factors) {\n \
-    \     *result = prime_factor;\n      ++result;\n    }\n  }\n}\n\n#endif\n"
+    \n#include <map>\n#include <cassert>\n#include <random>\n#include <queue>\n#include\
+    \ <numeric>\n#include <cmath>\n#include \"tools/is_prime.hpp\"\n#include \"tools/prod_mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::map<T, T> prime_factorization(T\
+    \ n) {\n    assert(1 <= n && n <= 1000000000000000000);\n    ::std::map<T, T>\
+    \ result;\n\n    for (; n % 2 == 0; n /= 2) {\n      ++result[2];\n    }\n   \
+    \ if (n == 1) return result;\n\n    ::std::minstd_rand engine;\n    ::std::queue<T>\
+    \ factors({n});\n    while (!factors.empty()) {\n      const T factor = factors.front();\n\
+    \      factors.pop();\n      if (::tools::is_prime(factor)) {\n        ++result[factor];\n\
+    \      } else {\n        ::std::uniform_int_distribution<T> dist(1, factor - 2);\n\
+    \        while (true) {\n          T c = dist(engine);\n          if (c == factor\
+    \ - 2) c = factor - 1;\n          T x = 2;\n          T y = 2;\n          T d\
+    \ = 1;\n          while (d == 1) {\n            x = ::tools::prod_mod(x, x, factor);\n\
+    \            x += c;\n            if (x >= factor) x -= factor;\n            y\
+    \ = ::tools::prod_mod(y, y, factor);\n            y += c;\n            if (y >=\
+    \ factor) y -= factor;\n            y = ::tools::prod_mod(y, y, factor);\n   \
+    \         y += c;\n            if (y >= factor) y -= factor;\n            d =\
+    \ ::std::gcd(::std::abs(x - y), factor);\n          }\n          if (d < factor)\
+    \ {\n            factors.push(d);\n            factors.push(factor / d);\n   \
+    \         break;\n          }\n        }\n      }\n    }\n\n    return result;\n\
+    \  }\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -120,26 +123,30 @@ data:
   path: tools/prime_factorization.hpp
   requiredBy:
   - tools/totient.hpp
-  timestamp: '2021-03-29 00:30:01+09:00'
+  - tools/divisors.hpp
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document
-title: Prime factorization
+title: Pollard's rho algorithm
 ---
 
 ```cpp
-template <typename T, typename OutputIterator>
-void prime_factorization(T n, OutputIterator result);
+template <typename T>
+std::map<T, T> prime_factorization(T n);
 ```
 
-It inserts ordered prime factors into `result`.
-It implements Pollard's rho algorithm.
+It returns the sorted distinct prime factors with the number of occurrences.
 
 ## Constraints
 - $1 \leq n \leq 10^{18}$
+
+## Time Complexity
+- Supposed to be $O\left(n^\frac{1}{4} \text{polylog}(n)\right)$
 
 ## License
 - CC0

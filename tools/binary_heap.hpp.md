@@ -28,20 +28,22 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#include <cstdint>\n\nnamespace tools {\n\n  inline std::uint32_t ceil_log2(std::uint32_t\
-    \ x) {\n    static const ::std::uint32_t t[6] = {\n      0xFFFF0000u,\n      0x0000FF00u,\n\
-    \      0x000000F0u,\n      0x0000000Cu,\n      0x00000002u\n    };\n\n    ::std::uint32_t\
-    \ y = (((x & (x - 1)) == 0) ? 0 : 1);\n    ::std::uint32_t j = 16;\n\n    for\
-    \ (const ::std::uint32_t& t_i : t) {\n      ::std::uint32_t k = (((x & t_i) ==\
-    \ 0) ? 0 : j);\n      y += k;\n      x >>= k;\n      j >>= 1;\n    }\n\n    return\
-    \ y;\n  }\n\n  inline ::std::uint64_t ceil_log2(::std::uint64_t x) {\n    static\
-    \ const ::std::uint64_t t[6] = {\n      0xFFFFFFFF00000000u,\n      0x00000000FFFF0000u,\n\
-    \      0x000000000000FF00u,\n      0x00000000000000F0u,\n      0x000000000000000Cu,\n\
-    \      0x0000000000000002u\n    };\n\n    ::std::uint64_t y = (((x & (x - 1))\
-    \ == 0) ? 0 : 1);\n    ::std::uint64_t j = 32;\n\n    for (const ::std::uint64_t&\
-    \ t_i : t) {\n      ::std::uint64_t k = (((x & t_i) == 0) ? 0 : j);\n      y +=\
-    \ k;\n      x >>= k;\n      j >>= 1;\n    }\n\n    return y;\n  }\n\n  inline\
-    \ ::std::int32_t ceil_log2(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::ceil_log2(static_cast<::std::uint32_t>(x)));\n\
+    \n\n\n\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
+    \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
+    \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
+    \      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x & (x - 1)) == 0) ?\
+    \ 0 : 1);\n    ::std::uint32_t j = 16;\n\n    for (const ::std::uint32_t& t_i\
+    \ : t) {\n      ::std::uint32_t k = (((x & t_i) == 0) ? 0 : j);\n      y += k;\n\
+    \      x >>= k;\n      j >>= 1;\n    }\n\n    return y;\n  }\n\n  inline ::std::uint64_t\
+    \ ceil_log2(::std::uint64_t x) {\n    static const ::std::uint64_t t[6] = {\n\
+    \      0xFFFFFFFF00000000u,\n      0x00000000FFFF0000u,\n      0x000000000000FF00u,\n\
+    \      0x00000000000000F0u,\n      0x000000000000000Cu,\n      0x0000000000000002u\n\
+    \    };\n\n    ::std::uint64_t y = (((x & (x - 1)) == 0) ? 0 : 1);\n    ::std::uint64_t\
+    \ j = 32;\n\n    for (const ::std::uint64_t& t_i : t) {\n      ::std::uint64_t\
+    \ k = (((x & t_i) == 0) ? 0 : j);\n      y += k;\n      x >>= k;\n      j >>=\
+    \ 1;\n    }\n\n    return y;\n  }\n\n  inline ::std::int32_t ceil_log2(::std::int32_t\
+    \ x) {\n    return static_cast<::std::int32_t>(::tools::ceil_log2(static_cast<::std::uint32_t>(x)));\n\
     \  }\n\n  inline ::std::int64_t ceil_log2(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::ceil_log2(static_cast<::std::uint64_t>(x)));\n\
     \  }\n}\n\n\n#line 17 \"tools/binary_heap.hpp\"\n\nnamespace tools {\n\n  template\
     \ <class Key, class Priority, class Compare = ::std::less<Priority>>\n  class\
@@ -195,7 +197,7 @@ data:
   isVerificationFile: false
   path: tools/binary_heap.hpp
   requiredBy: []
-  timestamp: '2021-04-04 21:19:57+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/binary_heap.test.cpp
@@ -204,9 +206,10 @@ layout: document
 title: Binary heap
 ---
 
-It is nearly `std::prirority_queue`, but allows you to update priority.
+It manages the maximum element efficiently.
+It also allows you to update the priority of any elements.
 
-## Usage
+### Usage
 ```cpp
 tools::binary_heap<std::string, int> heap;
 heap.push(std::make_pair("abc", 5));
@@ -215,8 +218,122 @@ heap.push(std::make_pair("abc", 7));
 heap.erase("abc");
 ```
 
-## License
+### References
+- [優先度変更可能なヒープについて - えびちゃんの日記](https://rsk0315.hatenablog.com/entry/2019/10/29/173703)
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
+
+## Constructor
+```cpp
+binary_heap<Key, Priority, std::less<Priority>> heap();
+binary_heap<Key, Priority, Compare> heap(Compare compare);
+```
+
+It creates a empty max heap which uses `compare` as a comparator.
+The type parameter `<Key>` represents the type of keys.
+The type parameter `<Priority>` represents the type of the priorities correspanding to each key.
+The type parameter `<Compare>` represents the type of the comparator.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## empty
+```cpp
+bool heap.empty();
+```
+
+It returns `true` if and only if the heap is empty.
+Otherwise, it returns `false`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## size
+```cpp
+std::size_t heap.size();
+```
+
+It returns the current number of elements of the heap.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## top
+```cpp
+std::pair<Key, Priority> heap.top();
+```
+
+It returns the maximum element of the heap.
+
+### Constraints
+- The heap is not empty.
+
+### Time Complexity
+- $O(1)$
+
+## at
+```cpp
+Priority heap.at(Key k);
+```
+
+It returns the priority of `k`.
+
+### Constraints
+- `k` exists in the heap.
+
+### Time Complexity
+- $O(1)$
+
+## push
+```cpp
+bool heap.push(std::pair<Key, Priority> x);
+```
+
+If `x.first` does not exist in the heap, it inserts `x.first` whose priority is `x.second` into the heap and returns `true`.
+If `x.first` exists in the heap, it updates the priority of `x.first` to `x.second` and returns `false`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log n)$ where n is the current number of elements of the heap
+
+## pop
+```cpp
+void heap.pop();
+```
+
+It removes the maximum element from the heap.
+
+### Constraints
+- The heap is not empty.
+
+### Time Complexity
+- $O(\log n)$ where n is the current number of elements of the heap
+
+## erase
+```cpp
+std::size_t heap.erase(Key k);
+```
+
+If `k` exists in the heap, it removes `k` from the heap and returns $1$.
+If `k` does not exist in the heap, it returns $0$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log n)$ where n is the current number of elements of the heap

@@ -101,13 +101,15 @@ data:
     \ < compressed.size(); ++i) {\n      result += i - fw.sum(0, compressed[i] + 1);\n\
     \      fw.add(compressed[i], 1);\n    }\n\n    return result;\n  }\n}\n\n\n#line\
     \ 9 \"tests/inversion_number.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
     \ n, std::back_inserter(a));\n  std::cout << tools::inversion_number(a.begin(),\
     \ a.end()) << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D\"\n\
     \n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
     #include <iterator>\n#include \"tools/inversion_number.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
     \ n, std::back_inserter(a));\n  std::cout << tools::inversion_number(a.begin(),\
     \ a.end()) << '\\n';\n  return 0;\n}\n"
   dependsOn:
@@ -117,7 +119,7 @@ data:
   isVerificationFile: true
   path: tests/inversion_number.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/inversion_number.test.cpp

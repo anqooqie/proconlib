@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -26,23 +29,24 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/factorize
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_3_D
     links:
-    - https://judge.yosupo.jp/problem/factorize
-  bundledCode: "#line 1 \"tests/prime_factorization.test.cpp\"\n#define PROBLEM \"\
-    https://judge.yosupo.jp/problem/factorize\"\n\n#include <cstdint>\n#include <iostream>\n\
-    #include <map>\n#include <numeric>\n#include <utility>\n#line 1 \"tools/prime_factorization.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_3_D
+  bundledCode: "#line 1 \"tests/divisors.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_3_D\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
+    #line 1 \"tools/divisors.hpp\"\n\n\n\n#line 5 \"tools/divisors.hpp\"\n#include\
+    \ <map>\n#include <deque>\n#include <cstddef>\n#line 1 \"tools/prime_factorization.hpp\"\
     \n\n\n\n#line 5 \"tools/prime_factorization.hpp\"\n#include <cassert>\n#include\
-    \ <random>\n#include <queue>\n#line 9 \"tools/prime_factorization.hpp\"\n#include\
-    \ <cmath>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 5 \"tools/is_prime.hpp\"\
-    \n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n\
-    \  template <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const\
-    \ T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128\
-    \ prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if\
-    \ (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
-    \  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
-    \n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ <random>\n#include <queue>\n#include <numeric>\n#include <cmath>\n#line 1 \"\
+    tools/is_prime.hpp\"\n\n\n\n#line 5 \"tools/is_prime.hpp\"\n#include <array>\n\
+    #line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
+    \ T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2\
+    \ y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod = u128(x\
+    \ >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if (((x >= 0) ^ (y >=\
+    \ 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n\
+    #line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include\
+    \ <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\n\
+    namespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
     \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
     \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
@@ -85,27 +89,30 @@ data:
     \ ::std::gcd(::std::abs(x - y), factor);\n          }\n          if (d < factor)\
     \ {\n            factors.push(d);\n            factors.push(factor / d);\n   \
     \         break;\n          }\n        }\n      }\n    }\n\n    return result;\n\
-    \  }\n}\n\n\n#line 9 \"tests/prime_factorization.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 Q;\n  std::cin >> Q;\n  for (i64 i = 0; i < Q; ++i) {\n    i64 a_i;\n\
-    \    std::cin >> a_i;\n\n    const ::std::map<i64, i64> prime_factors = tools::prime_factorization(a_i);\n\
-    \    std::cout << std::accumulate(prime_factors.begin(), prime_factors.end(),\
-    \ i64(0), [](const i64& sum, const std::pair<i64, i64>& p) { return sum + p.second;\
-    \ }) << '\\n';\n    for (const auto& [distinct_prime_factor, exponent] : prime_factors)\
-    \ {\n      for (i64 e = 0; e < exponent; ++e) {\n        std::cout << ' ' << distinct_prime_factor;\n\
-    \      }\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/factorize\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <map>\n#include <numeric>\n#include\
-    \ <utility>\n#include \"tools/prime_factorization.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 Q;\n  std::cin >> Q;\n  for (i64 i = 0; i < Q; ++i) {\n    i64 a_i;\n\
-    \    std::cin >> a_i;\n\n    const ::std::map<i64, i64> prime_factors = tools::prime_factorization(a_i);\n\
-    \    std::cout << std::accumulate(prime_factors.begin(), prime_factors.end(),\
-    \ i64(0), [](const i64& sum, const std::pair<i64, i64>& p) { return sum + p.second;\
-    \ }) << '\\n';\n    for (const auto& [distinct_prime_factor, exponent] : prime_factors)\
-    \ {\n      for (i64 e = 0; e < exponent; ++e) {\n        std::cout << ' ' << distinct_prime_factor;\n\
-    \      }\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \  }\n}\n\n\n#line 10 \"tools/divisors.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  ::std::vector<T> divisors(const T& n) {\n    const ::std::map<T,\
+    \ T> prime_factors = tools::prime_factorization(n);\n    ::std::deque<T> deque({1});\n\
+    \    for (const auto& [distinct_prime_factor, exponent] : tools::prime_factorization(n))\
+    \ {\n      const ::std::size_t prev_size = deque.size();\n      for (::std::size_t\
+    \ i = 0; i < prev_size; ++i) {\n        const T prev = deque.front();\n      \
+    \  deque.pop_front();\n        for (T e = 0, next = 1; e <= exponent; ++e, next\
+    \ *= distinct_prime_factor) {\n          deque.push_back(prev * next);\n     \
+    \   }\n      }\n    }\n    ::std::sort(deque.begin(), deque.end());\n    return\
+    \ ::std::vector<T>(deque.begin(), deque.end());\n  }\n}\n\n\n#line 8 \"tests/divisors.test.cpp\"\
+    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 a, b, c;\n  std::cin >> a >>\
+    \ b >> c;\n  const ::std::vector<i64> divisors = tools::divisors(c);\n  std::cout\
+    \ << std::count_if(divisors.begin(), divisors.end(), [&](const i64& d) { return\
+    \ a <= d && d <= b; }) << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_3_D\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
+    #include \"tools/divisors.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ a, b, c;\n  std::cin >> a >> b >> c;\n  const ::std::vector<i64> divisors =\
+    \ tools::divisors(c);\n  std::cout << std::count_if(divisors.begin(), divisors.end(),\
+    \ [&](const i64& d) { return a <= d && d <= b; }) << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/divisors.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -113,15 +120,15 @@ data:
   - tools/mod.hpp
   - tools/quo.hpp
   isVerificationFile: true
-  path: tests/prime_factorization.test.cpp
+  path: tests/divisors.test.cpp
   requiredBy: []
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/prime_factorization.test.cpp
+documentation_of: tests/divisors.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/prime_factorization.test.cpp
-- /verify/tests/prime_factorization.test.cpp.html
-title: tests/prime_factorization.test.cpp
+- /verify/tests/divisors.test.cpp
+- /verify/tests/divisors.test.cpp.html
+title: tests/divisors.test.cpp
 ---

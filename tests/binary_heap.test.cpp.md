@@ -32,7 +32,8 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\nnamespace tools {\n\n  inline std::uint32_t\
+    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
     \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
     \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
     \      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x & (x - 1)) == 0) ?\
@@ -143,7 +144,7 @@ data:
   isVerificationFile: true
   path: tests/binary_heap.test.cpp
   requiredBy: []
-  timestamp: '2021-04-04 21:19:57+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/binary_heap.test.cpp

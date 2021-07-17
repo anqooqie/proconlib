@@ -83,10 +83,11 @@ data:
     \nstruct query {\n  i64 query_type;\n  i64 id;\n  i64 day;\n  i64 from;\n  i64\
     \ to;\n  query(i64 query_type, i64 id, i64 day, i64 from, i64 to) :\n    query_type(query_type),\n\
     \    id(id),\n    day(day),\n    from(from),\n    to(to) {\n  }\n};\n\nint main()\
-    \ {\n  i64 N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<query> queries;\n\
-    \  for (i64 i = 0; i < M; ++i) {\n    i64 D, A, B;\n    std::cin >> D >> A >>\
-    \ B;\n    queries.emplace_back(1, i, D, A, B);\n  }\n  for (i64 i = 0; i < Q;\
-    \ ++i) {\n    i64 E, S, T;\n    std::cin >> E >> S >> T;\n    queries.emplace_back(0,\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<query> queries;\n  for\
+    \ (i64 i = 0; i < M; ++i) {\n    i64 D, A, B;\n    std::cin >> D >> A >> B;\n\
+    \    queries.emplace_back(1, i, D, A, B);\n  }\n  for (i64 i = 0; i < Q; ++i)\
+    \ {\n    i64 E, S, T;\n    std::cin >> E >> S >> T;\n    queries.emplace_back(0,\
     \ i, E, S, T);\n  }\n\n  std::sort(queries.begin(), queries.end(), tools::less_by([](const\
     \ query& q) {\n    return std::make_pair(q.day, q.query_type);\n  }));\n\n  tools::mex<i64>\
     \ mex;\n  std::vector<bool> answers(Q);\n  for (const query& query : queries)\
@@ -100,10 +101,11 @@ data:
     \ i64 = std::int_fast64_t;\n\nstruct query {\n  i64 query_type;\n  i64 id;\n \
     \ i64 day;\n  i64 from;\n  i64 to;\n  query(i64 query_type, i64 id, i64 day, i64\
     \ from, i64 to) :\n    query_type(query_type),\n    id(id),\n    day(day),\n \
-    \   from(from),\n    to(to) {\n  }\n};\n\nint main() {\n  i64 N, M, Q;\n  std::cin\
-    \ >> N >> M >> Q;\n\n  std::vector<query> queries;\n  for (i64 i = 0; i < M; ++i)\
-    \ {\n    i64 D, A, B;\n    std::cin >> D >> A >> B;\n    queries.emplace_back(1,\
-    \ i, D, A, B);\n  }\n  for (i64 i = 0; i < Q; ++i) {\n    i64 E, S, T;\n    std::cin\
+    \   from(from),\n    to(to) {\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, Q;\n  std::cin >> N >>\
+    \ M >> Q;\n\n  std::vector<query> queries;\n  for (i64 i = 0; i < M; ++i) {\n\
+    \    i64 D, A, B;\n    std::cin >> D >> A >> B;\n    queries.emplace_back(1, i,\
+    \ D, A, B);\n  }\n  for (i64 i = 0; i < Q; ++i) {\n    i64 E, S, T;\n    std::cin\
     \ >> E >> S >> T;\n    queries.emplace_back(0, i, E, S, T);\n  }\n\n  std::sort(queries.begin(),\
     \ queries.end(), tools::less_by([](const query& q) {\n    return std::make_pair(q.day,\
     \ q.query_type);\n  }));\n\n  tools::mex<i64> mex;\n  std::vector<bool> answers(Q);\n\
@@ -119,7 +121,7 @@ data:
   isVerificationFile: true
   path: tests/mex.test.cpp
   requiredBy: []
-  timestamp: '2021-06-30 15:42:37+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mex.test.cpp

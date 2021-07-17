@@ -6,11 +6,14 @@ data:
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
-    title: Primality test
+    title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
@@ -19,7 +22,7 @@ data:
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
-    title: Prime factorization
+    title: Pollard's rho algorithm
   - icon: ':warning:'
     path: tools/rich_pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
@@ -33,6 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
@@ -71,6 +77,7 @@ data:
   - tools/totient.hpp
   - tools/extgcd.hpp
   - tools/is_prime.hpp
+  - tools/divisors.hpp
   - tools/mod.hpp
   - tools/pow_mod.hpp
   - tools/bezout.hpp
@@ -81,6 +88,7 @@ data:
   - tests/totient.test.cpp
   - tests/extgcd.test.cpp
   - tests/is_prime.test.cpp
+  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/quo.hpp

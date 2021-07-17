@@ -14,10 +14,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
-  bundledCode: "#line 1 \"tests/tree_diameter.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A
+  bundledCode: "#line 1 \"tests/tree_diameter.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A\"\
     \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/tree_diameter.hpp\"\
     \n\n\n\n#include <cstddef>\n#include <vector>\n#include <cassert>\n#include <numeric>\n\
     #include <limits>\n#include <queue>\n#include <iterator>\n#include <algorithm>\n\
@@ -52,23 +52,25 @@ data:
     \ {\n            queue.push(edge.to);\n          }\n        }\n      }\n\n   \
     \   return *std::max_element(distances.begin(), distances.end());\n    }\n  };\n\
     }\n\n\n#line 6 \"tests/tree_diameter.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 n;\n  std::cin >> n;\n  tools::tree_diameter<i64> tree(n);\n\
-    \  for (i64 i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin >> s >> t\
-    \ >> w;\n    tree.add_edge(s, t, w);\n  }\n  std::cout << tree.query() << '\\\
-    n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include \"tools/tree_diameter.hpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  i64 n;\n  std::cin >> n;\n\
-    \  tools::tree_diameter<i64> tree(n);\n  for (i64 i = 0; i < n - 1; ++i) {\n \
-    \   i64 s, t, w;\n    std::cin >> s >> t >> w;\n    tree.add_edge(s, t, w);\n\
-    \  }\n  std::cout << tree.query() << '\\n';\n  return 0;\n}\n"
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  tools::tree_diameter<i64> tree(n);\n  for (i64\
+    \ i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin >> s >> t >> w;\n \
+    \   tree.add_edge(s, t, w);\n  }\n  std::cout << tree.query() << '\\n';\n  return\
+    \ 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include \"tools/tree_diameter.hpp\"\n\
+    \nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n \
+    \ std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n  tools::tree_diameter<i64>\
+    \ tree(n);\n  for (i64 i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin\
+    \ >> s >> t >> w;\n    tree.add_edge(s, t, w);\n  }\n  std::cout << tree.query()\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/tree_diameter.hpp
   - tools/chmin.hpp
   isVerificationFile: true
   path: tests/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2021-05-16 03:32:04+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tree_diameter.test.cpp

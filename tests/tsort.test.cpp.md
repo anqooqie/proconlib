@@ -85,10 +85,11 @@ data:
     \ i64>> edges;\n  edges.emplace_back(0, 1);\n  edges.emplace_back(2, 3);\n  verify(4,\
     \ edges);\n}\n\nvoid corner_03() {\n  std::vector<std::pair<i64, i64>> edges;\n\
     \  edges.emplace_back(0, 2);\n  edges.emplace_back(1, 2);\n  verify(3, edges);\n\
-    }\n\nint main() {\n\n  sample_00();\n  small_00();\n  small_01();\n  small_02();\n\
-    \  small_03();\n  small_04();\n  small_05();\n  small_06();\n  corner_00();\n\
-    \  corner_01();\n  corner_02();\n  corner_03();\n\n  std::cout << \"Hello World\"\
-    \ << '\\n';\n  return 0;\n}\n"
+    }\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  sample_00();\n  small_00();\n  small_01();\n  small_02();\n  small_03();\n\
+    \  small_04();\n  small_05();\n  small_06();\n  corner_00();\n  corner_01();\n\
+    \  corner_02();\n  corner_03();\n\n  std::cout << \"Hello World\" << '\\n';\n\
+    \  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\
     // oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B\
     \ properly, so I implemented a special judge for the problem.\n\n#include <cstdint>\n\
@@ -136,17 +137,18 @@ data:
     \ i64>> edges;\n  edges.emplace_back(0, 1);\n  edges.emplace_back(2, 3);\n  verify(4,\
     \ edges);\n}\n\nvoid corner_03() {\n  std::vector<std::pair<i64, i64>> edges;\n\
     \  edges.emplace_back(0, 2);\n  edges.emplace_back(1, 2);\n  verify(3, edges);\n\
-    }\n\nint main() {\n\n  sample_00();\n  small_00();\n  small_01();\n  small_02();\n\
-    \  small_03();\n  small_04();\n  small_05();\n  small_06();\n  corner_00();\n\
-    \  corner_01();\n  corner_02();\n  corner_03();\n\n  std::cout << \"Hello World\"\
-    \ << '\\n';\n  return 0;\n}\n"
+    }\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  sample_00();\n  small_00();\n  small_01();\n  small_02();\n  small_03();\n\
+    \  small_04();\n  small_05();\n  small_06();\n  corner_00();\n  corner_01();\n\
+    \  corner_02();\n  corner_03();\n\n  std::cout << \"Hello World\" << '\\n';\n\
+    \  return 0;\n}\n"
   dependsOn:
   - tools/tsort.hpp
   - tools/lower_bound.hpp
   isVerificationFile: true
   path: tests/tsort.test.cpp
   requiredBy: []
-  timestamp: '2021-04-11 14:15:07+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsort.test.cpp

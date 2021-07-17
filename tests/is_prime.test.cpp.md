@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
-    title: Primality test
+    title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
@@ -62,13 +62,15 @@ data:
     \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
     \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
     \ true;\n  }\n}\n\n\n#line 9 \"tests/is_prime.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 n;\n  std::cin >> n;\n  std::vector<i64> x;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> x;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
     \ n, std::back_inserter(x));\n\n  for (const i64& x_i : x) {\n    std::cout <<\
     \ x_i << ' ' << (tools::is_prime(x_i) ? 1 : 0) << '\\n';\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/3030\"\n\n#include <cstdint>\n\
     #include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
     #include \"tools/is_prime.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  i64 n;\n  std::cin >> n;\n  std::vector<i64> x;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ n;\n  std::cin >> n;\n  std::vector<i64> x;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
     \ n, std::back_inserter(x));\n\n  for (const i64& x_i : x) {\n    std::cout <<\
     \ x_i << ' ' << (tools::is_prime(x_i) ? 1 : 0) << '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
@@ -80,7 +82,7 @@ data:
   isVerificationFile: true
   path: tests/is_prime.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/is_prime.test.cpp

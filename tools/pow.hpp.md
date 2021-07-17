@@ -6,7 +6,7 @@ data:
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
-    title: $x^2$ under the given monoid
+    title: $x^2$ under a given monoid
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
@@ -70,7 +70,7 @@ data:
   - tests/totient.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
-title: $b^n$ under the given monoid
+title: $b^n$ under a given monoid
 ---
 
 ```cpp
@@ -81,7 +81,7 @@ template <typename T>
 T pow(T b, ::std::size_t n);
 ```
 
-It returns $b^n$ under the given monoid.
+It returns $b^n$ under a given monoid.
 The default monoid is $(\mathbb{Z}, \times)$.
 
 ## License

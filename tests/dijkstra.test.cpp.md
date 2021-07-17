@@ -49,7 +49,8 @@ data:
     \            result.prev_nodes[edge.to] = edge.from;\n            tasks.emplace(edge.to,\
     \ new_distance);\n          }\n        }\n      }\n\n      return result;\n  \
     \  }\n  };\n}\n\n\n#line 9 \"tests/dijkstra.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64>\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64>\
     \ dijkstra(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin\
     \ >> a >> b >> c;\n    dijkstra.add_edge(a, b, c);\n  }\n\n  const auto result\
     \ = dijkstra.query(s);\n  std::vector<i64> path;\n  for (std::size_t i = t; i\
@@ -62,7 +63,8 @@ data:
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\n\n#include\
     \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <cstddef>\n#include\
     \ <iterator>\n#include \"tools/dijkstra.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64>\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64>\
     \ dijkstra(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin\
     \ >> a >> b >> c;\n    dijkstra.add_edge(a, b, c);\n  }\n\n  const auto result\
     \ = dijkstra.query(s);\n  std::vector<i64> path;\n  for (std::size_t i = t; i\
@@ -77,7 +79,7 @@ data:
   isVerificationFile: true
   path: tests/dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dijkstra.test.cpp

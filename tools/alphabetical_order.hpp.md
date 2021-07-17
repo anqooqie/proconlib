@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/alphabetical_order.test.cpp
+    title: tests/alphabetical_order.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/alphabetical_order.hpp\"\n\n\n\n#include <array>\n\
@@ -26,8 +29,8 @@ data:
     \      m['s'] = 18;\n      m['t'] = 19;\n      m['u'] = 20;\n      m['v'] = 21;\n\
     \      m['w'] = 22;\n      m['x'] = 23;\n      m['y'] = 24;\n      m['z'] = 25;\n\
     \      return m;\n    }();\n    return map[c];\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_ALPHABETICAL_ORDER\n#define TOOLS_ALPHABETICAL_ORDER\n\n#include\
-    \ <array>\n#include <limits>\n\nnamespace tools {\n\n  int alphabetical_order(const\
+  code: "#ifndef TOOLS_ALPHABETICAL_ORDER_HPP\n#define TOOLS_ALPHABETICAL_ORDER_HPP\n\
+    \n#include <array>\n#include <limits>\n\nnamespace tools {\n\n  int alphabetical_order(const\
     \ char c) {\n    static const ::std::array<char, ::std::numeric_limits<char>::max()>\
     \ map = []() {\n      ::std::array<char, ::std::numeric_limits<char>::max()> m;\n\
     \      m['A'] = 0;\n      m['B'] = 1;\n      m['C'] = 2;\n      m['D'] = 3;\n\
@@ -48,22 +51,36 @@ data:
   isVerificationFile: false
   path: tools/alphabetical_order.hpp
   requiredBy: []
-  timestamp: '2021-06-13 17:19:24+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2021-07-17 23:00:45+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/alphabetical_order.test.cpp
 documentation_of: tools/alphabetical_order.hpp
 layout: document
-title: Alphabetical order of the given character
+license: CC0
+title: Alphabetical order of a given character
 ---
 
 ```cpp
 int alphabetical_order(char c);
 ```
 
-It returns $0$ if `c` is `'A'` or `'a'`, $1$ if `c` is `'B'` or `'b'`, ..., and $25$ if `c` is `'Z'` or `'z'`.
+It returns 
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+0 & \text{(if $c$ is 'A' or 'a')}\\
+1 & \text{(if $c$ is 'B' or 'b')}\\
+\vdots &\\
+25 & \text{(if $c$ is 'Z' or 'z')}
+\end{array}\right.&
+\end{align*}$$
 
 ## Constraints
 - `c` is any one of `[A-Za-z]`.
+
+## Time Complexity
+- $O(1)$
 
 ## License
 - CC0

@@ -18,15 +18,17 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dual_segtree.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#include <cstdint>\n\nnamespace\
-    \ tools {\n\n  inline std::uint32_t ceil_log2(std::uint32_t x) {\n    static const\
-    \ ::std::uint32_t t[6] = {\n      0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n\
-    \      0x0000000Cu,\n      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x\
-    \ & (x - 1)) == 0) ? 0 : 1);\n    ::std::uint32_t j = 16;\n\n    for (const ::std::uint32_t&\
-    \ t_i : t) {\n      ::std::uint32_t k = (((x & t_i) == 0) ? 0 : j);\n      y +=\
-    \ k;\n      x >>= k;\n      j >>= 1;\n    }\n\n    return y;\n  }\n\n  inline\
-    \ ::std::uint64_t ceil_log2(::std::uint64_t x) {\n    static const ::std::uint64_t\
-    \ t[6] = {\n      0xFFFFFFFF00000000u,\n      0x00000000FFFF0000u,\n      0x000000000000FF00u,\n\
+    \ <vector>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#include <cstdint>\n\n// Source:\
+    \ https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
+    \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
+    \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
+    \      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x & (x - 1)) == 0) ?\
+    \ 0 : 1);\n    ::std::uint32_t j = 16;\n\n    for (const ::std::uint32_t& t_i\
+    \ : t) {\n      ::std::uint32_t k = (((x & t_i) == 0) ? 0 : j);\n      y += k;\n\
+    \      x >>= k;\n      j >>= 1;\n    }\n\n    return y;\n  }\n\n  inline ::std::uint64_t\
+    \ ceil_log2(::std::uint64_t x) {\n    static const ::std::uint64_t t[6] = {\n\
+    \      0xFFFFFFFF00000000u,\n      0x00000000FFFF0000u,\n      0x000000000000FF00u,\n\
     \      0x00000000000000F0u,\n      0x000000000000000Cu,\n      0x0000000000000002u\n\
     \    };\n\n    ::std::uint64_t y = (((x & (x - 1)) == 0) ? 0 : 1);\n    ::std::uint64_t\
     \ j = 32;\n\n    for (const ::std::uint64_t& t_i : t) {\n      ::std::uint64_t\
@@ -92,7 +94,7 @@ data:
   isVerificationFile: false
   path: tools/dual_segtree.hpp
   requiredBy: []
-  timestamp: '2021-06-27 14:42:03+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dual_segtree.test.cpp

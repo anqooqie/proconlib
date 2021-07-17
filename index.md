@@ -3,9 +3,9 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/alphabetical_order.hpp
-      title: Alphabetical order of the given character
+      title: Alphabetical order of a given character
     - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
@@ -42,7 +42,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dijkstra.hpp
       title: Dijkstra's algorithm
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
@@ -57,6 +57,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
+    - icon: ':warning:'
+      path: tools/fill.hpp
+      title: Fill a multi-dimensional vector
     - icon: ':warning:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
@@ -95,7 +98,10 @@ data:
       title: The number of inversions
     - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
-      title: Primality test
+      title: Miller-Rabin primality test
+    - icon: ':warning:'
+      path: tools/is_range.hpp
+      title: Check whether T is a range type
     - icon: ':warning:'
       path: tools/join.hpp
       title: Join elements with delimiter
@@ -111,7 +117,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: tools/matrix.hpp
     - icon: ':warning:'
@@ -128,10 +134,10 @@ data:
       title: Typical monoids
     - icon: ':warning:'
       path: tools/next_combination.hpp
-      title: Next combination with the manner of n-choose-r
+      title: Next combination in the manner of n-choose-r
     - icon: ':warning:'
       path: tools/next_permutation.hpp
-      title: Next permutation with the manner of n-choose-r
+      title: Next permutation in the manner of n-choose-r
     - icon: ':warning:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
@@ -149,7 +155,7 @@ data:
       title: Popcount
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
-      title: $b^n$ under the given monoid
+      title: $b^n$ under a given monoid
     - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
@@ -164,13 +170,16 @@ data:
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
       path: tools/prime_factorization.hpp
-      title: Prime factorization
+      title: Pollard's rho algorithm
     - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
+    - icon: ':warning:'
+      path: tools/resize.hpp
+      title: Resize a multi-dimensional vector
     - icon: ':warning:'
       path: tools/rich_pow_mod_cache.hpp
       title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
@@ -191,7 +200,7 @@ data:
       title: Sign function
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
-      title: $x^2$ under the given monoid
+      title: $x^2$ under a given monoid
     - icon: ':warning:'
       path: tools/to_signed.hpp
       title: To signed value
@@ -212,14 +221,14 @@ data:
       title: std::upper_bound, but returns index
     - icon: ':warning:'
       path: tools/util.hpp
-      title: Platform-dependent dirty utilities
-    - icon: ':warning:'
+      title: Commonly used utilities for competitive programming
+    - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: tools/vector.hpp
     - icon: ':warning:'
       path: tools/vector2.hpp
       title: 2D vector
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
   - name: tools/detail
@@ -230,6 +239,9 @@ data:
   verificationCategories:
   - name: tests
     pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/alphabetical_order.test.cpp
+      title: tests/alphabetical_order.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp
@@ -251,6 +263,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/dijkstra.test.cpp
       title: tests/dijkstra.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/divisors.test.cpp
+      title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dp_with_rerooting.test.cpp
       title: tests/dp_with_rerooting.test.cpp
@@ -276,6 +291,9 @@ data:
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/matrix.test.cpp
+      title: tests/matrix.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
     - icon: ':heavy_check_mark:'
@@ -293,5 +311,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_bfs.test.cpp
+      title: tests/zero_one_bfs.test.cpp
 layout: toppage
 ---

@@ -11,14 +11,14 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
-  bundledCode: "#line 1 \"tests/dp_with_rerooting.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A
+  bundledCode: "#line 1 \"tests/dp_with_rerooting.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <algorithm>\n#include <variant>\n\
     #include <vector>\n#line 1 \"tools/dp_with_rerooting.hpp\"\n\n\n\n#include <cstddef>\n\
     #line 6 \"tools/dp_with_rerooting.hpp\"\n#include <limits>\n#include <stack>\n\
-    #include <utility>\n#line 10 \"tools/dp_with_rerooting.hpp\"\n\nnamespace tools\
+    #include <tuple>\n#line 10 \"tools/dp_with_rerooting.hpp\"\n\nnamespace tools\
     \ {\n  template <typename V, typename E, typename R, typename M, typename M::T\
     \ (*f_ve)(E, R), R (*f_ev)(V, typename M::T)>\n  class dp_with_rerooting {\n \
     \ private:\n    class adjacency {\n    public:\n      ::std::size_t to;\n    \
@@ -110,21 +110,22 @@ data:
     \ T op(const T x, const T y) {\n    return std::max(x, y);\n  }\n  static T e()\
     \ {\n    return 0;\n  }\n};\n\ni64 f_ve(const i64 w, const i64 vertex) {\n  return\
     \ w + vertex;\n}\ni64 f_ev(std::monostate, const i64 edge) {\n  return edge;\n\
-    }\n\nint main() {\n  i64 n;\n  std::cin >> n;\n\n  tools::dp_with_rerooting<std::monostate,\
-    \ i64, i64, monoid, f_ve, f_ev> dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
+    }\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n\n  tools::dp_with_rerooting<std::monostate, i64,\
+    \ i64, monoid, f_ve, f_ev> dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
     \  }\n  for (i64 i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin >> s\
     \ >> t >> w;\n    dp.add_edge(s, t, w);\n  }\n\n  const std::vector<i64> result\
     \ = dp.query();\n  std::cout << *std::max_element(result.begin(), result.end())\
     \ << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <algorithm>\n#include <variant>\n\
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_A\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <algorithm>\n#include <variant>\n\
     #include <vector>\n#include \"tools/dp_with_rerooting.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
     \nstruct monoid {\n  using T = i64;\n  static T op(const T x, const T y) {\n \
     \   return std::max(x, y);\n  }\n  static T e() {\n    return 0;\n  }\n};\n\n\
     i64 f_ve(const i64 w, const i64 vertex) {\n  return w + vertex;\n}\ni64 f_ev(std::monostate,\
-    \ const i64 edge) {\n  return edge;\n}\n\nint main() {\n  i64 n;\n  std::cin >>\
-    \ n;\n\n  tools::dp_with_rerooting<std::monostate, i64, i64, monoid, f_ve, f_ev>\
-    \ dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
+    \ const i64 edge) {\n  return edge;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n\n  tools::dp_with_rerooting<std::monostate,\
+    \ i64, i64, monoid, f_ve, f_ev> dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
     \  }\n  for (i64 i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin >> s\
     \ >> t >> w;\n    dp.add_edge(s, t, w);\n  }\n\n  const std::vector<i64> result\
     \ = dp.query();\n  std::cout << *std::max_element(result.begin(), result.end())\
@@ -134,7 +135,7 @@ data:
   isVerificationFile: true
   path: tests/dp_with_rerooting.test.cpp
   requiredBy: []
-  timestamp: '2021-07-11 19:51:40+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dp_with_rerooting.test.cpp

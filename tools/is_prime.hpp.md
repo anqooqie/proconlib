@@ -15,12 +15,18 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
-    title: Prime factorization
+    title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -92,16 +98,18 @@ data:
   path: tools/is_prime.hpp
   requiredBy:
   - tools/totient.hpp
+  - tools/divisors.hpp
   - tools/prime_factorization.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
+  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/is_prime.hpp
 layout: document
-title: Primality test
+title: Miller-Rabin primality test
 ---
 
 ```cpp
@@ -112,7 +120,10 @@ It returns `true` if $n$ is a prime, and `false` if $n$ is not a prime.
 It implements a deterministic variant of Miller-Rabin primality test.
 
 ## Constraints
-- $0 \leq n \leq 2^{64} - 1$
+- $0 \leq n < 2^{64}$
+
+## Time Complexity
+- $O(\log n)$
 
 ## References
 - [ミラー-ラビン素数判定法 - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%A9%E3%83%BC%E2%80%93%E3%83%A9%E3%83%93%E3%83%B3%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A%E6%B3%95)

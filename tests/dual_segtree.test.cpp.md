@@ -43,7 +43,8 @@ data:
     \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
     \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/dual_segtree.hpp\"\
     \n\n\n\n#include <cstddef>\n#include <vector>\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\nnamespace tools {\n\n  inline std::uint32_t\
+    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
     \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
     \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
     \      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x & (x - 1)) == 0) ?\
@@ -88,17 +89,19 @@ data:
     \        }\n      }\n    }\n\n    T get(const ::std::size_t a) {\n      const\
     \ ::std::size_t node_id = a + this->capacity();\n      this->thrust(node_id);\n\
     \      return this->lazy[node_id];\n    }\n  };\n}\n\n\n#line 8 \"tests/dual_segtree.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  i64 n, q;\n  std::cin >>\
-    \ n >> q;\n\n  tools::dual_segtree<tools::monoid::update<i64, -1>> dual_segtree(n);\n\
-    \  for (i64 i = 0; i < q; ++i) {\n    i64 type;\n    std::cin >> type;\n    if\
-    \ (type == 0) {\n      i64 s, t, x;\n      std::cin >> s >> t >> x;\n      dual_segtree.apply(s,\
+    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 n, q;\n  std::cin >> n >> q;\n\
+    \n  tools::dual_segtree<tools::monoid::update<i64, -1>> dual_segtree(n);\n  for\
+    \ (i64 i = 0; i < q; ++i) {\n    i64 type;\n    std::cin >> type;\n    if (type\
+    \ == 0) {\n      i64 s, t, x;\n      std::cin >> s >> t >> x;\n      dual_segtree.apply(s,\
     \ t + 1, x);\n    } else {\n      i64 i;\n      std::cin >> i;\n      std::cout\
     \ << tools::monoid::update<i64, -1>::op(dual_segtree.get(i), tools::pow2<i64>(31)\
     \ - 1) << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D\"\n\n\
     #include <cstdint>\n#include <iostream>\n#include \"tools/monoid.hpp\"\n#include\
     \ \"tools/dual_segtree.hpp\"\n#include \"tools/pow2.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  i64 n, q;\n  std::cin >> n >> q;\n\n  tools::dual_segtree<tools::monoid::update<i64,\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n, q;\n  std::cin >> n >> q;\n\n  tools::dual_segtree<tools::monoid::update<i64,\
     \ -1>> dual_segtree(n);\n  for (i64 i = 0; i < q; ++i) {\n    i64 type;\n    std::cin\
     \ >> type;\n    if (type == 0) {\n      i64 s, t, x;\n      std::cin >> s >> t\
     \ >> x;\n      dual_segtree.apply(s, t + 1, x);\n    } else {\n      i64 i;\n\
@@ -112,7 +115,7 @@ data:
   isVerificationFile: true
   path: tests/dual_segtree.test.cpp
   requiredBy: []
-  timestamp: '2021-06-27 14:42:03+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dual_segtree.test.cpp

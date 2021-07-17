@@ -45,7 +45,8 @@ data:
     \ N> pow = 1; pow <= antilogarithm; pow = (pow <= threshold ? pow * base : antilogarithm\
     \ + 1)) {\n      ++logarithm;\n    }\n\n    return logarithm - 1;\n  }\n}\n\n\n\
     #line 6 \"tests/floor_log.test.cpp\"\n\nvoid assert_that(const bool cond) {\n\
-    \  if (!cond) {\n    std::exit(EXIT_FAILURE);\n  }\n}\n\nint main() {\n  assert_that(tools::floor_log(2,\
+    \  if (!cond) {\n    std::exit(EXIT_FAILURE);\n  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::floor_log(2,\
     \ 1) == 0);\n  assert_that(tools::floor_log(2, 2) == 1);\n  assert_that(tools::floor_log(2,\
     \ 3) == 1);\n  assert_that(tools::floor_log(2, 4) == 2);\n  assert_that(tools::floor_log(2,\
     \ 5) == 2);\n  assert_that(tools::floor_log(2, 6) == 2);\n  assert_that(tools::floor_log(2,\
@@ -70,7 +71,8 @@ data:
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <cstdlib>\n#include <iostream>\n#include \"tools/floor_log.hpp\"\n\n\
     void assert_that(const bool cond) {\n  if (!cond) {\n    std::exit(EXIT_FAILURE);\n\
-    \  }\n}\n\nint main() {\n  assert_that(tools::floor_log(2, 1) == 0);\n  assert_that(tools::floor_log(2,\
+    \  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  assert_that(tools::floor_log(2, 1) == 0);\n  assert_that(tools::floor_log(2,\
     \ 2) == 1);\n  assert_that(tools::floor_log(2, 3) == 1);\n  assert_that(tools::floor_log(2,\
     \ 4) == 2);\n  assert_that(tools::floor_log(2, 5) == 2);\n  assert_that(tools::floor_log(2,\
     \ 6) == 2);\n  assert_that(tools::floor_log(2, 7) == 2);\n  assert_that(tools::floor_log(2,\
@@ -99,7 +101,7 @@ data:
   isVerificationFile: true
   path: tests/floor_log.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/floor_log.test.cpp

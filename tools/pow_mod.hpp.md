@@ -12,15 +12,21 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
-    title: Primality test
+    title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
-    title: Prime factorization
+    title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -72,12 +78,14 @@ data:
   requiredBy:
   - tools/totient.hpp
   - tools/is_prime.hpp
+  - tools/divisors.hpp
   - tools/prime_factorization.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
+  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
@@ -86,10 +94,17 @@ title: $x^y \pmod{M}$
 
 ```cpp
 template <typename T1, typename T2, typename T3>
-constexpr T3 pow_mod(const T1 x, T2 y, const T3 M);
+constexpr T3 pow_mod(T1 x, T2 y, T3 M);
 ```
 
 It returns $x^y \pmod{M}$.
+
+## Constraints
+- $y \geq 0$
+- $M \geq 1$
+
+## Time Complexity
+- $O(\log y)$
 
 ## License
 - CC0

@@ -12,7 +12,7 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dp_with_rerooting.hpp\"\n\n\n\n#include <cstddef>\n\
-    #include <vector>\n#include <limits>\n#include <stack>\n#include <utility>\n#include\
+    #include <vector>\n#include <limits>\n#include <stack>\n#include <tuple>\n#include\
     \ <algorithm>\n\nnamespace tools {\n  template <typename V, typename E, typename\
     \ R, typename M, typename M::T (*f_ve)(E, R), R (*f_ev)(V, typename M::T)>\n \
     \ class dp_with_rerooting {\n  private:\n    class adjacency {\n    public:\n\
@@ -102,7 +102,7 @@ data:
     \      }\n      return result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_DP_WITH_REROOTING_HPP\n#define TOOLS_DP_WITH_REROOTING_HPP\n\
     \n#include <cstddef>\n#include <vector>\n#include <limits>\n#include <stack>\n\
-    #include <utility>\n#include <algorithm>\n\nnamespace tools {\n  template <typename\
+    #include <tuple>\n#include <algorithm>\n\nnamespace tools {\n  template <typename\
     \ V, typename E, typename R, typename M, typename M::T (*f_ve)(E, R), R (*f_ev)(V,\
     \ typename M::T)>\n  class dp_with_rerooting {\n  private:\n    class adjacency\
     \ {\n    public:\n      ::std::size_t to;\n      E attribute;\n\n      adjacency()\
@@ -193,7 +193,7 @@ data:
   isVerificationFile: false
   path: tools/dp_with_rerooting.hpp
   requiredBy: []
-  timestamp: '2021-07-11 19:51:40+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dp_with_rerooting.test.cpp

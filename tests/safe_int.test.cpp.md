@@ -85,7 +85,54 @@ data:
     \ operator*(const safe_int<T>& lhs, const U& rhs) {\n      return lhs * safe_int<T>(rhs);\n\
     \    }\n  };\n}\n\n\n#line 6 \"tests/safe_int.test.cpp\"\n\nvoid assert_that(const\
     \ bool cond) {\n  if (!cond) {\n    std::exit(EXIT_FAILURE);\n  }\n}\n\nint main()\
-    \ {\n  const int POS_INF = std::numeric_limits<int>::max();\n  const int NEG_INF\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  const\
+    \ int POS_INF = std::numeric_limits<int>::max();\n  const int NEG_INF = std::numeric_limits<int>::min();\n\
+    \  const int INT_MAX = std::numeric_limits<int>::max();\n  const int INT_MIN =\
+    \ std::numeric_limits<int>::min();\n  using s = tools::safe_int<int>;\n\n  assert_that(s(1)\
+    \ + s(2) == s(3));\n  assert_that(s(1) + 2 == s(3));\n  assert_that(1 + s(2) ==\
+    \ s(3));\n\n  assert_that(s(INT_MAX - 2) + s(1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX\
+    \ - 2) + s(2) == s(POS_INF));\n  assert_that(s(INT_MAX - 2) + s(3) == s(POS_INF));\n\
+    \  assert_that(s(1) + s(INT_MAX - 2) == s(INT_MAX - 1));\n  assert_that(s(2) +\
+    \ s(INT_MAX - 2) == s(POS_INF));\n  assert_that(s(3) + s(INT_MAX - 2) == s(POS_INF));\n\
+    \  assert_that(s(INT_MIN + 2) + s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN\
+    \ + 2) + s(-2) == s(NEG_INF));\n  assert_that(s(INT_MIN + 2) + s(-3) == s(NEG_INF));\n\
+    \  assert_that(s(-1) + s(INT_MIN + 2) == s(INT_MIN + 1));\n  assert_that(s(-2)\
+    \ + s(INT_MIN + 2) == s(NEG_INF));\n  assert_that(s(-3) + s(INT_MIN + 2) == s(NEG_INF));\n\
+    \n  assert_that(s(POS_INF) + s(-1) == s(POS_INF));\n  assert_that(s(-1) + s(POS_INF)\
+    \ == s(POS_INF));\n  assert_that(s(POS_INF) + s(POS_INF) == s(POS_INF));\n  assert_that(s(NEG_INF)\
+    \ + s(1) == s(NEG_INF));\n  assert_that(s(1) + s(NEG_INF) == s(NEG_INF));\n  assert_that(s(NEG_INF)\
+    \ + s(NEG_INF) == s(NEG_INF));\n\n  assert_that(s(1) - s(2) == s(-1));\n  assert_that(s(1)\
+    \ - 2 == s(-1));\n  assert_that(1 - s(2) == s(-1));\n\n  assert_that(s(INT_MAX\
+    \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(POS_INF));\n\
+    \  assert_that(s(INT_MAX - 2) - s(-3) == s(POS_INF));\n  assert_that(s(INT_MIN\
+    \ + 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(NEG_INF));\n\
+    \  assert_that(s(INT_MIN + 2) - s(3) == s(NEG_INF));\n\n  assert_that(s(POS_INF)\
+    \ - s(1) == s(POS_INF));\n  assert_that(s(POS_INF) - s(NEG_INF) == s(POS_INF));\n\
+    \  assert_that(s(NEG_INF) - s(-1) == s(NEG_INF));\n  assert_that(s(NEG_INF) -\
+    \ s(POS_INF) == s(NEG_INF));\n\n  assert_that(s(1) * s(2) == s(2));\n  assert_that(s(1)\
+    \ * 2 == s(2));\n  assert_that(1 * s(2) == s(2));\n\n  assert_that(s(NEG_INF)\
+    \ * s(NEG_INF) == s(POS_INF));\n  assert_that(s(NEG_INF) * s(INT_MIN + 1) == s(POS_INF));\n\
+    \  assert_that(s(NEG_INF) * s(0) == s(0));\n  assert_that(s(NEG_INF) * s(INT_MAX\
+    \ - 1) == s(NEG_INF));\n  assert_that(s(NEG_INF) * s(POS_INF) == s(NEG_INF));\n\
+    \  assert_that(s(INT_MIN + 1) * s(NEG_INF) == s(POS_INF));\n  assert_that(s(INT_MIN\
+    \ + 1) * s(INT_MIN + 1) == s(POS_INF));\n  assert_that(s(INT_MIN + 1) * s(0) ==\
+    \ s(0));\n  assert_that(s(INT_MIN + 1) * s(INT_MAX - 1) == s(NEG_INF));\n  assert_that(s(INT_MIN\
+    \ + 1) * s(POS_INF) == s(NEG_INF));\n  assert_that(s(0) * s(NEG_INF) == s(0));\n\
+    \  assert_that(s(0) * s(INT_MIN + 1) == s(0));\n  assert_that(s(0) * s(0) == s(0));\n\
+    \  assert_that(s(0) * s(INT_MAX - 1) == s(0));\n  assert_that(s(0) * s(POS_INF)\
+    \ == s(0));\n  assert_that(s(INT_MAX - 1) * s(NEG_INF) == s(NEG_INF));\n  assert_that(s(INT_MAX\
+    \ - 1) * s(INT_MIN + 1) == s(NEG_INF));\n  assert_that(s(INT_MAX - 1) * s(0) ==\
+    \ s(0));\n  assert_that(s(INT_MAX - 1) * s(INT_MAX - 1) == s(POS_INF));\n  assert_that(s(INT_MAX\
+    \ - 1) * s(POS_INF) == s(POS_INF));\n  assert_that(s(POS_INF) * s(NEG_INF) ==\
+    \ s(NEG_INF));\n  assert_that(s(POS_INF) * s(INT_MIN + 1) == s(NEG_INF));\n  assert_that(s(POS_INF)\
+    \ * s(0) == s(0));\n  assert_that(s(POS_INF) * s(INT_MAX - 1) == s(POS_INF));\n\
+    \  assert_that(s(POS_INF) * s(POS_INF) == s(POS_INF));\n\n  std::cout << \"Hello\
+    \ World\" << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <cstdlib>\n#include <iostream>\n#include \"tools/safe_int.hpp\"\n\nvoid\
+    \ assert_that(const bool cond) {\n  if (!cond) {\n    std::exit(EXIT_FAILURE);\n\
+    \  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  const int POS_INF = std::numeric_limits<int>::max();\n  const int NEG_INF\
     \ = std::numeric_limits<int>::min();\n  const int INT_MAX = std::numeric_limits<int>::max();\n\
     \  const int INT_MIN = std::numeric_limits<int>::min();\n  using s = tools::safe_int<int>;\n\
     \n  assert_that(s(1) + s(2) == s(3));\n  assert_that(s(1) + 2 == s(3));\n  assert_that(1\
@@ -128,58 +175,12 @@ data:
     \ * s(0) == s(0));\n  assert_that(s(POS_INF) * s(INT_MAX - 1) == s(POS_INF));\n\
     \  assert_that(s(POS_INF) * s(POS_INF) == s(POS_INF));\n\n  std::cout << \"Hello\
     \ World\" << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <cstdlib>\n#include <iostream>\n#include \"tools/safe_int.hpp\"\n\nvoid\
-    \ assert_that(const bool cond) {\n  if (!cond) {\n    std::exit(EXIT_FAILURE);\n\
-    \  }\n}\n\nint main() {\n  const int POS_INF = std::numeric_limits<int>::max();\n\
-    \  const int NEG_INF = std::numeric_limits<int>::min();\n  const int INT_MAX =\
-    \ std::numeric_limits<int>::max();\n  const int INT_MIN = std::numeric_limits<int>::min();\n\
-    \  using s = tools::safe_int<int>;\n\n  assert_that(s(1) + s(2) == s(3));\n  assert_that(s(1)\
-    \ + 2 == s(3));\n  assert_that(1 + s(2) == s(3));\n\n  assert_that(s(INT_MAX -\
-    \ 2) + s(1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) + s(2) == s(POS_INF));\n\
-    \  assert_that(s(INT_MAX - 2) + s(3) == s(POS_INF));\n  assert_that(s(1) + s(INT_MAX\
-    \ - 2) == s(INT_MAX - 1));\n  assert_that(s(2) + s(INT_MAX - 2) == s(POS_INF));\n\
-    \  assert_that(s(3) + s(INT_MAX - 2) == s(POS_INF));\n  assert_that(s(INT_MIN\
-    \ + 2) + s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(NEG_INF));\n\
-    \  assert_that(s(INT_MIN + 2) + s(-3) == s(NEG_INF));\n  assert_that(s(-1) + s(INT_MIN\
-    \ + 2) == s(INT_MIN + 1));\n  assert_that(s(-2) + s(INT_MIN + 2) == s(NEG_INF));\n\
-    \  assert_that(s(-3) + s(INT_MIN + 2) == s(NEG_INF));\n\n  assert_that(s(POS_INF)\
-    \ + s(-1) == s(POS_INF));\n  assert_that(s(-1) + s(POS_INF) == s(POS_INF));\n\
-    \  assert_that(s(POS_INF) + s(POS_INF) == s(POS_INF));\n  assert_that(s(NEG_INF)\
-    \ + s(1) == s(NEG_INF));\n  assert_that(s(1) + s(NEG_INF) == s(NEG_INF));\n  assert_that(s(NEG_INF)\
-    \ + s(NEG_INF) == s(NEG_INF));\n\n  assert_that(s(1) - s(2) == s(-1));\n  assert_that(s(1)\
-    \ - 2 == s(-1));\n  assert_that(1 - s(2) == s(-1));\n\n  assert_that(s(INT_MAX\
-    \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(POS_INF));\n\
-    \  assert_that(s(INT_MAX - 2) - s(-3) == s(POS_INF));\n  assert_that(s(INT_MIN\
-    \ + 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(NEG_INF));\n\
-    \  assert_that(s(INT_MIN + 2) - s(3) == s(NEG_INF));\n\n  assert_that(s(POS_INF)\
-    \ - s(1) == s(POS_INF));\n  assert_that(s(POS_INF) - s(NEG_INF) == s(POS_INF));\n\
-    \  assert_that(s(NEG_INF) - s(-1) == s(NEG_INF));\n  assert_that(s(NEG_INF) -\
-    \ s(POS_INF) == s(NEG_INF));\n\n  assert_that(s(1) * s(2) == s(2));\n  assert_that(s(1)\
-    \ * 2 == s(2));\n  assert_that(1 * s(2) == s(2));\n\n  assert_that(s(NEG_INF)\
-    \ * s(NEG_INF) == s(POS_INF));\n  assert_that(s(NEG_INF) * s(INT_MIN + 1) == s(POS_INF));\n\
-    \  assert_that(s(NEG_INF) * s(0) == s(0));\n  assert_that(s(NEG_INF) * s(INT_MAX\
-    \ - 1) == s(NEG_INF));\n  assert_that(s(NEG_INF) * s(POS_INF) == s(NEG_INF));\n\
-    \  assert_that(s(INT_MIN + 1) * s(NEG_INF) == s(POS_INF));\n  assert_that(s(INT_MIN\
-    \ + 1) * s(INT_MIN + 1) == s(POS_INF));\n  assert_that(s(INT_MIN + 1) * s(0) ==\
-    \ s(0));\n  assert_that(s(INT_MIN + 1) * s(INT_MAX - 1) == s(NEG_INF));\n  assert_that(s(INT_MIN\
-    \ + 1) * s(POS_INF) == s(NEG_INF));\n  assert_that(s(0) * s(NEG_INF) == s(0));\n\
-    \  assert_that(s(0) * s(INT_MIN + 1) == s(0));\n  assert_that(s(0) * s(0) == s(0));\n\
-    \  assert_that(s(0) * s(INT_MAX - 1) == s(0));\n  assert_that(s(0) * s(POS_INF)\
-    \ == s(0));\n  assert_that(s(INT_MAX - 1) * s(NEG_INF) == s(NEG_INF));\n  assert_that(s(INT_MAX\
-    \ - 1) * s(INT_MIN + 1) == s(NEG_INF));\n  assert_that(s(INT_MAX - 1) * s(0) ==\
-    \ s(0));\n  assert_that(s(INT_MAX - 1) * s(INT_MAX - 1) == s(POS_INF));\n  assert_that(s(INT_MAX\
-    \ - 1) * s(POS_INF) == s(POS_INF));\n  assert_that(s(POS_INF) * s(NEG_INF) ==\
-    \ s(NEG_INF));\n  assert_that(s(POS_INF) * s(INT_MIN + 1) == s(NEG_INF));\n  assert_that(s(POS_INF)\
-    \ * s(0) == s(0));\n  assert_that(s(POS_INF) * s(INT_MAX - 1) == s(POS_INF));\n\
-    \  assert_that(s(POS_INF) * s(POS_INF) == s(POS_INF));\n\n  std::cout << \"Hello\
-    \ World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/safe_int.hpp
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2021-06-12 04:14:22+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp

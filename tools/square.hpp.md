@@ -7,7 +7,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
-    title: $b^n$ under the given monoid
+    title: $b^n$ under a given monoid
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
@@ -60,7 +60,7 @@ data:
   - tests/totient.test.cpp
 documentation_of: tools/square.hpp
 layout: document
-title: $x^2$ under the given monoid
+title: $x^2$ under a given monoid
 ---
 
 ```cpp
@@ -71,7 +71,8 @@ template <typename T>
 T square(T x);
 ```
 
-It returns $x^2$ under the given monoid.
+It returns $x^2$ under a given monoid.
+The default monoid is $(\mathbb{Z}, \times)$.
 
 ## License
 - CC0

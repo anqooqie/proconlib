@@ -14,10 +14,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/challenges/sources/JOI/Final/0560
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/0560
     links:
-    - https://onlinejudge.u-aizu.ac.jp/challenges/sources/JOI/Final/0560
-  bundledCode: "#line 1 \"tests/cumsum2d.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/JOI/Final/0560\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/0560
+  bundledCode: "#line 1 \"tests/cumsum2d.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/0560\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n\
     #include <algorithm>\n#include <iterator>\n#line 1 \"tools/cumsum2d.hpp\"\n\n\n\
     \n#line 6 \"tools/cumsum2d.hpp\"\n#include <cstddef>\n#include <utility>\n\nnamespace\
@@ -63,8 +63,9 @@ data:
     \     T new_v(N);\n        for (::std::size_t i = 0; i < N; ++i) {\n         \
     \ new_v[v[i]] = i;\n        }\n        return new_v;\n      }\n    };\n  }\n}\n\
     \n\n#line 11 \"tests/cumsum2d.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  i64 M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string>\
-    \ map;\n  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string> map;\n\
+    \  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
     \ M, std::back_inserter(map));\n\n  std::vector<std::vector<i64>> J(M, std::vector<i64>(N,\
     \ 0));\n  std::vector<std::vector<i64>> O(M, std::vector<i64>(N, 0));\n  std::vector<std::vector<i64>>\
     \ I(M, std::vector<i64>(N, 0));\n  for (i64 y = 0; y < M; ++y) {\n    for (i64\
@@ -77,18 +78,18 @@ data:
     \ >> c >> d;\n    --a;\n    --b;\n    std::cout << J_cumsum.query(b, a, d, c)\
     \ << ' ' << O_cumsum.query(b, a, d, c) << ' ' << I_cumsum.query(b, a, d, c) <<\
     \ '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/challenges/sources/JOI/Final/0560\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n\
-    #include <algorithm>\n#include <iterator>\n#include \"tools/cumsum2d.hpp\"\n#include\
-    \ \"tools/group.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  i64\
-    \ M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string> map;\n  map.reserve(M);\n\
-    \  std::copy_n(std::istream_iterator<std::string>(std::cin), M, std::back_inserter(map));\n\
-    \n  std::vector<std::vector<i64>> J(M, std::vector<i64>(N, 0));\n  std::vector<std::vector<i64>>\
-    \ O(M, std::vector<i64>(N, 0));\n  std::vector<std::vector<i64>> I(M, std::vector<i64>(N,\
-    \ 0));\n  for (i64 y = 0; y < M; ++y) {\n    for (i64 x = 0; x < N; ++x) {\n \
-    \     switch (map[y][x]) {\n      case 'J':\n        ++J[y][x];\n        break;\n\
-    \      case 'O':\n        ++O[y][x];\n        break;\n      case 'I':\n      \
-    \  ++I[y][x];\n        break;\n      }\n    }\n  }\n\n  tools::cumsum2d<tools::group::plus<i64>>\
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/0560\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n#include\
+    \ <algorithm>\n#include <iterator>\n#include \"tools/cumsum2d.hpp\"\n#include\
+    \ \"tools/group.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 M, N, K;\n  std::cin >> M >>\
+    \ N >> K;\n  std::vector<std::string> map;\n  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
+    \ M, std::back_inserter(map));\n\n  std::vector<std::vector<i64>> J(M, std::vector<i64>(N,\
+    \ 0));\n  std::vector<std::vector<i64>> O(M, std::vector<i64>(N, 0));\n  std::vector<std::vector<i64>>\
+    \ I(M, std::vector<i64>(N, 0));\n  for (i64 y = 0; y < M; ++y) {\n    for (i64\
+    \ x = 0; x < N; ++x) {\n      switch (map[y][x]) {\n      case 'J':\n        ++J[y][x];\n\
+    \        break;\n      case 'O':\n        ++O[y][x];\n        break;\n      case\
+    \ 'I':\n        ++I[y][x];\n        break;\n      }\n    }\n  }\n\n  tools::cumsum2d<tools::group::plus<i64>>\
     \ J_cumsum(J.begin(), J.end());\n  tools::cumsum2d<tools::group::plus<i64>> O_cumsum(O.begin(),\
     \ O.end());\n  tools::cumsum2d<tools::group::plus<i64>> I_cumsum(I.begin(), I.end());\n\
     \n  for (i64 i = 0; i < K; ++i) {\n    i64 a, b, c, d;\n    std::cin >> a >> b\
@@ -101,7 +102,7 @@ data:
   isVerificationFile: true
   path: tests/cumsum2d.test.cpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cumsum2d.test.cpp
