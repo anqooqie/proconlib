@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
   - icon: ':heavy_check_mark:'
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis.test.cpp
+    title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
@@ -63,6 +69,7 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
+  - tools/lis.hpp
   - tools/totient.hpp
   - tools/square.hpp
   - tools/pow.hpp
@@ -71,6 +78,7 @@ data:
   verifiedWith:
   - tests/totient.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

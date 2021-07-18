@@ -35,8 +35,7 @@ data:
     \    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
     \ ::std::end(x), ::std::true_type{});\n    static ::std::false_type check(...);\n\
     \n  public:\n    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
-    \  };\n}\n\n\n#line 9 \"tools/fill.hpp\"\n\n// Source: https://koyumeishi.hatenablog.com/entry/2016/02/01/152426\n\
-    // License: unknown\n// Author: koyumeishi\n\nnamespace tools {\n  template <class\
+    \  };\n}\n\n\n#line 9 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class\
     \ T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>& vector,\
     \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
     \    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n  }\n  template\
@@ -148,7 +147,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2021-07-17 23:00:45+09:00'
+  timestamp: '2021-07-18 21:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp

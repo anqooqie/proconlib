@@ -1,11 +1,17 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/largest_rectangle_in_histogram.hpp
+    title: Largest rectangle in histogram
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/largest_rectangle_in_histogram.test.cpp
+    title: tests/largest_rectangle_in_histogram.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmax.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -19,10 +25,12 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/chmax.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/largest_rectangle_in_histogram.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/largest_rectangle_in_histogram.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

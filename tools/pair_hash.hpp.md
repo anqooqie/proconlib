@@ -2,13 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
+    path: tools/ccw.hpp
+    title: Counter clockwise function
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/chromatic_number.test.cpp
+    title: tests/chromatic_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -98,9 +104,11 @@ data:
   path: tools/pair_hash.hpp
   requiredBy:
   - tools/vector2.hpp
+  - tools/ccw.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/pair_hash.hpp
 layout: document
 title: Hash of std::pair

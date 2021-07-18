@@ -3,12 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/chromatic_number.hpp
+    title: Chromatic number
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/chromatic_number.test.cpp
+    title: tests/chromatic_number.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
@@ -67,11 +73,13 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
+  - tools/chromatic_number.hpp
   - tools/floor_log2.hpp
   - tools/ntz.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/chromatic_number.test.cpp
   - tests/floor_log2.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document

@@ -8,10 +8,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
+  - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis.test.cpp
+    title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
@@ -35,6 +41,7 @@ data:
   isVerificationFile: false
   path: tools/lower_bound.hpp
   requiredBy:
+  - tools/lis.hpp
   - tools/compress.hpp
   - tools/inversion_number.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -42,6 +49,7 @@ data:
   verifiedWith:
   - tests/inversion_number.test.cpp
   - tests/tsort.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index

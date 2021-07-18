@@ -4,11 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/chromatic_number.hpp
+    title: Chromatic number
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/chromatic_number.test.cpp
+    title: tests/chromatic_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ntz.hpp\"\n\n\n\n#include <cstdint>\n#line 1 \"tools/popcount.hpp\"\
@@ -52,10 +58,12 @@ data:
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/ntz.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/chromatic_number.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/ntz.hpp
 layout: document
 title: Number of trailing zeros

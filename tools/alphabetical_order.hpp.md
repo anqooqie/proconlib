@@ -57,7 +57,6 @@ data:
   - tests/alphabetical_order.test.cpp
 documentation_of: tools/alphabetical_order.hpp
 layout: document
-license: CC0
 title: Alphabetical order of a given character
 ---
 

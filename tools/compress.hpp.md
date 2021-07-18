@@ -8,10 +8,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
+  - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis.test.cpp
+    title: tests/lis.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -46,11 +52,13 @@ data:
   isVerificationFile: false
   path: tools/compress.hpp
   requiredBy:
+  - tools/lis.hpp
   - tools/inversion_number.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/inversion_number.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/compress.hpp
 layout: document
 title: Compress values

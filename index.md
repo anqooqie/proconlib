@@ -16,6 +16,9 @@ data:
       path: tools/binary_heap.hpp
       title: Binary heap
     - icon: ':heavy_check_mark:'
+      path: tools/ccw.hpp
+      title: Counter clockwise function
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -24,12 +27,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
     - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
+    - icon: ':heavy_check_mark:'
+      path: tools/chromatic_number.hpp
+      title: Chromatic number
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
@@ -106,6 +112,9 @@ data:
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
+      path: tools/largest_rectangle_in_histogram.hpp
+      title: Largest rectangle in histogram
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':warning:'
@@ -114,6 +123,9 @@ data:
     - icon: ':warning:'
       path: tools/less_by_second.hpp
       title: std::less by second
+    - icon: ':heavy_check_mark:'
+      path: tools/lis.hpp
+      title: Longest increasing subsequence
     - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
@@ -138,13 +150,13 @@ data:
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
     - icon: ':warning:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/pair_hash.hpp
       title: Hash of std::pair
     - icon: ':warning:'
@@ -225,7 +237,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: tools/vector.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: 2D vector
     - icon: ':heavy_check_mark:'
@@ -257,6 +269,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/ceil_log2.test.cpp
       title: tests/ceil_log2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/chromatic_number.test.cpp
+      title: tests/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
@@ -290,6 +305,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/largest_rectangle_in_histogram.test.cpp
+      title: tests/largest_rectangle_in_histogram.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lis.test.cpp
+      title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/matrix.test.cpp
       title: tests/matrix.test.cpp
