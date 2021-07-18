@@ -7,10 +7,6 @@
 #include <iterator>
 #include "tools/is_range.hpp"
 
-// Source: https://koyumeishi.hatenablog.com/entry/2016/02/01/152426
-// License: unknown
-// Author: koyumeishi
-
 namespace tools {
   template <class T, class Allocator, typename V>
   auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {

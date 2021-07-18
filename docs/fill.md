@@ -24,7 +24,7 @@ After calling `tools::fill(v, -1);`, all of `v[x][y][z]` will be $-1$.
 - [C++ の 再帰template を使ったあまり使えない競プロ用 std::vector 操作テク - koyumeishiのブログ](https://koyumeishi.hatenablog.com/entry/2016/02/01/152426)
 
 ## License
-- Unknown
+- CC0
 
 ## Author
-- koyumeishi
+- anqooqie

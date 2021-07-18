@@ -1,7 +1,6 @@
 ---
 title: Alphabetical order of a given character
 documentation_of: //tools/alphabetical_order.hpp
-license: CC0
 ---
 
 ```cpp

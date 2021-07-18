@@ -32,12 +32,12 @@ namespace tools {
       return ::std::sqrt(this->squaredNorm());
     }
 
-    T squaredNorm() const {
+    T squared_norm() const {
       return this->inner_product(*this);
     }
 
     template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T, double>::value, ::std::nullptr_t>::type = nullptr>
-    double normalize() const {
+    ::tools::vector2<double> normalized() const {
       return *this / this->norm();
     }
 
@@ -73,6 +73,10 @@ namespace tools {
 
     T inner_product(const ::tools::vector2<T>& other) const {
       return this->x * other.x + this->y * other.y;
+    }
+
+    T outer_product(const ::tools::vector2<T>& other) const {
+      return this->x * other.y - this->y * other.x;
     }
 
     ::tools::vector2<T>& operator+=(const ::tools::vector2<T>& other) {
