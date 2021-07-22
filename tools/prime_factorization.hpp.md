@@ -21,12 +21,18 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -123,12 +129,14 @@ data:
   path: tools/prime_factorization.hpp
   requiredBy:
   - tools/totient.hpp
+  - tools/extended_lucas.hpp
   - tools/divisors.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document

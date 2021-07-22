@@ -15,6 +15,9 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -27,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -77,6 +83,7 @@ data:
   path: tools/pow_mod.hpp
   requiredBy:
   - tools/totient.hpp
+  - tools/extended_lucas.hpp
   - tools/is_prime.hpp
   - tools/divisors.hpp
   - tools/prime_factorization.hpp
@@ -86,6 +93,7 @@ data:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document

@@ -139,8 +139,8 @@ data:
     \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n    return is >>\
     \ self.x >> self.y;\n  }\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
-    \ ::tools::vector2<T>& a,  ::tools::vector2<T> b, ::tools::vector2<T> c) {\n \
-    \   b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
+    \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
+    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
     \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm()\
     \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 1 \"tools/chromatic_number.hpp\"\
     \n\n\n\n#line 7 \"tools/chromatic_number.hpp\"\n#include <cassert>\n#line 1 \"\
@@ -445,7 +445,7 @@ data:
   isVerificationFile: true
   path: tests/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2021-07-18 21:35:11+09:00'
+  timestamp: '2021-07-22 15:31:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/chromatic_number.test.cpp

@@ -8,13 +8,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
+  - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
+    path: tools/garner.hpp
+    title: Garner's algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/inv_mod.hpp
+    title: $x^{-1} \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/garner.test.cpp
+    title: tests/garner.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -48,11 +63,16 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
+  - tools/garner.hpp
+  - tools/inv_mod.hpp
+  - tools/extended_lucas.hpp
   - tools/bezout.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extgcd.test.cpp
+  - tests/garner.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document

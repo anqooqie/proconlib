@@ -58,6 +58,9 @@ data:
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':heavy_check_mark:'
+      path: tools/extended_lucas.hpp
+      title: Extended Lucas' theorem
+    - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
@@ -84,6 +87,9 @@ data:
     - icon: ':warning:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
+    - icon: ':heavy_check_mark:'
+      path: tools/garner.hpp
+      title: Garner's algorithm
     - icon: ':warning:'
       path: tools/greater_by.hpp
       title: std::greater by key
@@ -99,6 +105,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/interval_set.hpp
       title: Set of closed intervals
+    - icon: ':heavy_check_mark:'
+      path: tools/inv_mod.hpp
+      title: $x^{-1} \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
@@ -117,6 +126,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
+    - icon: ':warning:'
+      path: tools/less_by_arg.hpp
+      title: std::less by argument
     - icon: ':warning:'
       path: tools/less_by_first.hpp
       title: std::less by first
@@ -204,9 +216,9 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/safe_int.hpp
-      title: Integer type with $\infty$ and $-\infty$
+      title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
     - icon: ':warning:'
       path: tools/signum.hpp
       title: Sign function
@@ -264,6 +276,9 @@ data:
       path: tests/binary_heap.test.cpp
       title: tests/binary_heap.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/ccw.test.cpp
+      title: tests/ccw.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/ceil_log.test.cpp
       title: tests/ceil_log.test.cpp
     - icon: ':heavy_check_mark:'
@@ -288,6 +303,9 @@ data:
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/extended_lucas.test.cpp
+      title: tests/extended_lucas.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/extgcd.test.cpp
       title: tests/extgcd.test.cpp
     - icon: ':heavy_check_mark:'
@@ -299,6 +317,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_log2.test.cpp
       title: tests/floor_log2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/garner.test.cpp
+      title: tests/garner.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
@@ -320,7 +341,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
     - icon: ':heavy_check_mark:'

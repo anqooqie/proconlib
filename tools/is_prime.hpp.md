@@ -18,6 +18,9 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -27,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -98,6 +104,7 @@ data:
   path: tools/is_prime.hpp
   requiredBy:
   - tools/totient.hpp
+  - tools/extended_lucas.hpp
   - tools/divisors.hpp
   - tools/prime_factorization.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -106,6 +113,7 @@ data:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/is_prime.hpp
 layout: document

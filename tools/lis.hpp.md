@@ -20,20 +20,20 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <iterator>\n#include <vector>\n\
-    #include <algorithm>\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/segtree.hpp\"\n#include <cassert>\n#line 7 \"lib/ac-library/atcoder/segtree.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
-    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
-    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
-    }  // namespace atcoder\n\n\n#line 9 \"lib/ac-library/atcoder/segtree.hpp\"\n\n\
-    namespace atcoder {\n\ntemplate <class S, S (*op)(S, S), S (*e)()> struct segtree\
-    \ {\n  public:\n    segtree() : segtree(0) {}\n    segtree(int n) : segtree(std::vector<S>(n,\
+  bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <cstdint>\n#include <iterator>\n\
+    #include <vector>\n#include <algorithm>\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/segtree.hpp\"\n#include <cassert>\n#line\
+    \ 7 \"lib/ac-library/atcoder/segtree.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
+    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
+    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
+    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned\
+    \ int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n    _BitScanForward(&index,\
+    \ n);\n    return index;\n#else\n    return __builtin_ctz(n);\n#endif\n}\n\n}\
+    \  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 9 \"lib/ac-library/atcoder/segtree.hpp\"\
+    \n\nnamespace atcoder {\n\ntemplate <class S, S (*op)(S, S), S (*e)()> struct\
+    \ segtree {\n  public:\n    segtree() : segtree(0) {}\n    segtree(int n) : segtree(std::vector<S>(n,\
     \ e())) {}\n    segtree(const std::vector<S>& v) : _n(int(v.size())) {\n     \
     \   log = internal::ceil_pow2(_n);\n        size = 1 << log;\n        d = std::vector<S>(2\
     \ * size, e());\n        for (int i = 0; i < _n; i++) d[size + i] = v[i];\n  \
@@ -98,28 +98,27 @@ data:
     \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
     \ sorted.end()), sorted.end());\n    for (auto it = orig.begin(); it != orig.end();\
     \ ++it, ++result) {\n      *result = ::tools::lower_bound(sorted.begin(), sorted.end(),\
-    \ *it);\n    }\n  }\n}\n\n\n#line 10 \"tools/lis.hpp\"\n\nnamespace tools {\n\
-    \  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
-    \ lis(const InputIterator& begin, const InputIterator& end, const bool strict)\
-    \ {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    using M = ::tools::monoid::max<T, 0>;\n\n    ::std::vector<T> compressed;\n\
-    \    ::tools::compress(begin, end, ::std::back_inserter(compressed));\n\n    ::atcoder::segtree<T,\
+    \ *it);\n    }\n  }\n}\n\n\n#line 11 \"tools/lis.hpp\"\n\nnamespace tools {\n\
+    \  template <typename InputIterator>\n  ::std::int_fast64_t lis(const InputIterator&\
+    \ begin, const InputIterator& end, const bool strict) {\n    using M = ::tools::monoid::max<::std::int_fast64_t,\
+    \ 0>;\n\n    ::std::vector<::std::int_fast64_t> compressed;\n    ::tools::compress(begin,\
+    \ end, ::std::back_inserter(compressed));\n\n    ::atcoder::segtree<::std::int_fast64_t,\
     \ M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(),\
-    \ compressed.end()) + 1);\n    for (const T& c : compressed) {\n      segtree.set(c,\
-    \ segtree.prod(0, c + (strict ? 0 : 1)) + 1);\n    }\n\n    return segtree.all_prod();\n\
-    \  }\n}\n\n\n"
-  code: "#ifndef TOOLS_LIS_HPP\n#define TOOLS_LIS_HPP\n\n#include <iterator>\n#include\
-    \ <vector>\n#include <algorithm>\n#include \"atcoder/segtree.hpp\"\n#include \"\
-    tools/monoid.hpp\"\n#include \"tools/compress.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
-    \ lis(const InputIterator& begin, const InputIterator& end, const bool strict)\
-    \ {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    using M = ::tools::monoid::max<T, 0>;\n\n    ::std::vector<T> compressed;\n\
-    \    ::tools::compress(begin, end, ::std::back_inserter(compressed));\n\n    ::atcoder::segtree<T,\
-    \ M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(),\
-    \ compressed.end()) + 1);\n    for (const T& c : compressed) {\n      segtree.set(c,\
-    \ segtree.prod(0, c + (strict ? 0 : 1)) + 1);\n    }\n\n    return segtree.all_prod();\n\
-    \  }\n}\n\n#endif\n"
+    \ compressed.end()) + 1);\n    for (const ::std::int_fast64_t& c : compressed)\
+    \ {\n      segtree.set(c, segtree.prod(0, c + (strict ? 0 : 1)) + 1);\n    }\n\
+    \n    return segtree.all_prod();\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_LIS_HPP\n#define TOOLS_LIS_HPP\n\n#include <cstdint>\n#include\
+    \ <iterator>\n#include <vector>\n#include <algorithm>\n#include \"atcoder/segtree.hpp\"\
+    \n#include \"tools/monoid.hpp\"\n#include \"tools/compress.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename InputIterator>\n  ::std::int_fast64_t lis(const\
+    \ InputIterator& begin, const InputIterator& end, const bool strict) {\n    using\
+    \ M = ::tools::monoid::max<::std::int_fast64_t, 0>;\n\n    ::std::vector<::std::int_fast64_t>\
+    \ compressed;\n    ::tools::compress(begin, end, ::std::back_inserter(compressed));\n\
+    \n    ::atcoder::segtree<::std::int_fast64_t, M::op, M::e> segtree(compressed.empty()\
+    \ ? 0 : *::std::max_element(compressed.begin(), compressed.end()) + 1);\n    for\
+    \ (const ::std::int_fast64_t& c : compressed) {\n      segtree.set(c, segtree.prod(0,\
+    \ c + (strict ? 0 : 1)) + 1);\n    }\n\n    return segtree.all_prod();\n  }\n\
+    }\n\n#endif\n"
   dependsOn:
   - tools/monoid.hpp
   - tools/compress.hpp
@@ -127,7 +126,7 @@ data:
   isVerificationFile: false
   path: tools/lis.hpp
   requiredBy: []
-  timestamp: '2021-07-18 21:35:11+09:00'
+  timestamp: '2021-07-22 15:31:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lis.test.cpp
@@ -138,7 +137,7 @@ title: Longest increasing subsequence
 
 ```cpp
 template <typename Iterator>
-typename ::std::iterator_traits<Iterator>::value_type lis(Iterator begin, Iterator end, bool strict);
+std::int_fast64_t lis(Iterator begin, Iterator end, bool strict);
 ```
 
 If `strict` is true, it returns the length of the longest strictly increasing subsequence.

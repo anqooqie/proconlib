@@ -9,6 +9,15 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
+    path: tools/garner.hpp
+    title: Garner's algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/inv_mod.hpp
+    title: $x^{-1} \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -30,6 +39,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/garner.test.cpp
+    title: tests/garner.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -66,9 +81,12 @@ data:
   isVerificationFile: false
   path: tools/mod.hpp
   requiredBy:
+  - tools/garner.hpp
   - tools/round.hpp
   - tools/rich_pow_mod_cache.hpp
   - tools/totient.hpp
+  - tools/inv_mod.hpp
+  - tools/extended_lucas.hpp
   - tools/is_prime.hpp
   - tools/divisors.hpp
   - tools/pow_mod.hpp
@@ -78,7 +96,9 @@ data:
   verifiedWith:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
+  - tests/garner.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/mod.hpp
 layout: document
@@ -90,7 +110,13 @@ template <typename M, typename N>
 constexpr std::common_type_t<M, N> mod(M a, N b);
 ```
 
-It returns $r$, which satisfies $a = qb + r \land 0 \leq r < \|b\|$.
+It returns $r$, which satisfies $a = qb + r$ and $0 \leq r < \|b\|$.
+
+## Constraints
+- $b \neq 0$
+
+## Time Complexity
+- $O(1)$
 
 ## License
 - CC0

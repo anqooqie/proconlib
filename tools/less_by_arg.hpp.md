@@ -8,29 +8,24 @@ data:
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/ccw.test.cpp
-    title: tests/ccw.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/chromatic_number.test.cpp
-    title: tests/chromatic_number.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\
-    \n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
-    #include <string>\n#include <functional>\n#include <limits>\n#include <iostream>\n\
-    #line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include\
-    \ <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\
-    \nnamespace tools {\n\n  template <class T1, class T2>\n  struct pair_hash {\n\
-    \    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<T1,\
-    \ T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n\
-    \      static const ::std::size_t salt = ::std::random_device()();\n      static\
-    \ const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static const ::std::hash<T2>\
-    \ hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
+    links:
+    - https://codeforces.com/blog/entry/72815
+  bundledCode: "#line 1 \"tools/less_by_arg.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\
+    \n\n\n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include\
+    \ <array>\n#include <string>\n#include <functional>\n#include <limits>\n#include\
+    \ <iostream>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
+    \n#include <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include\
+    \ <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n  struct\
+    \ pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
+    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
+    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
     \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
     \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
     \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
@@ -128,62 +123,70 @@ data:
     \ operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {\n    return\
     \ os << ::std::to_string(self);\n  }\n\n  template <typename T>\n  ::std::istream&\
     \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n    return is >>\
-    \ self.x >> self.y;\n  }\n}\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename T>\n  ::std::int_fast64_t ccw(const ::tools::vector2<T>&\
-    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
-    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
-    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm() <\
-    \ c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CCW_HPP\n#define TOOLS_CCW_HPP\n\n#include \"tools/vector2.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
-    \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
-    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
-    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm()\
-    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n#endif\n"
+    \ self.x >> self.y;\n  }\n}\n\n\n#line 5 \"tools/less_by_arg.hpp\"\n\n// Source:\
+    \ https://codeforces.com/blog/entry/72815\n// License: unknown\n// Author: Alpha_Q\n\
+    \nnamespace tools {\n\n  class less_by_arg {\n  public:\n    template <typename\
+    \ T>\n    bool operator()(const ::tools::vector2<T>& a, const ::tools::vector2<T>&\
+    \ b) const {\n      const auto up = [](const ::tools::vector2<T>& p) {\n     \
+    \   return p.y > 0 || (p.y == 0 && p.x >= 0);\n      };\n      return up(a) ==\
+    \ up(b) ? a.x * b.y > a.y * b.x : up(a) < up(b);\n    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_LESS_BY_ARG_HPP\n#define TOOLS_LESS_BY_ARG_HPP\n\n#include\
+    \ \"tools/vector2.hpp\"\n\n// Source: https://codeforces.com/blog/entry/72815\n\
+    // License: unknown\n// Author: Alpha_Q\n\nnamespace tools {\n\n  class less_by_arg\
+    \ {\n  public:\n    template <typename T>\n    bool operator()(const ::tools::vector2<T>&\
+    \ a, const ::tools::vector2<T>& b) const {\n      const auto up = [](const ::tools::vector2<T>&\
+    \ p) {\n        return p.y > 0 || (p.y == 0 && p.x >= 0);\n      };\n      return\
+    \ up(a) == up(b) ? a.x * b.y > a.y * b.x : up(a) < up(b);\n    }\n  };\n}\n\n\
+    #endif\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
   isVerificationFile: false
-  path: tools/ccw.hpp
+  path: tools/less_by_arg.hpp
   requiredBy: []
   timestamp: '2021-07-22 15:31:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/chromatic_number.test.cpp
-  - tests/ccw.test.cpp
-documentation_of: tools/ccw.hpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: tools/less_by_arg.hpp
 layout: document
-title: Counter clockwise function
+title: std::less by argument
 ---
 
+It compares two points by the argument.
+
+### References
+- [How do you polar sort? - Codeforces](https://codeforces.com/blog/entry/72815)
+
+### License
+- unknown
+
+### Author
+- Alpha_Q
+
+## Constructor
 ```cpp
-template <typename T>
-std::int_fast64_t ccw(tools::vector2<T> a, tools::vector2<T> b, tools::vector2<T> c);
+tools::less_by_arg comp();
 ```
 
-It returns 
+It creates a comparator.
 
-$$\begin{align*}
-\left\{\begin{array}{ll}
-+1 & \text{(if $a$, $b$ and $c$ make a counterclockwise turn on the regular orthogonal coordinate system ($(\infty, 0)$ is on the right side and $(0, \infty)$ is on the upper side))}\\
--1 & \text{(if $a$, $b$ and $c$ make a clockwise turn on the regular orthogonal coordinate system)}\\
-+2 & \text{(if $c$ - $a$ - $b$ are on a line in this order ($c \neq a$))}\\
--2 & \text{(if $a$ - $b$ - $c$ are on a line in this order ($c \neq b$))}\\
-0 & \text{(otherwise; i.e., $a$ - $c$ - $b$ are on a line in this order, $c = a$, $c = b$ or $a = b$)}
-\end{array}\right.&
-\end{align*}$$
-
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## References
-- [Spaghetti Source (ccw) - 点の進行方向](http://www.prefield.com/algorithm/geometry/ccw.html)
+## operator()
+```cpp
+template <typename T>
+bool comp(tools::vector2<T> a, tools::vector2<T> b);
+```
 
-## License
-- CC0
+It returns `true` if `atan2(a.y, a.x) < atan2(b.y, b.x)`.
+Otherwise, it returns `false`.
 
-## Author
-- anqooqie
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
