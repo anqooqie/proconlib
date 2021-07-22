@@ -216,7 +216,7 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
     - icon: ':warning:'
@@ -341,7 +341,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
     - icon: ':heavy_check_mark:'
