@@ -40,6 +40,7 @@ namespace tools {
       assert(s < this->node_count());
       assert(t < this->node_count());
       this->neighbor[s] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(t));
+      this->neighbor[t] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(s));
     }
 
     ::std::int_fast64_t query() const {
