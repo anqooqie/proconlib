@@ -5,7 +5,7 @@ documentation_of: //tools/lis.hpp
 
 ```cpp
 template <typename Iterator>
-typename ::std::iterator_traits<Iterator>::value_type lis(Iterator begin, Iterator end, bool strict);
+std::int_fast64_t lis(Iterator begin, Iterator end, bool strict);
 ```
 
 If `strict` is true, it returns the length of the longest strictly increasing subsequence.

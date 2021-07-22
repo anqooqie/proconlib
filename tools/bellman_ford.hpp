@@ -5,7 +5,6 @@
 #include <vector>
 #include <limits>
 #include <cassert>
-#include "tools/safe_int.hpp"
 #include "tools/chmin.hpp"
 
 namespace tools {
@@ -62,20 +61,20 @@ namespace tools {
       result.distances[start_node] = 0;
       for (::std::size_t i = 0; i < this->m_node_count - 1; ++i) {
         for (const edge& edge : this->m_edges) {
-          if (::tools::chmin(result.distances[edge.to], (::tools::safe_int(result.distances[edge.from]) + tools::safe_int(edge.distance)).val())) {
+          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from] + edge.distance)) {
             result.prev_nodes[edge.to] = edge.from;
           }
         }
       }
       for (const edge& edge : this->m_edges) {
-        if ((::tools::safe_int(result.distances[edge.from]) + tools::safe_int(edge.distance)).val() < result.distances[edge.to]) {
+        if (result.distances[edge.from] < POS_INF && result.distances[edge.from] + (result.distances[edge.from] > NEG_INF ? edge.distance : 0) < result.distances[edge.to]) {
           result.distances[edge.to] = NEG_INF;
           result.prev_nodes[edge.to] = edge.from;
         }
       }
       for (::std::size_t i = 0; i < this->m_node_count; ++i) {
         for (const edge& edge : this->m_edges) {
-          if (::tools::chmin(result.distances[edge.to], (::tools::safe_int(result.distances[edge.from]) + tools::safe_int(edge.distance)).val())) {
+          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from] + (result.distances[edge.from] > NEG_INF ? edge.distance : 0))) {
             result.prev_nodes[edge.to] = edge.from;
           }
         }

@@ -1,6 +1,7 @@
 #ifndef TOOLS_LIS_HPP
 #define TOOLS_LIS_HPP
 
+#include <cstdint>
 #include <iterator>
 #include <vector>
 #include <algorithm>
@@ -10,15 +11,14 @@
 
 namespace tools {
   template <typename InputIterator>
-  typename ::std::iterator_traits<InputIterator>::value_type lis(const InputIterator& begin, const InputIterator& end, const bool strict) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    using M = ::tools::monoid::max<T, 0>;
+  ::std::int_fast64_t lis(const InputIterator& begin, const InputIterator& end, const bool strict) {
+    using M = ::tools::monoid::max<::std::int_fast64_t, 0>;
 
-    ::std::vector<T> compressed;
+    ::std::vector<::std::int_fast64_t> compressed;
     ::tools::compress(begin, end, ::std::back_inserter(compressed));
 
-    ::atcoder::segtree<T, M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(), compressed.end()) + 1);
-    for (const T& c : compressed) {
+    ::atcoder::segtree<::std::int_fast64_t, M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(), compressed.end()) + 1);
+    for (const ::std::int_fast64_t& c : compressed) {
       segtree.set(c, segtree.prod(0, c + (strict ? 0 : 1)) + 1);
     }
 
