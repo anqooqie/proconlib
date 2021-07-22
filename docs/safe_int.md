@@ -14,6 +14,32 @@ It adds the three elements $\infty, -\infty, \mathrm{NaN}$ to a given signed int
 ### Author
 - anqooqie
 
+## infinity
+```cpp
+tools::safe_int<T> tools::safe_int<T>::infinity();
+```
+
+It returns $\infty$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## nan
+```cpp
+tools::safe_int<T> tools::safe_int<T>::nan();
+```
+
+It returns $\mathrm{NaN}$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## Constructor
 ```cpp
 (1) tools::safe_int<T> x();
@@ -30,20 +56,6 @@ It adds the three elements $\infty, -\infty, \mathrm{NaN}$ to a given signed int
 
 ### Time Complexity
 - $O(1)$
-
-## infinity
-```cpp
-tools::safe_int<T> tools::safe_int<T>::infinity;
-```
-
-It is $\infty$.
-
-## nan
-```cpp
-tools::safe_int<T> tools::safe_int<T>::nan;
-```
-
-It is $\mathrm{NaN}$.
 
 ## is_finite
 ```cpp

@@ -21,12 +21,9 @@ namespace tools {
     typename ::tools::safe_int<T>::type m_type;
     T m_value;
 
-    constexpr safe_int(const type type) :
+    constexpr safe_int(const typename ::tools::safe_int<T>::type type) :
       m_type(type), m_value(T()) {
     }
-
-    static constexpr ::tools::safe_int<T> pos_inf = tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);
-    static constexpr ::tools::safe_int<T> neg_inf = tools::safe_int<T>(::tools::safe_int<T>::type::neg_inf);
 
   public:
     constexpr safe_int() :
@@ -44,8 +41,12 @@ namespace tools {
       this->m_value = other.m_value;
     }
 
-    static constexpr ::tools::safe_int<T> infinity = tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);
-    static constexpr ::tools::safe_int<T> nan = tools::safe_int<T>(::tools::safe_int<T>::type::nan);
+    static constexpr ::tools::safe_int<T> infinity() {
+      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);
+    }
+    static constexpr ::tools::safe_int<T> nan() {
+      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);
+    }
 
   private:
     static constexpr int f1(const ::tools::safe_int<T>& n) {
@@ -60,14 +61,6 @@ namespace tools {
         return 3;
       }
     };
-    static constexpr ::tools::safe_int<T> g1(int i) {
-      return ::std::array<::tools::safe_int<T>, 4>({
-        ::tools::safe_int<T>::neg_inf,
-        ::tools::safe_int<T>(),
-        ::tools::safe_int<T>::pos_inf,
-        ::tools::safe_int<T>::nan
-      })[i];
-    }
     static constexpr int f2(const ::tools::safe_int<T>& n) {
       switch (n.m_type) {
       case ::tools::safe_int<T>::type::neg_inf:
@@ -86,15 +79,29 @@ namespace tools {
         return 5;
       }
     };
-    static constexpr ::tools::safe_int<T> g2(int i) {
-      return ::std::array<::tools::safe_int<T>, 6>({
-        ::tools::safe_int<T>::neg_inf,
-        ::tools::safe_int<T>(),
-        ::tools::safe_int<T>(0),
-        ::tools::safe_int<T>(),
-        ::tools::safe_int<T>::pos_inf,
-        ::tools::safe_int<T>::nan
-      })[i];
+    static constexpr ::std::optional<::tools::safe_int<T>> Q() {
+      return ::std::nullopt;
+    }
+    static constexpr ::std::optional<::tools::safe_int<T>> Z() {
+      return ::std::optional<::tools::safe_int<T>>(::tools::safe_int<T>(0));
+    }
+    static constexpr ::std::optional<::tools::safe_int<T>> N() {
+      return ::std::optional<::tools::safe_int<T>>(::tools::safe_int<T>(::tools::safe_int<T>::type::neg_inf));
+    }
+    static constexpr ::std::optional<::tools::safe_int<T>> P() {
+      return ::std::optional<::tools::safe_int<T>>(::tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf));
+    }
+    static constexpr ::std::optional<::tools::safe_int<T>> U() {
+      return ::std::optional<::tools::safe_int<T>>(::tools::safe_int<T>(::tools::safe_int<T>::type::nan));
+    }
+    static constexpr ::std::optional<bool> BQ() {
+      return ::std::nullopt;
+    }
+    static constexpr ::std::optional<bool> BF() {
+      return ::std::optional<bool>(false);
+    }
+    static constexpr ::std::optional<bool> BT() {
+      return ::std::optional<bool>(true);
     }
 
   public:
@@ -124,38 +131,27 @@ namespace tools {
       return *this;
     }
     constexpr ::tools::safe_int<T> operator-() const {
-      switch (this->m_type) {
-      case ::tools::safe_int<T>::type::finite:
-        return this->m_value == ::std::numeric_limits<T>::min()
-          ? ::tools::safe_int<T>::nan
-          : ::tools::safe_int<T>(-this->m_value);
-      case ::tools::safe_int<T>::type::pos_inf:
-        return ::tools::safe_int<T>::neg_inf;
-      case ::tools::safe_int<T>::type::neg_inf:
-        return ::tools::safe_int<T>::pos_inf;
-      default: // nan
-        return ::tools::safe_int<T>::nan;
-      }
+      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>, 4>({
+        {P(), Q(), N(), U()}
+      })[f1(*this)];
+      if (r) return *r;
+
+      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();
+      return ::tools::safe_int<T>(-this->m_value);
     }
 
     friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const int NI = 0;
-      const int F = 1;
-      const int PI = 2;
-      const int U = 3;
-      const int r = ::std::array<::std::array<int, 4>, 4>({{
-        {NI, NI,  U,  U},
-        {NI,  F, PI,  U},
-        { U, PI, PI,  U},
-        { U,  U,  U,  U}
+      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
+        {N(), N(), U(), U()},
+        {N(), Q(), P(), U()},
+        {U(), P(), P(), U()},
+        {U(), U(), U(), U()}
       }})[f1(x)][f1(y)];
-      if (r == F) {
-        if (y.m_value > 0 && x.m_value > ::std::numeric_limits<T>::max() - y.m_value) return g1(U);
-        if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min() - y.m_value) return g1(U);
-        return ::tools::safe_int<T>(x.m_value + y.m_value);
-      } else {
-        return g1(r);
-      }
+      if (r) return *r;
+
+      if (y.m_value > 0 && x.m_value > ::std::numeric_limits<T>::max() - y.m_value) return *U();
+      if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min() - y.m_value) return *U();
+      return ::tools::safe_int<T>(x.m_value + y.m_value);
     }
     friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>& x, const T& y) {
       return x + tools::safe_int<T>(y);
@@ -165,23 +161,17 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const int NI = 0;
-      const int F = 1;
-      const int PI = 2;
-      const int U = 3;
-      const int r = ::std::array<::std::array<int, 4>, 4>({{
-        { U, NI, NI,  U},
-        {PI,  F, NI,  U},
-        {PI, PI,  U,  U},
-        { U,  U,  U,  U}
+      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
+        {U(), N(), N(), U()},
+        {P(), Q(), N(), U()},
+        {P(), P(), U(), U()},
+        {U(), U(), U(), U()}
       }})[f1(x)][f1(y)];
-      if (r == F) {
-        if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return g1(U);
-        if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value) return g1(U);
-        return ::tools::safe_int<T>(x.m_value - y.m_value);
-      } else {
-        return g1(r);
-      }
+      if (r) return *r;
+
+      if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();
+      if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value) return *U();
+      return ::tools::safe_int<T>(x.m_value - y.m_value);
     }
     friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>& x, const T& y) {
       return x - tools::safe_int<T>(y);
@@ -191,46 +181,38 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator*(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const int NI = 0;
-      const int NF = 1;
-      const int Z = 2;
-      const int PF = 3;
-      const int PI = 4;
-      const int U = 5;
-      const int r = ::std::array<::std::array<int, 6>, 6>({{
-        {PI, PI,  U, NI, NI,  U},
-        {PI, PF,  Z, NF, NI,  U},
-        { U,  Z,  Z,  Z,  U,  U},
-        {NI, NF,  Z, PF, PI,  U},
-        {NI, NI,  U, PI, PI,  U},
-        { U,  U,  U,  U,  U,  U}
+      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+        {P(), P(), U(), N(), N(), U()},
+        {P(), Q(), Z(), Q(), N(), U()},
+        {U(), Z(), Z(), Z(), U(), U()},
+        {N(), Q(), Z(), Q(), P(), U()},
+        {N(), N(), U(), P(), P(), U()},
+        {U(), U(), U(), U(), U(), U()}
       }})[f2(x)][f2(y)];
-      if (r == NF || r == PF) {
-        if (x.m_value > 0) {
-          if (y.m_value > 0) {
-            if (x.m_value > ::std::numeric_limits<T>::max() / y.m_value) {
-              return g2(U);
-            }
-          } else {
-            if (y.m_value < ::std::numeric_limits<T>::min() / x.m_value) {
-              return g2(U);
-            }
+      if (r) return *r;
+
+      if (x.m_value > 0) {
+        if (y.m_value > 0) {
+          if (x.m_value > ::std::numeric_limits<T>::max() / y.m_value) {
+            return *U();
           }
         } else {
-          if (y.m_value > 0) {
-            if (x.m_value < ::std::numeric_limits<T>::min() / y.m_value) {
-              return g2(U);
-            }
-          } else {
-            if (x.m_value != 0 && y.m_value < ::std::numeric_limits<T>::max() / x.m_value) {
-              return g2(U);
-            }
+          if (y.m_value < ::std::numeric_limits<T>::min() / x.m_value) {
+            return *U();
           }
         }
-        return ::tools::safe_int<T>(x.m_value * y.m_value);
       } else {
-        return g2(r);
+        if (y.m_value > 0) {
+          if (x.m_value < ::std::numeric_limits<T>::min() / y.m_value) {
+            return *U();
+          }
+        } else {
+          if (x.m_value != 0 && y.m_value < ::std::numeric_limits<T>::max() / x.m_value) {
+            return *U();
+          }
+        }
       }
+      return ::tools::safe_int<T>(x.m_value * y.m_value);
     }
     friend constexpr ::tools::safe_int<T> operator*(const ::tools::safe_int<T>& x, const T& y) {
       return x * tools::safe_int<T>(y);
@@ -240,26 +222,18 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const int NI = 0;
-      const int NF = 1;
-      const int Z = 2;
-      const int PF = 3;
-      const int PI = 4;
-      const int U = 5;
-      const int r = ::std::array<::std::array<int, 6>, 6>({{
-        { U, PI,  U, NI,  U,  U},
-        { Z, PF,  U, NF,  Z,  U},
-        { Z,  Z,  U,  Z,  Z,  U},
-        { Z, NF,  U, PF,  Z,  U},
-        { U, NI,  U, PI,  U,  U},
-        { U,  U,  U,  U,  U,  U}
+      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+        {U(), P(), U(), N(), U(), U()},
+        {Z(), Q(), U(), Q(), Z(), U()},
+        {Z(), Z(), U(), Z(), Z(), U()},
+        {Z(), Q(), U(), Q(), Z(), U()},
+        {U(), N(), U(), P(), U(), U()},
+        {U(), U(), U(), U(), U(), U()}
       }})[f2(x)][f2(y)];
-      if (r == NF || r == PF) {
-        if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return g2(U);
-        return ::tools::safe_int<T>(x.m_value / y.m_value);
-      } else {
-        return g2(r);
-      }
+      if (r) return *r;
+
+      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return *U();
+      return ::tools::safe_int<T>(x.m_value / y.m_value);
     }
     friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>& x, const T& y) {
       return x / tools::safe_int<T>(y);
@@ -269,24 +243,18 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const int NF = 1;
-      const int Z = 2;
-      const int PF = 3;
-      const int U = 5;
-      const int r = ::std::array<::std::array<int, 6>, 6>({{
-        { U,  U,  U,  U,  U,  U},
-        { U, NF,  U, NF,  U,  U},
-        { U,  Z,  U,  Z,  U,  U},
-        { U, PF,  U, PF,  U,  U},
-        { U,  U,  U,  U,  U,  U},
-        { U,  U,  U,  U,  U,  U}
+      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+        {U(), U(), U(), U(), U(), U()},
+        {U(), Q(), U(), Q(), U(), U()},
+        {U(), Z(), U(), Z(), U(), U()},
+        {U(), Q(), U(), Q(), U(), U()},
+        {U(), U(), U(), U(), U(), U()},
+        {U(), U(), U(), U(), U(), U()}
       }})[f2(x)][f2(y)];
-      if (r == NF || r == PF) {
-        if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return g2(U);
-        return ::tools::safe_int<T>(x.m_value % y.m_value);
-      } else {
-        return g2(r);
-      }
+      if (r) return *r;
+
+      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return *U();
+      return ::tools::safe_int<T>(x.m_value % y.m_value);
     }
     friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>& x, const T& y) {
       return x % tools::safe_int<T>(y);
@@ -327,36 +295,26 @@ namespace tools {
     }
 
     friend constexpr bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const ::std::optional<bool> FALSE = ::std::make_optional(false);
-      const ::std::optional<bool> TRUE = ::std::make_optional(true);
-      const ::std::optional<bool> UNKNOWN = ::std::nullopt;
-      const ::std::optional<bool> r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
-        {FALSE,    TRUE,  TRUE, FALSE},
-        {FALSE, UNKNOWN,  TRUE, FALSE},
-        {FALSE,   FALSE, FALSE, FALSE},
-        {FALSE,   FALSE, FALSE, FALSE}
+      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+        {BF(), BT(), BT(), BF()},
+        {BF(), BQ(), BT(), BF()},
+        {BF(), BF(), BF(), BF()},
+        {BF(), BF(), BF(), BF()}
       }})[f1(x)][f1(y)];
-      if (!r) {
-        return x.m_value < y.m_value;
-      } else {
-        return *r;
-      }
+      if (r) return *r;
+
+      return x.m_value < y.m_value;
     }
     friend constexpr bool operator>(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const ::std::optional<bool> FALSE = ::std::make_optional(false);
-      const ::std::optional<bool> TRUE = ::std::make_optional(true);
-      const ::std::optional<bool> UNKNOWN = ::std::nullopt;
-      const ::std::optional<bool> r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
-        {FALSE,   FALSE, FALSE, FALSE},
-        { TRUE, UNKNOWN, FALSE, FALSE},
-        { TRUE,    TRUE, FALSE, FALSE},
-        {FALSE,   FALSE, FALSE, FALSE}
+      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+        {BF(), BF(), BF(), BF()},
+        {BT(), BQ(), BF(), BF()},
+        {BT(), BT(), BF(), BF()},
+        {BF(), BF(), BF(), BF()}
       }})[f1(x)][f1(y)];
-      if (!r) {
-        return x.m_value > y.m_value;
-      } else {
-        return *r;
-      }
+      if (r) return *r;
+
+      return x.m_value > y.m_value;
     }
     friend constexpr bool operator<=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       return x < y || x == y;

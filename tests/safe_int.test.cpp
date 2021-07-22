@@ -14,9 +14,9 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity;
-  const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity;
-  const tools::safe_int<int> NAN = tools::safe_int<int>::nan;
+  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity();
+  const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity();
+  const tools::safe_int<int> NAN = tools::safe_int<int>::nan();
   const int INT_MAX = std::numeric_limits<int>::max();
   const int INT_MIN = std::numeric_limits<int>::min();
   using s = tools::safe_int<int>;
