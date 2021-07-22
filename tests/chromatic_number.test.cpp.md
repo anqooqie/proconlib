@@ -382,6 +382,7 @@ data:
     \    }\n\n    void add_edge(const ::std::size_t s, const ::std::size_t t) {\n\
     \      assert(s < this->node_count());\n      assert(t < this->node_count());\n\
     \      this->neighbor[s] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(t));\n\
+    \      this->neighbor[t] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(s));\n\
     \    }\n\n    ::std::int_fast64_t query() const {\n      const auto pow2 = [](const\
     \ ::std::uint_fast64_t x) {\n        return ::std::uint_fast64_t(1) << x;\n  \
     \    };\n      const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets\
@@ -445,7 +446,7 @@ data:
   isVerificationFile: true
   path: tests/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2021-07-22 15:31:38+09:00'
+  timestamp: '2021-07-22 17:17:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/chromatic_number.test.cpp
