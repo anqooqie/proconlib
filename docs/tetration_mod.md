@@ -20,6 +20,9 @@ Note: In this function, $0^0$ is $1$.
 ## Time Complexity
 - Not analyzed yet
 
+## References
+- [@maspy_stars - Twitter](https://twitter.com/maspy_stars/status/1363507553527734274)
+
 ## License
 - CC0
 
