@@ -37,7 +37,7 @@ data:
     \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
     // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    barrett(unsigned\
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
     \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
     \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
@@ -92,13 +92,24 @@ data:
     \ {\n            if (pow_mod_constexpr(g, (m - 1) / divs[i], m) == 1) {\n    \
     \            ok = false;\n                break;\n            }\n        }\n \
     \       if (ok) return g;\n    }\n}\ntemplate <int m> constexpr int primitive_root\
-    \ = primitive_root_constexpr(m);\n\n}  // namespace internal\n\n}  // namespace\
-    \ atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\
-    \n\n#line 7 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n#ifndef _MSC_VER\ntemplate <class T>\nusing is_signed_int128\
-    \ =\n    typename std::conditional<std::is_same<T, __int128_t>::value ||\n   \
-    \                               std::is_same<T, __int128>::value,\n          \
-    \                    std::true_type,\n                              std::false_type>::type;\n\
+    \ = primitive_root_constexpr(m);\n\n// @param n `n < 2^32`\n// @param m `1 <=\
+    \ m < 2^32`\n// @return sum_{i=0}^{n-1} floor((ai + b) / m) (mod 2^64)\nunsigned\
+    \ long long floor_sum_unsigned(unsigned long long n,\n                       \
+    \               unsigned long long m,\n                                      unsigned\
+    \ long long a,\n                                      unsigned long long b) {\n\
+    \    unsigned long long ans = 0;\n    while (true) {\n        if (a >= m) {\n\
+    \            ans += n * (n - 1) / 2 * (a / m);\n            a %= m;\n        }\n\
+    \        if (b >= m) {\n            ans += n * (b / m);\n            b %= m;\n\
+    \        }\n\n        unsigned long long y_max = a * n + b;\n        if (y_max\
+    \ < m) break;\n        // y_max < m * (n + 1)\n        // floor(y_max / m) <=\
+    \ n\n        n = (unsigned long long)(y_max / m);\n        b = (unsigned long\
+    \ long)(y_max % m);\n        std::swap(m, a);\n    }\n    return ans;\n}\n\n}\
+    \  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\
+    \n\n\n\n#line 7 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\nnamespace\
+    \ atcoder {\n\nnamespace internal {\n\n#ifndef _MSC_VER\ntemplate <class T>\n\
+    using is_signed_int128 =\n    typename std::conditional<std::is_same<T, __int128_t>::value\
+    \ ||\n                                  std::is_same<T, __int128>::value,\n  \
+    \                            std::true_type,\n                              std::false_type>::type;\n\
     \ntemplate <class T>\nusing is_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
     \ __uint128_t>::value ||\n                                  std::is_same<T, unsigned\
     \ __int128>::value,\n                              std::true_type,\n         \
@@ -216,7 +227,7 @@ data:
     \ mint& lhs, const mint& rhs) {\n        return lhs._v != rhs._v;\n    }\n\n \
     \ private:\n    unsigned int _v;\n    static internal::barrett bt;\n    static\
     \ unsigned int umod() { return bt.umod(); }\n};\ntemplate <int id> internal::barrett\
-    \ dynamic_modint<id>::bt = 998244353;\n\nusing modint998244353 = static_modint<998244353>;\n\
+    \ dynamic_modint<id>::bt(998244353);\n\nusing modint998244353 = static_modint<998244353>;\n\
     using modint1000000007 = static_modint<1000000007>;\nusing modint = dynamic_modint<-1>;\n\
     \nnamespace internal {\n\ntemplate <class T>\nusing is_static_modint = std::is_base_of<internal::static_modint_base,\
     \ T>;\n\ntemplate <class T>\nusing is_static_modint_t = std::enable_if_t<is_static_modint<T>::value>;\n\

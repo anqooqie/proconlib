@@ -72,17 +72,17 @@ data:
     }  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 8 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
     \n\nnamespace atcoder {\n\n// Reference: https://en.wikipedia.org/wiki/Fenwick_tree\n\
     template <class T> struct fenwick_tree {\n    using U = internal::to_unsigned_t<T>;\n\
-    \n  public:\n    fenwick_tree() : _n(0) {}\n    fenwick_tree(int n) : _n(n), data(n)\
-    \ {}\n\n    void add(int p, T x) {\n        assert(0 <= p && p < _n);\n      \
-    \  p++;\n        while (p <= _n) {\n            data[p - 1] += U(x);\n       \
-    \     p += p & -p;\n        }\n    }\n\n    T sum(int l, int r) {\n        assert(0\
-    \ <= l && l <= r && r <= _n);\n        return sum(r) - sum(l);\n    }\n\n  private:\n\
-    \    int _n;\n    std::vector<U> data;\n\n    U sum(int r) {\n        U s = 0;\n\
-    \        while (r > 0) {\n            s += data[r - 1];\n            r -= r &\
-    \ -r;\n        }\n        return s;\n    }\n};\n\n}  // namespace atcoder\n\n\n\
-    #line 1 \"tools/compress.hpp\"\n\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n\
-    #line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class ForwardIterator,\
-    \ class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
+    \n  public:\n    fenwick_tree() : _n(0) {}\n    explicit fenwick_tree(int n) :\
+    \ _n(n), data(n) {}\n\n    void add(int p, T x) {\n        assert(0 <= p && p\
+    \ < _n);\n        p++;\n        while (p <= _n) {\n            data[p - 1] +=\
+    \ U(x);\n            p += p & -p;\n        }\n    }\n\n    T sum(int l, int r)\
+    \ {\n        assert(0 <= l && l <= r && r <= _n);\n        return sum(r) - sum(l);\n\
+    \    }\n\n  private:\n    int _n;\n    std::vector<U> data;\n\n    U sum(int r)\
+    \ {\n        U s = 0;\n        while (r > 0) {\n            s += data[r - 1];\n\
+    \            r -= r & -r;\n        }\n        return s;\n    }\n};\n\n}  // namespace\
+    \ atcoder\n\n\n#line 1 \"tools/compress.hpp\"\n\n\n\n#line 1 \"tools/lower_bound.hpp\"\
+    \n\n\n\n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
+    \ ForwardIterator, class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
     \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
     \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
     \  }\n}\n\n\n#line 8 \"tools/compress.hpp\"\n\nnamespace tools {\n\n  template\
