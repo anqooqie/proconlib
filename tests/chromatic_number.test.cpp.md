@@ -76,11 +76,11 @@ data:
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n\
     \    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n    vector2(const\
     \ T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n    double norm() const\
-    \ {\n      return ::std::sqrt(this->squaredNorm());\n    }\n\n    T squared_norm()\
-    \ const {\n      return this->inner_product(*this);\n    }\n\n    template <typename\
-    \ SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T, double>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double> normalized()\
-    \ const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
+    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
+    \  }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
+    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double>\
+    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
     \ operator+() const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-()\
     \ const {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n  \
     \  friend ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const\
@@ -446,7 +446,7 @@ data:
   isVerificationFile: true
   path: tests/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2021-07-22 17:17:38+09:00'
+  timestamp: '2021-07-23 19:07:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/chromatic_number.test.cpp

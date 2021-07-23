@@ -7,7 +7,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/greater_by_arg.hpp
+    title: std::greater by the argument
+  - icon: ':heavy_check_mark:'
+    path: tools/less_by_arg.hpp
+    title: std::less by the argument
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
@@ -15,6 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/greater_by_arg.test.cpp
+    title: tests/greater_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/less_by_arg.test.cpp
+    title: tests/less_by_arg.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -67,11 +79,11 @@ data:
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n\
     \    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n    vector2(const\
     \ T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n    double norm() const\
-    \ {\n      return ::std::sqrt(this->squaredNorm());\n    }\n\n    T squared_norm()\
-    \ const {\n      return this->inner_product(*this);\n    }\n\n    template <typename\
-    \ SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T, double>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double> normalized()\
-    \ const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
+    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
+    \  }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
+    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double>\
+    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
     \ operator+() const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-()\
     \ const {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n  \
     \  friend ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const\
@@ -145,11 +157,15 @@ data:
   - tools/pair_hash.hpp
   isVerificationFile: false
   path: tools/ccw.hpp
-  requiredBy: []
-  timestamp: '2021-07-22 15:31:38+09:00'
+  requiredBy:
+  - tools/less_by_arg.hpp
+  - tools/greater_by_arg.hpp
+  timestamp: '2021-07-23 19:07:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/less_by_arg.test.cpp
   - tests/chromatic_number.test.cpp
+  - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document

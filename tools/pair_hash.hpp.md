@@ -5,9 +5,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
+    path: tools/greater_by_arg.hpp
+    title: std::greater by the argument
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
-    title: std::less by argument
+    title: std::less by the argument
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
@@ -18,6 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/greater_by_arg.test.cpp
+    title: tests/greater_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/less_by_arg.test.cpp
+    title: tests/less_by_arg.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -112,10 +121,13 @@ data:
   - tools/vector2.hpp
   - tools/less_by_arg.hpp
   - tools/ccw.hpp
+  - tools/greater_by_arg.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/less_by_arg.test.cpp
   - tests/chromatic_number.test.cpp
+  - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
 documentation_of: tools/pair_hash.hpp
 layout: document

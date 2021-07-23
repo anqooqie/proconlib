@@ -93,6 +93,9 @@ data:
     - icon: ':warning:'
       path: tools/greater_by.hpp
       title: std::greater by key
+    - icon: ':heavy_check_mark:'
+      path: tools/greater_by_arg.hpp
+      title: std::greater by the argument
     - icon: ':warning:'
       path: tools/greater_by_first.hpp
       title: std::greater by first
@@ -126,9 +129,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_arg.hpp
-      title: std::less by argument
+      title: std::less by the argument
     - icon: ':warning:'
       path: tools/less_by_first.hpp
       title: std::less by first
@@ -321,6 +324,9 @@ data:
       path: tests/garner.test.cpp
       title: tests/garner.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/greater_by_arg.test.cpp
+      title: tests/greater_by_arg.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
     - icon: ':heavy_check_mark:'
@@ -329,6 +335,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/largest_rectangle_in_histogram.test.cpp
       title: tests/largest_rectangle_in_histogram.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/less_by_arg.test.cpp
+      title: tests/less_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
