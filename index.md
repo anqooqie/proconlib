@@ -228,6 +228,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
+    - icon: ':heavy_check_mark:'
+      path: tools/tetration_mod.hpp
+      title: $x \uparrow\uparrow y \pmod{M}$
     - icon: ':warning:'
       path: tools/to_signed.hpp
       title: To signed value
@@ -353,6 +356,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/tetration_mod.test.cpp
+      title: tests/tetration_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp

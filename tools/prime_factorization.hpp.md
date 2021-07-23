@@ -24,6 +24,9 @@ data:
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -36,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
@@ -128,6 +134,7 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
   - tools/totient.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
@@ -135,6 +142,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp

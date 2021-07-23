@@ -28,8 +28,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
@@ -145,11 +151,13 @@ data:
   - tools/square.hpp
   isVerificationFile: false
   path: tools/totient.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/tetration_mod.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/totient.hpp
 layout: document
 title: Euler's totient function

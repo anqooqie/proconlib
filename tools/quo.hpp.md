@@ -39,6 +39,9 @@ data:
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
   - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -64,6 +67,9 @@ data:
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
   _isVerificationFailed: false
@@ -87,6 +93,7 @@ data:
   isVerificationFile: false
   path: tools/quo.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
   - tools/garner.hpp
   - tools/round.hpp
   - tools/rich_pow_mod_cache.hpp
@@ -106,6 +113,7 @@ data:
   - tests/totient.test.cpp
   - tests/extgcd.test.cpp
   - tests/is_prime.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/garner.test.cpp
   - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp

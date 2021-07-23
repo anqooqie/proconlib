@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
@@ -30,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/garner.test.cpp
     title: tests/garner.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -63,6 +69,7 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
   - tools/garner.hpp
   - tools/inv_mod.hpp
   - tools/extended_lucas.hpp
@@ -71,6 +78,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extgcd.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/garner.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/bezout.test.cpp

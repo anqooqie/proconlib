@@ -12,6 +12,9 @@ data:
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -21,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
@@ -69,6 +75,7 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
   - tools/lis.hpp
   - tools/totient.hpp
   - tools/square.hpp
@@ -77,6 +84,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/lis.test.cpp
 documentation_of: tools/monoid.hpp

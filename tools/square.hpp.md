@@ -9,9 +9,15 @@ data:
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
   - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
@@ -52,12 +58,14 @@ data:
   isVerificationFile: false
   path: tools/square.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
   - tools/totient.hpp
   - tools/pow.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/square.hpp
 layout: document
 title: $x^2$ under a given monoid
