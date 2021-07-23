@@ -157,6 +157,12 @@ title: Commonly used utilities for competitive programming
 
 They are miscellaneous code snippets for competitive programming.
 
+## Constraints
+- They require GCC.
+
+## Time Complexity
+- Not applicable
+
 ## License
 - CC0
 

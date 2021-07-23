@@ -201,6 +201,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
+    - icon: ':warning:'
+      path: tools/qcfium.hpp
+      title: QCFium's method
     - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
