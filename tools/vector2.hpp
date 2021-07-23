@@ -29,7 +29,7 @@ namespace tools {
     }
 
     double norm() const {
-      return ::std::sqrt(this->squaredNorm());
+      return ::std::sqrt(static_cast<double>(this->squared_norm()));
     }
 
     T squared_norm() const {

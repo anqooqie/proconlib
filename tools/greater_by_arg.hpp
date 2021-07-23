@@ -1,5 +1,5 @@
-#ifndef TOOLS_LESS_BY_ARG_HPP
-#define TOOLS_LESS_BY_ARG_HPP
+#ifndef TOOLS_GREATER_BY_ARG_HPP
+#define TOOLS_GREATER_BY_ARG_HPP
 
 #include <cassert>
 #include "tools/vector2.hpp"
@@ -8,7 +8,7 @@
 namespace tools {
 
   template <bool DEFAULT, typename T>
-  class less_by_arg {
+  class greater_by_arg {
   private:
     ::tools::vector2<T> d;
 
@@ -28,24 +28,24 @@ namespace tools {
     }
 
   public:
-    less_by_arg() = default;
+    greater_by_arg() = default;
 
     template <typename U>
-    explicit less_by_arg(const ::tools::vector2<U>& d) : d(d) {
+    explicit greater_by_arg(const ::tools::vector2<U>& d) : d(d) {
     }
 
     template <typename U>
     bool operator()(const ::tools::vector2<U>& a, const ::tools::vector2<U>& b) const {
       const int wa = this->where(a);
       const int wb = this->where(b);
-      return wa == wb ? a.outer_product(b) > 0 || (a.outer_product(b) == 0 && a.squared_norm() < b.squared_norm()) : wa < wb;
+      return wa == wb ? a.outer_product(b) < 0 || (a.outer_product(b) == 0 && a.squared_norm() > b.squared_norm()) : wa > wb;
     }
   };
 
-  less_by_arg() -> less_by_arg<true, int>;
+  greater_by_arg() -> greater_by_arg<true, int>;
 
   template <typename U>
-  less_by_arg(const ::tools::vector2<U>&) -> less_by_arg<false, U>;
+  greater_by_arg(const ::tools::vector2<U>&) -> greater_by_arg<false, U>;
 }
 
 #endif

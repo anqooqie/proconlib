@@ -31,14 +31,10 @@ include:
 	ln -f -s ~/.proconlib/atcoder $@/atcoder
 	ln -f -s ~/.proconlib/tools $@/tools
 
-.PHONY: g/i
-g/i: input_generator
-	rm -f test/random-*
-	LD_LIBRARY_PATH=$(LIB_PATH) oj g/i ./input_generator 10
-
-.PHONY: g/o
-g/o: output_generator
-	LD_LIBRARY_PATH=$(LIB_PATH) oj g/o -c ./output_generator
+.PHONY: hack
+hack: a.out input_generator output_generator
+	rm -f test/hack-*
+	LD_LIBRARY_PATH=$(LIB_PATH) oj g/i --hack-expected ./output_generator --hack-actual ./a.out ./input_generator
 
 .PHONY: test
 test: a.out # output_checker

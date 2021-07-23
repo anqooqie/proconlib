@@ -1,6 +1,6 @@
 ---
-title: std::less by the argument
-documentation_of: //tools/less_by_arg.hpp
+title: std::greater by the argument
+documentation_of: //tools/greater_by_arg.hpp
 ---
 
 It compares two vectors by the argument.
@@ -30,16 +30,16 @@ Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $
 
 ## Constructor
 ```cpp
-(1) tools::less_by_arg<true, int> comp();
-(2) tools::less_by_arg<false, T> comp(T d);
+(1) tools::greater_by_arg<true, int> comp();
+(2) tools::greater_by_arg<false, T> comp(T d);
 ```
 
 It creates a comparator.
 
 - (1)
-    - It is recommended to use the form like `const auto comp = tools::less_by_arg();`. $(0, 0)$ will be used as $d$.
+    - It is recommended to use the form like `const auto comp = tools::greater_by_arg();`. $(0, 0)$ will be used as $d$.
 - (2)
-    - It is recommended to use the form like `const auto comp = tools::less_by_arg(d);`.
+    - It is recommended to use the form like `const auto comp = tools::greater_by_arg(d);`.
 
 ### Constraints
 - None
@@ -53,7 +53,7 @@ It creates a comparator.
 (2) bool comp(tools::vector2<T> a, tools::vector2<T> b);
 ```
 
-It returns `true` if $(\mathrm{class}_d(a), \mathrm{arg}(a), \|a\|) < (\mathrm{class}_d(b), \mathrm{arg}(b), \|b\|)$ in lexicographical order.
+It returns `true` if $(\mathrm{class}_d(a), \mathrm{arg}(a), \|a\|) > (\mathrm{class}_d(b), \mathrm{arg}(b), \|b\|)$ in lexicographical order.
 Otherwise, it returns `false`.
 
 ### Constraints
