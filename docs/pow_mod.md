@@ -10,6 +10,8 @@ constexpr T3 pow_mod(T1 x, T2 y, T3 M);
 
 It returns $x^y \pmod{M}$.
 
+Note: In this function, $0^0$ is $1$.
+
 ## Constraints
 - $y \geq 0$
 - $M \geq 1$
