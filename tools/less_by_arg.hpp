@@ -22,9 +22,9 @@ namespace tools {
         } else {
           if (p.x == 0 && p.y == 0) {
             const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0), this->d, ::tools::vector2<U>(1, 0));
-            if (ccw == -1) return 2;
-            if (ccw == -2) return 4;
-            if (ccw == +1) return 7;
+            if (ccw == +1) return 2;
+            if (ccw == +2) return 4;
+            if (ccw == -1) return 7;
             return 9;
           } else {
             if (this->d == p) return 0;
