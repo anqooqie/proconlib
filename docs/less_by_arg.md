@@ -17,7 +17,7 @@ $$\begin{align*}
 \end{align*}$$
 
 $\mathrm{arg}(v)$ is $0$ if $v = (0, 0)$.
-Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $0 \leq \theta < 2 \pi \land \cos(\theta) = v_x \land \sin(\theta) = v_y$.
+Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $0 \leq \theta < 2 \pi \land \|v\| \cos(\theta) = v_x \land \|v\| \sin(\theta) = v_y$.
 
 ### References
 - [How do you polar sort? - Codeforces](https://codeforces.com/blog/entry/72815)
