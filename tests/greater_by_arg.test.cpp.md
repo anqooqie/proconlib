@@ -351,8 +351,8 @@ data:
     \        if (this->d.x == 0 && this->d.y == 0) {\n          return p.y > 0 ||\
     \ (p.y == 0 && p.x >= 0) ? 0 : 1;\n        } else {\n          if (p.x == 0 &&\
     \ p.y == 0) {\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
-    \ 0), this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == -1) return\
-    \ 2;\n            if (ccw == -2) return 4;\n            if (ccw == +1) return\
+    \ 0), this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == +1) return\
+    \ 2;\n            if (ccw == +2) return 4;\n            if (ccw == -1) return\
     \ 7;\n            return 9;\n          } else {\n            if (this->d == p)\
     \ return 0;\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0),\
     \ this->d, p);\n            if (ccw == -2) return 0;\n            if (ccw == +1)\
@@ -412,7 +412,7 @@ data:
   isVerificationFile: true
   path: tests/greater_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2021-07-24 15:39:15+09:00'
+  timestamp: '2021-07-25 08:57:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/greater_by_arg.test.cpp
