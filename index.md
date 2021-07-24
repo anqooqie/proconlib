@@ -222,6 +222,9 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
+    - icon: ':x:'
+      path: tools/run_length.hpp
+      title: Run-length encoding
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
@@ -356,6 +359,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
+    - icon: ':x:'
+      path: tests/run_length.test.cpp
+      title: tests/run_length.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
