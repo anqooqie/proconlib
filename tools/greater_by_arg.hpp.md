@@ -138,14 +138,29 @@ data:
     \ {\n  private:\n    ::tools::vector2<T> d;\n\n    template <typename U>\n   \
     \ int where(const ::tools::vector2<U>& p) const {\n      if constexpr (DEFAULT)\
     \ {\n        return p.y > 0 || (p.y == 0 && p.x >= 0) ? 0 : 1;\n      } else {\n\
-    \        if (this->d == p) return 0;\n        const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
-    \ 0), this->d, p);\n        if (ccw == -2) return 0;\n        if (ccw == +1) return\
-    \ 1;\n        if (ccw == +2) return 2;\n        if (ccw == -1) return 3;\n   \
-    \     return 4;\n      }\n    }\n\n  public:\n    greater_by_arg() = default;\n\
-    \n    template <typename U>\n    explicit greater_by_arg(const ::tools::vector2<U>&\
-    \ d) : d(d) {\n    }\n\n    template <typename U>\n    bool operator()(const ::tools::vector2<U>&\
-    \ a, const ::tools::vector2<U>& b) const {\n      const int wa = this->where(a);\n\
-    \      const int wb = this->where(b);\n      return wa == wb ? a.outer_product(b)\
+    \        if (this->d.x == 0 && this->d.y == 0) {\n          return p.y > 0 ||\
+    \ (p.y == 0 && p.x >= 0) ? 0 : 1;\n        } else {\n          if (p.x == 0 &&\
+    \ p.y == 0) {\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
+    \ 0), this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == -1) return\
+    \ 2;\n            if (ccw == -2) return 4;\n            if (ccw == +1) return\
+    \ 7;\n            return 9;\n          } else {\n            if (this->d == p)\
+    \ return 0;\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0),\
+    \ this->d, p);\n            if (ccw == -2) return 0;\n            if (ccw == +1)\
+    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != +1) return 1;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 1;\n              return 3;\n\
+    \            }\n            if (ccw == +2) return 5;\n            if (ccw == -1)\
+    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != -1) return 6;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 6;\n              return 8;\n\
+    \            }\n            return 9;\n          }\n        }\n      }\n    }\n\
+    \n  public:\n    greater_by_arg() = default;\n\n    template <typename U>\n  \
+    \  explicit greater_by_arg(const ::tools::vector2<U>& d) : d(d) {\n    }\n\n \
+    \   template <typename U>\n    bool operator()(const ::tools::vector2<U>& a, const\
+    \ ::tools::vector2<U>& b) const {\n      const int wa = this->where(a);\n    \
+    \  const int wb = this->where(b);\n      return wa == wb ? a.outer_product(b)\
     \ < 0 || (a.outer_product(b) == 0 && a.squared_norm() > b.squared_norm()) : wa\
     \ > wb;\n    }\n  };\n\n  greater_by_arg() -> greater_by_arg<true, int>;\n\n \
     \ template <typename U>\n  greater_by_arg(const ::tools::vector2<U>&) -> greater_by_arg<false,\
@@ -156,14 +171,29 @@ data:
     \  private:\n    ::tools::vector2<T> d;\n\n    template <typename U>\n    int\
     \ where(const ::tools::vector2<U>& p) const {\n      if constexpr (DEFAULT) {\n\
     \        return p.y > 0 || (p.y == 0 && p.x >= 0) ? 0 : 1;\n      } else {\n \
-    \       if (this->d == p) return 0;\n        const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
-    \ 0), this->d, p);\n        if (ccw == -2) return 0;\n        if (ccw == +1) return\
-    \ 1;\n        if (ccw == +2) return 2;\n        if (ccw == -1) return 3;\n   \
-    \     return 4;\n      }\n    }\n\n  public:\n    greater_by_arg() = default;\n\
-    \n    template <typename U>\n    explicit greater_by_arg(const ::tools::vector2<U>&\
-    \ d) : d(d) {\n    }\n\n    template <typename U>\n    bool operator()(const ::tools::vector2<U>&\
-    \ a, const ::tools::vector2<U>& b) const {\n      const int wa = this->where(a);\n\
-    \      const int wb = this->where(b);\n      return wa == wb ? a.outer_product(b)\
+    \       if (this->d.x == 0 && this->d.y == 0) {\n          return p.y > 0 || (p.y\
+    \ == 0 && p.x >= 0) ? 0 : 1;\n        } else {\n          if (p.x == 0 && p.y\
+    \ == 0) {\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0),\
+    \ this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == -1) return 2;\n\
+    \            if (ccw == -2) return 4;\n            if (ccw == +1) return 7;\n\
+    \            return 9;\n          } else {\n            if (this->d == p) return\
+    \ 0;\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ p);\n            if (ccw == -2) return 0;\n            if (ccw == +1) {\n  \
+    \            const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != +1) return 1;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 1;\n              return 3;\n\
+    \            }\n            if (ccw == +2) return 5;\n            if (ccw == -1)\
+    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != -1) return 6;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 6;\n              return 8;\n\
+    \            }\n            return 9;\n          }\n        }\n      }\n    }\n\
+    \n  public:\n    greater_by_arg() = default;\n\n    template <typename U>\n  \
+    \  explicit greater_by_arg(const ::tools::vector2<U>& d) : d(d) {\n    }\n\n \
+    \   template <typename U>\n    bool operator()(const ::tools::vector2<U>& a, const\
+    \ ::tools::vector2<U>& b) const {\n      const int wa = this->where(a);\n    \
+    \  const int wb = this->where(b);\n      return wa == wb ? a.outer_product(b)\
     \ < 0 || (a.outer_product(b) == 0 && a.squared_norm() > b.squared_norm()) : wa\
     \ > wb;\n    }\n  };\n\n  greater_by_arg() -> greater_by_arg<true, int>;\n\n \
     \ template <typename U>\n  greater_by_arg(const ::tools::vector2<U>&) -> greater_by_arg<false,\
@@ -175,7 +205,7 @@ data:
   isVerificationFile: false
   path: tools/greater_by_arg.hpp
   requiredBy: []
-  timestamp: '2021-07-23 19:07:32+09:00'
+  timestamp: '2021-07-24 15:39:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/greater_by_arg.test.cpp
@@ -198,7 +228,7 @@ $$\begin{align*}
 \end{align*}$$
 
 $\mathrm{arg}(v)$ is $0$ if $v = (0, 0)$.
-Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $0 \leq \theta < 2 \pi \land \cos(\theta) = v_x \land \sin(\theta) = v_y$.
+Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $0 \leq \theta < 2 \pi \land \|v\| \cos(\theta) = v_x \land \|v\| \sin(\theta) = v_y$.
 
 ### References
 - [How do you polar sort? - Codeforces](https://codeforces.com/blog/entry/72815)

@@ -348,19 +348,34 @@ data:
     \ {\n  private:\n    ::tools::vector2<T> d;\n\n    template <typename U>\n   \
     \ int where(const ::tools::vector2<U>& p) const {\n      if constexpr (DEFAULT)\
     \ {\n        return p.y > 0 || (p.y == 0 && p.x >= 0) ? 0 : 1;\n      } else {\n\
-    \        if (this->d == p) return 0;\n        const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
-    \ 0), this->d, p);\n        if (ccw == -2) return 0;\n        if (ccw == +1) return\
-    \ 1;\n        if (ccw == +2) return 2;\n        if (ccw == -1) return 3;\n   \
-    \     return 4;\n      }\n    }\n\n  public:\n    less_by_arg() = default;\n\n\
-    \    template <typename U>\n    explicit less_by_arg(const ::tools::vector2<U>&\
-    \ d) : d(d) {\n    }\n\n    template <typename U>\n    bool operator()(const ::tools::vector2<U>&\
-    \ a, const ::tools::vector2<U>& b) const {\n      const int wa = this->where(a);\n\
-    \      const int wb = this->where(b);\n      return wa == wb ? a.outer_product(b)\
-    \ > 0 || (a.outer_product(b) == 0 && a.squared_norm() < b.squared_norm()) : wa\
-    \ < wb;\n    }\n  };\n\n  less_by_arg() -> less_by_arg<true, int>;\n\n  template\
-    \ <typename U>\n  less_by_arg(const ::tools::vector2<U>&) -> less_by_arg<false,\
-    \ U>;\n}\n\n\n#line 8 \"tests/less_by_arg.test.cpp\"\n\nusing mint = atcoder::modint1000000007;\n\
-    using i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \        if (this->d.x == 0 && this->d.y == 0) {\n          return p.y > 0 ||\
+    \ (p.y == 0 && p.x >= 0) ? 0 : 1;\n        } else {\n          if (p.x == 0 &&\
+    \ p.y == 0) {\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
+    \ 0), this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == -1) return\
+    \ 2;\n            if (ccw == -2) return 4;\n            if (ccw == +1) return\
+    \ 7;\n            return 9;\n          } else {\n            if (this->d == p)\
+    \ return 0;\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0),\
+    \ this->d, p);\n            if (ccw == -2) return 0;\n            if (ccw == +1)\
+    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != +1) return 1;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 1;\n              return 3;\n\
+    \            }\n            if (ccw == +2) return 5;\n            if (ccw == -1)\
+    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
+    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != -1) return 6;\n     \
+    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
+    \ 0), p);\n              if (ccw3 == -1) return 6;\n              return 8;\n\
+    \            }\n            return 9;\n          }\n        }\n      }\n    }\n\
+    \n  public:\n    less_by_arg() = default;\n\n    template <typename U>\n    explicit\
+    \ less_by_arg(const ::tools::vector2<U>& d) : d(d) {\n    }\n\n    template <typename\
+    \ U>\n    bool operator()(const ::tools::vector2<U>& a, const ::tools::vector2<U>&\
+    \ b) const {\n      const int wa = this->where(a);\n      const int wb = this->where(b);\n\
+    \      return wa == wb ? a.outer_product(b) > 0 || (a.outer_product(b) == 0 &&\
+    \ a.squared_norm() < b.squared_norm()) : wa < wb;\n    }\n  };\n\n  less_by_arg()\
+    \ -> less_by_arg<true, int>;\n\n  template <typename U>\n  less_by_arg(const ::tools::vector2<U>&)\
+    \ -> less_by_arg<false, U>;\n}\n\n\n#line 8 \"tests/less_by_arg.test.cpp\"\n\n\
+    using mint = atcoder::modint1000000007;\nusing i64 = std::int_fast64_t;\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> orig_p(n);\n\
     \  for (auto& orig_p_i : orig_p) std::cin >> orig_p_i;\n\n  mint answer(0);\n\
     \  for (auto it = orig_p.begin(); it != orig_p.end(); ++it) {\n    std::vector<tools::vector2<i64>>\
@@ -397,7 +412,7 @@ data:
   isVerificationFile: true
   path: tests/less_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2021-07-23 19:07:32+09:00'
+  timestamp: '2021-07-24 15:39:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/less_by_arg.test.cpp
