@@ -16,7 +16,7 @@ int main() {
   std::vector<tools::vector2<i64>> p(N);
   for (auto& p_i : p) std::cin >> p_i;
 
-  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000000, -1)));
+  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001, -1)));
 
   for (const auto& p_i : p) {
     std::cout << p_i.x << ' ' << p_i.y << '\n';
