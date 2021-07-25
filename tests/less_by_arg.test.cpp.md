@@ -170,7 +170,7 @@ data:
     \ -> less_by_arg<false, U>;\n}\n\n\n#line 7 \"tests/less_by_arg.test.cpp\"\n\n\
     using i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> p(N);\n  for\
-    \ (auto& p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000000,\
+    \ (auto& p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001,\
     \ -1)));\n\n  for (const auto& p_i : p) {\n    std::cout << p_i.x << ' ' << p_i.y\
     \ << '\\n';\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\
@@ -178,7 +178,7 @@ data:
     #include \"tools/less_by_arg.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
     \ N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> p(N);\n  for (auto&\
-    \ p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000000,\
+    \ p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001,\
     \ -1)));\n\n  for (const auto& p_i : p) {\n    std::cout << p_i.x << ' ' << p_i.y\
     \ << '\\n';\n  }\n}\n"
   dependsOn:
@@ -189,7 +189,7 @@ data:
   isVerificationFile: true
   path: tests/less_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2021-07-25 08:57:57+09:00'
+  timestamp: '2021-07-25 10:07:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/less_by_arg.test.cpp

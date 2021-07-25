@@ -222,7 +222,7 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
     - icon: ':heavy_check_mark:'
@@ -359,7 +359,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp
     - icon: ':heavy_check_mark:'
