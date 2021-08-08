@@ -51,16 +51,18 @@ data:
     \    }\n    static constexpr ::std::optional<bool> BF() {\n      return ::std::optional<bool>(false);\n\
     \    }\n    static constexpr ::std::optional<bool> BT() {\n      return ::std::optional<bool>(true);\n\
     \    }\n\n  public:\n    constexpr bool is_finite() const {\n      return this->m_type\
-    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr T val() const\
-    \ {\n      assert(this->is_finite());\n      return this->m_value;\n    }\n\n\
-    \    friend constexpr bool operator==(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      if (x.is_finite() && y.is_finite()) {\n        return x.m_value\
-    \ == y.m_value;\n      } else if (!x.is_finite() && !y.is_finite()) {\n      \
-    \  return x.m_type == y.m_type;\n      } else {\n        return false;\n     \
-    \ }\n    }\n    friend constexpr bool operator!=(const ::tools::safe_int<T>& x,\
-    \ const ::tools::safe_int<T>& y) {\n      return !(x == y);\n    }\n\n    constexpr\
-    \ ::tools::safe_int<T> operator+() const {\n      return *this;\n    }\n    constexpr\
-    \ ::tools::safe_int<T> operator-() const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr bool is_nan()\
+    \ const {\n      return this->m_type == ::tools::safe_int<T>::type::nan;\n   \
+    \ }\n\n    constexpr T val() const {\n      assert(this->is_finite());\n     \
+    \ return this->m_value;\n    }\n\n    friend constexpr bool operator==(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ 4>, 4>({{\n        {BT(), BF(), BF(), BF()},\n        {BF(), BQ(), BF(), BF()},\n\
+    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
+    \      if (r) return *r;\n\n      return x.m_value == y.m_value;\n    }\n    friend\
+    \ constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
+    \ y) {\n      return !(x == y);\n    }\n\n    constexpr ::tools::safe_int<T> operator+()\
+    \ const {\n      return *this;\n    }\n    constexpr ::tools::safe_int<T> operator-()\
+    \ const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>({\n        {P(), Q(), N(), U()}\n      })[f1(*this)];\n      if (r) return\
     \ *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();\n\
     \      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n    friend constexpr\
@@ -197,16 +199,18 @@ data:
     \    }\n    static constexpr ::std::optional<bool> BF() {\n      return ::std::optional<bool>(false);\n\
     \    }\n    static constexpr ::std::optional<bool> BT() {\n      return ::std::optional<bool>(true);\n\
     \    }\n\n  public:\n    constexpr bool is_finite() const {\n      return this->m_type\
-    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr T val() const\
-    \ {\n      assert(this->is_finite());\n      return this->m_value;\n    }\n\n\
-    \    friend constexpr bool operator==(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      if (x.is_finite() && y.is_finite()) {\n        return x.m_value\
-    \ == y.m_value;\n      } else if (!x.is_finite() && !y.is_finite()) {\n      \
-    \  return x.m_type == y.m_type;\n      } else {\n        return false;\n     \
-    \ }\n    }\n    friend constexpr bool operator!=(const ::tools::safe_int<T>& x,\
-    \ const ::tools::safe_int<T>& y) {\n      return !(x == y);\n    }\n\n    constexpr\
-    \ ::tools::safe_int<T> operator+() const {\n      return *this;\n    }\n    constexpr\
-    \ ::tools::safe_int<T> operator-() const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr bool is_nan()\
+    \ const {\n      return this->m_type == ::tools::safe_int<T>::type::nan;\n   \
+    \ }\n\n    constexpr T val() const {\n      assert(this->is_finite());\n     \
+    \ return this->m_value;\n    }\n\n    friend constexpr bool operator==(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ 4>, 4>({{\n        {BT(), BF(), BF(), BF()},\n        {BF(), BQ(), BF(), BF()},\n\
+    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
+    \      if (r) return *r;\n\n      return x.m_value == y.m_value;\n    }\n    friend\
+    \ constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
+    \ y) {\n      return !(x == y);\n    }\n\n    constexpr ::tools::safe_int<T> operator+()\
+    \ const {\n      return *this;\n    }\n    constexpr ::tools::safe_int<T> operator-()\
+    \ const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>({\n        {P(), Q(), N(), U()}\n      })[f1(*this)];\n      if (r) return\
     \ *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();\n\
     \      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n    friend constexpr\
@@ -307,7 +311,7 @@ data:
   isVerificationFile: false
   path: tools/safe_int.hpp
   requiredBy: []
-  timestamp: '2021-07-22 16:51:29+09:00'
+  timestamp: '2021-08-08 17:28:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/safe_int.test.cpp
@@ -376,6 +380,20 @@ bool x.is_finite();
 ```
 
 It returns `true` if $x \in \mathbb{Z}$.
+Otherwise, it returns `false`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## is_nan
+```cpp
+bool x.is_nan();
+```
+
+It returns `true` if $x = \mathrm{NaN}$.
 Otherwise, it returns `false`.
 
 ### Constraints

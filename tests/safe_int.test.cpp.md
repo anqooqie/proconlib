@@ -56,16 +56,18 @@ data:
     \    }\n    static constexpr ::std::optional<bool> BF() {\n      return ::std::optional<bool>(false);\n\
     \    }\n    static constexpr ::std::optional<bool> BT() {\n      return ::std::optional<bool>(true);\n\
     \    }\n\n  public:\n    constexpr bool is_finite() const {\n      return this->m_type\
-    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr T val() const\
-    \ {\n      assert(this->is_finite());\n      return this->m_value;\n    }\n\n\
-    \    friend constexpr bool operator==(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      if (x.is_finite() && y.is_finite()) {\n        return x.m_value\
-    \ == y.m_value;\n      } else if (!x.is_finite() && !y.is_finite()) {\n      \
-    \  return x.m_type == y.m_type;\n      } else {\n        return false;\n     \
-    \ }\n    }\n    friend constexpr bool operator!=(const ::tools::safe_int<T>& x,\
-    \ const ::tools::safe_int<T>& y) {\n      return !(x == y);\n    }\n\n    constexpr\
-    \ ::tools::safe_int<T> operator+() const {\n      return *this;\n    }\n    constexpr\
-    \ ::tools::safe_int<T> operator-() const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ == ::tools::safe_int<T>::type::finite;\n    }\n\n    constexpr bool is_nan()\
+    \ const {\n      return this->m_type == ::tools::safe_int<T>::type::nan;\n   \
+    \ }\n\n    constexpr T val() const {\n      assert(this->is_finite());\n     \
+    \ return this->m_value;\n    }\n\n    friend constexpr bool operator==(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ 4>, 4>({{\n        {BT(), BF(), BF(), BF()},\n        {BF(), BQ(), BF(), BF()},\n\
+    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
+    \      if (r) return *r;\n\n      return x.m_value == y.m_value;\n    }\n    friend\
+    \ constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
+    \ y) {\n      return !(x == y);\n    }\n\n    constexpr ::tools::safe_int<T> operator+()\
+    \ const {\n      return *this;\n    }\n    constexpr ::tools::safe_int<T> operator-()\
+    \ const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>({\n        {P(), Q(), N(), U()}\n      })[f1(*this)];\n      if (r) return\
     \ *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();\n\
     \      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n    friend constexpr\
@@ -166,43 +168,43 @@ data:
     \  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity();\n \
     \ const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity();\n  const\
-    \ tools::safe_int<int> NAN = tools::safe_int<int>::nan();\n  const int INT_MAX\
-    \ = std::numeric_limits<int>::max();\n  const int INT_MIN = std::numeric_limits<int>::min();\n\
+    \ int INT_MAX = std::numeric_limits<int>::max();\n  const int INT_MIN = std::numeric_limits<int>::min();\n\
     \  using s = tools::safe_int<int>;\n\n  // basic arithmetic operations\n  assert_that(s(1)\
     \ + s(2) == s(3));\n  assert_that(s(1) - s(2) == s(-1));\n  assert_that(s(1) *\
     \ s(2) == s(2));\n  assert_that(s(1) / s(2) == s(0));\n  assert_that(s(1) % s(2)\
     \ == s(1));\n\n  // operator+ should detect an overflow.\n  assert_that(s(INT_MAX\
     \ - 2) + s(1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) + s(2) == s(INT_MAX));\n\
-    \  assert_that(s(INT_MAX - 2) + s(3) == NAN);\n  assert_that(s(1) + s(INT_MAX\
+    \  assert_that((s(INT_MAX - 2) + s(3)).is_nan());\n  assert_that(s(1) + s(INT_MAX\
     \ - 2) == s(INT_MAX - 1));\n  assert_that(s(2) + s(INT_MAX - 2) == s(INT_MAX));\n\
-    \  assert_that(s(3) + s(INT_MAX - 2) == NAN);\n  assert_that(s(INT_MIN + 2) +\
-    \ s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n\
-    \  assert_that(s(INT_MIN + 2) + s(-3) == NAN);\n  assert_that(s(-1) + s(INT_MIN\
+    \  assert_that((s(3) + s(INT_MAX - 2)).is_nan());\n  assert_that(s(INT_MIN + 2)\
+    \ + s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n\
+    \  assert_that((s(INT_MIN + 2) + s(-3)).is_nan());\n  assert_that(s(-1) + s(INT_MIN\
     \ + 2) == s(INT_MIN + 1));\n  assert_that(s(-2) + s(INT_MIN + 2) == s(INT_MIN));\n\
-    \  assert_that(s(-3) + s(INT_MIN + 2) == NAN);\n\n  // infinite + finite should\
+    \  assert_that((s(-3) + s(INT_MIN + 2)).is_nan());\n\n  // infinite + finite should\
     \ be infinite.\n  assert_that(POS_INF + s(-1) == POS_INF);\n  assert_that(s(-1)\
     \ + POS_INF == POS_INF);\n  assert_that(POS_INF + POS_INF == POS_INF);\n  assert_that(NEG_INF\
     \ + s(1) == NEG_INF);\n  assert_that(s(1) + NEG_INF == NEG_INF);\n  assert_that(NEG_INF\
     \ + NEG_INF == NEG_INF);\n\n  // operator- should detect an overflow.\n  assert_that(s(INT_MAX\
     \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(INT_MAX));\n\
-    \  assert_that(s(INT_MAX - 2) - s(-3) == NAN);\n  assert_that(s(INT_MIN + 2) -\
-    \ s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
-    \  assert_that(s(INT_MIN + 2) - s(3) == NAN);\n\n  // infinite - finite should\
+    \  assert_that(s((INT_MAX - 2) - s(-3)).is_nan());\n  assert_that(s(INT_MIN +\
+    \ 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
+    \  assert_that((s(INT_MIN + 2) - s(3)).is_nan());\n\n  // infinite - finite should\
     \ be finite.\n  assert_that(POS_INF - s(1) == POS_INF);\n  assert_that(POS_INF\
     \ - NEG_INF == POS_INF);\n  assert_that(NEG_INF - s(-1) == NEG_INF);\n  assert_that(NEG_INF\
     \ - POS_INF == NEG_INF);\n\n  // operator* should detect an overflow.\n  assert_that(NEG_INF\
-    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that(NEG_INF\
-    \ * s(0) == NAN);\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
-    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that(s(INT_MIN)\
-    \ * s(INT_MIN) == NAN);\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that(s(INT_MIN)\
-    \ * s(INT_MAX) == NAN);\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n  assert_that(s(0)\
-    \ * NEG_INF == NAN);\n  assert_that(s(0) * s(INT_MIN) == s(0));\n  assert_that(s(0)\
-    \ * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX) == s(0));\n  assert_that(s(0)\
-    \ * POS_INF == NAN);\n  assert_that(s(INT_MAX) * NEG_INF == NEG_INF);\n  assert_that(s(INT_MAX)\
-    \ * s(INT_MIN) == NAN);\n  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that(s(INT_MAX)\
-    \ * s(INT_MAX) == NAN);\n  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF\
-    \ * NEG_INF == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that(POS_INF\
-    \ * s(0) == NAN);\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
+    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that((NEG_INF\
+    \ * s(0)).is_nan());\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
+    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that((s(INT_MIN)\
+    \ * s(INT_MIN)).is_nan());\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that((s(INT_MIN)\
+    \ * s(INT_MAX)).is_nan());\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n\
+    \  assert_that((s(0) * NEG_INF).is_nan());\n  assert_that(s(0) * s(INT_MIN) ==\
+    \ s(0));\n  assert_that(s(0) * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX)\
+    \ == s(0));\n  assert_that((s(0) * POS_INF).is_nan());\n  assert_that(s(INT_MAX)\
+    \ * NEG_INF == NEG_INF);\n  assert_that((s(INT_MAX) * s(INT_MIN)).is_nan());\n\
+    \  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that((s(INT_MAX) * s(INT_MAX)).is_nan());\n\
+    \  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF * NEG_INF\
+    \ == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that((POS_INF\
+    \ * s(0)).is_nan());\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
     \ * POS_INF == POS_INF);\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
@@ -211,43 +213,43 @@ data:
     \  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity();\n \
     \ const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity();\n  const\
-    \ tools::safe_int<int> NAN = tools::safe_int<int>::nan();\n  const int INT_MAX\
-    \ = std::numeric_limits<int>::max();\n  const int INT_MIN = std::numeric_limits<int>::min();\n\
+    \ int INT_MAX = std::numeric_limits<int>::max();\n  const int INT_MIN = std::numeric_limits<int>::min();\n\
     \  using s = tools::safe_int<int>;\n\n  // basic arithmetic operations\n  assert_that(s(1)\
     \ + s(2) == s(3));\n  assert_that(s(1) - s(2) == s(-1));\n  assert_that(s(1) *\
     \ s(2) == s(2));\n  assert_that(s(1) / s(2) == s(0));\n  assert_that(s(1) % s(2)\
     \ == s(1));\n\n  // operator+ should detect an overflow.\n  assert_that(s(INT_MAX\
     \ - 2) + s(1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) + s(2) == s(INT_MAX));\n\
-    \  assert_that(s(INT_MAX - 2) + s(3) == NAN);\n  assert_that(s(1) + s(INT_MAX\
+    \  assert_that((s(INT_MAX - 2) + s(3)).is_nan());\n  assert_that(s(1) + s(INT_MAX\
     \ - 2) == s(INT_MAX - 1));\n  assert_that(s(2) + s(INT_MAX - 2) == s(INT_MAX));\n\
-    \  assert_that(s(3) + s(INT_MAX - 2) == NAN);\n  assert_that(s(INT_MIN + 2) +\
-    \ s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n\
-    \  assert_that(s(INT_MIN + 2) + s(-3) == NAN);\n  assert_that(s(-1) + s(INT_MIN\
+    \  assert_that((s(3) + s(INT_MAX - 2)).is_nan());\n  assert_that(s(INT_MIN + 2)\
+    \ + s(-1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n\
+    \  assert_that((s(INT_MIN + 2) + s(-3)).is_nan());\n  assert_that(s(-1) + s(INT_MIN\
     \ + 2) == s(INT_MIN + 1));\n  assert_that(s(-2) + s(INT_MIN + 2) == s(INT_MIN));\n\
-    \  assert_that(s(-3) + s(INT_MIN + 2) == NAN);\n\n  // infinite + finite should\
+    \  assert_that((s(-3) + s(INT_MIN + 2)).is_nan());\n\n  // infinite + finite should\
     \ be infinite.\n  assert_that(POS_INF + s(-1) == POS_INF);\n  assert_that(s(-1)\
     \ + POS_INF == POS_INF);\n  assert_that(POS_INF + POS_INF == POS_INF);\n  assert_that(NEG_INF\
     \ + s(1) == NEG_INF);\n  assert_that(s(1) + NEG_INF == NEG_INF);\n  assert_that(NEG_INF\
     \ + NEG_INF == NEG_INF);\n\n  // operator- should detect an overflow.\n  assert_that(s(INT_MAX\
     \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(INT_MAX));\n\
-    \  assert_that(s(INT_MAX - 2) - s(-3) == NAN);\n  assert_that(s(INT_MIN + 2) -\
-    \ s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
-    \  assert_that(s(INT_MIN + 2) - s(3) == NAN);\n\n  // infinite - finite should\
+    \  assert_that(s((INT_MAX - 2) - s(-3)).is_nan());\n  assert_that(s(INT_MIN +\
+    \ 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
+    \  assert_that((s(INT_MIN + 2) - s(3)).is_nan());\n\n  // infinite - finite should\
     \ be finite.\n  assert_that(POS_INF - s(1) == POS_INF);\n  assert_that(POS_INF\
     \ - NEG_INF == POS_INF);\n  assert_that(NEG_INF - s(-1) == NEG_INF);\n  assert_that(NEG_INF\
     \ - POS_INF == NEG_INF);\n\n  // operator* should detect an overflow.\n  assert_that(NEG_INF\
-    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that(NEG_INF\
-    \ * s(0) == NAN);\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
-    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that(s(INT_MIN)\
-    \ * s(INT_MIN) == NAN);\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that(s(INT_MIN)\
-    \ * s(INT_MAX) == NAN);\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n  assert_that(s(0)\
-    \ * NEG_INF == NAN);\n  assert_that(s(0) * s(INT_MIN) == s(0));\n  assert_that(s(0)\
-    \ * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX) == s(0));\n  assert_that(s(0)\
-    \ * POS_INF == NAN);\n  assert_that(s(INT_MAX) * NEG_INF == NEG_INF);\n  assert_that(s(INT_MAX)\
-    \ * s(INT_MIN) == NAN);\n  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that(s(INT_MAX)\
-    \ * s(INT_MAX) == NAN);\n  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF\
-    \ * NEG_INF == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that(POS_INF\
-    \ * s(0) == NAN);\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
+    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that((NEG_INF\
+    \ * s(0)).is_nan());\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
+    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that((s(INT_MIN)\
+    \ * s(INT_MIN)).is_nan());\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that((s(INT_MIN)\
+    \ * s(INT_MAX)).is_nan());\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n\
+    \  assert_that((s(0) * NEG_INF).is_nan());\n  assert_that(s(0) * s(INT_MIN) ==\
+    \ s(0));\n  assert_that(s(0) * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX)\
+    \ == s(0));\n  assert_that((s(0) * POS_INF).is_nan());\n  assert_that(s(INT_MAX)\
+    \ * NEG_INF == NEG_INF);\n  assert_that((s(INT_MAX) * s(INT_MIN)).is_nan());\n\
+    \  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that((s(INT_MAX) * s(INT_MAX)).is_nan());\n\
+    \  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF * NEG_INF\
+    \ == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that((POS_INF\
+    \ * s(0)).is_nan());\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
     \ * POS_INF == POS_INF);\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   dependsOn:
@@ -255,7 +257,7 @@ data:
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2021-07-22 16:51:29+09:00'
+  timestamp: '2021-08-08 17:28:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp
