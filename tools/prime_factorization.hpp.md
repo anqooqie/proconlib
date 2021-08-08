@@ -134,16 +134,16 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
-  - tools/totient.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
+  - tools/totient.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/divisors.test.cpp
   - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prime_factorization.hpp

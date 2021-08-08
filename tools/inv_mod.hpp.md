@@ -69,15 +69,15 @@ data:
   isVerificationFile: false
   path: tools/inv_mod.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
   - tools/garner.hpp
   - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2021-07-22 15:31:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
-  - tests/garner.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/garner.test.cpp
 documentation_of: tools/inv_mod.hpp
 layout: document
 title: $x^{-1} \pmod{M}$

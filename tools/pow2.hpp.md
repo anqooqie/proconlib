@@ -43,8 +43,8 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/dual_segtree.test.cpp
   - tests/binary_heap.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$

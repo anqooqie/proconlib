@@ -212,7 +212,7 @@ title: std::less by the argument
 ---
 
 It compares two vectors by the argument.
-More precisely, it maps a vector $v$ to $(\mathrm{class}_d(v), \mathrm{arg}(v), \|v\|)$ and compares two vectors by the mapped value in lexicographical order.
+More precisely, it maps a vector $v$ to $(\mathrm{class}_d(v), \mathrm{arg}_d(v), \|v\|)$ and compares two vectors by the mapped value in lexicographical order.
 
 Given a vector $d$, $\mathrm{class}_d(v)$ is defined as follows.
 
@@ -222,6 +222,12 @@ $$\begin{align*}
 1 & \text{(if $\mathrm{arg}(d) \neq \mathrm{arg}(v)$)}\\
 2 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|v\| < \|d\|$)}
 \end{array}\right.&
+\end{align*}$$
+
+Given a vector $d$, $\mathrm{arg}_d(v)$ is defined as follows.
+
+$$\begin{align*}
+\mathrm{arg}_d(v) &= \mathrm{mod}(\mathrm{arg}(v) - \mathrm{arg}(d), 2 \pi)
 \end{align*}$$
 
 $\mathrm{arg}(v)$ is $0$ if $v = (0, 0)$.
@@ -239,7 +245,7 @@ Otherwise, $\mathrm{arg}(v)$ is the unique real velue $\theta$ which satisfies $
 ## Constructor
 ```cpp
 (1) tools::less_by_arg<true, int> comp();
-(2) tools::less_by_arg<false, T> comp(T d);
+(2) tools::less_by_arg<false, T> comp(tools::vector2<T> d);
 ```
 
 It creates a comparator.
@@ -261,7 +267,7 @@ It creates a comparator.
 (2) bool comp(tools::vector2<T> a, tools::vector2<T> b);
 ```
 
-It returns `true` if $(\mathrm{class}_d(a), \mathrm{arg}(a), \|a\|) < (\mathrm{class}_d(b), \mathrm{arg}(b), \|b\|)$ in lexicographical order.
+It returns `true` if $(\mathrm{class}_d(a), \mathrm{arg}_d(a), \|a\|) < (\mathrm{class}_d(b), \mathrm{arg}_d(b), \|b\|)$ in lexicographical order.
 Otherwise, it returns `false`.
 
 ### Constraints

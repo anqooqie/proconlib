@@ -158,15 +158,15 @@ data:
   isVerificationFile: false
   path: tools/ccw.hpp
   requiredBy:
-  - tools/less_by_arg.hpp
   - tools/greater_by_arg.hpp
+  - tools/less_by_arg.hpp
   timestamp: '2021-07-23 19:07:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/less_by_arg.test.cpp
-  - tests/chromatic_number.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document
 title: Counter clockwise function

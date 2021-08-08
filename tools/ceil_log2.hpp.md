@@ -71,9 +71,9 @@ data:
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/dual_segtree.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/binary_heap.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$
