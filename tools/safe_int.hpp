@@ -109,19 +109,25 @@ namespace tools {
       return this->m_type == ::tools::safe_int<T>::type::finite;
     }
 
+    constexpr bool is_nan() const {
+      return this->m_type == ::tools::safe_int<T>::type::nan;
+    }
+
     constexpr T val() const {
       assert(this->is_finite());
       return this->m_value;
     }
 
     friend constexpr bool operator==(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      if (x.is_finite() && y.is_finite()) {
-        return x.m_value == y.m_value;
-      } else if (!x.is_finite() && !y.is_finite()) {
-        return x.m_type == y.m_type;
-      } else {
-        return false;
-      }
+      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+        {BT(), BF(), BF(), BF()},
+        {BF(), BQ(), BF(), BF()},
+        {BF(), BF(), BT(), BF()},
+        {BF(), BF(), BF(), BF()}
+      }})[f1(x)][f1(y)];
+      if (r) return *r;
+
+      return x.m_value == y.m_value;
     }
     friend constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       return !(x == y);

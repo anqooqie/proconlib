@@ -71,6 +71,20 @@ Otherwise, it returns `false`.
 ### Time Complexity
 - $O(1)$
 
+## is_nan
+```cpp
+bool x.is_nan();
+```
+
+It returns `true` if $x = \mathrm{NaN}$.
+Otherwise, it returns `false`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## val
 ```cpp
 T x.val();
