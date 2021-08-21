@@ -58,6 +58,9 @@ data:
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':heavy_check_mark:'
+      path: tools/extended_garner.hpp
+      title: Extended Garner's algorithm
+    - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
     - icon: ':heavy_check_mark:'
@@ -315,6 +318,9 @@ data:
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/extended_garner.test.cpp
+      title: tests/extended_garner.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/extended_lucas.test.cpp
       title: tests/extended_lucas.test.cpp
     - icon: ':heavy_check_mark:'
@@ -329,9 +335,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_log2.test.cpp
       title: tests/floor_log2.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/garner.test.cpp
-      title: tests/garner.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp

@@ -9,6 +9,9 @@ data:
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
+    path: tools/extended_garner.hpp
+    title: Extended Garner's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
@@ -25,14 +28,14 @@ data:
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/extended_garner.test.cpp
+    title: tests/extended_garner.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/garner.test.cpp
-    title: tests/garner.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -71,6 +74,7 @@ data:
   requiredBy:
   - tools/garner.hpp
   - tools/extended_lucas.hpp
+  - tools/extended_garner.hpp
   - tools/inv_mod.hpp
   - tools/tetration_mod.hpp
   - tools/bezout.hpp
@@ -81,7 +85,7 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/bezout.test.cpp
   - tests/extgcd.test.cpp
-  - tests/garner.test.cpp
+  - tests/extended_garner.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document
 title: Extended Euclidean algorithm

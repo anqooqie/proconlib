@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/extended_garner.hpp
+    title: Extended Garner's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
@@ -26,7 +29,7 @@ data:
     PROBLEM: https://yukicoder.me/problems/no/187
     links:
     - https://yukicoder.me/problems/no/187
-  bundledCode: "#line 1 \"tests/garner.test.cpp\"\n#define PROBLEM \"https://yukicoder.me/problems/no/187\"\
+  bundledCode: "#line 1 \"tests/extended_garner.test.cpp\"\n#define PROBLEM \"https://yukicoder.me/problems/no/187\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <utility>\n\
     #include <algorithm>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
     \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
@@ -234,11 +237,10 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/garner.hpp\"\
-    \n\n\n\n#include <optional>\n#line 7 \"tools/garner.hpp\"\n#include <iterator>\n\
-    #line 9 \"tools/garner.hpp\"\n#include <cstddef>\n#line 1 \"tools/mod.hpp\"\n\n\
-    \n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/extended_garner.hpp\"\
+    \n\n\n\n#include <optional>\n#line 8 \"tools/extended_garner.hpp\"\n#include <cstddef>\n\
+    #line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
     \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
     \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
@@ -246,49 +248,62 @@ data:
     \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
     \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
     \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1\
-    \ \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
-    \ prev_r, T r) {\n    T prev_s = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t\
-    \ = 1;\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r, r);\n   \
-    \   const T next_r = prev_r - q * r;\n      prev_r = r;\n      r = next_r;\n \
-    \     const T next_s = prev_s - q * s;\n      prev_s = s;\n      s = next_s;\n\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 1\
+    \ \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n\
+    #line 6 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s = 1;\n    T prev_t\
+    \ = 0;\n    T s = 0;\n    T t = 1;\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r,\
+    \ r);\n      const T next_r = prev_r - q * r;\n      prev_r = r;\n      r = next_r;\n\
+    \      const T next_s = prev_s - q * s;\n      prev_s = s;\n      s = next_s;\n\
     \      const T next_t = prev_t - q * t;\n      prev_t = t;\n      t = next_t;\n\
     \    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return {prev_s, prev_t,\
     \ prev_r};\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n\
     \  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1 x, const\
     \ T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd\
-    \ == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 13 \"tools/garner.hpp\"\
+    \ == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\
     \n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n// License:\
     \ unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename Iterator,\
-    \ typename ModType>\n  ::std::optional<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>>\
-    \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
-    \   ::std::vector<::std::int_fast64_t> b, m;\n    for (auto it = begin; it !=\
-    \ end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n    \
-    \  m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n    for\
-    \ (::std::size_t i = 0; i < b.size(); ++i) {\n      for (::std::size_t j = 0;\
-    \ j < i; ++j) {\n        ::std::int_fast64_t g = ::std::gcd(m[i], m[j]);\n\n \
-    \       if ((b[i] - b[j]) % g != 0) return ::std::nullopt;\n\n        m[i] /=\
-    \ g;\n        m[j] /= g;\n\n        ::std::int_fast64_t gi = ::std::gcd(m[i],\
-    \ g), gj = g / gi;\n\n        do {\n          g = ::std::gcd(gi, gj);\n      \
-    \    gi *= g, gj /= g;\n        } while (g != 1);\n\n        m[i] *= gi, m[j]\
-    \ *= gj;\n\n        b[i] %= m[i], b[j] %= m[j];\n      }\n    }\n    for (::std::size_t\
-    \ i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n    }\n\n    m.push_back(mod);\n\
-    \    ::std::vector<::std::int_fast64_t> coeffs(m.size(), 1);\n    ::std::vector<::std::int_fast64_t>\
-    \ constants(m.size(), 0);\n    for (::std::size_t k = 0; k < b.size(); ++k) {\n\
-    \      ::std::int_fast64_t t = ::tools::mod((b[k] - constants[k]) * ::tools::inv_mod(coeffs[k],\
-    \ m[k]), m[k]);\n      for (::std::size_t i = k + 1; i < m.size(); ++i) {\n  \
-    \      (constants[i] += t * coeffs[i]) %= m[i];\n        (coeffs[i] *= m[k]) %=\
-    \ m[i];\n      }\n    }\n\n    return ::std::make_optional<::std::pair<::std::int_fast64_t,\
-    \ ::std::int_fast64_t>>(constants.back(), lcm);\n  }\n\n  template <typename M,\
-    \ typename Iterator>\n  ::std::optional<::std::pair<M, M>> garner(const Iterator&\
-    \ begin, const Iterator& end) {\n    const auto result = ::tools::garner(begin,\
+    \ typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t> garner(const\
+    \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<::std::int_fast64_t>\
+    \ b, m;\n    for (auto it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first,\
+    \ it->second));\n      m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t\
+    \ lcm = 1;\n    for (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *=\
+    \ m[i]) %= mod;\n    }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t>\
+    \ coeffs(m.size(), 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(),\
+    \ 0);\n    for (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t\
+    \ t = ::tools::mod((b[k] - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]),\
+    \ m[k]);\n      for (::std::size_t i = k + 1; i < m.size(); ++i) {\n        (constants[i]\
+    \ += t * coeffs[i]) %= m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n\
+    \    }\n\n    return ::std::make_pair(constants.back(), lcm);\n  }\n\n  template\
+    \ <typename M, typename Iterator>\n  ::std::pair<M, M> garner(const Iterator&\
+    \ begin, const Iterator& end) {\n    const auto [y, z] = ::tools::garner(begin,\
+    \ end, M::mod());\n    return ::std::make_pair(M::raw(y), M::raw(z));\n  }\n}\n\
+    \n\n#line 11 \"tools/extended_garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
+    \ Iterator, typename ModType>\n  ::std::optional<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>> extended_garner(const Iterator& begin, const Iterator&\
+    \ end, const ModType& mod) {\n    ::std::vector<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>> v;\n    for (auto it = begin; it != end; ++it) {\n   \
+    \   v.emplace_back(::tools::mod(it->first, it->second), it->second);\n    }\n\n\
+    \    for (::std::size_t i = 0; i < v.size(); ++i) {\n      for (::std::size_t\
+    \ j = 0; j < i; ++j) {\n        ::std::int_fast64_t g = ::std::gcd(v[i].second,\
+    \ v[j].second);\n\n        if ((v[i].first - v[j].first) % g != 0) return ::std::nullopt;\n\
+    \n        v[i].second /= g;\n        v[j].second /= g;\n\n        ::std::int_fast64_t\
+    \ gi = ::std::gcd(v[i].second, g);\n        ::std::int_fast64_t gj = g / gi;\n\
+    \n        do {\n          g = ::std::gcd(gi, gj);\n          gi *= g;\n      \
+    \    gj /= g;\n        } while (g != 1);\n\n        v[i].second *= gi;\n     \
+    \   v[j].second *= gj;\n\n        v[i].first %= v[i].second;\n        v[j].first\
+    \ %= v[j].second;\n      }\n    }\n\n    return ::std::optional<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>>(::tools::garner(v.begin(), v.end(), mod));\n  }\n\n  template\
+    \ <typename M, typename Iterator>\n  ::std::optional<::std::pair<M, M>> extended_garner(const\
+    \ Iterator& begin, const Iterator& end) {\n    const auto result = ::tools::extended_garner(begin,\
     \ end, M::mod());\n    if (!result) return ::std::nullopt;\n    return ::std::make_optional<::std::pair<M,\
     \ M>>(M::raw(result->first), M::raw(result->second));\n  }\n}\n\n\n#line 10 \"\
-    tests/garner.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n  std::vector<std::pair<i64,\
-    \ i64>> system(N);\n  for (i64 i = 0; i < N; ++i) {\n    std::cin >> system[i].first\
-    \ >> system[i].second;\n  }\n\n  const auto answer = tools::garner<atcoder::modint1000000007>(system.begin(),\
+    tests/extended_garner.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ N;\n  std::cin >> N;\n  std::vector<std::pair<i64, i64>> system(N);\n  for (i64\
+    \ i = 0; i < N; ++i) {\n    std::cin >> system[i].first >> system[i].second;\n\
+    \  }\n\n  const auto answer = tools::extended_garner<atcoder::modint1000000007>(system.begin(),\
     \ system.end());\n  if (!answer) {\n    std::cout << -1 << '\\n';\n    return\
     \ 0;\n  }\n  if (std::all_of(system.begin(), system.end(), [](const std::pair<i64,\
     \ i64>& pair) { return pair.first == 0; })) {\n    std::cout << answer->second.val()\
@@ -296,32 +311,33 @@ data:
     \  return 0;\n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/187\"\n\n#include <cstdint>\n\
     #include <iostream>\n#include <vector>\n#include <utility>\n#include <algorithm>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/garner.hpp\"\n\nusing i64 =\
-    \ std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include \"atcoder/modint.hpp\"\n#include \"tools/extended_garner.hpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 N;\n  std::cin >> N;\n  std::vector<std::pair<i64, i64>> system(N);\n\
     \  for (i64 i = 0; i < N; ++i) {\n    std::cin >> system[i].first >> system[i].second;\n\
-    \  }\n\n  const auto answer = tools::garner<atcoder::modint1000000007>(system.begin(),\
+    \  }\n\n  const auto answer = tools::extended_garner<atcoder::modint1000000007>(system.begin(),\
     \ system.end());\n  if (!answer) {\n    std::cout << -1 << '\\n';\n    return\
     \ 0;\n  }\n  if (std::all_of(system.begin(), system.end(), [](const std::pair<i64,\
     \ i64>& pair) { return pair.first == 0; })) {\n    std::cout << answer->second.val()\
     \ << '\\n';\n    return 0;\n  }\n  std::cout << answer->first.val() << '\\n';\n\
     \  return 0;\n}\n"
   dependsOn:
-  - tools/garner.hpp
+  - tools/extended_garner.hpp
   - tools/mod.hpp
   - tools/quo.hpp
+  - tools/garner.hpp
   - tools/inv_mod.hpp
   - tools/extgcd.hpp
   isVerificationFile: true
-  path: tests/garner.test.cpp
+  path: tests/extended_garner.test.cpp
   requiredBy: []
-  timestamp: '2021-07-22 15:31:38+09:00'
+  timestamp: '2021-08-22 01:33:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/garner.test.cpp
+documentation_of: tests/extended_garner.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/garner.test.cpp
-- /verify/tests/garner.test.cpp.html
-title: tests/garner.test.cpp
+- /verify/tests/extended_garner.test.cpp
+- /verify/tests/extended_garner.test.cpp.html
+title: tests/extended_garner.test.cpp
 ---

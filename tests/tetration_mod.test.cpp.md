@@ -143,55 +143,46 @@ data:
     \ auto& [distinct_prime_factor, exponent] : ::tools::prime_factorization(x)) {\n\
     \      prod *= ::tools::pow(distinct_prime_factor, exponent - 1) * (distinct_prime_factor\
     \ - 1);\n    }\n    return prod;\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\
-    \n\n#include <optional>\n#line 7 \"tools/garner.hpp\"\n#include <iterator>\n#line\
-    \ 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include\
-    \ <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s = 1;\n   \
-    \ T prev_t = 0;\n    T s = 0;\n    T t = 1;\n    while (r != 0) {\n      const\
-    \ T q = ::tools::quo(prev_r, r);\n      const T next_r = prev_r - q * r;\n   \
-    \   prev_r = r;\n      r = next_r;\n      const T next_s = prev_s - q * s;\n \
-    \     prev_s = s;\n      s = next_s;\n      const T next_t = prev_t - q * t;\n\
-    \      prev_t = t;\n      t = next_t;\n    }\n\n    if (prev_r < T(0)) prev_r\
-    \ = -prev_r;\n    return {prev_s, prev_t, prev_r};\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T1, typename T2>\n  constexpr T2\
-    \ inv_mod(const T1 x, const T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x,\
-    \ m);\n    assert(gcd == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line\
-    \ 13 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    \n\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n\
+    #include <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s\
+    \ = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t = 1;\n    while (r != 0) {\n\
+    \      const T q = ::tools::quo(prev_r, r);\n      const T next_r = prev_r - q\
+    \ * r;\n      prev_r = r;\n      r = next_r;\n      const T next_s = prev_s -\
+    \ q * s;\n      prev_s = s;\n      s = next_s;\n      const T next_t = prev_t\
+    \ - q * t;\n      prev_t = t;\n      t = next_t;\n    }\n\n    if (prev_r < T(0))\
+    \ prev_r = -prev_r;\n    return {prev_s, prev_t, prev_r};\n  }\n}\n\n\n#line 7\
+    \ \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
+    \ T2>\n  constexpr T2 inv_mod(const T1 x, const T2 m) {\n    const auto [x0, y0,\
+    \ gcd] = ::tools::extgcd(x, m);\n    assert(gcd == 1);\n    return ::tools::mod(x0,\
+    \ m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
-    \ Iterator, typename ModType>\n  ::std::optional<::std::pair<::std::int_fast64_t,\
-    \ ::std::int_fast64_t>> garner(const Iterator& begin, const Iterator& end, const\
-    \ ModType& mod) {\n    ::std::vector<::std::int_fast64_t> b, m;\n    for (auto\
-    \ it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n\
-    \      m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n \
-    \   for (::std::size_t i = 0; i < b.size(); ++i) {\n      for (::std::size_t j\
-    \ = 0; j < i; ++j) {\n        ::std::int_fast64_t g = ::std::gcd(m[i], m[j]);\n\
-    \n        if ((b[i] - b[j]) % g != 0) return ::std::nullopt;\n\n        m[i] /=\
-    \ g;\n        m[j] /= g;\n\n        ::std::int_fast64_t gi = ::std::gcd(m[i],\
-    \ g), gj = g / gi;\n\n        do {\n          g = ::std::gcd(gi, gj);\n      \
-    \    gi *= g, gj /= g;\n        } while (g != 1);\n\n        m[i] *= gi, m[j]\
-    \ *= gj;\n\n        b[i] %= m[i], b[j] %= m[j];\n      }\n    }\n    for (::std::size_t\
-    \ i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n    }\n\n    m.push_back(mod);\n\
-    \    ::std::vector<::std::int_fast64_t> coeffs(m.size(), 1);\n    ::std::vector<::std::int_fast64_t>\
-    \ constants(m.size(), 0);\n    for (::std::size_t k = 0; k < b.size(); ++k) {\n\
-    \      ::std::int_fast64_t t = ::tools::mod((b[k] - constants[k]) * ::tools::inv_mod(coeffs[k],\
-    \ m[k]), m[k]);\n      for (::std::size_t i = k + 1; i < m.size(); ++i) {\n  \
-    \      (constants[i] += t * coeffs[i]) %= m[i];\n        (coeffs[i] *= m[k]) %=\
-    \ m[i];\n      }\n    }\n\n    return ::std::make_optional<::std::pair<::std::int_fast64_t,\
-    \ ::std::int_fast64_t>>(constants.back(), lcm);\n  }\n\n  template <typename M,\
-    \ typename Iterator>\n  ::std::optional<::std::pair<M, M>> garner(const Iterator&\
-    \ begin, const Iterator& end) {\n    const auto result = ::tools::garner(begin,\
-    \ end, M::mod());\n    if (!result) return ::std::nullopt;\n    return ::std::make_optional<::std::pair<M,\
-    \ M>>(M::raw(result->first), M::raw(result->second));\n  }\n}\n\n\n#line 13 \"\
-    tools/tetration_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  T\
-    \ tetration_mod(const T a, const T b, const T m) {\n    assert(a >= 0);\n    assert(b\
-    \ >= 0);\n    assert(m >= 1);\n\n    if (m == 1) return 0;\n\n    // It returns\
-    \ min(fa^^fb, 2^63 - 1).\n    const auto f = [](const ::std::int_fast64_t fa,\
-    \ const ::std::int_fast64_t fb) {\n      if (fa == 0) return 1 - fb % 2;\n   \
-    \   if (fa == 1) return ::std::int_fast64_t(1);\n      if (fb == 0) return ::std::int_fast64_t(1);\n\
-    \      if (fb == 1) return fa;\n      if (fb == 2 && fa <= 15) return ::tools::pow(fa,\
-    \ fa);\n      if (fb == 3 && fa <= 3) return ::tools::pow(fa, ::tools::pow(fa,\
-    \ fa));\n      if (fb == 4 && fa <= 2) return ::tools::pow(fa, ::tools::pow(fa,\
-    \ ::tools::pow(fa, fa)));\n\n      // Too large\n      return ::std::numeric_limits<::std::int_fast64_t>::max();\n\
+    \ Iterator, typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t>\
+    \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
+    \   ::std::vector<::std::int_fast64_t> b, m;\n    for (auto it = begin; it !=\
+    \ end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n    \
+    \  m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n    for\
+    \ (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n  \
+    \  }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t> coeffs(m.size(),\
+    \ 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(), 0);\n    for\
+    \ (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t t = ::tools::mod((b[k]\
+    \ - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t\
+    \ i = k + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %=\
+    \ m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
+    \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
+    \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
+    \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
+    \ M::raw(z));\n  }\n}\n\n\n#line 13 \"tools/tetration_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  T tetration_mod(const T a, const T b, const\
+    \ T m) {\n    assert(a >= 0);\n    assert(b >= 0);\n    assert(m >= 1);\n\n  \
+    \  if (m == 1) return 0;\n\n    // It returns min(fa^^fb, 2^63 - 1).\n    const\
+    \ auto f = [](const ::std::int_fast64_t fa, const ::std::int_fast64_t fb) {\n\
+    \      if (fa == 0) return 1 - fb % 2;\n      if (fa == 1) return ::std::int_fast64_t(1);\n\
+    \      if (fb == 0) return ::std::int_fast64_t(1);\n      if (fb == 1) return\
+    \ fa;\n      if (fb == 2 && fa <= 15) return ::tools::pow(fa, fa);\n      if (fb\
+    \ == 3 && fa <= 3) return ::tools::pow(fa, ::tools::pow(fa, fa));\n      if (fb\
+    \ == 4 && fa <= 2) return ::tools::pow(fa, ::tools::pow(fa, ::tools::pow(fa, fa)));\n\
+    \n      // Too large\n      return ::std::numeric_limits<::std::int_fast64_t>::max();\n\
     \    };\n\n    if (f(a, b) < ::std::numeric_limits<::std::int_fast64_t>::max())\
     \ {\n      return f(a, b) % m;\n    }\n\n    ::std::vector<::std::pair<T, T>>\
     \ answers;\n    for (const auto& [p, q] : ::tools::prime_factorization(m)) {\n\
@@ -200,7 +191,7 @@ data:
     \ 1, ::tools::totient(P)), P), P);\n      } else {\n        if (f(a, b - 1) >=\
     \ q) {\n          answers.emplace_back(0, P);\n        } else {\n          answers.emplace_back(::tools::pow_mod(a,\
     \ f(a, b - 1), P), P);\n        }\n      }\n    }\n\n    return ::tools::garner(answers.begin(),\
-    \ answers.end(), m)->first;\n  }\n}\n\n\n#line 6 \"tests/tetration_mod.test.cpp\"\
+    \ answers.end(), m).first;\n  }\n}\n\n\n#line 6 \"tests/tetration_mod.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  i64 T;\n  std::cin >> T;\n  for\
     \ (i64 i = 0; i < T; ++i) {\n    i64 A, B, M;\n    std::cin >> A >> B >> M;\n\
@@ -230,7 +221,7 @@ data:
   isVerificationFile: true
   path: tests/tetration_mod.test.cpp
   requiredBy: []
-  timestamp: '2021-07-24 03:42:38+09:00'
+  timestamp: '2021-08-22 01:33:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tetration_mod.test.cpp

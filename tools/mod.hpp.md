@@ -9,6 +9,9 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/extended_garner.hpp
+    title: Extended Garner's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
@@ -43,11 +46,11 @@ data:
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/extended_garner.test.cpp
+    title: tests/extended_garner.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/garner.test.cpp
-    title: tests/garner.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -90,6 +93,7 @@ data:
   - tools/garner.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
+  - tools/extended_garner.hpp
   - tools/round.hpp
   - tools/is_prime.hpp
   - tools/totient.hpp
@@ -105,8 +109,8 @@ data:
   - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/extended_garner.test.cpp
   - tests/is_prime.test.cpp
-  - tests/garner.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/mod.hpp
 layout: document

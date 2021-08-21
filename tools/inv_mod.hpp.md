@@ -12,6 +12,9 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/extended_garner.hpp
+    title: Extended Garner's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
@@ -22,11 +25,11 @@ data:
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/extended_garner.test.cpp
+    title: tests/extended_garner.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/garner.test.cpp
-    title: tests/garner.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -71,13 +74,14 @@ data:
   requiredBy:
   - tools/garner.hpp
   - tools/extended_lucas.hpp
+  - tools/extended_garner.hpp
   - tools/tetration_mod.hpp
   timestamp: '2021-07-22 15:31:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/garner.test.cpp
+  - tests/extended_garner.test.cpp
 documentation_of: tools/inv_mod.hpp
 layout: document
 title: $x^{-1} \pmod{M}$
