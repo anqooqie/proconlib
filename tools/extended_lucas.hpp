@@ -107,7 +107,7 @@ namespace tools {
         answers.emplace_back(prime_power.combination(n, r), prime_power.P);
       }
 
-      return ::tools::garner<M>(answers.begin(), answers.end())->first;
+      return ::tools::garner<M>(answers.begin(), answers.end()).first;
     }
   };
 }

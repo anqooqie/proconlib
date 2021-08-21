@@ -6,7 +6,7 @@
 #include <utility>
 #include <algorithm>
 #include "atcoder/modint.hpp"
-#include "tools/garner.hpp"
+#include "tools/extended_garner.hpp"
 
 using i64 = std::int_fast64_t;
 
@@ -21,7 +21,7 @@ int main() {
     std::cin >> system[i].first >> system[i].second;
   }
 
-  const auto answer = tools::garner<atcoder::modint1000000007>(system.begin(), system.end());
+  const auto answer = tools::extended_garner<atcoder::modint1000000007>(system.begin(), system.end());
   if (!answer) {
     std::cout << -1 << '\n';
     return 0;

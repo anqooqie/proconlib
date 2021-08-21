@@ -53,7 +53,7 @@ namespace tools {
       }
     }
 
-    return ::tools::garner(answers.begin(), answers.end(), m)->first;
+    return ::tools::garner(answers.begin(), answers.end(), m).first;
   }
 }
 
