@@ -3,13 +3,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstdint>
+#include "tests/assert_that.hpp"
 #include "tools/floor_log2.hpp"
-
-void assert_that(const bool cond) {
-  if (!cond) {
-    std::exit(EXIT_FAILURE);
-  }
-}
 
 int main() {
   std::cin.tie(nullptr);

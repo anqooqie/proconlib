@@ -1,41 +1,29 @@
 #ifndef TOOLS_MEX_HPP
 #define TOOLS_MEX_HPP
 
-#include <iostream>
-#include "tools/interval_set.hpp"
+#include <iterator>
+#include <vector>
 
 namespace tools {
-  template <typename T>
-  class mex {
-  private:
-    ::tools::interval_set<T, true> m_intervals;
 
-  public:
-    void insert(const T& x) {
-      this->m_intervals.insert(x, x);
+  template <typename InputIterator>
+  typename ::std::iterator_traits<InputIterator>::value_type mex(InputIterator begin, InputIterator end) {
+    using T = typename ::std::iterator_traits<InputIterator>::value_type;
+    const ::std::vector<T> orig(begin, end);
+    const T n = orig.size();
+    ::std::vector<bool> exists(n, false);
+    for (const auto& o : orig) {
+      if (0 <= o && o < n) {
+        exists[o] = true;
+      }
     }
-
-    void insert(const T& l, const T& r) {
-      this->m_intervals.insert(l, r);
+    for (T i = 0; i < n; ++i) {
+      if (!exists[i]) {
+        return i;
+      }
     }
-
-    void erase(const T& x) {
-      this->m_intervals.erase(x, x);
-    }
-
-    void erase(const T& l, const T& r) {
-      this->m_intervals.erase(l, r);
-    }
-
-    T query(const T& min) const {
-      auto it = this->m_intervals.find(min);
-      return it != this->m_intervals.end() ? it->second + 1 : min;
-    }
-
-    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::mex<T>& self) {
-      return os << self.m_intervals;
-    }
-  };
+    return n;
+  }
 }
 
 #endif

@@ -6,16 +6,11 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include "tests/assert_that.hpp"
 #include "tools/tsort.hpp"
 #include "tools/lower_bound.hpp"
 
 using i64 = std::int_fast64_t;
-
-void assert_that(const bool cond) {
-  if (!cond) {
-    std::exit(EXIT_FAILURE);
-  }
-}
 
 void verify(const i64 node_count, std::vector<std::pair<i64, i64>>& edges) {
 

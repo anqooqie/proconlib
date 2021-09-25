@@ -1,66 +1,26 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2880"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
-#include <cstdint>
+#include <cstdlib>
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <utility>
+#include "tests/assert_that.hpp"
 #include "tools/mex.hpp"
-#include "tools/less_by.hpp"
 
 using i64 = std::int_fast64_t;
-
-struct query {
-  i64 query_type;
-  i64 id;
-  i64 day;
-  i64 from;
-  i64 to;
-  query(i64 query_type, i64 id, i64 day, i64 from, i64 to) :
-    query_type(query_type),
-    id(id),
-    day(day),
-    from(from),
-    to(to) {
-  }
-};
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  i64 N, M, Q;
-  std::cin >> N >> M >> Q;
+  std::vector<i64> v({1000000000000000000, 2, 1, 0, -1});
+  assert_that(tools::mex(v.begin(), v.end()) == 3);
+  v = std::vector<i64>({3, 3, 2, 2, 1, 1, 0});
+  assert_that(tools::mex(v.begin(), v.end()) == 4);
+  v = std::vector<i64>({3, 2, 0, 4, 1});
+  assert_that(tools::mex(v.begin(), v.end()) == 5);
+  v = std::vector<i64>({3, 2, 4, 1});
+  assert_that(tools::mex(v.begin(), v.end()) == 0);
 
-  std::vector<query> queries;
-  for (i64 i = 0; i < M; ++i) {
-    i64 D, A, B;
-    std::cin >> D >> A >> B;
-    queries.emplace_back(1, i, D, A, B);
-  }
-  for (i64 i = 0; i < Q; ++i) {
-    i64 E, S, T;
-    std::cin >> E >> S >> T;
-    queries.emplace_back(0, i, E, S, T);
-  }
-
-  std::sort(queries.begin(), queries.end(), tools::less_by([](const query& q) {
-    return std::make_pair(q.day, q.query_type);
-  }));
-
-  tools::mex<i64> mex;
-  std::vector<bool> answers(Q);
-  for (const query& query : queries) {
-    if (query.query_type == 0) {
-      answers[query.id] = mex.query(query.from * 2) >= query.to * 2;
-    } else {
-      mex.insert(query.from * 2, query.to * 2);
-    }
-  }
-
-  for (const bool answer : answers) {
-    std::cout << (answer ? "Yes" : "No") << '\n';
-  }
-
+  std::cout << "Hello World" << '\n';
   return 0;
 }

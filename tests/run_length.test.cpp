@@ -5,13 +5,8 @@
 #include <vector>
 #include <cstdint>
 #include <iterator>
+#include "tests/assert_that.hpp"
 #include "tools/run_length.hpp"
-
-void assert_that(const bool cond) {
-  if (!cond) {
-    std::exit(EXIT_FAILURE);
-  }
-}
 
 int main() {
   std::cin.tie(nullptr);
