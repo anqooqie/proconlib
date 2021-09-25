@@ -54,13 +54,13 @@ data:
   isVerificationFile: false
   path: tools/ceil.hpp
   requiredBy:
-  - tools/ceil_log.hpp
   - tools/round.hpp
+  - tools/ceil_log.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bezout.test.cpp
   - tests/ceil_log.test.cpp
+  - tests/bezout.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
 title: $\left\lceil \frac{x}{y} \right\rceil$

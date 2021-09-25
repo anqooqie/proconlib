@@ -32,8 +32,8 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/bellman_ford.hpp
   - tools/tree_diameter.hpp
+  - tools/bellman_ford.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

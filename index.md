@@ -1,6 +1,11 @@
 ---
 data:
   libraryCategories:
+  - name: tests
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/assert_that.hpp
+      title: tests/assert_that.hpp
   - name: tools
     pages:
     - icon: ':heavy_check_mark:'
@@ -110,7 +115,7 @@ data:
       title: Typical groups
     - icon: ':heavy_check_mark:'
       path: tools/interval_set.hpp
-      title: Set of closed intervals
+      title: Set of closed integer intervals
     - icon: ':heavy_check_mark:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
@@ -338,6 +343,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/interval_set.test.cpp
+      title: tests/interval_set.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
