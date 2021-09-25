@@ -74,13 +74,22 @@ data:
     \    }\n\n  private:\n    int _n;\n    std::vector<U> data;\n\n    U sum(int r)\
     \ {\n        U s = 0;\n        while (r > 0) {\n            s += data[r - 1];\n\
     \            r -= r & -r;\n        }\n        return s;\n    }\n};\n\n}  // namespace\
-    \ atcoder\n\n\n#line 1 \"tools/compress.hpp\"\n\n\n\n#line 1 \"tools/lower_bound.hpp\"\
-    \n\n\n\n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ ForwardIterator, class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
-    \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
-    \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
-    \  }\n}\n\n\n#line 8 \"tools/compress.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename InputIterator, typename OutputIterator>\n  void compress(InputIterator\
+    \ atcoder\n\n\n#line 1 \"tools/compress.hpp\"\n\n\n\n#include <utility>\n#include\
+    \ <map>\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#line 6 \"tools/lower_bound.hpp\"\
+    \n\nnamespace tools {\n\n  template <class ForwardIterator, class T>\n  typename\
+    \ ::std::iterator_traits<ForwardIterator>::difference_type lower_bound(ForwardIterator\
+    \ first, ForwardIterator last, const T& value) {\n    return ::std::distance(first,\
+    \ ::std::lower_bound(first, last, value));\n  }\n}\n\n\n#line 10 \"tools/compress.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename InputIterator>\n  ::std::pair<\n\
+    \    ::std::map<\n      typename ::std::iterator_traits<InputIterator>::value_type,\n\
+    \      typename ::std::iterator_traits<InputIterator>::value_type\n    >,\n  \
+    \  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  > compress(InputIterator begin, InputIterator end) {\n    using T = typename\
+    \ ::std::iterator_traits<InputIterator>::value_type;\n\n    ::std::vector<T> g(begin,\
+    \ end);\n    ::std::sort(g.begin(), g.end());\n    g.erase(::std::unique(g.begin(),\
+    \ g.end()), g.end());\n\n    ::std::map<T, T> f;\n    for (T i = 0; i < T(g.size());\
+    \ ++i) {\n      f.emplace(g[i], i);\n    }\n\n    return ::std::make_pair(f, g);\n\
+    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  void compress(InputIterator\
     \ begin, InputIterator end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> orig(begin, end);\n    ::std::vector<T> sorted(orig);\n\
     \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
@@ -110,7 +119,7 @@ data:
   isVerificationFile: false
   path: tools/inversion_number.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-09-25 17:17:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/inversion_number.test.cpp
