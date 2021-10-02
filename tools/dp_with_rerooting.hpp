@@ -9,7 +9,7 @@
 #include <algorithm>
 
 namespace tools {
-  template <typename V, typename E, typename R, typename M, typename M::T (*f_ve)(E, R), R (*f_ev)(V, typename M::T)>
+  template <typename V, typename E, typename R, typename M, typename M::T (*f_ve)(R, E), R (*f_ev)(typename M::T, V)>
   class dp_with_rerooting {
   private:
     class adjacency {
@@ -75,13 +75,13 @@ namespace tools {
         return self->adjacency_list[this->id][this->child_adjacency_ids[child_edge_id]].attribute;
       }
       R dp_as_root() const {
-        return f_ev(this->attribute(), M::op(this->parent_dp, this->children_dp_cumsum1.back()));
+        return f_ev(M::op(this->parent_dp, this->children_dp_cumsum1.back()), this->attribute());
       }
       R dp_excluding_parent() const {
-        return f_ev(this->attribute(), this->children_dp_cumsum1.back());
+        return f_ev(this->children_dp_cumsum1.back(), this->attribute());
       }
       R dp_excluding_child(const ::std::size_t excluded_child_edge_id) const {
-        return f_ev(this->attribute(), M::op(this->parent_dp, M::op(this->children_dp_cumsum1[excluded_child_edge_id], this->children_dp_cumsum2[excluded_child_edge_id + 1])));
+        return f_ev(M::op(this->parent_dp, M::op(this->children_dp_cumsum1[excluded_child_edge_id], this->children_dp_cumsum2[excluded_child_edge_id + 1])), this->attribute());
       }
     };
 
@@ -152,7 +152,7 @@ namespace tools {
 
           vertex& v = vertices[vertex_id];
           const vertex& c = vertices[v.child_vertex_id(edge_id)];
-          v.children_dp[edge_id] = f_ve(v.child_edge_attribute(edge_id), c.dp_excluding_parent());
+          v.children_dp[edge_id] = f_ve(c.dp_excluding_parent(), v.child_edge_attribute(edge_id));
 
         } else { // POST_VERTEX
 
@@ -185,7 +185,7 @@ namespace tools {
         const vertex& v = vertices[vertex_id];
         for (::std::size_t edge_id = 0; edge_id < v.child_size(); ++edge_id) {
           vertex& c = vertices[v.child_vertex_id(edge_id)];
-          c.parent_dp = f_ve(c.parent_edge_attribute(), v.dp_excluding_child(edge_id));
+          c.parent_dp = f_ve(v.dp_excluding_child(edge_id), c.parent_edge_attribute());
           stack.emplace(PRE_VERTEX, c.id, INVALID);
         }
       }

@@ -19,10 +19,10 @@ struct monoid {
   }
 };
 
-i64 f_ve(const i64 w, const i64 vertex) {
-  return w + vertex;
+i64 f_ve(const i64 vertex, const i64 w) {
+  return vertex + w;
 }
-i64 f_ev(std::monostate, const i64 edge) {
+i64 f_ev(const i64 edge, std::monostate) {
   return edge;
 }
 
