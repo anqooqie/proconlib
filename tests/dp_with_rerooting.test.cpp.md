@@ -20,7 +20,7 @@ data:
     #line 6 \"tools/dp_with_rerooting.hpp\"\n#include <limits>\n#include <stack>\n\
     #include <tuple>\n#line 10 \"tools/dp_with_rerooting.hpp\"\n\nnamespace tools\
     \ {\n  template <typename V, typename E, typename R, typename M, typename M::T\
-    \ (*f_ve)(E, R), R (*f_ev)(V, typename M::T)>\n  class dp_with_rerooting {\n \
+    \ (*f_ve)(R, E), R (*f_ev)(typename M::T, V)>\n  class dp_with_rerooting {\n \
     \ private:\n    class adjacency {\n    public:\n      ::std::size_t to;\n    \
     \  E attribute;\n\n      adjacency() = default;\n      adjacency(const adjacency&)\
     \ = default;\n      adjacency(adjacency&&) = default;\n      ~adjacency() = default;\n\
@@ -47,14 +47,14 @@ data:
     \ const {\n        return self->adjacency_list[this->id][this->child_adjacency_ids[child_edge_id]].to;\n\
     \      }\n      E child_edge_attribute(const ::std::size_t child_edge_id) const\
     \ {\n        return self->adjacency_list[this->id][this->child_adjacency_ids[child_edge_id]].attribute;\n\
-    \      }\n      R dp_as_root() const {\n        return f_ev(this->attribute(),\
-    \ M::op(this->parent_dp, this->children_dp_cumsum1.back()));\n      }\n      R\
-    \ dp_excluding_parent() const {\n        return f_ev(this->attribute(), this->children_dp_cumsum1.back());\n\
+    \      }\n      R dp_as_root() const {\n        return f_ev(M::op(this->parent_dp,\
+    \ this->children_dp_cumsum1.back()), this->attribute());\n      }\n      R dp_excluding_parent()\
+    \ const {\n        return f_ev(this->children_dp_cumsum1.back(), this->attribute());\n\
     \      }\n      R dp_excluding_child(const ::std::size_t excluded_child_edge_id)\
-    \ const {\n        return f_ev(this->attribute(), M::op(this->parent_dp, M::op(this->children_dp_cumsum1[excluded_child_edge_id],\
-    \ this->children_dp_cumsum2[excluded_child_edge_id + 1])));\n      }\n    };\n\
-    \n  public:\n    dp_with_rerooting() = default;\n    dp_with_rerooting(const ::tools::dp_with_rerooting<V,\
-    \ E, R, M, f_ve, f_ev>&) = default;\n    dp_with_rerooting(::tools::dp_with_rerooting<V,\
+    \ const {\n        return f_ev(M::op(this->parent_dp, M::op(this->children_dp_cumsum1[excluded_child_edge_id],\
+    \ this->children_dp_cumsum2[excluded_child_edge_id + 1])), this->attribute());\n\
+    \      }\n    };\n\n  public:\n    dp_with_rerooting() = default;\n    dp_with_rerooting(const\
+    \ ::tools::dp_with_rerooting<V, E, R, M, f_ve, f_ev>&) = default;\n    dp_with_rerooting(::tools::dp_with_rerooting<V,\
     \ E, R, M, f_ve, f_ev>&&) = default;\n    ~dp_with_rerooting() = default;\n  \
     \  ::tools::dp_with_rerooting<V, E, R, M, f_ve, f_ev>& operator=(const ::tools::dp_with_rerooting<V,\
     \ E, R, M, f_ve, f_ev>&) = default;\n    ::tools::dp_with_rerooting<V, E, R, M,\
@@ -86,7 +86,7 @@ data:
     \ = ::std::get<1>(stack.top());\n          const ::std::size_t edge_id = ::std::get<2>(stack.top());\n\
     \          stack.pop();\n\n          vertex& v = vertices[vertex_id];\n      \
     \    const vertex& c = vertices[v.child_vertex_id(edge_id)];\n          v.children_dp[edge_id]\
-    \ = f_ve(v.child_edge_attribute(edge_id), c.dp_excluding_parent());\n\n      \
+    \ = f_ve(c.dp_excluding_parent(), v.child_edge_attribute(edge_id));\n\n      \
     \  } else { // POST_VERTEX\n\n          const ::std::size_t vertex_id = ::std::get<1>(stack.top());\n\
     \          stack.pop();\n\n          vertex& v = vertices[vertex_id];\n\n    \
     \      v.children_dp_cumsum1.reserve(v.child_size() + 1);\n          v.children_dp_cumsum1.push_back(M::e());\n\
@@ -101,15 +101,15 @@ data:
     \ = ::std::get<1>(stack.top());\n        stack.pop();\n\n        const vertex&\
     \ v = vertices[vertex_id];\n        for (::std::size_t edge_id = 0; edge_id <\
     \ v.child_size(); ++edge_id) {\n          vertex& c = vertices[v.child_vertex_id(edge_id)];\n\
-    \          c.parent_dp = f_ve(c.parent_edge_attribute(), v.dp_excluding_child(edge_id));\n\
+    \          c.parent_dp = f_ve(v.dp_excluding_child(edge_id), c.parent_edge_attribute());\n\
     \          stack.emplace(PRE_VERTEX, c.id, INVALID);\n        }\n      }\n\n \
     \     ::std::vector<R> result;\n      result.reserve(this->size());\n      for\
     \ (const vertex& v : vertices) {\n        result.push_back(v.dp_as_root());\n\
     \      }\n      return result;\n    }\n  };\n}\n\n\n#line 9 \"tests/dp_with_rerooting.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nstruct monoid {\n  using T = i64;\n  static\
     \ T op(const T x, const T y) {\n    return std::max(x, y);\n  }\n  static T e()\
-    \ {\n    return 0;\n  }\n};\n\ni64 f_ve(const i64 w, const i64 vertex) {\n  return\
-    \ w + vertex;\n}\ni64 f_ev(std::monostate, const i64 edge) {\n  return edge;\n\
+    \ {\n    return 0;\n  }\n};\n\ni64 f_ve(const i64 vertex, const i64 w) {\n  return\
+    \ vertex + w;\n}\ni64 f_ev(const i64 edge, std::monostate) {\n  return edge;\n\
     }\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 n;\n  std::cin >> n;\n\n  tools::dp_with_rerooting<std::monostate, i64,\
     \ i64, monoid, f_ve, f_ev> dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
@@ -122,8 +122,8 @@ data:
     #include <vector>\n#include \"tools/dp_with_rerooting.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
     \nstruct monoid {\n  using T = i64;\n  static T op(const T x, const T y) {\n \
     \   return std::max(x, y);\n  }\n  static T e() {\n    return 0;\n  }\n};\n\n\
-    i64 f_ve(const i64 w, const i64 vertex) {\n  return w + vertex;\n}\ni64 f_ev(std::monostate,\
-    \ const i64 edge) {\n  return edge;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    i64 f_ve(const i64 vertex, const i64 w) {\n  return vertex + w;\n}\ni64 f_ev(const\
+    \ i64 edge, std::monostate) {\n  return edge;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n\n  tools::dp_with_rerooting<std::monostate,\
     \ i64, i64, monoid, f_ve, f_ev> dp;\n  for (i64 i = 0; i < n; ++i) {\n    dp.add_vertex(std::monostate());\n\
     \  }\n  for (i64 i = 0; i < n - 1; ++i) {\n    i64 s, t, w;\n    std::cin >> s\
@@ -135,7 +135,7 @@ data:
   isVerificationFile: true
   path: tests/dp_with_rerooting.test.cpp
   requiredBy: []
-  timestamp: '2021-07-17 23:00:45+09:00'
+  timestamp: '2021-10-02 15:49:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dp_with_rerooting.test.cpp
