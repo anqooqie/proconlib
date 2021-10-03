@@ -134,3 +134,29 @@ It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is
 
 ### Time Complexity
 - $O(1)$
+
+## four_directions
+```cpp
+std::array<vector2<T>, 4> vector2<T>::four_directions();
+```
+
+It returns vectors $\left(\cos\left(\frac{i}{2}\pi\right), \sin\left(\frac{i}{2}\pi\right)\right)$ for $0 \leq i < 4$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## eight_directions
+```cpp
+std::array<vector2<T>, 8> vector2<T>::eight_directions();
+```
+
+It returns vectors $\left(\mathrm{RI}\left(\cos\left(\frac{i}{4}\pi\right)\right), \mathrm{RI}\left(\sin\left(\frac{i}{4}\pi\right)\right)\right)$ for $0 \leq i < 8$ where $\mathrm{RI}(x)$ rounds $x$ towards infinity.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

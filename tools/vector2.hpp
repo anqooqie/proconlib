@@ -107,24 +107,23 @@ namespace tools {
 
     static ::std::array<::tools::vector2<T>, 4> four_directions() {
       return ::std::array<::tools::vector2<T>, 4>({
-        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),
         ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),
-        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),
-        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1))
+        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),
+        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),
+        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))
       });
     }
 
     static ::std::array<::tools::vector2<T>, 8> eight_directions() {
       return ::std::array<::tools::vector2<T>, 8>({
-        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),
-        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),
-        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(1)),
-        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),
-        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),
-        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),
-        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(-1)),
         ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),
-        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1))
+        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),
+        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),
+        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(1)),
+        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),
+        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),
+        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),
+        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(-1))
       });
     }
   };
