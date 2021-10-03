@@ -24,6 +24,7 @@ using i32 = ::std::int_fast32_t;
 using u32 = ::std::uint_fast32_t;
 
 #define ALL(x) ::std::begin((x)), ::std::end((x))
+#define REP(i, n) for (::std::int_fast64_t i = 0; i < static_cast<::std::int_fast64_t>(n); ++i)
 
 namespace tools {
   namespace detail {
