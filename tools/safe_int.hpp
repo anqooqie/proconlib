@@ -39,6 +39,7 @@ namespace tools {
     constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>& other) {
       this->m_type = other.m_type;
       this->m_value = other.m_value;
+      return *this;
     }
 
     static constexpr ::tools::safe_int<T> infinity() {
