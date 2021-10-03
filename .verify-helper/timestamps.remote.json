@@ -26,6 +26,7 @@
 "tests/less_by_arg.test.cpp": "2021-07-25 10:07:08 +0900",
 "tests/lis.test.cpp": "2021-09-25 17:17:40 +0900",
 "tests/matrix.test.cpp": "2021-07-17 23:00:45 +0900",
+"tests/median_solver.test.cpp": "2021-10-03 21:37:16 +0900",
 "tests/mex.test.cpp": "2021-09-25 15:53:45 +0900",
 "tests/prime_factorization.test.cpp": "2021-07-17 23:00:45 +0900",
 "tests/run_length.test.cpp": "2021-09-25 15:53:45 +0900",
