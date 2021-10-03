@@ -134,7 +134,7 @@ T median.lesser();
 It returns the $\left\lfloor\frac{N + 1}{2}\right\rfloor$-th smallest element in the array.
 
 ### Constraints
-- None
+- The array is not empty.
 
 ### Time Complexity
 - $O(1)$
@@ -147,7 +147,7 @@ T median.greater();
 It returns the $\left(\left\lfloor\frac{N}{2}\right\rfloor + 1\right)$-th smallest element in the array.
 
 ### Constraints
-- None
+- The array is not empty.
 
 ### Time Complexity
 - $O(1)$
