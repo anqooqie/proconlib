@@ -35,8 +35,8 @@ data:
     \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
     \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
     \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
-    \      this->m_value = other.m_value;\n    }\n\n    static constexpr ::tools::safe_int<T>\
-    \ infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
+    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
+    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
     \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::neg_inf:\n\
@@ -262,7 +262,7 @@ data:
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2021-09-25 15:53:45+09:00'
+  timestamp: '2021-10-03 21:10:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp

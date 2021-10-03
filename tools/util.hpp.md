@@ -45,9 +45,10 @@ data:
     \  }\n  }\n}\n\n\n#line 20 \"tools/util.hpp\"\n\nusing i64 = ::std::int_fast64_t;\n\
     using u64 = ::std::uint_fast64_t;\nusing i32 = ::std::int_fast32_t;\nusing u32\
     \ = ::std::uint_fast32_t;\n\n#define ALL(x) ::std::begin((x)), ::std::end((x))\n\
-    \nnamespace tools {\n  namespace detail {\n    namespace util {\n      template\
-    \ <typename T>\n      class has_val {\n      private:\n        template <typename\
-    \ U>\n        static auto check(U x) -> decltype(x.val(), ::std::true_type{});\n\
+    #define REP(i, n) for (::std::int_fast64_t i = 0; i < static_cast<::std::int_fast64_t>(n);\
+    \ ++i)\n\nnamespace tools {\n  namespace detail {\n    namespace util {\n    \
+    \  template <typename T>\n      class has_val {\n      private:\n        template\
+    \ <typename U>\n        static auto check(U x) -> decltype(x.val(), ::std::true_type{});\n\
     \        static ::std::false_type check(...);\n\n      public:\n        static\
     \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\n\
     \      template <typename T>\n      ::std::istream& read(::std::istream& is, T&\
@@ -96,9 +97,10 @@ data:
     #include \"tools/resize.hpp\"\n#include \"tools/fill.hpp\"\n\nusing i64 = ::std::int_fast64_t;\n\
     using u64 = ::std::uint_fast64_t;\nusing i32 = ::std::int_fast32_t;\nusing u32\
     \ = ::std::uint_fast32_t;\n\n#define ALL(x) ::std::begin((x)), ::std::end((x))\n\
-    \nnamespace tools {\n  namespace detail {\n    namespace util {\n      template\
-    \ <typename T>\n      class has_val {\n      private:\n        template <typename\
-    \ U>\n        static auto check(U x) -> decltype(x.val(), ::std::true_type{});\n\
+    #define REP(i, n) for (::std::int_fast64_t i = 0; i < static_cast<::std::int_fast64_t>(n);\
+    \ ++i)\n\nnamespace tools {\n  namespace detail {\n    namespace util {\n    \
+    \  template <typename T>\n      class has_val {\n      private:\n        template\
+    \ <typename U>\n        static auto check(U x) -> decltype(x.val(), ::std::true_type{});\n\
     \        static ::std::false_type check(...);\n\n      public:\n        static\
     \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\n\
     \      template <typename T>\n      ::std::istream& read(::std::istream& is, T&\
@@ -147,7 +149,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2021-07-18 21:35:11+09:00'
+  timestamp: '2021-10-03 21:10:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp
