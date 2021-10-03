@@ -155,7 +155,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: tools/matrix.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/median_solver.hpp
       title: Median solver
     - icon: ':heavy_check_mark:'
@@ -364,6 +364,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/matrix.test.cpp
       title: tests/matrix.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/median_solver.test.cpp
+      title: tests/median_solver.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp

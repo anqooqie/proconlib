@@ -204,7 +204,7 @@ title: DP with rerooting
 
 It is a dynamic programming on a tree with rerooting.
 
-## Example
+### Example
 It calculates the diameter of a given tree.
 
 ```cpp
