@@ -117,18 +117,17 @@ data:
     \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
     \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
     \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1))\n\
-    \      });\n    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions()\
-    \ {\n      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(-1),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(-1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1),\
-    \ static_cast<T>(1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))\n      });\n\
+    \    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions() {\n\
+    \      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),\n      \
+    \  ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
     \ <typename T>\n  ::std::string to_string(const ::tools::vector2<T>& f) {\n  \
     \  return '(' + ::std::to_string(f.x) + \", \" + ::std::to_string(f.y) + ')';\n\
     \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
@@ -185,18 +184,17 @@ data:
     \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
     \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
     \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1))\n\
-    \      });\n    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions()\
-    \ {\n      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(-1),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(-1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1),\
-    \ static_cast<T>(1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))\n      });\n\
+    \    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions() {\n\
+    \      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),\n      \
+    \  ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
     \ <typename T>\n  ::std::string to_string(const ::tools::vector2<T>& f) {\n  \
     \  return '(' + ::std::to_string(f.x) + \", \" + ::std::to_string(f.y) + ')';\n\
     \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
@@ -216,7 +214,7 @@ data:
   - tools/less_by_arg.hpp
   - tools/greater_by_arg.hpp
   - tools/ccw.hpp
-  timestamp: '2021-07-23 19:07:32+09:00'
+  timestamp: '2021-10-03 23:48:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
@@ -356,6 +354,32 @@ It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is
 ### Constraints
 - (7), (11)
     - $c \neq 0$
+
+### Time Complexity
+- $O(1)$
+
+## four_directions
+```cpp
+std::array<vector2<T>, 4> vector2<T>::four_directions();
+```
+
+It returns vectors $\left(\cos\left(\frac{i}{2}\pi\right), \sin\left(\frac{i}{2}\pi\right)\right)$ for $0 \leq i < 4$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## eight_directions
+```cpp
+std::array<vector2<T>, 8> vector2<T>::eight_directions();
+```
+
+It returns vectors $\left(\mathrm{RI}\left(\cos\left(\frac{i}{4}\pi\right)\right), \mathrm{RI}\left(\sin\left(\frac{i}{4}\pi\right)\right)\right)$ for $0 \leq i < 8$ where $\mathrm{RI}(x)$ rounds $x$ towards infinity.
+
+### Constraints
+- None
 
 ### Time Complexity
 - $O(1)$

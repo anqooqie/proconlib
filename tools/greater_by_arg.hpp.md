@@ -106,18 +106,17 @@ data:
     \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
     \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
     \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1))\n\
-    \      });\n    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions()\
-    \ {\n      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(-1),\
-    \ static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(-1)),\n       \
-    \ ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1),\
-    \ static_cast<T>(1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))\n      });\n\
+    \    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions() {\n\
+    \      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),\n      \
+    \  ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
     \ <typename T>\n  ::std::string to_string(const ::tools::vector2<T>& f) {\n  \
     \  return '(' + ::std::to_string(f.x) + \", \" + ::std::to_string(f.y) + ')';\n\
     \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
@@ -205,7 +204,7 @@ data:
   isVerificationFile: false
   path: tools/greater_by_arg.hpp
   requiredBy: []
-  timestamp: '2021-07-25 08:57:57+09:00'
+  timestamp: '2021-10-03 23:48:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/greater_by_arg.test.cpp
