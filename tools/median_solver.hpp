@@ -24,7 +24,7 @@ namespace tools {
     median_solver& operator=(median_solver&&) = default;
 
     void push(const T& v) {
-      if ((this->pq1.size() + this->pq2.size()) % 2 == 0) {
+      if (this->pq1.size() == this->pq2.size()) {
         if (!this->pq2.empty() && v > this->pq2.top()) {
           this->pq1.push(this->pq2.top());
           this->pq2.pop();
@@ -51,9 +51,14 @@ namespace tools {
       return this->pq1.empty() && this->pq2.empty();
     }
 
-    T query() const {
+    T lesser() const {
       assert(!this->empty());
       return this->pq1.top();
+    }
+
+    T greater() const {
+      assert(!this->empty());
+      return this->pq1.size() == this->pq2.size() ? this->pq2.top() : this->pq1.top();
     }
   };
 }

@@ -5,7 +5,7 @@ documentation_of: //tools/dp_with_rerooting.hpp
 
 It is a dynamic programming on a tree with rerooting.
 
-## Example
+### Example
 It calculates the diameter of a given tree.
 
 ```cpp
