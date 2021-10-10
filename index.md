@@ -200,7 +200,7 @@ data:
     - icon: ':warning:'
       path: tools/pow_mod_cache.hpp
       title: Precompute $b^n \pmod{M}$ for $0 \leq n \leq N$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
@@ -370,6 +370,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/prim.test.cpp
+      title: tests/prim.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp

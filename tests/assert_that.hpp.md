@@ -53,16 +53,16 @@ data:
   timestamp: '2021-09-25 15:53:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/mex.test.cpp
-  - tests/tsort.test.cpp
   - tests/safe_int.test.cpp
-  - tests/floor_log.test.cpp
+  - tests/tsort.test.cpp
   - tests/median_solver.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/run_length.test.cpp
-  - tests/ceil_log.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/floor_log2.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/mex.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/run_length.test.cpp
+  - tests/ceil_log2.test.cpp
 documentation_of: tests/assert_that.hpp
 layout: document
 redirect_from:

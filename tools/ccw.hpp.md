@@ -162,9 +162,9 @@ data:
   timestamp: '2021-10-03 23:48:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/less_by_arg.test.cpp
-  - tests/chromatic_number.test.cpp
   - tests/ccw.test.cpp
+  - tests/chromatic_number.test.cpp
+  - tests/less_by_arg.test.cpp
   - tests/greater_by_arg.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document

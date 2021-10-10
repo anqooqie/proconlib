@@ -75,18 +75,18 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
+  - tools/lis.hpp
+  - tools/pow.hpp
   - tools/totient.hpp
   - tools/tetration_mod.hpp
   - tools/square.hpp
-  - tools/lis.hpp
-  - tools/pow.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lis.test.cpp
   - tests/totient.test.cpp
-  - tests/dual_segtree.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

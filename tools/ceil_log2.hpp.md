@@ -72,8 +72,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/binary_heap.test.cpp
-  - tests/dual_segtree.test.cpp
   - tests/ceil_log2.test.cpp
+  - tests/dual_segtree.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

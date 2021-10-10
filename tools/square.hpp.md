@@ -58,9 +58,9 @@ data:
   isVerificationFile: false
   path: tools/square.hpp
   requiredBy:
+  - tools/pow.hpp
   - tools/totient.hpp
   - tools/tetration_mod.hpp
-  - tools/pow.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
