@@ -1,9 +1,16 @@
 ---
-title: Set of closed integer intervals
-documentation_of: //tools/interval_set.hpp
+title: Set of integers as closed integer intervals
+documentation_of: //tools/integer_interval_set.hpp
 ---
 
-It is a set of closed integer intervals.
+It is a set of integers, and provides the following two operations.
+
+- Add the integeres $x$ such that $l \leq x \leq r$ to the set, where $l$ and $r$ are given integers.
+- Remove the integers $x$ such that $l \leq x \leq r$ from the set, where $l$ and $r$ are given integers.
+
+It manages the elements as a set of mutually exclusive closed integer intervals.
+The set of intervals is implemented as `std::map<T, T> m`, whose key is the lower bound of an interval and value is the upper bound of it.
+It provides limited (read-only) access to `m`.
 
 ### License
 - CC0
@@ -13,19 +20,11 @@ It is a set of closed integer intervals.
 
 ## Constructor
 ```cpp
-(1) interval_set<T, false> set;
-(2) interval_set<T, true> set;
+integer_interval_set<T> set;
 ```
 
-It creates an empty set of closed integer intervals.
+It creates an empty set of integers.
 The type parameter `<T>` represents the type of integers.
-
-It internally manages `std::map<T, T> m` whose key is the lower bound of an interval and value is the upper bound of an interval.
-
-- (1)
-    - Adjacent intervals will not be merged. For example, $\\{[1, 3], [6, 6]\\} \cup \\{[4, 5]\\} = \\{[1, 3], [4, 5], [6, 6]\\}$.
-- (2)
-    - Adjacent intervals will be merged. For example, $\\{[1, 3], [6, 6]\\} \cup \\{[4, 5]\\} = \\{[1, 6]\\}$.
 
 ### Constraints
 - None
@@ -79,7 +78,7 @@ It returns whether the set is empty or not.
 std::map<T, T>::size_type set.size();
 ```
 
-It returns the number of closed integer intervals.
+It returns the number of mutually exclusive closed integer intervals.
 In other words, it returns `m.size()`.
 
 ### Constraints
@@ -100,7 +99,7 @@ If such the interval does not exist, it returns `set.end()`.
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## contains
 ```cpp
@@ -113,7 +112,7 @@ It returns whether the set contains $x$ or not.
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## lower_bound
 ```cpp
@@ -121,12 +120,13 @@ std::map<T, T>::const_iterator set.lower_bound(T x);
 ```
 
 It returns an iterator pointing to the least interval whose upper bound is greater than or equal to $x$.
+If such the interval does not exist, it returns `set.end()`.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## upper_bound
 ```cpp
@@ -134,38 +134,36 @@ std::map<T, T>::const_iterator set.upper_bound(T x);
 ```
 
 It returns an iterator pointing to the least interval whose lower bound is greater than $x$.
+If such the interval does not exist, it returns `set.end()`.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## insert
 ```cpp
 void set.insert(T l, T r);
 ```
 
-It inserts a interval $\\{l, r\\}$ to the set.
-Duplicated intervals will be merged one interval.
-For example, $\\{[1, 3], [6, 6]\\} \cup \\{[2, 4]\\} = \\{[1, 4], [6, 6]\\}$.
+It inserts the integers $x$ such that $l \leq x \leq r$ to the set.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## erase
 ```cpp
 void set.erase(T l, T r);
 ```
 
-It removes a interval $\\{l, r\\}$ from the set.
-For example, $\\{[1, 4], [6, 6]\\} - \\{[2, 3]\\} = \\{[1, 1], [4, 4], [6, 6]\\}$.
+It removes the integers $x$ such that $l \leq x \leq r$ from the set.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log n)$ where $n$ is the number of intervals.
+- $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.

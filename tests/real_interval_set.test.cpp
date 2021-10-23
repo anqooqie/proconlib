@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
-#include "tools/interval_set.hpp"
+#include "tools/real_interval_set.hpp"
 #include "tools/less_by.hpp"
 
 using i64 = std::int_fast64_t;
@@ -48,7 +48,7 @@ int main() {
     return std::make_pair(q.day, q.query_type);
   }));
 
-  tools::interval_set<i64, false> set;
+  tools::real_interval_set<i64> set;
   std::vector<bool> answers(Q);
   for (const query& query : queries) {
     if (query.query_type == 0) {
