@@ -113,9 +113,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
-    - icon: ':heavy_check_mark:'
-      path: tools/interval_set.hpp
-      title: Set of closed integer intervals
+    - icon: ':warning:'
+      path: tools/integer_interval_set.hpp
+      title: Set of integers as closed integer intervals
     - icon: ':heavy_check_mark:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
@@ -215,6 +215,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
+    - icon: ':heavy_check_mark:'
+      path: tools/real_interval_set.hpp
+      title: Set of real numbers as closed integer intervals
     - icon: ':warning:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
@@ -280,6 +283,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/ceil_and_floor.hpp
       title: tools/detail/ceil_and_floor.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/detail/interval_set.hpp
+      title: tools/detail/interval_set.hpp
   verificationCategories:
   - name: tests
     pages:
@@ -344,9 +350,6 @@ data:
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/interval_set.test.cpp
-      title: tests/interval_set.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
     - icon: ':heavy_check_mark:'
@@ -376,6 +379,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/real_interval_set.test.cpp
+      title: tests/real_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp

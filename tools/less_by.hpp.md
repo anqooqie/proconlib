@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/interval_set.test.cpp
-    title: tests/interval_set.test.cpp
+    path: tests/real_interval_set.test.cpp
+    title: tests/real_interval_set.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -28,7 +28,7 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/interval_set.test.cpp
+  - tests/real_interval_set.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key
