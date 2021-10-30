@@ -121,6 +121,12 @@ namespace tools {
       }
       return *this;
     }
+    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
+      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows && lhs.m_values == rhs.m_values;
+    }
+    friend bool operator!=(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
+      return !(lhs == rhs);
+    }
 
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>& self) {
       for (::std::size_t r = 0; r < self.m_rows; ++r) {
@@ -232,6 +238,7 @@ namespace tools {
     }
 
     static ::tools::matrix<T> e(const ::std::size_t n) {
+      assert(n >= 0);
       ::tools::matrix<T> result(n, n, T(0));
       for (::std::size_t i = 0; i < n; ++i) {
         result[i][i] = 1;

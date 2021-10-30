@@ -72,7 +72,7 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
 
 ## normalized
 ```cpp
-tools::vector2<double> v.normalized();
+vector2<double> v.normalized();
 ```
 
 It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
@@ -85,7 +85,7 @@ It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
 
 ## inner_product
 ```cpp
-T v.inner_product(tools::vector2<T> u);
+T v.inner_product(vector2<T> u);
 ```
 
 It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
@@ -98,7 +98,7 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
 
 ## outer_product
 ```cpp
-T v.outer_product(tools::vector2<T> u);
+T v.outer_product(vector2<T> u);
 ```
 
 It returns $\left\|\overrightarrow{v} \times \overrightarrow{u}\right\|$.
@@ -111,17 +111,17 @@ It returns $\left\|\overrightarrow{v} \times \overrightarrow{u}\right\|$.
 
 ## Arithmetic operations
 ```cpp
-(1) tools::vector2<T> +v;
-(2) tools::vector2<T> -v;
-(3) tools::vector2<T> v + u;
-(4) tools::vector2<T> v - u;
-(5) tools::vector2<T> v * c;
-(6) tools::vector2<T> c * v;
-(7) tools::vector2<T> v / c;
-(8) tools::vector2<T>& v += u;
-(9) tools::vector2<T>& v -= u;
-(10) tools::vector2<T>& v *= c;
-(11) tools::vector2<T>& v /= c;
+(1) vector2<T> +v;
+(2) vector2<T> -v;
+(3) vector2<T> v + u;
+(4) vector2<T> v - u;
+(5) vector2<T> v * c;
+(6) vector2<T> c * v;
+(7) vector2<T> v / c;
+(8) vector2<T>& v += u;
+(9) vector2<T>& v -= u;
+(10) vector2<T>& v *= c;
+(11) vector2<T>& v /= c;
 (12) bool v == u;
 (13) bool v != u;
 ```
