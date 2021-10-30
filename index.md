@@ -154,7 +154,7 @@ data:
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
-      title: tools/matrix.hpp
+      title: Matrix
     - icon: ':heavy_check_mark:'
       path: tools/median_solver.hpp
       title: Median solver
@@ -271,7 +271,7 @@ data:
       title: Commonly used utilities for competitive programming
     - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
-      title: tools/vector.hpp
+      title: Vector
     - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: 2D vector

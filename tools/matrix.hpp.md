@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
-    title: tools/vector.hpp
+    title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -124,7 +124,11 @@ data:
     \  }\n      return *this;\n    }\n    ::tools::matrix<T> operator/=(const T& c)\
     \ {\n      const T c_inv = T(1) / c;\n      for (::std::size_t i = 0; i < this->m_values.size();\
     \ ++i) {\n        this->m_values[i] *= c_inv;\n      }\n      return *this;\n\
-    \    }\n\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
+    \    }\n    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
+    \ rhs) {\n      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows &&\
+    \ lhs.m_values == rhs.m_values;\n    }\n    friend bool operator!=(const ::tools::matrix<T>&\
+    \ lhs, const ::tools::matrix<T>& rhs) {\n      return !(lhs == rhs);\n    }\n\n\
+    \    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
     \ self) {\n      for (::std::size_t r = 0; r < self.m_rows; ++r) {\n        os\
     \ << '[';\n        ::std::string delimiter = \"\";\n        for (::std::size_t\
     \ c = 0; c < self.m_cols; ++c) {\n          os << delimiter << self[r][c];\n \
@@ -172,9 +176,9 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
-    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n\n"
+    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
+    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
+    \    return result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_MATRIX_HPP\n#define TOOLS_MATRIX_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <cassert>\n#include <iostream>\n#include <string>\n\
     #include <cstdint>\n#include \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
@@ -228,7 +232,11 @@ data:
     \  }\n      return *this;\n    }\n    ::tools::matrix<T> operator/=(const T& c)\
     \ {\n      const T c_inv = T(1) / c;\n      for (::std::size_t i = 0; i < this->m_values.size();\
     \ ++i) {\n        this->m_values[i] *= c_inv;\n      }\n      return *this;\n\
-    \    }\n\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
+    \    }\n    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
+    \ rhs) {\n      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows &&\
+    \ lhs.m_values == rhs.m_values;\n    }\n    friend bool operator!=(const ::tools::matrix<T>&\
+    \ lhs, const ::tools::matrix<T>& rhs) {\n      return !(lhs == rhs);\n    }\n\n\
+    \    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
     \ self) {\n      for (::std::size_t r = 0; r < self.m_rows; ++r) {\n        os\
     \ << '[';\n        ::std::string delimiter = \"\";\n        for (::std::size_t\
     \ c = 0; c < self.m_cols; ++c) {\n          os << delimiter << self[r][c];\n \
@@ -276,22 +284,166 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
-    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n#endif\n"
+    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
+    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
+    \    return result;\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector.hpp
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2021-10-26 00:02:55+09:00'
+  timestamp: '2021-10-30 15:12:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
-redirect_from:
-- /library/tools/matrix.hpp
-- /library/tools/matrix.hpp.html
-title: tools/matrix.hpp
+title: Matrix
 ---
+
+It is a $n \times m$-dimensional matrix.
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## Constructor
+```cpp
+(1) matrix<T> A(std::size_t n, std::size_t m);
+(2) matrix<T> A(std::size_t n, std::size_t m, T x);
+```
+
+- (1)
+    - It creates a $n \times m$-dimensional matrix.
+- (2)
+    - It creates a $n \times m$-dimensional matrix, of which all the elements $x$.
+
+The type parameter `<T>` represents the type of the elements.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## operator[]
+```cpp
+T& A[i][j];
+```
+
+It is the $(i, j)$-th element of the matrix.
+
+### Constraints
+- $0 \leq i < n$
+- $0 \leq j < m$
+
+### Time Complexity
+- $O(1)$
+
+## rows
+```cpp
+std::size_t A.rows();
+```
+
+It returns the number of the rows of the matrix.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## cols
+```cpp
+std::size_t A.cols();
+```
+
+It returns the number of the columns of the matrix.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## gauss_jordan
+```cpp
+std::int_fast64_t A.gauss_jordan();
+```
+
+It transforms the matrix to the reduced row echelon form, and returns the rank of the matrix.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n m^2)$
+
+## solve
+```cpp
+matrix<T> A.solve(vector<T> b);
+```
+
+It solves $A\overrightarrow{x} = \overrightarrow{b}$.
+The answer can be denoted as follows where $B$ is another $m \times (m - \mathrm{rank}(A) + 1)$-dimensional matrix and $c_i$ are free variables.
+
+$$\begin{align*}
+\overrightarrow{x} &= B\left(\begin{array}{c}
+c_1\\
+c_2\\
+\vdots\\
+c_{m - \mathrm{rank}(A)}\\
+1
+\end{array}\right)
+\end{align*}$$
+
+It returns $B$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n m^2)$
+
+## Arithmetic operations
+```cpp
+(1) matrix<T> +A;
+(2) matrix<T> -A;
+(3) matrix<T> A + B;
+(4) matrix<T> A - B;
+(5) matrix<T> A * c;
+(6) matrix<T> c * A;
+(7) matrix<T> A / c;
+(8) matrix<T>& A += B;
+(9) matrix<T>& A -= B;
+(10) matrix<T>& A *= c;
+(11) matrix<T>& A /= c;
+(12) bool A == B;
+(13) bool A != B;
+```
+
+It supports basic arithmetic operations on matrices where $B$ is another $n \times m$-dimensional matrix and $c$ is a scholar value.
+
+### Constraints
+- (3), (4), (8), (9), (12), (13)
+    - The dimension of $B$ is equal to the dimension of $A$.
+- (7), (11)
+    - $c \neq 0$
+
+### Time Complexity
+- $O(nm)$
+
+## e
+```cpp
+matrix<T> matrix<T>::e(::std::size_t n);
+```
+
+It returns $n \times n$-dimensional identity matrix.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n^2)$

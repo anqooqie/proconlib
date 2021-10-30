@@ -3,10 +3,10 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
-    title: tools/matrix.hpp
+    title: Matrix
   - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
-    title: tools/vector.hpp
+    title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -128,7 +128,11 @@ data:
     \  }\n      return *this;\n    }\n    ::tools::matrix<T> operator/=(const T& c)\
     \ {\n      const T c_inv = T(1) / c;\n      for (::std::size_t i = 0; i < this->m_values.size();\
     \ ++i) {\n        this->m_values[i] *= c_inv;\n      }\n      return *this;\n\
-    \    }\n\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
+    \    }\n    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
+    \ rhs) {\n      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows &&\
+    \ lhs.m_values == rhs.m_values;\n    }\n    friend bool operator!=(const ::tools::matrix<T>&\
+    \ lhs, const ::tools::matrix<T>& rhs) {\n      return !(lhs == rhs);\n    }\n\n\
+    \    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
     \ self) {\n      for (::std::size_t r = 0; r < self.m_rows; ++r) {\n        os\
     \ << '[';\n        ::std::string delimiter = \"\";\n        for (::std::size_t\
     \ c = 0; c < self.m_cols; ++c) {\n          os << delimiter << self[r][c];\n \
@@ -176,10 +180,10 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
-    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n\n#line 6 \"tests/matrix.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
+    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
+    \    return result;\n    }\n  };\n}\n\n\n#line 6 \"tests/matrix.test.cpp\"\n\n\
+    using i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 n, m, l;\n  std::cin >> n >> m >> l;\n\n  tools::matrix<i64> A(n, m),\
     \ B(m, l);\n  std::cin >> A >> B;\n\n  const tools::matrix<i64> C = A * B;\n \
     \ for (i64 r = 0; r < n; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
@@ -199,7 +203,7 @@ data:
   isVerificationFile: true
   path: tests/matrix.test.cpp
   requiredBy: []
-  timestamp: '2021-10-26 00:02:55+09:00'
+  timestamp: '2021-10-30 15:12:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix.test.cpp
