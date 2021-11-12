@@ -185,6 +185,9 @@ data:
     - icon: ':warning:'
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
+    - icon: ':warning:'
+      path: tools/permutation.hpp
+      title: Permutation
     - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount

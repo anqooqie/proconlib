@@ -41,29 +41,16 @@ data:
     \ y1, const ::std::size_t x2, const ::std::size_t y2) const {\n      T tmp = G::op(this->preprocessed[y2][x2],\
     \ G::inv(this->preprocessed[y2][x1]));\n      tmp = G::op(tmp, G::inv(this->preprocessed[y1][x2]));\n\
     \      return G::op(tmp, this->preprocessed[y1][x1]);\n    }\n  };\n}\n\n\n#line\
-    \ 1 \"tools/group.hpp\"\n\n\n\n#line 6 \"tools/group.hpp\"\n#include <cassert>\n\
-    #include <numeric>\n\nnamespace tools {\n  namespace group {\n    template <typename\
-    \ Type>\n    struct plus {\n      using T = Type;\n      static T op(const T lhs,\
-    \ const T rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n \
-    \       return static_cast<T>(0);\n      }\n      static T inv(const T v) {\n\
-    \        return -v;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ bit_xor {\n      using T = Type;\n      static T op(const T lhs, const T rhs)\
-    \ {\n        return lhs ^ rhs;\n      }\n      static T e() {\n        return\
-    \ static_cast<T>(0);\n      }\n      static T inv(const T v) {\n        return\
-    \ v;\n      }\n    };\n\n    template <typename Type, int Id = -1>\n    class\
-    \ permutation {\n    private:\n      inline static ::std::size_t N;\n\n    public:\n\
-    \      using T = ::std::vector<Type>;\n      static void set_N(const ::std::size_t\
-    \ N) {\n        permutation<Type, Id>::N = N;\n      }\n      static T op(const\
-    \ T& lhs, const T& rhs) {\n        assert(lhs.size() == N);\n        assert(rhs.size()\
-    \ == N);\n        T new_v;\n        new_v.reserve(N);\n        for (::std::size_t\
-    \ i = 0; i < N; ++i) {\n          new_v.push_back(rhs[lhs[i]]);\n        }\n \
-    \       return new_v;\n      }\n      static T e() {\n        T new_v(N);\n  \
-    \      ::std::iota(new_v.begin(), new_v.end(), 0);\n        return new_v;\n  \
-    \    }\n      static T inv(const T& v) {\n        assert(v.size() == N);\n   \
-    \     T new_v(N);\n        for (::std::size_t i = 0; i < N; ++i) {\n         \
-    \ new_v[v[i]] = i;\n        }\n        return new_v;\n      }\n    };\n  }\n}\n\
-    \n\n#line 11 \"tests/cumsum2d.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
+    \ <typename Type>\n    struct plus {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs + rhs;\n      }\n      static T e()\
+    \ {\n        return T(0);\n      }\n      static T inv(const T v) {\n        return\
+    \ -v;\n      }\n    };\n\n    template <typename Type>\n    struct bit_xor {\n\
+    \      using T = Type;\n      static T op(const T lhs, const T rhs) {\n      \
+    \  return lhs ^ rhs;\n      }\n      static T e() {\n        return T(0);\n  \
+    \    }\n      static T inv(const T v) {\n        return v;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 11 \"tests/cumsum2d.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string> map;\n\
     \  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
     \ M, std::back_inserter(map));\n\n  std::vector<std::vector<i64>> J(M, std::vector<i64>(N,\
@@ -102,7 +89,7 @@ data:
   isVerificationFile: true
   path: tests/cumsum2d.test.cpp
   requiredBy: []
-  timestamp: '2021-07-17 23:00:45+09:00'
+  timestamp: '2021-11-12 22:35:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cumsum2d.test.cpp
