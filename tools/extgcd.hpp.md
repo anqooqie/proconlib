@@ -73,18 +73,18 @@ data:
   path: tools/extgcd.hpp
   requiredBy:
   - tools/inv_mod.hpp
+  - tools/tetration_mod.hpp
   - tools/extended_garner.hpp
   - tools/garner.hpp
-  - tools/tetration_mod.hpp
-  - tools/bezout.hpp
   - tools/extended_lucas.hpp
+  - tools/bezout.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bezout.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/extended_garner.test.cpp
   - tests/extgcd.test.cpp
-  - tests/extended_lucas.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document
