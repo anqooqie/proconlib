@@ -1,6 +1,9 @@
 #include "tools/util.hpp"
 
 int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
   std::random_device seed_gen;
   std::mt19937 engine(seed_gen());
 
