@@ -26,6 +26,19 @@ namespace tools {
     permutation(::std::size_t dim) : m_vector(dim) {
       ::std::iota(this->m_vector.begin(), this->m_vector.end(), 0);
     }
+    template <typename Iterator>
+    permutation(Iterator begin, Iterator end) : m_vector(begin, end) {
+#ifndef NDEBUG
+      for (const T& x : this->m_vector) {
+        assert(0 <= x && x < this->m_vector.size());
+      }
+      ::std::vector<bool> unique(this->m_vector.size(), true);
+      for (const T& x : this->m_vector) {
+        assert(unique[x]);
+        unique[x] = false;
+      }
+#endif
+    }
 
     T operator[](const ::std::size_t i) const {
       assert(i < this->size());

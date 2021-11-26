@@ -13,14 +13,20 @@ It is a permutation of $n$ elements.
 
 ## Constructor
 ```cpp
-permutation<T> p(std::size_t n);
+(1) permutation<T> p(std::size_t n);
+(2) template <typename Iterator> permutation<T> p(Iterator begin, Iterator end);
 ```
 
 It creates an identity permutation of $n$ elements.
 The type parameter `<T>` represents the type of the elements.
 
 ### Constraints
-- None
+- (1)
+    - None
+- (2)
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are unique.
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are $0$ or more.
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are less than $\mathrm{end} - \mathrm{begin}$.
 
 ### Time Complexity
 - $O(n)$
@@ -97,7 +103,8 @@ It swaps the $i$-th element and the $j$-th element.
 tools::permutation<T> p.inv();
 ```
 
-It returns the inversion of the permutation.
+It returns $p^{-1}$.
+$p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
 
 ### Constraints
 - None
@@ -107,10 +114,11 @@ It returns the inversion of the permutation.
 
 ## operator*
 ```cpp
-tools::permutation<T> p1 * p2;
+tools::permutation<T> p2 * p1;
 ```
 
-It merges two permutations, $p_2$ and $p_1$, and returns the merged permutation.
+It returns the merged permutation $p_3 = p_2 \circ p_1$.
+$p_3$ maps the $i$-th element to the `p2[p1[i]]`-th element.
 
 ### Constraints
 - `p1.size() == p2.size()`
