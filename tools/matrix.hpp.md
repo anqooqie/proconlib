@@ -7,8 +7,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/matrix.test.cpp
-    title: tests/matrix.test.cpp
+    path: tests/matrix/multiplies.test.cpp
+    title: tests/matrix/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/solve.test.cpp
+    title: tests/matrix/solve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -295,7 +298,8 @@ data:
   timestamp: '2021-10-30 15:12:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/solve.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix
@@ -387,7 +391,7 @@ matrix<T> A.solve(vector<T> b);
 ```
 
 It solves $A\overrightarrow{x} = \overrightarrow{b}$.
-The answer can be denoted as follows where $B$ is another $m \times (m - \mathrm{rank}(A) + 1)$-dimensional matrix and $c_i$ are free variables.
+If the answers exist, the answers can be denoted as follows where $B$ is another $m \times (m - \mathrm{rank}(A) + 1)$-dimensional matrix and $c_i$ are free variables.
 
 $$\begin{align*}
 \overrightarrow{x} &= B\left(\begin{array}{c}
@@ -399,7 +403,8 @@ c_{m - \mathrm{rank}(A)}\\
 \end{array}\right)
 \end{align*}$$
 
-It returns $B$.
+If the answers exist, it returns $B$.
+Otherwise, it returns a $m \times 0$-dimensional matrix.
 
 ### Constraints
 - None

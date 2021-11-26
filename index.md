@@ -368,9 +368,6 @@ data:
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/matrix.test.cpp
-      title: tests/matrix.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/median_solver.test.cpp
       title: tests/median_solver.test.cpp
     - icon: ':heavy_check_mark:'
@@ -406,5 +403,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs.test.cpp
       title: tests/zero_one_bfs.test.cpp
+  - name: tests/matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/matrix/multiplies.test.cpp
+      title: tests/matrix/multiplies.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/matrix/solve.test.cpp
+      title: tests/matrix/solve.test.cpp
 layout: toppage
 ---

@@ -2,14 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/chromatic_number.hpp
-    title: Chromatic number
+    path: tools/matrix.hpp
+    title: Matrix
   - icon: ':heavy_check_mark:'
-    path: tools/ntz.hpp
-    title: Number of trailing zeros
-  - icon: ':heavy_check_mark:'
-    path: tools/popcount.hpp
-    title: Popcount
+    path: tools/vector.hpp
+    title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,15 +14,13 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/chromatic_number
+    PROBLEM: https://judge.yosupo.jp/problem/matrix_product
     links:
-    - https://judge.yosupo.jp/problem/chromatic_number
-  bundledCode: "#line 1 \"tests/chromatic_number.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/chromatic_number\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/chromatic_number.hpp\"\
-    \n\n\n\n#include <vector>\n#line 6 \"tools/chromatic_number.hpp\"\n#include <cstddef>\n\
-    #include <cassert>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#include <type_traits>\n\
-    \n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://judge.yosupo.jp/problem/matrix_product
+  bundledCode: "#line 1 \"tests/matrix/multiplies.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -229,95 +224,207 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/ntz.hpp\"\
-    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\
-    \nnamespace tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
-    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
-    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
-    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
-    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
-    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
-    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
-    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
-    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
-    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
-    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
-    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
-    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
-    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
-    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 6 \"tools/ntz.hpp\"\n\nnamespace tools {\n\n  inline ::std::uint32_t\
-    \ ntz(const ::std::uint32_t& x) {\n    return ::tools::popcount((x & -x) - static_cast<::std::uint32_t>(1));\n\
-    \  }\n\n  inline ::std::uint64_t ntz(const ::std::uint64_t& x) {\n    return ::tools::popcount((x\
-    \ & -x) - static_cast<::std::uint64_t>(1));\n  }\n\n  inline ::std::int32_t ntz(::std::int32_t\
-    \ x) {\n    return static_cast<::std::int32_t>(::tools::ntz(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t ntz(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::ntz(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 11 \"tools/chromatic_number.hpp\"\n\n// Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000\n\
-    // License: unknown\n// Author: drken\n\nnamespace tools {\n  class chromatic_number\
-    \ {\n  private:\n    ::std::vector<::std::uint_fast64_t> neighbor;\n\n  public:\n\
-    \    chromatic_number() = default;\n    chromatic_number(const ::tools::chromatic_number&)\
-    \ = default;\n    chromatic_number(::tools::chromatic_number&&) = default;\n \
-    \   ~chromatic_number() = default;\n    ::tools::chromatic_number& operator=(const\
-    \ ::tools::chromatic_number&) = default;\n    ::tools::chromatic_number& operator=(::tools::chromatic_number&&)\
-    \ = default;\n\n    explicit chromatic_number(const ::std::size_t n) : neighbor(n)\
-    \ {\n      for (::std::size_t i = 0; i < n; ++i) {\n        this->neighbor[i]\
-    \ = (::std::uint_fast64_t(1) << ::std::uint_fast64_t(i));\n      }\n    }\n\n\
-    \    ::std::size_t node_count() const {\n      return this->neighbor.size();\n\
-    \    }\n\n    void add_edge(const ::std::size_t s, const ::std::size_t t) {\n\
-    \      assert(s < this->node_count());\n      assert(t < this->node_count());\n\
-    \      this->neighbor[s] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(t));\n\
-    \      this->neighbor[t] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(s));\n\
-    \    }\n\n    ::std::int_fast64_t query() const {\n      const auto pow2 = [](const\
-    \ ::std::uint_fast64_t x) {\n        return ::std::uint_fast64_t(1) << x;\n  \
-    \    };\n      const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets\
-    \ of S\n      ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));\n\
-    \      I[0] = ::atcoder::modint1000000007(1);\n      for (::std::uint_fast64_t\
-    \ S = 1; S < pow2(this->node_count()); ++S) {\n        const ::std::uint_fast64_t\
-    \ v = ::tools::ntz(S);\n        I[S] = I[S & ~set(v)] + I[S & ~this->neighbor[v]];\n\
-    \      }\n\n      ::std::int_fast64_t ng = 0;\n      ::std::int_fast64_t ok =\
-    \ this->node_count();\n      while (ok - ng > 1) {\n        ::std::int_fast64_t\
-    \ k = (ok + ng) / 2;\n\n        // g[S] := #. of \"k independent sets\" which\
-    \ cover S just\n        // f[S] := #. of \"k independent sets\" which consist\
-    \ of subsets of S\n        // then\n        //   f[S] = sum_{T in S} g(T)\n  \
-    \      //   g[S] = sum_{T in S} (-1)^(|S|-|T|)f[T]\n        ::atcoder::modint1000000007\
-    \ g(0);\n        for (::std::uint_fast64_t S = 0; S < pow2(this->node_count());\
-    \ ++S) {\n          if ((::std::uint_fast64_t(this->node_count()) - ::tools::popcount(S))\
-    \ & 1) {\n            g -= I[S].pow(k);\n          } else {\n            g +=\
-    \ I[S].pow(k);\n          }\n        }\n\n        if (g.val() != 0) {\n      \
-    \    ok = k;\n        } else {\n          ng = k;\n        }\n      }\n\n    \
-    \  return ok;\n    }\n  };\n}\n\n\n#line 6 \"tests/chromatic_number.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M;\n  std::cin >> N >> M;\n\
-    \  tools::chromatic_number graph(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64\
-    \ u, v;\n    std::cin >> u >> v;\n    graph.add_edge(u, v);\n  }\n\n  std::cout\
-    \ << graph.query() << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/chromatic_number\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/chromatic_number.hpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M;\n  std::cin >> N >> M;\n\
-    \  tools::chromatic_number graph(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64\
-    \ u, v;\n    std::cin >> u >> v;\n    graph.add_edge(u, v);\n  }\n\n  std::cout\
-    \ << graph.query() << '\\n';\n  return 0;\n}\n"
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/matrix.hpp\"\
+    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 1 \"tools/vector.hpp\"\n\n\
+    \n\n#line 7 \"tools/vector.hpp\"\n#include <cmath>\n#line 11 \"tools/vector.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
+    \    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
+    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
+    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
+    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
+    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
+    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
+    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
+    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
+    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
+    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
+    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
+    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
+    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
+    \ ::tools::vector<T>& other) const {\n      assert(this->dim() == other.dim());\n\
+    \      T result(0);\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n\
+    \        result += this->m_values[i] * other.m_values[i];\n      }\n      return\
+    \ result;\n    }\n\n    friend ::tools::vector<T>& operator+(::tools::vector<T>&\
+    \ self) {\n      return self;\n    }\n    friend const ::tools::vector<T>& operator+(const\
+    \ ::tools::vector<T>& self) {\n      return self;\n    }\n    friend ::tools::vector<T>\
+    \ operator+(const ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n\
+    \      return ::tools::vector<T>(lhs) += rhs;\n    }\n    friend ::tools::vector<T>\
+    \ operator-(const ::tools::vector<T>& self) {\n      return ::tools::vector<T>(self)\
+    \ *= T(-1);\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
+    \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
+    \ -= rhs;\n    }\n    friend ::tools::vector<T> operator*(const ::tools::vector<T>&\
+    \ lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs) *= rhs;\n    }\n\
+    \    friend ::tools::vector<T> operator*(const T& lhs, const ::tools::vector<T>&\
+    \ rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n    }\n    friend ::tools::vector<T>\
+    \ operator/(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
+    \ /= rhs;\n    }\n    ::tools::vector<T>& operator+=(const ::tools::vector<T>&\
+    \ other) {\n      assert(this->dim() == other.dim());\n      for (::std::size_t\
+    \ i = 0; i < this->dim(); ++i) {\n        this->m_values[i] += other.m_values[i];\n\
+    \      }\n      return *this;\n    }\n    ::tools::vector<T>& operator-=(const\
+    \ ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n  \
+    \    for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
+    \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
+    \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
+    \  ::tools::vector<T>& operator/=(const T& c) {\n      const T c_inv = T(1) /\
+    \ c;\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ *= c_inv;\n      }\n      return *this;\n    }\n    friend bool operator==(const\
+    \ ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n      if (lhs.dim()\
+    \ != rhs.dim()) {\n        return false;\n      }\n      for (::std::size_t i\
+    \ = 0; i < lhs.dim(); ++i) {\n        if (lhs.m_values[i] != rhs.m_values[i])\
+    \ {\n          return false;\n        }\n      }\n      return true;\n    }\n\
+    \    friend bool operator!=(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
+    \ rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::vector<T>& self) {\n      os << '(';\n      ::std::string\
+    \ delimiter = \"\";\n      for (const T& value : self.m_values) {\n        os\
+    \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
+    \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
+    \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
+    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 11 \"tools/matrix.hpp\"\n\n\
+    namespace tools {\n  template <typename T>\n  class matrix {\n  private:\n   \
+    \ ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\
+    \n  public:\n    matrix() = default;\n    matrix(const ::tools::matrix<T>&) =\
+    \ default;\n    matrix(::tools::matrix<T>&&) = default;\n    ~matrix() = default;\n\
+    \    ::tools::matrix<T>& operator=(const ::tools::matrix<T>&) = default;\n   \
+    \ ::tools::matrix<T>& operator=(::tools::matrix<T>&&) = default;\n\n    matrix(::std::size_t\
+    \ rows, ::std::size_t cols) :\n      m_values(rows * cols), m_rows(rows), m_cols(cols)\
+    \ {\n    }\n    matrix(::std::size_t rows, ::std::size_t cols, const T& value)\
+    \ :\n      m_values(rows * cols, value), m_rows(rows), m_cols(cols) {\n    }\n\
+    \n    typename ::std::vector<T>::iterator operator[](const ::std::size_t r) {\n\
+    \      return this->m_values.begin() + r * this->m_cols;\n    }\n    typename\
+    \ ::std::vector<T>::const_iterator operator[](const ::std::size_t r) const {\n\
+    \      return this->m_values.begin() + r * this->m_cols;\n    }\n\n    ::std::size_t\
+    \ rows() const {\n      return this->m_rows;\n    }\n    ::std::size_t cols()\
+    \ const {\n      return this->m_cols;\n    }\n\n    friend ::tools::matrix<T>&\
+    \ operator+(::tools::matrix<T>& self) {\n      return self;\n    }\n    friend\
+    \ const ::tools::matrix<T>& operator+(const ::tools::matrix<T>& self) {\n    \
+    \  return self;\n    }\n    friend ::tools::matrix<T> operator+(const ::tools::matrix<T>&\
+    \ lhs, const ::tools::matrix<T>& rhs) {\n      return ::tools::matrix<T>(lhs)\
+    \ += rhs;\n    }\n    friend ::tools::matrix<T> operator-(const ::tools::matrix<T>&\
+    \ self) {\n      return ::tools::matrix<T>(self) *= T(-1);\n    }\n    friend\
+    \ ::tools::matrix<T> operator-(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
+    \ rhs) {\n      return ::tools::matrix<T>(lhs) - rhs;\n    }\n    friend ::tools::matrix<T>\
+    \ operator*(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {\n\
+    \      assert(lhs.m_cols == rhs.m_rows);\n      ::tools::matrix<T> result(lhs.m_rows,\
+    \ rhs.m_cols, T(0));\n      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {\n\
+    \        for (::std::size_t k = 0; k < lhs.m_cols; ++k) {\n          for (::std::size_t\
+    \ j = 0; j < rhs.m_cols; ++j) {\n            result[i][j] += lhs[i][k] * rhs[k][j];\n\
+    \          }\n        }\n      }\n      return result;\n    }\n    friend ::tools::vector<T>\
+    \ operator*(const ::tools::matrix<T>& lhs, const ::tools::vector<T>& rhs) {\n\
+    \      assert(lhs.m_cols == rhs.dim());\n      ::tools::vector<T> result(lhs.m_rows,\
+    \ T(0));\n      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {\n        for\
+    \ (::std::size_t j = 0; j < lhs.m_cols; ++j) {\n          result[i] += lhs[i][j]\
+    \ * rhs[j];\n        }\n      }\n      return result;\n    }\n    friend ::tools::matrix<T>\
+    \ operator*(const ::tools::matrix<T>& lhs, const T& rhs) {\n      return ::tools::matrix<T>(lhs)\
+    \ * rhs;\n    }\n    friend ::tools::matrix<T> operator/(const ::tools::matrix<T>&\
+    \ lhs, const T& rhs) {\n      return ::tools::matrix<T>(lhs) / rhs;\n    }\n \
+    \   ::tools::matrix<T> operator+=(const ::tools::matrix<T>& other) {\n      assert(this->m_rows\
+    \ == other.m_rows);\n      assert(this->m_cols == other.m_cols);\n      for (::std::size_t\
+    \ i = 0; i < this->m_values.size(); ++i) {\n        this->m_values[i] += other.m_values[i];\n\
+    \      }\n      return *this;\n    }\n    ::tools::matrix<T> operator-=(const\
+    \ ::tools::matrix<T>& other) {\n      assert(this->m_rows == other.m_rows);\n\
+    \      assert(this->m_cols == other.m_cols);\n      for (::std::size_t i = 0;\
+    \ i < this->m_values.size(); ++i) {\n        this->m_values[i] -= other.m_values[i];\n\
+    \      }\n      return *this;\n    }\n    ::tools::matrix<T> operator*=(const\
+    \ ::tools::matrix<T>& other) {\n      return *this = *this * other;\n    }\n \
+    \   ::tools::matrix<T> operator*=(const T& c) {\n      for (::std::size_t i =\
+    \ 0; i < this->m_values.size(); ++i) {\n        this->m_values[i] *= c;\n    \
+    \  }\n      return *this;\n    }\n    ::tools::matrix<T> operator/=(const T& c)\
+    \ {\n      const T c_inv = T(1) / c;\n      for (::std::size_t i = 0; i < this->m_values.size();\
+    \ ++i) {\n        this->m_values[i] *= c_inv;\n      }\n      return *this;\n\
+    \    }\n    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
+    \ rhs) {\n      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows &&\
+    \ lhs.m_values == rhs.m_values;\n    }\n    friend bool operator!=(const ::tools::matrix<T>&\
+    \ lhs, const ::tools::matrix<T>& rhs) {\n      return !(lhs == rhs);\n    }\n\n\
+    \    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>&\
+    \ self) {\n      for (::std::size_t r = 0; r < self.m_rows; ++r) {\n        os\
+    \ << '[';\n        ::std::string delimiter = \"\";\n        for (::std::size_t\
+    \ c = 0; c < self.m_cols; ++c) {\n          os << delimiter << self[r][c];\n \
+    \         delimiter = \", \";\n        }\n        os << ']' << '\\n';\n      }\n\
+    \      return os;\n    }\n    friend ::std::istream& operator>>(::std::istream&\
+    \ is, ::tools::matrix<T>& self) {\n      for (T& value : self.m_values) {\n  \
+    \      is >> value;\n      }\n      return is;\n    }\n\n    ::std::int_fast64_t\
+    \ gauss_jordan() {\n      ::std::size_t rank = 0;\n      for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n        ::std::size_t pivot;\n        for (pivot\
+    \ = rank; pivot < this->m_rows && (*this)[pivot][c] == T(0); ++pivot);\n     \
+    \   if (pivot == this->m_rows) continue;\n\n        if (pivot != rank) {\n   \
+    \       for (::std::size_t cc = c; cc < this->m_cols; ++cc) {\n            ::std::swap((*this)[rank][cc],\
+    \ (*this)[pivot][cc]);\n          }\n        }\n\n        {\n          const T\
+    \ scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c; cc\
+    \ < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n     \
+    \     }\n        }\n\n        for (::std::size_t r = rank + 1; r < this->m_rows;\
+    \ ++r) {\n          const T scale = (*this)[r][c];\n          for (::std::size_t\
+    \ cc = c; cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
+    \ * scale;\n          }\n        }\n\n        ++rank;\n      }\n      return rank;\n\
+    \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
+    \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
+    \    ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
+    \ r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c = 0; c < this->m_cols;\
+    \ ++c) {\n          Ab[r][c] = (*this)[r][c];\n        }\n        Ab[r][this->m_cols]\
+    \ = b[r];\n      }\n\n      Ab.gauss_jordan();\n\n      ::std::vector<::std::size_t>\
+    \ ranks(Ab.cols());\n      for (::std::size_t r = 0, cl = 0, cr = 0; r <= Ab.rows();\
+    \ ++r, cl = cr) {\n        for (; cr < Ab.cols() && (r == Ab.rows() || Ab[r][cr]\
+    \ == T(0)); ++cr);\n        for (::std::size_t c = cl; c < cr; ++c) {\n      \
+    \    ranks[c] = r;\n        }\n      }\n\n      if (ranks[Ab.cols() - 2] < ranks[Ab.cols()\
+    \ - 1]) {\n        return ::tools::matrix<T>(this->m_rows, 0);\n      }\n\n  \
+    \    ::std::vector<::tools::vector<T>> answers(this->m_cols);\n      ::std::size_t\
+    \ free = this->m_cols - ranks.back() - 1;\n\n      for (::std::size_t l = this->m_cols,\
+    \ r = this->m_cols; r > 0; r = l) {\n        for (; l > 0 && ranks[l - 1] == ranks[r\
+    \ - 1]; --l);\n        for (::std::size_t c = r - 1; c > l; --c) {\n         \
+    \ answers[c] = tools::vector<T>(this->m_cols - ranks.back() + 1, T(0));\n    \
+    \      answers[c][free] = T(1);\n          --free;\n        }\n        if (ranks[l]\
+    \ > 0) {\n          answers[l] = ::tools::vector<T>(this->m_cols - ranks.back()\
+    \ + 1, T(0));\n          answers[l][this->m_cols - ranks.back()] = Ab[ranks[l]\
+    \ - 1][Ab.cols() - 1];\n          for (::std::size_t c = l + 1; c < Ab.cols()\
+    \ - 1; ++c) {\n            answers[l] -= Ab[ranks[l] - 1][c] * answers[c];\n \
+    \         }\n        } else {\n          answers[l] = ::tools::vector<T>(this->m_cols\
+    \ - ranks.back() + 1, T(0));\n          answers[l][free] = T(1);\n          --free;\n\
+    \        }\n      }\n\n      ::tools::matrix<T> answer(this->m_cols, this->m_cols\
+    \ - ranks.back() + 1);\n      for (::std::size_t r = 0; r < this->m_cols; ++r)\
+    \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
+    \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
+    \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
+    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
+    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
+    \    return result;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\
+    \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
+    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
+    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
+    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
+    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
+    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
+    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
+    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
+    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
+    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
+    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
+    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
+    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
+    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/chromatic_number.hpp
-  - tools/ntz.hpp
-  - tools/popcount.hpp
+  - tools/matrix.hpp
+  - tools/vector.hpp
   isVerificationFile: true
-  path: tests/chromatic_number.test.cpp
+  path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2021-11-26 23:23:58+09:00'
+  timestamp: '2021-11-27 03:35:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/chromatic_number.test.cpp
+documentation_of: tests/matrix/multiplies.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/chromatic_number.test.cpp
-- /verify/tests/chromatic_number.test.cpp.html
-title: tests/chromatic_number.test.cpp
+- /verify/tests/matrix/multiplies.test.cpp
+- /verify/tests/matrix/multiplies.test.cpp.html
+title: tests/matrix/multiplies.test.cpp
 ---

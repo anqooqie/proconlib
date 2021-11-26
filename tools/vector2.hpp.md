@@ -19,9 +19,6 @@ data:
     path: tests/ccw.test.cpp
     title: tests/ccw.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/chromatic_number.test.cpp
-    title: tests/chromatic_number.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':heavy_check_mark:'
@@ -211,14 +208,13 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
-  - tools/ccw.hpp
   - tools/less_by_arg.hpp
+  - tools/ccw.hpp
   - tools/greater_by_arg.hpp
   timestamp: '2021-10-03 23:48:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
-  - tests/chromatic_number.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
 documentation_of: tools/vector2.hpp

@@ -37,8 +37,8 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tree_diameter.test.cpp
   - tests/bellman_ford.test.cpp
+  - tests/tree_diameter.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

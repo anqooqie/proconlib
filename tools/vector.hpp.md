@@ -7,8 +7,11 @@ data:
     title: Matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/matrix.test.cpp
-    title: tests/matrix.test.cpp
+    path: tests/matrix/multiplies.test.cpp
+    title: tests/matrix/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/solve.test.cpp
+    title: tests/matrix/solve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -136,7 +139,8 @@ data:
   timestamp: '2021-10-26 00:02:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/solve.test.cpp
 documentation_of: tools/vector.hpp
 layout: document
 title: Vector

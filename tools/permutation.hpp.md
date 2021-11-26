@@ -17,7 +17,12 @@ data:
     \ = default;\n    ::tools::permutation<T>& operator=(const ::tools::permutation<T>&)\
     \ = default;\n    ::tools::permutation<T>& operator=(::tools::permutation<T>&&)\
     \ = default;\n\n    permutation(::std::size_t dim) : m_vector(dim) {\n      ::std::iota(this->m_vector.begin(),\
-    \ this->m_vector.end(), 0);\n    }\n\n    T operator[](const ::std::size_t i)\
+    \ this->m_vector.end(), 0);\n    }\n    template <typename Iterator>\n    permutation(Iterator\
+    \ begin, Iterator end) : m_vector(begin, end) {\n#ifndef NDEBUG\n      for (const\
+    \ T& x : this->m_vector) {\n        assert(0 <= x && x < this->m_vector.size());\n\
+    \      }\n      ::std::vector<bool> unique(this->m_vector.size(), true);\n   \
+    \   for (const T& x : this->m_vector) {\n        assert(unique[x]);\n        unique[x]\
+    \ = false;\n      }\n#endif\n    }\n\n    T operator[](const ::std::size_t i)\
     \ const {\n      assert(i < this->size());\n      return this->m_vector[i];\n\
     \    }\n    typename ::std::vector<T>::const_iterator begin() const {\n      return\
     \ this->m_vector.begin();\n    }\n    typename ::std::vector<T>::const_iterator\
@@ -51,7 +56,12 @@ data:
     \ = default;\n    ::tools::permutation<T>& operator=(const ::tools::permutation<T>&)\
     \ = default;\n    ::tools::permutation<T>& operator=(::tools::permutation<T>&&)\
     \ = default;\n\n    permutation(::std::size_t dim) : m_vector(dim) {\n      ::std::iota(this->m_vector.begin(),\
-    \ this->m_vector.end(), 0);\n    }\n\n    T operator[](const ::std::size_t i)\
+    \ this->m_vector.end(), 0);\n    }\n    template <typename Iterator>\n    permutation(Iterator\
+    \ begin, Iterator end) : m_vector(begin, end) {\n#ifndef NDEBUG\n      for (const\
+    \ T& x : this->m_vector) {\n        assert(0 <= x && x < this->m_vector.size());\n\
+    \      }\n      ::std::vector<bool> unique(this->m_vector.size(), true);\n   \
+    \   for (const T& x : this->m_vector) {\n        assert(unique[x]);\n        unique[x]\
+    \ = false;\n      }\n#endif\n    }\n\n    T operator[](const ::std::size_t i)\
     \ const {\n      assert(i < this->size());\n      return this->m_vector[i];\n\
     \    }\n    typename ::std::vector<T>::const_iterator begin() const {\n      return\
     \ this->m_vector.begin();\n    }\n    typename ::std::vector<T>::const_iterator\
@@ -80,7 +90,7 @@ data:
   isVerificationFile: false
   path: tools/permutation.hpp
   requiredBy: []
-  timestamp: '2021-11-12 22:35:05+09:00'
+  timestamp: '2021-11-26 23:14:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/permutation.hpp
@@ -98,14 +108,20 @@ It is a permutation of $n$ elements.
 
 ## Constructor
 ```cpp
-permutation<T> p(std::size_t n);
+(1) permutation<T> p(std::size_t n);
+(2) template <typename Iterator> permutation<T> p(Iterator begin, Iterator end);
 ```
 
 It creates an identity permutation of $n$ elements.
 The type parameter `<T>` represents the type of the elements.
 
 ### Constraints
-- None
+- (1)
+    - None
+- (2)
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are unique.
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are $0$ or more.
+    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are less than $\mathrm{end} - \mathrm{begin}$.
 
 ### Time Complexity
 - $O(n)$
@@ -182,7 +198,8 @@ It swaps the $i$-th element and the $j$-th element.
 tools::permutation<T> p.inv();
 ```
 
-It returns the inversion of the permutation.
+It returns $p^{-1}$.
+$p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
 
 ### Constraints
 - None
@@ -192,10 +209,11 @@ It returns the inversion of the permutation.
 
 ## operator*
 ```cpp
-tools::permutation<T> p1 * p2;
+tools::permutation<T> p2 * p1;
 ```
 
-It merges two permutations, $p_2$ and $p_1$, and returns the merged permutation.
+It returns the merged permutation $p_3 = p_2 \circ p_1$.
+$p_3$ maps the $i$-th element to the `p2[p1[i]]`-th element.
 
 ### Constraints
 - `p1.size() == p2.size()`

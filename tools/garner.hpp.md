@@ -110,13 +110,13 @@ data:
   path: tools/garner.hpp
   requiredBy:
   - tools/tetration_mod.hpp
-  - tools/extended_garner.hpp
   - tools/extended_lucas.hpp
+  - tools/extended_garner.hpp
   timestamp: '2021-08-22 01:33:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extended_lucas.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/garner.hpp
 layout: document
