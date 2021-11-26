@@ -89,7 +89,7 @@ matrix<T> A.solve(vector<T> b);
 ```
 
 It solves $A\overrightarrow{x} = \overrightarrow{b}$.
-The answer can be denoted as follows where $B$ is another $m \times (m - \mathrm{rank}(A) + 1)$-dimensional matrix and $c_i$ are free variables.
+If the answers exist, the answers can be denoted as follows where $B$ is another $m \times (m - \mathrm{rank}(A) + 1)$-dimensional matrix and $c_i$ are free variables.
 
 $$\begin{align*}
 \overrightarrow{x} &= B\left(\begin{array}{c}
@@ -101,7 +101,8 @@ c_{m - \mathrm{rank}(A)}\\
 \end{array}\right)
 \end{align*}$$
 
-It returns $B$.
+If the answers exist, it returns $B$.
+Otherwise, it returns a $m \times 0$-dimensional matrix.
 
 ### Constraints
 - None
