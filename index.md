@@ -215,7 +215,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
     - icon: ':heavy_check_mark:'
@@ -388,6 +388,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/qcfium.test.cpp
+      title: tests/qcfium.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
