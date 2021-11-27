@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/fix.test.cpp
+    title: tests/fix.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fix.hpp\"\n\n\n\n#include <utility>\n#include <type_traits>\n\
@@ -26,14 +29,21 @@ data:
   path: tools/fix.hpp
   requiredBy: []
   timestamp: '2021-05-16 02:11:12+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/fix.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator
 ---
 
+```cpp
+template <typename G>
+(see below) fix(G g);
+```
+
 It returns a fixed point of its argument function.
+When `f(args...)` is invocable and `g(f, args...)` is invocable, `tools::fix(g)(args...)` returns `f(args...)`.
 
 ## Usage
 ```cpp
@@ -44,6 +54,13 @@ tools::fix([&](auto&& fib, const int n) -> int {
 
 ## References
 - [C++のラムダで再帰する - koturnの日記](https://koturn.hatenablog.com/entry/2018/06/10/060000)
+
+## Constraints
+- `g(f, args...)` is invocable.
+- `f(args...)` is invocable.
+
+## Time Complexity
+- It depends on `g`.
 
 ## License
 - According to the source, "ブログ上のコードはコピペ自由です．"

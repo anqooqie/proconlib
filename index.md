@@ -80,7 +80,7 @@ data:
     - icon: ':warning:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
     - icon: ':heavy_check_mark:'
@@ -346,6 +346,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fact_mod_cache.test.cpp
       title: tests/fact_mod_cache.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fix.test.cpp
+      title: tests/fix.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/floor_log.test.cpp
       title: tests/floor_log.test.cpp

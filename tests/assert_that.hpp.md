@@ -13,6 +13,9 @@ data:
     path: tests/ceil_log2.test.cpp
     title: tests/ceil_log2.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fix.test.cpp
+    title: tests/fix.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
   - icon: ':heavy_check_mark:'
@@ -64,6 +67,7 @@ data:
   - tests/ceil_log.test.cpp
   - tests/run_length.test.cpp
   - tests/floor_log.test.cpp
+  - tests/fix.test.cpp
   - tests/median_solver.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/floor_log2.test.cpp
