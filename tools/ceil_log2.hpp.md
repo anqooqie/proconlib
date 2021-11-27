@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/li_chao_segtree.hpp
+    title: Li Chao segment tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
@@ -18,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree.test.cpp
+    title: tests/li_chao_segtree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -67,10 +73,12 @@ data:
   path: tools/ceil_log2.hpp
   requiredBy:
   - tools/binary_heap.hpp
+  - tools/li_chao_segtree.hpp
   - tools/dual_segtree.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/ceil_log2.test.cpp

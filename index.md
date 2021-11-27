@@ -147,6 +147,9 @@ data:
       path: tools/less_by_second.hpp
       title: std::less by second
     - icon: ':heavy_check_mark:'
+      path: tools/li_chao_segtree.hpp
+      title: Li Chao segment tree
+    - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
     - icon: ':heavy_check_mark:'
@@ -248,6 +251,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
+    - icon: ':heavy_check_mark:'
+      path: tools/swag.hpp
+      title: Sliding window aggregation
     - icon: ':heavy_check_mark:'
       path: tools/tetration_mod.hpp
       title: $x \uparrow\uparrow y \pmod{M}$
@@ -365,6 +371,9 @@ data:
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/li_chao_segtree.test.cpp
+      title: tests/li_chao_segtree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
@@ -388,6 +397,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/swag.test.cpp
+      title: tests/swag.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/tetration_mod.test.cpp
       title: tests/tetration_mod.test.cpp
