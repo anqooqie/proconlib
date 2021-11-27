@@ -108,6 +108,19 @@ If `x.first` exists in the heap, it updates the priority of `x.first` to `x.seco
 ### Time Complexity
 - $O(\log n)$ where n is the current number of elements of the heap
 
+## emplace
+```cpp
+bool heap.emplace(Key k, Priority p);
+```
+
+It returns `heap.push(std::make_pair(k, p))`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log n)$ where n is the current number of elements of the heap
+
 ## pop
 ```cpp
 void heap.pop();

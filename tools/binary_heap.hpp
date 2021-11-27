@@ -135,6 +135,11 @@ namespace tools {
       return !internal_index;
     }
 
+    template <typename... Args>
+    bool emplace(Args&&... args) {
+      return this->push(::std::make_pair(::std::forward<Args>(args)...));
+    }
+
     void pop() {
       assert(!this->empty());
       const Key k = this->m_heap[1].first;
