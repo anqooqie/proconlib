@@ -24,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree.test.cpp
     title: tests/li_chao_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ssize.test.cpp
+    title: tests/ssize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -78,6 +81,7 @@ data:
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/ssize.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp

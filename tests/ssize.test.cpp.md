@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tests/assert_that.hpp
+    title: tests/assert_that.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
   - icon: ':heavy_check_mark:'
@@ -10,6 +13,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
+  - icon: ':heavy_check_mark:'
+    path: tools/ssize.hpp
+    title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,22 +23,25 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C
-  bundledCode: "#line 1 \"tests/binary_heap.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#include <utility>\n\
-    #line 1 \"tools/binary_heap.hpp\"\n\n\n\n#include <functional>\n#include <unordered_map>\n\
-    #include <cstddef>\n#include <vector>\n#include <optional>\n#line 10 \"tools/binary_heap.hpp\"\
-    \n#include <type_traits>\n#include <algorithm>\n#include <cassert>\n#line 1 \"\
-    tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
-    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
-    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/ssize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
+    \n\n#include <iostream>\n#line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\
+    \n\n\n\n#include <functional>\n#include <unordered_map>\n#include <cstddef>\n\
+    #include <vector>\n#include <optional>\n#include <utility>\n#include <type_traits>\n\
+    #include <algorithm>\n#include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n\
+    #include <string>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \n\n\n\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
     \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
     \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
@@ -121,38 +130,38 @@ data:
     \ self) {\n      std::string delimiter = \"\";\n      os << '[';\n      for (::std::size_t\
     \ i = 1; i <= self.m_size; ++i) {\n        os << delimiter << '[' << self.m_heap[i].first\
     \ << \", \" << self.m_heap[i].second << ']';\n        delimiter = \", \";\n  \
-    \    }\n      os << ']';\n      return os;\n    }\n  };\n}\n\n\n#line 8 \"tests/binary_heap.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::binary_heap<i64, i64> heap;\n\
-    \  i64 id = 0;\n\n  std::string instruction;\n  while (true) {\n    std::cin >>\
-    \ instruction;\n    if (instruction == \"insert\") {\n      i64 k;\n      std::cin\
-    \ >> k;\n      heap.push(std::make_pair(id++, k));\n    } else if (instruction\
-    \ == \"extract\") {\n      std::cout << heap.top().second << '\\n';\n      heap.pop();\n\
-    \    } else {\n      break;\n    }\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C\"\n\
-    \n#include <cstdint>\n#include <iostream>\n#include <string>\n#include <utility>\n\
-    #include \"tools/binary_heap.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  tools::binary_heap<i64,\
-    \ i64> heap;\n  i64 id = 0;\n\n  std::string instruction;\n  while (true) {\n\
-    \    std::cin >> instruction;\n    if (instruction == \"insert\") {\n      i64\
-    \ k;\n      std::cin >> k;\n      heap.push(std::make_pair(id++, k));\n    } else\
-    \ if (instruction == \"extract\") {\n      std::cout << heap.top().second << '\\\
-    n';\n      heap.pop();\n    } else {\n      break;\n    }\n  }\n\n  return 0;\n\
-    }\n"
+    \    }\n      os << ']';\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
+    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 7 \"tests/ssize.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::ssize(std::vector<int>({1,\
+    \ 2, 3})) == 3);\n\n  tools::binary_heap<int, int> heap;\n  heap.emplace(1, 1);\n\
+    \  heap.emplace(2, 2);\n  heap.emplace(3, 3);\n  assert_that(tools::ssize(heap)\
+    \ == 3);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include \"tests/assert_that.hpp\"\n#include \"tools/binary_heap.hpp\"\
+    \n#include \"tools/ssize.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  assert_that(tools::ssize(std::vector<int>({1, 2, 3})) == 3);\n\n  tools::binary_heap<int,\
+    \ int> heap;\n  heap.emplace(1, 1);\n  heap.emplace(2, 2);\n  heap.emplace(3,\
+    \ 3);\n  assert_that(tools::ssize(heap) == 3);\n\n  std::cout << \"Hello World\"\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tests/assert_that.hpp
   - tools/binary_heap.hpp
   - tools/pow2.hpp
   - tools/ceil_log2.hpp
+  - tools/ssize.hpp
   isVerificationFile: true
-  path: tests/binary_heap.test.cpp
+  path: tests/ssize.test.cpp
   requiredBy: []
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/binary_heap.test.cpp
+documentation_of: tests/ssize.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/binary_heap.test.cpp
-- /verify/tests/binary_heap.test.cpp.html
-title: tests/binary_heap.test.cpp
+- /verify/tests/ssize.test.cpp
+- /verify/tests/ssize.test.cpp.html
+title: tests/ssize.test.cpp
 ---

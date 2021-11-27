@@ -252,17 +252,14 @@ data:
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':heavy_check_mark:'
+      path: tools/ssize.hpp
+      title: Polyfill of std::ssize
+    - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
     - icon: ':heavy_check_mark:'
       path: tools/tetration_mod.hpp
       title: $x \uparrow\uparrow y \pmod{M}$
-    - icon: ':warning:'
-      path: tools/to_signed.hpp
-      title: To signed value
-    - icon: ':warning:'
-      path: tools/to_unsigned.hpp
-      title: To unsigned value
     - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
       title: Euler's totient function
@@ -397,6 +394,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/ssize.test.cpp
+      title: tests/ssize.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp

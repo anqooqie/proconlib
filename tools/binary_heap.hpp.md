@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ssize.test.cpp
+    title: tests/ssize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -95,10 +98,12 @@ data:
     \ + 1)));\n          }\n          this->m_heap_index_fast[x.first] = this->m_size;\n\
     \        } else {\n          this->m_heap_index.emplace(x.first, this->m_size);\n\
     \        }\n        this->m_heap[this->m_size] = x;\n        this->upheap(this->m_size);\n\
-    \      }\n\n      return !internal_index;\n    }\n\n    void pop() {\n      assert(!this->empty());\n\
-    \      const Key k = this->m_heap[1].first;\n      if (this->m_size > 1) {\n \
-    \       this->swap(1, this->m_size);\n      }\n\n      if constexpr (::std::is_integral_v<Key>)\
-    \ {\n        this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
+    \      }\n\n      return !internal_index;\n    }\n\n    template <typename...\
+    \ Args>\n    bool emplace(Args&&... args) {\n      return this->push(::std::make_pair(::std::forward<Args>(args)...));\n\
+    \    }\n\n    void pop() {\n      assert(!this->empty());\n      const Key k =\
+    \ this->m_heap[1].first;\n      if (this->m_size > 1) {\n        this->swap(1,\
+    \ this->m_size);\n      }\n\n      if constexpr (::std::is_integral_v<Key>) {\n\
+    \        this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
     \      }\n      --this->m_size;\n\n      if (this->m_size >= 1) {\n        this->downheap(1);\n\
     \      }\n    }\n\n    ::std::size_t erase(const Key& k) {\n      ::std::optional<::std::size_t>\
     \ internal_index = this->get_internal_index(k);\n      if (!internal_index) {\n\
@@ -170,10 +175,12 @@ data:
     \ + 1)));\n          }\n          this->m_heap_index_fast[x.first] = this->m_size;\n\
     \        } else {\n          this->m_heap_index.emplace(x.first, this->m_size);\n\
     \        }\n        this->m_heap[this->m_size] = x;\n        this->upheap(this->m_size);\n\
-    \      }\n\n      return !internal_index;\n    }\n\n    void pop() {\n      assert(!this->empty());\n\
-    \      const Key k = this->m_heap[1].first;\n      if (this->m_size > 1) {\n \
-    \       this->swap(1, this->m_size);\n      }\n\n      if constexpr (::std::is_integral_v<Key>)\
-    \ {\n        this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
+    \      }\n\n      return !internal_index;\n    }\n\n    template <typename...\
+    \ Args>\n    bool emplace(Args&&... args) {\n      return this->push(::std::make_pair(::std::forward<Args>(args)...));\n\
+    \    }\n\n    void pop() {\n      assert(!this->empty());\n      const Key k =\
+    \ this->m_heap[1].first;\n      if (this->m_size > 1) {\n        this->swap(1,\
+    \ this->m_size);\n      }\n\n      if constexpr (::std::is_integral_v<Key>) {\n\
+    \        this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
     \      }\n      --this->m_size;\n\n      if (this->m_size >= 1) {\n        this->downheap(1);\n\
     \      }\n    }\n\n    ::std::size_t erase(const Key& k) {\n      ::std::optional<::std::size_t>\
     \ internal_index = this->get_internal_index(k);\n      if (!internal_index) {\n\
@@ -197,9 +204,10 @@ data:
   isVerificationFile: false
   path: tools/binary_heap.hpp
   requiredBy: []
-  timestamp: '2021-07-17 23:00:45+09:00'
+  timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/ssize.test.cpp
   - tests/binary_heap.test.cpp
 documentation_of: tools/binary_heap.hpp
 layout: document
@@ -304,6 +312,19 @@ bool heap.push(std::pair<Key, Priority> x);
 
 If `x.first` does not exist in the heap, it inserts `x.first` whose priority is `x.second` into the heap and returns `true`.
 If `x.first` exists in the heap, it updates the priority of `x.first` to `x.second` and returns `false`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log n)$ where n is the current number of elements of the heap
+
+## emplace
+```cpp
+bool heap.emplace(Key k, Priority p);
+```
+
+It returns `heap.push(std::make_pair(k, p))`.
 
 ### Constraints
 - None

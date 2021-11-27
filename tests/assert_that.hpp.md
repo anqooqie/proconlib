@@ -31,6 +31,9 @@ data:
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ssize.test.cpp
+    title: tests/ssize.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
   _isVerificationFailed: false
@@ -55,6 +58,7 @@ data:
   verifiedWith:
   - tests/alphabetical_order.test.cpp
   - tests/tsort.test.cpp
+  - tests/ssize.test.cpp
   - tests/mex.test.cpp
   - tests/safe_int.test.cpp
   - tests/ceil_log.test.cpp
