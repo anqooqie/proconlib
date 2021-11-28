@@ -5,9 +5,7 @@
 #include <type_traits>
 #include <cstddef>
 #include <array>
-#include <string>
 #include <functional>
-#include <limits>
 #include <iostream>
 #include "tools/pair_hash.hpp"
 
@@ -131,23 +129,18 @@ namespace tools {
 
 namespace std {
   template <typename T>
-  ::std::string to_string(const ::tools::vector2<T>& f) {
-    return '(' + ::std::to_string(f.x) + ", " + ::std::to_string(f.y) + ')';
-  }
-
-  template <typename T>
   struct hash<::tools::vector2<T>> {
     using result_type = ::std::size_t;
     using argument_type = ::tools::vector2<T>;
     ::std::size_t operator()(const ::tools::vector2<T>& key) const {
       static const ::tools::pair_hash<T, T> hasher = ::tools::pair_hash<T, T>();
-      return hasher(key.x, key.y);
+      return hasher(::std::make_pair(key.x, key.y));
     }
   };
 
   template <typename T>
   ::std::ostream& operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {
-    return os << ::std::to_string(self);
+    return os << '(' << self.x << ", " << self.y << ')';
   }
 
   template <typename T>
