@@ -74,13 +74,13 @@ data:
   path: tools/popcount.hpp
   requiredBy:
   - tools/ntz.hpp
-  - tools/floor_log2.hpp
   - tools/chromatic_number.hpp
+  - tools/floor_log2.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/chromatic_number.test.cpp
   - tests/floor_log2.test.cpp
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

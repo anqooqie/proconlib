@@ -75,17 +75,17 @@ data:
   isVerificationFile: false
   path: tools/ceil_log2.hpp
   requiredBy:
-  - tools/binary_heap.hpp
-  - tools/li_chao_segtree.hpp
   - tools/dual_segtree.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/binary_heap.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/ceil_log2.test.cpp
   - tests/ssize.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp
-  - tests/ceil_log2.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

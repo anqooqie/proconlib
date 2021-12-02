@@ -47,9 +47,9 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/binary_heap.hpp
-  - tools/li_chao_segtree.hpp
   - tools/dual_segtree.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/binary_heap.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
