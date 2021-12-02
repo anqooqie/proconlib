@@ -30,7 +30,7 @@ binary_heap<Key, Priority, std::less<Priority>> heap();
 binary_heap<Key, Priority, Compare> heap(Compare compare);
 ```
 
-It creates a empty max heap which uses `compare` as a comparator.
+It creates an empty max heap which uses `compare` as a comparator.
 The type parameter `<Key>` represents the type of keys.
 The type parameter `<Priority>` represents the type of the priorities correspanding to each key.
 The type parameter `<Compare>` represents the type of the comparator.
@@ -77,6 +77,19 @@ It returns the maximum element of the heap.
 
 ### Constraints
 - The heap is not empty.
+
+### Time Complexity
+- $O(1)$
+
+## contains
+```cpp
+bool heap.contains(Key k);
+```
+
+It returns whether the heap contains `k` or not.
+
+### Constraints
+- None.
 
 ### Time Complexity
 - $O(1)$

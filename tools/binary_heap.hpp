@@ -2,12 +2,12 @@
 #define TOOLS_BINARY_HEAP_HPP
 
 #include <functional>
+#include <type_traits>
 #include <unordered_map>
 #include <cstddef>
 #include <vector>
 #include <optional>
 #include <utility>
-#include <type_traits>
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -17,7 +17,7 @@
 
 namespace tools {
 
-  template <class Key, class Priority, class Compare = ::std::less<Priority>>
+  template <class Key, class Priority, class Compare = ::std::less<Priority>, bool UseVectorToStoreKeys = ::std::is_integral_v<Key>>
   class binary_heap {
   private:
     Compare m_compare;
@@ -27,7 +27,7 @@ namespace tools {
     ::std::size_t m_size;
 
     void swap(::std::size_t x, ::std::size_t y) {
-      if constexpr (::std::is_integral_v<Key>) {
+      if constexpr (UseVectorToStoreKeys) {
         ::std::swap(*this->m_heap_index_fast[this->m_heap[x].first], *this->m_heap_index_fast[this->m_heap[y].first]);
       } else {
         ::std::swap(this->m_heap_index[this->m_heap[x].first], this->m_heap_index[this->m_heap[y].first]);
@@ -58,7 +58,7 @@ namespace tools {
     }
 
     ::std::optional<::std::size_t> get_internal_index(const Key& k) const {
-      if constexpr (::std::is_integral_v<Key>) {
+      if constexpr (UseVectorToStoreKeys) {
         if (::std::size_t(k) < this->m_heap_index_fast.size()) {
           return this->m_heap_index_fast[k];
         } else {
@@ -95,8 +95,16 @@ namespace tools {
       return this->m_heap[1];
     }
 
+    bool contains(const Key& k) const {
+      if constexpr (UseVectorToStoreKeys) {
+        return this->m_heap_index_fast[k].has_value();
+      } else {
+        return this->m_heap_index.find(k) != this->m_heap_index.end();
+      }
+    }
+
     Priority at(const Key& k) const {
-      if constexpr (::std::is_integral_v<Key>) {
+      if constexpr (UseVectorToStoreKeys) {
         return this->m_heap[*this->m_heap_index_fast[k]].second;
       } else {
         return this->m_heap[this->m_heap_index.at(k)].second;
@@ -120,7 +128,7 @@ namespace tools {
         }
         ++this->m_size;
 
-        if constexpr (::std::is_integral_v<Key>) {
+        if constexpr (UseVectorToStoreKeys) {
           if (::std::size_t(x.first) >= this->m_heap_index_fast.size()) {
             this->m_heap_index_fast.resize(::tools::pow2(::tools::ceil_log2(x.first + 1)));
           }
@@ -147,7 +155,7 @@ namespace tools {
         this->swap(1, this->m_size);
       }
 
-      if constexpr (::std::is_integral_v<Key>) {
+      if constexpr (UseVectorToStoreKeys) {
         this->m_heap_index_fast[k].reset();
       } else {
         this->m_heap_index.erase(k);
@@ -172,7 +180,7 @@ namespace tools {
         this->swap(*internal_index, this->m_size);
       }
 
-      if constexpr (::std::is_integral_v<Key>) {
+      if constexpr (UseVectorToStoreKeys) {
         this->m_heap_index_fast[k].reset();
       } else {
         this->m_heap_index.erase(k);
