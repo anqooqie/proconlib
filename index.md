@@ -21,6 +21,9 @@ data:
       path: tools/binary_heap.hpp
       title: Binary heap
     - icon: ':heavy_check_mark:'
+      path: tools/bipartite_matching.hpp
+      title: Matching on bipartite graph
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':heavy_check_mark:'
@@ -307,6 +310,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/binary_heap.test.cpp
       title: tests/binary_heap.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bipartite_matching.test.cpp
+      title: tests/bipartite_matching.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/ccw.test.cpp
       title: tests/ccw.test.cpp
