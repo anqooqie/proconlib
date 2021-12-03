@@ -5,10 +5,13 @@ data:
   - icon: ':warning:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/resize.test.cpp
+    title: tests/resize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://koyumeishi.hatenablog.com/entry/2016/02/01/152426
@@ -36,8 +39,9 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/resize.test.cpp
 documentation_of: tools/resize.hpp
 layout: document
 title: Resize a multi-dimensional vector

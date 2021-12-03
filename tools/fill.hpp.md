@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   _extendedRequiredBy:
   - icon: ':warning:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/fill.test.cpp
+    title: tests/fill.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fill.hpp\"\n\n\n\n#include <vector>\n#include <type_traits>\n\
@@ -44,8 +47,9 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2021-07-18 21:35:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/fill.test.cpp
 documentation_of: tools/fill.hpp
 layout: document
 title: Fill a multi-dimensional vector

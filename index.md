@@ -77,7 +77,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
     - icon: ':warning:'
@@ -128,7 +128,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
     - icon: ':warning:'
@@ -227,7 +227,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':warning:'
@@ -353,6 +353,9 @@ data:
       path: tests/fact_mod_cache.test.cpp
       title: tests/fact_mod_cache.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/fill.test.cpp
+      title: tests/fill.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/fix.test.cpp
       title: tests/fix.test.cpp
     - icon: ':heavy_check_mark:'
@@ -400,6 +403,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/resize.test.cpp
+      title: tests/resize.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp

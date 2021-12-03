@@ -13,6 +13,9 @@ data:
     path: tests/ceil_log2.test.cpp
     title: tests/ceil_log2.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fill.test.cpp
+    title: tests/fill.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
   - icon: ':heavy_check_mark:'
@@ -27,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/resize.test.cpp
+    title: tests/resize.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
@@ -67,6 +73,8 @@ data:
   - tests/floor_log2.test.cpp
   - tests/ceil_log.test.cpp
   - tests/ssize.test.cpp
+  - tests/resize.test.cpp
+  - tests/fill.test.cpp
   - tests/tsort.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/safe_int.test.cpp
