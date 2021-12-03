@@ -30,10 +30,10 @@ namespace tools {
   namespace detail {
     namespace util {
       template <typename T>
-      class has_val {
+      class has_mod {
       private:
         template <typename U>
-        static auto check(U x) -> decltype(x.val(), ::std::true_type{});
+        static auto check(U x) -> decltype(x.mod(), ::std::true_type{});
         static ::std::false_type check(...);
 
       public:
@@ -122,8 +122,21 @@ template <class T, class Container>
 }
 
 template <class T1, class T2>
+::std::istream& operator>>(::std::istream& is, ::std::pair<T1, T2>& pair) {
+  return is >> pair.first >> pair.second;
+}
+template <class T1, class T2>
 ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1, T2>& pair) {
   return os << '[' << pair.first << ", " << pair.second << ']';
+}
+template <int I = 0, typename... Args>
+::std::istream& operator>>(::std::istream& is, const ::std::tuple<Args...>& tuple) {
+  if constexpr (I < int(sizeof...(Args))) {
+    is >> ::std::get<I>(tuple);
+    return operator>><I + 1>(is, tuple);
+  } else {
+    return is;
+  }
 }
 template <int I = -1, typename... Args>
 ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>& tuple) {
@@ -145,7 +158,14 @@ template <int I = -1, typename... Args>
 }
 
 template <typename T>
-auto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_val<T>::value, ::std::ostream&> {
+auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
+  ::std::int_fast64_t n;
+  is >> n;
+  x = T(n);
+  return is;
+}
+template <typename T>
+auto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&> {
   return os << x.val();
 }
 
