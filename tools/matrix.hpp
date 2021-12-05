@@ -59,7 +59,7 @@ namespace tools {
       return ::tools::matrix<T>(self) *= T(-1);
     }
     friend ::tools::matrix<T> operator-(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
-      return ::tools::matrix<T>(lhs) - rhs;
+      return ::tools::matrix<T>(lhs) -= rhs;
     }
     friend ::tools::matrix<T> operator*(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
       assert(lhs.m_cols == rhs.m_rows);

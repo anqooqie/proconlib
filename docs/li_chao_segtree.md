@@ -26,12 +26,12 @@ li_chao_segtree<T, Compare = std::less<T>> segtree(Iterator begin, Iterator end,
 ```
 
 It creates an empty set of straight lines.
-$\[mathrm{begin}, \mathrm{end})$ represents a list of possible $x$s.
+$\[\mathrm{begin}, \mathrm{end})$ represents a list of possible $x$s.
 If `std::greater<T>()` are given as `comp`, it will be able to find the minimal $y$ instead of the maximal.
 
 ### Constraints
 - $\mathrm{end} - \mathrm{begin} \geq 1$
-- $\[mathrm{begin}, \mathrm{end})$ are sorted.
+- $\[\mathrm{begin}, \mathrm{end})$ are sorted.
 
 ### Time Complexity
 - $O(n)$ where $n$ is $\mathrm{end} - \mathrm{begin}$
