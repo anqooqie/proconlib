@@ -285,6 +285,9 @@ data:
       path: tools/vector2.hpp
       title: 2D vector
     - icon: ':heavy_check_mark:'
+      path: tools/xor_basis.hpp
+      title: Basis of xor
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
   - name: tools/detail
@@ -430,6 +433,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/xor_basis.test.cpp
+      title: tests/xor_basis.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs.test.cpp
       title: tests/zero_one_bfs.test.cpp

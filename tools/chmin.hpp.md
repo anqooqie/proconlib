@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of tree
+  - icon: ':heavy_check_mark:'
+    path: tools/xor_basis.hpp
+    title: Basis of xor
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/xor_basis.test.cpp
+    title: tests/xor_basis.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -33,11 +39,13 @@ data:
   path: tools/chmin.hpp
   requiredBy:
   - tools/bellman_ford.hpp
+  - tools/xor_basis.hpp
   - tools/tree_diameter.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bellman_ford.test.cpp
+  - tests/xor_basis.test.cpp
   - tests/tree_diameter.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document

@@ -304,7 +304,7 @@ data:
     \ += rhs;\n    }\n    friend ::tools::matrix<T> operator-(const ::tools::matrix<T>&\
     \ self) {\n      return ::tools::matrix<T>(self) *= T(-1);\n    }\n    friend\
     \ ::tools::matrix<T> operator-(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>&\
-    \ rhs) {\n      return ::tools::matrix<T>(lhs) - rhs;\n    }\n    friend ::tools::matrix<T>\
+    \ rhs) {\n      return ::tools::matrix<T>(lhs) -= rhs;\n    }\n    friend ::tools::matrix<T>\
     \ operator*(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {\n\
     \      assert(lhs.m_cols == rhs.m_rows);\n      ::tools::matrix<T> result(lhs.m_rows,\
     \ rhs.m_cols, T(0));\n      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {\n\
@@ -418,7 +418,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2021-11-27 03:35:10+09:00'
+  timestamp: '2021-12-05 13:54:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp
