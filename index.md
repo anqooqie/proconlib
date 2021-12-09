@@ -249,6 +249,9 @@ data:
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
     - icon: ':warning:'
+      path: tools/segmented_sieve.hpp
+      title: tools/segmented_sieve.hpp
+    - icon: ':warning:'
       path: tools/signum.hpp
       title: Sign function
     - icon: ':heavy_check_mark:'

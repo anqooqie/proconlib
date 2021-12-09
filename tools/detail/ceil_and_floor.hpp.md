@@ -17,6 +17,9 @@ data:
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
+  - icon: ':warning:'
+    path: tools/segmented_sieve.hpp
+    title: tools/segmented_sieve.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
@@ -67,6 +70,7 @@ data:
   - tools/ceil.hpp
   - tools/floor.hpp
   - tools/round.hpp
+  - tools/segmented_sieve.hpp
   - tools/floor_log.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC

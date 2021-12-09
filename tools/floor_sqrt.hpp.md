@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tools/segmented_sieve.hpp
+    title: tools/segmented_sieve.hpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -23,7 +26,8 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/floor_sqrt.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/segmented_sieve.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

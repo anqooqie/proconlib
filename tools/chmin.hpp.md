@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
+  - icon: ':warning:'
+    path: tools/segmented_sieve.hpp
+    title: tools/segmented_sieve.hpp
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of tree
@@ -39,6 +42,7 @@ data:
   path: tools/chmin.hpp
   requiredBy:
   - tools/bellman_ford.hpp
+  - tools/segmented_sieve.hpp
   - tools/xor_basis.hpp
   - tools/tree_diameter.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
