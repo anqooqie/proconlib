@@ -5,9 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
-    title: tools/segmented_sieve.hpp
+    title: Segmented sieve
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of tree
@@ -18,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/segmented_sieve.test.cpp
+    title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
@@ -51,6 +54,7 @@ data:
   - tests/bellman_ford.test.cpp
   - tests/xor_basis.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

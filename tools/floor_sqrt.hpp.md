@@ -2,13 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
-    title: tools/segmented_sieve.hpp
-  _extendedVerifiedWith: []
+    title: Segmented sieve
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/segmented_sieve.test.cpp
+    title: tests/segmented_sieve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#include <cassert>\n\nnamespace\
@@ -29,8 +32,9 @@ data:
   requiredBy:
   - tools/segmented_sieve.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/floor_sqrt.hpp
 layout: document
 title: $\left\lfloor \sqrt{x} \right\rfloor$

@@ -95,7 +95,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -248,9 +248,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
-      title: tools/segmented_sieve.hpp
+      title: Segmented sieve
     - icon: ':warning:'
       path: tools/signum.hpp
       title: Sign function
@@ -418,6 +418,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/segmented_sieve.test.cpp
+      title: tests/segmented_sieve.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp

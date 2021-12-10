@@ -17,9 +17,9 @@ data:
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
-    title: tools/segmented_sieve.hpp
+    title: Segmented sieve
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
@@ -30,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/segmented_sieve.test.cpp
+    title: tests/segmented_sieve.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -78,6 +81,7 @@ data:
   - tests/ceil_log.test.cpp
   - tests/floor_log.test.cpp
   - tests/bezout.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp
 layout: document
 redirect_from:

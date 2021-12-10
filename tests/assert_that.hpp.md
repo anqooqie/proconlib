@@ -40,6 +40,9 @@ data:
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/segmented_sieve.test.cpp
+    title: tests/segmented_sieve.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -83,6 +86,7 @@ data:
   - tests/alphabetical_order.test.cpp
   - tests/safe_int.test.cpp
   - tests/floor_log.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tests/assert_that.hpp
 layout: document
 redirect_from:
