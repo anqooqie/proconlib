@@ -65,6 +65,10 @@ namespace tools {
       }
     }
 
+    segmented_sieve(const T& l, const T& r) :
+      segmented_sieve(0, l, r) {
+    }
+
     T lpf_max() const {
       return this->m_lpf.size() - 1;
     }
@@ -175,31 +179,37 @@ namespace tools {
         T m_i;
         ::std::pair<T, T> m_value;
 
+        T n() const {
+          return this->m_parent->m_n;
+        }
+
         void next() {
           const ::std::vector<T>& lpf = this->m_parent->m_parent->m_lpf;
           if (this->m_large) {
             const ::std::vector<T>& pf = this->m_parent->m_parent->m_pf[this->m_parent->m_n - this->m_parent->m_parent->l()];
             this->m_value.first = pf[this->m_i];
             this->m_value.second = 0;
-            for (; this->m_i < pf.size() && pf[this->m_i] == this->m_value.first; ++this->m_i) {
+            for (; this->m_i < T(pf.size()) && pf[this->m_i] == this->m_value.first; ++this->m_i) {
               ++this->m_value.second;
             }
-            if (this->m_i == pf.size()) {
+            if (this->m_i == T(pf.size())) {
               this->m_large = false;
               this->m_i = this->m_parent->m_parent->m_aux[this->m_parent->m_n - this->m_parent->m_parent->l()];
+              for (; lpf[this->m_i] == this->m_value.first; this->m_i /= lpf[this->m_i]) {
+                ++this->m_value.second;
+              }
             }
           } else {
             if (this->m_i == 1) {
               this->m_value.first = ::std::numeric_limits<T>::max();
               this->m_value.second = 0;
-              return;
             } else {
               this->m_value.first = lpf[this->m_i];
               this->m_value.second = 0;
+              for (; lpf[this->m_i] == this->m_value.first; this->m_i /= lpf[this->m_i]) {
+                ++this->m_value.second;
+              }
             }
-          }
-          for (; lpf[this->m_i] == this->m_value.first; this->m_i /= lpf[this->m_i]) {
-            ++this->m_value.second;
           }
         }
 
@@ -238,7 +248,7 @@ namespace tools {
         }
 
         friend bool operator==(const iterator& lhs, const iterator& rhs) {
-          return lhs.m_parent->m_n == rhs.m_parent->m_n && lhs.m_value.first == rhs.m_value.first;
+          return lhs.n() == rhs.n() && lhs.m_value.first == rhs.m_value.first;
         }
 
         friend bool operator!=(const iterator& lhs, const iterator& rhs) {
@@ -263,6 +273,84 @@ namespace tools {
       }
     };
 
+    class prime_iterable {
+    private:
+      const ::tools::segmented_sieve<T> *m_parent;
+      bool m_large;
+      T m_lb;
+      T m_ub;
+
+    public:
+      class iterator {
+      private:
+        const prime_iterable *m_parent;
+        T m_i;
+
+        void next() {
+          ++this->m_i;
+          if (this->m_parent->m_large) {
+            for (; this->m_i <= this->m_parent->m_ub && this->m_parent->m_parent->m_pf[this->m_i - this->m_parent->m_parent->l()][0] != this->m_i; ++this->m_i);
+          } else {
+            for (; this->m_i <= this->m_parent->m_ub && this->m_parent->m_parent->m_lpf[this->m_i] != this->m_i; ++this->m_i);
+          }
+        }
+
+      public:
+        using difference_type = ::std::ptrdiff_t;
+        using value_type = T;
+        using reference = T&;
+        using pointer = T*;
+        using iterator_category = ::std::input_iterator_tag;
+
+        iterator() = default;
+        iterator(const iterator&) = default;
+        iterator(iterator&&) = default;
+        ~iterator() = default;
+        iterator& operator=(const iterator&) = default;
+        iterator& operator=(iterator&&) = default;
+
+        iterator(prime_iterable const * const parent, const T& i) :
+          m_parent(parent), m_i(i) {
+          this->next();
+        }
+
+        T operator*() const {
+          return this->m_i;
+        }
+
+        iterator& operator++() {
+          this->next();
+          return *this;
+        }
+
+        iterator operator++(int) {
+          const iterator self = *this;
+          ++*this;
+          return self;
+        }
+
+        friend bool operator==(const iterator& lhs, const iterator& rhs) {
+          return lhs.m_i == rhs.m_i;
+        }
+
+        friend bool operator!=(const iterator& lhs, const iterator& rhs) {
+          return !(lhs == rhs);
+        }
+      };
+
+      prime_iterable(::tools::segmented_sieve<T> const * const parent, const bool large, const T& lb, const T& ub) :
+        m_parent(parent), m_large(large), m_lb(lb), m_ub(ub) {
+      }
+
+      iterator begin() const {
+        return iterator(this, this->m_lb - 1);
+      }
+
+      iterator end() const {
+        return iterator(this, this->m_ub);
+      }
+    };
+
     prime_factor_iterable prime_factor_range(const T& n) const {
       assert((1 <= n && n <= this->lpf_max()) || (this->l() <= n && n <= this->r()));
       return prime_factor_iterable(this, n);
@@ -271,6 +359,14 @@ namespace tools {
     distinct_prime_factor_iterable distinct_prime_factor_range(const T& n) const {
       assert((1 <= n && n <= this->lpf_max()) || (this->l() <= n && n <= this->r()));
       return distinct_prime_factor_iterable(this, n);
+    }
+
+    prime_iterable prime_range(const T& lb, const T& ub) const {
+      assert(lb <= ub);
+      const bool is_in_small_sieve = 1 <= lb && ub <= this->lpf_max();
+      const bool is_in_large_sieve = this->l() <= lb && ub <= this->r();
+      assert(is_in_small_sieve || is_in_large_sieve);
+      return prime_iterable(this, !is_in_small_sieve, lb, ub);
     }
   };
 }
