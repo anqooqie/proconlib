@@ -87,20 +87,20 @@ template <class Key, class Hash, class Pred, class Allocator>
 template <class T, class Container>
 ::std::ostream& operator<<(::std::ostream& os, ::std::stack<T, Container>& stack) {
   ::std::stack<T, Container> other;
-  ::std::string delimiter = "";
-  os << '[';
   while (!stack.empty()) {
-    os << delimiter << stack.top();
-    delimiter = ", ";
     other.push(stack.top());
     stack.pop();
   }
-  os << ']';
 
+  ::std::string delimiter = "";
+  os << '[';
   while (!other.empty()) {
+    os << delimiter << other.top();
+    delimiter = ", ";
     stack.push(other.top());
     other.pop();
   }
+  os << ']';
 
   return os;
 }
