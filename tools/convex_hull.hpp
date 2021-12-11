@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <vector>
+#include <cstddef>
 #include <numeric>
 #include <algorithm>
 #include <utility>
@@ -14,77 +15,88 @@
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
-  void convex_hull(const InputIterator begin, const InputIterator end, OutputIterator result) {
+  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum, OutputIterator result) {
     using T = ::std::decay_t<decltype(begin->x)>;
 
     ::std::vector<::tools::vector2<T>> v(begin, end);
-    ::std::vector<T> a(v.size());
+    ::std::vector<::std::size_t> a(v.size());
     ::std::iota(a.begin(), a.end(), 0);
     ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const T& i) {
       return ::std::make_pair(v[i].x, -v[i].y);
     }));
+    ::std::vector<::std::vector<::std::size_t>> duplicates;
 
-    T vl = 0;
-    for (T vr = 0, al = 0, ar = 0; al < T(a.size()); vl = vr, al = ar) {
-      for (; ar < T(a.size()) && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr], a[ar]), ++vr, ++ar);
-      if (v[a[vl]].y == v[a[vr - 1]].y) {
-        vr -= vr - vl - 1;
-      } else {
-        ::std::swap(a[vl + 1], a[vr - 1]);
-        vr -= vr - vl - 2;
+    if (minimum) {
+      ::std::size_t vl = 0;
+      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {
+        for (; ar < a.size() && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr], a[ar]), ++vr, ++ar);
+        if (v[a[vl]].y == v[a[vr - 1]].y) {
+          vr -= vr - vl - 1;
+          duplicates.emplace_back();
+          duplicates.back().push_back(a[vl]);
+        } else {
+          ::std::swap(a[vl + 1], a[vr - 1]);
+          vr -= vr - vl - 2;
+          duplicates.emplace_back();
+          duplicates.back().push_back(a[vl]);
+          duplicates.emplace_back();
+          duplicates.back().push_back(a[vl + 1]);
+        }
       }
+      a.erase(::std::next(a.begin(), vl), a.end());
+    } else {
+      ::std::size_t vl = 0;
+      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {
+        for (; ar < a.size() && v[a[al]] == v[a[ar]]; ::std::swap(a[vr], a[ar]), ++vr, ++ar);
+        duplicates.emplace_back();
+        for (::std::size_t i = vl; i < vr; ++i) {
+          duplicates.back().push_back(a[i]);
+        }
+        vr -= vr - vl - 1;
+      }
+      a.erase(::std::next(a.begin(), vl), a.end());
     }
-    a.erase(::std::next(a.begin(), vl), a.end());
 
-    ::std::stack<T> stack;
+    ::std::vector<::std::size_t> convex_hull;
     if (a.size() >= 3) {
 
-      stack.push(0);
-      stack.push(1);
-      for (T p3 = stack.top() + 1; p3 < T(a.size()); ++p3) {
-        while (stack.size() >= 2) {
-          const T p2 = stack.top();
-          stack.pop();
-          const T p1 = stack.top();
-          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) == -1) {
-            stack.push(p2);
+      convex_hull.push_back(0);
+      convex_hull.push_back(1);
+      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {
+        while (convex_hull.size() >= 2) {
+          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]], v[a[p3]]);
+          if (ccw == -1 || (!minimum && ccw == -2)) {
             break;
           }
+          convex_hull.pop_back();
         }
-        stack.push(p3);
+        convex_hull.push_back(p3);
       }
 
-      const T threshold = stack.size() + 1;
-      for (T p3 = stack.top() - 1; p3 >= 0; --p3) {
-        while (T(stack.size()) >= threshold) {
-          const T p2 = stack.top();
-          stack.pop();
-          const T p1 = stack.top();
-          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) == -1) {
-            stack.push(p2);
+      const ::std::size_t threshold = convex_hull.size() + 1;
+      for (::std::size_t p3 = convex_hull.back(); p3 --> 0;) {
+        while (convex_hull.size() >= threshold) {
+          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]], v[a[p3]]);
+          if (ccw == -1 || (!minimum && ccw == -2)) {
             break;
           }
+          convex_hull.pop_back();
         }
-        stack.push(p3);
+        convex_hull.push_back(p3);
       }
-      stack.pop();
+      convex_hull.pop_back();
 
     } else {
-      for (T i = 0; i < T(a.size()); ++i) {
-        stack.push(i);
+      for (::std::size_t i = 0; i < a.size(); ++i) {
+        convex_hull.push_back(i);
       }
     }
 
-    ::std::vector<T> convex_hull;
-    while (!stack.empty()) {
-      convex_hull.push_back(a[stack.top()]);
-      stack.pop();
-    }
-    ::std::reverse(convex_hull.begin(), convex_hull.end());
-
-    for (const T& c : convex_hull) {
-      *result = c;
-      ++result;
+    for (const ::std::size_t& c : convex_hull) {
+      for (const ::std::size_t& i : duplicates[c]) {
+        *result = i;
+        ++result;
+      }
     }
   }
 }
