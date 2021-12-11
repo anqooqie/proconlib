@@ -2,44 +2,34 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/ccw.hpp
+    title: Counter clockwise function
+  - icon: ':heavy_check_mark:'
+    path: tools/less_by.hpp
+    title: std::less by key
+  - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tools/convex_hull.hpp
-    title: tools/convex_hull.hpp
-  - icon: ':heavy_check_mark:'
-    path: tools/greater_by_arg.hpp
-    title: std::greater by the argument
-  - icon: ':heavy_check_mark:'
-    path: tools/less_by_arg.hpp
-    title: std::less by the argument
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/ccw.test.cpp
-    title: tests/ccw.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/greater_by_arg.test.cpp
-    title: tests/greater_by_arg.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/less_by_arg.test.cpp
-    title: tests/less_by_arg.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\
-    \n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
+  bundledCode: "#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#include <type_traits>\n\
+    #include <vector>\n#include <numeric>\n#include <algorithm>\n#include <utility>\n\
+    #include <iterator>\n#include <stack>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include\
+    \ <cmath>\n#line 6 \"tools/vector2.hpp\"\n#include <cstddef>\n#include <array>\n\
     #include <functional>\n#include <iostream>\n#line 1 \"tools/pair_hash.hpp\"\n\n\
-    \n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n#line\
-    \ 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n  template\
-    \ <class T1, class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \n\n#line 6 \"tools/pair_hash.hpp\"\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\
+    \n#include <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
+    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
+    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
     \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
     \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
     \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
@@ -136,66 +126,91 @@ data:
     \ os, const ::tools::vector2<T>& self) {\n    return os << '(' << self.x << \"\
     , \" << self.y << ')';\n  }\n\n  template <typename T>\n  ::std::istream& operator>>(::std::istream&\
     \ is, ::tools::vector2<T>& self) {\n    return is >> self.x >> self.y;\n  }\n\
-    }\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  ::std::int_fast64_t ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b,\
-    \ ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_norm() < c.squared_norm()) return -2;\n \
-    \   return 0;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CCW_HPP\n#define TOOLS_CCW_HPP\n\n#include \"tools/vector2.hpp\"\
+    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
+    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
     \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
     \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
     \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm()\
-    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n#endif\n"
+    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 14 \"tools/convex_hull.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void convex_hull(const InputIterator begin, const InputIterator end, OutputIterator\
+    \ result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    ::std::vector<::tools::vector2<T>>\
+    \ v(begin, end);\n    ::std::vector<T> a(v.size());\n    ::std::iota(a.begin(),\
+    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
+    \ T& i) {\n      return ::std::make_pair(v[i].x, -v[i].y);\n    }));\n\n    T\
+    \ vl = 0;\n    for (T vr = 0, al = 0, ar = 0; al < T(a.size()); vl = vr, al =\
+    \ ar) {\n      for (; ar < T(a.size()) && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr],\
+    \ a[ar]), ++vr, ++ar);\n      if (v[a[vl]].y == v[a[vr - 1]].y) {\n        vr\
+    \ -= vr - vl - 1;\n      } else {\n        ::std::swap(a[vl + 1], a[vr - 1]);\n\
+    \        vr -= vr - vl - 2;\n      }\n    }\n    a.erase(::std::next(a.begin(),\
+    \ vl), a.end());\n\n    ::std::stack<T> stack;\n    if (a.size() >= 3) {\n\n \
+    \     stack.push(0);\n      stack.push(1);\n      for (T p3 = stack.top() + 1;\
+    \ p3 < T(a.size()); ++p3) {\n        while (stack.size() >= 2) {\n          const\
+    \ T p2 = stack.top();\n          stack.pop();\n          const T p1 = stack.top();\n\
+    \          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) == -1) {\n         \
+    \   stack.push(p2);\n            break;\n          }\n        }\n        stack.push(p3);\n\
+    \      }\n\n      const T threshold = stack.size() + 1;\n      for (T p3 = stack.top()\
+    \ - 1; p3 >= 0; --p3) {\n        while (T(stack.size()) >= threshold) {\n    \
+    \      const T p2 = stack.top();\n          stack.pop();\n          const T p1\
+    \ = stack.top();\n          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) ==\
+    \ -1) {\n            stack.push(p2);\n            break;\n          }\n      \
+    \  }\n        stack.push(p3);\n      }\n      stack.pop();\n\n    } else {\n \
+    \     for (T i = 0; i < T(a.size()); ++i) {\n        stack.push(i);\n      }\n\
+    \    }\n\n    ::std::vector<T> convex_hull;\n    while (!stack.empty()) {\n  \
+    \    convex_hull.push_back(a[stack.top()]);\n      stack.pop();\n    }\n    ::std::reverse(convex_hull.begin(),\
+    \ convex_hull.end());\n\n    for (const T& c : convex_hull) {\n      *result =\
+    \ c;\n      ++result;\n    }\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_CONVEX_HULL_HPP\n#define TOOLS_CONVEX_HULL_HPP\n\n#include\
+    \ <type_traits>\n#include <vector>\n#include <numeric>\n#include <algorithm>\n\
+    #include <utility>\n#include <iterator>\n#include <stack>\n#include \"tools/vector2.hpp\"\
+    \n#include \"tools/less_by.hpp\"\n#include \"tools/ccw.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
+    \ InputIterator begin, const InputIterator end, OutputIterator result) {\n   \
+    \ using T = ::std::decay_t<decltype(begin->x)>;\n\n    ::std::vector<::tools::vector2<T>>\
+    \ v(begin, end);\n    ::std::vector<T> a(v.size());\n    ::std::iota(a.begin(),\
+    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
+    \ T& i) {\n      return ::std::make_pair(v[i].x, -v[i].y);\n    }));\n\n    T\
+    \ vl = 0;\n    for (T vr = 0, al = 0, ar = 0; al < T(a.size()); vl = vr, al =\
+    \ ar) {\n      for (; ar < T(a.size()) && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr],\
+    \ a[ar]), ++vr, ++ar);\n      if (v[a[vl]].y == v[a[vr - 1]].y) {\n        vr\
+    \ -= vr - vl - 1;\n      } else {\n        ::std::swap(a[vl + 1], a[vr - 1]);\n\
+    \        vr -= vr - vl - 2;\n      }\n    }\n    a.erase(::std::next(a.begin(),\
+    \ vl), a.end());\n\n    ::std::stack<T> stack;\n    if (a.size() >= 3) {\n\n \
+    \     stack.push(0);\n      stack.push(1);\n      for (T p3 = stack.top() + 1;\
+    \ p3 < T(a.size()); ++p3) {\n        while (stack.size() >= 2) {\n          const\
+    \ T p2 = stack.top();\n          stack.pop();\n          const T p1 = stack.top();\n\
+    \          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) == -1) {\n         \
+    \   stack.push(p2);\n            break;\n          }\n        }\n        stack.push(p3);\n\
+    \      }\n\n      const T threshold = stack.size() + 1;\n      for (T p3 = stack.top()\
+    \ - 1; p3 >= 0; --p3) {\n        while (T(stack.size()) >= threshold) {\n    \
+    \      const T p2 = stack.top();\n          stack.pop();\n          const T p1\
+    \ = stack.top();\n          if (::tools::ccw(v[a[p1]], v[a[p2]], v[a[p3]]) ==\
+    \ -1) {\n            stack.push(p2);\n            break;\n          }\n      \
+    \  }\n        stack.push(p3);\n      }\n      stack.pop();\n\n    } else {\n \
+    \     for (T i = 0; i < T(a.size()); ++i) {\n        stack.push(i);\n      }\n\
+    \    }\n\n    ::std::vector<T> convex_hull;\n    while (!stack.empty()) {\n  \
+    \    convex_hull.push_back(a[stack.top()]);\n      stack.pop();\n    }\n    ::std::reverse(convex_hull.begin(),\
+    \ convex_hull.end());\n\n    for (const T& c : convex_hull) {\n      *result =\
+    \ c;\n      ++result;\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
+  - tools/less_by.hpp
+  - tools/ccw.hpp
   isVerificationFile: false
-  path: tools/ccw.hpp
-  requiredBy:
-  - tools/less_by_arg.hpp
-  - tools/greater_by_arg.hpp
-  - tools/convex_hull.hpp
-  timestamp: '2021-11-28 18:16:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/greater_by_arg.test.cpp
-  - tests/ccw.test.cpp
-  - tests/less_by_arg.test.cpp
-documentation_of: tools/ccw.hpp
+  path: tools/convex_hull.hpp
+  requiredBy: []
+  timestamp: '2021-12-11 09:40:00+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: tools/convex_hull.hpp
 layout: document
-title: Counter clockwise function
+redirect_from:
+- /library/tools/convex_hull.hpp
+- /library/tools/convex_hull.hpp.html
+title: tools/convex_hull.hpp
 ---
-
-```cpp
-template <typename T>
-std::int_fast64_t ccw(tools::vector2<T> a, tools::vector2<T> b, tools::vector2<T> c);
-```
-
-It returns 
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
-+1 & \text{(if $a$, $b$ and $c$ make a counterclockwise turn on the regular orthogonal coordinate system ($(\infty, 0)$ is on the right side and $(0, \infty)$ is on the upper side))}\\
--1 & \text{(if $a$, $b$ and $c$ make a clockwise turn on the regular orthogonal coordinate system)}\\
-+2 & \text{(if $c$ - $a$ - $b$ are on a line in this order ($c \neq a$))}\\
--2 & \text{(if $a$ - $b$ - $c$ are on a line in this order ($c \neq b$))}\\
-0 & \text{(otherwise; i.e., $a$ - $c$ - $b$ are on a line in this order, $c = a$, $c = b$ or $a = b$)}
-\end{array}\right.&
-\end{align*}$$
-
-## Constraints
-- None
-
-## Time Complexity
-- $O(1)$
-
-## References
-- [Spaghetti Source (ccw) - 点の進行方向](http://www.prefield.com/algorithm/geometry/ccw.html)
-
-## License
-- CC0
-
-## Author
-- anqooqie

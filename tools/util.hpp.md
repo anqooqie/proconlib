@@ -71,33 +71,33 @@ data:
     \ Hash, Pred, Allocator>& unordered_set) {\n  return ::tools::detail::util::debug_print(os,\
     \ unordered_set);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
     \ os, ::std::stack<T, Container>& stack) {\n  ::std::stack<T, Container> other;\n\
-    \  ::std::string delimiter = \"\";\n  os << '[';\n  while (!stack.empty()) {\n\
-    \    os << delimiter << stack.top();\n    delimiter = \", \";\n    other.push(stack.top());\n\
-    \    stack.pop();\n  }\n  os << ']';\n\n  while (!other.empty()) {\n    stack.push(other.top());\n\
-    \    other.pop();\n  }\n\n  return os;\n}\n\ntemplate <class T, class Container>\n\
-    ::std::ostream& operator<<(::std::ostream& os, ::std::queue<T, Container>& queue)\
-    \ {\n  ::std::queue<T, Container> other = queue;\n  ::std::string delimiter =\
-    \ \"\";\n  os << '[';\n  while (!queue.empty()) {\n    os << delimiter << queue.front();\n\
-    \    delimiter = \", \";\n    queue.pop();\n  }\n  os << ']';\n\n  queue = ::std::move(other);\n\
-    \  return os;\n}\n\ntemplate <class T1, class T2>\n::std::istream& operator>>(::std::istream&\
-    \ is, ::std::pair<T1, T2>& pair) {\n  return is >> pair.first >> pair.second;\n\
-    }\ntemplate <class T1, class T2>\n::std::ostream& operator<<(::std::ostream& os,\
-    \ const ::std::pair<T1, T2>& pair) {\n  return os << '[' << pair.first << \",\
-    \ \" << pair.second << ']';\n}\ntemplate <int I = 0, typename... Args>\n::std::istream&\
-    \ operator>>(::std::istream& is, const ::std::tuple<Args...>& tuple) {\n  if constexpr\
-    \ (I < int(sizeof...(Args))) {\n    is >> ::std::get<I>(tuple);\n    return operator>><I\
-    \ + 1>(is, tuple);\n  } else {\n    return is;\n  }\n}\ntemplate <int I = -1,\
-    \ typename... Args>\n::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>&\
-    \ tuple) {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr\
-    \ (I == int(sizeof...(Args))) {\n    os << ']';\n  } else if constexpr (I == 0)\
-    \ {\n    os << ::std::get<I>(tuple);\n  } else {\n    os << \", \" << ::std::get<I>(tuple);\n\
-    \  }\n\n  if constexpr (I < int(sizeof...(Args))) {\n    return operator<<<I +\
-    \ 1>(os, tuple);\n  } else {\n    return os;\n  }\n}\n\ntemplate <typename T>\n\
-    auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
-    \ ::std::istream&> {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return\
-    \ is;\n}\ntemplate <typename T>\nauto operator<<(::std::ostream& os, const T&\
-    \ x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&>\
-    \ {\n  return os << x.val();\n}\n\n\n"
+    \  while (!stack.empty()) {\n    other.push(stack.top());\n    stack.pop();\n\
+    \  }\n\n  ::std::string delimiter = \"\";\n  os << '[';\n  while (!other.empty())\
+    \ {\n    os << delimiter << other.top();\n    delimiter = \", \";\n    stack.push(other.top());\n\
+    \    other.pop();\n  }\n  os << ']';\n\n  return os;\n}\n\ntemplate <class T,\
+    \ class Container>\n::std::ostream& operator<<(::std::ostream& os, ::std::queue<T,\
+    \ Container>& queue) {\n  ::std::queue<T, Container> other = queue;\n  ::std::string\
+    \ delimiter = \"\";\n  os << '[';\n  while (!queue.empty()) {\n    os << delimiter\
+    \ << queue.front();\n    delimiter = \", \";\n    queue.pop();\n  }\n  os << ']';\n\
+    \n  queue = ::std::move(other);\n  return os;\n}\n\ntemplate <class T1, class\
+    \ T2>\n::std::istream& operator>>(::std::istream& is, ::std::pair<T1, T2>& pair)\
+    \ {\n  return is >> pair.first >> pair.second;\n}\ntemplate <class T1, class T2>\n\
+    ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1, T2>& pair)\
+    \ {\n  return os << '[' << pair.first << \", \" << pair.second << ']';\n}\ntemplate\
+    \ <int I = 0, typename... Args>\n::std::istream& operator>>(::std::istream& is,\
+    \ const ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args)))\
+    \ {\n    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n\
+    \  } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
+    ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>& tuple)\
+    \ {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr (I == int(sizeof...(Args)))\
+    \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
+    \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
+    \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
+    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream&\
+    \ is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
+    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
+    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
+    \ ::std::ostream&> {\n  return os << x.val();\n}\n\n\n"
   code: "#ifndef TOOLS_UTIL_HPP\n#define TOOLS_UTIL_HPP\n\n// To see the details of\
     \ my library, visit my GitHub Pages.\n// https://anqooqie.github.io/proconlib/\n\
     \n#ifdef LOCAL\n  #ifndef _GLIBCXX_DEBUG\n    #define _GLIBCXX_DEBUG\n  #endif\n\
@@ -131,33 +131,33 @@ data:
     \ Hash, Pred, Allocator>& unordered_set) {\n  return ::tools::detail::util::debug_print(os,\
     \ unordered_set);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
     \ os, ::std::stack<T, Container>& stack) {\n  ::std::stack<T, Container> other;\n\
-    \  ::std::string delimiter = \"\";\n  os << '[';\n  while (!stack.empty()) {\n\
-    \    os << delimiter << stack.top();\n    delimiter = \", \";\n    other.push(stack.top());\n\
-    \    stack.pop();\n  }\n  os << ']';\n\n  while (!other.empty()) {\n    stack.push(other.top());\n\
-    \    other.pop();\n  }\n\n  return os;\n}\n\ntemplate <class T, class Container>\n\
-    ::std::ostream& operator<<(::std::ostream& os, ::std::queue<T, Container>& queue)\
-    \ {\n  ::std::queue<T, Container> other = queue;\n  ::std::string delimiter =\
-    \ \"\";\n  os << '[';\n  while (!queue.empty()) {\n    os << delimiter << queue.front();\n\
-    \    delimiter = \", \";\n    queue.pop();\n  }\n  os << ']';\n\n  queue = ::std::move(other);\n\
-    \  return os;\n}\n\ntemplate <class T1, class T2>\n::std::istream& operator>>(::std::istream&\
-    \ is, ::std::pair<T1, T2>& pair) {\n  return is >> pair.first >> pair.second;\n\
-    }\ntemplate <class T1, class T2>\n::std::ostream& operator<<(::std::ostream& os,\
-    \ const ::std::pair<T1, T2>& pair) {\n  return os << '[' << pair.first << \",\
-    \ \" << pair.second << ']';\n}\ntemplate <int I = 0, typename... Args>\n::std::istream&\
-    \ operator>>(::std::istream& is, const ::std::tuple<Args...>& tuple) {\n  if constexpr\
-    \ (I < int(sizeof...(Args))) {\n    is >> ::std::get<I>(tuple);\n    return operator>><I\
-    \ + 1>(is, tuple);\n  } else {\n    return is;\n  }\n}\ntemplate <int I = -1,\
-    \ typename... Args>\n::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>&\
-    \ tuple) {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr\
-    \ (I == int(sizeof...(Args))) {\n    os << ']';\n  } else if constexpr (I == 0)\
-    \ {\n    os << ::std::get<I>(tuple);\n  } else {\n    os << \", \" << ::std::get<I>(tuple);\n\
-    \  }\n\n  if constexpr (I < int(sizeof...(Args))) {\n    return operator<<<I +\
-    \ 1>(os, tuple);\n  } else {\n    return os;\n  }\n}\n\ntemplate <typename T>\n\
-    auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
-    \ ::std::istream&> {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return\
-    \ is;\n}\ntemplate <typename T>\nauto operator<<(::std::ostream& os, const T&\
-    \ x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&>\
-    \ {\n  return os << x.val();\n}\n\n#endif\n"
+    \  while (!stack.empty()) {\n    other.push(stack.top());\n    stack.pop();\n\
+    \  }\n\n  ::std::string delimiter = \"\";\n  os << '[';\n  while (!other.empty())\
+    \ {\n    os << delimiter << other.top();\n    delimiter = \", \";\n    stack.push(other.top());\n\
+    \    other.pop();\n  }\n  os << ']';\n\n  return os;\n}\n\ntemplate <class T,\
+    \ class Container>\n::std::ostream& operator<<(::std::ostream& os, ::std::queue<T,\
+    \ Container>& queue) {\n  ::std::queue<T, Container> other = queue;\n  ::std::string\
+    \ delimiter = \"\";\n  os << '[';\n  while (!queue.empty()) {\n    os << delimiter\
+    \ << queue.front();\n    delimiter = \", \";\n    queue.pop();\n  }\n  os << ']';\n\
+    \n  queue = ::std::move(other);\n  return os;\n}\n\ntemplate <class T1, class\
+    \ T2>\n::std::istream& operator>>(::std::istream& is, ::std::pair<T1, T2>& pair)\
+    \ {\n  return is >> pair.first >> pair.second;\n}\ntemplate <class T1, class T2>\n\
+    ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1, T2>& pair)\
+    \ {\n  return os << '[' << pair.first << \", \" << pair.second << ']';\n}\ntemplate\
+    \ <int I = 0, typename... Args>\n::std::istream& operator>>(::std::istream& is,\
+    \ const ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args)))\
+    \ {\n    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n\
+    \  } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
+    ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>& tuple)\
+    \ {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr (I == int(sizeof...(Args)))\
+    \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
+    \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
+    \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
+    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream&\
+    \ is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
+    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
+    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
+    \ ::std::ostream&> {\n  return os << x.val();\n}\n\n#endif\n"
   dependsOn:
   - tools/resize.hpp
   - tools/fill.hpp
@@ -165,7 +165,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2021-12-04 02:14:32+09:00'
+  timestamp: '2021-12-11 09:41:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp

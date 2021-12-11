@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tools/convex_hull.hpp
+    title: tools/convex_hull.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
@@ -24,7 +27,8 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/less_by.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/convex_hull.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

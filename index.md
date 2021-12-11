@@ -47,6 +47,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
+    - icon: ':warning:'
+      path: tools/convex_hull.hpp
+      title: tools/convex_hull.hpp
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum

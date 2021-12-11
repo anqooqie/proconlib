@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
+  - icon: ':warning:'
+    path: tools/convex_hull.hpp
+    title: tools/convex_hull.hpp
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
@@ -207,6 +210,7 @@ data:
   - tools/less_by_arg.hpp
   - tools/ccw.hpp
   - tools/greater_by_arg.hpp
+  - tools/convex_hull.hpp
   timestamp: '2021-11-28 18:16:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
