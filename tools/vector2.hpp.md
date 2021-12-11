@@ -8,9 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
-    title: tools/convex_hull.hpp
+    title: Convex hull
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
@@ -21,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
     title: tests/ccw.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/convex_hull.test.cpp
+    title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
@@ -217,6 +220,7 @@ data:
   - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
   - tests/less_by_arg.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: 2D vector

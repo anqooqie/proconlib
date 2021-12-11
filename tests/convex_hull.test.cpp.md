@@ -5,6 +5,9 @@ data:
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
+    path: tools/convex_hull.hpp
+    title: Convex hull
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
@@ -14,30 +17,29 @@ data:
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/convex_hull.test.cpp
-    title: tests/convex_hull.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cstddef>\n#include <numeric>\n#include <algorithm>\n\
-    #include <utility>\n#include <iterator>\n#include <stack>\n#line 1 \"tools/vector2.hpp\"\
-    \n\n\n\n#include <cmath>\n#line 7 \"tools/vector2.hpp\"\n#include <array>\n#include\
-    \ <functional>\n#include <iostream>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/pair_hash.hpp\"\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\
-    \n#include <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
-    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
-    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
-    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
-    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
-    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
-    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
-    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
-    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A
+  bundledCode: "#line 1 \"tests/convex_hull.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
+    #include <algorithm>\n#include <utility>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n\
+    #include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
+    #include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 6 \"tools/pair_hash.hpp\"\
+    \n#include <random>\n#line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n\
+    \  template <class T1, class T2>\n  struct pair_hash {\n    using result_type\
+    \ = ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
+    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
+    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
+    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
+    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
+    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
+    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
@@ -129,8 +131,10 @@ data:
     \ os, const ::tools::vector2<T>& self) {\n    return os << '(' << self.x << \"\
     , \" << self.y << ')';\n  }\n\n  template <typename T>\n  ::std::istream& operator>>(::std::istream&\
     \ is, ::tools::vector2<T>& self) {\n    return is >> self.x >> self.y;\n  }\n\
-    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
-    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    }\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line 7 \"tools/convex_hull.hpp\"\
+    \n#include <numeric>\n#line 11 \"tools/convex_hull.hpp\"\n#include <stack>\n#line\
+    \ 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n \
+    \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
@@ -176,84 +180,47 @@ data:
     \ } else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
     \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
     \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
-    \      }\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CONVEX_HULL_HPP\n#define TOOLS_CONVEX_HULL_HPP\n\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <numeric>\n#include\
-    \ <algorithm>\n#include <utility>\n#include <iterator>\n#include <stack>\n#include\
-    \ \"tools/vector2.hpp\"\n#include \"tools/less_by.hpp\"\n#include \"tools/ccw.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
-    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
-    \n    ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
-    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
-    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
-    \ -v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
-    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
-    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
-    \ a.size() && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr], a[ar]), ++vr, ++ar);\n\
-    \        if (v[a[vl]].y == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n \
-    \         duplicates.emplace_back();\n          duplicates.back().push_back(a[vl]);\n\
-    \        } else {\n          ::std::swap(a[vl + 1], a[vr - 1]);\n          vr\
-    \ -= vr - vl - 2;\n          duplicates.emplace_back();\n          duplicates.back().push_back(a[vl]);\n\
-    \          duplicates.emplace_back();\n          duplicates.back().push_back(a[vl\
-    \ + 1]);\n        }\n      }\n      a.erase(::std::next(a.begin(), vl), a.end());\n\
-    \    } else {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr = 0, al\
-    \ = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar < a.size()\
-    \ && v[a[al]] == v[a[ar]]; ::std::swap(a[vr], a[ar]), ++vr, ++ar);\n        duplicates.emplace_back();\n\
-    \        for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
-    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
-    \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
-    \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
-    \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
-    \ >= 2) {\n          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]],\
-    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == -1 || (!minimum &&\
-    \ ccw == -2)) {\n            break;\n          }\n          convex_hull.pop_back();\n\
-    \        }\n        convex_hull.push_back(p3);\n      }\n\n      const ::std::size_t\
-    \ threshold = convex_hull.size() + 1;\n      for (::std::size_t p3 = convex_hull.back();\
-    \ p3 --> 0;) {\n        while (convex_hull.size() >= threshold) {\n          const\
-    \ int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]],\
-    \ v[a[p3]]);\n          if (ccw == -1 || (!minimum && ccw == -2)) {\n        \
-    \    break;\n          }\n          convex_hull.pop_back();\n        }\n     \
-    \   convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n   \
-    \ } else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
-    \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
-    \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
-    \      }\n    }\n  }\n}\n\n#endif\n"
+    \      }\n    }\n  }\n}\n\n\n#line 12 \"tests/convex_hull.test.cpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for\
+    \ (i64 i = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
+    \ convex_hull;\n  tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));\n\
+    \n  std::reverse(convex_hull.begin(), convex_hull.end());\n  std::rotate(\n  \
+    \  convex_hull.begin(),\n    std::min_element(convex_hull.begin(), convex_hull.end(),\
+    \ tools::less_by([&](const i64& i) { return std::make_pair(v[i].y, v[i].x); })),\n\
+    \    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size() << '\\n';\n\
+    \  for (const i64& i : convex_hull) {\n    std::cout << v[i].x << ' ' << v[i].y\
+    \ << '\\n';\n  }\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
+    #include <algorithm>\n#include <utility>\n#include \"tools/vector2.hpp\"\n#include\
+    \ \"tools/convex_hull.hpp\"\n#include \"tools/less_by.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for\
+    \ (i64 i = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
+    \ convex_hull;\n  tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));\n\
+    \n  std::reverse(convex_hull.begin(), convex_hull.end());\n  std::rotate(\n  \
+    \  convex_hull.begin(),\n    std::min_element(convex_hull.begin(), convex_hull.end(),\
+    \ tools::less_by([&](const i64& i) { return std::make_pair(v[i].y, v[i].x); })),\n\
+    \    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size() << '\\n';\n\
+    \  for (const i64& i : convex_hull) {\n    std::cout << v[i].x << ' ' << v[i].y\
+    \ << '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
+  - tools/convex_hull.hpp
   - tools/less_by.hpp
   - tools/ccw.hpp
-  isVerificationFile: false
-  path: tools/convex_hull.hpp
+  isVerificationFile: true
+  path: tests/convex_hull.test.cpp
   requiredBy: []
   timestamp: '2021-12-11 22:15:14+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/convex_hull.test.cpp
-documentation_of: tools/convex_hull.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/convex_hull.test.cpp
 layout: document
-title: Convex hull
+redirect_from:
+- /verify/tests/convex_hull.test.cpp
+- /verify/tests/convex_hull.test.cpp.html
+title: tests/convex_hull.test.cpp
 ---
-
-```cpp
-template <typename InputIterator, typename OutputIterator>
-void convex_hull(InputIterator begin, InputIterator end, bool minimum, OutputIterator result);
-```
-
-It stores the indices of vertices which are on the edge of the convex hull of a given polygon to `result`.
-If `minimum` is `true`, only the minimal vertices required for the convex hull will be stored.
-On the other hand, if `minimum` is `false`, all the vertices on the edge of the convex hull will be stored.
-
-## Constraints
-- `begin` $\leq$ `end`
-- The type of `*begin` is `tools::vector2<T>`
-
-## Time Complexity
-- $O(n \log n)$ where $n$ is `end` - `begin`
-
-## License
-- CC0
-
-## Author
-- anqooqie

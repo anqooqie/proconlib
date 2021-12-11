@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
-    title: tools/convex_hull.hpp
+    title: Convex hull
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/convex_hull.test.cpp
+    title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
@@ -33,6 +36,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/real_interval_set.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

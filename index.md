@@ -47,9 +47,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
-      title: tools/convex_hull.hpp
+      title: Convex hull
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
@@ -334,6 +334,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/chromatic_number.test.cpp
       title: tests/chromatic_number.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/convex_hull.test.cpp
+      title: tests/convex_hull.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
