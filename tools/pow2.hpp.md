@@ -6,24 +6,54 @@ data:
     path: tools/binary_heap.hpp
     title: Binary heap
   - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/prime_factorization.hpp
+    title: Pollard's rho algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/totient.hpp
+    title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree.test.cpp
     title: tests/li_chao_segtree.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/prime_factorization.test.cpp
+    title: tests/prime_factorization.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/totient.test.cpp
+    title: tests/totient.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -47,14 +77,24 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/tetration_mod.hpp
+  - tools/divisors.hpp
+  - tools/prime_factorization.hpp
   - tools/dual_segtree.hpp
   - tools/li_chao_segtree.hpp
+  - tools/totient.hpp
   - tools/binary_heap.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/divisors.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
   - tests/ssize.test.cpp
   - tests/li_chao_segtree.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp
 documentation_of: tools/pow2.hpp

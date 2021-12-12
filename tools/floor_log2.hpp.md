@@ -4,11 +4,41 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/divisors.hpp
+    title: List all divisors
+  - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
+    path: tools/prime_factorization.hpp
+    title: Pollard's rho algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/totient.hpp
+    title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors.test.cpp
+    title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/prime_factorization.test.cpp
+    title: tests/prime_factorization.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/totient.test.cpp
+    title: tests/totient.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -68,11 +98,21 @@ data:
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/floor_log2.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/tetration_mod.hpp
+  - tools/divisors.hpp
+  - tools/prime_factorization.hpp
+  - tools/totient.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/divisors.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
   - tests/floor_log2.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

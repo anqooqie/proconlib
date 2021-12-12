@@ -5,6 +5,9 @@ data:
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/floor_log2.hpp
+    title: $\left\lfloor \log_2(x) \right\rfloor$
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':heavy_check_mark:'
@@ -17,6 +20,12 @@ data:
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
+    path: tools/popcount.hpp
+    title: Popcount
+  - icon: ':heavy_check_mark:'
+    path: tools/pow2.hpp
+    title: $2^x$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -28,6 +37,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':heavy_check_mark:'
+    path: tools/run_length.hpp
+    title: Run-length encoding
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -40,94 +52,154 @@ data:
     links:
     - https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709
   bundledCode: "#line 1 \"tools/extended_lucas.hpp\"\n\n\n\n#include <vector>\n#include\
-    \ <cstdint>\n#include <cassert>\n#include <utility>\n#line 1 \"tools/prime_factorization.hpp\"\
-    \n\n\n\n#include <map>\n#line 6 \"tools/prime_factorization.hpp\"\n#include <random>\n\
-    #include <queue>\n#include <numeric>\n#include <cmath>\n#line 1 \"tools/is_prime.hpp\"\
-    \n\n\n\n#line 5 \"tools/is_prime.hpp\"\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
-    \  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128\
-    \ = unsigned __int128;\n    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >=\
-    \ 0 ? y : -y) % u128(m);\n    if (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m)\
-    \ - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
-    \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
-    \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
-    \ if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n\
-    \        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6\
-    \ \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n    if\
-    \ constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n      return\
-    \ lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs) * rhs;\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const T1 x,\
-    \ T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x,\
-    \ m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r,\
-    \ y, m);\n      }\n      y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n\
-    \    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\n\nnamespace tools\
-    \ {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t n) {\n    constexpr\
-    \ ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375, 28178, 450775,\
-    \ 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if (n == 2) return\
-    \ true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t d = n -\
-    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t a\
-    \ : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
+    \ <cstdint>\n#include <cassert>\n#include <utility>\n#include <iterator>\n#line\
+    \ 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\
+    \n#include <queue>\n#include <algorithm>\n#include <cmath>\n#include <numeric>\n\
+    #line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 5 \"tools/is_prime.hpp\"\n#include\
+    \ <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if (((x >= 0)\
+    \ ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n\
+    }\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n\
+    #include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
+    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
+    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
+    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
+    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
+    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
+    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
+    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
+    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
+    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
+    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
     \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
     \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
     \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
     \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
     \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 12 \"tools/prime_factorization.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  ::std::map<T, T> prime_factorization(T n) {\n\
-    \    assert(1 <= n && n <= 1000000000000000000);\n    ::std::map<T, T> result;\n\
-    \n    for (; n % 2 == 0; n /= 2) {\n      ++result[2];\n    }\n    if (n == 1)\
-    \ return result;\n\n    ::std::minstd_rand engine;\n    ::std::queue<T> factors({n});\n\
-    \    while (!factors.empty()) {\n      const T factor = factors.front();\n   \
-    \   factors.pop();\n      if (::tools::is_prime(factor)) {\n        ++result[factor];\n\
-    \      } else {\n        ::std::uniform_int_distribution<T> dist(1, factor - 2);\n\
-    \        while (true) {\n          T c = dist(engine);\n          if (c == factor\
-    \ - 2) c = factor - 1;\n          T x = 2;\n          T y = 2;\n          T d\
-    \ = 1;\n          while (d == 1) {\n            x = ::tools::prod_mod(x, x, factor);\n\
-    \            x += c;\n            if (x >= factor) x -= factor;\n            y\
-    \ = ::tools::prod_mod(y, y, factor);\n            y += c;\n            if (y >=\
-    \ factor) y -= factor;\n            y = ::tools::prod_mod(y, y, factor);\n   \
-    \         y += c;\n            if (y >= factor) y -= factor;\n            d =\
-    \ ::std::gcd(::std::abs(x - y), factor);\n          }\n          if (d < factor)\
-    \ {\n            factors.push(d);\n            factors.push(factor / d);\n   \
-    \         break;\n          }\n        }\n      }\n    }\n\n    return result;\n\
-    \  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 7 \"tools/garner.hpp\"\n\
-    #include <cstddef>\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\
-    \n\n\n\n#include <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n  \
-    \  T prev_s = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t = 1;\n    while (r\
-    \ != 0) {\n      const T q = ::tools::quo(prev_r, r);\n      const T next_r =\
-    \ prev_r - q * r;\n      prev_r = r;\n      r = next_r;\n      const T next_s\
-    \ = prev_s - q * s;\n      prev_s = s;\n      s = next_s;\n      const T next_t\
-    \ = prev_t - q * t;\n      prev_t = t;\n      t = next_t;\n    }\n\n    if (prev_r\
-    \ < T(0)) prev_r = -prev_r;\n    return {prev_s, prev_t, prev_r};\n  }\n}\n\n\n\
-    #line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1,\
-    \ typename T2>\n  constexpr T2 inv_mod(const T1 x, const T2 m) {\n    const auto\
-    \ [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd == 1);\n    return ::tools::mod(x0,\
-    \ m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
-    // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
-    \ Iterator, typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t>\
-    \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
-    \   ::std::vector<::std::int_fast64_t> b, m;\n    for (auto it = begin; it !=\
-    \ end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n    \
-    \  m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n    for\
-    \ (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n  \
-    \  }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t> coeffs(m.size(),\
-    \ 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(), 0);\n    for\
-    \ (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t t = ::tools::mod((b[k]\
-    \ - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t\
-    \ i = k + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %=\
-    \ m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
-    \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
-    \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
-    \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
-    \ M::raw(z));\n  }\n}\n\n\n#line 10 \"tools/extended_lucas.hpp\"\n\nnamespace\
-    \ tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
-    \  // License: unknown\n  // Author: uwi\n\n  template <class M>\n  class extended_lucas\
-    \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<::std::int_fast64_t>\
+    \ true;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 5 \"tools/pow2.hpp\"\
+    \n#include <cstddef>\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\
+    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\
+    \nnamespace tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n\
+    \    x = (x & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
+    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
+    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
+    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
+    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
+    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
+    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
+    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
+    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
+    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
+    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
+    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
+    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
+    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
+    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
+    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
+    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
+    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
+    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
+    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
+    \  }\n}\n\n\n#line 6 \"tools/floor_log2.hpp\"\n\nnamespace tools {\n\n  inline\
+    \ ::std::uint32_t floor_log2(::std::uint32_t x) {\n    x |= (x >> static_cast<::std::uint32_t>(1));\n\
+    \    x |= (x >> static_cast<::std::uint32_t>(2));\n    x |= (x >> static_cast<::std::uint32_t>(4));\n\
+    \    x |= (x >> static_cast<::std::uint32_t>(8));\n    x |= (x >> static_cast<::std::uint32_t>(16));\n\
+    \    return ::tools::popcount(x) - static_cast<::std::uint32_t>(1);\n  }\n\n \
+    \ inline ::std::uint64_t floor_log2(::std::uint64_t x) {\n    x |= (x >> static_cast<::std::uint64_t>(1));\n\
+    \    x |= (x >> static_cast<::std::uint64_t>(2));\n    x |= (x >> static_cast<::std::uint64_t>(4));\n\
+    \    x |= (x >> static_cast<::std::uint64_t>(8));\n    x |= (x >> static_cast<::std::uint64_t>(16));\n\
+    \    x |= (x >> static_cast<::std::uint64_t>(32));\n    return ::tools::popcount(x)\
+    \ - static_cast<::std::uint64_t>(1);\n  }\n\n  inline ::std::int32_t floor_log2(::std::int32_t\
+    \ x) {\n    return static_cast<::std::int32_t>(::tools::floor_log2(static_cast<::std::uint32_t>(x)));\n\
+    \  }\n\n  inline ::std::int64_t floor_log2(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::floor_log2(static_cast<::std::uint64_t>(x)));\n\
+    \  }\n}\n\n\n#line 14 \"tools/prime_factorization.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename T>\n  ::std::vector<T> prime_factorization(T n) {\n   \
+    \ assert(1 <= n && n <= 1000000000000000000);\n    ::std::vector<T> result;\n\n\
+    \    if (n == 1) return result;\n\n    ::std::queue<T> factors({n});\n    while\
+    \ (!factors.empty()) {\n      const T factor = factors.front();\n      factors.pop();\n\
+    \      if (::tools::is_prime(factor)) {\n        result.push_back(factor);\n \
+    \     } else {\n        const T m = ::tools::pow2((::tools::floor_log2(factor)\
+    \ + 1) / 8);\n        for (T c = 1; ; ++c) {\n          const auto f = [&](T&\
+    \ x) {\n            x = ::tools::prod_mod(x, x, factor);\n            x += c;\n\
+    \            if (x >= factor) x -= factor;\n          };\n          T y = 2;\n\
+    \          T r = 1;\n          T q = 1;\n          T x, g, ys;\n          do {\n\
+    \            x = y;\n            for (T i = 0; i < r; ++i) {\n              f(y);\n\
+    \            }\n            T k = 0;\n            do {\n              ys = y;\n\
+    \              for (T i = 0; i < ::std::min(m, r - k); ++i) {\n              \
+    \  f(y);\n                q = ::tools::prod_mod(q, ::std::abs(x - y), factor);\n\
+    \              }\n              g = ::std::gcd(q, factor);\n              k +=\
+    \ m;\n            } while (k < r && g == 1);\n            r *= 2;\n          }\
+    \ while (g == 1);\n          if (g == factor) {\n            do {\n          \
+    \    f(ys);\n              g = ::std::gcd(::std::abs(x - ys), factor);\n     \
+    \       } while (g == 1);\n          }\n          if (g < factor) {\n        \
+    \    factors.push(g);\n            factors.push(factor / g);\n            break;\n\
+    \          }\n        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
+    \    return result;\n  }\n}\n\n\n#line 1 \"tools/run_length.hpp\"\n\n\n\n#line\
+    \ 7 \"tools/run_length.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
+    \ typename OutputIterator>\n  void run_length(const InputIterator& begin, const\
+    \ InputIterator& end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    if (begin == end) return;\n\n    ::std::pair<T, ::std::int_fast64_t> prev;\n\
+    \    for (auto [it, breaks] = ::std::make_pair(begin, false); !breaks; breaks\
+    \ = it == end, it = ::std::next(it, breaks ? 0 : 1)) {\n      bool flg1, flg2;\n\
+    \      if (it == begin) {\n        flg1 = false;\n        flg2 = true;\n     \
+    \ } else if (it == end) {\n        flg1 = true;\n        flg2 = false;\n     \
+    \ } else if (*it != prev.first) {\n        flg1 = true;\n        flg2 = true;\n\
+    \      } else {\n        flg1 = false;\n        flg2 = false;\n      }\n     \
+    \ if (flg1 || flg2) {\n        if (flg1) {\n          *result = prev;\n      \
+    \    ++result;\n        }\n        if (flg2) {\n          prev.first = *it;\n\
+    \          prev.second = 1;\n        }\n      } else {\n        ++prev.second;\n\
+    \      }\n    }\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 1 \"tools/inv_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#line 6 \"tools/extgcd.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
+    \ prev_r, T r) {\n    T prev_s = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t\
+    \ = 1;\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r, r);\n   \
+    \   const T next_r = prev_r - q * r;\n      prev_r = r;\n      r = next_r;\n \
+    \     const T next_s = prev_s - q * s;\n      prev_s = s;\n      s = next_s;\n\
+    \      const T next_t = prev_t - q * t;\n      prev_t = t;\n      t = next_t;\n\
+    \    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return {prev_s, prev_t,\
+    \ prev_r};\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1 x, const\
+    \ T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd\
+    \ == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\
+    \n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n// License:\
+    \ unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename Iterator,\
+    \ typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t> garner(const\
+    \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<::std::int_fast64_t>\
+    \ b, m;\n    for (auto it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first,\
+    \ it->second));\n      m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t\
+    \ lcm = 1;\n    for (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *=\
+    \ m[i]) %= mod;\n    }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t>\
+    \ coeffs(m.size(), 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(),\
+    \ 0);\n    for (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t\
+    \ t = ::tools::mod((b[k] - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]),\
+    \ m[k]);\n      for (::std::size_t i = k + 1; i < m.size(); ++i) {\n        (constants[i]\
+    \ += t * coeffs[i]) %= m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n\
+    \    }\n\n    return ::std::make_pair(constants.back(), lcm);\n  }\n\n  template\
+    \ <typename M, typename Iterator>\n  ::std::pair<M, M> garner(const Iterator&\
+    \ begin, const Iterator& end) {\n    const auto [y, z] = ::tools::garner(begin,\
+    \ end, M::mod());\n    return ::std::make_pair(M::raw(y), M::raw(z));\n  }\n}\n\
+    \n\n#line 12 \"tools/extended_lucas.hpp\"\n\nnamespace tools {\n\n  // Source:\
+    \ https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n  // License: unknown\n\
+    \  // Author: uwi\n\n  template <class M>\n  class extended_lucas {\n  private:\n\
+    \    class prime_power {\n    private:\n      ::std::vector<::std::int_fast64_t>\
     \ fact;\n      ::std::vector<::std::int_fast64_t> ifact;\n\n    public:\n    \
     \  ::std::int_fast64_t p;\n      ::std::int_fast64_t q;\n      ::std::int_fast64_t\
     \ P;\n\n      prime_power(const ::std::int_fast64_t p, const ::std::int_fast64_t\
@@ -158,8 +230,11 @@ data:
     \ ++i) {\n          ret = ret * this->p % this->P;\n        }\n        if (!(this->p\
     \ == 2 && this->q >= 3) && (em & 1) == 1) {\n          ret = (this->P - ret) %\
     \ this->P;\n        }\n        return ret;\n      }\n    };\n\n    ::std::vector<::tools::extended_lucas<M>::prime_power>\
-    \ prime_powers;\n\n  public:\n    extended_lucas() {\n      for (const auto& [p,\
-    \ q] : ::tools::prime_factorization(M::mod())) {\n        this->prime_powers.emplace_back(p,\
+    \ prime_powers;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors\
+    \ = ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->prime_powers.emplace_back(p,\
     \ q);\n      }\n    }\n    extended_lucas(const ::tools::extended_lucas<M>&) =\
     \ default;\n    extended_lucas(::tools::extended_lucas<M>&&) = default;\n    ~extended_lucas()\
     \ = default;\n    ::tools::extended_lucas<M>& operator=(const ::tools::extended_lucas<M>&)\
@@ -172,8 +247,8 @@ data:
     \ answers.end()).first;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_EXTENDED_LUCAS_HPP\n#define TOOLS_EXTENDED_LUCAS_HPP\n\n#include\
     \ <vector>\n#include <cstdint>\n#include <cassert>\n#include <utility>\n#include\
-    \ \"tools/prime_factorization.hpp\"\n#include \"tools/garner.hpp\"\n\nnamespace\
-    \ tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
+    \ <iterator>\n#include \"tools/prime_factorization.hpp\"\n#include \"tools/run_length.hpp\"\
+    \n#include \"tools/garner.hpp\"\n\nnamespace tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
     \  // License: unknown\n  // Author: uwi\n\n  template <class M>\n  class extended_lucas\
     \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<::std::int_fast64_t>\
     \ fact;\n      ::std::vector<::std::int_fast64_t> ifact;\n\n    public:\n    \
@@ -206,8 +281,11 @@ data:
     \ ++i) {\n          ret = ret * this->p % this->P;\n        }\n        if (!(this->p\
     \ == 2 && this->q >= 3) && (em & 1) == 1) {\n          ret = (this->P - ret) %\
     \ this->P;\n        }\n        return ret;\n      }\n    };\n\n    ::std::vector<::tools::extended_lucas<M>::prime_power>\
-    \ prime_powers;\n\n  public:\n    extended_lucas() {\n      for (const auto& [p,\
-    \ q] : ::tools::prime_factorization(M::mod())) {\n        this->prime_powers.emplace_back(p,\
+    \ prime_powers;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors\
+    \ = ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->prime_powers.emplace_back(p,\
     \ q);\n      }\n    }\n    extended_lucas(const ::tools::extended_lucas<M>&) =\
     \ default;\n    extended_lucas(::tools::extended_lucas<M>&&) = default;\n    ~extended_lucas()\
     \ = default;\n    ::tools::extended_lucas<M>& operator=(const ::tools::extended_lucas<M>&)\
@@ -225,13 +303,17 @@ data:
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
+  - tools/pow2.hpp
+  - tools/floor_log2.hpp
+  - tools/popcount.hpp
+  - tools/run_length.hpp
   - tools/garner.hpp
   - tools/inv_mod.hpp
   - tools/extgcd.hpp
   isVerificationFile: false
   path: tools/extended_lucas.hpp
   requiredBy: []
-  timestamp: '2021-08-22 01:33:07+09:00'
+  timestamp: '2021-12-12 15:02:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
