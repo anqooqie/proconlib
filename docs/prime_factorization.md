@@ -5,10 +5,10 @@ documentation_of: //tools/prime_factorization.hpp
 
 ```cpp
 template <typename T>
-std::map<T, T> prime_factorization(T n);
+std::vector<T> prime_factorization(T n);
 ```
 
-It returns the sorted distinct prime factors with the number of occurrences.
+It returns the prime factors of $n$ in ascending order.
 
 ## Constraints
 - $1 \leq n \leq 10^{18}$

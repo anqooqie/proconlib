@@ -1,63 +1,77 @@
 #ifndef TOOLS_PRIME_FACTORIZATION_HPP
 #define TOOLS_PRIME_FACTORIZATION_HPP
 
-#include <map>
+#include <vector>
 #include <cassert>
-#include <random>
 #include <queue>
-#include <numeric>
+#include <algorithm>
 #include <cmath>
+#include <numeric>
 #include "tools/is_prime.hpp"
+#include "tools/pow2.hpp"
+#include "tools/floor_log2.hpp"
 #include "tools/prod_mod.hpp"
 
 namespace tools {
 
   template <typename T>
-  ::std::map<T, T> prime_factorization(T n) {
+  ::std::vector<T> prime_factorization(T n) {
     assert(1 <= n && n <= 1000000000000000000);
-    ::std::map<T, T> result;
+    ::std::vector<T> result;
 
-    for (; n % 2 == 0; n /= 2) {
-      ++result[2];
-    }
     if (n == 1) return result;
 
-    ::std::minstd_rand engine;
     ::std::queue<T> factors({n});
     while (!factors.empty()) {
       const T factor = factors.front();
       factors.pop();
       if (::tools::is_prime(factor)) {
-        ++result[factor];
+        result.push_back(factor);
       } else {
-        ::std::uniform_int_distribution<T> dist(1, factor - 2);
-        while (true) {
-          T c = dist(engine);
-          if (c == factor - 2) c = factor - 1;
-          T x = 2;
-          T y = 2;
-          T d = 1;
-          while (d == 1) {
+        const T m = ::tools::pow2((::tools::floor_log2(factor) + 1) / 8);
+        for (T c = 1; ; ++c) {
+          const auto f = [&](T& x) {
             x = ::tools::prod_mod(x, x, factor);
             x += c;
             if (x >= factor) x -= factor;
-            y = ::tools::prod_mod(y, y, factor);
-            y += c;
-            if (y >= factor) y -= factor;
-            y = ::tools::prod_mod(y, y, factor);
-            y += c;
-            if (y >= factor) y -= factor;
-            d = ::std::gcd(::std::abs(x - y), factor);
+          };
+          T y = 2;
+          T r = 1;
+          T q = 1;
+          T x, g, ys;
+          do {
+            x = y;
+            for (T i = 0; i < r; ++i) {
+              f(y);
+            }
+            T k = 0;
+            do {
+              ys = y;
+              for (T i = 0; i < ::std::min(m, r - k); ++i) {
+                f(y);
+                q = ::tools::prod_mod(q, ::std::abs(x - y), factor);
+              }
+              g = ::std::gcd(q, factor);
+              k += m;
+            } while (k < r && g == 1);
+            r *= 2;
+          } while (g == 1);
+          if (g == factor) {
+            do {
+              f(ys);
+              g = ::std::gcd(::std::abs(x - ys), factor);
+            } while (g == 1);
           }
-          if (d < factor) {
-            factors.push(d);
-            factors.push(factor / d);
+          if (g < factor) {
+            factors.push(g);
+            factors.push(factor / g);
             break;
           }
         }
       }
     }
 
+    ::std::sort(result.begin(), result.end());
     return result;
   }
 }

@@ -5,7 +5,9 @@
 #include <cstdint>
 #include <cassert>
 #include <utility>
+#include <iterator>
 #include "tools/prime_factorization.hpp"
+#include "tools/run_length.hpp"
 #include "tools/garner.hpp"
 
 namespace tools {
@@ -88,7 +90,10 @@ namespace tools {
 
   public:
     extended_lucas() {
-      for (const auto& [p, q] : ::tools::prime_factorization(M::mod())) {
+      const auto prime_factors = ::tools::prime_factorization(M::mod());
+      ::std::vector<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>> distinct_prime_factors;
+      ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));
+      for (const auto& [p, q] : distinct_prime_factors) {
         this->prime_powers.emplace_back(p, q);
       }
     }
