@@ -71,22 +71,22 @@ data:
   timestamp: '2021-09-25 15:53:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/run_length.test.cpp
-  - tests/mex.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/fix.test.cpp
   - tests/median_solver.test.cpp
-  - tests/floor_log2.test.cpp
+  - tests/run_length.test.cpp
+  - tests/tsort.test.cpp
+  - tests/fill.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/resize.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/fix.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/ssize.test.cpp
+  - tests/mex.test.cpp
   - tests/ceil_log.test.cpp
   - tests/xor_basis.test.cpp
-  - tests/ssize.test.cpp
-  - tests/resize.test.cpp
-  - tests/fill.test.cpp
-  - tests/tsort.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/safe_int.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/segmented_sieve.test.cpp
+  - tests/floor_log2.test.cpp
 documentation_of: tests/assert_that.hpp
 layout: document
 redirect_from:

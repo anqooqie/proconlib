@@ -44,17 +44,17 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/bellman_ford.hpp
-  - tools/segmented_sieve.hpp
-  - tools/xor_basis.hpp
   - tools/tree_diameter.hpp
+  - tools/segmented_sieve.hpp
+  - tools/bellman_ford.hpp
+  - tools/xor_basis.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bellman_ford.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/tree_diameter.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/xor_basis.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

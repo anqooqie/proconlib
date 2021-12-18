@@ -99,20 +99,20 @@ data:
   isVerificationFile: false
   path: tools/floor_log2.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
-  - tools/divisors.hpp
   - tools/prime_factorization.hpp
-  - tools/totient.hpp
   - tools/extended_lucas.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisors.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
-  - tests/floor_log2.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/floor_log2.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

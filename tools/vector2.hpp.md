@@ -210,17 +210,17 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
-  - tools/less_by_arg.hpp
   - tools/ccw.hpp
   - tools/greater_by_arg.hpp
+  - tools/less_by_arg.hpp
   - tools/convex_hull.hpp
   timestamp: '2021-11-28 18:16:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/greater_by_arg.test.cpp
-  - tests/ccw.test.cpp
   - tests/less_by_arg.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/ccw.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: 2D vector

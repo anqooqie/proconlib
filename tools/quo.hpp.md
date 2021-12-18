@@ -96,33 +96,33 @@ data:
   isVerificationFile: false
   path: tools/quo.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
-  - tools/extended_garner.hpp
-  - tools/divisors.hpp
-  - tools/bezout.hpp
-  - tools/prime_factorization.hpp
-  - tools/inv_mod.hpp
-  - tools/mod.hpp
-  - tools/pow_mod.hpp
-  - tools/totient.hpp
   - tools/round.hpp
-  - tools/extended_lucas.hpp
-  - tools/extgcd.hpp
-  - tools/rich_pow_mod_cache.hpp
+  - tools/pow_mod.hpp
+  - tools/extended_garner.hpp
+  - tools/prime_factorization.hpp
+  - tools/mod.hpp
+  - tools/bezout.hpp
   - tools/is_prime.hpp
+  - tools/extgcd.hpp
+  - tools/inv_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/rich_pow_mod_cache.hpp
   - tools/garner.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisors.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
-  - tests/is_prime.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/bezout.test.cpp
+  - tests/divisors.test.cpp
+  - tests/is_prime.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/extgcd.test.cpp
+  - tests/bezout.test.cpp
 documentation_of: tools/quo.hpp
 layout: document
 title: Quotient as integer division

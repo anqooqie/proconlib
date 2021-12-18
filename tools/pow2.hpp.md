@@ -77,26 +77,26 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
-  - tools/divisors.hpp
   - tools/prime_factorization.hpp
-  - tools/dual_segtree.hpp
   - tools/li_chao_segtree.hpp
-  - tools/totient.hpp
-  - tools/binary_heap.hpp
   - tools/extended_lucas.hpp
+  - tools/binary_heap.hpp
+  - tools/dual_segtree.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisors.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
-  - tests/ssize.test.cpp
-  - tests/li_chao_segtree.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/binary_heap.test.cpp
+  - tests/divisors.test.cpp
+  - tests/ssize.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/li_chao_segtree.test.cpp
+  - tests/binary_heap.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$
