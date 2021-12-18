@@ -179,9 +179,9 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
-    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
-    \    return result;\n    }\n  };\n}\n\n\n"
+    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
+    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
+    \  }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_MATRIX_HPP\n#define TOOLS_MATRIX_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <cassert>\n#include <iostream>\n#include <string>\n\
     #include <cstdint>\n#include \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
@@ -287,15 +287,15 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
-    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
-    \    return result;\n    }\n  };\n}\n\n#endif\n"
+    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
+    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
+    \  }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector.hpp
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2021-12-05 13:54:20+09:00'
+  timestamp: '2021-12-18 22:12:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/solve.test.cpp

@@ -385,20 +385,20 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      assert(n >= 0);\n      ::tools::matrix<T> result(n, n, T(0));\n      for\
-    \ (::std::size_t i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n  \
-    \    return result;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
-    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
-    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
-    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
-    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
-    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
-    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
+    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
+    \  }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\n\nusing i64 =\
+    \ std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 N,\
+    \ M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n  for (i64\
+    \ r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64 A_rc;\n \
+    \     std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::matrix<mint>\
+    \ B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64 c = 0; c < K; ++c) {\n\
+    \      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c] = mint::raw(B_rc);\n\
+    \    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n  for (i64 r = 0; r < N;\
+    \ ++r) {\n    std::string delimiter = \"\";\n    for (i64 c = 0; c < K; ++c) {\n\
+    \      std::cout << delimiter << C[r][c].val();\n      delimiter = \" \";\n  \
+    \  }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n\n#include\
     \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
     \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
@@ -418,7 +418,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2021-12-05 13:54:20+09:00'
+  timestamp: '2021-12-18 22:12:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp
