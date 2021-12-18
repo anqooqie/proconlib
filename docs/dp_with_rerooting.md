@@ -76,7 +76,7 @@ The meaning of each the type parameter is as follows.
 ### Constraints
 - For all $a$ in `typename M::T` and $b$ in `typename M::T`, `M::op(a, b)` $=$ `M::op(b, a)`.
 - For all $a$ in `typename M::T`, $b$ in `typename M::T` and $c$ in `typename M::T`, `M::op(M::op(a, b), c)` $=$ `M::op(a, M::op(b, c))`.
-- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `M::e()`.
+- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `a`.
 - `f_ve` is invocable.
 - `f_ve` accepts two arguments, `R` and `E`.
 - `f_ve` returns `typename M::T`.

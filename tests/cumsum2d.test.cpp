@@ -40,16 +40,16 @@ int main() {
     }
   }
 
-  tools::cumsum2d<tools::group::plus<i64>> J_cumsum(J.begin(), J.end());
-  tools::cumsum2d<tools::group::plus<i64>> O_cumsum(O.begin(), O.end());
-  tools::cumsum2d<tools::group::plus<i64>> I_cumsum(I.begin(), I.end());
+  tools::cumsum2d<tools::group::plus<i64>> J_cumsum(J);
+  tools::cumsum2d<tools::group::plus<i64>> O_cumsum(O);
+  tools::cumsum2d<tools::group::plus<i64>> I_cumsum(I);
 
   for (i64 i = 0; i < K; ++i) {
     i64 a, b, c, d;
     std::cin >> a >> b >> c >> d;
     --a;
     --b;
-    std::cout << J_cumsum.query(b, a, d, c) << ' ' << O_cumsum.query(b, a, d, c) << ' ' << I_cumsum.query(b, a, d, c) << '\n';
+    std::cout << J_cumsum.query(a, c, b, d) << ' ' << O_cumsum.query(a, c, b, d) << ' ' << I_cumsum.query(a, c, b, d) << '\n';
   }
 
   return 0;
