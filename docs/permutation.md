@@ -98,6 +98,32 @@ It swaps the $i$-th element and the $j$-th element.
 ### Time Complexity
 - $O(1)$
 
+## id
+```cpp
+T p.id();
+```
+
+It returns the number of permutations of $n$ elements less than $p$ in lexicographical order.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n^2)$
+
+## from
+```cpp
+permutation<T> permutation<T>::from(std::size_t n, T id);
+```
+
+It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
+
+### Constraints
+- $0 \leq \mathrm{id} < n!$
+
+### Time Complexity
+- $O(n^2)$
+
 ## inv
 ```cpp
 tools::permutation<T> p.inv();

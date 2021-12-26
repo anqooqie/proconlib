@@ -6,6 +6,7 @@
 #include <numeric>
 #include <cassert>
 #include <utility>
+#include <iterator>
 #include <iostream>
 #include <string>
 
@@ -14,6 +15,17 @@ namespace tools {
   class permutation {
   private:
     ::std::vector<T> m_vector;
+
+    void verify_consistency() const {
+#ifndef NDEBUG
+      ::std::vector<bool> unique(this->m_vector.size(), true);
+      for (const T& x : this->m_vector) {
+        assert(0 <= x && x < T(this->m_vector.size()));
+        assert(unique[x]);
+        unique[x] = false;
+      }
+#endif
+    }
 
   public:
     permutation() = default;
@@ -28,16 +40,7 @@ namespace tools {
     }
     template <typename Iterator>
     permutation(Iterator begin, Iterator end) : m_vector(begin, end) {
-#ifndef NDEBUG
-      for (const T& x : this->m_vector) {
-        assert(0 <= x && x < this->m_vector.size());
-      }
-      ::std::vector<bool> unique(this->m_vector.size(), true);
-      for (const T& x : this->m_vector) {
-        assert(unique[x]);
-        unique[x] = false;
-      }
-#endif
+      this->verify_consistency();
     }
 
     T operator[](const ::std::size_t i) const {
@@ -61,6 +64,49 @@ namespace tools {
       ::std::swap(this->m_vector[i], this->m_vector[j]);
     }
 
+    T id() const {
+      if (this->m_vector.empty()) return 0;
+
+      ::std::vector<T> left(this->m_vector.size());
+      ::std::iota(left.begin(), left.end(), 0);
+      ::std::vector<T> fact(this->m_vector.size());
+      fact[0] = 1;
+      for (::std::size_t i = 1; i < this->m_vector.size(); ++i) {
+        fact[i] = fact[i - 1] * i;
+      }
+
+      T id = 0;
+      for (::std::size_t i = 0; i < this->m_vector.size(); ++i) {
+        auto it = ::std::lower_bound(left.begin(), left.end(), this->m_vector[i]);
+        id += std::distance(left.begin(), it) * fact[this->m_vector.size() - 1 - i];
+        left.erase(it);
+      }
+
+      return id;
+    }
+
+    static ::tools::permutation<T> from(const ::std::size_t dim, T id) {
+      if (dim == 0) return ::tools::permutation<T>(0);
+
+      ::std::vector<T> left(dim);
+      ::std::iota(left.begin(), left.end(), 0);
+      ::std::vector<T> fact(dim);
+      fact[0] = 1;
+      for (::std::size_t i = 1; i < dim; ++i) {
+        fact[i] = fact[i - 1] * i;
+      }
+
+      ::std::vector<T> p;
+      for (::std::size_t i = 0; i < dim; ++i) {
+        auto it = std::next(left.begin(), id / fact[dim - i - 1]);
+        p.push_back(*it);
+        left.erase(it);
+        id %= fact[dim - i - 1];
+      }
+
+      return ::tools::permutation<T>(p.begin(), p.end());
+    }
+
     ::tools::permutation<T> inv() const {
       ::tools::permutation<T> result(this->size());
       for (::std::size_t i = 0; i < this->size(); ++i) {
@@ -81,7 +127,7 @@ namespace tools {
       return lhs.m_vector == rhs.m_vector;
     }
     friend bool operator!=(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {
-      return !(lhs == rhs);
+      return lhs.m_vector != rhs.m_vector;
     }
 
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::permutation<T>& self) {
@@ -97,6 +143,7 @@ namespace tools {
       for (T& value : self.m_vector) {
         is >> value;
       }
+      self.verify_consistency();
       return is;
     }
   };
