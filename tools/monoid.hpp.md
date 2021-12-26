@@ -25,6 +25,9 @@ data:
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/permutation.test.cpp
+    title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -84,6 +87,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/permutation.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/lis.test.cpp

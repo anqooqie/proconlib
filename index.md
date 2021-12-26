@@ -194,7 +194,7 @@ data:
     - icon: ':warning:'
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
     - icon: ':heavy_check_mark:'
@@ -403,6 +403,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/permutation.test.cpp
+      title: tests/permutation.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prim.test.cpp
       title: tests/prim.test.cpp

@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/permutation.test.cpp
+    title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   _isVerificationFailed: false
@@ -26,6 +29,7 @@ data:
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/permutation.test.cpp
   - tests/ssize.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document

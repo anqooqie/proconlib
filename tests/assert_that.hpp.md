@@ -31,6 +31,9 @@ data:
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/permutation.test.cpp
+    title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -74,6 +77,7 @@ data:
   - tests/median_solver.test.cpp
   - tests/run_length.test.cpp
   - tests/tsort.test.cpp
+  - tests/permutation.test.cpp
   - tests/fill.test.cpp
   - tests/floor_log.test.cpp
   - tests/ceil_log2.test.cpp
