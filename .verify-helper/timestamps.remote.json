@@ -11,6 +11,7 @@
 "tests/convex_hull.test.cpp": "2021-12-11 22:15:14 +0900",
 "tests/cumsum2d.test.cpp": "2021-12-18 13:17:06 +0900",
 "tests/dijkstra.test.cpp": "2021-07-17 23:00:45 +0900",
+"tests/disjoint_sparse_table.test.cpp": "2021-12-29 01:11:21 +0900",
 "tests/divisors.test.cpp": "2021-12-12 15:02:26 +0900",
 "tests/dp_with_rerooting.test.cpp": "2021-10-02 15:49:19 +0900",
 "tests/dual_segtree.test.cpp": "2021-07-17 23:00:45 +0900",
