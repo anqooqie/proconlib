@@ -18,6 +18,9 @@ data:
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
+    path: tools/lca.hpp
+    title: Lowest common ancestor
+  - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
   - icon: ':heavy_check_mark:'
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lca.test.cpp
+    title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -109,6 +115,7 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
+  - tools/lca.hpp
   - tools/prime_factorization.hpp
   - tools/extended_lucas.hpp
   - tools/chromatic_number.hpp
@@ -126,6 +133,7 @@ data:
   - tests/chromatic_number.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
+  - tests/lca.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp

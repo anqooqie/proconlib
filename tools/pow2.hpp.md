@@ -18,6 +18,9 @@ data:
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
+    path: tools/lca.hpp
+    title: Lowest common ancestor
+  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lca.test.cpp
+    title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree.test.cpp
     title: tests/li_chao_segtree.test.cpp
@@ -83,6 +89,7 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/lca.hpp
   - tools/prime_factorization.hpp
   - tools/li_chao_segtree.hpp
   - tools/extended_lucas.hpp
@@ -99,6 +106,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
+  - tests/lca.test.cpp
   - tests/ssize.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp

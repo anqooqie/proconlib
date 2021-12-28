@@ -144,6 +144,9 @@ data:
       path: tools/largest_rectangle_in_histogram.hpp
       title: Largest rectangle in histogram
     - icon: ':heavy_check_mark:'
+      path: tools/lca.hpp
+      title: Lowest common ancestor
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':heavy_check_mark:'
@@ -394,6 +397,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/largest_rectangle_in_histogram.test.cpp
       title: tests/largest_rectangle_in_histogram.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lca.test.cpp
+      title: tests/lca.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp

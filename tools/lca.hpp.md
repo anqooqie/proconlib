@@ -5,6 +5,9 @@ data:
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table.hpp
+    title: Disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -13,14 +16,8 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/lca.hpp
-    title: Lowest common ancestor
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/disjoint_sparse_table.test.cpp
-    title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
@@ -29,9 +26,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/disjoint_sparse_table.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstddef>\n#include <algorithm>\n#include <iterator>\n#include <cassert>\n\
-    #line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+  bundledCode: "#line 1 \"tools/lca.hpp\"\n\n\n\n#include <utility>\n#include <cstddef>\n\
+    #include <limits>\n#include <vector>\n#include <cassert>\n#include <numeric>\n\
+    #include <stack>\n#include <tuple>\n#line 1 \"tools/disjoint_sparse_table.hpp\"\
+    \n\n\n\n#line 6 \"tools/disjoint_sparse_table.hpp\"\n#include <algorithm>\n#include\
+    \ <iterator>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#include <cstdint>\n\n//\
+    \ Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
     \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
     \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
@@ -121,62 +121,97 @@ data:
     \ if (r - l == 1) {\n        return this->m_value[l];\n      } else {\n      \
     \  const ::std::size_t offset = ::tools::floor_log2(l ^ (r - 1)) * this->m_capacity;\n\
     \        return M::op(this->m_value[offset + l], this->m_value[offset + (r - 1)]);\n\
-    \      }\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_DISJOINT_SPARSE_TABLE_HPP\n#define TOOLS_DISJOINT_SPARSE_TABLE_HPP\n\
-    \n#include <vector>\n#include <cstddef>\n#include <algorithm>\n#include <iterator>\n\
-    #include <cassert>\n#include \"tools/ceil_log2.hpp\"\n#include \"tools/pow2.hpp\"\
-    \n#include \"tools/floor_log2.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ M>\n  class disjoint_sparse_table {\n  private:\n    using T = typename M::T;\n\
-    \    ::std::vector<T> m_value;\n    ::std::size_t m_size;\n    ::std::size_t m_capacity;\n\
-    \    ::std::size_t m_height;\n\n  public:\n    disjoint_sparse_table() = default;\n\
-    \    disjoint_sparse_table(const ::tools::disjoint_sparse_table<M>&) = default;\n\
-    \    disjoint_sparse_table(::tools::disjoint_sparse_table<M>&&) = default;\n \
-    \   ~disjoint_sparse_table() = default;\n    ::tools::disjoint_sparse_table<M>&\
-    \ operator=(const ::tools::disjoint_sparse_table<M>&) = default;\n    ::tools::disjoint_sparse_table<M>&\
-    \ operator=(::tools::disjoint_sparse_table<M>&&) = default;\n\n    template <typename\
-    \ InputIterator>\n    disjoint_sparse_table(const InputIterator& begin, const\
-    \ InputIterator& end) {\n      ::std::copy(begin, end, ::std::back_inserter(this->m_value));\n\
-    \      this->m_size = this->m_value.size();\n      this->m_height = this->m_size\
-    \ <= 1 ? this->m_size : ::tools::ceil_log2(this->m_size);\n      this->m_capacity\
-    \ = this->m_size <= 1 ? this->m_size : ::tools::pow2(this->m_height);\n      this->m_value.resize(this->m_height\
-    \ * this->m_capacity);\n      ::std::fill(this->m_value.begin() + this->m_size,\
-    \ this->m_value.begin() + this->m_capacity, M::e());\n\n      for (::std::size_t\
-    \ d = 1; d < this->m_height; ++d) {\n        const ::std::size_t offset = d *\
-    \ this->m_capacity;\n        for (::std::size_t m = ::tools::pow2(d); m < this->m_capacity;\
-    \ m += ::tools::pow2(d + 1)) {\n          this->m_value[offset + (m - 1)] = this->m_value[m\
-    \ - 1];\n          this->m_value[offset + m] = this->m_value[m];\n          for\
-    \ (::std::size_t l = m - 1; l --> m - ::tools::pow2(d);) {\n            this->m_value[offset\
-    \ + l] = M::op(this->m_value[l], this->m_value[offset + (l + 1)]);\n         \
-    \ }\n          for (::std::size_t r = m + 2; r <= m + ::tools::pow2(d); ++r) {\n\
-    \            this->m_value[offset + (r - 1)] = M::op(this->m_value[offset + (r\
-    \ - 2)], this->m_value[r - 1]);\n          }\n        }\n      }\n    }\n\n  \
-    \  ::std::size_t size() const {\n      return this->m_size;\n    }\n\n    T prod(const\
-    \ ::std::size_t l, const ::std::size_t r) const {\n      assert(l <= r && r <=\
-    \ this->m_size);\n      if (r - l == 0) {\n        return M::e();\n      } else\
-    \ if (r - l == 1) {\n        return this->m_value[l];\n      } else {\n      \
-    \  const ::std::size_t offset = ::tools::floor_log2(l ^ (r - 1)) * this->m_capacity;\n\
-    \        return M::op(this->m_value[offset + l], this->m_value[offset + (r - 1)]);\n\
-    \      }\n    }\n  };\n}\n\n#endif\n"
+    \      }\n    }\n  };\n}\n\n\n#line 13 \"tools/lca.hpp\"\n\nnamespace tools {\n\
+    \  class lca {\n  private:\n    struct monoid {\n      using T = ::std::pair<::std::size_t,\
+    \ ::std::size_t>;\n      static T op(const T& x, const T& y) {\n        return\
+    \ x.second <= y.second ? T(x.first, x.second) : T(y.first, y.second);\n      }\n\
+    \      static T e() {\n        return T(::std::numeric_limits<::std::size_t>::max(),\
+    \ ::std::numeric_limits<::std::size_t>::max());\n      }\n    };\n\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_edges;\n    ::std::vector<::std::size_t> m_in;\n    ::tools::disjoint_sparse_table<monoid>\
+    \ m_dst;\n\n  public:\n\n    lca() = default;\n    lca(const ::tools::lca&) =\
+    \ default;\n    lca(::tools::lca&&) = default;\n    ~lca() = default;\n    ::tools::lca&\
+    \ operator=(const ::tools::lca&) = default;\n    ::tools::lca& operator=(::tools::lca&&)\
+    \ = default;\n\n    lca(const ::std::size_t n) : m_edges(n), m_in(n) {\n     \
+    \ assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_edges.size();\n\
+    \    }\n\n    void add_edge(const ::std::size_t u, const ::std::size_t v) {\n\
+    \      assert(u < this->size());\n      assert(v < this->size());\n      assert(u\
+    \ != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
+    \    }\n\n    void build(const ::std::size_t root) {\n      assert(::std::accumulate(this->m_edges.begin(),\
+    \ this->m_edges.end(), ::std::size_t(0), [](const ::std::size_t sum, const auto&\
+    \ edges) { return sum + edges.size(); }) == 2 * (this->size() - 1));\n\n     \
+    \ ::std::size_t t = 0;\n      ::std::vector<::std::pair<::std::size_t, ::std::size_t>>\
+    \ tour(2 * this->size() - 1);\n\n      ::std::stack<::std::tuple<bool, ::std::size_t,\
+    \ ::std::size_t>> stack;\n      stack.emplace(true, root, 0);\n      ::std::vector<bool>\
+    \ will_visit(this->size(), false);\n      will_visit[root] = true;\n      while\
+    \ (!stack.empty()) {\n        const auto [pre, here, depth] = stack.top();\n \
+    \       stack.pop();\n        tour[t].first = here;\n        tour[t].second =\
+    \ depth;\n        if (pre) {\n          this->m_in[here] = t;\n          for (const\
+    \ ::std::size_t next : this->m_edges[here]) {\n            if (!will_visit[next])\
+    \ {\n              stack.emplace(false, here, depth);\n              stack.emplace(true,\
+    \ next, depth + 1);\n              will_visit[next] = true;\n            }\n \
+    \         }\n        }\n        ++t;\n      }\n\n      tour.pop_back();\n    \
+    \  this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());\n\
+    \    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t v) const {\n\
+    \      assert(u < this->size());\n      assert(v < this->size());\n\n      if\
+    \ (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n      }\n\n \
+    \     return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n    }\n\
+    \  };\n}\n\n\n"
+  code: "#ifndef TOOLS_LCA_HPP\n#define TOOLS_LCA_HPP\n\n#include <utility>\n#include\
+    \ <cstddef>\n#include <limits>\n#include <vector>\n#include <cassert>\n#include\
+    \ <numeric>\n#include <stack>\n#include <tuple>\n#include \"tools/disjoint_sparse_table.hpp\"\
+    \n\nnamespace tools {\n  class lca {\n  private:\n    struct monoid {\n      using\
+    \ T = ::std::pair<::std::size_t, ::std::size_t>;\n      static T op(const T& x,\
+    \ const T& y) {\n        return x.second <= y.second ? T(x.first, x.second) :\
+    \ T(y.first, y.second);\n      }\n      static T e() {\n        return T(::std::numeric_limits<::std::size_t>::max(),\
+    \ ::std::numeric_limits<::std::size_t>::max());\n      }\n    };\n\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_edges;\n    ::std::vector<::std::size_t> m_in;\n    ::tools::disjoint_sparse_table<monoid>\
+    \ m_dst;\n\n  public:\n\n    lca() = default;\n    lca(const ::tools::lca&) =\
+    \ default;\n    lca(::tools::lca&&) = default;\n    ~lca() = default;\n    ::tools::lca&\
+    \ operator=(const ::tools::lca&) = default;\n    ::tools::lca& operator=(::tools::lca&&)\
+    \ = default;\n\n    lca(const ::std::size_t n) : m_edges(n), m_in(n) {\n     \
+    \ assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_edges.size();\n\
+    \    }\n\n    void add_edge(const ::std::size_t u, const ::std::size_t v) {\n\
+    \      assert(u < this->size());\n      assert(v < this->size());\n      assert(u\
+    \ != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
+    \    }\n\n    void build(const ::std::size_t root) {\n      assert(::std::accumulate(this->m_edges.begin(),\
+    \ this->m_edges.end(), ::std::size_t(0), [](const ::std::size_t sum, const auto&\
+    \ edges) { return sum + edges.size(); }) == 2 * (this->size() - 1));\n\n     \
+    \ ::std::size_t t = 0;\n      ::std::vector<::std::pair<::std::size_t, ::std::size_t>>\
+    \ tour(2 * this->size() - 1);\n\n      ::std::stack<::std::tuple<bool, ::std::size_t,\
+    \ ::std::size_t>> stack;\n      stack.emplace(true, root, 0);\n      ::std::vector<bool>\
+    \ will_visit(this->size(), false);\n      will_visit[root] = true;\n      while\
+    \ (!stack.empty()) {\n        const auto [pre, here, depth] = stack.top();\n \
+    \       stack.pop();\n        tour[t].first = here;\n        tour[t].second =\
+    \ depth;\n        if (pre) {\n          this->m_in[here] = t;\n          for (const\
+    \ ::std::size_t next : this->m_edges[here]) {\n            if (!will_visit[next])\
+    \ {\n              stack.emplace(false, here, depth);\n              stack.emplace(true,\
+    \ next, depth + 1);\n              will_visit[next] = true;\n            }\n \
+    \         }\n        }\n        ++t;\n      }\n\n      tour.pop_back();\n    \
+    \  this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());\n\
+    \    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t v) const {\n\
+    \      assert(u < this->size());\n      assert(v < this->size());\n\n      if\
+    \ (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n      }\n\n \
+    \     return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n    }\n\
+    \  };\n}\n\n#endif\n"
   dependsOn:
+  - tools/disjoint_sparse_table.hpp
   - tools/ceil_log2.hpp
   - tools/pow2.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
   isVerificationFile: false
-  path: tools/disjoint_sparse_table.hpp
-  requiredBy:
-  - tools/lca.hpp
-  timestamp: '2021-12-29 01:11:21+09:00'
+  path: tools/lca.hpp
+  requiredBy: []
+  timestamp: '2021-12-29 06:01:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lca.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-documentation_of: tools/disjoint_sparse_table.hpp
+documentation_of: tools/lca.hpp
 layout: document
-title: Disjoint sparse table
+title: Lowest common ancestor
 ---
 
-It is a data structure which can return $\prod_{l \leq i < r} a_i$ under a given monoid in $\langle O(N \log N), O(1) \rangle$ time.
+It is a data structure which can return the lowest common ancestor of two vertices in a given tree.
 
 ### License
 - CC0
@@ -186,41 +221,56 @@ It is a data structure which can return $\prod_{l \leq i < r} a_i$ under a given
 
 ## Constructor
 ```cpp
-template <typename InputIterator>
-disjoint_sparse_table<M> table(InputIterator begin, InputIterator end);
+lca lca(::std::size_t n);
 ```
 
-It takes a sequence $(a_1, a_2, \ldots, a_N)$, and constructs a data structure which can return $\prod_{l \leq i < r} a_i$ under a given monoid $M$.
+It creates a graph with $n$ vertices and $0$ edges.
 
 ### Constraints
-- For all $a$ in `typename M::T`, $b$ in `typename M::T` and $c$ in `typename M::T`, `M::op(M::op(a, b), c)` $=$ `M::op(a, M::op(b, c))`.
-- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `a`.
+- $n \geq 1$
 
 ### Time Complexity
-- $O(N \log N)$
+- $O(n)$
 
-## size
+## add_edge
 ```cpp
-std::size_t table.size();
+void lca.add_edge(std::size_t u, std::size_t v);
 ```
 
-It returns $N$.
+It adds an undirected edge connecting $u$ and $v$ to the graph.
 
 ### Constraints
-- None
+- $0 \leq u < n$
+- $0 \leq v < n$
+- $u \neq v$
 
 ### Time Complexity
-- $O(1)$
+- Amortized $O(1)$
 
-## prod
+## build
 ```cpp
-typename M::T table.prod(std::size_t l, std::size_t r);
+void lca.build(std::size_t r);
 ```
 
-It returns $\prod_{l \leq i < r} a_i$ under the monoid $M$.
+It internally creates a data structure which can return the lowest common ancestor of two vertices in the rooted tree whose root is $r$.
 
 ### Constraints
-- $0 \leq l \leq r \leq N$
+- The graph is a tree.
+- $0 \leq r < n$
+
+### Time Complexity
+- $O(n \log n)$
+
+## query
+```cpp
+void lca.query(std::size_t u, std::size_t v);
+```
+
+It returns the lowest common ancestor of two vertices $u$ and $v$.
+
+### Constraints
+- $0 \leq u < n$
+- $0 \leq v < n$
 
 ### Time Complexity
 - $O(1)$

@@ -12,6 +12,9 @@ data:
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/lca.hpp
+    title: Lowest common ancestor
+  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   _extendedVerifiedWith:
@@ -27,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lca.test.cpp
+    title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree.test.cpp
     title: tests/li_chao_segtree.test.cpp
@@ -81,6 +87,7 @@ data:
   isVerificationFile: false
   path: tools/ceil_log2.hpp
   requiredBy:
+  - tools/lca.hpp
   - tools/li_chao_segtree.hpp
   - tools/binary_heap.hpp
   - tools/dual_segtree.hpp
@@ -89,6 +96,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_log2.test.cpp
+  - tests/lca.test.cpp
   - tests/ssize.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/disjoint_sparse_table.test.cpp
