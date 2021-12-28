@@ -27,6 +27,7 @@
 "tests/inversion_number.test.cpp": "2021-09-25 17:17:40 +0900",
 "tests/is_prime.test.cpp": "2021-07-17 23:00:45 +0900",
 "tests/largest_rectangle_in_histogram.test.cpp": "2021-07-18 21:35:11 +0900",
+"tests/lca.test.cpp": "2021-12-29 06:01:01 +0900",
 "tests/less_by_arg.test.cpp": "2021-11-28 18:16:23 +0900",
 "tests/li_chao_segtree.test.cpp": "2021-11-27 16:26:56 +0900",
 "tests/lis.test.cpp": "2021-09-25 17:17:40 +0900",
