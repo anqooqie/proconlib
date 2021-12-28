@@ -6,6 +6,9 @@ data:
     path: tools/chromatic_number.hpp
     title: Chromatic number
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table.hpp
+    title: Disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -30,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table.test.cpp
+    title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -107,6 +113,7 @@ data:
   - tools/extended_lucas.hpp
   - tools/chromatic_number.hpp
   - tools/divisors.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/tetration_mod.hpp
   - tools/totient.hpp
   - tools/floor_log2.hpp
@@ -120,6 +127,7 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
@@ -136,7 +144,7 @@ std::uint64_t popcount(std::uint64_t x);
 It returns the number of 1 bits in the value of $x$.
 
 ## Constraints
-- None
+- $x \geq 0$
 
 ## Time Complexity
 - $O(\log\log x)$

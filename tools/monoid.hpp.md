@@ -19,6 +19,9 @@ data:
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table.test.cpp
+    title: tests/disjoint_sparse_table.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -90,6 +93,7 @@ data:
   - tests/permutation.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/lis.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document

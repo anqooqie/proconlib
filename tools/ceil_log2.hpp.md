@@ -6,6 +6,9 @@ data:
     path: tools/binary_heap.hpp
     title: Binary heap
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table.hpp
+    title: Disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   - icon: ':heavy_check_mark:'
@@ -18,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log2.test.cpp
     title: tests/ceil_log2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table.test.cpp
+    title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
@@ -78,12 +84,14 @@ data:
   - tools/li_chao_segtree.hpp
   - tools/binary_heap.hpp
   - tools/dual_segtree.hpp
+  - tools/disjoint_sparse_table.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_log2.test.cpp
   - tests/ssize.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
 documentation_of: tools/ceil_log2.hpp
@@ -101,7 +109,7 @@ std::uint64_t ceil_log2(std::uint64_t x);
 It returns $\left\lceil \log_2(x) \right\rceil$.
 
 ## Constraints
-- None
+- $x \geq 1$
 
 ## Time Complexity
 - $O(\log\log x)$

@@ -6,6 +6,9 @@ data:
     path: tools/binary_heap.hpp
     title: Binary heap
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table.hpp
+    title: Disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -30,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table.test.cpp
+    title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -83,6 +89,7 @@ data:
   - tools/binary_heap.hpp
   - tools/dual_segtree.hpp
   - tools/divisors.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/tetration_mod.hpp
   - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -95,6 +102,7 @@ data:
   - tests/ssize.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
 documentation_of: tools/pow2.hpp

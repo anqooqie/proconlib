@@ -6,6 +6,9 @@ data:
     title: Popcount
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table.hpp
+    title: Disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -21,6 +24,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table.test.cpp
+    title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -102,6 +108,7 @@ data:
   - tools/prime_factorization.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/tetration_mod.hpp
   - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -112,6 +119,7 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
@@ -128,7 +136,7 @@ std::uint64_t floor_log2(std::uint64_t x);
 It returns $\left\lfloor \log_2(x) \right\rfloor$.
 
 ## Constraints
-- None
+- $x \geq 1$
 
 ## Time Complexity
 - $O(\log\log x)$
