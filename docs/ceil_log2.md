@@ -13,7 +13,7 @@ std::uint64_t ceil_log2(std::uint64_t x);
 It returns $\left\lceil \log_2(x) \right\rceil$.
 
 ## Constraints
-- None
+- $x \geq 1$
 
 ## Time Complexity
 - $O(\log\log x)$

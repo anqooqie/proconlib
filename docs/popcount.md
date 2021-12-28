@@ -13,7 +13,7 @@ std::uint64_t popcount(std::uint64_t x);
 It returns the number of 1 bits in the value of $x$.
 
 ## Constraints
-- None
+- $x \geq 0$
 
 ## Time Complexity
 - $O(\log\log x)$

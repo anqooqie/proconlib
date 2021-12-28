@@ -13,7 +13,7 @@ std::uint64_t floor_log2(std::uint64_t x);
 It returns $\left\lfloor \log_2(x) \right\rfloor$.
 
 ## Constraints
-- None
+- $x \geq 1$
 
 ## Time Complexity
 - $O(\log\log x)$
