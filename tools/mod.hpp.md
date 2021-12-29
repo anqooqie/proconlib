@@ -6,6 +6,9 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/convolution.hpp
+    title: Arbitrary modulus convolution
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -42,6 +45,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution.test.cpp
+    title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -92,6 +98,7 @@ data:
   requiredBy:
   - tools/round.hpp
   - tools/pow_mod.hpp
+  - tools/convolution.hpp
   - tools/extended_garner.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
@@ -112,6 +119,7 @@ data:
   - tests/is_prime.test.cpp
   - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/convolution.test.cpp
 documentation_of: tools/mod.hpp
 layout: document
 title: Minimum non-negative reminder

@@ -6,6 +6,9 @@ data:
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
+    path: tools/convolution.hpp
+    title: Arbitrary modulus convolution
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -51,6 +54,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution.test.cpp
+    title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -98,6 +104,7 @@ data:
   requiredBy:
   - tools/round.hpp
   - tools/pow_mod.hpp
+  - tools/convolution.hpp
   - tools/extended_garner.hpp
   - tools/prime_factorization.hpp
   - tools/mod.hpp
@@ -122,6 +129,7 @@ data:
   - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extgcd.test.cpp
+  - tests/convolution.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/quo.hpp
 layout: document

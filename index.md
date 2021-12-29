@@ -51,6 +51,9 @@ data:
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':heavy_check_mark:'
+      path: tools/convolution.hpp
+      title: Arbitrary modulus convolution
+    - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
     - icon: ':warning:'
@@ -82,7 +85,7 @@ data:
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
-      title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
+      title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
@@ -343,6 +346,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/convex_hull.test.cpp
       title: tests/convex_hull.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/convolution.test.cpp
+      title: tests/convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp

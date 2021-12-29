@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
+    title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

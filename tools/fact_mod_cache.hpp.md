@@ -61,10 +61,10 @@ data:
   - tests/fact_mod_cache.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
-title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
+title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
 ---
 
-It precomputes $n! \pmod{M}$ for $0 \leq n \leq N$.
+It precomputes $n! \pmod{M}$ for $0 \leq n \leq N < M$.
 
 ### License
 - CC0
