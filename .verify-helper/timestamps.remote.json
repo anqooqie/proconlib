@@ -9,6 +9,7 @@
 "tests/ceil_log2.test.cpp": "2021-09-25 15:53:45 +0900",
 "tests/chromatic_number.test.cpp": "2021-11-26 23:23:58 +0900",
 "tests/convex_hull.test.cpp": "2021-12-11 22:15:14 +0900",
+"tests/convolution.test.cpp": "2021-12-29 17:12:53 +0900",
 "tests/cumsum2d.test.cpp": "2021-12-18 13:17:06 +0900",
 "tests/dijkstra.test.cpp": "2021-07-17 23:00:45 +0900",
 "tests/disjoint_sparse_table.test.cpp": "2021-12-29 01:11:21 +0900",
