@@ -1,9 +1,9 @@
 ---
-title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N$
+title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
 documentation_of: //tools/fact_mod_cache.hpp
 ---
 
-It precomputes $n! \pmod{M}$ for $0 \leq n \leq N$.
+It precomputes $n! \pmod{M}$ for $0 \leq n \leq N < M$.
 
 ### License
 - CC0
