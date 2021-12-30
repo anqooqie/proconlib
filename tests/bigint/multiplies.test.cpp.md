@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/bigint.hpp
+    title: tools/bigint.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -14,43 +17,39 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/minus.test.cpp
-    title: tests/bigint/minus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/multiplies.test.cpp
-    title: tests/bigint/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/plus.test.cpp
-    title: tests/bigint/plus.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#include <cstdint>\n\
-    #include <cstddef>\n#include <algorithm>\n#include <string>\n#include <cassert>\n\
-    #include <iostream>\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#include\
-    \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
-    lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include <utility>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal\
-    \ {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long\
-    \ long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n\
-    }\n\n// Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F
+  bundledCode: "#line 1 \"tests/bigint/multiplies.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F\"\
+    \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
+    #include <cstdint>\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
+    #include <cassert>\n#line 11 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1\
+    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -531,144 +530,30 @@ data:
     \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
     \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
-    \    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_BIGINT_HPP\n#define TOOLS_BIGINT_HPP\n\n#include <vector>\n\
-    #include <cstdint>\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
-    #include <cassert>\n#include <iostream>\n#include <iomanip>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"atcoder/convolution.hpp\"\n#include \"tools/quo.hpp\"\n#include \"\
-    tools/mod.hpp\"\n#include \"tools/ceil.hpp\"\n\nnamespace tools {\n  class bigint\
-    \ {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>; // 5 *\
-    \ 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7 * 2^26\
-    \ + 1\n\n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n\
-    \    static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr\
-    \ ::std::int_fast32_t LOG10_BASE = 4;\n    static constexpr int MINT1_INV_MOD_MINT2\
-    \ = 104391568; // 167772161^(-1) mod 469762049\n\n    static int compare_3way(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      if (!lhs.m_positive\
-    \ && rhs.m_positive) return -1;\n      if (lhs.m_positive && !rhs.m_positive)\
-    \ return 1;\n      return [&]() {\n        if (lhs.m_digits.size() < rhs.m_digits.size())\
-    \ return -1;\n        if (lhs.m_digits.size() > rhs.m_digits.size()) return 1;\n\
-    \        for (::std::size_t i = 0; i < lhs.m_digits.size(); ++i) {\n         \
-    \ if (lhs.m_digits[lhs.m_digits.size() - 1 - i] < rhs.m_digits[rhs.m_digits.size()\
-    \ - 1 - i]) return -1;\n          if (lhs.m_digits[lhs.m_digits.size() - 1 - i]\
-    \ > rhs.m_digits[rhs.m_digits.size() - 1 - i]) return 1;\n        }\n        return\
-    \ 0;\n      }() * (lhs.m_positive ? 1 : -1);\n    }\n\n    ::tools::bigint& negate()\
-    \ {\n      if (!this->m_digits.empty()) {\n        this->m_positive = !this->m_positive;\n\
-    \      }\n      return *this;\n    }\n\n    ::tools::bigint& regularize(const\
-    \ int level) {\n      if (level > 0) {\n        if (level == 2) {\n          for\
-    \ (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n            this->m_digits[i\
-    \ + 1] += ::tools::quo(this->m_digits[i], BASE);\n            this->m_digits[i]\
-    \ = ::tools::mod(this->m_digits[i], BASE);\n          }\n        } else {\n  \
-    \        for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n   \
-    \         if (this->m_digits[i] < 0) {\n              this->m_digits[i] += BASE;\n\
-    \              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
-    \ >= BASE) {\n              this->m_digits[i] -= BASE;\n              ++this->m_digits[i\
-    \ + 1];\n            }\n          }\n        }\n        if (!this->m_digits.empty()\
-    \ && this->m_digits.back() < 0) {\n          this->m_positive = !this->m_positive;\n\
-    \          for (::std::size_t i = 0; i < this->m_digits.size(); ++i) {\n     \
-    \       this->m_digits[i] = -this->m_digits[i];\n          }\n          for (::std::size_t\
-    \ i = 0; i + 1 < this->m_digits.size(); ++i) {\n            if (this->m_digits[i]\
-    \ < 0) {\n              this->m_digits[i] = BASE + this->m_digits[i];\n      \
-    \        --this->m_digits[i + 1];\n            }\n          }\n        }\n   \
-    \     if (level == 2) {\n          while (!this->m_digits.empty() && this->m_digits.back()\
-    \ >= BASE) {\n            this->m_digits.push_back(this->m_digits.back() / BASE);\n\
-    \            this->m_digits[this->m_digits.size() - 2] %= BASE;\n          }\n\
-    \        } else {\n          if (!this->m_digits.empty() && this->m_digits.back()\
-    \ >= BASE) {\n            this->m_digits.back() -= BASE;\n            this->m_digits.push_back(1);\n\
-    \          }\n        }\n      }\n      while (!this->m_digits.empty() && this->m_digits.back()\
-    \ == 0) {\n        this->m_digits.pop_back();\n      }\n      if (this->m_digits.empty()\
-    \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
-    \ *this;\n    }\n\n    ::tools::bigint& internal_add(const ::tools::bigint& other,\
-    \ const bool plus) {\n      const bool this_positive = this->m_positive;\n   \
-    \   if (!this_positive) {\n        this->negate();\n      }\n      this->m_digits.resize(::std::max(this->m_digits.size(),\
-    \ other.m_digits.size()));\n      if (this_positive == (other.m_positive == plus))\
-    \ {\n        for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n   \
-    \       this->m_digits[i] += other.m_digits[i];\n        }\n      } else {\n \
-    \       for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n        \
-    \  this->m_digits[i] -= other.m_digits[i];\n        }\n      }\n      this->regularize(1);\n\
-    \      if (!this_positive) {\n        this->negate();\n      }\n      return *this;\n\
-    \    }\n\n  public:\n    bigint() : m_positive(true) {\n    }\n    bigint(const\
-    \ ::tools::bigint&) = default;\n    bigint(::tools::bigint&&) = default;\n   \
-    \ ~bigint() = default;\n    ::tools::bigint& operator=(const ::tools::bigint&)\
-    \ = default;\n    ::tools::bigint& operator=(::tools::bigint&&) = default;\n\n\
-    \    explicit bigint(const ::std::int_fast64_t n) : m_positive(true) {\n     \
-    \ this->m_digits.push_back(n);\n      this->regularize(2);\n    }\n    explicit\
-    \ bigint(const ::std::string& s) {\n      assert(!s.empty());\n\n      ::std::size_t\
-    \ offset;\n      if (s[0] == '+') {\n        this->m_positive = true;\n      \
-    \  offset = 1;\n      } else if (s[0] == '-') {\n        this->m_positive = false;\n\
-    \        offset = 1;\n      } else {\n        this->m_positive = true;\n     \
-    \   offset = 0;\n      }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size()\
-    \ - offset, LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset;\
-    \ i += LOG10_BASE) {\n        this->m_digits.push_back(0);\n        for (::std::size_t\
-    \ j = ::std::min(i + LOG10_BASE, s.size() - offset); j --> i;) {\n          this->m_digits.back()\
-    \ = this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n   \
-    \   }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive\
-    \ == rhs.m_positive && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n\
-    \    }\n    friend bool operator<(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint::compare_3way(lhs, rhs) < 0;\n    }\n \
-    \   friend bool operator>(const ::tools::bigint& lhs, const ::tools::bigint& rhs)\
-    \ {\n      return ::tools::bigint::compare_3way(lhs, rhs) > 0;\n    }\n    friend\
-    \ bool operator<=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
-    \      return ::tools::bigint::compare_3way(lhs, rhs) <= 0;\n    }\n    friend\
-    \ bool operator>=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
-    \      return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
-    \ operator+() const {\n      return *this;\n    }\n    ::tools::bigint operator-()\
-    \ const {\n      return ::tools::bigint(*this).negate();\n    }\n\n    ::tools::bigint&\
-    \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add(other,\
-    \ true);\n    }\n    ::tools::bigint& operator-=(const ::tools::bigint& other)\
-    \ {\n      return this->internal_add(other, false);\n    }\n    ::tools::bigint&\
-    \ operator*=(const ::tools::bigint& other) {\n      assert(this->m_digits.size()\
-    \ + other.m_digits.size() <= 33554432 + 1); // 2^25 + 1\n\n      ::std::vector<mint1>\
-    \ a1, b1;\n      ::std::vector<mint2> a2, b2;\n      a1.reserve(this->m_digits.size());\n\
-    \      a2.reserve(this->m_digits.size());\n      b1.reserve(other.m_digits.size());\n\
-    \      b2.reserve(other.m_digits.size());\n      for (const auto a_i : this->m_digits)\
-    \ {\n        a1.emplace_back(a_i);\n        a2.emplace_back(a_i);\n      }\n \
-    \     for (const auto b_i : other.m_digits) {\n        b1.emplace_back(b_i);\n\
-    \        b2.emplace_back(b_i);\n      }\n\n      const auto c1 = ::atcoder::convolution(a1,\
-    \ b1);\n      const auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
-    \      this->m_digits.reserve(c1.size() + 1);\n      ::std::int_fast64_t carry\
-    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Apply\
-    \ Garner's algorithm\n        ::std::int_fast64_t c_i = ((c2[i] - mint2::raw(c1[i].val()))\
-    \ * mint2::raw(MINT1_INV_MOD_MINT2)).val();\n        c_i *= mint1::mod();\n  \
-    \      c_i += c1[i].val();\n\n        // Here, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\n\
-    \n        c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n \
-    \       this->m_digits.push_back(c_i);\n      }\n      if (carry > 0) {\n    \
-    \    this->m_digits.push_back(carry);\n      }\n\n      this->m_positive = this->m_positive\
-    \ == other.m_positive;\n      if (this->m_digits.empty() && !this->m_positive)\
-    \ {\n        this->m_positive = true;\n      }\n      return *this;\n    }\n\n\
-    \    friend ::tools::bigint operator+(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint\
-    \ operator-(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
-    \ ::tools::bigint(lhs) -= rhs;\n    }\n    friend ::tools::bigint operator*(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
-    \ *= rhs;\n    }\n\n    friend ::std::istream& operator>>(::std::istream& is,\
-    \ ::tools::bigint& self) {\n      ::std::string s;\n      is >> s;\n      self\
-    \ = ::tools::bigint(s);\n      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::bigint& self) {\n      if (!self.m_positive) {\n        os\
-    \ << '-';\n      }\n      if (self.m_digits.empty()) {\n        return os << '0';\n\
-    \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
-    \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
-    \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
-    \    }\n  };\n}\n\n#endif\n"
+    \    }\n  };\n}\n\n\n#line 5 \"tests/bigint/multiplies.test.cpp\"\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint\
+    \ A, B;\n  std::cin >> A >> B;\n  std::cout << A * B << '\\n';\n  return 0;\n\
+    }\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F\"\n\n\
+    #include <iostream>\n#include \"tools/bigint.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint A, B;\n  std::cin\
+    \ >> A >> B;\n  std::cout << A * B << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
   - tools/ceil.hpp
   - tools/detail/ceil_and_floor.hpp
-  isVerificationFile: false
-  path: tools/bigint.hpp
+  isVerificationFile: true
+  path: tests/bigint/multiplies.test.cpp
   requiredBy: []
   timestamp: '2021-12-31 02:10:35+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
-documentation_of: tools/bigint.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/bigint/multiplies.test.cpp
 layout: document
 redirect_from:
-- /library/tools/bigint.hpp
-- /library/tools/bigint.hpp.html
-title: tools/bigint.hpp
+- /verify/tests/bigint/multiplies.test.cpp
+- /verify/tests/bigint/multiplies.test.cpp.html
+title: tests/bigint/multiplies.test.cpp
 ---

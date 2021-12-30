@@ -31,6 +31,9 @@ data:
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/multiplies.test.cpp
+    title: tests/bigint/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -90,6 +93,7 @@ data:
   verifiedWith:
   - tests/floor_log.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/ceil_log.test.cpp

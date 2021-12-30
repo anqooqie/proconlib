@@ -61,6 +61,9 @@ data:
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/multiplies.test.cpp
+    title: tests/bigint/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -137,6 +140,7 @@ data:
   - tests/divisors.test.cpp
   - tests/is_prime.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/tetration_mod.test.cpp
