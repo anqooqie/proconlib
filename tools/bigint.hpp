@@ -9,6 +9,8 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
+#include "atcoder/modint.hpp"
+#include "atcoder/convolution.hpp"
 #include "tools/quo.hpp"
 #include "tools/mod.hpp"
 #include "tools/ceil.hpp"
@@ -16,10 +18,14 @@
 namespace tools {
   class bigint {
   private:
+    using mint1 = ::atcoder::static_modint<167772161>; // 5 * 2^25 + 1
+    using mint2 = ::atcoder::static_modint<469762049>; // 7 * 2^26 + 1
+
     bool m_positive;
     ::std::vector<::std::int_fast32_t> m_digits;
     static constexpr ::std::int_fast32_t BASE = 10000;
     static constexpr ::std::int_fast32_t LOG10_BASE = 4;
+    static constexpr int MINT1_INV_MOD_MINT2 = 104391568; // 167772161^(-1) mod 469762049
 
     static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
       if (!lhs.m_positive && rhs.m_positive) return -1;
@@ -186,12 +192,63 @@ namespace tools {
     ::tools::bigint& operator-=(const ::tools::bigint& other) {
       return this->internal_add(other, false);
     }
+    ::tools::bigint& operator*=(const ::tools::bigint& other) {
+      assert(this->m_digits.size() + other.m_digits.size() <= 33554432 + 1); // 2^25 + 1
+
+      ::std::vector<mint1> a1, b1;
+      ::std::vector<mint2> a2, b2;
+      a1.reserve(this->m_digits.size());
+      a2.reserve(this->m_digits.size());
+      b1.reserve(other.m_digits.size());
+      b2.reserve(other.m_digits.size());
+      for (const auto a_i : this->m_digits) {
+        a1.emplace_back(a_i);
+        a2.emplace_back(a_i);
+      }
+      for (const auto b_i : other.m_digits) {
+        b1.emplace_back(b_i);
+        b2.emplace_back(b_i);
+      }
+
+      const auto c1 = ::atcoder::convolution(a1, b1);
+      const auto c2 = ::atcoder::convolution(a2, b2);
+
+      this->m_digits.clear();
+      this->m_digits.reserve(c1.size() + 1);
+      ::std::int_fast64_t carry = 0;
+      for (::std::size_t i = 0; i < c1.size(); ++i) {
+
+        // Apply Garner's algorithm
+        ::std::int_fast64_t c_i = ((c2[i] - mint2::raw(c1[i].val())) * mint2::raw(MINT1_INV_MOD_MINT2)).val();
+        c_i *= mint1::mod();
+        c_i += c1[i].val();
+
+        // Here, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216
+
+        c_i += carry;
+        carry = c_i / BASE;
+        c_i %= BASE;
+        this->m_digits.push_back(c_i);
+      }
+      if (carry > 0) {
+        this->m_digits.push_back(carry);
+      }
+
+      this->m_positive = this->m_positive == other.m_positive;
+      if (this->m_digits.empty() && !this->m_positive) {
+        this->m_positive = true;
+      }
+      return *this;
+    }
 
     friend ::tools::bigint operator+(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
       return ::tools::bigint(lhs) += rhs;
     }
     friend ::tools::bigint operator-(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
       return ::tools::bigint(lhs) -= rhs;
+    }
+    friend ::tools::bigint operator*(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
+      return ::tools::bigint(lhs) *= rhs;
     }
 
     friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self) {
