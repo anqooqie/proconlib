@@ -81,7 +81,9 @@ namespace tools {
         ++t;
       }
 
-      tour.pop_back();
+      if (this->size() > 1) {
+        tour.pop_back();
+      }
       this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());
     }
 
