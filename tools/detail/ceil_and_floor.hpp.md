@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bigint.hpp
+    title: tools/bigint.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -24,6 +27,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
@@ -71,6 +80,7 @@ data:
   requiredBy:
   - tools/round.hpp
   - tools/ceil.hpp
+  - tools/bigint.hpp
   - tools/floor_log.hpp
   - tools/floor.hpp
   - tools/segmented_sieve.hpp
@@ -80,6 +90,8 @@ data:
   verifiedWith:
   - tests/floor_log.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/ceil_log.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp

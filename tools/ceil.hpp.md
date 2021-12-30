@@ -6,6 +6,9 @@ data:
     title: tools/detail/ceil_and_floor.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bigint.hpp
+    title: tools/bigint.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':warning:'
@@ -18,6 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
@@ -61,12 +70,15 @@ data:
   path: tools/ceil.hpp
   requiredBy:
   - tools/round.hpp
+  - tools/bigint.hpp
   - tools/segmented_sieve.hpp
   - tools/ceil_log.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/segmented_sieve.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/ceil_log.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/ceil.hpp

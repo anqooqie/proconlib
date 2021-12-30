@@ -18,6 +18,9 @@ data:
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
     - icon: ':heavy_check_mark:'
+      path: tools/bigint.hpp
+      title: tools/bigint.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/binary_heap.hpp
       title: Binary heap
     - icon: ':heavy_check_mark:'
@@ -472,6 +475,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs.test.cpp
       title: tests/zero_one_bfs.test.cpp
+  - name: tests/bigint
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/bigint/minus.test.cpp
+      title: tests/bigint/minus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigint/plus.test.cpp
+      title: tests/bigint/plus.test.cpp
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'

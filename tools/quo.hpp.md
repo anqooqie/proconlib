@@ -6,6 +6,9 @@ data:
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
+    path: tools/bigint.hpp
+    title: tools/bigint.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
   - icon: ':heavy_check_mark:'
@@ -55,6 +58,12 @@ data:
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/convolution.test.cpp
     title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -103,6 +112,7 @@ data:
   path: tools/quo.hpp
   requiredBy:
   - tools/round.hpp
+  - tools/bigint.hpp
   - tools/pow_mod.hpp
   - tools/convolution.hpp
   - tools/extended_garner.hpp
@@ -127,6 +137,8 @@ data:
   - tests/divisors.test.cpp
   - tests/is_prime.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extgcd.test.cpp
   - tests/convolution.test.cpp
