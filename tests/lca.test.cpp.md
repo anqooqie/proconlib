@@ -153,13 +153,13 @@ data:
     \ ::std::size_t next : this->m_edges[here]) {\n            if (!will_visit[next])\
     \ {\n              stack.emplace(false, here, depth);\n              stack.emplace(true,\
     \ next, depth + 1);\n              will_visit[next] = true;\n            }\n \
-    \         }\n        }\n        ++t;\n      }\n\n      tour.pop_back();\n    \
-    \  this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());\n\
-    \    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t v) const {\n\
-    \      assert(u < this->size());\n      assert(v < this->size());\n\n      if\
-    \ (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n      }\n\n \
-    \     return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n    }\n\
-    \  };\n}\n\n\n#line 6 \"tests/lca.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \         }\n        }\n        ++t;\n      }\n\n      if (this->size() > 1) {\n\
+    \        tour.pop_back();\n      }\n      this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(),\
+    \ tour.end());\n    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t\
+    \ v) const {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \n      if (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n   \
+    \   }\n\n      return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n\
+    \    }\n  };\n}\n\n\n#line 6 \"tests/lca.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 N, Q;\n  std::cin >> N >> Q;\n  ::tools::lca lca(N);\n  for (i64 i = 1;\
     \ i <= N - 1; ++i) {\n    i64 p;\n    std::cin >> p;\n    lca.add_edge(i, p);\n\
@@ -184,7 +184,7 @@ data:
   isVerificationFile: true
   path: tests/lca.test.cpp
   requiredBy: []
-  timestamp: '2021-12-29 06:01:01+09:00'
+  timestamp: '2021-12-31 02:32:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lca.test.cpp

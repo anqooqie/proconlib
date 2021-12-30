@@ -149,13 +149,13 @@ data:
     \ ::std::size_t next : this->m_edges[here]) {\n            if (!will_visit[next])\
     \ {\n              stack.emplace(false, here, depth);\n              stack.emplace(true,\
     \ next, depth + 1);\n              will_visit[next] = true;\n            }\n \
-    \         }\n        }\n        ++t;\n      }\n\n      tour.pop_back();\n    \
-    \  this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());\n\
-    \    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t v) const {\n\
-    \      assert(u < this->size());\n      assert(v < this->size());\n\n      if\
-    \ (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n      }\n\n \
-    \     return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n    }\n\
-    \  };\n}\n\n\n"
+    \         }\n        }\n        ++t;\n      }\n\n      if (this->size() > 1) {\n\
+    \        tour.pop_back();\n      }\n      this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(),\
+    \ tour.end());\n    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t\
+    \ v) const {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \n      if (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n   \
+    \   }\n\n      return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n\
+    \    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_LCA_HPP\n#define TOOLS_LCA_HPP\n\n#include <utility>\n#include\
     \ <cstddef>\n#include <limits>\n#include <vector>\n#include <cassert>\n#include\
     \ <numeric>\n#include <stack>\n#include <tuple>\n#include \"tools/disjoint_sparse_table.hpp\"\
@@ -186,13 +186,13 @@ data:
     \ ::std::size_t next : this->m_edges[here]) {\n            if (!will_visit[next])\
     \ {\n              stack.emplace(false, here, depth);\n              stack.emplace(true,\
     \ next, depth + 1);\n              will_visit[next] = true;\n            }\n \
-    \         }\n        }\n        ++t;\n      }\n\n      tour.pop_back();\n    \
-    \  this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(), tour.end());\n\
-    \    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t v) const {\n\
-    \      assert(u < this->size());\n      assert(v < this->size());\n\n      if\
-    \ (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n      }\n\n \
-    \     return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n    }\n\
-    \  };\n}\n\n#endif\n"
+    \         }\n        }\n        ++t;\n      }\n\n      if (this->size() > 1) {\n\
+    \        tour.pop_back();\n      }\n      this->m_dst = ::tools::disjoint_sparse_table<monoid>(tour.begin(),\
+    \ tour.end());\n    }\n\n    ::std::size_t query(::std::size_t u, ::std::size_t\
+    \ v) const {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \n      if (this->m_in[v] < this->m_in[u]) {\n        ::std::swap(u, v);\n   \
+    \   }\n\n      return this->m_dst.prod(this->m_in[u], this->m_in[v] + 1).first;\n\
+    \    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/disjoint_sparse_table.hpp
   - tools/ceil_log2.hpp
@@ -202,7 +202,7 @@ data:
   isVerificationFile: false
   path: tools/lca.hpp
   requiredBy: []
-  timestamp: '2021-12-29 06:01:01+09:00'
+  timestamp: '2021-12-31 02:32:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lca.test.cpp
