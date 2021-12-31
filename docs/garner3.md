@@ -7,7 +7,7 @@ documentation_of: //tools/garner3.hpp
 std::int_fast64_t garner3(atcoder::static_modint<167772161> a, atcoder::static_modint<469762049> b, atcoder::static_modint<754974721> c, std::int_fast64_t m);
 ```
 
-It solves the following modular equation system and returns $x \bmod m$.
+It solves the following modular equation system and returns $(x \bmod 59501818244292734739283969) \bmod m$.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
