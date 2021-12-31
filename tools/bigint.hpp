@@ -14,18 +14,19 @@
 #include "tools/quo.hpp"
 #include "tools/mod.hpp"
 #include "tools/ceil.hpp"
+#include "tools/garner2.hpp"
+#include "tools/pow2.hpp"
 
 namespace tools {
   class bigint {
   private:
-    using mint1 = ::atcoder::static_modint<167772161>; // 5 * 2^25 + 1
-    using mint2 = ::atcoder::static_modint<469762049>; // 7 * 2^26 + 1
+    using mint1 = ::atcoder::static_modint<167772161>;
+    using mint2 = ::atcoder::static_modint<469762049>;
 
     bool m_positive;
     ::std::vector<::std::int_fast32_t> m_digits;
     static constexpr ::std::int_fast32_t BASE = 10000;
     static constexpr ::std::int_fast32_t LOG10_BASE = 4;
-    static constexpr int MINT1_INV_MOD_MINT2 = 104391568; // 167772161^(-1) mod 469762049
 
     static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
       if (!lhs.m_positive && rhs.m_positive) return -1;
@@ -193,7 +194,8 @@ namespace tools {
       return this->internal_add(other, false);
     }
     ::tools::bigint& operator*=(const ::tools::bigint& other) {
-      assert(this->m_digits.size() + other.m_digits.size() <= 33554432 + 1); // 2^25 + 1
+      // Constraint derived from atcoder::convolution
+      assert(this->m_digits.size() + other.m_digits.size() <= ::tools::pow2(25) + 1);
 
       ::std::vector<mint1> a1, b1;
       ::std::vector<mint2> a2, b2;
@@ -202,12 +204,12 @@ namespace tools {
       b1.reserve(other.m_digits.size());
       b2.reserve(other.m_digits.size());
       for (const auto a_i : this->m_digits) {
-        a1.emplace_back(a_i);
-        a2.emplace_back(a_i);
+        a1.push_back(mint1::raw(a_i));
+        a2.push_back(mint2::raw(a_i));
       }
       for (const auto b_i : other.m_digits) {
-        b1.emplace_back(b_i);
-        b2.emplace_back(b_i);
+        b1.push_back(mint1::raw(b_i));
+        b2.push_back(mint2::raw(b_i));
       }
 
       const auto c1 = ::atcoder::convolution(a1, b1);
@@ -218,12 +220,10 @@ namespace tools {
       ::std::int_fast64_t carry = 0;
       for (::std::size_t i = 0; i < c1.size(); ++i) {
 
-        // Apply Garner's algorithm
-        ::std::int_fast64_t c_i = ((c2[i] - mint2::raw(c1[i].val())) * mint2::raw(MINT1_INV_MOD_MINT2)).val();
-        c_i *= mint1::mod();
-        c_i += c1[i].val();
-
-        // Here, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216
+        // Since a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(), other.m_digits.size()) holds.
+        // In addition, since this->m_digits.size() + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216 holds eventually.
+        // 1677386072457216 < 167772161 * 469762049 = 78812994116517889 holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049) by CRT.
+        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i], ::tools::pow2<::std::int_fast64_t>(51));
 
         c_i += carry;
         carry = c_i / BASE;
