@@ -2,20 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/extgcd.hpp
-    title: Extended Euclidean algorithm
+    path: tools/garner3.hpp
+    title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
+      754974721$
   - icon: ':heavy_check_mark:'
-    path: tools/garner.hpp
-    title: Garner's algorithm
+    path: tools/pow2.hpp
+    title: $2^x$
   - icon: ':heavy_check_mark:'
-    path: tools/inv_mod.hpp
-    title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
-    path: tools/mod.hpp
-    title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
-    path: tools/quo.hpp
-    title: Quotient as integer division
+    path: tools/prod_mod.hpp
+    title: $x \cdot y \pmod{M}$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -27,27 +22,27 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cstddef>\n#include <array>\n#include <cstdint>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    #include <vector>\n#include <cassert>\n#include <cstddef>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line\
+    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -235,7 +230,7 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#include <algorithm>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#include <algorithm>\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
@@ -391,55 +386,86 @@ data:
     \     if (diff < 0) diff += MOD1;\n        static constexpr unsigned long long\
     \ offset[5] = {\n            0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};\n        x\
     \ -= offset[diff % 5];\n        c[i] = x;\n    }\n\n    return c;\n}\n\n}  //\
-    \ namespace atcoder\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
-    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1\
-    \ \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
-    \ prev_r, T r) {\n    T prev_s = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t\
-    \ = 1;\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r, r);\n   \
-    \   const T next_r = prev_r - q * r;\n      prev_r = r;\n      r = next_r;\n \
-    \     const T next_s = prev_s - q * s;\n      prev_s = s;\n      s = next_s;\n\
-    \      const T next_t = prev_t - q * t;\n      prev_t = t;\n      t = next_t;\n\
-    \    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return {prev_s, prev_t,\
-    \ prev_r};\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1 x, const\
-    \ T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd\
-    \ == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\
-    \n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n// License:\
-    \ unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename Iterator,\
-    \ typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t> garner(const\
-    \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<::std::int_fast64_t>\
-    \ b, m;\n    for (auto it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first,\
-    \ it->second));\n      m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t\
-    \ lcm = 1;\n    for (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *=\
-    \ m[i]) %= mod;\n    }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t>\
-    \ coeffs(m.size(), 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(),\
-    \ 0);\n    for (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t\
-    \ t = ::tools::mod((b[k] - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]),\
-    \ m[k]);\n      for (::std::size_t i = k + 1; i < m.size(); ++i) {\n        (constants[i]\
-    \ += t * coeffs[i]) %= m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n\
-    \    }\n\n    return ::std::make_pair(constants.back(), lcm);\n  }\n\n  template\
-    \ <typename M, typename Iterator>\n  ::std::pair<M, M> garner(const Iterator&\
-    \ begin, const Iterator& end) {\n    const auto [y, z] = ::tools::garner(begin,\
-    \ end, M::mod());\n    return ::std::make_pair(M::raw(y), M::raw(z));\n  }\n}\n\
-    \n\n#line 12 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ namespace atcoder\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/garner3.hpp\"\
+    \n\n\n\n#include <cstdint>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const\
+    \ T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128\
+    \ prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if\
+    \ ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
+    \  }\n}\n\n\n#line 8 \"tools/garner3.hpp\"\n\nnamespace tools {\n\n  inline ::std::int_fast64_t\
+    \ garner3(const ::atcoder::static_modint<167772161>& a, const ::atcoder::static_modint<469762049>&\
+    \ b, const ::atcoder::static_modint<754974721>& c, const ::std::int_fast64_t m)\
+    \ {\n    assert(m >= 1);\n\n    using mint1 = ::atcoder::static_modint<167772161>;\
+    \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
+    \ * 2^26 + 1\n    using mint3 = ::atcoder::static_modint<754974721>; // 45 * 2^24\
+    \ + 1\n    using u64 = ::std::uint_fast64_t;\n    static const mint2 m1_inv_mod_m2\
+    \ = mint2::raw(mint1::mod()).inv();\n    static const mint3 m1_m2_inv_mod_m3 =\
+    \ (mint3::raw(mint1::mod()) * mint3::raw(mint2::mod())).inv();\n\n    static const\
+    \ auto plus_mod = [](u64 x, const u64 y, const u64 mod) {\n      x += y;\n   \
+    \   if (x >= mod) x -= mod;\n      return x; \n    };\n\n    // t1 = (b - a) /\
+    \ 167772161; (mod 469762049)\n    // t2 = (c - a - t1 * 167772161) / 167772161\
+    \ / 469762049; (mod 754974721)\n    // return a + t1 * 167772161 + t2 * 167772161\
+    \ * 469762049; (mod m)\n    const mint2 t1 = (b - mint2::raw(a.val())) * m1_inv_mod_m2;\n\
+    \    const mint3 t2 = (c - mint3::raw(a.val()) - mint3::raw(t1.val()) * mint3::raw(mint1::mod()))\
+    \ * m1_m2_inv_mod_m3;\n    ::std::uint_fast64_t r = ::tools::prod_mod(t2.val(),\
+    \ u64(mint1::mod()) * u64(mint2::mod()), m);\n    r = plus_mod(r, u64(t1.val())\
+    \ * u64(mint1::mod()), m);\n    r = plus_mod(r, a.val(), m);\n    return r;\n\
+    \  }\n}\n\n\n#line 12 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ InputIterator& a_begin, const InputIterator& a_end, const InputIterator& b_begin,\
+    \ const InputIterator& b_end, OutputIterator result) {\n    using mint = ::std::decay_t<decltype(*a_begin)>;\n\
+    \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
+    \    using mint3 = ::atcoder::static_modint<754974721>;\n\n    ::std::vector<mint>\
+    \ a(a_begin, a_end);\n    ::std::vector<mint> b(b_begin, b_end);\n\n    // Well-known\
+    \ NTT-friendly primes:\n    // 998244353 = 119 * 2^23 + 1\n    // 754974721 =\
+    \ 45 * 2^24 + 1\n    // 167772161 = 5 * 2^25 + 1\n    // 469762049 = 7 * 2^26\
+    \ + 1\n    if (mint::mod() == 998244353 || mint::mod() == mint1::mod() || mint::mod()\
+    \ == mint2::mod() || mint::mod() == mint3::mod()) {\n      for (const auto& c_i\
+    \ : ::atcoder::convolution(a, b)) {\n        *result = c_i;\n        ++result;\n\
+    \      }\n      return;\n    }\n\n    assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n    // min(a.size(), b.size()) * ((mint::mod() - 1) ** 2) < 167772161\
+    \ * 469762049 * 754974721 also must holds.\n    // We can solve the above equation\
+    \ and finds that mint::mod() <= 2663300487.\n    // However, atcoder::modint requires\
+    \ that mint::mod() <= 2000001000 in the first place, so no need for another assertion.\n\
+    \n    ::std::vector<mint1> a1;\n    ::std::vector<mint2> a2;\n    ::std::vector<mint3>\
+    \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
+    \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
+    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<mint1> b1;\n  \
+    \  ::std::vector<mint2> b2;\n    ::std::vector<mint3> b3;\n    b1.reserve(b.size());\n\
+    \    b2.reserve(b.size());\n    b3.reserve(b.size());\n    for (const auto& b_i\
+    \ : b) {\n      b1.emplace_back(b_i.val());\n      b2.emplace_back(b_i.val());\n\
+    \      b3.emplace_back(b_i.val());\n    }\n\n    const ::std::vector<mint1> c1\
+    \ = ::atcoder::convolution(a1, b1);\n    const ::std::vector<mint2> c2 = ::atcoder::convolution(a2,\
+    \ b2);\n    const ::std::vector<mint3> c3 = ::atcoder::convolution(a3, b3);\n\
+    \    for (::std::size_t i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result\
+    \ = ::tools::garner3(c1[i], c2[i], c3[i], mint::mod());\n      ++result;\n   \
+    \ }\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
+    \ <type_traits>\n#include <vector>\n#include <cassert>\n#include <cstddef>\n#include\
+    \ \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\n#include \"tools/pow2.hpp\"\
+    \n#include \"tools/garner3.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ InputIterator, typename OutputIterator>\n  void convolution(const InputIterator&\
     \ a_begin, const InputIterator& a_end, const InputIterator& b_begin, const InputIterator&\
     \ b_end, OutputIterator result) {\n    using mint = ::std::decay_t<decltype(*a_begin)>;\n\
-    \    using mint1 = ::atcoder::static_modint<754974721>;\n    using mint2 = ::atcoder::static_modint<167772161>;\n\
-    \    using mint3 = ::atcoder::static_modint<469762049>;\n\n    ::std::vector<mint>\
-    \ a(a_begin, a_end);\n    ::std::vector<mint> b(b_begin, b_end);\n\n    if (mint::mod()\
-    \ == 998244353) {\n      for (const auto& c_i : ::atcoder::convolution(a, b))\
-    \ {\n        *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\
+    \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
+    \    using mint3 = ::atcoder::static_modint<754974721>;\n\n    ::std::vector<mint>\
+    \ a(a_begin, a_end);\n    ::std::vector<mint> b(b_begin, b_end);\n\n    // Well-known\
+    \ NTT-friendly primes:\n    // 998244353 = 119 * 2^23 + 1\n    // 754974721 =\
+    \ 45 * 2^24 + 1\n    // 167772161 = 5 * 2^25 + 1\n    // 469762049 = 7 * 2^26\
+    \ + 1\n    if (mint::mod() == 998244353 || mint::mod() == mint1::mod() || mint::mod()\
+    \ == mint2::mod() || mint::mod() == mint3::mod()) {\n      for (const auto& c_i\
+    \ : ::atcoder::convolution(a, b)) {\n        *result = c_i;\n        ++result;\n\
+    \      }\n      return;\n    }\n\n    assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n    // min(a.size(), b.size()) * ((mint::mod() - 1) ** 2) < 167772161\
+    \ * 469762049 * 754974721 also must holds.\n    // We can solve the above equation\
+    \ and finds that mint::mod() <= 2663300487.\n    // However, atcoder::modint requires\
+    \ that mint::mod() <= 2000001000 in the first place, so no need for another assertion.\n\
     \n    ::std::vector<mint1> a1;\n    ::std::vector<mint2> a2;\n    ::std::vector<mint3>\
     \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
     \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
@@ -450,48 +476,17 @@ data:
     \      b3.emplace_back(b_i.val());\n    }\n\n    const ::std::vector<mint1> c1\
     \ = ::atcoder::convolution(a1, b1);\n    const ::std::vector<mint2> c2 = ::atcoder::convolution(a2,\
     \ b2);\n    const ::std::vector<mint3> c3 = ::atcoder::convolution(a3, b3);\n\
-    \    for (::std::size_t i = 0; i < a.size() + b.size() - 1; ++i) {\n      const\
-    \ ::std::array<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>, 3> ntt({{\n\
-    \        {c1[i].val(), mint1::mod()},\n        {c2[i].val(), mint2::mod()},\n\
-    \        {c3[i].val(), mint3::mod()},\n      }});\n      *result = ::tools::garner<mint>(ntt.begin(),\
-    \ ntt.end()).first;\n      ++result;\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <array>\n#include\
-    \ <cstdint>\n#include \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\
-    \n#include \"tools/garner.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator,\
-    \ typename OutputIterator>\n  void convolution(const InputIterator& a_begin, const\
-    \ InputIterator& a_end, const InputIterator& b_begin, const InputIterator& b_end,\
-    \ OutputIterator result) {\n    using mint = ::std::decay_t<decltype(*a_begin)>;\n\
-    \    using mint1 = ::atcoder::static_modint<754974721>;\n    using mint2 = ::atcoder::static_modint<167772161>;\n\
-    \    using mint3 = ::atcoder::static_modint<469762049>;\n\n    ::std::vector<mint>\
-    \ a(a_begin, a_end);\n    ::std::vector<mint> b(b_begin, b_end);\n\n    if (mint::mod()\
-    \ == 998244353) {\n      for (const auto& c_i : ::atcoder::convolution(a, b))\
-    \ {\n        *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\
-    \n    ::std::vector<mint1> a1;\n    ::std::vector<mint2> a2;\n    ::std::vector<mint3>\
-    \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
-    \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
-    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<mint1> b1;\n  \
-    \  ::std::vector<mint2> b2;\n    ::std::vector<mint3> b3;\n    b1.reserve(b.size());\n\
-    \    b2.reserve(b.size());\n    b3.reserve(b.size());\n    for (const auto& b_i\
-    \ : b) {\n      b1.emplace_back(b_i.val());\n      b2.emplace_back(b_i.val());\n\
-    \      b3.emplace_back(b_i.val());\n    }\n\n    const ::std::vector<mint1> c1\
-    \ = ::atcoder::convolution(a1, b1);\n    const ::std::vector<mint2> c2 = ::atcoder::convolution(a2,\
-    \ b2);\n    const ::std::vector<mint3> c3 = ::atcoder::convolution(a3, b3);\n\
-    \    for (::std::size_t i = 0; i < a.size() + b.size() - 1; ++i) {\n      const\
-    \ ::std::array<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>, 3> ntt({{\n\
-    \        {c1[i].val(), mint1::mod()},\n        {c2[i].val(), mint2::mod()},\n\
-    \        {c3[i].val(), mint3::mod()},\n      }});\n      *result = ::tools::garner<mint>(ntt.begin(),\
-    \ ntt.end()).first;\n      ++result;\n    }\n  }\n}\n\n#endif\n"
+    \    for (::std::size_t i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result\
+    \ = ::tools::garner3(c1[i], c2[i], c3[i], mint::mod());\n      ++result;\n   \
+    \ }\n  }\n}\n\n#endif\n"
   dependsOn:
-  - tools/garner.hpp
-  - tools/mod.hpp
-  - tools/quo.hpp
-  - tools/inv_mod.hpp
-  - tools/extgcd.hpp
+  - tools/pow2.hpp
+  - tools/garner3.hpp
+  - tools/prod_mod.hpp
   isVerificationFile: false
   path: tools/convolution.hpp
   requiredBy: []
-  timestamp: '2021-12-29 17:12:53+09:00'
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/convolution.test.cpp
@@ -505,7 +500,7 @@ template <typename InputIterator, typename OutputIterator>
 void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
 ```
 
-Given two sequences $(a_0, a_1, \ldots, a_{N - 1})$ and $(b_0, b_1, \ldots, b_{M - 1})$, it returns the sequence $(c_0, c_1, \ldots, c_{N + M - 2})$ where
+Given two sequences $(a_0, a_1, \ldots, a_{N - 1})$ and $(b_0, b_1, \ldots, b_{M - 1})$ under $\mathbb{Z}/m\mathbb{Z}$, it returns the sequence $(c_0, c_1, \ldots, c_{N + M - 2})$ under $\mathbb{Z}/m\mathbb{Z}$ where
 
 $$\begin{align*}
 c_i = \sum_{j = 0}^i a_j b_{i - j}
@@ -513,6 +508,10 @@ c_i = \sum_{j = 0}^i a_j b_{i - j}
 
 ## Constraints
 - `std::decay_t<decltype(*a_begin)>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
+- $N + M - 1 \leq 2^{23} = 8388608$ if $m = 998244353$
+- $N + M - 1 \leq 2^{25} = 33554432$ if $m = 167772161$
+- $N + M - 1 \leq 2^{26} = 67108864$ if $m = 469762049$
+- $N + M - 1 \leq 2^{24} = 16777216$ if $m \notin \\{998244353, 167772161, 469762049\\}$
 
 ## Time Complexity
 - $O((N + M) \log (N + M))$

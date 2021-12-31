@@ -11,8 +11,14 @@ data:
     path: tools/detail/ceil_and_floor.hpp
     title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
+    path: tools/garner2.hpp
+    title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
+  - icon: ':heavy_check_mark:'
+    path: tools/pow2.hpp
+    title: $2^x$
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
@@ -417,13 +423,28 @@ data:
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
     \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 17 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
-    \    using mint1 = ::atcoder::static_modint<167772161>; // 5 * 2^25 + 1\n    using\
-    \ mint2 = ::atcoder::static_modint<469762049>; // 7 * 2^26 + 1\n\n    bool m_positive;\n\
+    \n#line 1 \"tools/garner2.hpp\"\n\n\n\n#line 7 \"tools/garner2.hpp\"\n\nnamespace\
+    \ tools {\n\n  inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
+    \ a, const ::atcoder::static_modint<469762049>& b, const ::std::int_fast64_t m)\
+    \ {\n    assert(m >= 1);\n\n    using mint1 = ::atcoder::static_modint<167772161>;\
+    \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
+    \ * 2^26 + 1\n    static const mint2 m1_inv_mod_m2 = mint2::raw(mint1::mod()).inv();\n\
+    \n    // t = (b - a) / 167772161; (mod 469762049)\n    // return a + t * 167772161;\
+    \ (mod m)\n    const mint2 t = (b - mint2::raw(a.val())) * m1_inv_mod_m2;\n  \
+    \  ::std::uint_fast64_t r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
+    \    r %= m;\n    return r;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 19 \"tools/bigint.hpp\"\
+    \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
-    \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
-    \  static constexpr int MINT1_INV_MOD_MINT2 = 104391568; // 167772161^(-1) mod\
-    \ 469762049\n\n    static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint&\
+    \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n\n\
+    \    static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint&\
     \ rhs) {\n      if (!lhs.m_positive && rhs.m_positive) return -1;\n      if (lhs.m_positive\
     \ && !rhs.m_positive) return 1;\n      return [&]() {\n        if (lhs.m_digits.size()\
     \ < rhs.m_digits.size()) return -1;\n        if (lhs.m_digits.size() > rhs.m_digits.size())\
@@ -498,20 +519,24 @@ data:
     \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add(other,\
     \ true);\n    }\n    ::tools::bigint& operator-=(const ::tools::bigint& other)\
     \ {\n      return this->internal_add(other, false);\n    }\n    ::tools::bigint&\
-    \ operator*=(const ::tools::bigint& other) {\n      assert(this->m_digits.size()\
-    \ + other.m_digits.size() <= 33554432 + 1); // 2^25 + 1\n\n      ::std::vector<mint1>\
-    \ a1, b1;\n      ::std::vector<mint2> a2, b2;\n      a1.reserve(this->m_digits.size());\n\
-    \      a2.reserve(this->m_digits.size());\n      b1.reserve(other.m_digits.size());\n\
-    \      b2.reserve(other.m_digits.size());\n      for (const auto a_i : this->m_digits)\
-    \ {\n        a1.emplace_back(a_i);\n        a2.emplace_back(a_i);\n      }\n \
-    \     for (const auto b_i : other.m_digits) {\n        b1.emplace_back(b_i);\n\
-    \        b2.emplace_back(b_i);\n      }\n\n      const auto c1 = ::atcoder::convolution(a1,\
-    \ b1);\n      const auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
+    \ operator*=(const ::tools::bigint& other) {\n      // Constraint derived from\
+    \ atcoder::convolution\n      assert(this->m_digits.size() + other.m_digits.size()\
+    \ <= ::tools::pow2(25) + 1);\n\n      ::std::vector<mint1> a1, b1;\n      ::std::vector<mint2>\
+    \ a2, b2;\n      a1.reserve(this->m_digits.size());\n      a2.reserve(this->m_digits.size());\n\
+    \      b1.reserve(other.m_digits.size());\n      b2.reserve(other.m_digits.size());\n\
+    \      for (const auto a_i : this->m_digits) {\n        a1.push_back(mint1::raw(a_i));\n\
+    \        a2.push_back(mint2::raw(a_i));\n      }\n      for (const auto b_i :\
+    \ other.m_digits) {\n        b1.push_back(mint1::raw(b_i));\n        b2.push_back(mint2::raw(b_i));\n\
+    \      }\n\n      const auto c1 = ::atcoder::convolution(a1, b1);\n      const\
+    \ auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
     \      this->m_digits.reserve(c1.size() + 1);\n      ::std::int_fast64_t carry\
-    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Apply\
-    \ Garner's algorithm\n        ::std::int_fast64_t c_i = ((c2[i] - mint2::raw(c1[i].val()))\
-    \ * mint2::raw(MINT1_INV_MOD_MINT2)).val();\n        c_i *= mint1::mod();\n  \
-    \      c_i += c1[i].val();\n\n        // Here, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\n\
+    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since\
+    \ a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
+    \ other.m_digits.size()) holds.\n        // In addition, since this->m_digits.size()\
+    \ + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\
+    \ holds eventually.\n        // 1677386072457216 < 167772161 * 469762049 = 78812994116517889\
+    \ holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049)\
+    \ by CRT.\n        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i], ::tools::pow2<::std::int_fast64_t>(51));\n\
     \n        c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n \
     \       this->m_digits.push_back(c_i);\n      }\n      if (carry > 0) {\n    \
     \    this->m_digits.push_back(carry);\n      }\n\n      this->m_positive = this->m_positive\
@@ -544,10 +569,12 @@ data:
   - tools/mod.hpp
   - tools/ceil.hpp
   - tools/detail/ceil_and_floor.hpp
+  - tools/garner2.hpp
+  - tools/pow2.hpp
   isVerificationFile: true
   path: tests/bigint/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2021-12-31 02:10:35+09:00'
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigint/multiplies.test.cpp

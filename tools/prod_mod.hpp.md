@@ -3,11 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/convolution.hpp
+    title: Arbitrary modulus convolution
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
+    path: tools/garner3.hpp
+    title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
+      754974721$
   - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
@@ -24,6 +31,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution.test.cpp
+    title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -50,27 +60,29 @@ data:
   bundledCode: "#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template\
     \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
     \ const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod\
-    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if (((x >= 0)\
-    \ ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n\
-    }\n\n\n"
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
+    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
+    \n"
   code: "#ifndef TOOLS_PROD_MOD_HPP\n#define TOOLS_PROD_MOD_HPP\n\nnamespace tools\
     \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const\
     \ T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128\
     \ prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if\
-    \ (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
+    \ ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
     \  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
   - tools/pow_mod.hpp
+  - tools/convolution.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
   - tools/totient.hpp
-  timestamp: '2021-03-29 00:30:01+09:00'
+  - tools/garner3.hpp
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
@@ -79,6 +91,7 @@ data:
   - tests/divisors.test.cpp
   - tests/is_prime.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/convolution.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document
 title: $x \cdot y \pmod{M}$

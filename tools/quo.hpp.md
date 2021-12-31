@@ -9,9 +9,6 @@ data:
     path: tools/bigint.hpp
     title: tools/bigint.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/convolution.hpp
-    title: Arbitrary modulus convolution
-  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -67,9 +64,6 @@ data:
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/convolution.test.cpp
-    title: tests/convolution.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
@@ -117,7 +111,6 @@ data:
   - tools/round.hpp
   - tools/bigint.hpp
   - tools/pow_mod.hpp
-  - tools/convolution.hpp
   - tools/extended_garner.hpp
   - tools/prime_factorization.hpp
   - tools/mod.hpp
@@ -145,7 +138,6 @@ data:
   - tests/bigint/minus.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extgcd.test.cpp
-  - tests/convolution.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/quo.hpp
 layout: document

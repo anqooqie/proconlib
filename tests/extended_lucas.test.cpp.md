@@ -268,39 +268,39 @@ data:
     \n\n\n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
     \  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128\
     \ = unsigned __int128;\n    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >=\
-    \ 0 ? y : -y) % u128(m);\n    if (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m)\
-    \ - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
-    \    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n      if (rhs >=\
-    \ 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n        return\
-    \ (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\
+    \ 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n\
+    \    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
-    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
-    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
-    \  constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {\n    if (m == 1) return\
-    \ 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x, m);\n    while (n > 0) {\n   \
-    \   if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r, y, m);\n      }\n   \
-    \   y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n    return r;\n  }\n\
-    }\n\n\n#line 8 \"tools/is_prime.hpp\"\n\nnamespace tools {\n\n  constexpr bool\
-    \ is_prime(const ::std::uint_fast64_t n) {\n    constexpr ::std::array<::std::uint_fast64_t,\
-    \ 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};\n\n    if (n\
-    \ <= 1) return false;\n    if (n == 2) return true;\n    if (n % 2 == 0) return\
-    \ false;\n\n    ::std::uint_fast64_t d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\
-    \n    for (const ::std::uint_fast64_t a : bases) {\n      if (a % n == 0) return\
-    \ true;\n\n      ::std::uint_fast64_t power = d;\n      ::std::uint_fast64_t target\
-    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
-    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
-    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
-    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
-    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 5 \"tools/pow2.hpp\"\n#include <cstddef>\n\
-    \nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
+    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
+    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
+    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
+    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
+    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
+    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
+    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
+    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
+    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
+    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
+    \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
+    \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
+    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
+    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
+    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
+    \ true;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 5 \"tools/pow2.hpp\"\
+    \n#include <cstddef>\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\
@@ -485,7 +485,7 @@ data:
   isVerificationFile: true
   path: tests/extended_lucas.test.cpp
   requiredBy: []
-  timestamp: '2021-12-12 15:02:26+09:00'
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extended_lucas.test.cpp

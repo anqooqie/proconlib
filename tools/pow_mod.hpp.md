@@ -67,13 +67,13 @@ data:
     \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
     \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n\
     \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
-    \    if (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m) - prod_mod;\n    return\
-    \ prod_mod;\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
-    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
-    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
-    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n"
+    \    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
+    \  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const T1 x,\
+    \ T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x,\
+    \ m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r,\
+    \ y, m);\n      }\n      y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n\
+    \    return r;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_POW_MOD_HPP\n#define TOOLS_POW_MOD_HPP\n\n#include \"tools/mod.hpp\"\
     \n#include \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const T1 x, T2 n, const\
@@ -94,7 +94,7 @@ data:
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
   - tools/totient.hpp
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp

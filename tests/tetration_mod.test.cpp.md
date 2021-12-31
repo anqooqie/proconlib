@@ -103,9 +103,9 @@ data:
     \n\n\n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
     \  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128\
     \ = unsigned __int128;\n    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >=\
-    \ 0 ? y : -y) % u128(m);\n    if (((x >= 0) ^ (y >= 0)) == 1) prod_mod = u128(m)\
-    \ - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
+    \ 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n\
+    \    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
     \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
     \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
@@ -302,7 +302,7 @@ data:
   isVerificationFile: true
   path: tests/tetration_mod.test.cpp
   requiredBy: []
-  timestamp: '2021-12-12 15:02:26+09:00'
+  timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tetration_mod.test.cpp

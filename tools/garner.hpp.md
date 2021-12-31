@@ -15,9 +15,6 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: tools/convolution.hpp
-    title: Arbitrary modulus convolution
-  - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
   - icon: ':heavy_check_mark:'
@@ -27,9 +24,6 @@ data:
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/convolution.test.cpp
-    title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
@@ -115,7 +109,6 @@ data:
   isVerificationFile: false
   path: tools/garner.hpp
   requiredBy:
-  - tools/convolution.hpp
   - tools/extended_garner.hpp
   - tools/extended_lucas.hpp
   - tools/tetration_mod.hpp
@@ -125,7 +118,6 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/convolution.test.cpp
 documentation_of: tools/garner.hpp
 layout: document
 title: Garner's algorithm

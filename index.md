@@ -113,6 +113,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/garner.hpp
       title: Garner's algorithm
+    - icon: ':heavy_check_mark:'
+      path: tools/garner2.hpp
+      title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
+    - icon: ':heavy_check_mark:'
+      path: tools/garner3.hpp
+      title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
+        754974721$
     - icon: ':warning:'
       path: tools/greater_by.hpp
       title: std::greater by key

@@ -3,8 +3,14 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bigint.hpp
+    title: tools/bigint.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
+  - icon: ':heavy_check_mark:'
+    path: tools/convolution.hpp
+    title: Arbitrary modulus convolution
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
@@ -34,8 +40,20 @@ data:
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/multiplies.test.cpp
+    title: tests/bigint/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution.test.cpp
+    title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -89,7 +107,9 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/bigint.hpp
   - tools/lca.hpp
+  - tools/convolution.hpp
   - tools/prime_factorization.hpp
   - tools/li_chao_segtree.hpp
   - tools/extended_lucas.hpp
@@ -107,9 +127,13 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
   - tests/lca.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/ssize.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/convolution.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/binary_heap.test.cpp
