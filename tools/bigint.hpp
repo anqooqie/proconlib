@@ -10,6 +10,7 @@
 #include <utility>
 #include <iostream>
 #include <iomanip>
+#include <numeric>
 #include "atcoder/modint.hpp"
 #include "atcoder/convolution.hpp"
 #include "tools/quo.hpp"
@@ -46,11 +47,6 @@ namespace tools {
       }
       return 0;
     }
-    static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
-      if (!lhs.m_positive && rhs.m_positive) return -1;
-      if (lhs.m_positive && !rhs.m_positive) return 1;
-      return ::tools::bigint::compare_3way_abs(lhs, rhs) * (lhs.m_positive ? 1 : -1);
-    }
 
   public:
     ::tools::bigint& negate() {
@@ -73,6 +69,11 @@ namespace tools {
     ::tools::bigint& divide_by_pow10000(const ::std::ptrdiff_t exponent) {
       this->multiply_by_pow10000(-exponent);
       return *this;
+    }
+    static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
+      if (!lhs.m_positive && rhs.m_positive) return -1;
+      if (lhs.m_positive && !rhs.m_positive) return 1;
+      return ::tools::bigint::compare_3way_abs(lhs, rhs) * (lhs.m_positive ? 1 : -1);
     }
     int signum() const {
       if (!this->m_positive) return -1;
@@ -459,6 +460,21 @@ namespace tools {
       return os;
     }
   };
+}
+
+namespace std {
+  template <>
+  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint x, ::tools::bigint y) {
+    if (x.signum() < 0) x.negate();
+    if (y.signum() < 0) y.negate();
+
+    while (y.signum() != 0) {
+      x %= y;
+      ::std::swap(x, y);
+    }
+
+    return x;
+  }
 }
 
 #endif

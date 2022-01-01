@@ -76,6 +76,27 @@ It updates $x$ to $10000^{-e} x$ rounded towards zero, and returns the updated $
 ### Time Complexity
 - $O(\log \|x\| + \max(0, -e))$
 
+## compare_3way
+```cpp
+int bigint::compare_3way(const bigint& x, const bigint& y);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+-1 & \text{(if $x < y$)}\\
+0 & \text{(if $x = y$)}\\
+1 & \text{(if $x > y$)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x\| + \log \|y\|)$
+
 ## signum
 ```cpp
 int x.signum();
@@ -143,7 +164,7 @@ It compares $x$ and $y$, and returns the result.
 - None
 
 ### Time Complexity
-- $O(\log(\min(\|x\|, \|y\|)))$
+- $O(\log \|x\| + \log \|y\|)$
 
 ## Unary operators
 ```cpp
