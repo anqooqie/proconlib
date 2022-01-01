@@ -7,8 +7,14 @@ data:
     title: tools/bigint.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/divides.test.cpp
+    title: tests/bigint/divides.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/modulus.test.cpp
+    title: tests/bigint/modulus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
@@ -229,34 +235,36 @@ data:
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 7 \"tools/garner2.hpp\"\
     \n\nnamespace tools {\n\n  inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
-    \ a, const ::atcoder::static_modint<469762049>& b, const ::std::int_fast64_t m)\
-    \ {\n    assert(m >= 1);\n\n    using mint1 = ::atcoder::static_modint<167772161>;\
+    \ a, const ::atcoder::static_modint<469762049>& b) {\n    using mint1 = ::atcoder::static_modint<167772161>;\
     \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
-    \ * 2^26 + 1\n    static const mint2 m1_inv_mod_m2 = mint2::raw(mint1::mod()).inv();\n\
-    \n    // t = (b - a) / 167772161; (mod 469762049)\n    // return a + t * 167772161;\
-    \ (mod m)\n    const mint2 t = (b - mint2::raw(a.val())) * m1_inv_mod_m2;\n  \
-    \  ::std::uint_fast64_t r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
-    \    r %= m;\n    return r;\n  }\n}\n\n\n"
+    \ * 2^26 + 1\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64\
+    \ m1_m2 = u64(mint1::mod()) * u64(mint2::mod());\n    static const mint2 m1_inv_mod_m2\
+    \ = mint2::raw(mint1::mod()).inv();\n\n    // t = (b - a) / 167772161; (mod 469762049)\n\
+    \    // return a + t * 167772161; (mod m)\n    const mint2 t = (b - mint2::raw(a.val()))\
+    \ * m1_inv_mod_m2;\n    u64 r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
+    \    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_GARNER2_HPP\n#define TOOLS_GARNER2_HPP\n\n#include <cstdint>\n\
     #include <cassert>\n#include \"atcoder/modint.hpp\"\n\nnamespace tools {\n\n \
     \ inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
-    \ a, const ::atcoder::static_modint<469762049>& b, const ::std::int_fast64_t m)\
-    \ {\n    assert(m >= 1);\n\n    using mint1 = ::atcoder::static_modint<167772161>;\
+    \ a, const ::atcoder::static_modint<469762049>& b) {\n    using mint1 = ::atcoder::static_modint<167772161>;\
     \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
-    \ * 2^26 + 1\n    static const mint2 m1_inv_mod_m2 = mint2::raw(mint1::mod()).inv();\n\
-    \n    // t = (b - a) / 167772161; (mod 469762049)\n    // return a + t * 167772161;\
-    \ (mod m)\n    const mint2 t = (b - mint2::raw(a.val())) * m1_inv_mod_m2;\n  \
-    \  ::std::uint_fast64_t r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
-    \    r %= m;\n    return r;\n  }\n}\n\n#endif\n"
+    \ * 2^26 + 1\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64\
+    \ m1_m2 = u64(mint1::mod()) * u64(mint2::mod());\n    static const mint2 m1_inv_mod_m2\
+    \ = mint2::raw(mint1::mod()).inv();\n\n    // t = (b - a) / 167772161; (mod 469762049)\n\
+    \    // return a + t * 167772161; (mod m)\n    const mint2 t = (b - mint2::raw(a.val()))\
+    \ * m1_inv_mod_m2;\n    u64 r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
+    \    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/garner2.hpp
   requiredBy:
   - tools/bigint.hpp
-  timestamp: '2021-12-31 20:01:04+09:00'
+  timestamp: '2022-01-02 00:15:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
 documentation_of: tools/garner2.hpp
@@ -265,10 +273,10 @@ title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
 ---
 
 ```cpp
-std::int_fast64_t garner2(atcoder::static_modint<167772161> a, atcoder::static_modint<469762049> b, std::int_fast64_t m);
+std::int_fast64_t garner2(atcoder::static_modint<167772161> a, atcoder::static_modint<469762049> b);
 ```
 
-It solves the following modular equation system and returns $(x \bmod 78812994116517889) \bmod m$.
+It solves the following modular equation system and returns $x \bmod 78812994116517889$.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
@@ -280,7 +288,7 @@ x \equiv b &\pmod{469762049}
 It is useful to reconstruct $x$ less than $78812994116517889 \approx 7.8 \times 10^{16}$ from $x \bmod 167772161$ and $x \bmod 469762049$.
 
 ## Constraints
-- $m \geq 1$
+- None
 
 ## Time Complexity
 - $O(1)$

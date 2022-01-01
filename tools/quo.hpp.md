@@ -55,8 +55,14 @@ data:
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/divides.test.cpp
+    title: tests/bigint/divides.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/modulus.test.cpp
+    title: tests/bigint/modulus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
@@ -133,7 +139,9 @@ data:
   - tests/divisors.test.cpp
   - tests/is_prime.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/tetration_mod.test.cpp

@@ -32,10 +32,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_D
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
-  bundledCode: "#line 1 \"tests/bigint/plus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_D
+  bundledCode: "#line 1 \"tests/bigint/divides.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_D\"\
     \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
     #include <cstdint>\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
     #include <cassert>\n#include <utility>\n#line 12 \"tools/bigint.hpp\"\n#include\
@@ -645,14 +645,14 @@ data:
     \ return os << '0';\n      }\n      os << self.m_digits.back();\n      for (::std::size_t\
     \ i = 1; i < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE)\
     \ << ::std::setfill('0') << self.m_digits[self.m_digits.size() - 1 - i];\n   \
-    \   }\n      return os;\n    }\n  };\n}\n\n\n#line 5 \"tests/bigint/plus.test.cpp\"\
+    \   }\n      return os;\n    }\n  };\n}\n\n\n#line 5 \"tests/bigint/divides.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  tools::bigint A, B;\n  std::cin >> A >> B;\n  std::cout << A + B << '\\n';\n\
+    \n  tools::bigint A, B;\n  std::cin >> A >> B;\n  std::cout << A / B << '\\n';\n\
     \  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\n\n\
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_D\"\n\n\
     #include <iostream>\n#include \"tools/bigint.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint A, B;\n  std::cin\
-    \ >> A >> B;\n  std::cout << A + B << '\\n';\n  return 0;\n}\n"
+    \ >> A >> B;\n  std::cout << A / B << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/bigint.hpp
   - tools/quo.hpp
@@ -663,15 +663,15 @@ data:
   - tools/pow2.hpp
   - tools/ssize.hpp
   isVerificationFile: true
-  path: tests/bigint/plus.test.cpp
+  path: tests/bigint/divides.test.cpp
   requiredBy: []
   timestamp: '2022-01-02 00:15:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bigint/plus.test.cpp
+documentation_of: tests/bigint/divides.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bigint/plus.test.cpp
-- /verify/tests/bigint/plus.test.cpp.html
-title: tests/bigint/plus.test.cpp
+- /verify/tests/bigint/divides.test.cpp
+- /verify/tests/bigint/divides.test.cpp.html
+title: tests/bigint/divides.test.cpp
 ---

@@ -485,8 +485,14 @@ data:
   - name: tests/bigint
     pages:
     - icon: ':heavy_check_mark:'
+      path: tests/bigint/divides.test.cpp
+      title: tests/bigint/divides.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/minus.test.cpp
       title: tests/bigint/minus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigint/modulus.test.cpp
+      title: tests/bigint/modulus.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bigint/multiplies.test.cpp
       title: tests/bigint/multiplies.test.cpp

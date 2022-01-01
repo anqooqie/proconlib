@@ -40,8 +40,14 @@ data:
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bigint/divides.test.cpp
+    title: tests/bigint/divides.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/modulus.test.cpp
+    title: tests/bigint/modulus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
@@ -127,7 +133,9 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp
   - tests/lca.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/ssize.test.cpp
