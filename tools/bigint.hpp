@@ -74,13 +74,16 @@ namespace tools {
       this->multiply_by_pow10000(-exponent);
       return *this;
     }
-    ::std::int_fast32_t operator[](const ::std::size_t i) const {
-      return this->m_digits[i];
-    }
     int signum() const {
       if (!this->m_positive) return -1;
       if (this->m_digits.empty()) return 0;
       return 1;
+    }
+    ::std::size_t size() const {
+      return this->m_digits.size();
+    }
+    ::std::int_fast32_t operator[](const ::std::size_t i) const {
+      return i < this->m_digits.size() ? this->m_digits[i] : 0;
     }
 
   private:
@@ -189,6 +192,7 @@ namespace tools {
       for (::std::size_t i = 0; i < s.size() - offset; i += LOG10_BASE) {
         this->m_digits.push_back(0);
         for (::std::size_t j = ::std::min(i + LOG10_BASE, s.size() - offset); j --> i;) {
+          assert('0' <= s[s.size() - 1 - j] && s[s.size() - 1 - j] <= '9');
           this->m_digits.back() = this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');
         }
       }
@@ -344,7 +348,7 @@ namespace tools {
               return comp;
             }
             for (::std::size_t i = 0; i < x.first.m_digits.size(); ++i) {
-              if (const auto comp = ::tools::bigint::compare_3way(x.first.m_digits[precision(x) - 1 - i], i < precision(y) ? y.first.m_digits[precision(y) - 1 - i] : 0); comp != 0) {
+              if (const auto comp = ::tools::bigint::compare_3way(x.first.m_digits[precision(x) - 1 - i], y.first[precision(y) - 1 - i]); comp != 0) {
                 return comp;
               }
             }
@@ -353,7 +357,7 @@ namespace tools {
               return comp;
             }
             for (::std::size_t i = 0; i < y.first.m_digits.size(); ++i) {
-              if (const auto comp = ::tools::bigint::compare_3way(i < precision(x) ? x.first.m_digits[precision(x) - 1 - i] : 0, y.first.m_digits[precision(y) - 1 - i]); comp != 0) {
+              if (const auto comp = ::tools::bigint::compare_3way(x.first[precision(x) - 1 - i], y.first.m_digits[precision(y) - 1 - i]); comp != 0) {
                 return comp;
               }
             }
