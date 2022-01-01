@@ -19,7 +19,7 @@ data:
       title: "B\xE9zout's identity"
     - icon: ':heavy_check_mark:'
       path: tools/bigint.hpp
-      title: tools/bigint.hpp
+      title: Arbitrary precision integer
     - icon: ':heavy_check_mark:'
       path: tools/binary_heap.hpp
       title: Binary heap

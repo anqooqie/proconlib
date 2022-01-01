@@ -4,7 +4,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
-    title: tools/bigint.hpp
+    title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$

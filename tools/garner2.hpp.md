@@ -4,7 +4,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
-    title: tools/bigint.hpp
+    title: Arbitrary precision integer
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp

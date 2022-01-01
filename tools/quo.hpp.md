@@ -7,7 +7,7 @@ data:
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
-    title: tools/bigint.hpp
+    title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors

@@ -7,7 +7,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
-    title: tools/bigint.hpp
+    title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
