@@ -17,7 +17,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/bigint.hpp
       title: Arbitrary precision integer
     - icon: ':heavy_check_mark:'
@@ -29,7 +29,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -113,7 +113,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/garner.hpp
       title: Garner's algorithm
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/garner2.hpp
       title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
     - icon: ':heavy_check_mark:'
@@ -189,7 +189,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
@@ -222,7 +222,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
@@ -243,9 +243,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/quo.hpp
       title: Quotient as integer division
+    - icon: ':warning:'
+      path: tools/rational.hpp
+      title: tools/rational.hpp
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
@@ -279,7 +282,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -317,7 +320,7 @@ data:
       title: 01-BFS
   - name: tools/detail
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/detail/ceil_and_floor.hpp
       title: tools/detail/ceil_and_floor.hpp
     - icon: ':heavy_check_mark:'
@@ -484,19 +487,19 @@ data:
       title: tests/zero_one_bfs.test.cpp
   - name: tests/bigint
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/bigint/divides.test.cpp
       title: tests/bigint/divides.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/bigint/minus.test.cpp
       title: tests/bigint/minus.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/bigint/modulus.test.cpp
       title: tests/bigint/modulus.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/bigint/multiplies.test.cpp
       title: tests/bigint/multiplies.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
   - name: tests/matrix

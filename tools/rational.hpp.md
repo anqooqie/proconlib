@@ -22,23 +22,23 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':warning:'
+    path: tools/signum.hpp
+    title: Sign function
   - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
-  _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _isVerificationFailed: false
+  _pathExtension: hpp
+  _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E
-    links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E
-  bundledCode: "#line 1 \"tests/bigint/modulus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E\"\
-    \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstdint>\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
-    #include <cassert>\n#include <utility>\n#line 12 \"tools/bigint.hpp\"\n#include\
+    links: []
+  bundledCode: "#line 1 \"tools/rational.hpp\"\n\n\n\n#include <cstdint>\n#include\
+    \ <cassert>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#line 6 \"\
+    tools/bigint.hpp\"\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
+    #line 10 \"tools/bigint.hpp\"\n#include <utility>\n#include <iostream>\n#include\
     \ <iomanip>\n#include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\
     \n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
@@ -651,14 +651,134 @@ data:
     \ <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
     \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
     \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
-    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 5 \"tests/bigint/modulus.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  tools::bigint A, B;\n  std::cin >> A >> B;\n  std::cout << A % B << '\\n';\n\
-    \  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E\"\n\n\
-    #include <iostream>\n#include \"tools/bigint.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint A, B;\n  std::cin\
-    \ >> A >> B;\n  std::cout << A % B << '\\n';\n  return 0;\n}\n"
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n\
+    #line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
+    \ x;\n    }\n  }\n}\n\n\n#line 8 \"tools/rational.hpp\"\n\nnamespace tools {\n\
+    \  class rational {\n  private:\n    ::tools::bigint m_numerator;\n    ::tools::bigint\
+    \ m_denominator;\n\n    ::tools::rational& regularize() {\n      if (this->m_denominator.signum()\
+    \ < 0) {\n        this->m_numerator.negate();\n        this->m_denominator.negate();\n\
+    \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
+    \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::std::gcd(this->m_numerator,\
+    \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
+    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    ::tools::rational&\
+    \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
+    \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
+    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n    int signum()\
+    \ const {\n      return this->m_numerator.signum();\n    }\n\n    rational() :\
+    \ m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
+    \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
+    \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
+    \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
+    \ rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {\n\
+    \    }\n    rational(const ::tools::bigint& numerator, const ::tools::bigint&\
+    \ denominator)\n      : m_numerator(numerator), m_denominator(denominator) {\n\
+    \      assert(this->m_denominator.signum() != 0);\n      this->regularize();\n\
+    \    }\n\n    const ::tools::bigint& numerator() const {\n      return this->m_numerator;\n\
+    \    }\n    const ::tools::bigint& denominator() const {\n      return this->m_denominator;\n\
+    \    }\n\n    friend bool operator==(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return lhs.m_numerator == rhs.m_numerator && lhs.m_denominator\
+    \ == rhs.m_denominator;\n    }\n    friend bool operator!=(const ::tools::rational&\
+    \ lhs, const ::tools::rational& rhs) {\n      return !(lhs == rhs);\n    }\n \
+    \   friend bool operator<(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) < 0;\n    }\n\
+    \    friend bool operator>(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) > 0;\n    }\n\
+    \    friend bool operator<=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) <= 0;\n    }\n\
+    \    friend bool operator>=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) >= 0;\n    }\n\
+    \n    ::tools::rational operator+() const {\n      return *this;\n    }\n    ::tools::rational\
+    \ operator-() const {\n      return ::tools::rational(*this).negate();\n    }\n\
+    \n    friend ::tools::rational operator+(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational(lhs.m_numerator * rhs.m_denominator +\
+    \ rhs.m_numerator * lhs.m_denominator, lhs.m_denominator * rhs.m_denominator);\n\
+    \    }\n    ::tools::rational& operator+=(const ::tools::rational& other) {\n\
+    \      return *this = *this + other;\n    }\n\n    friend ::tools::rational operator-(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs.m_numerator\
+    \ * rhs.m_denominator - rhs.m_numerator * lhs.m_denominator, lhs.m_denominator\
+    \ * rhs.m_denominator);\n    }\n    ::tools::rational& operator-=(const ::tools::rational&\
+    \ other) {\n      return *this = *this - other;\n    }\n\n    ::tools::rational&\
+    \ operator*=(const ::tools::rational& other) {\n      this->m_numerator *= other.m_numerator;\n\
+    \      this->m_denominator *= other.m_denominator;\n      return this->regularize();\n\
+    \    }\n    friend ::tools::rational operator*(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational(lhs) *= rhs;\n   \
+    \ }\n\n    ::tools::rational& operator/=(const ::tools::rational& other) {\n \
+    \     assert(other.signum() != 0);\n      this->m_numerator *= other.m_denominator;\n\
+    \      this->m_denominator *= other.m_numerator;\n      return this->regularize();\n\
+    \    }\n    friend ::tools::rational operator/(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational(lhs) /= rhs;\n   \
+    \ }\n\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::rational&\
+    \ self) {\n      self.m_denominator = ::tools::bigint(1);\n      return is >>\
+    \ self.m_numerator;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::rational& self) {\n      return os << '(' << self.m_numerator\
+    \ << '/' << self.m_denominator << ')';\n    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_RATIONAL_HPP\n#define TOOLS_RATIONAL_HPP\n\n#include <cstdint>\n\
+    #include <cassert>\n#include \"tools/bigint.hpp\"\n#include \"tools/signum.hpp\"\
+    \n\nnamespace tools {\n  class rational {\n  private:\n    ::tools::bigint m_numerator;\n\
+    \    ::tools::bigint m_denominator;\n\n    ::tools::rational& regularize() {\n\
+    \      if (this->m_denominator.signum() < 0) {\n        this->m_numerator.negate();\n\
+    \        this->m_denominator.negate();\n      }\n      if (this->m_numerator.signum()\
+    \ == 0) {\n        this->m_denominator = ::tools::bigint(1);\n      } else {\n\
+    \        const ::tools::bigint gcd = ::std::gcd(this->m_numerator, this->m_denominator);\n\
+    \        this->m_numerator /= gcd;\n        this->m_denominator /= gcd;\n    \
+    \  }\n      return *this;\n    }\n\n  public:\n    ::tools::rational& negate()\
+    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    static\
+    \ int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs)\
+    \ {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
+    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n    int signum()\
+    \ const {\n      return this->m_numerator.signum();\n    }\n\n    rational() :\
+    \ m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
+    \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
+    \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
+    \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
+    \ rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {\n\
+    \    }\n    rational(const ::tools::bigint& numerator, const ::tools::bigint&\
+    \ denominator)\n      : m_numerator(numerator), m_denominator(denominator) {\n\
+    \      assert(this->m_denominator.signum() != 0);\n      this->regularize();\n\
+    \    }\n\n    const ::tools::bigint& numerator() const {\n      return this->m_numerator;\n\
+    \    }\n    const ::tools::bigint& denominator() const {\n      return this->m_denominator;\n\
+    \    }\n\n    friend bool operator==(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return lhs.m_numerator == rhs.m_numerator && lhs.m_denominator\
+    \ == rhs.m_denominator;\n    }\n    friend bool operator!=(const ::tools::rational&\
+    \ lhs, const ::tools::rational& rhs) {\n      return !(lhs == rhs);\n    }\n \
+    \   friend bool operator<(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) < 0;\n    }\n\
+    \    friend bool operator>(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) > 0;\n    }\n\
+    \    friend bool operator<=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) <= 0;\n    }\n\
+    \    friend bool operator>=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) >= 0;\n    }\n\
+    \n    ::tools::rational operator+() const {\n      return *this;\n    }\n    ::tools::rational\
+    \ operator-() const {\n      return ::tools::rational(*this).negate();\n    }\n\
+    \n    friend ::tools::rational operator+(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational(lhs.m_numerator * rhs.m_denominator +\
+    \ rhs.m_numerator * lhs.m_denominator, lhs.m_denominator * rhs.m_denominator);\n\
+    \    }\n    ::tools::rational& operator+=(const ::tools::rational& other) {\n\
+    \      return *this = *this + other;\n    }\n\n    friend ::tools::rational operator-(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs.m_numerator\
+    \ * rhs.m_denominator - rhs.m_numerator * lhs.m_denominator, lhs.m_denominator\
+    \ * rhs.m_denominator);\n    }\n    ::tools::rational& operator-=(const ::tools::rational&\
+    \ other) {\n      return *this = *this - other;\n    }\n\n    ::tools::rational&\
+    \ operator*=(const ::tools::rational& other) {\n      this->m_numerator *= other.m_numerator;\n\
+    \      this->m_denominator *= other.m_denominator;\n      return this->regularize();\n\
+    \    }\n    friend ::tools::rational operator*(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational(lhs) *= rhs;\n   \
+    \ }\n\n    ::tools::rational& operator/=(const ::tools::rational& other) {\n \
+    \     assert(other.signum() != 0);\n      this->m_numerator *= other.m_denominator;\n\
+    \      this->m_denominator *= other.m_numerator;\n      return this->regularize();\n\
+    \    }\n    friend ::tools::rational operator/(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational(lhs) /= rhs;\n   \
+    \ }\n\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::rational&\
+    \ self) {\n      self.m_denominator = ::tools::bigint(1);\n      return is >>\
+    \ self.m_numerator;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::rational& self) {\n      return os << '(' << self.m_numerator\
+    \ << '/' << self.m_denominator << ')';\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/bigint.hpp
   - tools/quo.hpp
@@ -668,16 +788,17 @@ data:
   - tools/garner2.hpp
   - tools/pow2.hpp
   - tools/ssize.hpp
-  isVerificationFile: true
-  path: tests/bigint/modulus.test.cpp
+  - tools/signum.hpp
+  isVerificationFile: false
+  path: tools/rational.hpp
   requiredBy: []
   timestamp: '2022-01-02 06:04:26+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: tests/bigint/modulus.test.cpp
+documentation_of: tools/rational.hpp
 layout: document
 redirect_from:
-- /verify/tests/bigint/modulus.test.cpp
-- /verify/tests/bigint/modulus.test.cpp.html
-title: tests/bigint/modulus.test.cpp
+- /library/tools/rational.hpp
+- /library/tools/rational.hpp.html
+title: tools/rational.hpp
 ---
