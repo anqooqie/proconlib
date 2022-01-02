@@ -272,6 +272,20 @@ It compares $x$ and $y$, and returns the result.
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
 
+## gcd
+```cpp
+bigint bigint::gcd(bigint x, bigint y);
+```
+
+It returns $\gcd(x, y)$.
+
+### Constraints
+- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
+- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+
+### Time Complexity
+- $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
+
 ## operator>>
 ```cpp
 std::istream& operator>>(std::istream& is, bigint& x);

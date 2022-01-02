@@ -20,7 +20,7 @@ namespace tools {
       if (this->m_numerator.signum() == 0) {
         this->m_denominator = ::tools::bigint(1);
       } else {
-        const ::tools::bigint gcd = ::std::gcd(this->m_numerator, this->m_denominator);
+        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator, this->m_denominator);
         this->m_numerator /= gcd;
         this->m_denominator /= gcd;
       }

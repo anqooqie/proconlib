@@ -10,7 +10,6 @@
 #include <utility>
 #include <iostream>
 #include <iomanip>
-#include <numeric>
 #include "atcoder/modint.hpp"
 #include "atcoder/convolution.hpp"
 #include "tools/quo.hpp"
@@ -440,6 +439,18 @@ namespace tools {
       return ::tools::bigint(lhs) %= rhs;
     }
 
+    static ::tools::bigint gcd(::tools::bigint x, ::tools::bigint y) {
+      if (x.signum() < 0) x.negate();
+      if (y.signum() < 0) y.negate();
+
+      while (y.signum() != 0) {
+        x %= y;
+        ::std::swap(x, y);
+      }
+
+      return x;
+    }
+
     friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self) {
       ::std::string s;
       is >> s;
@@ -460,21 +471,6 @@ namespace tools {
       return os;
     }
   };
-}
-
-namespace std {
-  template <>
-  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint x, ::tools::bigint y) {
-    if (x.signum() < 0) x.negate();
-    if (y.signum() < 0) y.negate();
-
-    while (y.signum() != 0) {
-      x %= y;
-      ::std::swap(x, y);
-    }
-
-    return x;
-  }
 }
 
 #endif
