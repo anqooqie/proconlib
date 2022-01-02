@@ -5,7 +5,7 @@ data:
     path: tools/garner3.hpp
     title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
       754974721$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'

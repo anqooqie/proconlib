@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/ceil_and_floor.hpp
     title: tools/detail/ceil_and_floor.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
@@ -27,32 +27,32 @@ data:
     path: tools/rational.hpp
     title: tools/rational.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/modulus.test.cpp
     title: tests/bigint/modulus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#include <cstdint>\n\
     #include <cstddef>\n#include <algorithm>\n#include <string>\n#include <cassert>\n\
-    #include <utility>\n#include <iostream>\n#include <iomanip>\n#include <numeric>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line\
-    \ 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    #include <utility>\n#include <iostream>\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#include\
+    \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
+    lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace\
     \ internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long\
     \ safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n\
@@ -457,7 +457,7 @@ data:
     \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 22 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
+    \n#line 21 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
     \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
     \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
     \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
@@ -650,25 +650,25 @@ data:
     \ {\n      const ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
     \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
     \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::bigint& self) {\n      ::std::string\
-    \ s;\n      is >> s;\n      self = ::tools::bigint(s);\n      return is;\n   \
-    \ }\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::bigint&\
-    \ self) {\n      if (!self.m_positive) {\n        os << '-';\n      }\n      if\
-    \ (self.m_digits.empty()) {\n        return os << '0';\n      }\n      os << self.m_digits.back();\n\
-    \      for (::std::size_t i = 1; i < self.m_digits.size(); ++i) {\n        os\
-    \ << ::std::setw(LOG10_BASE) << ::std::setfill('0') << self.m_digits[self.m_digits.size()\
-    \ - 1 - i];\n      }\n      return os;\n    }\n  };\n}\n\nnamespace std {\n  template\
-    \ <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
-    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
-    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
-    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n"
+    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
+    \ gcd(::tools::bigint x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n\
+    \      if (y.signum() < 0) y.negate();\n\n      while (y.signum() != 0) {\n  \
+    \      x %= y;\n        ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\
+    \n    friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self)\
+    \ {\n      ::std::string s;\n      is >> s;\n      self = ::tools::bigint(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::bigint& self) {\n      if (!self.m_positive) {\n        os\
+    \ << '-';\n      }\n      if (self.m_digits.empty()) {\n        return os << '0';\n\
+    \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
+    \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
+    \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
+    \    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_BIGINT_HPP\n#define TOOLS_BIGINT_HPP\n\n#include <vector>\n\
     #include <cstdint>\n#include <cstddef>\n#include <algorithm>\n#include <string>\n\
     #include <cassert>\n#include <utility>\n#include <iostream>\n#include <iomanip>\n\
-    #include <numeric>\n#include \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\
-    \n#include \"tools/quo.hpp\"\n#include \"tools/mod.hpp\"\n#include \"tools/ceil.hpp\"\
-    \n#include \"tools/garner2.hpp\"\n#include \"tools/pow2.hpp\"\n#include \"tools/ssize.hpp\"\
+    #include \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\n#include\
+    \ \"tools/quo.hpp\"\n#include \"tools/mod.hpp\"\n#include \"tools/ceil.hpp\"\n\
+    #include \"tools/garner2.hpp\"\n#include \"tools/pow2.hpp\"\n#include \"tools/ssize.hpp\"\
     \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
@@ -862,19 +862,19 @@ data:
     \ {\n      const ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
     \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
     \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::bigint& self) {\n      ::std::string\
-    \ s;\n      is >> s;\n      self = ::tools::bigint(s);\n      return is;\n   \
-    \ }\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::bigint&\
-    \ self) {\n      if (!self.m_positive) {\n        os << '-';\n      }\n      if\
-    \ (self.m_digits.empty()) {\n        return os << '0';\n      }\n      os << self.m_digits.back();\n\
-    \      for (::std::size_t i = 1; i < self.m_digits.size(); ++i) {\n        os\
-    \ << ::std::setw(LOG10_BASE) << ::std::setfill('0') << self.m_digits[self.m_digits.size()\
-    \ - 1 - i];\n      }\n      return os;\n    }\n  };\n}\n\nnamespace std {\n  template\
-    \ <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
-    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
-    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
-    \ y);\n    }\n\n    return x;\n  }\n}\n\n#endif\n"
+    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
+    \ gcd(::tools::bigint x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n\
+    \      if (y.signum() < 0) y.negate();\n\n      while (y.signum() != 0) {\n  \
+    \      x %= y;\n        ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\
+    \n    friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self)\
+    \ {\n      ::std::string s;\n      is >> s;\n      self = ::tools::bigint(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::bigint& self) {\n      if (!self.m_positive) {\n        os\
+    \ << '-';\n      }\n      if (self.m_digits.empty()) {\n        return os << '0';\n\
+    \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
+    \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
+    \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
+    \    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/quo.hpp
   - tools/mod.hpp
@@ -887,8 +887,8 @@ data:
   path: tools/bigint.hpp
   requiredBy:
   - tools/rational.hpp
-  timestamp: '2022-01-02 06:04:26+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2022-01-02 17:42:26+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
@@ -1168,6 +1168,20 @@ It compares $x$ and $y$, and returns the result.
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
+
+## gcd
+```cpp
+bigint bigint::gcd(bigint x, bigint y);
+```
+
+It returns $\gcd(x, y)$.
+
+### Constraints
+- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
+- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+
+### Time Complexity
+- $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
 
 ## operator>>
 ```cpp

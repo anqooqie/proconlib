@@ -2,31 +2,31 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':warning:'
     path: tools/rational.hpp
     title: tools/rational.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/modulus.test.cpp
     title: tests/bigint/modulus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/garner2.hpp\"\n\n\n\n#include <cstdint>\n#include\
@@ -264,7 +264,7 @@ data:
   - tools/bigint.hpp
   - tools/rational.hpp
   timestamp: '2022-01-02 00:15:52+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
