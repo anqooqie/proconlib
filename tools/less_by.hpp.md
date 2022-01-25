@@ -35,8 +35,8 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/real_interval_set.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/real_interval_set.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

@@ -3,12 +3,30 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bigdecimal.hpp
+    title: Arbitrary precision floating-point number
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':warning:'
     path: tools/rational.hpp
     title: tools/rational.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/divides.test.cpp
+    title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/minus.test.cpp
+    title: tests/bigdecimal/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/multiplies.test.cpp
+    title: tests/bigdecimal/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/plus.test.cpp
+    title: tests/bigdecimal/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/random.test.cpp
+    title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
@@ -261,16 +279,22 @@ data:
   isVerificationFile: false
   path: tools/garner2.hpp
   requiredBy:
-  - tools/bigint.hpp
+  - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/bigint.hpp
   timestamp: '2022-01-02 00:15:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
 documentation_of: tools/garner2.hpp
 layout: document
 title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$

@@ -78,8 +78,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
-  - tests/permutation.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/permutation.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
 title: $b^n$ under a given monoid

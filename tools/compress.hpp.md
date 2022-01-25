@@ -73,8 +73,8 @@ data:
   timestamp: '2021-09-25 17:17:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/inversion_number.test.cpp
   - tests/lis.test.cpp
+  - tests/inversion_number.test.cpp
 documentation_of: tools/compress.hpp
 layout: document
 title: Compress values

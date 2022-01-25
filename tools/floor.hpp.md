@@ -59,8 +59,8 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_log.test.cpp
   - tests/bezout.test.cpp
+  - tests/floor_log.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
 title: $\left\lfloor \frac{x}{y} \right\rfloor$

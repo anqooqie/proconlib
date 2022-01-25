@@ -298,8 +298,8 @@ data:
   timestamp: '2021-12-18 22:12:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/solve.test.cpp
   - tests/matrix/multiplies.test.cpp
+  - tests/matrix/solve.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix

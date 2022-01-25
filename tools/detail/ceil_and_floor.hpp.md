@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bigdecimal.hpp
+    title: Arbitrary precision floating-point number
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -30,6 +33,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/divides.test.cpp
+    title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/minus.test.cpp
+    title: tests/bigdecimal/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/multiplies.test.cpp
+    title: tests/bigdecimal/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/plus.test.cpp
+    title: tests/bigdecimal/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/random.test.cpp
+    title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
@@ -90,26 +108,32 @@ data:
   isVerificationFile: false
   path: tools/detail/ceil_and_floor.hpp
   requiredBy:
-  - tools/round.hpp
-  - tools/ceil.hpp
-  - tools/bigint.hpp
-  - tools/floor_log.hpp
-  - tools/floor.hpp
-  - tools/segmented_sieve.hpp
+  - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/bigint.hpp
+  - tools/ceil.hpp
+  - tools/segmented_sieve.hpp
   - tools/ceil_log.hpp
+  - tools/floor.hpp
+  - tools/round.hpp
+  - tools/floor_log.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_log.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/bigint/divides.test.cpp
+  - tests/bezout.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
   - tests/ceil_log.test.cpp
-  - tests/bezout.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp
 layout: document
 redirect_from:

@@ -18,6 +18,9 @@ data:
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
     - icon: ':heavy_check_mark:'
+      path: tools/bigdecimal.hpp
+      title: Arbitrary precision floating-point number
+    - icon: ':heavy_check_mark:'
       path: tools/bigint.hpp
       title: Arbitrary precision integer
     - icon: ':heavy_check_mark:'
@@ -268,6 +271,9 @@ data:
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
     - icon: ':heavy_check_mark:'
+      path: tools/rounding_mode.hpp
+      title: tools/rounding_mode.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
     - icon: ':heavy_check_mark:'
@@ -276,7 +282,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
     - icon: ':heavy_check_mark:'
@@ -485,6 +491,23 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs.test.cpp
       title: tests/zero_one_bfs.test.cpp
+  - name: tests/bigdecimal
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/divides.test.cpp
+      title: tests/bigdecimal/divides.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/minus.test.cpp
+      title: tests/bigdecimal/minus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/multiplies.test.cpp
+      title: tests/bigdecimal/multiplies.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/plus.test.cpp
+      title: tests/bigdecimal/plus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/random.test.cpp
+      title: tests/bigdecimal/random.test.cpp
   - name: tests/bigint
     pages:
     - icon: ':heavy_check_mark:'
