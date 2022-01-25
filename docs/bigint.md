@@ -50,31 +50,31 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
-## multiply_by_pow10000
+## multiply_by_pow10
 ```cpp
-bigint& x.multiply_by_pow10000(std::ptrdiff_t e);
+bigint& x.multiply_by_pow10(std::ptrdiff_t n);
 ```
 
-It updates $x$ to $10000^e x$ rounded towards zero, and returns the updated $x$.
+It updates $x$ to $10^n x$ rounded towards zero, and returns the updated $x$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|x\| + \max(0, e))$
+- $O(\log \|x\| + \max(0, n))$
 
-## divide_by_pow10000
+## divide_by_pow10
 ```cpp
-bigint& x.divide_by_pow10000(std::ptrdiff_t e);
+bigint& x.divide_by_pow10(std::ptrdiff_t n);
 ```
 
-It updates $x$ to $10000^{-e} x$ rounded towards zero, and returns the updated $x$.
+It updates $x$ to $10^{-n} x$ rounded towards zero, and returns the updated $x$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|x\| + \max(0, -e))$
+- $O(\log \|x\| + \max(0, -n))$
 
 ## compare_3way
 ```cpp
@@ -123,7 +123,7 @@ $$\begin{align*}
 std::size_t x.size();
 ```
 
-It returns $\left\lceil \log_{10000} \|x\| \right\rceil$.
+It returns $\left\lceil \log_{10} \|x\| \right\rceil$.
 
 ### Constraints
 - None
@@ -139,7 +139,7 @@ std::int_fast32_t x.operator[](std::size_t i);
 It returns
 
 $$\begin{align*}
-\left\lfloor \frac{|x|}{10000^i} \right\rfloor \bmod 10000
+\left\lfloor \frac{|x|}{10^i} \right\rfloor \bmod 10
 \end{align*}$$
 
 ### Constraints
