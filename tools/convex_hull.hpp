@@ -22,7 +22,7 @@ namespace tools {
     ::std::vector<::std::size_t> a(v.size());
     ::std::iota(a.begin(), a.end(), 0);
     ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const T& i) {
-      return ::std::make_pair(v[i].x, -v[i].y);
+      return ::std::make_pair(v[i].x, v[i].y);
     }));
     ::std::vector<::std::vector<::std::size_t>> duplicates;
 
@@ -65,7 +65,7 @@ namespace tools {
       for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {
         while (convex_hull.size() >= 2) {
           const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]], v[a[p3]]);
-          if (ccw == -1 || (!minimum && ccw == -2)) {
+          if (ccw == 1 || (!minimum && ccw == -2)) {
             break;
           }
           convex_hull.pop_back();
@@ -77,7 +77,7 @@ namespace tools {
       for (::std::size_t p3 = convex_hull.back(); p3 --> 0;) {
         while (convex_hull.size() >= threshold) {
           const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]], v[a[p3]]);
-          if (ccw == -1 || (!minimum && ccw == -2)) {
+          if (ccw == 1 || (!minimum && ccw == -2)) {
             break;
           }
           convex_hull.pop_back();

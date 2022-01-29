@@ -26,7 +26,6 @@ int main() {
   std::vector<i64> convex_hull;
   tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));
 
-  std::reverse(convex_hull.begin(), convex_hull.end());
   std::rotate(
     convex_hull.begin(),
     std::min_element(convex_hull.begin(), convex_hull.end(), tools::less_by([&](const i64& i) { return std::make_pair(v[i].y, v[i].x); })),
