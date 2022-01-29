@@ -149,7 +149,7 @@ data:
     \n    ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
     \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
     \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
-    \ -v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
+    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
     \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
     \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
     \ a.size() && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr], a[ar]), ++vr, ++ar);\n\
@@ -168,16 +168,16 @@ data:
     \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
     \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
     \ >= 2) {\n          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]],\
-    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == -1 || (!minimum &&\
+    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == 1 || (!minimum &&\
     \ ccw == -2)) {\n            break;\n          }\n          convex_hull.pop_back();\n\
     \        }\n        convex_hull.push_back(p3);\n      }\n\n      const ::std::size_t\
     \ threshold = convex_hull.size() + 1;\n      for (::std::size_t p3 = convex_hull.back();\
     \ p3 --> 0;) {\n        while (convex_hull.size() >= threshold) {\n          const\
     \ int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]],\
-    \ v[a[p3]]);\n          if (ccw == -1 || (!minimum && ccw == -2)) {\n        \
-    \    break;\n          }\n          convex_hull.pop_back();\n        }\n     \
-    \   convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n   \
-    \ } else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
+    \ v[a[p3]]);\n          if (ccw == 1 || (!minimum && ccw == -2)) {\n         \
+    \   break;\n          }\n          convex_hull.pop_back();\n        }\n      \
+    \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
+    \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
     \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
     \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
     \      }\n    }\n  }\n}\n\n\n#line 12 \"tests/convex_hull.test.cpp\"\n\nusing\
@@ -185,12 +185,11 @@ data:
     \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for\
     \ (i64 i = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
     \ convex_hull;\n  tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));\n\
-    \n  std::reverse(convex_hull.begin(), convex_hull.end());\n  std::rotate(\n  \
-    \  convex_hull.begin(),\n    std::min_element(convex_hull.begin(), convex_hull.end(),\
-    \ tools::less_by([&](const i64& i) { return std::make_pair(v[i].y, v[i].x); })),\n\
-    \    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size() << '\\n';\n\
-    \  for (const i64& i : convex_hull) {\n    std::cout << v[i].x << ' ' << v[i].y\
-    \ << '\\n';\n  }\n  return 0;\n}\n"
+    \n  std::rotate(\n    convex_hull.begin(),\n    std::min_element(convex_hull.begin(),\
+    \ convex_hull.end(), tools::less_by([&](const i64& i) { return std::make_pair(v[i].y,\
+    \ v[i].x); })),\n    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size()\
+    \ << '\\n';\n  for (const i64& i : convex_hull) {\n    std::cout << v[i].x <<\
+    \ ' ' << v[i].y << '\\n';\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_A\"\n\n\
     #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
     #include <algorithm>\n#include <utility>\n#include \"tools/vector2.hpp\"\n#include\
@@ -199,12 +198,11 @@ data:
     \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for\
     \ (i64 i = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
     \ convex_hull;\n  tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));\n\
-    \n  std::reverse(convex_hull.begin(), convex_hull.end());\n  std::rotate(\n  \
-    \  convex_hull.begin(),\n    std::min_element(convex_hull.begin(), convex_hull.end(),\
-    \ tools::less_by([&](const i64& i) { return std::make_pair(v[i].y, v[i].x); })),\n\
-    \    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size() << '\\n';\n\
-    \  for (const i64& i : convex_hull) {\n    std::cout << v[i].x << ' ' << v[i].y\
-    \ << '\\n';\n  }\n  return 0;\n}\n"
+    \n  std::rotate(\n    convex_hull.begin(),\n    std::min_element(convex_hull.begin(),\
+    \ convex_hull.end(), tools::less_by([&](const i64& i) { return std::make_pair(v[i].y,\
+    \ v[i].x); })),\n    convex_hull.end()\n  );\n\n  std::cout << convex_hull.size()\
+    \ << '\\n';\n  for (const i64& i : convex_hull) {\n    std::cout << v[i].x <<\
+    \ ' ' << v[i].y << '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
@@ -214,7 +212,7 @@ data:
   isVerificationFile: true
   path: tests/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2021-12-11 22:15:14+09:00'
+  timestamp: '2022-01-29 16:31:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/convex_hull.test.cpp
