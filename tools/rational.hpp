@@ -3,8 +3,13 @@
 
 #include <cstdint>
 #include <cassert>
+#include <limits>
+#include <iostream>
 #include "tools/bigint.hpp"
+#include "tools/bigdecimal.hpp"
 #include "tools/signum.hpp"
+#include "tools/ssize.hpp"
+#include "tools/is_rational.hpp"
 
 namespace tools {
   class rational {
@@ -52,6 +57,13 @@ namespace tools {
 
     explicit rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {
     }
+    explicit rational(const ::tools::bigint& n) : m_numerator(n), m_denominator(1) {
+    }
+    explicit rational(const ::tools::bigdecimal& d)
+      : m_numerator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0, -d.scale())) *= d.unscaled_value()),
+        m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0, d.scale()))) {
+      this->regularize();
+    }
     rational(const ::tools::bigint& numerator, const ::tools::bigint& denominator)
       : m_numerator(numerator), m_denominator(denominator) {
       assert(this->m_denominator.signum() != 0);
@@ -91,18 +103,24 @@ namespace tools {
       return ::tools::rational(*this).negate();
     }
 
-    friend ::tools::rational operator+(const ::tools::rational& lhs, const ::tools::rational& rhs) {
-      return ::tools::rational(lhs.m_numerator * rhs.m_denominator + rhs.m_numerator * lhs.m_denominator, lhs.m_denominator * rhs.m_denominator);
-    }
     ::tools::rational& operator+=(const ::tools::rational& other) {
-      return *this = *this + other;
+      this->m_numerator *= other.m_denominator;
+      this->m_numerator += other.m_numerator * this->m_denominator;
+      this->m_denominator *= other.m_denominator;
+      return this->regularize();
+    }
+    friend ::tools::rational operator+(const ::tools::rational& lhs, const ::tools::rational& rhs) {
+      return ::tools::rational(lhs) += rhs;
     }
 
-    friend ::tools::rational operator-(const ::tools::rational& lhs, const ::tools::rational& rhs) {
-      return ::tools::rational(lhs.m_numerator * rhs.m_denominator - rhs.m_numerator * lhs.m_denominator, lhs.m_denominator * rhs.m_denominator);
-    }
     ::tools::rational& operator-=(const ::tools::rational& other) {
-      return *this = *this - other;
+      this->m_numerator *= other.m_denominator;
+      this->m_numerator -= other.m_numerator * this->m_denominator;
+      this->m_denominator *= other.m_denominator;
+      return this->regularize();
+    }
+    friend ::tools::rational operator-(const ::tools::rational& lhs, const ::tools::rational& rhs) {
+      return ::tools::rational(lhs) -= rhs;
     }
 
     ::tools::rational& operator*=(const ::tools::rational& other) {
@@ -124,13 +142,30 @@ namespace tools {
       return ::tools::rational(lhs) /= rhs;
     }
 
+    explicit operator double() const {
+      ::tools::bigint unscaled_value(this->m_numerator);
+      unscaled_value.multiply_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));
+      unscaled_value /= this->m_denominator;
+
+      ::tools::bigdecimal result(unscaled_value);
+      result.divide_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));
+      return static_cast<double>(result);
+    }
+
     friend ::std::istream& operator>>(::std::istream& is, ::tools::rational& self) {
-      self.m_denominator = ::tools::bigint(1);
-      return is >> self.m_numerator;
+      ::tools::bigdecimal value;
+      is >> value;
+      self = ::tools::rational(value);
+      return is;
     }
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::rational& self) {
       return os << '(' << self.m_numerator << '/' << self.m_denominator << ')';
     }
+  };
+
+  template <>
+  struct is_rational<::tools::rational> {
+    static constexpr bool value = true;
   };
 }
 

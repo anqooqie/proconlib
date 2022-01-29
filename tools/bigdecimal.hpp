@@ -6,6 +6,8 @@
 #include <cstdint>
 #include <string>
 #include <cassert>
+#include <limits>
+#include <cmath>
 #include <iostream>
 #include "tools/bigint.hpp"
 #include "tools/signum.hpp"
@@ -142,24 +144,57 @@ namespace tools {
     ::tools::bigdecimal& divide(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode) {
       assert(other.signum() != 0);
 
-      this->m_unscaled_value.multiply_by_pow10((scale + 1) - (this->m_scale - other.m_scale));
-      this->m_unscaled_value /= other.m_unscaled_value;
+      static const auto compare_3way_abs = [](::tools::bigdecimal& x, ::tools::bigdecimal& y) {
+        const bool x_positive = x.signum() >= 0;
+        const bool y_positive = y.signum() >= 0;
+        if (!x_positive) x.negate();
+        if (!y_positive) y.negate();
+        const int result = ::tools::bigdecimal::compare_3way(x, y);
+        if (!x_positive) x.negate();
+        if (!y_positive) y.negate();
+        return result;
+      };
 
-      const auto least = this->m_unscaled_value[0];
-      this->m_unscaled_value.divide_by_pow10(1);
-      if (least > 0) {
-        if ((rounding_mode == ::tools::rounding_mode::ceiling && this->m_unscaled_value.signum() > 0)
-            || (rounding_mode == ::tools::rounding_mode::floor && this->m_unscaled_value.signum() < 0)
-            || rounding_mode == ::tools::rounding_mode::up
-            || (rounding_mode == ::tools::rounding_mode::half_down && least > 5)
-            || (rounding_mode == ::tools::rounding_mode::half_up && least >= 5)
-            || (rounding_mode == ::tools::rounding_mode::half_even && (least > 5 || (least == 5 && this->m_unscaled_value[0] % 2 == 1)))) {
-          ++this->m_unscaled_value;
+      ::tools::bigdecimal old_this(*this);
+
+      this->m_unscaled_value.multiply_by_pow10(scale - (this->m_scale - other.m_scale));
+      this->m_unscaled_value /= other.m_unscaled_value;
+      this->m_scale = scale;
+      this->regularize();
+
+      if ([&]() {
+        if (rounding_mode == ::tools::rounding_mode::down) {
+          return false;
         }
+        if (rounding_mode == ::tools::rounding_mode::ceiling || rounding_mode == ::tools::rounding_mode::floor || rounding_mode == ::tools::rounding_mode::up) {
+          if ((rounding_mode == ::tools::rounding_mode::ceiling && old_this.signum() * other.signum() > 0)
+            || (rounding_mode == ::tools::rounding_mode::floor && old_this.signum() * other.signum() < 0)
+            || rounding_mode == ::tools::rounding_mode::up) {
+            ::tools::bigdecimal d(*this);
+            d *= other;
+            return compare_3way_abs(old_this, d) > 0;
+          } else {
+            return false;
+          }
+        }
+
+        ::tools::bigdecimal d(*this);
+        d += ::tools::bigdecimal(5 * old_this.signum() * other.signum()).divide_by_pow10(scale + 1);
+        d *= other;
+        const int comp = compare_3way_abs(old_this, d);
+        if (rounding_mode == ::tools::rounding_mode::half_down) {
+          return comp > 0;
+        }
+        if (rounding_mode == ::tools::rounding_mode::half_up) {
+          return comp >= 0;
+        }
+        return comp > 0 || (comp == 0 && this->m_unscaled_value[0] % 2 != 0);
+      }()) {
+        this->m_unscaled_value += ::tools::bigint(old_this.signum() * other.signum());
+        this->regularize();
       }
 
-      this->m_scale = scale;
-      return this->regularize();
+      return *this;
     }
     ::tools::bigdecimal& divide(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale) {
       return this->divide(other, scale, ::tools::rounding_mode::half_even);
@@ -177,8 +212,24 @@ namespace tools {
     friend ::tools::bigdecimal operator*(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {
       return ::tools::bigdecimal(lhs) *= rhs;
     }
+    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode) const {
+      return ::tools::bigdecimal(*this).divide(other, scale, rounding_mode);
+    }
+    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale) const {
+      return ::tools::bigdecimal(*this).divide(other, scale);
+    }
     friend ::tools::bigdecimal operator/(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {
       return ::tools::bigdecimal(lhs) /= rhs;
+    }
+
+    explicit operator double() const {
+      long double result = 0.0;
+      const ::std::size_t precision = this->precision();
+      for (::std::size_t i = 0; i < ::std::numeric_limits<long double>::digits10; ++i) {
+        result = result * 10.0L + (precision >= i + 1 ? this->m_unscaled_value[precision - 1 - i] : 0) * this->signum();
+      }
+      result *= ::std::pow(10.0L, static_cast<long double>(precision) - static_cast<long double>(this->m_scale) - static_cast<long double>(::std::numeric_limits<long double>::digits10));
+      return static_cast<double>(result);
     }
 
     friend ::std::istream& operator>>(::std::istream& is, ::tools::bigdecimal& self) {

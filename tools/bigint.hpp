@@ -7,6 +7,8 @@
 #include <cstddef>
 #include <algorithm>
 #include <iterator>
+#include <type_traits>
+#include <cmath>
 #include <string>
 #include <cassert>
 #include <utility>
@@ -188,9 +190,12 @@ namespace tools {
     ::tools::bigint& operator=(const ::tools::bigint&) = default;
     ::tools::bigint& operator=(::tools::bigint&&) = default;
 
-    explicit bigint(const ::std::int_fast64_t n) : m_positive(true) {
-      this->m_digits.push_back(n);
-      this->regularize(2);
+    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type = nullptr>
+    explicit bigint(T n) : m_positive(n >= 0) {
+      while (n != 0) {
+        this->m_digits.push_back(::std::abs(n % BASE));
+        n /= BASE;
+      } 
     }
     explicit bigint(const ::std::string& s) {
       assert(!s.empty());
@@ -485,6 +490,16 @@ namespace tools {
       }
 
       return x;
+    }
+
+    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type = nullptr>
+    explicit operator T() const {
+      assert(::tools::bigint(::std::numeric_limits<T>::min()) <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));
+      T result = 0;
+      for (::std::size_t i = this->m_digits.size(); i --> 0;) {
+        result = result * BASE + this->m_digits[i] * (this->m_positive ? 1 : -1);
+      }
+      return result;
     }
 
     friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self) {

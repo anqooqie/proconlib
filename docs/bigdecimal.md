@@ -40,7 +40,7 @@ For explanatory purposes, let $u_\circ$ denote the unscaled value of $\circ$ and
 - (2)
     - $O(1)$
 - (3)
-    - $O(\log n)$
+    - $O(\log \|n\|)$
 - (4)
     - $O(\|s\|)$
 
@@ -280,7 +280,7 @@ It compares $x$ and $y$, and returns the result.
 ### Constraints
 - $y \neq 0$
 - $3 \left\lceil \log_{10000} \|u_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000}(10 \|u_x\|) \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
+- $\left\lceil \log_{10000} \|u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
 
 ### Time Complexity
 - $O((\log \|u_x\| + \log \|u_y\|) \log (\log \|u_x\| + \log \|u_y\|))$
@@ -299,10 +299,10 @@ It compares $x$ and $y$, and returns the result.
 ### Constraints
 - $y \neq 0$
 - $3 \left\lceil \log_{10000} \|u_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|10^{(s + 1) - (s_x - s_y)} u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
+- $\left\lceil \log_{10000} \|10^{s - (s_x - s_y)} u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
 
 ### Time Complexity
-- $O((\log \|10^{(s + 1) - (s_x - s_y)} u_x\| + \log \|u_y\|) \log (\log \|10^{(s + 1) - (s_x - s_y)} u_x\| + \log \|u_y\|))$
+- $O((\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|) \log (\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|))$
 
 ## operator>>
 ```cpp
