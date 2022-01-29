@@ -35,9 +35,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
-    title: tools/rational.hpp
+    title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
@@ -48,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/minus.test.cpp
     title: tests/bigdecimal/minus.test.cpp
@@ -103,6 +106,18 @@ data:
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -156,6 +171,7 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/divides.test.cpp
@@ -171,6 +187,10 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/lca.test.cpp
   - tests/ssize.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/pow2.hpp

@@ -38,28 +38,28 @@ data:
   bundledCode: "#line 1 \"tests/bigint/modulus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E\"\
     \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
     #include <cstdint>\n#include <array>\n#include <cstddef>\n#include <algorithm>\n\
-    #include <iterator>\n#include <string>\n#include <cassert>\n#include <utility>\n\
-    #line 14 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#include\
-    \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
-    lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace\
-    \ internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long\
-    \ safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n\
-    \    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n// Reference:\
-    \ https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider after Ice\
-    \ Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long im;\n\n\
-    \    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m) : _m(m),\
-    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
-    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
-    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    #include <iterator>\n#include <type_traits>\n#include <cmath>\n#include <string>\n\
+    #include <cassert>\n#include <utility>\n#line 16 \"tools/bigint.hpp\"\n#include\
+    \ <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -446,7 +446,7 @@ data:
     \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 23 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
+    \n#line 25 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
     \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
     \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
     \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
@@ -525,30 +525,32 @@ data:
     \ {\n    }\n    bigint(const ::tools::bigint&) = default;\n    bigint(::tools::bigint&&)\
     \ = default;\n    ~bigint() = default;\n    ::tools::bigint& operator=(const ::tools::bigint&)\
     \ = default;\n    ::tools::bigint& operator=(::tools::bigint&&) = default;\n\n\
-    \    explicit bigint(const ::std::int_fast64_t n) : m_positive(true) {\n     \
-    \ this->m_digits.push_back(n);\n      this->regularize(2);\n    }\n    explicit\
-    \ bigint(const ::std::string& s) {\n      assert(!s.empty());\n\n      ::std::size_t\
-    \ offset;\n      if (s[0] == '+') {\n        this->m_positive = true;\n      \
-    \  offset = 1;\n      } else if (s[0] == '-') {\n        this->m_positive = false;\n\
-    \        offset = 1;\n      } else {\n        this->m_positive = true;\n     \
-    \   offset = 0;\n      }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size()\
-    \ - offset, LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset;\
-    \ i += LOG10_BASE) {\n        this->m_digits.push_back(0);\n        for (::std::size_t\
-    \ j = ::std::min(i + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0'\
-    \ <= s[s.size() - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back()\
-    \ = this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n   \
-    \   }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive\
-    \ == rhs.m_positive && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n\
-    \    }\n    friend bool operator<(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint::compare_3way(lhs, rhs) < 0;\n    }\n \
-    \   friend bool operator>(const ::tools::bigint& lhs, const ::tools::bigint& rhs)\
-    \ {\n      return ::tools::bigint::compare_3way(lhs, rhs) > 0;\n    }\n    friend\
-    \ bool operator<=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
-    \      return ::tools::bigint::compare_3way(lhs, rhs) <= 0;\n    }\n    friend\
-    \ bool operator>=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
-    \      return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
+    \    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>,\
+    \ ::std::nullptr_t>::type = nullptr>\n    explicit bigint(T n) : m_positive(n\
+    \ >= 0) {\n      while (n != 0) {\n        this->m_digits.push_back(::std::abs(n\
+    \ % BASE));\n        n /= BASE;\n      } \n    }\n    explicit bigint(const ::std::string&\
+    \ s) {\n      assert(!s.empty());\n\n      ::std::size_t offset;\n      if (s[0]\
+    \ == '+') {\n        this->m_positive = true;\n        offset = 1;\n      } else\
+    \ if (s[0] == '-') {\n        this->m_positive = false;\n        offset = 1;\n\
+    \      } else {\n        this->m_positive = true;\n        offset = 0;\n     \
+    \ }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size() - offset,\
+    \ LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset; i += LOG10_BASE)\
+    \ {\n        this->m_digits.push_back(0);\n        for (::std::size_t j = ::std::min(i\
+    \ + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0' <= s[s.size()\
+    \ - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back() =\
+    \ this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n     \
+    \ }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive == rhs.m_positive\
+    \ && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n    }\n   \
+    \ friend bool operator<(const ::tools::bigint& lhs, const ::tools::bigint& rhs)\
+    \ {\n      return ::tools::bigint::compare_3way(lhs, rhs) < 0;\n    }\n    friend\
+    \ bool operator>(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n \
+    \     return ::tools::bigint::compare_3way(lhs, rhs) > 0;\n    }\n    friend bool\
+    \ operator<=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n     \
+    \ return ::tools::bigint::compare_3way(lhs, rhs) <= 0;\n    }\n    friend bool\
+    \ operator>=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n     \
+    \ return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
     \ operator+() const {\n      return *this;\n    }\n    ::tools::bigint operator-()\
     \ const {\n      return ::tools::bigint(*this).negate();\n    }\n\n    ::tools::bigint&\
     \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add(other,\
@@ -660,7 +662,13 @@ data:
     \ ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint gcd(::tools::bigint\
     \ x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n      if (y.signum()\
     \ < 0) y.negate();\n\n      while (y.signum() != 0) {\n        x %= y;\n     \
-    \   ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\n    friend ::std::istream&\
+    \   ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\n    template <typename\
+    \ T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type\
+    \ = nullptr>\n    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
+    \ <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));\n  \
+    \    T result = 0;\n      for (::std::size_t i = this->m_digits.size(); i -->\
+    \ 0;) {\n        result = result * BASE + this->m_digits[i] * (this->m_positive\
+    \ ? 1 : -1);\n      }\n      return result;\n    }\n\n    friend ::std::istream&\
     \ operator>>(::std::istream& is, ::tools::bigint& self) {\n      ::std::string\
     \ s;\n      is >> s;\n      self = ::tools::bigint(s);\n      return is;\n   \
     \ }\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::bigint&\
@@ -688,7 +696,7 @@ data:
   isVerificationFile: true
   path: tests/bigint/modulus.test.cpp
   requiredBy: []
-  timestamp: '2022-01-25 13:00:19+09:00'
+  timestamp: '2022-01-29 15:03:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigint/modulus.test.cpp

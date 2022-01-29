@@ -41,9 +41,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
-    title: tools/rational.hpp
+    title: Rational number
   - icon: ':warning:'
     path: tools/rich_pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
@@ -63,6 +63,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/minus.test.cpp
     title: tests/bigdecimal/minus.test.cpp
@@ -108,6 +111,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -163,6 +178,7 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/divides.test.cpp
@@ -174,6 +190,10 @@ data:
   - tests/tetration_mod.test.cpp
   - tests/is_prime.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/quo.hpp
 layout: document

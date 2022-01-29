@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tests/assert_that.hpp
+    title: tests/assert_that.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -41,19 +44,22 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
-  bundledCode: "#line 1 \"tests/bigdecimal/plus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\
-    \n\n#include <iostream>\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#include <cstddef>\n\
-    #include <algorithm>\n#include <cstdint>\n#include <string>\n#include <cassert>\n\
-    #include <limits>\n#include <cmath>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include\
-    \ <vector>\n#line 6 \"tools/bigint.hpp\"\n#include <array>\n#line 9 \"tools/bigint.hpp\"\
-    \n#include <iterator>\n#include <type_traits>\n#line 14 \"tools/bigint.hpp\"\n\
-    #include <utility>\n#line 16 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1\
-    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/bigdecimal/hand.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
+    \n\n#include <iostream>\n#line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/bigdecimal.hpp\"\
+    \n\n\n\n#include <cstddef>\n#include <algorithm>\n#include <cstdint>\n#include\
+    \ <string>\n#include <cassert>\n#include <limits>\n#include <cmath>\n#line 1 \"\
+    tools/bigint.hpp\"\n\n\n\n#include <vector>\n#line 6 \"tools/bigint.hpp\"\n#include\
+    \ <array>\n#line 9 \"tools/bigint.hpp\"\n#include <iterator>\n#include <type_traits>\n\
+    #line 14 \"tools/bigint.hpp\"\n#include <utility>\n#line 16 \"tools/bigint.hpp\"\
+    \n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
+    \ 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
@@ -813,15 +819,71 @@ data:
     \ i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i) {\n        if (i ==\
     \ self.m_scale - 1) {\n          os << '.';\n        }\n        os << (0 <= i\
     \ && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i] : 0);\n\
-    \      }\n      return os;\n    }\n  };\n}\n\n\n#line 5 \"tests/bigdecimal/plus.test.cpp\"\
+    \      }\n      return os;\n    }\n  };\n}\n\n\n#line 6 \"tests/bigdecimal/hand.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  tools::bigdecimal A, B;\n  std::cin >> A >> B;\n  std::cout << A + B << '\\\
-    n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\n\n\
-    #include <iostream>\n#include \"tools/bigdecimal.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigdecimal A, B;\n  std::cin\
-    \ >> A >> B;\n  std::cout << A + B << '\\n';\n  return 0;\n}\n"
+    \n  assert_that(::tools::bigdecimal(\"0.003\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 4, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.0002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.03\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 3, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.3\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.02\"));\n\
+    \  assert_that(::tools::bigdecimal(\"3\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"30\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 0, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"300\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), -1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"20\"));\n\
+    \  assert_that(::tools::bigdecimal(\"3000\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), -2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"200\"));\n\
+    \  assert_that(::tools::bigdecimal(\"0.001\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 4, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.0002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.01\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 3, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.002\"));\n\
+    \  assert_that(::tools::bigdecimal(\"0.1\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.02\"));\n\
+    \  assert_that(::tools::bigdecimal(\"1\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"10\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 0, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"100\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), -1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"20\"));\n\
+    \  assert_that(::tools::bigdecimal(\"1000\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), -2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"200\"));\n\
+    \n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include \"tests/assert_that.hpp\"\n#include \"tools/bigdecimal.hpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  assert_that(::tools::bigdecimal(\"0.003\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 4, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.0002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.03\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 3, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.3\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.02\"));\n\
+    \  assert_that(::tools::bigdecimal(\"3\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"30\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), 0, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"300\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), -1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"20\"));\n\
+    \  assert_that(::tools::bigdecimal(\"3000\").divide_and_copy(::tools::bigdecimal(\"\
+    20\"), -2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"200\"));\n\
+    \  assert_that(::tools::bigdecimal(\"0.001\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 4, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.0002\"\
+    ));\n  assert_that(::tools::bigdecimal(\"0.01\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 3, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.002\"));\n\
+    \  assert_that(::tools::bigdecimal(\"0.1\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.02\"));\n\
+    \  assert_that(::tools::bigdecimal(\"1\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"10\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), 0, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"2\"));\n\
+    \  assert_that(::tools::bigdecimal(\"100\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), -1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"20\"));\n\
+    \  assert_that(::tools::bigdecimal(\"1000\").divide_and_copy(::tools::bigdecimal(\"\
+    4\"), -2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"200\"));\n\
+    \n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tests/assert_that.hpp
   - tools/bigdecimal.hpp
   - tools/bigint.hpp
   - tools/quo.hpp
@@ -834,15 +896,15 @@ data:
   - tools/signum.hpp
   - tools/rounding_mode.hpp
   isVerificationFile: true
-  path: tests/bigdecimal/plus.test.cpp
+  path: tests/bigdecimal/hand.test.cpp
   requiredBy: []
   timestamp: '2022-01-29 15:03:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bigdecimal/plus.test.cpp
+documentation_of: tests/bigdecimal/hand.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bigdecimal/plus.test.cpp
-- /verify/tests/bigdecimal/plus.test.cpp.html
-title: tests/bigdecimal/plus.test.cpp
+- /verify/tests/bigdecimal/hand.test.cpp
+- /verify/tests/bigdecimal/hand.test.cpp.html
+title: tests/bigdecimal/hand.test.cpp
 ---

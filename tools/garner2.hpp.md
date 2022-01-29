@@ -8,13 +8,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
-    title: tools/rational.hpp
+    title: Rational number
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/minus.test.cpp
     title: tests/bigdecimal/minus.test.cpp
@@ -42,6 +45,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -290,11 +305,16 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
 documentation_of: tools/garner2.hpp
 layout: document
 title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$

@@ -1,0 +1,74 @@
+---
+data:
+  _extendedDependsOn: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/rational.hpp
+    title: Rational number
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
+  _isVerificationFailed: false
+  _pathExtension: hpp
+  _verificationStatusIcon: ':heavy_check_mark:'
+  attributes:
+    links: []
+  bundledCode: "#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  struct is_rational {\n    static constexpr bool value = false;\n\
+    \  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
+    }\n\n\n"
+  code: "#ifndef TOOLS_IS_RATIONAL_HPP\n#define TOOLS_IS_RATIONAL_HPP\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  struct is_rational {\n    static constexpr\
+    \ bool value = false;\n  };\n\n  template <typename T>\n  inline constexpr bool\
+    \ is_rational_v = ::tools::is_rational<T>::value;\n}\n\n#endif\n"
+  dependsOn: []
+  isVerificationFile: false
+  path: tools/is_rational.hpp
+  requiredBy:
+  - tools/rational.hpp
+  timestamp: '2022-01-29 15:03:46+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+documentation_of: tools/is_rational.hpp
+layout: document
+title: Check whether T is tools::rational
+---
+
+```cpp
+template <typename T>
+struct is_rational {
+  static constexpr bool value;
+};
+
+template <typename T>
+inline constexpr bool is_rational_v = is_rational<T>::value;
+```
+
+`tools::is_rational<T>::value` will be `true` if `T` is `tools::rational`.
+Otherwise, it will be `false`.
+
+## Constraints
+- None
+
+## Time Complexity
+- $O(1)$
+
+## License
+- CC0
+
+## Author
+- anqooqie

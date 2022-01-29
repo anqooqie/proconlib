@@ -7,6 +7,9 @@ data:
     path: tests/alphabetical_order.test.cpp
     title: tests/alphabetical_order.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -36,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
@@ -78,6 +84,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/xor_basis.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/median_solver.test.cpp
   - tests/ceil_log2.test.cpp
@@ -89,6 +96,7 @@ data:
   - tests/fill.test.cpp
   - tests/fix.test.cpp
   - tests/ssize.test.cpp
+  - tests/rational/random.test.cpp
   - tests/floor_log2.test.cpp
   - tests/floor_log.test.cpp
   - tests/permutation.test.cpp

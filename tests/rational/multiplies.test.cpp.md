@@ -17,6 +17,9 @@ data:
     path: tools/garner2.hpp
     title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
   - icon: ':heavy_check_mark:'
+    path: tools/is_rational.hpp
+    title: Check whether T is tools::rational
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
@@ -25,6 +28,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':heavy_check_mark:'
+    path: tools/rational.hpp
+    title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
@@ -41,19 +47,19 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
-  bundledCode: "#line 1 \"tests/bigdecimal/plus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\
-    \n\n#include <iostream>\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#include <cstddef>\n\
-    #include <algorithm>\n#include <cstdint>\n#include <string>\n#include <cassert>\n\
-    #include <limits>\n#include <cmath>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include\
-    \ <vector>\n#line 6 \"tools/bigint.hpp\"\n#include <array>\n#line 9 \"tools/bigint.hpp\"\
-    \n#include <iterator>\n#include <type_traits>\n#line 14 \"tools/bigint.hpp\"\n\
-    #include <utility>\n#line 16 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1\
-    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F
+  bundledCode: "#line 1 \"tests/rational/multiplies.test.cpp\"\n#define PROBLEM \"\
+    https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F\"\n\n#include <iostream>\n#line\
+    \ 1 \"tools/rational.hpp\"\n\n\n\n#include <cstdint>\n#include <cassert>\n#include\
+    \ <limits>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#line 6 \"\
+    tools/bigint.hpp\"\n#include <array>\n#include <cstddef>\n#include <algorithm>\n\
+    #include <iterator>\n#include <type_traits>\n#include <cmath>\n#include <string>\n\
+    #line 14 \"tools/bigint.hpp\"\n#include <utility>\n#line 16 \"tools/bigint.hpp\"\
+    \n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
+    \ 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
@@ -687,43 +693,43 @@ data:
     \ (self.m_digits.empty()) {\n        return os << '0';\n      }\n      os << self.m_digits.back();\n\
     \      for (::std::size_t i = 1; i < self.m_digits.size(); ++i) {\n        os\
     \ << ::std::setw(LOG10_BASE) << ::std::setfill('0') << self.m_digits[self.m_digits.size()\
-    \ - 1 - i];\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\
-    \n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
-    \ x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace\
-    \ tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n    floor,\n\
-    \    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 16 \"\
-    tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n  private:\n\
-    \    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n    ::tools::bigint\
-    \ m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n    ::tools::bigdecimal&\
-    \ regularize() {\n      if (this->m_unscaled_value.signum() == 0) {\n        this->m_scale\
-    \ = 0;\n      }\n      return *this;\n    }\n\n  public:\n    const ::tools::bigint&\
-    \ unscaled_value() const {\n      return this->m_unscaled_value;\n    }\n    ::std::size_t\
-    \ precision() const {\n      return this->m_unscaled_value.size();\n    }\n  \
-    \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
-    \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
-    \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
-    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
-    \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
-    \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
-    \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
-    \ this->m_unscaled_value.multiply_by_pow10(s - this->m_scale);\n      this->m_scale\
-    \ = s;\n      this->regularize();\n      return *this;\n    }\n    static int\
-    \ compare_3way(const ::tools::bigdecimal& x, const ::tools::bigdecimal& y) {\n\
-    \      if (const auto comp = ::tools::signum(x.m_unscaled_value.signum() - y.m_unscaled_value.signum());\
-    \ comp != 0) {\n        return comp;\n      }\n      return [&]() {\n        ::tools::bigdecimal\
-    \ abs_x(x);\n        if (abs_x.signum() < 0) abs_x.negate();\n        abs_x.set_scale(::std::max(x.m_scale,\
-    \ y.m_scale));\n        ::tools::bigdecimal abs_y(y);\n        if (abs_y.signum()\
-    \ < 0) abs_y.negate();\n        abs_y.set_scale(::std::max(x.m_scale, y.m_scale));\n\
-    \        return ::tools::bigint::compare_3way(abs_x.m_unscaled_value, abs_y.m_unscaled_value);\n\
-    \      }() * x.m_unscaled_value.signum();\n    }\n\n    bigdecimal() : m_unscaled_value(0),\
-    \ m_scale(0) {\n    }\n    bigdecimal(const ::tools::bigdecimal&) = default;\n\
-    \    bigdecimal(::tools::bigdecimal&&) = default;\n    ~bigdecimal() = default;\n\
-    \    ::tools::bigdecimal& operator=(const ::tools::bigdecimal&) = default;\n \
-    \   ::tools::bigdecimal& operator=(::tools::bigdecimal&&) = default;\n\n    explicit\
-    \ bigdecimal(const ::std::int_fast64_t n) : m_unscaled_value(n), m_scale(0) {\n\
-    \    }\n    explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n),\
+    \ - 1 - i];\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/bigdecimal.hpp\"\
+    \n\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept\
+    \ {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x\
+    \ < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"\
+    tools/rounding_mode.hpp\"\n\n\n\nnamespace tools {\n  enum class rounding_mode\
+    \ {\n    ceiling,\n    down,\n    floor,\n    half_down,\n    half_even,\n   \
+    \ half_up,\n    up\n  };\n}\n\n\n#line 16 \"tools/bigdecimal.hpp\"\n\nnamespace\
+    \ tools {\n  class bigdecimal {\n  private:\n    // *this := this->m_unscaled_value\
+    \ * (10 ** -this->m_scale)\n    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t\
+    \ m_scale;\n\n    ::tools::bigdecimal& regularize() {\n      if (this->m_unscaled_value.signum()\
+    \ == 0) {\n        this->m_scale = 0;\n      }\n      return *this;\n    }\n\n\
+    \  public:\n    const ::tools::bigint& unscaled_value() const {\n      return\
+    \ this->m_unscaled_value;\n    }\n    ::std::size_t precision() const {\n    \
+    \  return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t scale()\
+    \ const {\n      return this->m_scale;\n    }\n    int signum() const {\n    \
+    \  return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal& negate()\
+    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal&\
+    \ multiply_by_pow10(const ::std::ptrdiff_t n) {\n      this->m_scale -= n;\n \
+    \     return *this;\n    }\n    ::tools::bigdecimal& divide_by_pow10(const ::std::ptrdiff_t\
+    \ n) {\n      return this->multiply_by_pow10(-n);\n    }\n    ::tools::bigdecimal&\
+    \ set_scale(const ::std::ptrdiff_t s) {\n      this->m_unscaled_value.multiply_by_pow10(s\
+    \ - this->m_scale);\n      this->m_scale = s;\n      this->regularize();\n   \
+    \   return *this;\n    }\n    static int compare_3way(const ::tools::bigdecimal&\
+    \ x, const ::tools::bigdecimal& y) {\n      if (const auto comp = ::tools::signum(x.m_unscaled_value.signum()\
+    \ - y.m_unscaled_value.signum()); comp != 0) {\n        return comp;\n      }\n\
+    \      return [&]() {\n        ::tools::bigdecimal abs_x(x);\n        if (abs_x.signum()\
+    \ < 0) abs_x.negate();\n        abs_x.set_scale(::std::max(x.m_scale, y.m_scale));\n\
+    \        ::tools::bigdecimal abs_y(y);\n        if (abs_y.signum() < 0) abs_y.negate();\n\
+    \        abs_y.set_scale(::std::max(x.m_scale, y.m_scale));\n        return ::tools::bigint::compare_3way(abs_x.m_unscaled_value,\
+    \ abs_y.m_unscaled_value);\n      }() * x.m_unscaled_value.signum();\n    }\n\n\
+    \    bigdecimal() : m_unscaled_value(0), m_scale(0) {\n    }\n    bigdecimal(const\
+    \ ::tools::bigdecimal&) = default;\n    bigdecimal(::tools::bigdecimal&&) = default;\n\
+    \    ~bigdecimal() = default;\n    ::tools::bigdecimal& operator=(const ::tools::bigdecimal&)\
+    \ = default;\n    ::tools::bigdecimal& operator=(::tools::bigdecimal&&) = default;\n\
+    \n    explicit bigdecimal(const ::std::int_fast64_t n) : m_unscaled_value(n),\
+    \ m_scale(0) {\n    }\n    explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n),\
     \ m_scale(0) {\n    }\n    explicit bigdecimal(::std::string s) {\n      if (const\
     \ auto pos = s.find('.'); pos != ::std::string::npos) {\n        this->m_scale\
     \ = s.size() - pos - 1;\n        s.erase(pos, 1);\n      } else {\n        this->m_scale\
@@ -813,16 +819,92 @@ data:
     \ i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i) {\n        if (i ==\
     \ self.m_scale - 1) {\n          os << '.';\n        }\n        os << (0 <= i\
     \ && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i] : 0);\n\
-    \      }\n      return os;\n    }\n  };\n}\n\n\n#line 5 \"tests/bigdecimal/plus.test.cpp\"\
+    \      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
+    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
+    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
+    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
+    \n#line 13 \"tools/rational.hpp\"\n\nnamespace tools {\n  class rational {\n \
+    \ private:\n    ::tools::bigint m_numerator;\n    ::tools::bigint m_denominator;\n\
+    \n    ::tools::rational& regularize() {\n      if (this->m_denominator.signum()\
+    \ < 0) {\n        this->m_numerator.negate();\n        this->m_denominator.negate();\n\
+    \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
+    \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator,\
+    \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
+    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    ::tools::rational&\
+    \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
+    \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
+    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n    int signum()\
+    \ const {\n      return this->m_numerator.signum();\n    }\n\n    rational() :\
+    \ m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
+    \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
+    \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
+    \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
+    \ rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {\n\
+    \    }\n    explicit rational(const ::tools::bigint& n) : m_numerator(n), m_denominator(1)\
+    \ {\n    }\n    explicit rational(const ::tools::bigdecimal& d)\n      : m_numerator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
+    \ -d.scale())) *= d.unscaled_value()),\n        m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
+    \ d.scale()))) {\n      this->regularize();\n    }\n    rational(const ::tools::bigint&\
+    \ numerator, const ::tools::bigint& denominator)\n      : m_numerator(numerator),\
+    \ m_denominator(denominator) {\n      assert(this->m_denominator.signum() != 0);\n\
+    \      this->regularize();\n    }\n\n    const ::tools::bigint& numerator() const\
+    \ {\n      return this->m_numerator;\n    }\n    const ::tools::bigint& denominator()\
+    \ const {\n      return this->m_denominator;\n    }\n\n    friend bool operator==(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return lhs.m_numerator\
+    \ == rhs.m_numerator && lhs.m_denominator == rhs.m_denominator;\n    }\n    friend\
+    \ bool operator!=(const ::tools::rational& lhs, const ::tools::rational& rhs)\
+    \ {\n      return !(lhs == rhs);\n    }\n    friend bool operator<(const ::tools::rational&\
+    \ lhs, const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
+    \ rhs) < 0;\n    }\n    friend bool operator>(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
+    \ rhs) > 0;\n    }\n    friend bool operator<=(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
+    \ rhs) <= 0;\n    }\n    friend bool operator>=(const ::tools::rational& lhs,\
+    \ const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
+    \ rhs) >= 0;\n    }\n\n    ::tools::rational operator+() const {\n      return\
+    \ *this;\n    }\n    ::tools::rational operator-() const {\n      return ::tools::rational(*this).negate();\n\
+    \    }\n\n    ::tools::rational& operator+=(const ::tools::rational& other) {\n\
+    \      this->m_numerator *= other.m_denominator;\n      this->m_numerator += other.m_numerator\
+    \ * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
+    \      return this->regularize();\n    }\n    friend ::tools::rational operator+(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
+    \ += rhs;\n    }\n\n    ::tools::rational& operator-=(const ::tools::rational&\
+    \ other) {\n      this->m_numerator *= other.m_denominator;\n      this->m_numerator\
+    \ -= other.m_numerator * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
+    \      return this->regularize();\n    }\n    friend ::tools::rational operator-(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
+    \ -= rhs;\n    }\n\n    ::tools::rational& operator*=(const ::tools::rational&\
+    \ other) {\n      this->m_numerator *= other.m_numerator;\n      this->m_denominator\
+    \ *= other.m_denominator;\n      return this->regularize();\n    }\n    friend\
+    \ ::tools::rational operator*(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational(lhs) *= rhs;\n    }\n\n    ::tools::rational&\
+    \ operator/=(const ::tools::rational& other) {\n      assert(other.signum() !=\
+    \ 0);\n      this->m_numerator *= other.m_denominator;\n      this->m_denominator\
+    \ *= other.m_numerator;\n      return this->regularize();\n    }\n    friend ::tools::rational\
+    \ operator/(const ::tools::rational& lhs, const ::tools::rational& rhs) {\n  \
+    \    return ::tools::rational(lhs) /= rhs;\n    }\n\n    explicit operator double()\
+    \ const {\n      ::tools::bigint unscaled_value(this->m_numerator);\n      unscaled_value.multiply_by_pow10((::std::numeric_limits<double>::digits10\
+    \ + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));\n\
+    \      unscaled_value /= this->m_denominator;\n\n      ::tools::bigdecimal result(unscaled_value);\n\
+    \      result.divide_by_pow10((::std::numeric_limits<double>::digits10 + 2) -\
+    \ (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));\n\
+    \      return static_cast<double>(result);\n    }\n\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::rational& self) {\n      ::tools::bigdecimal\
+    \ value;\n      is >> value;\n      self = ::tools::rational(value);\n      return\
+    \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
+    \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
+    \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
+    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n#line 5 \"tests/rational/multiplies.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  tools::bigdecimal A, B;\n  std::cin >> A >> B;\n  std::cout << A + B << '\\\
-    n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A\"\n\n\
-    #include <iostream>\n#include \"tools/bigdecimal.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigdecimal A, B;\n  std::cin\
-    \ >> A >> B;\n  std::cout << A + B << '\\n';\n  return 0;\n}\n"
+    \n  tools::rational A, B;\n  std::cin >> A >> B;\n  std::cout << (A * B).numerator()\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_F\"\n\n\
+    #include <iostream>\n#include \"tools/rational.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  tools::rational A, B;\n  std::cin\
+    \ >> A >> B;\n  std::cout << (A * B).numerator() << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tools/bigdecimal.hpp
+  - tools/rational.hpp
   - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
@@ -831,18 +913,20 @@ data:
   - tools/garner2.hpp
   - tools/pow2.hpp
   - tools/ssize.hpp
+  - tools/bigdecimal.hpp
   - tools/signum.hpp
   - tools/rounding_mode.hpp
+  - tools/is_rational.hpp
   isVerificationFile: true
-  path: tests/bigdecimal/plus.test.cpp
+  path: tests/rational/multiplies.test.cpp
   requiredBy: []
   timestamp: '2022-01-29 15:03:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bigdecimal/plus.test.cpp
+documentation_of: tests/rational/multiplies.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bigdecimal/plus.test.cpp
-- /verify/tests/bigdecimal/plus.test.cpp.html
-title: tests/bigdecimal/plus.test.cpp
+- /verify/tests/rational/multiplies.test.cpp
+- /verify/tests/rational/multiplies.test.cpp.html
+title: tests/rational/multiplies.test.cpp
 ---

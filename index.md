@@ -153,6 +153,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
+    - icon: ':heavy_check_mark:'
+      path: tools/is_rational.hpp
+      title: Check whether T is tools::rational
     - icon: ':warning:'
       path: tools/join.hpp
       title: Join elements with delimiter
@@ -249,9 +252,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/rational.hpp
-      title: tools/rational.hpp
+      title: Rational number
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
@@ -272,7 +275,7 @@ data:
       title: Apply banker's rounding to $\frac{x}{y}$
     - icon: ':heavy_check_mark:'
       path: tools/rounding_mode.hpp
-      title: tools/rounding_mode.hpp
+      title: Rounding mode
     - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
@@ -497,6 +500,9 @@ data:
       path: tests/bigdecimal/divides.test.cpp
       title: tests/bigdecimal/divides.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/bigdecimal/hand.test.cpp
+      title: tests/bigdecimal/hand.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/minus.test.cpp
       title: tests/bigdecimal/minus.test.cpp
     - icon: ':heavy_check_mark:'
@@ -533,5 +539,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/matrix/solve.test.cpp
       title: tests/matrix/solve.test.cpp
+  - name: tests/rational
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/rational/minus.test.cpp
+      title: tests/rational/minus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rational/multiplies.test.cpp
+      title: tests/rational/multiplies.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rational/plus.test.cpp
+      title: tests/rational/plus.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rational/random.test.cpp
+      title: tests/rational/random.test.cpp
 layout: toppage
 ---
