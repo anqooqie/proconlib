@@ -2,9 +2,18 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tools/detail/polygon_and_triangle_2d.hpp
+    title: tools/detail/polygon_and_triangle_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/largest_rectangle_in_histogram.hpp
     title: Largest rectangle in histogram
+  - icon: ':warning:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp
@@ -26,7 +35,10 @@ data:
   isVerificationFile: false
   path: tools/chmax.hpp
   requiredBy:
+  - tools/polygon_2d.hpp
+  - tools/detail/polygon_and_triangle_2d.hpp
   - tools/largest_rectangle_in_histogram.hpp
+  - tools/triangle_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

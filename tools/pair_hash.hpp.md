@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/element_2d.hpp
     title: tools/detail/element_2d.hpp
+  - icon: ':warning:'
+    path: tools/detail/polygon_and_triangle_2d.hpp
+    title: tools/detail/polygon_and_triangle_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
@@ -26,6 +29,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
+  - icon: ':warning:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
@@ -143,10 +152,13 @@ data:
   path: tools/pair_hash.hpp
   requiredBy:
   - tools/less_by_arg.hpp
+  - tools/polygon_2d.hpp
   - tools/detail/element_2d.hpp
+  - tools/detail/polygon_and_triangle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp
   - tools/vector2.hpp
+  - tools/triangle_2d.hpp
   - tools/greater_by_arg.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp

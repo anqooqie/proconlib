@@ -502,8 +502,10 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
-    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
+    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
+    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
+    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -720,7 +722,9 @@ data:
     \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
     \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
     \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
-    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
+    \    return *this;\n    }\n    ::tools::bigdecimal abs() const {\n      ::tools::bigdecimal\
+    \ result(*this);\n      if (result.signum() < 0) result.negate();\n      return\
+    \ result;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
     \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
@@ -840,14 +844,16 @@ data:
     \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
     \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator,\
     \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
-    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    ::tools::rational&\
+    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    int signum()\
+    \ const {\n      return this->m_numerator.signum();\n    }\n    ::tools::rational&\
     \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
+    \    ::tools::rational abs() const {\n      ::tools::rational result(*this);\n\
+    \      if (result.signum() < 0) result.negate();\n      return result;\n    }\n\
     \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
     \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
     \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
-    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n    int signum()\
-    \ const {\n      return this->m_numerator.signum();\n    }\n\n    rational() :\
-    \ m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
+    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
+    \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
     \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
     \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
     \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
@@ -930,7 +936,7 @@ data:
   isVerificationFile: true
   path: tests/rational/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/rational/multiplies.test.cpp

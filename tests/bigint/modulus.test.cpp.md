@@ -485,8 +485,10 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
-    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
+    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
+    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
+    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -706,7 +708,7 @@ data:
   isVerificationFile: true
   path: tests/bigint/modulus.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigint/modulus.test.cpp

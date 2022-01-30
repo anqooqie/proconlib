@@ -8,6 +8,9 @@ data:
       title: tests/assert_that.hpp
   - name: tools
     pages:
+    - icon: ':warning:'
+      path: tools/abs.hpp
+      title: Unified interface for std::abs(x) and x.abs()
     - icon: ':heavy_check_mark:'
       path: tools/alphabetical_order.hpp
       title: Alphabetical order of a given character
@@ -231,6 +234,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
+    - icon: ':warning:'
+      path: tools/polygon_2d.hpp
+      title: tools/polygon_2d.hpp
     - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
@@ -315,6 +321,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
       title: Diameter of tree
+    - icon: ':warning:'
+      path: tools/triangle_2d.hpp
+      title: tools/triangle_2d.hpp
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting
@@ -347,6 +356,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
+    - icon: ':warning:'
+      path: tools/detail/polygon_and_triangle_2d.hpp
+      title: tools/detail/polygon_and_triangle_2d.hpp
   verificationCategories:
   - name: tests
     pages:

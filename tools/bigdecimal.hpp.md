@@ -528,8 +528,10 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
-    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
+    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
+    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
+    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -745,7 +747,9 @@ data:
     \  return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t scale()\
     \ const {\n      return this->m_scale;\n    }\n    int signum() const {\n    \
     \  return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal& negate()\
-    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal&\
+    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal\
+    \ abs() const {\n      ::tools::bigdecimal result(*this);\n      if (result.signum()\
+    \ < 0) result.negate();\n      return result;\n    }\n    ::tools::bigdecimal&\
     \ multiply_by_pow10(const ::std::ptrdiff_t n) {\n      this->m_scale -= n;\n \
     \     return *this;\n    }\n    ::tools::bigdecimal& divide_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      return this->multiply_by_pow10(-n);\n    }\n    ::tools::bigdecimal&\
@@ -868,7 +872,9 @@ data:
     \  return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t scale()\
     \ const {\n      return this->m_scale;\n    }\n    int signum() const {\n    \
     \  return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal& negate()\
-    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal&\
+    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal\
+    \ abs() const {\n      ::tools::bigdecimal result(*this);\n      if (result.signum()\
+    \ < 0) result.negate();\n      return result;\n    }\n    ::tools::bigdecimal&\
     \ multiply_by_pow10(const ::std::ptrdiff_t n) {\n      this->m_scale -= n;\n \
     \     return *this;\n    }\n    ::tools::bigdecimal& divide_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      return this->multiply_by_pow10(-n);\n    }\n    ::tools::bigdecimal&\
@@ -993,7 +999,7 @@ data:
   path: tools/bigdecimal.hpp
   requiredBy:
   - tools/rational.hpp
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigdecimal/hand.test.cpp
@@ -1126,6 +1132,19 @@ It updates $u_x$ to $-u_x$, and returns the updated $x$.
 
 ### Time Complexity
 - $O(1)$
+
+## abs
+```cpp
+bigdecimal x.abs();
+```
+
+It returns $\|x\|$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|u_x\|)$
 
 ## multiply_by_pow10
 ```cpp

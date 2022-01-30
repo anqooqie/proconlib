@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/element_2d.hpp
     title: tools/detail/element_2d.hpp
+  - icon: ':warning:'
+    path: tools/detail/polygon_and_triangle_2d.hpp
+    title: tools/detail/polygon_and_triangle_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
@@ -29,6 +32,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
+  - icon: ':warning:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
@@ -100,7 +109,7 @@ data:
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
     \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
-    \ F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
     \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
@@ -164,7 +173,7 @@ data:
   code: "#ifndef TOOLS_VECTOR2_HPP\n#define TOOLS_VECTOR2_HPP\n\n#include <cmath>\n\
     #include <type_traits>\n#include <cstddef>\n#include <array>\n#include <iostream>\n\
     #include <functional>\n#include \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\
-    \n  template <typename T>\n  class vector2 {\n  private:\n    using F = ::std::conditional<::std::is_floating_point_v<T>,\
+    \n  template <typename T>\n  class vector2 {\n  private:\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\n\n  public:\n    T x;\n    T y;\n\n    vector2() :\n      vector2(T(),\
     \ T()) {\n    }\n\n    vector2(const T& x, const T& y) :\n      x(x),\n      y(y)\
     \ {\n    }\n\n    F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
@@ -231,14 +240,17 @@ data:
   path: tools/vector2.hpp
   requiredBy:
   - tools/less_by_arg.hpp
+  - tools/polygon_2d.hpp
   - tools/detail/element_2d.hpp
+  - tools/detail/polygon_and_triangle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp
+  - tools/triangle_2d.hpp
   - tools/greater_by_arg.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp
   - tools/convex_hull.hpp
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
@@ -296,7 +308,7 @@ It is the y-coordinate of the vector.
 
 ## norm
 ```cpp
-std::conditional<::std::is_floating_point_v<T>, T, double> v.norm();
+std::conditional_t<::std::is_floating_point_v<T>, T, double> v.norm();
 ```
 
 It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.

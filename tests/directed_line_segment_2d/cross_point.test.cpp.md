@@ -108,7 +108,7 @@ data:
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
     \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
-    \ F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
     \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
@@ -190,7 +190,7 @@ data:
     \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2);\n\n    const ::tools::vector2<T>&\
     \ p1() const;\n    const ::tools::vector2<T>& p2() const;\n\n    ::tools::vector2<T>\
     \ to_vector() const;\n    ::tools::half_line_2d<T> to_half_line() const;\n   \
-    \ ::tools::line_2d<T> to_line() const;\n    ::std::conditional<::std::is_floating_point_v<T>,\
+    \ ::tools::line_2d<T> to_line() const;\n    ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double> length() const;\n    T squared_length() const;\n    template <typename\
     \ U = T, ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
     \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> midpoint() const;\n  \
@@ -274,7 +274,7 @@ data:
     \ const {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
     \  }\n\n  template <typename T>\n  ::tools::line_2d<T> directed_line_segment_2d<T>::to_line()\
     \ const {\n    return ::tools::line_2d<T>::through(this->m_p1, this->m_p2);\n\
-    \  }\n\n  template <typename T>\n  ::std::conditional<::std::is_floating_point_v<T>,\
+    \  }\n\n  template <typename T>\n  ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double> directed_line_segment_2d<T>::length() const {\n    return this->to_vector().norm();\n\
     \  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
     \ const {\n    return this->to_vector().squared_norm();\n  }\n\n  template <typename\
@@ -921,8 +921,10 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
-    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
+    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
+    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
+    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -1135,7 +1137,9 @@ data:
     \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
     \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
     \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
-    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
+    \    return *this;\n    }\n    ::tools::bigdecimal abs() const {\n      ::tools::bigdecimal\
+    \ result(*this);\n      if (result.signum() < 0) result.negate();\n      return\
+    \ result;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
     \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
@@ -1252,14 +1256,16 @@ data:
     \ == 0) {\n        this->m_denominator = ::tools::bigint(1);\n      } else {\n\
     \        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator, this->m_denominator);\n\
     \        this->m_numerator /= gcd;\n        this->m_denominator /= gcd;\n    \
-    \  }\n      return *this;\n    }\n\n  public:\n    ::tools::rational& negate()\
-    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    static\
-    \ int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs)\
-    \ {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
-    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
-    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n    int signum()\
-    \ const {\n      return this->m_numerator.signum();\n    }\n\n    rational() :\
-    \ m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
+    \  }\n      return *this;\n    }\n\n  public:\n    int signum() const {\n    \
+    \  return this->m_numerator.signum();\n    }\n    ::tools::rational& negate()\
+    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    ::tools::rational\
+    \ abs() const {\n      ::tools::rational result(*this);\n      if (result.signum()\
+    \ < 0) result.negate();\n      return result;\n    }\n    static int compare_3way(const\
+    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      if (const auto\
+    \ comp = ::tools::signum(lhs.signum() - rhs.signum()); comp != 0) {\n        return\
+    \ comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator *\
+    \ rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
+    \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
     \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
     \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
     \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
@@ -1358,7 +1364,7 @@ data:
   isVerificationFile: true
   path: tests/directed_line_segment_2d/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/cross_point.test.cpp

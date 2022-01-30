@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/element_2d.hpp
     title: tools/detail/element_2d.hpp
+  - icon: ':warning:'
+    path: tools/detail/polygon_and_triangle_2d.hpp
+    title: tools/detail/polygon_and_triangle_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
@@ -17,9 +20,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
+  - icon: ':warning:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
@@ -80,9 +89,12 @@ data:
   requiredBy:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/polygon_2d.hpp
   - tools/detail/element_2d.hpp
+  - tools/detail/polygon_and_triangle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp
+  - tools/triangle_2d.hpp
   - tools/directed_line_segment_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC

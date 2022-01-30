@@ -72,7 +72,7 @@ data:
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
     \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
-    \ F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
     \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
@@ -213,7 +213,7 @@ data:
   isVerificationFile: true
   path: tests/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/convex_hull.test.cpp

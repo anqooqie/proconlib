@@ -74,7 +74,7 @@ data:
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
     \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
-    \ F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
     \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
@@ -156,7 +156,7 @@ data:
     \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2);\n\n    const ::tools::vector2<T>&\
     \ p1() const;\n    const ::tools::vector2<T>& p2() const;\n\n    ::tools::vector2<T>\
     \ to_vector() const;\n    ::tools::half_line_2d<T> to_half_line() const;\n   \
-    \ ::tools::line_2d<T> to_line() const;\n    ::std::conditional<::std::is_floating_point_v<T>,\
+    \ ::tools::line_2d<T> to_line() const;\n    ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double> length() const;\n    T squared_length() const;\n    template <typename\
     \ U = T, ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
     \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> midpoint() const;\n  \
@@ -240,7 +240,7 @@ data:
     \ const {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
     \  }\n\n  template <typename T>\n  ::tools::line_2d<T> directed_line_segment_2d<T>::to_line()\
     \ const {\n    return ::tools::line_2d<T>::through(this->m_p1, this->m_p2);\n\
-    \  }\n\n  template <typename T>\n  ::std::conditional<::std::is_floating_point_v<T>,\
+    \  }\n\n  template <typename T>\n  ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double> directed_line_segment_2d<T>::length() const {\n    return this->to_vector().norm();\n\
     \  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
     \ const {\n    return this->to_vector().squared_norm();\n  }\n\n  template <typename\
@@ -468,7 +468,7 @@ data:
   isVerificationFile: true
   path: tests/line_2d/is_parallel_to.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:10:29+09:00'
+  timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/line_2d/is_parallel_to.test.cpp
