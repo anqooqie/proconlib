@@ -12,11 +12,23 @@ data:
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
+    path: tools/detail/element_2d.hpp
+    title: tools/detail/element_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: tools/directed_line_segment_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: tools/half_line_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: tools/line_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
@@ -25,18 +37,27 @@ data:
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <cmath>\n#include <type_traits>\n\
-    #include <cstddef>\n#include <array>\n#include <functional>\n#include <iostream>\n\
+    #include <cstddef>\n#include <array>\n#include <iostream>\n#include <functional>\n\
     #line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include\
     \ <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\
     \nnamespace tools {\n\n  template <class T1, class T2>\n  struct pair_hash {\n\
@@ -78,47 +99,51 @@ data:
     \ ::std::uint32_t> hasher = ::tools::pair_hash<::std::uint32_t, ::std::uint32_t>();\n\
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
     \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n\
-    \    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n    vector2(const\
-    \ T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n    double norm() const\
-    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
-    \  }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
-    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double>\
-    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
-    \ operator+() const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-()\
-    \ const {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n  \
-    \  friend ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const\
-    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x + rhs.x,\
-    \ lhs.y + rhs.y);\n    }\n\n    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>&\
-    \ lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
-    \ - rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    friend\
-    \ ::tools::vector2<T> operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs)\
-    \ {\n      return ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template\
-    \ <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER, ::tools::vector2<T>>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n    friend ::tools::vector2<T> operator*(const\
-    \ OTHER& lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs\
-    \ * rhs.x, lhs * rhs.y);\n    }\n\n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    friend\
-    \ ::tools::vector2<T> operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs)\
-    \ {\n      return ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n  \
-    \  T inner_product(const ::tools::vector2<T>& other) const {\n      return this->x\
-    \ * other.x + this->y * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>&\
-    \ other) const {\n      return this->x * other.y - this->y * other.x;\n    }\n\
-    \n    ::tools::vector2<T>& operator+=(const ::tools::vector2<T>& other) {\n  \
-    \    return *this = *this + other;\n    }\n\n    ::tools::vector2<T>& operator-=(const\
-    \ ::tools::vector2<T>& other) {\n      return *this = *this - other;\n    }\n\n\
-    \    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<T>&\
-    \ operator*=(const OTHER& other) {\n      return *this = *this * other;\n    }\n\
-    \n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<T>&\
+    \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
+    \ F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
+    \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
+    \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
+    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
+    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
+    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> operator+()\
+    \ const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-() const\
+    \ {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n    friend\
+    \ ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
+    \ rhs) {\n      return ::tools::vector2<T>(lhs.x + rhs.x, lhs.y + rhs.y);\n  \
+    \  }\n\n    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>& lhs,\
+    \ const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x -\
+    \ rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    friend ::tools::vector2<T> operator*(const OTHER& lhs, const\
+    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs * rhs.x, lhs\
+    \ * rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n    T inner_product(const\
+    \ ::tools::vector2<T>& other) const {\n      return this->x * other.x + this->y\
+    \ * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>& other) const\
+    \ {\n      return this->x * other.y - this->y * other.x;\n    }\n\n    ::tools::vector2<T>&\
+    \ operator+=(const ::tools::vector2<T>& other) {\n      return *this = *this +\
+    \ other;\n    }\n\n    ::tools::vector2<T>& operator-=(const ::tools::vector2<T>&\
+    \ other) {\n      return *this = *this - other;\n    }\n\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    ::tools::vector2<T>& operator*=(const OTHER& other) {\n    \
+    \  return *this = *this * other;\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T>&\
     \ operator/=(const OTHER& other) {\n      return *this = *this / other;\n    }\n\
     \n    friend bool operator==(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
     \ rhs) {\n      return lhs.x == rhs.x && lhs.y == rhs.y;\n    }\n\n    friend\
     \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
-    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
+    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    friend ::std::ostream&\
+    \ operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {\n      return\
+    \ os << '(' << self.x << \", \" << self.y << ')';\n    }\n\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n      return is\
+    \ >> self.x >> self.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
     \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
     \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
     \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
@@ -135,55 +160,54 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n\n  template <typename T>\n  ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::vector2<T>& self) {\n    return os << '(' << self.x << \"\
-    , \" << self.y << ')';\n  }\n\n  template <typename T>\n  ::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::vector2<T>& self) {\n    return is >> self.x >> self.y;\n  }\n\
-    }\n\n\n"
+    \ key.y));\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_VECTOR2_HPP\n#define TOOLS_VECTOR2_HPP\n\n#include <cmath>\n\
-    #include <type_traits>\n#include <cstddef>\n#include <array>\n#include <functional>\n\
-    #include <iostream>\n#include \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\n\
-    \    vector2() :\n      vector2(T(), T()) {\n    }\n\n    vector2(const T& x,\
-    \ const T& y) :\n      x(x),\n      y(y) {\n    }\n\n    double norm() const {\n\
-    \      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n    }\n\
-    \n    T squared_norm() const {\n      return this->inner_product(*this);\n   \
-    \ }\n\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
-    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<double>\
-    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    ::tools::vector2<T>\
-    \ operator+() const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-()\
-    \ const {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n  \
-    \  friend ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const\
-    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x + rhs.x,\
-    \ lhs.y + rhs.y);\n    }\n\n    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>&\
-    \ lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
-    \ - rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    friend\
-    \ ::tools::vector2<T> operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs)\
-    \ {\n      return ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template\
-    \ <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER, ::tools::vector2<T>>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n    friend ::tools::vector2<T> operator*(const\
-    \ OTHER& lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs\
-    \ * rhs.x, lhs * rhs.y);\n    }\n\n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    friend\
-    \ ::tools::vector2<T> operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs)\
-    \ {\n      return ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n  \
-    \  T inner_product(const ::tools::vector2<T>& other) const {\n      return this->x\
-    \ * other.x + this->y * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>&\
-    \ other) const {\n      return this->x * other.y - this->y * other.x;\n    }\n\
-    \n    ::tools::vector2<T>& operator+=(const ::tools::vector2<T>& other) {\n  \
-    \    return *this = *this + other;\n    }\n\n    ::tools::vector2<T>& operator-=(const\
-    \ ::tools::vector2<T>& other) {\n      return *this = *this - other;\n    }\n\n\
-    \    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<T>&\
-    \ operator*=(const OTHER& other) {\n      return *this = *this * other;\n    }\n\
-    \n    template <typename OTHER, typename ::std::enable_if<!::std::is_same<OTHER,\
-    \ ::tools::vector2<T>>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector2<T>&\
+    #include <type_traits>\n#include <cstddef>\n#include <array>\n#include <iostream>\n\
+    #include <functional>\n#include \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename T>\n  class vector2 {\n  private:\n    using F = ::std::conditional<::std::is_floating_point_v<T>,\
+    \ T, double>;\n\n  public:\n    T x;\n    T y;\n\n    vector2() :\n      vector2(T(),\
+    \ T()) {\n    }\n\n    vector2(const T& x, const T& y) :\n      x(x),\n      y(y)\
+    \ {\n    }\n\n    F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
+    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
+    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
+    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> operator+()\
+    \ const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-() const\
+    \ {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n    friend\
+    \ ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
+    \ rhs) {\n      return ::tools::vector2<T>(lhs.x + rhs.x, lhs.y + rhs.y);\n  \
+    \  }\n\n    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>& lhs,\
+    \ const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x -\
+    \ rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    friend ::tools::vector2<T> operator*(const OTHER& lhs, const\
+    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs * rhs.x, lhs\
+    \ * rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n    T inner_product(const\
+    \ ::tools::vector2<T>& other) const {\n      return this->x * other.x + this->y\
+    \ * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>& other) const\
+    \ {\n      return this->x * other.y - this->y * other.x;\n    }\n\n    ::tools::vector2<T>&\
+    \ operator+=(const ::tools::vector2<T>& other) {\n      return *this = *this +\
+    \ other;\n    }\n\n    ::tools::vector2<T>& operator-=(const ::tools::vector2<T>&\
+    \ other) {\n      return *this = *this - other;\n    }\n\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    ::tools::vector2<T>& operator*=(const OTHER& other) {\n    \
+    \  return *this = *this * other;\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T>&\
     \ operator/=(const OTHER& other) {\n      return *this = *this / other;\n    }\n\
     \n    friend bool operator==(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
     \ rhs) {\n      return lhs.x == rhs.x && lhs.y == rhs.y;\n    }\n\n    friend\
     \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
-    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
+    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    friend ::std::ostream&\
+    \ operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {\n      return\
+    \ os << '(' << self.x << \", \" << self.y << ')';\n    }\n\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n      return is\
+    \ >> self.x >> self.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
     \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
     \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
     \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
@@ -200,27 +224,30 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n\n  template <typename T>\n  ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::vector2<T>& self) {\n    return os << '(' << self.x << \"\
-    , \" << self.y << ')';\n  }\n\n  template <typename T>\n  ::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::vector2<T>& self) {\n    return is >> self.x >> self.y;\n  }\n\
-    }\n\n#endif\n"
+    \ key.y));\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/pair_hash.hpp
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
   - tools/less_by_arg.hpp
+  - tools/detail/element_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/line_2d.hpp
   - tools/greater_by_arg.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp
   - tools/convex_hull.hpp
-  timestamp: '2021-11-28 18:16:23+09:00'
+  timestamp: '2022-01-30 19:10:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: 2D vector
@@ -269,7 +296,7 @@ It is the y-coordinate of the vector.
 
 ## norm
 ```cpp
-double v.norm();
+std::conditional<::std::is_floating_point_v<T>, T, double> v.norm();
 ```
 
 It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.
@@ -295,13 +322,13 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
 
 ## normalized
 ```cpp
-vector2<double> v.normalized();
+vector2<T> v.normalized();
 ```
 
 It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
 
 ### Constraints
-- `<T>` is `double`
+- `std::is_floating_point_v<T>` is `true`
 
 ### Time Complexity
 - $O(1)$

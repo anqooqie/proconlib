@@ -85,6 +85,12 @@ data:
     path: tests/convolution.test.cpp
     title: tests/convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
@@ -181,6 +187,8 @@ data:
   - tests/convolution.test.cpp
   - tests/li_chao_segtree.test.cpp
   - tests/totient.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/binary_heap.test.cpp
   - tests/dual_segtree.test.cpp

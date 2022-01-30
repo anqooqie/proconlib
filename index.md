@@ -69,6 +69,9 @@ data:
       path: tools/dijkstra.hpp
       title: Dijkstra's algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/directed_line_segment_2d.hpp
+      title: tools/directed_line_segment_2d.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
     - icon: ':heavy_check_mark:'
@@ -139,6 +142,9 @@ data:
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
+      path: tools/half_line_2d.hpp
+      title: tools/half_line_2d.hpp
+    - icon: ':warning:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
     - icon: ':heavy_check_mark:'
@@ -180,6 +186,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
+    - icon: ':heavy_check_mark:'
+      path: tools/line_2d.hpp
+      title: tools/line_2d.hpp
     - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
@@ -332,6 +341,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/ceil_and_floor.hpp
       title: tools/detail/ceil_and_floor.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/detail/element_2d.hpp
+      title: tools/detail/element_2d.hpp
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
@@ -531,6 +543,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
+  - name: tests/directed_line_segment_2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/directed_line_segment_2d/cross_point.test.cpp
+      title: tests/directed_line_segment_2d/cross_point.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/directed_line_segment_2d/intersection.test.cpp
+      title: tests/directed_line_segment_2d/intersection.test.cpp
+  - name: tests/line_2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/line_2d/is_parallel_to.test.cpp
+      title: tests/line_2d/is_parallel_to.test.cpp
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'

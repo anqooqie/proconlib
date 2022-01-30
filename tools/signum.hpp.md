@@ -6,6 +6,18 @@ data:
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
+    path: tools/detail/element_2d.hpp
+    title: tools/detail/element_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: tools/directed_line_segment_2d.hpp
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: tools/half_line_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: tools/line_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -27,6 +39,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
@@ -59,6 +80,10 @@ data:
   requiredBy:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/detail/element_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/line_2d.hpp
+  - tools/directed_line_segment_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -68,10 +93,13 @@ data:
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/plus.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/random.test.cpp
   - tests/rational/plus.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
 documentation_of: tools/signum.hpp
 layout: document
 title: Sign function

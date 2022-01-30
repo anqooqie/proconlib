@@ -85,6 +85,12 @@ data:
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
@@ -176,6 +182,8 @@ data:
   - tests/divisors.test.cpp
   - tests/extended_garner.test.cpp
   - tests/totient.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/is_prime.test.cpp
   - tests/extended_lucas.test.cpp

@@ -9,11 +9,23 @@ data:
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
+    path: tools/detail/element_2d.hpp
+    title: tools/detail/element_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: tools/directed_line_segment_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: tools/half_line_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: tools/line_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
@@ -25,11 +37,20 @@ data:
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -122,8 +143,12 @@ data:
   path: tools/pair_hash.hpp
   requiredBy:
   - tools/less_by_arg.hpp
+  - tools/detail/element_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/line_2d.hpp
   - tools/vector2.hpp
   - tools/greater_by_arg.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp
   - tools/convex_hull.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -131,8 +156,11 @@ data:
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/ccw.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
 documentation_of: tools/pair_hash.hpp
 layout: document
 title: Hash of std::pair

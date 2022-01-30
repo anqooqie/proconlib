@@ -28,6 +28,12 @@ data:
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -65,6 +71,8 @@ data:
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/plus.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/random.test.cpp
