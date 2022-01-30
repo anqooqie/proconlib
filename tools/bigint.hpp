@@ -336,6 +336,10 @@ namespace tools {
         this->m_positive = true;        
         return *this;
       }
+      if (other.m_digits.size() == 1 && other.m_digits[0] == 1) {
+        this->m_positive = (this->m_positive == other.m_positive);
+        return *this;
+      }
 
       using bigdecimal = ::std::pair<::tools::bigint, ::std::ptrdiff_t>;
       static const auto precision = [](const bigdecimal& x) {
@@ -492,7 +496,7 @@ namespace tools {
       return x;
     }
 
-    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type = nullptr>
+    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>
     explicit operator T() const {
       assert(::tools::bigint(::std::numeric_limits<T>::min()) <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));
       T result = 0;
@@ -500,6 +504,16 @@ namespace tools {
         result = result * BASE + this->m_digits[i] * (this->m_positive ? 1 : -1);
       }
       return result;
+    }
+
+    explicit operator double() const {
+      long double result = 0.0;
+      const ::std::size_t precision = this->size();
+      for (::std::size_t i = 0; i < ::std::numeric_limits<long double>::digits10; ++i) {
+        result = result * 10.0L + (precision >= i + 1 ? (*this)[precision - 1 - i] : 0) * this->signum();
+      }
+      result *= ::std::pow(10.0L, static_cast<long double>(precision) - static_cast<long double>(::std::numeric_limits<long double>::digits10));
+      return static_cast<double>(result);
     }
 
     friend ::std::istream& operator>>(::std::istream& is, ::tools::bigint& self) {

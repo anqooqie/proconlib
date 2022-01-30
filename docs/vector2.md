@@ -46,7 +46,7 @@ It is the y-coordinate of the vector.
 
 ## norm
 ```cpp
-double v.norm();
+std::conditional<::std::is_floating_point_v<T>, T, double> v.norm();
 ```
 
 It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.
@@ -72,13 +72,13 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
 
 ## normalized
 ```cpp
-vector2<double> v.normalized();
+vector2<T> v.normalized();
 ```
 
 It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
 
 ### Constraints
-- `<T>` is `double`
+- `std::is_floating_point_v<T>` is `true`
 
 ### Time Complexity
 - $O(1)$
