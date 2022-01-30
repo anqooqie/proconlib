@@ -110,6 +110,11 @@ namespace tools {
       }
       return *this;
     }
+    ::tools::bigint abs() const {
+      ::tools::bigint result(*this);
+      if (!result.m_positive) result.negate();
+      return result;
+    }
     ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {
       if (!this->m_digits.empty()) {
         const ::std::ptrdiff_t exponent10000 = ::tools::floor(exponent, LOG10_BASE);

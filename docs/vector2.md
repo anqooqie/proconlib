@@ -46,7 +46,7 @@ It is the y-coordinate of the vector.
 
 ## norm
 ```cpp
-std::conditional<::std::is_floating_point_v<T>, T, double> v.norm();
+std::conditional_t<::std::is_floating_point_v<T>, T, double> v.norm();
 ```
 
 It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.

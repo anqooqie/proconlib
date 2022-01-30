@@ -50,6 +50,19 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
+## abs
+```cpp
+bigint x.abs();
+```
+
+It returns $\|x\|$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x\|)$
+
 ## multiply_by_pow10
 ```cpp
 bigint& x.multiply_by_pow10(std::ptrdiff_t n);

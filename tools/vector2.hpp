@@ -14,7 +14,7 @@ namespace tools {
   template <typename T>
   class vector2 {
   private:
-    using F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;
+    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
 
   public:
     T x;

@@ -33,18 +33,23 @@ namespace tools {
     }
 
   public:
+    int signum() const {
+      return this->m_numerator.signum();
+    }
     ::tools::rational& negate() {
       this->m_numerator.negate();
       return *this;
+    }
+    ::tools::rational abs() const {
+      ::tools::rational result(*this);
+      if (result.signum() < 0) result.negate();
+      return result;
     }
     static int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs) {
       if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum()); comp != 0) {
         return comp;
       }
       return ::tools::bigint::compare_3way(lhs.m_numerator * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);
-    }
-    int signum() const {
-      return this->m_numerator.signum();
     }
 
     rational() : m_numerator(0), m_denominator(1) {

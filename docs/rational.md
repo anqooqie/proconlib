@@ -108,6 +108,19 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
+## abs
+```cpp
+rational x.abs();
+```
+
+It returns $\|x\|$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|n_x\| + \log \|d_x\|)$
+
 ## compare_3way
 ```cpp
 int rational::compare_3way(const rational& x, const rational& y);

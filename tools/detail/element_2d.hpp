@@ -43,7 +43,7 @@ namespace tools {
     ::tools::vector2<T> to_vector() const;
     ::tools::half_line_2d<T> to_half_line() const;
     ::tools::line_2d<T> to_line() const;
-    ::std::conditional<::std::is_floating_point_v<T>, T, double> length() const;
+    ::std::conditional_t<::std::is_floating_point_v<T>, T, double> length() const;
     T squared_length() const;
     template <typename U = T, ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::nullptr_t> = nullptr>
     ::tools::vector2<T> midpoint() const;
@@ -182,7 +182,7 @@ namespace tools {
   }
 
   template <typename T>
-  ::std::conditional<::std::is_floating_point_v<T>, T, double> directed_line_segment_2d<T>::length() const {
+  ::std::conditional_t<::std::is_floating_point_v<T>, T, double> directed_line_segment_2d<T>::length() const {
     return this->to_vector().norm();
   }
 

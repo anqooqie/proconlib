@@ -45,6 +45,11 @@ namespace tools {
       this->m_unscaled_value.negate();
       return *this;
     }
+    ::tools::bigdecimal abs() const {
+      ::tools::bigdecimal result(*this);
+      if (result.signum() < 0) result.negate();
+      return result;
+    }
     ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t n) {
       this->m_scale -= n;
       return *this;
