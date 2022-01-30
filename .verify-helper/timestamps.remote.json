@@ -34,6 +34,7 @@
 "tests/extgcd.test.cpp": "2021-03-29 00:30:01 +0900",
 "tests/fact_mod_cache.test.cpp": "2021-07-17 23:00:45 +0900",
 "tests/fill.test.cpp": "2021-12-04 02:14:32 +0900",
+"tests/find_cycle.test.cpp": "2022-01-30 19:57:33 +0900",
 "tests/fix.test.cpp": "2021-11-27 17:50:09 +0900",
 "tests/floor_log.test.cpp": "2021-09-25 15:53:45 +0900",
 "tests/floor_log2.test.cpp": "2021-09-25 15:53:45 +0900",
