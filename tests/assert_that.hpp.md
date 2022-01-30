@@ -22,6 +22,9 @@ data:
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/find_cycle.test.cpp
+    title: tests/find_cycle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
   - icon: ':heavy_check_mark:'
@@ -84,6 +87,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/xor_basis.test.cpp
+  - tests/find_cycle.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/median_solver.test.cpp

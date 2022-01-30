@@ -5,10 +5,13 @@ data:
   - icon: ':warning:'
     path: tools/rich_pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/find_cycle.test.cpp
+    title: tests/find_cycle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#include <utility>\n#include\
@@ -36,8 +39,9 @@ data:
   requiredBy:
   - tools/rich_pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/find_cycle.test.cpp
 documentation_of: tools/find_cycle.hpp
 layout: document
 title: Floyd's cycle-finding algorithm

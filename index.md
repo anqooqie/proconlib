@@ -98,7 +98,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
@@ -416,6 +416,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/find_cycle.test.cpp
+      title: tests/find_cycle.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/fix.test.cpp
       title: tests/fix.test.cpp
