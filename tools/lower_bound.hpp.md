@@ -47,9 +47,9 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lis.test.cpp
   - tests/inversion_number.test.cpp
   - tests/tsort.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index

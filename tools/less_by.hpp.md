@@ -5,10 +5,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
@@ -31,12 +46,17 @@ data:
   isVerificationFile: false
   path: tools/less_by.hpp
   requiredBy:
+  - tools/triangle_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
   - tools/convex_hull.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/convex_hull.test.cpp
   - tests/real_interval_set.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

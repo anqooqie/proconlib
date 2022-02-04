@@ -55,6 +55,9 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -86,31 +89,32 @@ data:
   isVerificationFile: false
   path: tools/ssize.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
-  - tools/rational.hpp
   - tools/bigint.hpp
+  - tools/rational.hpp
+  - tools/bigdecimal.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/permutation.test.cpp
   - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/ssize.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/ssize.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/permutation.test.cpp
+  - tests/polygon_2d/area.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document
 title: Polyfill of std::ssize

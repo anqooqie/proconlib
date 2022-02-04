@@ -109,6 +109,9 @@ data:
     path: tests/li_chao_segtree.test.cpp
     title: tests/li_chao_segtree.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -155,52 +158,53 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
-  - tools/prime_factorization.hpp
-  - tools/rational.hpp
   - tools/bigint.hpp
-  - tools/tetration_mod.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/lca.hpp
+  - tools/prime_factorization.hpp
   - tools/extended_lucas.hpp
-  - tools/divisors.hpp
-  - tools/convolution.hpp
   - tools/totient.hpp
-  - tools/dual_segtree.hpp
+  - tools/rational.hpp
   - tools/li_chao_segtree.hpp
   - tools/binary_heap.hpp
+  - tools/convolution.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/divisors.hpp
+  - tools/dual_segtree.hpp
+  - tools/tetration_mod.hpp
+  - tools/lca.hpp
+  - tools/bigdecimal.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/totient.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/dual_segtree.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/convolution.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/li_chao_segtree.test.cpp
+  - tests/ssize.test.cpp
+  - tests/lca.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/divisors.test.cpp
-  - tests/convolution.test.cpp
-  - tests/li_chao_segtree.test.cpp
-  - tests/totient.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/polygon_2d/area.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/binary_heap.test.cpp
-  - tests/dual_segtree.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/lca.test.cpp
-  - tests/ssize.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$

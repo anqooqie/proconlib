@@ -11,9 +11,6 @@ data:
     path: tools/detail/line_like_2d.hpp
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/detail/polygon_like_2d.hpp
-    title: tools/detail/polygon_like_2d.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -31,7 +28,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':warning:'
+    path: tools/triangle_2d.hpp
+    title: tools/triangle_2d.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
@@ -44,9 +47,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#include <cassert>\n#include <initializer_list>\n\
-    #include <type_traits>\n#include <array>\n#include <algorithm>\n#line 1 \"tools/vector2.hpp\"\
+  bundledCode: "#line 1 \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#include <vector>\n\
+    #include <cstddef>\n#include <cassert>\n#include <initializer_list>\n#include\
+    \ <type_traits>\n#include <array>\n#include <algorithm>\n#line 1 \"tools/vector2.hpp\"\
     \n\n\n\n#include <cmath>\n#line 8 \"tools/vector2.hpp\"\n#include <iostream>\n\
     #include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
     \n#include <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include\
@@ -599,21 +602,116 @@ data:
     \ < edges[2].squared_length()) {\n      const auto center = edges[2].midpoint();\n\
     \      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());\n\
     \    } else {\n      const auto center = this->circumcenter();\n      return ::std::make_pair(center,\
-    \ (center - this->m_points[0]).squared_norm());\n    }\n  }\n}\n\n\n#line 5 \"\
-    tools/polygon_2d.hpp\"\n\n\n"
-  code: '#ifndef TOOLS_POLYGON_2D_HPP
-
-    #define TOOLS_POLYGON_2D_HPP
-
-
-    #include "tools/detail/polygon_like_2d.hpp"
-
-
-    #endif
-
-    '
+    \ (center - this->m_points[0]).squared_norm());\n    }\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_POLYGON_LIKE_2D_HPP\n#define TOOLS_POLYGON_LIKE_2D_HPP\n\n\
+    #include <vector>\n#include <cstddef>\n#include <cassert>\n#include <initializer_list>\n\
+    #include <type_traits>\n#include <array>\n#include <algorithm>\n#include \"tools/vector2.hpp\"\
+    \n#include \"tools/abs.hpp\"\n#include \"tools/is_rational.hpp\"\n#include \"\
+    tools/chmax.hpp\"\n#include \"tools/directed_line_segment_2d.hpp\"\n#include \"\
+    tools/less_by.hpp\"\n\nnamespace tools {\n  template <typename T>\n  class polygon_2d;\n\
+    \n  template <typename T>\n  class triangle_2d;\n\n  template <typename T>\n \
+    \ class polygon_2d {\n  protected:\n    ::std::vector<::tools::vector2<T>> m_points;\n\
+    \n  private:\n    T doubled_signed_area() const;\n\n  public:\n    polygon_2d()\
+    \ = default;\n    polygon_2d(const ::tools::polygon_2d<T>&) = default;\n    polygon_2d(::tools::polygon_2d<T>&&)\
+    \ = default;\n    ~polygon_2d() = default;\n    ::tools::polygon_2d<T>& operator=(const\
+    \ ::tools::polygon_2d<T>&) = default;\n    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    polygon_2d(const InputIterator&\
+    \ begin, const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init);\n\n    enum class position {\n      inside,\n      on_edge,\n      outside\n\
+    \    };\n    typename ::tools::polygon_2d<T>::position where(const ::tools::vector2<T>&\
+    \ p) const;\n\n    T doubled_area() const;\n\n    template <typename U = T>\n\
+    \    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ T> area() const;\n\n    bool is_counterclockwise() const;\n\n    template <typename\
+    \ U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle() const;\n  };\n\
+    \n  template <typename T>\n  class triangle_2d : public polygon_2d<T> {\n  private:\n\
+    \    template <typename OutputIterator>\n    void sorted_edges(OutputIterator\
+    \ result) const;\n\n  public:\n    triangle_2d() = default;\n    triangle_2d(const\
+    \ ::tools::triangle_2d<T>&) = default;\n    triangle_2d(::tools::triangle_2d<T>&&)\
+    \ = default;\n    ~triangle_2d() = default;\n    ::tools::triangle_2d<T>& operator=(const\
+    \ ::tools::triangle_2d<T>&) = default;\n    ::tools::triangle_2d<T>& operator=(::tools::triangle_2d<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    triangle_2d(const InputIterator&\
+    \ begin, const InputIterator& end);\n    triangle_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init);\n\n    enum class triangle_type {\n      acute,\n      right,\n     \
+    \ obtuse\n    };\n    typename ::tools::triangle_2d<T>::triangle_type type() const;\n\
+    \n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>> circumcenter() const;\n\
+    \n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle()\
+    \ const;\n  };\n\n  template <typename T>\n  T polygon_2d<T>::doubled_signed_area()\
+    \ const {\n    T result(0);\n    for (::std::size_t i = 0; i < this->m_points.size();\
+    \ ++i) {\n      result += (this->m_points[i].x - this->m_points[(i + 1) % this->m_points.size()].x)\
+    \ * (this->m_points[i].y + this->m_points[(i + 1) % this->m_points.size()].y);\n\
+    \    }\n    return result;\n  }\n\n  template <typename T>\n  template <typename\
+    \ InputIterator>\n  polygon_2d<T>::polygon_2d(const InputIterator& begin, const\
+    \ InputIterator& end) : m_points(begin, end) {\n    assert(this->m_points.size()\
+    \ >= 3);\n  }\n\n  template <typename T>\n  polygon_2d<T>::polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init) : polygon_2d(init.begin(), init.end()) {\n  }\n\n  template <typename\
+    \ T>\n  typename ::tools::polygon_2d<T>::position polygon_2d<T>::where(const ::tools::vector2<T>&\
+    \ p) const {\n    ::std::vector<::tools::directed_line_segment_2d<T>> edges;\n\
+    \    for (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      edges.emplace_back(this->m_points[i],\
+    \ this->m_points[(i + 1) % this->m_points.size()]);\n    }\n\n    if (std::any_of(edges.begin(),\
+    \ edges.end(), [&](const auto& edge) { return edge.contains(p); })) {\n      return\
+    \ ::tools::polygon_2d<T>::position::on_edge;\n    } else {\n      bool in = false;\n\
+    \      for (const auto& edge : edges) {\n        if ([&]() {\n            const\
+    \ auto l = edge.to_line();\n            if (l == ::tools::line_2d<T>(T(0), T(1),\
+    \ -p.y)) return false;\n            if (p.x <= edge.p1().x && p.y == edge.p1().y)\
+    \ return edge.p2().y < edge.p1().y;\n            if (p.x <= edge.p2().x && p.y\
+    \ == edge.p2().y) return edge.p1().y < edge.p2().y;\n            if ((edge.p1().y\
+    \ - p.y) * (edge.p2().y - p.y) > T(0)) return false;\n            return l.a()\
+    \ * (l.a() * p.x + l.b() * p.y + l.c()) < T(0);\n        }()) {\n          in\
+    \ = !in;\n        }\n      }\n      return in ? ::tools::polygon_2d<T>::position::inside\
+    \ : ::tools::polygon_2d<T>::position::outside;\n    }\n  }\n\n  template <typename\
+    \ T>\n  T polygon_2d<T>::doubled_area() const {\n    return ::tools::abs(this->doubled_signed_area());\n\
+    \  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T> polygon_2d<T>::area() const {\n    return\
+    \ this->doubled_area() / T(2);\n  }\n\n  template <typename T>\n  bool polygon_2d<T>::is_counterclockwise()\
+    \ const {\n    return this->doubled_signed_area() > T(0);\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> polygon_2d<T>::minimum_bounding_circle()\
+    \ const {\n    T squared_radius(0);\n    ::tools::vector2<T> center;\n    for\
+    \ (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      for (::std::size_t\
+    \ j = i + 1; j < this->m_points.size(); ++j) {\n        for (::std::size_t k =\
+    \ j + 1; k < this->m_points.size(); ++k) {\n          const auto [possible_center,\
+    \ possible_squared_radius] = ::tools::triangle_2d<T>({this->m_points[i], this->m_points[j],\
+    \ this->m_points[k]}).minimum_bounding_circle();\n          if (::tools::chmax(squared_radius,\
+    \ possible_squared_radius)) {\n            center = possible_center;\n       \
+    \   }\n        }\n      }\n    }\n    return ::std::make_pair(center, squared_radius);\n\
+    \  }\n\n  template <typename T>\n  template <typename OutputIterator>\n  void\
+    \ triangle_2d<T>::sorted_edges(OutputIterator result) const {\n    ::std::array<::tools::directed_line_segment_2d<T>,\
+    \ 3> edges;\n    for (int i = 0; i < 3; ++i) {\n      edges[i] = ::tools::directed_line_segment_2d<T>(this->m_points[i],\
+    \ this->m_points[(i + 1) % 3]);\n    }\n    ::std::sort(edges.begin(), edges.end(),\
+    \ ::tools::less_by([](const auto& edge) {\n      return edge.squared_length();\n\
+    \    }));\n    for (const auto& edge : edges) {\n      *result = edge;\n     \
+    \ ++result;\n    }\n  }\n\n  template <typename T>\n  template <typename InputIterator>\n\
+    \  triangle_2d<T>::triangle_2d(const InputIterator& begin, const InputIterator&\
+    \ end) : polygon_2d<T>(begin, end) {\n    assert(this->m_points.size() == 3);\n\
+    \  }\n\n  template <typename T>\n  triangle_2d<T>::triangle_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init) : triangle_2d(init.begin(), init.end()) {\n  }\n\n  template <typename\
+    \ T>\n  typename ::tools::triangle_2d<T>::triangle_type triangle_2d<T>::type()\
+    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
+    \    this->sorted_edges(edges.begin());\n    const auto comp = edges[2].squared_length()\
+    \ - (edges[1].squared_length() + edges[0].squared_length());\n    if (comp < T(0))\
+    \ {\n      return ::tools::triangle_2d<T>::triangle_type::acute;\n    } else if\
+    \ (comp == T(0)) {\n      return ::tools::triangle_2d<T>::triangle_type::right;\n\
+    \    } else {\n      return ::tools::triangle_2d<T>::triangle_type::obtuse;\n\
+    \    }\n  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>> triangle_2d<T>::circumcenter()\
+    \ const {\n    const auto& A = this->m_points[0];\n    const auto& B = this->m_points[1];\n\
+    \    const auto& C = this->m_points[2];\n    const auto a2 = (C - B).squared_norm();\n\
+    \    const auto b2 = (A - C).squared_norm();\n    const auto c2 = (B - A).squared_norm();\n\
+    \    const auto kA = a2 * (b2 + c2 - a2);\n    const auto kB = b2 * (c2 + a2 -\
+    \ b2);\n    const auto kC = c2 * (a2 + b2 - c2);\n    return (kA * A + kB * B\
+    \ + kC * C) / (kA + kB + kC);\n  }\n\n  template <typename T> template <typename\
+    \ U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::minimum_bounding_circle()\
+    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
+    \    this->sorted_edges(edges.begin());\n    if (edges[0].squared_length() + edges[1].squared_length()\
+    \ < edges[2].squared_length()) {\n      const auto center = edges[2].midpoint();\n\
+    \      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());\n\
+    \    } else {\n      const auto center = this->circumcenter();\n      return ::std::make_pair(center,\
+    \ (center - this->m_points[0]).squared_norm());\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
-  - tools/detail/polygon_like_2d.hpp
   - tools/vector2.hpp
   - tools/pair_hash.hpp
   - tools/abs.hpp
@@ -624,17 +722,19 @@ data:
   - tools/signum.hpp
   - tools/less_by.hpp
   isVerificationFile: false
-  path: tools/polygon_2d.hpp
-  requiredBy: []
+  path: tools/detail/polygon_like_2d.hpp
+  requiredBy:
+  - tools/triangle_2d.hpp
+  - tools/polygon_2d.hpp
   timestamp: '2022-02-05 02:55:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
-documentation_of: tools/polygon_2d.hpp
+documentation_of: tools/detail/polygon_like_2d.hpp
 layout: document
 redirect_from:
-- /library/tools/polygon_2d.hpp
-- /library/tools/polygon_2d.hpp.html
-title: tools/polygon_2d.hpp
+- /library/tools/detail/polygon_like_2d.hpp
+- /library/tools/detail/polygon_like_2d.hpp.html
+title: tools/detail/polygon_like_2d.hpp
 ---

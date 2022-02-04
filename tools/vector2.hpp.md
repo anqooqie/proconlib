@@ -12,11 +12,11 @@ data:
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
-    path: tools/detail/element_2d.hpp
-    title: tools/detail/element_2d.hpp
-  - icon: ':warning:'
-    path: tools/detail/polygon_and_triangle_2d.hpp
-    title: tools/detail/polygon_and_triangle_2d.hpp
+    path: tools/detail/line_like_2d.hpp
+    title: tools/detail/line_like_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: tools/polygon_2d.hpp
   - icon: ':warning:'
@@ -60,6 +60,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -239,27 +245,29 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
+  - tools/triangle_2d.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/half_line_2d.hpp
   - tools/less_by_arg.hpp
   - tools/polygon_2d.hpp
-  - tools/detail/element_2d.hpp
-  - tools/detail/polygon_and_triangle_2d.hpp
-  - tools/half_line_2d.hpp
-  - tools/line_2d.hpp
-  - tools/triangle_2d.hpp
-  - tools/greater_by_arg.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/ccw.hpp
+  - tools/detail/line_like_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
   - tools/convex_hull.hpp
+  - tools/greater_by_arg.hpp
+  - tools/ccw.hpp
+  - tools/line_2d.hpp
   timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/greater_by_arg.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/ccw.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/greater_by_arg.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: 2D vector

@@ -8,7 +8,7 @@ data:
       title: tests/assert_that.hpp
   - name: tools
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: Unified interface for std::abs(x) and x.abs()
     - icon: ':heavy_check_mark:'
@@ -234,7 +234,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: tools/polygon_2d.hpp
     - icon: ':heavy_check_mark:'
@@ -351,14 +351,14 @@ data:
       path: tools/detail/ceil_and_floor.hpp
       title: tools/detail/ceil_and_floor.hpp
     - icon: ':heavy_check_mark:'
-      path: tools/detail/element_2d.hpp
-      title: tools/detail/element_2d.hpp
-    - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':warning:'
-      path: tools/detail/polygon_and_triangle_2d.hpp
-      title: tools/detail/polygon_and_triangle_2d.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/detail/line_like_2d.hpp
+      title: tools/detail/line_like_2d.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/detail/polygon_like_2d.hpp
+      title: tools/detail/polygon_like_2d.hpp
   verificationCategories:
   - name: tests
     pages:
@@ -579,6 +579,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/matrix/solve.test.cpp
       title: tests/matrix/solve.test.cpp
+  - name: tests/polygon_2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/polygon_2d/area.test.cpp
+      title: tests/polygon_2d/area.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polygon_2d/where.test.cpp
+      title: tests/polygon_2d/where.test.cpp
   - name: tests/rational
     pages:
     - icon: ':heavy_check_mark:'

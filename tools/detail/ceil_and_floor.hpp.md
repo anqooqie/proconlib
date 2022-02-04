@@ -79,6 +79,9 @@ data:
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -129,39 +132,40 @@ data:
   isVerificationFile: false
   path: tools/detail/ceil_and_floor.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
-  - tools/rational.hpp
   - tools/bigint.hpp
+  - tools/rational.hpp
+  - tools/floor_log.hpp
   - tools/ceil.hpp
   - tools/segmented_sieve.hpp
   - tools/ceil_log.hpp
-  - tools/floor.hpp
   - tools/round.hpp
-  - tools/floor_log.hpp
+  - tools/floor.hpp
+  - tools/bigdecimal.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bezout.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
   - tests/bigint/modulus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
   - tests/floor_log.test.cpp
-  - tests/segmented_sieve.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/bezout.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp
 layout: document
 redirect_from:

@@ -116,27 +116,27 @@ data:
   path: tools/popcount.hpp
   requiredBy:
   - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
-  - tools/floor_log2.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/lca.hpp
   - tools/extended_lucas.hpp
-  - tools/divisors.hpp
   - tools/totient.hpp
-  - tools/ntz.hpp
   - tools/chromatic_number.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/lca.hpp
+  - tools/floor_log2.hpp
+  - tools/ntz.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisors.test.cpp
   - tests/totient.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/lca.test.cpp
-  - tests/chromatic_number.test.cpp
   - tests/prime_factorization.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp
+  - tests/lca.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/chromatic_number.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

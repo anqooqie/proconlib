@@ -26,29 +26,29 @@ data:
     path: tools/pair_hash.hpp
     title: Hash of std::pair
   - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: tools/polygon_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/signum.hpp
     title: Sign function
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/area.test.cpp
-    title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/where.test.cpp
-    title: tests/polygon_2d/where.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#include <cassert>\n#include <initializer_list>\n\
-    #include <type_traits>\n#include <array>\n#include <algorithm>\n#line 1 \"tools/vector2.hpp\"\
-    \n\n\n\n#include <cmath>\n#line 8 \"tools/vector2.hpp\"\n#include <iostream>\n\
-    #include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C
+  bundledCode: "#line 1 \"tests/polygon_2d/where.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C\"\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
+    #line 1 \"tools/vector2.hpp\"\n\n\n\n#include <cmath>\n#include <type_traits>\n\
+    #include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
+    \ <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
     \n#include <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include\
     \ <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n  struct\
     \ pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
@@ -150,29 +150,31 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
-    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
-    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
-    \n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = lhs < rhs;\n    if (updated) lhs = rhs;\n \
-    \   return updated;\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\
-    \n#include <optional>\n#include <variant>\n#line 1 \"tools/signum.hpp\"\n\n\n\n\
-    #line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
-    \  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
-    \ x;\n    }\n  }\n}\n\n\n#line 13 \"tools/detail/line_like_2d.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename T>\n  class directed_line_segment_2d;\n\n  template\
-    \ <typename T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\
-    \n  template <typename T>\n  class directed_line_segment_2d {\n  private:\n  \
-    \  ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\n  public:\n   \
-    \ directed_line_segment_2d() = default;\n    directed_line_segment_2d(const ::tools::directed_line_segment_2d<T>&)\
-    \ = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
+    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#line 6 \"tools/detail/polygon_like_2d.hpp\"\
+    \n#include <cassert>\n#include <initializer_list>\n#line 1 \"tools/abs.hpp\"\n\
+    \n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n\
+    \  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n\
+    \    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  struct is_rational {\n    static constexpr\
+    \ bool value = false;\n  };\n\n  template <typename T>\n  inline constexpr bool\
+    \ is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
+    \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
+    \ = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 1 \"tools/directed_line_segment_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\
+    \n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\n#include <optional>\n#include\
+    \ <variant>\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\
+    \nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const T\
+    \ x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
+    \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
+    #line 13 \"tools/detail/line_like_2d.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n  class half_line_2d;\n\
+    \n  template <typename T>\n  class line_2d;\n\n  template <typename T>\n  class\
+    \ directed_line_segment_2d {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T>\
+    \ m_p2;\n\n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
+    \ ::tools::directed_line_segment_2d<T>&) = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
     \ = default;\n    ~directed_line_segment_2d() = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(const ::tools::directed_line_segment_2d<T>&) = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(::tools::directed_line_segment_2d<T>&&) = default;\n\n    directed_line_segment_2d(const\
@@ -600,22 +602,33 @@ data:
     \      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());\n\
     \    } else {\n      const auto center = this->circumcenter();\n      return ::std::make_pair(center,\
     \ (center - this->m_points[0]).squared_norm());\n    }\n  }\n}\n\n\n#line 5 \"\
-    tools/polygon_2d.hpp\"\n\n\n"
-  code: '#ifndef TOOLS_POLYGON_2D_HPP
-
-    #define TOOLS_POLYGON_2D_HPP
-
-
-    #include "tools/detail/polygon_like_2d.hpp"
-
-
-    #endif
-
-    '
+    tools/polygon_2d.hpp\"\n\n\n#line 9 \"tests/polygon_2d/where.test.cpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\nusing T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>>\
+    \ g;\n  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));\n\
+    \  tools::polygon_2d<T> polygon(g.begin(), g.end());\n\n  i64 Q;\n  std::cin >>\
+    \ Q;\n  for (i64 q = 0; q < Q; ++q) {\n    tools::vector2<T> p;\n    std::cin\
+    \ >> p;\n    switch (polygon.where(p)) {\n    case ::tools::polygon_2d<T>::position::inside:\n\
+    \      std::cout << 2 << '\\n';\n      break;\n    case ::tools::polygon_2d<T>::position::on_edge:\n\
+    \      std::cout << 1 << '\\n';\n      break;\n    case ::tools::polygon_2d<T>::position::outside:\n\
+    \      std::cout << 0 << '\\n';\n      break;\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
+    #include \"tools/vector2.hpp\"\n#include \"tools/polygon_2d.hpp\"\n\nusing i64\
+    \ = std::int_fast64_t;\nusing T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>>\
+    \ g;\n  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));\n\
+    \  tools::polygon_2d<T> polygon(g.begin(), g.end());\n\n  i64 Q;\n  std::cin >>\
+    \ Q;\n  for (i64 q = 0; q < Q; ++q) {\n    tools::vector2<T> p;\n    std::cin\
+    \ >> p;\n    switch (polygon.where(p)) {\n    case ::tools::polygon_2d<T>::position::inside:\n\
+    \      std::cout << 2 << '\\n';\n      break;\n    case ::tools::polygon_2d<T>::position::on_edge:\n\
+    \      std::cout << 1 << '\\n';\n      break;\n    case ::tools::polygon_2d<T>::position::outside:\n\
+    \      std::cout << 0 << '\\n';\n      break;\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/detail/polygon_like_2d.hpp
   - tools/vector2.hpp
   - tools/pair_hash.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
   - tools/abs.hpp
   - tools/is_rational.hpp
   - tools/chmax.hpp
@@ -623,18 +636,16 @@ data:
   - tools/detail/line_like_2d.hpp
   - tools/signum.hpp
   - tools/less_by.hpp
-  isVerificationFile: false
-  path: tools/polygon_2d.hpp
+  isVerificationFile: true
+  path: tests/polygon_2d/where.test.cpp
   requiredBy: []
   timestamp: '2022-02-05 02:55:49+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
-documentation_of: tools/polygon_2d.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/polygon_2d/where.test.cpp
 layout: document
 redirect_from:
-- /library/tools/polygon_2d.hpp
-- /library/tools/polygon_2d.hpp.html
-title: tools/polygon_2d.hpp
+- /verify/tests/polygon_2d/where.test.cpp
+- /verify/tests/polygon_2d/where.test.cpp.html
+title: tests/polygon_2d/where.test.cpp
 ---

@@ -34,6 +34,9 @@ data:
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -60,23 +63,24 @@ data:
   isVerificationFile: false
   path: tools/rounding_mode.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/bigdecimal.hpp
   timestamp: '2022-01-25 13:00:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bigdecimal/hand.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
+  - tests/polygon_2d/area.test.cpp
 documentation_of: tools/rounding_mode.hpp
 layout: document
 title: Rounding mode

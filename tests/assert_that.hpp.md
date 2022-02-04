@@ -86,27 +86,27 @@ data:
   timestamp: '2021-09-25 15:53:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/fix.test.cpp
+  - tests/permutation.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/run_length.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/median_solver.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/resize.test.cpp
+  - tests/ssize.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/tsort.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/mex.test.cpp
   - tests/xor_basis.test.cpp
   - tests/find_cycle.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/random.test.cpp
-  - tests/median_solver.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/mex.test.cpp
-  - tests/resize.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/safe_int.test.cpp
   - tests/fill.test.cpp
-  - tests/fix.test.cpp
-  - tests/ssize.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/floor_log2.test.cpp
   - tests/floor_log.test.cpp
-  - tests/permutation.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/run_length.test.cpp
-  - tests/tsort.test.cpp
 documentation_of: tests/assert_that.hpp
 layout: document
 redirect_from:

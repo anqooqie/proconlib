@@ -3,11 +3,11 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: tools/detail/element_2d.hpp
-    title: tools/detail/element_2d.hpp
-  - icon: ':warning:'
-    path: tools/detail/polygon_and_triangle_2d.hpp
-    title: tools/detail/polygon_and_triangle_2d.hpp
+    path: tools/detail/line_like_2d.hpp
+    title: tools/detail/line_like_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: tools/directed_line_segment_2d.hpp
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: tools/polygon_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -36,6 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
@@ -65,24 +71,26 @@ data:
   isVerificationFile: false
   path: tools/is_rational.hpp
   requiredBy:
-  - tools/rational.hpp
-  - tools/polygon_2d.hpp
-  - tools/detail/element_2d.hpp
-  - tools/detail/polygon_and_triangle_2d.hpp
-  - tools/half_line_2d.hpp
-  - tools/line_2d.hpp
   - tools/triangle_2d.hpp
+  - tools/rational.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/line_like_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
+  - tools/line_2d.hpp
   timestamp: '2022-01-29 15:03:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
   - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
 documentation_of: tools/is_rational.hpp
 layout: document
 title: Check whether T is tools::rational

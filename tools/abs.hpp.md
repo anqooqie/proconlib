@@ -2,19 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: tools/detail/polygon_and_triangle_2d.hpp
-    title: tools/detail/polygon_and_triangle_2d.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: tools/polygon_2d.hpp
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
     title: tools/triangle_2d.hpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/abs.hpp\"\n\n\n\n#include <cmath>\n\nnamespace tools\
@@ -29,12 +35,14 @@ data:
   isVerificationFile: false
   path: tools/abs.hpp
   requiredBy:
-  - tools/polygon_2d.hpp
-  - tools/detail/polygon_and_triangle_2d.hpp
   - tools/triangle_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
   timestamp: '2022-01-31 01:05:41+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: Unified interface for std::abs(x) and x.abs()
