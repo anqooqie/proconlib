@@ -22,7 +22,7 @@ int main() {
     const tools::directed_line_segment_2d<T> s1(p0, p1);
     const tools::directed_line_segment_2d<T> s2(p2, p3);
 
-    std::cout << (s1.intersection(s2) ? 1 : 0) << '\n';
+    std::cout << ((s1 & s2) ? 1 : 0) << '\n';
   }
 
   return 0;
