@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/assert_that.hpp
     title: tests/assert_that.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
   _extendedRequiredBy: []

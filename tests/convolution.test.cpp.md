@@ -8,10 +8,10 @@ data:
     path: tools/garner3.hpp
     title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
       754974721$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   _extendedRequiredBy: []

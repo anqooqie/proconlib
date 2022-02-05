@@ -1,50 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/divisors.hpp\"\n\n\n\n#include <vector>\n#include\
     \ <utility>\n#include <iterator>\n#include <cstddef>\n#include <algorithm>\n#line\
     \ 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 5 \"tools/prime_factorization.hpp\"\
-    \n#include <cassert>\n#include <queue>\n#line 8 \"tools/prime_factorization.hpp\"\
+    \n#include <cassert>\n#include <queue>\n#line 9 \"tools/prime_factorization.hpp\"\
     \n#include <cmath>\n#include <numeric>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n\
     #include <cstdint>\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace\
     \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
@@ -119,13 +119,14 @@ data:
     \ - static_cast<::std::uint64_t>(1);\n  }\n\n  inline ::std::int32_t floor_log2(::std::int32_t\
     \ x) {\n    return static_cast<::std::int32_t>(::tools::floor_log2(static_cast<::std::uint32_t>(x)));\n\
     \  }\n\n  inline ::std::int64_t floor_log2(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::floor_log2(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 14 \"tools/prime_factorization.hpp\"\n\nnamespace tools {\n\
+    \  }\n}\n\n\n#line 15 \"tools/prime_factorization.hpp\"\n\nnamespace tools {\n\
     \n  template <typename T>\n  ::std::vector<T> prime_factorization(T n) {\n   \
     \ assert(1 <= n && n <= 1000000000000000000);\n    ::std::vector<T> result;\n\n\
-    \    if (n == 1) return result;\n\n    ::std::queue<T> factors({n});\n    while\
-    \ (!factors.empty()) {\n      const T factor = factors.front();\n      factors.pop();\n\
-    \      if (::tools::is_prime(factor)) {\n        result.push_back(factor);\n \
-    \     } else {\n        const T m = ::tools::pow2((::tools::floor_log2(factor)\
+    \    if (n == 1) return result;\n\n    ::std::queue<::std::pair<T, T>> factors({::std::pair<T,\
+    \ T>(n, 1)});\n    while (!factors.empty()) {\n      const auto [factor, occurrences]\
+    \ = factors.front();\n      factors.pop();\n      if (::tools::is_prime(factor))\
+    \ {\n        for (T i = 0; i < occurrences; ++i) {\n          result.push_back(factor);\n\
+    \        }\n      } else {\n        const T m = ::tools::pow2((::tools::floor_log2(factor)\
     \ + 1) / 8);\n        for (T c = 1; ; ++c) {\n          const auto f = [&](T&\
     \ x) {\n            x = ::tools::prod_mod(x, x, factor);\n            x += c;\n\
     \            if (x >= factor) x -= factor;\n          };\n          T y = 2;\n\
@@ -139,7 +140,10 @@ data:
     \ while (g == 1);\n          if (g == factor) {\n            do {\n          \
     \    f(ys);\n              g = ::std::gcd(::std::abs(x - ys), factor);\n     \
     \       } while (g == 1);\n          }\n          if (g < factor) {\n        \
-    \    factors.push(g);\n            factors.push(factor / g);\n            break;\n\
+    \    T h = factor / g;\n            if (h < g) ::std::swap(g, h);\n          \
+    \  T n = 1;\n            while (h % g == 0) {\n              h /= g;\n       \
+    \       ++n;\n            }\n            factors.emplace(g, occurrences * n);\n\
+    \            if (h > 1) factors.emplace(h, occurrences);\n            break;\n\
     \          }\n        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
     \    return result;\n  }\n}\n\n\n#line 1 \"tools/run_length.hpp\"\n\n\n\n#line\
     \ 7 \"tools/run_length.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
@@ -193,8 +197,8 @@ data:
   isVerificationFile: false
   path: tools/divisors.hpp
   requiredBy: []
-  timestamp: '2021-12-31 20:01:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-02-05 17:57:38+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/divisors.test.cpp
 documentation_of: tools/divisors.hpp
