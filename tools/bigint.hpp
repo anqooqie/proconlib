@@ -478,6 +478,58 @@ namespace tools {
       return ::tools::bigint(lhs) /= rhs;
     }
     ::tools::bigint& operator%=(const ::tools::bigint& other) {
+      // 3 = 10000^floor_log10000(((max value of uint64_t) - 9999) / 10000)
+      if (other.m_digits.size() <= 3) {
+        using u64 = ::std::uint_fast64_t;
+
+        u64 mod = 0;
+        for (::std::size_t i = other.m_digits.size(); i --> 0;) {
+          mod *= BASE;
+          mod += other.m_digits[i];
+        }
+
+        u64 result = 0;
+        for (::std::size_t i = this->m_digits.size(); i --> 0;) {
+          result *= BASE;
+          result += this->m_digits[i];
+          result %= mod;
+        }
+
+        this->m_digits.clear();
+        while (result > 0) {
+          this->m_digits.push_back(result % BASE);
+          result /= BASE;
+        }
+
+        return this->regularize(0);
+      }
+
+      // 8 = 10000^floor_log10000(((max value of uint128_t) - 9999) / 10000)
+      if (other.m_digits.size() <= 8) {
+        using u128 = unsigned __int128;
+
+        u128 mod = 0;
+        for (::std::size_t i = other.m_digits.size(); i --> 0;) {
+          mod *= BASE;
+          mod += other.m_digits[i];
+        }
+
+        u128 result = 0;
+        for (::std::size_t i = this->m_digits.size(); i --> 0;) {
+          result *= BASE;
+          result += this->m_digits[i];
+          result %= mod;
+        }
+
+        this->m_digits.clear();
+        while (result > 0) {
+          this->m_digits.push_back(result % BASE);
+          result /= BASE;
+        }
+
+        return this->regularize(0);
+      }
+
       const ::tools::bigint self = *this;
       *this /= other;
       this->negate();
