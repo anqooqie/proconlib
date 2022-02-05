@@ -4,6 +4,7 @@
 #include <vector>
 #include <cassert>
 #include <queue>
+#include <utility>
 #include <algorithm>
 #include <cmath>
 #include <numeric>
@@ -21,12 +22,15 @@ namespace tools {
 
     if (n == 1) return result;
 
-    ::std::queue<T> factors({n});
+    ::std::queue<::std::pair<T, T>> factors({::std::pair<T, T>(n, 1)});
     while (!factors.empty()) {
-      const T factor = factors.front();
+      const T factor = factors.front().first;
+      const T occurrences = factors.front().second;
       factors.pop();
       if (::tools::is_prime(factor)) {
-        result.push_back(factor);
+        for (T i = 0; i < occurrences; ++i) {
+          result.push_back(factor);
+        }
       } else {
         const T m = ::tools::pow2((::tools::floor_log2(factor) + 1) / 8);
         for (T c = 1; ; ++c) {
@@ -63,8 +67,15 @@ namespace tools {
             } while (g == 1);
           }
           if (g < factor) {
-            factors.push(g);
-            factors.push(factor / g);
+            T h = factor / g;
+            if (h < g) ::std::swap(g, h);
+            T n = 1;
+            while (h % g == 0) {
+              h /= g;
+              ++n;
+            }
+            factors.emplace(g, occurrences * n);
+            if (h > 1) factors.emplace(h, occurrences);
             break;
           }
         }
