@@ -59,14 +59,15 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B
+    ERROR: 1e-9
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B
-  bundledCode: "#line 1 \"tests/directed_line_segment_2d/intersection.test.cpp\"\n\
-    #define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include\
-    \ <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n#line\
-    \ 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D
+  bundledCode: "#line 1 \"tests/directed_line_segment_2d/squared_distance.test.cpp\"\
+    \n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D\"\n#define\
+    \ ERROR 1e-9\n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\
+    \n\n\n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include\
+    \ <array>\n#line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
     \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
     #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
     \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
@@ -1401,22 +1402,24 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n#line 8 \"tests/directed_line_segment_2d/intersection.test.cpp\"\
+    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n#line 9 \"tests/directed_line_segment_2d/squared_distance.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\nusing T = tools::rational;\n\nint main() {\n\
     \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 q;\n\
     \  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<T> p0,\
-    \ p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const tools::directed_line_segment_2d<T>\
-    \ s1(p0, p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n\n  \
-    \  std::cout << ((s1 & s2) ? 1 : 0) << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\n#include\
-    \ \"tools/directed_line_segment_2d.hpp\"\n#include \"tools/rational.hpp\"\n\n\
-    using i64 = std::int_fast64_t;\nusing T = tools::rational;\n\nint main() {\n \
-    \ std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 q;\n\
+    \ p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n    const tools::directed_line_segment_2d<T>\
+    \ s1(p0, p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n    std::cout\
+    \ << std::fixed << std::setprecision(10) << std::sqrt(static_cast<double>(s1.squared_distance(s2)))\
+    \ << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D\"\n#define\
+    \ ERROR 1e-9\n\n#include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\
+    \n#include \"tools/directed_line_segment_2d.hpp\"\n#include \"tools/rational.hpp\"\
+    \n\nusing i64 = std::int_fast64_t;\nusing T = tools::rational;\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 q;\n\
     \  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<T> p0,\
-    \ p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const tools::directed_line_segment_2d<T>\
-    \ s1(p0, p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n\n  \
-    \  std::cout << ((s1 & s2) ? 1 : 0) << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n    const tools::directed_line_segment_2d<T>\
+    \ s1(p0, p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n    std::cout\
+    \ << std::fixed << std::setprecision(10) << std::sqrt(static_cast<double>(s1.squared_distance(s2)))\
+    \ << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
@@ -1436,15 +1439,15 @@ data:
   - tools/bigdecimal.hpp
   - tools/rounding_mode.hpp
   isVerificationFile: true
-  path: tests/directed_line_segment_2d/intersection.test.cpp
+  path: tests/directed_line_segment_2d/squared_distance.test.cpp
   requiredBy: []
   timestamp: '2022-02-05 16:29:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/directed_line_segment_2d/intersection.test.cpp
+documentation_of: tests/directed_line_segment_2d/squared_distance.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/directed_line_segment_2d/intersection.test.cpp
-- /verify/tests/directed_line_segment_2d/intersection.test.cpp.html
-title: tests/directed_line_segment_2d/intersection.test.cpp
+- /verify/tests/directed_line_segment_2d/squared_distance.test.cpp
+- /verify/tests/directed_line_segment_2d/squared_distance.test.cpp.html
+title: tests/directed_line_segment_2d/squared_distance.test.cpp
 ---

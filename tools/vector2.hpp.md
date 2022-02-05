@@ -52,6 +52,9 @@ data:
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':heavy_check_mark:'
@@ -60,6 +63,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -260,10 +266,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/ccw.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp

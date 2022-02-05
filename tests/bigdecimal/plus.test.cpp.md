@@ -671,16 +671,34 @@ data:
     \      }\n\n      this->m_positive = r_positive;\n      return *this;\n    }\n\
     \    friend ::tools::bigint operator/(const ::tools::bigint& lhs, const ::tools::bigint&\
     \ rhs) {\n      return ::tools::bigint(lhs) /= rhs;\n    }\n    ::tools::bigint&\
-    \ operator%=(const ::tools::bigint& other) {\n      const ::tools::bigint self\
-    \ = *this;\n      *this /= other;\n      this->negate();\n      *this *= other;\n\
-    \      *this += self;\n      return *this;\n    }\n    friend ::tools::bigint\
-    \ operator%(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
-    \ ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint gcd(::tools::bigint\
-    \ x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n      if (y.signum()\
-    \ < 0) y.negate();\n\n      while (y.signum() != 0) {\n        x %= y;\n     \
-    \   ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\n    template <typename\
-    \ T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>\n\
-    \    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
+    \ operator%=(const ::tools::bigint& other) {\n      // 3 = 10000^floor_log10000(((max\
+    \ value of uint64_t) - 9999) / 10000)\n      if (other.m_digits.size() <= 3) {\n\
+    \        using u64 = ::std::uint_fast64_t;\n\n        u64 mod = 0;\n        for\
+    \ (::std::size_t i = other.m_digits.size(); i --> 0;) {\n          mod *= BASE;\n\
+    \          mod += other.m_digits[i];\n        }\n\n        u64 result = 0;\n \
+    \       for (::std::size_t i = this->m_digits.size(); i --> 0;) {\n          result\
+    \ *= BASE;\n          result += this->m_digits[i];\n          result %= mod;\n\
+    \        }\n\n        this->m_digits.clear();\n        while (result > 0) {\n\
+    \          this->m_digits.push_back(result % BASE);\n          result /= BASE;\n\
+    \        }\n\n        return this->regularize(0);\n      }\n\n      // 8 = 10000^floor_log10000(((max\
+    \ value of uint128_t) - 9999) / 10000)\n      if (other.m_digits.size() <= 8)\
+    \ {\n        using u128 = unsigned __int128;\n\n        u128 mod = 0;\n      \
+    \  for (::std::size_t i = other.m_digits.size(); i --> 0;) {\n          mod *=\
+    \ BASE;\n          mod += other.m_digits[i];\n        }\n\n        u128 result\
+    \ = 0;\n        for (::std::size_t i = this->m_digits.size(); i --> 0;) {\n  \
+    \        result *= BASE;\n          result += this->m_digits[i];\n          result\
+    \ %= mod;\n        }\n\n        this->m_digits.clear();\n        while (result\
+    \ > 0) {\n          this->m_digits.push_back(result % BASE);\n          result\
+    \ /= BASE;\n        }\n\n        return this->regularize(0);\n      }\n\n    \
+    \  const ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
+    \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
+    \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
+    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
+    \ gcd(::tools::bigint x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n\
+    \      if (y.signum() < 0) y.negate();\n\n      while (y.signum() != 0) {\n  \
+    \      x %= y;\n        ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\
+    \n    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t>\
+    \ = nullptr>\n    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
     \ <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));\n  \
     \    T result = 0;\n      for (::std::size_t i = this->m_digits.size(); i -->\
     \ 0;) {\n        result = result * BASE + this->m_digits[i] * (this->m_positive\
@@ -849,7 +867,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/plus.test.cpp
   requiredBy: []
-  timestamp: '2022-01-31 01:05:41+09:00'
+  timestamp: '2022-02-05 16:29:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/plus.test.cpp

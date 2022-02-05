@@ -566,11 +566,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/intersection.test.cpp
       title: tests/directed_line_segment_2d/intersection.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/directed_line_segment_2d/squared_distance.test.cpp
+      title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - name: tests/line_2d
     pages:
     - icon: ':heavy_check_mark:'
       path: tests/line_2d/is_parallel_to.test.cpp
       title: tests/line_2d/is_parallel_to.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/line_2d/projection.test.cpp
+      title: tests/line_2d/projection.test.cpp
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'

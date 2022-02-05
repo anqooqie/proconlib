@@ -91,6 +91,9 @@ data:
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
@@ -102,6 +105,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -174,6 +180,7 @@ data:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bigint/multiplies.test.cpp
@@ -185,6 +192,7 @@ data:
   - tests/rational/random.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/extended_garner.test.cpp
   - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp
