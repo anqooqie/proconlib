@@ -8,10 +8,11 @@
 #include <algorithm>
 #include <iterator>
 #include <type_traits>
-#include <cmath>
 #include <string>
 #include <cassert>
 #include <utility>
+#include <limits>
+#include <cmath>
 #include <iostream>
 #include <iomanip>
 #include "atcoder/modint.hpp"
@@ -198,9 +199,14 @@ namespace tools {
     template <typename T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type = nullptr>
     explicit bigint(T n) : m_positive(n >= 0) {
       while (n != 0) {
-        this->m_digits.push_back(::std::abs(n % BASE));
+        this->m_digits.push_back(n % BASE);
         n /= BASE;
-      } 
+      }
+      if (!this->m_positive) {
+        for (auto& d : this->m_digits) {
+          d = -d;
+        }
+      }
     }
     explicit bigint(const ::std::string& s) {
       assert(!s.empty());
@@ -346,6 +352,37 @@ namespace tools {
         return *this;
       }
 
+      using u64 = ::std::uint_fast64_t;
+      static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);
+      using u128 = unsigned __int128;
+      static const ::tools::bigint u128_threshold("34028236692093846346337460743176820");
+
+      #define TOOLS_BIGINT_NAIVE(type) do {\
+        if (::tools::bigint::compare_3way_abs(other, type ## _threshold) <= 0) { \
+          type mod = 0;\
+          for (::std::size_t i = other.m_digits.size(); i --> 0;) {\
+            mod *= BASE;\
+            mod += other.m_digits[i];\
+          }\
+          \
+          type carry = 0;\
+          for (::std::size_t i = this->m_digits.size(); i--> 0;) {\
+            carry *= BASE;\
+            carry += this->m_digits[i];\
+            this->m_digits[i] = carry / mod;\
+            carry %= mod;\
+          }\
+          \
+          this->m_positive = (this->m_positive == other.m_positive);\
+          return this->regularize(0);\
+        }\
+      } while (false)
+
+      TOOLS_BIGINT_NAIVE(u64);
+      TOOLS_BIGINT_NAIVE(u128);
+
+      #undef TOOLS_BIGINT_NAIVE
+
       using bigdecimal = ::std::pair<::tools::bigint, ::std::ptrdiff_t>;
       static const auto precision = [](const bigdecimal& x) {
         return x.first.m_digits.size();
@@ -420,7 +457,7 @@ namespace tools {
       if (!this->m_positive) {
         this->negate();
       }
-      const ::std::size_t inv_final_goal_precision = ::std::max(other.m_digits.size(), this->m_digits.size() - other.m_digits.size()) + 1;
+      const ::std::size_t inv_final_goal_precision = this->m_digits.size() - other.m_digits.size() + 2;
       const ::std::size_t inv_first_goal_precision = ::std::min<::std::size_t>(inv_final_goal_precision, 3);
 
       bigdecimal o(other, 0);
@@ -478,57 +515,40 @@ namespace tools {
       return ::tools::bigint(lhs) /= rhs;
     }
     ::tools::bigint& operator%=(const ::tools::bigint& other) {
-      // 3 = 10000^floor_log10000(((max value of uint64_t) - 9999) / 10000)
-      if (other.m_digits.size() <= 3) {
-        using u64 = ::std::uint_fast64_t;
+      using u64 = ::std::uint_fast64_t;
+      static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);
+      using u128 = unsigned __int128;
+      static const ::tools::bigint u128_threshold("34028236692093846346337460743176820");
 
-        u64 mod = 0;
-        for (::std::size_t i = other.m_digits.size(); i --> 0;) {
-          mod *= BASE;
-          mod += other.m_digits[i];
-        }
+      #define TOOLS_BIGINT_NAIVE(type) do {\
+        if (::tools::bigint::compare_3way_abs(other, type ## _threshold) <= 0) { \
+          type mod = 0;\
+          for (::std::size_t i = other.m_digits.size(); i --> 0;) {\
+            mod *= BASE;\
+            mod += other.m_digits[i];\
+          }\
+          \
+          type result = 0;\
+          for (::std::size_t i = this->m_digits.size(); i --> 0;) {\
+            result *= BASE;\
+            result += this->m_digits[i];\
+            result %= mod;\
+          }\
+          \
+          this->m_digits.clear();\
+          while (result > 0) {\
+            this->m_digits.push_back(result % BASE);\
+            result /= BASE;\
+          }\
+          \
+          return this->regularize(0);\
+        }\
+      } while (false)
 
-        u64 result = 0;
-        for (::std::size_t i = this->m_digits.size(); i --> 0;) {
-          result *= BASE;
-          result += this->m_digits[i];
-          result %= mod;
-        }
+      TOOLS_BIGINT_NAIVE(u64);
+      TOOLS_BIGINT_NAIVE(u128);
 
-        this->m_digits.clear();
-        while (result > 0) {
-          this->m_digits.push_back(result % BASE);
-          result /= BASE;
-        }
-
-        return this->regularize(0);
-      }
-
-      // 8 = 10000^floor_log10000(((max value of uint128_t) - 9999) / 10000)
-      if (other.m_digits.size() <= 8) {
-        using u128 = unsigned __int128;
-
-        u128 mod = 0;
-        for (::std::size_t i = other.m_digits.size(); i --> 0;) {
-          mod *= BASE;
-          mod += other.m_digits[i];
-        }
-
-        u128 result = 0;
-        for (::std::size_t i = this->m_digits.size(); i --> 0;) {
-          result *= BASE;
-          result += this->m_digits[i];
-          result %= mod;
-        }
-
-        this->m_digits.clear();
-        while (result > 0) {
-          this->m_digits.push_back(result % BASE);
-          result /= BASE;
-        }
-
-        return this->regularize(0);
-      }
+      #undef TOOLS_BIGINT_NAIVE
 
       const ::tools::bigint self = *this;
       *this /= other;
