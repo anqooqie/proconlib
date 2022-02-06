@@ -50,8 +50,8 @@ data:
     #include <cstdint>\n#include <string>\n#include <cassert>\n#include <limits>\n\
     #include <cmath>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#line\
     \ 6 \"tools/bigint.hpp\"\n#include <array>\n#line 9 \"tools/bigint.hpp\"\n#include\
-    \ <iterator>\n#include <type_traits>\n#line 14 \"tools/bigint.hpp\"\n#include\
-    \ <utility>\n#line 16 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \ <iterator>\n#include <type_traits>\n#line 13 \"tools/bigint.hpp\"\n#include\
+    \ <utility>\n#line 17 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line\
     \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
     #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
@@ -458,7 +458,7 @@ data:
     \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 25 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
+    \n#line 26 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
     \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
     \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
     \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
@@ -541,30 +541,31 @@ data:
     \ = default;\n    ::tools::bigint& operator=(::tools::bigint&&) = default;\n\n\
     \    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>,\
     \ ::std::nullptr_t>::type = nullptr>\n    explicit bigint(T n) : m_positive(n\
-    \ >= 0) {\n      while (n != 0) {\n        this->m_digits.push_back(::std::abs(n\
-    \ % BASE));\n        n /= BASE;\n      } \n    }\n    explicit bigint(const ::std::string&\
-    \ s) {\n      assert(!s.empty());\n\n      ::std::size_t offset;\n      if (s[0]\
-    \ == '+') {\n        this->m_positive = true;\n        offset = 1;\n      } else\
-    \ if (s[0] == '-') {\n        this->m_positive = false;\n        offset = 1;\n\
-    \      } else {\n        this->m_positive = true;\n        offset = 0;\n     \
-    \ }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size() - offset,\
-    \ LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset; i += LOG10_BASE)\
-    \ {\n        this->m_digits.push_back(0);\n        for (::std::size_t j = ::std::min(i\
-    \ + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0' <= s[s.size()\
-    \ - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back() =\
-    \ this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n     \
-    \ }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const ::tools::bigint&\
-    \ lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive == rhs.m_positive\
-    \ && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const ::tools::bigint&\
-    \ lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n    }\n   \
-    \ friend bool operator<(const ::tools::bigint& lhs, const ::tools::bigint& rhs)\
-    \ {\n      return ::tools::bigint::compare_3way(lhs, rhs) < 0;\n    }\n    friend\
-    \ bool operator>(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n \
-    \     return ::tools::bigint::compare_3way(lhs, rhs) > 0;\n    }\n    friend bool\
-    \ operator<=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n     \
-    \ return ::tools::bigint::compare_3way(lhs, rhs) <= 0;\n    }\n    friend bool\
-    \ operator>=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n     \
-    \ return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
+    \ >= 0) {\n      while (n != 0) {\n        this->m_digits.push_back(n % BASE);\n\
+    \        n /= BASE;\n      }\n      if (!this->m_positive) {\n        for (auto&\
+    \ d : this->m_digits) {\n          d = -d;\n        }\n      }\n    }\n    explicit\
+    \ bigint(const ::std::string& s) {\n      assert(!s.empty());\n\n      ::std::size_t\
+    \ offset;\n      if (s[0] == '+') {\n        this->m_positive = true;\n      \
+    \  offset = 1;\n      } else if (s[0] == '-') {\n        this->m_positive = false;\n\
+    \        offset = 1;\n      } else {\n        this->m_positive = true;\n     \
+    \   offset = 0;\n      }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size()\
+    \ - offset, LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset;\
+    \ i += LOG10_BASE) {\n        this->m_digits.push_back(0);\n        for (::std::size_t\
+    \ j = ::std::min(i + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0'\
+    \ <= s[s.size() - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back()\
+    \ = this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n   \
+    \   }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const\
+    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive\
+    \ == rhs.m_positive && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const\
+    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n\
+    \    }\n    friend bool operator<(const ::tools::bigint& lhs, const ::tools::bigint&\
+    \ rhs) {\n      return ::tools::bigint::compare_3way(lhs, rhs) < 0;\n    }\n \
+    \   friend bool operator>(const ::tools::bigint& lhs, const ::tools::bigint& rhs)\
+    \ {\n      return ::tools::bigint::compare_3way(lhs, rhs) > 0;\n    }\n    friend\
+    \ bool operator<=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
+    \      return ::tools::bigint::compare_3way(lhs, rhs) <= 0;\n    }\n    friend\
+    \ bool operator>=(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n\
+    \      return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
     \ operator+() const {\n      return *this;\n    }\n    ::tools::bigint operator-()\
     \ const {\n      return ::tools::bigint(*this).negate();\n    }\n\n    ::tools::bigint&\
     \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add(other,\
@@ -607,19 +608,32 @@ data:
     \ other) < 0) {\n        this->m_digits.clear();\n        this->m_positive = true;\
     \        \n        return *this;\n      }\n      if (other.m_digits.size() ==\
     \ 1 && other.m_digits[0] == 1) {\n        this->m_positive = (this->m_positive\
-    \ == other.m_positive);\n        return *this;\n      }\n\n      using bigdecimal\
-    \ = ::std::pair<::tools::bigint, ::std::ptrdiff_t>;\n      static const auto precision\
-    \ = [](const bigdecimal& x) {\n        return x.first.m_digits.size();\n     \
-    \ };\n      static const auto regularize = [](bigdecimal& x) -> bigdecimal& {\n\
-    \        if (x.first.m_digits.empty()) {\n          x.second = 0;\n        }\n\
-    \        return x;\n      };\n      static const auto negate = [](bigdecimal&\
-    \ x) -> bigdecimal& {\n        x.first.negate();\n        return x;\n      };\n\
-    \      static const auto make_abs = [](bigdecimal& x) -> bigdecimal& {\n     \
-    \   if (!x.first.m_positive) {\n          negate(x);\n        }\n        return\
-    \ x;\n      };\n      static const auto set_precision = [](bigdecimal& x, const\
-    \ ::std::size_t p) -> bigdecimal& {\n        const ::std::ptrdiff_t diff = ::std::ptrdiff_t(p)\
-    \ - ::std::ptrdiff_t(precision(x));\n        x.first.multiply_by_pow10(diff *\
-    \ LOG10_BASE);\n        x.second -= diff;\n        regularize(x);\n        return\
+    \ == other.m_positive);\n        return *this;\n      }\n\n      using u64 = ::std::uint_fast64_t;\n\
+    \      static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max()\
+    \ - (BASE - 1)) / BASE);\n      using u128 = unsigned __int128;\n      static\
+    \ const ::tools::bigint u128_threshold(\"34028236692093846346337460743176820\"\
+    );\n\n      #define TOOLS_BIGINT_NAIVE(type) do {\\\n        if (::tools::bigint::compare_3way_abs(other,\
+    \ type ## _threshold) <= 0) { \\\n          type mod = 0;\\\n          for (::std::size_t\
+    \ i = other.m_digits.size(); i --> 0;) {\\\n            mod *= BASE;\\\n     \
+    \       mod += other.m_digits[i];\\\n          }\\\n          \\\n          type\
+    \ carry = 0;\\\n          for (::std::size_t i = this->m_digits.size(); i--> 0;)\
+    \ {\\\n            carry *= BASE;\\\n            carry += this->m_digits[i];\\\
+    \n            this->m_digits[i] = carry / mod;\\\n            carry %= mod;\\\n\
+    \          }\\\n          \\\n          this->m_positive = (this->m_positive ==\
+    \ other.m_positive);\\\n          return this->regularize(0);\\\n        }\\\n\
+    \      } while (false)\n\n      TOOLS_BIGINT_NAIVE(u64);\n      TOOLS_BIGINT_NAIVE(u128);\n\
+    \n      #undef TOOLS_BIGINT_NAIVE\n\n      using bigdecimal = ::std::pair<::tools::bigint,\
+    \ ::std::ptrdiff_t>;\n      static const auto precision = [](const bigdecimal&\
+    \ x) {\n        return x.first.m_digits.size();\n      };\n      static const\
+    \ auto regularize = [](bigdecimal& x) -> bigdecimal& {\n        if (x.first.m_digits.empty())\
+    \ {\n          x.second = 0;\n        }\n        return x;\n      };\n      static\
+    \ const auto negate = [](bigdecimal& x) -> bigdecimal& {\n        x.first.negate();\n\
+    \        return x;\n      };\n      static const auto make_abs = [](bigdecimal&\
+    \ x) -> bigdecimal& {\n        if (!x.first.m_positive) {\n          negate(x);\n\
+    \        }\n        return x;\n      };\n      static const auto set_precision\
+    \ = [](bigdecimal& x, const ::std::size_t p) -> bigdecimal& {\n        const ::std::ptrdiff_t\
+    \ diff = ::std::ptrdiff_t(p) - ::std::ptrdiff_t(precision(x));\n        x.first.multiply_by_pow10(diff\
+    \ * LOG10_BASE);\n        x.second -= diff;\n        regularize(x);\n        return\
     \ x;\n      };\n      static const auto plus = [](bigdecimal& x, bigdecimal& y)\
     \ -> bigdecimal& {\n        if (x.second < y.second) {\n          set_precision(y,\
     \ precision(y) + (y.second - x.second));\n        } else if (x.second > y.second)\
@@ -646,52 +660,48 @@ data:
     \         }\n          }\n          return 0;\n        }() * (x.first.m_positive\
     \ ? 1 : -1);\n      };\n\n      const bool r_positive = this->m_positive == other.m_positive;\n\
     \      if (!this->m_positive) {\n        this->negate();\n      }\n      const\
-    \ ::std::size_t inv_final_goal_precision = ::std::max(other.m_digits.size(), this->m_digits.size()\
-    \ - other.m_digits.size()) + 1;\n      const ::std::size_t inv_first_goal_precision\
-    \ = ::std::min<::std::size_t>(inv_final_goal_precision, 3);\n\n      bigdecimal\
-    \ o(other, 0);\n      make_abs(o);\n      set_precision(o, ::std::min<::std::size_t>(other.m_digits.size(),\
-    \ 6));\n      bigdecimal prev_inv(::tools::bigint(0), 0);\n      bigdecimal inv(::tools::bigint(1),\
-    \ -::tools::ssize(other.m_digits));\n\n      while (compare_3way(prev_inv, inv)\
-    \ != 0) {\n        prev_inv = inv;\n        negate(inv);\n        multiplies(inv,\
-    \ o);\n        bigdecimal two(::tools::bigint(2), 0);\n        plus(inv, two);\n\
-    \        multiplies(inv, prev_inv);\n        set_precision(inv, ::std::min(precision(inv),\
-    \ inv_first_goal_precision));\n      }\n\n      if (inv_first_goal_precision <\
-    \ inv_final_goal_precision) {\n        prev_inv = bigdecimal(::tools::bigint(0),\
-    \ 0);\n        while (compare_3way(prev_inv, inv) != 0) {\n          prev_inv\
-    \ = inv;\n          negate(inv);\n          multiplies(inv, o);\n          bigdecimal\
-    \ two(::tools::bigint(2), 0);\n          plus(inv, two);\n          multiplies(inv,\
-    \ prev_inv);\n          set_precision(inv, ::std::min(precision(prev_inv) * 2,\
-    \ inv_final_goal_precision));\n\n          const ::std::size_t o_precision = precision(o);\n\
-    \          o = bigdecimal(other, 0);\n          make_abs(o);\n          set_precision(o,\
-    \ ::std::min(o_precision * 2, other.m_digits.size()));\n        }\n      }\n\n\
-    \      set_precision(inv, inv_final_goal_precision);\n      o = bigdecimal(other,\
-    \ 0);\n      make_abs(o);\n      bigdecimal r(*this, 0);\n      multiplies(r,\
-    \ inv);\n      set_precision(r, precision(r) + r.second);\n\n      ::tools::bigint\
-    \ r_plus_1 = r.first + ::tools::bigint(1);\n      if (*this >= r_plus_1 * o.first)\
-    \ {\n        *this = ::std::move(r_plus_1);\n      } else {\n        *this = ::std::move(r.first);\n\
-    \      }\n\n      this->m_positive = r_positive;\n      return *this;\n    }\n\
-    \    friend ::tools::bigint operator/(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) /= rhs;\n    }\n    ::tools::bigint&\
-    \ operator%=(const ::tools::bigint& other) {\n      // 3 = 10000^floor_log10000(((max\
-    \ value of uint64_t) - 9999) / 10000)\n      if (other.m_digits.size() <= 3) {\n\
-    \        using u64 = ::std::uint_fast64_t;\n\n        u64 mod = 0;\n        for\
-    \ (::std::size_t i = other.m_digits.size(); i --> 0;) {\n          mod *= BASE;\n\
-    \          mod += other.m_digits[i];\n        }\n\n        u64 result = 0;\n \
-    \       for (::std::size_t i = this->m_digits.size(); i --> 0;) {\n          result\
-    \ *= BASE;\n          result += this->m_digits[i];\n          result %= mod;\n\
-    \        }\n\n        this->m_digits.clear();\n        while (result > 0) {\n\
-    \          this->m_digits.push_back(result % BASE);\n          result /= BASE;\n\
-    \        }\n\n        return this->regularize(0);\n      }\n\n      // 8 = 10000^floor_log10000(((max\
-    \ value of uint128_t) - 9999) / 10000)\n      if (other.m_digits.size() <= 8)\
-    \ {\n        using u128 = unsigned __int128;\n\n        u128 mod = 0;\n      \
-    \  for (::std::size_t i = other.m_digits.size(); i --> 0;) {\n          mod *=\
-    \ BASE;\n          mod += other.m_digits[i];\n        }\n\n        u128 result\
-    \ = 0;\n        for (::std::size_t i = this->m_digits.size(); i --> 0;) {\n  \
-    \        result *= BASE;\n          result += this->m_digits[i];\n          result\
-    \ %= mod;\n        }\n\n        this->m_digits.clear();\n        while (result\
-    \ > 0) {\n          this->m_digits.push_back(result % BASE);\n          result\
-    \ /= BASE;\n        }\n\n        return this->regularize(0);\n      }\n\n    \
-    \  const ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
+    \ ::std::size_t inv_final_goal_precision = this->m_digits.size() - other.m_digits.size()\
+    \ + 2;\n      const ::std::size_t inv_first_goal_precision = ::std::min<::std::size_t>(inv_final_goal_precision,\
+    \ 3);\n\n      bigdecimal o(other, 0);\n      make_abs(o);\n      set_precision(o,\
+    \ ::std::min<::std::size_t>(other.m_digits.size(), 6));\n      bigdecimal prev_inv(::tools::bigint(0),\
+    \ 0);\n      bigdecimal inv(::tools::bigint(1), -::tools::ssize(other.m_digits));\n\
+    \n      while (compare_3way(prev_inv, inv) != 0) {\n        prev_inv = inv;\n\
+    \        negate(inv);\n        multiplies(inv, o);\n        bigdecimal two(::tools::bigint(2),\
+    \ 0);\n        plus(inv, two);\n        multiplies(inv, prev_inv);\n        set_precision(inv,\
+    \ ::std::min(precision(inv), inv_first_goal_precision));\n      }\n\n      if\
+    \ (inv_first_goal_precision < inv_final_goal_precision) {\n        prev_inv =\
+    \ bigdecimal(::tools::bigint(0), 0);\n        while (compare_3way(prev_inv, inv)\
+    \ != 0) {\n          prev_inv = inv;\n          negate(inv);\n          multiplies(inv,\
+    \ o);\n          bigdecimal two(::tools::bigint(2), 0);\n          plus(inv, two);\n\
+    \          multiplies(inv, prev_inv);\n          set_precision(inv, ::std::min(precision(prev_inv)\
+    \ * 2, inv_final_goal_precision));\n\n          const ::std::size_t o_precision\
+    \ = precision(o);\n          o = bigdecimal(other, 0);\n          make_abs(o);\n\
+    \          set_precision(o, ::std::min(o_precision * 2, other.m_digits.size()));\n\
+    \        }\n      }\n\n      set_precision(inv, inv_final_goal_precision);\n \
+    \     o = bigdecimal(other, 0);\n      make_abs(o);\n      bigdecimal r(*this,\
+    \ 0);\n      multiplies(r, inv);\n      set_precision(r, precision(r) + r.second);\n\
+    \n      ::tools::bigint r_plus_1 = r.first + ::tools::bigint(1);\n      if (*this\
+    \ >= r_plus_1 * o.first) {\n        *this = ::std::move(r_plus_1);\n      } else\
+    \ {\n        *this = ::std::move(r.first);\n      }\n\n      this->m_positive\
+    \ = r_positive;\n      return *this;\n    }\n    friend ::tools::bigint operator/(const\
+    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
+    \ /= rhs;\n    }\n    ::tools::bigint& operator%=(const ::tools::bigint& other)\
+    \ {\n      using u64 = ::std::uint_fast64_t;\n      static const ::tools::bigint\
+    \ u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);\n  \
+    \    using u128 = unsigned __int128;\n      static const ::tools::bigint u128_threshold(\"\
+    34028236692093846346337460743176820\");\n\n      #define TOOLS_BIGINT_NAIVE(type)\
+    \ do {\\\n        if (::tools::bigint::compare_3way_abs(other, type ## _threshold)\
+    \ <= 0) { \\\n          type mod = 0;\\\n          for (::std::size_t i = other.m_digits.size();\
+    \ i --> 0;) {\\\n            mod *= BASE;\\\n            mod += other.m_digits[i];\\\
+    \n          }\\\n          \\\n          type result = 0;\\\n          for (::std::size_t\
+    \ i = this->m_digits.size(); i --> 0;) {\\\n            result *= BASE;\\\n  \
+    \          result += this->m_digits[i];\\\n            result %= mod;\\\n    \
+    \      }\\\n          \\\n          this->m_digits.clear();\\\n          while\
+    \ (result > 0) {\\\n            this->m_digits.push_back(result % BASE);\\\n \
+    \           result /= BASE;\\\n          }\\\n          \\\n          return this->regularize(0);\\\
+    \n        }\\\n      } while (false)\n\n      TOOLS_BIGINT_NAIVE(u64);\n     \
+    \ TOOLS_BIGINT_NAIVE(u128);\n\n      #undef TOOLS_BIGINT_NAIVE\n\n      const\
+    \ ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
     \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
     \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
     \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
@@ -868,7 +878,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2022-02-05 16:29:05+09:00'
+  timestamp: '2022-02-06 18:24:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/multiplies.test.cpp
