@@ -10,10 +10,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []

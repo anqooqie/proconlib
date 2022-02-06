@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\
@@ -65,7 +65,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/pow.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/permutation.test.cpp

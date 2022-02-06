@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -11,28 +11,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -44,10 +44,10 @@ data:
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -93,13 +93,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
@@ -111,7 +111,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,15 +126,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"\
@@ -175,7 +175,7 @@ data:
   - tools/rich_pow_mod_cache.hpp
   - tools/bigdecimal.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp

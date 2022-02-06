@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   _extendedRequiredBy:

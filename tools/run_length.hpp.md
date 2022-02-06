@@ -2,37 +2,37 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/run_length.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -74,7 +74,7 @@ data:
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
   timestamp: '2021-07-25 10:07:08+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/run_length.test.cpp

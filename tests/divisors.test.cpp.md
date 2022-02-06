@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/run_length.hpp
     title: Run-length encoding
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_3_D
@@ -128,28 +128,29 @@ data:
     \n  template <typename T>\n  ::std::vector<T> prime_factorization(T n) {\n   \
     \ assert(1 <= n && n <= 1000000000000000000);\n    ::std::vector<T> result;\n\n\
     \    if (n == 1) return result;\n\n    ::std::queue<::std::pair<T, T>> factors({::std::pair<T,\
-    \ T>(n, 1)});\n    while (!factors.empty()) {\n      const auto [factor, occurrences]\
-    \ = factors.front();\n      factors.pop();\n      if (::tools::is_prime(factor))\
-    \ {\n        for (T i = 0; i < occurrences; ++i) {\n          result.push_back(factor);\n\
-    \        }\n      } else {\n        const T m = ::tools::pow2((::tools::floor_log2(factor)\
-    \ + 1) / 8);\n        for (T c = 1; ; ++c) {\n          const auto f = [&](T&\
-    \ x) {\n            x = ::tools::prod_mod(x, x, factor);\n            x += c;\n\
-    \            if (x >= factor) x -= factor;\n          };\n          T y = 2;\n\
-    \          T r = 1;\n          T q = 1;\n          T x, g, ys;\n          do {\n\
-    \            x = y;\n            for (T i = 0; i < r; ++i) {\n              f(y);\n\
-    \            }\n            T k = 0;\n            do {\n              ys = y;\n\
-    \              for (T i = 0; i < ::std::min(m, r - k); ++i) {\n              \
-    \  f(y);\n                q = ::tools::prod_mod(q, ::std::abs(x - y), factor);\n\
-    \              }\n              g = ::std::gcd(q, factor);\n              k +=\
-    \ m;\n            } while (k < r && g == 1);\n            r *= 2;\n          }\
-    \ while (g == 1);\n          if (g == factor) {\n            do {\n          \
-    \    f(ys);\n              g = ::std::gcd(::std::abs(x - ys), factor);\n     \
-    \       } while (g == 1);\n          }\n          if (g < factor) {\n        \
-    \    T h = factor / g;\n            if (h < g) ::std::swap(g, h);\n          \
-    \  T n = 1;\n            while (h % g == 0) {\n              h /= g;\n       \
-    \       ++n;\n            }\n            factors.emplace(g, occurrences * n);\n\
-    \            if (h > 1) factors.emplace(h, occurrences);\n            break;\n\
-    \          }\n        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
+    \ T>(n, 1)});\n    while (!factors.empty()) {\n      const T factor = factors.front().first;\n\
+    \      const T occurrences = factors.front().second;\n      factors.pop();\n \
+    \     if (::tools::is_prime(factor)) {\n        for (T i = 0; i < occurrences;\
+    \ ++i) {\n          result.push_back(factor);\n        }\n      } else {\n   \
+    \     const T m = ::tools::pow2((::tools::floor_log2(factor) + 1) / 8);\n    \
+    \    for (T c = 1; ; ++c) {\n          const auto f = [&](T& x) {\n          \
+    \  x = ::tools::prod_mod(x, x, factor);\n            x += c;\n            if (x\
+    \ >= factor) x -= factor;\n          };\n          T y = 2;\n          T r = 1;\n\
+    \          T q = 1;\n          T x, g, ys;\n          do {\n            x = y;\n\
+    \            for (T i = 0; i < r; ++i) {\n              f(y);\n            }\n\
+    \            T k = 0;\n            do {\n              ys = y;\n             \
+    \ for (T i = 0; i < ::std::min(m, r - k); ++i) {\n                f(y);\n    \
+    \            q = ::tools::prod_mod(q, ::std::abs(x - y), factor);\n          \
+    \    }\n              g = ::std::gcd(q, factor);\n              k += m;\n    \
+    \        } while (k < r && g == 1);\n            r *= 2;\n          } while (g\
+    \ == 1);\n          if (g == factor) {\n            do {\n              f(ys);\n\
+    \              g = ::std::gcd(::std::abs(x - ys), factor);\n            } while\
+    \ (g == 1);\n          }\n          if (g < factor) {\n            T h = factor\
+    \ / g;\n            if (h < g) ::std::swap(g, h);\n            T n = 1;\n    \
+    \        while (h % g == 0) {\n              h /= g;\n              ++n;\n   \
+    \         }\n            factors.emplace(g, occurrences * n);\n            if\
+    \ (h > 1) factors.emplace(h, occurrences);\n            break;\n          }\n\
+    \        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
     \    return result;\n  }\n}\n\n\n#line 1 \"tools/run_length.hpp\"\n\n\n\n#line\
     \ 7 \"tools/run_length.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
     \ typename OutputIterator>\n  void run_length(const InputIterator& begin, const\
@@ -202,7 +203,7 @@ data:
   path: tests/divisors.test.cpp
   requiredBy: []
   timestamp: '2022-02-05 17:57:38+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/divisors.test.cpp
 layout: document

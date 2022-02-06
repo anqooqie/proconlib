@@ -1,56 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
@@ -95,7 +95,7 @@ data:
   - tools/is_prime.hpp
   - tools/tetration_mod.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/is_prime.test.cpp

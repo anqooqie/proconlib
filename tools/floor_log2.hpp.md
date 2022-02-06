@@ -1,39 +1,39 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
@@ -42,18 +42,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <cstdint>\n#line\
@@ -119,7 +119,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/lca.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
   - tests/prime_factorization.test.cpp

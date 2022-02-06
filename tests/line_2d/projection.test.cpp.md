@@ -25,16 +25,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: tools/line_2d.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'

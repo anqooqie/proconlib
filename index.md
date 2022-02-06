@@ -77,7 +77,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
@@ -89,10 +89,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
@@ -113,13 +113,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner.hpp
       title: Garner's algorithm
     - icon: ':heavy_check_mark:'
@@ -150,13 +150,13 @@ data:
     - icon: ':warning:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
     - icon: ':heavy_check_mark:'
@@ -207,10 +207,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':warning:'
@@ -237,16 +237,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: tools/polygon_2d.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
     - icon: ':warning:'
@@ -255,16 +255,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -291,7 +291,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rounding_mode.hpp
       title: Rounding mode
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
     - icon: ':heavy_check_mark:'
@@ -303,7 +303,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':heavy_check_mark:'
@@ -312,10 +312,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/tetration_mod.hpp
       title: $x \uparrow\uparrow y \pmod{M}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
       title: Euler's totient function
     - icon: ':heavy_check_mark:'
@@ -404,7 +404,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table.test.cpp
       title: tests/disjoint_sparse_table.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
@@ -416,7 +416,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/extended_garner.test.cpp
       title: tests/extended_garner.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extended_lucas.test.cpp
       title: tests/extended_lucas.test.cpp
     - icon: ':heavy_check_mark:'
@@ -476,7 +476,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prim.test.cpp
       title: tests/prim.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
     - icon: ':heavy_check_mark:'
@@ -503,10 +503,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/tetration_mod.test.cpp
       title: tests/tetration_mod.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
     - icon: ':heavy_check_mark:'

@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/assert_that.hpp
     title: tests/assert_that.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/permutation.hpp
     title: Permutation
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
