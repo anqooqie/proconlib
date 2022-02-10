@@ -57,6 +57,9 @@ namespace tools {
     template <typename U = T>
     ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, T>
     squared_distance(const ::tools::directed_line_segment_2d<T>& other) const;
+    template <typename U = T>
+    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, T>
+    squared_distance(const ::tools::vector2<T>& p) const;
     T squared_length() const;
     ::tools::half_line_2d<T> to_half_line() const;
     ::tools::line_2d<T> to_line() const;
@@ -269,31 +272,20 @@ namespace tools {
     if (*this & other) {
       return T(0);
     }
+    return ::std::min({
+      other.squared_distance(this->m_p1),
+      other.squared_distance(this->m_p2),
+      this->squared_distance(other.m_p1),
+      this->squared_distance(other.m_p2)
+    });
+  }
 
-    const auto l1 = this->to_line();
-    const auto l2 = other.to_line();
-    const auto x1 = [&]() {
-      const auto x = l2.projection(this->m_p1);
-      const auto d = other.to_vector().inner_product(x - other.m_p1);
-      return d < T(0) ? other.m_p1 : other.squared_length() < d ? other.m_p2 : x;
-    }();
-    const auto x2 = [&]() {
-      const auto x = l2.projection(this->m_p2);
-      const auto d = other.to_vector().inner_product(x - other.m_p1);
-      return d < T(0) ? other.m_p1 : other.squared_length() < d ? other.m_p2 : x;
-    }();
-    const auto x3 = [&]() {
-      const auto x = l1.projection(other.m_p1);
-      const auto d = this->to_vector().inner_product(x - this->m_p1);
-      return d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x;
-    }();
-    const auto x4 = [&]() {
-      const auto x = l1.projection(other.m_p2);
-      const auto d = this->to_vector().inner_product(x - this->m_p1);
-      return d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x;
-    }();
-
-    return ::std::min({(this->m_p1 - x1).squared_norm(), (this->m_p2 - x2).squared_norm(), (other.m_p1 - x3).squared_norm(), (other.m_p2 - x4).squared_norm()});
+  template <typename T> template <typename U>
+  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, T>
+  directed_line_segment_2d<T>::squared_distance(const ::tools::vector2<T>& p) const {
+    auto x = this->to_line().projection(p);
+    const auto d = this->to_vector().inner_product(x - this->m_p1);
+    return (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_norm();
   }
 
   template <typename T>
