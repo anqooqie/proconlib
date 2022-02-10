@@ -10,13 +10,13 @@ data:
     title: tools/detail/polygon_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
-    title: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
-    title: tools/half_line_2d.hpp
+    title: Two-dimensional half line
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
-    title: tools/line_2d.hpp
+    title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: tools/polygon_2d.hpp

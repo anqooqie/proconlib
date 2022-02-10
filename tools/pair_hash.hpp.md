@@ -16,19 +16,19 @@ data:
     title: tools/detail/polygon_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
-    title: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
-    title: tools/half_line_2d.hpp
+    title: Two-dimensional half line
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
-    title: tools/line_2d.hpp
+    title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: tools/polygon_2d.hpp

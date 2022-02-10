@@ -73,7 +73,7 @@ data:
       title: Dijkstra's algorithm
     - icon: ':heavy_check_mark:'
       path: tools/directed_line_segment_2d.hpp
-      title: tools/directed_line_segment_2d.hpp
+      title: Two-dimensional directed line segment
     - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
@@ -146,7 +146,7 @@ data:
       title: Typical groups
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
-      title: tools/half_line_2d.hpp
+      title: Two-dimensional half line
     - icon: ':warning:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
@@ -191,7 +191,7 @@ data:
       title: Li Chao segment tree
     - icon: ':heavy_check_mark:'
       path: tools/line_2d.hpp
-      title: tools/line_2d.hpp
+      title: Two-dimensional line
     - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence

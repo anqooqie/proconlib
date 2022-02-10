@@ -12,7 +12,7 @@ data:
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
-    title: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
@@ -194,7 +194,9 @@ data:
     \    const ::tools::vector2<T>& p1() const;\n    const ::tools::vector2<T>& p2()\
     \ const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
     \ || ::std::is_floating_point_v<U>, T>\n    squared_distance(const ::tools::directed_line_segment_2d<T>&\
-    \ other) const;\n    T squared_length() const;\n    ::tools::half_line_2d<T> to_half_line()\
+    \ other) const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T>\n    squared_distance(const ::tools::vector2<T>&\
+    \ p) const;\n    T squared_length() const;\n    ::tools::half_line_2d<T> to_half_line()\
     \ const;\n    ::tools::line_2d<T> to_line() const;\n    ::tools::vector2<T> to_vector()\
     \ const;\n\n    ::tools::directed_line_segment_2d<T> operator+() const;\n    ::tools::directed_line_segment_2d<T>\
     \ operator-() const;\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
@@ -314,22 +316,15 @@ data:
     \ template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
     \ || ::std::is_floating_point_v<U>, T>\n  directed_line_segment_2d<T>::squared_distance(const\
     \ ::tools::directed_line_segment_2d<T>& other) const {\n    if (*this & other)\
-    \ {\n      return T(0);\n    }\n\n    const auto l1 = this->to_line();\n    const\
-    \ auto l2 = other.to_line();\n    const auto x1 = [&]() {\n      const auto x\
-    \ = l2.projection(this->m_p1);\n      const auto d = other.to_vector().inner_product(x\
-    \ - other.m_p1);\n      return d < T(0) ? other.m_p1 : other.squared_length()\
-    \ < d ? other.m_p2 : x;\n    }();\n    const auto x2 = [&]() {\n      const auto\
-    \ x = l2.projection(this->m_p2);\n      const auto d = other.to_vector().inner_product(x\
-    \ - other.m_p1);\n      return d < T(0) ? other.m_p1 : other.squared_length()\
-    \ < d ? other.m_p2 : x;\n    }();\n    const auto x3 = [&]() {\n      const auto\
-    \ x = l1.projection(other.m_p1);\n      const auto d = this->to_vector().inner_product(x\
-    \ - this->m_p1);\n      return d < T(0) ? this->m_p1 : this->squared_length()\
-    \ < d ? this->m_p2 : x;\n    }();\n    const auto x4 = [&]() {\n      const auto\
-    \ x = l1.projection(other.m_p2);\n      const auto d = this->to_vector().inner_product(x\
-    \ - this->m_p1);\n      return d < T(0) ? this->m_p1 : this->squared_length()\
-    \ < d ? this->m_p2 : x;\n    }();\n\n    return ::std::min({(this->m_p1 - x1).squared_norm(),\
-    \ (this->m_p2 - x2).squared_norm(), (other.m_p1 - x3).squared_norm(), (other.m_p2\
-    \ - x4).squared_norm()});\n  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
+    \ {\n      return T(0);\n    }\n    return ::std::min({\n      other.squared_distance(this->m_p1),\n\
+    \      other.squared_distance(this->m_p2),\n      this->squared_distance(other.m_p1),\n\
+    \      this->squared_distance(other.m_p2)\n    });\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, T>\n  directed_line_segment_2d<T>::squared_distance(const\
+    \ ::tools::vector2<T>& p) const {\n    auto x = this->to_line().projection(p);\n\
+    \    const auto d = this->to_vector().inner_product(x - this->m_p1);\n    return\
+    \ (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_norm();\n\
+    \  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
     \ const {\n    return this->to_vector().squared_norm();\n  }\n\n  template <typename\
     \ T>\n  ::tools::half_line_2d<T> directed_line_segment_2d<T>::to_half_line() const\
     \ {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
@@ -758,7 +753,7 @@ data:
   requiredBy:
   - tools/triangle_2d.hpp
   - tools/polygon_2d.hpp
-  timestamp: '2022-02-05 16:29:05+09:00'
+  timestamp: '2022-02-10 22:54:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/area.test.cpp
