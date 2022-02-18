@@ -48,12 +48,7 @@ namespace tools {
     bool is_counterclockwise() const;
     template <typename U = T>
     ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle() const;
-    enum class position {
-      inside,
-      on_edge,
-      outside
-    };
-    typename ::tools::polygon_2d<T>::position where(const ::tools::vector2<T>& p) const;
+    int where(const ::tools::vector2<T>& p) const;
   };
 
   template <typename T>
@@ -75,15 +70,10 @@ namespace tools {
     triangle_2d(::std::initializer_list<::tools::vector2<T>> init);
 
     template <typename U = T>
-    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::tools::vector2<T>> circumcenter() const;
+    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> circumcircle() const;
     template <typename U = T>
     ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle() const;
-    enum class triangle_type {
-      acute,
-      right,
-      obtuse
-    };
-    typename ::tools::triangle_2d<T>::triangle_type type() const;
+    int type() const;
   };
 
   template <typename T>
@@ -138,14 +128,14 @@ namespace tools {
   }
 
   template <typename T>
-  typename ::tools::polygon_2d<T>::position polygon_2d<T>::where(const ::tools::vector2<T>& p) const {
+  int polygon_2d<T>::where(const ::tools::vector2<T>& p) const {
     ::std::vector<::tools::directed_line_segment_2d<T>> edges;
     for (::std::size_t i = 0; i < this->m_points.size(); ++i) {
       edges.emplace_back(this->m_points[i], this->m_points[(i + 1) % this->m_points.size()]);
     }
 
     if (std::any_of(edges.begin(), edges.end(), [&](const auto& edge) { return edge.contains(p); })) {
-      return ::tools::polygon_2d<T>::position::on_edge;
+      return 1;
     } else {
       bool in = false;
       for (const auto& edge : edges) {
@@ -160,7 +150,7 @@ namespace tools {
           in = !in;
         }
       }
-      return in ? ::tools::polygon_2d<T>::position::inside : ::tools::polygon_2d<T>::position::outside;
+      return in ? 2 : 0;
     }
   }
 
@@ -191,7 +181,7 @@ namespace tools {
   }
 
   template <typename T> template <typename U>
-  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::tools::vector2<T>> triangle_2d<T>::circumcenter() const {
+  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::circumcircle() const {
     const auto& A = this->m_points[0];
     const auto& B = this->m_points[1];
     const auto& C = this->m_points[2];
@@ -201,33 +191,34 @@ namespace tools {
     const auto kA = a2 * (b2 + c2 - a2);
     const auto kB = b2 * (c2 + a2 - b2);
     const auto kC = c2 * (a2 + b2 - c2);
-    return (kA * A + kB * B + kC * C) / (kA + kB + kC);
+    const auto circumcenter = (kA * A + kB * B + kC * C) / (kA + kB + kC);
+    return ::std::make_pair(circumcenter, (circumcenter - A).squared_norm());
   }
 
   template <typename T> template <typename U>
   ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::minimum_bounding_circle() const {
     ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;
     this->sorted_edges(edges.begin());
-    if (edges[0].squared_length() + edges[1].squared_length() < edges[2].squared_length()) {
+    if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length()) {
       const auto center = edges[2].midpoint();
       return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());
     } else {
-      const auto center = this->circumcenter();
-      return ::std::make_pair(center, (center - this->m_points[0]).squared_norm());
+      return this->circumcircle();
     }
   }
 
   template <typename T>
-  typename ::tools::triangle_2d<T>::triangle_type triangle_2d<T>::type() const {
+  int triangle_2d<T>::type() const {
     ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;
     this->sorted_edges(edges.begin());
-    const auto comp = edges[2].squared_length() - (edges[1].squared_length() + edges[0].squared_length());
-    if (comp < T(0)) {
-      return ::tools::triangle_2d<T>::triangle_type::acute;
-    } else if (comp == T(0)) {
-      return ::tools::triangle_2d<T>::triangle_type::right;
+    const auto c2 = edges[2].squared_length();
+    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();
+    if (c2 < a2b2) {
+      return 0;
+    } else if (c2 == a2b2) {
+      return 1;
     } else {
-      return ::tools::triangle_2d<T>::triangle_type::obtuse;
+      return 2;
     }
   }
 }

@@ -42,6 +42,14 @@ namespace tools {
       return *this / this->norm();
     }
 
+    ::tools::vector2<T> turn90() const {
+      return ::tools::vector2<T>(-this->y, this->x);
+    }
+
+    ::tools::vector2<T> turn270() const {
+      return ::tools::vector2<T>(this->y, -this->x);
+    }
+
     ::tools::vector2<T> operator+() const {
       return *this;
     }

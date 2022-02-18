@@ -25,17 +25,7 @@ int main() {
   for (i64 q = 0; q < Q; ++q) {
     tools::vector2<T> p;
     std::cin >> p;
-    switch (polygon.where(p)) {
-    case ::tools::polygon_2d<T>::position::inside:
-      std::cout << 2 << '\n';
-      break;
-    case ::tools::polygon_2d<T>::position::on_edge:
-      std::cout << 1 << '\n';
-      break;
-    case ::tools::polygon_2d<T>::position::outside:
-      std::cout << 0 << '\n';
-      break;
-    }
+    std::cout << polygon.where(p) << '\n';
   }
 
   return 0;

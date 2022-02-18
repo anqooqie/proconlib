@@ -83,6 +83,32 @@ It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
 ### Time Complexity
 - $O(1)$
 
+## turn90
+```cpp
+vector2<T> v.turn90();
+```
+
+It returns $(-y, x)$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## turn270
+```cpp
+vector2<T> v.turn270();
+```
+
+It returns $(y, -x)$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## inner_product
 ```cpp
 T v.inner_product(vector2<T> u);
