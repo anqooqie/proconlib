@@ -232,6 +232,9 @@ data:
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
     - icon: ':heavy_check_mark:'
+      path: tools/pdsu.hpp
+      title: Potentialized disjoint set union
+    - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
     - icon: ':heavy_check_mark:'
@@ -470,6 +473,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/pdsu.test.cpp
+      title: tests/pdsu.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/permutation.test.cpp
       title: tests/permutation.test.cpp
