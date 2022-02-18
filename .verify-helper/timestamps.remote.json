@@ -53,6 +53,7 @@
 "tests/matrix/solve.test.cpp": "2021-12-18 22:12:02 +0900",
 "tests/median_solver.test.cpp": "2021-10-03 21:37:16 +0900",
 "tests/mex.test.cpp": "2021-09-25 15:53:45 +0900",
+"tests/pdsu.test.cpp": "2022-02-19 06:09:11 +0900",
 "tests/permutation.test.cpp": "2021-12-26 18:29:38 +0900",
 "tests/polygon_2d/area.test.cpp": "2022-02-19 03:37:47 +0900",
 "tests/polygon_2d/where.test.cpp": "2022-02-19 03:37:47 +0900",
