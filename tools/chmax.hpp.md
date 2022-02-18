@@ -10,10 +10,10 @@ data:
     title: Largest rectangle in histogram
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
-    title: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
-    title: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp

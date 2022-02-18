@@ -236,7 +236,7 @@ data:
       title: Permutation
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
-      title: tools/polygon_2d.hpp
+      title: Two-dimensional polygon
     - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
@@ -323,7 +323,7 @@ data:
       title: Diameter of tree
     - icon: ':warning:'
       path: tools/triangle_2d.hpp
-      title: tools/triangle_2d.hpp
+      title: Two-dimensional triangle
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting

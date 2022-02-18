@@ -10,10 +10,10 @@ data:
     title: tools/detail/polygon_like_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
-    title: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
-    title: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp

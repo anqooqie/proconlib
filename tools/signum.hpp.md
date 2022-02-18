@@ -22,13 +22,13 @@ data:
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
-    title: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
-    title: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp

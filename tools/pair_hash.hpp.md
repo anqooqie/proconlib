@@ -31,10 +31,10 @@ data:
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
-    title: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
-    title: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector

@@ -71,14 +71,16 @@ data:
     \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
     \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
-    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> operator+()\
-    \ const {\n      return *this;\n    }\n\n    ::tools::vector2<T> operator-() const\
-    \ {\n      return ::tools::vector2<T>(-this->x, -this->y);\n    }\n\n    friend\
-    \ ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
-    \ rhs) {\n      return ::tools::vector2<T>(lhs.x + rhs.x, lhs.y + rhs.y);\n  \
-    \  }\n\n    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>& lhs,\
-    \ const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x -\
-    \ rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> turn90()\
+    \ const {\n      return ::tools::vector2<T>(-this->y, this->x);\n    }\n\n   \
+    \ ::tools::vector2<T> turn270() const {\n      return ::tools::vector2<T>(this->y,\
+    \ -this->x);\n    }\n\n    ::tools::vector2<T> operator+() const {\n      return\
+    \ *this;\n    }\n\n    ::tools::vector2<T> operator-() const {\n      return ::tools::vector2<T>(-this->x,\
+    \ -this->y);\n    }\n\n    friend ::tools::vector2<T> operator+(const ::tools::vector2<T>&\
+    \ lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
+    \ + rhs.x, lhs.y + rhs.y);\n    }\n\n    friend ::tools::vector2<T> operator-(const\
+    \ ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
+    \ - rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
     \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
     \ operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
     \ ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template <typename\
@@ -198,7 +200,7 @@ data:
   isVerificationFile: false
   path: tools/less_by_arg.hpp
   requiredBy: []
-  timestamp: '2022-01-31 01:05:41+09:00'
+  timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
