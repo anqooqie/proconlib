@@ -225,20 +225,21 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/matrix.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 1 \"tools/vector.hpp\"\n\n\
-    \n\n#line 7 \"tools/vector.hpp\"\n#include <cmath>\n#line 11 \"tools/vector.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
-    \    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
-    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
-    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
-    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
-    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
-    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
-    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
-    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
-    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
-    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
-    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 10 \"tools/matrix.hpp\"\n\
+    #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 7 \"tools/vector.hpp\"\
+    \n#include <cmath>\n#line 11 \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  class vector {\n  private:\n    ::std::vector<T> m_values;\n\
+    \n  public:\n    vector() = default;\n    vector(const ::tools::vector<T>&) =\
+    \ default;\n    vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n\
+    \    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;\n   \
+    \ ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\n    vector(::std::size_t\
+    \ dim) : m_values(dim) {\n    }\n    vector(::std::size_t dim, const T& value)\
+    \ : m_values(dim, value) {\n    }\n\n    T& operator[](const ::std::size_t i)\
+    \ {\n      return this->m_values[i];\n    }\n    T operator[](const ::std::size_t\
+    \ i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t dim()\
+    \ const {\n      return this->m_values.size();\n    }\n\n    double norm() const\
+    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
+    \  }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
     \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
     \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
@@ -281,7 +282,7 @@ data:
     \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
     \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
     \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 11 \"tools/matrix.hpp\"\n\n\
+    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 12 \"tools/matrix.hpp\"\n\n\
     namespace tools {\n  template <typename T>\n  class matrix {\n  private:\n   \
     \ ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\
     \n  public:\n    matrix() = default;\n    matrix(const ::tools::matrix<T>&) =\
@@ -353,9 +354,10 @@ data:
     \ (*this)[pivot][cc]);\n          }\n        }\n\n        {\n          const T\
     \ scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c; cc\
     \ < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n     \
-    \     }\n        }\n\n        for (::std::size_t r = rank + 1; r < this->m_rows;\
-    \ ++r) {\n          const T scale = (*this)[r][c];\n          for (::std::size_t\
-    \ cc = c; cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
+    \     }\n        }\n\n        for (::std::size_t r = 0; r < this->m_rows; ++r)\
+    \ {\n          if (r == rank) continue;\n          const T scale = (*this)[r][c];\n\
+    \          if (scale == T(0)) continue;\n          for (::std::size_t cc = c;\
+    \ cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
     \ * scale;\n          }\n        }\n\n        ++rank;\n      }\n      return rank;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
     \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
@@ -387,18 +389,29 @@ data:
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
     \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
     \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\n\nusing i64 =\
-    \ std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 N,\
-    \ M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n  for (i64\
-    \ r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64 A_rc;\n \
-    \     std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::matrix<mint>\
-    \ B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64 c = 0; c < K; ++c) {\n\
-    \      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c] = mint::raw(B_rc);\n\
-    \    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n  for (i64 r = 0; r < N;\
-    \ ++r) {\n    std::string delimiter = \"\";\n    for (i64 c = 0; c < K; ++c) {\n\
-    \      std::cout << delimiter << C[r][c].val();\n      delimiter = \" \";\n  \
-    \  }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \  }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
+    \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
+    \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
+    \        for (::std::size_t c = 0; c < this->m_cols; ++c) {\n          AI[r][c]\
+    \ = (*this)[r][c];\n        }\n        for (::std::size_t c = this->m_cols; c\
+    \ < AI.m_cols; ++c) {\n          AI[r][c] = T(0);\n        }\n        AI[r][this->m_cols\
+    \ + r] = T(1);\n      }\n\n      AI.gauss_jordan();\n      for (::std::size_t\
+    \ i = 0; i < this->m_rows; ++i) {\n        if (AI[i][i] != T(1)) return ::std::nullopt;\n\
+    \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\
+    \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
+    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
+    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
+    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
+    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
+    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
+    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
+    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n\n#include\
     \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
     \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
@@ -418,7 +431,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2021-12-18 22:12:02+09:00'
+  timestamp: '2022-02-22 12:56:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp

@@ -586,6 +586,9 @@ data:
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'
+      path: tests/matrix/inv.test.cpp
+      title: tests/matrix/inv.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/multiplies.test.cpp
       title: tests/matrix/multiplies.test.cpp
     - icon: ':heavy_check_mark:'

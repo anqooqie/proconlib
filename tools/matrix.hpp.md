@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/matrix/inv.test.cpp
+    title: tests/matrix/inv.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
   - icon: ':heavy_check_mark:'
@@ -19,20 +22,20 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
     #include <cassert>\n#include <iostream>\n#include <string>\n#include <cstdint>\n\
-    #line 1 \"tools/vector.hpp\"\n\n\n\n#line 6 \"tools/vector.hpp\"\n#include <type_traits>\n\
-    #include <cmath>\n#line 11 \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector {\n  private:\n    ::std::vector<T> m_values;\n\
-    \n  public:\n    vector() = default;\n    vector(const ::tools::vector<T>&) =\
-    \ default;\n    vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n\
-    \    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;\n   \
-    \ ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\n    vector(::std::size_t\
-    \ dim) : m_values(dim) {\n    }\n    vector(::std::size_t dim, const T& value)\
-    \ : m_values(dim, value) {\n    }\n\n    T& operator[](const ::std::size_t i)\
-    \ {\n      return this->m_values[i];\n    }\n    T operator[](const ::std::size_t\
-    \ i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t dim()\
-    \ const {\n      return this->m_values.size();\n    }\n\n    double norm() const\
-    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
-    \  }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 6 \"tools/vector.hpp\"\
+    \n#include <type_traits>\n#include <cmath>\n#line 11 \"tools/vector.hpp\"\n\n\
+    namespace tools {\n  template <typename T>\n  class vector {\n  private:\n   \
+    \ ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
+    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
+    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
+    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
+    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
+    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
+    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
+    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
+    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
+    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
+    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
     \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
     \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
@@ -75,7 +78,7 @@ data:
     \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
     \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
     \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 11 \"tools/matrix.hpp\"\n\n\
+    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 12 \"tools/matrix.hpp\"\n\n\
     namespace tools {\n  template <typename T>\n  class matrix {\n  private:\n   \
     \ ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\
     \n  public:\n    matrix() = default;\n    matrix(const ::tools::matrix<T>&) =\
@@ -147,9 +150,10 @@ data:
     \ (*this)[pivot][cc]);\n          }\n        }\n\n        {\n          const T\
     \ scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c; cc\
     \ < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n     \
-    \     }\n        }\n\n        for (::std::size_t r = rank + 1; r < this->m_rows;\
-    \ ++r) {\n          const T scale = (*this)[r][c];\n          for (::std::size_t\
-    \ cc = c; cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
+    \     }\n        }\n\n        for (::std::size_t r = 0; r < this->m_rows; ++r)\
+    \ {\n          if (r == rank) continue;\n          const T scale = (*this)[r][c];\n\
+    \          if (scale == T(0)) continue;\n          for (::std::size_t cc = c;\
+    \ cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
     \ * scale;\n          }\n        }\n\n        ++rank;\n      }\n      return rank;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
     \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
@@ -181,15 +185,26 @@ data:
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
     \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
     \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n\n"
+    \  }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
+    \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
+    \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
+    \        for (::std::size_t c = 0; c < this->m_cols; ++c) {\n          AI[r][c]\
+    \ = (*this)[r][c];\n        }\n        for (::std::size_t c = this->m_cols; c\
+    \ < AI.m_cols; ++c) {\n          AI[r][c] = T(0);\n        }\n        AI[r][this->m_cols\
+    \ + r] = T(1);\n      }\n\n      AI.gauss_jordan();\n      for (::std::size_t\
+    \ i = 0; i < this->m_rows; ++i) {\n        if (AI[i][i] != T(1)) return ::std::nullopt;\n\
+    \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_MATRIX_HPP\n#define TOOLS_MATRIX_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <cassert>\n#include <iostream>\n#include <string>\n\
-    #include <cstdint>\n#include \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class matrix {\n  private:\n    ::std::vector<T> m_values;\n\
-    \    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\n  public:\n    matrix()\
-    \ = default;\n    matrix(const ::tools::matrix<T>&) = default;\n    matrix(::tools::matrix<T>&&)\
-    \ = default;\n    ~matrix() = default;\n    ::tools::matrix<T>& operator=(const\
-    \ ::tools::matrix<T>&) = default;\n    ::tools::matrix<T>& operator=(::tools::matrix<T>&&)\
+    #include <cstdint>\n#include <optional>\n#include \"tools/vector.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  class matrix {\n  private:\n    ::std::vector<T>\
+    \ m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\n  public:\n\
+    \    matrix() = default;\n    matrix(const ::tools::matrix<T>&) = default;\n \
+    \   matrix(::tools::matrix<T>&&) = default;\n    ~matrix() = default;\n    ::tools::matrix<T>&\
+    \ operator=(const ::tools::matrix<T>&) = default;\n    ::tools::matrix<T>& operator=(::tools::matrix<T>&&)\
     \ = default;\n\n    matrix(::std::size_t rows, ::std::size_t cols) :\n      m_values(rows\
     \ * cols), m_rows(rows), m_cols(cols) {\n    }\n    matrix(::std::size_t rows,\
     \ ::std::size_t cols, const T& value) :\n      m_values(rows * cols, value), m_rows(rows),\
@@ -255,9 +270,10 @@ data:
     \ (*this)[pivot][cc]);\n          }\n        }\n\n        {\n          const T\
     \ scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c; cc\
     \ < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n     \
-    \     }\n        }\n\n        for (::std::size_t r = rank + 1; r < this->m_rows;\
-    \ ++r) {\n          const T scale = (*this)[r][c];\n          for (::std::size_t\
-    \ cc = c; cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
+    \     }\n        }\n\n        for (::std::size_t r = 0; r < this->m_rows; ++r)\
+    \ {\n          if (r == rank) continue;\n          const T scale = (*this)[r][c];\n\
+    \          if (scale == T(0)) continue;\n          for (::std::size_t cc = c;\
+    \ cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
     \ * scale;\n          }\n        }\n\n        ++rank;\n      }\n      return rank;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
     \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
@@ -289,16 +305,28 @@ data:
     \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
     \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
     \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n  };\n}\n\n#endif\n"
+    \  }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
+    \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
+    \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
+    \        for (::std::size_t c = 0; c < this->m_cols; ++c) {\n          AI[r][c]\
+    \ = (*this)[r][c];\n        }\n        for (::std::size_t c = this->m_cols; c\
+    \ < AI.m_cols; ++c) {\n          AI[r][c] = T(0);\n        }\n        AI[r][this->m_cols\
+    \ + r] = T(1);\n      }\n\n      AI.gauss_jordan();\n      for (::std::size_t\
+    \ i = 0; i < this->m_rows; ++i) {\n        if (AI[i][i] != T(1)) return ::std::nullopt;\n\
+    \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector.hpp
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2021-12-18 22:12:02+09:00'
+  timestamp: '2022-02-22 12:56:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
+  - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
@@ -452,3 +480,17 @@ It returns $n \times n$-dimensional identity matrix.
 
 ### Time Complexity
 - $O(n^2)$
+
+## inv
+```cpp
+std::optional<matrix<T>> A.inv();
+```
+
+If $A^{-1}$ exists, it returns $A^{-1}$.
+Otherwise, it returns `std::nullopt`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n^3)$

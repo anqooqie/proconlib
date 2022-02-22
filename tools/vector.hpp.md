@@ -7,6 +7,9 @@ data:
     title: Matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/matrix/inv.test.cpp
+    title: tests/matrix/inv.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
   - icon: ':heavy_check_mark:'
@@ -140,6 +143,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
+  - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
 documentation_of: tools/vector.hpp
 layout: document

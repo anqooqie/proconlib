@@ -14,10 +14,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/system_of_linear_equations
+    PROBLEM: https://judge.yosupo.jp/problem/inverse_matrix
     links:
-    - https://judge.yosupo.jp/problem/system_of_linear_equations
-  bundledCode: "#line 1 \"tests/matrix/solve.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/system_of_linear_equations\"\
+    - https://judge.yosupo.jp/problem/inverse_matrix
+  bundledCode: "#line 1 \"tests/matrix/inv.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/inverse_matrix\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
@@ -400,53 +400,48 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 9 \"tests/matrix/solve.test.cpp\"\
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/inv.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
     int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M;\n  std::cin >> N >> M;\n  tools::matrix<mint> A(N, M);\n  for (i64\
-    \ r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64 A_rc;\n \
-    \     std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::vector<mint>\
-    \ b(N);\n  for (i64 i = 0; i < N; ++i) {\n    i64 b_i;\n    std::cin >> b_i;\n\
-    \    b[i] = mint::raw(b_i);\n  }\n\n  const tools::matrix<mint> C = A.solve(b);\n\
-    \  if (C.cols() == 0) {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n\
-    \  std::cout << C.cols() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for\
-    \ (i64 i = 0; i < i64(C.rows()); ++i) {\n    std::cout << delimiter << C[i][C.cols()\
-    \ - 1].val();\n    delimiter = \" \";\n  }\n  std::cout << '\\n';\n  for (i64\
-    \ i = 0; i < i64(C.cols()) - 1; ++i) {\n    delimiter = \"\";\n    for (i64 j\
-    \ = 0; j < i64(C.rows()); ++j) {\n      std::cout << delimiter << C[j][i].val();\n\
+    \n  i64 N;\n  std::cin >> N;\n  tools::matrix<mint> A(N, N);\n  for (i64 r = 0;\
+    \ r < N; ++r) {\n    for (i64 c = 0; c < N; ++c) {\n      i64 A_rc;\n      std::cin\
+    \ >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\n  const auto B = A.inv();\n\
+    \  if (!B) {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n  ::tools::matrix<mint>\
+    \ AI(N, N * 2);\n  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < N; ++c)\
+    \ {\n      AI[r][c] = A[r][c];\n    }\n    for (i64 c = N; c < N * 2; ++c) {\n\
+    \      AI[r][c] = mint(0);\n    }\n    AI[r][N + r] = mint(1);\n  }\n  AI.gauss_jordan();\n\
+    \n  for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for\
+    \ (i64 c = 0; c < N; ++c) {\n      std::cout << delimiter << (*B)[r][c].val();\n\
     \      delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n\
     }\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/system_of_linear_equations\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/matrix.hpp\"\n#include \"tools/vector.hpp\"\n\nusing i64 =\
-    \ std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 N,\
-    \ M;\n  std::cin >> N >> M;\n  tools::matrix<mint> A(N, M);\n  for (i64 r = 0;\
-    \ r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64 A_rc;\n      std::cin\
-    \ >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::vector<mint>\
-    \ b(N);\n  for (i64 i = 0; i < N; ++i) {\n    i64 b_i;\n    std::cin >> b_i;\n\
-    \    b[i] = mint::raw(b_i);\n  }\n\n  const tools::matrix<mint> C = A.solve(b);\n\
-    \  if (C.cols() == 0) {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n\
-    \  std::cout << C.cols() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for\
-    \ (i64 i = 0; i < i64(C.rows()); ++i) {\n    std::cout << delimiter << C[i][C.cols()\
-    \ - 1].val();\n    delimiter = \" \";\n  }\n  std::cout << '\\n';\n  for (i64\
-    \ i = 0; i < i64(C.cols()) - 1; ++i) {\n    delimiter = \"\";\n    for (i64 j\
-    \ = 0; j < i64(C.rows()); ++j) {\n      std::cout << delimiter << C[j][i].val();\n\
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/inverse_matrix\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
+    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  tools::matrix<mint> A(N, N);\n  for (i64 r = 0;\
+    \ r < N; ++r) {\n    for (i64 c = 0; c < N; ++c) {\n      i64 A_rc;\n      std::cin\
+    \ >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\n  const auto B = A.inv();\n\
+    \  if (!B) {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n  ::tools::matrix<mint>\
+    \ AI(N, N * 2);\n  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < N; ++c)\
+    \ {\n      AI[r][c] = A[r][c];\n    }\n    for (i64 c = N; c < N * 2; ++c) {\n\
+    \      AI[r][c] = mint(0);\n    }\n    AI[r][N + r] = mint(1);\n  }\n  AI.gauss_jordan();\n\
+    \n  for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for\
+    \ (i64 c = 0; c < N; ++c) {\n      std::cout << delimiter << (*B)[r][c].val();\n\
     \      delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n\
     }\n"
   dependsOn:
   - tools/matrix.hpp
   - tools/vector.hpp
   isVerificationFile: true
-  path: tests/matrix/solve.test.cpp
+  path: tests/matrix/inv.test.cpp
   requiredBy: []
   timestamp: '2022-02-22 12:56:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/matrix/solve.test.cpp
+documentation_of: tests/matrix/inv.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/matrix/solve.test.cpp
-- /verify/tests/matrix/solve.test.cpp.html
-title: tests/matrix/solve.test.cpp
+- /verify/tests/matrix/inv.test.cpp
+- /verify/tests/matrix/inv.test.cpp.html
+title: tests/matrix/inv.test.cpp
 ---
