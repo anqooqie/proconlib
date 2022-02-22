@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <cstdint>
+#include <optional>
 #include "tools/vector.hpp"
 
 namespace tools {
@@ -167,8 +168,10 @@ namespace tools {
           }
         }
 
-        for (::std::size_t r = rank + 1; r < this->m_rows; ++r) {
+        for (::std::size_t r = 0; r < this->m_rows; ++r) {
+          if (r == rank) continue;
           const T scale = (*this)[r][c];
+          if (scale == T(0)) continue;
           for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
             (*this)[r][cc] -= (*this)[rank][cc] * scale;
           }
@@ -243,6 +246,34 @@ namespace tools {
         result[i][i] = 1;
       }
       return result;
+    }
+
+    ::std::optional<::tools::matrix<T>> inv() const {
+      if (this->m_rows != this->m_cols) return ::std::nullopt;
+
+      ::tools::matrix<T> AI(this->m_rows, this->m_cols * 2);
+      for (::std::size_t r = 0; r < this->m_rows; ++r) {
+        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+          AI[r][c] = (*this)[r][c];
+        }
+        for (::std::size_t c = this->m_cols; c < AI.m_cols; ++c) {
+          AI[r][c] = T(0);
+        }
+        AI[r][this->m_cols + r] = T(1);
+      }
+
+      AI.gauss_jordan();
+      for (::std::size_t i = 0; i < this->m_rows; ++i) {
+        if (AI[i][i] != T(1)) return ::std::nullopt;
+      }
+
+      ::tools::matrix<T> B(this->m_rows, this->m_cols);
+      for (::std::size_t r = 0; r < this->m_rows; ++r) {
+        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+          B[r][c] = AI[r][this->m_cols + c];
+        }
+      }
+      return B;
     }
   };
 }

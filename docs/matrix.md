@@ -150,3 +150,17 @@ It returns $n \times n$-dimensional identity matrix.
 
 ### Time Complexity
 - $O(n^2)$
+
+## inv
+```cpp
+std::optional<matrix<T>> A.inv();
+```
+
+If $A^{-1}$ exists, it returns $A^{-1}$.
+Otherwise, it returns `std::nullopt`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n^3)$
