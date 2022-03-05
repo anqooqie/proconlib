@@ -86,6 +86,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
+    - icon: ':warning:'
+      path: tools/dynamic_bitset.hpp
+      title: Resizable std::bitset
     - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm

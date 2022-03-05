@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
+  - icon: ':warning:'
+    path: tools/dynamic_bitset.hpp
+    title: Resizable std::bitset
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
@@ -147,6 +150,7 @@ data:
   - tools/round.hpp
   - tools/floor.hpp
   - tools/bigdecimal.hpp
+  - tools/dynamic_bitset.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

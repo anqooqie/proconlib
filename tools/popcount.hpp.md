@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
+  - icon: ':warning:'
+    path: tools/dynamic_bitset.hpp
+    title: Resizable std::bitset
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
@@ -124,6 +127,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/lca.hpp
   - tools/floor_log2.hpp
+  - tools/dynamic_bitset.hpp
   - tools/ntz.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
