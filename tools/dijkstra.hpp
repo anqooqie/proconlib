@@ -7,6 +7,8 @@
 #include <cassert>
 #include <functional>
 #include <queue>
+#include "tools/greater_by_second.hpp"
+#include "tools/chmin.hpp"
 
 namespace tools {
 
@@ -22,15 +24,6 @@ namespace tools {
         from(from),
         to(to),
         distance(distance) {
-      }
-    };
-
-    class task {
-    public:
-      ::std::size_t vertex;
-      T distance;
-      task(const ::std::size_t vertex, const ::std::size_t distance) :
-        vertex(vertex), distance(distance) {
       }
     };
 
@@ -67,24 +60,17 @@ namespace tools {
       assert(start_node < this->node_count());
 
       result result(this->node_count(), start_node);
-      ::std::vector<bool> visited(this->node_count(), false);
-      const auto compare = [](const task& x, const task& y) {
-        return x.distance > y.distance;
-      };
-      ::std::priority_queue<task, ::std::vector<task>, decltype(compare)> tasks(compare);
+      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t, T>>, ::tools::greater_by_second> tasks;
       tasks.emplace(start_node, 0);
 
       while (!tasks.empty()) {
-        const task task = tasks.top();
+        const auto [here, d] = tasks.top();
         tasks.pop();
-        if (visited[task.vertex]) continue;
-        visited[task.vertex] = true;
-        for (const edge& edge : this->edges[task.vertex]) {
-          const T new_distance = task.distance + edge.distance;
-          if (new_distance < result.distances[edge.to]) {
-            result.distances[edge.to] = new_distance;
+        if (result.distances[here] < d) continue;
+        for (const edge& edge : this->edges[here]) {
+          if (::tools::chmin(result.distances[edge.to], result.distances[here] + edge.distance)) {
             result.prev_nodes[edge.to] = edge.from;
-            tasks.emplace(edge.to, new_distance);
+            tasks.emplace(edge.to, result.distances[edge.to]);
           }
         }
       }
