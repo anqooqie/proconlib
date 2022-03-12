@@ -16,6 +16,9 @@ data:
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   _isVerificationFailed: false
@@ -43,6 +46,7 @@ data:
   verifiedWith:
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: Unified interface for std::abs(x) and x.abs()

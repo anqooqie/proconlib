@@ -88,7 +88,7 @@ data:
       title: Dual segment tree
     - icon: ':warning:'
       path: tools/dynamic_bitset.hpp
-      title: Resizable std::bitset
+      title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm
@@ -141,7 +141,7 @@ data:
     - icon: ':warning:'
       path: tools/greater_by_first.hpp
       title: std::greater by first
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -150,7 +150,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
     - icon: ':heavy_check_mark:'
@@ -231,7 +231,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pair_hash.hpp
       title: Hash of std::pair
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/parse_fixed_point_number.hpp
       title: Parse fixed point number
     - icon: ':heavy_check_mark:'
@@ -450,6 +450,9 @@ data:
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/integer_interval_set.test.cpp
+      title: tests/integer_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
     - icon: ':heavy_check_mark:'
@@ -476,6 +479,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/parse_fixed_point_number.test.cpp
+      title: tests/parse_fixed_point_number.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
@@ -602,6 +608,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/area.test.cpp
       title: tests/polygon_2d/area.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+      title: tests/polygon_2d/minimum_bounding_circle.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp

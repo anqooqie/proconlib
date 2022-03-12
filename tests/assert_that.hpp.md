@@ -55,9 +55,6 @@ data:
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/segmented_sieve.test.cpp
-    title: tests/segmented_sieve.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -88,7 +85,6 @@ data:
   verifiedWith:
   - tests/fix.test.cpp
   - tests/permutation.test.cpp
-  - tests/segmented_sieve.test.cpp
   - tests/run_length.test.cpp
   - tests/ceil_log.test.cpp
   - tests/median_solver.test.cpp

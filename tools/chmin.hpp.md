@@ -6,6 +6,9 @@ data:
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/dijkstra.hpp
+    title: Dijkstra's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
@@ -18,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/dijkstra.test.cpp
+    title: tests/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
@@ -47,11 +53,13 @@ data:
   - tools/segmented_sieve.hpp
   - tools/xor_basis.hpp
   - tools/tree_diameter.hpp
+  - tools/dijkstra.hpp
   - tools/bellman_ford.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/segmented_sieve.test.cpp
+  - tests/dijkstra.test.cpp
   - tests/tree_diameter.test.cpp
   - tests/xor_basis.test.cpp
   - tests/bellman_ford.test.cpp

@@ -43,6 +43,9 @@ data:
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -89,6 +92,7 @@ data:
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/rounding_mode.hpp
 layout: document
 title: Rounding mode

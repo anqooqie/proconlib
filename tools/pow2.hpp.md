@@ -106,6 +106,9 @@ data:
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/integer_interval_set.test.cpp
+    title: tests/integer_interval_set.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -117,6 +120,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -182,6 +188,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/totient.test.cpp
+  - tests/integer_interval_set.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
@@ -212,6 +219,7 @@ data:
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/plus.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document

@@ -46,6 +46,9 @@ data:
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
@@ -99,6 +102,7 @@ data:
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/is_rational.hpp
 layout: document
 title: Check whether T is tools::rational

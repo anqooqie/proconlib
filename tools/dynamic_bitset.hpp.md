@@ -288,10 +288,10 @@ data:
   verifiedWith: []
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
-title: Resizable std::bitset
+title: std::bitset with dynamic size
 ---
 
-It is compatible to `std::bitset`, but it also allows you to resize it.
+It is compatible to `std::bitset`, but it also allows you to specify the size of it dynamically.
 
 ### License
 - CC0

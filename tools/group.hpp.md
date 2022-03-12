@@ -10,6 +10,9 @@ data:
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/parse_fixed_point_number.test.cpp
+    title: tests/parse_fixed_point_number.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
   _isVerificationFailed: false
@@ -45,6 +48,7 @@ data:
   verifiedWith:
   - tests/cumsum2d.test.cpp
   - tests/pdsu.test.cpp
+  - tests/parse_fixed_point_number.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

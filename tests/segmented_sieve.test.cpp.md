@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -26,36 +23,31 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+    PROBLEM: https://atcoder.jp/contests/abc227/tasks/abc227_g
     links:
     - https://atcoder.jp/contests/abc227/tasks/abc227_g
-    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/segmented_sieve.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n// Source: https://atcoder.jp/contests/abc227/tasks/abc227_g\n\n#include <cstdint>\n\
-    #include <unordered_map>\n#include <numeric>\n#include <iostream>\n#include <iterator>\n\
-    #line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond) do {\\\n  if\
-    \ (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__\
-    \ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\
-    \n  }\\\n} while (false)\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\
-    \n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include\
-    \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
-    lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include <utility>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal\
-    \ {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long\
-    \ long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n\
-    }\n\n// Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+  bundledCode: "#line 1 \"tests/segmented_sieve.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc227/tasks/abc227_g\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <unordered_map>\n#line 1\
+    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include <numeric>\n\
+    #include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line\
+    \ 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include <utility>\n\n\
+    #ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace\
+    \ internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long\
+    \ safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n\
+    \    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n// Reference:\
+    \ https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider after Ice\
+    \ Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long im;\n\n\
+    \    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
+    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
+    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -245,16 +237,16 @@ data:
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/segmented_sieve.hpp\"\
     \n\n\n\n#include <vector>\n#line 6 \"tools/segmented_sieve.hpp\"\n#include <algorithm>\n\
     #include <limits>\n#line 9 \"tools/segmented_sieve.hpp\"\n#include <cstddef>\n\
-    #line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n >= 0);\n\
-    \n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\n    while\
-    \ (ng - ok > 1) {\n      const T mid = (ok + ng) / 2;\n      if (mid * mid <=\
-    \ n) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n    }\n\
-    \n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\
-    \n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\
+    #include <iterator>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n\
+    \ >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\
+    \n    while (ng - ok > 1) {\n      const T mid = (ok + ng) / 2;\n      if (mid\
+    \ * mid <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n\
+    \    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
     \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
@@ -406,68 +398,29 @@ data:
     \ ub <= this->lpf_max();\n      const bool is_in_large_sieve = this->l() <= lb\
     \ && ub <= this->r();\n      assert(is_in_small_sieve || is_in_large_sieve);\n\
     \      return prime_iterable(this, !is_in_small_sieve, lb, ub);\n    }\n  };\n\
-    }\n\n\n#line 13 \"tests/segmented_sieve.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    using mint = atcoder::modint998244353;\n\ni64 solve1(const i64& N, const i64&\
-    \ K, const tools::segmented_sieve<i64>& sieve) {\n  std::unordered_map<i64, i64>\
-    \ nCk;\n  for (i64 i = N - K + 1; i <= N; ++i) {\n    for (const i64& p : sieve.prime_factor_range(i))\
-    \ {\n      ++nCk[p];\n    }\n  }\n  for (i64 i = 1; i <= K; ++i) {\n    for (const\
-    \ i64& p : sieve.prime_factor_range(i)) {\n      --nCk[p];\n    }\n  }\n  return\
-    \ std::accumulate(nCk.begin(), nCk.end(), mint(1), [](const mint& prod, const\
-    \ auto& pair) { return prod * mint(pair.second + 1); }).val();\n}\n\ni64 solve2(const\
-    \ i64& N, const i64& K, const tools::segmented_sieve<i64>& sieve) {\n  std::unordered_map<i64,\
-    \ i64> nCk;\n  for (i64 i = N - K + 1; i <= N; ++i) {\n    for (const auto& [p,\
-    \ q] : sieve.distinct_prime_factor_range(i)) {\n      nCk[p] += q;\n    }\n  }\n\
-    \  for (i64 i = 1; i <= K; ++i) {\n    for (const auto& [p, q] : sieve.distinct_prime_factor_range(i))\
-    \ {\n      nCk[p] -= q;\n    }\n  }\n  return std::accumulate(nCk.begin(), nCk.end(),\
-    \ mint(1), [](const mint& prod, const auto& pair) { return prod * mint(pair.second\
-    \ + 1); }).val();\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  {\n    const i64 N = 5;\n    const i64 K = 2;\n    const tools::segmented_sieve<i64>\
-    \ sieve(K, N - K + 1, N);\n    assert_that(solve1(N, K, sieve) == 4);\n    assert_that(solve2(N,\
-    \ K, sieve) == 4);\n  }\n\n  {\n    const i64 N = 103;\n    const i64 K = 3;\n\
-    \    const tools::segmented_sieve<i64> sieve(K, N - K + 1, N);\n    assert_that(solve1(N,\
-    \ K, sieve) == 8);\n    assert_that(solve2(N, K, sieve) == 8);\n  }\n\n  {\n \
-    \   const i64 N = 1000000000000;\n    const i64 K = 1000000;\n    const tools::segmented_sieve<i64>\
-    \ sieve(K, N - K + 1, N);\n    assert_that(solve1(N, K, sieve) == 110520107);\n\
-    \    assert_that(solve2(N, K, sieve) == 110520107);\n\n    const auto primes =\
-    \ sieve.prime_range(999999990000, 1000000000000);\n    assert_that(std::distance(primes.begin(),\
-    \ primes.end()) == 337);\n  }\n\n  {\n    const i64 N = 6;\n    const i64 K =\
-    \ 3;\n    const tools::segmented_sieve<i64> sieve(K, N - K + 1, N);\n    assert_that(solve1(N,\
-    \ K, sieve) == 6);\n    assert_that(solve2(N, K, sieve) == 6);\n  }\n\n  std::cout\
-    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    // Source: https://atcoder.jp/contests/abc227/tasks/abc227_g\n\n#include <cstdint>\n\
-    #include <unordered_map>\n#include <numeric>\n#include <iostream>\n#include <iterator>\n\
-    #include \"tests/assert_that.hpp\"\n#include \"atcoder/modint.hpp\"\n#include\
-    \ \"tools/segmented_sieve.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
-    \ = atcoder::modint998244353;\n\ni64 solve1(const i64& N, const i64& K, const\
-    \ tools::segmented_sieve<i64>& sieve) {\n  std::unordered_map<i64, i64> nCk;\n\
-    \  for (i64 i = N - K + 1; i <= N; ++i) {\n    for (const i64& p : sieve.prime_factor_range(i))\
-    \ {\n      ++nCk[p];\n    }\n  }\n  for (i64 i = 1; i <= K; ++i) {\n    for (const\
-    \ i64& p : sieve.prime_factor_range(i)) {\n      --nCk[p];\n    }\n  }\n  return\
-    \ std::accumulate(nCk.begin(), nCk.end(), mint(1), [](const mint& prod, const\
-    \ auto& pair) { return prod * mint(pair.second + 1); }).val();\n}\n\ni64 solve2(const\
-    \ i64& N, const i64& K, const tools::segmented_sieve<i64>& sieve) {\n  std::unordered_map<i64,\
-    \ i64> nCk;\n  for (i64 i = N - K + 1; i <= N; ++i) {\n    for (const auto& [p,\
-    \ q] : sieve.distinct_prime_factor_range(i)) {\n      nCk[p] += q;\n    }\n  }\n\
-    \  for (i64 i = 1; i <= K; ++i) {\n    for (const auto& [p, q] : sieve.distinct_prime_factor_range(i))\
-    \ {\n      nCk[p] -= q;\n    }\n  }\n  return std::accumulate(nCk.begin(), nCk.end(),\
-    \ mint(1), [](const mint& prod, const auto& pair) { return prod * mint(pair.second\
-    \ + 1); }).val();\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  {\n    const i64 N = 5;\n    const i64 K = 2;\n    const tools::segmented_sieve<i64>\
-    \ sieve(K, N - K + 1, N);\n    assert_that(solve1(N, K, sieve) == 4);\n    assert_that(solve2(N,\
-    \ K, sieve) == 4);\n  }\n\n  {\n    const i64 N = 103;\n    const i64 K = 3;\n\
-    \    const tools::segmented_sieve<i64> sieve(K, N - K + 1, N);\n    assert_that(solve1(N,\
-    \ K, sieve) == 8);\n    assert_that(solve2(N, K, sieve) == 8);\n  }\n\n  {\n \
-    \   const i64 N = 1000000000000;\n    const i64 K = 1000000;\n    const tools::segmented_sieve<i64>\
-    \ sieve(K, N - K + 1, N);\n    assert_that(solve1(N, K, sieve) == 110520107);\n\
-    \    assert_that(solve2(N, K, sieve) == 110520107);\n\n    const auto primes =\
-    \ sieve.prime_range(999999990000, 1000000000000);\n    assert_that(std::distance(primes.begin(),\
-    \ primes.end()) == 337);\n  }\n\n  {\n    const i64 N = 6;\n    const i64 K =\
-    \ 3;\n    const tools::segmented_sieve<i64> sieve(K, N - K + 1, N);\n    assert_that(solve1(N,\
-    \ K, sieve) == 6);\n    assert_that(solve2(N, K, sieve) == 6);\n  }\n\n  std::cout\
-    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    }\n\n\n#line 8 \"tests/segmented_sieve.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    using mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, K;\n  std::cin >> N >> K;\n\
+    \n  std::unordered_map<i64, i64> nCk;\n  if (K > 0) {\n    tools::segmented_sieve<i64>\
+    \ sieve(K, N - K + 1, N);\n    for (i64 i = N - K + 1; i <= N; ++i) {\n      for\
+    \ (const i64& p : sieve.prime_factor_range(i)) {\n        ++nCk[p];\n      }\n\
+    \    }\n\n    for (i64 i = 1; i <= K; ++i) {\n      for (const i64& p : sieve.prime_factor_range(i))\
+    \ {\n        --nCk[p];\n      }\n    }\n  }\n\n  mint answer(1);\n  for (const\
+    \ auto& [p, q] : nCk) {\n    answer *= mint(q + 1);\n  }\n  std::cout << answer.val()\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc227/tasks/abc227_g\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <unordered_map>\n#include \"\
+    atcoder/modint.hpp\"\n#include \"tools/segmented_sieve.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    using mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, K;\n  std::cin >> N >> K;\n\
+    \n  std::unordered_map<i64, i64> nCk;\n  if (K > 0) {\n    tools::segmented_sieve<i64>\
+    \ sieve(K, N - K + 1, N);\n    for (i64 i = N - K + 1; i <= N; ++i) {\n      for\
+    \ (const i64& p : sieve.prime_factor_range(i)) {\n        ++nCk[p];\n      }\n\
+    \    }\n\n    for (i64 i = 1; i <= K; ++i) {\n      for (const i64& p : sieve.prime_factor_range(i))\
+    \ {\n        --nCk[p];\n      }\n    }\n  }\n\n  mint answer(1);\n  for (const\
+    \ auto& [p, q] : nCk) {\n    answer *= mint(q + 1);\n  }\n  std::cout << answer.val()\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
   - tools/segmented_sieve.hpp
   - tools/floor_sqrt.hpp
   - tools/chmin.hpp
@@ -476,7 +429,7 @@ data:
   isVerificationFile: true
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
-  timestamp: '2021-12-10 23:22:43+09:00'
+  timestamp: '2022-03-12 16:17:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp

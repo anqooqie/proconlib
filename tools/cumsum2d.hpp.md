@@ -6,6 +6,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/parse_fixed_point_number.test.cpp
+    title: tests/parse_fixed_point_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -73,6 +76,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cumsum2d.test.cpp
+  - tests/parse_fixed_point_number.test.cpp
 documentation_of: tools/cumsum2d.hpp
 layout: document
 title: 2D cumulative sum

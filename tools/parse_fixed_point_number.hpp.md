@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/parse_fixed_point_number.test.cpp
+    title: tests/parse_fixed_point_number.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/parse_fixed_point_number.hpp\"\n\n\n\n#include <cstdint>\n\
@@ -31,8 +34,9 @@ data:
   path: tools/parse_fixed_point_number.hpp
   requiredBy: []
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/parse_fixed_point_number.test.cpp
 documentation_of: tools/parse_fixed_point_number.hpp
 layout: document
 title: Parse fixed point number

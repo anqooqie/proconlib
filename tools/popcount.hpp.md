@@ -13,7 +13,7 @@ data:
     title: List all divisors
   - icon: ':warning:'
     path: tools/dynamic_bitset.hpp
-    title: Resizable std::bitset
+    title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem

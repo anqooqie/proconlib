@@ -2,13 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/integer_interval_set.hpp
     title: Set of integers as closed integer intervals
   - icon: ':heavy_check_mark:'
     path: tools/real_interval_set.hpp
     title: Set of real numbers as closed integer intervals
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/integer_interval_set.test.cpp
+    title: tests/integer_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
@@ -124,6 +127,7 @@ data:
   timestamp: '2021-10-23 20:26:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/integer_interval_set.test.cpp
   - tests/real_interval_set.test.cpp
 documentation_of: tools/detail/interval_set.hpp
 layout: document

@@ -2,17 +2,38 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/abs.hpp
+    title: Unified interface for std::abs(x) and x.abs()
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/ccw.hpp
+    title: Counter clockwise function
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
+    path: tools/chmax.hpp
+    title: chmax function
+  - icon: ':heavy_check_mark:'
+    path: tools/convex_hull.hpp
+    title: Convex hull
+  - icon: ':heavy_check_mark:'
     path: tools/detail/ceil_and_floor.hpp
     title: tools/detail/ceil_and_floor.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/line_like_2d.hpp
+    title: tools/detail/line_like_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
@@ -20,14 +41,26 @@ data:
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
   - icon: ':heavy_check_mark:'
+    path: tools/less_by.hpp
+    title: std::less by key
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
+  - icon: ':heavy_check_mark:'
+    path: tools/pair_hash.hpp
+    title: Hash of std::pair
+  - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':heavy_check_mark:'
+    path: tools/rational.hpp
+    title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
@@ -37,53 +70,185 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
+  - icon: ':heavy_check_mark:'
+    path: tools/vector2.hpp
+    title: 2D vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/cross_point.test.cpp
-    title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/intersection.test.cpp
-    title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/squared_distance.test.cpp
-    title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/line_2d/projection.test.cpp
-    title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/area.test.cpp
-    title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/minus.test.cpp
-    title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/multiplies.test.cpp
-    title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/plus.test.cpp
-    title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/random.test.cpp
-    title: tests/rational/random.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/rational.hpp\"\n\n\n\n#include <cstdint>\n#include\
-    \ <cassert>\n#include <limits>\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\
-    \n\n\n\n#include <vector>\n#line 6 \"tools/bigint.hpp\"\n#include <array>\n#include\
-    \ <cstddef>\n#include <algorithm>\n#include <iterator>\n#include <type_traits>\n\
-    #include <string>\n#line 13 \"tools/bigint.hpp\"\n#include <utility>\n#line 15\
-    \ \"tools/bigint.hpp\"\n#include <cmath>\n#line 17 \"tools/bigint.hpp\"\n#include\
-    \ <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    ERROR: 1e-6
+    PROBLEM: https://atcoder.jp/contests/abc151/tasks/abc151_f
+    links:
+    - https://atcoder.jp/contests/abc151/tasks/abc151_f
+  bundledCode: "#line 1 \"tests/polygon_2d/minimum_bounding_circle.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc151/tasks/abc151_f\"\n#define ERROR\
+    \ 1e-6\n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include\
+    \ <iomanip>\n#include <cmath>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#line 5 \"\
+    tools/vector2.hpp\"\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
+    #line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
+    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
+    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
+    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
+    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
+    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
+    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
+    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
+    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
+    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
+    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
+    \ << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    \      return result;\n    }\n  };\n\n  template <>\n  struct pair_hash<::std::uint64_t,\
+    \ ::std::uint64_t> {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<::std::uint64_t, ::std::uint64_t>;\n    ::std::size_t operator()(const\
+    \ ::std::pair<::std::uint64_t, ::std::uint64_t>& key) const {\n      static const\
+    \ ::std::hash<::std::uint64_t> hasher = ::std::hash<::std::uint64_t>();\n    \
+    \  return hasher(((key.first << static_cast<::std::uint64_t>(32)) | (key.first\
+    \ >> static_cast<::std::uint64_t>(32))) ^ key.second);\n    }\n  };\n\n  template\
+    \ <>\n  struct pair_hash<::std::int64_t, ::std::int64_t> {\n    using result_type\
+    \ = ::std::size_t;\n    using argument_type = ::std::pair<::std::int64_t, ::std::int64_t>;\n\
+    \    ::std::size_t operator()(const ::std::pair<::std::int64_t, ::std::int64_t>&\
+    \ key) const {\n      static const ::tools::pair_hash<::std::uint64_t, ::std::uint64_t>\
+    \ hasher = ::tools::pair_hash<::std::uint64_t, ::std::uint64_t>();\n      return\
+    \ hasher(::std::make_pair<::std::uint64_t, ::std::uint64_t>(key.first, key.second));\n\
+    \    }\n  };\n\n  template <>\n  struct pair_hash<::std::uint32_t, ::std::uint32_t>\
+    \ {\n    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<::std::uint32_t,\
+    \ ::std::uint32_t>;\n    ::std::size_t operator()(const ::std::pair<::std::uint32_t,\
+    \ ::std::uint32_t>& key) const {\n      static const ::std::hash<::std::uint64_t>\
+    \ hasher = ::std::hash<::std::uint64_t>();\n      return hasher((static_cast<::std::uint64_t>(key.first)\
+    \ << static_cast<::std::uint64_t>(32)) | static_cast<::std::uint64_t>(key.second));\n\
+    \    }\n  };\n\n  template <>\n  struct pair_hash<::std::int32_t, ::std::int32_t>\
+    \ {\n    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<::std::int32_t,\
+    \ ::std::int32_t>;\n    ::std::size_t operator()(const ::std::pair<::std::int32_t,\
+    \ ::std::int32_t>& key) const {\n      static const ::tools::pair_hash<::std::uint32_t,\
+    \ ::std::uint32_t> hasher = ::tools::pair_hash<::std::uint32_t, ::std::uint32_t>();\n\
+    \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
+    \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
+    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
+    \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
+    \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
+    \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
+    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
+    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
+    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> turn90()\
+    \ const {\n      return ::tools::vector2<T>(-this->y, this->x);\n    }\n\n   \
+    \ ::tools::vector2<T> turn270() const {\n      return ::tools::vector2<T>(this->y,\
+    \ -this->x);\n    }\n\n    ::tools::vector2<T> operator+() const {\n      return\
+    \ *this;\n    }\n\n    ::tools::vector2<T> operator-() const {\n      return ::tools::vector2<T>(-this->x,\
+    \ -this->y);\n    }\n\n    friend ::tools::vector2<T> operator+(const ::tools::vector2<T>&\
+    \ lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
+    \ + rhs.x, lhs.y + rhs.y);\n    }\n\n    friend ::tools::vector2<T> operator-(const\
+    \ ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
+    \ - rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    friend ::tools::vector2<T> operator*(const OTHER& lhs, const\
+    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs * rhs.x, lhs\
+    \ * rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
+    \ operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
+    \ ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n    T inner_product(const\
+    \ ::tools::vector2<T>& other) const {\n      return this->x * other.x + this->y\
+    \ * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>& other) const\
+    \ {\n      return this->x * other.y - this->y * other.x;\n    }\n\n    ::tools::vector2<T>&\
+    \ operator+=(const ::tools::vector2<T>& other) {\n      return *this = *this +\
+    \ other;\n    }\n\n    ::tools::vector2<T>& operator-=(const ::tools::vector2<T>&\
+    \ other) {\n      return *this = *this - other;\n    }\n\n    template <typename\
+    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
+    \ = nullptr>\n    ::tools::vector2<T>& operator*=(const OTHER& other) {\n    \
+    \  return *this = *this * other;\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
+    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T>&\
+    \ operator/=(const OTHER& other) {\n      return *this = *this / other;\n    }\n\
+    \n    friend bool operator==(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
+    \ rhs) {\n      return lhs.x == rhs.x && lhs.y == rhs.y;\n    }\n\n    friend\
+    \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
+    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    friend ::std::ostream&\
+    \ operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {\n      return\
+    \ os << '(' << self.x << \", \" << self.y << ')';\n    }\n\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n      return is\
+    \ >> self.x >> self.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
+    \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
+    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))\n      });\n\
+    \    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions() {\n\
+    \      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1),\
+    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
+    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),\n      \
+    \  ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(1),\
+    \ static_cast<T>(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
+    \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
+    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line\
+    \ 7 \"tools/convex_hull.hpp\"\n#include <numeric>\n#include <algorithm>\n#line\
+    \ 10 \"tools/convex_hull.hpp\"\n#include <iterator>\n#include <stack>\n#line 1\
+    \ \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n  class\
+    \ less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const F& selector)\
+    \ : selector(selector) {\n    }\n\n    template <class T>\n    bool operator()(const\
+    \ T& x, const T& y) const {\n      return selector(x) < selector(y);\n    }\n\
+    \  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const ::tools::vector2<T>&\
+    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
+    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
+    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm() <\
+    \ c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
+    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
+    \n    ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
+    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
+    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
+    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
+    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
+    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
+    \ a.size() && v[a[al]].x == v[a[ar]].x; ::std::swap(a[vr], a[ar]), ++vr, ++ar);\n\
+    \        if (v[a[vl]].y == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n \
+    \         duplicates.emplace_back();\n          duplicates.back().push_back(a[vl]);\n\
+    \        } else {\n          ::std::swap(a[vl + 1], a[vr - 1]);\n          vr\
+    \ -= vr - vl - 2;\n          duplicates.emplace_back();\n          duplicates.back().push_back(a[vl]);\n\
+    \          duplicates.emplace_back();\n          duplicates.back().push_back(a[vl\
+    \ + 1]);\n        }\n      }\n      a.erase(::std::next(a.begin(), vl), a.end());\n\
+    \    } else {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr = 0, al\
+    \ = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar < a.size()\
+    \ && v[a[al]] == v[a[ar]]; ::std::swap(a[vr], a[ar]), ++vr, ++ar);\n        duplicates.emplace_back();\n\
+    \        for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
+    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
+    \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
+    \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
+    \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
+    \ >= 2) {\n          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]],\
+    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == 1 || (!minimum &&\
+    \ ccw == -2)) {\n            break;\n          }\n          convex_hull.pop_back();\n\
+    \        }\n        convex_hull.push_back(p3);\n      }\n\n      const ::std::size_t\
+    \ threshold = convex_hull.size() + 1;\n      for (::std::size_t p3 = convex_hull.back();\
+    \ p3 --> 0;) {\n        while (convex_hull.size() >= threshold) {\n          const\
+    \ int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]],\
+    \ v[a[p3]]);\n          if (ccw == 1 || (!minimum && ccw == -2)) {\n         \
+    \   break;\n          }\n          convex_hull.pop_back();\n        }\n      \
+    \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
+    \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
+    \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
+    \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
+    \      }\n    }\n  }\n}\n\n\n#line 1 \"tools/rational.hpp\"\n\n\n\n#line 5 \"\
+    tools/rational.hpp\"\n#include <cassert>\n#include <limits>\n#line 1 \"tools/bigint.hpp\"\
+    \n\n\n\n#line 11 \"tools/bigint.hpp\"\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
+    \n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
     \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
@@ -962,86 +1127,500 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_RATIONAL_HPP\n#define TOOLS_RATIONAL_HPP\n\n#include <cstdint>\n\
-    #include <cassert>\n#include <limits>\n#include <iostream>\n#include \"tools/bigint.hpp\"\
-    \n#include \"tools/bigdecimal.hpp\"\n#include \"tools/signum.hpp\"\n#include \"\
-    tools/ssize.hpp\"\n#include \"tools/is_rational.hpp\"\n\nnamespace tools {\n \
-    \ class rational {\n  private:\n    ::tools::bigint m_numerator;\n    ::tools::bigint\
-    \ m_denominator;\n\n    ::tools::rational& regularize() {\n      if (this->m_denominator.signum()\
-    \ < 0) {\n        this->m_numerator.negate();\n        this->m_denominator.negate();\n\
-    \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
-    \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator,\
-    \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
-    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    int signum()\
-    \ const {\n      return this->m_numerator.signum();\n    }\n    ::tools::rational&\
-    \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
-    \    ::tools::rational abs() const {\n      ::tools::rational result(*this);\n\
-    \      if (result.signum() < 0) result.negate();\n      return result;\n    }\n\
-    \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
-    \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
-    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
-    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
-    \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
-    \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
-    \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
-    \    ::tools::rational& operator=(::tools::rational&&) = default;\n\n    explicit\
-    \ rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {\n\
-    \    }\n    explicit rational(const ::tools::bigint& n) : m_numerator(n), m_denominator(1)\
-    \ {\n    }\n    explicit rational(const ::tools::bigdecimal& d)\n      : m_numerator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
-    \ -d.scale())) *= d.unscaled_value()),\n        m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
-    \ d.scale()))) {\n      this->regularize();\n    }\n    rational(const ::tools::bigint&\
-    \ numerator, const ::tools::bigint& denominator)\n      : m_numerator(numerator),\
-    \ m_denominator(denominator) {\n      assert(this->m_denominator.signum() != 0);\n\
-    \      this->regularize();\n    }\n\n    const ::tools::bigint& numerator() const\
-    \ {\n      return this->m_numerator;\n    }\n    const ::tools::bigint& denominator()\
-    \ const {\n      return this->m_denominator;\n    }\n\n    friend bool operator==(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return lhs.m_numerator\
-    \ == rhs.m_numerator && lhs.m_denominator == rhs.m_denominator;\n    }\n    friend\
-    \ bool operator!=(const ::tools::rational& lhs, const ::tools::rational& rhs)\
-    \ {\n      return !(lhs == rhs);\n    }\n    friend bool operator<(const ::tools::rational&\
-    \ lhs, const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) < 0;\n    }\n    friend bool operator>(const ::tools::rational& lhs, const\
-    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) > 0;\n    }\n    friend bool operator<=(const ::tools::rational& lhs, const\
-    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) <= 0;\n    }\n    friend bool operator>=(const ::tools::rational& lhs,\
-    \ const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) >= 0;\n    }\n\n    ::tools::rational operator+() const {\n      return\
-    \ *this;\n    }\n    ::tools::rational operator-() const {\n      return ::tools::rational(*this).negate();\n\
-    \    }\n\n    ::tools::rational& operator+=(const ::tools::rational& other) {\n\
-    \      this->m_numerator *= other.m_denominator;\n      this->m_numerator += other.m_numerator\
-    \ * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
-    \      return this->regularize();\n    }\n    friend ::tools::rational operator+(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
-    \ += rhs;\n    }\n\n    ::tools::rational& operator-=(const ::tools::rational&\
-    \ other) {\n      this->m_numerator *= other.m_denominator;\n      this->m_numerator\
-    \ -= other.m_numerator * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
-    \      return this->regularize();\n    }\n    friend ::tools::rational operator-(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
-    \ -= rhs;\n    }\n\n    ::tools::rational& operator*=(const ::tools::rational&\
-    \ other) {\n      this->m_numerator *= other.m_numerator;\n      this->m_denominator\
-    \ *= other.m_denominator;\n      return this->regularize();\n    }\n    friend\
-    \ ::tools::rational operator*(const ::tools::rational& lhs, const ::tools::rational&\
-    \ rhs) {\n      return ::tools::rational(lhs) *= rhs;\n    }\n\n    ::tools::rational&\
-    \ operator/=(const ::tools::rational& other) {\n      assert(other.signum() !=\
-    \ 0);\n      this->m_numerator *= other.m_denominator;\n      this->m_denominator\
-    \ *= other.m_numerator;\n      return this->regularize();\n    }\n    friend ::tools::rational\
-    \ operator/(const ::tools::rational& lhs, const ::tools::rational& rhs) {\n  \
-    \    return ::tools::rational(lhs) /= rhs;\n    }\n\n    explicit operator double()\
-    \ const {\n      ::tools::bigint unscaled_value(this->m_numerator);\n      unscaled_value.multiply_by_pow10((::std::numeric_limits<double>::digits10\
-    \ + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));\n\
-    \      unscaled_value /= this->m_denominator;\n\n      ::tools::bigdecimal result(unscaled_value);\n\
-    \      result.divide_by_pow10((::std::numeric_limits<double>::digits10 + 2) -\
-    \ (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));\n\
-    \      return static_cast<double>(result);\n    }\n\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::rational& self) {\n      ::tools::bigdecimal\
-    \ value;\n      is >> value;\n      self = ::tools::rational(value);\n      return\
-    \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
-    \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
-    \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n#endif\n"
+    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#line 8 \"tools/detail/polygon_like_2d.hpp\"\
+    \n#include <initializer_list>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
+    \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
+    \ = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 1 \"tools/directed_line_segment_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\
+    \n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\n#include <optional>\n#line\
+    \ 9 \"tools/detail/line_like_2d.hpp\"\n#include <variant>\n#line 14 \"tools/detail/line_like_2d.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class directed_line_segment_2d;\n\
+    \n  template <typename T>\n  class half_line_2d;\n\n  template <typename T>\n\
+    \  class line_2d;\n\n  template <typename T>\n  class directed_line_segment_2d\
+    \ {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\
+    \n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
+    \ ::tools::directed_line_segment_2d<T>&) = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
+    \ = default;\n    ~directed_line_segment_2d() = default;\n    ::tools::directed_line_segment_2d<T>&\
+    \ operator=(const ::tools::directed_line_segment_2d<T>&) = default;\n    ::tools::directed_line_segment_2d<T>&\
+    \ operator=(::tools::directed_line_segment_2d<T>&&) = default;\n\n    directed_line_segment_2d(const\
+    \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2);\n\n    bool contains(const\
+    \ ::tools::vector2<T>& p) const;\n    ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ T, double> length() const; \n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::directed_line_segment_2d<T>& other) const;\n   \
+    \ template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::half_line_2d<T>& other) const;\n    template <typename\
+    \ U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::tools::vector2<T>>>\n    cross_point(const ::tools::line_2d<T>&\
+    \ other) const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>>\n    midpoint() const;\n\
+    \    const ::tools::vector2<T>& p1() const;\n    const ::tools::vector2<T>& p2()\
+    \ const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T>\n    squared_distance(const ::tools::directed_line_segment_2d<T>&\
+    \ other) const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T>\n    squared_distance(const ::tools::vector2<T>&\
+    \ p) const;\n    T squared_length() const;\n    ::tools::half_line_2d<T> to_half_line()\
+    \ const;\n    ::tools::line_2d<T> to_line() const;\n    ::tools::vector2<T> to_vector()\
+    \ const;\n\n    ::tools::directed_line_segment_2d<T> operator+() const;\n    ::tools::directed_line_segment_2d<T>\
+    \ operator-() const;\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::std::variant<::tools::vector2<U>,\
+    \ ::tools::directed_line_segment_2d<U>>>>\n    operator&(const ::tools::directed_line_segment_2d<U>&\
+    \ lhs, const ::tools::directed_line_segment_2d<U>& rhs);\n    template <typename\
+    \ U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::std::variant<::tools::vector2<U>, ::tools::directed_line_segment_2d<U>>>>\n\
+    \    operator&(const ::tools::directed_line_segment_2d<U>& lhs, const ::tools::half_line_2d<U>&\
+    \ rhs);\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::std::variant<::tools::vector2<U>,\
+    \ ::tools::directed_line_segment_2d<U>>>>\n    operator&(const ::tools::directed_line_segment_2d<U>&\
+    \ lhs, const ::tools::line_2d<U>& rhs);\n    template <typename U>\n    friend\
+    \ bool operator==(const ::tools::directed_line_segment_2d<U>& lhs, const ::tools::directed_line_segment_2d<U>&\
+    \ rhs);\n    template <typename U>\n    friend bool operator!=(const ::tools::directed_line_segment_2d<U>&\
+    \ lhs, const ::tools::directed_line_segment_2d<U>& rhs);\n  };\n\n  template <typename\
+    \ T>\n  class half_line_2d {\n  private:\n    ::tools::vector2<T> m_a;\n    ::tools::vector2<T>\
+    \ m_d;\n\n  public:\n    half_line_2d() = default;\n    half_line_2d(const ::tools::half_line_2d<T>&)\
+    \ = default;\n    half_line_2d(::tools::half_line_2d<T>&&) = default;\n    ~half_line_2d()\
+    \ = default;\n    ::tools::half_line_2d<T>& operator=(const ::tools::half_line_2d<T>&)\
+    \ = default;\n    ::tools::half_line_2d<T>& operator=(::tools::half_line_2d<T>&&)\
+    \ = default;\n\n    half_line_2d(const ::tools::vector2<T>& a, const ::tools::vector2<T>&\
+    \ d);\n\n    const ::tools::vector2<T>& a() const;\n    bool contains(const ::tools::vector2<T>&\
+    \ p) const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::directed_line_segment_2d<T>& other) const;\n   \
+    \ template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::half_line_2d<T>& other) const;\n    template <typename\
+    \ U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::tools::vector2<T>>>\n    cross_point(const ::tools::line_2d<T>&\
+    \ other) const;\n    const ::tools::vector2<T>& d() const;\n    ::tools::line_2d<T>\
+    \ to_line() const;\n\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::std::variant<::tools::vector2<U>,\
+    \ ::tools::directed_line_segment_2d<U>>>>\n    operator&(const ::tools::half_line_2d<U>&\
+    \ lhs, const ::tools::directed_line_segment_2d<U>& rhs);\n    template <typename\
+    \ U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::std::variant<::tools::vector2<U>, ::tools::directed_line_segment_2d<U>,\
+    \ ::tools::half_line_2d<U>>>>\n    operator&(const ::tools::half_line_2d<U>& lhs,\
+    \ const ::tools::half_line_2d<U>& rhs);\n    template <typename U>\n    friend\
+    \ ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::std::variant<::tools::vector2<U>, ::tools::half_line_2d<U>>>>\n\
+    \    operator&(const ::tools::half_line_2d<U>& lhs, const ::tools::line_2d<U>&\
+    \ rhs);\n    template <typename U>\n    friend bool operator==(const ::tools::half_line_2d<U>&\
+    \ lhs, const ::tools::half_line_2d<U>& rhs);\n    template <typename U>\n    friend\
+    \ bool operator!=(const ::tools::half_line_2d<U>& lhs, const ::tools::half_line_2d<U>&\
+    \ rhs);\n  };\n\n  template <typename T>\n  class line_2d {\n  private:\n    T\
+    \ m_a;\n    T m_b;\n    T m_c;\n\n  public:\n    line_2d() = default;\n    line_2d(const\
+    \ ::tools::line_2d<T>&) = default;\n    line_2d(::tools::line_2d<T>&&) = default;\n\
+    \    ~line_2d() = default;\n    ::tools::line_2d<T>& operator=(const ::tools::line_2d<T>&)\
+    \ = default;\n    ::tools::line_2d<T>& operator=(::tools::line_2d<T>&&) = default;\n\
+    \n    line_2d(const T& a, const T& b, const T& c);\n\n    const T& a() const;\n\
+    \    const T& b() const;\n    const T& c() const;\n    bool contains(const ::tools::vector2<T>&\
+    \ p) const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::directed_line_segment_2d<T>& other) const;\n   \
+    \ template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  \
+    \  cross_point(const ::tools::half_line_2d<T>& other) const;\n    template <typename\
+    \ U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::tools::vector2<T>>>\n    cross_point(const ::tools::line_2d<T>&\
+    \ other) const;\n    bool crosses(const ::tools::line_2d<T>& other) const;\n \
+    \   bool is_parallel_to(const ::tools::line_2d<T>& other) const;\n    ::tools::vector2<T>\
+    \ normal() const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>>\n    projection(const\
+    \ ::tools::vector2<T>& p) const;\n\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::std::variant<::tools::vector2<U>,\
+    \ ::tools::directed_line_segment_2d<U>>>>\n    operator&(const ::tools::line_2d<U>&\
+    \ lhs, const ::tools::directed_line_segment_2d<U>& rhs);\n    template <typename\
+    \ U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::std::variant<::tools::vector2<U>, ::tools::half_line_2d<U>>>>\n\
+    \    operator&(const ::tools::line_2d<U>& lhs, const ::tools::half_line_2d<U>&\
+    \ rhs);\n    template <typename U>\n    friend ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::std::variant<::tools::vector2<U>,\
+    \ ::tools::line_2d<U>>>>\n    operator&(const ::tools::line_2d<U>& lhs, const\
+    \ ::tools::line_2d<U>& rhs);\n    template <typename U>\n    friend bool operator==(const\
+    \ ::tools::line_2d<U>& lhs, const ::tools::line_2d<U>& rhs);\n    template <typename\
+    \ U>\n    friend bool operator!=(const ::tools::line_2d<U>& lhs, const ::tools::line_2d<U>&\
+    \ rhs);\n\n    static ::tools::line_2d<T> through(const ::tools::vector2<T>& p1,\
+    \ const ::tools::vector2<T>& p2);\n  };\n\n  template <typename T>\n  directed_line_segment_2d<T>::directed_line_segment_2d(const\
+    \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2) :\n    m_p1(p1),\n \
+    \   m_p2(p2) {\n    assert(p1 != p2);\n  }\n\n  template <typename T>\n  bool\
+    \ directed_line_segment_2d<T>::contains(const ::tools::vector2<T>& p) const {\n\
+    \    if (p == this->m_p1 || p == this->m_p2) return true;\n    const ::tools::line_2d<T>\
+    \ l = this->to_line();\n    if (!l.contains(p)) return false;\n    const T d =\
+    \ (p - this->m_p1).inner_product(this->to_vector());\n    return T(0) <= d &&\
+    \ d <= this->squared_length();\n  }\n\n  template <typename T> template <typename\
+    \ U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::tools::vector2<T>>>\n  directed_line_segment_2d<T>::cross_point(const\
+    \ ::tools::directed_line_segment_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
+    \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
+    \ operator()(const ::tools::directed_line_segment_2d<T>&) {\n        return ::std::nullopt;\n\
+    \      }\n    } visitor;\n    return intersection ? ::std::visit(visitor, *intersection)\
+    \ : ::std::nullopt;\n  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  directed_line_segment_2d<T>::cross_point(const\
+    \ ::tools::half_line_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
+    \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
+    \ operator()(const ::tools::directed_line_segment_2d<T>&) {\n        return ::std::nullopt;\n\
+    \      }\n    } visitor;\n    return intersection ? ::std::visit(visitor, *intersection)\
+    \ : ::std::nullopt;\n  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  directed_line_segment_2d<T>::cross_point(const\
+    \ ::tools::line_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
+    \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
+    \ operator()(const ::tools::directed_line_segment_2d<T>&) {\n        return result_t();\n\
+    \      }\n    } visitor;\n    return intersection ? ::std::visit(visitor, *intersection)\
+    \ : ::std::nullopt;\n  }\n\n  template <typename T>\n  ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ T, double> directed_line_segment_2d<T>::length() const {\n    return this->to_vector().norm();\n\
+    \  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>>\n  directed_line_segment_2d<T>::midpoint()\
+    \ const {\n    return (this->m_p1 + this->m_p2) / T(2);\n  }\n\n  template <typename\
+    \ T>\n  const ::tools::vector2<T>& directed_line_segment_2d<T>::p1() const {\n\
+    \    return this->m_p1;\n  }\n\n  template <typename T>\n  const ::tools::vector2<T>&\
+    \ directed_line_segment_2d<T>::p2() const {\n    return this->m_p2;\n  }\n\n \
+    \ template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T>\n  directed_line_segment_2d<T>::squared_distance(const\
+    \ ::tools::directed_line_segment_2d<T>& other) const {\n    if (*this & other)\
+    \ {\n      return T(0);\n    }\n    return ::std::min({\n      other.squared_distance(this->m_p1),\n\
+    \      other.squared_distance(this->m_p2),\n      this->squared_distance(other.m_p1),\n\
+    \      this->squared_distance(other.m_p2)\n    });\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, T>\n  directed_line_segment_2d<T>::squared_distance(const\
+    \ ::tools::vector2<T>& p) const {\n    auto x = this->to_line().projection(p);\n\
+    \    const auto d = this->to_vector().inner_product(x - this->m_p1);\n    return\
+    \ (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_norm();\n\
+    \  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
+    \ const {\n    return this->to_vector().squared_norm();\n  }\n\n  template <typename\
+    \ T>\n  ::tools::half_line_2d<T> directed_line_segment_2d<T>::to_half_line() const\
+    \ {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
+    \  }\n\n  template <typename T>\n  ::tools::line_2d<T> directed_line_segment_2d<T>::to_line()\
+    \ const {\n    return ::tools::line_2d<T>::through(this->m_p1, this->m_p2);\n\
+    \  }\n\n  template <typename T>\n  ::tools::vector2<T> directed_line_segment_2d<T>::to_vector()\
+    \ const {\n    return this->m_p2 - this->m_p1;\n  }\n\n  template <typename T>\n\
+    \  ::tools::directed_line_segment_2d<T> directed_line_segment_2d<T>::operator+()\
+    \ const {\n    return *this;\n  }\n\n  template <typename T>\n  ::tools::directed_line_segment_2d<T>\
+    \ directed_line_segment_2d<T>::operator-() const {\n    return ::tools::directed_line_segment_2d<T>(this->m_p2,\
+    \ this->m_p1);\n  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::directed_line_segment_2d<T>&\
+    \ lhs, const ::tools::directed_line_segment_2d<T>& rhs) {\n    using variant_t\
+    \ = ::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>;\n\
+    \    using result_t = ::std::optional<variant_t>;\n    const ::tools::line_2d<T>\
+    \ l1 = lhs.to_line();\n    const ::tools::line_2d<T> l2 = rhs.to_line();\n   \
+    \ if (l1 == l2) {\n      const ::tools::vector2<T> base = lhs.to_vector();\n \
+    \     const ::tools::directed_line_segment_2d<T> fixed_rhs = base.inner_product(rhs.to_vector())\
+    \ > T(0) ? rhs : -rhs;\n      const T d1(0);\n      const T d2 = base.inner_product(base);\n\
+    \      const T d3 = base.inner_product(fixed_rhs.m_p1 - lhs.m_p1);\n      const\
+    \ T d4 = base.inner_product(fixed_rhs.m_p2 - lhs.m_p1);\n      if (d1 == d4) return\
+    \ result_t(variant_t(lhs.m_p1));\n      if (d2 == d3) return result_t(variant_t(lhs.m_p2));\n\
+    \      if (d3 <= d1 && d2 <= d4) return result_t(variant_t(lhs));\n      if (d1\
+    \ <= d3 && d4 <= d2) return result_t(variant_t(fixed_rhs));\n      if (d3 <= d1\
+    \ && d1 <= d4 && d4 <= d2) return result_t(variant_t(::tools::directed_line_segment_2d<T>(lhs.m_p1,\
+    \ fixed_rhs.m_p2)));\n      if (d1 <= d3 && d3 <= d2 && d2 <= d4) return result_t(variant_t(::tools::directed_line_segment_2d<T>(fixed_rhs.m_p1,\
+    \ lhs.m_p2)));\n      return ::std::nullopt;\n    }\n    if (l1.is_parallel_to(l2))\
+    \ return ::std::nullopt;\n    if (lhs.m_p1 == rhs.m_p1 || lhs.m_p1 == rhs.m_p2)\
+    \ return result_t(variant_t(lhs.m_p1));\n    if (lhs.m_p2 == rhs.m_p1 || lhs.m_p2\
+    \ == rhs.m_p2) return result_t(variant_t(lhs.m_p2));\n    if (((rhs.m_p1.y - lhs.m_p1.y)\
+    \ * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p1.x - lhs.m_p1.x))\
+    \ *\n        ((rhs.m_p2.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y\
+    \ - lhs.m_p1.y) * (rhs.m_p2.x - lhs.m_p1.x)) > T(0) ||\n        ((lhs.m_p1.y -\
+    \ rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p1.x\
+    \ - rhs.m_p1.x)) *\n        ((lhs.m_p2.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x)\
+    \ - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p2.x - rhs.m_p1.x)) > T(0)) return ::std::nullopt;\n\
+    \    return result_t(variant_t(*l1.cross_point(l2)));\n  }\n\n  template <typename\
+    \ T>\n  ::std::enable_if_t<::tools::is_rational_v<T> || ::std::is_floating_point_v<T>,\
+    \ ::std::optional<::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>>>\n\
+    \  operator&(const ::tools::directed_line_segment_2d<T>& lhs, const ::tools::half_line_2d<T>&\
+    \ rhs) {\n    using variant_t = ::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>;\n\
+    \    using result_t = ::std::optional<variant_t>;\n    const ::tools::line_2d<T>\
+    \ l1 = lhs.to_line();\n    const ::tools::line_2d<T> l2 = rhs.to_line();\n   \
+    \ if (l1 == l2) {\n      const bool has_same_direction = rhs.d().inner_product(lhs.to_vector())\
+    \ > T(0);\n      const T d1 = rhs.d().inner_product(lhs.m_p1 - rhs.a());\n   \
+    \   const T d2 = rhs.d().inner_product(lhs.m_p2 - rhs.a());\n      if (has_same_direction)\
+    \ {\n        if (d2 < T(0)) return ::std::nullopt;\n        if (d2 == T(0)) return\
+    \ result_t(variant_t(rhs.a()));\n        if (d1 < T(0)) return result_t(variant_t(::tools::directed_line_segment_2d<T>(rhs.a(),\
+    \ lhs.m_p2)));\n        return result_t(variant_t(lhs));\n      } else {\n   \
+    \     if (d1 > T(0)) return ::std::nullopt;\n        if (d1 == T(0)) return result_t(variant_t(rhs.a()));\n\
+    \        if (d2 > T(0)) return result_t(variant_t(::tools::directed_line_segment_2d<T>(lhs.m_p1,\
+    \ rhs.a())));\n        return result_t(variant_t(lhs));\n      }\n    }\n    if\
+    \ (rhs.contains(lhs.m_p1)) return result_t(variant_t(lhs.m_p1));\n    if (rhs.contains(lhs.m_p2))\
+    \ return result_t(variant_t(lhs.m_p2));\n    if ((l2.a() * lhs.m_p1.x + l2.b()\
+    \ * lhs.m_p1.y + l2.c()) * (l2.a() * lhs.m_p2.x + l2.b() * lhs.m_p2.y + l2.c())\
+    \ > T(0)) return ::std::nullopt;\n    const ::tools::vector2<T> possible_cross_point\
+    \ = *l1.cross_point(l2);\n    if (rhs.d().inner_product(possible_cross_point -\
+    \ rhs.a()) < T(0)) return ::std::nullopt;\n    return result_t(variant_t(possible_cross_point));\n\
+    \  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::directed_line_segment_2d<T>&\
+    \ lhs, const ::tools::line_2d<T>& rhs) {\n    using variant_t = ::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>;\n    using result_t = ::std::optional<variant_t>;\n\
+    \    const ::tools::line_2d<T> lhs_line = lhs.to_line();\n    if (lhs_line ==\
+    \ rhs) return result_t(variant_t(lhs));\n    if (rhs.contains(lhs.m_p1)) return\
+    \ result_t(variant_t(lhs.m_p1));\n    if (rhs.contains(lhs.m_p2)) return result_t(variant_t(lhs.m_p2));\n\
+    \    if ((rhs.a() * lhs.m_p1.x + rhs.b() * lhs.m_p1.y + rhs.c()) * (rhs.a() *\
+    \ lhs.m_p2.x + rhs.b() * lhs.m_p2.y + rhs.c()) > T(0)) return ::std::nullopt;\n\
+    \    return result_t(variant_t(*lhs_line.cross_point(rhs)));\n  }\n\n  template\
+    \ <typename T>\n  bool operator==(const ::tools::directed_line_segment_2d<T>&\
+    \ lhs, const ::tools::directed_line_segment_2d<T>& rhs) {\n    return lhs.p1()\
+    \ == rhs.p1() && lhs.p2() == rhs.p2();\n  }\n\n  template <typename T>\n  bool\
+    \ operator!=(const ::tools::directed_line_segment_2d<T>& lhs, const ::tools::directed_line_segment_2d<T>&\
+    \ rhs) {\n    return !(lhs == rhs);\n  }\n\n  template <typename T>\n  half_line_2d<T>::half_line_2d(const\
+    \ ::tools::vector2<T>& a, const ::tools::vector2<T>& d) :\n    m_a(a),\n    m_d(d)\
+    \ {\n    assert(d != ::tools::vector2<T>(T(0), T(0)));\n  }\n\n  template <typename\
+    \ T>\n  const ::tools::vector2<T>& half_line_2d<T>::a() const {\n    return this->m_a;\n\
+    \  }\n\n  template <typename T>\n  bool half_line_2d<T>::contains(const ::tools::vector2<T>&\
+    \ p) const {\n    const ::tools::line_2d<T> l = this->to_line();\n    return l.a()\
+    \ * p.x + l.b() * p.y + l.c() == T(0) && this->m_d.inner_product(p - this->m_a)\
+    \ >= T(0);\n  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  half_line_2d<T>::cross_point(const\
+    \ ::tools::directed_line_segment_2d<T>& other) const {\n    return other.cross_point(*this);\n\
+    \  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  half_line_2d<T>::cross_point(const\
+    \ ::tools::half_line_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
+    \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
+    \ operator()(const ::tools::directed_line_segment_2d<T>&) {\n        return ::std::nullopt;\n\
+    \      }\n      result_t operator()(const ::tools::half_line_2d<T>&) {\n     \
+    \   return ::std::nullopt;\n      }\n    } visitor;\n    return intersection ?\
+    \ ::std::visit(visitor, *intersection) : ::std::nullopt;\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  half_line_2d<T>::cross_point(const\
+    \ ::tools::line_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
+    \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
+    \ operator()(const ::tools::half_line_2d<T>&) {\n        return ::std::nullopt;\n\
+    \      }\n    } visitor;\n    return intersection ? ::std::visit(visitor, *intersection)\
+    \ : ::std::nullopt;\n  }\n\n  template <typename T>\n  const ::tools::vector2<T>&\
+    \ half_line_2d<T>::d() const {\n    return this->m_d;\n  }\n\n  template <typename\
+    \ T>\n  ::tools::line_2d<T> half_line_2d<T>::to_line() const {\n    return ::tools::line_2d<T>::through(this->m_a,\
+    \ this->m_a + this->m_d);\n  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::half_line_2d<T>&\
+    \ lhs, const ::tools::directed_line_segment_2d<T>& rhs) {\n    return rhs & lhs;\n\
+    \  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>, ::tools::half_line_2d<T>>>>\n  operator&(const\
+    \ ::tools::half_line_2d<T>& lhs, const ::tools::half_line_2d<T>& rhs) {\n    using\
+    \ variant_t = ::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>,\
+    \ ::tools::half_line_2d<T>>;\n    using result_t = ::std::optional<variant_t>;\n\
+    \    const ::tools::line_2d<T> l1 = lhs.to_line();\n    const ::tools::line_2d<T>\
+    \ l2 = rhs.to_line();\n    if (l1 == l2) {\n      if (lhs.d().inner_product(rhs.d())\
+    \ > T(0)) {\n        switch (::tools::signum(lhs.d().inner_product(rhs.a() - lhs.a())))\
+    \ {\n        case 1:\n        case 0:\n          return result_t(variant_t(rhs));\n\
+    \        default:\n          return result_t(variant_t(lhs));\n        }\n   \
+    \   } else {\n        switch (::tools::signum(lhs.d().inner_product(rhs.a() -\
+    \ lhs.a()))) {\n        case 1:\n          return result_t(variant_t(::tools::directed_line_segment_2d<T>(lhs.a(),\
+    \ rhs.a())));\n        case 0:\n          return result_t(variant_t(lhs.a()));\n\
+    \        default:\n          return ::std::nullopt;\n        }\n      }\n    }\
+    \ else if (l1.is_parallel_to(l2)) {\n      return ::std::nullopt;\n    } else\
+    \ {\n      const ::tools::vector2<T> possible_cross_point = *l1.cross_point(l2);\n\
+    \      if (lhs.d().inner_product(possible_cross_point - lhs.a()) < T(0) || rhs.d().inner_product(possible_cross_point\
+    \ - rhs.a()) < T(0)) {\n        return ::std::nullopt;\n      }\n      return\
+    \ result_t(variant_t(possible_cross_point));\n    }\n  }\n\n  template <typename\
+    \ T>\n  ::std::enable_if_t<::tools::is_rational_v<T> || ::std::is_floating_point_v<T>,\
+    \ ::std::optional<::std::variant<::tools::vector2<T>, ::tools::half_line_2d<T>>>>\n\
+    \  operator&(const ::tools::half_line_2d<T>& lhs, const ::tools::line_2d<T>& rhs)\
+    \ {\n    using variant_t = ::std::variant<::tools::vector2<T>, ::tools::half_line_2d<T>>;\n\
+    \    using result_t = ::std::optional<variant_t>;\n    const auto lhs_line = lhs.to_line();\n\
+    \    if (lhs_line == rhs) return result_t(variant_t(lhs));\n    const auto possible_cross_point\
+    \ = lhs_line.cross_point(rhs);\n    return possible_cross_point && lhs.m_d.inner_product(*possible_cross_point\
+    \ - lhs.m_a) >= T(0)\n      ? result_t(variant_t(*possible_cross_point))\n   \
+    \   : ::std::nullopt;\n  }\n\n  template <typename T>\n  bool operator==(const\
+    \ ::tools::half_line_2d<T>& lhs, const ::tools::half_line_2d<T>& rhs) {\n    return\
+    \ lhs.a() == rhs.a() && lhs.d().x * rhs.d().y == rhs.d().x * lhs.d().y;\n  }\n\
+    \n  template <typename T>\n  bool operator!=(const ::tools::half_line_2d<T>& lhs,\
+    \ const ::tools::half_line_2d<T>& rhs) {\n    return !(lhs == rhs);\n  }\n\n \
+    \ template <typename T>\n  line_2d<T>::line_2d(const T& a, const T& b, const T&\
+    \ c) :\n    m_a(a),\n    m_b(b),\n    m_c(c) {\n    assert(a != T(0) || b != T(0));\n\
+    \  }\n\n  template <typename T>\n  const T& line_2d<T>::a() const {\n    return\
+    \ this->m_a;\n  }\n\n  template <typename T>\n  const T& line_2d<T>::b() const\
+    \ {\n    return this->m_b;\n  }\n\n  template <typename T>\n  const T& line_2d<T>::c()\
+    \ const {\n    return this->m_c;\n  }\n\n  template <typename T>\n  bool line_2d<T>::contains(const\
+    \ ::tools::vector2<T>& p) const {\n    return this->m_a * p.x + this->m_b * p.y\
+    \ + this->m_c == T(0);\n  }\n\n  template <typename T> template <typename U>\n\
+    \  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::optional<::tools::vector2<T>>>\n  line_2d<T>::cross_point(const ::tools::directed_line_segment_2d<T>&\
+    \ other) const {\n    return other.cross_point(*this);\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  line_2d<T>::cross_point(const\
+    \ ::tools::half_line_2d<T>& other) const {\n    return other.cross_point(*this);\n\
+    \  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::optional<::tools::vector2<T>>>\n  line_2d<T>::cross_point(const\
+    \ ::tools::line_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
+    \    if (!this->crosses(other)) return ::std::nullopt;\n    return result_t(::tools::vector2<T>(\n\
+    \      (this->m_b * other.m_c - other.m_b * this->m_c) / (this->m_a * other.m_b\
+    \ - other.m_a * this->m_b),\n      (other.m_a * this->m_c - this->m_a * other.m_c)\
+    \ / (this->m_a * other.m_b - other.m_a * this->m_b)\n    ));\n  }\n\n  template\
+    \ <typename T>\n  bool line_2d<T>::crosses(const ::tools::line_2d<T>& other) const\
+    \ {\n    return this->m_a * other.m_b != other.m_a * this->m_b;\n  }\n\n  template\
+    \ <typename T>\n  bool line_2d<T>::is_parallel_to(const ::tools::line_2d<T>& other)\
+    \ const {\n    return this->m_a * other.m_b == this->m_b * other.m_a;\n  }\n\n\
+    \  template <typename T>\n  ::tools::vector2<T> line_2d<T>::normal() const {\n\
+    \    return ::tools::vector2<T>(this->m_a, this->m_b);\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, ::tools::vector2<T>>\n  line_2d<T>::projection(const\
+    \ ::tools::vector2<T>& p) const {\n    return *::tools::half_line_2d<T>(p, this->normal()).to_line().cross_point(*this);\n\
+    \  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::line_2d<T>&\
+    \ lhs, const ::tools::directed_line_segment_2d<T>& rhs) {\n    return rhs & lhs;\n\
+    \  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::half_line_2d<T>>>>\n  operator&(const ::tools::line_2d<T>& lhs, const\
+    \ ::tools::half_line_2d<T>& rhs) {\n    return rhs & lhs;\n  }\n\n  template <typename\
+    \ T>\n  ::std::enable_if_t<::tools::is_rational_v<T> || ::std::is_floating_point_v<T>,\
+    \ ::std::optional<::std::variant<::tools::vector2<T>, ::tools::line_2d<T>>>>\n\
+    \  operator&(const ::tools::line_2d<T>& lhs, const ::tools::line_2d<T>& rhs) {\n\
+    \    using variant_t = ::std::variant<::tools::vector2<T>, ::tools::line_2d<T>>;\n\
+    \    using result_t = ::std::optional<variant_t>;\n    if (lhs == rhs) return\
+    \ result_t(variant_t(lhs));\n    const auto possible_cross_point = lhs.cross_point(rhs);\n\
+    \    return possible_cross_point ? result_t(variant_t(*possible_cross_point))\
+    \ : ::std::nullopt;\n  }\n\n  template <typename T>\n  bool operator==(const ::tools::line_2d<T>&\
+    \ lhs, const ::tools::line_2d<T>& rhs) {\n    return lhs.m_b * rhs.m_c == lhs.m_c\
+    \ * rhs.m_b && lhs.m_c * rhs.m_a == lhs.m_a * rhs.m_c && lhs.m_a * rhs.m_b ==\
+    \ lhs.m_b * rhs.m_a;\n  }\n\n  template <typename T>\n  bool operator!=(const\
+    \ ::tools::line_2d<T>& lhs, const ::tools::line_2d<T>& rhs) {\n    return !(lhs\
+    \ == rhs);\n  }\n\n  template <typename T>\n  ::tools::line_2d<T> line_2d<T>::through(const\
+    \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2) {\n    return ::tools::line_2d<T>(p1.y\
+    \ - p2.y, p2.x - p1.x, (p2.y - p1.y) * p1.x - (p2.x - p1.x) * p1.y);\n  }\n}\n\
+    \n\n#line 5 \"tools/directed_line_segment_2d.hpp\"\n\n\n#line 17 \"tools/detail/polygon_like_2d.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class polygon_2d;\n\n  template\
+    \ <typename T>\n  class triangle_2d;\n\n  template <typename T>\n  class polygon_2d\
+    \ {\n  protected:\n    ::std::vector<::tools::vector2<T>> m_points;\n\n  private:\n\
+    \    T doubled_signed_area() const;\n\n  public:\n    polygon_2d() = default;\n\
+    \    polygon_2d(const ::tools::polygon_2d<T>&) = default;\n    polygon_2d(::tools::polygon_2d<T>&&)\
+    \ = default;\n    ~polygon_2d() = default;\n    ::tools::polygon_2d<T>& operator=(const\
+    \ ::tools::polygon_2d<T>&) = default;\n    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    polygon_2d(const InputIterator&\
+    \ begin, const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init);\n\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, T> area() const;\n    T doubled_area() const;\n\
+    \    bool is_counterclockwise() const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle()\
+    \ const;\n    int where(const ::tools::vector2<T>& p) const;\n  };\n\n  template\
+    \ <typename T>\n  class triangle_2d : public polygon_2d<T> {\n  private:\n   \
+    \ template <typename OutputIterator>\n    void sorted_edges(OutputIterator result)\
+    \ const;\n\n  public:\n    triangle_2d() = default;\n    triangle_2d(const ::tools::triangle_2d<T>&)\
+    \ = default;\n    triangle_2d(::tools::triangle_2d<T>&&) = default;\n    ~triangle_2d()\
+    \ = default;\n    ::tools::triangle_2d<T>& operator=(const ::tools::triangle_2d<T>&)\
+    \ = default;\n    ::tools::triangle_2d<T>& operator=(::tools::triangle_2d<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    triangle_2d(const InputIterator&\
+    \ begin, const InputIterator& end);\n    triangle_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init);\n\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> circumcircle()\
+    \ const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
+    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle()\
+    \ const;\n    int type() const;\n  };\n\n  template <typename T>\n  T polygon_2d<T>::doubled_signed_area()\
+    \ const {\n    T result(0);\n    for (::std::size_t i = 0; i < this->m_points.size();\
+    \ ++i) {\n      result += (this->m_points[i].x - this->m_points[(i + 1) % this->m_points.size()].x)\
+    \ * (this->m_points[i].y + this->m_points[(i + 1) % this->m_points.size()].y);\n\
+    \    }\n    return result;\n  }\n\n  template <typename T>\n  template <typename\
+    \ InputIterator>\n  polygon_2d<T>::polygon_2d(const InputIterator& begin, const\
+    \ InputIterator& end) : m_points(begin, end) {\n    assert(this->m_points.size()\
+    \ >= 3);\n  }\n\n  template <typename T>\n  polygon_2d<T>::polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init) : polygon_2d(init.begin(), init.end()) {\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, T> polygon_2d<T>::area() const {\n    return\
+    \ this->doubled_area() / T(2);\n  }\n\n  template <typename T>\n  T polygon_2d<T>::doubled_area()\
+    \ const {\n    return ::tools::abs(this->doubled_signed_area());\n  }\n\n  template\
+    \ <typename T>\n  bool polygon_2d<T>::is_counterclockwise() const {\n    return\
+    \ this->doubled_signed_area() > T(0);\n  }\n\n  template <typename T> template\
+    \ <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::pair<::tools::vector2<T>, T>> polygon_2d<T>::minimum_bounding_circle()\
+    \ const {\n    T squared_radius(0);\n    ::tools::vector2<T> center;\n    for\
+    \ (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      for (::std::size_t\
+    \ j = i + 1; j < this->m_points.size(); ++j) {\n        for (::std::size_t k =\
+    \ j + 1; k < this->m_points.size(); ++k) {\n          const auto [possible_center,\
+    \ possible_squared_radius] = ::tools::triangle_2d<T>({this->m_points[i], this->m_points[j],\
+    \ this->m_points[k]}).minimum_bounding_circle();\n          if (::tools::chmax(squared_radius,\
+    \ possible_squared_radius)) {\n            center = possible_center;\n       \
+    \   }\n        }\n      }\n    }\n    return ::std::make_pair(center, squared_radius);\n\
+    \  }\n\n  template <typename T>\n  int polygon_2d<T>::where(const ::tools::vector2<T>&\
+    \ p) const {\n    ::std::vector<::tools::directed_line_segment_2d<T>> edges;\n\
+    \    for (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      edges.emplace_back(this->m_points[i],\
+    \ this->m_points[(i + 1) % this->m_points.size()]);\n    }\n\n    if (std::any_of(edges.begin(),\
+    \ edges.end(), [&](const auto& edge) { return edge.contains(p); })) {\n      return\
+    \ 1;\n    } else {\n      bool in = false;\n      for (const auto& edge : edges)\
+    \ {\n        if ([&]() {\n            const auto l = edge.to_line();\n       \
+    \     if (l == ::tools::line_2d<T>(T(0), T(1), -p.y)) return false;\n        \
+    \    if (p.x <= edge.p1().x && p.y == edge.p1().y) return edge.p2().y < edge.p1().y;\n\
+    \            if (p.x <= edge.p2().x && p.y == edge.p2().y) return edge.p1().y\
+    \ < edge.p2().y;\n            if ((edge.p1().y - p.y) * (edge.p2().y - p.y) >\
+    \ T(0)) return false;\n            return l.a() * (l.a() * p.x + l.b() * p.y +\
+    \ l.c()) < T(0);\n        }()) {\n          in = !in;\n        }\n      }\n  \
+    \    return in ? 2 : 0;\n    }\n  }\n\n  template <typename T>\n  template <typename\
+    \ OutputIterator>\n  void triangle_2d<T>::sorted_edges(OutputIterator result)\
+    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
+    \    for (int i = 0; i < 3; ++i) {\n      edges[i] = ::tools::directed_line_segment_2d<T>(this->m_points[i],\
+    \ this->m_points[(i + 1) % 3]);\n    }\n    ::std::sort(edges.begin(), edges.end(),\
+    \ ::tools::less_by([](const auto& edge) {\n      return edge.squared_length();\n\
+    \    }));\n    for (const auto& edge : edges) {\n      *result = edge;\n     \
+    \ ++result;\n    }\n  }\n\n  template <typename T>\n  template <typename InputIterator>\n\
+    \  triangle_2d<T>::triangle_2d(const InputIterator& begin, const InputIterator&\
+    \ end) : polygon_2d<T>(begin, end) {\n    assert(this->m_points.size() == 3);\n\
+    \  }\n\n  template <typename T>\n  triangle_2d<T>::triangle_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ init) : triangle_2d(init.begin(), init.end()) {\n  }\n\n  template <typename\
+    \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
+    \ ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::circumcircle()\
+    \ const {\n    const auto& A = this->m_points[0];\n    const auto& B = this->m_points[1];\n\
+    \    const auto& C = this->m_points[2];\n    const auto a2 = (C - B).squared_norm();\n\
+    \    const auto b2 = (A - C).squared_norm();\n    const auto c2 = (B - A).squared_norm();\n\
+    \    const auto kA = a2 * (b2 + c2 - a2);\n    const auto kB = b2 * (c2 + a2 -\
+    \ b2);\n    const auto kC = c2 * (a2 + b2 - c2);\n    const auto circumcenter\
+    \ = (kA * A + kB * B + kC * C) / (kA + kB + kC);\n    return ::std::make_pair(circumcenter,\
+    \ (circumcenter - A).squared_norm());\n  }\n\n  template <typename T> template\
+    \ <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::minimum_bounding_circle()\
+    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
+    \    this->sorted_edges(edges.begin());\n    if (edges[0].squared_length() + edges[1].squared_length()\
+    \ <= edges[2].squared_length()) {\n      const auto center = edges[2].midpoint();\n\
+    \      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());\n\
+    \    } else {\n      return this->circumcircle();\n    }\n  }\n\n  template <typename\
+    \ T>\n  int triangle_2d<T>::type() const {\n    ::std::array<::tools::directed_line_segment_2d<T>,\
+    \ 3> edges;\n    this->sorted_edges(edges.begin());\n    const auto c2 = edges[2].squared_length();\n\
+    \    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();\n\
+    \    if (c2 < a2b2) {\n      return 0;\n    } else if (c2 == a2b2) {\n      return\
+    \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/polygon_2d.hpp\"\
+    \n\n\n#line 13 \"tests/polygon_2d/minimum_bounding_circle.test.cpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
+    \ (auto& v_i : v) std::cin >> v_i;\n\n  if (N == 2) {\n    std::cout << std::fixed\
+    \ << std::setprecision(18) << (v[1] - v[0]).norm() / 2.0 << '\\n';\n    return\
+    \ 0;\n  }\n\n  std::vector<i64> convex_hull;\n  tools::convex_hull(v.begin(),\
+    \ v.end(), true, std::back_inserter(convex_hull));\n\n  if (convex_hull.size()\
+    \ == 2) {\n    std::cout << std::fixed << std::setprecision(18) << (v[convex_hull[1]]\
+    \ - v[convex_hull[0]]).norm() / 2.0 << '\\n';\n    return 0;\n  }\n\n  std::vector<tools::vector2<tools::rational>>\
+    \ v2;\n  for (const auto& i : convex_hull) {\n    v2.emplace_back(tools::rational(v[i].x),\
+    \ tools::rational(v[i].y));\n  }\n  const auto [center, squared_radius] = tools::polygon_2d<tools::rational>(v2.begin(),\
+    \ v2.end()).minimum_bounding_circle();\n\n  std::cout << std::fixed << std::setprecision(18)\
+    \ << std::sqrt(static_cast<double>(squared_radius)) << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc151/tasks/abc151_f\"\n#define\
+    \ ERROR 1e-6\n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include\
+    \ <iomanip>\n#include <cmath>\n#include \"tools/vector2.hpp\"\n#include \"tools/convex_hull.hpp\"\
+    \n#include \"tools/rational.hpp\"\n#include \"tools/polygon_2d.hpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
+    \ (auto& v_i : v) std::cin >> v_i;\n\n  if (N == 2) {\n    std::cout << std::fixed\
+    \ << std::setprecision(18) << (v[1] - v[0]).norm() / 2.0 << '\\n';\n    return\
+    \ 0;\n  }\n\n  std::vector<i64> convex_hull;\n  tools::convex_hull(v.begin(),\
+    \ v.end(), true, std::back_inserter(convex_hull));\n\n  if (convex_hull.size()\
+    \ == 2) {\n    std::cout << std::fixed << std::setprecision(18) << (v[convex_hull[1]]\
+    \ - v[convex_hull[0]]).norm() / 2.0 << '\\n';\n    return 0;\n  }\n\n  std::vector<tools::vector2<tools::rational>>\
+    \ v2;\n  for (const auto& i : convex_hull) {\n    v2.emplace_back(tools::rational(v[i].x),\
+    \ tools::rational(v[i].y));\n  }\n  const auto [center, squared_radius] = tools::polygon_2d<tools::rational>(v2.begin(),\
+    \ v2.end()).minimum_bounding_circle();\n\n  std::cout << std::fixed << std::setprecision(18)\
+    \ << std::sqrt(static_cast<double>(squared_radius)) << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/vector2.hpp
+  - tools/pair_hash.hpp
+  - tools/convex_hull.hpp
+  - tools/less_by.hpp
+  - tools/ccw.hpp
+  - tools/rational.hpp
   - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
@@ -1054,302 +1633,22 @@ data:
   - tools/signum.hpp
   - tools/rounding_mode.hpp
   - tools/is_rational.hpp
-  isVerificationFile: false
-  path: tools/rational.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
+  - tools/abs.hpp
+  - tools/chmax.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/detail/line_like_2d.hpp
+  isVerificationFile: true
+  path: tests/polygon_2d/minimum_bounding_circle.test.cpp
   requiredBy: []
-  timestamp: '2022-02-06 18:24:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-documentation_of: tools/rational.hpp
+  timestamp: '2022-03-12 16:17:46+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/polygon_2d/minimum_bounding_circle.test.cpp
 layout: document
-title: Rational number
+redirect_from:
+- /verify/tests/polygon_2d/minimum_bounding_circle.test.cpp
+- /verify/tests/polygon_2d/minimum_bounding_circle.test.cpp.html
+title: tests/polygon_2d/minimum_bounding_circle.test.cpp
 ---
-
-It is a rational number.
-
-For explanatory purposes, let $n_\circ$ denote the numerator of $\circ$ and $d_\circ$ denote the denominator of $\circ$ in this page.
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## Constructor
-```cpp
-(1) rational x;
-(2) rational x(std::int_fast64_t n);
-(3) rational x(const tools::bigint& n);
-(4) rational x(const tools::bigdecimal& n);
-(5) rational x(const tools::bigint& n, const tools::bigint& d);
-```
-
-- (1)
-    - It creates a rational nubmer which is $\frac{0}{1}$.
-- (2), (3)
-    - It creates a rational number which is $\frac{n}{1}$.
-- (4)
-    - It creates a rational number which is numerically equal to $n$.
-- (5)
-    - It creates a rational number which is $\frac{n}{d}$.
-
-### Constraints
-- (5)
-    - $d \neq 0$
-
-### Time Complexity
-- (1)
-    - $O(1)$
-- (2)
-    - $O(1)$
-- (3)
-    - $O(\log \|n\|)$
-- (4)
-    - $O(\log \|u_n\|)$ where $u_n$ is the unscaled value of $n$
-- (5)
-    - $O((\log \|n\| + \log \|d\|)^2 \log (\log \|n\| + \log \|d\|))$
-
-## numerator
-```cpp
-const tools::bigint& x.numerator();
-```
-
-It returns the numerator of $x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## denominator
-```cpp
-const tools::bigint& x.denominator();
-```
-
-It returns the denominator of $x$.
-The denominator of $x$ is always positive.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## signum
-```cpp
-int x.signum();
-```
-
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < 0$)}\\
-0 & \text{(if $x = 0$)}\\
-1 & \text{(if $x > 0$)}
-\end{array}\right.&
-\end{align*}$$
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## negate
-```cpp
-rational& x.negate();
-```
-
-It updates $x$ to $-x$, and returns the updated $x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## abs
-```cpp
-rational x.abs();
-```
-
-It returns $\|x\|$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|n_x\| + \log \|d_x\|)$
-
-## compare_3way
-```cpp
-int rational::compare_3way(const rational& x, const rational& y);
-```
-
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < y$)}\\
-0 & \text{(if $x = y$)}\\
-1 & \text{(if $x > y$)}
-\end{array}\right.&
-\end{align*}$$
-
-### Constraints
-- None
-
-### Time Complexity
-- $O((\log \|n_x\| + \log \|d_y\|) \log (\log \|n_x\| + \log \|d_y\|) + (\log \|n_y\| + \log \|d_x\|) \log (\log \|n_y\| + \log \|d_x\|))$
-
-## Comparison operators
-```cpp
-(1) bool operator==(const rational& x, const rational& y);
-(2) bool operator!=(const rational& x, const rational& y);
-(3) bool operator<(const rational& x, const rational& y);
-(4) bool operator>(const rational& x, const rational& y);
-(5) bool operator<=(const rational& x, const rational& y);
-(6) bool operator>=(const rational& x, const rational& y);
-```
-
-It compares $x$ and $y$, and returns the result.
-
-### Constraints
-- None
-
-### Time Complexity
-- (1), (2)
-    - $O(\log \|n_x\| + \log \|d_x\| + \log \|n_y\| + \log \|d_y\|)$
-- (3), (4), (5), (6)
-    - $O((\log \|n_x\| + \log \|d_y\|) \log (\log \|n_x\| + \log \|d_y\|) + (\log \|n_y\| + \log \|d_x\|) \log (\log \|n_y\| + \log \|d_x\|))$
-
-## Unary operators
-```cpp
-(1) rational x.operator+();
-(2) rational x.operator-();
-```
-
-- (1)
-    - It returns $x$.
-- (2)
-    - It returns $-x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|n_x\| + \log \|d_x\|)$
-
-## Addition operators
-```cpp
-(1) rational& x.operator+=(const rational& y);
-(2) rational operator+(const rational& x, const rational& y);
-```
-
-- (1)
-    - It updates $x$ to $x + y$, and returns the updated $x$.
-- (2)
-    - It returns $x + y$.
-
-### Constraints
-- $\left\lceil \log_{10000} \|n_x\| \right\rceil + \left\lceil \log_{10000} \|d_y\| \right\rceil - 1 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x\| \right\rceil - 1 \leq 2^{25}$
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y + n_y d_x\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
-
-### Time Complexity
-- $O((\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|))^2 \log(\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|)))$
-
-## Subtraction operators
-```cpp
-(1) rational& x.operator-=(const rational& y);
-(2) rational operator-(const rational& x, const rational& y);
-```
-
-- (1)
-    - It updates $x$ to $x - y$, and returns the updated $x$.
-- (2)
-    - It returns $x - y$.
-
-### Constraints
-- $\left\lceil \log_{10000} \|n_x\| \right\rceil + \left\lceil \log_{10000} \|d_y\| \right\rceil - 1 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x\| \right\rceil - 1 \leq 2^{25}$
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y - n_y d_x\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
-
-### Time Complexity
-- $O((\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|))^2 \log(\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|)))$
-
-## Multiplication operators
-```cpp
-(1) rational& x.operator*=(const rational& y);
-(2) rational operator*(const rational& x, const rational& y);
-```
-
-- (1)
-    - It updates $x$ to $xy$, and returns the updated $x$.
-- (2)
-    - It returns $xy$.
-
-### Constraints
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
-
-### Time Complexity
-- $O((\log \|d_x d_y\| + \log \|n_x n_y\|)^2 \log(\log \|d_x d_y\| + \log \|n_x n_y\|))$
-
-## Division operators
-```cpp
-(1) rational& x.operator/=(const rational& y);
-(2) rational operator/(const rational& x, const rational& y);
-```
-
-- (1)
-    - It updates $x$ to $\frac{x}{y}$, and returns the updated $x$.
-- (2)
-    - It returns $\frac{x}{y}$.
-
-### Constraints
-- $3 \left\lceil \log_{10000} \|d_x n_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y\| \right\rceil + \left\lceil \log_{10000} \|d_x n_y\| \right\rceil \leq 2^{25}$
-
-### Time Complexity
-- $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$
-
-## operator>>
-```cpp
-std::istream& operator>>(std::istream& is, rational& x);
-```
-
-It parses the input as a signed number and creates a rational number which is numerically equal to it.
-
-### Constraints
-- The input is expressed as `[+-]?[0-9]+(\.[0-9]+)?` in regular expressions
-
-### Time Complexity
-- $O(n^2 \log n)$ where $n$ is the length of the input
-
-## operator<<
-```cpp
-std::ostream& operator<<(std::ostream& os, const rational& x);
-```
-
-It prints $x$ to `os`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|n_x\| + \log \|d_x\|)$

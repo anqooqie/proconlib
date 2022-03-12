@@ -18,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -233,6 +236,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/convex_hull.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/convex_hull.hpp
 layout: document
 title: Convex hull

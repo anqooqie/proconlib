@@ -16,7 +16,7 @@ data:
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':warning:'
     path: tools/dynamic_bitset.hpp
-    title: Resizable std::bitset
+    title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
@@ -90,6 +90,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
@@ -177,6 +180,7 @@ data:
   - tests/bigdecimal/plus.test.cpp
   - tests/floor_log.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/bezout.test.cpp
 documentation_of: tools/detail/ceil_and_floor.hpp
 layout: document

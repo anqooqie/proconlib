@@ -30,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -168,6 +171,7 @@ data:
   - tests/less_by_arg.test.cpp
   - tests/ccw.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/greater_by_arg.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document

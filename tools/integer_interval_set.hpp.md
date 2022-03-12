@@ -5,10 +5,13 @@ data:
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/integer_interval_set.test.cpp
+    title: tests/integer_interval_set.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/integer_interval_set.hpp\"\n\n\n\n#line 1 \"tools/detail/interval_set.hpp\"\
@@ -72,8 +75,9 @@ data:
   path: tools/integer_interval_set.hpp
   requiredBy: []
   timestamp: '2021-10-23 20:26:02+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/integer_interval_set.test.cpp
 documentation_of: tools/integer_interval_set.hpp
 layout: document
 title: Set of integers as closed integer intervals

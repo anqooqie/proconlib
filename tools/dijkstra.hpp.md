@@ -1,6 +1,12 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: tools/chmin.hpp
+    title: chmin function
+  - icon: ':heavy_check_mark:'
+    path: tools/greater_by_second.hpp
+    title: std::greater by second
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -13,15 +19,20 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/dijkstra.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <limits>\n#include <cassert>\n#include <functional>\n#include\
-    \ <queue>\n\nnamespace tools {\n\n  template <typename T>\n  class dijkstra {\n\
-    \  private:\n    class edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t\
-    \ to;\n      T distance;\n      edge(const ::std::size_t from, const ::std::size_t\
-    \ to, const T distance) :\n        from(from),\n        to(to),\n        distance(distance)\
-    \ {\n      }\n    };\n\n    class task {\n    public:\n      ::std::size_t vertex;\n\
-    \      T distance;\n      task(const ::std::size_t vertex, const ::std::size_t\
-    \ distance) :\n        vertex(vertex), distance(distance) {\n      }\n    };\n\
-    \n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n    static constexpr\
-    \ T INF = ::std::numeric_limits<T>::max();\n    static constexpr ::std::size_t\
+    \ <queue>\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#include <utility>\n\
+    \nnamespace tools {\n\n  class greater_by_second {\n  public:\n    template <class\
+    \ T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
+    \ T2>& y) const {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line\
+    \ 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n \
+    \ template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n  \
+    \  const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n\
+    \  }\n}\n\n\n#line 12 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  class dijkstra {\n  private:\n    class edge {\n    public:\n\
+    \      ::std::size_t from;\n      ::std::size_t to;\n      T distance;\n     \
+    \ edge(const ::std::size_t from, const ::std::size_t to, const T distance) :\n\
+    \        from(from),\n        to(to),\n        distance(distance) {\n      }\n\
+    \    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n    static\
+    \ constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr ::std::size_t\
     \ NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class result {\n\
     \    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
     \ prev_nodes;\n      result(const ::std::size_t& node_count, const ::std::size_t&\
@@ -32,27 +43,21 @@ data:
     \ ::std::size_t& from, const ::std::size_t& to, const T& distance) {\n      this->edges[from].emplace_back(from,\
     \ to, distance);\n    }\n\n    result query(const ::std::size_t& start_node) const\
     \ {\n      assert(start_node < this->node_count());\n\n      result result(this->node_count(),\
-    \ start_node);\n      ::std::vector<bool> visited(this->node_count(), false);\n\
-    \      const auto compare = [](const task& x, const task& y) {\n        return\
-    \ x.distance > y.distance;\n      };\n      ::std::priority_queue<task, ::std::vector<task>,\
-    \ decltype(compare)> tasks(compare);\n      tasks.emplace(start_node, 0);\n\n\
-    \      while (!tasks.empty()) {\n        const task task = tasks.top();\n    \
-    \    tasks.pop();\n        if (visited[task.vertex]) continue;\n        visited[task.vertex]\
-    \ = true;\n        for (const edge& edge : this->edges[task.vertex]) {\n     \
-    \     const T new_distance = task.distance + edge.distance;\n          if (new_distance\
-    \ < result.distances[edge.to]) {\n            result.distances[edge.to] = new_distance;\n\
-    \            result.prev_nodes[edge.to] = edge.from;\n            tasks.emplace(edge.to,\
-    \ new_distance);\n          }\n        }\n      }\n\n      return result;\n  \
-    \  }\n  };\n}\n\n\n"
+    \ start_node);\n      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t,\
+    \ T>>, ::tools::greater_by_second> tasks;\n      tasks.emplace(start_node, 0);\n\
+    \n      while (!tasks.empty()) {\n        const auto [here, d] = tasks.top();\n\
+    \        tasks.pop();\n        if (result.distances[here] < d) continue;\n   \
+    \     for (const edge& edge : this->edges[here]) {\n          if (::tools::chmin(result.distances[edge.to],\
+    \ result.distances[here] + edge.distance)) {\n            result.prev_nodes[edge.to]\
+    \ = edge.from;\n            tasks.emplace(edge.to, result.distances[edge.to]);\n\
+    \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_DIJKSTRA_HPP\n#define TOOLS_DIJKSTRA_HPP\n\n#include <cstddef>\n\
     #include <vector>\n#include <limits>\n#include <cassert>\n#include <functional>\n\
-    #include <queue>\n\nnamespace tools {\n\n  template <typename T>\n  class dijkstra\
-    \ {\n  private:\n    class edge {\n    public:\n      ::std::size_t from;\n  \
-    \    ::std::size_t to;\n      T distance;\n      edge(const ::std::size_t from,\
-    \ const ::std::size_t to, const T distance) :\n        from(from),\n        to(to),\n\
-    \        distance(distance) {\n      }\n    };\n\n    class task {\n    public:\n\
-    \      ::std::size_t vertex;\n      T distance;\n      task(const ::std::size_t\
-    \ vertex, const ::std::size_t distance) :\n        vertex(vertex), distance(distance)\
+    #include <queue>\n#include \"tools/greater_by_second.hpp\"\n#include \"tools/chmin.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  class dijkstra {\n  private:\n\
+    \    class edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T distance;\n      edge(const ::std::size_t from, const ::std::size_t\
+    \ to, const T distance) :\n        from(from),\n        to(to),\n        distance(distance)\
     \ {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n\
     \    static constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr\
     \ ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class\
@@ -65,23 +70,21 @@ data:
     \ ::std::size_t& from, const ::std::size_t& to, const T& distance) {\n      this->edges[from].emplace_back(from,\
     \ to, distance);\n    }\n\n    result query(const ::std::size_t& start_node) const\
     \ {\n      assert(start_node < this->node_count());\n\n      result result(this->node_count(),\
-    \ start_node);\n      ::std::vector<bool> visited(this->node_count(), false);\n\
-    \      const auto compare = [](const task& x, const task& y) {\n        return\
-    \ x.distance > y.distance;\n      };\n      ::std::priority_queue<task, ::std::vector<task>,\
-    \ decltype(compare)> tasks(compare);\n      tasks.emplace(start_node, 0);\n\n\
-    \      while (!tasks.empty()) {\n        const task task = tasks.top();\n    \
-    \    tasks.pop();\n        if (visited[task.vertex]) continue;\n        visited[task.vertex]\
-    \ = true;\n        for (const edge& edge : this->edges[task.vertex]) {\n     \
-    \     const T new_distance = task.distance + edge.distance;\n          if (new_distance\
-    \ < result.distances[edge.to]) {\n            result.distances[edge.to] = new_distance;\n\
-    \            result.prev_nodes[edge.to] = edge.from;\n            tasks.emplace(edge.to,\
-    \ new_distance);\n          }\n        }\n      }\n\n      return result;\n  \
-    \  }\n  };\n}\n\n#endif\n"
-  dependsOn: []
+    \ start_node);\n      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t,\
+    \ T>>, ::tools::greater_by_second> tasks;\n      tasks.emplace(start_node, 0);\n\
+    \n      while (!tasks.empty()) {\n        const auto [here, d] = tasks.top();\n\
+    \        tasks.pop();\n        if (result.distances[here] < d) continue;\n   \
+    \     for (const edge& edge : this->edges[here]) {\n          if (::tools::chmin(result.distances[edge.to],\
+    \ result.distances[here] + edge.distance)) {\n            result.prev_nodes[edge.to]\
+    \ = edge.from;\n            tasks.emplace(edge.to, result.distances[edge.to]);\n\
+    \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n#endif\n"
+  dependsOn:
+  - tools/greater_by_second.hpp
+  - tools/chmin.hpp
   isVerificationFile: false
   path: tools/dijkstra.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2022-03-08 22:34:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dijkstra.test.cpp
