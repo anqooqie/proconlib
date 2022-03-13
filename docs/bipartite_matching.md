@@ -13,7 +13,7 @@ It calculates the maximum matching on a given bipartite graph.
 
 ## Constructor
 ```cpp
-bipartite_matching<E> graph(::std::size_t n1, ::std::size_t n2);
+bipartite_matching<E> graph(std::size_t n1, std::size_t n2);
 ```
 
 It creates an bipartite graph with $0$ edges.
@@ -56,10 +56,10 @@ It returns $n_2$.
 
 ## add_edge
 ```cpp
-void graph.add_edge(::std::size_t a, ::std::size_t b, E e);
+void graph.add_edge(std::size_t a, std::size_t b, E e);
 ```
 
-It adds an edge from $a \in U$ to $b \in V$ with the attribute `e`.
+It adds an edge connecting $a \in U$ and $b \in V$ with the attribute `e`.
 
 ### Constraints
 - $0 \leq a < n_1$
@@ -77,7 +77,7 @@ std::vector<struct {
 }> graph.query();
 ```
 
-It returns edges which can reach the maximum matching. 
+It returns the edges which can reach the maximum matching. 
 
 ### Constraints
 - None

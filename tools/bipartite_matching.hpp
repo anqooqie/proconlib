@@ -1,3 +1,6 @@
+#ifndef TOOLS_BIPARTITE_MATCHING_HPP
+#define TOOLS_BIPARTITE_MATCHING_HPP
+
 #include <cstddef>
 #include <vector>
 #include "atcoder/maxflow.hpp"
@@ -72,3 +75,5 @@ namespace tools {
     }
   };
 }
+
+#endif
