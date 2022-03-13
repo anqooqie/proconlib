@@ -71,20 +71,23 @@ data:
     \ scc_edge_ids;\n        scc_vertices.swap(scc[scc_id].first);\n        scc_edge_ids.swap(scc[scc_id].second);\n\
     \n        ::std::stack<int> ordered_by_dfs;\n        for (const auto v : scc_vertices)\
     \ {\n          will_visit[v] = false;\n        }\n        for (const auto root\
-    \ : scc_vertices) {\n          if (will_visit[root]) continue;\n\n          ::std::stack<int>\
-    \ stack({root});\n          will_visit[root] = true;\n          ordered_by_dfs.push(root);\n\
-    \          while (!stack.empty()) {\n            const auto here = stack.top();\n\
-    \            stack.pop();\n            for (const auto edge_id : this->m_graph[here])\
-    \ {\n              const auto& edge = this->m_edges[edge_id];\n              if\
-    \ (edge.flow < edge.cap && !will_visit[edge.to]) {\n                stack.push(edge.to);\n\
-    \                will_visit[edge.to] = true;\n                ordered_by_dfs.push(edge.to);\n\
-    \              }\n            }\n          }\n        }\n\n        ::std::vector<int>\
-    \ new_scc_ids;\n        for (const auto v : scc_vertices) {\n          will_visit[v]\
-    \ = false;\n        }\n        while (!ordered_by_dfs.empty()) {\n          const\
-    \ auto root = ordered_by_dfs.top();\n          ordered_by_dfs.pop();\n       \
-    \   if (will_visit[root]) continue;\n\n          if (new_scc_ids.empty()) {\n\
-    \            new_scc_ids.push_back(scc_id);\n          } else {\n            new_scc_ids.push_back(scc.size());\n\
-    \            scc.emplace_back();\n          }\n\n          ::std::stack<int> stack({root});\n\
+    \ : scc_vertices) {\n          if (will_visit[root]) continue;\n\n          ::std::stack<::std::pair<bool,\
+    \ int>> stack;\n          stack.emplace(false, root);\n          stack.emplace(true,\
+    \ root);\n          will_visit[root] = true;\n          while (!stack.empty())\
+    \ {\n            const auto [pre, here] = stack.top();\n            stack.pop();\n\
+    \            if (pre) {\n              for (const auto edge_id : this->m_graph[here])\
+    \ {\n                const auto& edge = this->m_edges[edge_id];\n            \
+    \    if (edge.flow < edge.cap && !will_visit[edge.to]) {\n                  stack.emplace(false,\
+    \ edge.to);\n                  stack.emplace(true, edge.to);\n               \
+    \   will_visit[edge.to] = true;\n                }\n              }\n        \
+    \    } else {\n              ordered_by_dfs.push(here);\n            }\n     \
+    \     }\n        }\n\n        ::std::vector<int> new_scc_ids;\n        for (const\
+    \ auto v : scc_vertices) {\n          will_visit[v] = false;\n        }\n    \
+    \    while (!ordered_by_dfs.empty()) {\n          const auto root = ordered_by_dfs.top();\n\
+    \          ordered_by_dfs.pop();\n          if (will_visit[root]) continue;\n\n\
+    \          if (new_scc_ids.empty()) {\n            new_scc_ids.push_back(scc_id);\n\
+    \          } else {\n            new_scc_ids.push_back(scc.size());\n        \
+    \    scc.emplace_back();\n          }\n\n          ::std::stack<int> stack({root});\n\
     \          will_visit[root] = true;\n          while (!stack.empty()) {\n    \
     \        const auto here = stack.top();\n            stack.pop();\n\n        \
     \    scc[new_scc_ids.back()].first.emplace_back();\n            scc_inv[here]\
@@ -272,7 +275,7 @@ data:
   isVerificationFile: false
   path: tools/weighted_bipartite_matching.hpp
   requiredBy: []
-  timestamp: '2022-03-13 19:10:51+09:00'
+  timestamp: '2022-03-13 20:40:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/weighted_bipartite_matching.test.cpp
