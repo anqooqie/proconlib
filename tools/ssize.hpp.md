@@ -9,8 +9,14 @@ data:
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/mcf_graph.hpp
+    title: tools/mcf_graph.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
+  - icon: ':heavy_check_mark:'
+    path: tools/weighted_bipartite_matching.hpp
+    title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
@@ -81,6 +87,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching.test.cpp
+    title: tests/weighted_bipartite_matching.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -100,6 +109,8 @@ data:
   requiredBy:
   - tools/bigint.hpp
   - tools/rational.hpp
+  - tools/weighted_bipartite_matching.hpp
+  - tools/mcf_graph.hpp
   - tools/bigdecimal.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -113,6 +124,7 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/weighted_bipartite_matching.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/random.test.cpp
   - tests/rational/minus.test.cpp

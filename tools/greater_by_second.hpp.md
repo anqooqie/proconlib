@@ -5,10 +5,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/mcf_graph.hpp
+    title: tools/mcf_graph.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/weighted_bipartite_matching.hpp
+    title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra.test.cpp
     title: tests/dijkstra.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching.test.cpp
+    title: tests/weighted_bipartite_matching.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -27,10 +36,13 @@ data:
   isVerificationFile: false
   path: tools/greater_by_second.hpp
   requiredBy:
+  - tools/weighted_bipartite_matching.hpp
+  - tools/mcf_graph.hpp
   - tools/dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/weighted_bipartite_matching.test.cpp
   - tests/dijkstra.test.cpp
 documentation_of: tools/greater_by_second.hpp
 layout: document

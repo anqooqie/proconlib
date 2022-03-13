@@ -9,11 +9,17 @@ data:
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/mcf_graph.hpp
+    title: tools/mcf_graph.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of tree
+  - icon: ':heavy_check_mark:'
+    path: tools/weighted_bipartite_matching.hpp
+    title: Matching on weighted bipartite graph
   - icon: ':heavy_check_mark:'
     path: tools/xor_basis.hpp
     title: Basis of xor
@@ -30,6 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching.test.cpp
+    title: tests/weighted_bipartite_matching.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
@@ -52,12 +61,15 @@ data:
   requiredBy:
   - tools/segmented_sieve.hpp
   - tools/xor_basis.hpp
+  - tools/weighted_bipartite_matching.hpp
+  - tools/mcf_graph.hpp
   - tools/tree_diameter.hpp
   - tools/dijkstra.hpp
   - tools/bellman_ford.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/weighted_bipartite_matching.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/dijkstra.test.cpp
   - tests/tree_diameter.test.cpp

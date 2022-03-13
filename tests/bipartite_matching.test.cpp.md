@@ -16,8 +16,8 @@ data:
     - https://judge.yosupo.jp/problem/bipartitematching
   bundledCode: "#line 1 \"tests/bipartite_matching.test.cpp\"\n#define PROBLEM \"\
     https://judge.yosupo.jp/problem/bipartitematching\"\n\n#include <cstdint>\n#include\
-    \ <iostream>\n#include <variant>\n#line 1 \"tools/bipartite_matching.hpp\"\n#include\
-    \ <cstddef>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\
+    \ <iostream>\n#include <variant>\n#line 1 \"tools/bipartite_matching.hpp\"\n\n\
+    \n\n#include <cstddef>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <limits>\n#include\
     \ <queue>\n#line 9 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_queue.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_queue.hpp\"\n\nnamespace atcoder\
@@ -81,7 +81,7 @@ data:
     \   }\n        return visited;\n    }\n\n  private:\n    int _n;\n    struct _edge\
     \ {\n        int to, rev;\n        Cap cap;\n    };\n    std::vector<std::pair<int,\
     \ int>> pos;\n    std::vector<std::vector<_edge>> g;\n};\n\n}  // namespace atcoder\n\
-    \n\n#line 4 \"tools/bipartite_matching.hpp\"\n\nnamespace tools {\n  template\
+    \n\n#line 7 \"tools/bipartite_matching.hpp\"\n\nnamespace tools {\n  template\
     \ <typename E>\n  class bipartite_matching {\n  public:\n    struct edge {\n \
     \     ::std::size_t from;\n      ::std::size_t to;\n      E attribute;\n     \
     \ edge() = default;\n      edge(const ::tools::bipartite_matching<E>::edge&) =\
@@ -112,7 +112,7 @@ data:
     \ + 1);\n      for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {\n  \
     \      if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1)\
     \ {\n          edges.push_back(this->m_edges[i]);\n        }\n      }\n\n    \
-    \  return edges;\n    }\n  };\n}\n#line 7 \"tests/bipartite_matching.test.cpp\"\
+    \  return edges;\n    }\n  };\n}\n\n\n#line 7 \"tests/bipartite_matching.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  i64 L, R, M;\n  std::cin >> L >>\
     \ R >> M;\n  tools::bipartite_matching<std::monostate> graph(L, R);\n  for (i64\
@@ -134,7 +134,7 @@ data:
   isVerificationFile: true
   path: tests/bipartite_matching.test.cpp
   requiredBy: []
-  timestamp: '2021-12-04 01:06:20+09:00'
+  timestamp: '2022-03-13 19:10:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bipartite_matching.test.cpp

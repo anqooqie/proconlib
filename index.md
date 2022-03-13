@@ -168,7 +168,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -204,6 +204,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
+    - icon: ':heavy_check_mark:'
+      path: tools/mcf_graph.hpp
+      title: tools/mcf_graph.hpp
     - icon: ':heavy_check_mark:'
       path: tools/median_solver.hpp
       title: Median solver
@@ -345,6 +348,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: 2D vector
+    - icon: ':heavy_check_mark:'
+      path: tools/weighted_bipartite_matching.hpp
+      title: Matching on weighted bipartite graph
     - icon: ':heavy_check_mark:'
       path: tools/xor_basis.hpp
       title: Basis of xor
@@ -530,6 +536,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/weighted_bipartite_matching.test.cpp
+      title: tests/weighted_bipartite_matching.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
