@@ -87,19 +87,24 @@ namespace tools {
         for (const auto root : scc_vertices) {
           if (will_visit[root]) continue;
 
-          ::std::stack<int> stack({root});
+          ::std::stack<::std::pair<bool, int>> stack;
+          stack.emplace(false, root);
+          stack.emplace(true, root);
           will_visit[root] = true;
-          ordered_by_dfs.push(root);
           while (!stack.empty()) {
-            const auto here = stack.top();
+            const auto [pre, here] = stack.top();
             stack.pop();
-            for (const auto edge_id : this->m_graph[here]) {
-              const auto& edge = this->m_edges[edge_id];
-              if (edge.flow < edge.cap && !will_visit[edge.to]) {
-                stack.push(edge.to);
-                will_visit[edge.to] = true;
-                ordered_by_dfs.push(edge.to);
+            if (pre) {
+              for (const auto edge_id : this->m_graph[here]) {
+                const auto& edge = this->m_edges[edge_id];
+                if (edge.flow < edge.cap && !will_visit[edge.to]) {
+                  stack.emplace(false, edge.to);
+                  stack.emplace(true, edge.to);
+                  will_visit[edge.to] = true;
+                }
               }
+            } else {
+              ordered_by_dfs.push(here);
             }
           }
         }
