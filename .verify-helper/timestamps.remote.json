@@ -14,7 +14,7 @@
 "tests/bigint/multiplies.test.cpp": "2022-02-06 18:24:48 +0900",
 "tests/bigint/plus.test.cpp": "2022-02-06 18:24:48 +0900",
 "tests/binary_heap.test.cpp": "2021-12-02 21:46:38 +0900",
-"tests/bipartite_matching.test.cpp": "2021-12-04 01:06:20 +0900",
+"tests/bipartite_matching.test.cpp": "2022-03-13 19:10:51 +0900",
 "tests/ccw.test.cpp": "2022-02-19 03:37:47 +0900",
 "tests/ceil_log.test.cpp": "2021-09-25 15:53:45 +0900",
 "tests/ceil_log2.test.cpp": "2021-09-25 15:53:45 +0900",
@@ -79,6 +79,7 @@
 "tests/totient.test.cpp": "2022-02-05 17:57:38 +0900",
 "tests/tree_diameter.test.cpp": "2021-07-17 23:00:45 +0900",
 "tests/tsort.test.cpp": "2021-09-25 15:53:45 +0900",
+"tests/weighted_bipartite_matching.test.cpp": "2022-03-13 19:10:51 +0900",
 "tests/xor_basis.test.cpp": "2021-12-05 13:54:20 +0900",
 "tests/zero_one_bfs.test.cpp": "2021-07-17 23:00:45 +0900"
 }
