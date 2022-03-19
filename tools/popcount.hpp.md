@@ -24,6 +24,9 @@ data:
     path: tools/lca.hpp
     title: Lowest common ancestor
   - icon: ':heavy_check_mark:'
+    path: tools/li_chao_segtree.hpp
+    title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/line.test.cpp
+    title: tests/li_chao_segtree/line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/segment.test.cpp
+    title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -121,6 +130,7 @@ data:
   - tools/prime_factorization.hpp
   - tools/extended_lucas.hpp
   - tools/totient.hpp
+  - tools/li_chao_segtree.hpp
   - tools/chromatic_number.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/divisors.hpp
@@ -138,6 +148,8 @@ data:
   - tests/lca.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/divisors.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/chromatic_number.test.cpp
   - tests/tetration_mod.test.cpp

@@ -9,6 +9,9 @@ data:
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/li_chao_segtree.hpp
+    title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
@@ -61,6 +64,12 @@ data:
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/line.test.cpp
+    title: tests/li_chao_segtree/line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/segment.test.cpp
+    title: tests/li_chao_segtree/segment.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
@@ -112,6 +121,7 @@ data:
   requiredBy:
   - tools/bigint.hpp
   - tools/rational.hpp
+  - tools/li_chao_segtree.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
   - tools/bigdecimal.hpp
@@ -135,6 +145,8 @@ data:
   - tests/rational/plus.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/ssize.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp

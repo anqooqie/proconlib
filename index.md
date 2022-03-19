@@ -474,9 +474,6 @@ data:
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/li_chao_segtree.test.cpp
-      title: tests/li_chao_segtree.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
@@ -590,6 +587,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - name: tests/li_chao_segtree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/li_chao_segtree/line.test.cpp
+      title: tests/li_chao_segtree/line.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/li_chao_segtree/segment.test.cpp
+      title: tests/li_chao_segtree/segment.test.cpp
   - name: tests/line_2d
     pages:
     - icon: ':heavy_check_mark:'

@@ -34,8 +34,11 @@ data:
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/li_chao_segtree.test.cpp
-    title: tests/li_chao_segtree.test.cpp
+    path: tests/li_chao_segtree/line.test.cpp
+    title: tests/li_chao_segtree/line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/segment.test.cpp
+    title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
@@ -97,10 +100,11 @@ data:
   verifiedWith:
   - tests/dual_segtree.test.cpp
   - tests/binary_heap.test.cpp
-  - tests/li_chao_segtree.test.cpp
   - tests/ssize.test.cpp
   - tests/lca.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
   - tests/ceil_log2.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document

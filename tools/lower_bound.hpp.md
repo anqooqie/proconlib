@@ -9,12 +9,21 @@ data:
     path: tools/inversion_number.hpp
     title: The number of inversions
   - icon: ':heavy_check_mark:'
+    path: tools/li_chao_segtree.hpp
+    title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/line.test.cpp
+    title: tests/li_chao_segtree/line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/segment.test.cpp
+    title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
@@ -41,6 +50,7 @@ data:
   isVerificationFile: false
   path: tools/lower_bound.hpp
   requiredBy:
+  - tools/li_chao_segtree.hpp
   - tools/lis.hpp
   - tools/compress.hpp
   - tools/inversion_number.hpp
@@ -50,6 +60,8 @@ data:
   - tests/inversion_number.test.cpp
   - tests/tsort.test.cpp
   - tests/lis.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index

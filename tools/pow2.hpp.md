@@ -112,8 +112,11 @@ data:
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/li_chao_segtree.test.cpp
-    title: tests/li_chao_segtree.test.cpp
+    path: tests/li_chao_segtree/line.test.cpp
+    title: tests/li_chao_segtree/line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/li_chao_segtree/segment.test.cpp
+    title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
@@ -206,11 +209,12 @@ data:
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
   - tests/line_2d/projection.test.cpp
-  - tests/li_chao_segtree.test.cpp
   - tests/ssize.test.cpp
   - tests/lca.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/divisors.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/hand.test.cpp
