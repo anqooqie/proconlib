@@ -206,7 +206,7 @@ data:
       title: Matrix
     - icon: ':heavy_check_mark:'
       path: tools/mcf_graph.hpp
-      title: tools/mcf_graph.hpp
+      title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
       path: tools/median_solver.hpp
       title: Median solver
@@ -537,9 +537,6 @@ data:
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/weighted_bipartite_matching.test.cpp
-      title: tests/weighted_bipartite_matching.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
     - icon: ':heavy_check_mark:'
@@ -637,5 +634,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
+  - name: tests/weighted_bipartite_matching
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/weighted_bipartite_matching/maximize.test.cpp
+      title: tests/weighted_bipartite_matching/maximize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/weighted_bipartite_matching/minimize.test.cpp
+      title: tests/weighted_bipartite_matching/minimize.test.cpp
 layout: toppage
 ---

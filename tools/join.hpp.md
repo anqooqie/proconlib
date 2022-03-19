@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/weighted_bipartite_matching.test.cpp
-    title: tests/weighted_bipartite_matching.test.cpp
+    path: tests/weighted_bipartite_matching/minimize.test.cpp
+    title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
 documentation_of: tools/join.hpp
 layout: document
 title: Join elements with delimiter

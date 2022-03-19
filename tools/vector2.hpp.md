@@ -75,6 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/maximize.test.cpp
+    title: tests/weighted_bipartite_matching/maximize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -277,6 +280,7 @@ data:
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/ccw.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/convex_hull.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp

@@ -10,7 +10,7 @@ data:
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
-    title: tools/mcf_graph.hpp
+    title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
@@ -88,8 +88,11 @@ data:
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/weighted_bipartite_matching.test.cpp
-    title: tests/weighted_bipartite_matching.test.cpp
+    path: tests/weighted_bipartite_matching/maximize.test.cpp
+    title: tests/weighted_bipartite_matching/maximize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/minimize.test.cpp
+    title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -124,7 +127,8 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/weighted_bipartite_matching.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/random.test.cpp
   - tests/rational/minus.test.cpp

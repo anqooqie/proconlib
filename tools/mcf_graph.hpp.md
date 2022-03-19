@@ -16,8 +16,11 @@ data:
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/weighted_bipartite_matching.test.cpp
-    title: tests/weighted_bipartite_matching.test.cpp
+    path: tests/weighted_bipartite_matching/maximize.test.cpp
+    title: tests/weighted_bipartite_matching/maximize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/minimize.test.cpp
+    title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -64,18 +67,21 @@ data:
     \ 0);\n      ::std::vector<int> scc_inv(this->size(), 0);\n      ::std::stack<int>\
     \ scc_stack({0});\n      ::std::vector<bool> will_visit(this->size());\n     \
     \ ::std::vector<Cost> dist(this->size());\n      ::std::vector<int> prev(this->size());\n\
+    \      // Loop until every strongly connected component contains no negative cycles.\n\
     \      while (!scc_stack.empty()) {\n        const auto scc_id = scc_stack.top();\n\
     \        scc_stack.pop();\n        ::std::vector<int> scc_vertices;\n        ::std::vector<int>\
     \ scc_edge_ids;\n        scc_vertices.swap(scc[scc_id].first);\n        scc_edge_ids.swap(scc[scc_id].second);\n\
-    \n        ::std::stack<int> ordered_by_dfs;\n        for (const auto v : scc_vertices)\
-    \ {\n          will_visit[v] = false;\n        }\n        for (const auto root\
-    \ : scc_vertices) {\n          if (will_visit[root]) continue;\n\n          ::std::stack<::std::pair<bool,\
-    \ int>> stack;\n          stack.emplace(false, root);\n          stack.emplace(true,\
-    \ root);\n          will_visit[root] = true;\n          while (!stack.empty())\
-    \ {\n            const auto [pre, here] = stack.top();\n            stack.pop();\n\
-    \            if (pre) {\n              for (const auto edge_id : this->m_graph[here])\
-    \ {\n                const auto& edge = this->m_edges[edge_id];\n            \
-    \    if (edge.flow < edge.cap && !will_visit[edge.to]) {\n                  stack.emplace(false,\
+    \n        // scc[scc_id] might be decomposed into smaller strongly connected components,\
+    \ so check and decompose it.\n        ::std::stack<int> ordered_by_dfs;\n    \
+    \    for (const auto v : scc_vertices) {\n          will_visit[v] = false;\n \
+    \       }\n        for (const auto root : scc_vertices) {\n          if (will_visit[root])\
+    \ continue;\n\n          ::std::stack<::std::pair<bool, int>> stack;\n       \
+    \   stack.emplace(false, root);\n          stack.emplace(true, root);\n      \
+    \    will_visit[root] = true;\n          while (!stack.empty()) {\n          \
+    \  const auto [pre, here] = stack.top();\n            stack.pop();\n         \
+    \   if (pre) {\n              for (const auto edge_id : this->m_graph[here]) {\n\
+    \                const auto& edge = this->m_edges[edge_id];\n                if\
+    \ (edge.flow < edge.cap && !will_visit[edge.to]) {\n                  stack.emplace(false,\
     \ edge.to);\n                  stack.emplace(true, edge.to);\n               \
     \   will_visit[edge.to] = true;\n                }\n              }\n        \
     \    } else {\n              ordered_by_dfs.push(here);\n            }\n     \
@@ -97,8 +103,10 @@ data:
     \  }\n        }\n\n        for (const auto edge_id : scc_edge_ids) {\n       \
     \   const auto& edge = this->m_edges[edge_id];\n          if (scc_inv[edge.from]\
     \ == scc_inv[edge.to]) {\n            scc[scc_inv[edge.from]].second.push_back(edge_id);\n\
-    \          }\n        }\n\n        for (const auto new_scc_id : new_scc_ids) {\n\
-    \          const auto& [new_scc_vertices, new_scc_edge_ids] = scc[new_scc_id];\n\
+    \          }\n        }\n\n        // Now, scc[new_scc_id] is truly a strongly\
+    \ connected component.\n        // Check whether it contains any negative cycles\
+    \ using Bellman-Ford algorithm.\n        for (const auto new_scc_id : new_scc_ids)\
+    \ {\n          const auto& [new_scc_vertices, new_scc_edge_ids] = scc[new_scc_id];\n\
     \          for (const auto v : new_scc_vertices) {\n            dist[v] = ::std::numeric_limits<Cost>::max();\n\
     \            prev[v] = -1;\n          }\n          dist[new_scc_vertices[0]] =\
     \ 0;\n          for (int i = 0; i < ::tools::ssize(new_scc_vertices) - 1; ++i)\
@@ -110,7 +118,9 @@ data:
     \ : new_scc_edge_ids) {\n            auto& edge = this->m_edges[edge_id];\n  \
     \          auto& rev = this->m_edges[edge_id ^ 1];\n            if (edge.flow\
     \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to],\
-    \ dist[edge.from] + edge.cost)) {\n              Cap cap = edge.cap - edge.flow;\n\
+    \ dist[edge.from] + edge.cost)) {\n              // We found a negative cycle,\
+    \ so fill it.\n              // Later, we will check whether the component can\
+    \ be decomposed into smaller ones.  \n\n              Cap cap = edge.cap - edge.flow;\n\
     \              for (int v = edge.from; v != edge.to; v = this->m_edges[prev[v]].from)\
     \ {\n                const auto& current_edge = this->m_edges[prev[v]];\n    \
     \            ::tools::chmin(cap, current_edge.cap - current_edge.flow);\n    \
@@ -122,42 +132,51 @@ data:
     \               current_rev.flow -= cap;\n                result.back().second\
     \ += cap * current_edge.cost;\n              }\n\n              scc_stack.push(new_scc_id);\n\
     \              break;\n            }\n          }\n        }\n      }\n\n    \
-    \  ::std::vector<Cost> potentials(this->size(), 0);\n      bool has_negative_edge\
-    \ = ::std::any_of(this->m_edges.begin(), this->m_edges.end(), [](const auto& edge)\
-    \ { return edge.flow < edge.cap && edge.cost < 0; });\n      while (result.back().first\
-    \ < flow_limit) {\n        ::std::fill(dist.begin(), dist.end(), ::std::numeric_limits<Cost>::max());\n\
-    \        ::std::fill(prev.begin(), prev.end(), -1);\n        if (has_negative_edge)\
-    \ {\n          if (::std::all_of(scc.begin(), scc.end(), [](const auto& pair)\
-    \ { return pair.first.size() == 1; })) {\n            ::std::vector<int> indeg(this->size(),\
-    \ 0);\n            for (const auto& edge : this->m_edges) {\n              if\
-    \ (edge.flow < edge.cap) {\n                ++indeg[edge.to];\n              }\n\
-    \            }\n            ::std::queue<int> queue;\n            for (int v =\
-    \ 0; v < this->size(); ++v) {\n              if (indeg[v] == 0) {\n          \
-    \      queue.push(v);\n              }\n            }\n            dist[s] = 0;\n\
-    \            while (!queue.empty()) {\n              const auto here = queue.front();\n\
-    \              queue.pop();\n              for (const auto edge_id : this->m_graph[here])\
-    \ {\n                const auto& edge = this->m_edges[edge_id];\n            \
-    \    if (edge.flow < edge.cap) {\n                  if (dist[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {\n         \
-    \           prev[edge.to] = edge_id;\n                  }\n                  --indeg[edge.to];\n\
-    \                  if (indeg[edge.to] == 0) {\n                    queue.push(edge.to);\n\
-    \                  }\n                }\n              }\n            }\n    \
-    \      } else {\n            dist[s] = 0;\n            for (int i = 0; i < this->size()\
-    \ - 1; ++i) {\n              for (int edge_id = 0; edge_id < ::tools::ssize(this->m_edges);\
-    \ ++edge_id) {\n                const auto& edge = this->m_edges[edge_id];\n \
-    \               if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {\n         \
-    \         prev[edge.to] = edge_id;\n                }\n              }\n     \
-    \       }\n            #ifndef NDEBUG\n              for (const auto& edge : this->m_edges)\
-    \ {\n                if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max())\
-    \ {\n                  assert(dist[edge.to] <= dist[edge.from] + edge.cost);\n\
-    \                }\n              }\n            #endif\n          }\n       \
-    \ } else {\n          #ifndef NDEBUG\n            for (const auto& edge : this->m_edges)\
-    \ {\n              if (edge.flow < edge.cap && potentials[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && potentials[edge.to] < ::std::numeric_limits<Cost>::max()) {\n           \
-    \      assert(edge.cost + potentials[edge.from] - potentials[edge.to] >= 0);\n\
-    \              }\n            }\n          #endif\n          dist[s] = 0;\n  \
-    \        ::std::priority_queue<::std::pair<int, Cost>, ::std::vector<::std::pair<int,\
+    \  // Find the shortest path, fill it, and repeat that.\n      ::std::vector<Cost>\
+    \ potentials(this->size(), 0);\n      bool has_negative_edge = ::std::any_of(this->m_edges.begin(),\
+    \ this->m_edges.end(), [](const auto& edge) { return edge.flow < edge.cap && edge.cost\
+    \ < 0; });\n      while (result.back().first < flow_limit) {\n        ::std::fill(dist.begin(),\
+    \ dist.end(), ::std::numeric_limits<Cost>::max());\n        ::std::fill(prev.begin(),\
+    \ prev.end(), -1);\n        if (has_negative_edge) {\n          if (::std::all_of(scc.begin(),\
+    \ scc.end(), [](const auto& pair) { return pair.first.size() == 1; })) {\n   \
+    \         // This is the first try to find the shortest path.\n            //\
+    \ The graph is a DAG, and it contains negative edges.\n            // This time,\
+    \ we adopt topological sorting + DP. (O(V + E) time)\n\n            ::std::vector<int>\
+    \ indeg(this->size(), 0);\n            for (const auto& edge : this->m_edges)\
+    \ {\n              if (edge.flow < edge.cap) {\n                ++indeg[edge.to];\n\
+    \              }\n            }\n            ::std::queue<int> queue;\n      \
+    \      for (int v = 0; v < this->size(); ++v) {\n              if (indeg[v] ==\
+    \ 0) {\n                queue.push(v);\n              }\n            }\n     \
+    \       dist[s] = 0;\n            while (!queue.empty()) {\n              const\
+    \ auto here = queue.front();\n              queue.pop();\n              for (const\
+    \ auto edge_id : this->m_graph[here]) {\n                const auto& edge = this->m_edges[edge_id];\n\
+    \                if (edge.flow < edge.cap) {\n                  if (dist[edge.from]\
+    \ < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to], dist[edge.from]\
+    \ + edge.cost)) {\n                    prev[edge.to] = edge_id;\n            \
+    \      }\n                  --indeg[edge.to];\n                  if (indeg[edge.to]\
+    \ == 0) {\n                    queue.push(edge.to);\n                  }\n   \
+    \             }\n              }\n            }\n          } else {\n        \
+    \    // This is the first try to find the shortest path.\n            // The graph\
+    \ contains negative edges and non-negative cycles.\n            // This time,\
+    \ we adopt Bellman-Ford algorithm. (O(VE) time)\n\n            dist[s] = 0;\n\
+    \            for (int i = 0; i < this->size() - 1; ++i) {\n              for (int\
+    \ edge_id = 0; edge_id < ::tools::ssize(this->m_edges); ++edge_id) {\n       \
+    \         const auto& edge = this->m_edges[edge_id];\n                if (edge.flow\
+    \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to],\
+    \ dist[edge.from] + edge.cost)) {\n                  prev[edge.to] = edge_id;\n\
+    \                }\n              }\n            }\n            #ifndef NDEBUG\n\
+    \              for (const auto& edge : this->m_edges) {\n                if (edge.flow\
+    \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max()) {\n    \
+    \              assert(dist[edge.to] <= dist[edge.from] + edge.cost);\n       \
+    \         }\n              }\n            #endif\n          }\n        } else\
+    \ {\n          // The graph only contains non-negative edges when we use potentials.\n\
+    \          // This time, we adopt Dijkstra's algorithm with potentials. (O((V\
+    \ + E) logV) time)\n\n          #ifndef NDEBUG\n            for (const auto& edge\
+    \ : this->m_edges) {\n              if (edge.flow < edge.cap && potentials[edge.from]\
+    \ < ::std::numeric_limits<Cost>::max() && potentials[edge.to] < ::std::numeric_limits<Cost>::max())\
+    \ {\n                assert(edge.cost + (potentials[edge.from] - potentials[edge.to])\
+    \ >= 0);\n              }\n            }\n          #endif\n          dist[s]\
+    \ = 0;\n          ::std::priority_queue<::std::pair<int, Cost>, ::std::vector<::std::pair<int,\
     \ Cost>>, ::tools::greater_by_second> tasks;\n          tasks.emplace(s, 0);\n\
     \          while (!tasks.empty()) {\n            const auto [here, d] = tasks.top();\n\
     \            tasks.pop();\n            if (dist[here] < d) continue;\n       \
@@ -166,23 +185,32 @@ data:
     \ < ::std::numeric_limits<Cost>::max()) {\n                assert(potentials[edge.from]\
     \ < ::std::numeric_limits<Cost>::max());\n                assert(potentials[edge.to]\
     \ < ::std::numeric_limits<Cost>::max());\n                if (::tools::chmin(dist[edge.to],\
-    \ dist[edge.from] + edge.cost + potentials[edge.from] - potentials[edge.to]))\
+    \ dist[edge.from] + edge.cost + (potentials[edge.from] - potentials[edge.to])))\
     \ {\n                  prev[edge.to] = edge_id;\n                  tasks.emplace(edge.to,\
     \ dist[edge.to]);\n                }\n              }\n            }\n       \
     \   }\n        }\n\n        if (dist[t] == ::std::numeric_limits<Cost>::max())\
     \ break;\n        for (int i = 0; i < this->size(); ++i) {\n          if (dist[i]\
     \ < ::std::numeric_limits<Cost>::max()) {\n            potentials[i] += dist[i];\n\
     \          } else {\n            potentials[i] = ::std::numeric_limits<Cost>::max();\n\
-    \          }\n        }\n        has_negative_edge = false;\n\n        Cap cap\
-    \ = flow_limit - result.back().first;\n        for (int v = t; v != s; v = this->m_edges[prev[v]].from)\
-    \ {\n          const auto& edge = this->m_edges[prev[v]];\n          ::tools::chmin(cap,\
-    \ edge.cap - edge.flow);\n        }\n\n        Cost cost = 0;\n        for (int\
-    \ v = t; v != s; v = this->m_edges[prev[v]].from) {\n          auto& edge = this->m_edges[prev[v]];\n\
+    \          }\n        }\n        has_negative_edge = false;\n\n        // Fill\
+    \ the shortest path.\n        Cap cap = flow_limit - result.back().first;\n  \
+    \      for (int v = t; v != s; v = this->m_edges[prev[v]].from) {\n          const\
+    \ auto& edge = this->m_edges[prev[v]];\n          ::tools::chmin(cap, edge.cap\
+    \ - edge.flow);\n        }\n\n        Cost cost = 0;\n        for (int v = t;\
+    \ v != s; v = this->m_edges[prev[v]].from) {\n          auto& edge = this->m_edges[prev[v]];\n\
     \          auto& rev = this->m_edges[prev[v] ^ 1];\n          edge.flow += cap;\n\
     \          rev.flow -= cap;\n          cost += cap * edge.cost;\n        }\n\n\
-    \        result.emplace_back(result.back().first + cap, result.back().second +\
-    \ cost);\n      }\n\n      return result;\n    }\n\n    ::std::vector<::std::pair<Cap,\
-    \ Cost>> slope(const int s, const int t) {\n      return this->slope(s, t, ::std::numeric_limits<Cap>::max());\n\
+    \        if ([&]() {\n          if (result.size() < 2) return true;\n        \
+    \  auto dx1 = result.back().first - result.rbegin()[1].first;\n          auto\
+    \ dy1 = result.back().second - result.rbegin()[1].second;\n          const auto\
+    \ gcd1 = ::std::gcd(dx1, dy1);\n          dx1 /= gcd1;\n          dy1 /= gcd1;\n\
+    \          auto dx2 = cap;\n          auto dy2 = cost;\n          const auto gcd2\
+    \ = ::std::gcd(dx2, dy2);\n          dx2 /= gcd2;\n          dy2 /= gcd2;\n  \
+    \        return !(dx1 == dx2 && dy1 == dy2);\n        }()) {\n          result.emplace_back(result.back().first\
+    \ + cap, result.back().second + cost);\n        } else {\n          result.back().first\
+    \ += cap;\n          result.back().second += cost;\n        }\n      }\n\n   \
+    \   return result;\n    }\n\n    ::std::vector<::std::pair<Cap, Cost>> slope(const\
+    \ int s, const int t) {\n      return this->slope(s, t, ::std::numeric_limits<Cap>::max());\n\
     \    }\n\n    ::std::pair<Cap, Cost> flow(const int s, const int t, const Cap\
     \ flow_limit) {\n      return this->slope(s, t, flow_limit).back();\n    }\n\n\
     \    ::std::pair<Cap, Cost> flow(const int s, const int t) {\n      return this->slope(s,\
@@ -224,18 +252,21 @@ data:
     \ 0);\n      ::std::vector<int> scc_inv(this->size(), 0);\n      ::std::stack<int>\
     \ scc_stack({0});\n      ::std::vector<bool> will_visit(this->size());\n     \
     \ ::std::vector<Cost> dist(this->size());\n      ::std::vector<int> prev(this->size());\n\
+    \      // Loop until every strongly connected component contains no negative cycles.\n\
     \      while (!scc_stack.empty()) {\n        const auto scc_id = scc_stack.top();\n\
     \        scc_stack.pop();\n        ::std::vector<int> scc_vertices;\n        ::std::vector<int>\
     \ scc_edge_ids;\n        scc_vertices.swap(scc[scc_id].first);\n        scc_edge_ids.swap(scc[scc_id].second);\n\
-    \n        ::std::stack<int> ordered_by_dfs;\n        for (const auto v : scc_vertices)\
-    \ {\n          will_visit[v] = false;\n        }\n        for (const auto root\
-    \ : scc_vertices) {\n          if (will_visit[root]) continue;\n\n          ::std::stack<::std::pair<bool,\
-    \ int>> stack;\n          stack.emplace(false, root);\n          stack.emplace(true,\
-    \ root);\n          will_visit[root] = true;\n          while (!stack.empty())\
-    \ {\n            const auto [pre, here] = stack.top();\n            stack.pop();\n\
-    \            if (pre) {\n              for (const auto edge_id : this->m_graph[here])\
-    \ {\n                const auto& edge = this->m_edges[edge_id];\n            \
-    \    if (edge.flow < edge.cap && !will_visit[edge.to]) {\n                  stack.emplace(false,\
+    \n        // scc[scc_id] might be decomposed into smaller strongly connected components,\
+    \ so check and decompose it.\n        ::std::stack<int> ordered_by_dfs;\n    \
+    \    for (const auto v : scc_vertices) {\n          will_visit[v] = false;\n \
+    \       }\n        for (const auto root : scc_vertices) {\n          if (will_visit[root])\
+    \ continue;\n\n          ::std::stack<::std::pair<bool, int>> stack;\n       \
+    \   stack.emplace(false, root);\n          stack.emplace(true, root);\n      \
+    \    will_visit[root] = true;\n          while (!stack.empty()) {\n          \
+    \  const auto [pre, here] = stack.top();\n            stack.pop();\n         \
+    \   if (pre) {\n              for (const auto edge_id : this->m_graph[here]) {\n\
+    \                const auto& edge = this->m_edges[edge_id];\n                if\
+    \ (edge.flow < edge.cap && !will_visit[edge.to]) {\n                  stack.emplace(false,\
     \ edge.to);\n                  stack.emplace(true, edge.to);\n               \
     \   will_visit[edge.to] = true;\n                }\n              }\n        \
     \    } else {\n              ordered_by_dfs.push(here);\n            }\n     \
@@ -257,8 +288,10 @@ data:
     \  }\n        }\n\n        for (const auto edge_id : scc_edge_ids) {\n       \
     \   const auto& edge = this->m_edges[edge_id];\n          if (scc_inv[edge.from]\
     \ == scc_inv[edge.to]) {\n            scc[scc_inv[edge.from]].second.push_back(edge_id);\n\
-    \          }\n        }\n\n        for (const auto new_scc_id : new_scc_ids) {\n\
-    \          const auto& [new_scc_vertices, new_scc_edge_ids] = scc[new_scc_id];\n\
+    \          }\n        }\n\n        // Now, scc[new_scc_id] is truly a strongly\
+    \ connected component.\n        // Check whether it contains any negative cycles\
+    \ using Bellman-Ford algorithm.\n        for (const auto new_scc_id : new_scc_ids)\
+    \ {\n          const auto& [new_scc_vertices, new_scc_edge_ids] = scc[new_scc_id];\n\
     \          for (const auto v : new_scc_vertices) {\n            dist[v] = ::std::numeric_limits<Cost>::max();\n\
     \            prev[v] = -1;\n          }\n          dist[new_scc_vertices[0]] =\
     \ 0;\n          for (int i = 0; i < ::tools::ssize(new_scc_vertices) - 1; ++i)\
@@ -270,7 +303,9 @@ data:
     \ : new_scc_edge_ids) {\n            auto& edge = this->m_edges[edge_id];\n  \
     \          auto& rev = this->m_edges[edge_id ^ 1];\n            if (edge.flow\
     \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to],\
-    \ dist[edge.from] + edge.cost)) {\n              Cap cap = edge.cap - edge.flow;\n\
+    \ dist[edge.from] + edge.cost)) {\n              // We found a negative cycle,\
+    \ so fill it.\n              // Later, we will check whether the component can\
+    \ be decomposed into smaller ones.  \n\n              Cap cap = edge.cap - edge.flow;\n\
     \              for (int v = edge.from; v != edge.to; v = this->m_edges[prev[v]].from)\
     \ {\n                const auto& current_edge = this->m_edges[prev[v]];\n    \
     \            ::tools::chmin(cap, current_edge.cap - current_edge.flow);\n    \
@@ -282,42 +317,51 @@ data:
     \               current_rev.flow -= cap;\n                result.back().second\
     \ += cap * current_edge.cost;\n              }\n\n              scc_stack.push(new_scc_id);\n\
     \              break;\n            }\n          }\n        }\n      }\n\n    \
-    \  ::std::vector<Cost> potentials(this->size(), 0);\n      bool has_negative_edge\
-    \ = ::std::any_of(this->m_edges.begin(), this->m_edges.end(), [](const auto& edge)\
-    \ { return edge.flow < edge.cap && edge.cost < 0; });\n      while (result.back().first\
-    \ < flow_limit) {\n        ::std::fill(dist.begin(), dist.end(), ::std::numeric_limits<Cost>::max());\n\
-    \        ::std::fill(prev.begin(), prev.end(), -1);\n        if (has_negative_edge)\
-    \ {\n          if (::std::all_of(scc.begin(), scc.end(), [](const auto& pair)\
-    \ { return pair.first.size() == 1; })) {\n            ::std::vector<int> indeg(this->size(),\
-    \ 0);\n            for (const auto& edge : this->m_edges) {\n              if\
-    \ (edge.flow < edge.cap) {\n                ++indeg[edge.to];\n              }\n\
-    \            }\n            ::std::queue<int> queue;\n            for (int v =\
-    \ 0; v < this->size(); ++v) {\n              if (indeg[v] == 0) {\n          \
-    \      queue.push(v);\n              }\n            }\n            dist[s] = 0;\n\
-    \            while (!queue.empty()) {\n              const auto here = queue.front();\n\
-    \              queue.pop();\n              for (const auto edge_id : this->m_graph[here])\
-    \ {\n                const auto& edge = this->m_edges[edge_id];\n            \
-    \    if (edge.flow < edge.cap) {\n                  if (dist[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {\n         \
-    \           prev[edge.to] = edge_id;\n                  }\n                  --indeg[edge.to];\n\
-    \                  if (indeg[edge.to] == 0) {\n                    queue.push(edge.to);\n\
-    \                  }\n                }\n              }\n            }\n    \
-    \      } else {\n            dist[s] = 0;\n            for (int i = 0; i < this->size()\
-    \ - 1; ++i) {\n              for (int edge_id = 0; edge_id < ::tools::ssize(this->m_edges);\
-    \ ++edge_id) {\n                const auto& edge = this->m_edges[edge_id];\n \
-    \               if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {\n         \
-    \         prev[edge.to] = edge_id;\n                }\n              }\n     \
-    \       }\n            #ifndef NDEBUG\n              for (const auto& edge : this->m_edges)\
-    \ {\n                if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max())\
-    \ {\n                  assert(dist[edge.to] <= dist[edge.from] + edge.cost);\n\
-    \                }\n              }\n            #endif\n          }\n       \
-    \ } else {\n          #ifndef NDEBUG\n            for (const auto& edge : this->m_edges)\
-    \ {\n              if (edge.flow < edge.cap && potentials[edge.from] < ::std::numeric_limits<Cost>::max()\
-    \ && potentials[edge.to] < ::std::numeric_limits<Cost>::max()) {\n           \
-    \      assert(edge.cost + potentials[edge.from] - potentials[edge.to] >= 0);\n\
-    \              }\n            }\n          #endif\n          dist[s] = 0;\n  \
-    \        ::std::priority_queue<::std::pair<int, Cost>, ::std::vector<::std::pair<int,\
+    \  // Find the shortest path, fill it, and repeat that.\n      ::std::vector<Cost>\
+    \ potentials(this->size(), 0);\n      bool has_negative_edge = ::std::any_of(this->m_edges.begin(),\
+    \ this->m_edges.end(), [](const auto& edge) { return edge.flow < edge.cap && edge.cost\
+    \ < 0; });\n      while (result.back().first < flow_limit) {\n        ::std::fill(dist.begin(),\
+    \ dist.end(), ::std::numeric_limits<Cost>::max());\n        ::std::fill(prev.begin(),\
+    \ prev.end(), -1);\n        if (has_negative_edge) {\n          if (::std::all_of(scc.begin(),\
+    \ scc.end(), [](const auto& pair) { return pair.first.size() == 1; })) {\n   \
+    \         // This is the first try to find the shortest path.\n            //\
+    \ The graph is a DAG, and it contains negative edges.\n            // This time,\
+    \ we adopt topological sorting + DP. (O(V + E) time)\n\n            ::std::vector<int>\
+    \ indeg(this->size(), 0);\n            for (const auto& edge : this->m_edges)\
+    \ {\n              if (edge.flow < edge.cap) {\n                ++indeg[edge.to];\n\
+    \              }\n            }\n            ::std::queue<int> queue;\n      \
+    \      for (int v = 0; v < this->size(); ++v) {\n              if (indeg[v] ==\
+    \ 0) {\n                queue.push(v);\n              }\n            }\n     \
+    \       dist[s] = 0;\n            while (!queue.empty()) {\n              const\
+    \ auto here = queue.front();\n              queue.pop();\n              for (const\
+    \ auto edge_id : this->m_graph[here]) {\n                const auto& edge = this->m_edges[edge_id];\n\
+    \                if (edge.flow < edge.cap) {\n                  if (dist[edge.from]\
+    \ < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to], dist[edge.from]\
+    \ + edge.cost)) {\n                    prev[edge.to] = edge_id;\n            \
+    \      }\n                  --indeg[edge.to];\n                  if (indeg[edge.to]\
+    \ == 0) {\n                    queue.push(edge.to);\n                  }\n   \
+    \             }\n              }\n            }\n          } else {\n        \
+    \    // This is the first try to find the shortest path.\n            // The graph\
+    \ contains negative edges and non-negative cycles.\n            // This time,\
+    \ we adopt Bellman-Ford algorithm. (O(VE) time)\n\n            dist[s] = 0;\n\
+    \            for (int i = 0; i < this->size() - 1; ++i) {\n              for (int\
+    \ edge_id = 0; edge_id < ::tools::ssize(this->m_edges); ++edge_id) {\n       \
+    \         const auto& edge = this->m_edges[edge_id];\n                if (edge.flow\
+    \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to],\
+    \ dist[edge.from] + edge.cost)) {\n                  prev[edge.to] = edge_id;\n\
+    \                }\n              }\n            }\n            #ifndef NDEBUG\n\
+    \              for (const auto& edge : this->m_edges) {\n                if (edge.flow\
+    \ < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max()) {\n    \
+    \              assert(dist[edge.to] <= dist[edge.from] + edge.cost);\n       \
+    \         }\n              }\n            #endif\n          }\n        } else\
+    \ {\n          // The graph only contains non-negative edges when we use potentials.\n\
+    \          // This time, we adopt Dijkstra's algorithm with potentials. (O((V\
+    \ + E) logV) time)\n\n          #ifndef NDEBUG\n            for (const auto& edge\
+    \ : this->m_edges) {\n              if (edge.flow < edge.cap && potentials[edge.from]\
+    \ < ::std::numeric_limits<Cost>::max() && potentials[edge.to] < ::std::numeric_limits<Cost>::max())\
+    \ {\n                assert(edge.cost + (potentials[edge.from] - potentials[edge.to])\
+    \ >= 0);\n              }\n            }\n          #endif\n          dist[s]\
+    \ = 0;\n          ::std::priority_queue<::std::pair<int, Cost>, ::std::vector<::std::pair<int,\
     \ Cost>>, ::tools::greater_by_second> tasks;\n          tasks.emplace(s, 0);\n\
     \          while (!tasks.empty()) {\n            const auto [here, d] = tasks.top();\n\
     \            tasks.pop();\n            if (dist[here] < d) continue;\n       \
@@ -326,23 +370,32 @@ data:
     \ < ::std::numeric_limits<Cost>::max()) {\n                assert(potentials[edge.from]\
     \ < ::std::numeric_limits<Cost>::max());\n                assert(potentials[edge.to]\
     \ < ::std::numeric_limits<Cost>::max());\n                if (::tools::chmin(dist[edge.to],\
-    \ dist[edge.from] + edge.cost + potentials[edge.from] - potentials[edge.to]))\
+    \ dist[edge.from] + edge.cost + (potentials[edge.from] - potentials[edge.to])))\
     \ {\n                  prev[edge.to] = edge_id;\n                  tasks.emplace(edge.to,\
     \ dist[edge.to]);\n                }\n              }\n            }\n       \
     \   }\n        }\n\n        if (dist[t] == ::std::numeric_limits<Cost>::max())\
     \ break;\n        for (int i = 0; i < this->size(); ++i) {\n          if (dist[i]\
     \ < ::std::numeric_limits<Cost>::max()) {\n            potentials[i] += dist[i];\n\
     \          } else {\n            potentials[i] = ::std::numeric_limits<Cost>::max();\n\
-    \          }\n        }\n        has_negative_edge = false;\n\n        Cap cap\
-    \ = flow_limit - result.back().first;\n        for (int v = t; v != s; v = this->m_edges[prev[v]].from)\
-    \ {\n          const auto& edge = this->m_edges[prev[v]];\n          ::tools::chmin(cap,\
-    \ edge.cap - edge.flow);\n        }\n\n        Cost cost = 0;\n        for (int\
-    \ v = t; v != s; v = this->m_edges[prev[v]].from) {\n          auto& edge = this->m_edges[prev[v]];\n\
+    \          }\n        }\n        has_negative_edge = false;\n\n        // Fill\
+    \ the shortest path.\n        Cap cap = flow_limit - result.back().first;\n  \
+    \      for (int v = t; v != s; v = this->m_edges[prev[v]].from) {\n          const\
+    \ auto& edge = this->m_edges[prev[v]];\n          ::tools::chmin(cap, edge.cap\
+    \ - edge.flow);\n        }\n\n        Cost cost = 0;\n        for (int v = t;\
+    \ v != s; v = this->m_edges[prev[v]].from) {\n          auto& edge = this->m_edges[prev[v]];\n\
     \          auto& rev = this->m_edges[prev[v] ^ 1];\n          edge.flow += cap;\n\
     \          rev.flow -= cap;\n          cost += cap * edge.cost;\n        }\n\n\
-    \        result.emplace_back(result.back().first + cap, result.back().second +\
-    \ cost);\n      }\n\n      return result;\n    }\n\n    ::std::vector<::std::pair<Cap,\
-    \ Cost>> slope(const int s, const int t) {\n      return this->slope(s, t, ::std::numeric_limits<Cap>::max());\n\
+    \        if ([&]() {\n          if (result.size() < 2) return true;\n        \
+    \  auto dx1 = result.back().first - result.rbegin()[1].first;\n          auto\
+    \ dy1 = result.back().second - result.rbegin()[1].second;\n          const auto\
+    \ gcd1 = ::std::gcd(dx1, dy1);\n          dx1 /= gcd1;\n          dy1 /= gcd1;\n\
+    \          auto dx2 = cap;\n          auto dy2 = cost;\n          const auto gcd2\
+    \ = ::std::gcd(dx2, dy2);\n          dx2 /= gcd2;\n          dy2 /= gcd2;\n  \
+    \        return !(dx1 == dx2 && dy1 == dy2);\n        }()) {\n          result.emplace_back(result.back().first\
+    \ + cap, result.back().second + cost);\n        } else {\n          result.back().first\
+    \ += cap;\n          result.back().second += cost;\n        }\n      }\n\n   \
+    \   return result;\n    }\n\n    ::std::vector<::std::pair<Cap, Cost>> slope(const\
+    \ int s, const int t) {\n      return this->slope(s, t, ::std::numeric_limits<Cap>::max());\n\
     \    }\n\n    ::std::pair<Cap, Cost> flow(const int s, const int t, const Cap\
     \ flow_limit) {\n      return this->slope(s, t, flow_limit).back();\n    }\n\n\
     \    ::std::pair<Cap, Cost> flow(const int s, const int t) {\n      return this->slope(s,\
@@ -361,14 +414,117 @@ data:
   path: tools/mcf_graph.hpp
   requiredBy:
   - tools/weighted_bipartite_matching.hpp
-  timestamp: '2022-03-13 20:40:34+09:00'
+  timestamp: '2022-03-19 12:27:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
 documentation_of: tools/mcf_graph.hpp
 layout: document
-redirect_from:
-- /library/tools/mcf_graph.hpp
-- /library/tools/mcf_graph.hpp.html
-title: tools/mcf_graph.hpp
+title: Solver of minimum-cost flow problem
 ---
+
+It solves Minimum-cost flow problem.
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## Constructor
+```cpp
+mcf_graph<Cap, Cost> graph(int n);
+```
+
+It creates a directed graph with $n$ vertices and $0$ edges.
+`Cap` and `Cost` are the type of the capacity and the cost, respectively.
+
+### Constraints
+- $0 \leq n \leq 10^8$
+- `Cap` and `Cost` are `int` or `long long`.
+
+### Time Complexity
+- $O(n)$
+
+## add_edge
+```cpp
+int graph.add_edge(int from, int to, Cap cap, Cost cost);
+```
+
+It adds an edge oriented from `from` to `to` with capacity `cap` and cost `cost`.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
+
+### Constraints
+- $0 \leq \mathrm{from, to} < n$
+- $0 \leq \mathrm{cap}$
+
+### Time Complexity
+- $O(1)$ amortized
+
+## flow
+```cpp
+(1) std::pair<Cap, Cost> graph.flow(int s, int t);
+(2) std::pair<Cap, Cost> graph.flow(int s, int t, Cap flow_limit);
+```
+
+- It augments the flow from $s$ to $t$ as much as possible. It returns the amount of the flow and the cost.
+- (1) It augments the $s-t$ flow as much as possible.
+- (2) It augments the $s-t$ flow as much as possible, until reaching the amount of `flow_limit`.
+
+### Constraints
+- same as `slope`.
+
+### Time Complexity
+- same as `slope`.
+
+## slope
+```cpp
+(1) std::vector<std::pair<Cap, Cost>> graph.slope(int s, int t);
+(2) std::vector<std::pair<Cap, Cost>> graph.slope(int s, int t, Cap flow_limit);
+```
+
+Let $g$ be a function such that $g(x)$ is the cost of the minimum cost $s-t$ flow when the amount of the flow is exactly $x$.
+$g$ is known to be piecewise linear.
+It returns $g$ as the list of the changepoints, that satisfies the followings.
+
+- The first element of the list is $(0, g(0))$.
+- No three changepoints are on the same line.
+- (1) The last element of the list is $(x, g(x))$, where $x$ is the maximum amount of the $s-t$ flow.
+- (2) The last element of the list is $(y, g(y))$, where $y = \min(x, \mathrm{flow\\_limit})$.
+
+### Constraints
+Let $x$ be the maximum absolute value of cost among all edges.
+
+- $s \neq t$
+- You can't call `slope` or `flow` multiple times.
+- The total amount of the flow is in `Cap`.
+- The total cost of the flow is in `Cost`.
+- (Cost : `int`): $0 \leq \|nx\| \leq 2 \times 10^9 + 1000$
+- (Cost : `long long`): $0 \leq \|nx\| \leq 8 \times 10^{18} + 1000$
+
+### Time Complexity
+- (No edges with negative cost or DAG): $O(F (n + m) \log n)$, where $F$ is the amount of the flow and $m$ is the number of added edges.
+- (Otherwise): $O(Nnm + nm + F (n + m) \log n)$, where $N$ is the number of negative cycles, $F$ is the amount of the flow and $m$ is the number of added edges.
+
+## edges
+```cpp
+struct edge<Cap, Cost> {
+  int from, to;
+  Cap cap, flow;
+  Cost cost;
+};
+
+(1) mcf_graph<Cap, Cost>::edge graph.get_edge(int i);
+(2) std::vector<mcf_graph<Cap, Cost>::edge> graph.edges();
+```
+
+- It returns the current internal state of the edges.
+- The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- $0 \leq i < m$
+
+### Time Complexity
+- (1): $(O(1))$
+- (2): $(O(m))$, where $m$ is the number of added edges.

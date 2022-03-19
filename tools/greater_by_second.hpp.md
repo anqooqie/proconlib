@@ -7,7 +7,7 @@ data:
     title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
-    title: tools/mcf_graph.hpp
+    title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
@@ -16,8 +16,11 @@ data:
     path: tests/dijkstra.test.cpp
     title: tests/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/weighted_bipartite_matching.test.cpp
-    title: tests/weighted_bipartite_matching.test.cpp
+    path: tests/weighted_bipartite_matching/maximize.test.cpp
+    title: tests/weighted_bipartite_matching/maximize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/minimize.test.cpp
+    title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -42,7 +45,8 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/dijkstra.test.cpp
 documentation_of: tools/greater_by_second.hpp
 layout: document
