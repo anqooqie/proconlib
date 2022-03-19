@@ -2,6 +2,9 @@
 
 #include <cstdint>
 #include <iostream>
+#include <vector>
+#include <tuple>
+#include <algorithm>
 #include "tools/li_chao_segtree.hpp"
 
 using i64 = std::int_fast64_t;
@@ -34,7 +37,7 @@ int main() {
   }
   std::sort(x.begin(), x.end());
   x.erase(std::unique(x.begin(), x.end()), x.end());
-  tools::li_chao_segtree<i64, std::greater<i64>> seg(x.begin(), x.end());
+  tools::li_chao_segtree<i64> seg(x.begin(), x.end(), false);
 
   for (i64 i = 0; i < N; ++i) {
     seg.add(a[i], b[i]);
