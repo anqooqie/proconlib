@@ -208,8 +208,8 @@ data:
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
-      path: tools/median_solver.hpp
-      title: Median solver
+      path: tools/median_heap.hpp
+      title: Heap managing median
     - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
@@ -480,8 +480,8 @@ data:
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/median_solver.test.cpp
-      title: tests/median_solver.test.cpp
+      path: tests/median_heap.test.cpp
+      title: tests/median_heap.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
