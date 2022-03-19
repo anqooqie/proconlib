@@ -500,8 +500,8 @@ Let $x$ be the maximum absolute value of cost among all edges.
 - You can't call `slope` or `flow` multiple times.
 - The total amount of the flow is in `Cap`.
 - The total cost of the flow is in `Cost`.
-- (Cost : `int`): $0 \leq \|nx\| \leq 2 \times 10^9 + 1000$
-- (Cost : `long long`): $0 \leq \|nx\| \leq 8 \times 10^{18} + 1000$
+- (Cost : `int`): $0 \leq nx \leq 2 \times 10^9 + 1000$
+- (Cost : `long long`): $0 \leq nx \leq 8 \times 10^{18} + 1000$
 
 ### Time Complexity
 - (No edges with negative cost or DAG): $O(F (n + m) \log n)$, where $F$ is the amount of the flow and $m$ is the number of added edges.
