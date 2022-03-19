@@ -20,6 +20,9 @@ It creates a weighted bipartite graph with $0$ edges.
 Vertices of the graph can be divided into two disjoint and independent sets $U$ and $V$.
 $U$ consists of $n_1$ vertices and $V$ consists of $n_2$ vertices.
 
+If `maximize` is `true`, it will maximize the number of matched edges, and then, maximize the sum of weights of the matched edges.
+If `maximize` is `false`, it will maximize the number of matched edges, and then, minimize the sum of weights of the matched edges.
+
 The type parameter `<W>` represents the type of weights.
 The type parameter `<E>` represents the type of the attribute of edges.
 
@@ -79,8 +82,11 @@ std::pair<W, std::vector<struct {
 }>> graph.query();
 ```
 
-If you specified that it calculates the maximum matching when you constructed it, it returns the sum of weights and the edges which can reach the maximum matching.
-If you specified that it calculates the minimum matching when you constructed it, it returns the sum of weights and the edges which can reach the minimum matching.
+If `maximize` was `true`, it returns the matched edges which can maximize the number of matched edges, and then maximize the sum of weights of the matched edges, as the second element.
+Also, it returns the sum of weights of the matched edges as the first element.
+
+If `maximize` was `false`, it returns the matched edges which can maximize the number of matched edges, and then minimize the sum of weights of the matched edges, as the second element.
+Also, it returns the sum of weights of the matched edges as the first element.
 
 ### Constraints
 - None

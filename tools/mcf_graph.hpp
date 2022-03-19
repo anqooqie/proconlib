@@ -72,6 +72,7 @@ namespace tools {
       ::std::vector<bool> will_visit(this->size());
       ::std::vector<Cost> dist(this->size());
       ::std::vector<int> prev(this->size());
+      // Loop until every strongly connected component contains no negative cycles.
       while (!scc_stack.empty()) {
         const auto scc_id = scc_stack.top();
         scc_stack.pop();
@@ -80,6 +81,7 @@ namespace tools {
         scc_vertices.swap(scc[scc_id].first);
         scc_edge_ids.swap(scc[scc_id].second);
 
+        // scc[scc_id] might be decomposed into smaller strongly connected components, so check and decompose it.
         ::std::stack<int> ordered_by_dfs;
         for (const auto v : scc_vertices) {
           will_visit[v] = false;
@@ -152,6 +154,8 @@ namespace tools {
           }
         }
 
+        // Now, scc[new_scc_id] is truly a strongly connected component.
+        // Check whether it contains any negative cycles using Bellman-Ford algorithm.
         for (const auto new_scc_id : new_scc_ids) {
           const auto& [new_scc_vertices, new_scc_edge_ids] = scc[new_scc_id];
           for (const auto v : new_scc_vertices) {
@@ -172,6 +176,9 @@ namespace tools {
             auto& edge = this->m_edges[edge_id];
             auto& rev = this->m_edges[edge_id ^ 1];
             if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {
+              // We found a negative cycle, so fill it.
+              // Later, we will check whether the component can be decomposed into smaller ones.  
+
               Cap cap = edge.cap - edge.flow;
               for (int v = edge.from; v != edge.to; v = this->m_edges[prev[v]].from) {
                 const auto& current_edge = this->m_edges[prev[v]];
@@ -196,6 +203,7 @@ namespace tools {
         }
       }
 
+      // Find the shortest path, fill it, and repeat that.
       ::std::vector<Cost> potentials(this->size(), 0);
       bool has_negative_edge = ::std::any_of(this->m_edges.begin(), this->m_edges.end(), [](const auto& edge) { return edge.flow < edge.cap && edge.cost < 0; });
       while (result.back().first < flow_limit) {
@@ -203,6 +211,10 @@ namespace tools {
         ::std::fill(prev.begin(), prev.end(), -1);
         if (has_negative_edge) {
           if (::std::all_of(scc.begin(), scc.end(), [](const auto& pair) { return pair.first.size() == 1; })) {
+            // This is the first try to find the shortest path.
+            // The graph is a DAG, and it contains negative edges.
+            // This time, we adopt topological sorting + DP. (O(V + E) time)
+
             ::std::vector<int> indeg(this->size(), 0);
             for (const auto& edge : this->m_edges) {
               if (edge.flow < edge.cap) {
@@ -233,6 +245,10 @@ namespace tools {
               }
             }
           } else {
+            // This is the first try to find the shortest path.
+            // The graph contains negative edges and non-negative cycles.
+            // This time, we adopt Bellman-Ford algorithm. (O(VE) time)
+
             dist[s] = 0;
             for (int i = 0; i < this->size() - 1; ++i) {
               for (int edge_id = 0; edge_id < ::tools::ssize(this->m_edges); ++edge_id) {
@@ -251,10 +267,13 @@ namespace tools {
             #endif
           }
         } else {
+          // The graph only contains non-negative edges when we use potentials.
+          // This time, we adopt Dijkstra's algorithm with potentials. (O((V + E) logV) time)
+
           #ifndef NDEBUG
             for (const auto& edge : this->m_edges) {
               if (edge.flow < edge.cap && potentials[edge.from] < ::std::numeric_limits<Cost>::max() && potentials[edge.to] < ::std::numeric_limits<Cost>::max()) {
-                 assert(edge.cost + potentials[edge.from] - potentials[edge.to] >= 0);
+                assert(edge.cost + (potentials[edge.from] - potentials[edge.to]) >= 0);
               }
             }
           #endif
@@ -270,7 +289,7 @@ namespace tools {
               if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max()) {
                 assert(potentials[edge.from] < ::std::numeric_limits<Cost>::max());
                 assert(potentials[edge.to] < ::std::numeric_limits<Cost>::max());
-                if (::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost + potentials[edge.from] - potentials[edge.to])) {
+                if (::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost + (potentials[edge.from] - potentials[edge.to]))) {
                   prev[edge.to] = edge_id;
                   tasks.emplace(edge.to, dist[edge.to]);
                 }
@@ -289,6 +308,7 @@ namespace tools {
         }
         has_negative_edge = false;
 
+        // Fill the shortest path.
         Cap cap = flow_limit - result.back().first;
         for (int v = t; v != s; v = this->m_edges[prev[v]].from) {
           const auto& edge = this->m_edges[prev[v]];
@@ -304,7 +324,25 @@ namespace tools {
           cost += cap * edge.cost;
         }
 
-        result.emplace_back(result.back().first + cap, result.back().second + cost);
+        if ([&]() {
+          if (result.size() < 2) return true;
+          auto dx1 = result.back().first - result.rbegin()[1].first;
+          auto dy1 = result.back().second - result.rbegin()[1].second;
+          const auto gcd1 = ::std::gcd(dx1, dy1);
+          dx1 /= gcd1;
+          dy1 /= gcd1;
+          auto dx2 = cap;
+          auto dy2 = cost;
+          const auto gcd2 = ::std::gcd(dx2, dy2);
+          dx2 /= gcd2;
+          dy2 /= gcd2;
+          return !(dx1 == dx2 && dy1 == dy2);
+        }()) {
+          result.emplace_back(result.back().first + cap, result.back().second + cost);
+        } else {
+          result.back().first += cap;
+          result.back().second += cost;
+        }
       }
 
       return result;
