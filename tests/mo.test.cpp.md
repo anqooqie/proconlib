@@ -94,7 +94,7 @@ data:
     \  std::vector<int> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  ::tools::mo\
     \ mo(N, Q);\n  ::std::vector<int> queries(Q);\n  for (int i = 0; i < Q; ++i) {\n\
     \    int l, r;\n    std::cin >> l >> r;\n    mo.add_query(l, r);\n    std::cin\
-    \ >> queries[i];\n  }\n\n  ::__gnu_pbds::cc_hash_table<int, int> freq;\n  const\
+    \ >> queries[i];\n  }\n\n  ::__gnu_pbds::gp_hash_table<int, int> freq;\n  const\
     \ auto add = [&](const int i) { ++freq[a[i]]; };\n  const auto remove = [&](const\
     \ int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n  mo.run(add, add,\
     \ remove, remove, [&](const int i) {\n    if (const auto it = freq.find(queries[i]);\
@@ -108,7 +108,7 @@ data:
     \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<int> a(N);\n  for (auto& a_i\
     \ : a) std::cin >> a_i;\n\n  ::tools::mo mo(N, Q);\n  ::std::vector<int> queries(Q);\n\
     \  for (int i = 0; i < Q; ++i) {\n    int l, r;\n    std::cin >> l >> r;\n   \
-    \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  ::__gnu_pbds::cc_hash_table<int,\
+    \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  ::__gnu_pbds::gp_hash_table<int,\
     \ int> freq;\n  const auto add = [&](const int i) { ++freq[a[i]]; };\n  const\
     \ auto remove = [&](const int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n\
     \  mo.run(add, add, remove, remove, [&](const int i) {\n    if (const auto it\
