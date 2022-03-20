@@ -45,6 +45,9 @@ data:
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
+      path: tools/ceil_sqrt.hpp
+      title: $\left\lceil \sqrt{x} \right\rceil$
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
     - icon: ':heavy_check_mark:'
@@ -399,6 +402,9 @@ data:
       path: tests/ceil_log2.test.cpp
       title: tests/ceil_log2.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/ceil_sqrt.test.cpp
+      title: tests/ceil_sqrt.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/chromatic_number.test.cpp
       title: tests/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
@@ -452,6 +458,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_log2.test.cpp
       title: tests/floor_log2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/floor_sqrt.test.cpp
+      title: tests/floor_sqrt.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp

@@ -19,6 +19,9 @@ data:
     path: tests/ceil_log2.test.cpp
     title: tests/ceil_log2.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ceil_sqrt.test.cpp
+    title: tests/ceil_sqrt.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':heavy_check_mark:'
@@ -33,6 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_sqrt.test.cpp
+    title: tests/floor_sqrt.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
@@ -82,6 +88,7 @@ data:
   verifiedWith:
   - tests/fix.test.cpp
   - tests/permutation.test.cpp
+  - tests/floor_sqrt.test.cpp
   - tests/run_length.test.cpp
   - tests/ceil_log.test.cpp
   - tests/floor_log2.test.cpp
@@ -90,6 +97,7 @@ data:
   - tests/ssize.test.cpp
   - tests/safe_int.test.cpp
   - tests/tsort.test.cpp
+  - tests/ceil_sqrt.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/mex.test.cpp

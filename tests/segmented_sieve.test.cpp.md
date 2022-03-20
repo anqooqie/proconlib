@@ -240,21 +240,22 @@ data:
     #include <iterator>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\
     \n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n\
     \ >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\
-    \n    while (ng - ok > 1) {\n      const T mid = (ok + ng) / 2;\n      if (mid\
-    \ * mid <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n\
-    \    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if\
+    \ (mid * mid <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n \
+    \     }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\
+    \n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
+    \ typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated =\
+    \ lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line\
+    \ 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\
+    \n#line 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
+    \ M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
+    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
+    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
+    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
+    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
@@ -429,7 +430,7 @@ data:
   isVerificationFile: true
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
-  timestamp: '2022-03-12 16:17:46+09:00'
+  timestamp: '2022-03-20 11:06:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp

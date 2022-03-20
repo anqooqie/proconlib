@@ -29,14 +29,14 @@ data:
     \n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ T>\n  T floor_sqrt(T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n\
     \    for (ng = 1; ng * ng <= n; ng *= 2);\n\n    while (ng - ok > 1) {\n     \
-    \ const T mid = (ok + ng) / 2;\n      if (mid * mid <= n) {\n        ok = mid;\n\
-    \      } else {\n        ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\
-    \n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n \
-    \   return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"\
-    tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ const T mid = ok + (ng - ok) / 2;\n      if (mid * mid <= n) {\n        ok =\
+    \ mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n    return ok;\n\
+    \  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\n\
+    namespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
+    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
+    \ rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
     \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
     \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
@@ -339,7 +339,7 @@ data:
   isVerificationFile: false
   path: tools/segmented_sieve.hpp
   requiredBy: []
-  timestamp: '2021-12-10 23:22:43+09:00'
+  timestamp: '2022-03-20 11:06:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/segmented_sieve.test.cpp
