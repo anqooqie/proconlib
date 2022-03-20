@@ -1,14 +1,14 @@
 ---
-title: $\left\lfloor \sqrt{x} \right\rfloor$
-documentation_of: //tools/floor_sqrt.hpp
+title: $\left\lceil \sqrt{x} \right\rceil$
+documentation_of: //tools/ceil_sqrt.hpp
 ---
 
 ```cpp
 template <typename T>
-T floor_sqrt(T x);
+T ceil_sqrt(T x);
 ```
 
-It returns $\left\lfloor \sqrt{x} \right\rfloor$.
+It returns $\left\lceil \sqrt{x} \right\rceil$.
 
 ## Constraints
 - $0 \leq x \leq 10^{18} + 1000$
