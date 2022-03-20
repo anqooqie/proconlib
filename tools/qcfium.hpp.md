@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/mo.test.cpp
+    title: tests/mo.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/qcfium.test.cpp
     title: tests/qcfium.test.cpp
   _isVerificationFailed: false
@@ -47,6 +50,7 @@ data:
   timestamp: '2021-07-24 04:45:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/mo.test.cpp
   - tests/qcfium.test.cpp
 documentation_of: tools/qcfium.hpp
 layout: document

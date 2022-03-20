@@ -3,12 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/mo.hpp
+    title: Mo's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/mo.test.cpp
+    title: tests/mo.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
@@ -34,9 +40,11 @@ data:
   path: tools/floor_sqrt.hpp
   requiredBy:
   - tools/segmented_sieve.hpp
+  - tools/mo.hpp
   timestamp: '2022-03-20 11:06:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/mo.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/floor_sqrt.test.cpp
 documentation_of: tools/floor_sqrt.hpp

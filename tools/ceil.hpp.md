@@ -18,6 +18,9 @@ data:
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
+    path: tools/mo.hpp
+    title: Mo's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':warning:'
@@ -78,6 +81,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/mo.test.cpp
+    title: tests/mo.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -140,6 +146,7 @@ data:
   - tools/segmented_sieve.hpp
   - tools/ceil_log.hpp
   - tools/round.hpp
+  - tools/mo.hpp
   - tools/bigdecimal.hpp
   - tools/dynamic_bitset.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -153,6 +160,7 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/mo.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/ceil_log.test.cpp
   - tests/rational/multiplies.test.cpp

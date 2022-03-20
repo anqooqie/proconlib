@@ -145,6 +145,9 @@ data:
       path: tools/greater_by_first.hpp
       title: std::greater by first
     - icon: ':heavy_check_mark:'
+      path: tools/greater_by_get.hpp
+      title: std::greater by std::get
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -189,6 +192,9 @@ data:
     - icon: ':warning:'
       path: tools/less_by_first.hpp
       title: std::less by first
+    - icon: ':heavy_check_mark:'
+      path: tools/less_by_get.hpp
+      title: std::less by std::get
     - icon: ':warning:'
       path: tools/less_by_second.hpp
       title: std::less by second
@@ -216,6 +222,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
+    - icon: ':heavy_check_mark:'
+      path: tools/mo.hpp
+      title: Mo's algorithm
     - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
@@ -491,6 +500,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/mo.test.cpp
+      title: tests/mo.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/parse_fixed_point_number.test.cpp
       title: tests/parse_fixed_point_number.test.cpp

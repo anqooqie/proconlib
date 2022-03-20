@@ -24,6 +24,9 @@ data:
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
+    path: tools/mo.hpp
+    title: Mo's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':warning:'
@@ -88,6 +91,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/mo.test.cpp
+    title: tests/mo.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -151,6 +157,7 @@ data:
   - tools/segmented_sieve.hpp
   - tools/ceil_log.hpp
   - tools/round.hpp
+  - tools/mo.hpp
   - tools/floor.hpp
   - tools/bigdecimal.hpp
   - tools/dynamic_bitset.hpp
@@ -165,6 +172,7 @@ data:
   - tests/bigint/divides.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
+  - tests/mo.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/ceil_log.test.cpp
   - tests/rational/multiplies.test.cpp
