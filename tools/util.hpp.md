@@ -85,9 +85,9 @@ data:
     ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1, T2>& pair)\
     \ {\n  return os << '[' << pair.first << \", \" << pair.second << ']';\n}\ntemplate\
     \ <int I = 0, typename... Args>\n::std::istream& operator>>(::std::istream& is,\
-    \ const ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args)))\
-    \ {\n    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n\
-    \  } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
+    \ ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args))) {\n\
+    \    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n \
+    \ } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>& tuple)\
     \ {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr (I == int(sizeof...(Args)))\
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
@@ -145,9 +145,9 @@ data:
     ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1, T2>& pair)\
     \ {\n  return os << '[' << pair.first << \", \" << pair.second << ']';\n}\ntemplate\
     \ <int I = 0, typename... Args>\n::std::istream& operator>>(::std::istream& is,\
-    \ const ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args)))\
-    \ {\n    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n\
-    \  } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
+    \ ::std::tuple<Args...>& tuple) {\n  if constexpr (I < int(sizeof...(Args))) {\n\
+    \    is >> ::std::get<I>(tuple);\n    return operator>><I + 1>(is, tuple);\n \
+    \ } else {\n    return is;\n  }\n}\ntemplate <int I = -1, typename... Args>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>& tuple)\
     \ {\n  if constexpr (I == -1) {\n    os << '[';\n  } else if constexpr (I == int(sizeof...(Args)))\
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
@@ -165,7 +165,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2021-12-11 09:41:25+09:00'
+  timestamp: '2022-03-25 22:23:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp
