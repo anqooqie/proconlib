@@ -130,7 +130,7 @@ template <class T1, class T2>
   return os << '[' << pair.first << ", " << pair.second << ']';
 }
 template <int I = 0, typename... Args>
-::std::istream& operator>>(::std::istream& is, const ::std::tuple<Args...>& tuple) {
+::std::istream& operator>>(::std::istream& is, ::std::tuple<Args...>& tuple) {
   if constexpr (I < int(sizeof...(Args))) {
     is >> ::std::get<I>(tuple);
     return operator>><I + 1>(is, tuple);
