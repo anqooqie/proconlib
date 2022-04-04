@@ -256,6 +256,9 @@ data:
       path: tools/permutation.hpp
       title: Permutation
     - icon: ':heavy_check_mark:'
+      path: tools/persistent_queue.hpp
+      title: tools/persistent_queue.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
     - icon: ':heavy_check_mark:'
@@ -512,6 +515,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/permutation.test.cpp
       title: tests/permutation.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/persistent_queue.test.cpp
+      title: tests/persistent_queue.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prim.test.cpp
       title: tests/prim.test.cpp

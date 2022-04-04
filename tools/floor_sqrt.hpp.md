@@ -45,8 +45,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/mo.test.cpp
-  - tests/segmented_sieve.test.cpp
   - tests/floor_sqrt.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/floor_sqrt.hpp
 layout: document
 title: $\left\lfloor \sqrt{x} \right\rfloor$

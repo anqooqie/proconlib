@@ -541,9 +541,9 @@ data:
   timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

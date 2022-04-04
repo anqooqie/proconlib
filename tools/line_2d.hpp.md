@@ -517,8 +517,8 @@ data:
   timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
 documentation_of: tools/line_2d.hpp
 layout: document
 title: Two-dimensional line
