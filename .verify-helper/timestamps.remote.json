@@ -63,6 +63,7 @@
 "tests/pdsu.test.cpp": "2022-02-19 06:09:11 +0900",
 "tests/permutation.test.cpp": "2021-12-26 18:29:38 +0900",
 "tests/persistent_queue.test.cpp": "2022-04-16 09:34:34 +0900",
+"tests/persistent_stack.test.cpp": "2022-04-16 10:31:14 +0900",
 "tests/polygon_2d/area.test.cpp": "2022-02-19 03:37:47 +0900",
 "tests/polygon_2d/minimum_bounding_circle.test.cpp": "2022-03-12 16:17:46 +0900",
 "tests/polygon_2d/where.test.cpp": "2022-02-19 03:37:47 +0900",
