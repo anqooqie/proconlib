@@ -257,7 +257,7 @@ data:
       title: Permutation
     - icon: ':heavy_check_mark:'
       path: tools/persistent_queue.hpp
-      title: tools/persistent_queue.hpp
+      title: Persistent queue
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
