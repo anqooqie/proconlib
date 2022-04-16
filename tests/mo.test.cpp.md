@@ -109,9 +109,9 @@ data:
     \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  tools::unordered_map<int,\
     \ int> freq;\n  const auto add = [&](const int i) { ++freq[a[i]]; };\n  const\
     \ auto remove = [&](const int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n\
-    \  mo.run(add, add, remove, remove, [&](const int i) {\n    if (const auto it\
-    \ = freq.find(queries[i]); it != freq.end()) {\n      answers[i] = it->second;\n\
-    \    } else {\n      answers[i] = 0;\n    }\n  });\n\n  for (const auto& answer\
+    \  mo.run(add, add, remove, remove, [&](const int q) {\n    if (const auto it\
+    \ = freq.find(queries[q]); it != freq.end()) {\n      answers[q] = it->second;\n\
+    \    } else {\n      answers[q] = 0;\n    }\n  });\n\n  for (const auto& answer\
     \ : answers) {\n    std::cout << answer << '\\n';\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_frequency\"\
     \n#ifdef __clang__\n  #define IGNORE\n#endif\n\n#include \"tools/qcfium.hpp\"\n\
@@ -123,9 +123,9 @@ data:
     \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  tools::unordered_map<int,\
     \ int> freq;\n  const auto add = [&](const int i) { ++freq[a[i]]; };\n  const\
     \ auto remove = [&](const int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n\
-    \  mo.run(add, add, remove, remove, [&](const int i) {\n    if (const auto it\
-    \ = freq.find(queries[i]); it != freq.end()) {\n      answers[i] = it->second;\n\
-    \    } else {\n      answers[i] = 0;\n    }\n  });\n\n  for (const auto& answer\
+    \  mo.run(add, add, remove, remove, [&](const int q) {\n    if (const auto it\
+    \ = freq.find(queries[q]); it != freq.end()) {\n      answers[q] = it->second;\n\
+    \    } else {\n      answers[q] = 0;\n    }\n  });\n\n  for (const auto& answer\
     \ : answers) {\n    std::cout << answer << '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
   - tools/qcfium.hpp
@@ -139,7 +139,7 @@ data:
   isVerificationFile: true
   path: tests/mo.test.cpp
   requiredBy: []
-  timestamp: '2022-04-16 19:14:11+09:00'
+  timestamp: '2022-04-16 21:31:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mo.test.cpp
