@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <vector>
 #include "tools/persistent_queue.hpp"
 
 using i64 = std::int_fast64_t;
@@ -10,8 +11,9 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  tools::persistent_queue_buffer<i64> S;
-  S.emplace_back();
+  tools::persistent_queue<i64>::buffer buffer;
+  std::vector<tools::persistent_queue<i64>> S;
+  S.emplace_back(buffer);
   i64 Q;
   std::cin >> Q;
   for (i64 q = 0; q < Q; ++q) {
