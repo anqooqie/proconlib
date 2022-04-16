@@ -6,8 +6,8 @@
 #include "tools/qcfium.hpp"
 #include <iostream>
 #include <vector>
-#include <ext/pb_ds/assoc_container.hpp>
 #include "tools/mo.hpp"
+#include "tools/unordered_map.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -18,8 +18,8 @@ int main() {
   std::vector<int> a(N);
   for (auto& a_i : a) std::cin >> a_i;
 
-  ::tools::mo mo(N, Q);
-  ::std::vector<int> queries(Q);
+  tools::mo mo(N, Q);
+  std::vector<int> queries(Q);
   for (int i = 0; i < Q; ++i) {
     int l, r;
     std::cin >> l >> r;
@@ -27,7 +27,7 @@ int main() {
     std::cin >> queries[i];
   }
 
-  ::__gnu_pbds::gp_hash_table<int, int> freq;
+  tools::unordered_map<int, int> freq;
   const auto add = [&](const int i) { ++freq[a[i]]; };
   const auto remove = [&](const int i) { --freq[a[i]]; };
   ::std::vector<int> answers(Q);
