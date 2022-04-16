@@ -259,6 +259,9 @@ data:
       path: tools/persistent_queue.hpp
       title: Persistent queue
     - icon: ':heavy_check_mark:'
+      path: tools/persistent_stack.hpp
+      title: Persistent stack
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
     - icon: ':heavy_check_mark:'
@@ -518,6 +521,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_queue.test.cpp
       title: tests/persistent_queue.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/persistent_stack.test.cpp
+      title: tests/persistent_stack.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prim.test.cpp
       title: tests/prim.test.cpp

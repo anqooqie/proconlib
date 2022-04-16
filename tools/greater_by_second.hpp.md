@@ -16,6 +16,9 @@ data:
     path: tests/dijkstra.test.cpp
     title: tests/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/persistent_stack.test.cpp
+    title: tests/persistent_stack.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -46,6 +49,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dijkstra.test.cpp
+  - tests/persistent_stack.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
 documentation_of: tools/greater_by_second.hpp

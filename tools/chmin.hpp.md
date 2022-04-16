@@ -31,6 +31,9 @@ data:
     path: tests/dijkstra.test.cpp
     title: tests/dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/persistent_stack.test.cpp
+    title: tests/persistent_stack.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
@@ -76,6 +79,7 @@ data:
   - tests/segmented_sieve.test.cpp
   - tests/bellman_ford.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/persistent_stack.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/xor_basis.test.cpp

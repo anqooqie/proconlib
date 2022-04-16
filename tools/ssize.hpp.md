@@ -76,6 +76,9 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/persistent_stack.test.cpp
+    title: tests/persistent_stack.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -145,6 +148,7 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/persistent_stack.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/bigint/minus.test.cpp
