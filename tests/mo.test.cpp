@@ -31,11 +31,11 @@ int main() {
   const auto add = [&](const int i) { ++freq[a[i]]; };
   const auto remove = [&](const int i) { --freq[a[i]]; };
   ::std::vector<int> answers(Q);
-  mo.run(add, add, remove, remove, [&](const int i) {
-    if (const auto it = freq.find(queries[i]); it != freq.end()) {
-      answers[i] = it->second;
+  mo.run(add, add, remove, remove, [&](const int q) {
+    if (const auto it = freq.find(queries[q]); it != freq.end()) {
+      answers[q] = it->second;
     } else {
-      answers[i] = 0;
+      answers[q] = 0;
     }
   });
 
