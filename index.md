@@ -327,6 +327,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
+    - icon: ':warning:'
+      path: tools/set.hpp
+      title: Alias for __gnu_pbds::tree
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
@@ -354,6 +357,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting
+    - icon: ':heavy_check_mark:'
+      path: tools/unordered_map.hpp
+      title: tools/unordered_map.hpp
     - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index

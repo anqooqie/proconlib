@@ -22,6 +22,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/qcfium.hpp
     title: QCFium's method
+  - icon: ':heavy_check_mark:'
+    path: tools/unordered_map.hpp
+    title: tools/unordered_map.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -37,24 +40,23 @@ data:
     \n#ifdef __clang__\n  #define IGNORE\n#endif\n\n#line 1 \"tools/qcfium.hpp\"\n\
     \n\n\n#pragma GCC target(\"avx2\")\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
     \ optimize(\"unroll-loops\")\n\n\n#line 7 \"tests/mo.test.cpp\"\n#include <iostream>\n\
-    #include <vector>\n#include <ext/pb_ds/assoc_container.hpp>\n#line 1 \"tools/mo.hpp\"\
-    \n\n\n\n#include <cstddef>\n#line 6 \"tools/mo.hpp\"\n#include <tuple>\n#include\
-    \ <algorithm>\n#include <cassert>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/floor_sqrt.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
-    \  T floor_sqrt(T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n    for\
-    \ (ng = 1; ng * ng <= n; ng *= 2);\n\n    while (ng - ok > 1) {\n      const T\
-    \ mid = ok + (ng - ok) / 2;\n      if (mid * mid <= n) {\n        ok = mid;\n\
-    \      } else {\n        ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\
-    \n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const\
-    \ N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    #include <vector>\n#line 1 \"tools/mo.hpp\"\n\n\n\n#include <cstddef>\n#line 6\
+    \ \"tools/mo.hpp\"\n#include <tuple>\n#include <algorithm>\n#include <cassert>\n\
+    #line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n >= 0);\n\
+    \n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\n    while\
+    \ (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if (mid * mid\
+    \ <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n   \
+    \ }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"\
+    tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
+    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
+    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
+    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
+    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
@@ -89,26 +91,36 @@ data:
     \        for (; ql < l; --l) add_left(l - 1);\n          for (; r < qr; ++r) add_right(r);\n\
     \          for (; l < ql; ++l) delete_left(l);\n          for (; qr < r; --r)\
     \ delete_right(r - 1);\n          run_query(qi);\n        }\n      }\n    }\n\
-    \  };\n}\n\n\n#line 11 \"tests/mo.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  int N, Q;\n  std::cin >> N >> Q;\n\
-    \  std::vector<int> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  ::tools::mo\
-    \ mo(N, Q);\n  ::std::vector<int> queries(Q);\n  for (int i = 0; i < Q; ++i) {\n\
-    \    int l, r;\n    std::cin >> l >> r;\n    mo.add_query(l, r);\n    std::cin\
-    \ >> queries[i];\n  }\n\n  ::__gnu_pbds::gp_hash_table<int, int> freq;\n  const\
-    \ auto add = [&](const int i) { ++freq[a[i]]; };\n  const auto remove = [&](const\
-    \ int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n  mo.run(add, add,\
-    \ remove, remove, [&](const int i) {\n    if (const auto it = freq.find(queries[i]);\
-    \ it != freq.end()) {\n      answers[i] = it->second;\n    } else {\n      answers[i]\
-    \ = 0;\n    }\n  });\n\n  for (const auto& answer : answers) {\n    std::cout\
-    \ << answer << '\\n';\n  }\n  return 0;\n}\n"
+    \  };\n}\n\n\n#line 1 \"tools/unordered_map.hpp\"\n\n\n\n#include <functional>\n\
+    #include <utility>\n#line 7 \"tools/unordered_map.hpp\"\n#include <ext/pb_ds/assoc_container.hpp>\n\
+    \nnamespace tools {\n\n  template <typename Key, typename T, typename Hash = ::std::hash<Key>>\n\
+    \  class unordered_map : public ::__gnu_pbds::gp_hash_table<Key, T, Hash> {\n\
+    \  public:\n    using ::__gnu_pbds::gp_hash_table<Key, T, Hash>::gp_hash_table;\n\
+    \n    template <typename... Args>\n    auto emplace(Args&&... args) {\n      return\
+    \ this->insert(::std::make_pair(::std::forward<Args>(args)...));\n    }\n\n  \
+    \  template <typename M>\n    auto insert_or_assign(const Key& k, M&& obj) {\n\
+    \      if (auto it = this->find(k); it != this->end()) {\n        it->second =\
+    \ obj;\n        return ::std::make_pair(it, false);\n      } else {\n        return\
+    \ this->emplace(k, obj);\n      }\n    }\n  };\n}\n\n\n#line 11 \"tests/mo.test.cpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<int> a(N);\n  for (auto& a_i\
+    \ : a) std::cin >> a_i;\n\n  tools::mo mo(N, Q);\n  std::vector<int> queries(Q);\n\
+    \  for (int i = 0; i < Q; ++i) {\n    int l, r;\n    std::cin >> l >> r;\n   \
+    \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  tools::unordered_map<int,\
+    \ int> freq;\n  const auto add = [&](const int i) { ++freq[a[i]]; };\n  const\
+    \ auto remove = [&](const int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n\
+    \  mo.run(add, add, remove, remove, [&](const int i) {\n    if (const auto it\
+    \ = freq.find(queries[i]); it != freq.end()) {\n      answers[i] = it->second;\n\
+    \    } else {\n      answers[i] = 0;\n    }\n  });\n\n  for (const auto& answer\
+    \ : answers) {\n    std::cout << answer << '\\n';\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_frequency\"\
     \n#ifdef __clang__\n  #define IGNORE\n#endif\n\n#include \"tools/qcfium.hpp\"\n\
-    #include <iostream>\n#include <vector>\n#include <ext/pb_ds/assoc_container.hpp>\n\
-    #include \"tools/mo.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include <iostream>\n#include <vector>\n#include \"tools/mo.hpp\"\n#include \"\
+    tools/unordered_map.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<int> a(N);\n  for (auto& a_i\
-    \ : a) std::cin >> a_i;\n\n  ::tools::mo mo(N, Q);\n  ::std::vector<int> queries(Q);\n\
+    \ : a) std::cin >> a_i;\n\n  tools::mo mo(N, Q);\n  std::vector<int> queries(Q);\n\
     \  for (int i = 0; i < Q; ++i) {\n    int l, r;\n    std::cin >> l >> r;\n   \
-    \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  ::__gnu_pbds::gp_hash_table<int,\
+    \ mo.add_query(l, r);\n    std::cin >> queries[i];\n  }\n\n  tools::unordered_map<int,\
     \ int> freq;\n  const auto add = [&](const int i) { ++freq[a[i]]; };\n  const\
     \ auto remove = [&](const int i) { --freq[a[i]]; };\n  ::std::vector<int> answers(Q);\n\
     \  mo.run(add, add, remove, remove, [&](const int i) {\n    if (const auto it\
@@ -123,10 +135,11 @@ data:
   - tools/detail/ceil_and_floor.hpp
   - tools/less_by_get.hpp
   - tools/greater_by_get.hpp
+  - tools/unordered_map.hpp
   isVerificationFile: true
   path: tests/mo.test.cpp
   requiredBy: []
-  timestamp: '2022-03-20 20:07:20+09:00'
+  timestamp: '2022-04-16 19:14:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mo.test.cpp
