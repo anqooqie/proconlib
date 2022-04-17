@@ -24,7 +24,7 @@ data:
     title: QCFium's method
   - icon: ':heavy_check_mark:'
     path: tools/unordered_map.hpp
-    title: tools/unordered_map.hpp
+    title: Alias for __gnu_pbds::gp_hash_table
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

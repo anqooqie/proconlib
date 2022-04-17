@@ -359,7 +359,7 @@ data:
       title: Topological sorting
     - icon: ':heavy_check_mark:'
       path: tools/unordered_map.hpp
-      title: tools/unordered_map.hpp
+      title: Alias for __gnu_pbds::gp_hash_table
     - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
