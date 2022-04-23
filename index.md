@@ -157,6 +157,9 @@ data:
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
     - icon: ':heavy_check_mark:'
+      path: tools/hld.hpp
+      title: Heavy-light decomposition
+    - icon: ':heavy_check_mark:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
     - icon: ':heavy_check_mark:'
@@ -485,6 +488,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/hld.test.cpp
+      title: tests/hld.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/integer_interval_set.test.cpp
       title: tests/integer_interval_set.test.cpp
