@@ -489,9 +489,6 @@ data:
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/hld.test.cpp
-      title: tests/hld.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/integer_interval_set.test.cpp
       title: tests/integer_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
@@ -632,6 +629,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - name: tests/hld
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/hld/equery.test.cpp
+      title: tests/hld/equery.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/hld/vquery.test.cpp
+      title: tests/hld/vquery.test.cpp
   - name: tests/li_chao_segtree
     pages:
     - icon: ':heavy_check_mark:'

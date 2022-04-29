@@ -22,8 +22,11 @@ data:
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/hld.test.cpp
-    title: tests/hld.test.cpp
+    path: tests/hld/equery.test.cpp
+    title: tests/hld/equery.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/hld/vquery.test.cpp
+    title: tests/hld/vquery.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -55,20 +58,21 @@ data:
   isVerificationFile: false
   path: tools/less_by.hpp
   requiredBy:
-  - tools/polygon_2d.hpp
   - tools/triangle_2d.hpp
   - tools/convex_hull.hpp
   - tools/detail/polygon_like_2d.hpp
   - tools/hld.hpp
+  - tools/polygon_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/real_interval_set.test.cpp
-  - tests/polygon_2d/where.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/hld.test.cpp
-  - tests/convex_hull.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/real_interval_set.test.cpp
+  - tests/hld/equery.test.cpp
+  - tests/hld/vquery.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

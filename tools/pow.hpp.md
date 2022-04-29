@@ -77,8 +77,8 @@ data:
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/totient.test.cpp
   - tests/permutation.test.cpp
+  - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/pow.hpp
 layout: document

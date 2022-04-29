@@ -208,15 +208,15 @@ data:
   path: tools/prime_factorization.hpp
   requiredBy:
   - tools/tetration_mod.hpp
-  - tools/extended_lucas.hpp
   - tools/divisors.hpp
   - tools/totient.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2022-02-05 17:57:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
   - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/prime_factorization.hpp

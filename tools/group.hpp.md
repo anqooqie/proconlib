@@ -47,8 +47,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/pdsu.test.cpp
-  - tests/cumsum2d.test.cpp
   - tests/parse_fixed_point_number.test.cpp
+  - tests/cumsum2d.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

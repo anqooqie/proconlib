@@ -17,7 +17,7 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/vertex_set_path_composite
     links:
     - https://judge.yosupo.jp/problem/vertex_set_path_composite
-  bundledCode: "#line 1 \"tests/hld.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
+  bundledCode: "#line 1 \"tests/hld/vquery.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
     \n\n#include <cstdint>\n#include <utility>\n#include <iostream>\n#include <vector>\n\
     #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
     \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
@@ -309,131 +309,156 @@ data:
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
     \    }\n  };\n}\n\n\n#line 14 \"tools/hld.hpp\"\n\nnamespace tools {\n  class\
-    \ hld {\n  private:\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\
-    \    ::std::vector<::std::size_t> m_parent;\n    ::std::vector<::std::size_t>\
-    \ m_depth;\n    ::atcoder::dsu m_dsu;\n    ::std::vector<::std::size_t> m_idx2dfs;\n\
-    \    ::std::vector<::std::size_t> m_dfs2idx;\n\n  public:\n    hld() = default;\n\
-    \    hld(const ::tools::hld&) = default;\n    hld(::tools::hld&&) = default;\n\
-    \    ~hld() = default;\n    ::tools::hld& operator=(const ::tools::hld&) = default;\n\
-    \    ::tools::hld& operator=(::tools::hld&&) = default;\n\n    explicit hld(const\
-    \ ::std::size_t n) : m_graph(n), m_parent(n), m_depth(n), m_idx2dfs(n), m_dfs2idx(n)\
+    \ hld {\n  private:\n    bool m_built;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_graph;\n    ::std::vector<::std::size_t> m_edges;\n    ::std::vector<::std::size_t>\
+    \ m_parent;\n    ::std::vector<::std::size_t> m_depth;\n    ::atcoder::dsu m_dsu;\n\
+    \    ::std::vector<::std::size_t> m_vid2dfs;\n    ::std::vector<::std::size_t>\
+    \ m_dfs2vid;\n    ::std::vector<::std::size_t> m_eid2dfs;\n    ::std::vector<::std::size_t>\
+    \ m_dfs2eid;\n\n  public:\n    hld() = default;\n    hld(const ::tools::hld&)\
+    \ = default;\n    hld(::tools::hld&&) = default;\n    ~hld() = default;\n    ::tools::hld&\
+    \ operator=(const ::tools::hld&) = default;\n    ::tools::hld& operator=(::tools::hld&&)\
+    \ = default;\n\n    explicit hld(const ::std::size_t n) : m_built(false), m_graph(n)\
     \ {\n      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
-    \ this->m_graph.size();\n    }\n    const ::std::vector<::std::size_t>& idx2dfs()\
-    \ const {\n      return this->m_idx2dfs;\n    }\n    const ::std::vector<::std::size_t>&\
-    \ dfs2idx() const {\n      return this->m_dfs2idx;\n    }\n\n    void add_edge(const\
-    \ ::std::size_t u, const ::std::size_t v) {\n      assert(u < this->size());\n\
-    \      assert(v < this->size());\n      this->m_graph[u].push_back(v);\n     \
-    \ this->m_graph[v].push_back(u);\n    }\n\n    void build(const ::std::size_t\
-    \ root) {\n      assert(root < this->size());\n\n      ::std::vector<::std::size_t>\
-    \ subtree_size(this->size());\n      ::std::fill(this->m_parent.begin(), this->m_parent.end(),\
-    \ ::std::numeric_limits<::std::size_t>::max());\n      this->m_depth[root] = 0;\n\
-    \      {\n        ::std::stack<::std::pair<::std::size_t, bool>> stack;\n    \
-    \    stack.emplace(root, false);\n        stack.emplace(root, true);\n       \
-    \ while (!stack.empty()) {\n          const auto [here, pre] = stack.top();\n\
-    \          stack.pop();\n          if (pre) {\n            for (const auto next\
-    \ : this->m_graph[here]) {\n              if (next != this->m_parent[here]) {\n\
-    \                this->m_parent[next] = here;\n                this->m_depth[next]\
+    \ this->m_graph.size();\n    }\n    const ::std::vector<::std::size_t>& vid2dfs()\
+    \ const {\n      assert(this->m_built);\n      return this->m_vid2dfs;\n    }\n\
+    \    const ::std::vector<::std::size_t>& dfs2vid() const {\n      assert(this->m_built);\n\
+    \      return this->m_dfs2vid;\n    }\n    const ::std::vector<::std::size_t>&\
+    \ eid2dfs() const {\n      assert(this->m_built);\n      return this->m_eid2dfs;\n\
+    \    }\n    const ::std::vector<::std::size_t>& dfs2eid() const {\n      assert(this->m_built);\n\
+    \      return this->m_dfs2eid;\n    }\n\n    void add_edge(const ::std::size_t\
+    \ u, const ::std::size_t v) {\n      assert(!this->m_built);\n      assert(u <\
+    \ this->size());\n      assert(v < this->size());\n      this->m_graph[u].push_back(this->m_edges.size());\n\
+    \      this->m_graph[v].push_back(this->m_edges.size());\n      this->m_edges.push_back(u\
+    \ ^ v);\n    }\n\n    void build(const ::std::size_t root) {\n      assert(!this->m_built);\n\
+    \      assert(root < this->size());\n      assert(this->m_edges.size() + 1 ==\
+    \ this->size());\n\n      this->m_parent.resize(this->size());\n      this->m_depth.resize(this->size());\n\
+    \      this->m_dsu = ::atcoder::dsu(this->size());\n      this->m_vid2dfs.resize(this->size());\n\
+    \      this->m_dfs2vid.resize(this->size());\n      this->m_eid2dfs.resize(this->m_edges.size());\n\
+    \      this->m_dfs2eid.resize(this->m_edges.size());\n\n      ::std::vector<::std::size_t>\
+    \ subtree_size(this->size());\n      this->m_parent[root] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      this->m_depth[root] = 0;\n      {\n        ::std::stack<::std::pair<::std::size_t,\
+    \ bool>> stack;\n        stack.emplace(root, false);\n        stack.emplace(root,\
+    \ true);\n        while (!stack.empty()) {\n          const auto [here, pre] =\
+    \ stack.top();\n          stack.pop();\n          if (pre) {\n            for\
+    \ (const auto eid : this->m_graph[here]) {\n              const auto next = this->m_edges[eid]\
+    \ ^ here;\n              if (here == root || next != (this->m_edges[this->m_parent[here]]\
+    \ ^ here)) {\n                this->m_parent[next] = eid;\n                this->m_depth[next]\
     \ = this->m_depth[here] + 1;\n                stack.emplace(next, false);\n  \
     \              stack.emplace(next, true);\n              }\n            }\n  \
     \        } else {\n            subtree_size[here] = 1;\n            for (const\
-    \ auto child : this->m_graph[here]) {\n              if (child != this->m_parent[here])\
-    \ {\n                subtree_size[here] += subtree_size[child];\n            \
-    \  }\n            }\n          }\n        }\n      }\n\n      for (::std::size_t\
-    \ v = 0; v < this->size(); ++v) {\n        if (v != root) {\n          ::std::iter_swap(\n\
-    \            ::std::prev(this->m_graph[v].end()),\n            ::std::find(this->m_graph[v].begin(),\
-    \ this->m_graph[v].end(), this->m_parent[v])\n          );\n        }\n      \
-    \  ::std::iter_swap(\n          this->m_graph[v].begin(),\n          ::std::max_element(\n\
-    \            this->m_graph[v].begin(),\n            ::std::prev(this->m_graph[v].end(),\
-    \ v == root ? 0 : 1),\n            ::tools::less_by([&](const ::std::size_t v)\
-    \ { return subtree_size[v]; })\n          )\n        );\n      }\n\n      ::std::size_t\
-    \ dfs_order = 0;\n      this->m_dsu = ::atcoder::dsu(this->size());\n      {\n\
-    \        ::std::stack<::std::size_t> stack;\n        stack.push(root);\n     \
-    \   while (!stack.empty()) {\n          const auto here = stack.top();\n     \
-    \     stack.pop();\n\n          this->m_idx2dfs[here] = dfs_order;\n         \
-    \ this->m_dfs2idx[dfs_order] = here;\n          ++dfs_order;\n\n          if (this->m_graph[here].size()\
-    \ > (here == root ? 0 : 1)) {\n            this->m_dsu.merge(here, this->m_graph[here][0]);\n\
-    \          }\n          for (auto it = ::std::next(this->m_graph[here].rbegin(),\
-    \ here == root ? 0 : 1); it != this->m_graph[here].rend(); ++it) {\n         \
-    \   stack.push(*it);\n          }\n        }\n      }\n    }\n    void build()\
-    \ {\n      this->build(0);\n    }\n\n    ::std::vector<::std::pair<::std::size_t,\
-    \ ::std::size_t>> query(::std::size_t u, ::std::size_t v) {\n      assert(u <\
-    \ this->size());\n      assert(v < this->size());\n\n      ::std::vector<::std::pair<::std::size_t,\
+    \ auto eid : this->m_graph[here]) {\n              const auto child = this->m_edges[eid]\
+    \ ^ here;\n              if (here == root || child != (this->m_edges[this->m_parent[here]]\
+    \ ^ here)) {\n                subtree_size[here] += subtree_size[child];\n   \
+    \           }\n            }\n          }\n        }\n      }\n\n      for (::std::size_t\
+    \ v = 0; v < this->size(); ++v) {\n        if (v != root) {\n          this->m_graph[v].erase(::std::find(this->m_graph[v].begin(),\
+    \ this->m_graph[v].end(), this->m_parent[v]));\n        }\n        ::std::iter_swap(\n\
+    \          this->m_graph[v].begin(),\n          ::std::max_element(\n        \
+    \    this->m_graph[v].begin(),\n            this->m_graph[v].end(),\n        \
+    \    ::tools::less_by([&](const ::std::size_t eid) { return subtree_size[this->m_edges[eid]\
+    \ ^ v]; })\n          )\n        );\n      }\n\n      {\n        ::std::size_t\
+    \ dfs_order = 0;\n        ::std::stack<::std::size_t> stack;\n        stack.push(root);\n\
+    \        while (!stack.empty()) {\n          const auto here = stack.top();\n\
+    \          stack.pop();\n\n          this->m_vid2dfs[here] = dfs_order;\n    \
+    \      this->m_dfs2vid[dfs_order] = here;\n          if (here != root) {\n   \
+    \         this->m_eid2dfs[this->m_parent[here]] = dfs_order - 1;\n           \
+    \ this->m_dfs2eid[dfs_order - 1] = this->m_parent[here];\n          }\n      \
+    \    ++dfs_order;\n\n          if (!this->m_graph[here].empty()) {\n         \
+    \   this->m_dsu.merge(here, this->m_edges[this->m_graph[here].front()] ^ here);\n\
+    \          }\n          for (auto it = this->m_graph[here].rbegin(); it != this->m_graph[here].rend();\
+    \ ++it) {\n            stack.push(this->m_edges[*it] ^ here);\n          }\n \
+    \       }\n      }\n\n      this->m_built = true;\n    }\n    void build() {\n\
+    \      this->build(0);\n    }\n\n    ::std::vector<::std::pair<::std::size_t,\
+    \ ::std::size_t>> vquery(::std::size_t u, ::std::size_t v) {\n      assert(this->m_built);\n\
+    \      assert(u < this->size());\n      assert(v < this->size());\n\n      ::std::vector<::std::pair<::std::size_t,\
     \ ::std::size_t>> head, tail;\n      while (!this->m_dsu.same(u, v)) {\n     \
     \   if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)])\
-    \ {\n          head.emplace_back(this->m_idx2dfs[u] + 1, this->m_idx2dfs[this->m_dsu.leader(u)]);\n\
-    \          u = this->m_parent[this->m_dsu.leader(u)];\n        } else {\n    \
-    \      tail.emplace_back(this->m_idx2dfs[this->m_dsu.leader(v)], this->m_idx2dfs[v]\
-    \ + 1);\n          v = this->m_parent[this->m_dsu.leader(v)];\n        }\n   \
-    \   }\n      if (this->m_depth[u] >= this->m_depth[v]) {\n        head.emplace_back(this->m_idx2dfs[u]\
-    \ + 1, this->m_idx2dfs[v]);\n      } else {\n        head.emplace_back(this->m_idx2dfs[u],\
-    \ this->m_idx2dfs[v] + 1);\n      }\n\n      ::std::copy(tail.rbegin(), tail.rend(),\
-    \ ::std::back_inserter(head));\n      return head;\n    }\n  };\n}\n\n\n#line\
-    \ 10 \"tests/hld.test.cpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\
-    \nstd::pair<mint, mint> lop(const std::pair<mint, mint> e1, const std::pair<mint,\
-    \ mint> e2) {\n  return ::std::make_pair(e1.first * e2.first, e1.first * e2.second\
-    \ + e1.second);\n}\nstd::pair<mint, mint> rop(const std::pair<mint, mint> e1,\
-    \ const std::pair<mint, mint> e2) {\n  return ::std::make_pair(e1.first * e2.first,\
-    \ e1.second * e2.first + e2.second);\n}\nstd::pair<mint, mint> e() {\n  return\
-    \ ::std::make_pair(mint::raw(1), mint::raw(0));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, Q;\n  std::cin >> N >> Q;\n\
-    \  std::vector<std::pair<mint, mint>> f;\n  f.reserve(N);\n  for (i64 i = 0; i\
-    \ < N; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    f.emplace_back(mint::raw(a),\
-    \ mint::raw(b));\n  }\n  tools::hld hld(N);\n  for (i64 i = 0; i < N - 1; ++i)\
-    \ {\n    i64 u, v;\n    std::cin >> u >> v;\n    hld.add_edge(u, v);\n  }\n\n\
-    \  hld.build();\n  std::vector<std::pair<mint, mint>> g(N);\n  for (i64 i = 0;\
-    \ i < N; ++i) {\n    g[hld.idx2dfs()[i]] = f[i];\n  }\n  atcoder::segtree<std::pair<mint,\
-    \ mint>, lop, e> lsegtree(g);\n  atcoder::segtree<std::pair<mint, mint>, rop,\
-    \ e> rsegtree(g);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin\
-    \ >> t;\n    if (t == 0) {\n      i64 p, c, d;\n      std::cin >> p >> c >> d;\n\
-    \      lsegtree.set(hld.idx2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));\n\
-    \      rsegtree.set(hld.idx2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));\n\
-    \    } else {\n      i64 u, v, x;\n      std::cin >> u >> v >> x;\n      std::pair<mint,\
-    \ mint> prod = e();\n      for (const auto& [from, to] : hld.query(u, v)) {\n\
-    \        if (from < to) {\n          prod = rop(prod, rsegtree.prod(from, to));\n\
-    \        } else {\n          prod = lop(lsegtree.prod(to, from), prod);\n    \
-    \    }\n      }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val()\
-    \ << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \ {\n          head.emplace_back(this->m_vid2dfs[u] + 1, this->m_vid2dfs[this->m_dsu.leader(u)]);\n\
+    \          u = this->m_edges[this->m_parent[this->m_dsu.leader(u)]] ^ this->m_dsu.leader(u);\n\
+    \        } else {\n          tail.emplace_back(this->m_vid2dfs[this->m_dsu.leader(v)],\
+    \ this->m_vid2dfs[v] + 1);\n          v = this->m_edges[this->m_parent[this->m_dsu.leader(v)]]\
+    \ ^ this->m_dsu.leader(v);\n        }\n      }\n      if (this->m_depth[u] >=\
+    \ this->m_depth[v]) {\n        head.emplace_back(this->m_vid2dfs[u] + 1, this->m_vid2dfs[v]);\n\
+    \      } else {\n        head.emplace_back(this->m_vid2dfs[u], this->m_vid2dfs[v]\
+    \ + 1);\n      }\n\n      ::std::copy(tail.rbegin(), tail.rend(), ::std::back_inserter(head));\n\
+    \      return head;\n    }\n\n    ::std::vector<::std::pair<::std::size_t, ::std::size_t>>\
+    \ equery(::std::size_t u, ::std::size_t v) {\n      assert(this->m_built);\n \
+    \     assert(u < this->size());\n      assert(v < this->size());\n\n      ::std::vector<::std::pair<::std::size_t,\
+    \ ::std::size_t>> head, tail;\n      while (!this->m_dsu.same(u, v)) {\n     \
+    \   if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)])\
+    \ {\n          head.emplace_back(this->m_eid2dfs[this->m_parent[u]] + 1, this->m_eid2dfs[this->m_parent[this->m_dsu.leader(u)]]);\n\
+    \          u = this->m_edges[this->m_parent[this->m_dsu.leader(u)]] ^ this->m_dsu.leader(u);\n\
+    \        } else {\n          tail.emplace_back(this->m_eid2dfs[this->m_parent[this->m_dsu.leader(v)]],\
+    \ this->m_eid2dfs[this->m_parent[v]] + 1);\n          v = this->m_edges[this->m_parent[this->m_dsu.leader(v)]]\
+    \ ^ this->m_dsu.leader(v);\n        }\n      }\n      if (this->m_depth[u] > this->m_depth[v])\
+    \ {\n        head.emplace_back(this->m_eid2dfs[this->m_parent[u]] + 1, this->m_eid2dfs[this->m_graph[v].front()]);\n\
+    \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
+    \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
+    \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
+    }\n\n\n#line 10 \"tests/hld/vquery.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    using mint = atcoder::modint998244353;\n\nstd::pair<mint, mint> op(const std::pair<mint,\
+    \ mint> e1, const std::pair<mint, mint> e2) {\n  return ::std::make_pair(e1.first\
+    \ * e2.first, e1.first * e2.second + e1.second);\n}\nstd::pair<mint, mint> po(const\
+    \ std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {\n  return op(e2,\
+    \ e1);\n}\nstd::pair<mint, mint> e() {\n  return ::std::make_pair(mint::raw(1),\
+    \ mint::raw(0));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n\
+    \  f.reserve(N);\n  for (i64 i = 0; i < N; ++i) {\n    i64 a, b;\n    std::cin\
+    \ >> a >> b;\n    f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld\
+    \ hld(N);\n  for (i64 i = 0; i < N - 1; ++i) {\n    i64 u, v;\n    std::cin >>\
+    \ u >> v;\n    hld.add_edge(u, v);\n  }\n\n  hld.build();\n  std::vector<std::pair<mint,\
+    \ mint>> g(N);\n  for (i64 i = 0; i < N; ++i) {\n    g[hld.vid2dfs()[i]] = f[i];\n\
+    \  }\n  atcoder::segtree<std::pair<mint, mint>, op, e> segtree_to_root(g);\n \
+    \ atcoder::segtree<std::pair<mint, mint>, po, e> segtree_to_leaf(g);\n\n  for\
+    \ (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin >> t;\n    if (t == 0) {\n\
+    \      i64 p, c, d;\n      std::cin >> p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs()[p],\
+    \ std::make_pair(mint::raw(c), mint::raw(d)));\n      segtree_to_leaf.set(hld.vid2dfs()[p],\
+    \ std::make_pair(mint::raw(c), mint::raw(d)));\n    } else {\n      i64 u, v,\
+    \ x;\n      std::cin >> u >> v >> x;\n      std::pair<mint, mint> prod = e();\n\
+    \      for (const auto& [from, to] : hld.vquery(u, v)) {\n        if (from < to)\
+    \ {\n          prod = op(segtree_to_leaf.prod(from, to), prod);\n        } else\
+    \ {\n          prod = op(segtree_to_root.prod(to, from), prod);\n        }\n \
+    \     }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val() <<\
+    \ '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
     \n\n#include <cstdint>\n#include <utility>\n#include <iostream>\n#include <vector>\n\
     #include \"atcoder/modint.hpp\"\n#include \"atcoder/segtree.hpp\"\n#include \"\
     tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\
-    \nstd::pair<mint, mint> lop(const std::pair<mint, mint> e1, const std::pair<mint,\
+    \nstd::pair<mint, mint> op(const std::pair<mint, mint> e1, const std::pair<mint,\
     \ mint> e2) {\n  return ::std::make_pair(e1.first * e2.first, e1.first * e2.second\
-    \ + e1.second);\n}\nstd::pair<mint, mint> rop(const std::pair<mint, mint> e1,\
-    \ const std::pair<mint, mint> e2) {\n  return ::std::make_pair(e1.first * e2.first,\
-    \ e1.second * e2.first + e2.second);\n}\nstd::pair<mint, mint> e() {\n  return\
-    \ ::std::make_pair(mint::raw(1), mint::raw(0));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, Q;\n  std::cin >> N >> Q;\n\
-    \  std::vector<std::pair<mint, mint>> f;\n  f.reserve(N);\n  for (i64 i = 0; i\
-    \ < N; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    f.emplace_back(mint::raw(a),\
-    \ mint::raw(b));\n  }\n  tools::hld hld(N);\n  for (i64 i = 0; i < N - 1; ++i)\
-    \ {\n    i64 u, v;\n    std::cin >> u >> v;\n    hld.add_edge(u, v);\n  }\n\n\
-    \  hld.build();\n  std::vector<std::pair<mint, mint>> g(N);\n  for (i64 i = 0;\
-    \ i < N; ++i) {\n    g[hld.idx2dfs()[i]] = f[i];\n  }\n  atcoder::segtree<std::pair<mint,\
-    \ mint>, lop, e> lsegtree(g);\n  atcoder::segtree<std::pair<mint, mint>, rop,\
-    \ e> rsegtree(g);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin\
-    \ >> t;\n    if (t == 0) {\n      i64 p, c, d;\n      std::cin >> p >> c >> d;\n\
-    \      lsegtree.set(hld.idx2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));\n\
-    \      rsegtree.set(hld.idx2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));\n\
-    \    } else {\n      i64 u, v, x;\n      std::cin >> u >> v >> x;\n      std::pair<mint,\
-    \ mint> prod = e();\n      for (const auto& [from, to] : hld.query(u, v)) {\n\
-    \        if (from < to) {\n          prod = rop(prod, rsegtree.prod(from, to));\n\
-    \        } else {\n          prod = lop(lsegtree.prod(to, from), prod);\n    \
-    \    }\n      }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val()\
-    \ << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \ + e1.second);\n}\nstd::pair<mint, mint> po(const std::pair<mint, mint> e1, const\
+    \ std::pair<mint, mint> e2) {\n  return op(e2, e1);\n}\nstd::pair<mint, mint>\
+    \ e() {\n  return ::std::make_pair(mint::raw(1), mint::raw(0));\n}\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n  f.reserve(N);\n\
+    \  for (i64 i = 0; i < N; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n   \
+    \ f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld hld(N);\n  for\
+    \ (i64 i = 0; i < N - 1; ++i) {\n    i64 u, v;\n    std::cin >> u >> v;\n    hld.add_edge(u,\
+    \ v);\n  }\n\n  hld.build();\n  std::vector<std::pair<mint, mint>> g(N);\n  for\
+    \ (i64 i = 0; i < N; ++i) {\n    g[hld.vid2dfs()[i]] = f[i];\n  }\n  atcoder::segtree<std::pair<mint,\
+    \ mint>, op, e> segtree_to_root(g);\n  atcoder::segtree<std::pair<mint, mint>,\
+    \ po, e> segtree_to_leaf(g);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n\
+    \    std::cin >> t;\n    if (t == 0) {\n      i64 p, c, d;\n      std::cin >>\
+    \ p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs()[p], std::make_pair(mint::raw(c),\
+    \ mint::raw(d)));\n      segtree_to_leaf.set(hld.vid2dfs()[p], std::make_pair(mint::raw(c),\
+    \ mint::raw(d)));\n    } else {\n      i64 u, v, x;\n      std::cin >> u >> v\
+    \ >> x;\n      std::pair<mint, mint> prod = e();\n      for (const auto& [from,\
+    \ to] : hld.vquery(u, v)) {\n        if (from < to) {\n          prod = op(segtree_to_leaf.prod(from,\
+    \ to), prod);\n        } else {\n          prod = op(segtree_to_root.prod(to,\
+    \ from), prod);\n        }\n      }\n      std::cout << (prod.first * mint::raw(x)\
+    \ + prod.second).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
   isVerificationFile: true
-  path: tests/hld.test.cpp
+  path: tests/hld/vquery.test.cpp
   requiredBy: []
-  timestamp: '2022-04-23 16:47:26+09:00'
+  timestamp: '2022-04-29 19:19:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/hld.test.cpp
+documentation_of: tests/hld/vquery.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/hld.test.cpp
-- /verify/tests/hld.test.cpp.html
-title: tests/hld.test.cpp
+- /verify/tests/hld/vquery.test.cpp
+- /verify/tests/hld/vquery.test.cpp.html
+title: tests/hld/vquery.test.cpp
 ---
