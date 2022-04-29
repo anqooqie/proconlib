@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/tree_diameter.test.cpp
+    title: tests/tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
@@ -32,6 +35,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/tree_diameter.test.cpp
 documentation_of: tools/join.hpp
 layout: document
 title: Join elements with delimiter

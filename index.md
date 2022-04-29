@@ -353,7 +353,7 @@ data:
       title: Euler's totient function
     - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
-      title: Diameter of tree
+      title: Diameter of a tree
     - icon: ':warning:'
       path: tools/triangle_2d.hpp
       title: Two-dimensional triangle

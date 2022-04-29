@@ -16,7 +16,7 @@ data:
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
-    title: Diameter of tree
+    title: Diameter of a tree
   - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
