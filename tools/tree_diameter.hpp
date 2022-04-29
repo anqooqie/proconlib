@@ -1,10 +1,11 @@
 #ifndef TOOLS_TREE_DIAMETER_HPP
 #define TOOLS_TREE_DIAMETER_HPP
 
-#include <cstddef>
 #include <vector>
+#include <cstddef>
+#include <utility>
 #include <cassert>
-#include <numeric>
+#include <tuple>
 #include <limits>
 #include <queue>
 #include <iterator>
@@ -15,64 +16,81 @@ namespace tools {
   template <typename T>
   class tree_diameter {
   private:
-    class edge {
-    public:
-      ::std::size_t from;
-      ::std::size_t to;
-      T distance;
-      edge(const ::std::size_t from, const ::std::size_t to, const T& distance) :
-        from(from),
-        to(to),
-        distance(distance) {
-      }
-    };
-
-    ::std::vector<::std::vector<edge>> edges;
+    ::std::vector<::std::vector<::std::size_t>> m_graph;
+    ::std::vector<::std::pair<::std::size_t, T>> m_edges;
 
   public:
-    tree_diameter(const ::std::size_t node_count) :
-      edges(node_count) {
+    tree_diameter() = default;
+    tree_diameter(const ::tools::tree_diameter<T>&) = default;
+    tree_diameter(::tools::tree_diameter<T>&&) = default;
+    ~tree_diameter() = default;
+    ::tools::tree_diameter<T>& operator=(const ::tools::tree_diameter<T>&) = default;
+    ::tools::tree_diameter<T>& operator=(::tools::tree_diameter<T>&&) = default;
+
+    explicit tree_diameter(const ::std::size_t n) :
+      m_graph(n) {
+      assert(n >= 1);
     }
 
-    ::std::size_t node_count() const {
-      return this->edges.size();
+    ::std::size_t size() const {
+      return this->m_graph.size();
     }
 
-    void add_edge(const ::std::size_t from, const ::std::size_t to, const T& distance) {
-      this->edges[from].emplace_back(from, to, distance);
-      this->edges[to].emplace_back(to, from, distance);
+    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
+      assert(u < this->size());
+      assert(v < this->size());
+
+      this->m_graph[u].push_back(this->m_edges.size());
+      this->m_graph[v].push_back(this->m_edges.size());
+      this->m_edges.emplace_back(u ^ v, w);
+      return this->m_edges.size() - 1;
     }
 
-    T query() const {
-      assert(::std::accumulate(this->edges.begin(), this->edges.end(), ::std::size_t(0), [](const ::std::size_t sum, const ::std::vector<edge>& e) { return sum + e.size(); }) + 2 == this->node_count() * 2);
+    ::std::tuple<T, ::std::vector<::std::size_t>, ::std::vector<::std::size_t>> query() const {
+      assert(this->m_edges.size() + 1 == this->size());
 
-      ::std::vector<T> distances(this->node_count(), ::std::numeric_limits<T>::max());
-      distances[0] = 0;
+      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      dist[0] = 0;
       ::std::queue<::std::size_t> queue({0});
       while (!queue.empty()) {
-        const ::std::size_t from = queue.front();
+        const auto here = queue.front();
         queue.pop();
-        for (const edge& edge : edges[from]) {
-          if (::tools::chmin(distances[edge.to], distances[from] + edge.distance)) {
-            queue.push(edge.to);
+        for (const auto eid : this->m_graph[here]) {
+          const auto next = this->m_edges[eid].first ^ here;
+          const auto w = this->m_edges[eid].second;
+          if (::tools::chmin(dist[next], dist[here] + w)) {
+            queue.push(next);
           }
         }
       }
 
-      queue.push(::std::distance(distances.begin(), ::std::max_element(distances.begin(), distances.end())));
-      ::std::fill(distances.begin(), distances.end(), ::std::numeric_limits<T>::max());
-      distances[queue.front()] = 0;
+      queue.push(::std::distance(dist.begin(), ::std::max_element(dist.begin(), dist.end())));
+      ::std::fill(dist.begin(), dist.end(), ::std::numeric_limits<T>::max());
+      dist[queue.front()] = 0;
+      ::std::vector<::std::size_t> prev(this->size(), ::std::numeric_limits<::std::size_t>::max());
       while (!queue.empty()) {
-        const ::std::size_t from = queue.front();
+        const auto here = queue.front();
         queue.pop();
-        for (const edge& edge : edges[from]) {
-          if (::tools::chmin(distances[edge.to], distances[from] + edge.distance)) {
-            queue.push(edge.to);
+        for (const auto eid : this->m_graph[here]) {
+          const auto next = this->m_edges[eid].first ^ here;
+          const auto w = this->m_edges[eid].second;
+          if (::tools::chmin(dist[next], dist[here] + w)) {
+            prev[next] = eid;
+            queue.push(next);
           }
         }
       }
 
-      return *std::max_element(distances.begin(), distances.end());
+      ::std::tuple<T, ::std::vector<::std::size_t>, ::std::vector<::std::size_t>> result;
+      ::std::get<0>(result) = 0;
+      ::std::size_t v;
+      for (v = ::std::distance(dist.begin(), ::std::max_element(dist.begin(), dist.end())); prev[v] != ::std::numeric_limits<::std::size_t>::max(); v = this->m_edges[prev[v]].first ^ v) {
+        ::std::get<0>(result) += this->m_edges[prev[v]].second;
+        ::std::get<1>(result).push_back(v);
+        ::std::get<2>(result).push_back(prev[v]);
+      }
+      ::std::get<1>(result).push_back(v);
+      return result;
     }
   };
 }
