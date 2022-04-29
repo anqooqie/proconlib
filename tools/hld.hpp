@@ -15,12 +15,16 @@
 namespace tools {
   class hld {
   private:
+    bool m_built;
     ::std::vector<::std::vector<::std::size_t>> m_graph;
+    ::std::vector<::std::size_t> m_edges;
     ::std::vector<::std::size_t> m_parent;
     ::std::vector<::std::size_t> m_depth;
     ::atcoder::dsu m_dsu;
-    ::std::vector<::std::size_t> m_idx2dfs;
-    ::std::vector<::std::size_t> m_dfs2idx;
+    ::std::vector<::std::size_t> m_vid2dfs;
+    ::std::vector<::std::size_t> m_dfs2vid;
+    ::std::vector<::std::size_t> m_eid2dfs;
+    ::std::vector<::std::size_t> m_dfs2eid;
 
   public:
     hld() = default;
@@ -30,32 +34,54 @@ namespace tools {
     ::tools::hld& operator=(const ::tools::hld&) = default;
     ::tools::hld& operator=(::tools::hld&&) = default;
 
-    explicit hld(const ::std::size_t n) : m_graph(n), m_parent(n), m_depth(n), m_idx2dfs(n), m_dfs2idx(n) {
+    explicit hld(const ::std::size_t n) : m_built(false), m_graph(n) {
       assert(n >= 1);
     }
 
     ::std::size_t size() const {
       return this->m_graph.size();
     }
-    const ::std::vector<::std::size_t>& idx2dfs() const {
-      return this->m_idx2dfs;
+    const ::std::vector<::std::size_t>& vid2dfs() const {
+      assert(this->m_built);
+      return this->m_vid2dfs;
     }
-    const ::std::vector<::std::size_t>& dfs2idx() const {
-      return this->m_dfs2idx;
+    const ::std::vector<::std::size_t>& dfs2vid() const {
+      assert(this->m_built);
+      return this->m_dfs2vid;
+    }
+    const ::std::vector<::std::size_t>& eid2dfs() const {
+      assert(this->m_built);
+      return this->m_eid2dfs;
+    }
+    const ::std::vector<::std::size_t>& dfs2eid() const {
+      assert(this->m_built);
+      return this->m_dfs2eid;
     }
 
     void add_edge(const ::std::size_t u, const ::std::size_t v) {
+      assert(!this->m_built);
       assert(u < this->size());
       assert(v < this->size());
-      this->m_graph[u].push_back(v);
-      this->m_graph[v].push_back(u);
+      this->m_graph[u].push_back(this->m_edges.size());
+      this->m_graph[v].push_back(this->m_edges.size());
+      this->m_edges.push_back(u ^ v);
     }
 
     void build(const ::std::size_t root) {
+      assert(!this->m_built);
       assert(root < this->size());
+      assert(this->m_edges.size() + 1 == this->size());
+
+      this->m_parent.resize(this->size());
+      this->m_depth.resize(this->size());
+      this->m_dsu = ::atcoder::dsu(this->size());
+      this->m_vid2dfs.resize(this->size());
+      this->m_dfs2vid.resize(this->size());
+      this->m_eid2dfs.resize(this->m_edges.size());
+      this->m_dfs2eid.resize(this->m_edges.size());
 
       ::std::vector<::std::size_t> subtree_size(this->size());
-      ::std::fill(this->m_parent.begin(), this->m_parent.end(), ::std::numeric_limits<::std::size_t>::max());
+      this->m_parent[root] = ::std::numeric_limits<::std::size_t>::max();
       this->m_depth[root] = 0;
       {
         ::std::stack<::std::pair<::std::size_t, bool>> stack;
@@ -65,9 +91,10 @@ namespace tools {
           const auto [here, pre] = stack.top();
           stack.pop();
           if (pre) {
-            for (const auto next : this->m_graph[here]) {
-              if (next != this->m_parent[here]) {
-                this->m_parent[next] = here;
+            for (const auto eid : this->m_graph[here]) {
+              const auto next = this->m_edges[eid] ^ here;
+              if (here == root || next != (this->m_edges[this->m_parent[here]] ^ here)) {
+                this->m_parent[next] = eid;
                 this->m_depth[next] = this->m_depth[here] + 1;
                 stack.emplace(next, false);
                 stack.emplace(next, true);
@@ -75,8 +102,9 @@ namespace tools {
             }
           } else {
             subtree_size[here] = 1;
-            for (const auto child : this->m_graph[here]) {
-              if (child != this->m_parent[here]) {
+            for (const auto eid : this->m_graph[here]) {
+              const auto child = this->m_edges[eid] ^ here;
+              if (here == root || child != (this->m_edges[this->m_parent[here]] ^ here)) {
                 subtree_size[here] += subtree_size[child];
               }
             }
@@ -86,65 +114,93 @@ namespace tools {
 
       for (::std::size_t v = 0; v < this->size(); ++v) {
         if (v != root) {
-          ::std::iter_swap(
-            ::std::prev(this->m_graph[v].end()),
-            ::std::find(this->m_graph[v].begin(), this->m_graph[v].end(), this->m_parent[v])
-          );
+          this->m_graph[v].erase(::std::find(this->m_graph[v].begin(), this->m_graph[v].end(), this->m_parent[v]));
         }
         ::std::iter_swap(
           this->m_graph[v].begin(),
           ::std::max_element(
             this->m_graph[v].begin(),
-            ::std::prev(this->m_graph[v].end(), v == root ? 0 : 1),
-            ::tools::less_by([&](const ::std::size_t v) { return subtree_size[v]; })
+            this->m_graph[v].end(),
+            ::tools::less_by([&](const ::std::size_t eid) { return subtree_size[this->m_edges[eid] ^ v]; })
           )
         );
       }
 
-      ::std::size_t dfs_order = 0;
-      this->m_dsu = ::atcoder::dsu(this->size());
       {
+        ::std::size_t dfs_order = 0;
         ::std::stack<::std::size_t> stack;
         stack.push(root);
         while (!stack.empty()) {
           const auto here = stack.top();
           stack.pop();
 
-          this->m_idx2dfs[here] = dfs_order;
-          this->m_dfs2idx[dfs_order] = here;
+          this->m_vid2dfs[here] = dfs_order;
+          this->m_dfs2vid[dfs_order] = here;
+          if (here != root) {
+            this->m_eid2dfs[this->m_parent[here]] = dfs_order - 1;
+            this->m_dfs2eid[dfs_order - 1] = this->m_parent[here];
+          }
           ++dfs_order;
 
-          if (this->m_graph[here].size() > (here == root ? 0 : 1)) {
-            this->m_dsu.merge(here, this->m_graph[here][0]);
+          if (!this->m_graph[here].empty()) {
+            this->m_dsu.merge(here, this->m_edges[this->m_graph[here].front()] ^ here);
           }
-          for (auto it = ::std::next(this->m_graph[here].rbegin(), here == root ? 0 : 1); it != this->m_graph[here].rend(); ++it) {
-            stack.push(*it);
+          for (auto it = this->m_graph[here].rbegin(); it != this->m_graph[here].rend(); ++it) {
+            stack.push(this->m_edges[*it] ^ here);
           }
         }
       }
+
+      this->m_built = true;
     }
     void build() {
       this->build(0);
     }
 
-    ::std::vector<::std::pair<::std::size_t, ::std::size_t>> query(::std::size_t u, ::std::size_t v) {
+    ::std::vector<::std::pair<::std::size_t, ::std::size_t>> vquery(::std::size_t u, ::std::size_t v) {
+      assert(this->m_built);
       assert(u < this->size());
       assert(v < this->size());
 
       ::std::vector<::std::pair<::std::size_t, ::std::size_t>> head, tail;
       while (!this->m_dsu.same(u, v)) {
         if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)]) {
-          head.emplace_back(this->m_idx2dfs[u] + 1, this->m_idx2dfs[this->m_dsu.leader(u)]);
-          u = this->m_parent[this->m_dsu.leader(u)];
+          head.emplace_back(this->m_vid2dfs[u] + 1, this->m_vid2dfs[this->m_dsu.leader(u)]);
+          u = this->m_edges[this->m_parent[this->m_dsu.leader(u)]] ^ this->m_dsu.leader(u);
         } else {
-          tail.emplace_back(this->m_idx2dfs[this->m_dsu.leader(v)], this->m_idx2dfs[v] + 1);
-          v = this->m_parent[this->m_dsu.leader(v)];
+          tail.emplace_back(this->m_vid2dfs[this->m_dsu.leader(v)], this->m_vid2dfs[v] + 1);
+          v = this->m_edges[this->m_parent[this->m_dsu.leader(v)]] ^ this->m_dsu.leader(v);
         }
       }
       if (this->m_depth[u] >= this->m_depth[v]) {
-        head.emplace_back(this->m_idx2dfs[u] + 1, this->m_idx2dfs[v]);
+        head.emplace_back(this->m_vid2dfs[u] + 1, this->m_vid2dfs[v]);
       } else {
-        head.emplace_back(this->m_idx2dfs[u], this->m_idx2dfs[v] + 1);
+        head.emplace_back(this->m_vid2dfs[u], this->m_vid2dfs[v] + 1);
+      }
+
+      ::std::copy(tail.rbegin(), tail.rend(), ::std::back_inserter(head));
+      return head;
+    }
+
+    ::std::vector<::std::pair<::std::size_t, ::std::size_t>> equery(::std::size_t u, ::std::size_t v) {
+      assert(this->m_built);
+      assert(u < this->size());
+      assert(v < this->size());
+
+      ::std::vector<::std::pair<::std::size_t, ::std::size_t>> head, tail;
+      while (!this->m_dsu.same(u, v)) {
+        if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)]) {
+          head.emplace_back(this->m_eid2dfs[this->m_parent[u]] + 1, this->m_eid2dfs[this->m_parent[this->m_dsu.leader(u)]]);
+          u = this->m_edges[this->m_parent[this->m_dsu.leader(u)]] ^ this->m_dsu.leader(u);
+        } else {
+          tail.emplace_back(this->m_eid2dfs[this->m_parent[this->m_dsu.leader(v)]], this->m_eid2dfs[this->m_parent[v]] + 1);
+          v = this->m_edges[this->m_parent[this->m_dsu.leader(v)]] ^ this->m_dsu.leader(v);
+        }
+      }
+      if (this->m_depth[u] > this->m_depth[v]) {
+        head.emplace_back(this->m_eid2dfs[this->m_parent[u]] + 1, this->m_eid2dfs[this->m_graph[v].front()]);
+      } else if (this->m_depth[u] < this->m_depth[v]) {
+        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()], this->m_eid2dfs[this->m_parent[v]] + 1);
       }
 
       ::std::copy(tail.rbegin(), tail.rend(), ::std::back_inserter(head));
