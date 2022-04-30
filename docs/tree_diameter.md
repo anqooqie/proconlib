@@ -58,10 +58,10 @@ std::tuple<T, std::vector<std::size_t>, std::vector<std::size_t>> tree.query();
 ```
 
 It returns the distance of the path from $u$ to $v$ where $(u, v)$ is one of the farthest pairs in the tree.
-Also, it returns the indices of the vertices which is contained in the path, and the indices of the edges which is contained in the path.
+Also, it returns the indices of the vertices which are contained in the path, and the indices of the edges which are contained in the path.
 
 ### Constraints
 - The graph is a tree.
 
 ### Time Complexity
-- $O(1)$ amortized
+- $O(n)$
