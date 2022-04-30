@@ -68,6 +68,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
+    - icon: ':heavy_check_mark:'
+      path: tools/cycle_detection.hpp
+      title: Cycle detection on a directed graph
     - icon: ':warning:'
       path: tools/digit_sum.hpp
       title: Sum of digits
@@ -440,6 +443,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cycle_detection.test.cpp
+      title: tests/cycle_detection.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dijkstra.test.cpp
       title: tests/dijkstra.test.cpp
