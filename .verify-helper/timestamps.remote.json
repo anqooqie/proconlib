@@ -23,6 +23,7 @@
 "tests/convex_hull.test.cpp": "2022-02-19 03:37:47 +0900",
 "tests/convolution.test.cpp": "2021-12-31 20:01:04 +0900",
 "tests/cumsum2d.test.cpp": "2021-12-18 13:17:06 +0900",
+"tests/cycle_detection.test.cpp": "2022-04-30 13:07:41 +0900",
 "tests/dijkstra.test.cpp": "2022-03-08 22:34:08 +0900",
 "tests/directed_line_segment_2d/cross_point.test.cpp": "2022-02-19 03:37:47 +0900",
 "tests/directed_line_segment_2d/intersection.test.cpp": "2022-02-19 03:37:47 +0900",
