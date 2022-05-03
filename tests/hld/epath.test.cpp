@@ -40,12 +40,12 @@ int main() {
     if (t == 0) {
       i64 v, w;
       std::cin >> v >> w;
-      fw.add(hld.eid2dfs()[v - 1], w);
+      fw.add(hld.eid2dfs(v - 1), w);
     } else {
       i64 u;
       std::cin >> u;
       i64 sum = 0;
-      for (const auto& [from, to] : hld.equery(0, u)) {
+      for (const auto& [from, to] : hld.epath(0, u)) {
         const auto [l, r] = std::minmax(from, to);
         sum += fw.sum(l, r);
       }

@@ -44,7 +44,7 @@ int main() {
   hld.build();
   std::vector<std::pair<mint, mint>> g(N);
   for (i64 i = 0; i < N; ++i) {
-    g[hld.vid2dfs()[i]] = f[i];
+    g[hld.vid2dfs(i)] = f[i];
   }
   atcoder::segtree<std::pair<mint, mint>, op, e> segtree_to_root(g);
   atcoder::segtree<std::pair<mint, mint>, po, e> segtree_to_leaf(g);
@@ -55,13 +55,13 @@ int main() {
     if (t == 0) {
       i64 p, c, d;
       std::cin >> p >> c >> d;
-      segtree_to_root.set(hld.vid2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));
-      segtree_to_leaf.set(hld.vid2dfs()[p], std::make_pair(mint::raw(c), mint::raw(d)));
+      segtree_to_root.set(hld.vid2dfs(p), std::make_pair(mint::raw(c), mint::raw(d)));
+      segtree_to_leaf.set(hld.vid2dfs(p), std::make_pair(mint::raw(c), mint::raw(d)));
     } else {
       i64 u, v, x;
       std::cin >> u >> v >> x;
       std::pair<mint, mint> prod = e();
-      for (const auto& [from, to] : hld.vquery(u, v)) {
+      for (const auto& [from, to] : hld.vpath(u, v)) {
         if (from < to) {
           prod = op(segtree_to_leaf.prod(from, to), prod);
         } else {
