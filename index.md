@@ -638,11 +638,17 @@ data:
   - name: tests/hld
     pages:
     - icon: ':heavy_check_mark:'
-      path: tests/hld/equery.test.cpp
-      title: tests/hld/equery.test.cpp
+      path: tests/hld/epath.test.cpp
+      title: tests/hld/epath.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/hld/vquery.test.cpp
-      title: tests/hld/vquery.test.cpp
+      path: tests/hld/lca.test.cpp
+      title: tests/hld/lca.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/hld/vpath.test.cpp
+      title: tests/hld/vpath.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/hld/vsubtree.test.cpp
+      title: tests/hld/vsubtree.test.cpp
   - name: tests/li_chao_segtree
     pages:
     - icon: ':heavy_check_mark:'
