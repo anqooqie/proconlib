@@ -118,11 +118,12 @@ data:
     \ += subtree_size[child];\n            }\n          }\n        }\n      }\n\n\
     \      for (::std::size_t v = 0; v < this->size(); ++v) {\n        if (v != root)\
     \ {\n          this->m_graph[v].erase(::std::find(this->m_graph[v].begin(), this->m_graph[v].end(),\
-    \ this->m_parent[v]));\n        }\n        ::std::iter_swap(\n          this->m_graph[v].begin(),\n\
-    \          ::std::max_element(\n            this->m_graph[v].begin(),\n      \
-    \      this->m_graph[v].end(),\n            ::tools::less_by([&](const ::std::size_t\
-    \ eid) { return subtree_size[this->m_edges[eid] ^ v]; })\n          )\n      \
-    \  );\n      }\n\n      ::std::size_t dfs_order = 0;\n      stack.emplace(root,\
+    \ this->m_parent[v]));\n        }\n        if (this->m_graph[v].size() > 1) {\n\
+    \          ::std::iter_swap(\n            this->m_graph[v].begin(),\n        \
+    \    ::std::max_element(\n              this->m_graph[v].begin(),\n          \
+    \    this->m_graph[v].end(),\n              ::tools::less_by([&](const ::std::size_t\
+    \ eid) { return subtree_size[this->m_edges[eid] ^ v]; })\n            )\n    \
+    \      );\n        }\n      }\n\n      ::std::size_t dfs_order = 0;\n      stack.emplace(root,\
     \ false);\n      stack.emplace(root, true);\n      while (!stack.empty()) {\n\
     \        const auto [here, pre] = stack.top();\n        stack.pop();\n\n     \
     \   if (pre) {\n          this->m_vid2dfs[here] = dfs_order;\n          this->m_dfs2vid[dfs_order]\
@@ -215,7 +216,7 @@ data:
   isVerificationFile: true
   path: tests/hld/lca.test.cpp
   requiredBy: []
-  timestamp: '2022-05-04 20:26:29+09:00'
+  timestamp: '2022-05-04 20:49:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/hld/lca.test.cpp
