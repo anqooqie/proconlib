@@ -140,7 +140,9 @@ data:
     \ ^ here, false);\n            stack.emplace(this->m_edges[*it] ^ here, true);\n\
     \          }\n        } else {\n          this->m_out[here] = dfs_order;\n   \
     \     }\n      }\n\n      this->m_built = true;\n    }\n    void build() {\n \
-    \     this->build(0);\n    }\n\n    ::std::size_t vparent(const ::std::size_t\
+    \     this->build(0);\n    }\n\n    ::std::size_t depth(const ::std::size_t v)\
+    \ const {\n      assert(this->m_built);\n      assert(v < this->size());\n   \
+    \   return this->m_depth[v];\n    }\n    ::std::size_t vparent(const ::std::size_t\
     \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
     \      assert(this->m_depth[v] > 0);\n      return this->m_edges[this->m_parent[v]]\
     \ ^ v;\n    }\n    ::std::size_t eparent(const ::std::size_t v) const {\n    \
@@ -288,7 +290,9 @@ data:
     \ ^ here, false);\n            stack.emplace(this->m_edges[*it] ^ here, true);\n\
     \          }\n        } else {\n          this->m_out[here] = dfs_order;\n   \
     \     }\n      }\n\n      this->m_built = true;\n    }\n    void build() {\n \
-    \     this->build(0);\n    }\n\n    ::std::size_t vparent(const ::std::size_t\
+    \     this->build(0);\n    }\n\n    ::std::size_t depth(const ::std::size_t v)\
+    \ const {\n      assert(this->m_built);\n      assert(v < this->size());\n   \
+    \   return this->m_depth[v];\n    }\n    ::std::size_t vparent(const ::std::size_t\
     \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
     \      assert(this->m_depth[v] > 0);\n      return this->m_edges[this->m_parent[v]]\
     \ ^ v;\n    }\n    ::std::size_t eparent(const ::std::size_t v) const {\n    \
@@ -353,7 +357,7 @@ data:
   isVerificationFile: false
   path: tools/hld.hpp
   requiredBy: []
-  timestamp: '2022-05-04 04:23:16+09:00'
+  timestamp: '2022-05-04 20:26:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/vsubtree.test.cpp
@@ -432,6 +436,20 @@ In DFS, the root is $r$.
 
 ### Time Complexity
 - $O(n)$
+
+## depth
+```cpp
+::std::size_t hld.depth(std::size_t v);
+```
+
+Given a vertex $v$ by the original vertex index, it returns the depth of the vertex.
+
+### Constraints
+- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- $0 \leq v < n$
+
+### Time Complexity
+- $O(1)$
 
 ## vparent
 ```cpp

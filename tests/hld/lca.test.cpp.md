@@ -135,7 +135,9 @@ data:
     \ ^ here, false);\n            stack.emplace(this->m_edges[*it] ^ here, true);\n\
     \          }\n        } else {\n          this->m_out[here] = dfs_order;\n   \
     \     }\n      }\n\n      this->m_built = true;\n    }\n    void build() {\n \
-    \     this->build(0);\n    }\n\n    ::std::size_t vparent(const ::std::size_t\
+    \     this->build(0);\n    }\n\n    ::std::size_t depth(const ::std::size_t v)\
+    \ const {\n      assert(this->m_built);\n      assert(v < this->size());\n   \
+    \   return this->m_depth[v];\n    }\n    ::std::size_t vparent(const ::std::size_t\
     \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
     \      assert(this->m_depth[v] > 0);\n      return this->m_edges[this->m_parent[v]]\
     \ ^ v;\n    }\n    ::std::size_t eparent(const ::std::size_t v) const {\n    \
@@ -213,7 +215,7 @@ data:
   isVerificationFile: true
   path: tests/hld/lca.test.cpp
   requiredBy: []
-  timestamp: '2022-05-04 04:23:16+09:00'
+  timestamp: '2022-05-04 20:26:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/hld/lca.test.cpp
