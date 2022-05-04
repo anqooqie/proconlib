@@ -71,6 +71,20 @@ In DFS, the root is $r$.
 ### Time Complexity
 - $O(n)$
 
+## depth
+```cpp
+::std::size_t hld.depth(std::size_t v);
+```
+
+Given a vertex $v$ by the original vertex index, it returns the depth of the vertex.
+
+### Constraints
+- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- $0 \leq v < n$
+
+### Time Complexity
+- $O(1)$
+
 ## vparent
 ```cpp
 ::std::size_t hld.vparent(std::size_t v);

@@ -216,6 +216,11 @@ namespace tools {
       this->build(0);
     }
 
+    ::std::size_t depth(const ::std::size_t v) const {
+      assert(this->m_built);
+      assert(v < this->size());
+      return this->m_depth[v];
+    }
     ::std::size_t vparent(const ::std::size_t v) const {
       assert(this->m_built);
       assert(v < this->size());
