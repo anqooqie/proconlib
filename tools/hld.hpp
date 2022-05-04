@@ -172,14 +172,16 @@ namespace tools {
         if (v != root) {
           this->m_graph[v].erase(::std::find(this->m_graph[v].begin(), this->m_graph[v].end(), this->m_parent[v]));
         }
-        ::std::iter_swap(
-          this->m_graph[v].begin(),
-          ::std::max_element(
+        if (this->m_graph[v].size() > 1) {
+          ::std::iter_swap(
             this->m_graph[v].begin(),
-            this->m_graph[v].end(),
-            ::tools::less_by([&](const ::std::size_t eid) { return subtree_size[this->m_edges[eid] ^ v]; })
-          )
-        );
+            ::std::max_element(
+              this->m_graph[v].begin(),
+              this->m_graph[v].end(),
+              ::tools::less_by([&](const ::std::size_t eid) { return subtree_size[this->m_edges[eid] ^ v]; })
+            )
+          );
+        }
       }
 
       ::std::size_t dfs_order = 0;
