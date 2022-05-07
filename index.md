@@ -235,6 +235,9 @@ data:
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
+      path: tools/modint_for_rolling_hash.hpp
+      title: tools/modint_for_rolling_hash.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':warning:'
@@ -312,6 +315,9 @@ data:
     - icon: ':warning:'
       path: tools/rich_pow_mod_cache.hpp
       title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
+    - icon: ':heavy_check_mark:'
+      path: tools/rolling_hash.hpp
+      title: tools/rolling_hash.hpp
     - icon: ':warning:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
@@ -554,6 +560,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rolling_hash.test.cpp
+      title: tests/rolling_hash.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp
