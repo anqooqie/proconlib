@@ -72,19 +72,19 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
+  - tools/bezout.hpp
   - tools/tetration_mod.hpp
-  - tools/garner.hpp
   - tools/extended_garner.hpp
   - tools/inv_mod.hpp
-  - tools/bezout.hpp
+  - tools/garner.hpp
   - tools/extended_lucas.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/tetration_mod.test.cpp
   - tests/extgcd.test.cpp
   - tests/bezout.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/extended_garner.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document

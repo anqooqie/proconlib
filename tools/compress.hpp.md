@@ -68,8 +68,8 @@ data:
   isVerificationFile: false
   path: tools/compress.hpp
   requiredBy:
-  - tools/inversion_number.hpp
   - tools/lis.hpp
+  - tools/inversion_number.hpp
   timestamp: '2021-09-25 17:17:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

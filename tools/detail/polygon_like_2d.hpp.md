@@ -742,14 +742,14 @@ data:
   isVerificationFile: false
   path: tools/detail/polygon_like_2d.hpp
   requiredBy:
-  - tools/triangle_2d.hpp
   - tools/polygon_2d.hpp
+  - tools/triangle_2d.hpp
   timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/detail/polygon_like_2d.hpp
 layout: document
 redirect_from:

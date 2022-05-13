@@ -222,8 +222,8 @@ data:
   timestamp: '2022-03-19 19:02:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
 documentation_of: tools/li_chao_segtree.hpp
 layout: document
 title: Li Chao segment tree

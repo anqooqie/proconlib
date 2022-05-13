@@ -72,14 +72,14 @@ data:
   isVerificationFile: false
   path: tools/pow.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
   - tools/totient.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/permutation.test.cpp
-  - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/permutation.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
 title: $b^n$ under a given monoid
