@@ -260,10 +260,6 @@ namespace tools {
       }
     }
 
-    const ::std::vector<T>& divisor_counts() const {
-      return this->m_divisor_counts;
-    }
-
     T divisor_count(const T& n) const {
       return this->m_divisor_counts[n];
     }
