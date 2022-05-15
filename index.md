@@ -249,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':heavy_check_mark:'
@@ -530,6 +530,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mo.test.cpp
       title: tests/mo.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/osa_k.test.cpp
+      title: tests/osa_k.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/parse_fixed_point_number.test.cpp
       title: tests/parse_fixed_point_number.test.cpp

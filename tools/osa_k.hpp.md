@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/osa_k.test.cpp
+    title: tests/osa_k.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/osa_k.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -99,14 +102,12 @@ data:
     \   dp[i] = ::std::make_pair(prev.first + 1, prev.second);\n        } else {\n\
     \          dp[i] = ::std::make_pair(static_cast<T>(2), prev.first * prev.second);\n\
     \        }\n      }\n\n      for (T i = 0; i <= N; ++i) {\n        this->m_divisor_counts[i]\
-    \ = dp[i].first * dp[i].second;\n      }\n    }\n\n    const ::std::vector<T>&\
-    \ divisor_counts() const {\n      return this->m_divisor_counts;\n    }\n\n  \
-    \  T divisor_count(const T& n) const {\n      return this->m_divisor_counts[n];\n\
-    \    }\n\n    prime_factor_iterable prime_factor_range(const T& n) const {\n \
-    \     return prime_factor_iterable(this->m_min_prime_factors, n);\n    }\n\n \
-    \   distinct_prime_factor_iterable distinct_prime_factor_range(const T& n) const\
-    \ {\n      return distinct_prime_factor_iterable(this->m_min_prime_factors, n);\n\
-    \    }\n\n    prime_iterable prime_range() const {\n      return prime_iterable(this->m_min_prime_factors);\n\
+    \ = dp[i].first * dp[i].second;\n      }\n    }\n\n    T divisor_count(const T&\
+    \ n) const {\n      return this->m_divisor_counts[n];\n    }\n\n    prime_factor_iterable\
+    \ prime_factor_range(const T& n) const {\n      return prime_factor_iterable(this->m_min_prime_factors,\
+    \ n);\n    }\n\n    distinct_prime_factor_iterable distinct_prime_factor_range(const\
+    \ T& n) const {\n      return distinct_prime_factor_iterable(this->m_min_prime_factors,\
+    \ n);\n    }\n\n    prime_iterable prime_range() const {\n      return prime_iterable(this->m_min_prime_factors);\n\
     \    }\n\n    ::std::vector<T> divisors(const T& n) const {\n      ::std::vector<T>\
     \ result({1});\n      for (const ::std::pair<T, T>& pair : this->distinct_prime_factor_range(n))\
     \ {\n        const T end = result.size();\n        for (T i = 1, x = pair.first;\
@@ -205,14 +206,12 @@ data:
     \   dp[i] = ::std::make_pair(prev.first + 1, prev.second);\n        } else {\n\
     \          dp[i] = ::std::make_pair(static_cast<T>(2), prev.first * prev.second);\n\
     \        }\n      }\n\n      for (T i = 0; i <= N; ++i) {\n        this->m_divisor_counts[i]\
-    \ = dp[i].first * dp[i].second;\n      }\n    }\n\n    const ::std::vector<T>&\
-    \ divisor_counts() const {\n      return this->m_divisor_counts;\n    }\n\n  \
-    \  T divisor_count(const T& n) const {\n      return this->m_divisor_counts[n];\n\
-    \    }\n\n    prime_factor_iterable prime_factor_range(const T& n) const {\n \
-    \     return prime_factor_iterable(this->m_min_prime_factors, n);\n    }\n\n \
-    \   distinct_prime_factor_iterable distinct_prime_factor_range(const T& n) const\
-    \ {\n      return distinct_prime_factor_iterable(this->m_min_prime_factors, n);\n\
-    \    }\n\n    prime_iterable prime_range() const {\n      return prime_iterable(this->m_min_prime_factors);\n\
+    \ = dp[i].first * dp[i].second;\n      }\n    }\n\n    T divisor_count(const T&\
+    \ n) const {\n      return this->m_divisor_counts[n];\n    }\n\n    prime_factor_iterable\
+    \ prime_factor_range(const T& n) const {\n      return prime_factor_iterable(this->m_min_prime_factors,\
+    \ n);\n    }\n\n    distinct_prime_factor_iterable distinct_prime_factor_range(const\
+    \ T& n) const {\n      return distinct_prime_factor_iterable(this->m_min_prime_factors,\
+    \ n);\n    }\n\n    prime_iterable prime_range() const {\n      return prime_iterable(this->m_min_prime_factors);\n\
     \    }\n\n    ::std::vector<T> divisors(const T& n) const {\n      ::std::vector<T>\
     \ result({1});\n      for (const ::std::pair<T, T>& pair : this->distinct_prime_factor_range(n))\
     \ {\n        const T end = result.size();\n        for (T i = 1, x = pair.first;\
@@ -224,47 +223,132 @@ data:
   isVerificationFile: false
   path: tools/osa_k.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2022-05-15 18:51:45+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/osa_k.test.cpp
 documentation_of: tools/osa_k.hpp
 layout: document
 title: osa_k's algorithm
 ---
 
-It handles minimum prime factors.
+It creates a table storing the least prime factor of positive integers.
+It provides various operations related to prime factors by using the table.
 
-## Usage
-```cpp
-// builds the table of minimum prime factors up to 10000
-tools::osa_k<int> osa_k(10000);
-
-// obtains the number of divisors of 24, that is 8
-osa_k.divisor_count(24);
-
-// lists all prime factors of 24, that are 2, 2, 2 and 3
-for (const int& prime_factor : osa_k.prime_factor_range(24)) {
-  // ...
-}
-
-// lists all distinct prime factors of 24, that are std::make_pair(2, 3) and std::make_pair(3, 1)
-for (const std::pair<int, int>& distinct_prime_factor : osa_k.distinct_prime_factor_range(24)) {
-  // ...
-}
-
-// lists all primes up to 10000
-for (const int& prime : osa_k.prime_range()) {
-  // ...
-}
-
-// lists all divisors of 24, that are 1, 2, 3, 4, 6, 8, 12 and 24
-for (const int& divisor : osa_k.divisors(24)) {
-  // ...
-}
-```
-
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
+
+## Constructor
+```cpp
+osa_k<T> osa_k(T N);
+```
+
+It calculates the least prime factor of positive integers up to $N$.
+
+### Constraints
+- $N \geq 1$
+
+### Time Complexity
+- $O(N \log\log N)$
+
+## divisor_count
+```cpp
+T osa_k.divisor_count(T n);
+```
+
+It returns the number of divisors of $n$.
+
+### Constraints
+- $1 \leq n \leq N$
+
+### Time Complexity
+- $O(1)$
+
+## prime_factor_range
+```cpp
+struct {
+  struct iterator {
+    T operator*();
+    iterator& operator++();
+    iterator operator++(int):
+    friend bool operator==(iterator lhs, iterator rhs);
+    friend bool operator!=(iterator lhs, iterator rhs);
+  };
+  iterator begin();
+  iterator end();
+} osa_k.prime_factor_range(T n);
+```
+
+It returns the prime factors of $n$ in ascending order.
+
+### Constraints
+- $1 \leq n \leq N$
+
+### Time Complexity
+- If you just call `prime_factor_range`, it takes only $O(1)$.
+- If you enumerate all the prime factors of $n$, it takes $O(\log n)$.
+
+## distinct_prime_factor_range
+```cpp
+struct {
+  struct iterator {
+    std::pair<T, T> operator*();
+    iterator& operator++();
+    iterator operator++(int):
+    friend bool operator==(iterator lhs, iterator rhs);
+    friend bool operator!=(iterator lhs, iterator rhs);
+  };
+  iterator begin();
+  iterator end();
+} osa_k.distinct_prime_factor_range(T n);
+```
+
+By using some primes $p_1 < p_2 < \cdots < p_k$ and some positive integers $q_1, q_2, \ldots, q_k$, we can denote $n$ as $p_1^{q_1} p_2^{q_2} \cdots p_k^{q_k}$.
+It returns $((p_1, q_1), (p_2, q_2), \ldots, (p_k, q_k))$.
+
+### Constraints
+- $1 \leq n \leq N$
+
+### Time Complexity
+- If you just call `distinct_prime_factor_range`, it takes only $O(1)$.
+- If you enumerate all the distinct prime factors of $n$, it takes $O(\log n)$.
+
+## prime_range
+```cpp
+struct {
+  struct iterator {
+    T operator*();
+    iterator& operator++();
+    iterator operator++(int):
+    friend bool operator==(iterator lhs, iterator rhs);
+    friend bool operator!=(iterator lhs, iterator rhs);
+  };
+  iterator begin();
+  iterator end();
+} osa_k.prime_range();
+```
+
+It returns the primes up to $N$ in ascending order.
+
+### Constraints
+- None
+
+### Time Complexity
+- If you just call `prime_range`, it takes only $O(1)$.
+- If you enumerate all the primes up to $N$, it takes $O(N)$.
+
+## divisors
+```cpp
+std::vector<T> osa_k.divisors(T n);
+```
+
+It returns the divisors of $n$ in ascending order.
+
+### Constraints
+- $1 \leq n \leq N$
+
+### Time Complexity
+- $O\left(n^\frac{1}{\log\log n} \frac{\log n}{\log\log n}\right)$
