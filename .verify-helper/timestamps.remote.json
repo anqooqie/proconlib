@@ -64,6 +64,7 @@
 "tests/median_heap.test.cpp": "2022-03-19 14:14:06 +0900",
 "tests/mex.test.cpp": "2021-09-25 15:53:45 +0900",
 "tests/mo.test.cpp": "2022-04-16 21:31:36 +0900",
+"tests/osa_k.test.cpp": "2022-05-15 18:51:45 +0900",
 "tests/parse_fixed_point_number.test.cpp": "2022-03-12 16:17:46 +0900",
 "tests/pdsu.test.cpp": "2022-02-19 06:09:11 +0900",
 "tests/permutation.test.cpp": "2021-12-26 18:29:38 +0900",
