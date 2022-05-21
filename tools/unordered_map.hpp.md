@@ -43,7 +43,7 @@ data:
   - tests/mo.test.cpp
 documentation_of: tools/unordered_map.hpp
 layout: document
-title: Alias for __gnu_pbds::gp_hash_table
+title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
 ---
 
 `tools::unordered_map<Key, T, Hash = std::hash<Key>>` is an alias for `__gnu_pbds::gp_hash_table<Key, T, Hash>`.

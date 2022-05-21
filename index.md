@@ -369,10 +369,11 @@ data:
       title: Topological sorting
     - icon: ':heavy_check_mark:'
       path: tools/unordered_map.hpp
-      title: Alias for __gnu_pbds::gp_hash_table
+      title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
     - icon: ':warning:'
       path: tools/unordered_set.hpp
-      title: tools/unordered_set.hpp
+      title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type,
+        Hash&amp;gt;
     - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
