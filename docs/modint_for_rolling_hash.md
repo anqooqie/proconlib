@@ -1,5 +1,5 @@
 ---
-title: $x \pmod {2^{61} - 1}$
+title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
 documentation_of: //tools/modint_for_rolling_hash.hpp
 ---
 
