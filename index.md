@@ -106,8 +106,8 @@ data:
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
-      title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
-        P_r \pmod{P}$
+      title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
+        \pmod{P}, {}_n P_r \pmod{P}$
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
@@ -288,7 +288,7 @@ data:
       title: $x^y \pmod{M}$
     - icon: ':warning:'
       path: tools/pow_mod_cache.hpp
-      title: Precompute $b^n \pmod{M}$ for $0 \leq n \leq N$
+      title: Precompute $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
@@ -313,9 +313,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':warning:'
-      path: tools/rich_pow_mod_cache.hpp
-      title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
     - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: tools/rolling_hash.hpp

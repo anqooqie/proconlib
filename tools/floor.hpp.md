@@ -9,6 +9,9 @@ data:
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':warning:'
+    path: tools/pow_mod_cache.hpp
+    title: Precompute $b^n \pmod{M}$
+  - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
   _extendedVerifiedWith:
@@ -56,6 +59,7 @@ data:
   requiredBy:
   - tools/round.hpp
   - tools/floor_log.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

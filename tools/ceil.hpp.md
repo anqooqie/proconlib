@@ -20,6 +20,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
+  - icon: ':warning:'
+    path: tools/pow_mod_cache.hpp
+    title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
@@ -149,6 +152,7 @@ data:
   - tools/bigdecimal.hpp
   - tools/segmented_sieve.hpp
   - tools/mo.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -25,8 +25,8 @@ data:
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
-    title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
-      P_r \pmod{P}$
+    title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
+      {}_n P_r \pmod{P}$
   - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
@@ -42,15 +42,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
+  - icon: ':warning:'
+    path: tools/pow_mod_cache.hpp
+    title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':warning:'
-    path: tools/rich_pow_mod_cache.hpp
-    title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
@@ -186,7 +186,6 @@ data:
   - tools/prime_factorization.hpp
   - tools/tetration_mod.hpp
   - tools/pow_mod.hpp
-  - tools/rich_pow_mod_cache.hpp
   - tools/fact_mod_cache.hpp
   - tools/bigint.hpp
   - tools/extended_garner.hpp
@@ -197,6 +196,7 @@ data:
   - tools/bigdecimal.hpp
   - tools/inv_mod.hpp
   - tools/is_prime.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

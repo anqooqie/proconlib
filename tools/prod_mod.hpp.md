@@ -13,8 +13,8 @@ data:
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
-    title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
-      P_r \pmod{P}$
+    title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
+      {}_n P_r \pmod{P}$
   - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod

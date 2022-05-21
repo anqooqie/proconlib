@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: tools/rich_pow_mod_cache.hpp
-    title: Precompute $b^n \pmod{M}$ for $-\infty < n < \infty$
+    path: tools/pow_mod_cache.hpp
+    title: Precompute $b^n \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/find_cycle.test.cpp
@@ -37,7 +37,7 @@ data:
   isVerificationFile: false
   path: tools/find_cycle.hpp
   requiredBy:
-  - tools/rich_pow_mod_cache.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

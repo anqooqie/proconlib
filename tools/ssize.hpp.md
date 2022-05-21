@@ -10,14 +10,17 @@ data:
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
-    title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
-      P_r \pmod{P}$
+    title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
+      {}_n P_r \pmod{P}$
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
+  - icon: ':warning:'
+    path: tools/pow_mod_cache.hpp
+    title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
@@ -139,6 +142,7 @@ data:
   - tools/bigdecimal.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

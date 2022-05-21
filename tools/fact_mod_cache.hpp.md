@@ -17,9 +17,6 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'
-    path: tools/signum.hpp
-    title: Sign function
-  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
@@ -73,16 +70,12 @@ data:
     \ true;\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 5 \"tools/ssize.hpp\"\
     \n#include <cstddef>\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
     \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
-    \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  constexpr\
-    \ int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n\
-    \      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n\
-    \    }\n  }\n}\n\n\n#line 12 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\
-    \n  template <class M>\n  class fact_mod_cache {\n  private:\n    using i64 =\
-    \ ::std::int_fast64_t;\n    ::std::vector<M> m_inv;\n    ::std::vector<M> m_fact;\n\
-    \    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache() : m_inv({M::raw(0),\
-    \ M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)})\
-    \ {\n      assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 11 \"tools/fact_mod_cache.hpp\"\n\
+    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n\
+    \    using i64 = ::std::int_fast64_t;\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
+    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
+    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
+    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const\
     \ ::tools::fact_mod_cache<M>&) = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&)\
     \ = default;\n    ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>&\
     \ operator=(const ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>&\
@@ -90,49 +83,10 @@ data:
     \ {\n      assert(n % M::mod() != 0);\n      const i64 size = ::tools::ssize(this->m_inv);\n\
     \      this->m_inv.resize(::std::clamp<i64>(::std::abs(n) + 1, size, M::mod()));\n\
     \      for (i64 i = size; i < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i]\
-    \ = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n      }\n      return\
-    \ ::tools::signum(n) * this->m_inv[::std::abs(n) % M::mod()];\n    }\n    M fact(const\
-    \ i64 n) {\n      assert(n >= 0);\n      const i64 size = ::tools::ssize(this->m_fact);\n\
-    \      this->m_fact.resize(::std::clamp<i64>(n + 1, size, M::mod()));\n      for\
-    \ (i64 i = size; i < ::tools::ssize(this->m_fact); ++i) {\n        this->m_fact[i]\
-    \ = this->m_fact[i - 1] * M::raw(i);\n      }\n      return n < M::mod() ? this->m_fact[n]\
-    \ : M::raw(0);\n    }\n    M fact_inv(const i64 n) {\n      assert(0 <= n && n\
-    \ < M::mod());\n      const i64 size = ::tools::ssize(this->m_fact_inv);\n   \
-    \   this->m_fact_inv.resize(::std::max<i64>(size, n + 1));\n      this->inv(this->m_fact_inv.size()\
-    \ - 1);\n      for (i64 i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n\
-    \        this->m_fact_inv[i] = this->m_fact_inv[i - 1] * this->m_inv[i];\n   \
-    \   }\n      return this->m_fact_inv[n];\n    }\n\n    explicit fact_mod_cache(const\
-    \ i64 max) : fact_mod_cache() {\n      this->fact(::std::min<i64>(max, M::mod()\
-    \ - 1));\n      this->fact_inv(::std::min<i64>(max, M::mod() - 1));\n    }\n\n\
-    \    M combination(i64 n, i64 r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\
-    \n      this->fact(::std::min<i64>(n, M::mod() - 1));\n      this->fact_inv(::std::min<i64>(n,\
-    \ M::mod() - 1));\n      const auto c = [&](const i64 nn, const i64 rr) {\n  \
-    \      return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn - rr]\
-    \ * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M answer(1);\n      while\
-    \ (n > 0 || r > 0) {\n        answer *= c(n % M::mod(), r % M::mod());\n     \
-    \   n /= M::mod();\n        r /= M::mod();\n      }\n\n      return answer;\n\
-    \    }\n    M permutation(const i64 n, const i64 r) {\n      if (!(0 <= r && r\
-    \ <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_FACT_MOD_CACHE_HPP\n#define TOOLS_FACT_MOD_CACHE_HPP\n\n#include\
-    \ <vector>\n#include <cstdint>\n#include <cassert>\n#include <algorithm>\n#include\
-    \ <cmath>\n#include \"tools/is_prime.hpp\"\n#include \"tools/ssize.hpp\"\n#include\
-    \ \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache\
-    \ {\n  private:\n    using i64 = ::std::int_fast64_t;\n    ::std::vector<M> m_inv;\n\
-    \    ::std::vector<M> m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n\
-    \    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}),\
-    \ m_fact_inv({M::raw(1), M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n\
-    \    }\n    fact_mod_cache(const ::tools::fact_mod_cache<M>&) = default;\n   \
-    \ fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;\n    ~fact_mod_cache()\
-    \ = default;\n    ::tools::fact_mod_cache<M>& operator=(const ::tools::fact_mod_cache<M>&)\
-    \ = default;\n    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&)\
-    \ = default;\n\n    M inv(const i64 n) {\n      assert(n % M::mod() != 0);\n \
-    \     const i64 size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<i64>(::std::abs(n)\
-    \ + 1, size, M::mod()));\n      for (i64 i = size; i < ::tools::ssize(this->m_inv);\
-    \ ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod()\
-    \ / i);\n      }\n      return ::tools::signum(n) * this->m_inv[::std::abs(n)\
-    \ % M::mod()];\n    }\n    M fact(const i64 n) {\n      assert(n >= 0);\n    \
-    \  const i64 size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<i64>(n\
+    \ = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n      }\n      M result\
+    \ = this->m_inv[::std::abs(n) % M::mod()];\n      if (n < 0) result = -result;\n\
+    \      return result;\n    }\n    M fact(const i64 n) {\n      assert(n >= 0);\n\
+    \      const i64 size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<i64>(n\
     \ + 1, size, M::mod()));\n      for (i64 i = size; i < ::tools::ssize(this->m_fact);\
     \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
     \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
@@ -147,9 +101,48 @@ data:
     \n      this->fact(::std::min<i64>(n, M::mod() - 1));\n      this->fact_inv(::std::min<i64>(n,\
     \ M::mod() - 1));\n      const auto c = [&](const i64 nn, const i64 rr) {\n  \
     \      return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn - rr]\
-    \ * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M answer(1);\n      while\
-    \ (n > 0 || r > 0) {\n        answer *= c(n % M::mod(), r % M::mod());\n     \
-    \   n /= M::mod();\n        r /= M::mod();\n      }\n\n      return answer;\n\
+    \ * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n      while\
+    \ (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n     \
+    \   n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
+    \    }\n    M permutation(const i64 n, const i64 r) {\n      if (!(0 <= r && r\
+    \ <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
+    \    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_FACT_MOD_CACHE_HPP\n#define TOOLS_FACT_MOD_CACHE_HPP\n\n#include\
+    \ <vector>\n#include <cstdint>\n#include <cassert>\n#include <algorithm>\n#include\
+    \ <cmath>\n#include \"tools/is_prime.hpp\"\n#include \"tools/ssize.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n    using\
+    \ i64 = ::std::int_fast64_t;\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
+    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
+    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
+    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const\
+    \ ::tools::fact_mod_cache<M>&) = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&)\
+    \ = default;\n    ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>&\
+    \ operator=(const ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>&\
+    \ operator=(::tools::fact_mod_cache<M>&&) = default;\n\n    M inv(const i64 n)\
+    \ {\n      assert(n % M::mod() != 0);\n      const i64 size = ::tools::ssize(this->m_inv);\n\
+    \      this->m_inv.resize(::std::clamp<i64>(::std::abs(n) + 1, size, M::mod()));\n\
+    \      for (i64 i = size; i < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i]\
+    \ = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n      }\n      M result\
+    \ = this->m_inv[::std::abs(n) % M::mod()];\n      if (n < 0) result = -result;\n\
+    \      return result;\n    }\n    M fact(const i64 n) {\n      assert(n >= 0);\n\
+    \      const i64 size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<i64>(n\
+    \ + 1, size, M::mod()));\n      for (i64 i = size; i < ::tools::ssize(this->m_fact);\
+    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
+    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
+    \ i64 n) {\n      assert(0 <= n && n < M::mod());\n      const i64 size = ::tools::ssize(this->m_fact_inv);\n\
+    \      this->m_fact_inv.resize(::std::max<i64>(size, n + 1));\n      this->inv(this->m_fact_inv.size()\
+    \ - 1);\n      for (i64 i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n\
+    \        this->m_fact_inv[i] = this->m_fact_inv[i - 1] * this->m_inv[i];\n   \
+    \   }\n      return this->m_fact_inv[n];\n    }\n\n    explicit fact_mod_cache(const\
+    \ i64 max) : fact_mod_cache() {\n      this->fact(::std::min<i64>(max, M::mod()\
+    \ - 1));\n      this->fact_inv(::std::min<i64>(max, M::mod() - 1));\n    }\n\n\
+    \    M combination(i64 n, i64 r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\
+    \n      this->fact(::std::min<i64>(n, M::mod() - 1));\n      this->fact_inv(::std::min<i64>(n,\
+    \ M::mod() - 1));\n      const auto c = [&](const i64 nn, const i64 rr) {\n  \
+    \      return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn - rr]\
+    \ * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n      while\
+    \ (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n     \
+    \   n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const i64 n, const i64 r) {\n      if (!(0 <= r && r\
     \ <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
     \    }\n  };\n}\n\n#endif\n"
@@ -160,19 +153,18 @@ data:
   - tools/mod.hpp
   - tools/quo.hpp
   - tools/ssize.hpp
-  - tools/signum.hpp
   isVerificationFile: false
   path: tools/fact_mod_cache.hpp
   requiredBy: []
-  timestamp: '2022-05-21 13:58:49+09:00'
+  timestamp: '2022-05-21 18:45:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
-title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r
-  \pmod{P}$
+title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
+  {}_n P_r \pmod{P}$
 ---
 
 It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$.
