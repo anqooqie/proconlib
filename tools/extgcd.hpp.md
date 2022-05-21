@@ -25,7 +25,7 @@ data:
     title: $x^{-1} \pmod{M}$
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
-    title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$$
+    title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
