@@ -12,6 +12,10 @@ data:
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
+    path: tools/fact_mod_cache.hpp
+    title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
+      P_r \pmod{P}$
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
       754974721$
@@ -40,6 +44,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fact_mod_cache/combination.test.cpp
+    title: tests/fact_mod_cache/combination.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fact_mod_cache/permutation.test.cpp
+    title: tests/fact_mod_cache/permutation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -73,25 +83,28 @@ data:
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
-  - tools/pow_mod.hpp
-  - tools/convolution.hpp
-  - tools/totient.hpp
-  - tools/garner3.hpp
-  - tools/tetration_mod.hpp
-  - tools/is_prime.hpp
-  - tools/extended_lucas.hpp
   - tools/divisors.hpp
   - tools/prime_factorization.hpp
+  - tools/tetration_mod.hpp
+  - tools/pow_mod.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/totient.hpp
+  - tools/extended_lucas.hpp
+  - tools/convolution.hpp
+  - tools/garner3.hpp
+  - tools/is_prime.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/prime_factorization.test.cpp
   - tests/is_prime.test.cpp
-  - tests/divisors.test.cpp
-  - tests/tetration_mod.test.cpp
+  - tests/fact_mod_cache/combination.test.cpp
+  - tests/fact_mod_cache/permutation.test.cpp
   - tests/totient.test.cpp
   - tests/convolution.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document
 title: $x \cdot y \pmod{M}$

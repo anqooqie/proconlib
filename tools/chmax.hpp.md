@@ -47,18 +47,18 @@ data:
   isVerificationFile: false
   path: tools/chmax.hpp
   requiredBy:
-  - tools/polygon_2d.hpp
-  - tools/triangle_2d.hpp
   - tools/detail/polygon_like_2d.hpp
   - tools/largest_rectangle_in_histogram.hpp
+  - tools/triangle_2d.hpp
+  - tools/polygon_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rolling_hash.test.cpp
   - tests/largest_rectangle_in_histogram.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/area.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

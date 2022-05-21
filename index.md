@@ -106,7 +106,8 @@ data:
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
-      title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
+      title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n
+        P_r \pmod{P}$
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
@@ -480,9 +481,6 @@ data:
       path: tests/extgcd.test.cpp
       title: tests/extgcd.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/fact_mod_cache.test.cpp
-      title: tests/fact_mod_cache.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
     - icon: ':heavy_check_mark:'
@@ -650,6 +648,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - name: tests/fact_mod_cache
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/fact_mod_cache/combination.test.cpp
+      title: tests/fact_mod_cache/combination.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fact_mod_cache/permutation.test.cpp
+      title: tests/fact_mod_cache/permutation.test.cpp
   - name: tests/hld
     pages:
     - icon: ':heavy_check_mark:'
