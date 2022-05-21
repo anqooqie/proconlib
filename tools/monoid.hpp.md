@@ -10,7 +10,7 @@ data:
     title: Longest increasing subsequence
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
-    title: $x \pmod {2^{61} - 1}$
+    title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$$
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
