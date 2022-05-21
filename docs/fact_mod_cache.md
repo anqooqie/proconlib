@@ -1,5 +1,5 @@
 ---
-title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$
+title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$
 documentation_of: //tools/fact_mod_cache.hpp
 ---
 

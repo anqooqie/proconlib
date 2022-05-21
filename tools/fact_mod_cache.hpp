@@ -8,7 +8,6 @@
 #include <cmath>
 #include "tools/is_prime.hpp"
 #include "tools/ssize.hpp"
-#include "tools/signum.hpp"
 
 namespace tools {
 
@@ -37,7 +36,9 @@ namespace tools {
       for (i64 i = size; i < ::tools::ssize(this->m_inv); ++i) {
         this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);
       }
-      return ::tools::signum(n) * this->m_inv[::std::abs(n) % M::mod()];
+      M result = this->m_inv[::std::abs(n) % M::mod()];
+      if (n < 0) result = -result;
+      return result;
     }
     M fact(const i64 n) {
       assert(n >= 0);
@@ -73,14 +74,14 @@ namespace tools {
         return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn - rr] * this->m_fact_inv[rr] : M::raw(0);
       };
 
-      M answer(1);
+      M result(1);
       while (n > 0 || r > 0) {
-        answer *= c(n % M::mod(), r % M::mod());
+        result *= c(n % M::mod(), r % M::mod());
         n /= M::mod();
         r /= M::mod();
       }
 
-      return answer;
+      return result;
     }
     M permutation(const i64 n, const i64 r) {
       if (!(0 <= r && r <= n)) return M::raw(0);
