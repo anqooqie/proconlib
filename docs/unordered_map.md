@@ -1,5 +1,5 @@
 ---
-title: Alias for __gnu_pbds::gp_hash_table
+title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
 documentation_of: //tools/unordered_map.hpp
 ---
 
