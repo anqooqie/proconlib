@@ -1,9 +1,9 @@
 ---
-title: Precompute $n! \pmod{M}$ for $0 \leq n \leq N < M$
+title: $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$
 documentation_of: //tools/fact_mod_cache.hpp
 ---
 
-It precomputes $n! \pmod{M}$ for $0 \leq n \leq N < M$.
+It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$.
 
 ### License
 - CC0
@@ -13,69 +13,105 @@ It precomputes $n! \pmod{M}$ for $0 \leq n \leq N < M$.
 
 ## Constructor
 ```cpp
-tools::fact_mod_cache<T> cache(std::int_fast64_t N);
+(1) fact_mod_cache<M> cache();
+(2) fact_mod_cache<M> cache(std::int_fast64_t N);
 ```
 
-It precomputes $n! \pmod{M}$ for $0 \leq n \leq N$ where $M$ is `T::mod()`.
+- (1)
+    - It creates an empty cache to store $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}$ where $P$ is `M::mod()`.
+- (2)
+    - It precomputes $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}$ for $0 \leq n \leq N$, where $P$ is `M::mod()`.
 
 ### Constraints
-- `<T>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-- $M$ is a prime
-- $0 \leq N < M$
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
+- `M::mod()` is a prime
 
 ### Time Complexity
-- $O(N + \log M)$
+- (1)
+    - $O(1)$
+- (2)
+    - $O(\min(N, P))$
+
+## inv
+```cpp
+M cache.inv(std::int_fast64_t n);
+```
+
+It returns $n^{-1} \pmod{P}$.
+
+### Constraints
+- $n \not\equiv 0 \pmod{P}$
+
+### Time Complexity
+- $O(\min(\|n\|, P))$ worst
+- $O(1)$ amortized
 
 ## fact
 ```cpp
-T cache.fact(::std::int_fast64_t n);
+M cache.fact(std::int_fast64_t n);
 ```
 
-It returns $n! \pmod{M}$.
+It returns $n! \pmod{P}$.
 
 ### Constraints
-- $0 \leq n \leq N$
+- $n \geq 0$
 
 ### Time Complexity
-- $O(1)$
+- $O(\min(n, P))$ worst
+- $O(1)$ amortized
 
-## inv_fact
+## fact_inv
 ```cpp
-T cache.inv_fact(::std::int_fast64_t n);
+M cache.fact_inv(std::int_fast64_t n);
 ```
 
-It returns $n!^{-1} \pmod{M}$.
+It returns $n!^{-1} \pmod{P}$.
 
 ### Constraints
-- $0 \leq n \leq N$
+- $0 < n < P$
 
 ### Time Complexity
-- $O(1)$
-
-## permutation
-```cpp
-T cache.permutation(::std::int_fast64_t n, ::std::int_fast64_t r);
-```
-
-It returns ${}_n P_r \pmod{M}$ if $0 \leq r \leq n$.
-Otherwise, it returns $0$.
-
-### Constraints
-- $n \leq N$
-
-### Time Complexity
-- $O(1)$
+- $O(n)$ worst
+- $O(1)$ amortized
 
 ## combination
 ```cpp
-T cache.combination(::std::int_fast64_t n, ::std::int_fast64_t r);
+M cache.combination(std::int_fast64_t n, std::int_fast64_t r);
 ```
 
-It returns ${}_n C_r \pmod{M}$ if $0 \leq r \leq n$.
-Otherwise, it returns $0$.
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n C_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
+0 \pmod{P} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
 
 ### Constraints
-- $n \leq N$
+- None
 
 ### Time Complexity
-- $O(1)$
+- $O(\min(n, P) + \log_P(n))$ worst
+- $O(\log_P(n))$ amortized
+
+## permutation
+```cpp
+M cache.permutation(std::int_fast64_t n, std::int_fast64_t r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n P_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
+0 \pmod{P} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\min(n, P) + \log_P(n))$ worst
+- $O(\log_P(n))$ amortized

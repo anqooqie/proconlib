@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_D"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_B"
 
 #include <cstdint>
 #include <iostream>
@@ -14,7 +14,7 @@ int main() {
 
   i64 n, k;
   std::cin >> n >> k;
-  tools::fact_mod_cache<mint> cache(n + k - 1);
-  std::cout << cache.combination(n + k - 1, n).val() << '\n';
+  tools::fact_mod_cache<mint> cache;
+  std::cout << cache.permutation(k, n).val() << '\n';
   return 0;
 }
