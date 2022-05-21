@@ -6,11 +6,20 @@ data:
     title: tools/detail/ceil_and_floor.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
   - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
@@ -21,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -57,13 +69,17 @@ data:
   isVerificationFile: false
   path: tools/floor.hpp
   requiredBy:
+  - tools/detail/rolling_hash.hpp
   - tools/round.hpp
   - tools/floor_log.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bezout.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/floor_log.test.cpp
 documentation_of: tools/floor.hpp
 layout: document

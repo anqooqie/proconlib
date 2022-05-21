@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
   - icon: ':warning:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
@@ -21,11 +24,17 @@ data:
     path: tools/mo.hpp
     title: Mo's algorithm
   - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
@@ -106,6 +115,9 @@ data:
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   _isVerificationFailed: false
@@ -144,14 +156,17 @@ data:
   isVerificationFile: false
   path: tools/ceil.hpp
   requiredBy:
+  - tools/detail/rolling_hash.hpp
   - tools/round.hpp
   - tools/rational.hpp
   - tools/dynamic_bitset.hpp
+  - tools/modint_for_rolling_hash.hpp
   - tools/bigint.hpp
   - tools/ceil_log.hpp
   - tools/bigdecimal.hpp
   - tools/segmented_sieve.hpp
   - tools/mo.hpp
+  - tools/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -169,6 +184,7 @@ data:
   - tests/bigdecimal/plus.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

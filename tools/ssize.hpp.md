@@ -9,6 +9,9 @@ data:
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
@@ -19,11 +22,17 @@ data:
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
@@ -110,6 +119,9 @@ data:
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -135,13 +147,16 @@ data:
   isVerificationFile: false
   path: tools/ssize.hpp
   requiredBy:
+  - tools/detail/rolling_hash.hpp
   - tools/li_chao_segtree.hpp
   - tools/rational.hpp
   - tools/fact_mod_cache.hpp
+  - tools/modint_for_rolling_hash.hpp
   - tools/bigint.hpp
   - tools/bigdecimal.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
+  - tools/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -165,6 +180,7 @@ data:
   - tests/bigdecimal/divides.test.cpp
   - tests/permutation.test.cpp
   - tests/ssize.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

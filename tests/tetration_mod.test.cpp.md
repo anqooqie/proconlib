@@ -223,18 +223,18 @@ data:
     \ (const auto& [p, q] : distinct_prime_factors) {\n      prod *= ::tools::pow(p,\
     \ q - 1) * (p - 1);\n    }\n    return prod;\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\
     \n\n\n\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\
-    \n#include <tuple>\n#line 6 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s\
-    \ = 1;\n    T prev_t = 0;\n    T s = 0;\n    T t = 1;\n    while (r != 0) {\n\
-    \      const T q = ::tools::quo(prev_r, r);\n      const T next_r = prev_r - q\
-    \ * r;\n      prev_r = r;\n      r = next_r;\n      const T next_s = prev_s -\
-    \ q * s;\n      prev_s = s;\n      s = next_s;\n      const T next_t = prev_t\
-    \ - q * t;\n      prev_t = t;\n      t = next_t;\n    }\n\n    if (prev_r < T(0))\
-    \ prev_r = -prev_r;\n    return {prev_s, prev_t, prev_r};\n  }\n}\n\n\n#line 7\
-    \ \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
-    \ T2>\n  constexpr T2 inv_mod(const T1 x, const T2 m) {\n    const auto [x0, y0,\
-    \ gcd] = ::tools::extgcd(x, m);\n    assert(gcd == 1);\n    return ::tools::mod(x0,\
-    \ m);\n  }\n}\n\n\n#line 10 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    \n#include <tuple>\n#line 7 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s(1);\n\
+    \    T prev_t(0);\n    T s(0);\n    T t(1);\n    while (r != 0) {\n      const\
+    \ T q = ::tools::quo(prev_r, r);\n      ::std::tie(prev_r, r) = ::std::make_pair(r,\
+    \ prev_r - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s, prev_s -\
+    \ q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t - q * t);\n\
+    \    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return ::std::make_tuple(prev_s,\
+    \ prev_t, prev_r);\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1\
+    \ x, const T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n  \
+    \  assert(gcd == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 10 \"\
+    tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
     \ Iterator, typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t>\
     \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
@@ -307,7 +307,7 @@ data:
   isVerificationFile: true
   path: tests/tetration_mod.test.cpp
   requiredBy: []
-  timestamp: '2022-02-05 17:57:38+09:00'
+  timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tetration_mod.test.cpp

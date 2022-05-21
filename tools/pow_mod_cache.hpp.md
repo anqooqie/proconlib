@@ -22,11 +22,23 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
+  - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -177,10 +189,14 @@ data:
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/pow_mod_cache.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/detail/rolling_hash.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rolling_hash.hpp
   timestamp: '2022-05-21 18:45:44+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/pow_mod_cache.hpp
 layout: document
 title: Precompute $b^n \pmod{M}$

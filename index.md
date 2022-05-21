@@ -235,9 +235,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: tools/modint_for_rolling_hash.hpp
-      title: tools/modint_for_rolling_hash.hpp
+      title: $x \pmod {2^{61} - 1}$
     - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
@@ -286,7 +286,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Precompute $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -315,7 +315,7 @@ data:
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
-      title: tools/rolling_hash.hpp
+      title: Rolling hash
     - icon: ':warning:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
@@ -409,6 +409,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/polygon_like_2d.hpp
       title: tools/detail/polygon_like_2d.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/detail/rolling_hash.hpp
+      title: tools/detail/rolling_hash.hpp
   verificationCategories:
   - name: tests
     pages:

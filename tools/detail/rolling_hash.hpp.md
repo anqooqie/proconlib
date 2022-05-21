@@ -8,9 +8,6 @@ data:
     path: tools/detail/ceil_and_floor.hpp
     title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/detail/rolling_hash.hpp
-    title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
@@ -40,37 +37,45 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/modint_for_rolling_hash.hpp\"\n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\
-    \n\n\n\n#include <cstdint>\n#include <cassert>\n#include <tuple>\n#include <chrono>\n\
-    #include <vector>\n#line 1 \"tools/pow.hpp\"\n\n\n\n#include <cstddef>\n#line\
-    \ 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include <limits>\n#include\
-    \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
-    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
-    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
-    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
-    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+  bundledCode: "#line 1 \"tools/detail/rolling_hash.hpp\"\n\n\n\n#include <cstdint>\n\
+    #include <cassert>\n#include <tuple>\n#include <chrono>\n#include <vector>\n#line\
+    \ 1 \"tools/pow.hpp\"\n\n\n\n#include <cstddef>\n#line 1 \"tools/monoid.hpp\"\n\
+    \n\n\n#include <algorithm>\n#include <limits>\n#include <numeric>\n\nnamespace\
+    \ tools {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
+    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
+    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
     \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
     \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
@@ -248,20 +253,90 @@ data:
     \ slice(const ::std::size_t l, const ::std::size_t r) const {\n      assert(l\
     \ <= r && r <= this->m_hash.size());\n      return mint(this->m_hash[r].m_val\
     \ + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, pow_base[r - l].m_val));\n\
-    \    }\n  };\n}\n\n\n#line 5 \"tools/modint_for_rolling_hash.hpp\"\n\n\n"
-  code: '#ifndef TOOLS_MODINT_FOR_ROLLING_HASH_HPP
-
-    #define TOOLS_MODINT_FOR_ROLLING_HASH_HPP
-
-
-    #include "tools/detail/rolling_hash.hpp"
-
-
-    #endif
-
-    '
+    \    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_DETAIL_ROLLING_HASH_HPP\n#define TOOLS_DETAIL_ROLLING_HASH_HPP\n\
+    \n#include <cstdint>\n#include <cassert>\n#include <tuple>\n#include <chrono>\n\
+    #include <vector>\n#include \"tools/pow.hpp\"\n#include \"tools/extgcd.hpp\"\n\
+    #include \"tools/pow_mod_cache.hpp\"\n\nnamespace tools {\n  class rolling_hash;\n\
+    \n  class modint_for_rolling_hash {\n  private:\n    static constexpr ::std::uint64_t\
+    \ MASK30 = (::std::uint64_t(1) << 30) - 1;\n    static constexpr ::std::uint64_t\
+    \ MASK31 = (::std::uint64_t(1) << 31) - 1;\n    static constexpr ::std::uint64_t\
+    \ MOD = (::std::uint64_t(1) << 61) - 1;\n    static constexpr ::std::uint64_t\
+    \ MASK61 = MOD;\n    static constexpr ::std::uint64_t POSITIVIZER = MOD * 4;\n\
+    \n    ::std::uint64_t m_val;\n\n    modint_for_rolling_hash(const ::std::uint64_t\
+    \ x, int) : m_val(x) {\n    }\n\n    static ::std::uint64_t mul(const ::std::uint64_t\
+    \ a, const ::std::uint64_t b) {\n      assert(a < MOD);\n      assert(b < MOD);\n\
+    \      const ::std::uint64_t au = a >> 31;\n      const ::std::uint64_t ad = a\
+    \ & MASK31;\n      const ::std::uint64_t bu = b >> 31;\n      const ::std::uint64_t\
+    \ bd = b & MASK31;\n      const ::std::uint64_t mid = ad * bu + au * bd;\n   \
+    \   const ::std::uint64_t midu = mid >> 30;\n      const ::std::uint64_t midd\
+    \ = mid & MASK30;\n      return au * bu * 2 + midu + (midd << 31) + ad * bd;\n\
+    \    }\n    static ::std::uint64_t calc_mod(const ::std::uint64_t x) {\n     \
+    \ const ::std::uint64_t xu = x >> 61;\n      const ::std::uint64_t xd = x & MASK61;\n\
+    \      ::std::uint64_t res = xu + xd;\n      if (res >= MOD) res -= MOD;\n   \
+    \   return res;\n    }\n\n  public:\n    modint_for_rolling_hash() = default;\n\
+    \    modint_for_rolling_hash(const ::tools::modint_for_rolling_hash&) = default;\n\
+    \    modint_for_rolling_hash(::tools::modint_for_rolling_hash&&) = default;\n\
+    \    ~modint_for_rolling_hash() = default;\n    ::tools::modint_for_rolling_hash&\
+    \ operator=(const ::tools::modint_for_rolling_hash&) = default;\n    ::tools::modint_for_rolling_hash&\
+    \ operator=(::tools::modint_for_rolling_hash&&) = default;\n\n    explicit modint_for_rolling_hash(const\
+    \ ::std::uint64_t x) : m_val(calc_mod(x)) {\n    }\n\n    ::tools::modint_for_rolling_hash\
+    \ pow(const ::std::int_fast64_t n) const {\n      return ::tools::pow(*this, n);\n\
+    \    }\n    ::tools::modint_for_rolling_hash inv() const {\n      assert(this->m_val\
+    \ != 0);\n      return ::tools::modint_for_rolling_hash(::std::get<0>(::tools::extgcd(this->m_val,\
+    \ MOD)));\n    }\n\n    ::tools::modint_for_rolling_hash operator+() const {\n\
+    \      return *this;\n    }\n    ::tools::modint_for_rolling_hash operator-()\
+    \ const {\n      return ::tools::modint_for_rolling_hash(POSITIVIZER - this->m_val);\n\
+    \    }\n    friend ::tools::modint_for_rolling_hash operator+(const ::tools::modint_for_rolling_hash&\
+    \ lhs, const ::tools::modint_for_rolling_hash& rhs) {\n      return ::tools::modint_for_rolling_hash(lhs.m_val\
+    \ + rhs.m_val);\n    }\n    ::tools::modint_for_rolling_hash& operator+=(const\
+    \ ::tools::modint_for_rolling_hash& other) {\n      this->m_val = calc_mod(this->m_val\
+    \ + other.m_val);\n      return *this;\n    }\n    friend ::tools::modint_for_rolling_hash\
+    \ operator-(const ::tools::modint_for_rolling_hash& lhs, const ::tools::modint_for_rolling_hash&\
+    \ rhs) {\n      return ::tools::modint_for_rolling_hash(lhs.m_val + POSITIVIZER\
+    \ - rhs.m_val);\n    }\n    ::tools::modint_for_rolling_hash& operator-=(const\
+    \ ::tools::modint_for_rolling_hash& other) {\n      this->m_val = calc_mod(this->m_val\
+    \ + POSITIVIZER - other.m_val);\n      return *this;\n    }\n    friend ::tools::modint_for_rolling_hash\
+    \ operator*(const ::tools::modint_for_rolling_hash& lhs, const ::tools::modint_for_rolling_hash&\
+    \ rhs) {\n      return ::tools::modint_for_rolling_hash(mul(lhs.m_val, rhs.m_val));\n\
+    \    }\n    ::tools::modint_for_rolling_hash& operator*=(const ::tools::modint_for_rolling_hash&\
+    \ other) {\n      this->m_val = calc_mod(mul(this->m_val, other.m_val));\n   \
+    \   return *this;\n    }\n    friend ::tools::modint_for_rolling_hash operator/(const\
+    \ ::tools::modint_for_rolling_hash& lhs, const ::tools::modint_for_rolling_hash&\
+    \ rhs) {\n      return ::tools::modint_for_rolling_hash(mul(lhs.m_val, rhs.inv().m_val));\n\
+    \    }\n    ::tools::modint_for_rolling_hash& operator/=(const ::tools::modint_for_rolling_hash&\
+    \ other) {\n      this->m_val = calc_mod(mul(this->m_val, other.inv().m_val));\n\
+    \      return *this;\n    }\n    ::tools::modint_for_rolling_hash& operator++()\
+    \ {\n      this->m_val = calc_mod(this->m_val + 1);\n      return *this;\n   \
+    \ }\n    ::tools::modint_for_rolling_hash operator++(int) {\n      const auto\
+    \ result = *this;\n      ++(*this);\n      return result;\n    }\n    ::tools::modint_for_rolling_hash&\
+    \ operator--() {\n      this->m_val = calc_mod(this->m_val + POSITIVIZER - 1);\n\
+    \      return *this;\n    }\n    ::tools::modint_for_rolling_hash operator--(int)\
+    \ {\n      const auto result = *this;\n      --(*this);\n      return result;\n\
+    \    }\n\n    friend bool operator==(const ::tools::modint_for_rolling_hash& lhs,\
+    \ const ::tools::modint_for_rolling_hash& rhs) {\n      return lhs.m_val == rhs.m_val;\n\
+    \    }\n    friend bool operator!=(const ::tools::modint_for_rolling_hash& lhs,\
+    \ const ::tools::modint_for_rolling_hash& rhs) {\n      return lhs.m_val != rhs.m_val;\n\
+    \    }\n\n    ::std::int_fast64_t val() const {\n      return this->m_val;\n \
+    \   }\n\n    static ::tools::modint_for_rolling_hash raw(const ::std::uint64_t\
+    \ x) {\n      return ::tools::modint_for_rolling_hash(x, 0);\n    }\n    static\
+    \ ::std::int_fast64_t mod() {\n      return MOD;\n    }\n\n    friend ::tools::rolling_hash;\n\
+    \  };\n\n  class rolling_hash {\n  private:\n    using mint = ::tools::modint_for_rolling_hash;\n\
+    \    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count());\n\
+    \    ::std::vector<mint> m_hash;\n\n  public:\n    rolling_hash() = default;\n\
+    \    rolling_hash(const ::tools::rolling_hash&) = default;\n    rolling_hash(::tools::rolling_hash&&)\
+    \ = default;\n    ~rolling_hash() = default;\n    ::tools::rolling_hash& operator=(const\
+    \ ::tools::rolling_hash&) = default;\n    ::tools::rolling_hash& operator=(::tools::rolling_hash&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    rolling_hash(InputIterator\
+    \ begin, InputIterator end) {\n      this->m_hash.push_back(mint::raw(0));\n \
+    \     const auto base = pow_base[1].m_val;\n      for (auto it = begin; it !=\
+    \ end; ++it) {\n        this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val,\
+    \ base) + *it);\n      }\n      pow_base[this->m_hash.size()];\n    }\n\n    mint\
+    \ slice(const ::std::size_t l, const ::std::size_t r) const {\n      assert(l\
+    \ <= r && r <= this->m_hash.size());\n      return mint(this->m_hash[r].m_val\
+    \ + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, pow_base[r - l].m_val));\n\
+    \    }\n  };\n}\n\n#endif\n"
   dependsOn:
-  - tools/detail/rolling_hash.hpp
   - tools/pow.hpp
   - tools/monoid.hpp
   - tools/square.hpp
@@ -275,27 +350,18 @@ data:
   - tools/detail/ceil_and_floor.hpp
   - tools/ceil.hpp
   isVerificationFile: false
-  path: tools/modint_for_rolling_hash.hpp
-  requiredBy: []
+  path: tools/detail/rolling_hash.hpp
+  requiredBy:
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rolling_hash.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: tools/modint_for_rolling_hash.hpp
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/rolling_hash.test.cpp
+documentation_of: tools/detail/rolling_hash.hpp
 layout: document
-title: $x \pmod {2^{61} - 1}$
+redirect_from:
+- /library/tools/detail/rolling_hash.hpp
+- /library/tools/detail/rolling_hash.hpp.html
+title: tools/detail/rolling_hash.hpp
 ---
-
-It is the struct that treats the modular arithmetic on $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$.
-It is compatible to `atcoder::static_modint`.
-
-## Constraints
-- Same as `atcoder::static_modint`
-
-## Time Complexity
-- Same as `atcoder::static_modint`
-
-## License
-- CC0
-
-## Author
-- anqooqie

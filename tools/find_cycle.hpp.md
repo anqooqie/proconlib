@@ -2,13 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
   - icon: ':warning:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $x \pmod {2^{61} - 1}$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/find_cycle.test.cpp
     title: tests/find_cycle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -37,11 +49,15 @@ data:
   isVerificationFile: false
   path: tools/find_cycle.hpp
   requiredBy:
+  - tools/detail/rolling_hash.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/find_cycle.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/find_cycle.hpp
 layout: document
 title: Floyd's cycle-finding algorithm
