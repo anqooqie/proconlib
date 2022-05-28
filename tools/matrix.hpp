@@ -6,7 +6,6 @@
 #include <cassert>
 #include <iostream>
 #include <string>
-#include <cstdint>
 #include <optional>
 #include "tools/vector.hpp"
 
@@ -148,8 +147,11 @@ namespace tools {
       return is;
     }
 
-    ::std::int_fast64_t gauss_jordan() {
+  private:
+    ::std::pair<::std::size_t, T> internal_gauss_jordan() {
       ::std::size_t rank = 0;
+      T coeff(1);
+
       for (::std::size_t c = 0; c < this->m_cols; ++c) {
         ::std::size_t pivot;
         for (pivot = rank; pivot < this->m_rows && (*this)[pivot][c] == T(0); ++pivot);
@@ -159,6 +161,7 @@ namespace tools {
           for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
             ::std::swap((*this)[rank][cc], (*this)[pivot][cc]);
           }
+          coeff *= T(-1);
         }
 
         {
@@ -166,6 +169,7 @@ namespace tools {
           for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
             (*this)[rank][cc] *= scale_inv;
           }
+          coeff *= scale_inv;
         }
 
         for (::std::size_t r = 0; r < this->m_rows; ++r) {
@@ -179,7 +183,13 @@ namespace tools {
 
         ++rank;
       }
-      return rank;
+
+      return ::std::make_pair(rank, coeff);
+    }
+
+  public:
+    ::std::size_t gauss_jordan() {
+      return this->internal_gauss_jordan().first;
     }
 
     ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {
@@ -193,7 +203,7 @@ namespace tools {
         Ab[r][this->m_cols] = b[r];
       }
 
-      Ab.gauss_jordan();
+      Ab.internal_gauss_jordan();
 
       ::std::vector<::std::size_t> ranks(Ab.cols());
       for (::std::size_t r = 0, cl = 0, cr = 0; r <= Ab.rows(); ++r, cl = cr) {
@@ -240,6 +250,15 @@ namespace tools {
       return answer;
     }
 
+    T determinant() const {
+      assert(this->m_rows == this->m_cols);
+
+      ::tools::matrix<T> A = *this;
+      const auto [rank, coeff] = A.internal_gauss_jordan();
+
+      return rank == A.m_rows ? T(1) / coeff : T(0);
+    }
+
     static ::tools::matrix<T> e(const ::std::size_t n) {
       ::tools::matrix<T> result(n, n, T(0));
       for (::std::size_t i = 0; i < n; ++i) {
@@ -262,7 +281,7 @@ namespace tools {
         AI[r][this->m_cols + r] = T(1);
       }
 
-      AI.gauss_jordan();
+      AI.internal_gauss_jordan();
       for (::std::size_t i = 0; i < this->m_rows; ++i) {
         if (AI[i][i] != T(1)) return ::std::nullopt;
       }

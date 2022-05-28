@@ -72,7 +72,7 @@ It returns the number of the columns of the matrix.
 
 ## gauss_jordan
 ```cpp
-std::int_fast64_t A.gauss_jordan();
+std::size_t A.gauss_jordan();
 ```
 
 It transforms the matrix to the reduced row echelon form, and returns the rank of the matrix.
@@ -109,6 +109,19 @@ Otherwise, it returns a $m \times 0$-dimensional matrix.
 
 ### Time Complexity
 - $O(n m^2)$
+
+## determinant
+```cpp
+T A.determinant();
+```
+
+It returns $\|A\|$.
+
+### Constraints
+- $n = m$
+
+### Time Complexity
+- $O(n^3)$
 
 ## Arithmetic operations
 ```cpp
