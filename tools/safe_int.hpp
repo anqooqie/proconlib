@@ -120,13 +120,13 @@ namespace tools {
     }
 
     friend constexpr bool operator==(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
         {BT(), BF(), BF(), BF()},
         {BF(), BQ(), BF(), BF()},
         {BF(), BF(), BT(), BF()},
         {BF(), BF(), BF(), BF()}
-      }})[f1(x)][f1(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
       return x.m_value == y.m_value;
     }
@@ -138,23 +138,23 @@ namespace tools {
       return *this;
     }
     constexpr ::tools::safe_int<T> operator-() const {
-      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>, 4>({
+      constexpr auto table = ::std::array<::std::optional<::tools::safe_int<T>>, 4>({
         {P(), Q(), N(), U()}
-      })[f1(*this)];
-      if (r) return *r;
+      });
+      if (const auto r = table[f1(*this)]; r) return *r;
 
       if (this->m_value == ::std::numeric_limits<T>::min()) return *U();
       return ::tools::safe_int<T>(-this->m_value);
     }
 
     friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
         {N(), N(), U(), U()},
         {N(), Q(), P(), U()},
         {U(), P(), P(), U()},
         {U(), U(), U(), U()}
-      }})[f1(x)][f1(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
       if (y.m_value > 0 && x.m_value > ::std::numeric_limits<T>::max() - y.m_value) return *U();
       if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min() - y.m_value) return *U();
@@ -168,13 +168,13 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 4>, 4>({{
         {U(), N(), N(), U()},
         {P(), Q(), N(), U()},
         {P(), P(), U(), U()},
         {U(), U(), U(), U()}
-      }})[f1(x)][f1(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
       if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();
       if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value) return *U();
@@ -188,15 +188,15 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator*(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
         {P(), P(), U(), N(), N(), U()},
         {P(), Q(), Z(), Q(), N(), U()},
         {U(), Z(), Z(), Z(), U(), U()},
         {N(), Q(), Z(), Q(), P(), U()},
         {N(), N(), U(), P(), P(), U()},
         {U(), U(), U(), U(), U(), U()}
-      }})[f2(x)][f2(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f2(x)][f2(y)]; r) return *r;
 
       if (x.m_value > 0) {
         if (y.m_value > 0) {
@@ -229,15 +229,15 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
         {U(), P(), U(), N(), U(), U()},
         {Z(), Q(), U(), Q(), Z(), U()},
         {Z(), Z(), U(), Z(), Z(), U()},
         {Z(), Q(), U(), Q(), Z(), U()},
         {U(), N(), U(), P(), U(), U()},
         {U(), U(), U(), U(), U(), U()}
-      }})[f2(x)][f2(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f2(x)][f2(y)]; r) return *r;
 
       if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return *U();
       return ::tools::safe_int<T>(x.m_value / y.m_value);
@@ -250,15 +250,15 @@ namespace tools {
     }
 
     friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>, 6>, 6>({{
         {U(), U(), U(), U(), U(), U()},
         {U(), Q(), U(), Q(), U(), U()},
         {U(), Z(), U(), Z(), U(), U()},
         {U(), Q(), U(), Q(), U(), U()},
         {U(), U(), U(), U(), U(), U()},
         {U(), U(), U(), U(), U(), U()}
-      }})[f2(x)][f2(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f2(x)][f2(y)]; r) return *r;
 
       if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return *U();
       return ::tools::safe_int<T>(x.m_value % y.m_value);
@@ -302,24 +302,24 @@ namespace tools {
     }
 
     friend constexpr bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
         {BF(), BT(), BT(), BF()},
         {BF(), BQ(), BT(), BF()},
         {BF(), BF(), BF(), BF()},
         {BF(), BF(), BF(), BF()}
-      }})[f1(x)][f1(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
       return x.m_value < y.m_value;
     }
     friend constexpr bool operator>(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
-      const auto r = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
+      constexpr auto table = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
         {BF(), BF(), BF(), BF()},
         {BT(), BQ(), BF(), BF()},
         {BT(), BT(), BF(), BF()},
         {BF(), BF(), BF(), BF()}
-      }})[f1(x)][f1(y)];
-      if (r) return *r;
+      }});
+      if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
       return x.m_value > y.m_value;
     }
