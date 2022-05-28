@@ -55,78 +55,81 @@ data:
     \ const {\n      return this->m_type == ::tools::safe_int<T>::type::nan;\n   \
     \ }\n\n    constexpr T val() const {\n      assert(this->is_finite());\n     \
     \ return this->m_value;\n    }\n\n    friend constexpr bool operator==(const ::tools::safe_int<T>&\
-    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BT(), BF(), BF(), BF()},\n        {BF(), BQ(), BF(), BF()},\n\
-    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value == y.m_value;\n    }\n    friend\
-    \ constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      return !(x == y);\n    }\n\n    constexpr ::tools::safe_int<T> operator+()\
-    \ const {\n      return *this;\n    }\n    constexpr ::tools::safe_int<T> operator-()\
-    \ const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
-    \ 4>({\n        {P(), Q(), N(), U()}\n      })[f1(*this)];\n      if (r) return\
-    \ *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();\n\
-    \      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n    friend constexpr\
-    \ ::tools::safe_int<T> operator+(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ == y.m_value;\n    }\n    friend constexpr bool operator!=(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      return !(x == y);\n    }\n\n    constexpr\
+    \ ::tools::safe_int<T> operator+() const {\n      return *this;\n    }\n    constexpr\
+    \ ::tools::safe_int<T> operator-() const {\n      constexpr auto table = ::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ 4>({\n        {P(), Q(), N(), U()}\n      });\n      if (const auto r = table[f1(*this)];\
+    \ r) return *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min())\
+    \ return *U();\n      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n\
+    \    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>, 4>({{\n        {N(), N(), U(), U()},\n        {N(), Q(), P(), U()},\n  \
-    \      {U(), P(), P(), U()},\n        {U(), U(), U(), U()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      if (y.m_value > 0 && x.m_value > ::std::numeric_limits<T>::max()\
-    \ - y.m_value) return *U();\n      if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min()\
-    \ - y.m_value) return *U();\n      return ::tools::safe_int<T>(x.m_value + y.m_value);\n\
-    \    }\n    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
+    \      {U(), P(), P(), U()},\n        {U(), U(), U(), U()}\n      }});\n     \
+    \ if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      if (y.m_value\
+    \ > 0 && x.m_value > ::std::numeric_limits<T>::max() - y.m_value) return *U();\n\
+    \      if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min() - y.m_value)\
+    \ return *U();\n      return ::tools::safe_int<T>(x.m_value + y.m_value);\n  \
+    \  }\n    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x + tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator+(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) + y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator-(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>, 4>({{\n        {U(), N(), N(), U()},\n        {P(), Q(), N(), U()},\n  \
-    \      {P(), P(), U(), U()},\n        {U(), U(), U(), U()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max()\
-    \ + y.m_value) return *U();\n      if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min()\
-    \ + y.m_value) return *U();\n      return ::tools::safe_int<T>(x.m_value - y.m_value);\n\
-    \    }\n    friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>&\
+    \      {P(), P(), U(), U()},\n        {U(), U(), U(), U()}\n      }});\n     \
+    \ if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      if (y.m_value\
+    \ < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();\n\
+    \      if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value)\
+    \ return *U();\n      return ::tools::safe_int<T>(x.m_value - y.m_value);\n  \
+    \  }\n    friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x - tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator-(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) - y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator*(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {P(), P(), U(), N(), N(), U()},\n        {P(), Q(), Z(),\
     \ Q(), N(), U()},\n        {U(), Z(), Z(), Z(), U(), U()},\n        {N(), Q(),\
     \ Z(), Q(), P(), U()},\n        {N(), N(), U(), P(), P(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value > 0) {\n        if (y.m_value > 0) {\n          if (x.m_value\
-    \ > ::std::numeric_limits<T>::max() / y.m_value) {\n            return *U();\n\
-    \          }\n        } else {\n          if (y.m_value < ::std::numeric_limits<T>::min()\
-    \ / x.m_value) {\n            return *U();\n          }\n        }\n      } else\
-    \ {\n        if (y.m_value > 0) {\n          if (x.m_value < ::std::numeric_limits<T>::min()\
-    \ / y.m_value) {\n            return *U();\n          }\n        } else {\n  \
-    \        if (x.m_value != 0 && y.m_value < ::std::numeric_limits<T>::max() / x.m_value)\
-    \ {\n            return *U();\n          }\n        }\n      }\n      return ::tools::safe_int<T>(x.m_value\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value > 0) {\n        if (y.m_value > 0) {\n\
+    \          if (x.m_value > ::std::numeric_limits<T>::max() / y.m_value) {\n  \
+    \          return *U();\n          }\n        } else {\n          if (y.m_value\
+    \ < ::std::numeric_limits<T>::min() / x.m_value) {\n            return *U();\n\
+    \          }\n        }\n      } else {\n        if (y.m_value > 0) {\n      \
+    \    if (x.m_value < ::std::numeric_limits<T>::min() / y.m_value) {\n        \
+    \    return *U();\n          }\n        } else {\n          if (x.m_value != 0\
+    \ && y.m_value < ::std::numeric_limits<T>::max() / x.m_value) {\n            return\
+    \ *U();\n          }\n        }\n      }\n      return ::tools::safe_int<T>(x.m_value\
     \ * y.m_value);\n    }\n    friend constexpr ::tools::safe_int<T> operator*(const\
     \ ::tools::safe_int<T>& x, const T& y) {\n      return x * tools::safe_int<T>(y);\n\
     \    }\n    friend constexpr ::tools::safe_int<T> operator*(const T& x, const\
     \ ::tools::safe_int<T>& y) {\n      return tools::safe_int<T>(x) * y;\n    }\n\
     \n    friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
-    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {U(), P(), U(), N(), U(), U()},\n        {Z(), Q(), U(),\
     \ Q(), Z(), U()},\n        {Z(), Z(), U(), Z(), Z(), U()},\n        {Z(), Q(),\
     \ U(), Q(), Z(), U()},\n        {U(), N(), U(), P(), U(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return\
-    \ *U();\n      return ::tools::safe_int<T>(x.m_value / y.m_value);\n    }\n  \
-    \  friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value\
+    \ == -1) return *U();\n      return ::tools::safe_int<T>(x.m_value / y.m_value);\n\
+    \    }\n    friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x / tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator/(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) / y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator%(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {U(), U(), U(), U(), U(), U()},\n        {U(), Q(), U(),\
     \ Q(), U(), U()},\n        {U(), Z(), U(), Z(), U(), U()},\n        {U(), Q(),\
     \ U(), Q(), U(), U()},\n        {U(), U(), U(), U(), U(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return\
-    \ *U();\n      return ::tools::safe_int<T>(x.m_value % y.m_value);\n    }\n  \
-    \  friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>&\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value\
+    \ == -1) return *U();\n      return ::tools::safe_int<T>(x.m_value % y.m_value);\n\
+    \    }\n    friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x % tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator%(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) % y;\n    }\n\n    constexpr ::tools::safe_int<T>&\
@@ -146,19 +149,19 @@ data:
     \ other) {\n      return *this = *this % other;\n    }\n    constexpr ::tools::safe_int<T>&\
     \ operator%=(const T& other) {\n      return *this = *this % ::tools::safe_int<T>(other);\n\
     \    }\n\n    friend constexpr bool operator<(const ::tools::safe_int<T>& x, const\
-    \ ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BF(), BT(), BT(), BF()},\n        {BF(), BQ(), BT(), BF()},\n\
-    \        {BF(), BF(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value < y.m_value;\n    }\n    friend\
-    \ constexpr bool operator>(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \        {BF(), BF(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ < y.m_value;\n    }\n    friend constexpr bool operator>(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BF(), BF(), BF(), BF()},\n        {BT(), BQ(), BF(), BF()},\n\
-    \        {BT(), BT(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value > y.m_value;\n    }\n    friend\
-    \ constexpr bool operator<=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      return x < y || x == y;\n    }\n    friend constexpr bool operator>=(const\
-    \ ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {\n      return x >\
-    \ y || x == y;\n    }\n  };\n}\n\n\n"
+    \        {BT(), BT(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ > y.m_value;\n    }\n    friend constexpr bool operator<=(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      return x < y || x == y;\n    }\n\
+    \    friend constexpr bool operator>=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
+    \ y) {\n      return x > y || x == y;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_SAFE_INT_HPP\n#define TOOLS_SAFE_INT_HPP\n\n#include <type_traits>\n\
     #include <cstddef>\n#include <cassert>\n#include <limits>\n#include <array>\n\
     #include <optional>\n\nnamespace tools {\n  template <typename T, typename ::std::enable_if<::std::is_signed_v<T>,\
@@ -203,78 +206,81 @@ data:
     \ const {\n      return this->m_type == ::tools::safe_int<T>::type::nan;\n   \
     \ }\n\n    constexpr T val() const {\n      assert(this->is_finite());\n     \
     \ return this->m_value;\n    }\n\n    friend constexpr bool operator==(const ::tools::safe_int<T>&\
-    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BT(), BF(), BF(), BF()},\n        {BF(), BQ(), BF(), BF()},\n\
-    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value == y.m_value;\n    }\n    friend\
-    \ constexpr bool operator!=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      return !(x == y);\n    }\n\n    constexpr ::tools::safe_int<T> operator+()\
-    \ const {\n      return *this;\n    }\n    constexpr ::tools::safe_int<T> operator-()\
-    \ const {\n      const auto r = ::std::array<::std::optional<::tools::safe_int<T>>,\
-    \ 4>({\n        {P(), Q(), N(), U()}\n      })[f1(*this)];\n      if (r) return\
-    \ *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min()) return *U();\n\
-    \      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n    friend constexpr\
-    \ ::tools::safe_int<T> operator+(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \        {BF(), BF(), BT(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ == y.m_value;\n    }\n    friend constexpr bool operator!=(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      return !(x == y);\n    }\n\n    constexpr\
+    \ ::tools::safe_int<T> operator+() const {\n      return *this;\n    }\n    constexpr\
+    \ ::tools::safe_int<T> operator-() const {\n      constexpr auto table = ::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ 4>({\n        {P(), Q(), N(), U()}\n      });\n      if (const auto r = table[f1(*this)];\
+    \ r) return *r;\n\n      if (this->m_value == ::std::numeric_limits<T>::min())\
+    \ return *U();\n      return ::tools::safe_int<T>(-this->m_value);\n    }\n\n\
+    \    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>, 4>({{\n        {N(), N(), U(), U()},\n        {N(), Q(), P(), U()},\n  \
-    \      {U(), P(), P(), U()},\n        {U(), U(), U(), U()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      if (y.m_value > 0 && x.m_value > ::std::numeric_limits<T>::max()\
-    \ - y.m_value) return *U();\n      if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min()\
-    \ - y.m_value) return *U();\n      return ::tools::safe_int<T>(x.m_value + y.m_value);\n\
-    \    }\n    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
+    \      {U(), P(), P(), U()},\n        {U(), U(), U(), U()}\n      }});\n     \
+    \ if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      if (y.m_value\
+    \ > 0 && x.m_value > ::std::numeric_limits<T>::max() - y.m_value) return *U();\n\
+    \      if (y.m_value < 0 && x.m_value < ::std::numeric_limits<T>::min() - y.m_value)\
+    \ return *U();\n      return ::tools::safe_int<T>(x.m_value + y.m_value);\n  \
+    \  }\n    friend constexpr ::tools::safe_int<T> operator+(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x + tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator+(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) + y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator-(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 4>, 4>({{\n        {U(), N(), N(), U()},\n        {P(), Q(), N(), U()},\n  \
-    \      {P(), P(), U(), U()},\n        {U(), U(), U(), U()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max()\
-    \ + y.m_value) return *U();\n      if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min()\
-    \ + y.m_value) return *U();\n      return ::tools::safe_int<T>(x.m_value - y.m_value);\n\
-    \    }\n    friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>&\
+    \      {P(), P(), U(), U()},\n        {U(), U(), U(), U()}\n      }});\n     \
+    \ if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      if (y.m_value\
+    \ < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();\n\
+    \      if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value)\
+    \ return *U();\n      return ::tools::safe_int<T>(x.m_value - y.m_value);\n  \
+    \  }\n    friend constexpr ::tools::safe_int<T> operator-(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x - tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator-(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) - y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator*(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {P(), P(), U(), N(), N(), U()},\n        {P(), Q(), Z(),\
     \ Q(), N(), U()},\n        {U(), Z(), Z(), Z(), U(), U()},\n        {N(), Q(),\
     \ Z(), Q(), P(), U()},\n        {N(), N(), U(), P(), P(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value > 0) {\n        if (y.m_value > 0) {\n          if (x.m_value\
-    \ > ::std::numeric_limits<T>::max() / y.m_value) {\n            return *U();\n\
-    \          }\n        } else {\n          if (y.m_value < ::std::numeric_limits<T>::min()\
-    \ / x.m_value) {\n            return *U();\n          }\n        }\n      } else\
-    \ {\n        if (y.m_value > 0) {\n          if (x.m_value < ::std::numeric_limits<T>::min()\
-    \ / y.m_value) {\n            return *U();\n          }\n        } else {\n  \
-    \        if (x.m_value != 0 && y.m_value < ::std::numeric_limits<T>::max() / x.m_value)\
-    \ {\n            return *U();\n          }\n        }\n      }\n      return ::tools::safe_int<T>(x.m_value\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value > 0) {\n        if (y.m_value > 0) {\n\
+    \          if (x.m_value > ::std::numeric_limits<T>::max() / y.m_value) {\n  \
+    \          return *U();\n          }\n        } else {\n          if (y.m_value\
+    \ < ::std::numeric_limits<T>::min() / x.m_value) {\n            return *U();\n\
+    \          }\n        }\n      } else {\n        if (y.m_value > 0) {\n      \
+    \    if (x.m_value < ::std::numeric_limits<T>::min() / y.m_value) {\n        \
+    \    return *U();\n          }\n        } else {\n          if (x.m_value != 0\
+    \ && y.m_value < ::std::numeric_limits<T>::max() / x.m_value) {\n            return\
+    \ *U();\n          }\n        }\n      }\n      return ::tools::safe_int<T>(x.m_value\
     \ * y.m_value);\n    }\n    friend constexpr ::tools::safe_int<T> operator*(const\
     \ ::tools::safe_int<T>& x, const T& y) {\n      return x * tools::safe_int<T>(y);\n\
     \    }\n    friend constexpr ::tools::safe_int<T> operator*(const T& x, const\
     \ ::tools::safe_int<T>& y) {\n      return tools::safe_int<T>(x) * y;\n    }\n\
     \n    friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
-    \ x, const ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {U(), P(), U(), N(), U(), U()},\n        {Z(), Q(), U(),\
     \ Q(), Z(), U()},\n        {Z(), Z(), U(), Z(), Z(), U()},\n        {Z(), Q(),\
     \ U(), Q(), Z(), U()},\n        {U(), N(), U(), P(), U(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return\
-    \ *U();\n      return ::tools::safe_int<T>(x.m_value / y.m_value);\n    }\n  \
-    \  friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value\
+    \ == -1) return *U();\n      return ::tools::safe_int<T>(x.m_value / y.m_value);\n\
+    \    }\n    friend constexpr ::tools::safe_int<T> operator/(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x / tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator/(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) / y;\n    }\n\n    friend constexpr\
     \ ::tools::safe_int<T> operator%(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
+    \ y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<::tools::safe_int<T>>,\
     \ 6>, 6>({{\n        {U(), U(), U(), U(), U(), U()},\n        {U(), Q(), U(),\
     \ Q(), U(), U()},\n        {U(), Z(), U(), Z(), U(), U()},\n        {U(), Q(),\
     \ U(), Q(), U(), U()},\n        {U(), U(), U(), U(), U(), U()},\n        {U(),\
-    \ U(), U(), U(), U(), U()}\n      }})[f2(x)][f2(y)];\n      if (r) return *r;\n\
-    \n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value == -1) return\
-    \ *U();\n      return ::tools::safe_int<T>(x.m_value % y.m_value);\n    }\n  \
-    \  friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>&\
+    \ U(), U(), U(), U(), U()}\n      }});\n      if (const auto r = table[f2(x)][f2(y)];\
+    \ r) return *r;\n\n      if (x.m_value == ::std::numeric_limits<T>::min() && y.m_value\
+    \ == -1) return *U();\n      return ::tools::safe_int<T>(x.m_value % y.m_value);\n\
+    \    }\n    friend constexpr ::tools::safe_int<T> operator%(const ::tools::safe_int<T>&\
     \ x, const T& y) {\n      return x % tools::safe_int<T>(y);\n    }\n    friend\
     \ constexpr ::tools::safe_int<T> operator%(const T& x, const ::tools::safe_int<T>&\
     \ y) {\n      return tools::safe_int<T>(x) % y;\n    }\n\n    constexpr ::tools::safe_int<T>&\
@@ -294,24 +300,24 @@ data:
     \ other) {\n      return *this = *this % other;\n    }\n    constexpr ::tools::safe_int<T>&\
     \ operator%=(const T& other) {\n      return *this = *this % ::tools::safe_int<T>(other);\n\
     \    }\n\n    friend constexpr bool operator<(const ::tools::safe_int<T>& x, const\
-    \ ::tools::safe_int<T>& y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \ ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BF(), BT(), BT(), BF()},\n        {BF(), BQ(), BT(), BF()},\n\
-    \        {BF(), BF(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value < y.m_value;\n    }\n    friend\
-    \ constexpr bool operator>(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      const auto r = ::std::array<::std::array<::std::optional<bool>,\
+    \        {BF(), BF(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ < y.m_value;\n    }\n    friend constexpr bool operator>(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BF(), BF(), BF(), BF()},\n        {BT(), BQ(), BF(), BF()},\n\
-    \        {BT(), BT(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }})[f1(x)][f1(y)];\n\
-    \      if (r) return *r;\n\n      return x.m_value > y.m_value;\n    }\n    friend\
-    \ constexpr bool operator<=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      return x < y || x == y;\n    }\n    friend constexpr bool operator>=(const\
-    \ ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {\n      return x >\
-    \ y || x == y;\n    }\n  };\n}\n\n#endif\n"
+    \        {BT(), BT(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
+    \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
+    \ > y.m_value;\n    }\n    friend constexpr bool operator<=(const ::tools::safe_int<T>&\
+    \ x, const ::tools::safe_int<T>& y) {\n      return x < y || x == y;\n    }\n\
+    \    friend constexpr bool operator>=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
+    \ y) {\n      return x > y || x == y;\n    }\n  };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/safe_int.hpp
   requiredBy: []
-  timestamp: '2021-10-03 21:10:51+09:00'
+  timestamp: '2022-05-28 15:13:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/safe_int.test.cpp
