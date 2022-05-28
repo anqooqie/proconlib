@@ -20,23 +20,23 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/sort_points_by_argument
+    PROBLEM: https://atcoder.jp/contests/abc225/tasks/abc225_e
     links:
-    - https://judge.yosupo.jp/problem/sort_points_by_argument
-  bundledCode: "#line 1 \"tests/less_by_arg.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\
-    \n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
-    #line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
-    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
-    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
-    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
-    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
-    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
-    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
-    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
-    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    - https://atcoder.jp/contests/abc225/tasks/abc225_e
+  bundledCode: "#line 1 \"tests/less_by_arg.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc225/tasks/abc225_e\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
+    #line 1 \"tools/vector2.hpp\"\n\n\n\n#include <cmath>\n#include <type_traits>\n\
+    #include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
+    \ <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
+    \n#include <utility>\n#include <random>\n#line 9 \"tools/pair_hash.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <class T1, class T2>\n  struct pair_hash {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n\
+    \    ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n      static\
+    \ const ::std::size_t salt = ::std::random_device()();\n      static const ::std::hash<T1>\
+    \ hasher1 = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
+    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
+    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
+    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
@@ -137,49 +137,42 @@ data:
     \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
     \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm() <\
     \ c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool DEFAULT, typename T>\n  class less_by_arg\
-    \ {\n  private:\n    ::tools::vector2<T> d;\n\n    template <typename U>\n   \
-    \ int where(const ::tools::vector2<U>& p) const {\n      if constexpr (DEFAULT)\
-    \ {\n        return p.y > 0 || (p.y == 0 && p.x >= 0) ? 0 : 1;\n      } else {\n\
-    \        if (this->d.x == 0 && this->d.y == 0) {\n          return p.y > 0 ||\
-    \ (p.y == 0 && p.x >= 0) ? 0 : 1;\n        } else {\n          if (p.x == 0 &&\
-    \ p.y == 0) {\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0,\
-    \ 0), this->d, ::tools::vector2<U>(1, 0));\n            if (ccw == +1) return\
-    \ 2;\n            if (ccw == +2) return 4;\n            if (ccw == -1) return\
-    \ 7;\n            return 9;\n          } else {\n            if (this->d == p)\
-    \ return 0;\n            const int ccw = ::tools::ccw(::tools::vector2<U>(0, 0),\
-    \ this->d, p);\n            if (ccw == -2) return 0;\n            if (ccw == +1)\
-    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
-    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != +1) return 1;\n     \
-    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
-    \ 0), p);\n              if (ccw3 == -1) return 1;\n              return 3;\n\
-    \            }\n            if (ccw == +2) return 5;\n            if (ccw == -1)\
-    \ {\n              const int ccw2 = ::tools::ccw(::tools::vector2<U>(0, 0), this->d,\
-    \ ::tools::vector2<U>(1, 0));\n              if (ccw2 != -1) return 6;\n     \
-    \         const int ccw3 = ::tools::ccw(::tools::vector2<U>(0, 0), ::tools::vector2<U>(1,\
-    \ 0), p);\n              if (ccw3 == -1) return 6;\n              return 8;\n\
-    \            }\n            return 9;\n          }\n        }\n      }\n    }\n\
-    \n  public:\n    less_by_arg() = default;\n\n    template <typename U>\n    explicit\
-    \ less_by_arg(const ::tools::vector2<U>& d) : d(d) {\n    }\n\n    template <typename\
-    \ U>\n    bool operator()(const ::tools::vector2<U>& a, const ::tools::vector2<U>&\
-    \ b) const {\n      const int wa = this->where(a);\n      const int wb = this->where(b);\n\
-    \      return wa == wb ? a.outer_product(b) > 0 || (a.outer_product(b) == 0 &&\
-    \ a.squared_norm() < b.squared_norm()) : wa < wb;\n    }\n  };\n\n  less_by_arg()\
-    \ -> less_by_arg<true, int>;\n\n  template <typename U>\n  less_by_arg(const ::tools::vector2<U>&)\
-    \ -> less_by_arg<false, U>;\n}\n\n\n#line 7 \"tests/less_by_arg.test.cpp\"\n\n\
-    using i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> p(N);\n  for\
-    \ (auto& p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001,\
-    \ -1)));\n\n  for (const auto& p_i : p) {\n    std::cout << p_i.x << ' ' << p_i.y\
-    \ << '\\n';\n  }\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sort_points_by_argument\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\n\
-    #include \"tools/less_by_arg.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> p(N);\n  for (auto&\
-    \ p_i : p) std::cin >> p_i;\n\n  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001,\
-    \ -1)));\n\n  for (const auto& p_i : p) {\n    std::cout << p_i.x << ' ' << p_i.y\
-    \ << '\\n';\n  }\n}\n"
+    \n\nnamespace tools {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n\
+    \    ::tools::vector2<T> o;\n    ::tools::vector2<T> d;\n\n    int where(const\
+    \ ::tools::vector2<T>& p) const {\n      assert(p != this->o);\n      const auto\
+    \ ccw = ::tools::ccw(this->o, this->d, p);\n      if (ccw == +1) return 1;\n \
+    \     if (ccw == -1) return 3;\n      if (ccw == +2) return 2;\n      return 0;\n\
+    \    }\n\n  public:\n    less_by_arg() = default;\n    less_by_arg(const ::tools::less_by_arg<T>&)\
+    \ = default;\n    less_by_arg(::tools::less_by_arg<T>&&) = default;\n    ~less_by_arg()\
+    \ = default;\n    ::tools::less_by_arg<T>& operator=(const ::tools::less_by_arg<T>&)\
+    \ = default;\n    ::tools::less_by_arg<T>& operator=(::tools::less_by_arg<T>&&)\
+    \ = default;\n\n    less_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>&\
+    \ d) : o(o), d(d) {\n      assert(d != o);\n    }\n\n    bool operator()(const\
+    \ ::tools::vector2<T>& a, const ::tools::vector2<T>& b) const {\n      if (const\
+    \ auto wa = this->where(a), wb = this->where(b); wa != wb) return wa < wb;\n \
+    \     return (a - this->o).outer_product(b - this->o) > T(0);\n    }\n  };\n}\n\
+    \n\n#line 9 \"tests/less_by_arg.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
+    \ (auto& v_i : v) std::cin >> v_i;\n\n  const tools::less_by_arg<i64> comp(tools::vector2<i64>(0,\
+    \ 0), tools::vector2<i64>(1, 0));\n  std::sort(v.begin(), v.end(), [&](const auto&\
+    \ v1, const auto& v2) {\n    return comp(v1 + tools::vector2<i64>(-1, 0), v2 +\
+    \ tools::vector2<i64>(-1, 0));\n  });\n\n  i64 answer = 0;\n  for (i64 i = 0;\
+    \ i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<i64>(-1,\
+    \ 0);\n    for (; i < N && comp(v[i] + tools::vector2<i64>(0, -1), end); ++i);\n\
+    \  }\n  std::cout << answer << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc225/tasks/abc225_e\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
+    #include \"tools/vector2.hpp\"\n#include \"tools/less_by_arg.hpp\"\n\nusing i64\
+    \ = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
+    \ (auto& v_i : v) std::cin >> v_i;\n\n  const tools::less_by_arg<i64> comp(tools::vector2<i64>(0,\
+    \ 0), tools::vector2<i64>(1, 0));\n  std::sort(v.begin(), v.end(), [&](const auto&\
+    \ v1, const auto& v2) {\n    return comp(v1 + tools::vector2<i64>(-1, 0), v2 +\
+    \ tools::vector2<i64>(-1, 0));\n  });\n\n  i64 answer = 0;\n  for (i64 i = 0;\
+    \ i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<i64>(-1,\
+    \ 0);\n    for (; i < N && comp(v[i] + tools::vector2<i64>(0, -1), end); ++i);\n\
+    \  }\n  std::cout << answer << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
@@ -188,7 +181,7 @@ data:
   isVerificationFile: true
   path: tests/less_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2022-02-19 03:37:47+09:00'
+  timestamp: '2022-05-28 14:58:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/less_by_arg.test.cpp

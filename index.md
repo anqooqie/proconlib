@@ -145,6 +145,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_arg.hpp
       title: std::greater by the argument
+    - icon: ':heavy_check_mark:'
+      path: tools/greater_by_arg_total.hpp
+      title: std::greater by the argument (total order)
     - icon: ':warning:'
       path: tools/greater_by_first.hpp
       title: std::greater by first
@@ -196,6 +199,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_arg.hpp
       title: std::less by the argument
+    - icon: ':heavy_check_mark:'
+      path: tools/less_by_arg_total.hpp
+      title: std::less by the argument (total order)
     - icon: ':warning:'
       path: tools/less_by_first.hpp
       title: std::less by first
@@ -503,6 +509,9 @@ data:
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/greater_by_arg_total.test.cpp
+      title: tests/greater_by_arg_total.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/integer_interval_set.test.cpp
       title: tests/integer_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
@@ -520,6 +529,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/less_by_arg_total.test.cpp
+      title: tests/less_by_arg_total.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp

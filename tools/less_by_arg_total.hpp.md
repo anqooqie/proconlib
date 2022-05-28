@@ -12,30 +12,30 @@ data:
     title: 2D vector
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: tools/greater_by_arg.hpp
-    title: std::greater by the argument
+    path: tools/greater_by_arg_total.hpp
+    title: std::greater by the argument (total order)
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/greater_by_arg.test.cpp
-    title: tests/greater_by_arg.test.cpp
+    path: tests/greater_by_arg_total.test.cpp
+    title: tests/greater_by_arg_total.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/less_by_arg.test.cpp
-    title: tests/less_by_arg.test.cpp
+    path: tests/less_by_arg_total.test.cpp
+    title: tests/less_by_arg_total.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/less_by_arg.hpp\"\n\n\n\n#include <cassert>\n#line\
-    \ 1 \"tools/vector2.hpp\"\n\n\n\n#include <cmath>\n#include <type_traits>\n#include\
-    \ <cstddef>\n#include <array>\n#include <iostream>\n#include <functional>\n#line\
-    \ 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n\
-    #include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace\
-    \ tools {\n\n  template <class T1, class T2>\n  struct pair_hash {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n\
-    \    ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n      static\
-    \ const ::std::size_t salt = ::std::random_device()();\n      static const ::std::hash<T1>\
-    \ hasher1 = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
+  bundledCode: "#line 1 \"tools/less_by_arg_total.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\
+    \n\n\n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include\
+    \ <array>\n#include <iostream>\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
+    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
+    #line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n \
+    \ template <class T1, class T2>\n  struct pair_hash {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
+    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
+    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
+    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
     \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
     \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
@@ -137,58 +137,95 @@ data:
     \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
     \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
     \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm()\
-    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n\
-    \    ::tools::vector2<T> o;\n    ::tools::vector2<T> d;\n\n    int where(const\
-    \ ::tools::vector2<T>& p) const {\n      assert(p != this->o);\n      const auto\
-    \ ccw = ::tools::ccw(this->o, this->d, p);\n      if (ccw == +1) return 1;\n \
-    \     if (ccw == -1) return 3;\n      if (ccw == +2) return 2;\n      return 0;\n\
-    \    }\n\n  public:\n    less_by_arg() = default;\n    less_by_arg(const ::tools::less_by_arg<T>&)\
-    \ = default;\n    less_by_arg(::tools::less_by_arg<T>&&) = default;\n    ~less_by_arg()\
-    \ = default;\n    ::tools::less_by_arg<T>& operator=(const ::tools::less_by_arg<T>&)\
-    \ = default;\n    ::tools::less_by_arg<T>& operator=(::tools::less_by_arg<T>&&)\
-    \ = default;\n\n    less_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>&\
-    \ d) : o(o), d(d) {\n      assert(d != o);\n    }\n\n    bool operator()(const\
-    \ ::tools::vector2<T>& a, const ::tools::vector2<T>& b) const {\n      if (const\
-    \ auto wa = this->where(a), wb = this->where(b); wa != wb) return wa < wb;\n \
-    \     return (a - this->o).outer_product(b - this->o) > T(0);\n    }\n  };\n}\n\
-    \n\n"
-  code: "#ifndef TOOLS_LESS_BY_ARG_HPP\n#define TOOLS_LESS_BY_ARG_HPP\n\n#include\
-    \ <cassert>\n#include \"tools/vector2.hpp\"\n#include \"tools/ccw.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n    ::tools::vector2<T>\
+    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 6 \"tools/less_by_arg_total.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  class less_by_arg_total {\n\
+    \  private:\n    ::tools::vector2<T> o;\n    ::tools::vector2<T> d;\n\n    int\
+    \ where(const ::tools::vector2<T>& p) const {\n      static const ::tools::vector2<T>\
+    \ zero(T(0), T(0));\n      static const ::tools::vector2<T> unit_x(T(1), T(0));\n\
+    \      if (this->d == zero) {\n        return p.y > T(0) || (p.y == T(0) && p.x\
+    \ >= T(0)) ? 0 : 1;\n      } else {\n        if (p == zero) {\n          const\
+    \ auto ccw = ::tools::ccw(zero, this->d, unit_x);\n          if (ccw == +1) return\
+    \ 2;\n          if (ccw == +2) return 4;\n          if (ccw == -1) return 7;\n\
+    \          return 9;\n        } else {\n          if (this->d == p) {\n      \
+    \      return 0;\n          }\n          const auto ccw = ::tools::ccw(zero, this->d,\
+    \ p);\n          if (ccw == -2) {\n            return 0;\n          }\n      \
+    \    if (ccw == +1) {\n            if (::tools::ccw(zero, this->d, unit_x) !=\
+    \ +1) return 1;\n            if (::tools::ccw(zero, unit_x, p) == -1) return 1;\n\
+    \            return 3;\n          }\n          if (ccw == +2) {\n            return\
+    \ 5;\n          }\n          if (ccw == -1) {\n            if (::tools::ccw(zero,\
+    \ this->d, unit_x) != -1) return 6;\n            if (::tools::ccw(zero, unit_x,\
+    \ p) == -1) return 6;\n            return 8;\n          }\n          return 9;\n\
+    \        }\n      }\n    }\n\n  public:\n    less_by_arg_total() = default;\n\
+    \    less_by_arg_total(const ::tools::less_by_arg_total<T>&) = default;\n    less_by_arg_total(::tools::less_by_arg_total<T>&&)\
+    \ = default;\n    ~less_by_arg_total() = default;\n    ::tools::less_by_arg_total<T>&\
+    \ operator=(const ::tools::less_by_arg_total<T>&) = default;\n    ::tools::less_by_arg_total<T>&\
+    \ operator=(::tools::less_by_arg_total<T>&&) = default;\n\n    less_by_arg_total(const\
+    \ ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : o(o), d(d - o) {\n \
+    \   }\n\n    bool operator()(::tools::vector2<T> a, ::tools::vector2<T> b) const\
+    \ {\n      a -= this->o;\n      b -= this->o;\n      if (const auto wa = this->where(a),\
+    \ wb = this->where(b); wa != wb) return wa < wb;\n      if (const auto ot = a.outer_product(b);\
+    \ ot != T(0)) return ot > T(0);\n      return a.squared_norm() < b.squared_norm();\n\
+    \    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_LESS_BY_ARG_TOTAL_HPP\n#define TOOLS_LESS_BY_ARG_TOTAL_HPP\n\
+    \n#include \"tools/vector2.hpp\"\n#include \"tools/ccw.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  class less_by_arg_total {\n  private:\n    ::tools::vector2<T>\
     \ o;\n    ::tools::vector2<T> d;\n\n    int where(const ::tools::vector2<T>& p)\
-    \ const {\n      assert(p != this->o);\n      const auto ccw = ::tools::ccw(this->o,\
-    \ this->d, p);\n      if (ccw == +1) return 1;\n      if (ccw == -1) return 3;\n\
-    \      if (ccw == +2) return 2;\n      return 0;\n    }\n\n  public:\n    less_by_arg()\
-    \ = default;\n    less_by_arg(const ::tools::less_by_arg<T>&) = default;\n   \
-    \ less_by_arg(::tools::less_by_arg<T>&&) = default;\n    ~less_by_arg() = default;\n\
-    \    ::tools::less_by_arg<T>& operator=(const ::tools::less_by_arg<T>&) = default;\n\
-    \    ::tools::less_by_arg<T>& operator=(::tools::less_by_arg<T>&&) = default;\n\
-    \n    less_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>& d)\
-    \ : o(o), d(d) {\n      assert(d != o);\n    }\n\n    bool operator()(const ::tools::vector2<T>&\
-    \ a, const ::tools::vector2<T>& b) const {\n      if (const auto wa = this->where(a),\
-    \ wb = this->where(b); wa != wb) return wa < wb;\n      return (a - this->o).outer_product(b\
-    \ - this->o) > T(0);\n    }\n  };\n}\n\n#endif\n"
+    \ const {\n      static const ::tools::vector2<T> zero(T(0), T(0));\n      static\
+    \ const ::tools::vector2<T> unit_x(T(1), T(0));\n      if (this->d == zero) {\n\
+    \        return p.y > T(0) || (p.y == T(0) && p.x >= T(0)) ? 0 : 1;\n      } else\
+    \ {\n        if (p == zero) {\n          const auto ccw = ::tools::ccw(zero, this->d,\
+    \ unit_x);\n          if (ccw == +1) return 2;\n          if (ccw == +2) return\
+    \ 4;\n          if (ccw == -1) return 7;\n          return 9;\n        } else\
+    \ {\n          if (this->d == p) {\n            return 0;\n          }\n     \
+    \     const auto ccw = ::tools::ccw(zero, this->d, p);\n          if (ccw == -2)\
+    \ {\n            return 0;\n          }\n          if (ccw == +1) {\n        \
+    \    if (::tools::ccw(zero, this->d, unit_x) != +1) return 1;\n            if\
+    \ (::tools::ccw(zero, unit_x, p) == -1) return 1;\n            return 3;\n   \
+    \       }\n          if (ccw == +2) {\n            return 5;\n          }\n  \
+    \        if (ccw == -1) {\n            if (::tools::ccw(zero, this->d, unit_x)\
+    \ != -1) return 6;\n            if (::tools::ccw(zero, unit_x, p) == -1) return\
+    \ 6;\n            return 8;\n          }\n          return 9;\n        }\n   \
+    \   }\n    }\n\n  public:\n    less_by_arg_total() = default;\n    less_by_arg_total(const\
+    \ ::tools::less_by_arg_total<T>&) = default;\n    less_by_arg_total(::tools::less_by_arg_total<T>&&)\
+    \ = default;\n    ~less_by_arg_total() = default;\n    ::tools::less_by_arg_total<T>&\
+    \ operator=(const ::tools::less_by_arg_total<T>&) = default;\n    ::tools::less_by_arg_total<T>&\
+    \ operator=(::tools::less_by_arg_total<T>&&) = default;\n\n    less_by_arg_total(const\
+    \ ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : o(o), d(d - o) {\n \
+    \   }\n\n    bool operator()(::tools::vector2<T> a, ::tools::vector2<T> b) const\
+    \ {\n      a -= this->o;\n      b -= this->o;\n      if (const auto wa = this->where(a),\
+    \ wb = this->where(b); wa != wb) return wa < wb;\n      if (const auto ot = a.outer_product(b);\
+    \ ot != T(0)) return ot > T(0);\n      return a.squared_norm() < b.squared_norm();\n\
+    \    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
   - tools/ccw.hpp
   isVerificationFile: false
-  path: tools/less_by_arg.hpp
+  path: tools/less_by_arg_total.hpp
   requiredBy:
-  - tools/greater_by_arg.hpp
+  - tools/greater_by_arg_total.hpp
   timestamp: '2022-05-28 14:58:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/less_by_arg.test.cpp
-  - tests/greater_by_arg.test.cpp
-documentation_of: tools/less_by_arg.hpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+documentation_of: tools/less_by_arg_total.hpp
 layout: document
-title: std::less by the argument
+title: std::less by the argument (total order)
 ---
 
 It compares two vectors by the argument.
-More precisely, it maps a vector $v$ to $\mathrm{arg}_{d - o}(v)$ and compares two vectors by the mapped value.
+More precisely, it maps a vector $v$ to $(\mathrm{class}\_{d - o}(v - o), \mathrm{arg}\_{d - o}(v - o), \|v - o\|)$ and compares two vectors by the mapped value in lexicographical order.
+
+Given a vector $d$, $\mathrm{class}_d(v)$ is defined as follows.
+
+$$\begin{align*}
+\mathrm{class}_d(v) &= \left\{\begin{array}{ll}
+0 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|d\| \leq \|v\|$)}\\
+1 & \text{(if $\mathrm{arg}(d) \neq \mathrm{arg}(v)$)}\\
+2 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|v\| < \|d\|$)}
+\end{array}\right.&
+\end{align*}$$
 
 Given a vector $d$, $\mathrm{arg}_d(v)$ is defined as follows.
 
@@ -216,13 +253,13 @@ $$\begin{align*}
 
 ## Constructor
 ```cpp
-tools::less_by_arg<T> comp(tools::vector2<T> o, tools::vector2<T> d);
+tools::less_by_arg_total<T> comp(tools::vector2<T> o, tools::vector2<T> d);
 ```
 
 It creates a comparator.
 
 ### Constraints
-- $d \neq o$
+- None
 
 ### Time Complexity
 - $O(1)$
@@ -236,14 +273,13 @@ It returns the following.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-\text{true} & \text{(if $\mathrm{arg}_{d - o}(a) < \mathrm{arg}_{d - o}(b)$)}\\
+\text{true} & \text{(if $(\mathrm{class}_{d - o}(a), \mathrm{arg}_{d - o}(a), \|a\|) < (\mathrm{class}_{d - o}(b), \mathrm{arg}_{d - o}(b), \|b\|)$ in lexicographical order)}\\
 \text{false} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
 
 ### Constraints
-- $a \neq o$
-- $b \neq o$
+- None
 
 ### Time Complexity
 - $O(1)$

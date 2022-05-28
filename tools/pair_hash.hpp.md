@@ -20,12 +20,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
+  - icon: ':heavy_check_mark:'
+    path: tools/greater_by_arg_total.hpp
+    title: std::greater by the argument (total order)
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
+  - icon: ':heavy_check_mark:'
+    path: tools/less_by_arg_total.hpp
+    title: std::less by the argument (total order)
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
@@ -58,8 +64,14 @@ data:
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/greater_by_arg_total.test.cpp
+    title: tests/greater_by_arg_total.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/less_by_arg_total.test.cpp
+    title: tests/less_by_arg_total.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
@@ -178,7 +190,9 @@ data:
   - tools/polygon_2d.hpp
   - tools/half_line_2d.hpp
   - tools/convex_hull.hpp
+  - tools/greater_by_arg_total.hpp
   - tools/greater_by_arg.hpp
+  - tools/less_by_arg_total.hpp
   - tools/line_2d.hpp
   - tools/ccw.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -186,6 +200,7 @@ data:
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/less_by_arg_total.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/convex_hull.test.cpp
   - tests/ccw.test.cpp
@@ -195,6 +210,7 @@ data:
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/greater_by_arg_total.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
 documentation_of: tools/pair_hash.hpp
