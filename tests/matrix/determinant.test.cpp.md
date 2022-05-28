@@ -14,30 +14,31 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/matrix_product
+    PROBLEM: https://judge.yosupo.jp/problem/matrix_det
     links:
-    - https://judge.yosupo.jp/problem/matrix_product
-  bundledCode: "#line 1 \"tests/matrix/multiplies.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    - https://judge.yosupo.jp/problem/matrix_det
+  bundledCode: "#line 1 \"tests/matrix/determinant.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/matrix_det\"\n\n#include <cstdint>\n#include <iostream>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -225,21 +226,21 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/matrix.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 9 \"tools/matrix.hpp\"\n\
-    #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 7 \"tools/vector.hpp\"\
-    \n#include <cmath>\n#line 11 \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector {\n  private:\n    ::std::vector<T> m_values;\n\
-    \n  public:\n    vector() = default;\n    vector(const ::tools::vector<T>&) =\
-    \ default;\n    vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n\
-    \    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;\n   \
-    \ ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\n    vector(::std::size_t\
-    \ dim) : m_values(dim) {\n    }\n    vector(::std::size_t dim, const T& value)\
-    \ : m_values(dim, value) {\n    }\n\n    T& operator[](const ::std::size_t i)\
-    \ {\n      return this->m_values[i];\n    }\n    T operator[](const ::std::size_t\
-    \ i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t dim()\
-    \ const {\n      return this->m_values.size();\n    }\n\n    double norm() const\
-    \ {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n  \
-    \  }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 8 \"tools/matrix.hpp\"\n\
+    #include <string>\n#include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line\
+    \ 7 \"tools/vector.hpp\"\n#include <cmath>\n#line 11 \"tools/vector.hpp\"\n\n\
+    namespace tools {\n  template <typename T>\n  class vector {\n  private:\n   \
+    \ ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
+    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
+    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
+    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
+    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
+    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
+    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
+    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
+    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
+    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
+    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
     \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
     \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
@@ -406,44 +407,34 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 7 \"tests/matrix/determinant.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
     int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
-    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
-    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
-    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
-    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
-    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
-    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
-    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
-    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
-    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
-    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
-    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
-    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
-    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \n  i64 N;\n  std::cin >> N;\n  tools::matrix<mint> A(N, N);\n  for (i64 r = 0;\
+    \ r < N; ++r) {\n    for (i64 c = 0; c < N; ++c) {\n      i64 A_rc;\n      std::cin\
+    \ >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\n  std::cout << A.determinant().val()\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"\
+    tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  tools::matrix<mint> A(N, N);\n  for (i64 r = 0;\
+    \ r < N; ++r) {\n    for (i64 c = 0; c < N; ++c) {\n      i64 A_rc;\n      std::cin\
+    \ >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\n  std::cout << A.determinant().val()\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/matrix.hpp
   - tools/vector.hpp
   isVerificationFile: true
-  path: tests/matrix/multiplies.test.cpp
+  path: tests/matrix/determinant.test.cpp
   requiredBy: []
   timestamp: '2022-05-28 17:01:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/matrix/multiplies.test.cpp
+documentation_of: tests/matrix/determinant.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/matrix/multiplies.test.cpp
-- /verify/tests/matrix/multiplies.test.cpp.html
-title: tests/matrix/multiplies.test.cpp
+- /verify/tests/matrix/determinant.test.cpp
+- /verify/tests/matrix/determinant.test.cpp.html
+title: tests/matrix/determinant.test.cpp
 ---

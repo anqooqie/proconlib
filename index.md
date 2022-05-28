@@ -702,6 +702,9 @@ data:
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'
+      path: tests/matrix/determinant.test.cpp
+      title: tests/matrix/determinant.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/inv.test.cpp
       title: tests/matrix/inv.test.cpp
     - icon: ':heavy_check_mark:'

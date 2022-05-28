@@ -225,7 +225,7 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/matrix.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 10 \"tools/matrix.hpp\"\n\
+    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 9 \"tools/matrix.hpp\"\n\
     #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 7 \"tools/vector.hpp\"\
     \n#include <cmath>\n#line 11 \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
     \ <typename T>\n  class vector {\n  private:\n    ::std::vector<T> m_values;\n\
@@ -282,7 +282,7 @@ data:
     \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
     \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
     \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 12 \"tools/matrix.hpp\"\n\n\
+    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 11 \"tools/matrix.hpp\"\n\n\
     namespace tools {\n  template <typename T>\n  class matrix {\n  private:\n   \
     \ ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\
     \n  public:\n    matrix() = default;\n    matrix(const ::tools::matrix<T>&) =\
@@ -345,26 +345,29 @@ data:
     \         delimiter = \", \";\n        }\n        os << ']' << '\\n';\n      }\n\
     \      return os;\n    }\n    friend ::std::istream& operator>>(::std::istream&\
     \ is, ::tools::matrix<T>& self) {\n      for (T& value : self.m_values) {\n  \
-    \      is >> value;\n      }\n      return is;\n    }\n\n    ::std::int_fast64_t\
-    \ gauss_jordan() {\n      ::std::size_t rank = 0;\n      for (::std::size_t c\
-    \ = 0; c < this->m_cols; ++c) {\n        ::std::size_t pivot;\n        for (pivot\
-    \ = rank; pivot < this->m_rows && (*this)[pivot][c] == T(0); ++pivot);\n     \
-    \   if (pivot == this->m_rows) continue;\n\n        if (pivot != rank) {\n   \
-    \       for (::std::size_t cc = c; cc < this->m_cols; ++cc) {\n            ::std::swap((*this)[rank][cc],\
-    \ (*this)[pivot][cc]);\n          }\n        }\n\n        {\n          const T\
-    \ scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c; cc\
-    \ < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n     \
-    \     }\n        }\n\n        for (::std::size_t r = 0; r < this->m_rows; ++r)\
-    \ {\n          if (r == rank) continue;\n          const T scale = (*this)[r][c];\n\
-    \          if (scale == T(0)) continue;\n          for (::std::size_t cc = c;\
-    \ cc < this->m_cols; ++cc) {\n            (*this)[r][cc] -= (*this)[rank][cc]\
-    \ * scale;\n          }\n        }\n\n        ++rank;\n      }\n      return rank;\n\
+    \      is >> value;\n      }\n      return is;\n    }\n\n  private:\n    ::std::pair<::std::size_t,\
+    \ T> internal_gauss_jordan() {\n      ::std::size_t rank = 0;\n      T coeff(1);\n\
+    \n      for (::std::size_t c = 0; c < this->m_cols; ++c) {\n        ::std::size_t\
+    \ pivot;\n        for (pivot = rank; pivot < this->m_rows && (*this)[pivot][c]\
+    \ == T(0); ++pivot);\n        if (pivot == this->m_rows) continue;\n\n       \
+    \ if (pivot != rank) {\n          for (::std::size_t cc = c; cc < this->m_cols;\
+    \ ++cc) {\n            ::std::swap((*this)[rank][cc], (*this)[pivot][cc]);\n \
+    \         }\n          coeff *= T(-1);\n        }\n\n        {\n          const\
+    \ T scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c;\
+    \ cc < this->m_cols; ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n  \
+    \        }\n          coeff *= scale_inv;\n        }\n\n        for (::std::size_t\
+    \ r = 0; r < this->m_rows; ++r) {\n          if (r == rank) continue;\n      \
+    \    const T scale = (*this)[r][c];\n          if (scale == T(0)) continue;\n\
+    \          for (::std::size_t cc = c; cc < this->m_cols; ++cc) {\n           \
+    \ (*this)[r][cc] -= (*this)[rank][cc] * scale;\n          }\n        }\n\n   \
+    \     ++rank;\n      }\n\n      return ::std::make_pair(rank, coeff);\n    }\n\
+    \n  public:\n    ::std::size_t gauss_jordan() {\n      return this->internal_gauss_jordan().first;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
     \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
     \    ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
     \ r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c = 0; c < this->m_cols;\
     \ ++c) {\n          Ab[r][c] = (*this)[r][c];\n        }\n        Ab[r][this->m_cols]\
-    \ = b[r];\n      }\n\n      Ab.gauss_jordan();\n\n      ::std::vector<::std::size_t>\
+    \ = b[r];\n      }\n\n      Ab.internal_gauss_jordan();\n\n      ::std::vector<::std::size_t>\
     \ ranks(Ab.cols());\n      for (::std::size_t r = 0, cl = 0, cr = 0; r <= Ab.rows();\
     \ ++r, cl = cr) {\n        for (; cr < Ab.cols() && (r == Ab.rows() || Ab[r][cr]\
     \ == T(0)); ++cr);\n        for (::std::size_t c = cl; c < cr; ++c) {\n      \
@@ -386,16 +389,19 @@ data:
     \ - ranks.back() + 1);\n      for (::std::size_t r = 0; r < this->m_cols; ++r)\
     \ {\n        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c)\
     \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
-    \ answer;\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t n) {\n\
-    \      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t i = 0;\
-    \ i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n  \
-    \  }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
+    \ answer;\n    }\n\n    T determinant() const {\n      assert(this->m_rows ==\
+    \ this->m_cols);\n\n      ::tools::matrix<T> A = *this;\n      const auto [rank,\
+    \ coeff] = A.internal_gauss_jordan();\n\n      return rank == A.m_rows ? T(1)\
+    \ / coeff : T(0);\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t\
+    \ n) {\n      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t\
+    \ i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n\
+    \    }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
     \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
     \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
     \        for (::std::size_t c = 0; c < this->m_cols; ++c) {\n          AI[r][c]\
     \ = (*this)[r][c];\n        }\n        for (::std::size_t c = this->m_cols; c\
     \ < AI.m_cols; ++c) {\n          AI[r][c] = T(0);\n        }\n        AI[r][this->m_cols\
-    \ + r] = T(1);\n      }\n\n      AI.gauss_jordan();\n      for (::std::size_t\
+    \ + r] = T(1);\n      }\n\n      AI.internal_gauss_jordan();\n      for (::std::size_t\
     \ i = 0; i < this->m_rows; ++i) {\n        if (AI[i][i] != T(1)) return ::std::nullopt;\n\
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
@@ -440,7 +446,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/solve.test.cpp
   requiredBy: []
-  timestamp: '2022-02-22 12:56:41+09:00'
+  timestamp: '2022-05-28 17:01:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/solve.test.cpp

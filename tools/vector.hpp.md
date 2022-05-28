@@ -7,6 +7,9 @@ data:
     title: Matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/matrix/determinant.test.cpp
+    title: tests/matrix/determinant.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/matrix/inv.test.cpp
     title: tests/matrix/inv.test.cpp
   - icon: ':heavy_check_mark:'
@@ -142,6 +145,7 @@ data:
   timestamp: '2021-10-26 00:02:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/matrix/determinant.test.cpp
   - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
   - tests/matrix/multiplies.test.cpp
