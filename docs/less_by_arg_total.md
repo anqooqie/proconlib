@@ -1,10 +1,20 @@
 ---
-title: std::less by the argument
-documentation_of: //tools/less_by_arg.hpp
+title: std::less by the argument (total order)
+documentation_of: //tools/less_by_arg_total.hpp
 ---
 
 It compares two vectors by the argument.
-More precisely, it maps a vector $v$ to $\mathrm{arg}_{d - o}(v)$ and compares two vectors by the mapped value.
+More precisely, it maps a vector $v$ to $(\mathrm{class}\_{d - o}(v - o), \mathrm{arg}\_{d - o}(v - o), \|v - o\|)$ and compares two vectors by the mapped value in lexicographical order.
+
+Given a vector $d$, $\mathrm{class}_d(v)$ is defined as follows.
+
+$$\begin{align*}
+\mathrm{class}_d(v) &= \left\{\begin{array}{ll}
+0 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|d\| \leq \|v\|$)}\\
+1 & \text{(if $\mathrm{arg}(d) \neq \mathrm{arg}(v)$)}\\
+2 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|v\| < \|d\|$)}
+\end{array}\right.&
+\end{align*}$$
 
 Given a vector $d$, $\mathrm{arg}_d(v)$ is defined as follows.
 
@@ -32,13 +42,13 @@ $$\begin{align*}
 
 ## Constructor
 ```cpp
-tools::less_by_arg<T> comp(tools::vector2<T> o, tools::vector2<T> d);
+tools::less_by_arg_total<T> comp(tools::vector2<T> o, tools::vector2<T> d);
 ```
 
 It creates a comparator.
 
 ### Constraints
-- $d \neq o$
+- None
 
 ### Time Complexity
 - $O(1)$
@@ -52,14 +62,13 @@ It returns the following.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-\text{true} & \text{(if $\mathrm{arg}_{d - o}(a) < \mathrm{arg}_{d - o}(b)$)}\\
+\text{true} & \text{(if $(\mathrm{class}_{d - o}(a), \mathrm{arg}_{d - o}(a), \|a\|) < (\mathrm{class}_{d - o}(b), \mathrm{arg}_{d - o}(b), \|b\|)$ in lexicographical order)}\\
 \text{false} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
 
 ### Constraints
-- $a \neq o$
-- $b \neq o$
+- None
 
 ### Time Complexity
 - $O(1)$

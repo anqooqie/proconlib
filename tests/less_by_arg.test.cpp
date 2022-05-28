@@ -1,7 +1,9 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/sort_points_by_argument"
+#define PROBLEM "https://atcoder.jp/contests/abc225/tasks/abc225_e"
 
 #include <cstdint>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include "tools/vector2.hpp"
 #include "tools/less_by_arg.hpp"
 
@@ -13,12 +15,20 @@ int main() {
 
   i64 N;
   std::cin >> N;
-  std::vector<tools::vector2<i64>> p(N);
-  for (auto& p_i : p) std::cin >> p_i;
+  std::vector<tools::vector2<i64>> v(N);
+  for (auto& v_i : v) std::cin >> v_i;
 
-  std::sort(p.begin(), p.end(), tools::less_by_arg(tools::vector2<i64>(-1000000001, -1)));
+  const tools::less_by_arg<i64> comp(tools::vector2<i64>(0, 0), tools::vector2<i64>(1, 0));
+  std::sort(v.begin(), v.end(), [&](const auto& v1, const auto& v2) {
+    return comp(v1 + tools::vector2<i64>(-1, 0), v2 + tools::vector2<i64>(-1, 0));
+  });
 
-  for (const auto& p_i : p) {
-    std::cout << p_i.x << ' ' << p_i.y << '\n';
+  i64 answer = 0;
+  for (i64 i = 0; i < N;) {
+    ++answer;
+    const auto end = v[i] + tools::vector2<i64>(-1, 0);
+    for (; i < N && comp(v[i] + tools::vector2<i64>(0, -1), end); ++i);
   }
+  std::cout << answer << '\n';
+  return 0;
 }
