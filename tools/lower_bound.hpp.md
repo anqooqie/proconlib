@@ -28,6 +28,9 @@ data:
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/range_of_digit_products.test.cpp
+    title: tests/range_of_digit_products.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
   _isVerificationFailed: false
@@ -62,6 +65,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/lis.test.cpp
+  - tests/range_of_digit_products.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index

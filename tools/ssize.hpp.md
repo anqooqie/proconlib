@@ -107,6 +107,9 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/range_of_digit_products.test.cpp
+    title: tests/range_of_digit_products.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -191,6 +194,7 @@ data:
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/divides.test.cpp
+  - tests/range_of_digit_products.test.cpp
   - tests/line_2d/projection.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document

@@ -7,6 +7,9 @@ data:
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/range_of_digit_products.test.cpp
+    title: tests/range_of_digit_products.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
   _isVerificationFailed: false
@@ -42,6 +45,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/resize.test.cpp
+  - tests/range_of_digit_products.test.cpp
 documentation_of: tools/resize.hpp
 layout: document
 title: Resize a multi-dimensional vector

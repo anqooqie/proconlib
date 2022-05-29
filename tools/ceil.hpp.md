@@ -30,6 +30,9 @@ data:
     path: tools/pow_mod_cache.hpp
     title: Precompute $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
+    path: tools/range_of_digit_products.hpp
+    title: Range of digit products
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -103,6 +106,9 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/range_of_digit_products.test.cpp
+    title: tests/range_of_digit_products.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -157,6 +163,7 @@ data:
   path: tools/ceil.hpp
   requiredBy:
   - tools/detail/rolling_hash.hpp
+  - tools/range_of_digit_products.hpp
   - tools/round.hpp
   - tools/rational.hpp
   - tools/dynamic_bitset.hpp
@@ -195,6 +202,7 @@ data:
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/divides.test.cpp
+  - tests/range_of_digit_products.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/line_2d/projection.test.cpp
 documentation_of: tools/ceil.hpp

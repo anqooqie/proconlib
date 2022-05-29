@@ -22,6 +22,9 @@ data:
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/digit_sum.test.cpp
+    title: tests/digit_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':heavy_check_mark:'
@@ -95,6 +98,7 @@ data:
   - tests/safe_int.test.cpp
   - tests/ceil_log.test.cpp
   - tests/fix.test.cpp
+  - tests/digit_sum.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/ceil_log2.test.cpp

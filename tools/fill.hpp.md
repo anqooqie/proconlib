@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/range_of_digit_products.test.cpp
+    title: tests/range_of_digit_products.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -49,6 +52,7 @@ data:
   timestamp: '2021-07-18 21:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/range_of_digit_products.test.cpp
   - tests/fill.test.cpp
 documentation_of: tools/fill.hpp
 layout: document
