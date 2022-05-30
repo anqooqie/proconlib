@@ -46,18 +46,21 @@ data:
     \ {\n          --indegs[t];\n          if (indegs[t] == 0) {\n            queue.push(t);\n\
     \          }\n        }\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\
     \n\n\n\n#include <iterator>\n#include <algorithm>\n\nnamespace tools {\n\n  template\
-    \ <class ForwardIterator, class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
-    \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
-    \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
-    \  }\n}\n\n\n#line 12 \"tests/tsort.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nvoid verify(const i64 node_count, std::vector<std::pair<i64, i64>>& edges) {\n\
-    \n  tools::tsort tsort(node_count);\n  for (const auto& [s, t] : edges) {\n  \
-    \  tsort.add_edge(s, t);\n  }\n\n  std::vector<i64> result;\n  tsort.query(std::back_inserter(result));\n\
-    \n  assert_that(i64(result.size()) == node_count);\n\n  std::vector<i64> order(node_count);\n\
-    \  for (i64 i = 0; i < node_count; ++i) {\n    order[result[i]] = i;\n  }\n  for\
-    \ (const auto& [s, t] : edges) {\n    assert_that(order[s] < order[t]);\n  }\n\
-    }\n\nvoid sample_00() {\n  std::vector<std::pair<i64, i64>> edges;\n  edges.emplace_back(0,\
-    \ 1);\n  edges.emplace_back(1, 2);\n  edges.emplace_back(3, 1);\n  edges.emplace_back(3,\
+    \ <class ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first,\
+    \ ForwardIterator last, const T& value) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
+    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
+    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 12 \"tests/tsort.test.cpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nvoid verify(const i64 node_count, std::vector<std::pair<i64,\
+    \ i64>>& edges) {\n\n  tools::tsort tsort(node_count);\n  for (const auto& [s,\
+    \ t] : edges) {\n    tsort.add_edge(s, t);\n  }\n\n  std::vector<i64> result;\n\
+    \  tsort.query(std::back_inserter(result));\n\n  assert_that(i64(result.size())\
+    \ == node_count);\n\n  std::vector<i64> order(node_count);\n  for (i64 i = 0;\
+    \ i < node_count; ++i) {\n    order[result[i]] = i;\n  }\n  for (const auto& [s,\
+    \ t] : edges) {\n    assert_that(order[s] < order[t]);\n  }\n}\n\nvoid sample_00()\
+    \ {\n  std::vector<std::pair<i64, i64>> edges;\n  edges.emplace_back(0, 1);\n\
+    \  edges.emplace_back(1, 2);\n  edges.emplace_back(3, 1);\n  edges.emplace_back(3,\
     \ 4);\n  edges.emplace_back(4, 5);\n  edges.emplace_back(5, 2);\n  verify(6, edges);\n\
     }\n\nvoid small_00() {\n  std::vector<std::pair<i64, i64>> edges;\n  edges.emplace_back(0,\
     \ 1);\n  edges.emplace_back(0, 2);\n  edges.emplace_back(2, 3);\n  edges.emplace_back(2,\
@@ -153,7 +156,7 @@ data:
   isVerificationFile: true
   path: tests/tsort.test.cpp
   requiredBy: []
-  timestamp: '2021-09-25 15:53:45+09:00'
+  timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsort.test.cpp

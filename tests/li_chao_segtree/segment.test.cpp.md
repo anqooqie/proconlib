@@ -99,27 +99,29 @@ data:
     \ x) {\n    return static_cast<::std::int32_t>(::tools::ceil_log2(static_cast<::std::uint32_t>(x)));\n\
     \  }\n\n  inline ::std::int64_t ceil_log2(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::ceil_log2(static_cast<::std::uint64_t>(x)));\n\
     \  }\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#line 6 \"tools/lower_bound.hpp\"\
-    \n\nnamespace tools {\n\n  template <class ForwardIterator, class T>\n  typename\
-    \ ::std::iterator_traits<ForwardIterator>::difference_type lower_bound(ForwardIterator\
+    \n\nnamespace tools {\n\n  template <class ForwardIterator, class T>\n  auto lower_bound(ForwardIterator\
     \ first, ForwardIterator last, const T& value) {\n    return ::std::distance(first,\
-    \ ::std::lower_bound(first, last, value));\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 18 \"tools/li_chao_segtree.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class li_chao_segtree {\n  private:\n    bool m_maximal;\n    ::std::vector<T>\
-    \ m_xs;\n    ::std::size_t m_height;\n    ::std::vector<::std::pair<T, T>> m_nodes;\n\
-    \n    ::std::size_t capacity() const {\n      return this->m_nodes.size() / 2;\n\
-    \    }\n\n    bool comp(const T& x, const T& y) const {\n      return this->m_maximal\
-    \ ? x < y : y < x;\n    }\n\n    void add_impl(T fa, T fb, ::std::size_t node_id)\
-    \ {\n      assert(::tools::floor_log2(node_id) <= this->m_height);\n      ::std::size_t\
-    \ l = (node_id - ::tools::pow2(::tools::floor_log2(node_id))) * ::tools::pow2(this->m_height\
-    \ - ::tools::floor_log2(node_id));\n      ::std::size_t r = l + ::tools::pow2(this->m_height\
-    \ - ::tools::floor_log2(node_id));\n      while (node_id < this->m_nodes.size())\
-    \ {\n        const ::std::size_t m = (l + r) / 2;\n        auto& [ga, gb] = this->m_nodes[node_id];\n\
-    \        bool greater_l = this->comp(ga * this->m_xs[l] + gb, fa * this->m_xs[l]\
-    \ + fb);\n        bool greater_m = this->comp(ga * this->m_xs[m] + gb, fa * this->m_xs[m]\
-    \ + fb);\n        bool greater_r = this->comp(ga * this->m_xs[r] + gb, fa * this->m_xs[r]\
+    \ ::std::lower_bound(first, last, value));\n  }\n\n  template <class ForwardIterator,\
+    \ class T, class Compare>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
+    \ last, const T& value, Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6\
+    \ \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
+    \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 18 \"tools/li_chao_segtree.hpp\"\n\
+    \nnamespace tools {\n  template <typename T>\n  class li_chao_segtree {\n  private:\n\
+    \    bool m_maximal;\n    ::std::vector<T> m_xs;\n    ::std::size_t m_height;\n\
+    \    ::std::vector<::std::pair<T, T>> m_nodes;\n\n    ::std::size_t capacity()\
+    \ const {\n      return this->m_nodes.size() / 2;\n    }\n\n    bool comp(const\
+    \ T& x, const T& y) const {\n      return this->m_maximal ? x < y : y < x;\n \
+    \   }\n\n    void add_impl(T fa, T fb, ::std::size_t node_id) {\n      assert(::tools::floor_log2(node_id)\
+    \ <= this->m_height);\n      ::std::size_t l = (node_id - ::tools::pow2(::tools::floor_log2(node_id)))\
+    \ * ::tools::pow2(this->m_height - ::tools::floor_log2(node_id));\n      ::std::size_t\
+    \ r = l + ::tools::pow2(this->m_height - ::tools::floor_log2(node_id));\n    \
+    \  while (node_id < this->m_nodes.size()) {\n        const ::std::size_t m = (l\
+    \ + r) / 2;\n        auto& [ga, gb] = this->m_nodes[node_id];\n        bool greater_l\
+    \ = this->comp(ga * this->m_xs[l] + gb, fa * this->m_xs[l] + fb);\n        bool\
+    \ greater_m = this->comp(ga * this->m_xs[m] + gb, fa * this->m_xs[m] + fb);\n\
+    \        bool greater_r = this->comp(ga * this->m_xs[r] + gb, fa * this->m_xs[r]\
     \ + fb);\n        if (greater_l == greater_m && greater_m == greater_r) {\n  \
     \        if (greater_l) {\n            ::std::swap(fa, ga);\n            ::std::swap(fb,\
     \ gb);\n          }\n          return;\n        }\n        if (greater_m) {\n\
@@ -205,7 +207,7 @@ data:
   isVerificationFile: true
   path: tests/li_chao_segtree/segment.test.cpp
   requiredBy: []
-  timestamp: '2022-03-19 19:02:34+09:00'
+  timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/li_chao_segtree/segment.test.cpp

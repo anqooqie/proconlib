@@ -97,20 +97,23 @@ data:
     \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/compress.hpp\"\
     \n\n\n\n#include <utility>\n#include <map>\n#line 1 \"tools/lower_bound.hpp\"\n\
     \n\n\n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ ForwardIterator, class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
-    \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
-    \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
-    \  }\n}\n\n\n#line 10 \"tools/compress.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename InputIterator>\n  ::std::pair<\n    ::std::map<\n      typename ::std::iterator_traits<InputIterator>::value_type,\n\
-    \      typename ::std::iterator_traits<InputIterator>::value_type\n    >,\n  \
-    \  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
-    \  > compress(InputIterator begin, InputIterator end) {\n    using T = typename\
-    \ ::std::iterator_traits<InputIterator>::value_type;\n\n    ::std::vector<T> g(begin,\
-    \ end);\n    ::std::sort(g.begin(), g.end());\n    g.erase(::std::unique(g.begin(),\
-    \ g.end()), g.end());\n\n    ::std::map<T, T> f;\n    for (T i = 0; i < T(g.size());\
-    \ ++i) {\n      f.emplace(g[i], i);\n    }\n\n    return ::std::make_pair(f, g);\n\
-    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  void compress(InputIterator\
-    \ begin, InputIterator end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \ ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
+    \ last, const T& value) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
+    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
+    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 10 \"tools/compress.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename InputIterator>\n  ::std::pair<\n    ::std::map<\n\
+    \      typename ::std::iterator_traits<InputIterator>::value_type,\n      typename\
+    \ ::std::iterator_traits<InputIterator>::value_type\n    >,\n    ::std::vector<typename\
+    \ ::std::iterator_traits<InputIterator>::value_type>\n  > compress(InputIterator\
+    \ begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \n    ::std::vector<T> g(begin, end);\n    ::std::sort(g.begin(), g.end());\n\
+    \    g.erase(::std::unique(g.begin(), g.end()), g.end());\n\n    ::std::map<T,\
+    \ T> f;\n    for (T i = 0; i < T(g.size()); ++i) {\n      f.emplace(g[i], i);\n\
+    \    }\n\n    return ::std::make_pair(f, g);\n  }\n\n  template <typename InputIterator,\
+    \ typename OutputIterator>\n  void compress(InputIterator begin, InputIterator\
+    \ end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> orig(begin, end);\n    ::std::vector<T> sorted(orig);\n\
     \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
     \ sorted.end()), sorted.end());\n    for (auto it = orig.begin(); it != orig.end();\
@@ -142,7 +145,7 @@ data:
   isVerificationFile: true
   path: tests/lis.test.cpp
   requiredBy: []
-  timestamp: '2021-09-25 17:17:40+09:00'
+  timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lis.test.cpp

@@ -96,14 +96,19 @@ data:
     \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\
     \n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ ForwardIterator, class T>\n  typename ::std::iterator_traits<ForwardIterator>::difference_type\
-    \ lower_bound(ForwardIterator first, ForwardIterator last, const T& value) {\n\
-    \    return ::std::distance(first, ::std::lower_bound(first, last, value));\n\
-    \  }\n}\n\n\n#line 1 \"tools/upper_bound.hpp\"\n\n\n\n#line 6 \"tools/upper_bound.hpp\"\
-    \n\nnamespace tools {\n\n  template <class ForwardIterator, class T>\n  typename\
-    \ ::std::iterator_traits<ForwardIterator>::difference_type upper_bound(ForwardIterator\
-    \ first, ForwardIterator last, const T& value) {\n    return ::std::distance(first,\
-    \ ::std::upper_bound(first, last, value));\n  }\n}\n\n\n#line 15 \"tests/range_of_digit_products.test.cpp\"\
+    \ ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
+    \ last, const T& value) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
+    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
+    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 1 \"tools/upper_bound.hpp\"\n\n\n\n\
+    #line 6 \"tools/upper_bound.hpp\"\n\nnamespace tools {\n\n  template <class ForwardIterator,\
+    \ class T>\n  auto upper_bound(ForwardIterator first, ForwardIterator last, const\
+    \ T& value) {\n    return ::std::distance(first, ::std::upper_bound(first, last,\
+    \ value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
+    \  auto upper_bound(ForwardIterator first, ForwardIterator last, const T& value,\
+    \ Compare comp) {\n    return ::std::distance(first, ::std::upper_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 15 \"tests/range_of_digit_products.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  std::vector<i64> N;\n  {\n    i64\
     \ n;\n    std::cin >> n;\n    while (n > 0) {\n      N.push_back(n % 10);\n  \
@@ -165,7 +170,7 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-05-29 19:05:13+09:00'
+  timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp
