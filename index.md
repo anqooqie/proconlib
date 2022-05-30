@@ -396,6 +396,9 @@ data:
       path: tools/vector2.hpp
       title: 2D vector
     - icon: ':heavy_check_mark:'
+      path: tools/wavelet_matrix.hpp
+      title: Wavelet matrix
+    - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
     - icon: ':heavy_check_mark:'
@@ -616,6 +619,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix.test.cpp
+      title: tests/wavelet_matrix.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp

@@ -38,6 +38,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
+  - icon: ':heavy_check_mark:'
+    path: tools/wavelet_matrix.hpp
+    title: Wavelet matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
@@ -72,6 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix.test.cpp
+    title: tests/wavelet_matrix.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -137,6 +143,7 @@ data:
   - tools/chromatic_number.hpp
   - tools/totient.hpp
   - tools/extended_lucas.hpp
+  - tools/wavelet_matrix.hpp
   - tools/floor_log2.hpp
   - tools/disjoint_sparse_table.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -148,6 +155,7 @@ data:
   - tests/chromatic_number.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/totient.test.cpp
+  - tests/wavelet_matrix.test.cpp
   - tests/lca.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
