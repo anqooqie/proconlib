@@ -7,8 +7,13 @@
 namespace tools {
 
   template <class ForwardIterator, class T>
-  typename ::std::iterator_traits<ForwardIterator>::difference_type upper_bound(ForwardIterator first, ForwardIterator last, const T& value) {
+  auto upper_bound(ForwardIterator first, ForwardIterator last, const T& value) {
     return ::std::distance(first, ::std::upper_bound(first, last, value));
+  }
+
+  template <class ForwardIterator, class T, class Compare>
+  auto upper_bound(ForwardIterator first, ForwardIterator last, const T& value, Compare comp) {
+    return ::std::distance(first, ::std::upper_bound(first, last, value, comp));
   }
 }
 
