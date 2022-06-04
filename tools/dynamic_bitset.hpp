@@ -55,7 +55,7 @@ namespace tools {
           for (::std::size_t i = this->m_bits.size() - diff; i --> 0;) {
             this->m_bits[i] <<= pos % ::std::numeric_limits<::std::uint64_t>::digits;
             if (i > 0) {
-              this->m_bits[i] |= this->m_bits[i - 1] >> (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);
+              this->m_bits[i] |= this->m_bits[i - 1] >> (::std::numeric_limits<::std::uint64_t>::digits - pos % ::std::numeric_limits<::std::uint64_t>::digits);
             }
           }
         }
@@ -80,7 +80,7 @@ namespace tools {
           for (::std::size_t i = diff; i < this->m_bits.size(); ++i) {
             this->m_bits[i] >>= pos % ::std::numeric_limits<::std::uint64_t>::digits;
             if (i + 1 < this->m_bits.size()) {
-              this->m_bits[i] |= this->m_bits[i + 1] << (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);
+              this->m_bits[i] |= this->m_bits[i + 1] << (::std::numeric_limits<::std::uint64_t>::digits - pos % ::std::numeric_limits<::std::uint64_t>::digits);
             }
           }
         }
