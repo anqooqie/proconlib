@@ -169,8 +169,8 @@ data:
   timestamp: '2021-12-29 01:11:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/disjoint_sparse_table.hpp
 layout: document
 title: Disjoint sparse table

@@ -78,10 +78,10 @@ data:
     \ > 0) {\n          for (::std::size_t i = this->m_bits.size() - diff; i --> 0;)\
     \ {\n            this->m_bits[i] <<= pos % ::std::numeric_limits<::std::uint64_t>::digits;\n\
     \            if (i > 0) {\n              this->m_bits[i] |= this->m_bits[i - 1]\
-    \ >> (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n         \
-    \   }\n          }\n        }\n        if (diff > 0) {\n          for (::std::size_t\
-    \ i = this->m_bits.size() - diff; i --> 0;) {\n            this->m_bits[i + diff]\
-    \ = this->m_bits[i];\n          }\n          ::std::fill(this->m_bits.begin(),\
+    \ >> (::std::numeric_limits<::std::uint64_t>::digits - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n\
+    \            }\n          }\n        }\n        if (diff > 0) {\n          for\
+    \ (::std::size_t i = this->m_bits.size() - diff; i --> 0;) {\n            this->m_bits[i\
+    \ + diff] = this->m_bits[i];\n          }\n          ::std::fill(this->m_bits.begin(),\
     \ ::std::next(this->m_bits.begin(), diff), 0);\n        }\n        if (this->m_size\
     \ % ::std::numeric_limits<::std::uint64_t>::digits > 0) {\n          this->m_bits.back()\
     \ &= (::std::uint64_t(1) << (this->m_size % ::std::numeric_limits<::std::uint64_t>::digits))\
@@ -92,10 +92,11 @@ data:
     \ > 0) {\n          for (::std::size_t i = diff; i < this->m_bits.size(); ++i)\
     \ {\n            this->m_bits[i] >>= pos % ::std::numeric_limits<::std::uint64_t>::digits;\n\
     \            if (i + 1 < this->m_bits.size()) {\n              this->m_bits[i]\
-    \ |= this->m_bits[i + 1] << (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n\
-    \            }\n          }\n        }\n        if (diff > 0) {\n          for\
-    \ (::std::size_t i = diff; i < this->m_bits.size(); ++i) {\n            this->m_bits[i\
-    \ - diff] = this->m_bits[i];\n          }\n          ::std::fill(::std::next(this->m_bits.begin(),\
+    \ |= this->m_bits[i + 1] << (::std::numeric_limits<::std::uint64_t>::digits -\
+    \ pos % ::std::numeric_limits<::std::uint64_t>::digits);\n            }\n    \
+    \      }\n        }\n        if (diff > 0) {\n          for (::std::size_t i =\
+    \ diff; i < this->m_bits.size(); ++i) {\n            this->m_bits[i - diff] =\
+    \ this->m_bits[i];\n          }\n          ::std::fill(::std::next(this->m_bits.begin(),\
     \ this->m_bits.size() - diff), this->m_bits.end(), 0);\n        }\n      } else\
     \ {\n        ::std::fill(this->m_bits.begin(), this->m_bits.end(), 0);\n     \
     \ }\n      return *this;\n    }\n    ::tools::dynamic_bitset& set() {\n      ::std::fill(this->m_bits.begin(),\
@@ -190,10 +191,10 @@ data:
     \ > 0) {\n          for (::std::size_t i = this->m_bits.size() - diff; i --> 0;)\
     \ {\n            this->m_bits[i] <<= pos % ::std::numeric_limits<::std::uint64_t>::digits;\n\
     \            if (i > 0) {\n              this->m_bits[i] |= this->m_bits[i - 1]\
-    \ >> (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n         \
-    \   }\n          }\n        }\n        if (diff > 0) {\n          for (::std::size_t\
-    \ i = this->m_bits.size() - diff; i --> 0;) {\n            this->m_bits[i + diff]\
-    \ = this->m_bits[i];\n          }\n          ::std::fill(this->m_bits.begin(),\
+    \ >> (::std::numeric_limits<::std::uint64_t>::digits - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n\
+    \            }\n          }\n        }\n        if (diff > 0) {\n          for\
+    \ (::std::size_t i = this->m_bits.size() - diff; i --> 0;) {\n            this->m_bits[i\
+    \ + diff] = this->m_bits[i];\n          }\n          ::std::fill(this->m_bits.begin(),\
     \ ::std::next(this->m_bits.begin(), diff), 0);\n        }\n        if (this->m_size\
     \ % ::std::numeric_limits<::std::uint64_t>::digits > 0) {\n          this->m_bits.back()\
     \ &= (::std::uint64_t(1) << (this->m_size % ::std::numeric_limits<::std::uint64_t>::digits))\
@@ -204,10 +205,11 @@ data:
     \ > 0) {\n          for (::std::size_t i = diff; i < this->m_bits.size(); ++i)\
     \ {\n            this->m_bits[i] >>= pos % ::std::numeric_limits<::std::uint64_t>::digits;\n\
     \            if (i + 1 < this->m_bits.size()) {\n              this->m_bits[i]\
-    \ |= this->m_bits[i + 1] << (pos - pos % ::std::numeric_limits<::std::uint64_t>::digits);\n\
-    \            }\n          }\n        }\n        if (diff > 0) {\n          for\
-    \ (::std::size_t i = diff; i < this->m_bits.size(); ++i) {\n            this->m_bits[i\
-    \ - diff] = this->m_bits[i];\n          }\n          ::std::fill(::std::next(this->m_bits.begin(),\
+    \ |= this->m_bits[i + 1] << (::std::numeric_limits<::std::uint64_t>::digits -\
+    \ pos % ::std::numeric_limits<::std::uint64_t>::digits);\n            }\n    \
+    \      }\n        }\n        if (diff > 0) {\n          for (::std::size_t i =\
+    \ diff; i < this->m_bits.size(); ++i) {\n            this->m_bits[i - diff] =\
+    \ this->m_bits[i];\n          }\n          ::std::fill(::std::next(this->m_bits.begin(),\
     \ this->m_bits.size() - diff), this->m_bits.end(), 0);\n        }\n      } else\
     \ {\n        ::std::fill(this->m_bits.begin(), this->m_bits.end(), 0);\n     \
     \ }\n      return *this;\n    }\n    ::tools::dynamic_bitset& set() {\n      ::std::fill(this->m_bits.begin(),\
@@ -283,7 +285,7 @@ data:
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
   requiredBy: []
-  timestamp: '2022-03-06 02:51:46+09:00'
+  timestamp: '2022-06-04 23:59:03+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/dynamic_bitset.hpp

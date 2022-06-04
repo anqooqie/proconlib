@@ -83,28 +83,28 @@ data:
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
-  - tools/divisors.hpp
-  - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
-  - tools/pow_mod.hpp
   - tools/fact_mod_cache.hpp
-  - tools/totient.hpp
-  - tools/extended_lucas.hpp
   - tools/convolution.hpp
   - tools/garner3.hpp
+  - tools/prime_factorization.hpp
   - tools/is_prime.hpp
+  - tools/totient.hpp
+  - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
+  - tools/pow_mod.hpp
+  - tools/divisors.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prime_factorization.test.cpp
   - tests/is_prime.test.cpp
-  - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
+  - tests/fact_mod_cache/combination.test.cpp
+  - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/prime_factorization.test.cpp
   - tests/totient.test.cpp
   - tests/convolution.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document
 title: $x \cdot y \pmod{M}$

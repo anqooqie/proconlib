@@ -888,23 +888,23 @@ data:
   isVerificationFile: false
   path: tools/detail/line_like_2d.hpp
   requiredBy:
-  - tools/detail/polygon_like_2d.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/triangle_2d.hpp
-  - tools/polygon_2d.hpp
   - tools/half_line_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/line_2d.hpp
+  - tools/triangle_2d.hpp
   timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
 documentation_of: tools/detail/line_like_2d.hpp
 layout: document
 redirect_from:

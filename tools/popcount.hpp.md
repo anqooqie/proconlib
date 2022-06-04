@@ -133,34 +133,34 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/divisors.hpp
-  - tools/ntz.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/dynamic_bitset.hpp
-  - tools/lca.hpp
+  - tools/ntz.hpp
+  - tools/floor_log2.hpp
   - tools/chromatic_number.hpp
+  - tools/prime_factorization.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/wavelet_matrix.hpp
   - tools/totient.hpp
   - tools/extended_lucas.hpp
-  - tools/wavelet_matrix.hpp
-  - tools/floor_log2.hpp
-  - tools/disjoint_sparse_table.hpp
+  - tools/tetration_mod.hpp
+  - tools/divisors.hpp
+  - tools/lca.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prime_factorization.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
   - tests/chromatic_number.test.cpp
+  - tests/wavelet_matrix.test.cpp
+  - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/lca.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/prime_factorization.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/totient.test.cpp
-  - tests/wavelet_matrix.test.cpp
-  - tests/lca.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
-  - tests/floor_log2.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount
