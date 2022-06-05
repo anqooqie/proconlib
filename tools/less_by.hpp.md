@@ -16,7 +16,7 @@ data:
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
     path: tools/scc_graph.hpp
-    title: tools/scc_graph.hpp
+    title: Strongly connected component decomposition
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle

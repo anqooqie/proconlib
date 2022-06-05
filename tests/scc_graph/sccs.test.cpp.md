@@ -6,7 +6,7 @@ data:
     title: std::less by key
   - icon: ':heavy_check_mark:'
     path: tools/scc_graph.hpp
-    title: tools/scc_graph.hpp
+    title: Strongly connected component decomposition
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

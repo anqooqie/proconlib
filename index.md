@@ -345,7 +345,7 @@ data:
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
     - icon: ':heavy_check_mark:'
       path: tools/scc_graph.hpp
-      title: tools/scc_graph.hpp
+      title: Strongly connected component decomposition
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
