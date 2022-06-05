@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -124,6 +124,9 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/scc_graph/edges_to_scc.test.cpp
+    title: tests/scc_graph/edges_to_scc.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   _isVerificationFailed: false
@@ -195,6 +198,7 @@ data:
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/bezout.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/plus.test.cpp

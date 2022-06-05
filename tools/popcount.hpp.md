@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -69,6 +69,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/scc_graph/edges_to_scc.test.cpp
+    title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -160,6 +163,7 @@ data:
   - tests/totient.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document

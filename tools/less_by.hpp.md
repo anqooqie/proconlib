@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
+  - icon: ':heavy_check_mark:'
+    path: tools/scc_graph.hpp
+    title: tools/scc_graph.hpp
   - icon: ':warning:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
@@ -45,6 +48,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/scc_graph/edges_to_scc.test.cpp
+    title: tests/scc_graph/edges_to_scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/scc_graph/scc_id.test.cpp
+    title: tests/scc_graph/scc_id.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/scc_graph/sccs.test.cpp
+    title: tests/scc_graph/sccs.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -64,6 +76,7 @@ data:
   isVerificationFile: false
   path: tools/less_by.hpp
   requiredBy:
+  - tools/scc_graph.hpp
   - tools/convex_hull.hpp
   - tools/detail/polygon_like_2d.hpp
   - tools/polygon_2d.hpp
@@ -81,6 +94,9 @@ data:
   - tests/hld/vsubtree.test.cpp
   - tests/hld/vpath.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/scc_graph/sccs.test.cpp
+  - tests/scc_graph/scc_id.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

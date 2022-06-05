@@ -92,7 +92,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
@@ -343,6 +343,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
+    - icon: ':heavy_check_mark:'
+      path: tools/scc_graph.hpp
+      title: tools/scc_graph.hpp
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
@@ -753,6 +756,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
+  - name: tests/scc_graph
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/scc_graph/edges_to_scc.test.cpp
+      title: tests/scc_graph/edges_to_scc.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/scc_graph/scc_id.test.cpp
+      title: tests/scc_graph/scc_id.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/scc_graph/sccs.test.cpp
+      title: tests/scc_graph/sccs.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
     - icon: ':heavy_check_mark:'
