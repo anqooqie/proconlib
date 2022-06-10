@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <limits>
+#include <string>
 #include <cassert>
 #include <algorithm>
 #include <iterator>
@@ -20,12 +21,22 @@ namespace tools {
 
   public:
     dynamic_bitset() : m_size(0) {}
-    explicit dynamic_bitset(const ::std::size_t size) : m_size(size), m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits)) {}
     dynamic_bitset(const ::tools::dynamic_bitset&) = default;
     dynamic_bitset(::tools::dynamic_bitset&&) = default;
     ~dynamic_bitset() = default;
     ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&) = default;
     ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&) = default;
+
+    explicit dynamic_bitset(const ::std::size_t size) : m_size(size), m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits), 0) {}
+    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()), m_bits(::tools::ceil(str.size(), ::std::numeric_limits<::std::uint64_t>::digits), 0) {
+      for (::std::size_t i = 0; i < str.size(); ++i) {
+        const auto c = str[str.size() - 1 - i];
+        assert(c == '0' || c == '1');
+        if (c == '1') {
+          this->m_bits[i / ::std::numeric_limits<::std::uint64_t>::digits] |= ::std::uint64_t(1) << (i % ::std::numeric_limits<::std::uint64_t>::digits);
+        }
+      }
+    }
 
     ::tools::dynamic_bitset& operator&=(const ::tools::dynamic_bitset& other) {
       assert(this->m_size == other.m_size);
@@ -201,6 +212,12 @@ namespace tools {
     }
     friend ::tools::dynamic_bitset operator^(const ::tools::dynamic_bitset& lhs, const ::tools::dynamic_bitset& rhs) {
       return ::tools::dynamic_bitset(lhs) ^= rhs;
+    }
+    friend ::std::istream& operator>>(::std::istream& is, ::tools::dynamic_bitset& self) {
+      ::std::string s;
+      is >> s;
+      self = ::tools::dynamic_bitset(s);
+      return is;
     }
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::dynamic_bitset& self) {
       for (::std::size_t i = self.m_bits.size(); i --> 0;) {

@@ -1,24 +1,25 @@
 #ifndef TOOLS_ROTATE_RIGHT_HPP
 #define TOOLS_ROTATE_RIGHT_HPP
 
-#include <type_traits>
-#include <cstddef>
+#include <cassert>
 #include <limits>
-#include <stdexcept>
-#include <string>
+#include "tools/mod.hpp"
 
 namespace tools {
 
-  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>
-  constexpr T rotate_right(const T& value, const ::std::size_t& count) noexcept {
-    return (value >> (count & ::std::numeric_limits<T>::max())) | (value << (-(count & ::std::numeric_limits<T>::max()) & ::std::numeric_limits<T>::max()));
+  template <typename T, typename U>
+  constexpr T rotate_right(const T x, const ::std::size_t n, U s) {
+    assert(n <= ::std::numeric_limits<T>::digits);
+    const T mask = (n == ::std::numeric_limits<T>::digits ? ::std::numeric_limits<T>::max() : (T(1) << n) - 1);
+    assert(0 <= x && x <= mask);
+    s = ::tools::mod(s, n);
+    return ((x << ((n - s) % n)) | (x >> s)) & mask;
   }
 
-  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value, ::std::nullptr_t>::type = nullptr>
-  T rotate_right(const T& value, const ::std::size_t& count) {
-    return value >= static_cast<T>(0)
-      ? static_cast<T>(::tools::rotate_right(static_cast<typename ::std::make_unsigned<T>::type>(value), count))
-      : (throw ::std::invalid_argument("value of tools::rotate_right must be non-negative, but was " + ::std::to_string(value) + "."));
+  template <typename T, typename U>
+  T rotate_right(const T& x, U s) {
+    s = ::tools::mod(s, x.size());
+    return (x << ((x.size() - s) % x.size())) | (x >> s);
   }
 }
 
