@@ -325,10 +325,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_right.hpp
       title: Circular shift to the right
     - icon: ':warning:'
@@ -595,6 +595,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rotate_left.test.cpp
+      title: tests/rotate_left.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rotate_right.test.cpp
+      title: tests/rotate_right.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp

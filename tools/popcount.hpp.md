@@ -70,6 +70,12 @@ data:
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rotate_left.test.cpp
+    title: tests/rotate_left.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rotate_right.test.cpp
+    title: tests/rotate_right.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -163,6 +169,8 @@ data:
   - tests/totient.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/tetration_mod.test.cpp
 documentation_of: tools/popcount.hpp

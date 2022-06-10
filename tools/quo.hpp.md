@@ -60,6 +60,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
+  - icon: ':heavy_check_mark:'
+    path: tools/rotate_left.hpp
+    title: Circular shift to the left
+  - icon: ':heavy_check_mark:'
+    path: tools/rotate_right.hpp
+    title: Circular shift to the right
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
@@ -164,6 +170,12 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rotate_left.test.cpp
+    title: tests/rotate_left.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rotate_right.test.cpp
+    title: tests/rotate_right.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -197,10 +209,12 @@ data:
   - tools/extgcd.hpp
   - tools/detail/rolling_hash.hpp
   - tools/rational.hpp
+  - tools/rotate_left.hpp
   - tools/mod.hpp
   - tools/prime_factorization.hpp
   - tools/round.hpp
   - tools/is_prime.hpp
+  - tools/rotate_right.hpp
   - tools/pow_mod_cache.hpp
   - tools/totient.hpp
   - tools/bigdecimal.hpp
@@ -232,11 +246,13 @@ data:
   - tests/totient.test.cpp
   - tests/extended_garner.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/rotate_left.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/bezout.test.cpp
   - tests/extgcd.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/plus.test.cpp

@@ -13,6 +13,12 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/rotate_left.test.cpp
+    title: tests/rotate_left.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rotate_right.test.cpp
+    title: tests/rotate_right.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   _isVerificationFailed: false
@@ -21,17 +27,18 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#include <cstdint>\n#include <limits>\n#include <cassert>\n#include\
-    \ <algorithm>\n#include <iterator>\n#include <iostream>\n#line 1 \"tools/ceil.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\
-    \nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ <vector>\n#include <cstdint>\n#include <limits>\n#include <string>\n#include\
+    \ <cassert>\n#include <algorithm>\n#include <iterator>\n#include <iostream>\n\
+    #line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\
+    \n\n\n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs);\n\
+    \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
+    \ ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
+    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
+    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
+    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
+    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
@@ -58,14 +65,21 @@ data:
     \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
     \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
     \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 14 \"tools/dynamic_bitset.hpp\"\n\nnamespace tools {\n  class\
+    \  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\n\nnamespace tools {\n  class\
     \ dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n    ::std::vector<::std::uint64_t>\
-    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    explicit dynamic_bitset(const\
-    \ ::std::size_t size) : m_size(size), m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits))\
-    \ {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
+    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    dynamic_bitset(const\
+    \ ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
     \ = default;\n    ~dynamic_bitset() = default;\n    ::tools::dynamic_bitset& operator=(const\
     \ ::tools::dynamic_bitset&) = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
-    \ = default;\n\n    ::tools::dynamic_bitset& operator&=(const ::tools::dynamic_bitset&\
+    \ = default;\n\n    explicit dynamic_bitset(const ::std::size_t size) : m_size(size),\
+    \ m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits),\
+    \ 0) {}\n    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()),\
+    \ m_bits(::tools::ceil(str.size(), ::std::numeric_limits<::std::uint64_t>::digits),\
+    \ 0) {\n      for (::std::size_t i = 0; i < str.size(); ++i) {\n        const\
+    \ auto c = str[str.size() - 1 - i];\n        assert(c == '0' || c == '1');\n \
+    \       if (c == '1') {\n          this->m_bits[i / ::std::numeric_limits<::std::uint64_t>::digits]\
+    \ |= ::std::uint64_t(1) << (i % ::std::numeric_limits<::std::uint64_t>::digits);\n\
+    \        }\n      }\n    }\n\n    ::tools::dynamic_bitset& operator&=(const ::tools::dynamic_bitset&\
     \ other) {\n      assert(this->m_size == other.m_size);\n      for (::std::size_t\
     \ i = 0; i < this->m_bits.size(); ++i) {\n        this->m_bits[i] &= other.m_bits[i];\n\
     \      }\n      return *this;\n    }\n    ::tools::dynamic_bitset& operator|=(const\
@@ -158,8 +172,10 @@ data:
     \ lhs, const ::tools::dynamic_bitset& rhs) {\n      return ::tools::dynamic_bitset(lhs)\
     \ |= rhs;\n    }\n    friend ::tools::dynamic_bitset operator^(const ::tools::dynamic_bitset&\
     \ lhs, const ::tools::dynamic_bitset& rhs) {\n      return ::tools::dynamic_bitset(lhs)\
-    \ ^= rhs;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
-    \ ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
+    \ ^= rhs;\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::dynamic_bitset&\
+    \ self) {\n      ::std::string s;\n      is >> s;\n      self = ::tools::dynamic_bitset(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
     \ i --> 0;) {\n        for (::std::size_t j = (self.m_size - 1) % ::std::numeric_limits<::std::uint64_t>::digits\
     \ + 1; j --> 0;) {\n          os << ((self.m_bits[i] >> j) & 1);\n        }\n\
     \      }\n      return os;\n    }\n    void resize(const ::std::size_t size) {\n\
@@ -170,15 +186,23 @@ data:
     \    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_DYNAMIC_BITSET_HPP\n#define TOOLS_DYNAMIC_BITSET_HPP\n\n#include\
     \ <cstddef>\n#include <vector>\n#include <cstdint>\n#include <limits>\n#include\
-    \ <cassert>\n#include <algorithm>\n#include <iterator>\n#include <iostream>\n\
-    #include \"tools/ceil.hpp\"\n#include \"tools/popcount.hpp\"\n\nnamespace tools\
-    \ {\n  class dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n    ::std::vector<::std::uint64_t>\
-    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    explicit dynamic_bitset(const\
-    \ ::std::size_t size) : m_size(size), m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits))\
-    \ {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
-    \ = default;\n    ~dynamic_bitset() = default;\n    ::tools::dynamic_bitset& operator=(const\
-    \ ::tools::dynamic_bitset&) = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
-    \ = default;\n\n    ::tools::dynamic_bitset& operator&=(const ::tools::dynamic_bitset&\
+    \ <string>\n#include <cassert>\n#include <algorithm>\n#include <iterator>\n#include\
+    \ <iostream>\n#include \"tools/ceil.hpp\"\n#include \"tools/popcount.hpp\"\n\n\
+    namespace tools {\n  class dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n\
+    \    ::std::vector<::std::uint64_t> m_bits;\n\n  public:\n    dynamic_bitset()\
+    \ : m_size(0) {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n\
+    \    dynamic_bitset(::tools::dynamic_bitset&&) = default;\n    ~dynamic_bitset()\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&)\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
+    \ = default;\n\n    explicit dynamic_bitset(const ::std::size_t size) : m_size(size),\
+    \ m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits),\
+    \ 0) {}\n    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()),\
+    \ m_bits(::tools::ceil(str.size(), ::std::numeric_limits<::std::uint64_t>::digits),\
+    \ 0) {\n      for (::std::size_t i = 0; i < str.size(); ++i) {\n        const\
+    \ auto c = str[str.size() - 1 - i];\n        assert(c == '0' || c == '1');\n \
+    \       if (c == '1') {\n          this->m_bits[i / ::std::numeric_limits<::std::uint64_t>::digits]\
+    \ |= ::std::uint64_t(1) << (i % ::std::numeric_limits<::std::uint64_t>::digits);\n\
+    \        }\n      }\n    }\n\n    ::tools::dynamic_bitset& operator&=(const ::tools::dynamic_bitset&\
     \ other) {\n      assert(this->m_size == other.m_size);\n      for (::std::size_t\
     \ i = 0; i < this->m_bits.size(); ++i) {\n        this->m_bits[i] &= other.m_bits[i];\n\
     \      }\n      return *this;\n    }\n    ::tools::dynamic_bitset& operator|=(const\
@@ -271,8 +295,10 @@ data:
     \ lhs, const ::tools::dynamic_bitset& rhs) {\n      return ::tools::dynamic_bitset(lhs)\
     \ |= rhs;\n    }\n    friend ::tools::dynamic_bitset operator^(const ::tools::dynamic_bitset&\
     \ lhs, const ::tools::dynamic_bitset& rhs) {\n      return ::tools::dynamic_bitset(lhs)\
-    \ ^= rhs;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
-    \ ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
+    \ ^= rhs;\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::dynamic_bitset&\
+    \ self) {\n      ::std::string s;\n      is >> s;\n      self = ::tools::dynamic_bitset(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
     \ i --> 0;) {\n        for (::std::size_t j = (self.m_size - 1) % ::std::numeric_limits<::std::uint64_t>::digits\
     \ + 1; j --> 0;) {\n          os << ((self.m_bits[i] >> j) & 1);\n        }\n\
     \      }\n      return os;\n    }\n    void resize(const ::std::size_t size) {\n\
@@ -288,9 +314,11 @@ data:
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
   requiredBy: []
-  timestamp: '2022-06-04 23:59:03+09:00'
+  timestamp: '2022-06-11 02:40:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/rotate_left.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document

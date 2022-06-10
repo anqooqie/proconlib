@@ -55,6 +55,12 @@ data:
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rotate_left.test.cpp
+    title: tests/rotate_left.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rotate_right.test.cpp
+    title: tests/rotate_right.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
   - icon: ':heavy_check_mark:'
@@ -105,7 +111,9 @@ data:
   - tests/mex.test.cpp
   - tests/safe_int.test.cpp
   - tests/tsort.test.cpp
+  - tests/rotate_left.test.cpp
   - tests/fill.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/rational/random.test.cpp

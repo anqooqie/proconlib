@@ -124,6 +124,12 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rotate_left.test.cpp
+    title: tests/rotate_left.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rotate_right.test.cpp
+    title: tests/rotate_right.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -193,11 +199,13 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/mo.test.cpp
+  - tests/rotate_left.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/bezout.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
