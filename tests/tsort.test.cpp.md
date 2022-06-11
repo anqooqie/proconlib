@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
@@ -25,7 +25,7 @@ data:
     \n// oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B\
     \ properly, so I implemented a special judge for the problem.\n\n#include <cstdint>\n\
     #include <cstdlib>\n#include <vector>\n#include <utility>\n#include <iostream>\n\
-    #line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond) do {\\\n  if\
+    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond) do {\\\n  if\
     \ (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__\
     \ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\
     \n  }\\\n} while (false)\n\n\n#line 1 \"tools/tsort.hpp\"\n\n\n\n#line 5 \"tools/tsort.hpp\"\
@@ -102,7 +102,7 @@ data:
     // oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B\
     \ properly, so I implemented a special judge for the problem.\n\n#include <cstdint>\n\
     #include <cstdlib>\n#include <vector>\n#include <utility>\n#include <iostream>\n\
-    #include \"tests/assert_that.hpp\"\n#include \"tools/tsort.hpp\"\n#include \"\
+    #include \"tools/assert_that.hpp\"\n#include \"tools/tsort.hpp\"\n#include \"\
     tools/lower_bound.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nvoid verify(const\
     \ i64 node_count, std::vector<std::pair<i64, i64>>& edges) {\n\n  tools::tsort\
     \ tsort(node_count);\n  for (const auto& [s, t] : edges) {\n    tsort.add_edge(s,\
@@ -150,13 +150,13 @@ data:
     \  corner_02();\n  corner_03();\n\n  std::cout << \"Hello World\" << '\\n';\n\
     \  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/tsort.hpp
   - tools/lower_bound.hpp
   isVerificationFile: true
   path: tests/tsort.test.cpp
   requiredBy: []
-  timestamp: '2022-05-30 15:17:45+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsort.test.cpp

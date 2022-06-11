@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
@@ -18,7 +18,7 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/safe_int.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <cstdlib>\n#include <iostream>\n#line 1 \"tests/assert_that.hpp\"\
+    \n\n#include <cstdlib>\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\
     \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
     \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
     \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
@@ -216,7 +216,7 @@ data:
     \ * POS_INF == POS_INF);\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <cstdlib>\n#include <iostream>\n#include \"tests/assert_that.hpp\"\n\
+    #include <cstdlib>\n#include <iostream>\n#include \"tools/assert_that.hpp\"\n\
     #include \"tools/safe_int.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity();\n \
     \ const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity();\n  const\
@@ -260,12 +260,12 @@ data:
     \ * POS_INF == POS_INF);\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/safe_int.hpp
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2022-05-28 15:13:48+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp

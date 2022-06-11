@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
@@ -27,7 +27,7 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/ssize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
+    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
     \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\
@@ -144,14 +144,14 @@ data:
     \  heap.emplace(2, 2);\n  heap.emplace(3, 3);\n  assert_that(tools::ssize(heap)\
     \ == 3);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include \"tests/assert_that.hpp\"\n#include \"tools/binary_heap.hpp\"\
+    #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"tools/binary_heap.hpp\"\
     \n#include \"tools/ssize.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  assert_that(tools::ssize(std::vector<int>({1, 2, 3})) == 3);\n\n  tools::binary_heap<int,\
     \ int> heap;\n  heap.emplace(1, 1);\n  heap.emplace(2, 2);\n  heap.emplace(3,\
     \ 3);\n  assert_that(tools::ssize(heap) == 3);\n\n  std::cout << \"Hello World\"\
     \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/binary_heap.hpp
   - tools/pow2.hpp
   - tools/ceil_log2.hpp
@@ -159,7 +159,7 @@ data:
   isVerificationFile: true
   path: tests/ssize.test.cpp
   requiredBy: []
-  timestamp: '2021-12-02 21:46:38+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ssize.test.cpp

@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/run_length.hpp
     title: Run-length encoding
@@ -19,7 +19,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/run_length.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#include <cstdint>\n\
-    #include <iterator>\n#line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
+    #include <iterator>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
     \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/run_length.hpp\"\
@@ -55,7 +55,7 @@ data:
     \ << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <cstdlib>\n#include <iostream>\n#include <vector>\n#include <cstdint>\n\
-    #include <iterator>\n#include \"tests/assert_that.hpp\"\n#include \"tools/run_length.hpp\"\
+    #include <iterator>\n#include \"tools/assert_that.hpp\"\n#include \"tools/run_length.hpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  std::string s;\n  std::vector<std::pair<char, std::int_fast64_t>> v;\n\n \
     \ s = \"ABBCCC\";\n  v.clear();\n  tools::run_length(s.begin(), s.end(), std::back_inserter(v));\n\
@@ -72,12 +72,12 @@ data:
     \ == 'A');\n  assert_that(v[0].second == 1);\n\n  std::cout << \"Hello World\"\
     \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/run_length.hpp
   isVerificationFile: true
   path: tests/run_length.test.cpp
   requiredBy: []
-  timestamp: '2021-09-25 15:53:45+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/run_length.test.cpp

@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
@@ -18,7 +18,7 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/resize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#line 1 \"tests/assert_that.hpp\"\
+    \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#line 1 \"tools/assert_that.hpp\"\
     \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
     \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
     \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
@@ -44,7 +44,7 @@ data:
     \ == 3);\n  }\n\n  {\n    std::vector<int> v;\n    tools::resize(v, 0);\n    assert_that(v.size()\
     \ == 0);\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <cstdlib>\n#include <iostream>\n#include <vector>\n#include \"tests/assert_that.hpp\"\
+    #include <cstdlib>\n#include <iostream>\n#include <vector>\n#include \"tools/assert_that.hpp\"\
     \n#include \"tools/resize.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  {\n    std::vector<std::vector<std::vector<int>>> v;\n    tools::resize(v,\
     \ 3, 4, 5);\n    assert_that(v.size() == 3);\n    for (int i = 0; i < 3; ++i)\
@@ -59,12 +59,12 @@ data:
     \    std::vector<int> v;\n    tools::resize(v, 0);\n    assert_that(v.size() ==\
     \ 0);\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/resize.hpp
   isVerificationFile: true
   path: tests/resize.test.cpp
   requiredBy: []
-  timestamp: '2021-12-04 02:14:32+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/resize.test.cpp

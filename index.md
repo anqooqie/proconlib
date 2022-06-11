@@ -1,11 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: tests
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: tests/assert_that.hpp
-      title: tests/assert_that.hpp
   - name: tools
     pages:
     - icon: ':heavy_check_mark:'
@@ -14,6 +9,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/alphabetical_order.hpp
       title: Alphabetical order of a given character
+    - icon: ':heavy_check_mark:'
+      path: tools/assert_that.hpp
+      title: Assertion macro
     - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm

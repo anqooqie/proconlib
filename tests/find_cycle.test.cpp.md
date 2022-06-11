@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
@@ -18,7 +18,7 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/find_cycle.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#line 1 \"tests/assert_that.hpp\"\
+    \n\n#include <iostream>\n#include <cstdint>\n#line 1 \"tools/assert_that.hpp\"\
     \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
     \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
     \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
@@ -268,7 +268,7 @@ data:
     \ [](const auto& x) { return x * mint13(12); }) == pair(0, 2));\n\n  std::cout\
     \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include \"tests/assert_that.hpp\"\n\
+    #include <iostream>\n#include <cstdint>\n#include \"tools/assert_that.hpp\"\n\
     #include \"atcoder/modint.hpp\"\n#include \"tools/find_cycle.hpp\"\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  using\
     \ mint12 = atcoder::static_modint<12>;\n  using mint13 = atcoder::static_modint<13>;\n\
@@ -300,12 +300,12 @@ data:
     \ [](const auto& x) { return x * mint13(12); }) == pair(0, 2));\n\n  std::cout\
     \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/find_cycle.hpp
   isVerificationFile: true
   path: tests/find_cycle.test.cpp
   requiredBy: []
-  timestamp: '2022-01-30 19:57:33+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/find_cycle.test.cpp

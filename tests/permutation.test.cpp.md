@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tests/assert_that.hpp
-    title: tests/assert_that.hpp
+    path: tools/assert_that.hpp
+    title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
@@ -32,7 +32,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/permutation.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#include <cstdint>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#line 1 \"tests/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
+    #include <algorithm>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
     \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/permutation.hpp\"\
@@ -145,7 +145,7 @@ data:
     \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include <cstdint>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#include \"tests/assert_that.hpp\"\n#include \"tools/permutation.hpp\"\
+    #include <algorithm>\n#include \"tools/assert_that.hpp\"\n#include \"tools/permutation.hpp\"\
     \n#include \"tools/ssize.hpp\"\n#include \"tools/pow.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
     \nstruct group {\n  using T = tools::permutation<i64>;\n  inline static i64 N;\n\
     \  static T op(const T& lhs, const T& rhs) {\n    return lhs * rhs;\n  }\n  static\
@@ -168,7 +168,7 @@ data:
     \ == id);\n      ++id;\n    } while (std::next_permutation(expected.begin(), expected.end()));\n\
     \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tests/assert_that.hpp
+  - tools/assert_that.hpp
   - tools/permutation.hpp
   - tools/ssize.hpp
   - tools/pow.hpp
@@ -177,7 +177,7 @@ data:
   isVerificationFile: true
   path: tests/permutation.test.cpp
   requiredBy: []
-  timestamp: '2021-12-26 18:29:38+09:00'
+  timestamp: '2022-06-11 15:16:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/permutation.test.cpp
