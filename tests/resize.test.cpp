@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/resize.hpp"
 
 int main() {

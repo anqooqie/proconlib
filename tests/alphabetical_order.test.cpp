@@ -2,7 +2,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/alphabetical_order.hpp"
 
 int main() {

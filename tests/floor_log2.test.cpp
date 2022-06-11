@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstdint>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/floor_log2.hpp"
 
 int main() {

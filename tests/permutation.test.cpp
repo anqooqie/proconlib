@@ -5,7 +5,7 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/permutation.hpp"
 #include "tools/ssize.hpp"
 #include "tools/pow.hpp"

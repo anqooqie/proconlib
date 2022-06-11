@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/xor_basis.hpp"
 
 using i64 = std::int_fast64_t;

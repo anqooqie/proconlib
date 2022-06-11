@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdint>
 #include <bitset>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/rotate_right.hpp"
 #include "tools/dynamic_bitset.hpp"
 

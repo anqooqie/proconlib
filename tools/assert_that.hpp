@@ -1,5 +1,5 @@
-#ifndef TESTS_ASSERT_THAT_HPP
-#define TESTS_ASSERT_THAT_HPP
+#ifndef TOOLS_ASSERT_THAT_HPP
+#define TOOLS_ASSERT_THAT_HPP
 
 #define assert_that(cond) do {\
   if (!(cond)) {\

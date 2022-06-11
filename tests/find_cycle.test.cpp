@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cstdint>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "atcoder/modint.hpp"
 #include "tools/find_cycle.hpp"
 

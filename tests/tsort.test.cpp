@@ -6,7 +6,7 @@
 #include <vector>
 #include <utility>
 #include <iostream>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/tsort.hpp"
 #include "tools/lower_bound.hpp"
 

@@ -1,7 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
 #include <iostream>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/floor_sqrt.hpp"
 
 int main() {

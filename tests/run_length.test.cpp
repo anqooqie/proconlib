@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <iterator>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/run_length.hpp"
 
 int main() {

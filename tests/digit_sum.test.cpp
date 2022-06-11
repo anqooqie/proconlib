@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <iostream>
-#include "tests/assert_that.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/digit_sum.hpp"
 
 using i64 = std::int_fast64_t;
