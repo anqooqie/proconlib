@@ -19,13 +19,13 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/mex.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
-    \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
-    \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
-    \ (false)\n\n\n#line 1 \"tools/mex.hpp\"\n\n\n\n#include <iterator>\n#line 6 \"\
-    tools/mex.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator>\n\
-    \  typename ::std::iterator_traits<InputIterator>::value_type mex(InputIterator\
-    \ begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
+    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
+    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
+    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/mex.hpp\"\
+    \n\n\n\n#include <iterator>\n#line 6 \"tools/mex.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
+    \ mex(InputIterator begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    const ::std::vector<T> orig(begin, end);\n    const T n = orig.size();\n\
     \    ::std::vector<bool> exists(n, false);\n    for (const auto& o : orig) {\n\
     \      if (0 <= o && o < n) {\n        exists[o] = true;\n      }\n    }\n   \
@@ -52,7 +52,7 @@ data:
   isVerificationFile: true
   path: tests/mex.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mex.test.cpp

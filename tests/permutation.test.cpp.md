@@ -32,11 +32,12 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/permutation.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#include <cstdint>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/permutation.hpp\"\
-    \n\n\n\n#line 5 \"tools/permutation.hpp\"\n#include <cstddef>\n#line 7 \"tools/permutation.hpp\"\
+    #include <algorithm>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
+    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
+    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n\n\n#line 1 \"tools/permutation.hpp\"\n\n\n\n#line 5\
+    \ \"tools/permutation.hpp\"\n#include <cstddef>\n#line 7 \"tools/permutation.hpp\"\
     \n#include <cassert>\n#include <utility>\n#include <iterator>\n#line 11 \"tools/permutation.hpp\"\
     \n#include <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
     \ {\n  private:\n    ::std::vector<T> m_vector;\n\n    void verify_consistency()\
@@ -177,7 +178,7 @@ data:
   isVerificationFile: true
   path: tests/permutation.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/permutation.test.cpp

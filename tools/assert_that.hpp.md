@@ -80,45 +80,47 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n"
-  code: "#ifndef TOOLS_ASSERT_THAT_HPP\n#define TOOLS_ASSERT_THAT_HPP\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n#endif\n"
+  bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
+    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
+    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
+    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
+    } while (false)\n\n\n"
+  code: "#ifndef TOOLS_ASSERT_THAT_HPP\n#define TOOLS_ASSERT_THAT_HPP\n\n#include\
+    \ <iostream>\n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond))\
+    \ {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/assert_that.hpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/digit_sum.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/floor_sqrt.test.cpp
-  - tests/find_cycle.test.cpp
-  - tests/fix.test.cpp
-  - tests/run_length.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/resize.test.cpp
-  - tests/ssize.test.cpp
-  - tests/permutation.test.cpp
-  - tests/mex.test.cpp
-  - tests/safe_int.test.cpp
-  - tests/tsort.test.cpp
-  - tests/rotate_left.test.cpp
   - tests/fill.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/run_length.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/mex.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/digit_sum.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/find_cycle.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/resize.test.cpp
+  - tests/fix.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/permutation.test.cpp
+  - tests/tsort.test.cpp
+  - tests/ssize.test.cpp
+  - tests/floor_sqrt.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/floor_log.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro

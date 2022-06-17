@@ -25,13 +25,14 @@ data:
     \n// oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B\
     \ properly, so I implemented a special judge for the problem.\n\n#include <cstdint>\n\
     #include <cstdlib>\n#include <vector>\n#include <utility>\n#include <iostream>\n\
-    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond) do {\\\n  if\
-    \ (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__\
-    \ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\
-    \n  }\\\n} while (false)\n\n\n#line 1 \"tools/tsort.hpp\"\n\n\n\n#line 5 \"tools/tsort.hpp\"\
-    \n#include <cstddef>\n#line 7 \"tools/tsort.hpp\"\n#include <queue>\n\nnamespace\
-    \ tools {\n\n  class tsort {\n  private:\n    ::std::vector<::std::vector<::std::size_t>>\
-    \ edges;\n\n  public:\n    explicit tsort(const ::std::size_t node_count) : edges(node_count)\
+    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n\
+    #define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
+    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
+    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
+    \n\n#line 1 \"tools/tsort.hpp\"\n\n\n\n#line 5 \"tools/tsort.hpp\"\n#include <cstddef>\n\
+    #line 7 \"tools/tsort.hpp\"\n#include <queue>\n\nnamespace tools {\n\n  class\
+    \ tsort {\n  private:\n    ::std::vector<::std::vector<::std::size_t>> edges;\n\
+    \n  public:\n    explicit tsort(const ::std::size_t node_count) : edges(node_count)\
     \ {\n    }\n\n    ::std::size_t node_count() const noexcept {\n      return this->edges.size();\n\
     \    }\n\n    void add_edge(const ::std::size_t s, const ::std::size_t t) {\n\
     \      this->edges[s].push_back(t);\n    }\n\n    template <typename OutputIterator>\n\
@@ -156,7 +157,7 @@ data:
   isVerificationFile: true
   path: tests/tsort.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsort.test.cpp

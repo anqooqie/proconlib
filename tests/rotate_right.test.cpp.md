@@ -37,23 +37,24 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/rotate_right.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <cstdint>\n#include <bitset>\n\
-    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond) do {\\\n  if\
-    \ (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__\
-    \ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\
-    \n  }\\\n} while (false)\n\n\n#line 1 \"tools/rotate_right.hpp\"\n\n\n\n#include\
-    \ <cassert>\n#include <limits>\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n\
-    #line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
-    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 7 \"tools/rotate_right.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T, typename U>\n  constexpr T rotate_right(const\
-    \ T x, const ::std::size_t n, U s) {\n    assert(n <= ::std::numeric_limits<T>::digits);\n\
+    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n\
+    #define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
+    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
+    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
+    \n\n#line 1 \"tools/rotate_right.hpp\"\n\n\n\n#include <cassert>\n#include <limits>\n\
+    #line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
+    \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
+    \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
+    \ if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n\
+    \        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6\
+    \ \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n    if\
+    \ constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n      return\
+    \ lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs) * rhs;\n\
+    \    }\n  }\n}\n\n\n#line 7 \"tools/rotate_right.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename T, typename U>\n  constexpr T rotate_right(const T x, const\
+    \ ::std::size_t n, U s) {\n    assert(n <= ::std::numeric_limits<T>::digits);\n\
     \    const T mask = (n == ::std::numeric_limits<T>::digits ? ::std::numeric_limits<T>::max()\
     \ : (T(1) << n) - 1);\n    assert(0 <= x && x <= mask);\n    s = ::tools::mod(s,\
     \ n);\n    return ((x << ((n - s) % n)) | (x >> s)) & mask;\n  }\n\n  template\
@@ -1394,7 +1395,7 @@ data:
   isVerificationFile: true
   path: tests/rotate_right.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/rotate_right.test.cpp

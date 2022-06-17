@@ -19,25 +19,26 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/safe_int.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
-    \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
-    \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
-    \ (false)\n\n\n#line 1 \"tools/safe_int.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <cstddef>\n#include <cassert>\n#include <limits>\n#include <array>\n\
-    #include <optional>\n\nnamespace tools {\n  template <typename T, typename ::std::enable_if<::std::is_signed_v<T>,\
-    \ ::std::nullptr_t>::type = nullptr>\n  class safe_int {\n  private:\n    enum\
-    \ class type {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n   \
-    \ };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n    constexpr\
-    \ safe_int(const typename ::tools::safe_int<T>::type type) :\n      m_type(type),\
-    \ m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int() :\n      m_type(::tools::safe_int<T>::type::finite),\
-    \ m_value(T()) {\n    }\n    explicit constexpr safe_int(const T value) :\n  \
-    \    m_type(::tools::safe_int<T>::type::finite), m_value(value) {\n    }\n   \
-    \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
-    \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
-    \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
-    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
-    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
-    \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
+    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
+    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
+    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/safe_int.hpp\"\
+    \n\n\n\n#include <type_traits>\n#include <cstddef>\n#include <cassert>\n#include\
+    \ <limits>\n#include <array>\n#include <optional>\n\nnamespace tools {\n  template\
+    \ <typename T, typename ::std::enable_if<::std::is_signed_v<T>, ::std::nullptr_t>::type\
+    \ = nullptr>\n  class safe_int {\n  private:\n    enum class type {\n      finite,\n\
+    \      pos_inf,\n      neg_inf,\n      nan\n    };\n    typename ::tools::safe_int<T>::type\
+    \ m_type;\n    T m_value;\n\n    constexpr safe_int(const typename ::tools::safe_int<T>::type\
+    \ type) :\n      m_type(type), m_value(T()) {\n    }\n\n  public:\n    constexpr\
+    \ safe_int() :\n      m_type(::tools::safe_int<T>::type::finite), m_value(T())\
+    \ {\n    }\n    explicit constexpr safe_int(const T value) :\n      m_type(::tools::safe_int<T>::type::finite),\
+    \ m_value(value) {\n    }\n    constexpr safe_int(const ::tools::safe_int<T>&\
+    \ other) :\n      m_type(other.m_type), m_value(other.m_value) {\n    }\n    ~safe_int()\
+    \ = default;\n    constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>&\
+    \ other) {\n      this->m_type = other.m_type;\n      this->m_value = other.m_value;\n\
+    \      return *this;\n    }\n\n    static constexpr ::tools::safe_int<T> infinity()\
+    \ {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n \
+    \   }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::neg_inf:\n\
     \        return 0;\n      case ::tools::safe_int<T>::type::finite:\n        return\
@@ -265,7 +266,7 @@ data:
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp

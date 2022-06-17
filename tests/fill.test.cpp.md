@@ -22,14 +22,14 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/fill.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    std::cerr <<\
-    \ __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond\
-    \ << \"' failed.\" << '\\n';\\\n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while\
-    \ (false)\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 5 \"tools/fill.hpp\"\n\
-    #include <type_traits>\n#include <algorithm>\n#include <iterator>\n#line 1 \"\
-    tools/is_range.hpp\"\n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\
-    \nnamespace tools {\n  template <typename T>\n  class is_range {\n  private:\n\
-    \    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
+    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
+    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
+    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/fill.hpp\"\
+    \n\n\n\n#line 5 \"tools/fill.hpp\"\n#include <type_traits>\n#include <algorithm>\n\
+    #include <iterator>\n#line 1 \"tools/is_range.hpp\"\n\n\n\n#line 6 \"tools/is_range.hpp\"\
+    \n#include <utility>\n\nnamespace tools {\n  template <typename T>\n  class is_range\
+    \ {\n  private:\n    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
     \ ::std::end(x), ::std::true_type{});\n    static ::std::false_type check(...);\n\
     \n  public:\n    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
     \  };\n}\n\n\n#line 9 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class\
@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: tests/fill.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fill.test.cpp

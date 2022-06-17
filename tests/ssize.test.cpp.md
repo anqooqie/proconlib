@@ -27,15 +27,16 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/ssize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\
-    \n\n\n\n#include <functional>\n#include <type_traits>\n#include <unordered_map>\n\
-    #include <cstddef>\n#include <vector>\n#include <optional>\n#include <utility>\n\
-    #include <algorithm>\n#include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n\
-    #include <string>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
+    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
+    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\n\n\n\n#include\
+    \ <functional>\n#include <type_traits>\n#include <unordered_map>\n#include <cstddef>\n\
+    #include <vector>\n#include <optional>\n#include <utility>\n#include <algorithm>\n\
+    #include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n#include <string>\n#line\
+    \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
@@ -159,7 +160,7 @@ data:
   isVerificationFile: true
   path: tests/ssize.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 15:16:18+09:00'
+  timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ssize.test.cpp

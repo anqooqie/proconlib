@@ -341,9 +341,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/solve.test.cpp
-  - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp
   - tests/matrix/determinant.test.cpp
+  - tests/matrix/multiplies.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix
