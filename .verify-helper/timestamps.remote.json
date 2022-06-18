@@ -73,6 +73,7 @@
 "tests/parse_fixed_point_number.test.cpp": "2022-03-12 16:17:46 +0900",
 "tests/pdsu.test.cpp": "2022-02-19 06:09:11 +0900",
 "tests/permutation.test.cpp": "2022-06-17 23:50:47 +0900",
+"tests/persistent_dual_segtree.test.cpp": "2022-06-18 20:06:32 +0900",
 "tests/persistent_queue.test.cpp": "2022-04-16 09:34:34 +0900",
 "tests/persistent_stack.test.cpp": "2022-04-16 10:31:14 +0900",
 "tests/polygon_2d/area.test.cpp": "2022-02-19 03:37:47 +0900",
