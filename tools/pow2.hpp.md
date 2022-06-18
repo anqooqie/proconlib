@@ -33,6 +33,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/persistent_dual_segtree.hpp
+    title: Persistent dual segment tree
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -121,6 +124,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/persistent_dual_segtree.test.cpp
+    title: tests/persistent_dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -186,6 +192,7 @@ data:
   - tools/divisors.hpp
   - tools/binary_heap.hpp
   - tools/bigint.hpp
+  - tools/persistent_dual_segtree.hpp
   - tools/tetration_mod.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -219,6 +226,7 @@ data:
   - tests/dual_segtree.test.cpp
   - tests/ssize.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
   - tests/bigdecimal/plus.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/divides.test.cpp

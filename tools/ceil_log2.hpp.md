@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/persistent_dual_segtree.hpp
+    title: Persistent dual segment tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
@@ -39,6 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/persistent_dual_segtree.test.cpp
+    title: tests/persistent_dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
@@ -95,6 +101,7 @@ data:
   - tools/li_chao_segtree.hpp
   - tools/lca.hpp
   - tools/binary_heap.hpp
+  - tools/persistent_dual_segtree.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -106,6 +113,7 @@ data:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/ssize.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

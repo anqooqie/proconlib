@@ -15,6 +15,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/persistent_dual_segtree.test.cpp
+    title: tests/persistent_dual_segtree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -49,6 +52,7 @@ data:
   - tests/cumsum2d.test.cpp
   - tests/parse_fixed_point_number.test.cpp
   - tests/pdsu.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

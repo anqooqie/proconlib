@@ -270,6 +270,9 @@ data:
       path: tools/permutation.hpp
       title: Permutation
     - icon: ':heavy_check_mark:'
+      path: tools/persistent_dual_segtree.hpp
+      title: Persistent dual segment tree
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_queue.hpp
       title: Persistent queue
     - icon: ':heavy_check_mark:'
@@ -566,6 +569,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/permutation.test.cpp
       title: tests/permutation.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/persistent_dual_segtree.test.cpp
+      title: tests/persistent_dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/persistent_queue.test.cpp
       title: tests/persistent_queue.test.cpp

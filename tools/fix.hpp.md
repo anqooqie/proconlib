@@ -1,11 +1,17 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/persistent_dual_segtree.hpp
+    title: Persistent dual segment tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/persistent_dual_segtree.test.cpp
+    title: tests/persistent_dual_segtree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -27,11 +33,13 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/fix.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/persistent_dual_segtree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fix.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator
