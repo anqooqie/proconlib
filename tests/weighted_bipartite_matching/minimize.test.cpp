@@ -16,12 +16,12 @@ int main() {
   i64 N;
   std::cin >> N;
 
-  tools::weighted_bipartite_matching<i64, std::monostate> graph(N, N, false);
+  tools::weighted_bipartite_matching<i64> graph(N, N, false);
   for (i64 i = 0; i < N; ++i) {
     for (i64 j = 0; j < N; ++j) {
       i64 a_ij;
       std::cin >> a_ij;
-      graph.add_edge(i, j, a_ij, std::monostate{});
+      graph.add_edge(i, j, a_ij);
     }
   }
 

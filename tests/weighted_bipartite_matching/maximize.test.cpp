@@ -20,7 +20,7 @@ int main() {
   std::vector<std::string> S(N);
   for (auto& S_i : S) std::cin >> S_i;
 
-  tools::weighted_bipartite_matching<i64, std::monostate> graph(N * M, N * M, true);
+  tools::weighted_bipartite_matching<i64> graph(N * M, N * M, true);
   for (i64 y1 = 0; y1 < N; ++y1) {
     for (i64 x1 = 0; x1 < M; ++x1) {
       if (S[y1][x1] == 'o') {
@@ -31,7 +31,7 @@ int main() {
         while (!queue.empty()) {
           const auto here = queue.front();
           queue.pop();
-          graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x - x1), std::monostate{});
+          graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x - x1));
           if (here.y + 1 < N && !will_visit[here.y + 1][here.x] && S[here.y + 1][here.x] != '#') {
             queue.emplace(here.x, here.y + 1);
             will_visit[here.y + 1][here.x] = true;
