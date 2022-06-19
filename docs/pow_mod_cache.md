@@ -1,5 +1,5 @@
 ---
-title: Precompute $b^n \pmod{M}$
+title: Cache of $b^n \pmod{M}$
 documentation_of: //tools/pow_mod_cache.hpp
 ---
 
@@ -13,29 +13,17 @@ It returns $b^n \pmod{M}$.
 
 ## Constructor
 ```cpp
-(1) pow_mod_cache<M> cache(std::int_fast64_t b);
-(2) pow_mod_cache<M> cache(M b);
-(3) pow_mod_cache<M> cache(std::int_fast64_t b, std::int_fast64_t N);
-(4) pow_mod_cache<M> cache(M b, std::int_fast64_t N);
+pow_mod_cache<M> cache(std::int_fast64_t b);
+pow_mod_cache<M> cache(M b);
 ```
 
-- (1), (2)
-    - It creates an empty cache to store $b^n \pmod{M}$.
-- (3), (4)
-    - It precomputes $b^n \pmod{M}$ for $0 \leq n \leq N$.
+It creates an empty cache to store $b^n \pmod{M}$.
 
 ### Constraints
-- (1), (2)
-    - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-- (3), (4)
-    - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-    - $N \geq 0$
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
 
 ### Time Complexity
-- (1), (2)
-    - $O(1)$
-- (3), (4)
-    - $O(\min(N, M))$
+- $O(1)$
 
 ## operator[]
 ```cpp
@@ -48,8 +36,7 @@ It returns $b^n \pmod{M}$.
 - $\gcd(b, M) = 1 \lor n \geq 0$
 
 ### Time Complexity
-- $O(\min(n, M))$ worst (if $n \geq 0$)
-- $O(M)$ worst (if $n < 0$)
+- $O(\min(\log M + \|n\|, M))$ worst
 - $O(1)$ amortized
 
 ## sum
@@ -70,6 +57,5 @@ $$\begin{align*}
 - $\gcd(b, M) = 1 \lor l \geq 0$
 
 ### Time Complexity
-- $O(\min(\max(1, r), M))$ worst (if $l \geq 0$)
-- $O(M)$ worst (if $l < 0$)
+- $O(\min(\log M + \max(0, r - l), M))$ worst
 - $O(1)$ amortized
