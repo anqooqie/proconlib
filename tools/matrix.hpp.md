@@ -193,7 +193,7 @@ data:
     \ coeff] = A.internal_gauss_jordan();\n\n      return rank == A.m_rows ? T(1)\
     \ / coeff : T(0);\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t\
     \ n) {\n      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t\
-    \ i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n\
+    \ i = 0; i < n; ++i) {\n        result[i][i] = T(1);\n      }\n      return result;\n\
     \    }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
     \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
     \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
@@ -319,7 +319,7 @@ data:
     \ coeff] = A.internal_gauss_jordan();\n\n      return rank == A.m_rows ? T(1)\
     \ / coeff : T(0);\n    }\n\n    static ::tools::matrix<T> e(const ::std::size_t\
     \ n) {\n      ::tools::matrix<T> result(n, n, T(0));\n      for (::std::size_t\
-    \ i = 0; i < n; ++i) {\n        result[i][i] = 1;\n      }\n      return result;\n\
+    \ i = 0; i < n; ++i) {\n        result[i][i] = T(1);\n      }\n      return result;\n\
     \    }\n\n    ::std::optional<::tools::matrix<T>> inv() const {\n      if (this->m_rows\
     \ != this->m_cols) return ::std::nullopt;\n\n      ::tools::matrix<T> AI(this->m_rows,\
     \ this->m_cols * 2);\n      for (::std::size_t r = 0; r < this->m_rows; ++r) {\n\
@@ -337,7 +337,7 @@ data:
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2022-05-28 17:01:41+09:00'
+  timestamp: '2022-06-19 10:02:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/solve.test.cpp
