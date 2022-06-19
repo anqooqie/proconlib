@@ -1079,33 +1079,36 @@ data:
     \    }\n    explicit rational(const ::tools::bigint& n) : m_numerator(n), m_denominator(1)\
     \ {\n    }\n    explicit rational(const ::tools::bigdecimal& d)\n      : m_numerator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
     \ -d.scale())) *= d.unscaled_value()),\n        m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0,\
-    \ d.scale()))) {\n      this->regularize();\n    }\n    rational(const ::tools::bigint&\
-    \ numerator, const ::tools::bigint& denominator)\n      : m_numerator(numerator),\
-    \ m_denominator(denominator) {\n      assert(this->m_denominator.signum() != 0);\n\
-    \      this->regularize();\n    }\n\n    const ::tools::bigint& numerator() const\
-    \ {\n      return this->m_numerator;\n    }\n    const ::tools::bigint& denominator()\
-    \ const {\n      return this->m_denominator;\n    }\n\n    friend bool operator==(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return lhs.m_numerator\
-    \ == rhs.m_numerator && lhs.m_denominator == rhs.m_denominator;\n    }\n    friend\
-    \ bool operator!=(const ::tools::rational& lhs, const ::tools::rational& rhs)\
-    \ {\n      return !(lhs == rhs);\n    }\n    friend bool operator<(const ::tools::rational&\
-    \ lhs, const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) < 0;\n    }\n    friend bool operator>(const ::tools::rational& lhs, const\
-    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) > 0;\n    }\n    friend bool operator<=(const ::tools::rational& lhs, const\
-    \ ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) <= 0;\n    }\n    friend bool operator>=(const ::tools::rational& lhs,\
-    \ const ::tools::rational& rhs) {\n      return ::tools::rational::compare_3way(lhs,\
-    \ rhs) >= 0;\n    }\n\n    ::tools::rational operator+() const {\n      return\
-    \ *this;\n    }\n    ::tools::rational operator-() const {\n      return ::tools::rational(*this).negate();\n\
-    \    }\n\n    ::tools::rational& operator+=(const ::tools::rational& other) {\n\
-    \      this->m_numerator *= other.m_denominator;\n      this->m_numerator += other.m_numerator\
+    \ d.scale()))) {\n      this->regularize();\n    }\n    rational(const ::std::int_fast64_t\
+    \ numerator, const ::std::int_fast64_t denominator)\n      : m_numerator(numerator),\
+    \ m_denominator(denominator) {\n      assert(denominator != 0);\n      this->regularize();\n\
+    \    }\n    rational(const ::tools::bigint& numerator, const ::tools::bigint&\
+    \ denominator)\n      : m_numerator(numerator), m_denominator(denominator) {\n\
+    \      assert(this->m_denominator.signum() != 0);\n      this->regularize();\n\
+    \    }\n\n    const ::tools::bigint& numerator() const {\n      return this->m_numerator;\n\
+    \    }\n    const ::tools::bigint& denominator() const {\n      return this->m_denominator;\n\
+    \    }\n\n    friend bool operator==(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return lhs.m_numerator == rhs.m_numerator && lhs.m_denominator\
+    \ == rhs.m_denominator;\n    }\n    friend bool operator!=(const ::tools::rational&\
+    \ lhs, const ::tools::rational& rhs) {\n      return !(lhs == rhs);\n    }\n \
+    \   friend bool operator<(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) < 0;\n    }\n\
+    \    friend bool operator>(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) > 0;\n    }\n\
+    \    friend bool operator<=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) <= 0;\n    }\n\
+    \    friend bool operator>=(const ::tools::rational& lhs, const ::tools::rational&\
+    \ rhs) {\n      return ::tools::rational::compare_3way(lhs, rhs) >= 0;\n    }\n\
+    \n    ::tools::rational operator+() const {\n      return *this;\n    }\n    ::tools::rational\
+    \ operator-() const {\n      return ::tools::rational(*this).negate();\n    }\n\
+    \n    ::tools::rational& operator+=(const ::tools::rational& other) {\n      this->m_numerator\
+    \ *= other.m_denominator;\n      this->m_numerator += other.m_numerator * this->m_denominator;\n\
+    \      this->m_denominator *= other.m_denominator;\n      return this->regularize();\n\
+    \    }\n    friend ::tools::rational operator+(const ::tools::rational& lhs, const\
+    \ ::tools::rational& rhs) {\n      return ::tools::rational(lhs) += rhs;\n   \
+    \ }\n\n    ::tools::rational& operator-=(const ::tools::rational& other) {\n \
+    \     this->m_numerator *= other.m_denominator;\n      this->m_numerator -= other.m_numerator\
     \ * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
-    \      return this->regularize();\n    }\n    friend ::tools::rational operator+(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
-    \ += rhs;\n    }\n\n    ::tools::rational& operator-=(const ::tools::rational&\
-    \ other) {\n      this->m_numerator *= other.m_denominator;\n      this->m_numerator\
-    \ -= other.m_numerator * this->m_denominator;\n      this->m_denominator *= other.m_denominator;\n\
     \      return this->regularize();\n    }\n    friend ::tools::rational operator-(const\
     \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      return ::tools::rational(lhs)\
     \ -= rhs;\n    }\n\n    ::tools::rational& operator*=(const ::tools::rational&\
@@ -1644,7 +1647,7 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/minimum_bounding_circle.test.cpp
   requiredBy: []
-  timestamp: '2022-06-19 14:59:52+09:00'
+  timestamp: '2022-06-19 22:51:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polygon_2d/minimum_bounding_circle.test.cpp
