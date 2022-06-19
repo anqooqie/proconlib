@@ -262,7 +262,7 @@ namespace tools {
     static ::tools::matrix<T> e(const ::std::size_t n) {
       ::tools::matrix<T> result(n, n, T(0));
       for (::std::size_t i = 0; i < n; ++i) {
-        result[i][i] = 1;
+        result[i][i] = T(1);
       }
       return result;
     }
