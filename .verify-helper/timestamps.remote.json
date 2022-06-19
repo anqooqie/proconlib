@@ -105,8 +105,8 @@
 "tests/tree_diameter.test.cpp": "2022-04-29 23:42:50 +0900",
 "tests/tsort.test.cpp": "2022-06-17 23:50:47 +0900",
 "tests/wavelet_matrix.test.cpp": "2022-05-30 14:51:47 +0900",
-"tests/weighted_bipartite_matching/maximize.test.cpp": "2022-03-19 12:27:54 +0900",
-"tests/weighted_bipartite_matching/minimize.test.cpp": "2022-03-19 12:27:54 +0900",
+"tests/weighted_bipartite_matching/maximize.test.cpp": "2022-06-19 20:20:19 +0900",
+"tests/weighted_bipartite_matching/minimize.test.cpp": "2022-06-19 20:20:19 +0900",
 "tests/xor_basis.test.cpp": "2022-06-17 23:50:47 +0900",
 "tests/zero_one_bfs.test.cpp": "2021-07-17 23:00:45 +0900"
 }
