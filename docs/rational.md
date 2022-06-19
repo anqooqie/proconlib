@@ -19,7 +19,8 @@ For explanatory purposes, let $n_\circ$ denote the numerator of $\circ$ and $d_\
 (2) rational x(std::int_fast64_t n);
 (3) rational x(const tools::bigint& n);
 (4) rational x(const tools::bigdecimal& n);
-(5) rational x(const tools::bigint& n, const tools::bigint& d);
+(5) rational x(std::int_fast64_t n, std::int_fast64_t d);
+(6) rational x(const tools::bigint& n, const tools::bigint& d);
 ```
 
 - (1)
@@ -28,11 +29,11 @@ For explanatory purposes, let $n_\circ$ denote the numerator of $\circ$ and $d_\
     - It creates a rational number which is $\frac{n}{1}$.
 - (4)
     - It creates a rational number which is numerically equal to $n$.
-- (5)
+- (5), (6)
     - It creates a rational number which is $\frac{n}{d}$.
 
 ### Constraints
-- (5)
+- (5), (6)
     - $d \neq 0$
 
 ### Time Complexity
@@ -44,7 +45,7 @@ For explanatory purposes, let $n_\circ$ denote the numerator of $\circ$ and $d_\
     - $O(\log \|n\|)$
 - (4)
     - $O(\log \|u_n\|)$ where $u_n$ is the unscaled value of $n$
-- (5)
+- (5), (6)
     - $O((\log \|n\| + \log \|d\|)^2 \log (\log \|n\| + \log \|d\|))$
 
 ## numerator

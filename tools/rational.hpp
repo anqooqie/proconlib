@@ -69,6 +69,11 @@ namespace tools {
         m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0, d.scale()))) {
       this->regularize();
     }
+    rational(const ::std::int_fast64_t numerator, const ::std::int_fast64_t denominator)
+      : m_numerator(numerator), m_denominator(denominator) {
+      assert(denominator != 0);
+      this->regularize();
+    }
     rational(const ::tools::bigint& numerator, const ::tools::bigint& denominator)
       : m_numerator(numerator), m_denominator(denominator) {
       assert(this->m_denominator.signum() != 0);
