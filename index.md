@@ -295,7 +295,7 @@ data:
       title: $x^y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
-      title: Precompute $b^n \pmod{M}$
+      title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm

@@ -28,7 +28,7 @@ data:
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
-    title: Precompute $b^n \pmod{M}$
+    title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
