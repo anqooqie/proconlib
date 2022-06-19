@@ -19,10 +19,10 @@
 #include "atcoder/convolution.hpp"
 #include "tools/quo.hpp"
 #include "tools/mod.hpp"
+#include "tools/ssize.hpp"
 #include "tools/ceil.hpp"
 #include "tools/garner2.hpp"
 #include "tools/pow2.hpp"
-#include "tools/ssize.hpp"
 
 namespace tools {
   class bigint {
@@ -124,7 +124,9 @@ namespace tools {
           ::std::vector<::std::int_fast32_t> zero(exponent10000, 0);
           this->m_digits.insert(this->m_digits.begin(), zero.begin(), zero.end());
         } else if (exponent10000 < 0) {
-          mod = this->m_digits[0] / POW10[LOG10_BASE * (exponent10000 + 1) - exponent] % POW10[exponent - LOG10_BASE * exponent10000];
+          if (::tools::ssize(this->m_digits) >= -exponent10000) {
+            mod = this->m_digits[-exponent10000 - 1] / POW10[LOG10_BASE * (exponent10000 + 1) - exponent];
+          }
           this->m_digits.erase(this->m_digits.begin(), this->m_digits.begin() + ::std::min<::std::size_t>(-exponent10000, this->m_digits.size()));
         }
         if (const ::std::int_fast32_t coefficient = POW10[exponent - LOG10_BASE * exponent10000]; coefficient > POW10[0]) {
