@@ -430,16 +430,20 @@ data:
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
     \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
-    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
+    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\
+    \n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n \
+    \ template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
+    \ M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
+    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
+    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
+    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
+    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
     \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
     \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
@@ -460,31 +464,28 @@ data:
     \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 26 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
-    \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
-    \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
-    \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
-    \ LOG10_BASE = 4;\n    static constexpr ::std::array<::std::int_fast32_t, 5> POW10\
-    \ = {1, 10, 100, 1000, 10000};\n\n    static int compare_3way(const ::std::size_t\
-    \ lhs, const ::std::size_t rhs) {\n      if (lhs < rhs) return -1;\n      if (lhs\
-    \ == rhs) return 0;\n      return 1;\n    }\n    static int compare_3way_abs(const\
-    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      if (const auto comp\
-    \ = ::tools::bigint::compare_3way(lhs.m_digits.size(), rhs.m_digits.size()); comp\
-    \ != 0) {\n        return comp;\n      }\n      for (::std::size_t i = 0; i <\
-    \ lhs.m_digits.size(); ++i) {\n        if (const auto comp = ::tools::bigint::compare_3way(lhs.m_digits[lhs.m_digits.size()\
-    \ - 1 - i], rhs.m_digits[rhs.m_digits.size() - 1 - i]); comp != 0) {\n       \
-    \   return comp;\n        }\n      }\n      return 0;\n    }\n\n    ::tools::bigint&\
-    \ regularize(const int level) {\n      if (level > 0) {\n        if (level ==\
-    \ 2) {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i)\
-    \ {\n            this->m_digits[i + 1] += ::tools::quo(this->m_digits[i], BASE);\n\
-    \            this->m_digits[i] = ::tools::mod(this->m_digits[i], BASE);\n    \
-    \      }\n        } else {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size();\
-    \ ++i) {\n            if (this->m_digits[i] < 0) {\n              this->m_digits[i]\
-    \ += BASE;\n              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 26 \"tools/bigint.hpp\"\
+    \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
+    \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
+    \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
+    \  static constexpr ::std::array<::std::int_fast32_t, 5> POW10 = {1, 10, 100,\
+    \ 1000, 10000};\n\n    static int compare_3way(const ::std::size_t lhs, const\
+    \ ::std::size_t rhs) {\n      if (lhs < rhs) return -1;\n      if (lhs == rhs)\
+    \ return 0;\n      return 1;\n    }\n    static int compare_3way_abs(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      if (const auto comp = ::tools::bigint::compare_3way(lhs.m_digits.size(),\
+    \ rhs.m_digits.size()); comp != 0) {\n        return comp;\n      }\n      for\
+    \ (::std::size_t i = 0; i < lhs.m_digits.size(); ++i) {\n        if (const auto\
+    \ comp = ::tools::bigint::compare_3way(lhs.m_digits[lhs.m_digits.size() - 1 -\
+    \ i], rhs.m_digits[rhs.m_digits.size() - 1 - i]); comp != 0) {\n          return\
+    \ comp;\n        }\n      }\n      return 0;\n    }\n\n    ::tools::bigint& regularize(const\
+    \ int level) {\n      if (level > 0) {\n        if (level == 2) {\n          for\
+    \ (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n            this->m_digits[i\
+    \ + 1] += ::tools::quo(this->m_digits[i], BASE);\n            this->m_digits[i]\
+    \ = ::tools::mod(this->m_digits[i], BASE);\n          }\n        } else {\n  \
+    \        for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n   \
+    \         if (this->m_digits[i] < 0) {\n              this->m_digits[i] += BASE;\n\
+    \              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
     \ >= BASE) {\n              this->m_digits[i] -= BASE;\n              ++this->m_digits[i\
     \ + 1];\n            }\n          }\n        }\n        if (!this->m_digits.empty()\
     \ && this->m_digits.back() < 0) {\n          this->m_positive = !this->m_positive;\n\
@@ -511,8 +512,9 @@ data:
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
     \ zero.begin(), zero.end());\n        } else if (exponent10000 < 0) {\n      \
-    \    mod = this->m_digits[0] / POW10[LOG10_BASE * (exponent10000 + 1) - exponent]\
-    \ % POW10[exponent - LOG10_BASE * exponent10000];\n          this->m_digits.erase(this->m_digits.begin(),\
+    \    if (::tools::ssize(this->m_digits) >= -exponent10000) {\n            mod\
+    \ = this->m_digits[-exponent10000 - 1] / POW10[LOG10_BASE * (exponent10000 + 1)\
+    \ - exponent];\n          }\n          this->m_digits.erase(this->m_digits.begin(),\
     \ this->m_digits.begin() + ::std::min<::std::size_t>(-exponent10000, this->m_digits.size()));\n\
     \        }\n        if (const ::std::int_fast32_t coefficient = POW10[exponent\
     \ - LOG10_BASE * exponent10000]; coefficient > POW10[0]) {\n          for (auto&\
@@ -930,17 +932,17 @@ data:
   - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
+  - tools/ssize.hpp
   - tools/ceil.hpp
   - tools/detail/ceil_and_floor.hpp
   - tools/garner2.hpp
   - tools/pow2.hpp
-  - tools/ssize.hpp
   - tools/signum.hpp
   - tools/rounding_mode.hpp
   isVerificationFile: true
   path: tests/bigdecimal/hand.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
+  timestamp: '2022-06-19 14:59:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/hand.test.cpp
