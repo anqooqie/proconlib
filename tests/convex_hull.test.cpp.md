@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
   _extendedRequiredBy: []

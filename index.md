@@ -9,7 +9,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/alphabetical_order.hpp
       title: Alphabetical order of a given character
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -33,7 +33,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -90,7 +90,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
@@ -124,7 +124,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -191,7 +191,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':heavy_check_mark:'
@@ -236,7 +236,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':warning:'
@@ -281,7 +281,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -308,7 +308,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -326,10 +326,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_right.hpp
       title: Circular shift to the right
     - icon: ':warning:'
@@ -344,10 +344,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/scc_graph.hpp
       title: Strongly connected component decomposition
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
     - icon: ':warning:'
@@ -602,10 +602,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_left.test.cpp
       title: tests/rotate_left.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_right.test.cpp
       title: tests/rotate_right.test.cpp
     - icon: ':heavy_check_mark:'
@@ -614,7 +614,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
     - icon: ':heavy_check_mark:'
@@ -771,7 +771,7 @@ data:
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/scc_graph/edges_to_scc.test.cpp
       title: tests/scc_graph/edges_to_scc.test.cpp
     - icon: ':heavy_check_mark:'

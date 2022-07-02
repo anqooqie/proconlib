@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy: []
