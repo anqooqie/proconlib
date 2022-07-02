@@ -27,20 +27,21 @@ data:
     \ <cstddef>\n#line 7 \"tools/resize.hpp\"\n#include <cassert>\n\nnamespace tools\
     \ {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
     \ Allocator>& vector, const Head& head) {\n    vector.resize(head);\n  }\n  template\
-    \ <class T, ::std::size_t N, typename Head>\n  void resize(::std::array<T, N>&\
-    \ array, const Head& head) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \  }\n\n  template <class T, class Allocator, typename Head, typename... Tail>\n\
-    \  void resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail);\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail);\n\
-    \n  template <class T, class Allocator, typename Head, typename... Tail>\n  void\
-    \ resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail) {\n    vector.resize(head);\n    for (auto& child : vector) {\n      ::tools::resize(child,\
-    \ tail...);\n    }\n  }\n  template <class T, ::std::size_t N, typename Head,\
-    \ typename... Tail>\n  void resize(::std::array<T, N>& array, const Head& head,\
-    \ const Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
-    \ }\n  }\n}\n\n\n#line 9 \"tests/resize.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \ <class T, ::std::size_t N, typename Head>\n  void resize([[maybe_unused]] ::std::array<T,\
+    \ N>& array, [[maybe_unused]] const Head& head) {\n    assert(array.size() ==\
+    \ static_cast<::std::size_t>(head));\n  }\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail);\n  template <class T, ::std::size_t\
+    \ N, typename Head, typename... Tail>\n  void resize(::std::array<T, N>& array,\
+    \ const Head& head, const Tail&... tail);\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
+    \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
+    \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
+    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
+    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
+    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\n\
+    #line 9 \"tests/resize.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  {\n    std::vector<std::vector<std::vector<int>>>\
     \ v;\n    tools::resize(v, 3, 4, 5);\n    assert_that(v.size() == 3);\n    for\
     \ (int i = 0; i < 3; ++i) {\n      assert_that(v[i].size() == 4);\n      for (int\
@@ -108,7 +109,7 @@ data:
   isVerificationFile: true
   path: tests/resize.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 20:35:13+09:00'
+  timestamp: '2022-07-02 20:39:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/resize.test.cpp

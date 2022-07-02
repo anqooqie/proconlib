@@ -21,44 +21,45 @@ data:
     #include <array>\n#include <cassert>\n\nnamespace tools {\n  template <class T,\
     \ class Allocator, typename Head>\n  void resize(::std::vector<T, Allocator>&\
     \ vector, const Head& head) {\n    vector.resize(head);\n  }\n  template <class\
-    \ T, ::std::size_t N, typename Head>\n  void resize(::std::array<T, N>& array,\
-    \ const Head& head) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \  }\n\n  template <class T, class Allocator, typename Head, typename... Tail>\n\
-    \  void resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail);\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail);\n\
-    \n  template <class T, class Allocator, typename Head, typename... Tail>\n  void\
-    \ resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail) {\n    vector.resize(head);\n    for (auto& child : vector) {\n      ::tools::resize(child,\
-    \ tail...);\n    }\n  }\n  template <class T, ::std::size_t N, typename Head,\
-    \ typename... Tail>\n  void resize(::std::array<T, N>& array, const Head& head,\
-    \ const Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
-    \ }\n  }\n}\n\n\n"
+    \ T, ::std::size_t N, typename Head>\n  void resize([[maybe_unused]] ::std::array<T,\
+    \ N>& array, [[maybe_unused]] const Head& head) {\n    assert(array.size() ==\
+    \ static_cast<::std::size_t>(head));\n  }\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail);\n  template <class T, ::std::size_t\
+    \ N, typename Head, typename... Tail>\n  void resize(::std::array<T, N>& array,\
+    \ const Head& head, const Tail&... tail);\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
+    \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
+    \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
+    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
+    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
+    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_RESIZE_HPP\n#define TOOLS_RESIZE_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <array>\n#include <cassert>\n\nnamespace tools {\n\
     \  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
     \ Allocator>& vector, const Head& head) {\n    vector.resize(head);\n  }\n  template\
-    \ <class T, ::std::size_t N, typename Head>\n  void resize(::std::array<T, N>&\
-    \ array, const Head& head) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \  }\n\n  template <class T, class Allocator, typename Head, typename... Tail>\n\
-    \  void resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail);\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail);\n\
-    \n  template <class T, class Allocator, typename Head, typename... Tail>\n  void\
-    \ resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
-    \ tail) {\n    vector.resize(head);\n    for (auto& child : vector) {\n      ::tools::resize(child,\
-    \ tail...);\n    }\n  }\n  template <class T, ::std::size_t N, typename Head,\
-    \ typename... Tail>\n  void resize(::std::array<T, N>& array, const Head& head,\
-    \ const Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
-    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
-    \ }\n  }\n}\n\n#endif\n"
+    \ <class T, ::std::size_t N, typename Head>\n  void resize([[maybe_unused]] ::std::array<T,\
+    \ N>& array, [[maybe_unused]] const Head& head) {\n    assert(array.size() ==\
+    \ static_cast<::std::size_t>(head));\n  }\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail);\n  template <class T, ::std::size_t\
+    \ N, typename Head, typename... Tail>\n  void resize(::std::array<T, N>& array,\
+    \ const Head& head, const Tail&... tail);\n\n  template <class T, class Allocator,\
+    \ typename Head, typename... Tail>\n  void resize(::std::vector<T, Allocator>&\
+    \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
+    \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
+    \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
+    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
+    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
+    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\
+    #endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/resize.hpp
   requiredBy:
   - tools/util.hpp
-  timestamp: '2022-07-02 20:35:13+09:00'
+  timestamp: '2022-07-02 20:39:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/range_of_digit_products.test.cpp
