@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <algorithm>
 #include <iterator>
+#include <cstddef>
+#include <array>
 #include "tools/is_range.hpp"
 
 namespace tools {
@@ -12,9 +14,25 @@ namespace tools {
   auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {
     ::std::fill(::std::begin(vector), ::std::end(vector), value);
   }
+  template <class T, ::std::size_t N, typename V>
+  auto fill(::std::array<T, N>& array, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {
+    ::std::fill(::std::begin(array), ::std::end(array), value);
+  }
+
+  template <class T, class Allocator, typename V>
+  auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void>;
+  template <class T, ::std::size_t N, typename V>
+  auto fill(::std::array<T, N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void>;
+
   template <class T, class Allocator, typename V>
   auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void> {
     for (auto& child : vector) {
+      ::tools::fill(child, value);
+    }
+  }
+  template <class T, ::std::size_t N, typename V>
+  auto fill(::std::array<T, N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void> {
+    for (auto& child : array) {
       ::tools::fill(child, value);
     }
   }
