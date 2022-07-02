@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
@@ -10,22 +10,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
+    path: tools/floor.hpp
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'
@@ -430,26 +430,20 @@ data:
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
     \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
-    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
+    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\
+    \n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M lhs, const\
+    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs - (((lhs > 0 && rhs <\
+    \ 0) || (lhs < 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
     \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n \
-    \ template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 1 \"tools/garner2.hpp\"\n\n\n\n#line 7 \"tools/garner2.hpp\"\n\nnamespace\
-    \ tools {\n\n  inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
+    \n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
+    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
+    }\n\n\n#line 1 \"tools/garner2.hpp\"\n\n\n\n#line 7 \"tools/garner2.hpp\"\n\n\
+    namespace tools {\n\n  inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
     \ a, const ::atcoder::static_modint<469762049>& b) {\n    using mint1 = ::atcoder::static_modint<167772161>;\
     \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
     \ * 2^26 + 1\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64\
@@ -464,7 +458,7 @@ data:
     \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 26 \"tools/bigint.hpp\"\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 27 \"tools/bigint.hpp\"\
     \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
@@ -1052,9 +1046,9 @@ data:
   - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
+  - tools/floor.hpp
   - tools/ssize.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/garner2.hpp
   - tools/pow2.hpp
   - tools/signum.hpp
@@ -1062,7 +1056,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/random.test.cpp
   requiredBy: []
-  timestamp: '2022-06-19 14:59:52+09:00'
+  timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/random.test.cpp

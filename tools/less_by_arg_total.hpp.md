@@ -207,8 +207,8 @@ data:
   timestamp: '2022-05-28 14:58:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/greater_by_arg_total.test.cpp
   - tests/less_by_arg_total.test.cpp
+  - tests/greater_by_arg_total.test.cpp
 documentation_of: tools/less_by_arg_total.hpp
 layout: document
 title: std::less by the argument (total order)

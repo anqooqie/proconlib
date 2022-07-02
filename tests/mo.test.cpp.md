@@ -1,13 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -43,34 +40,25 @@ data:
     #include <vector>\n#line 1 \"tools/mo.hpp\"\n\n\n\n#include <cstddef>\n#line 6\
     \ \"tools/mo.hpp\"\n#include <tuple>\n#include <algorithm>\n#include <cassert>\n\
     #line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n >= 0);\n\
-    \n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\n    while\
-    \ (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if (mid * mid\
-    \ <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n   \
-    \ }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"\
-    tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 1 \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\
-    \nnamespace tools {\n\n  template <::std::size_t I>\n  struct less_by_get {\n\
-    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
-    \      return ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line\
-    \ 1 \"tools/greater_by_get.hpp\"\n\n\n\n#line 6 \"tools/greater_by_get.hpp\"\n\
-    \nnamespace tools {\n\n  template <::std::size_t I>\n  struct greater_by_get {\n\
-    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
-    \      return ::std::get<I>(x) > ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line\
-    \ 13 \"tools/mo.hpp\"\n\nnamespace tools {\n  class mo {\n  private:\n    ::std::size_t\
-    \ m_query_count;\n    ::std::size_t m_bucket_size;\n    ::std::vector<::std::vector<::std::tuple<::std::size_t,\
+    \ tools {\n\n  template <typename T>\n  T floor_sqrt(const T n) {\n    assert(n\
+    \ >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng <= n / ng; ng *= 2);\n\
+    \n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if\
+    \ (mid <= n / mid) {\n        ok = mid;\n      } else {\n        ng = mid;\n \
+    \     }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\
+    \n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1\
+    \ \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <::std::size_t I>\n  struct less_by_get {\n    template\
+    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
+    \ ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/greater_by_get.hpp\"\
+    \n\n\n\n#line 6 \"tools/greater_by_get.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <::std::size_t I>\n  struct greater_by_get {\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return ::std::get<I>(x) >\
+    \ ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 13 \"tools/mo.hpp\"\n\nnamespace\
+    \ tools {\n  class mo {\n  private:\n    ::std::size_t m_query_count;\n    ::std::size_t\
+    \ m_bucket_size;\n    ::std::vector<::std::vector<::std::tuple<::std::size_t,\
     \ ::std::size_t, ::std::size_t>>> m_buckets;\n\n  public:\n    mo() = default;\n\
     \    mo(const ::tools::mo&) = default;\n    mo(::tools::mo&&) = default;\n   \
     \ ~mo() = default;\n    ::tools::mo& operator=(const ::tools::mo&) = default;\n\
@@ -132,14 +120,13 @@ data:
   - tools/mo.hpp
   - tools/floor_sqrt.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/less_by_get.hpp
   - tools/greater_by_get.hpp
   - tools/unordered_map.hpp
   isVerificationFile: true
   path: tests/mo.test.cpp
   requiredBy: []
-  timestamp: '2022-04-16 21:31:36+09:00'
+  timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mo.test.cpp

@@ -7,10 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -108,15 +108,15 @@ data:
   isVerificationFile: false
   path: tools/garner.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
   - tools/extended_garner.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
-  - tests/extended_garner.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/extended_garner.test.cpp
 documentation_of: tools/garner.hpp
 layout: document
 title: Garner's algorithm

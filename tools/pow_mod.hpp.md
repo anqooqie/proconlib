@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -98,24 +98,24 @@ data:
   isVerificationFile: false
   path: tools/pow_mod.hpp
   requiredBy:
-  - tools/fact_mod_cache.hpp
   - tools/prime_factorization.hpp
-  - tools/is_prime.hpp
-  - tools/extended_lucas.hpp
-  - tools/totient.hpp
+  - tools/fact_mod_cache.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/is_prime.hpp
+  - tools/totient.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/totient.test.cpp
+  - tests/prime_factorization.test.cpp
   - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
+  - tests/totient.test.cpp
+  - tests/is_prime.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
 title: $x^y \pmod{M}$

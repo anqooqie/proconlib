@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
@@ -33,7 +33,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
@@ -48,9 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -65,24 +65,24 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/bellman_ford.hpp
-  - tools/segmented_sieve.hpp
-  - tools/weighted_bipartite_matching.hpp
+  - tools/tree_diameter.hpp
   - tools/mcf_graph.hpp
   - tools/dijkstra.hpp
-  - tools/tree_diameter.hpp
+  - tools/bellman_ford.hpp
+  - tools/weighted_bipartite_matching.hpp
   - tools/xor_basis.hpp
+  - tools/segmented_sieve.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/tree_diameter.test.cpp
-  - tests/segmented_sieve.test.cpp
   - tests/bellman_ford.test.cpp
   - tests/xor_basis.test.cpp
-  - tests/persistent_stack.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/dijkstra.test.cpp
+  - tests/tree_diameter.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/dijkstra.test.cpp
+  - tests/persistent_stack.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

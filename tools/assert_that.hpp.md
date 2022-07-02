@@ -13,6 +13,9 @@ data:
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ceil.test.cpp
+    title: tests/ceil.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
   - icon: ':heavy_check_mark:'
@@ -34,6 +37,9 @@ data:
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/floor.test.cpp
+    title: tests/floor.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
   - icon: ':heavy_check_mark:'
@@ -54,10 +60,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':heavy_check_mark:'
@@ -75,9 +81,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -95,32 +101,34 @@ data:
   path: tools/assert_that.hpp
   requiredBy: []
   timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/fill.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/run_length.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/mex.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/digit_sum.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/find_cycle.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/safe_int.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/resize.test.cpp
-  - tests/fix.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/permutation.test.cpp
-  - tests/tsort.test.cpp
-  - tests/ssize.test.cpp
-  - tests/floor_sqrt.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
+  - tests/floor_sqrt.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/permutation.test.cpp
+  - tests/floor.test.cpp
+  - tests/ssize.test.cpp
+  - tests/find_cycle.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/ceil.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/run_length.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/mex.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/fill.test.cpp
+  - tests/resize.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/tsort.test.cpp
+  - tests/digit_sum.test.cpp
+  - tests/fix.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro

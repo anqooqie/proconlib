@@ -1,29 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/scc_graph.hpp
     title: Strongly connected component decomposition
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc204/tasks/abc204_c
@@ -117,31 +114,21 @@ data:
     \      assert(this->m_built);\n      return this->m_rev_scc_graph[i];\n    }\n\
     \  };\n}\n\n\n#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#line 7 \"tools/dynamic_bitset.hpp\"\
     \n#include <limits>\n#include <string>\n#line 11 \"tools/dynamic_bitset.hpp\"\n\
-    #include <iterator>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const\
-    \ N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace\
-    \ tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n    x = (x\
-    \ & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
-    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
-    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
-    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
-    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
-    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
-    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
-    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
+    #include <iterator>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
+    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
+    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/popcount.hpp\"\n\
+    \n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  inline ::std::uint32_t\
+    \ popcount(::std::uint32_t x) {\n    x = (x & static_cast<::std::uint32_t>(0x55555555ull))\
+    \ + (x >> static_cast<::std::uint32_t>(1) & static_cast<::std::uint32_t>(0x55555555ull));\n\
+    \    x = (x & static_cast<::std::uint32_t>(0x33333333ull)) + (x >> static_cast<::std::uint32_t>(2)\
+    \ & static_cast<::std::uint32_t>(0x33333333ull));\n    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full))\
+    \ + (x >> static_cast<::std::uint32_t>(4) & static_cast<::std::uint32_t>(0x0f0f0f0full));\n\
+    \    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull)) + (x >> static_cast<::std::uint32_t>(8)\
+    \ & static_cast<::std::uint32_t>(0x00ff00ffull));\n    return (x & static_cast<::std::uint32_t>(0x0000ffffull))\
+    \ + (x >> static_cast<::std::uint32_t>(16) & static_cast<::std::uint32_t>(0x0000ffffull));\n\
+    \  }\n\n  inline ::std::uint64_t popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
     \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
     \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
     \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
@@ -300,13 +287,12 @@ data:
   - tools/less_by.hpp
   - tools/dynamic_bitset.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/popcount.hpp
   isVerificationFile: true
   path: tests/scc_graph/edges_to_scc.test.cpp
   requiredBy: []
-  timestamp: '2022-06-11 02:40:59+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-07-02 14:04:07+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/scc_graph/edges_to_scc.test.cpp
 layout: document

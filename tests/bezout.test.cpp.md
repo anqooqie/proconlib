@@ -4,19 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []
@@ -256,21 +253,14 @@ data:
     \   assert(b != 0);\n    const auto [x0, y0, gcd] = ::tools::extgcd(a, b);\n \
     \   return c % gcd == 0 ? ::std::make_optional(::std::make_tuple(-b / gcd, c /\
     \ gcd * x0, a / gcd, c / gcd * y0)) : ::std::nullopt;\n  }\n}\n\n\n#line 1 \"\
-    tools/floor.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const\
-    \ N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/floor.hpp\"\n\
-    \n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\n#line 12\
+    tools/floor.hpp\"\n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs - (((lhs\
+    \ > 0 && rhs < 0) || (lhs < 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1\
+    \ \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 12\
     \ \"tests/bezout.test.cpp\"\n\nusing mint = atcoder::modint1000000007;\nusing\
     \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 T;\n  std::cin >> T;\n  for (i64 t = 0; t < T; ++t) {\n    i64 N, K, H,\
@@ -301,12 +291,11 @@ data:
   - tools/extgcd.hpp
   - tools/quo.hpp
   - tools/floor.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/ceil.hpp
   isVerificationFile: true
   path: tests/bezout.test.cpp
   requiredBy: []
-  timestamp: '2022-05-21 22:34:54+09:00'
+  timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bezout.test.cpp

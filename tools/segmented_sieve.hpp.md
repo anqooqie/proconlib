@@ -1,60 +1,48 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/segmented_sieve.hpp\"\n\n\n\n#include <vector>\n#include\
     \ <cassert>\n#include <algorithm>\n#include <limits>\n#include <numeric>\n#include\
     \ <cstddef>\n#include <iterator>\n#include <utility>\n#line 1 \"tools/floor_sqrt.hpp\"\
     \n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  T floor_sqrt(T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n\
-    \    for (ng = 1; ng * ng <= n; ng *= 2);\n\n    while (ng - ok > 1) {\n     \
-    \ const T mid = ok + (ng - ok) / 2;\n      if (mid * mid <= n) {\n        ok =\
-    \ mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n    return ok;\n\
-    \  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\n\
-    namespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
-    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
-    \ rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line\
-    \ 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 15 \"tools/segmented_sieve.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class segmented_sieve {\n  private:\n    ::std::vector<T> m_lpf;\n   \
-    \ ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T> m_aux;\n    T m_l;\n\
-    \n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const ::tools::segmented_sieve<T>&)\
-    \ = default;\n    segmented_sieve(::tools::segmented_sieve<T>&&) = default;\n\
-    \    ~segmented_sieve() = default;\n    ::tools::segmented_sieve<T>& operator=(const\
-    \ ::tools::segmented_sieve<T>&) = default;\n    ::tools::segmented_sieve<T>& operator=(::tools::segmented_sieve<T>&&)\
+    \ T>\n  T floor_sqrt(const T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T\
+    \ ng;\n    for (ng = 1; ng <= n / ng; ng *= 2);\n\n    while (ng - ok > 1) {\n\
+    \      const T mid = ok + (ng - ok) / 2;\n      if (mid <= n / mid) {\n      \
+    \  ok = mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n    return\
+    \ ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
+    \ lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\
+    \n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 15\
+    \ \"tools/segmented_sieve.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    \  class segmented_sieve {\n  private:\n    ::std::vector<T> m_lpf;\n    ::std::vector<::std::vector<T>>\
+    \ m_pf;\n    ::std::vector<T> m_aux;\n    T m_l;\n\n  public:\n    segmented_sieve()\
+    \ = default;\n    segmented_sieve(const ::tools::segmented_sieve<T>&) = default;\n\
+    \    segmented_sieve(::tools::segmented_sieve<T>&&) = default;\n    ~segmented_sieve()\
+    \ = default;\n    ::tools::segmented_sieve<T>& operator=(const ::tools::segmented_sieve<T>&)\
+    \ = default;\n    ::tools::segmented_sieve<T>& operator=(::tools::segmented_sieve<T>&&)\
     \ = default;\n\n    segmented_sieve(const T& k, const T& l, const T& r) {\n  \
     \    assert(l <= r);\n\n      const T lpf_max = ::std::max(::tools::floor_sqrt(r),\
     \ k);\n      this->m_lpf.resize(lpf_max + 1);\n      ::std::fill(this->m_lpf.begin(),\
@@ -335,12 +323,11 @@ data:
   - tools/floor_sqrt.hpp
   - tools/chmin.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   isVerificationFile: false
   path: tools/segmented_sieve.hpp
   requiredBy: []
-  timestamp: '2022-03-20 11:06:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-07-02 14:04:07+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/segmented_sieve.test.cpp
 documentation_of: tools/segmented_sieve.hpp

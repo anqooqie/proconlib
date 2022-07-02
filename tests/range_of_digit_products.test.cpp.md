@@ -1,12 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
@@ -43,35 +40,25 @@ data:
     #include <iostream>\n#include <vector>\n#include <algorithm>\n#include <numeric>\n\
     #include <iterator>\n#line 1 \"tools/range_of_digit_products.hpp\"\n\n\n\n#line\
     \ 5 \"tools/range_of_digit_products.hpp\"\n#include <cassert>\n#include <limits>\n\
-    #include <array>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const\
-    \ N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 10 \"tools/range_of_digit_products.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  ::std::vector<T> range_of_digit_products(const T n) {\n    assert(0\
-    \ <= n && n <= ::std::numeric_limits<T>::digits10);\n\n    ::std::vector<T> range;\n\
-    \    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\n    ::std::array<T,\
-    \ 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1; a <= left[0]; ++a, pow6\
-    \ *= 6) {\n      left[1] = left[0] - a;\n      for (T b = 0, pow2 = 1; b <= 3\
-    \ * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1] - ::tools::ceil(b, 3);\n\
-    \        for (T c = 0, pow3 = 1; c <= 2 * left[2]; ++c, pow3 *= 3) {\n       \
-    \   left[3] = left[2] - ::tools::ceil(c, 2);\n          for (T d = 0, pow5 = 1;\
-    \ d <= left[3]; ++d, pow5 *= 5) {\n            left[4] = left[3] - d;\n      \
-    \      for (T e = 0, pow7 = 1; e <= left[4]; ++e, pow7 *= 7) {\n             \
-    \ range.push_back(pow6 * pow2 * pow3 * pow5 * pow7);\n            }\n        \
-    \  }\n        }\n      }\n    }\n\n    ::std::sort(range.begin(), range.end());\n\
-    \    range.erase(::std::unique(range.begin(), range.end()), range.end());\n\n\
-    \    return range;\n  }\n}\n\n\n#line 1 \"tools/resize.hpp\"\n\n\n\n#line 5 \"\
+    #include <array>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#line\
+    \ 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
+    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
+    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 10 \"tools/range_of_digit_products.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::vector<T> range_of_digit_products(const\
+    \ T n) {\n    assert(0 <= n && n <= ::std::numeric_limits<T>::digits10);\n\n \
+    \   ::std::vector<T> range;\n    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\
+    \n    ::std::array<T, 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1;\
+    \ a <= left[0]; ++a, pow6 *= 6) {\n      left[1] = left[0] - a;\n      for (T\
+    \ b = 0, pow2 = 1; b <= 3 * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1]\
+    \ - ::tools::ceil(b, 3);\n        for (T c = 0, pow3 = 1; c <= 2 * left[2]; ++c,\
+    \ pow3 *= 3) {\n          left[3] = left[2] - ::tools::ceil(c, 2);\n         \
+    \ for (T d = 0, pow5 = 1; d <= left[3]; ++d, pow5 *= 5) {\n            left[4]\
+    \ = left[3] - d;\n            for (T e = 0, pow7 = 1; e <= left[4]; ++e, pow7\
+    \ *= 7) {\n              range.push_back(pow6 * pow2 * pow3 * pow5 * pow7);\n\
+    \            }\n          }\n        }\n      }\n    }\n\n    ::std::sort(range.begin(),\
+    \ range.end());\n    range.erase(::std::unique(range.begin(), range.end()), range.end());\n\
+    \n    return range;\n  }\n}\n\n\n#line 1 \"tools/resize.hpp\"\n\n\n\n#line 5 \"\
     tools/resize.hpp\"\n\n// Source: https://koyumeishi.hatenablog.com/entry/2016/02/01/152426\n\
     // License: unknown\n// Author: koyumeishi\n\nnamespace tools {\n  template <class\
     \ T, class Allocator, typename Head>\n  void resize(::std::vector<T, Allocator>&\
@@ -160,7 +147,6 @@ data:
   dependsOn:
   - tools/range_of_digit_products.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/resize.hpp
   - tools/fill.hpp
   - tools/is_range.hpp
@@ -170,7 +156,7 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-05-30 15:17:45+09:00'
+  timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp

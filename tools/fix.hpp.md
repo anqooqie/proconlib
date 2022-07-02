@@ -38,8 +38,8 @@ data:
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fix.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/fix.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator

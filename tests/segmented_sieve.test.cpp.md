@@ -1,26 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc227/tasks/abc227_g
@@ -238,43 +235,33 @@ data:
     \n\n\n\n#include <vector>\n#line 6 \"tools/segmented_sieve.hpp\"\n#include <algorithm>\n\
     #include <limits>\n#line 9 \"tools/segmented_sieve.hpp\"\n#include <cstddef>\n\
     #include <iterator>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(T n) {\n    assert(n\
-    \ >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng * ng <= n; ng *= 2);\n\
-    \n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if\
-    \ (mid * mid <= n) {\n        ok = mid;\n      } else {\n        ng = mid;\n \
-    \     }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\
-    \n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated =\
-    \ lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\
-    \n#line 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 15 \"tools/segmented_sieve.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class segmented_sieve {\n  private:\n    ::std::vector<T> m_lpf;\n   \
-    \ ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T> m_aux;\n    T m_l;\n\
-    \n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const ::tools::segmented_sieve<T>&)\
-    \ = default;\n    segmented_sieve(::tools::segmented_sieve<T>&&) = default;\n\
-    \    ~segmented_sieve() = default;\n    ::tools::segmented_sieve<T>& operator=(const\
-    \ ::tools::segmented_sieve<T>&) = default;\n    ::tools::segmented_sieve<T>& operator=(::tools::segmented_sieve<T>&&)\
-    \ = default;\n\n    segmented_sieve(const T& k, const T& l, const T& r) {\n  \
-    \    assert(l <= r);\n\n      const T lpf_max = ::std::max(::tools::floor_sqrt(r),\
-    \ k);\n      this->m_lpf.resize(lpf_max + 1);\n      ::std::fill(this->m_lpf.begin(),\
-    \ this->m_lpf.end(), ::std::numeric_limits<T>::max());\n      this->m_pf.resize(r\
-    \ - l + 1);\n      this->m_aux.resize(r - l + 1);\n      ::std::iota(this->m_aux.begin(),\
-    \ this->m_aux.end(), l);\n      this->m_l = l;\n\n      for (T p = 2; p <= lpf_max;\
-    \ ++p) {\n        if (::tools::chmin(this->m_lpf[p], p)) {\n          for (T np\
-    \ = p * p; np <= lpf_max; np += p) {\n            ::tools::chmin(this->m_lpf[np],\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(const T n) {\n\
+    \    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng <= n / ng;\
+    \ ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) /\
+    \ 2;\n      if (mid <= n / mid) {\n        ok = mid;\n      } else {\n       \
+    \ ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\
+    \n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated\
+    \ = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
+    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
+    }\n\n\n#line 15 \"tools/segmented_sieve.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  class segmented_sieve {\n  private:\n    ::std::vector<T> m_lpf;\n\
+    \    ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T> m_aux;\n    T\
+    \ m_l;\n\n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const\
+    \ ::tools::segmented_sieve<T>&) = default;\n    segmented_sieve(::tools::segmented_sieve<T>&&)\
+    \ = default;\n    ~segmented_sieve() = default;\n    ::tools::segmented_sieve<T>&\
+    \ operator=(const ::tools::segmented_sieve<T>&) = default;\n    ::tools::segmented_sieve<T>&\
+    \ operator=(::tools::segmented_sieve<T>&&) = default;\n\n    segmented_sieve(const\
+    \ T& k, const T& l, const T& r) {\n      assert(l <= r);\n\n      const T lpf_max\
+    \ = ::std::max(::tools::floor_sqrt(r), k);\n      this->m_lpf.resize(lpf_max +\
+    \ 1);\n      ::std::fill(this->m_lpf.begin(), this->m_lpf.end(), ::std::numeric_limits<T>::max());\n\
+    \      this->m_pf.resize(r - l + 1);\n      this->m_aux.resize(r - l + 1);\n \
+    \     ::std::iota(this->m_aux.begin(), this->m_aux.end(), l);\n      this->m_l\
+    \ = l;\n\n      for (T p = 2; p <= lpf_max; ++p) {\n        if (::tools::chmin(this->m_lpf[p],\
+    \ p)) {\n          for (T np = p * p; np <= lpf_max; np += p) {\n            ::tools::chmin(this->m_lpf[np],\
     \ p);\n          }\n          for (T p_q = p, np_q; (np_q = ::tools::ceil(l, p_q)\
     \ * p_q) <= r; p_q *= p) {\n            for (; np_q <= r; np_q += p_q) {\n   \
     \           if (lpf_max < this->m_aux[np_q - l]) {\n                this->m_pf[np_q\
@@ -426,12 +413,11 @@ data:
   - tools/floor_sqrt.hpp
   - tools/chmin.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   isVerificationFile: true
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
-  timestamp: '2022-03-20 11:06:18+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-07-02 14:04:07+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp
 layout: document

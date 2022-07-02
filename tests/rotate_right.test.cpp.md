@@ -1,35 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rotate_right.hpp
     title: Circular shift to the right
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -63,20 +60,10 @@ data:
     }\n\n\n#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#line 8 \"tools/dynamic_bitset.hpp\"\n#include <string>\n#line 10\
     \ \"tools/dynamic_bitset.hpp\"\n#include <algorithm>\n#include <iterator>\n#line\
-    \ 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\n\n\
-    \n#line 5 \"tools/detail/ceil_and_floor.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
+    \ 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
+    \ ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs\
+    \ + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\
     \n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace\
     \ tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n    x = (x\
     \ & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
@@ -1390,13 +1377,12 @@ data:
   - tools/quo.hpp
   - tools/dynamic_bitset.hpp
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/popcount.hpp
   isVerificationFile: true
   path: tests/rotate_right.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-07-02 14:04:07+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/rotate_right.test.cpp
 layout: document

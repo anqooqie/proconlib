@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
@@ -121,26 +121,26 @@ data:
   path: tools/floor_log2.hpp
   requiredBy:
   - tools/prime_factorization.hpp
-  - tools/extended_lucas.hpp
-  - tools/disjoint_sparse_table.hpp
   - tools/li_chao_segtree.hpp
-  - tools/lca.hpp
-  - tools/totient.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/lca.hpp
+  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
+  - tests/prime_factorization.test.cpp
   - tests/lca.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/divisors.test.cpp
   - tests/totient.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/floor_log2.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

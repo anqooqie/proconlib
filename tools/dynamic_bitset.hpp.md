@@ -1,51 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <cstdint>\n#include <limits>\n#include <string>\n#include\
     \ <cassert>\n#include <algorithm>\n#include <iterator>\n#include <iostream>\n\
-    #line 1 \"tools/ceil.hpp\"\n\n\n\n#line 1 \"tools/detail/ceil_and_floor.hpp\"\n\
-    \n\n\n#include <type_traits>\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs);\n\
-    \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
-    \ ceil(const M& lhs, const N& rhs);\n  \n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M& lhs, const N& rhs) {\n\
-    \    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs / rhs :\n      lhs < 0\
-    \ && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n      lhs >= 0 && rhs <\
-    \ 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs, -rhs);\n\
-    \  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\
-    \n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace\
-    \ tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n    x = (x\
-    \ & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
+    #line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
+    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
+    }\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\n\
+    namespace tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n\
+    \    x = (x & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
     \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
     \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
     \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
@@ -309,17 +296,16 @@ data:
     \    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/ceil.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
   requiredBy: []
-  timestamp: '2022-06-11 02:40:59+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-07-02 14:04:07+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/rotate_left.test.cpp
   - tests/rotate_right.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
 title: std::bitset with dynamic size

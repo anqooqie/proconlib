@@ -55,10 +55,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/largest_rectangle_in_histogram.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/rolling_hash.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

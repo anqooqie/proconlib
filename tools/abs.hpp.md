@@ -44,9 +44,9 @@ data:
   timestamp: '2022-01-31 01:05:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: Unified interface for std::abs(x) and x.abs()

@@ -84,17 +84,17 @@ data:
   isVerificationFile: false
   path: tools/pow.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
   - tools/modint_for_rolling_hash.hpp
-  - tools/totient.hpp
-  - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
   - tools/tetration_mod.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/totient.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
-  - tests/rolling_hash.test.cpp
   - tests/permutation.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/totient.test.cpp
 documentation_of: tools/pow.hpp
 layout: document

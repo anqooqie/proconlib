@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':heavy_check_mark:'
@@ -169,8 +169,8 @@ data:
   timestamp: '2021-12-29 01:11:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/disjoint_sparse_table.hpp
 layout: document
 title: Disjoint sparse table

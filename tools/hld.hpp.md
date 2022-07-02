@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   _extendedRequiredBy: []
@@ -363,9 +363,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/lca.test.cpp
-  - tests/hld/epath.test.cpp
-  - tests/hld/vsubtree.test.cpp
   - tests/hld/vpath.test.cpp
+  - tests/hld/vsubtree.test.cpp
+  - tests/hld/epath.test.cpp
 documentation_of: tools/hld.hpp
 layout: document
 title: Heavy-light decomposition

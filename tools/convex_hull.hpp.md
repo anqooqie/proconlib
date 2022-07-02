@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
@@ -235,8 +235,8 @@ data:
   timestamp: '2022-02-19 03:37:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/convex_hull.hpp
 layout: document
 title: Convex hull

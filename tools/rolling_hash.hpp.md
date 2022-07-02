@@ -1,12 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/ceil_and_floor.hpp
-    title: tools/detail/ceil_and_floor.hpp
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
@@ -19,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
@@ -31,7 +28,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'
@@ -111,32 +108,25 @@ data:
     \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const\
     \ M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
     \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 1 \"\
-    tools/detail/ceil_and_floor.hpp\"\n\n\n\n#line 5 \"tools/detail/ceil_and_floor.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M& lhs, const N& rhs);\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> ceil(const M& lhs, const N& rhs);\n  \n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >= 0 ?\n        lhs\
-    \ / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::ceil(-lhs, rhs) :\n\
-    \      lhs >= 0 && rhs < 0 ?\n        -::tools::ceil(lhs, -rhs) :\n        ::tools::floor(-lhs,\
-    \ -rhs);\n  }\n  \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M& lhs, const N& rhs) {\n    return\n      lhs >= 0 && rhs >=\
-    \ 0 ?\n        (lhs - 1 + rhs) / rhs :\n      lhs < 0 && rhs >= 0 ?\n        -::tools::floor(-lhs,\
-    \ rhs) :\n      lhs >= 0 && rhs < 0 ?\n        -::tools::floor(lhs, -rhs) :\n\
-    \        ::tools::ceil(-lhs, -rhs);\n  }\n}\n\n\n#line 5 \"tools/floor.hpp\"\n\
-    \n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 5 \"tools/ceil.hpp\"\n\n\n#line 15\
-    \ \"tools/pow_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class M>\n \
-    \ class pow_mod_cache {\n  private:\n    ::std::vector<M> m_pow;\n    ::std::vector<M>\
-    \ m_cumsum;\n    ::std::vector<M> m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n\
-    \    ::std::optional<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>> m_period;\n\
-    \n  public:\n    pow_mod_cache() = default;\n    pow_mod_cache(const ::tools::pow_mod_cache<M>&)\
-    \ = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&) = default;\n    ~pow_mod_cache()\
-    \ = default;\n    ::tools::pow_mod_cache<M>& operator=(const ::tools::pow_mod_cache<M>&)\
-    \ = default;\n    ::tools::pow_mod_cache<M>& operator=(::tools::pow_mod_cache<M>&&)\
-    \ = default;\n\n    M operator[](const ::std::int_fast64_t n) {\n      if (!this->m_period)\
-    \ {\n        if (::std::max<::std::int_fast64_t>(::tools::ssize(this->m_pow) -\
-    \ 1, n) - ::std::min<::std::int_fast64_t>(n, -(::tools::ssize(this->m_inv_pow)\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 6 \"\
+    tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
+    \  constexpr ::std::common_type_t<M, N> floor(const M lhs, const N rhs) {\n  \
+    \  assert(rhs != 0);\n    return lhs / rhs - (((lhs > 0 && rhs < 0) || (lhs <\
+    \ 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n\
+    #line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
+    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
+    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 15 \"tools/pow_mod_cache.hpp\"\
+    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n  private:\n\
+    \    ::std::vector<M> m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M>\
+    \ m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<::std::int_fast64_t,\
+    \ ::std::int_fast64_t>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n\
+    \    pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
+    \ = default;\n    ~pow_mod_cache() = default;\n    ::tools::pow_mod_cache<M>&\
+    \ operator=(const ::tools::pow_mod_cache<M>&) = default;\n    ::tools::pow_mod_cache<M>&\
+    \ operator=(::tools::pow_mod_cache<M>&&) = default;\n\n    M operator[](const\
+    \ ::std::int_fast64_t n) {\n      if (!this->m_period) {\n        if (::std::max<::std::int_fast64_t>(::tools::ssize(this->m_pow)\
+    \ - 1, n) - ::std::min<::std::int_fast64_t>(n, -(::tools::ssize(this->m_inv_pow)\
     \ - 1)) + 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const ::std::int_fast64_t\
     \ size = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
     \ n + 1));\n            for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_pow);\
@@ -290,12 +280,11 @@ data:
   - tools/find_cycle.hpp
   - tools/mod.hpp
   - tools/floor.hpp
-  - tools/detail/ceil_and_floor.hpp
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/rolling_hash.hpp
   requiredBy: []
-  timestamp: '2022-06-19 19:01:15+09:00'
+  timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rolling_hash.test.cpp

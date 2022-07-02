@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -54,10 +54,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rotate_left.hpp
     title: Circular shift to the left
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rotate_right.hpp
     title: Circular shift to the right
   - icon: ':warning:'
@@ -157,10 +157,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':heavy_check_mark:'
@@ -169,9 +169,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"\
@@ -196,63 +196,63 @@ data:
   isVerificationFile: false
   path: tools/mod.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
+  - tools/inv_mod.hpp
+  - tools/prime_factorization.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/bigint.hpp
+  - tools/fact_mod_cache.hpp
   - tools/rolling_hash.hpp
   - tools/rational.hpp
-  - tools/fact_mod_cache.hpp
-  - tools/prime_factorization.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/is_prime.hpp
-  - tools/rotate_right.hpp
-  - tools/extended_lucas.hpp
-  - tools/inv_mod.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/totient.hpp
-  - tools/divisors.hpp
-  - tools/garner.hpp
-  - tools/pow_mod.hpp
   - tools/extended_garner.hpp
   - tools/round.hpp
-  - tools/rotate_left.hpp
-  - tools/bigint.hpp
-  - tools/detail/rolling_hash.hpp
+  - tools/rotate_right.hpp
+  - tools/divisors.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/bigdecimal.hpp
+  - tools/is_prime.hpp
+  - tools/rotate_left.hpp
+  - tools/pow_mod.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/garner.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/extended_garner.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/extended_lucas.test.cpp
   - tests/line_2d/projection.test.cpp
-  - tests/divisors.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/totient.test.cpp
-  - tests/fact_mod_cache/combination.test.cpp
-  - tests/fact_mod_cache/permutation.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/fact_mod_cache/combination.test.cpp
+  - tests/fact_mod_cache/permutation.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/totient.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/is_prime.test.cpp
+  - tests/rotate_right.test.cpp
 documentation_of: tools/mod.hpp
 layout: document
 title: Minimum non-negative reminder
