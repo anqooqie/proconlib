@@ -12,7 +12,7 @@ namespace tools {
     vector.resize(head);
   }
   template <class T, ::std::size_t N, typename Head>
-  void resize(::std::array<T, N>& array, const Head& head) {
+  void resize([[maybe_unused]] ::std::array<T, N>& array, [[maybe_unused]] const Head& head) {
     assert(array.size() == static_cast<::std::size_t>(head));
   }
 
