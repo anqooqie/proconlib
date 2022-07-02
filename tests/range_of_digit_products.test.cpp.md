@@ -59,28 +59,47 @@ data:
     \            }\n          }\n        }\n      }\n    }\n\n    ::std::sort(range.begin(),\
     \ range.end());\n    range.erase(::std::unique(range.begin(), range.end()), range.end());\n\
     \n    return range;\n  }\n}\n\n\n#line 1 \"tools/resize.hpp\"\n\n\n\n#line 5 \"\
-    tools/resize.hpp\"\n\n// Source: https://koyumeishi.hatenablog.com/entry/2016/02/01/152426\n\
-    // License: unknown\n// Author: koyumeishi\n\nnamespace tools {\n  template <class\
-    \ T, class Allocator, typename Head>\n  void resize(::std::vector<T, Allocator>&\
-    \ vector, const Head& head) {\n    vector.resize(head);\n  }\n  template <class\
-    \ T, class Allocator, typename Head, typename... Tail>\n  void resize(::std::vector<T,\
-    \ Allocator>& vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
-    \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
-    \  }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 1 \"tools/is_range.hpp\"\
+    tools/resize.hpp\"\n#include <cstddef>\n#line 8 \"tools/resize.hpp\"\n\nnamespace\
+    \ tools {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
+    \ Allocator>& vector, const Head& head) {\n    vector.resize(head);\n  }\n  template\
+    \ <class T, ::std::size_t N, typename Head>\n  void resize(::std::array<T, N>&\
+    \ array, const Head& head) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \  }\n\n  template <class T, class Allocator, typename Head, typename... Tail>\n\
+    \  void resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
+    \ tail);\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
+    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail);\n\
+    \n  template <class T, class Allocator, typename Head, typename... Tail>\n  void\
+    \ resize(::std::vector<T, Allocator>& vector, const Head& head, const Tail&...\
+    \ tail) {\n    vector.resize(head);\n    for (auto& child : vector) {\n      ::tools::resize(child,\
+    \ tail...);\n    }\n  }\n  template <class T, ::std::size_t N, typename Head,\
+    \ typename... Tail>\n  void resize(::std::array<T, N>& array, const Head& head,\
+    \ const Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
+    \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 1 \"tools/is_range.hpp\"\
     \n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools\
     \ {\n  template <typename T>\n  class is_range {\n  private:\n    template <typename\
     \ U>\n    static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});\n\
     \    static ::std::false_type check(...);\n\n  public:\n    static const bool\
-    \ value = decltype(check(::std::declval<T>()))::value;\n  };\n}\n\n\n#line 9 \"\
-    tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class Allocator, typename\
-    \ V>\n  auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
-    \ void> {\n    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n\
-    \  }\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
+    \ value = decltype(check(::std::declval<T>()))::value;\n  };\n}\n\n\n#line 11\
+    \ \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class Allocator,\
+    \ typename V>\n  auto fill(::std::vector<T, Allocator>& vector, const V& value)\
+    \ -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n    ::std::fill(::std::begin(vector),\
+    \ ::std::end(vector), value);\n  }\n  template <class T, ::std::size_t N, typename\
+    \ V>\n  auto fill(::std::array<T, N>& array, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
+    \ void> {\n    ::std::fill(::std::begin(array), ::std::end(array), value);\n \
+    \ }\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
+    \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void>;\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void>;\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
     \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
     \ void> {\n    for (auto& child : vector) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 5 \"tools/ssize.hpp\"\
-    \n#include <cstddef>\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
-    \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
+    \    }\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
+    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\
     \n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
     \ ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
@@ -156,7 +175,7 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
+  timestamp: '2022-07-02 20:35:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp

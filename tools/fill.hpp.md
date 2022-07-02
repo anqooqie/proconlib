@@ -21,27 +21,49 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fill.hpp\"\n\n\n\n#include <vector>\n#include <type_traits>\n\
-    #include <algorithm>\n#include <iterator>\n#line 1 \"tools/is_range.hpp\"\n\n\n\
-    \n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class is_range {\n  private:\n    template <typename U>\n  \
-    \  static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});\n\
-    \    static ::std::false_type check(...);\n\n  public:\n    static const bool\
-    \ value = decltype(check(::std::declval<T>()))::value;\n  };\n}\n\n\n#line 9 \"\
-    tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class Allocator, typename\
-    \ V>\n  auto fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
-    \ void> {\n    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n\
-    \  }\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
+    #include <algorithm>\n#include <iterator>\n#include <cstddef>\n#include <array>\n\
+    #line 1 \"tools/is_range.hpp\"\n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include\
+    \ <utility>\n\nnamespace tools {\n  template <typename T>\n  class is_range {\n\
+    \  private:\n    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
+    \ ::std::end(x), ::std::true_type{});\n    static ::std::false_type check(...);\n\
+    \n  public:\n    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
+    \  };\n}\n\n\n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class\
+    \ T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>& vector,\
+    \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
+    \    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n  }\n  template\
+    \ <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T, N>& array,\
+    \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
+    \    ::std::fill(::std::begin(array), ::std::end(array), value);\n  }\n\n  template\
+    \ <class T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>&\
+    \ vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void>;\n\
+    \  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void>;\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
     \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
     \ void> {\n    for (auto& child : vector) {\n      ::tools::fill(child, value);\n\
+    \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
     \    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_FILL_HPP\n#define TOOLS_FILL_HPP\n\n#include <vector>\n#include\
-    \ <type_traits>\n#include <algorithm>\n#include <iterator>\n#include \"tools/is_range.hpp\"\
-    \n\nnamespace tools {\n  template <class T, class Allocator, typename V>\n  auto\
-    \ fill(::std::vector<T, Allocator>& vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
+    \ <type_traits>\n#include <algorithm>\n#include <iterator>\n#include <cstddef>\n\
+    #include <array>\n#include \"tools/is_range.hpp\"\n\nnamespace tools {\n  template\
+    \ <class T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>&\
+    \ vector, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
     \ void> {\n    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n\
-    \  }\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
+    \  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
+    \ void> {\n    ::std::fill(::std::begin(array), ::std::end(array), value);\n \
+    \ }\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
+    \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void>;\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void>;\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
     \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
     \ void> {\n    for (auto& child : vector) {\n      ::tools::fill(child, value);\n\
+    \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
+    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
+    \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
     \    }\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/is_range.hpp
@@ -49,7 +71,7 @@ data:
   path: tools/fill.hpp
   requiredBy:
   - tools/util.hpp
-  timestamp: '2021-07-18 21:35:11+09:00'
+  timestamp: '2022-07-02 20:35:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/range_of_digit_products.test.cpp
