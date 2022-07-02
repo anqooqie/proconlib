@@ -19,9 +19,10 @@ int main() {
   assert_that(tools::floor_sqrt(8) == 2);
   assert_that(tools::floor_sqrt(9) == 3);
   assert_that(tools::floor_sqrt(10) == 3);
-  assert_that(tools::floor_sqrt(999999999999999999) == 999999999);
-  assert_that(tools::floor_sqrt(1000000000000000000) == 1000000000);
-  assert_that(tools::floor_sqrt(1000000000000000001) == 1000000000);
+  assert_that(tools::floor_sqrt(9223372030926249000) == 3037000498);
+  assert_that(tools::floor_sqrt(9223372030926249001) == 3037000499);
+  assert_that(tools::floor_sqrt(9223372030926249002) == 3037000499);
+  assert_that(tools::floor_sqrt(9223372036854775807) == 3037000499);
 
   std::cout << "Hello World" << '\n';
   return 0;

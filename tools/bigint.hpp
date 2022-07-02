@@ -19,6 +19,7 @@
 #include "atcoder/convolution.hpp"
 #include "tools/quo.hpp"
 #include "tools/mod.hpp"
+#include "tools/floor.hpp"
 #include "tools/ssize.hpp"
 #include "tools/ceil.hpp"
 #include "tools/garner2.hpp"

@@ -11,7 +11,7 @@ T ceil_sqrt(T x);
 It returns $\left\lceil \sqrt{x} \right\rceil$.
 
 ## Constraints
-- $0 \leq x \leq 10^{18} + 1000$
+- $x \geq 0$
 
 ## Time Complexity
 - $O(\log x)$

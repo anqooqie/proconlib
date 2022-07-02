@@ -12,6 +12,7 @@ It returns $\left\lceil \frac{x}{y} \right\rceil$.
 
 ## Constraints
 - $y \neq 0$
+- $\lnot (x =$ `std::numeric_limits<std::common_type_t<M, N>>::min()` $\land\,y = -1)$
 
 ## Time Complexity
 - $O(1)$

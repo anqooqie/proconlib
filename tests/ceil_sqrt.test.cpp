@@ -19,9 +19,10 @@ int main() {
   assert_that(tools::ceil_sqrt(8) == 3);
   assert_that(tools::ceil_sqrt(9) == 3);
   assert_that(tools::ceil_sqrt(10) == 4);
-  assert_that(tools::ceil_sqrt(999999999999999999) == 1000000000);
-  assert_that(tools::ceil_sqrt(1000000000000000000) == 1000000000);
-  assert_that(tools::ceil_sqrt(1000000000000000001) == 1000000001);
+  assert_that(tools::ceil_sqrt(9223372030926249000) == 3037000499);
+  assert_that(tools::ceil_sqrt(9223372030926249001) == 3037000499);
+  assert_that(tools::ceil_sqrt(9223372030926249002) == 3037000500);
+  assert_that(tools::ceil_sqrt(9223372036854775807) == 3037000500);
 
   std::cout << "Hello World" << '\n';
   return 0;
