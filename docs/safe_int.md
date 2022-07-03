@@ -1,9 +1,11 @@
 ---
-title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
+title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq 0} \cup \{\infty, \mathrm{NaN}\}$
 documentation_of: //tools/safe_int.hpp
 ---
 
-It adds the three elements $\infty, -\infty, \mathrm{NaN}$ to a given signed integral type `<T>`.
+Given a signed integral type `<T>`, it adds the three special elements $\infty$, $-\infty$ and $\mathrm{NaN}$ to `<T>`.
+Given an unsigned integral type `<T>`, it adds the two special elements $\infty$ and $\mathrm{NaN}$ to `<T>`.
+If an arithmetic operation on finite integers causes overflow, the arithmetic operation will return $\mathrm{NaN}$.
 
 ### References
 - [INT32-C. 符号付き整数演算がオーバーフローを引き起こさないことを保証する](https://www.jpcert.or.jp/sc-rules/c-int32-c.html)
@@ -52,7 +54,7 @@ It returns $\mathrm{NaN}$.
     - It creates the finite integer value which represents $n$.
 
 ### Constraints
-- `<T>` is a signed integral type.
+- `<T>` is a built-in integral type.
 
 ### Time Complexity
 - $O(1)$
@@ -116,7 +118,7 @@ It returns $x$.
 tools::safe_int<T> -x;
 ```
 
-It returns 
+If `<T>` is a signed integral type, it returns 
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
@@ -124,6 +126,17 @@ $$\begin{align*}
 \mathrm{NaN} & \text{(if $x \in \mathbb{Z}$ and $-x$ causes an overflow)}\\
 -\infty & \text{(if $x = \infty$)}\\
 \infty & \text{(if $x = -\infty$)}\\
+\mathrm{NaN} & \text{(if $x = \mathrm{NaN}$)}
+\end{array}\right.&
+\end{align*}$$
+
+If `<T>` is an unsigned integral type, it returns 
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+0 & \text{(if $x = 0$)}\\
+\mathrm{NaN} & \text{(if $x > 0$)}\\
+\mathrm{NaN} & \text{(if $x = \infty$)}\\
 \mathrm{NaN} & \text{(if $x = \mathrm{NaN}$)}
 \end{array}\right.&
 \end{align*}$$
@@ -139,13 +152,20 @@ $$\begin{align*}
 tools::safe_int<T> x + y;
 ```
 
-The return value is as follows.
+If `<T>` is a signed integral type, the return value is as follows.
 
 |$x \backslash y$|$-\infty$|$\mathbb{Z}$|$\infty$|$\mathrm{NaN}$|
 |$-\infty$|$-\infty$|$-\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 |$\mathbb{Z}$|$-\infty$|(see below)|$\infty$|$\mathrm{NaN}$|
 |$\infty$|$\mathrm{NaN}$|$\infty$|$\infty$|$\mathrm{NaN}$|
 |$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+
+If `<T>` is an unsigned integral type, the return value is as follows.
+
+|$x \backslash y$|$\mathbb{Z}_{\geq 0}$|$\infty$|$\mathrm{NaN}$|
+|$\mathbb{Z}_{\geq 0}$|(see below)|$\infty$|$\mathrm{NaN}$|
+|$\infty$|$\infty$|$\infty$|$\mathrm{NaN}$|
+|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 
 If $x \in \mathbb{Z}$ and $y \in \mathbb{Z}$, it returns 
 
@@ -167,13 +187,20 @@ x + y & \text{(if $x + y$ does not cause an overflow)}\\
 tools::safe_int<T> x - y;
 ```
 
-The return value is as follows.
+If `<T>` is a signed integral type, the return value is as follows.
 
 |$x \backslash y$|$-\infty$|$\mathbb{Z}$|$\infty$|$\mathrm{NaN}$|
 |$-\infty$|$\mathrm{NaN}$|$-\infty$|$-\infty$|$\mathrm{NaN}$|
 |$\mathbb{Z}$|$\infty$|(see below)|$-\infty$|$\mathrm{NaN}$|
 |$\infty$|$\infty$|$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 |$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+
+If `<T>` is an unsigned integral type, the return value is as follows.
+
+|$x \backslash y$|$\mathbb{Z}_{\geq 0}$|$\infty$|$\mathrm{NaN}$|
+|$\mathbb{Z}_{\geq 0}$|(see below)|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\infty$|$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 
 If $x \in \mathbb{Z}$ and $y \in \mathbb{Z}$, it returns 
 
@@ -195,7 +222,7 @@ x - y & \text{(if $x - y$ does not cause an overflow)}\\
 tools::safe_int<T> x * y;
 ```
 
-The return value is as follows.
+If `<T>` is a signed integral type, the return value is as follows.
 
 |$x \backslash y$|$-\infty$|$\mathbb{Z}_{<0}$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
 |$-\infty$|$\infty$|$\infty$|$\mathrm{NaN}$|$-\infty$|$-\infty$|$\mathrm{NaN}$|
@@ -204,6 +231,14 @@ The return value is as follows.
 |$\mathbb{Z}_{>0}$|$-\infty$|(see below)|$0$|(see below)|$\infty$|$\mathrm{NaN}$|
 |$\infty$|$-\infty$|$-\infty$|$\mathrm{NaN}$|$\infty$|$\infty$|$\mathrm{NaN}$|
 |$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+
+If `<T>` is an unsigned integral type, the return value is as follows.
+
+|$x \backslash y$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
+|$0$|$0$|$0$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\mathbb{Z}_{>0}$|$0$|(see below)|$\infty$|$\mathrm{NaN}$|
+|$\infty$|$\mathrm{NaN}$|$\infty$|$\infty$|$\mathrm{NaN}$|
+|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 
 If $x \in \mathbb{Z}$ and $y \in \mathbb{Z}$, it returns 
 
@@ -225,7 +260,7 @@ xy & \text{(if $xy$ does not cause an overflow)}\\
 tools::safe_int<T> x / y;
 ```
 
-The return value is as follows.
+If `<T>` is a signed integral type, the return value is as follows.
 
 |$x \backslash y$|$-\infty$|$\mathbb{Z}_{<0}$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
 |$-\infty$|$\mathrm{NaN}$|$\infty$|$\mathrm{NaN}$|$-\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
@@ -234,6 +269,14 @@ The return value is as follows.
 |$\mathbb{Z}_{>0}$|$0$|(see below)|$\mathrm{NaN}$|(see below)|$0$|$\mathrm{NaN}$|
 |$\infty$|$\mathrm{NaN}$|$-\infty$|$\mathrm{NaN}$|$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 |$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+
+If `<T>` is an unsigned integral type, the return value is as follows.
+
+|$x \backslash y$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
+|$0$|$\mathrm{NaN}$|$0$|$0$|$\mathrm{NaN}$|
+|$\mathbb{Z}_{>0}$|$\mathrm{NaN}$|(see below)|$0$|$\mathrm{NaN}$|
+|$\infty$|$\mathrm{NaN}$|$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 
 If $x \in \mathbb{Z}$ and $y \in \mathbb{Z} \setminus \\{0\\}$, the return value is as follows.
 
@@ -251,7 +294,7 @@ If $x \in \mathbb{Z}$ and $y \in \mathbb{Z} \setminus \\{0\\}$, the return value
 tools::safe_int<T> x % y;
 ```
 
-The return value is as follows.
+If `<T>` is a signed integral type, the return value is as follows.
 
 |$x \backslash y$|$-\infty$|$\mathbb{Z}_{<0}$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
 |$-\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
@@ -260,6 +303,14 @@ The return value is as follows.
 |$\mathbb{Z}_{>0}$|$\mathrm{NaN}$|(see below)|$\mathrm{NaN}$|(see below)|$\mathrm{NaN}$|$\mathrm{NaN}$|
 |$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 |$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+
+If `<T>` is an unsigned integral type, the return value is as follows.
+
+|$x \backslash y$|$0$|$\mathbb{Z}_{>0}$|$\infty$|$\mathrm{NaN}$|
+|$0$|$\mathrm{NaN}$|$0$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\mathbb{Z}_{>0}$|$\mathrm{NaN}$|(see below)|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\infty$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
+|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|$\mathrm{NaN}$|
 
 If $x \in \mathbb{Z}$ and $y \in \mathbb{Z} \setminus \\{0\\}$, the return value is as follows.
 
