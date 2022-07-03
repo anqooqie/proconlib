@@ -37,6 +37,9 @@ data:
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
+      path: tools/ceil_kth_root.hpp
+      title: $\left\lceil x^\frac{1}{k} \right\rceil$
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -118,6 +121,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor.hpp
       title: $\left\lfloor \frac{x}{y} \right\rfloor$
+    - icon: ':heavy_check_mark:'
+      path: tools/floor_kth_root.hpp
+      title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
@@ -343,7 +349,8 @@ data:
       title: Run-length encoding
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
-      title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$
+      title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
+        0} \cup \{\infty, \mathrm{NaN}\}$
     - icon: ':heavy_check_mark:'
       path: tools/scc_graph.hpp
       title: Strongly connected component decomposition
@@ -450,6 +457,9 @@ data:
       path: tests/ceil.test.cpp
       title: tests/ceil.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/ceil_kth_root.test.cpp
+      title: tests/ceil_kth_root.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/ceil_log.test.cpp
       title: tests/ceil_log.test.cpp
     - icon: ':heavy_check_mark:'
@@ -512,6 +522,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor.test.cpp
       title: tests/floor.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/floor_kth_root.test.cpp
+      title: tests/floor_kth_root.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/floor_log.test.cpp
       title: tests/floor_log.test.cpp

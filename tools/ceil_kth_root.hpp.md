@@ -2,45 +2,89 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/assert_that.hpp
-    title: Assertion macro
+    path: tools/ceil.hpp
+    title: $\left\lceil \frac{x}{y} \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/ceil_sqrt.hpp
+    title: $\left\lceil \sqrt{x} \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/monoid.hpp
+    title: Typical monoids
+  - icon: ':heavy_check_mark:'
+    path: tools/pow.hpp
+    title: $b^n$ under a given monoid
   - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
+  - icon: ':heavy_check_mark:'
+    path: tools/square.hpp
+    title: $x^2$ under a given monoid
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
   _isVerificationFailed: false
-  _pathExtension: cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-    links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/safe_int.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <cstdlib>\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
-    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
-    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
-    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/safe_int.hpp\"\
-    \n\n\n\n#include <type_traits>\n#include <cstddef>\n#include <cassert>\n#include\
-    \ <limits>\n#include <array>\n#include <optional>\n\nnamespace tools {\n  template\
-    \ <typename T, typename = void>\n  class safe_int;\n\n  template <typename T>\n\
-    \  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>> {\n  private:\n\
-    \    enum class type {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n\
-    \    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n \
-    \   constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n   \
-    \   m_type(type), m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int()\
-    \ :\n      m_type(::tools::safe_int<T>::type::finite), m_value(T()) {\n    }\n\
-    \    explicit constexpr safe_int(const T value) :\n      m_type(::tools::safe_int<T>::type::finite),\
-    \ m_value(value) {\n    }\n    constexpr safe_int(const ::tools::safe_int<T>&\
-    \ other) :\n      m_type(other.m_type), m_value(other.m_value) {\n    }\n    ~safe_int()\
-    \ = default;\n    constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>&\
-    \ other) {\n      this->m_type = other.m_type;\n      this->m_value = other.m_value;\n\
-    \      return *this;\n    }\n\n    static constexpr ::tools::safe_int<T> infinity()\
-    \ {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n \
-    \   }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
+    links: []
+  bundledCode: "#line 1 \"tools/ceil_kth_root.hpp\"\n\n\n\n#include <cassert>\n#line\
+    \ 1 \"tools/ceil_sqrt.hpp\"\n\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include\
+    \ <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 6\
+    \ \"tools/ceil_sqrt.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  T\
+    \ ceil_sqrt(const T n) {\n    assert(n >= 0);\n\n    if (n == 0) return 0;\n\n\
+    \    T ok = 1;\n    T ng;\n    for (ng = 2; ng - 1 < tools::ceil(n, ng - 1); ng\
+    \ *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n\
+    \      if (mid - 1 < tools::ceil(n, mid - 1)) {\n        ok = mid;\n      } else\
+    \ {\n        ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1\
+    \ \"tools/pow.hpp\"\n\n\n\n#include <cstddef>\n#line 1 \"tools/monoid.hpp\"\n\n\
+    \n\n#include <algorithm>\n#include <limits>\n#include <numeric>\n\nnamespace tools\
+    \ {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
+    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
+    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
+    \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
+    \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T>\n  T pow(const T& base,\
+    \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
+    \ exponent);\n  }\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\n\n\n\n#line 8 \"tools/safe_int.hpp\"\
+    \n#include <array>\n#include <optional>\n\nnamespace tools {\n  template <typename\
+    \ T, typename = void>\n  class safe_int;\n\n  template <typename T>\n  class safe_int<T,\
+    \ ::std::enable_if_t<::std::is_signed_v<T>>> {\n  private:\n    enum class type\
+    \ {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n    };\n    typename\
+    \ ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n    constexpr safe_int(const\
+    \ typename ::tools::safe_int<T>::type type) :\n      m_type(type), m_value(T())\
+    \ {\n    }\n\n  public:\n    constexpr safe_int() :\n      m_type(::tools::safe_int<T>::type::finite),\
+    \ m_value(T()) {\n    }\n    explicit constexpr safe_int(const T value) :\n  \
+    \    m_type(::tools::safe_int<T>::type::finite), m_value(value) {\n    }\n   \
+    \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
+    \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
+    \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
+    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
+    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
+    \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::neg_inf:\n\
     \        return 0;\n      case ::tools::safe_int<T>::type::finite:\n        return\
@@ -298,150 +342,71 @@ data:
     \ bool operator<=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y)\
     \ {\n      return x < y || x == y;\n    }\n    friend constexpr bool operator>=(const\
     \ ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {\n      return x >\
-    \ y || x == y;\n    }\n  };\n}\n\n\n#line 7 \"tests/safe_int.test.cpp\"\n\nvoid\
-    \ test_signed_int() {\n  const tools::safe_int<int> POS_INF = tools::safe_int<int>::infinity();\n\
-    \  const tools::safe_int<int> NEG_INF = -tools::safe_int<int>::infinity();\n \
-    \ const int INT_MAX = std::numeric_limits<int>::max();\n  const int INT_MIN =\
-    \ std::numeric_limits<int>::min();\n  using s = tools::safe_int<int>;\n\n  //\
-    \ basic arithmetic operations\n  assert_that(s(1) + s(2) == s(3));\n  assert_that(s(1)\
-    \ - s(2) == s(-1));\n  assert_that(s(1) * s(2) == s(2));\n  assert_that(s(1) /\
-    \ s(2) == s(0));\n  assert_that(s(1) % s(2) == s(1));\n\n  // operator+ should\
-    \ detect an overflow.\n  assert_that(s(INT_MAX - 2) + s(1) == s(INT_MAX - 1));\n\
-    \  assert_that(s(INT_MAX - 2) + s(2) == s(INT_MAX));\n  assert_that((s(INT_MAX\
-    \ - 2) + s(3)).is_nan());\n  assert_that(s(1) + s(INT_MAX - 2) == s(INT_MAX -\
-    \ 1));\n  assert_that(s(2) + s(INT_MAX - 2) == s(INT_MAX));\n  assert_that((s(3)\
-    \ + s(INT_MAX - 2)).is_nan());\n  assert_that(s(INT_MIN + 2) + s(-1) == s(INT_MIN\
-    \ + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n  assert_that((s(INT_MIN\
-    \ + 2) + s(-3)).is_nan());\n  assert_that(s(-1) + s(INT_MIN + 2) == s(INT_MIN\
-    \ + 1));\n  assert_that(s(-2) + s(INT_MIN + 2) == s(INT_MIN));\n  assert_that((s(-3)\
-    \ + s(INT_MIN + 2)).is_nan());\n\n  // infinite + finite should be infinite.\n\
-    \  assert_that(POS_INF + s(-1) == POS_INF);\n  assert_that(s(-1) + POS_INF ==\
-    \ POS_INF);\n  assert_that(POS_INF + POS_INF == POS_INF);\n  assert_that(NEG_INF\
-    \ + s(1) == NEG_INF);\n  assert_that(s(1) + NEG_INF == NEG_INF);\n  assert_that(NEG_INF\
-    \ + NEG_INF == NEG_INF);\n\n  // operator- should detect an overflow.\n  assert_that(s(INT_MAX\
-    \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(INT_MAX));\n\
-    \  assert_that(s((INT_MAX - 2) - s(-3)).is_nan());\n  assert_that(s(INT_MIN +\
-    \ 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
-    \  assert_that((s(INT_MIN + 2) - s(3)).is_nan());\n\n  // infinite - finite should\
-    \ be finite.\n  assert_that(POS_INF - s(1) == POS_INF);\n  assert_that(POS_INF\
-    \ - NEG_INF == POS_INF);\n  assert_that(NEG_INF - s(-1) == NEG_INF);\n  assert_that(NEG_INF\
-    \ - POS_INF == NEG_INF);\n\n  // operator* should detect an overflow.\n  assert_that(NEG_INF\
-    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that((NEG_INF\
-    \ * s(0)).is_nan());\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
-    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that((s(INT_MIN)\
-    \ * s(INT_MIN)).is_nan());\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that((s(INT_MIN)\
-    \ * s(INT_MAX)).is_nan());\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n\
-    \  assert_that((s(0) * NEG_INF).is_nan());\n  assert_that(s(0) * s(INT_MIN) ==\
-    \ s(0));\n  assert_that(s(0) * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX)\
-    \ == s(0));\n  assert_that((s(0) * POS_INF).is_nan());\n  assert_that(s(INT_MAX)\
-    \ * NEG_INF == NEG_INF);\n  assert_that((s(INT_MAX) * s(INT_MIN)).is_nan());\n\
-    \  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that((s(INT_MAX) * s(INT_MAX)).is_nan());\n\
-    \  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF * NEG_INF\
-    \ == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that((POS_INF\
-    \ * s(0)).is_nan());\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
-    \ * POS_INF == POS_INF);\n}\n\nvoid test_unsigned_int() {\n  const tools::safe_int<unsigned\
-    \ int> POS_INF = tools::safe_int<unsigned int>::infinity();\n  const unsigned\
-    \ int UINT_MAX = std::numeric_limits<unsigned int>::max();\n  using u = tools::safe_int<unsigned\
-    \ int>;\n\n  // basic arithmetic operations\n  assert_that(u(3) + u(2) == u(5));\n\
-    \  assert_that(u(3) - u(2) == u(1));\n  assert_that(u(3) * u(2) == u(6));\n  assert_that(u(3)\
-    \ / u(2) == u(1));\n  assert_that(u(3) % u(2) == u(1));\n\n  // operator+ should\
-    \ detect an overflow.\n  assert_that(u(UINT_MAX - 2) + u(1) == u(UINT_MAX - 1));\n\
-    \  assert_that(u(UINT_MAX - 2) + u(2) == u(UINT_MAX));\n  assert_that((u(UINT_MAX\
-    \ - 2) + u(3)).is_nan());\n  assert_that(u(1) + u(UINT_MAX - 2) == u(UINT_MAX\
-    \ - 1));\n  assert_that(u(2) + u(UINT_MAX - 2) == u(UINT_MAX));\n  assert_that((u(3)\
-    \ + u(UINT_MAX - 2)).is_nan());\n\n  // infinite + finite should be infinite.\n\
-    \  assert_that(POS_INF + u(1) == POS_INF);\n  assert_that(u(1) + POS_INF == POS_INF);\n\
-    \  assert_that(POS_INF + POS_INF == POS_INF);\n\n  // operator- should detect\
-    \ an overflow.\n  assert_that(u(2) - u(1) == u(1));\n  assert_that(u(2) - u(2)\
-    \ == u(0));\n  assert_that((u(2) - u(3)).is_nan());\n\n  // infinite - finite\
-    \ should be finite.\n  assert_that(POS_INF - u(1) == POS_INF);\n\n  // operator*\
-    \ should detect an overflow.\n  assert_that(u(0) * u(0) == u(0));\n  assert_that(u(0)\
-    \ * u(UINT_MAX) == u(0));\n  assert_that((u(0) * POS_INF).is_nan());\n  assert_that(u(UINT_MAX)\
-    \ * u(0) == u(0));\n  assert_that((u(UINT_MAX) * u(UINT_MAX)).is_nan());\n  assert_that(u(UINT_MAX)\
-    \ * POS_INF == POS_INF);\n  assert_that((POS_INF * u(0)).is_nan());\n  assert_that(POS_INF\
-    \ * u(UINT_MAX) == POS_INF);\n  assert_that(POS_INF * POS_INF == POS_INF);\n}\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  test_signed_int();\n  test_unsigned_int();\n\n  std::cout << \"Hello World\"\
-    \ << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <cstdlib>\n#include <iostream>\n#include \"tools/assert_that.hpp\"\n\
-    #include \"tools/safe_int.hpp\"\n\nvoid test_signed_int() {\n  const tools::safe_int<int>\
-    \ POS_INF = tools::safe_int<int>::infinity();\n  const tools::safe_int<int> NEG_INF\
-    \ = -tools::safe_int<int>::infinity();\n  const int INT_MAX = std::numeric_limits<int>::max();\n\
-    \  const int INT_MIN = std::numeric_limits<int>::min();\n  using s = tools::safe_int<int>;\n\
-    \n  // basic arithmetic operations\n  assert_that(s(1) + s(2) == s(3));\n  assert_that(s(1)\
-    \ - s(2) == s(-1));\n  assert_that(s(1) * s(2) == s(2));\n  assert_that(s(1) /\
-    \ s(2) == s(0));\n  assert_that(s(1) % s(2) == s(1));\n\n  // operator+ should\
-    \ detect an overflow.\n  assert_that(s(INT_MAX - 2) + s(1) == s(INT_MAX - 1));\n\
-    \  assert_that(s(INT_MAX - 2) + s(2) == s(INT_MAX));\n  assert_that((s(INT_MAX\
-    \ - 2) + s(3)).is_nan());\n  assert_that(s(1) + s(INT_MAX - 2) == s(INT_MAX -\
-    \ 1));\n  assert_that(s(2) + s(INT_MAX - 2) == s(INT_MAX));\n  assert_that((s(3)\
-    \ + s(INT_MAX - 2)).is_nan());\n  assert_that(s(INT_MIN + 2) + s(-1) == s(INT_MIN\
-    \ + 1));\n  assert_that(s(INT_MIN + 2) + s(-2) == s(INT_MIN));\n  assert_that((s(INT_MIN\
-    \ + 2) + s(-3)).is_nan());\n  assert_that(s(-1) + s(INT_MIN + 2) == s(INT_MIN\
-    \ + 1));\n  assert_that(s(-2) + s(INT_MIN + 2) == s(INT_MIN));\n  assert_that((s(-3)\
-    \ + s(INT_MIN + 2)).is_nan());\n\n  // infinite + finite should be infinite.\n\
-    \  assert_that(POS_INF + s(-1) == POS_INF);\n  assert_that(s(-1) + POS_INF ==\
-    \ POS_INF);\n  assert_that(POS_INF + POS_INF == POS_INF);\n  assert_that(NEG_INF\
-    \ + s(1) == NEG_INF);\n  assert_that(s(1) + NEG_INF == NEG_INF);\n  assert_that(NEG_INF\
-    \ + NEG_INF == NEG_INF);\n\n  // operator- should detect an overflow.\n  assert_that(s(INT_MAX\
-    \ - 2) - s(-1) == s(INT_MAX - 1));\n  assert_that(s(INT_MAX - 2) - s(-2) == s(INT_MAX));\n\
-    \  assert_that(s((INT_MAX - 2) - s(-3)).is_nan());\n  assert_that(s(INT_MIN +\
-    \ 2) - s(1) == s(INT_MIN + 1));\n  assert_that(s(INT_MIN + 2) - s(2) == s(INT_MIN));\n\
-    \  assert_that((s(INT_MIN + 2) - s(3)).is_nan());\n\n  // infinite - finite should\
-    \ be finite.\n  assert_that(POS_INF - s(1) == POS_INF);\n  assert_that(POS_INF\
-    \ - NEG_INF == POS_INF);\n  assert_that(NEG_INF - s(-1) == NEG_INF);\n  assert_that(NEG_INF\
-    \ - POS_INF == NEG_INF);\n\n  // operator* should detect an overflow.\n  assert_that(NEG_INF\
-    \ * NEG_INF == POS_INF);\n  assert_that(NEG_INF * s(INT_MIN) == POS_INF);\n  assert_that((NEG_INF\
-    \ * s(0)).is_nan());\n  assert_that(NEG_INF * s(INT_MAX) == NEG_INF);\n  assert_that(NEG_INF\
-    \ * POS_INF == NEG_INF);\n  assert_that(s(INT_MIN) * NEG_INF == POS_INF);\n  assert_that((s(INT_MIN)\
-    \ * s(INT_MIN)).is_nan());\n  assert_that(s(INT_MIN) * s(0) == s(0));\n  assert_that((s(INT_MIN)\
-    \ * s(INT_MAX)).is_nan());\n  assert_that(s(INT_MIN) * POS_INF == NEG_INF);\n\
-    \  assert_that((s(0) * NEG_INF).is_nan());\n  assert_that(s(0) * s(INT_MIN) ==\
-    \ s(0));\n  assert_that(s(0) * s(0) == s(0));\n  assert_that(s(0) * s(INT_MAX)\
-    \ == s(0));\n  assert_that((s(0) * POS_INF).is_nan());\n  assert_that(s(INT_MAX)\
-    \ * NEG_INF == NEG_INF);\n  assert_that((s(INT_MAX) * s(INT_MIN)).is_nan());\n\
-    \  assert_that(s(INT_MAX) * s(0) == s(0));\n  assert_that((s(INT_MAX) * s(INT_MAX)).is_nan());\n\
-    \  assert_that(s(INT_MAX) * POS_INF == POS_INF);\n  assert_that(POS_INF * NEG_INF\
-    \ == NEG_INF);\n  assert_that(POS_INF * s(INT_MIN) == NEG_INF);\n  assert_that((POS_INF\
-    \ * s(0)).is_nan());\n  assert_that(POS_INF * s(INT_MAX) == POS_INF);\n  assert_that(POS_INF\
-    \ * POS_INF == POS_INF);\n}\n\nvoid test_unsigned_int() {\n  const tools::safe_int<unsigned\
-    \ int> POS_INF = tools::safe_int<unsigned int>::infinity();\n  const unsigned\
-    \ int UINT_MAX = std::numeric_limits<unsigned int>::max();\n  using u = tools::safe_int<unsigned\
-    \ int>;\n\n  // basic arithmetic operations\n  assert_that(u(3) + u(2) == u(5));\n\
-    \  assert_that(u(3) - u(2) == u(1));\n  assert_that(u(3) * u(2) == u(6));\n  assert_that(u(3)\
-    \ / u(2) == u(1));\n  assert_that(u(3) % u(2) == u(1));\n\n  // operator+ should\
-    \ detect an overflow.\n  assert_that(u(UINT_MAX - 2) + u(1) == u(UINT_MAX - 1));\n\
-    \  assert_that(u(UINT_MAX - 2) + u(2) == u(UINT_MAX));\n  assert_that((u(UINT_MAX\
-    \ - 2) + u(3)).is_nan());\n  assert_that(u(1) + u(UINT_MAX - 2) == u(UINT_MAX\
-    \ - 1));\n  assert_that(u(2) + u(UINT_MAX - 2) == u(UINT_MAX));\n  assert_that((u(3)\
-    \ + u(UINT_MAX - 2)).is_nan());\n\n  // infinite + finite should be infinite.\n\
-    \  assert_that(POS_INF + u(1) == POS_INF);\n  assert_that(u(1) + POS_INF == POS_INF);\n\
-    \  assert_that(POS_INF + POS_INF == POS_INF);\n\n  // operator- should detect\
-    \ an overflow.\n  assert_that(u(2) - u(1) == u(1));\n  assert_that(u(2) - u(2)\
-    \ == u(0));\n  assert_that((u(2) - u(3)).is_nan());\n\n  // infinite - finite\
-    \ should be finite.\n  assert_that(POS_INF - u(1) == POS_INF);\n\n  // operator*\
-    \ should detect an overflow.\n  assert_that(u(0) * u(0) == u(0));\n  assert_that(u(0)\
-    \ * u(UINT_MAX) == u(0));\n  assert_that((u(0) * POS_INF).is_nan());\n  assert_that(u(UINT_MAX)\
-    \ * u(0) == u(0));\n  assert_that((u(UINT_MAX) * u(UINT_MAX)).is_nan());\n  assert_that(u(UINT_MAX)\
-    \ * POS_INF == POS_INF);\n  assert_that((POS_INF * u(0)).is_nan());\n  assert_that(POS_INF\
-    \ * u(UINT_MAX) == POS_INF);\n  assert_that(POS_INF * POS_INF == POS_INF);\n}\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  test_signed_int();\n  test_unsigned_int();\n\n  std::cout << \"Hello World\"\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ y || x == y;\n    }\n  };\n}\n\n\n#line 9 \"tools/ceil_kth_root.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T, typename U>\n  T ceil_kth_root(const T x,\
+    \ const U k) {\n    assert(x >= 0);\n    assert(k >= 1);\n\n    if (x == 0) return\
+    \ 0;\n    if (k == 1) return x;\n    if (k == 2) return ::tools::ceil_sqrt(x);\n\
+    \    if (k == 3) {\n      T ok = 1;\n      T ng;\n      for (ng = 2; (ng - 1)\
+    \ * (ng - 1) < ::tools::ceil(x, ng - 1); ng *= 2);\n\n      while (ng - ok > 1)\
+    \ {\n        const T mid = ok + (ng - ok) / 2;\n        if ((mid - 1) * (mid -\
+    \ 1) < ::tools::ceil(x, mid - 1)) {\n          ok = mid;\n        } else {\n \
+    \         ng = mid;\n        }\n      }\n      return ok;\n    }\n\n    T ok =\
+    \ 1;\n    T ng;\n    for (ng = 2; ::tools::pow(::tools::safe_int<T>(ng - 1), k)\
+    \ < ::tools::safe_int<T>(x); ng *= 2);\n\n    while (ng - ok > 1) {\n      const\
+    \ T mid = ok + (ng - ok) / 2;\n      if (::tools::pow(::tools::safe_int<T>(mid\
+    \ - 1), k) < ::tools::safe_int<T>(x)) {\n        ok = mid;\n      } else {\n \
+    \       ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_CEIL_KTH_ROOT_HPP\n#define TOOLS_CEIL_KTH_ROOT_HPP\n\n#include\
+    \ <cassert>\n#include \"tools/ceil_sqrt.hpp\"\n#include \"tools/ceil.hpp\"\n#include\
+    \ \"tools/pow.hpp\"\n#include \"tools/safe_int.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename T, typename U>\n  T ceil_kth_root(const T x, const U k)\
+    \ {\n    assert(x >= 0);\n    assert(k >= 1);\n\n    if (x == 0) return 0;\n \
+    \   if (k == 1) return x;\n    if (k == 2) return ::tools::ceil_sqrt(x);\n   \
+    \ if (k == 3) {\n      T ok = 1;\n      T ng;\n      for (ng = 2; (ng - 1) * (ng\
+    \ - 1) < ::tools::ceil(x, ng - 1); ng *= 2);\n\n      while (ng - ok > 1) {\n\
+    \        const T mid = ok + (ng - ok) / 2;\n        if ((mid - 1) * (mid - 1)\
+    \ < ::tools::ceil(x, mid - 1)) {\n          ok = mid;\n        } else {\n    \
+    \      ng = mid;\n        }\n      }\n      return ok;\n    }\n\n    T ok = 1;\n\
+    \    T ng;\n    for (ng = 2; ::tools::pow(::tools::safe_int<T>(ng - 1), k) < ::tools::safe_int<T>(x);\
+    \ ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) /\
+    \ 2;\n      if (::tools::pow(::tools::safe_int<T>(mid - 1), k) < ::tools::safe_int<T>(x))\
+    \ {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n\
+    \    return ok;\n  }\n}\n\n#endif\n"
   dependsOn:
-  - tools/assert_that.hpp
+  - tools/ceil_sqrt.hpp
+  - tools/ceil.hpp
+  - tools/pow.hpp
+  - tools/monoid.hpp
+  - tools/square.hpp
   - tools/safe_int.hpp
-  isVerificationFile: true
-  path: tests/safe_int.test.cpp
+  isVerificationFile: false
+  path: tools/ceil_kth_root.hpp
   requiredBy: []
   timestamp: '2022-07-03 14:14:33+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: tests/safe_int.test.cpp
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/ceil_kth_root.test.cpp
+documentation_of: tools/ceil_kth_root.hpp
 layout: document
-redirect_from:
-- /verify/tests/safe_int.test.cpp
-- /verify/tests/safe_int.test.cpp.html
-title: tests/safe_int.test.cpp
+title: $\left\lceil x^\frac{1}{k} \right\rceil$
 ---
+
+```cpp
+template <typename T, typename U>
+T ceil_kth_root(T x, U k);
+```
+
+It returns $\left\lceil x^\frac{1}{k} \right\rceil$.
+
+## Constraints
+- $x \geq 0$
+- $k \geq 1$
+
+## Time Complexity
+- $O\left(\frac{\log x \log k}{k}\right)$
+
+## License
+- CC0
+
+## Author
+- anqooqie

@@ -4,8 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/ceil_kth_root.hpp
+    title: $\left\lceil x^\frac{1}{k} \right\rceil$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
@@ -37,10 +43,12 @@ data:
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/ceil_sqrt.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/ceil_kth_root.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/ceil_kth_root.test.cpp
   - tests/ceil_sqrt.test.cpp
 documentation_of: tools/ceil_sqrt.hpp
 layout: document

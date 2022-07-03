@@ -3,12 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/floor_kth_root.hpp
+    title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
+  - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_kth_root.test.cpp
+    title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
@@ -40,6 +46,7 @@ data:
   path: tools/floor_sqrt.hpp
   requiredBy:
   - tools/mo.hpp
+  - tools/floor_kth_root.hpp
   - tools/segmented_sieve.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -47,6 +54,7 @@ data:
   - tests/mo.test.cpp
   - tests/floor_sqrt.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/floor_kth_root.test.cpp
 documentation_of: tools/floor_sqrt.hpp
 layout: document
 title: $\left\lfloor \sqrt{x} \right\rfloor$

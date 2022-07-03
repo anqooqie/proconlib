@@ -16,6 +16,9 @@ data:
     path: tests/ceil.test.cpp
     title: tests/ceil.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
   - icon: ':heavy_check_mark:'
@@ -113,6 +116,7 @@ data:
   - tests/find_cycle.test.cpp
   - tests/rational/random.test.cpp
   - tests/ceil.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/floor_log2.test.cpp

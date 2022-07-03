@@ -9,6 +9,9 @@ data:
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_kth_root.hpp
+    title: $\left\lceil x^\frac{1}{k} \right\rceil$
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -84,6 +87,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ceil.test.cpp
     title: tests/ceil.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
@@ -166,6 +172,7 @@ data:
   - tools/rational.hpp
   - tools/dynamic_bitset.hpp
   - tools/ceil_sqrt.hpp
+  - tools/ceil_kth_root.hpp
   - tools/ceil_log.hpp
   - tools/round.hpp
   - tools/mo.hpp
@@ -200,6 +207,7 @@ data:
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/range_of_digit_products.test.cpp

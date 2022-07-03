@@ -3,8 +3,14 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_kth_root.hpp
+    title: $\left\lceil x^\frac{1}{k} \right\rceil$
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/floor_kth_root.hpp
+    title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
@@ -28,11 +34,17 @@ data:
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_kth_root.test.cpp
+    title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
@@ -97,7 +109,9 @@ data:
   - tools/pow.hpp
   - tools/rolling_hash.hpp
   - tools/square.hpp
+  - tools/ceil_kth_root.hpp
   - tools/tetration_mod.hpp
+  - tools/floor_kth_root.hpp
   - tools/lis.hpp
   - tools/detail/rolling_hash.hpp
   - tools/totient.hpp
@@ -105,8 +119,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
   - tests/permutation.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/lis.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/rolling_hash.test.cpp

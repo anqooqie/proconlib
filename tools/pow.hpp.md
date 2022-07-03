@@ -9,8 +9,14 @@ data:
     title: $x^2$ under a given monoid
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_kth_root.hpp
+    title: $\left\lceil x^\frac{1}{k} \right\rceil$
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/floor_kth_root.hpp
+    title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
@@ -24,6 +30,12 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_kth_root.test.cpp
+    title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -86,14 +98,18 @@ data:
   requiredBy:
   - tools/modint_for_rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/ceil_kth_root.hpp
   - tools/tetration_mod.hpp
+  - tools/floor_kth_root.hpp
   - tools/detail/rolling_hash.hpp
   - tools/totient.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tetration_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
   - tests/permutation.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/totient.test.cpp
 documentation_of: tools/pow.hpp
