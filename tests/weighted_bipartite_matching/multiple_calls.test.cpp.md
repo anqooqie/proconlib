@@ -11,37 +11,31 @@ data:
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':question:'
-    path: tools/pair_hash.hpp
-    title: Hash of std::pair
-  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
-    path: tools/vector2.hpp
-    title: 2D vector
   - icon: ':question:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/acl1/tasks/acl1_c
+    PROBLEM: https://atcoder.jp/contests/abc247/tasks/abc247_g
     links:
-    - https://atcoder.jp/contests/acl1/tasks/acl1_c
-  bundledCode: "#line 1 \"tests/weighted_bipartite_matching/maximize.test.cpp\"\n\
-    #define PROBLEM \"https://atcoder.jp/contests/acl1/tasks/acl1_c\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n#include\
-    \ <variant>\n#include <queue>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\
-    \n\n\n\n#include <cstddef>\n#line 6 \"tools/weighted_bipartite_matching.hpp\"\n\
-    #include <optional>\n#include <utility>\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\
-    \n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\
-    \n#include <numeric>\n#include <stack>\n#include <algorithm>\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#include <type_traits>\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    - https://atcoder.jp/contests/abc247/tasks/abc247_g
+  bundledCode: "#line 1 \"tests/weighted_bipartite_matching/multiple_calls.test.cpp\"\
+    \n#define PROBLEM \"https://atcoder.jp/contests/abc247/tasks/abc247_g\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <optional>\n#include\
+    \ <utility>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\n\n\n\n#include\
+    \ <cstddef>\n#line 8 \"tools/weighted_bipartite_matching.hpp\"\n#include <limits>\n\
+    #line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include\
+    \ <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\n#include <numeric>\n#include <stack>\n\
+    #include <algorithm>\n#include <queue>\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include\
+    \ <type_traits>\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
     \n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
@@ -295,170 +289,44 @@ data:
     \       if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow ==\
     \ 1) {\n          edges.push_back(this->m_edges[i]);\n        }\n      }\n\n \
     \     return ::std::make_pair(this->m_maximize ? -cost : cost, edges);\n    }\n\
-    \  };\n}\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <cmath>\n#line 7 \"\
-    tools/vector2.hpp\"\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
-    \ <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 6 \"tools/pair_hash.hpp\"\
-    \n#include <random>\n#line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n\
-    \  template <class T1, class T2>\n  struct pair_hash {\n    using result_type\
-    \ = ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
-    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
-    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
-    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
-    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
-    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
-    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
-    \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
-    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
-    \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
-    \ << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
-    \      return result;\n    }\n  };\n\n  template <>\n  struct pair_hash<::std::uint64_t,\
-    \ ::std::uint64_t> {\n    using result_type = ::std::size_t;\n    using argument_type\
-    \ = ::std::pair<::std::uint64_t, ::std::uint64_t>;\n    ::std::size_t operator()(const\
-    \ ::std::pair<::std::uint64_t, ::std::uint64_t>& key) const {\n      static const\
-    \ ::std::hash<::std::uint64_t> hasher = ::std::hash<::std::uint64_t>();\n    \
-    \  return hasher(((key.first << static_cast<::std::uint64_t>(32)) | (key.first\
-    \ >> static_cast<::std::uint64_t>(32))) ^ key.second);\n    }\n  };\n\n  template\
-    \ <>\n  struct pair_hash<::std::int64_t, ::std::int64_t> {\n    using result_type\
-    \ = ::std::size_t;\n    using argument_type = ::std::pair<::std::int64_t, ::std::int64_t>;\n\
-    \    ::std::size_t operator()(const ::std::pair<::std::int64_t, ::std::int64_t>&\
-    \ key) const {\n      static const ::tools::pair_hash<::std::uint64_t, ::std::uint64_t>\
-    \ hasher = ::tools::pair_hash<::std::uint64_t, ::std::uint64_t>();\n      return\
-    \ hasher(::std::make_pair<::std::uint64_t, ::std::uint64_t>(key.first, key.second));\n\
-    \    }\n  };\n\n  template <>\n  struct pair_hash<::std::uint32_t, ::std::uint32_t>\
-    \ {\n    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<::std::uint32_t,\
-    \ ::std::uint32_t>;\n    ::std::size_t operator()(const ::std::pair<::std::uint32_t,\
-    \ ::std::uint32_t>& key) const {\n      static const ::std::hash<::std::uint64_t>\
-    \ hasher = ::std::hash<::std::uint64_t>();\n      return hasher((static_cast<::std::uint64_t>(key.first)\
-    \ << static_cast<::std::uint64_t>(32)) | static_cast<::std::uint64_t>(key.second));\n\
-    \    }\n  };\n\n  template <>\n  struct pair_hash<::std::int32_t, ::std::int32_t>\
-    \ {\n    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<::std::int32_t,\
-    \ ::std::int32_t>;\n    ::std::size_t operator()(const ::std::pair<::std::int32_t,\
-    \ ::std::int32_t>& key) const {\n      static const ::tools::pair_hash<::std::uint32_t,\
-    \ ::std::uint32_t> hasher = ::tools::pair_hash<::std::uint32_t, ::std::uint32_t>();\n\
-    \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
-    \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
-    \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
-    \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
-    \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
-    \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
-    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
-    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
-    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> turn90()\
-    \ const {\n      return ::tools::vector2<T>(-this->y, this->x);\n    }\n\n   \
-    \ ::tools::vector2<T> turn270() const {\n      return ::tools::vector2<T>(this->y,\
-    \ -this->x);\n    }\n\n    ::tools::vector2<T> operator+() const {\n      return\
-    \ *this;\n    }\n\n    ::tools::vector2<T> operator-() const {\n      return ::tools::vector2<T>(-this->x,\
-    \ -this->y);\n    }\n\n    friend ::tools::vector2<T> operator+(const ::tools::vector2<T>&\
-    \ lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
-    \ + rhs.x, lhs.y + rhs.y);\n    }\n\n    friend ::tools::vector2<T> operator-(const\
-    \ ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs.x\
-    \ - rhs.x, lhs.y - rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
-    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
-    \ operator*(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
-    \ ::tools::vector2<T>(lhs.x * rhs, lhs.y * rhs);\n    }\n    template <typename\
-    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
-    \ = nullptr>\n    friend ::tools::vector2<T> operator*(const OTHER& lhs, const\
-    \ ::tools::vector2<T>& rhs) {\n      return ::tools::vector2<T>(lhs * rhs.x, lhs\
-    \ * rhs.y);\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
-    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    friend ::tools::vector2<T>\
-    \ operator/(const ::tools::vector2<T>& lhs, const OTHER& rhs) {\n      return\
-    \ ::tools::vector2<T>(lhs.x / rhs, lhs.y / rhs);\n    }\n\n    T inner_product(const\
-    \ ::tools::vector2<T>& other) const {\n      return this->x * other.x + this->y\
-    \ * other.y;\n    }\n\n    T outer_product(const ::tools::vector2<T>& other) const\
-    \ {\n      return this->x * other.y - this->y * other.x;\n    }\n\n    ::tools::vector2<T>&\
-    \ operator+=(const ::tools::vector2<T>& other) {\n      return *this = *this +\
-    \ other;\n    }\n\n    ::tools::vector2<T>& operator-=(const ::tools::vector2<T>&\
-    \ other) {\n      return *this = *this - other;\n    }\n\n    template <typename\
-    \ OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER, ::tools::vector2<T>>, ::std::nullptr_t>\
-    \ = nullptr>\n    ::tools::vector2<T>& operator*=(const OTHER& other) {\n    \
-    \  return *this = *this * other;\n    }\n\n    template <typename OTHER, ::std::enable_if_t<!::std::is_same_v<OTHER,\
-    \ ::tools::vector2<T>>, ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T>&\
-    \ operator/=(const OTHER& other) {\n      return *this = *this / other;\n    }\n\
-    \n    friend bool operator==(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>&\
-    \ rhs) {\n      return lhs.x == rhs.x && lhs.y == rhs.y;\n    }\n\n    friend\
-    \ bool operator!=(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs)\
-    \ {\n      return lhs.x != rhs.x || lhs.y != rhs.y;\n    }\n\n    friend ::std::ostream&\
-    \ operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {\n      return\
-    \ os << '(' << self.x << \", \" << self.y << ')';\n    }\n\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::vector2<T>& self) {\n      return is\
-    \ >> self.x >> self.y;\n    }\n\n    static ::std::array<::tools::vector2<T>,\
-    \ 4> four_directions() {\n      return ::std::array<::tools::vector2<T>, 4>({\n\
-    \        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(0),\
-    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1))\n      });\n\
-    \    }\n\n    static ::std::array<::tools::vector2<T>, 8> eight_directions() {\n\
-    \      return ::std::array<::tools::vector2<T>, 8>({\n        ::tools::vector2<T>(static_cast<T>(1),\
-    \ static_cast<T>(0)),\n        ::tools::vector2<T>(static_cast<T>(1), static_cast<T>(1)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1),\
-    \ static_cast<T>(1)),\n        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(0)),\n\
-    \        ::tools::vector2<T>(static_cast<T>(-1), static_cast<T>(-1)),\n      \
-    \  ::tools::vector2<T>(static_cast<T>(0), static_cast<T>(-1)),\n        ::tools::vector2<T>(static_cast<T>(1),\
-    \ static_cast<T>(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template\
-    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
-    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
-    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
-    \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 11 \"tests/weighted_bipartite_matching/maximize.test.cpp\"\
+    \  };\n}\n\n\n#line 9 \"tests/weighted_bipartite_matching/multiple_calls.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M;\n  std::cin >> N >> M;\n\
-    \  std::vector<std::string> S(N);\n  for (auto& S_i : S) std::cin >> S_i;\n\n\
-    \  tools::weighted_bipartite_matching<i64> graph(N * M, N * M, true);\n  i64 number_of_pieces\
-    \ = 0;\n  for (i64 y1 = 0; y1 < N; ++y1) {\n    for (i64 x1 = 0; x1 < M; ++x1)\
-    \ {\n      if (S[y1][x1] == 'o') {\n        ++number_of_pieces;\n        std::queue<tools::vector2<i64>>\
-    \ queue;\n        queue.emplace(x1, y1);\n        auto will_visit = std::vector(N,\
-    \ std::vector(M, false));\n        will_visit[y1][x1] = true;\n        while (!queue.empty())\
-    \ {\n          const auto here = queue.front();\n          queue.pop();\n    \
-    \      graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x\
-    \ - x1));\n          if (here.y + 1 < N && !will_visit[here.y + 1][here.x] &&\
-    \ S[here.y + 1][here.x] != '#') {\n            queue.emplace(here.x, here.y +\
-    \ 1);\n            will_visit[here.y + 1][here.x] = true;\n          }\n     \
-    \     if (here.x + 1 < M && !will_visit[here.y][here.x + 1] && S[here.y][here.x\
-    \ + 1] != '#') {\n            queue.emplace(here.x + 1, here.y);\n           \
-    \ will_visit[here.y][here.x + 1] = true;\n          }\n        }\n      }\n  \
-    \  }\n  }\n\n  std::cout << graph.query(number_of_pieces)->first << '\\n';\n \
-    \ return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/acl1/tasks/acl1_c\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n#include\
-    \ <variant>\n#include <queue>\n#include \"tools/weighted_bipartite_matching.hpp\"\
-    \n#include \"tools/vector2.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, M;\n  std::cin >> N >> M;\n  std::vector<std::string> S(N);\n  for (auto&\
-    \ S_i : S) std::cin >> S_i;\n\n  tools::weighted_bipartite_matching<i64> graph(N\
-    \ * M, N * M, true);\n  i64 number_of_pieces = 0;\n  for (i64 y1 = 0; y1 < N;\
-    \ ++y1) {\n    for (i64 x1 = 0; x1 < M; ++x1) {\n      if (S[y1][x1] == 'o') {\n\
-    \        ++number_of_pieces;\n        std::queue<tools::vector2<i64>> queue;\n\
-    \        queue.emplace(x1, y1);\n        auto will_visit = std::vector(N, std::vector(M,\
-    \ false));\n        will_visit[y1][x1] = true;\n        while (!queue.empty())\
-    \ {\n          const auto here = queue.front();\n          queue.pop();\n    \
-    \      graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x\
-    \ - x1));\n          if (here.y + 1 < N && !will_visit[here.y + 1][here.x] &&\
-    \ S[here.y + 1][here.x] != '#') {\n            queue.emplace(here.x, here.y +\
-    \ 1);\n            will_visit[here.y + 1][here.x] = true;\n          }\n     \
-    \     if (here.x + 1 < M && !will_visit[here.y][here.x + 1] && S[here.y][here.x\
-    \ + 1] != '#') {\n            queue.emplace(here.x + 1, here.y);\n           \
-    \ will_visit[here.y][here.x + 1] = true;\n          }\n        }\n      }\n  \
-    \  }\n  }\n\n  std::cout << graph.query(number_of_pieces)->first << '\\n';\n \
-    \ return 0;\n}\n"
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<i64>\
+    \ graph(150, 150, true);\n  for (i64 i = 0; i < N; ++i) {\n    i64 A, B, C;\n\
+    \    std::cin >> A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n \
+    \ }\n\n  std::vector<i64> answers;\n  std::optional<std::pair<i64, std::vector<tools::weighted_bipartite_matching<i64>::edge>>>\
+    \ matching;\n  for (i64 k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
+    \    answers.push_back(matching->first);\n  }\n\n  std::cout << answers.size()\
+    \ << '\\n';\n  for (const auto answer : answers) {\n    std::cout << answer <<\
+    \ '\\n';\n  }\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc247/tasks/abc247_g\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <optional>\n\
+    #include <utility>\n#include \"tools/weighted_bipartite_matching.hpp\"\n\nusing\
+    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<i64> graph(150,\
+    \ 150, true);\n  for (i64 i = 0; i < N; ++i) {\n    i64 A, B, C;\n    std::cin\
+    \ >> A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n  }\n\n  std::vector<i64>\
+    \ answers;\n  std::optional<std::pair<i64, std::vector<tools::weighted_bipartite_matching<i64>::edge>>>\
+    \ matching;\n  for (i64 k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
+    \    answers.push_back(matching->first);\n  }\n\n  std::cout << answers.size()\
+    \ << '\\n';\n  for (const auto answer : answers) {\n    std::cout << answer <<\
+    \ '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
   - tools/ssize.hpp
   - tools/chmin.hpp
   - tools/greater_by_second.hpp
-  - tools/vector2.hpp
-  - tools/pair_hash.hpp
   isVerificationFile: true
-  path: tests/weighted_bipartite_matching/maximize.test.cpp
+  path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   requiredBy: []
   timestamp: '2022-07-03 21:34:15+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/weighted_bipartite_matching/maximize.test.cpp
+documentation_of: tests/weighted_bipartite_matching/multiple_calls.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/weighted_bipartite_matching/maximize.test.cpp
-- /verify/tests/weighted_bipartite_matching/maximize.test.cpp.html
-title: tests/weighted_bipartite_matching/maximize.test.cpp
+- /verify/tests/weighted_bipartite_matching/multiple_calls.test.cpp
+- /verify/tests/weighted_bipartite_matching/multiple_calls.test.cpp.html
+title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
 ---

@@ -5,10 +5,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
@@ -18,15 +18,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
+    title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#include <utility>\n\
@@ -46,11 +49,12 @@ data:
   - tools/dijkstra.hpp
   - tools/weighted_bipartite_matching.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/dijkstra.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/persistent_stack.test.cpp
 documentation_of: tools/greater_by_second.hpp
 layout: document

@@ -8,7 +8,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   - icon: ':heavy_check_mark:'
@@ -39,18 +39,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
+    title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -73,7 +76,7 @@ data:
   - tools/xor_basis.hpp
   - tools/segmented_sieve.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bellman_ford.test.cpp
   - tests/xor_basis.test.cpp
@@ -82,6 +85,7 @@ data:
   - tests/tree_diameter.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/persistent_stack.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
