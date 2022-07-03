@@ -20,8 +20,8 @@ It creates a weighted bipartite graph with $0$ edges.
 Vertices of the graph can be divided into two disjoint and independent sets $U$ and $V$.
 $U$ consists of $n_1$ vertices and $V$ consists of $n_2$ vertices.
 
-If `maximize` is `true`, it will maximize the number of matched edges, and then, maximize the sum of weights of the matched edges.
-If `maximize` is `false`, it will maximize the number of matched edges, and then, minimize the sum of weights of the matched edges.
+If `maximize` is `true`, it will maximize the sum of weights of the matched edges.
+If `maximize` is `false`, it will minimize the sum of weights of the matched edges.
 
 The type parameter `<W>` represents the type of weights.
 
@@ -73,6 +73,15 @@ It adds an edge connecting $a \in U$ and $b \in V$ with the weight `w` and the a
 
 ## query
 ```cpp
+(1)
+std::optional<std::pair<W, std::vector<struct {
+  std::size_t id;
+  std::size_t from;
+  std::size_t to;
+  W weight;
+}>>> graph.query(std::size_t k);
+
+(2)
 std::pair<W, std::vector<struct {
   std::size_t id;
   std::size_t from;
@@ -81,14 +90,31 @@ std::pair<W, std::vector<struct {
 }>> graph.query();
 ```
 
-If `maximize` was `true`, it returns the matched edges which can maximize the number of matched edges, and then maximize the sum of weights of the matched edges, as the second element.
-Also, it returns the sum of weights of the matched edges as the first element.
-
-If `maximize` was `false`, it returns the matched edges which can maximize the number of matched edges, and then minimize the sum of weights of the matched edges, as the second element.
-Also, it returns the sum of weights of the matched edges as the first element.
+- (1)
+    - If `maximize` was `true`, it returns the followings when the number of matched edges is exactly $k$.
+        - the maximum sum of weights of the matched edges
+        - the matched edges which can reach the maxium sum of weights
+    - If `maximize` was `false`, it returns the followings when the number of matched edges is exactly $k$.
+        - the minimum sum of weights of the matched edges
+        - the matched edges which can reach the minium sum of weights
+    - Regardless of `maximize`, it returns `std::nullopt` if no matchings exist when the number of matched edges is exactly $k$.
+- (2)
+    - If `maximize` was `true`, it returns the followings. (No limitations on the number of matched edges)
+        - the maximum sum of weights of the matched edges
+        - the matched edges which can reach the maxium sum of weights
+    - If `maximize` was `false`, it returns the followings. (No limitations on the number of matched edges)
+        - the minimum sum of weights of the matched edges
+        - the matched edges which can reach the minium sum of weights
 
 ### Constraints
-- None
+- (1)
+    - If you call it multiple times, `k` is greater than or equal to `k` in the last call of `query`.
+- (2)
+    - You can't call it multiple times.
 
 ### Time Complexity
-- $O(\min(n_1, n_2) (n_1 + n_2 + m) \log (n_1 + n_2))$ where $m$ is the number of edges
+- (1)
+    - (First call): $O(\min(n_1, n_2, k) (n_1 + n_2 + m) \log (n_1 + n_2))$ where $m$ is the number of edges
+    - (Second or later call): $O((\min(n_1, n_2, k) - k') (n_1 + n_2 + m) \log (n_1 + n_2))$ where $k'$ is `k` in the last call of `query` and $m$ is the number of edges
+- (2)
+    - $O(\min(n_1, n_2) (n_1 + n_2 + m) \log (n_1 + n_2))$ where $m$ is the number of edges

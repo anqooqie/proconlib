@@ -21,9 +21,11 @@ int main() {
   for (auto& S_i : S) std::cin >> S_i;
 
   tools::weighted_bipartite_matching<i64> graph(N * M, N * M, true);
+  i64 number_of_pieces = 0;
   for (i64 y1 = 0; y1 < N; ++y1) {
     for (i64 x1 = 0; x1 < M; ++x1) {
       if (S[y1][x1] == 'o') {
+        ++number_of_pieces;
         std::queue<tools::vector2<i64>> queue;
         queue.emplace(x1, y1);
         auto will_visit = std::vector(N, std::vector(M, false));
@@ -45,6 +47,6 @@ int main() {
     }
   }
 
-  std::cout << graph.query().first << '\n';
+  std::cout << graph.query(number_of_pieces)->first << '\n';
   return 0;
 }

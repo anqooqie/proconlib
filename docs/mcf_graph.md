@@ -76,11 +76,11 @@ It returns $g$ as the list of the changepoints, that satisfies the followings.
 Let $x$ be the maximum absolute value of cost among all edges.
 
 - $s \neq t$
-- You can't call `slope` or `flow` multiple times.
 - The total amount of the flow is in `Cap`.
 - The total cost of the flow is in `Cost`.
 - (Cost : `int`): $0 \leq nx \leq 2 \times 10^9 + 1000$
 - (Cost : `long long`): $0 \leq nx \leq 8 \times 10^{18} + 1000$
+- (2) If you call `flow` or `slope` multiple times, `flow_limit` is greater than or equal to `flow_limit` in the last call of `flow` or `slope`.
 
 ### Time Complexity
 - (No edges with negative cost or DAG): $O(F (n + m) \log n)$, where $F$ is the amount of the flow and $m$ is the number of added edges.

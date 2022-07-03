@@ -3,8 +3,11 @@
 
 #include <cstddef>
 #include <vector>
+#include <optional>
 #include <utility>
+#include <limits>
 #include "tools/mcf_graph.hpp"
+#include "tools/chmin.hpp"
 
 namespace tools {
   template <typename W>
@@ -60,22 +63,45 @@ namespace tools {
     }
 
     ::std::size_t add_edge(const ::std::size_t i, const ::std::size_t j, const W& w) {
-      this->m_graph.add_edge(i, this->m_size1 + j, 1, (this->m_maximize ? -1 : 1) * w);
+      this->m_graph.add_edge(i, this->m_size1 + j, 1, this->m_maximize ? -w : w);
       this->m_edges.emplace_back(this->m_edges.size(), i, j, w);
       return this->m_edges.size() - 1;
     }
 
-    ::std::pair<W, ::std::vector<::tools::weighted_bipartite_matching<W>::edge>> query() {
-      ::std::vector<::tools::weighted_bipartite_matching<W>::edge> edges;
+    ::std::optional<::std::pair<W, ::std::vector<::tools::weighted_bipartite_matching<W>::edge>>> query(const ::std::size_t k) {
+      const auto [flow, cost] = this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1, k);
+      if (flow < static_cast<int>(k)) return ::std::nullopt;
 
-      const auto [flow, cost] = this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1);
+      ::std::vector<::tools::weighted_bipartite_matching<W>::edge> edges;
       for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {
         if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1) {
           edges.push_back(this->m_edges[i]);
         }
       }
 
-      return ::std::make_pair((this->m_maximize ? -1 : 1) * cost, edges);
+      return ::std::make_optional(::std::make_pair(this->m_maximize ? -cost : cost, edges));
+    }
+
+    ::std::pair<W, ::std::vector<::tools::weighted_bipartite_matching<W>::edge>> query() {
+      auto tmp_graph = this->m_graph;
+      int min_cost_flow = 0;
+      auto min_cost = ::std::numeric_limits<W>::max();
+      for (const auto& [flow, cost] : tmp_graph.slope(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1)) {
+        if (::tools::chmin(min_cost, cost)) {
+          min_cost_flow = flow;
+        }
+      }
+
+      const auto [flow, cost] = this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1, min_cost_flow);
+
+      ::std::vector<::tools::weighted_bipartite_matching<W>::edge> edges;
+      for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {
+        if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1) {
+          edges.push_back(this->m_edges[i]);
+        }
+      }
+
+      return ::std::make_pair(this->m_maximize ? -cost : cost, edges);
     }
   };
 }
