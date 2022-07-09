@@ -318,6 +318,9 @@ data:
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
+      path: tools/random_tree.hpp
+      title: Random tree generator
+    - icon: ':heavy_check_mark:'
       path: tools/range_of_digit_products.hpp
       title: Range of digit products
     - icon: ':heavy_check_mark:'
@@ -603,6 +606,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/qcfium.test.cpp
       title: tests/qcfium.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/random_tree.test.cpp
+      title: tests/random_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/range_of_digit_products.test.cpp
       title: tests/range_of_digit_products.test.cpp

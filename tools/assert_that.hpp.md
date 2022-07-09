@@ -58,6 +58,9 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/random_tree.test.cpp
+    title: tests/random_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -116,6 +119,7 @@ data:
   - tests/find_cycle.test.cpp
   - tests/rational/random.test.cpp
   - tests/ceil.test.cpp
+  - tests/random_tree.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/ceil_log2.test.cpp
