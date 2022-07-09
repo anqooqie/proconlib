@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <iostream>
-#include <variant>
 #include "tools/bipartite_matching.hpp"
 
 using i64 = std::int_fast64_t;
@@ -13,11 +12,11 @@ int main() {
 
   i64 L, R, M;
   std::cin >> L >> R >> M;
-  tools::bipartite_matching<std::monostate> graph(L, R);
+  tools::bipartite_matching graph(L, R);
   for (i64 i = 0; i < M; ++i) {
     i64 a, b;
     std::cin >> a >> b;
-    graph.add_edge(a, b, std::monostate());
+    graph.add_edge(a, b);
   }
 
   const auto edges = graph.query();

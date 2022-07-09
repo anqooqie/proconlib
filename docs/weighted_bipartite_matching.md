@@ -62,7 +62,7 @@ It returns $n_2$.
 std::size_t graph.add_edge(std::size_t a, std::size_t b, W w);
 ```
 
-It adds an edge connecting $a \in U$ and $b \in V$ with the weight `w` and the attribute `e`, and returns the index of the added edge.
+It adds an edge connecting $a \in U$ and $b \in V$ with the weight `w`, and returns the index of the added edge.
 
 ### Constraints
 - $0 \leq a < n_1$
