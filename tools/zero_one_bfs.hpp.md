@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: tools/chmin.hpp
+    title: chmin function
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -12,68 +15,82 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#include <limits>\n#include <cassert>\n#include <deque>\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  class zero_one_bfs {\n  private:\n   \
-    \ class edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t to;\n\
-    \      T distance;\n      edge(const ::std::size_t from, const ::std::size_t to,\
-    \ const T distance) :\n        from(from),\n        to(to),\n        distance(distance)\
-    \ {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n\
-    \    static constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr\
-    \ ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class\
-    \ result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
-    \ prev_nodes;\n      result(const ::std::size_t& node_count, const ::std::size_t&\
-    \ start_node) :\n        distances(node_count, INF),\n        prev_nodes(node_count,\
-    \ NONE) {\n        this->distances[start_node] = 0;\n      }\n    };\n\n    zero_one_bfs(const\
-    \ ::std::size_t& node_count) :\n      edges(node_count) {\n    }\n\n    ::std::size_t\
-    \ node_count() const {\n      return this->edges.size();\n    }\n\n    void add_edge(const\
-    \ ::std::size_t& from, const ::std::size_t& to, const T& distance) {\n      assert(distance\
-    \ == 0 || distance == 1);\n\n      this->edges[from].emplace_back(from, to, distance);\n\
-    \    }\n\n    result query(const ::std::size_t& start_node) const {\n      assert(start_node\
-    \ < this->node_count());\n\n      result result(this->node_count(), start_node);\n\
-    \      ::std::vector<bool> visited(this->node_count(), false);\n      ::std::deque<::std::size_t>\
-    \ deque;\n      deque.push_front(start_node);\n\n      while (!deque.empty())\
-    \ {\n        const ::std::size_t vertex = deque.front();\n        deque.pop_front();\n\
-    \        if (visited[vertex]) continue;\n        visited[vertex] = true;\n   \
-    \     for (const edge& edge : this->edges[vertex]) {\n          const T new_distance\
-    \ = result.distances[vertex] + edge.distance;\n          if (new_distance < result.distances[edge.to])\
-    \ {\n            result.distances[edge.to] = new_distance;\n            result.prev_nodes[edge.to]\
-    \ = edge.from;\n            if (edge.distance == 0) {\n              deque.push_front(edge.to);\n\
-    \            } else {\n              deque.push_back(edge.to);\n            }\n\
-    \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n\n"
+    \ <vector>\n#include <cassert>\n#include <utility>\n#include <limits>\n#include\
+    \ <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n \
+    \   return updated;\n  }\n}\n\n\n#line 11 \"tools/zero_one_bfs.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  class zero_one_bfs {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n\
+    \    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n    zero_one_bfs()\
+    \ = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<T>&) = default;\n \
+    \   zero_one_bfs(::tools::zero_one_bfs<T>&&) = default;\n    ~zero_one_bfs() =\
+    \ default;\n    ::tools::zero_one_bfs<T>& operator=(const ::tools::zero_one_bfs<T>&)\
+    \ = default;\n    ::tools::zero_one_bfs<T>& operator=(::tools::zero_one_bfs<T>&&)\
+    \ = default;\n\n    zero_one_bfs(const ::std::size_t n) : m_graph(n) {\n    }\n\
+    \n    ::std::size_t size() const {\n      return this->m_graph.size();\n    }\n\
+    \n    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const\
+    \ T& w) {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \      assert(w == 0 || w == 1);\n      this->m_edges.push_back(edge({this->m_edges.size(),\
+    \ u, v, w}));\n      this->m_graph[u].push_back(this->m_edges.size() - 1);\n \
+    \     return this->m_edges.size() - 1;\n    }\n\n    const edge& get_edge(const\
+    \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
+    \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
+    \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
+    \ query(const ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
+    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
+    \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      ::std::deque<::std::pair<::std::size_t, T>> deque;\n      deque.emplace_front(s,\
+    \ 0);\n\n      while (!deque.empty()) {\n        const auto [here, d] = deque.front();\n\
+    \        deque.pop_front();\n        if (dist[here] < d) continue;\n        for\
+    \ (const auto edge_id : this->m_graph[here]) {\n          const auto& edge = this->m_edges[edge_id];\n\
+    \          if (::tools::chmin(dist[edge.to], dist[here] + edge.cost)) {\n    \
+    \        prev[edge.to] = edge.id;\n            if (edge.cost == 0) {\n       \
+    \       deque.emplace_front(edge.to, dist[edge.to]);\n            } else {\n \
+    \             deque.emplace_back(edge.to, dist[edge.to]);\n            }\n   \
+    \       }\n        }\n      }\n\n      return ::std::make_pair(dist, prev);\n\
+    \    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_ZERO_ONE_BFS_HPP\n#define TOOLS_ZERO_ONE_BFS_HPP\n\n#include\
-    \ <cstddef>\n#include <vector>\n#include <limits>\n#include <cassert>\n#include\
-    \ <deque>\n\nnamespace tools {\n\n  template <typename T>\n  class zero_one_bfs\
-    \ {\n  private:\n    class edge {\n    public:\n      ::std::size_t from;\n  \
-    \    ::std::size_t to;\n      T distance;\n      edge(const ::std::size_t from,\
-    \ const ::std::size_t to, const T distance) :\n        from(from),\n        to(to),\n\
-    \        distance(distance) {\n      }\n    };\n\n    ::std::vector<::std::vector<edge>>\
-    \ edges;\n\n  public:\n    static constexpr T INF = ::std::numeric_limits<T>::max();\n\
-    \    static constexpr ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\
-    \n    class result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
-    \ prev_nodes;\n      result(const ::std::size_t& node_count, const ::std::size_t&\
-    \ start_node) :\n        distances(node_count, INF),\n        prev_nodes(node_count,\
-    \ NONE) {\n        this->distances[start_node] = 0;\n      }\n    };\n\n    zero_one_bfs(const\
-    \ ::std::size_t& node_count) :\n      edges(node_count) {\n    }\n\n    ::std::size_t\
-    \ node_count() const {\n      return this->edges.size();\n    }\n\n    void add_edge(const\
-    \ ::std::size_t& from, const ::std::size_t& to, const T& distance) {\n      assert(distance\
-    \ == 0 || distance == 1);\n\n      this->edges[from].emplace_back(from, to, distance);\n\
-    \    }\n\n    result query(const ::std::size_t& start_node) const {\n      assert(start_node\
-    \ < this->node_count());\n\n      result result(this->node_count(), start_node);\n\
-    \      ::std::vector<bool> visited(this->node_count(), false);\n      ::std::deque<::std::size_t>\
-    \ deque;\n      deque.push_front(start_node);\n\n      while (!deque.empty())\
-    \ {\n        const ::std::size_t vertex = deque.front();\n        deque.pop_front();\n\
-    \        if (visited[vertex]) continue;\n        visited[vertex] = true;\n   \
-    \     for (const edge& edge : this->edges[vertex]) {\n          const T new_distance\
-    \ = result.distances[vertex] + edge.distance;\n          if (new_distance < result.distances[edge.to])\
-    \ {\n            result.distances[edge.to] = new_distance;\n            result.prev_nodes[edge.to]\
-    \ = edge.from;\n            if (edge.distance == 0) {\n              deque.push_front(edge.to);\n\
-    \            } else {\n              deque.push_back(edge.to);\n            }\n\
-    \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n#endif\n"
-  dependsOn: []
+    \ <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n#include\
+    \ <limits>\n#include <deque>\n#include \"tools/chmin.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  class zero_one_bfs {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n\
+    \    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n    zero_one_bfs()\
+    \ = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<T>&) = default;\n \
+    \   zero_one_bfs(::tools::zero_one_bfs<T>&&) = default;\n    ~zero_one_bfs() =\
+    \ default;\n    ::tools::zero_one_bfs<T>& operator=(const ::tools::zero_one_bfs<T>&)\
+    \ = default;\n    ::tools::zero_one_bfs<T>& operator=(::tools::zero_one_bfs<T>&&)\
+    \ = default;\n\n    zero_one_bfs(const ::std::size_t n) : m_graph(n) {\n    }\n\
+    \n    ::std::size_t size() const {\n      return this->m_graph.size();\n    }\n\
+    \n    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const\
+    \ T& w) {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \      assert(w == 0 || w == 1);\n      this->m_edges.push_back(edge({this->m_edges.size(),\
+    \ u, v, w}));\n      this->m_graph[u].push_back(this->m_edges.size() - 1);\n \
+    \     return this->m_edges.size() - 1;\n    }\n\n    const edge& get_edge(const\
+    \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
+    \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
+    \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
+    \ query(const ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
+    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
+    \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      ::std::deque<::std::pair<::std::size_t, T>> deque;\n      deque.emplace_front(s,\
+    \ 0);\n\n      while (!deque.empty()) {\n        const auto [here, d] = deque.front();\n\
+    \        deque.pop_front();\n        if (dist[here] < d) continue;\n        for\
+    \ (const auto edge_id : this->m_graph[here]) {\n          const auto& edge = this->m_edges[edge_id];\n\
+    \          if (::tools::chmin(dist[edge.to], dist[here] + edge.cost)) {\n    \
+    \        prev[edge.to] = edge.id;\n            if (edge.cost == 0) {\n       \
+    \       deque.emplace_front(edge.to, dist[edge.to]);\n            } else {\n \
+    \             deque.emplace_back(edge.to, dist[edge.to]);\n            }\n   \
+    \       }\n        }\n      }\n\n      return ::std::make_pair(dist, prev);\n\
+    \    }\n  };\n}\n\n#endif\n"
+  dependsOn:
+  - tools/chmin.hpp
   isVerificationFile: false
   path: tools/zero_one_bfs.hpp
   requiredBy: []
-  timestamp: '2021-03-29 00:30:01+09:00'
+  timestamp: '2022-07-16 04:36:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/zero_one_bfs.test.cpp
@@ -83,17 +100,7 @@ title: 01-BFS
 ---
 
 It solves the single source shortest path problem on a given graph which is not necessarily simple.
-All the edges must have $0$ or $1$ weight.
-
-### Usage
-```cpp
-tools::zero_one_bfs<int> bfs(node_count);
-bfs.add_edge(from_node, to_node, cost);
-const tools::zero_one_bfs<int>::result result = bfs.query(start_node);
-for (const int& distance : result.distances) {
-  // ...
-}
-```
+For all the edges, the cost of the edge must be $0$ or $1$.
 
 ### License
 - CC0
@@ -103,45 +110,90 @@ for (const int& distance : result.distances) {
 
 ## Constructor
 ```cpp
-zero_one_bfs<T> bfs(::std::size_t n);
+zero_one_bfs<T> graph(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
-The type parameter `<T>` represents the type of the weight of edges.
+The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
-- $n \geq 1$
+- None
 
 ### Time Complexity
 - $O(n)$
 
-## add_edge
+## size
 ```cpp
-void bfs.add_edge(::std::size_t s, ::std::size_t t, T w);
+std::size_t graph.size();
 ```
 
-It adds a edge from $s$ to $t$ with the weight `w`.
+It returns $n$.
 
 ### Constraints
-- $0 \leq s < n$
-- $0 \leq t < n$
+- None
+
+### Time Complexity
+- $O(1)$
+
+## add_edge
+```cpp
+std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+```
+
+It adds an edge oriented from $u$ to $v$ with cost `w`.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
+
+### Constraints
+- $0 \leq u < n$
+- $0 \leq v < n$
 - $w \in \\{0, 1\\}$
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$ amortized
+
+## get_edge
+```cpp
+struct edge {
+  std::size_t id;
+  std::size_t from;
+  std::size_t to;
+  T cost;
+};
+edge graph.get_edge(std::size_t k);
+```
+
+It returns the $k$-th edge.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## edges
+```cpp
+std::vector<edge> graph.edges();
+```
+
+It returns all the edges in the graph.
+The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## query
 ```cpp
-struct {
-  ::std::vector<T> distances;
-  ::std::vector<::std::size_t> prev_nodes;
-} bfs.query(::std::size_t s);
+std::pair<std::vector<T>, std::vector<std::size_t>> graph.query(std::size_t s);
 ```
 
 It solves the single source shortest path problem on the graph.
-`distances[t]` represents the distance from $s$ to $t$.
-`prev_nodes[t]` represents the previous vertex on the shortest path from $s$ to $t$.
-`prev_nodes[s]` will be `std::numeric_limits<std::size_t>::max()` instead of the previous vertex since the previous vertex of $s$ does not exist.
+It returns two vectors `dist` and `prev`.
+`dist[t]` represents the smallest value as the sum of the costs of the edges that make up the path from $s$ to $t$.
+`prev[t]` represents the index of the edge from the parent of $t$ to $t$ in the shortest path tree rooted at $s$.
+Because `s` has no parent, `prev[s]` will be `std::numeric_limits<std::size_t>::max()` instead of a valid value.
 
 ### Constraints
 - $0 \leq s < n$

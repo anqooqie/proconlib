@@ -106,27 +106,27 @@ data:
   path: tools/monoid.hpp
   requiredBy:
   - tools/modint_for_rolling_hash.hpp
-  - tools/pow.hpp
-  - tools/rolling_hash.hpp
-  - tools/square.hpp
-  - tools/ceil_kth_root.hpp
   - tools/tetration_mod.hpp
-  - tools/floor_kth_root.hpp
-  - tools/lis.hpp
   - tools/detail/rolling_hash.hpp
   - tools/totient.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/floor_kth_root.hpp
+  - tools/rolling_hash.hpp
+  - tools/pow.hpp
+  - tools/square.hpp
+  - tools/lis.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tetration_mod.test.cpp
-  - tests/floor_kth_root.test.cpp
-  - tests/permutation.test.cpp
+  - tests/totient.test.cpp
   - tests/disjoint_sparse_table.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/lis.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/totient.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/permutation.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

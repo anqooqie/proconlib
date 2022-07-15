@@ -142,37 +142,37 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/ntz.hpp
-  - tools/prime_factorization.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/chromatic_number.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/divisors.hpp
-  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
+  - tools/divisors.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/dynamic_bitset.hpp
   - tools/floor_log2.hpp
-  - tools/lca.hpp
-  - tools/wavelet_matrix.hpp
+  - tools/tetration_mod.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/ntz.hpp
   - tools/totient.hpp
+  - tools/chromatic_number.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/prime_factorization.hpp
+  - tools/lca.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tetration_mod.test.cpp
-  - tests/wavelet_matrix.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/lca.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/divisors.test.cpp
-  - tests/totient.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/rotate_left.test.cpp
   - tests/chromatic_number.test.cpp
+  - tests/totient.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/lca.test.cpp
+  - tests/wavelet_matrix.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/divisors.test.cpp
+  - tests/rotate_left.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

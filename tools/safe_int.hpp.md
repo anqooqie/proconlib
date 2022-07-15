@@ -582,8 +582,8 @@ data:
   timestamp: '2022-07-03 14:14:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_kth_root.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/floor_kth_root.test.cpp
   - tests/safe_int.test.cpp
 documentation_of: tools/safe_int.hpp
 layout: document

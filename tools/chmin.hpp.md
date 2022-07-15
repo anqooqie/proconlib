@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
   - icon: ':heavy_check_mark:'
@@ -23,8 +23,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/xor_basis.hpp
     title: Basis of xor
-  _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tools/zero_one_bfs.hpp
+    title: 01-BFS
+  _extendedVerifiedWith:
+  - icon: ':x:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
@@ -51,9 +54,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_bfs.test.cpp
+    title: tests/zero_one_bfs.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -68,25 +74,27 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
+  - tools/weighted_bipartite_matching.hpp
+  - tools/dijkstra.hpp
   - tools/tree_diameter.hpp
   - tools/mcf_graph.hpp
-  - tools/dijkstra.hpp
+  - tools/zero_one_bfs.hpp
   - tools/bellman_ford.hpp
-  - tools/weighted_bipartite_matching.hpp
-  - tools/xor_basis.hpp
   - tools/segmented_sieve.hpp
+  - tools/xor_basis.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bellman_ford.test.cpp
-  - tests/xor_basis.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/zero_one_bfs.test.cpp
   - tests/dijkstra.test.cpp
-  - tests/tree_diameter.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/persistent_stack.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/tree_diameter.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

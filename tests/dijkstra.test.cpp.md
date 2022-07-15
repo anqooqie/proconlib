@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
@@ -21,67 +21,71 @@ data:
     links:
     - https://judge.yosupo.jp/problem/shortest_path
   bundledCode: "#line 1 \"tests/dijkstra.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <cstddef>\n\
-    #include <iterator>\n#line 1 \"tools/dijkstra.hpp\"\n\n\n\n#line 6 \"tools/dijkstra.hpp\"\
-    \n#include <limits>\n#include <cassert>\n#include <functional>\n#include <queue>\n\
-    #line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#include <utility>\n\nnamespace\
-    \ tools {\n\n  class greater_by_second {\n  public:\n    template <class T1, class\
-    \ T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
-    \ T2>& y) const {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line\
-    \ 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n \
-    \ template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n  \
-    \  const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n\
-    \  }\n}\n\n\n#line 12 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  class dijkstra {\n  private:\n    class edge {\n    public:\n\
-    \      ::std::size_t from;\n      ::std::size_t to;\n      T distance;\n     \
-    \ edge(const ::std::size_t from, const ::std::size_t to, const T distance) :\n\
-    \        from(from),\n        to(to),\n        distance(distance) {\n      }\n\
-    \    };\n\n    ::std::vector<::std::vector<edge>> edges;\n\n  public:\n    static\
-    \ constexpr T INF = ::std::numeric_limits<T>::max();\n    static constexpr ::std::size_t\
-    \ NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class result {\n\
-    \    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
-    \ prev_nodes;\n      result(const ::std::size_t& node_count, const ::std::size_t&\
-    \ start_node) :\n        distances(node_count, INF),\n        prev_nodes(node_count,\
-    \ NONE) {\n        this->distances[start_node] = 0;\n      }\n    };\n\n    dijkstra(const\
-    \ ::std::size_t& node_count) :\n      edges(node_count) {\n    }\n\n    ::std::size_t\
-    \ node_count() const {\n      return this->edges.size();\n    }\n\n    void add_edge(const\
-    \ ::std::size_t& from, const ::std::size_t& to, const T& distance) {\n      this->edges[from].emplace_back(from,\
-    \ to, distance);\n    }\n\n    result query(const ::std::size_t& start_node) const\
-    \ {\n      assert(start_node < this->node_count());\n\n      result result(this->node_count(),\
-    \ start_node);\n      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t,\
-    \ T>>, ::tools::greater_by_second> tasks;\n      tasks.emplace(start_node, 0);\n\
-    \n      while (!tasks.empty()) {\n        const auto [here, d] = tasks.top();\n\
-    \        tasks.pop();\n        if (result.distances[here] < d) continue;\n   \
-    \     for (const edge& edge : this->edges[here]) {\n          if (::tools::chmin(result.distances[edge.to],\
-    \ result.distances[here] + edge.distance)) {\n            result.prev_nodes[edge.to]\
-    \ = edge.from;\n            tasks.emplace(edge.to, result.distances[edge.to]);\n\
-    \          }\n        }\n      }\n\n      return result;\n    }\n  };\n}\n\n\n\
-    #line 9 \"tests/dijkstra.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64> dijkstra(N);\n\
-    \  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin >> a >> b >>\
-    \ c;\n    dijkstra.add_edge(a, b, c);\n  }\n\n  const auto result = dijkstra.query(s);\n\
-    \  std::vector<i64> path;\n  for (std::size_t i = t; i != tools::dijkstra<i64>::NONE;\
-    \ i = result.prev_nodes[i]) {\n    path.push_back(i);\n  }\n\n  if (result.distances[t]\
-    \ == tools::dijkstra<i64>::INF) {\n    std::cout << -1 << '\\n';\n  } else {\n\
-    \    std::cout << result.distances[t] << ' ' << path.size() - 1 << '\\n';\n  \
-    \  for (auto it = std::next(path.rbegin()), prev_it = path.rbegin(); it != path.rend();\
-    \ ++it, ++prev_it) {\n      std::cout << *prev_it << ' ' << *it << '\\n';\n  \
-    \  }\n  }\n\n  return 0;\n}\n"
+    \n\n#include <cstdint>\n#include <iostream>\n#include <limits>\n#include <vector>\n\
+    #include <algorithm>\n#include <cstddef>\n#line 1 \"tools/dijkstra.hpp\"\n\n\n\
+    \n#line 6 \"tools/dijkstra.hpp\"\n#include <cassert>\n#include <utility>\n#line\
+    \ 9 \"tools/dijkstra.hpp\"\n#include <queue>\n#line 1 \"tools/greater_by_second.hpp\"\
+    \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
+    \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
+    \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
+    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\
+    \n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated\
+    \ = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 12 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  class dijkstra {\n  public:\n    struct edge {\n      ::std::size_t id;\n \
+    \     ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n    };\n\n\
+    \  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_graph;\n\n  public:\n    dijkstra() = default;\n    dijkstra(const ::tools::dijkstra<T>&)\
+    \ = default;\n    dijkstra(::tools::dijkstra<T>&&) = default;\n    ~dijkstra()\
+    \ = default;\n    ::tools::dijkstra<T>& operator=(const ::tools::dijkstra<T>&)\
+    \ = default;\n    ::tools::dijkstra<T>& operator=(::tools::dijkstra<T>&&) = default;\n\
+    \n    dijkstra(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t\
+    \ size() const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t\
+    \ add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {\n     \
+    \ assert(u < this->size());\n      assert(v < this->size());\n      assert(w >=\
+    \ 0);\n      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));\n\
+    \      this->m_graph[u].push_back(this->m_edges.size() - 1);\n      return this->m_edges.size()\
+    \ - 1;\n    }\n\n    const edge& get_edge(const ::std::size_t k) const {\n   \
+    \   assert(k < this->m_edges.size());\n      return this->m_edges[k];\n    }\n\
+    \n    const ::std::vector<edge>& edges() const {\n      return this->m_edges;\n\
+    \    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const\
+    \ ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
+    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
+    \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t,\
+    \ T>>, ::tools::greater_by_second> pq;\n      pq.emplace(s, 0);\n\n      while\
+    \ (!pq.empty()) {\n        const auto [here, d] = pq.top();\n        pq.pop();\n\
+    \        if (dist[here] < d) continue;\n        for (const auto edge_id : this->m_graph[here])\
+    \ {\n          const auto& edge = this->m_edges[edge_id];\n          if (::tools::chmin(dist[edge.to],\
+    \ dist[here] + edge.cost)) {\n            prev[edge.to] = edge.id;\n         \
+    \   pq.emplace(edge.to, dist[edge.to]);\n          }\n        }\n      }\n\n \
+    \     return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n\n#line 10 \"tests/dijkstra.test.cpp\"\
+    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, s, t;\n  std::cin >>\
+    \ N >> M >> s >> t;\n\n  tools::dijkstra<i64> graph(N);\n  for (i64 i = 0; i <\
+    \ M; ++i) {\n    i64 a, b, c;\n    std::cin >> a >> b >> c;\n    graph.add_edge(a,\
+    \ b, c);\n  }\n\n  const auto [dist, prev] = graph.query(s);\n  if (dist[t] ==\
+    \ std::numeric_limits<i64>::max()) {\n    std::cout << -1 << '\\n';\n  } else\
+    \ {\n    std::vector<i64> path;\n    for (auto v = t; v != s; v = graph.get_edge(prev[v]).from)\
+    \ {\n      path.push_back(v);\n    }\n    path.push_back(s);\n    std::reverse(path.begin(),\
+    \ path.end());\n\n    std::cout << dist[t] << ' ' << path.size() - 1 << '\\n';\n\
+    \    for (::std::size_t i = 0; i + 1 < path.size(); ++i) {\n      std::cout <<\
+    \ path[i] << ' ' << path[i + 1] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <cstddef>\n#include\
-    \ <iterator>\n#include \"tools/dijkstra.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ <cstdint>\n#include <iostream>\n#include <limits>\n#include <vector>\n#include\
+    \ <algorithm>\n#include <cstddef>\n#include \"tools/dijkstra.hpp\"\n\nusing i64\
+    \ = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  i64 N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n\n  tools::dijkstra<i64>\
-    \ dijkstra(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin\
-    \ >> a >> b >> c;\n    dijkstra.add_edge(a, b, c);\n  }\n\n  const auto result\
-    \ = dijkstra.query(s);\n  std::vector<i64> path;\n  for (std::size_t i = t; i\
-    \ != tools::dijkstra<i64>::NONE; i = result.prev_nodes[i]) {\n    path.push_back(i);\n\
-    \  }\n\n  if (result.distances[t] == tools::dijkstra<i64>::INF) {\n    std::cout\
-    \ << -1 << '\\n';\n  } else {\n    std::cout << result.distances[t] << ' ' <<\
-    \ path.size() - 1 << '\\n';\n    for (auto it = std::next(path.rbegin()), prev_it\
-    \ = path.rbegin(); it != path.rend(); ++it, ++prev_it) {\n      std::cout << *prev_it\
-    \ << ' ' << *it << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \ graph(N);\n  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin >>\
+    \ a >> b >> c;\n    graph.add_edge(a, b, c);\n  }\n\n  const auto [dist, prev]\
+    \ = graph.query(s);\n  if (dist[t] == std::numeric_limits<i64>::max()) {\n   \
+    \ std::cout << -1 << '\\n';\n  } else {\n    std::vector<i64> path;\n    for (auto\
+    \ v = t; v != s; v = graph.get_edge(prev[v]).from) {\n      path.push_back(v);\n\
+    \    }\n    path.push_back(s);\n    std::reverse(path.begin(), path.end());\n\n\
+    \    std::cout << dist[t] << ' ' << path.size() - 1 << '\\n';\n    for (::std::size_t\
+    \ i = 0; i + 1 < path.size(); ++i) {\n      std::cout << path[i] << ' ' << path[i\
+    \ + 1] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/dijkstra.hpp
   - tools/greater_by_second.hpp
@@ -89,7 +93,7 @@ data:
   isVerificationFile: true
   path: tests/dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2022-03-08 22:34:08+09:00'
+  timestamp: '2022-07-16 04:36:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dijkstra.test.cpp

@@ -340,10 +340,10 @@ data:
   timestamp: '2022-06-19 10:02:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/inv.test.cpp
-  - tests/matrix/multiplies.test.cpp
   - tests/matrix/solve.test.cpp
   - tests/matrix/determinant.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/inv.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix

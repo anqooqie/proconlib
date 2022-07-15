@@ -1,96 +1,99 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/bellman_ford.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#include <limits>\n#include <cassert>\n#line 1 \"tools/chmin.hpp\"\
-    \n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 9 \"tools/bellman_ford.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  class bellman_ford {\n  private:\n\
-    \    class edge {\n    public:\n      ::std::size_t from;\n      ::std::size_t\
-    \ to;\n      T distance;\n      edge(const ::std::size_t& from, const ::std::size_t&\
-    \ to, const T& distance) :\n        from(from),\n        to(to),\n        distance(distance)\
-    \ {\n      }\n    };\n\n    ::std::size_t m_node_count;\n    ::std::vector<edge>\
-    \ m_edges;\n\n  public:\n    constexpr inline static T POS_INF = ::std::numeric_limits<T>::max();\n\
-    \    constexpr inline static T NEG_INF = ::std::numeric_limits<T>::min();\n  \
-    \  constexpr inline static ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\
-    \n    class result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
-    \ prev_nodes;\n      result(const ::std::size_t& node_count) :\n        distances(node_count,\
-    \ POS_INF),\n        prev_nodes(node_count, NONE) {\n      }\n    };\n\n    explicit\
-    \ bellman_ford(const ::std::size_t& node_count) :\n      m_node_count(node_count),\n\
-    \      m_edges() {\n    }\n\n    ::std::size_t node_count() const {\n      return\
-    \ this->m_node_count;\n    }\n\n    void add_edge(const ::std::size_t& from, const\
-    \ ::std::size_t& to, const T& distance) {\n      this->m_edges.emplace_back(from,\
-    \ to, distance);\n    }\n\n    result query(const ::std::size_t& start_node) const\
-    \ {\n      assert(start_node < this->m_node_count);\n      result result(this->m_node_count);\n\
-    \      result.distances[start_node] = 0;\n      for (::std::size_t i = 0; i <\
-    \ this->m_node_count - 1; ++i) {\n        for (const edge& edge : this->m_edges)\
-    \ {\n          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to],\
-    \ result.distances[edge.from] + edge.distance)) {\n            result.prev_nodes[edge.to]\
-    \ = edge.from;\n          }\n        }\n      }\n      for (const edge& edge :\
-    \ this->m_edges) {\n        if (result.distances[edge.from] < POS_INF && result.distances[edge.from]\
-    \ + (result.distances[edge.from] > NEG_INF ? edge.distance : 0) < result.distances[edge.to])\
-    \ {\n          result.distances[edge.to] = NEG_INF;\n          result.prev_nodes[edge.to]\
-    \ = edge.from;\n        }\n      }\n      for (::std::size_t i = 0; i < this->m_node_count;\
-    \ ++i) {\n        for (const edge& edge : this->m_edges) {\n          if (result.distances[edge.from]\
-    \ < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from]\
-    \ + (result.distances[edge.from] > NEG_INF ? edge.distance : 0))) {\n        \
-    \    result.prev_nodes[edge.to] = edge.from;\n          }\n        }\n      }\n\
-    \      return result;\n    }\n  };\n}\n\n\n"
+    \ <vector>\n#include <cassert>\n#include <utility>\n#include <limits>\n#line 1\
+    \ \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 10 \"tools/bellman_ford.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  class bellman_ford {\n  public:\n    struct edge {\n      ::std::size_t\
+    \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
+    \ };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge> m_edges;\n\
+    \n  public:\n    bellman_ford() = default;\n    bellman_ford(const ::tools::bellman_ford<T>&)\
+    \ = default;\n    bellman_ford(::tools::bellman_ford<T>&&) = default;\n    ~bellman_ford()\
+    \ = default;\n    ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&)\
+    \ = default;\n    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&)\
+    \ = default;\n\n    bellman_ford(const ::std::size_t n) : m_size(n) {\n    }\n\
+    \n    ::std::size_t size() const {\n      return this->m_size;\n    }\n\n    ::std::size_t\
+    \ add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {\n     \
+    \ assert(u < this->size());\n      assert(v < this->size());\n      this->m_edges.push_back(edge({this->m_edges.size(),\
+    \ u, v, w}));\n      return this->m_edges.size() - 1;\n    }\n\n    const edge&\
+    \ get_edge(const ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n\
+    \      return this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges()\
+    \ const {\n      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>,\
+    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) {\n      assert(s\
+    \ < this->size());\n\n      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n\
+    \      dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n\
+    \      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\n      for (::std::size_t\
+    \ i = 0; i + 1 < this->size(); ++i) {\n        for (const auto& edge : this->m_edges)\
+    \ {\n          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to],\
+    \ dist[edge.from] + edge.cost)) {\n            prev[edge.to] = edge.id;\n    \
+    \      }\n        }\n      }\n      for (const auto& edge : this->m_edges) {\n\
+    \        if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from]\
+    \ + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0) < dist[edge.to])\
+    \ {\n          dist[edge.to] = ::std::numeric_limits<T>::min();\n          prev[edge.to]\
+    \ = edge.id;\n        }\n      }\n      for (::std::size_t i = 0; i + 1 < this->size();\
+    \ ++i) {\n        for (const auto& edge : this->m_edges) {\n          if (dist[edge.from]\
+    \ < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from]\
+    \ + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0))) {\n\
+    \            prev[edge.to] = edge.id;\n          }\n        }\n      }\n\n   \
+    \   return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_BELLMAN_FORD_HPP\n#define TOOLS_BELLMAN_FORD_HPP\n\n#include\
-    \ <cstddef>\n#include <vector>\n#include <limits>\n#include <cassert>\n#include\
-    \ \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  class\
-    \ bellman_ford {\n  private:\n    class edge {\n    public:\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T distance;\n      edge(const ::std::size_t&\
-    \ from, const ::std::size_t& to, const T& distance) :\n        from(from),\n \
-    \       to(to),\n        distance(distance) {\n      }\n    };\n\n    ::std::size_t\
-    \ m_node_count;\n    ::std::vector<edge> m_edges;\n\n  public:\n    constexpr\
-    \ inline static T POS_INF = ::std::numeric_limits<T>::max();\n    constexpr inline\
-    \ static T NEG_INF = ::std::numeric_limits<T>::min();\n    constexpr inline static\
-    \ ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    class\
-    \ result {\n    public:\n      ::std::vector<T> distances;\n      ::std::vector<::std::size_t>\
-    \ prev_nodes;\n      result(const ::std::size_t& node_count) :\n        distances(node_count,\
-    \ POS_INF),\n        prev_nodes(node_count, NONE) {\n      }\n    };\n\n    explicit\
-    \ bellman_ford(const ::std::size_t& node_count) :\n      m_node_count(node_count),\n\
-    \      m_edges() {\n    }\n\n    ::std::size_t node_count() const {\n      return\
-    \ this->m_node_count;\n    }\n\n    void add_edge(const ::std::size_t& from, const\
-    \ ::std::size_t& to, const T& distance) {\n      this->m_edges.emplace_back(from,\
-    \ to, distance);\n    }\n\n    result query(const ::std::size_t& start_node) const\
-    \ {\n      assert(start_node < this->m_node_count);\n      result result(this->m_node_count);\n\
-    \      result.distances[start_node] = 0;\n      for (::std::size_t i = 0; i <\
-    \ this->m_node_count - 1; ++i) {\n        for (const edge& edge : this->m_edges)\
-    \ {\n          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to],\
-    \ result.distances[edge.from] + edge.distance)) {\n            result.prev_nodes[edge.to]\
-    \ = edge.from;\n          }\n        }\n      }\n      for (const edge& edge :\
-    \ this->m_edges) {\n        if (result.distances[edge.from] < POS_INF && result.distances[edge.from]\
-    \ + (result.distances[edge.from] > NEG_INF ? edge.distance : 0) < result.distances[edge.to])\
-    \ {\n          result.distances[edge.to] = NEG_INF;\n          result.prev_nodes[edge.to]\
-    \ = edge.from;\n        }\n      }\n      for (::std::size_t i = 0; i < this->m_node_count;\
-    \ ++i) {\n        for (const edge& edge : this->m_edges) {\n          if (result.distances[edge.from]\
-    \ < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from]\
-    \ + (result.distances[edge.from] > NEG_INF ? edge.distance : 0))) {\n        \
-    \    result.prev_nodes[edge.to] = edge.from;\n          }\n        }\n      }\n\
-    \      return result;\n    }\n  };\n}\n\n#endif\n"
+    \ <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n#include\
+    \ <limits>\n#include \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  class bellman_ford {\n  public:\n    struct edge {\n      ::std::size_t\
+    \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
+    \ };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge> m_edges;\n\
+    \n  public:\n    bellman_ford() = default;\n    bellman_ford(const ::tools::bellman_ford<T>&)\
+    \ = default;\n    bellman_ford(::tools::bellman_ford<T>&&) = default;\n    ~bellman_ford()\
+    \ = default;\n    ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&)\
+    \ = default;\n    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&)\
+    \ = default;\n\n    bellman_ford(const ::std::size_t n) : m_size(n) {\n    }\n\
+    \n    ::std::size_t size() const {\n      return this->m_size;\n    }\n\n    ::std::size_t\
+    \ add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {\n     \
+    \ assert(u < this->size());\n      assert(v < this->size());\n      this->m_edges.push_back(edge({this->m_edges.size(),\
+    \ u, v, w}));\n      return this->m_edges.size() - 1;\n    }\n\n    const edge&\
+    \ get_edge(const ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n\
+    \      return this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges()\
+    \ const {\n      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>,\
+    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) {\n      assert(s\
+    \ < this->size());\n\n      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n\
+    \      dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n\
+    \      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\n      for (::std::size_t\
+    \ i = 0; i + 1 < this->size(); ++i) {\n        for (const auto& edge : this->m_edges)\
+    \ {\n          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to],\
+    \ dist[edge.from] + edge.cost)) {\n            prev[edge.to] = edge.id;\n    \
+    \      }\n        }\n      }\n      for (const auto& edge : this->m_edges) {\n\
+    \        if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from]\
+    \ + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0) < dist[edge.to])\
+    \ {\n          dist[edge.to] = ::std::numeric_limits<T>::min();\n          prev[edge.to]\
+    \ = edge.id;\n        }\n      }\n      for (::std::size_t i = 0; i + 1 < this->size();\
+    \ ++i) {\n        for (const auto& edge : this->m_edges) {\n          if (dist[edge.from]\
+    \ < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from]\
+    \ + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0))) {\n\
+    \            prev[edge.to] = edge.id;\n          }\n        }\n      }\n\n   \
+    \   return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/chmin.hpp
   isVerificationFile: false
   path: tools/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2021-07-22 15:31:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-07-16 04:36:47+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/bellman_ford.test.cpp
 documentation_of: tools/bellman_ford.hpp
@@ -101,16 +104,6 @@ title: Bellman-Ford algorithm
 It solves the single source shortest path problem on a given graph which is not necessarily simple.
 The graph can have negative cycles.
 
-### Usage
-```cpp
-tools::bellman_ford<int> bf(node_count);
-bf.add_edge(from_node, to_node, cost);
-const tools::bellman_ford<int>::result result = bf.query(start_node);
-for (const int& distance : result.distances) {
-  // ...
-}
-```
-
 ### License
 - CC0
 
@@ -119,44 +112,89 @@ for (const int& distance : result.distances) {
 
 ## Constructor
 ```cpp
-bellman_ford<T> bf(::std::size_t n);
+bellman_ford<T> graph(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
-The type parameter `<T>` represents the type of the weight of edges.
+The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
-- $n \geq 1$
+- None
 
 ### Time Complexity
 - $O(n)$
 
-## add_edge
+## size
 ```cpp
-void bf.add_edge(::std::size_t s, ::std::size_t t, T w);
+std::size_t graph.size();
 ```
 
-It adds a edge from $s$ to $t$ with the weight `w`.
+It returns $n$.
 
 ### Constraints
-- $0 \leq s < n$
-- $0 \leq t < n$
+- None
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$
+
+## add_edge
+```cpp
+std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+```
+
+It adds an edge oriented from $u$ to $v$ with cost `w`.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
+
+### Constraints
+- $0 \leq u < n$
+- $0 \leq v < n$
+
+### Time Complexity
+- $O(1)$ amortized
+
+## get_edge
+```cpp
+struct edge {
+  std::size_t id;
+  std::size_t from;
+  std::size_t to;
+  T cost;
+};
+edge graph.get_edge(std::size_t k);
+```
+
+It returns the $k$-th edge.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## edges
+```cpp
+std::vector<edge> graph.edges();
+```
+
+It returns all the edges in the graph.
+The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## query
 ```cpp
-struct {
-  ::std::vector<T> distances;
-  ::std::vector<::std::size_t> prev_nodes;
-} bf.query(::std::size_t s);
+std::pair<std::vector<T>, std::vector<std::size_t>> graph.query(std::size_t s);
 ```
 
 It solves the single source shortest path problem on the graph.
-`distances[t]` represents the distance from $s$ to $t$.
-`prev_nodes[t]` represents the previous vertex on the shortest path from $s$ to $t$.
-`prev_nodes[s]` will be `std::numeric_limits<std::size_t>::max()` instead of the previous vertex since the previous vertex of $s$ does not exist.
+It returns two vectors `dist` and `prev`.
+`dist[t]` represents the smallest value as the sum of the costs of the edges that make up the path from $s$ to $t$.
+`prev[t]` represents the index of the edge from the parent of $t$ to $t$ in the shortest path tree rooted at $s$.
+Because `s` has no parent, `prev[s]` will be `std::numeric_limits<std::size_t>::max()` instead of a valid value.
 
 ### Constraints
 - $0 \leq s < n$

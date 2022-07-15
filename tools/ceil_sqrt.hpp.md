@@ -48,8 +48,8 @@ data:
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/ceil_kth_root.test.cpp
   - tests/ceil_sqrt.test.cpp
+  - tests/ceil_kth_root.test.cpp
 documentation_of: tools/ceil_sqrt.hpp
 layout: document
 title: $\left\lceil \sqrt{x} \right\rceil$
