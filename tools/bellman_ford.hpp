@@ -3,83 +3,88 @@
 
 #include <cstddef>
 #include <vector>
-#include <limits>
 #include <cassert>
+#include <utility>
+#include <limits>
 #include "tools/chmin.hpp"
 
 namespace tools {
 
   template <typename T>
   class bellman_ford {
-  private:
-    class edge {
-    public:
+  public:
+    struct edge {
+      ::std::size_t id;
       ::std::size_t from;
       ::std::size_t to;
-      T distance;
-      edge(const ::std::size_t& from, const ::std::size_t& to, const T& distance) :
-        from(from),
-        to(to),
-        distance(distance) {
-      }
+      T cost;
     };
 
-    ::std::size_t m_node_count;
+  private:
+    ::std::size_t m_size;
     ::std::vector<edge> m_edges;
 
   public:
-    constexpr inline static T POS_INF = ::std::numeric_limits<T>::max();
-    constexpr inline static T NEG_INF = ::std::numeric_limits<T>::min();
-    constexpr inline static ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();
+    bellman_ford() = default;
+    bellman_ford(const ::tools::bellman_ford<T>&) = default;
+    bellman_ford(::tools::bellman_ford<T>&&) = default;
+    ~bellman_ford() = default;
+    ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&) = default;
+    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&) = default;
 
-    class result {
-    public:
-      ::std::vector<T> distances;
-      ::std::vector<::std::size_t> prev_nodes;
-      result(const ::std::size_t& node_count) :
-        distances(node_count, POS_INF),
-        prev_nodes(node_count, NONE) {
-      }
-    };
-
-    explicit bellman_ford(const ::std::size_t& node_count) :
-      m_node_count(node_count),
-      m_edges() {
+    bellman_ford(const ::std::size_t n) : m_size(n) {
     }
 
-    ::std::size_t node_count() const {
-      return this->m_node_count;
+    ::std::size_t size() const {
+      return this->m_size;
     }
 
-    void add_edge(const ::std::size_t& from, const ::std::size_t& to, const T& distance) {
-      this->m_edges.emplace_back(from, to, distance);
+    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
+      assert(u < this->size());
+      assert(v < this->size());
+      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+      return this->m_edges.size() - 1;
     }
 
-    result query(const ::std::size_t& start_node) const {
-      assert(start_node < this->m_node_count);
-      result result(this->m_node_count);
-      result.distances[start_node] = 0;
-      for (::std::size_t i = 0; i < this->m_node_count - 1; ++i) {
-        for (const edge& edge : this->m_edges) {
-          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from] + edge.distance)) {
-            result.prev_nodes[edge.to] = edge.from;
+    const edge& get_edge(const ::std::size_t k) const {
+      assert(k < this->m_edges.size());
+      return this->m_edges[k];
+    }
+
+    const ::std::vector<edge>& edges() const {
+      return this->m_edges;
+    }
+
+    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) {
+      assert(s < this->size());
+
+      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      dist[s] = 0;
+      ::std::vector<::std::size_t> prev(this->size());
+      prev[s] = ::std::numeric_limits<::std::size_t>::max();
+
+      for (::std::size_t i = 0; i + 1 < this->size(); ++i) {
+        for (const auto& edge : this->m_edges) {
+          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {
+            prev[edge.to] = edge.id;
           }
         }
       }
-      for (const edge& edge : this->m_edges) {
-        if (result.distances[edge.from] < POS_INF && result.distances[edge.from] + (result.distances[edge.from] > NEG_INF ? edge.distance : 0) < result.distances[edge.to]) {
-          result.distances[edge.to] = NEG_INF;
-          result.prev_nodes[edge.to] = edge.from;
+      for (const auto& edge : this->m_edges) {
+        if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0) < dist[edge.to]) {
+          dist[edge.to] = ::std::numeric_limits<T>::min();
+          prev[edge.to] = edge.id;
         }
       }
-      for (::std::size_t i = 0; i < this->m_node_count; ++i) {
-        for (const edge& edge : this->m_edges) {
-          if (result.distances[edge.from] < POS_INF && ::tools::chmin(result.distances[edge.to], result.distances[edge.from] + (result.distances[edge.from] > NEG_INF ? edge.distance : 0))) {
-            result.prev_nodes[edge.to] = edge.from;
+      for (::std::size_t i = 0; i + 1 < this->size(); ++i) {
+        for (const auto& edge : this->m_edges) {
+          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0))) {
+            prev[edge.to] = edge.id;
           }
         }
       }
-      return result;
+
+      return ::std::make_pair(dist, prev);
     }
   };
 }

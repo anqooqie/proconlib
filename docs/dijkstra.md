@@ -4,17 +4,7 @@ documentation_of: //tools/dijkstra.hpp
 ---
 
 It solves the single source shortest path problem on a given graph which is not necessarily simple.
-All the edges must have the non-nagative weight.
-
-### Usage
-```cpp
-tools::dijkstra<int> dijkstra(node_count);
-dijkstra.add_edge(from_node, to_node, cost);
-const tools::dijkstra<int>::result result = dijkstra.query(start_node);
-for (const int& distance : result.distances) {
-  // ...
-}
-```
+All the edges must have non-nagative costs.
 
 ### License
 - CC0
@@ -24,45 +14,90 @@ for (const int& distance : result.distances) {
 
 ## Constructor
 ```cpp
-dijkstra<T> dijkstra(::std::size_t n);
+dijkstra<T> graph(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
-The type parameter `<T>` represents the type of the weight of edges.
+The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
-- $n \geq 1$
+- None
 
 ### Time Complexity
 - $O(n)$
 
-## add_edge
+## size
 ```cpp
-void dijkstra.add_edge(::std::size_t s, ::std::size_t t, T w);
+std::size_t graph.size();
 ```
 
-It adds a edge from $s$ to $t$ with the weight `w`.
+It returns $n$.
 
 ### Constraints
-- $0 \leq s < n$
-- $0 \leq t < n$
+- None
+
+### Time Complexity
+- $O(1)$
+
+## add_edge
+```cpp
+std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+```
+
+It adds an edge oriented from $u$ to $v$ with cost `w`.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
+
+### Constraints
+- $0 \leq u < n$
+- $0 \leq v < n$
 - $w \geq 0$
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$ amortized
+
+## get_edge
+```cpp
+struct edge {
+  std::size_t id;
+  std::size_t from;
+  std::size_t to;
+  T cost;
+};
+edge graph.get_edge(std::size_t k);
+```
+
+It returns the $k$-th edge.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## edges
+```cpp
+std::vector<edge> graph.edges();
+```
+
+It returns all the edges in the graph.
+The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## query
 ```cpp
-struct {
-  ::std::vector<T> distances;
-  ::std::vector<::std::size_t> prev_nodes;
-} dijkstra.query(::std::size_t s);
+std::pair<std::vector<T>, std::vector<std::size_t>> graph.query(std::size_t s);
 ```
 
 It solves the single source shortest path problem on the graph.
-`distances[t]` represents the distance from $s$ to $t$.
-`prev_nodes[t]` represents the previous vertex on the shortest path from $s$ to $t$.
-`prev_nodes[s]` will be `std::numeric_limits<std::size_t>::max()` instead of the previous vertex since the previous vertex of $s$ does not exist.
+It returns two vectors `dist` and `prev`.
+`dist[t]` represents the smallest value as the sum of the costs of the edges that make up the path from $s$ to $t$.
+`prev[t]` represents the index of the edge from the parent of $t$ to $t$ in the shortest path tree rooted at $s$.
+Because `s` has no parent, `prev[s]` will be `std::numeric_limits<std::size_t>::max()` instead of a valid value.
 
 ### Constraints
 - $0 \leq s < n$

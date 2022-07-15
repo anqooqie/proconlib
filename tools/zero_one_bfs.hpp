@@ -3,86 +3,89 @@
 
 #include <cstddef>
 #include <vector>
-#include <limits>
 #include <cassert>
+#include <utility>
+#include <limits>
 #include <deque>
+#include "tools/chmin.hpp"
 
 namespace tools {
 
   template <typename T>
   class zero_one_bfs {
-  private:
-    class edge {
-    public:
+  public:
+    struct edge {
+      ::std::size_t id;
       ::std::size_t from;
       ::std::size_t to;
-      T distance;
-      edge(const ::std::size_t from, const ::std::size_t to, const T distance) :
-        from(from),
-        to(to),
-        distance(distance) {
-      }
+      T cost;
     };
 
-    ::std::vector<::std::vector<edge>> edges;
+  private:
+    ::std::vector<edge> m_edges;
+    ::std::vector<::std::vector<::std::size_t>> m_graph;
 
   public:
-    static constexpr T INF = ::std::numeric_limits<T>::max();
-    static constexpr ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();
+    zero_one_bfs() = default;
+    zero_one_bfs(const ::tools::zero_one_bfs<T>&) = default;
+    zero_one_bfs(::tools::zero_one_bfs<T>&&) = default;
+    ~zero_one_bfs() = default;
+    ::tools::zero_one_bfs<T>& operator=(const ::tools::zero_one_bfs<T>&) = default;
+    ::tools::zero_one_bfs<T>& operator=(::tools::zero_one_bfs<T>&&) = default;
 
-    class result {
-    public:
-      ::std::vector<T> distances;
-      ::std::vector<::std::size_t> prev_nodes;
-      result(const ::std::size_t& node_count, const ::std::size_t& start_node) :
-        distances(node_count, INF),
-        prev_nodes(node_count, NONE) {
-        this->distances[start_node] = 0;
-      }
-    };
-
-    zero_one_bfs(const ::std::size_t& node_count) :
-      edges(node_count) {
+    zero_one_bfs(const ::std::size_t n) : m_graph(n) {
     }
 
-    ::std::size_t node_count() const {
-      return this->edges.size();
+    ::std::size_t size() const {
+      return this->m_graph.size();
     }
 
-    void add_edge(const ::std::size_t& from, const ::std::size_t& to, const T& distance) {
-      assert(distance == 0 || distance == 1);
-
-      this->edges[from].emplace_back(from, to, distance);
+    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
+      assert(u < this->size());
+      assert(v < this->size());
+      assert(w == 0 || w == 1);
+      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+      this->m_graph[u].push_back(this->m_edges.size() - 1);
+      return this->m_edges.size() - 1;
     }
 
-    result query(const ::std::size_t& start_node) const {
-      assert(start_node < this->node_count());
+    const edge& get_edge(const ::std::size_t k) const {
+      assert(k < this->m_edges.size());
+      return this->m_edges[k];
+    }
 
-      result result(this->node_count(), start_node);
-      ::std::vector<bool> visited(this->node_count(), false);
-      ::std::deque<::std::size_t> deque;
-      deque.push_front(start_node);
+    const ::std::vector<edge>& edges() const {
+      return this->m_edges;
+    }
+
+    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) {
+      assert(s < this->size());
+
+      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      dist[s] = 0;
+      ::std::vector<::std::size_t> prev(this->size());
+      prev[s] = ::std::numeric_limits<::std::size_t>::max();
+      ::std::deque<::std::pair<::std::size_t, T>> deque;
+      deque.emplace_front(s, 0);
 
       while (!deque.empty()) {
-        const ::std::size_t vertex = deque.front();
+        const auto [here, d] = deque.front();
         deque.pop_front();
-        if (visited[vertex]) continue;
-        visited[vertex] = true;
-        for (const edge& edge : this->edges[vertex]) {
-          const T new_distance = result.distances[vertex] + edge.distance;
-          if (new_distance < result.distances[edge.to]) {
-            result.distances[edge.to] = new_distance;
-            result.prev_nodes[edge.to] = edge.from;
-            if (edge.distance == 0) {
-              deque.push_front(edge.to);
+        if (dist[here] < d) continue;
+        for (const auto edge_id : this->m_graph[here]) {
+          const auto& edge = this->m_edges[edge_id];
+          if (::tools::chmin(dist[edge.to], dist[here] + edge.cost)) {
+            prev[edge.to] = edge.id;
+            if (edge.cost == 0) {
+              deque.emplace_front(edge.to, dist[edge.to]);
             } else {
-              deque.push_back(edge.to);
+              deque.emplace_back(edge.to, dist[edge.to]);
             }
           }
         }
       }
 
-      return result;
+      return ::std::make_pair(dist, prev);
     }
   };
 }

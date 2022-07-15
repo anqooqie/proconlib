@@ -3,9 +3,9 @@
 
 #include <cstddef>
 #include <vector>
-#include <limits>
 #include <cassert>
-#include <functional>
+#include <utility>
+#include <limits>
 #include <queue>
 #include "tools/greater_by_second.hpp"
 #include "tools/chmin.hpp"
@@ -14,68 +14,75 @@ namespace tools {
 
   template <typename T>
   class dijkstra {
-  private:
-    class edge {
-    public:
+  public:
+    struct edge {
+      ::std::size_t id;
       ::std::size_t from;
       ::std::size_t to;
-      T distance;
-      edge(const ::std::size_t from, const ::std::size_t to, const T distance) :
-        from(from),
-        to(to),
-        distance(distance) {
-      }
+      T cost;
     };
 
-    ::std::vector<::std::vector<edge>> edges;
+  private:
+    ::std::vector<edge> m_edges;
+    ::std::vector<::std::vector<::std::size_t>> m_graph;
 
   public:
-    static constexpr T INF = ::std::numeric_limits<T>::max();
-    static constexpr ::std::size_t NONE = ::std::numeric_limits<::std::size_t>::max();
+    dijkstra() = default;
+    dijkstra(const ::tools::dijkstra<T>&) = default;
+    dijkstra(::tools::dijkstra<T>&&) = default;
+    ~dijkstra() = default;
+    ::tools::dijkstra<T>& operator=(const ::tools::dijkstra<T>&) = default;
+    ::tools::dijkstra<T>& operator=(::tools::dijkstra<T>&&) = default;
 
-    class result {
-    public:
-      ::std::vector<T> distances;
-      ::std::vector<::std::size_t> prev_nodes;
-      result(const ::std::size_t& node_count, const ::std::size_t& start_node) :
-        distances(node_count, INF),
-        prev_nodes(node_count, NONE) {
-        this->distances[start_node] = 0;
-      }
-    };
-
-    dijkstra(const ::std::size_t& node_count) :
-      edges(node_count) {
+    dijkstra(const ::std::size_t n) : m_graph(n) {
     }
 
-    ::std::size_t node_count() const {
-      return this->edges.size();
+    ::std::size_t size() const {
+      return this->m_graph.size();
     }
 
-    void add_edge(const ::std::size_t& from, const ::std::size_t& to, const T& distance) {
-      this->edges[from].emplace_back(from, to, distance);
+    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
+      assert(u < this->size());
+      assert(v < this->size());
+      assert(w >= 0);
+      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+      this->m_graph[u].push_back(this->m_edges.size() - 1);
+      return this->m_edges.size() - 1;
     }
 
-    result query(const ::std::size_t& start_node) const {
-      assert(start_node < this->node_count());
+    const edge& get_edge(const ::std::size_t k) const {
+      assert(k < this->m_edges.size());
+      return this->m_edges[k];
+    }
 
-      result result(this->node_count(), start_node);
-      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t, T>>, ::tools::greater_by_second> tasks;
-      tasks.emplace(start_node, 0);
+    const ::std::vector<edge>& edges() const {
+      return this->m_edges;
+    }
 
-      while (!tasks.empty()) {
-        const auto [here, d] = tasks.top();
-        tasks.pop();
-        if (result.distances[here] < d) continue;
-        for (const edge& edge : this->edges[here]) {
-          if (::tools::chmin(result.distances[edge.to], result.distances[here] + edge.distance)) {
-            result.prev_nodes[edge.to] = edge.from;
-            tasks.emplace(edge.to, result.distances[edge.to]);
+    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) {
+      assert(s < this->size());
+
+      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      dist[s] = 0;
+      ::std::vector<::std::size_t> prev(this->size());
+      prev[s] = ::std::numeric_limits<::std::size_t>::max();
+      ::std::priority_queue<::std::pair<::std::size_t, T>, ::std::vector<::std::pair<::std::size_t, T>>, ::tools::greater_by_second> pq;
+      pq.emplace(s, 0);
+
+      while (!pq.empty()) {
+        const auto [here, d] = pq.top();
+        pq.pop();
+        if (dist[here] < d) continue;
+        for (const auto edge_id : this->m_graph[here]) {
+          const auto& edge = this->m_edges[edge_id];
+          if (::tools::chmin(dist[edge.to], dist[here] + edge.cost)) {
+            prev[edge.to] = edge.id;
+            pq.emplace(edge.to, dist[edge.to]);
           }
         }
       }
 
-      return result;
+      return ::std::make_pair(dist, prev);
     }
   };
 }

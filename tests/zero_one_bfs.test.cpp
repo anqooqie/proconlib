@@ -20,12 +20,12 @@ int main() {
     i64 A, B, C, D;
     std::cin >> A >> B >> C >> D;
     --A, --B;
-    tools::zero_one_bfs<i64> bfs(100 * 100);
+    tools::zero_one_bfs<i64> graph(100 * 100);
     for (i64 x = 0; x < 100; ++x) {
       for (i64 y = 0; y < 100; ++y) {
         for (const auto& [dx, dy] : std::array<std::pair<i64, i64>, 4>({std::make_pair(1, 0), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(0, -1)})) {
           if (0 <= x + dx && x + dx < 100 && 0 <= y + dy && y + dy < 100) {
-            bfs.add_edge(P(x, y), P(x + dx, y + dy), A <= x + dx && x + dx < C && B <= y + dy && y + dy < D ? 0 : 1);
+            graph.add_edge(P(x, y), P(x + dx, y + dy), A <= x + dx && x + dx < C && B <= y + dy && y + dy < D ? 0 : 1);
           }
         }
       }
@@ -39,7 +39,7 @@ int main() {
       i64 X, Y;
       std::cin >> X >> Y;
       --X, --Y;
-      answer += bfs.query(P(pX, pY)).distances[P(X, Y)];
+      answer += graph.query(P(pX, pY)).first[P(X, Y)];
       std::tie(pX, pY) = std::make_pair(X, Y);
     }
 
