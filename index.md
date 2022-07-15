@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
@@ -51,7 +51,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -441,7 +441,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/alphabetical_order.test.cpp
       title: tests/alphabetical_order.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp
     - icon: ':heavy_check_mark:'
