@@ -11,7 +11,7 @@ namespace tools {
     if (b.outer_product(c) > 0) return +1;
     if (b.outer_product(c) < 0) return -1;
     if (b.inner_product(c) < 0) return +2;
-    if (b.squared_norm() < c.squared_norm()) return -2;
+    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;
     return 0;
   }
 }

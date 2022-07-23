@@ -23,7 +23,7 @@ int main() {
   for (auto& v_i : v) std::cin >> v_i;
 
   if (N == 2) {
-    std::cout << std::fixed << std::setprecision(18) << (v[1] - v[0]).norm() / 2.0 << '\n';
+    std::cout << std::fixed << std::setprecision(18) << (v[1] - v[0]).l2_norm() / 2.0 << '\n';
     return 0;
   }
 
@@ -31,7 +31,7 @@ int main() {
   tools::convex_hull(v.begin(), v.end(), true, std::back_inserter(convex_hull));
 
   if (convex_hull.size() == 2) {
-    std::cout << std::fixed << std::setprecision(18) << (v[convex_hull[1]] - v[convex_hull[0]]).norm() / 2.0 << '\n';
+    std::cout << std::fixed << std::setprecision(18) << (v[convex_hull[1]] - v[convex_hull[0]]).l2_norm() / 2.0 << '\n';
     return 0;
   }
 

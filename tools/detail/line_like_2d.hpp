@@ -247,7 +247,7 @@ namespace tools {
 
   template <typename T>
   ::std::conditional_t<::std::is_floating_point_v<T>, T, double> directed_line_segment_2d<T>::length() const {
-    return this->to_vector().norm();
+    return this->to_vector().l2_norm();
   }
 
   template <typename T> template <typename U>
@@ -285,12 +285,12 @@ namespace tools {
   directed_line_segment_2d<T>::squared_distance(const ::tools::vector2<T>& p) const {
     auto x = this->to_line().projection(p);
     const auto d = this->to_vector().inner_product(x - this->m_p1);
-    return (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_norm();
+    return (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_l2_norm();
   }
 
   template <typename T>
   T directed_line_segment_2d<T>::squared_length() const {
-    return this->to_vector().squared_norm();
+    return this->to_vector().squared_l2_norm();
   }
 
   template <typename T>

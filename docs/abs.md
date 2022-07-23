@@ -13,11 +13,11 @@ template <typename T>
 auto abs(T x) -> decltype(x.abs());
 ```
 
-It returns `std::abs(x)` if `std::abs(x)` is available.
-In addition, it returns `x.abs()` if `x.abs()` is available.
+If `std::abs(x)` is available, it returns `std::abs(x)`.
+If `x.abs()` is available, it returns `x.abs()`.
 
 ## Constraints
-- `std::abs(x)` or `x.abs()` is available
+- Either `std::abs(x)` or `x.abs()` is available.
 
 ## Time Complexity
 - (1)

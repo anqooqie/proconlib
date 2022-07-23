@@ -66,7 +66,7 @@ namespace tools {
       b -= this->o;
       if (const auto wa = this->where(a), wb = this->where(b); wa != wb) return wa < wb;
       if (const auto ot = a.outer_product(b); ot != T(0)) return ot > T(0);
-      return a.squared_norm() < b.squared_norm();
+      return a.squared_l2_norm() < b.squared_l2_norm();
     }
   };
 }

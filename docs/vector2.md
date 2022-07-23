@@ -44,12 +44,12 @@ T v.y;
 
 It is the y-coordinate of the vector.
 
-## norm
+## l1_norm
 ```cpp
-std::conditional_t<::std::is_floating_point_v<T>, T, double> v.norm();
+T v.l1_norm();
 ```
 
-It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.
+It returns $\left\\|\overrightarrow{v}\right\\|_1 = \|x\| + \|y\|$.
 
 ### Constraints
 - None
@@ -57,9 +57,22 @@ It returns $\left\|\overrightarrow{v}\right\| = \sqrt{x^2 + y^2}$.
 ### Time Complexity
 - $O(1)$
 
-## squared_norm
+## l2_norm
 ```cpp
-T v.squared_norm();
+std::conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
+```
+
+It returns $\left\\|\overrightarrow{v}\right\\|_2 = \sqrt{x^2 + y^2}$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## squared_l2_norm
+```cpp
+T v.squared_l2_norm();
 ```
 
 It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
@@ -75,7 +88,7 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
 vector2<T> v.normalized();
 ```
 
-It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
+It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
 - `std::is_floating_point_v<T>` is `true`

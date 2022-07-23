@@ -185,14 +185,14 @@ namespace tools {
     const auto& A = this->m_points[0];
     const auto& B = this->m_points[1];
     const auto& C = this->m_points[2];
-    const auto a2 = (C - B).squared_norm();
-    const auto b2 = (A - C).squared_norm();
-    const auto c2 = (B - A).squared_norm();
+    const auto a2 = (C - B).squared_l2_norm();
+    const auto b2 = (A - C).squared_l2_norm();
+    const auto c2 = (B - A).squared_l2_norm();
     const auto kA = a2 * (b2 + c2 - a2);
     const auto kB = b2 * (c2 + a2 - b2);
     const auto kC = c2 * (a2 + b2 - c2);
     const auto circumcenter = (kA * A + kB * B + kC * C) / (kA + kB + kC);
-    return ::std::make_pair(circumcenter, (circumcenter - A).squared_norm());
+    return ::std::make_pair(circumcenter, (circumcenter - A).squared_l2_norm());
   }
 
   template <typename T> template <typename U>
@@ -201,7 +201,7 @@ namespace tools {
     this->sorted_edges(edges.begin());
     if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length()) {
       const auto center = edges[2].midpoint();
-      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());
+      return ::std::make_pair(center, (center - edges[2].p1()).squared_l2_norm());
     } else {
       return this->circumcircle();
     }

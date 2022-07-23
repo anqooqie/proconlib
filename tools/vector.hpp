@@ -1,18 +1,20 @@
 #ifndef TOOLS_VECTOR_HPP
 #define TOOLS_VECTOR_HPP
 
+#include <type_traits>
 #include <vector>
 #include <cstddef>
-#include <type_traits>
 #include <cmath>
 #include <cassert>
 #include <iostream>
 #include <string>
+#include "tools/abs.hpp"
 
 namespace tools {
   template <typename T>
   class vector {
   private:
+    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
     ::std::vector<T> m_values;
 
   public:
@@ -39,15 +41,18 @@ namespace tools {
       return this->m_values.size();
     }
 
-    double norm() const {
-      return ::std::sqrt(static_cast<double>(this->squared_norm()));
+    T l1_norm() const {
+      return ::std::accumulate(this->m_values.begin(), this->m_values.end(), T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });
     }
-    T squared_norm() const {
+    F l2_norm() const {
+      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));
+    }
+    T squared_l2_norm() const {
       return this->inner_product(*this);
     }
-    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T, double>::value, ::std::nullptr_t>::type = nullptr>
-    ::tools::vector<double> normalized() const {
-      return *this / this->norm();
+    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>, ::std::nullptr_t> = nullptr>
+    ::tools::vector<T> normalized() const {
+      return *this / this->l2_norm();
     }
 
     T inner_product(const ::tools::vector<T>& other) const {

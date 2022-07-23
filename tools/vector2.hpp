@@ -1,12 +1,13 @@
 #ifndef TOOLS_VECTOR2_HPP
 #define TOOLS_VECTOR2_HPP
 
-#include <cmath>
 #include <type_traits>
+#include <cmath>
 #include <cstddef>
 #include <array>
 #include <iostream>
 #include <functional>
+#include "tools/abs.hpp"
 #include "tools/pair_hash.hpp"
 
 namespace tools {
@@ -29,17 +30,21 @@ namespace tools {
       y(y) {
     }
 
-    F norm() const {
-      return ::std::sqrt(static_cast<F>(this->squared_norm()));
+    T l1_norm() const {
+      return ::tools::abs(this->x) + ::tools::abs(this->y);
     }
 
-    T squared_norm() const {
+    F l2_norm() const {
+      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));
+    }
+
+    T squared_l2_norm() const {
       return this->inner_product(*this);
     }
 
     template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>, ::std::nullptr_t> = nullptr>
     ::tools::vector2<T> normalized() const {
-      return *this / this->norm();
+      return *this / this->l2_norm();
     }
 
     ::tools::vector2<T> turn90() const {

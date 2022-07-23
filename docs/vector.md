@@ -56,12 +56,12 @@ It returns the dimension of the vector.
 ### Time Complexity
 - $O(1)$
 
-## norm
+## l1_norm
 ```cpp
-double v.norm();
+T v.l1_norm();
 ```
 
-It returns $\left\|\overrightarrow{v}\right\|$.
+It returns $\left\\|\overrightarrow{v}\right\\|_1$.
 
 ### Constraints
 - None
@@ -69,12 +69,25 @@ It returns $\left\|\overrightarrow{v}\right\|$.
 ### Time Complexity
 - $O(n)$
 
-## squared_norm
+## l2_norm
 ```cpp
-T v.squared_norm();
+std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
 ```
 
-It returns $\left\|\overrightarrow{v}\right\|^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
+It returns $\left\\|\overrightarrow{v}\right\\|_2$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$
+
+## squared_l2_norm
+```cpp
+T v.squared_l2_norm();
+```
+
+It returns $\left\\|\overrightarrow{v}\right\\|_2^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
 
 ### Constraints
 - None
@@ -84,13 +97,13 @@ It returns $\left\|\overrightarrow{v}\right\|^2 = \overrightarrow{v} \cdot \over
 
 ## normalized
 ```cpp
-vector<double> v.normalized();
+vector<T> v.normalized();
 ```
 
-It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
+It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
-- `<T>` is `double`
+- `std::is_floating_point_v<T>` is `true`
 
 ### Time Complexity
 - $O(n)$
