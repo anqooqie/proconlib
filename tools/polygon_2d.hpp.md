@@ -107,16 +107,17 @@ data:
     \ ::std::int32_t>& key) const {\n      static const ::tools::pair_hash<::std::uint32_t,\
     \ ::std::uint32_t> hasher = ::tools::pair_hash<::std::uint32_t, ::std::uint32_t>();\n\
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
-    \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
+    \ key.second));\n    }\n  };\n}\n\n\n#line 12 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
     \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
-    \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
-    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \  T l1_norm() const {\n      return ::tools::abs(this->x) + ::tools::abs(this->y);\n\
+    \    }\n\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
+    \    }\n\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
     \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
-    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> turn90()\
+    \      return *this / this->l2_norm();\n    }\n\n    ::tools::vector2<T> turn90()\
     \ const {\n      return ::tools::vector2<T>(-this->y, this->x);\n    }\n\n   \
     \ ::tools::vector2<T> turn270() const {\n      return ::tools::vector2<T>(this->y,\
     \ -this->x);\n    }\n\n    ::tools::vector2<T> operator+() const {\n      return\
@@ -308,7 +309,7 @@ data:
     \ operator()(const ::tools::directed_line_segment_2d<T>&) {\n        return result_t();\n\
     \      }\n    } visitor;\n    return intersection ? ::std::visit(visitor, *intersection)\
     \ : ::std::nullopt;\n  }\n\n  template <typename T>\n  ::std::conditional_t<::std::is_floating_point_v<T>,\
-    \ T, double> directed_line_segment_2d<T>::length() const {\n    return this->to_vector().norm();\n\
+    \ T, double> directed_line_segment_2d<T>::length() const {\n    return this->to_vector().l2_norm();\n\
     \  }\n\n  template <typename T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U>\
     \ || ::std::is_floating_point_v<U>, ::tools::vector2<T>>\n  directed_line_segment_2d<T>::midpoint()\
     \ const {\n    return (this->m_p1 + this->m_p2) / T(2);\n  }\n\n  template <typename\
@@ -325,11 +326,11 @@ data:
     \ ::std::is_floating_point_v<U>, T>\n  directed_line_segment_2d<T>::squared_distance(const\
     \ ::tools::vector2<T>& p) const {\n    auto x = this->to_line().projection(p);\n\
     \    const auto d = this->to_vector().inner_product(x - this->m_p1);\n    return\
-    \ (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_norm();\n\
+    \ (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_l2_norm();\n\
     \  }\n\n  template <typename T>\n  T directed_line_segment_2d<T>::squared_length()\
-    \ const {\n    return this->to_vector().squared_norm();\n  }\n\n  template <typename\
-    \ T>\n  ::tools::half_line_2d<T> directed_line_segment_2d<T>::to_half_line() const\
-    \ {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
+    \ const {\n    return this->to_vector().squared_l2_norm();\n  }\n\n  template\
+    \ <typename T>\n  ::tools::half_line_2d<T> directed_line_segment_2d<T>::to_half_line()\
+    \ const {\n    return ::tools::half_line_2d<T>(this->m_p1, this->m_p2 - this->m_p1);\n\
     \  }\n\n  template <typename T>\n  ::tools::line_2d<T> directed_line_segment_2d<T>::to_line()\
     \ const {\n    return ::tools::line_2d<T>::through(this->m_p1, this->m_p2);\n\
     \  }\n\n  template <typename T>\n  ::tools::vector2<T> directed_line_segment_2d<T>::to_vector()\
@@ -605,18 +606,18 @@ data:
     \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
     \ ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::circumcircle()\
     \ const {\n    const auto& A = this->m_points[0];\n    const auto& B = this->m_points[1];\n\
-    \    const auto& C = this->m_points[2];\n    const auto a2 = (C - B).squared_norm();\n\
-    \    const auto b2 = (A - C).squared_norm();\n    const auto c2 = (B - A).squared_norm();\n\
+    \    const auto& C = this->m_points[2];\n    const auto a2 = (C - B).squared_l2_norm();\n\
+    \    const auto b2 = (A - C).squared_l2_norm();\n    const auto c2 = (B - A).squared_l2_norm();\n\
     \    const auto kA = a2 * (b2 + c2 - a2);\n    const auto kB = b2 * (c2 + a2 -\
     \ b2);\n    const auto kC = c2 * (a2 + b2 - c2);\n    const auto circumcenter\
     \ = (kA * A + kB * B + kC * C) / (kA + kB + kC);\n    return ::std::make_pair(circumcenter,\
-    \ (circumcenter - A).squared_norm());\n  }\n\n  template <typename T> template\
+    \ (circumcenter - A).squared_l2_norm());\n  }\n\n  template <typename T> template\
     \ <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
     \ ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::minimum_bounding_circle()\
     \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
     \    this->sorted_edges(edges.begin());\n    if (edges[0].squared_length() + edges[1].squared_length()\
     \ <= edges[2].squared_length()) {\n      const auto center = edges[2].midpoint();\n\
-    \      return ::std::make_pair(center, (center - edges[2].p1()).squared_norm());\n\
+    \      return ::std::make_pair(center, (center - edges[2].p1()).squared_l2_norm());\n\
     \    } else {\n      return this->circumcircle();\n    }\n  }\n\n  template <typename\
     \ T>\n  int triangle_2d<T>::type() const {\n    ::std::array<::tools::directed_line_segment_2d<T>,\
     \ 3> edges;\n    this->sorted_edges(edges.begin());\n    const auto c2 = edges[2].squared_length();\n\
@@ -649,12 +650,12 @@ data:
   isVerificationFile: false
   path: tools/polygon_2d.hpp
   requiredBy: []
-  timestamp: '2022-02-19 03:37:47+09:00'
+  timestamp: '2022-07-23 13:26:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
 documentation_of: tools/polygon_2d.hpp
 layout: document
 title: Two-dimensional polygon

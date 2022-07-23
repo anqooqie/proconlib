@@ -215,8 +215,8 @@ data:
   timestamp: '2021-12-02 21:46:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/binary_heap.test.cpp
   - tests/ssize.test.cpp
+  - tests/binary_heap.test.cpp
 documentation_of: tools/binary_heap.hpp
 layout: document
 title: Binary heap

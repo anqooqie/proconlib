@@ -303,9 +303,9 @@ data:
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/rotate_left.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/rotate_right.test.cpp
-  - tests/rotate_left.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
 title: std::bitset with dynamic size

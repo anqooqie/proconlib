@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: tools/abs.hpp
+    title: Unified interface for std::abs(x) and x.abs()
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
@@ -23,45 +26,51 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
-    #include <type_traits>\n#include <cmath>\n#include <cassert>\n#include <iostream>\n\
-    #include <string>\n\nnamespace tools {\n  template <typename T>\n  class vector\
-    \ {\n  private:\n    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n\
-    \    vector(const ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&)\
-    \ = default;\n    ~vector() = default;\n    ::tools::vector<T>& operator=(const\
-    \ ::tools::vector<T>&) = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&)\
-    \ = default;\n\n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
+  bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <type_traits>\n#include\
+    \ <vector>\n#include <cstddef>\n#include <cmath>\n#include <cassert>\n#include\
+    \ <iostream>\n#include <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/vector.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
+    \    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\
+    \    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
+    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
+    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
+    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
+    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
     \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
     \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
     \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
-    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
-    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
-    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
-    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
-    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
-    \ ::tools::vector<T>& other) const {\n      assert(this->dim() == other.dim());\n\
-    \      T result(0);\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n\
-    \        result += this->m_values[i] * other.m_values[i];\n      }\n      return\
-    \ result;\n    }\n\n    friend ::tools::vector<T>& operator+(::tools::vector<T>&\
-    \ self) {\n      return self;\n    }\n    friend const ::tools::vector<T>& operator+(const\
-    \ ::tools::vector<T>& self) {\n      return self;\n    }\n    friend ::tools::vector<T>\
-    \ operator+(const ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n\
-    \      return ::tools::vector<T>(lhs) += rhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator-(const ::tools::vector<T>& self) {\n      return ::tools::vector<T>(self)\
-    \ *= T(-1);\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
+    \ dim() const {\n      return this->m_values.size();\n    }\n\n    T l1_norm()\
+    \ const {\n      return ::std::accumulate(this->m_values.begin(), this->m_values.end(),\
+    \ T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });\n   \
+    \ }\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
+    \    }\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
+    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector<T> normalized() const {\n\
+    \      return *this / this->l2_norm();\n    }\n\n    T inner_product(const ::tools::vector<T>&\
+    \ other) const {\n      assert(this->dim() == other.dim());\n      T result(0);\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        result += this->m_values[i]\
+    \ * other.m_values[i];\n      }\n      return result;\n    }\n\n    friend ::tools::vector<T>&\
+    \ operator+(::tools::vector<T>& self) {\n      return self;\n    }\n    friend\
+    \ const ::tools::vector<T>& operator+(const ::tools::vector<T>& self) {\n    \
+    \  return self;\n    }\n    friend ::tools::vector<T> operator+(const ::tools::vector<T>&\
     \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ -= rhs;\n    }\n    friend ::tools::vector<T> operator*(const ::tools::vector<T>&\
-    \ lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs) *= rhs;\n    }\n\
-    \    friend ::tools::vector<T> operator*(const T& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator/(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ /= rhs;\n    }\n    ::tools::vector<T>& operator+=(const ::tools::vector<T>&\
-    \ other) {\n      assert(this->dim() == other.dim());\n      for (::std::size_t\
-    \ i = 0; i < this->dim(); ++i) {\n        this->m_values[i] += other.m_values[i];\n\
-    \      }\n      return *this;\n    }\n    ::tools::vector<T>& operator-=(const\
-    \ ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n  \
-    \    for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ += rhs;\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
+    \ self) {\n      return ::tools::vector<T>(self) *= T(-1);\n    }\n    friend\
+    \ ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
+    \ rhs) {\n      return ::tools::vector<T>(lhs) -= rhs;\n    }\n    friend ::tools::vector<T>\
+    \ operator*(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
+    \ *= rhs;\n    }\n    friend ::tools::vector<T> operator*(const T& lhs, const\
+    \ ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n \
+    \   }\n    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs,\
+    \ const T& rhs) {\n      return ::tools::vector<T>(lhs) /= rhs;\n    }\n    ::tools::vector<T>&\
+    \ operator+=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ += other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
+    \ operator-=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
     \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
     \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
     \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
@@ -80,45 +89,48 @@ data:
     \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
     \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
     \  }\n      return is;\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_VECTOR_HPP\n#define TOOLS_VECTOR_HPP\n\n#include <vector>\n\
-    #include <cstddef>\n#include <type_traits>\n#include <cmath>\n#include <cassert>\n\
-    #include <iostream>\n#include <string>\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class vector {\n  private:\n    ::std::vector<T> m_values;\n\n  public:\n\
-    \    vector() = default;\n    vector(const ::tools::vector<T>&) = default;\n \
-    \   vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n    ::tools::vector<T>&\
-    \ operator=(const ::tools::vector<T>&) = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&)\
-    \ = default;\n\n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
-    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
-    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
-    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
-    \ dim() const {\n      return this->m_values.size();\n    }\n\n    double norm()\
-    \ const {\n      return ::std::sqrt(static_cast<double>(this->squared_norm()));\n\
-    \    }\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n    template <typename SFINAE_T = T, typename ::std::enable_if<::std::is_same<SFINAE_T,\
-    \ double>::value, ::std::nullptr_t>::type = nullptr>\n    ::tools::vector<double>\
-    \ normalized() const {\n      return *this / this->norm();\n    }\n\n    T inner_product(const\
-    \ ::tools::vector<T>& other) const {\n      assert(this->dim() == other.dim());\n\
-    \      T result(0);\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n\
-    \        result += this->m_values[i] * other.m_values[i];\n      }\n      return\
-    \ result;\n    }\n\n    friend ::tools::vector<T>& operator+(::tools::vector<T>&\
-    \ self) {\n      return self;\n    }\n    friend const ::tools::vector<T>& operator+(const\
-    \ ::tools::vector<T>& self) {\n      return self;\n    }\n    friend ::tools::vector<T>\
-    \ operator+(const ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n\
-    \      return ::tools::vector<T>(lhs) += rhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator-(const ::tools::vector<T>& self) {\n      return ::tools::vector<T>(self)\
-    \ *= T(-1);\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
+  code: "#ifndef TOOLS_VECTOR_HPP\n#define TOOLS_VECTOR_HPP\n\n#include <type_traits>\n\
+    #include <vector>\n#include <cstddef>\n#include <cmath>\n#include <cassert>\n\
+    #include <iostream>\n#include <string>\n#include \"tools/abs.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  class vector {\n  private:\n    using F\
+    \ = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n    ::std::vector<T>\
+    \ m_values;\n\n  public:\n    vector() = default;\n    vector(const ::tools::vector<T>&)\
+    \ = default;\n    vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n\
+    \    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;\n   \
+    \ ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\n    vector(::std::size_t\
+    \ dim) : m_values(dim) {\n    }\n    vector(::std::size_t dim, const T& value)\
+    \ : m_values(dim, value) {\n    }\n\n    T& operator[](const ::std::size_t i)\
+    \ {\n      return this->m_values[i];\n    }\n    T operator[](const ::std::size_t\
+    \ i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t dim()\
+    \ const {\n      return this->m_values.size();\n    }\n\n    T l1_norm() const\
+    \ {\n      return ::std::accumulate(this->m_values.begin(), this->m_values.end(),\
+    \ T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });\n   \
+    \ }\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
+    \    }\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
+    \    }\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
+    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector<T> normalized() const {\n\
+    \      return *this / this->l2_norm();\n    }\n\n    T inner_product(const ::tools::vector<T>&\
+    \ other) const {\n      assert(this->dim() == other.dim());\n      T result(0);\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        result += this->m_values[i]\
+    \ * other.m_values[i];\n      }\n      return result;\n    }\n\n    friend ::tools::vector<T>&\
+    \ operator+(::tools::vector<T>& self) {\n      return self;\n    }\n    friend\
+    \ const ::tools::vector<T>& operator+(const ::tools::vector<T>& self) {\n    \
+    \  return self;\n    }\n    friend ::tools::vector<T> operator+(const ::tools::vector<T>&\
     \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ -= rhs;\n    }\n    friend ::tools::vector<T> operator*(const ::tools::vector<T>&\
-    \ lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs) *= rhs;\n    }\n\
-    \    friend ::tools::vector<T> operator*(const T& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator/(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ /= rhs;\n    }\n    ::tools::vector<T>& operator+=(const ::tools::vector<T>&\
-    \ other) {\n      assert(this->dim() == other.dim());\n      for (::std::size_t\
-    \ i = 0; i < this->dim(); ++i) {\n        this->m_values[i] += other.m_values[i];\n\
-    \      }\n      return *this;\n    }\n    ::tools::vector<T>& operator-=(const\
-    \ ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n  \
-    \    for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ += rhs;\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
+    \ self) {\n      return ::tools::vector<T>(self) *= T(-1);\n    }\n    friend\
+    \ ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
+    \ rhs) {\n      return ::tools::vector<T>(lhs) -= rhs;\n    }\n    friend ::tools::vector<T>\
+    \ operator*(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
+    \ *= rhs;\n    }\n    friend ::tools::vector<T> operator*(const T& lhs, const\
+    \ ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n \
+    \   }\n    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs,\
+    \ const T& rhs) {\n      return ::tools::vector<T>(lhs) /= rhs;\n    }\n    ::tools::vector<T>&\
+    \ operator+=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
+    \ += other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
+    \ operator-=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
+    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
     \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
     \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
     \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
@@ -137,16 +149,17 @@ data:
     \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
     \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
     \  }\n      return is;\n    }\n  };\n}\n\n#endif\n"
-  dependsOn: []
+  dependsOn:
+  - tools/abs.hpp
   isVerificationFile: false
   path: tools/vector.hpp
   requiredBy:
   - tools/matrix.hpp
-  timestamp: '2021-10-26 00:02:55+09:00'
+  timestamp: '2022-07-23 13:26:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/solve.test.cpp
   - tests/matrix/determinant.test.cpp
+  - tests/matrix/solve.test.cpp
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp
 documentation_of: tools/vector.hpp
@@ -207,12 +220,12 @@ It returns the dimension of the vector.
 ### Time Complexity
 - $O(1)$
 
-## norm
+## l1_norm
 ```cpp
-double v.norm();
+T v.l1_norm();
 ```
 
-It returns $\left\|\overrightarrow{v}\right\|$.
+It returns $\left\\|\overrightarrow{v}\right\\|_1$.
 
 ### Constraints
 - None
@@ -220,12 +233,25 @@ It returns $\left\|\overrightarrow{v}\right\|$.
 ### Time Complexity
 - $O(n)$
 
-## squared_norm
+## l2_norm
 ```cpp
-T v.squared_norm();
+std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
 ```
 
-It returns $\left\|\overrightarrow{v}\right\|^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
+It returns $\left\\|\overrightarrow{v}\right\\|_2$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$
+
+## squared_l2_norm
+```cpp
+T v.squared_l2_norm();
+```
+
+It returns $\left\\|\overrightarrow{v}\right\\|_2^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
 
 ### Constraints
 - None
@@ -235,13 +261,13 @@ It returns $\left\|\overrightarrow{v}\right\|^2 = \overrightarrow{v} \cdot \over
 
 ## normalized
 ```cpp
-vector<double> v.normalized();
+vector<T> v.normalized();
 ```
 
-It returns $\frac{\overrightarrow{v}}{\left\|\overrightarrow{v}\right\|}$.
+It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
-- `<T>` is `double`
+- `std::is_floating_point_v<T>` is `true`
 
 ### Time Complexity
 - $O(n)$

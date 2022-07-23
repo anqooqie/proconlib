@@ -62,8 +62,8 @@ data:
   timestamp: '2022-07-02 20:39:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/range_of_digit_products.test.cpp
   - tests/resize.test.cpp
+  - tests/range_of_digit_products.test.cpp
 documentation_of: tools/resize.hpp
 layout: document
 title: Resize a multi-dimensional vector

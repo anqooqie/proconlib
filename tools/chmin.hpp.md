@@ -74,27 +74,27 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/weighted_bipartite_matching.hpp
-  - tools/dijkstra.hpp
+  - tools/xor_basis.hpp
+  - tools/segmented_sieve.hpp
   - tools/tree_diameter.hpp
   - tools/mcf_graph.hpp
-  - tools/zero_one_bfs.hpp
   - tools/bellman_ford.hpp
-  - tools/segmented_sieve.hpp
-  - tools/xor_basis.hpp
+  - tools/dijkstra.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/weighted_bipartite_matching.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bellman_ford.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/tree_diameter.test.cpp
   - tests/segmented_sieve.test.cpp
-  - tests/zero_one_bfs.test.cpp
-  - tests/dijkstra.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/tree_diameter.test.cpp
+  - tests/zero_one_bfs.test.cpp
+  - tests/bellman_ford.test.cpp
+  - tests/dijkstra.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

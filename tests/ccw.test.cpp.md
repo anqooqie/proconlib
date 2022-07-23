@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/abs.hpp
+    title: Unified interface for std::abs(x) and x.abs()
+  - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
@@ -22,13 +25,17 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C
   bundledCode: "#line 1 \"tests/ccw.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C\"\
     \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\
-    \n\n#include <cmath>\n#include <type_traits>\n#include <cstddef>\n#include <array>\n\
-    #line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
-    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
-    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
-    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \n\n#include <type_traits>\n#include <cmath>\n#include <cstddef>\n#include <array>\n\
+    #line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n\
+    \  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n\
+    \    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n#line 9 \"\
+    tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
+    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
+    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
     \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
     \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
     \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
@@ -63,16 +70,17 @@ data:
     \ ::std::int32_t>& key) const {\n      static const ::tools::pair_hash<::std::uint32_t,\
     \ ::std::uint32_t> hasher = ::tools::pair_hash<::std::uint32_t, ::std::uint32_t>();\n\
     \      return hasher(::std::make_pair<::std::uint32_t, ::std::uint32_t>(key.first,\
-    \ key.second));\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace\
+    \ key.second));\n    }\n  };\n}\n\n\n#line 12 \"tools/vector2.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename T>\n  class vector2 {\n  private:\n    using\
     \ F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\n  public:\n\
     \    T x;\n    T y;\n\n    vector2() :\n      vector2(T(), T()) {\n    }\n\n \
     \   vector2(const T& x, const T& y) :\n      x(x),\n      y(y) {\n    }\n\n  \
-    \  F norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_norm()));\n\
-    \    }\n\n    T squared_norm() const {\n      return this->inner_product(*this);\n\
+    \  T l1_norm() const {\n      return ::tools::abs(this->x) + ::tools::abs(this->y);\n\
+    \    }\n\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
+    \    }\n\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
     \    }\n\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
     \ ::std::nullptr_t> = nullptr>\n    ::tools::vector2<T> normalized() const {\n\
-    \      return *this / this->norm();\n    }\n\n    ::tools::vector2<T> turn90()\
+    \      return *this / this->l2_norm();\n    }\n\n    ::tools::vector2<T> turn90()\
     \ const {\n      return ::tools::vector2<T>(-this->y, this->x);\n    }\n\n   \
     \ ::tools::vector2<T> turn270() const {\n      return ::tools::vector2<T>(this->y,\
     \ -this->x);\n    }\n\n    ::tools::vector2<T> operator+() const {\n      return\
@@ -131,8 +139,8 @@ data:
     \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
     \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
     \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
-    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_norm()\
-    \ < c.squared_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tests/ccw.test.cpp\"\
+    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tests/ccw.test.cpp\"\
     \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  tools::vector2<i64> p0, p1;\n \
     \ i64 q;\n  std::cin >> p0 >> p1 >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<i64>\
@@ -155,12 +163,13 @@ data:
     \ << \"ON_SEGMENT\" << '\\n';\n      break;\n    }\n  }\n}\n"
   dependsOn:
   - tools/vector2.hpp
+  - tools/abs.hpp
   - tools/pair_hash.hpp
   - tools/ccw.hpp
   isVerificationFile: true
   path: tests/ccw.test.cpp
   requiredBy: []
-  timestamp: '2022-02-19 03:37:47+09:00'
+  timestamp: '2022-07-23 13:26:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ccw.test.cpp

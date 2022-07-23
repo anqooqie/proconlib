@@ -179,60 +179,60 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/binary_heap.hpp
-  - tools/extended_lucas.hpp
-  - tools/divisors.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/convolution.hpp
-  - tools/dual_segtree.hpp
-  - tools/bigint.hpp
-  - tools/bigdecimal.hpp
-  - tools/tetration_mod.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/totient.hpp
-  - tools/prime_factorization.hpp
   - tools/persistent_dual_segtree.hpp
-  - tools/rational.hpp
+  - tools/binary_heap.hpp
+  - tools/dual_segtree.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/lca.hpp
+  - tools/prime_factorization.hpp
+  - tools/extended_lucas.hpp
+  - tools/rational.hpp
+  - tools/divisors.hpp
+  - tools/totient.hpp
+  - tools/bigdecimal.hpp
+  - tools/bigint.hpp
+  - tools/tetration_mod.hpp
+  - tools/convolution.hpp
+  - tools/li_chao_segtree.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/plus.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/binary_heap.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/totient.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/lca.test.cpp
-  - tests/dual_segtree.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/modulus.test.cpp
+  - tests/divisors.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/ssize.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/integer_interval_set.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/divisors.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/convolution.test.cpp
+  - tests/dual_segtree.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/ssize.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/integer_interval_set.test.cpp
+  - tests/lca.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$
