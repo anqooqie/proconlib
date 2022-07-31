@@ -27,6 +27,9 @@ data:
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
+    path: tools/hld.hpp
+    title: Heavy-light decomposition
+  - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
   - icon: ':heavy_check_mark:'
@@ -109,6 +112,21 @@ data:
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/hld/epath.test.cpp
+    title: tests/hld/epath.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/hld/lca.test.cpp
+    title: tests/hld/lca.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/hld/vancestor.test.cpp
+    title: tests/hld/vancestor.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/hld/vpath.test.cpp
+    title: tests/hld/vpath.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/hld/vsubtree.test.cpp
+    title: tests/hld/vsubtree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/integer_interval_set.test.cpp
     title: tests/integer_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
@@ -190,6 +208,7 @@ data:
   - tools/divisors.hpp
   - tools/totient.hpp
   - tools/bigdecimal.hpp
+  - tools/hld.hpp
   - tools/bigint.hpp
   - tools/tetration_mod.hpp
   - tools/convolution.hpp
@@ -215,6 +234,11 @@ data:
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
+  - tests/hld/epath.test.cpp
+  - tests/hld/vpath.test.cpp
+  - tests/hld/vancestor.test.cpp
+  - tests/hld/vsubtree.test.cpp
+  - tests/hld/lca.test.cpp
   - tests/convolution.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp

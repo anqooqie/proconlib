@@ -7,6 +7,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
+  - icon: ':heavy_check_mark:'
+    path: tools/pow2.hpp
+    title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -107,26 +110,33 @@ data:
     \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
-    \    }\n  };\n}\n\n\n#line 14 \"tools/hld.hpp\"\n\nnamespace tools {\n  class\
-    \ hld {\n  private:\n    bool m_built;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 16 \"tools/hld.hpp\"\n\
+    \nnamespace tools {\n  class hld {\n  private:\n    bool m_built;\n    ::std::vector<::std::vector<::std::size_t>>\
     \ m_graph;\n    ::std::vector<::std::size_t> m_edges;\n    ::std::vector<::std::size_t>\
     \ m_parent;\n    ::std::vector<::std::size_t> m_depth;\n    ::atcoder::dsu m_dsu;\n\
     \    ::std::vector<::std::size_t> m_out;\n    ::std::vector<::std::size_t> m_vid2dfs;\n\
     \    ::std::vector<::std::size_t> m_dfs2vid;\n    ::std::vector<::std::size_t>\
-    \ m_eid2dfs;\n    ::std::vector<::std::size_t> m_dfs2eid;\n\n  public:\n    class\
-    \ vchildren_iterable {\n    private:\n      ::tools::hld const *m_parent;\n  \
-    \    ::std::size_t m_v;\n\n    public:\n      class iterator {\n      private:\n\
-    \        ::tools::hld const *m_parent;\n        ::std::size_t m_v;\n        ::std::size_t\
-    \ m_i;\n\n      public:\n        using difference_type = ::std::ptrdiff_t;\n \
-    \       using value_type = ::std::size_t;\n        using reference = ::std::size_t&;\n\
-    \        using pointer = ::std::size_t*;\n        using iterator_category = ::std::input_iterator_tag;\n\
-    \n        iterator() = default;\n        iterator(const iterator&) = default;\n\
-    \        iterator(iterator&&) = default;\n        ~iterator() = default;\n   \
-    \     iterator& operator=(const iterator&) = default;\n        iterator& operator=(iterator&&)\
-    \ = default;\n\n        iterator(::tools::hld const * const parent, const ::std::size_t\
-    \ v, const ::std::size_t i) :\n          m_parent(parent),\n          m_v(v),\n\
-    \          m_i(i) {\n        }\n\n        ::std::size_t operator*() const {\n\
-    \          return this->m_parent->m_edges[this->m_parent->m_graph[this->m_v][this->m_i]]\
+    \ m_eid2dfs;\n    ::std::vector<::std::size_t> m_dfs2eid;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_ancestors;\n\n  public:\n    class vchildren_iterable {\n    private:\n  \
+    \    ::tools::hld const *m_parent;\n      ::std::size_t m_v;\n\n    public:\n\
+    \      class iterator {\n      private:\n        ::tools::hld const *m_parent;\n\
+    \        ::std::size_t m_v;\n        ::std::size_t m_i;\n\n      public:\n   \
+    \     using difference_type = ::std::ptrdiff_t;\n        using value_type = ::std::size_t;\n\
+    \        using reference = ::std::size_t&;\n        using pointer = ::std::size_t*;\n\
+    \        using iterator_category = ::std::input_iterator_tag;\n\n        iterator()\
+    \ = default;\n        iterator(const iterator&) = default;\n        iterator(iterator&&)\
+    \ = default;\n        ~iterator() = default;\n        iterator& operator=(const\
+    \ iterator&) = default;\n        iterator& operator=(iterator&&) = default;\n\n\
+    \        iterator(::tools::hld const * const parent, const ::std::size_t v, const\
+    \ ::std::size_t i) :\n          m_parent(parent),\n          m_v(v),\n       \
+    \   m_i(i) {\n        }\n\n        ::std::size_t operator*() const {\n       \
+    \   return this->m_parent->m_edges[this->m_parent->m_graph[this->m_v][this->m_i]]\
     \ ^ this->m_v;\n        }\n        iterator& operator++() {\n          ++this->m_i;\n\
     \          return *this;\n        }\n        iterator operator++(int) {\n    \
     \      const auto self = *this;\n          ++*this;\n          return self;\n\
@@ -192,31 +202,44 @@ data:
     \ it != this->m_graph[here].rend(); ++it) {\n            stack.emplace(this->m_edges[*it]\
     \ ^ here, false);\n            stack.emplace(this->m_edges[*it] ^ here, true);\n\
     \          }\n        } else {\n          this->m_out[here] = dfs_order;\n   \
-    \     }\n      }\n\n      this->m_built = true;\n    }\n    void build() {\n \
-    \     this->build(0);\n    }\n\n    ::std::size_t depth(const ::std::size_t v)\
-    \ const {\n      assert(this->m_built);\n      assert(v < this->size());\n   \
-    \   return this->m_depth[v];\n    }\n    ::std::size_t vparent(const ::std::size_t\
+    \     }\n      }\n\n      this->m_built = true;\n    }\n\n    ::std::size_t depth(const\
+    \ ::std::size_t v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
+    \      return this->m_depth[v];\n    }\n    ::std::size_t vparent(const ::std::size_t\
     \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
     \      assert(this->m_depth[v] > 0);\n      return this->m_edges[this->m_parent[v]]\
     \ ^ v;\n    }\n    ::std::size_t eparent(const ::std::size_t v) const {\n    \
     \  assert(this->m_built);\n      assert(v < this->size());\n      assert(this->m_depth[v]\
-    \ > 0);\n      return this->m_parent[v];\n    }\n    ::tools::hld::vchildren_iterable\
-    \ vchildren(const ::std::size_t v) const {\n      assert(this->m_built);\n   \
-    \   assert(v < this->size());\n      return ::tools::hld::vchildren_iterable(this,\
-    \ v);\n    }\n    const ::std::vector<::std::size_t>& echildren(const ::std::size_t\
-    \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
-    \      return this->m_graph[v];\n    }\n\n    ::std::size_t vid2dfs(const ::std::size_t\
-    \ v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
-    \      return this->m_vid2dfs[v];\n    }\n    ::std::size_t dfs2vid(const ::std::size_t\
-    \ i) const {\n      assert(this->m_built);\n      assert(i < this->size());\n\
-    \      return this->m_dfs2vid[i];\n    }\n    ::std::size_t eid2dfs(const ::std::size_t\
-    \ e) const {\n      assert(this->m_built);\n      assert(e < this->size());\n\
-    \      return this->m_eid2dfs[e];\n    }\n    ::std::size_t dfs2eid(const ::std::size_t\
-    \ i) const {\n      assert(this->m_built);\n      assert(i < this->size());\n\
-    \      return this->m_dfs2eid[i];\n    }\n\n    ::std::size_t lca(::std::size_t\
-    \ u, ::std::size_t v) {\n      assert(this->m_built);\n      assert(u < this->size());\n\
-    \      assert(v < this->size());\n\n      while (!this->m_dsu.same(u, v)) {\n\
-    \        if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)])\
+    \ > 0);\n      return this->m_parent[v];\n    }\n    ::std::size_t vancestor(const\
+    \ ::std::size_t v, const ::std::size_t k) {\n      assert(this->m_built);\n  \
+    \    assert(v < this->size());\n      assert(k <= this->m_depth[v]);\n\n     \
+    \ if (this->m_ancestors.empty()) {\n        this->m_ancestors.resize(this->size());\n\
+    \        ::std::vector<::std::size_t> targets(this->size());\n        ::std::iota(targets.begin(),\
+    \ targets.end(), 0);\n        targets.erase(::std::remove(targets.begin(), targets.end(),\
+    \ this->m_dfs2vid[0]), targets.end());\n        for (const auto t : targets) {\n\
+    \          this->m_ancestors[t].push_back(this->vparent(t));\n        }\n    \
+    \    for (::std::size_t g = 1; [&]() {\n          targets.erase(::std::remove_if(targets.begin(),\
+    \ targets.end(), [&](const ::std::size_t t) {\n            return this->m_depth[t]\
+    \ < ::tools::pow2(g);\n          }), targets.end());\n          return !targets.empty();\n\
+    \        }(); ++g) {\n          for (const auto t : targets) {\n            this->m_ancestors[t].push_back(this->m_ancestors[this->m_ancestors[t][g\
+    \ - 1]][g - 1]);\n          }\n        }\n      }\n\n      ::std::size_t res =\
+    \ v;\n      for (::std::size_t g = 0; ::tools::pow2(g) <= k; ++g) {\n        if\
+    \ ((k >> g) & 1) {\n          res = this->m_ancestors[res][g];\n        }\n  \
+    \    }\n\n      return res;\n    }\n    ::tools::hld::vchildren_iterable vchildren(const\
+    \ ::std::size_t v) const {\n      assert(this->m_built);\n      assert(v < this->size());\n\
+    \      return ::tools::hld::vchildren_iterable(this, v);\n    }\n    const ::std::vector<::std::size_t>&\
+    \ echildren(const ::std::size_t v) const {\n      assert(this->m_built);\n   \
+    \   assert(v < this->size());\n      return this->m_graph[v];\n    }\n\n    ::std::size_t\
+    \ vid2dfs(const ::std::size_t v) const {\n      assert(this->m_built);\n     \
+    \ assert(v < this->size());\n      return this->m_vid2dfs[v];\n    }\n    ::std::size_t\
+    \ dfs2vid(const ::std::size_t i) const {\n      assert(this->m_built);\n     \
+    \ assert(i < this->size());\n      return this->m_dfs2vid[i];\n    }\n    ::std::size_t\
+    \ eid2dfs(const ::std::size_t e) const {\n      assert(this->m_built);\n     \
+    \ assert(e < this->size());\n      return this->m_eid2dfs[e];\n    }\n    ::std::size_t\
+    \ dfs2eid(const ::std::size_t i) const {\n      assert(this->m_built);\n     \
+    \ assert(i < this->size());\n      return this->m_dfs2eid[i];\n    }\n\n    ::std::size_t\
+    \ lca(::std::size_t u, ::std::size_t v) {\n      assert(this->m_built);\n    \
+    \  assert(u < this->size());\n      assert(v < this->size());\n\n      while (!this->m_dsu.same(u,\
+    \ v)) {\n        if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)])\
     \ {\n          u = this->m_edges[this->m_parent[this->m_dsu.leader(u)]] ^ this->m_dsu.leader(u);\n\
     \        } else {\n          v = this->m_edges[this->m_parent[this->m_dsu.leader(v)]]\
     \ ^ this->m_dsu.leader(v);\n        }\n      }\n      if (this->m_depth[u] >=\
@@ -281,10 +304,11 @@ data:
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
+  - tools/pow2.hpp
   isVerificationFile: true
   path: tests/hld/vsubtree.test.cpp
   requiredBy: []
-  timestamp: '2022-05-04 20:49:50+09:00'
+  timestamp: '2022-07-31 14:57:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/hld/vsubtree.test.cpp

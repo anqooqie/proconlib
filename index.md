@@ -728,6 +728,9 @@ data:
       path: tests/hld/lca.test.cpp
       title: tests/hld/lca.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/hld/vancestor.test.cpp
+      title: tests/hld/vancestor.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/hld/vpath.test.cpp
       title: tests/hld/vpath.test.cpp
     - icon: ':heavy_check_mark:'

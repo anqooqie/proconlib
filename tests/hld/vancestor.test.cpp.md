@@ -17,10 +17,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/lca
+    PROBLEM: https://judge.yosupo.jp/problem/jump_on_tree
     links:
-    - https://judge.yosupo.jp/problem/lca
-  bundledCode: "#line 1 \"tests/hld/lca.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\
+    - https://judge.yosupo.jp/problem/jump_on_tree
+  bundledCode: "#line 1 \"tests/hld/vancestor.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\
     \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/hld.hpp\"\n\n\n\n\
     #include <vector>\n#include <cstddef>\n#include <iterator>\n#include <cassert>\n\
     #include <limits>\n#include <stack>\n#include <utility>\n#include <algorithm>\n\
@@ -221,33 +221,43 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 6 \"tests/hld/lca.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n\n  tools::hld hld(N);\n  for (i64 v = 1;\
-    \ v < N; ++v) {\n    i64 p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\
-    \n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 u, v;\n    std::cin\
-    \ >> u >> v;\n    std::cout << hld.lca(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#include \"tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    }\n\n\n#line 6 \"tests/hld/vancestor.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n\n  tools::hld hld(N);\n  for (i64 v = 1;\
-    \ v < N; ++v) {\n    i64 p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\
-    \n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 u, v;\n    std::cin\
-    \ >> u >> v;\n    std::cout << hld.lca(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
+    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (i64 i = 0;\
+    \ i < N - 1; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a,\
+    \ b);\n  }\n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 s, t,\
+    \ i;\n    std::cin >> s >> t >> i;\n    const i64 lca = hld.lca(s, t);\n    const\
+    \ i64 s_depth = hld.depth(s) - hld.depth(lca);\n    const i64 t_depth = hld.depth(t)\
+    \ - hld.depth(lca);\n    if (i <= s_depth) {\n      std::cout << hld.vancestor(s,\
+    \ i) << '\\n';\n    } else if (i <= s_depth + t_depth) {\n      std::cout << hld.vancestor(t,\
+    \ s_depth + t_depth - i) << '\\n';\n    } else {\n      std::cout << -1 << '\\\
+    n';\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\n\n#include\
+    \ <cstdint>\n#include <iostream>\n#include \"tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (i64 i = 0;\
+    \ i < N - 1; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a,\
+    \ b);\n  }\n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 s, t,\
+    \ i;\n    std::cin >> s >> t >> i;\n    const i64 lca = hld.lca(s, t);\n    const\
+    \ i64 s_depth = hld.depth(s) - hld.depth(lca);\n    const i64 t_depth = hld.depth(t)\
+    \ - hld.depth(lca);\n    if (i <= s_depth) {\n      std::cout << hld.vancestor(s,\
+    \ i) << '\\n';\n    } else if (i <= s_depth + t_depth) {\n      std::cout << hld.vancestor(t,\
+    \ s_depth + t_depth - i) << '\\n';\n    } else {\n      std::cout << -1 << '\\\
+    n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
   - tools/pow2.hpp
   isVerificationFile: true
-  path: tests/hld/lca.test.cpp
+  path: tests/hld/vancestor.test.cpp
   requiredBy: []
   timestamp: '2022-07-31 14:57:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/hld/lca.test.cpp
+documentation_of: tests/hld/vancestor.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/hld/lca.test.cpp
-- /verify/tests/hld/lca.test.cpp.html
-title: tests/hld/lca.test.cpp
+- /verify/tests/hld/vancestor.test.cpp
+- /verify/tests/hld/vancestor.test.cpp.html
+title: tests/hld/vancestor.test.cpp
 ---
