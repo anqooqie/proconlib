@@ -41,7 +41,7 @@ int main() {
     hld.add_edge(u, v);
   }
 
-  hld.build();
+  hld.build(0);
   std::vector<std::pair<mint, mint>> g(N);
   for (i64 i = 0; i < N; ++i) {
     g[hld.vid2dfs(i)] = f[i];

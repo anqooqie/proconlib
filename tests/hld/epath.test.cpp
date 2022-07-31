@@ -30,7 +30,7 @@ int main() {
   for (i64 i = 1; i < n; ++i) {
     hld.add_edge(parent[i], i);
   }
-  hld.build();
+  hld.build(0);
   atcoder::fenwick_tree<i64> fw(n - 1);
   i64 q;
   std::cin >> q;

@@ -9,8 +9,10 @@
 #include <stack>
 #include <utility>
 #include <algorithm>
+#include <numeric>
 #include "atcoder/dsu.hpp"
 #include "tools/less_by.hpp"
+#include "tools/pow2.hpp"
 
 namespace tools {
   class hld {
@@ -26,6 +28,7 @@ namespace tools {
     ::std::vector<::std::size_t> m_dfs2vid;
     ::std::vector<::std::size_t> m_eid2dfs;
     ::std::vector<::std::size_t> m_dfs2eid;
+    ::std::vector<::std::vector<::std::size_t>> m_ancestors;
 
   public:
     class vchildren_iterable {
@@ -214,9 +217,6 @@ namespace tools {
 
       this->m_built = true;
     }
-    void build() {
-      this->build(0);
-    }
 
     ::std::size_t depth(const ::std::size_t v) const {
       assert(this->m_built);
@@ -234,6 +234,40 @@ namespace tools {
       assert(v < this->size());
       assert(this->m_depth[v] > 0);
       return this->m_parent[v];
+    }
+    ::std::size_t vancestor(const ::std::size_t v, const ::std::size_t k) {
+      assert(this->m_built);
+      assert(v < this->size());
+      assert(k <= this->m_depth[v]);
+
+      if (this->m_ancestors.empty()) {
+        this->m_ancestors.resize(this->size());
+        ::std::vector<::std::size_t> targets(this->size());
+        ::std::iota(targets.begin(), targets.end(), 0);
+        targets.erase(::std::remove(targets.begin(), targets.end(), this->m_dfs2vid[0]), targets.end());
+        for (const auto t : targets) {
+          this->m_ancestors[t].push_back(this->vparent(t));
+        }
+        for (::std::size_t g = 1; [&]() {
+          targets.erase(::std::remove_if(targets.begin(), targets.end(), [&](const ::std::size_t t) {
+            return this->m_depth[t] < ::tools::pow2(g);
+          }), targets.end());
+          return !targets.empty();
+        }(); ++g) {
+          for (const auto t : targets) {
+            this->m_ancestors[t].push_back(this->m_ancestors[this->m_ancestors[t][g - 1]][g - 1]);
+          }
+        }
+      }
+
+      ::std::size_t res = v;
+      for (::std::size_t g = 0; ::tools::pow2(g) <= k; ++g) {
+        if ((k >> g) & 1) {
+          res = this->m_ancestors[res][g];
+        }
+      }
+
+      return res;
     }
     ::tools::hld::vchildren_iterable vchildren(const ::std::size_t v) const {
       assert(this->m_built);

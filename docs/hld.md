@@ -48,7 +48,7 @@ void hld.add_edge(std::size_t u, std::size_t v);
 It adds an undirected edge connecting $u$ and $v$ to the graph.
 
 ### Constraints
-- Neither `hld.build()` nor `hld.build(std::size_t)` has not been called ever.
+- `hld.build(std::size_t)` has not been called ever.
 - $0 \leq u < n$
 - $0 \leq v < n$
 
@@ -57,14 +57,14 @@ It adds an undirected edge connecting $u$ and $v$ to the graph.
 
 ## build
 ```cpp
-void hld.build(std::size_t r = 0);
+void hld.build(std::size_t r);
 ```
 
 It remaps the vertex indices in the tree to dfs-ordered ones and the edge indices in the tree to dfs-ordered ones.
 In DFS, the root is $r$.
 
 ### Constraints
-- Neither `hld.build()` nor `hld.build(std::size_t)` has not been called ever.
+- `hld.build(std::size_t)` has not been called ever.
 - The graph is a tree.
 - $0 \leq r < n$
 
@@ -73,13 +73,13 @@ In DFS, the root is $r$.
 
 ## depth
 ```cpp
-::std::size_t hld.depth(std::size_t v);
+std::size_t hld.depth(std::size_t v);
 ```
 
 Given a vertex $v$ by the original vertex index, it returns the depth of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -87,13 +87,13 @@ Given a vertex $v$ by the original vertex index, it returns the depth of the ver
 
 ## vparent
 ```cpp
-::std::size_t hld.vparent(std::size_t v);
+std::size_t hld.vparent(std::size_t v);
 ```
 
 Given a vertex $v$ by the original vertex index, it returns the original vertex index of the parent of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 - $v$ is not the root.
 
@@ -102,18 +102,34 @@ Given a vertex $v$ by the original vertex index, it returns the original vertex 
 
 ## eparent
 ```cpp
-::std::size_t hld.eparent(std::size_t v);
+std::size_t hld.eparent(std::size_t v);
 ```
 
 Given a vertex $v$ by the original vertex index, it returns the original edge index of the edge between the vertex and the parent of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 - $v$ is not the root.
 
 ### Time Complexity
 - $O(1)$
+
+## vancestor
+```cpp
+std::size_t hld.vancestor(std::size_t v, std::size_t k);
+```
+
+Given a vertex $v$ by the original vertex index, it returns the original vertex index of the $k$-th ancestor of the vertex.
+
+### Constraints
+- `hld.build(std::size_t)` has been called ever.
+- $0 \leq v < n$
+- $0 \leq k \leq $ `hld.depth(v)`
+
+### Time Complexity
+- (first call): $O(n \log n)$
+- (second or later call): $O(\log k)$
 
 ## vchildren
 ```cpp
@@ -133,7 +149,7 @@ struct {
 Given a vertex $v$ by the original vertex index, it returns the original vertex indices of the children of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -147,7 +163,7 @@ const std::vector<std::size_t>& hld.echildren(std::size_t v);
 Given a vertex $v$ by the original vertex index, it returns the original edge indices of the edges between the vertex and the children of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -161,7 +177,7 @@ std::size_t hld.vid2dfs(std::size_t v);
 Given a vertex $v$ by the original vertex index, it returns the dfs-ordered vertex index of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -175,7 +191,7 @@ std::size_t hld.dfs2vid(std::size_t i);
 Given a vertex $i$ by the dfs-ordered vertex index, it returns the original vertex index of the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq i < n$
 
 ### Time Complexity
@@ -189,7 +205,7 @@ std::size_t hld.eid2dfs(std::size_t e);
 Given an edge $e$ by the original edge index, it returns the dfs-ordered edge index of the edge.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq e < n$
 
 ### Time Complexity
@@ -203,7 +219,7 @@ std::size_t hld.dfs2eid(std::size_t i);
 Given an edge $i$ by the dfs-ordered edge index, it returns the original edge index of the edge.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq i < n$
 
 ### Time Complexity
@@ -217,7 +233,7 @@ std::size_t hld.lca(std::size_t u, std::size_t v);
 Given a vertex $u$ and a vertex $v$ by the original vertex indices, it returns the original vertex index of the lowest common ancestor of the vertices.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq u < n$
 - $0 \leq v < n$
 
@@ -232,7 +248,7 @@ std::pair<std::size_t, std::size_t> hld.vsubtree(std::size_t v);
 Given a vertex $v$ by the original vertex index, it returns the interval of the dfs-ordered vertex indices representing the subtree rooted at the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -246,7 +262,7 @@ std::pair<std::size_t, std::size_t> hld.esubtree(std::size_t v);
 Given a vertex $v$ by the original vertex index, it returns the interval of the dfs-ordered edge indices representing the edges in the subtree rooted at the vertex.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
@@ -261,7 +277,7 @@ Given a path from $u$ to $v$ by the original vertex indices, it returns some int
 It is guaranteed that the number of the intervals is $O(\log n)$.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq u < n$
 - $0 \leq v < n$
 
@@ -277,7 +293,7 @@ Given a path from $u$ to $v$ by the original vertex indices, it returns some int
 It is guaranteed that the number of the intervals is $O(\log n)$.
 
 ### Constraints
-- Either `hld.build()` or `hld.build(std::size_t)` has been called ever.
+- `hld.build(std::size_t)` has been called ever.
 - $0 \leq u < n$
 - $0 \leq v < n$
 
