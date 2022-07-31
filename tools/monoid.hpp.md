@@ -40,9 +40,6 @@ data:
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/dual_segtree.test.cpp
-    title: tests/dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
@@ -120,7 +117,6 @@ data:
   verifiedWith:
   - tests/totient.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/dual_segtree.test.cpp
   - tests/permutation.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/ceil_kth_root.test.cpp
