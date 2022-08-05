@@ -70,21 +70,27 @@ data:
     \  template <typename T>\n      class has_mod {\n      private:\n        template\
     \ <typename U>\n        static auto check(U x) -> decltype(x.mod(), ::std::true_type{});\n\
     \        static ::std::false_type check(...);\n\n      public:\n        static\
-    \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\n\
-    \      template <typename T>\n      ::std::istream& read(::std::istream& is, T&\
-    \ container) {\n        for (auto& v : container) {\n          is >> v;\n    \
-    \    }\n        return is;\n      }\n\n      template <typename T>\n      ::std::ostream&\
-    \ debug_print(::std::ostream& os, const T& container) {\n        ::std::string\
-    \ delimiter = \"\";\n        os << '[';\n        for (const auto& v : container)\
-    \ {\n          os << delimiter << v;\n          delimiter = \", \";\n        }\n\
-    \        os << ']';\n        return os;\n      }\n    }\n  }\n}\n\ntemplate <class\
-    \ T, class Allocator>\n::std::istream& operator>>(::std::istream& is, ::std::vector<T,\
-    \ Allocator>& vector) {\n  return ::tools::detail::util::read(is, vector);\n}\n\
-    template <class T, ::std::size_t N>\n::std::istream& operator>>(::std::istream&\
-    \ is, ::std::array<T, N>& array) {\n  return ::tools::detail::util::read(is, array);\n\
-    }\ntemplate <class T, class Allocator>\n::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::std::vector<T, Allocator>& vector) {\n  return ::tools::detail::util::debug_print(os,\
-    \ vector);\n}\ntemplate <class T, ::std::size_t N>\n::std::ostream& operator<<(::std::ostream&\
+    \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream& is, T&\
+    \ x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
+    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
+    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
+    \ ::std::ostream&> {\n  return os << x.val();\n}\n\nnamespace tools {\n  namespace\
+    \ detail {\n    namespace util {\n      template <typename T>\n      ::std::istream&\
+    \ read(::std::istream& is, T& container) {\n        for (auto& v : container)\
+    \ {\n          is >> v;\n        }\n        return is;\n      }\n\n      template\
+    \ <typename T>\n      ::std::ostream& debug_print(::std::ostream& os, const T&\
+    \ container) {\n        ::std::string delimiter = \"\";\n        os << '[';\n\
+    \        for (const auto& v : container) {\n          os << delimiter << v;\n\
+    \          delimiter = \", \";\n        }\n        os << ']';\n        return\
+    \ os;\n      }\n    }\n  }\n}\n\ntemplate <class T, class Allocator>\n::std::istream&\
+    \ operator>>(::std::istream& is, ::std::vector<T, Allocator>& vector) {\n  return\
+    \ ::tools::detail::util::read(is, vector);\n}\ntemplate <class T, ::std::size_t\
+    \ N>\n::std::istream& operator>>(::std::istream& is, ::std::array<T, N>& array)\
+    \ {\n  return ::tools::detail::util::read(is, array);\n}\ntemplate <class T, class\
+    \ Allocator>\n::std::ostream& operator<<(::std::ostream& os, const ::std::vector<T,\
+    \ Allocator>& vector) {\n  return ::tools::detail::util::debug_print(os, vector);\n\
+    }\ntemplate <class T, ::std::size_t N>\n::std::ostream& operator<<(::std::ostream&\
     \ os, const ::std::array<T, N>& array) {\n  return ::tools::detail::util::debug_print(os,\
     \ array);\n}\ntemplate <class Key, class Hash, class Pred, class Allocator>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key,\
@@ -113,11 +119,7 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream&\
-    \ is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
-    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
-    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
-    \ ::std::ostream&> {\n  return os << x.val();\n}\n\n\n"
+    \ else {\n    return os;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_UTIL_HPP\n#define TOOLS_UTIL_HPP\n\n// To see the details of\
     \ my library, visit my GitHub Pages.\n// https://anqooqie.github.io/proconlib/\n\
     \n#ifdef LOCAL\n  #ifndef _GLIBCXX_DEBUG\n    #define _GLIBCXX_DEBUG\n  #endif\n\
@@ -130,21 +132,27 @@ data:
     \  template <typename T>\n      class has_mod {\n      private:\n        template\
     \ <typename U>\n        static auto check(U x) -> decltype(x.mod(), ::std::true_type{});\n\
     \        static ::std::false_type check(...);\n\n      public:\n        static\
-    \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\n\
-    \      template <typename T>\n      ::std::istream& read(::std::istream& is, T&\
-    \ container) {\n        for (auto& v : container) {\n          is >> v;\n    \
-    \    }\n        return is;\n      }\n\n      template <typename T>\n      ::std::ostream&\
-    \ debug_print(::std::ostream& os, const T& container) {\n        ::std::string\
-    \ delimiter = \"\";\n        os << '[';\n        for (const auto& v : container)\
-    \ {\n          os << delimiter << v;\n          delimiter = \", \";\n        }\n\
-    \        os << ']';\n        return os;\n      }\n    }\n  }\n}\n\ntemplate <class\
-    \ T, class Allocator>\n::std::istream& operator>>(::std::istream& is, ::std::vector<T,\
-    \ Allocator>& vector) {\n  return ::tools::detail::util::read(is, vector);\n}\n\
-    template <class T, ::std::size_t N>\n::std::istream& operator>>(::std::istream&\
-    \ is, ::std::array<T, N>& array) {\n  return ::tools::detail::util::read(is, array);\n\
-    }\ntemplate <class T, class Allocator>\n::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::std::vector<T, Allocator>& vector) {\n  return ::tools::detail::util::debug_print(os,\
-    \ vector);\n}\ntemplate <class T, ::std::size_t N>\n::std::ostream& operator<<(::std::ostream&\
+    \ const bool value = decltype(check(::std::declval<T>()))::value;\n      };\n\
+    \    }\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream& is, T&\
+    \ x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
+    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
+    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
+    \ ::std::ostream&> {\n  return os << x.val();\n}\n\nnamespace tools {\n  namespace\
+    \ detail {\n    namespace util {\n      template <typename T>\n      ::std::istream&\
+    \ read(::std::istream& is, T& container) {\n        for (auto& v : container)\
+    \ {\n          is >> v;\n        }\n        return is;\n      }\n\n      template\
+    \ <typename T>\n      ::std::ostream& debug_print(::std::ostream& os, const T&\
+    \ container) {\n        ::std::string delimiter = \"\";\n        os << '[';\n\
+    \        for (const auto& v : container) {\n          os << delimiter << v;\n\
+    \          delimiter = \", \";\n        }\n        os << ']';\n        return\
+    \ os;\n      }\n    }\n  }\n}\n\ntemplate <class T, class Allocator>\n::std::istream&\
+    \ operator>>(::std::istream& is, ::std::vector<T, Allocator>& vector) {\n  return\
+    \ ::tools::detail::util::read(is, vector);\n}\ntemplate <class T, ::std::size_t\
+    \ N>\n::std::istream& operator>>(::std::istream& is, ::std::array<T, N>& array)\
+    \ {\n  return ::tools::detail::util::read(is, array);\n}\ntemplate <class T, class\
+    \ Allocator>\n::std::ostream& operator<<(::std::ostream& os, const ::std::vector<T,\
+    \ Allocator>& vector) {\n  return ::tools::detail::util::debug_print(os, vector);\n\
+    }\ntemplate <class T, ::std::size_t N>\n::std::ostream& operator<<(::std::ostream&\
     \ os, const ::std::array<T, N>& array) {\n  return ::tools::detail::util::debug_print(os,\
     \ array);\n}\ntemplate <class Key, class Hash, class Pred, class Allocator>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key,\
@@ -173,11 +181,7 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\nauto operator>>(::std::istream&\
-    \ is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&>\
-    \ {\n  ::std::int_fast64_t n;\n  is >> n;\n  x = T(n);\n  return is;\n}\ntemplate\
-    \ <typename T>\nauto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value,\
-    \ ::std::ostream&> {\n  return os << x.val();\n}\n\n#endif\n"
+    \ else {\n    return os;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/resize.hpp
   - tools/fill.hpp
@@ -185,7 +189,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2022-07-02 20:39:31+09:00'
+  timestamp: '2022-08-05 20:43:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp
