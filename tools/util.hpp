@@ -39,7 +39,25 @@ namespace tools {
       public:
         static const bool value = decltype(check(::std::declval<T>()))::value;
       };
+    }
+  }
+}
 
+template <typename T>
+auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
+  ::std::int_fast64_t n;
+  is >> n;
+  x = T(n);
+  return is;
+}
+template <typename T>
+auto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&> {
+  return os << x.val();
+}
+
+namespace tools {
+  namespace detail {
+    namespace util {
       template <typename T>
       ::std::istream& read(::std::istream& is, T& container) {
         for (auto& v : container) {
@@ -155,18 +173,6 @@ template <int I = -1, typename... Args>
   } else {
     return os;
   }
-}
-
-template <typename T>
-auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
-  ::std::int_fast64_t n;
-  is >> n;
-  x = T(n);
-  return is;
-}
-template <typename T>
-auto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&> {
-  return os << x.val();
 }
 
 #endif
