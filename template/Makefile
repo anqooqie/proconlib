@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -Wextra -pedantic -g -fsanitize=address,undefined -std=c++17 -O2 -DLOCAL
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++17 -O2 -g -fsanitize=address,undefined -DLOCAL
 LDFLAGS = -lm
 LIB_PATH = ~/.local/lib64
 
