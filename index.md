@@ -254,6 +254,9 @@ data:
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
+    - icon: ':heavy_check_mark:'
+      path: tools/next_matching.hpp
+      title: Enumerate all matchings
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
@@ -576,6 +579,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mo.test.cpp
       title: tests/mo.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/next_matching.test.cpp
+      title: tests/next_matching.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
