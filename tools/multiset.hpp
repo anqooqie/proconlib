@@ -10,7 +10,6 @@
 #include <vector>
 #include <algorithm>
 #include "tools/set.hpp"
-#include "tools/run_length.hpp"
 
 namespace tools {
   template <typename Key, typename Compare = ::std::less<Key>>
@@ -252,24 +251,19 @@ namespace tools {
       return iterator(this->m_set.erase(position.base()));
     }
     iterator erase(iterator first, iterator last) {
-      if (first == last) return last;
-
-      ::std::vector<::std::pair<Key, ::std::size_t>> freq;
-      ::tools::run_length(first, last, ::std::back_inserter(freq));
-      for (const auto& [x, n] : freq) {
-        for (::std::size_t i = 0; i < n; ++i) {
-          this->erase(this->lower_bound(x));
-        }
+      const ::std::size_t n = ::std::distance(first, last);
+      auto it = first;
+      for (::std::size_t i = 0; i < n; ++i) {
+        it = this->erase(it);
       }
-      return this->lower_bound(freq.back().first);
+      return it;
     }
     ::std::size_t erase(const Key& x) {
-      ::std::size_t res = 0;
-      for (auto it = this->lower_bound(x); it != this->end() && *it == x;) {
-        it = this->erase(it);
-        ++res;
+      ::std::size_t n = 0;
+      for (auto it = this->lower_bound(x); it != this->end() && !this->key_comp()(x, *it); it = this->erase(it)) {
+        ++n;
       }
-      return res;
+      return n;
     }
     void swap(::tools::multiset<Key, Compare>& st) {
       ::std::swap(this->m_next_id, st.m_next_id);
