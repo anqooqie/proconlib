@@ -251,6 +251,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
+    - icon: ':heavy_check_mark:'
+      path: tools/multiset.hpp
+      title: __gnu_pbds::tree allowing duplicated values
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
@@ -363,7 +366,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/set.hpp
       title: Alias for __gnu_pbds::tree
     - icon: ':heavy_check_mark:'
@@ -579,6 +582,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mo.test.cpp
       title: tests/mo.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/multiset.test.cpp
+      title: tests/multiset.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp

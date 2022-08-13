@@ -55,6 +55,9 @@ data:
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/multiset.test.cpp
+    title: tests/multiset.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -128,6 +131,7 @@ data:
   - tests/ceil.test.cpp
   - tests/tsort.test.cpp
   - tests/permutation.test.cpp
+  - tests/multiset.test.cpp
   - tests/floor_log2.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/ssize.test.cpp

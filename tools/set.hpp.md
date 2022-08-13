@@ -1,11 +1,17 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/multiset.hpp
+    title: __gnu_pbds::tree allowing duplicated values
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/multiset.test.cpp
+    title: tests/multiset.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/set.hpp\"\n\n\n\n#include <functional>\n#include <ext/pb_ds/assoc_container.hpp>\n\
@@ -22,10 +28,12 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/set.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/multiset.hpp
   timestamp: '2022-04-16 19:14:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/multiset.test.cpp
 documentation_of: tools/set.hpp
 layout: document
 title: Alias for __gnu_pbds::tree

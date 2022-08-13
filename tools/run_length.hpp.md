@@ -9,6 +9,9 @@ data:
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
+    path: tools/multiset.hpp
+    title: __gnu_pbds::tree allowing duplicated values
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -21,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/multiset.test.cpp
+    title: tests/multiset.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
@@ -69,6 +75,7 @@ data:
   isVerificationFile: false
   path: tools/run_length.hpp
   requiredBy:
+  - tools/multiset.hpp
   - tools/extended_lucas.hpp
   - tools/divisors.hpp
   - tools/totient.hpp
@@ -79,6 +86,7 @@ data:
   - tests/totient.test.cpp
   - tests/divisors.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/multiset.test.cpp
   - tests/run_length.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/run_length.hpp
