@@ -8,9 +8,6 @@ data:
     path: tools/multiset.hpp
     title: __gnu_pbds::tree allowing duplicated values
   - icon: ':heavy_check_mark:'
-    path: tools/run_length.hpp
-    title: Run-length encoding
-  - icon: ':heavy_check_mark:'
     path: tools/set.hpp
     title: Alias for __gnu_pbds::tree
   _extendedRequiredBy: []
@@ -36,38 +33,24 @@ data:
     #include <ext/pb_ds/tag_and_trait.hpp>\n\nnamespace tools {\n  template <typename\
     \ Key, typename Compare = ::std::less<Key>>\n  using set = ::__gnu_pbds::tree<Key,\
     \ ::__gnu_pbds::null_type, Compare, ::__gnu_pbds::rb_tree_tag, ::__gnu_pbds::tree_order_statistics_node_update>;\n\
-    }\n\n\n#line 1 \"tools/run_length.hpp\"\n\n\n\n#line 7 \"tools/run_length.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void run_length(const InputIterator& begin, const InputIterator& end, OutputIterator\
-    \ result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    if (begin == end) return;\n\n    ::std::pair<T, ::std::int_fast64_t> prev;\n\
-    \    for (auto [it, breaks] = ::std::make_pair(begin, false); !breaks; breaks\
-    \ = it == end, it = ::std::next(it, breaks ? 0 : 1)) {\n      bool flg1, flg2;\n\
-    \      if (it == begin) {\n        flg1 = false;\n        flg2 = true;\n     \
-    \ } else if (it == end) {\n        flg1 = true;\n        flg2 = false;\n     \
-    \ } else if (*it != prev.first) {\n        flg1 = true;\n        flg2 = true;\n\
-    \      } else {\n        flg1 = false;\n        flg2 = false;\n      }\n     \
-    \ if (flg1 || flg2) {\n        if (flg1) {\n          *result = prev;\n      \
-    \    ++result;\n        }\n        if (flg2) {\n          prev.first = *it;\n\
-    \          prev.second = 1;\n        }\n      } else {\n        ++prev.second;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 14 \"tools/multiset.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename Key, typename Compare = ::std::less<Key>>\n  class multiset\
-    \ {\n  private:\n    class PairCompare {\n    private:\n      Compare m_key_comp;\n\
-    \n    public:\n      PairCompare() = default;\n      explicit PairCompare(const\
-    \ Compare& key_comp) : m_key_comp(key_comp) {\n      }\n      PairCompare(const\
-    \ PairCompare&) = default;\n      PairCompare(PairCompare&&) = default;\n    \
-    \  ~PairCompare() = default;\n      PairCompare& operator=(const PairCompare&)\
-    \ = default;\n      PairCompare& operator=(PairCompare&&) = default;\n\n     \
-    \ bool operator()(const ::std::pair<Key, ::std::size_t>& lhs, const ::std::pair<Key,\
-    \ ::std::size_t>& rhs) const {\n        if (this->m_key_comp(lhs.first, rhs.first))\
-    \ return true;\n        if (this->m_key_comp(rhs.first, lhs.first)) return false;\n\
-    \        return lhs.second < rhs.second;\n      }\n\n      Compare key_comp()\
-    \ const {\n        return this->m_key_comp;\n      }\n    };\n\n    ::std::size_t\
-    \ m_next_id;\n    ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare> m_set;\n\
-    \n  public:\n    class iterator {\n    private:\n      typename ::tools::set<::std::pair<Key,\
-    \ ::std::size_t>, PairCompare>::iterator m_it;\n\n    public:\n      using difference_type\
-    \ = ::std::ptrdiff_t;\n      using value_type = Key;\n      using reference =\
-    \ Key&;\n      using pointer = Key*;\n      using iterator_category = ::std::bidirectional_iterator_tag;\n\
+    }\n\n\n#line 13 \"tools/multiset.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ Key, typename Compare = ::std::less<Key>>\n  class multiset {\n  private:\n\
+    \    class PairCompare {\n    private:\n      Compare m_key_comp;\n\n    public:\n\
+    \      PairCompare() = default;\n      explicit PairCompare(const Compare& key_comp)\
+    \ : m_key_comp(key_comp) {\n      }\n      PairCompare(const PairCompare&) = default;\n\
+    \      PairCompare(PairCompare&&) = default;\n      ~PairCompare() = default;\n\
+    \      PairCompare& operator=(const PairCompare&) = default;\n      PairCompare&\
+    \ operator=(PairCompare&&) = default;\n\n      bool operator()(const ::std::pair<Key,\
+    \ ::std::size_t>& lhs, const ::std::pair<Key, ::std::size_t>& rhs) const {\n \
+    \       if (this->m_key_comp(lhs.first, rhs.first)) return true;\n        if (this->m_key_comp(rhs.first,\
+    \ lhs.first)) return false;\n        return lhs.second < rhs.second;\n      }\n\
+    \n      Compare key_comp() const {\n        return this->m_key_comp;\n      }\n\
+    \    };\n\n    ::std::size_t m_next_id;\n    ::tools::set<::std::pair<Key, ::std::size_t>,\
+    \ PairCompare> m_set;\n\n  public:\n    class iterator {\n    private:\n     \
+    \ typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator\
+    \ m_it;\n\n    public:\n      using difference_type = ::std::ptrdiff_t;\n    \
+    \  using value_type = Key;\n      using reference = Key&;\n      using pointer\
+    \ = Key*;\n      using iterator_category = ::std::bidirectional_iterator_tag;\n\
     \n      iterator() = default;\n      iterator(const typename ::tools::set<::std::pair<Key,\
     \ ::std::size_t>, PairCompare>::iterator it) : m_it(it) {\n      }\n      iterator(const\
     \ iterator&) = default;\n      iterator(iterator&&) = default;\n      ~iterator()\
@@ -143,21 +126,19 @@ data:
     \ <class... Args>\n    ::std::pair<iterator, bool> emplace(Args&&... args) {\n\
     \      return this->internal_insert(Key(::std::forward<Args>(args)...));\n   \
     \ }\n    iterator erase(iterator position) {\n      return iterator(this->m_set.erase(position.base()));\n\
-    \    }\n    iterator erase(iterator first, iterator last) {\n      if (first ==\
-    \ last) return last;\n\n      ::std::vector<::std::pair<Key, ::std::size_t>> freq;\n\
-    \      ::tools::run_length(first, last, ::std::back_inserter(freq));\n      for\
-    \ (const auto& [x, n] : freq) {\n        for (::std::size_t i = 0; i < n; ++i)\
-    \ {\n          this->erase(this->lower_bound(x));\n        }\n      }\n      return\
-    \ this->lower_bound(freq.back().first);\n    }\n    ::std::size_t erase(const\
-    \ Key& x) {\n      ::std::size_t res = 0;\n      for (auto it = this->lower_bound(x);\
-    \ it != this->end() && *it == x;) {\n        it = this->erase(it);\n        ++res;\n\
-    \      }\n      return res;\n    }\n    void swap(::tools::multiset<Key, Compare>&\
-    \ st) {\n      ::std::swap(this->m_next_id, st.m_next_id);\n      this->m_set.swap(st.m_set);\n\
-    \    }\n\n    iterator find(const Key& x) const {\n      const auto it = this->lower_bound(x);\n\
-    \      if (it == this->end() || this->key_comp()(x, *it)) return this->end();\n\
-    \      return it;\n    }\n    bool contains(const Key& x) const {\n      return\
-    \ this->find(x) != this->end();\n    }\n    ::std::pair<iterator, iterator> equal_range(const\
-    \ Key& x) const {\n      return ::std::make_pair(this->lower_bound(x), this->upper_bound(x));\n\
+    \    }\n    iterator erase(iterator first, iterator last) {\n      const ::std::size_t\
+    \ n = ::std::distance(first, last);\n      auto it = first;\n      for (::std::size_t\
+    \ i = 0; i < n; ++i) {\n        it = this->erase(it);\n      }\n      return it;\n\
+    \    }\n    ::std::size_t erase(const Key& x) {\n      ::std::size_t n = 0;\n\
+    \      for (auto it = this->lower_bound(x); it != this->end() && !this->key_comp()(x,\
+    \ *it); it = this->erase(it)) {\n        ++n;\n      }\n      return n;\n    }\n\
+    \    void swap(::tools::multiset<Key, Compare>& st) {\n      ::std::swap(this->m_next_id,\
+    \ st.m_next_id);\n      this->m_set.swap(st.m_set);\n    }\n\n    iterator find(const\
+    \ Key& x) const {\n      const auto it = this->lower_bound(x);\n      if (it ==\
+    \ this->end() || this->key_comp()(x, *it)) return this->end();\n      return it;\n\
+    \    }\n    bool contains(const Key& x) const {\n      return this->find(x) !=\
+    \ this->end();\n    }\n    ::std::pair<iterator, iterator> equal_range(const Key&\
+    \ x) const {\n      return ::std::make_pair(this->lower_bound(x), this->upper_bound(x));\n\
     \    }\n\n    Compare value_comp() const {\n      return this->key_comp();\n \
     \   }\n\n    using key_type = Key;\n    using value_type = Key;\n    using key_compare\
     \ = Compare;\n    using value_compare = Compare;\n    using reference = Key&;\n\
@@ -430,11 +411,10 @@ data:
   - tools/assert_that.hpp
   - tools/multiset.hpp
   - tools/set.hpp
-  - tools/run_length.hpp
   isVerificationFile: true
   path: tests/multiset.test.cpp
   requiredBy: []
-  timestamp: '2022-08-13 20:33:42+09:00'
+  timestamp: '2022-08-13 21:21:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/multiset.test.cpp
