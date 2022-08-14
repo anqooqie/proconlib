@@ -197,7 +197,7 @@ title: std::less by the argument
 ---
 
 It compares two vectors by the argument.
-More precisely, it maps a vector $v$ to $\mathrm{arg}_{d - o}(v)$ and compares two vectors by the mapped value.
+More precisely, it maps a vector $v$ to $\mathrm{arg}_{d - o}(v - o)$ and compares two vectors by the mapped value.
 
 Given a vector $d$, $\mathrm{arg}_d(v)$ is defined as follows.
 
@@ -245,7 +245,7 @@ It returns the following.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-\text{true} & \text{(if $\mathrm{arg}_{d - o}(a) < \mathrm{arg}_{d - o}(b)$)}\\
+\text{true} & \text{(if $\mathrm{arg}_{d - o}(a - o) < \mathrm{arg}_{d - o}(b - o)$)}\\
 \text{false} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
