@@ -62,7 +62,7 @@ It returns the following.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-\text{true} & \text{(if $(\mathrm{class}_{d - o}(a), \mathrm{arg}_{d - o}(a), \|a\|) < (\mathrm{class}_{d - o}(b), \mathrm{arg}_{d - o}(b), \|b\|)$ in lexicographical order)}\\
+\text{true} & \text{(if $(\mathrm{class}_{d - o}(a - o), \mathrm{arg}_{d - o}(a - o), \|a - o\|) < (\mathrm{class}_{d - o}(b - o), \mathrm{arg}_{d - o}(b - o), \|b - o\|)$ in lexicographical order)}\\
 \text{false} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
