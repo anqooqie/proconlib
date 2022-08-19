@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/barlekamp_massey.hpp
-    title: Barlekamp-Massey algorithm
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,7 +14,7 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/find_linear_recurrence
     links:
     - https://judge.yosupo.jp/problem/find_linear_recurrence
-  bundledCode: "#line 1 \"tests/barlekamp_massey.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
+  bundledCode: "#line 1 \"tests/berlekamp_massey.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
     #include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
     \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
@@ -222,10 +222,10 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/barlekamp_massey.hpp\"\
-    \n\n\n\n#line 6 \"tools/barlekamp_massey.hpp\"\n#include <cstddef>\n#include <algorithm>\n\
-    #line 9 \"tools/barlekamp_massey.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ InputIterator, typename OutputIterator>\n  void barlekamp_massey(InputIterator\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/berlekamp_massey.hpp\"\
+    \n\n\n\n#line 6 \"tools/berlekamp_massey.hpp\"\n#include <cstddef>\n#include <algorithm>\n\
+    #line 9 \"tools/berlekamp_massey.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ InputIterator, typename OutputIterator>\n  void berlekamp_massey(InputIterator\
     \ begin, InputIterator end, OutputIterator result) {\n    using M = ::std::decay_t<decltype(*begin)>;\n\
     \    ::std::vector<M> A(begin, end);\n    ::std::vector<M> C({M(1)});\n    ::std::vector<M>\
     \ B({M(1)});\n    ::std::size_t L = 0;\n    ::std::size_t m = 1;\n    M b(1);\n\
@@ -239,38 +239,38 @@ data:
     \          L = n + 1 - L;\n          B = ::std::move(T);\n          b = d;\n \
     \         m = 1;\n        } else {\n          update_C();\n          ++m;\n  \
     \      }\n      }\n    }\n\n    for (const auto& C_i : C) {\n      *result = C_i;\n\
-    \      ++result;\n    }\n  }\n}\n\n\n#line 10 \"tests/barlekamp_massey.test.cpp\"\
+    \      ++result;\n    }\n  }\n}\n\n\n#line 10 \"tests/berlekamp_massey.test.cpp\"\
     \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
     \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
     \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  std::vector<mint> c;\n \
-    \ tools::barlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
+    \ tools::berlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
     \ << c.size() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for (std::size_t\
     \ i = 1; i < c.size(); ++i) {\n    std::cout << delimiter << (-c[i]).val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
     \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
-    #include <string>\n#include \"atcoder/modint.hpp\"\n#include \"tools/barlekamp_massey.hpp\"\
+    #include <string>\n#include \"atcoder/modint.hpp\"\n#include \"tools/berlekamp_massey.hpp\"\
     \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
     \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
     \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  std::vector<mint> c;\n \
-    \ tools::barlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
+    \ tools::berlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
     \ << c.size() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for (std::size_t\
     \ i = 1; i < c.size(); ++i) {\n    std::cout << delimiter << (-c[i]).val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/barlekamp_massey.hpp
+  - tools/berlekamp_massey.hpp
   isVerificationFile: true
-  path: tests/barlekamp_massey.test.cpp
+  path: tests/berlekamp_massey.test.cpp
   requiredBy: []
-  timestamp: '2022-08-19 17:41:10+09:00'
+  timestamp: '2022-08-20 00:15:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/barlekamp_massey.test.cpp
+documentation_of: tests/berlekamp_massey.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/barlekamp_massey.test.cpp
-- /verify/tests/barlekamp_massey.test.cpp.html
-title: tests/barlekamp_massey.test.cpp
+- /verify/tests/berlekamp_massey.test.cpp
+- /verify/tests/berlekamp_massey.test.cpp.html
+title: tests/berlekamp_massey.test.cpp
 ---

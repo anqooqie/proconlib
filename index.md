@@ -13,11 +13,11 @@ data:
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
-      path: tools/barlekamp_massey.hpp
-      title: Barlekamp-Massey algorithm
-    - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
+    - icon: ':heavy_check_mark:'
+      path: tools/berlekamp_massey.hpp
+      title: Berlekamp-Massey algorithm
     - icon: ':heavy_check_mark:'
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
@@ -451,11 +451,11 @@ data:
       path: tests/alphabetical_order.test.cpp
       title: tests/alphabetical_order.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/barlekamp_massey.test.cpp
-      title: tests/barlekamp_massey.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/berlekamp_massey.test.cpp
+      title: tests/berlekamp_massey.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bezout.test.cpp
       title: tests/bezout.test.cpp
