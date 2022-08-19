@@ -18,7 +18,7 @@ If we give the first $2d$ terms to Barlekamp-Massey algorithm, we can identify t
 Example:
 Assume that we have the first $4$ terms $(0, 1, 1, 2)$ of an infinite sequence $(a_0, a_1, \ldots)$.
 The sequence is known to be generated from a linear recurrence equation of at most degree $2$.
-We can find that the sequence is generated from $a_{n+2} - a_{n+1} - a_n = 0$ by Barlekamp-Massey algorithm.
+We can find that the sequence is generated from $a_{n+2} - a_{n+1} - a_n \equiv 0$ by Barlekamp-Massey algorithm.
 The infinite sequence is the Fibonacci sequence.
 
 ### Constraints
