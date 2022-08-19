@@ -1,5 +1,5 @@
-#ifndef TOOLS_BARLEKAMP_MASSEY_HPP
-#define TOOLS_BARLEKAMP_MASSEY_HPP
+#ifndef TOOLS_BERLEKAMP_MASSEY_HPP
+#define TOOLS_BERLEKAMP_MASSEY_HPP
 
 #include <type_traits>
 #include <vector>
@@ -9,7 +9,7 @@
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
-  void barlekamp_massey(InputIterator begin, InputIterator end, OutputIterator result) {
+  void berlekamp_massey(InputIterator begin, InputIterator end, OutputIterator result) {
     using M = ::std::decay_t<decltype(*begin)>;
     ::std::vector<M> A(begin, end);
     ::std::vector<M> C({M(1)});

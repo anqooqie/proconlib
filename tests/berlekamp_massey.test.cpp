@@ -6,7 +6,7 @@
 #include <iterator>
 #include <string>
 #include "atcoder/modint.hpp"
-#include "tools/barlekamp_massey.hpp"
+#include "tools/berlekamp_massey.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -25,7 +25,7 @@ int main() {
   }
 
   std::vector<mint> c;
-  tools::barlekamp_massey(a.begin(), a.end(), std::back_inserter(c));
+  tools::berlekamp_massey(a.begin(), a.end(), std::back_inserter(c));
 
   std::cout << c.size() - 1 << '\n';
   std::string delimiter = "";
