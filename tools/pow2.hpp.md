@@ -36,6 +36,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/nth_term.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   - icon: ':heavy_check_mark:'
@@ -142,6 +145,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/nth_term.test.cpp
+    title: tests/nth_term.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -197,6 +203,7 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/nth_term.hpp
   - tools/tetration_mod.hpp
   - tools/binary_heap.hpp
   - tools/divisors.hpp
@@ -233,6 +240,7 @@ data:
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
+  - tests/nth_term.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp

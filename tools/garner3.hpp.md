@@ -8,10 +8,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/nth_term.hpp
+    title: Bostan-Mori algorithm
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/convolution.test.cpp
     title: tests/convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/nth_term.test.cpp
+    title: tests/nth_term.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -273,11 +279,13 @@ data:
   isVerificationFile: false
   path: tools/garner3.hpp
   requiredBy:
+  - tools/nth_term.hpp
   - tools/convolution.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/convolution.test.cpp
+  - tests/nth_term.test.cpp
 documentation_of: tools/garner3.hpp
 layout: document
 title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod 754974721$

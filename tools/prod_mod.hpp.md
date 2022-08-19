@@ -23,6 +23,9 @@ data:
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
+    path: tools/nth_term.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/nth_term.test.cpp
+    title: tests/nth_term.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -83,6 +89,7 @@ data:
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
+  - tools/nth_term.hpp
   - tools/tetration_mod.hpp
   - tools/divisors.hpp
   - tools/extended_lucas.hpp
@@ -102,6 +109,7 @@ data:
   - tests/is_prime.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
   - tests/fact_mod_cache/combination.test.cpp
+  - tests/nth_term.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/divisors.test.cpp

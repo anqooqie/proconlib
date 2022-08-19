@@ -267,6 +267,9 @@ data:
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
     - icon: ':heavy_check_mark:'
+      path: tools/nth_term.hpp
+      title: Bostan-Mori algorithm
+    - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
     - icon: ':heavy_check_mark:'
@@ -594,6 +597,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/nth_term.test.cpp
+      title: tests/nth_term.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
