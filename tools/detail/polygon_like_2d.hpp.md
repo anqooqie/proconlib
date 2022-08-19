@@ -748,9 +748,9 @@ data:
   timestamp: '2022-07-23 13:26:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
 documentation_of: tools/detail/polygon_like_2d.hpp
 layout: document
 redirect_from:

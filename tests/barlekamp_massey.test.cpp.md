@@ -1,106 +1,41 @@
 ---
 data:
-  _extendedDependsOn: []
-  _extendedRequiredBy:
+  _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/bigdecimal.hpp
-    title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
-    path: tools/bigint.hpp
-    title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
-    path: tools/rational.hpp
-    title: Rational number
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/divides.test.cpp
-    title: tests/bigdecimal/divides.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/hand.test.cpp
-    title: tests/bigdecimal/hand.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/minus.test.cpp
-    title: tests/bigdecimal/minus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/multiplies.test.cpp
-    title: tests/bigdecimal/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/plus.test.cpp
-    title: tests/bigdecimal/plus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigdecimal/random.test.cpp
-    title: tests/bigdecimal/random.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/divides.test.cpp
-    title: tests/bigint/divides.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/minus.test.cpp
-    title: tests/bigint/minus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/modulus.test.cpp
-    title: tests/bigint/modulus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/multiplies.test.cpp
-    title: tests/bigint/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bigint/plus.test.cpp
-    title: tests/bigint/plus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/cross_point.test.cpp
-    title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/intersection.test.cpp
-    title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/squared_distance.test.cpp
-    title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/line_2d/projection.test.cpp
-    title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/area.test.cpp
-    title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/minus.test.cpp
-    title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/multiplies.test.cpp
-    title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/plus.test.cpp
-    title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/rational/random.test.cpp
-    title: tests/rational/random.test.cpp
+    path: tools/barlekamp_massey.hpp
+    title: Barlekamp-Massey algorithm
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/garner2.hpp\"\n\n\n\n#include <cstdint>\n#include\
-    \ <cassert>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
-    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
-    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
-    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/find_linear_recurrence
+    links:
+    - https://judge.yosupo.jp/problem/find_linear_recurrence
+  bundledCode: "#line 1 \"tests/barlekamp_massey.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
+    #include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
+    \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
+    \n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace\
+    \ atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod\
+    \ m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %= m;\n \
+    \   if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication by\
+    \ barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -287,86 +222,55 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 7 \"tools/garner2.hpp\"\
-    \n\nnamespace tools {\n\n  inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
-    \ a, const ::atcoder::static_modint<469762049>& b) {\n    using mint1 = ::atcoder::static_modint<167772161>;\
-    \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
-    \ * 2^26 + 1\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64\
-    \ m1_m2 = u64(mint1::mod()) * u64(mint2::mod());\n    static const mint2 m1_inv_mod_m2\
-    \ = mint2::raw(mint1::mod()).inv();\n\n    // t = (b - a) / 167772161; (mod 469762049)\n\
-    \    // return a + t * 167772161; (mod m)\n    const mint2 t = (b - mint2::raw(a.val()))\
-    \ * m1_inv_mod_m2;\n    u64 r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
-    \    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_GARNER2_HPP\n#define TOOLS_GARNER2_HPP\n\n#include <cstdint>\n\
-    #include <cassert>\n#include \"atcoder/modint.hpp\"\n\nnamespace tools {\n\n \
-    \ inline ::std::int_fast64_t garner2(const ::atcoder::static_modint<167772161>&\
-    \ a, const ::atcoder::static_modint<469762049>& b) {\n    using mint1 = ::atcoder::static_modint<167772161>;\
-    \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
-    \ * 2^26 + 1\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64\
-    \ m1_m2 = u64(mint1::mod()) * u64(mint2::mod());\n    static const mint2 m1_inv_mod_m2\
-    \ = mint2::raw(mint1::mod()).inv();\n\n    // t = (b - a) / 167772161; (mod 469762049)\n\
-    \    // return a + t * 167772161; (mod m)\n    const mint2 t = (b - mint2::raw(a.val()))\
-    \ * m1_inv_mod_m2;\n    u64 r = t.val();\n    r *= mint1::mod();\n    r += a.val();\n\
-    \    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n#endif\n"
-  dependsOn: []
-  isVerificationFile: false
-  path: tools/garner2.hpp
-  requiredBy:
-  - tools/rational.hpp
-  - tools/bigint.hpp
-  - tools/bigdecimal.hpp
-  timestamp: '2022-01-02 00:15:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-documentation_of: tools/garner2.hpp
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/barlekamp_massey.hpp\"\
+    \n\n\n\n#line 6 \"tools/barlekamp_massey.hpp\"\n#include <cstddef>\n#include <algorithm>\n\
+    #line 9 \"tools/barlekamp_massey.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ InputIterator, typename OutputIterator>\n  void barlekamp_massey(InputIterator\
+    \ begin, InputIterator end, OutputIterator result) {\n    using M = ::std::decay_t<decltype(*begin)>;\n\
+    \    ::std::vector<M> A(begin, end);\n    ::std::vector<M> C({M(1)});\n    ::std::vector<M>\
+    \ B({M(1)});\n    ::std::size_t L = 0;\n    ::std::size_t m = 1;\n    M b(1);\n\
+    \n    for (::std::size_t n = 0; n < A.size(); ++n) {\n      M d(0);\n      for\
+    \ (::std::size_t i = 0; i <= L; ++i) {\n        d += C[i] * A[n - i];\n      }\n\
+    \n      if (d == M(0)) {\n        ++m;\n      } else {\n        const auto update_C\
+    \ = [&]() {\n          C.resize(::std::max(C.size(), B.size() + m));\n       \
+    \   const auto coeff = d / b;\n          for (::std::size_t i = 0; i < B.size();\
+    \ ++i) {\n            C[i + m] -= coeff * B[i];\n          }\n        };\n   \
+    \     if (2 * L <= n) {\n          const auto T = C;\n          update_C();\n\
+    \          L = n + 1 - L;\n          B = ::std::move(T);\n          b = d;\n \
+    \         m = 1;\n        } else {\n          update_C();\n          ++m;\n  \
+    \      }\n      }\n    }\n\n    for (const auto& C_i : C) {\n      *result = C_i;\n\
+    \      ++result;\n    }\n  }\n}\n\n\n#line 10 \"tests/barlekamp_massey.test.cpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
+    \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
+    \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  std::vector<mint> c;\n \
+    \ tools::barlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
+    \ << c.size() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for (std::size_t\
+    \ i = 1; i < c.size(); ++i) {\n    std::cout << delimiter << (-c[i]).val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
+    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
+    #include <string>\n#include \"atcoder/modint.hpp\"\n#include \"tools/barlekamp_massey.hpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
+    \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
+    \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  std::vector<mint> c;\n \
+    \ tools::barlekamp_massey(a.begin(), a.end(), std::back_inserter(c));\n\n  std::cout\
+    \ << c.size() - 1 << '\\n';\n  std::string delimiter = \"\";\n  for (std::size_t\
+    \ i = 1; i < c.size(); ++i) {\n    std::cout << delimiter << (-c[i]).val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
+  dependsOn:
+  - tools/barlekamp_massey.hpp
+  isVerificationFile: true
+  path: tests/barlekamp_massey.test.cpp
+  requiredBy: []
+  timestamp: '2022-08-19 17:41:10+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/barlekamp_massey.test.cpp
 layout: document
-title: Garner's algorithm for $\bmod 167772161$ and $\bmod 469762049$
+redirect_from:
+- /verify/tests/barlekamp_massey.test.cpp
+- /verify/tests/barlekamp_massey.test.cpp.html
+title: tests/barlekamp_massey.test.cpp
 ---
-
-```cpp
-std::int_fast64_t garner2(atcoder::static_modint<167772161> a, atcoder::static_modint<469762049> b);
-```
-
-It solves the following modular equation system and returns $x \bmod 78812994116517889$.
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
-x \equiv a &\pmod{167772161}\\
-x \equiv b &\pmod{469762049}
-\end{array}\right.&
-\end{align*}$$
-
-It is useful to reconstruct $x$ less than $78812994116517889 \approx 7.8 \times 10^{16}$ from $x \bmod 167772161$ and $x \bmod 469762049$.
-
-## Constraints
-- None
-
-## Time Complexity
-- $O(1)$
-
-## License
-- CC0
-
-## Author
-- anqooqie

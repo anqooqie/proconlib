@@ -112,35 +112,35 @@ data:
   timestamp: '2022-06-17 23:50:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/multiset.test.cpp
+  - tests/tsort.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/ceil.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/floor_sqrt.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/ssize.test.cpp
+  - tests/fill.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/resize.test.cpp
+  - tests/mex.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/permutation.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/run_length.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/floor.test.cpp
+  - tests/find_cycle.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/floor_log2.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/random.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/fill.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/floor.test.cpp
-  - tests/fix.test.cpp
-  - tests/safe_int.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/digit_sum.test.cpp
-  - tests/floor_sqrt.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/mex.test.cpp
-  - tests/find_cycle.test.cpp
-  - tests/resize.test.cpp
-  - tests/ceil.test.cpp
-  - tests/tsort.test.cpp
-  - tests/permutation.test.cpp
-  - tests/multiset.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/ssize.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/run_length.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/floor_log.test.cpp
   - tests/random_tree.test.cpp
+  - tests/digit_sum.test.cpp
+  - tests/fix.test.cpp
+  - tests/rotate_right.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro

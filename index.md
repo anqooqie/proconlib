@@ -13,6 +13,9 @@ data:
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
+      path: tools/barlekamp_massey.hpp
+      title: Barlekamp-Massey algorithm
+    - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
@@ -447,6 +450,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/alphabetical_order.test.cpp
       title: tests/alphabetical_order.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/barlekamp_massey.test.cpp
+      title: tests/barlekamp_massey.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp

@@ -72,15 +72,15 @@ data:
   isVerificationFile: false
   path: tools/inv_mod.hpp
   requiredBy:
-  - tools/garner.hpp
-  - tools/extended_lucas.hpp
   - tools/tetration_mod.hpp
   - tools/extended_garner.hpp
+  - tools/garner.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/extended_garner.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/inv_mod.hpp
 layout: document
