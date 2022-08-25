@@ -101,6 +101,10 @@ template <class Key, class Hash, class Pred, class Allocator>
 ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key, Hash, Pred, Allocator>& unordered_set) {
   return ::tools::detail::util::debug_print(os, unordered_set);
 }
+template <class Key, class T, class Hash, class Pred, class Allocator>
+::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_map<Key, T, Hash, Pred, Allocator>& unordered_map) {
+  return ::tools::detail::util::debug_print(os, unordered_map);
+}
 
 template <class T, class Container>
 ::std::ostream& operator<<(::std::ostream& os, ::std::stack<T, Container>& stack) {
