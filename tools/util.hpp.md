@@ -95,7 +95,10 @@ data:
     \ array);\n}\ntemplate <class Key, class Hash, class Pred, class Allocator>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key,\
     \ Hash, Pred, Allocator>& unordered_set) {\n  return ::tools::detail::util::debug_print(os,\
-    \ unordered_set);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
+    \ unordered_set);\n}\ntemplate <class Key, class T, class Hash, class Pred, class\
+    \ Allocator>\n::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_map<Key,\
+    \ T, Hash, Pred, Allocator>& unordered_map) {\n  return ::tools::detail::util::debug_print(os,\
+    \ unordered_map);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
     \ os, ::std::stack<T, Container>& stack) {\n  ::std::stack<T, Container> other;\n\
     \  while (!stack.empty()) {\n    other.push(stack.top());\n    stack.pop();\n\
     \  }\n\n  ::std::string delimiter = \"\";\n  os << '[';\n  while (!other.empty())\
@@ -157,7 +160,10 @@ data:
     \ array);\n}\ntemplate <class Key, class Hash, class Pred, class Allocator>\n\
     ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key,\
     \ Hash, Pred, Allocator>& unordered_set) {\n  return ::tools::detail::util::debug_print(os,\
-    \ unordered_set);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
+    \ unordered_set);\n}\ntemplate <class Key, class T, class Hash, class Pred, class\
+    \ Allocator>\n::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_map<Key,\
+    \ T, Hash, Pred, Allocator>& unordered_map) {\n  return ::tools::detail::util::debug_print(os,\
+    \ unordered_map);\n}\n\ntemplate <class T, class Container>\n::std::ostream& operator<<(::std::ostream&\
     \ os, ::std::stack<T, Container>& stack) {\n  ::std::stack<T, Container> other;\n\
     \  while (!stack.empty()) {\n    other.push(stack.top());\n    stack.pop();\n\
     \  }\n\n  ::std::string delimiter = \"\";\n  os << '[';\n  while (!other.empty())\
@@ -189,7 +195,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2022-08-05 20:43:51+09:00'
+  timestamp: '2022-08-26 02:57:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp
