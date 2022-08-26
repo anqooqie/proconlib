@@ -91,9 +91,6 @@ data:
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
-      path: tools/dp_with_rerooting.hpp
-      title: DP with rerooting
-    - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':heavy_check_mark:'
@@ -342,6 +339,9 @@ data:
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
     - icon: ':heavy_check_mark:'
+      path: tools/rerooting_dp.hpp
+      title: Dynamic programming on trees with rerooting technique
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -514,9 +514,6 @@ data:
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/dp_with_rerooting.test.cpp
-      title: tests/dp_with_rerooting.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -639,6 +636,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rerooting_dp.test.cpp
+      title: tests/rerooting_dp.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp

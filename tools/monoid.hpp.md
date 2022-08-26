@@ -49,6 +49,9 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rerooting_dp.test.cpp
+    title: tests/rerooting_dp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -115,6 +118,7 @@ data:
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/rerooting_dp.test.cpp
   - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/ceil_kth_root.test.cpp
