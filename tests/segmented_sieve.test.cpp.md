@@ -349,19 +349,19 @@ data:
     \        return iterator(this, true, 0);\n        }\n      }\n\n      iterator\
     \ end() const {\n        return iterator(this, false, 1);\n      }\n    };\n\n\
     \    class prime_iterable {\n    private:\n      const ::tools::segmented_sieve<T>\
-    \ *m_parent;\n      bool m_large;\n      T m_lb;\n      T m_ub;\n\n    public:\n\
-    \      class iterator {\n      private:\n        const prime_iterable *m_parent;\n\
-    \        T m_i;\n\n        void next() {\n          ++this->m_i;\n          if\
-    \ (this->m_parent->m_large) {\n            for (; this->m_i <= this->m_parent->m_ub\
-    \ && this->m_parent->m_parent->m_pf[this->m_i - this->m_parent->m_parent->l()][0]\
-    \ != this->m_i; ++this->m_i);\n          } else {\n            for (; this->m_i\
-    \ <= this->m_parent->m_ub && this->m_parent->m_parent->m_lpf[this->m_i] != this->m_i;\
-    \ ++this->m_i);\n          }\n        }\n\n      public:\n        using difference_type\
-    \ = ::std::ptrdiff_t;\n        using value_type = T;\n        using reference\
-    \ = T&;\n        using pointer = T*;\n        using iterator_category = ::std::input_iterator_tag;\n\
-    \n        iterator() = default;\n        iterator(const iterator&) = default;\n\
-    \        iterator(iterator&&) = default;\n        ~iterator() = default;\n   \
-    \     iterator& operator=(const iterator&) = default;\n        iterator& operator=(iterator&&)\
+    \ *m_parent;\n      T m_lb;\n      T m_ub;\n\n    public:\n      class iterator\
+    \ {\n      private:\n        const prime_iterable *m_parent;\n        T m_i;\n\
+    \n        void next() {\n          ++this->m_i;\n          for (; this->m_i <=\
+    \ this->m_parent->m_ub && (\n            (this->m_i <= this->m_parent->m_parent->lpf_max()\
+    \ && this->m_parent->m_parent->m_lpf[this->m_i] != this->m_i)\n            ||\
+    \ (this->m_parent->m_parent->lpf_max() < this->m_i && this->m_parent->m_parent->m_pf[this->m_i\
+    \ - this->m_parent->m_parent->l()][0] != this->m_i)\n          ); ++this->m_i);\n\
+    \        }\n\n      public:\n        using difference_type = ::std::ptrdiff_t;\n\
+    \        using value_type = T;\n        using reference = T&;\n        using pointer\
+    \ = T*;\n        using iterator_category = ::std::input_iterator_tag;\n\n    \
+    \    iterator() = default;\n        iterator(const iterator&) = default;\n   \
+    \     iterator(iterator&&) = default;\n        ~iterator() = default;\n      \
+    \  iterator& operator=(const iterator&) = default;\n        iterator& operator=(iterator&&)\
     \ = default;\n\n        iterator(prime_iterable const * const parent, const T&\
     \ i) :\n          m_parent(parent), m_i(i) {\n          this->next();\n      \
     \  }\n\n        T operator*() const {\n          return this->m_i;\n        }\n\
@@ -372,30 +372,30 @@ data:
     \       return lhs.m_i == rhs.m_i;\n        }\n\n        friend bool operator!=(const\
     \ iterator& lhs, const iterator& rhs) {\n          return !(lhs == rhs);\n   \
     \     }\n      };\n\n      prime_iterable(::tools::segmented_sieve<T> const *\
-    \ const parent, const bool large, const T& lb, const T& ub) :\n        m_parent(parent),\
-    \ m_large(large), m_lb(lb), m_ub(ub) {\n      }\n\n      iterator begin() const\
-    \ {\n        return iterator(this, this->m_lb - 1);\n      }\n\n      iterator\
-    \ end() const {\n        return iterator(this, this->m_ub);\n      }\n    };\n\
-    \n    prime_factor_iterable prime_factor_range(const T& n) const {\n      assert((1\
-    \ <= n && n <= this->lpf_max()) || (this->l() <= n && n <= this->r()));\n    \
-    \  return prime_factor_iterable(this, n);\n    }\n\n    distinct_prime_factor_iterable\
-    \ distinct_prime_factor_range(const T& n) const {\n      assert((1 <= n && n <=\
-    \ this->lpf_max()) || (this->l() <= n && n <= this->r()));\n      return distinct_prime_factor_iterable(this,\
-    \ n);\n    }\n\n    prime_iterable prime_range(const T& lb, const T& ub) const\
-    \ {\n      assert(lb <= ub);\n      const bool is_in_small_sieve = 1 <= lb &&\
-    \ ub <= this->lpf_max();\n      const bool is_in_large_sieve = this->l() <= lb\
-    \ && ub <= this->r();\n      assert(is_in_small_sieve || is_in_large_sieve);\n\
-    \      return prime_iterable(this, !is_in_small_sieve, lb, ub);\n    }\n  };\n\
-    }\n\n\n#line 8 \"tests/segmented_sieve.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    using mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, K;\n  std::cin >> N >> K;\n\
-    \n  std::unordered_map<i64, i64> nCk;\n  if (K > 0) {\n    tools::segmented_sieve<i64>\
-    \ sieve(K, N - K + 1, N);\n    for (i64 i = N - K + 1; i <= N; ++i) {\n      for\
-    \ (const i64& p : sieve.prime_factor_range(i)) {\n        ++nCk[p];\n      }\n\
-    \    }\n\n    for (i64 i = 1; i <= K; ++i) {\n      for (const i64& p : sieve.prime_factor_range(i))\
-    \ {\n        --nCk[p];\n      }\n    }\n  }\n\n  mint answer(1);\n  for (const\
-    \ auto& [p, q] : nCk) {\n    answer *= mint(q + 1);\n  }\n  std::cout << answer.val()\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ const parent, const T& lb, const T& ub) :\n        m_parent(parent), m_lb(lb),\
+    \ m_ub(ub) {\n      }\n\n      iterator begin() const {\n        return iterator(this,\
+    \ this->m_lb - 1);\n      }\n\n      iterator end() const {\n        return iterator(this,\
+    \ this->m_ub);\n      }\n    };\n\n    prime_factor_iterable prime_factor_range(const\
+    \ T& n) const {\n      assert((1 <= n && n <= this->lpf_max()) || (this->l() <=\
+    \ n && n <= this->r()));\n      return prime_factor_iterable(this, n);\n    }\n\
+    \n    distinct_prime_factor_iterable distinct_prime_factor_range(const T& n) const\
+    \ {\n      assert((1 <= n && n <= this->lpf_max()) || (this->l() <= n && n <=\
+    \ this->r()));\n      return distinct_prime_factor_iterable(this, n);\n    }\n\
+    \n    prime_iterable prime_range(const T& lb, const T& ub) const {\n      assert(lb\
+    \ <= ub);\n      const bool is_in_small_sieve = 1 <= lb && ub <= this->lpf_max();\n\
+    \      const bool is_in_large_sieve = this->l() <= lb && ub <= this->r();\n  \
+    \    assert(is_in_small_sieve || is_in_large_sieve);\n      return prime_iterable(this,\
+    \ lb, ub);\n    }\n  };\n}\n\n\n#line 8 \"tests/segmented_sieve.test.cpp\"\n\n\
+    using i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  i64 N, K;\n  std::cin >> N >> K;\n\n  std::unordered_map<i64, i64> nCk;\n\
+    \  if (K > 0) {\n    tools::segmented_sieve<i64> sieve(K, N - K + 1, N);\n   \
+    \ for (i64 i = N - K + 1; i <= N; ++i) {\n      for (const i64& p : sieve.prime_factor_range(i))\
+    \ {\n        ++nCk[p];\n      }\n    }\n\n    for (i64 i = 1; i <= K; ++i) {\n\
+    \      for (const i64& p : sieve.prime_factor_range(i)) {\n        --nCk[p];\n\
+    \      }\n    }\n  }\n\n  mint answer(1);\n  for (const auto& [p, q] : nCk) {\n\
+    \    answer *= mint(q + 1);\n  }\n  std::cout << answer.val() << '\\n';\n  return\
+    \ 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc227/tasks/abc227_g\"\n\n\
     #include <cstdint>\n#include <iostream>\n#include <unordered_map>\n#include \"\
     atcoder/modint.hpp\"\n#include \"tools/segmented_sieve.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
@@ -416,7 +416,7 @@ data:
   isVerificationFile: true
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
+  timestamp: '2022-08-27 14:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp
