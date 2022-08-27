@@ -276,7 +276,6 @@ namespace tools {
     class prime_iterable {
     private:
       const ::tools::segmented_sieve<T> *m_parent;
-      bool m_large;
       T m_lb;
       T m_ub;
 
@@ -288,11 +287,10 @@ namespace tools {
 
         void next() {
           ++this->m_i;
-          if (this->m_parent->m_large) {
-            for (; this->m_i <= this->m_parent->m_ub && this->m_parent->m_parent->m_pf[this->m_i - this->m_parent->m_parent->l()][0] != this->m_i; ++this->m_i);
-          } else {
-            for (; this->m_i <= this->m_parent->m_ub && this->m_parent->m_parent->m_lpf[this->m_i] != this->m_i; ++this->m_i);
-          }
+          for (; this->m_i <= this->m_parent->m_ub && (
+            (this->m_i <= this->m_parent->m_parent->lpf_max() && this->m_parent->m_parent->m_lpf[this->m_i] != this->m_i)
+            || (this->m_parent->m_parent->lpf_max() < this->m_i && this->m_parent->m_parent->m_pf[this->m_i - this->m_parent->m_parent->l()][0] != this->m_i)
+          ); ++this->m_i);
         }
 
       public:
@@ -338,8 +336,8 @@ namespace tools {
         }
       };
 
-      prime_iterable(::tools::segmented_sieve<T> const * const parent, const bool large, const T& lb, const T& ub) :
-        m_parent(parent), m_large(large), m_lb(lb), m_ub(ub) {
+      prime_iterable(::tools::segmented_sieve<T> const * const parent, const T& lb, const T& ub) :
+        m_parent(parent), m_lb(lb), m_ub(ub) {
       }
 
       iterator begin() const {
@@ -366,7 +364,7 @@ namespace tools {
       const bool is_in_small_sieve = 1 <= lb && ub <= this->lpf_max();
       const bool is_in_large_sieve = this->l() <= lb && ub <= this->r();
       assert(is_in_small_sieve || is_in_large_sieve);
-      return prime_iterable(this, !is_in_small_sieve, lb, ub);
+      return prime_iterable(this, lb, ub);
     }
   };
 }
