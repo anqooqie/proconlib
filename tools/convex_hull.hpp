@@ -18,7 +18,7 @@ namespace tools {
   void convex_hull(const InputIterator begin, const InputIterator end, bool minimum, OutputIterator result) {
     using T = ::std::decay_t<decltype(begin->x)>;
 
-    ::std::vector<::tools::vector2<T>> v(begin, end);
+    const ::std::vector<::tools::vector2<T>> v(begin, end);
     ::std::vector<::std::size_t> a(v.size());
     ::std::iota(a.begin(), a.end(), 0);
     ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const T& i) {
@@ -94,7 +94,11 @@ namespace tools {
 
     for (const ::std::size_t& c : convex_hull) {
       for (const ::std::size_t& i : duplicates[c]) {
-        *result = i;
+        if constexpr (::std::is_assignable_v<OutputIterator, ::std::size_t>) {
+          *result = i;
+        } else {
+          *result = v[i];
+        }
         ++result;
       }
     }
