@@ -214,7 +214,7 @@ data:
     \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
     \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
     \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
-    \n    ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
+    \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
     \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
     \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
     \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
@@ -247,17 +247,19 @@ data:
     \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
     \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
     \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
-    \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 1 \"tools/rational.hpp\"\n\n\n\n#line 5 \"\
-    tools/rational.hpp\"\n#include <cassert>\n#include <limits>\n#line 1 \"tools/bigint.hpp\"\
-    \n\n\n\n#line 11 \"tools/bigint.hpp\"\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \ (const ::std::size_t& i : duplicates[c]) {\n        if constexpr (::std::is_assignable_v<OutputIterator,\
+    \ ::std::size_t>) {\n          *result = i;\n        } else {\n          *result\
+    \ = v[i];\n        }\n        ++result;\n      }\n    }\n  }\n}\n\n\n#line 1 \"\
+    tools/rational.hpp\"\n\n\n\n#line 5 \"tools/rational.hpp\"\n#include <cassert>\n\
+    #include <limits>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#line 11 \"tools/bigint.hpp\"\
+    \n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
+    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
+    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
+    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -1642,7 +1644,7 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/minimum_bounding_circle.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-08-28 15:47:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polygon_2d/minimum_bounding_circle.test.cpp

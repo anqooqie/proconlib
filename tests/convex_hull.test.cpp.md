@@ -157,7 +157,7 @@ data:
     \    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools\
     \ {\n  template <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
     \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
-    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    ::std::vector<::tools::vector2<T>>\
+    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
     \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
     \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
     \ T& i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>>\
@@ -190,11 +190,13 @@ data:
     \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
     \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
     \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
-    \ (const ::std::size_t& i : duplicates[c]) {\n        *result = i;\n        ++result;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 12 \"tests/convex_hull.test.cpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for\
-    \ (i64 i = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
+    \ (const ::std::size_t& i : duplicates[c]) {\n        if constexpr (::std::is_assignable_v<OutputIterator,\
+    \ ::std::size_t>) {\n          *result = i;\n        } else {\n          *result\
+    \ = v[i];\n        }\n        ++result;\n      }\n    }\n  }\n}\n\n\n#line 12\
+    \ \"tests/convex_hull.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
+    \ n;\n  std::cin >> n;\n  std::vector<tools::vector2<i64>> v(n);\n  for (i64 i\
+    \ = 0; i < n; ++i) {\n    std::cin >> v[i].x >> v[i].y;\n  }\n\n  std::vector<i64>\
     \ convex_hull;\n  tools::convex_hull(v.begin(), v.end(), false, std::back_inserter(convex_hull));\n\
     \n  std::rotate(\n    convex_hull.begin(),\n    std::min_element(convex_hull.begin(),\
     \ convex_hull.end(), tools::less_by([&](const i64& i) { return std::make_pair(v[i].y,\
@@ -224,7 +226,7 @@ data:
   isVerificationFile: true
   path: tests/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-08-28 15:47:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/convex_hull.test.cpp
