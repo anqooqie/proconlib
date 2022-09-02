@@ -1,25 +1,34 @@
 ---
-title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod 754974721$
+title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2 \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
 documentation_of: //tools/garner3.hpp
 ---
 
 ```cpp
-std::int_fast64_t garner3(atcoder::static_modint<167772161> a, atcoder::static_modint<469762049> b, atcoder::static_modint<754974721> c, std::int_fast64_t m);
+template <typename M, typename M1, typename M2, typename M3>
+M garner3(M1 a, M2 b, M3 c, M m);
 ```
 
-It solves the following modular equation system and returns $(x \bmod 59501818244292734739283969) \bmod m$.
+It solves the following modular equation system and returns $(x \bmod M_1 M_2 M_3) \bmod m$ where $M_1$ is `M1::mod()`, $M_2$ is `M2::mod()` and $M_3$ is `M3::mod()`.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-x \equiv a &\pmod{167772161}\\
-x \equiv b &\pmod{469762049}\\
-x \equiv c &\pmod{754974721}
+x \equiv a &\pmod{M_1}\\
+x \equiv b &\pmod{M_2}\\
+x \equiv c &\pmod{M_3}
 \end{array}\right.&
 \end{align*}$$
 
-It is useful to reconstruct $x$ less than $59501818244292734739283969 \approx 5.9 \times 10^{25}$ from $x \bmod 167772161$, $x \bmod 469762049$ and $x \bmod 754974721$.
+It is useful to reconstruct $x$ less than $M_1 M_2 M_3$ from $x \bmod M_1$, $x \bmod M_2$ and $x \bmod M_3$.
 
 ## Constraints
+- `M1` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- `M2` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- `M3` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- `M` is a built-in integral type.
+- $M_1$ is a prime.
+- $M_2$ is a prime.
+- $M_3$ is a prime.
+- $M_1 < M_2 < M_3$
 - $m \geq 1$
 
 ## Time Complexity
