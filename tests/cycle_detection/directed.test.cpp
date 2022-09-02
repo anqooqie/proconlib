@@ -12,7 +12,7 @@ int main() {
 
   i64 N, M;
   std::cin >> N >> M;
-  tools::cycle_detection graph(N);
+  tools::cycle_detection<true> graph(N);
   for (i64 i = 0; i < M; ++i) {
     i64 u, v;
     std::cin >> u >> v;

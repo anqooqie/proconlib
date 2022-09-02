@@ -1,9 +1,9 @@
 ---
-title: Cycle detection on a directed graph
+title: Cycle detection on a graph
 documentation_of: //tools/cycle_detection.hpp
 ---
 
-It reports one of the cycles in a given directed graph if it exists.
+It reports one of the cycles in a given graph if it exists.
 
 ## License
 - CC0
@@ -13,10 +13,12 @@ It reports one of the cycles in a given directed graph if it exists.
 
 ## Constructor
 ```cpp
-cycle_detection graph(std::size_t n);
+cycle_detection<DIRECTED> graph(std::size_t n);
 ```
 
-It creates a directed graph with $n$ vertices and $0$ edges.
+It creates a graph with $n$ vertices and $0$ edges.
+If `DIRECTED` is `true`, the graph is directed.
+If `DIRECTED` is `false`, the graph is undirected.
 
 ### Constraints
 - None
@@ -42,7 +44,9 @@ It returns $n$.
 std::size_t graph.add_edge(std::size_t u, std::size_t v);
 ```
 
-It adds a directed edge from $u$ to $v$ to the graph, and returns the index of the added edge.
+If `DIRECTED` is `true`, it adds a directed edge oriented from $u$ to $v$.
+If `DIRECTED` is `false`, it adds an undirected edge between $u$ and $v$.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
 
 ### Constraints
 - $0 \leq u < n$
@@ -56,7 +60,7 @@ It adds a directed edge from $u$ to $v$ to the graph, and returns the index of t
 std::optional<std::pair<std::vector<std::size_t>, std::vector<std::size_t>>> graph.query();
 ```
 
-It finds one of the cycles in a given directed graph.
+It finds one of the cycles in a given graph.
 If such the cycle does not exist, it returns `std::nullopt`.
 If such the cycle exists, it returns the indices of the vertices which are contained in the cycle and the indices of the edges which are contained in the cycle.
 

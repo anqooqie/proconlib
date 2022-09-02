@@ -12,6 +12,7 @@
 #include <algorithm>
 
 namespace tools {
+  template <bool DIRECTED>
   class cycle_detection {
   private:
     ::std::vector<::std::vector<::std::size_t>> m_graph;
@@ -19,11 +20,11 @@ namespace tools {
 
   public:
     cycle_detection() = default;
-    cycle_detection(const ::tools::cycle_detection&) = default;
-    cycle_detection(::tools::cycle_detection&&) = default;
+    cycle_detection(const ::tools::cycle_detection<DIRECTED>&) = default;
+    cycle_detection(::tools::cycle_detection<DIRECTED>&&) = default;
     ~cycle_detection() = default;
-    ::tools::cycle_detection& operator=(const ::tools::cycle_detection&) = default;
-    ::tools::cycle_detection& operator=(::tools::cycle_detection&&) = default;
+    ::tools::cycle_detection<DIRECTED>& operator=(const ::tools::cycle_detection<DIRECTED>&) = default;
+    ::tools::cycle_detection<DIRECTED>& operator=(::tools::cycle_detection<DIRECTED>&&) = default;
 
     explicit cycle_detection(const ::std::size_t n) :
       m_graph(n) {
@@ -33,11 +34,14 @@ namespace tools {
       return this->m_graph.size();
     }
 
-    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v) {
+    ::std::size_t add_edge(::std::size_t u, ::std::size_t v) {
       assert(u < this->size());
       assert(v < this->size());
 
       this->m_graph[u].push_back(this->m_edges.size());
+      if (!DIRECTED) {
+        this->m_graph[v].push_back(this->m_edges.size());
+      }
       this->m_edges.emplace_back(u, v);
       return this->m_edges.size() - 1;
     }
@@ -60,7 +64,7 @@ namespace tools {
           prev[here] = from;
           if (pre[here]) {
             ::std::vector<::std::size_t> vids, eids({from});
-            for (::std::size_t v = this->m_edges[from].first; v != here; v = this->m_edges[prev[v]].first) {
+            for (::std::size_t v = this->m_edges[from].first ^ (DIRECTED ? 0 : this->m_edges[from].second ^ here); v != here; v = this->m_edges[prev[v]].first ^ (DIRECTED ? 0 : this->m_edges[prev[v]].second ^ v)) {
               vids.push_back(v);
               eids.push_back(prev[v]);
             }
@@ -71,8 +75,10 @@ namespace tools {
           }
           pre[here] = true;
           for (const auto eid : this->m_graph[here]) {
-            stack.emplace(false, this->m_edges[eid].second, eid);
-            stack.emplace(true, this->m_edges[eid].second, eid);
+            if (eid != from) {
+              stack.emplace(false, this->m_edges[eid].second ^ (DIRECTED ? 0 : this->m_edges[eid].first ^ here), eid);
+              stack.emplace(true, this->m_edges[eid].second ^ (DIRECTED ? 0 : this->m_edges[eid].first ^ here), eid);
+            }
           }
         } else {
           post[here] = true;
