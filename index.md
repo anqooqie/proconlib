@@ -74,7 +74,7 @@ data:
       title: 2D cumulative sum
     - icon: ':heavy_check_mark:'
       path: tools/cycle_detection.hpp
-      title: Cycle detection on a directed graph
+      title: Cycle detection on a graph
     - icon: ':heavy_check_mark:'
       path: tools/digit_sum.hpp
       title: Sum of digits
@@ -499,9 +499,6 @@ data:
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/cycle_detection.test.cpp
-      title: tests/cycle_detection.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/digit_sum.test.cpp
       title: tests/digit_sum.test.cpp
     - icon: ':heavy_check_mark:'
@@ -724,6 +721,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
+  - name: tests/cycle_detection
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/cycle_detection/directed.test.cpp
+      title: tests/cycle_detection/directed.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cycle_detection/undirected.test.cpp
+      title: tests/cycle_detection/undirected.test.cpp
   - name: tests/directed_line_segment_2d
     pages:
     - icon: ':heavy_check_mark:'
