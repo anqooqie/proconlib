@@ -1,52 +1,62 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/garner3.hpp
-    title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
-      754974721$
-  - icon: ':heavy_check_mark:'
-    path: tools/pow2.hpp
-    title: $2^x$
-  - icon: ':heavy_check_mark:'
+    title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
+      \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
+  - icon: ':question:'
+    path: tools/is_prime.hpp
+    title: Miller-Rabin primality test
+  - icon: ':question:'
+    path: tools/mod.hpp
+    title: Minimum non-negative reminder
+  - icon: ':question:'
+    path: tools/pow_mod.hpp
+    title: $x^y \pmod{M}$
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
+  - icon: ':question:'
+    path: tools/quo.hpp
+    title: Quotient as integer division
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/nth_term.hpp\"\n\n\n\n#include <cstdint>\n#include\
     \ <type_traits>\n#include <vector>\n#include <cassert>\n#include <iterator>\n\
-    #line 1 \"tools/convolution.hpp\"\n\n\n\n#line 7 \"tools/convolution.hpp\"\n#include\
-    \ <cstddef>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    #line 1 \"tools/convolution.hpp\"\n\n\n\n#line 8 \"tools/convolution.hpp\"\n#include\
+    \ <algorithm>\n#include <cstddef>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line\
+    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -234,88 +244,89 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#include <algorithm>\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
-    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
+    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
+    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
+    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
+    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
     \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n)\
-    \ {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n//\
-    \ @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x))\
-    \ != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n\
-    \    _BitScanForward(&index, n);\n    return index;\n#else\n    return __builtin_ctz(n);\n\
-    #endif\n}\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12\
-    \ \"lib/ac-library/atcoder/convolution.hpp\"\n\nnamespace atcoder {\n\nnamespace\
-    \ internal {\n\ntemplate <class mint,\n          int g = internal::primitive_root<mint::mod()>,\n\
-    \          internal::is_static_modint_t<mint>* = nullptr>\nstruct fft_info {\n\
-    \    static constexpr int rank2 = bsf_constexpr(mint::mod() - 1);\n    std::array<mint,\
-    \ rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint, rank2 + 1> iroot;\
-    \  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0, rank2 - 2 +\
-    \ 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\n   \
-    \ std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint, std::max(0,\
-    \ rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2] = mint(g).pow((mint::mod()\
-    \ - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n        for (int\
-    \ i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i + 1] * root[i +\
-    \ 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n        }\n\n    \
-    \    {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
-    \ rank2 - 2; i++) {\n                rate2[i] = root[i + 2] * prod;\n        \
-    \        irate2[i] = iroot[i + 2] * iprod;\n                prod *= iroot[i +\
-    \ 2];\n                iprod *= root[i + 2];\n            }\n        }\n     \
-    \   {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
-    \ rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n        \
-    \        irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i +\
-    \ 3];\n                iprod *= root[i + 3];\n            }\n        }\n    }\n\
-    };\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid\
-    \ butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\
-    \n    static const fft_info<mint> info;\n\n    int len = 0;  // a[i, i+(n>>len),\
-    \ i+2*(n>>len), ..] is transformed\n    while (len < h) {\n        if (h - len\
-    \ == 1) {\n            int p = 1 << (h - len - 1);\n            mint rot = 1;\n\
-    \            for (int s = 0; s < (1 << len); s++) {\n                int offset\
-    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
+    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
+    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
+    \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
+    \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
+    \ - 1);\n    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint,\
+    \ rank2 + 1> iroot;  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0,\
+    \ rank2 - 2 + 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\
+    \n    std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint,\
+    \ std::max(0, rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2]\
+    \ = mint(g).pow((mint::mod() - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n\
+    \        for (int i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i\
+    \ + 1] * root[i + 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n \
+    \       }\n\n        {\n            mint prod = 1, iprod = 1;\n            for\
+    \ (int i = 0; i <= rank2 - 2; i++) {\n                rate2[i] = root[i + 2] *\
+    \ prod;\n                irate2[i] = iroot[i + 2] * iprod;\n                prod\
+    \ *= iroot[i + 2];\n                iprod *= root[i + 2];\n            }\n   \
+    \     }\n        {\n            mint prod = 1, iprod = 1;\n            for (int\
+    \ i = 0; i <= rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n\
+    \                irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i\
+    \ + 3];\n                iprod *= root[i + 3];\n            }\n        }\n   \
+    \ }\n};\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\n\
+    void butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h\
+    \ = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\n    int\
+    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
+    \ < h) {\n        if (h - len == 1) {\n            int p = 1 << (h - len - 1);\n\
+    \            mint rot = 1;\n            for (int s = 0; s < (1 << len); s++) {\n\
+    \                int offset = s << (h - len);\n                for (int i = 0;\
+    \ i < p; i++) {\n                    auto l = a[i + offset];\n               \
+    \     auto r = a[i + offset + p] * rot;\n                    a[i + offset] = l\
+    \ + r;\n                    a[i + offset + p] = l - r;\n                }\n  \
+    \              if (s + 1 != (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned\
+    \ int)(s))];\n            }\n            len++;\n        } else {\n          \
+    \  // 4-base\n            int p = 1 << (h - len - 2);\n            mint rot =\
+    \ 1, imag = info.root[2];\n            for (int s = 0; s < (1 << len); s++) {\n\
+    \                mint rot2 = rot * rot;\n                mint rot3 = rot2 * rot;\n\
+    \                int offset = s << (h - len);\n                for (int i = 0;\
+    \ i < p; i++) {\n                    auto mod2 = 1ULL * mint::mod() * mint::mod();\n\
+    \                    auto a0 = 1ULL * a[i + offset].val();\n                 \
+    \   auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n                  \
+    \  auto a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n              \
+    \      auto a3 = 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n          \
+    \          auto a1na3imag =\n                        1ULL * mint(a1 + mod2 - a3).val()\
+    \ * imag.val();\n                    auto na2 = mod2 - a2;\n                 \
+    \   a[i + offset] = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 *\
+    \ p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2\
+    \ * p] = a0 + na2 + a1na3imag;\n                    a[i + offset + 3 * p] = a0\
+    \ + na2 + (mod2 - a1na3imag);\n                }\n                if (s + 1 !=\
+    \ (1 << len))\n                    rot *= info.rate3[bsf(~(unsigned int)(s))];\n\
+    \            }\n            len += 2;\n        }\n    }\n}\n\ntemplate <class\
+    \ mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid butterfly_inv(std::vector<mint>&\
+    \ a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\n  \
+    \  static const fft_info<mint> info;\n\n    int len = h;  // a[i, i+(n>>len),\
+    \ i+2*(n>>len), ..] is transformed\n    while (len) {\n        if (len == 1) {\n\
+    \            int p = 1 << (h - len);\n            mint irot = 1;\n           \
+    \ for (int s = 0; s < (1 << (len - 1)); s++) {\n                int offset = s\
+    \ << (h - len + 1);\n                for (int i = 0; i < p; i++) {\n         \
     \           auto l = a[i + offset];\n                    auto r = a[i + offset\
-    \ + p] * rot;\n                    a[i + offset] = l + r;\n                  \
-    \  a[i + offset + p] = l - r;\n                }\n                if (s + 1 !=\
-    \ (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned int)(s))];\n\
-    \            }\n            len++;\n        } else {\n            // 4-base\n\
-    \            int p = 1 << (h - len - 2);\n            mint rot = 1, imag = info.root[2];\n\
-    \            for (int s = 0; s < (1 << len); s++) {\n                mint rot2\
-    \ = rot * rot;\n                mint rot3 = rot2 * rot;\n                int offset\
-    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
-    \           auto mod2 = 1ULL * mint::mod() * mint::mod();\n                  \
-    \  auto a0 = 1ULL * a[i + offset].val();\n                    auto a1 = 1ULL *\
-    \ a[i + offset + p].val() * rot.val();\n                    auto a2 = 1ULL * a[i\
-    \ + offset + 2 * p].val() * rot2.val();\n                    auto a3 = 1ULL *\
-    \ a[i + offset + 3 * p].val() * rot3.val();\n                    auto a1na3imag\
-    \ =\n                        1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n\
-    \                    auto na2 = mod2 - a2;\n                    a[i + offset]\
-    \ = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 * p] = a0 + a2 +\
-    \ (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2 * p] = a0 + na2\
-    \ + a1na3imag;\n                    a[i + offset + 3 * p] = a0 + na2 + (mod2 -\
-    \ a1na3imag);\n                }\n                if (s + 1 != (1 << len))\n \
-    \                   rot *= info.rate3[bsf(~(unsigned int)(s))];\n            }\n\
-    \            len += 2;\n        }\n    }\n}\n\ntemplate <class mint, internal::is_static_modint_t<mint>*\
-    \ = nullptr>\nvoid butterfly_inv(std::vector<mint>& a) {\n    int n = int(a.size());\n\
-    \    int h = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\
-    \n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n   \
-    \ while (len) {\n        if (len == 1) {\n            int p = 1 << (h - len);\n\
-    \            mint irot = 1;\n            for (int s = 0; s < (1 << (len - 1));\
-    \ s++) {\n                int offset = s << (h - len + 1);\n                for\
-    \ (int i = 0; i < p; i++) {\n                    auto l = a[i + offset];\n   \
-    \                 auto r = a[i + offset + p];\n                    a[i + offset]\
-    \ = l + r;\n                    a[i + offset + p] =\n                        (unsigned\
-    \ long long)(mint::mod() + l.val() - r.val()) *\n                        irot.val();\n\
-    \                    ;\n                }\n                if (s + 1 != (1 <<\
-    \ (len - 1)))\n                    irot *= info.irate2[bsf(~(unsigned int)(s))];\n\
-    \            }\n            len--;\n        } else {\n            // 4-base\n\
-    \            int p = 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n\
-    \            for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint\
-    \ irot2 = irot * irot;\n                mint irot3 = irot2 * irot;\n         \
-    \       int offset = s << (h - len + 2);\n                for (int i = 0; i <\
-    \ p; i++) {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n\
-    \                    auto a1 = 1ULL * a[i + offset + 1 * p].val();\n         \
-    \           auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                  \
-    \  auto a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
+    \ + p];\n                    a[i + offset] = l + r;\n                    a[i +\
+    \ offset + p] =\n                        (unsigned long long)(mint::mod() + l.val()\
+    \ - r.val()) *\n                        irot.val();\n                    ;\n \
+    \               }\n                if (s + 1 != (1 << (len - 1)))\n          \
+    \          irot *= info.irate2[bsf(~(unsigned int)(s))];\n            }\n    \
+    \        len--;\n        } else {\n            // 4-base\n            int p =\
+    \ 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n       \
+    \     for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint irot2\
+    \ = irot * irot;\n                mint irot3 = irot2 * irot;\n               \
+    \ int offset = s << (h - len + 2);\n                for (int i = 0; i < p; i++)\
+    \ {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n     \
+    \               auto a1 = 1ULL * a[i + offset + 1 * p].val();\n              \
+    \      auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                    auto\
+    \ a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
     \ =\n                        1ULL *\n                        mint((mint::mod()\
     \ + a2 - a3) * iimag.val()).val();\n\n                    a[i + offset] = a0 +\
     \ a1 + a2 + a3;\n                    a[i + offset + 1 * p] =\n               \
@@ -390,69 +401,86 @@ data:
     \     if (diff < 0) diff += MOD1;\n        static constexpr unsigned long long\
     \ offset[5] = {\n            0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};\n        x\
     \ -= offset[diff % 5];\n        c[i] = x;\n    }\n\n    return c;\n}\n\n}  //\
-    \ namespace atcoder\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/garner3.hpp\"\
-    \n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template\
-    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
-    \ const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod\
-    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
-    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
-    \n#line 8 \"tools/garner3.hpp\"\n\nnamespace tools {\n\n  inline ::std::int_fast64_t\
-    \ garner3(const ::atcoder::static_modint<167772161>& a, const ::atcoder::static_modint<469762049>&\
-    \ b, const ::atcoder::static_modint<754974721>& c, const ::std::int_fast64_t m)\
-    \ {\n    assert(m >= 1);\n\n    using mint1 = ::atcoder::static_modint<167772161>;\
-    \ // 5 * 2^25 + 1\n    using mint2 = ::atcoder::static_modint<469762049>; // 7\
-    \ * 2^26 + 1\n    using mint3 = ::atcoder::static_modint<754974721>; // 45 * 2^24\
-    \ + 1\n    using u64 = ::std::uint_fast64_t;\n    static const mint2 m1_inv_mod_m2\
-    \ = mint2::raw(mint1::mod()).inv();\n    static const mint3 m1_m2_inv_mod_m3 =\
-    \ (mint3::raw(mint1::mod()) * mint3::raw(mint2::mod())).inv();\n\n    static const\
-    \ auto plus_mod = [](u64 x, const u64 y, const u64 mod) {\n      x += y;\n   \
-    \   if (x >= mod) x -= mod;\n      return x; \n    };\n\n    // t1 = (b - a) /\
-    \ 167772161; (mod 469762049)\n    // t2 = (c - a - t1 * 167772161) / 167772161\
-    \ / 469762049; (mod 754974721)\n    // return a + t1 * 167772161 + t2 * 167772161\
-    \ * 469762049; (mod m)\n    const mint2 t1 = (b - mint2::raw(a.val())) * m1_inv_mod_m2;\n\
-    \    const mint3 t2 = (c - mint3::raw(a.val()) - mint3::raw(t1.val()) * mint3::raw(mint1::mod()))\
-    \ * m1_m2_inv_mod_m3;\n    ::std::uint_fast64_t r = ::tools::prod_mod(t2.val(),\
-    \ u64(mint1::mod()) * u64(mint2::mod()), m);\n    r = plus_mod(r, u64(t1.val())\
-    \ * u64(mint1::mod()), m);\n    r = plus_mod(r, a.val(), m);\n    return r;\n\
-    \  }\n}\n\n\n#line 12 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename InputIterator, typename OutputIterator>\n  void convolution(const\
-    \ InputIterator& a_begin, const InputIterator& a_end, const InputIterator& b_begin,\
-    \ const InputIterator& b_end, OutputIterator result) {\n    using mint = ::std::decay_t<decltype(*a_begin)>;\n\
-    \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
-    \    using mint3 = ::atcoder::static_modint<754974721>;\n\n    ::std::vector<mint>\
-    \ a(a_begin, a_end);\n    ::std::vector<mint> b(b_begin, b_end);\n\n    // Well-known\
-    \ NTT-friendly primes:\n    // 998244353 = 119 * 2^23 + 1\n    // 754974721 =\
-    \ 45 * 2^24 + 1\n    // 167772161 = 5 * 2^25 + 1\n    // 469762049 = 7 * 2^26\
-    \ + 1\n    if (mint::mod() == 998244353 || mint::mod() == mint1::mod() || mint::mod()\
-    \ == mint2::mod() || mint::mod() == mint3::mod()) {\n      for (const auto& c_i\
-    \ : ::atcoder::convolution(a, b)) {\n        *result = c_i;\n        ++result;\n\
-    \      }\n      return;\n    }\n\n    assert(a.size() + b.size() <= ::tools::pow2(24)\
-    \ + 1);\n    // min(a.size(), b.size()) * ((mint::mod() - 1) ** 2) < 167772161\
-    \ * 469762049 * 754974721 also must holds.\n    // We can solve the above equation\
-    \ and finds that mint::mod() <= 2663300487.\n    // However, atcoder::modint requires\
-    \ that mint::mod() <= 2000001000 in the first place, so no need for another assertion.\n\
-    \n    ::std::vector<mint1> a1;\n    ::std::vector<mint2> a2;\n    ::std::vector<mint3>\
-    \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
-    \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
-    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<mint1> b1;\n  \
-    \  ::std::vector<mint2> b2;\n    ::std::vector<mint3> b3;\n    b1.reserve(b.size());\n\
-    \    b2.reserve(b.size());\n    b3.reserve(b.size());\n    for (const auto& b_i\
-    \ : b) {\n      b1.emplace_back(b_i.val());\n      b2.emplace_back(b_i.val());\n\
-    \      b3.emplace_back(b_i.val());\n    }\n\n    const ::std::vector<mint1> c1\
-    \ = ::atcoder::convolution(a1, b1);\n    const ::std::vector<mint2> c2 = ::atcoder::convolution(a2,\
-    \ b2);\n    const ::std::vector<mint3> c3 = ::atcoder::convolution(a3, b3);\n\
-    \    for (::std::size_t i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result\
-    \ = ::tools::garner3(c1[i], c2[i], c3[i], mint::mod());\n      ++result;\n   \
-    \ }\n  }\n}\n\n\n#line 10 \"tools/nth_term.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator>\n  auto nth_term(InputIterator a_begin, InputIterator\
-    \ a_end, InputIterator c_begin, InputIterator c_end, ::std::uint_fast64_t n) ->\
-    \ ::std::decay_t<decltype(*a_begin)> {\n    using M = ::std::decay_t<decltype(*a_begin)>;\n\
+    \ namespace atcoder\n\n\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\
+    \n\n\n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
+    \  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128\
+    \ = unsigned __int128;\n    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >=\
+    \ 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n\
+    \    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
+    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
+    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
+    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
+    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
+    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
+    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
+    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
+    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
+    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
+    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
+    \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
+    \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
+    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
+    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
+    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
+    \ true;\n  }\n}\n\n\n#line 1 \"tools/garner3.hpp\"\n\n\n\n#line 8 \"tools/garner3.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename M1, typename M2, typename\
+    \ M3>\n  M garner3(const M1& a, const M2& b, const M3& c, const M m) {\n    using\
+    \ u64 = ::std::uint_fast64_t;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
+    \    static const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
+    \n    static const auto plus_mod = [](u64 x, const u64 y, const u64 mod) {\n \
+    \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
+    \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
+    \ < M2::mod());\n    assert(M2::mod() < M3::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
+    \    assert(::tools::is_prime(M2::mod()));\n    assert(::tools::is_prime(M3::mod()));\n\
+    \n    // t1 = (b - a) / M1; (mod M2)\n    // t2 = (c - a - t1 * M1) / M1 / M2;\
+    \ (mod M3)\n    // return a + t1 * M1 + t2 * M1 * M2; (mod m)\n    const M2 t1\
+    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    const M3 t2 = (c - M3::raw(a.val())\
+    \ - M3::raw(t1.val()) * M3::raw(M1::mod())) * m1_m2_inv_mod_m3;\n    u64 r = ::tools::prod_mod(t2.val(),\
+    \ u64(M1::mod()) * u64(M2::mod()), m);\n    assert(r < u64(m));\n    r = plus_mod(r,\
+    \ u64(t1.val()) * u64(M1::mod()) % m, m);\n    assert(r < u64(m));\n    r = plus_mod(r,\
+    \ a.val() % m, m);\n    assert(r < u64(m));\n    return r;\n  }\n}\n\n\n#line\
+    \ 14 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator,\
+    \ typename OutputIterator>\n  void convolution(const InputIterator a_begin, const\
+    \ InputIterator a_end, const InputIterator b_begin, const InputIterator b_end,\
+    \ OutputIterator result) {\n    using u64 = ::std::uint_fast64_t;\n    using M\
+    \ = ::std::decay_t<decltype(*a_begin)>;\n    using M1 = ::atcoder::static_modint<1107296257>;\
+    \ // 33 * 2^25 + 1\n    using M2 = ::atcoder::static_modint<1711276033>; // 51\
+    \ * 2^25 + 1\n    using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26\
+    \ + 1\n\n    // return maximum 2^k s.t. x = 1 (mod 2^k)\n    static const auto\
+    \ pow2_k = [](const u64 x) {\n      return (x - 1) & -(x - 1);\n    };\n\n   \
+    \ ::std::vector<M> a(a_begin, a_end);\n    ::std::vector<M> b(b_begin, b_end);\n\
+    \n    if (::tools::is_prime(M::mod()) && a.size() + b.size() <= pow2_k(M::mod())\
+    \ + 1) {\n      for (const auto& c_i : ::atcoder::convolution(a, b)) {\n     \
+    \   *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\n    assert(a.size()\
+    \ + b.size() <= ::std::min({pow2_k(M1::mod()), pow2_k(M2::mod()), pow2_k(M3::mod())})\
+    \ + 1);\n\n    // No need for the following assertion because the condition always\
+    \ holds.\n    // assert(std::min(a.size(), b.size()) * tools::square(M::mod()\
+    \ - 1) < M1::mod() * M2::mod() * M3::mod());\n\n    ::std::vector<M1> a1;\n  \
+    \  ::std::vector<M2> a2;\n    ::std::vector<M3> a3;\n    a1.reserve(a.size());\n\
+    \    a2.reserve(a.size());\n    a3.reserve(a.size());\n    for (const auto& a_i\
+    \ : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
+    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
+    \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
+    \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
+    \      b2.emplace_back(b_i.val());\n      b3.emplace_back(b_i.val());\n    }\n\
+    \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
+    \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
+    \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
+    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n#line 10 \"tools/nth_term.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator>\n  auto nth_term(InputIterator\
+    \ a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, ::std::uint_fast64_t\
+    \ n) -> ::std::decay_t<decltype(*a_begin)> {\n    using M = ::std::decay_t<decltype(*a_begin)>;\n\
     \    ::std::vector<M> G(a_begin, a_end);\n    ::std::vector<M> Q(c_begin, c_end);\n\
     \    assert(G.size() + 1 == Q.size());\n    assert(Q[0] == M(1));\n\n    const\
     \ auto d = G.size();\n    if (d == 0) return M(0);\n\n    ::std::vector<M> P;\n\
@@ -487,14 +515,17 @@ data:
     \  }\n}\n\n#endif\n"
   dependsOn:
   - tools/convolution.hpp
-  - tools/pow2.hpp
-  - tools/garner3.hpp
+  - tools/is_prime.hpp
   - tools/prod_mod.hpp
+  - tools/pow_mod.hpp
+  - tools/mod.hpp
+  - tools/quo.hpp
+  - tools/garner3.hpp
   isVerificationFile: false
   path: tools/nth_term.hpp
   requiredBy: []
-  timestamp: '2022-08-20 08:19:37+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-09-02 23:00:38+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/nth_term.test.cpp
 documentation_of: tools/nth_term.hpp

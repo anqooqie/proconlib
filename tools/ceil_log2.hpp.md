@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
+  - icon: ':x:'
+    path: tools/fps.hpp
+    title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
@@ -33,6 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv.test.cpp
+    title: tests/fps/inv.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
@@ -48,9 +54,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
@@ -98,17 +104,19 @@ data:
   requiredBy:
   - tools/binary_heap.hpp
   - tools/li_chao_segtree.hpp
+  - tools/fps.hpp
   - tools/lca.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/dual_segtree.hpp
   - tools/persistent_dual_segtree.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/persistent_dual_segtree.test.cpp
   - tests/ssize.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/fps/inv.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/binary_heap.test.cpp

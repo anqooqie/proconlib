@@ -2,18 +2,15 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
-  - icon: ':heavy_check_mark:'
-    path: tools/convolution.hpp
-    title: Arbitrary modulus convolution
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
@@ -26,6 +23,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
+  - icon: ':x:'
+    path: tools/fps.hpp
+    title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
@@ -36,15 +36,12 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
-    path: tools/nth_term.hpp
-    title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -54,52 +51,49 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/hand.test.cpp
     title: tests/bigdecimal/hand.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/minus.test.cpp
     title: tests/bigdecimal/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/multiplies.test.cpp
     title: tests/bigdecimal/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/plus.test.cpp
     title: tests/bigdecimal/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigint/modulus.test.cpp
     title: tests/bigint/modulus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/convolution.test.cpp
-    title: tests/convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
@@ -114,6 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv.test.cpp
+    title: tests/fps/inv.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
@@ -141,34 +138,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/nth_term.test.cpp
-    title: tests/nth_term.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -180,9 +174,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -203,25 +197,24 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/nth_term.hpp
   - tools/tetration_mod.hpp
   - tools/binary_heap.hpp
   - tools/divisors.hpp
   - tools/li_chao_segtree.hpp
   - tools/rational.hpp
   - tools/extended_lucas.hpp
+  - tools/fps.hpp
   - tools/lca.hpp
   - tools/totient.hpp
   - tools/bigint.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/dual_segtree.hpp
-  - tools/convolution.hpp
   - tools/prime_factorization.hpp
   - tools/persistent_dual_segtree.hpp
   - tools/hld.hpp
   - tools/bigdecimal.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bigint/modulus.test.cpp
   - tests/bigint/divides.test.cpp
@@ -231,7 +224,6 @@ data:
   - tests/integer_interval_set.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/totient.test.cpp
-  - tests/convolution.test.cpp
   - tests/ssize.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
@@ -240,7 +232,7 @@ data:
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
-  - tests/nth_term.test.cpp
+  - tests/fps/inv.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp

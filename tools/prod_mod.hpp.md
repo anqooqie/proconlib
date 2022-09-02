@@ -2,7 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/bigdecimal.hpp
+    title: Arbitrary precision floating-point number
+  - icon: ':x:'
+    path: tools/bigint.hpp
+    title: Arbitrary precision integer
+  - icon: ':x:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
   - icon: ':heavy_check_mark:'
@@ -15,22 +21,32 @@ data:
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/fps.hpp
+    title: Formal power series
+  - icon: ':x:'
+    path: tools/garner2.hpp
+    title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
+      M_2 \mathbb{Z}$
+  - icon: ':x:'
     path: tools/garner3.hpp
-    title: Garner's algorithm for $\bmod 167772161$, $\bmod 469762049$ and $\bmod
-      754974721$
-  - icon: ':heavy_check_mark:'
+    title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
+      \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
+  - icon: ':x:'
+    path: tools/rational.hpp
+    title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
@@ -38,9 +54,54 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/convolution.test.cpp
-    title: tests/convolution.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/divides.test.cpp
+    title: tests/bigdecimal/divides.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/minus.test.cpp
+    title: tests/bigdecimal/minus.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/multiplies.test.cpp
+    title: tests/bigdecimal/multiplies.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/plus.test.cpp
+    title: tests/bigdecimal/plus.test.cpp
+  - icon: ':x:'
+    path: tests/bigdecimal/random.test.cpp
+    title: tests/bigdecimal/random.test.cpp
+  - icon: ':x:'
+    path: tests/bigint/divides.test.cpp
+    title: tests/bigint/divides.test.cpp
+  - icon: ':x:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':x:'
+    path: tests/bigint/modulus.test.cpp
+    title: tests/bigint/modulus.test.cpp
+  - icon: ':x:'
+    path: tests/bigint/multiplies.test.cpp
+    title: tests/bigint/multiplies.test.cpp
+  - icon: ':x:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
+  - icon: ':x:'
+    path: tests/convolution/mod1000000007.test.cpp
+    title: tests/convolution/mod1000000007.test.cpp
+  - icon: ':x:'
+    path: tests/convolution/mod998244353.test.cpp
+    title: tests/convolution/mod998244353.test.cpp
+  - icon: ':x:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':x:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':x:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -53,24 +114,48 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache/permutation.test.cpp
     title: tests/fact_mod_cache/permutation.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv.test.cpp
+    title: tests/fps/inv.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
+  - icon: ':x:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
+  - icon: ':x:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':x:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
+  - icon: ':x:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':x:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':x:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':x:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template\
@@ -92,26 +177,54 @@ data:
   - tools/nth_term.hpp
   - tools/tetration_mod.hpp
   - tools/divisors.hpp
+  - tools/rational.hpp
   - tools/extended_lucas.hpp
+  - tools/fps.hpp
+  - tools/garner2.hpp
   - tools/fact_mod_cache.hpp
   - tools/pow_mod.hpp
   - tools/totient.hpp
+  - tools/bigint.hpp
   - tools/convolution.hpp
   - tools/prime_factorization.hpp
   - tools/garner3.hpp
   - tools/is_prime.hpp
+  - tools/bigdecimal.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/plus.test.cpp
   - tests/totient.test.cpp
-  - tests/convolution.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/is_prime.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
   - tests/fact_mod_cache/combination.test.cpp
+  - tests/fps/inv.test.cpp
   - tests/nth_term.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/divisors.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document
