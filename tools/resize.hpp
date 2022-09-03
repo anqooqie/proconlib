@@ -29,7 +29,7 @@ namespace tools {
     }
   }
   template <class T, ::std::size_t N, typename Head, typename... Tail>
-  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail) {
+  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const Tail&... tail) {
     assert(array.size() == static_cast<::std::size_t>(head));
     for (auto& child : array) {
       ::tools::resize(child, tail...);
