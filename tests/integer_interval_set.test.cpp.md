@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/integer_interval_set.hpp
     title: Set of integers as closed integer intervals
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []

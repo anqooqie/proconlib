@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []

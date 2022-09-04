@@ -6,15 +6,15 @@ data:
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/resize.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -61,7 +61,7 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2022-09-03 15:52:01+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/resize.test.cpp
   - tests/range_of_digit_products.test.cpp

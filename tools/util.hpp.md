@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
   _extendedRequiredBy: []

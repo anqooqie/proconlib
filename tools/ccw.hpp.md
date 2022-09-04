@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
@@ -45,12 +45,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\
@@ -189,7 +189,7 @@ data:
   - tools/convex_hull.hpp
   - tools/less_by_arg_total.hpp
   timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/convex_hull.test.cpp
