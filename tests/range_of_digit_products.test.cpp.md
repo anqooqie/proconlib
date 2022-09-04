@@ -4,32 +4,32 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
   - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/upper_bound.hpp
     title: std::upper_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc208/tasks/abc208_e
@@ -73,13 +73,13 @@ data:
     \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
     \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
     \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
-    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
-    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\n\
-    #line 1 \"tools/fill.hpp\"\n\n\n\n#line 1 \"tools/is_range.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class is_range {\n  private:\n    template <typename U>\n  \
-    \  static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});\n\
+    \  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const\
+    \ Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
+    \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 1 \"tools/is_range.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class is_range {\n  private:\n    template <typename\
+    \ U>\n    static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});\n\
     \    static ::std::false_type check(...);\n\n  public:\n    static const bool\
     \ value = decltype(check(::std::declval<T>()))::value;\n  };\n}\n\n\n#line 11\
     \ \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class Allocator,\
@@ -176,8 +176,8 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 20:39:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-09-03 15:52:01+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp
 layout: document

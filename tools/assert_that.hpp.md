@@ -6,10 +6,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/alphabetical_order.test.cpp
     title: tests/alphabetical_order.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/hand.test.cpp
     title: tests/bigdecimal/hand.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -51,6 +51,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
+  - icon: ':x:'
+    path: tests/fps/exp_mod1000000007.test.cpp
+    title: tests/fps/exp_mod1000000007.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv_mod1000000007.test.cpp
+    title: tests/fps/inv_mod1000000007.test.cpp
+  - icon: ':x:'
+    path: tests/fps/log_mod1000000007.test.cpp
+    title: tests/fps/log_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_mod1000000007.test.cpp
+    title: tests/fps/pow_mod1000000007.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
@@ -66,7 +78,7 @@ data:
   - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -127,6 +139,10 @@ data:
   - tests/mex.test.cpp
   - tests/rational/random.test.cpp
   - tests/permutation.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/run_length.test.cpp
   - tests/safe_int.test.cpp

@@ -2,10 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -15,7 +15,7 @@ data:
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -30,7 +30,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -40,46 +40,46 @@ data:
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/hand.test.cpp
     title: tests/bigdecimal/hand.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/minus.test.cpp
     title: tests/bigdecimal/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/multiplies.test.cpp
     title: tests/bigdecimal/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/plus.test.cpp
     title: tests/bigdecimal/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/divides.test.cpp
     title: tests/bigint/divides.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/minus.test.cpp
     title: tests/bigint/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/modulus.test.cpp
     title: tests/bigint/modulus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/multiplies.test.cpp
     title: tests/bigint/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
@@ -89,8 +89,29 @@ data:
     path: tests/fact_mod_cache/permutation.test.cpp
     title: tests/fact_mod_cache/permutation.test.cpp
   - icon: ':x:'
-    path: tests/fps/inv.test.cpp
-    title: tests/fps/inv.test.cpp
+    path: tests/fps/exp_mod1000000007.test.cpp
+    title: tests/fps/exp_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_mod998244353.test.cpp
+    title: tests/fps/exp_mod998244353.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv_mod1000000007.test.cpp
+    title: tests/fps/inv_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/inv_mod998244353.test.cpp
+    title: tests/fps/inv_mod998244353.test.cpp
+  - icon: ':x:'
+    path: tests/fps/log_mod1000000007.test.cpp
+    title: tests/fps/log_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_mod998244353.test.cpp
+    title: tests/fps/log_mod998244353.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_mod1000000007.test.cpp
+    title: tests/fps/pow_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_mod998244353.test.cpp
+    title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
@@ -112,7 +133,7 @@ data:
   - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
   - icon: ':x:'
@@ -194,7 +215,14 @@ data:
   - tests/permutation.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
   - tests/fact_mod_cache/combination.test.cpp
-  - tests/fps/inv.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/line_2d/projection.test.cpp

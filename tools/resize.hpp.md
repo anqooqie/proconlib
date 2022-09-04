@@ -6,15 +6,15 @@ data:
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/resize.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -32,9 +32,10 @@ data:
     \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
     \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
     \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
-    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
-    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\n"
+    \  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const\
+    \ Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
+    \ }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_RESIZE_HPP\n#define TOOLS_RESIZE_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <array>\n#include <cassert>\n\nnamespace tools {\n\
     \  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
@@ -50,17 +51,17 @@ data:
     \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
     \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
     \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
-    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
-    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\
-    #endif\n"
+    \  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const\
+    \ Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
+    \ }\n  }\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/resize.hpp
   requiredBy:
   - tools/util.hpp
-  timestamp: '2022-07-02 20:39:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-09-03 15:52:01+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/resize.test.cpp
   - tests/range_of_digit_products.test.cpp

@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   - icon: ':heavy_check_mark:'

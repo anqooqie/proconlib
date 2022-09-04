@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
   _extendedRequiredBy: []
@@ -36,15 +36,15 @@ data:
     \ vector, const Head& head, const Tail&... tail) {\n    vector.resize(head);\n\
     \    for (auto& child : vector) {\n      ::tools::resize(child, tail...);\n  \
     \  }\n  }\n  template <class T, ::std::size_t N, typename Head, typename... Tail>\n\
-    \  void resize(::std::array<T, N>& array, const Head& head, const Tail&... tail)\
-    \ {\n    assert(array.size() == static_cast<::std::size_t>(head));\n    for (auto&\
-    \ child : array) {\n      ::tools::resize(child, tail...);\n    }\n  }\n}\n\n\n\
-    #line 1 \"tools/fill.hpp\"\n\n\n\n#line 5 \"tools/fill.hpp\"\n#include <type_traits>\n\
-    #line 1 \"tools/is_range.hpp\"\n\n\n\n#line 7 \"tools/is_range.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename T>\n  class is_range {\n  private:\n    template\
-    \ <typename U>\n    static auto check(U x) -> decltype(::std::begin(x), ::std::end(x),\
-    \ ::std::true_type{});\n    static ::std::false_type check(...);\n\n  public:\n\
-    \    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
+    \  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const\
+    \ Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
+    \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
+    \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 5 \"tools/fill.hpp\"\n\
+    #include <type_traits>\n#line 1 \"tools/is_range.hpp\"\n\n\n\n#line 7 \"tools/is_range.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class is_range {\n  private:\n\
+    \    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
+    \ ::std::end(x), ::std::true_type{});\n    static ::std::false_type check(...);\n\
+    \n  public:\n    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
     \  };\n}\n\n\n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class\
     \ T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>& vector,\
     \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
@@ -195,7 +195,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2022-08-26 02:57:47+09:00'
+  timestamp: '2022-09-03 15:52:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/util.hpp

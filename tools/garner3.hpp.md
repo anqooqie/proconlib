@@ -17,31 +17,52 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':x:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod1000000007.test.cpp
     title: tests/convolution/mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
   - icon: ':x:'
-    path: tests/fps/inv.test.cpp
-    title: tests/fps/inv.test.cpp
+    path: tests/fps/exp_mod1000000007.test.cpp
+    title: tests/fps/exp_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_mod998244353.test.cpp
+    title: tests/fps/exp_mod998244353.test.cpp
+  - icon: ':x:'
+    path: tests/fps/inv_mod1000000007.test.cpp
+    title: tests/fps/inv_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/inv_mod998244353.test.cpp
+    title: tests/fps/inv_mod998244353.test.cpp
+  - icon: ':x:'
+    path: tests/fps/log_mod1000000007.test.cpp
+    title: tests/fps/log_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_mod998244353.test.cpp
+    title: tests/fps/log_mod998244353.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_mod1000000007.test.cpp
+    title: tests/fps/pow_mod1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_mod998244353.test.cpp
+    title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':x:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/garner3.hpp\"\n\n\n\n#include <cstdint>\n#include\
@@ -126,11 +147,18 @@ data:
   - tools/fps.hpp
   - tools/convolution.hpp
   timestamp: '2022-09-02 23:00:38+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
-  - tests/fps/inv.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
   - tests/nth_term.test.cpp
 documentation_of: tools/garner3.hpp
 layout: document

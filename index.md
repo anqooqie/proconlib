@@ -21,10 +21,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/bigdecimal.hpp
       title: Arbitrary precision floating-point number
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/bigint.hpp
       title: Arbitrary precision integer
     - icon: ':heavy_check_mark:'
@@ -66,7 +66,7 @@ data:
     - icon: ':question:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/convolution.hpp
       title: Arbitrary modulus convolution
     - icon: ':heavy_check_mark:'
@@ -109,7 +109,7 @@ data:
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -133,17 +133,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/fps.hpp
       title: Formal power series
     - icon: ':heavy_check_mark:'
       path: tools/garner.hpp
       title: Garner's algorithm
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -186,7 +186,7 @@ data:
     - icon: ':question:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
     - icon: ':question:'
@@ -228,7 +228,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -333,10 +333,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/random_tree.hpp
       title: Random tree generator
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/range_of_digit_products.hpp
       title: Range of digit products
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/rational.hpp
       title: Rational number
     - icon: ':heavy_check_mark:'
@@ -345,7 +345,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -360,7 +360,7 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/rounding_mode.hpp
       title: Rounding mode
     - icon: ':heavy_check_mark:'
@@ -413,7 +413,7 @@ data:
       path: tools/unordered_set.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type,
         Hash&amp;gt;
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
     - icon: ':warning:'
@@ -628,7 +628,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/random_tree.test.cpp
       title: tests/random_tree.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/range_of_digit_products.test.cpp
       title: tests/range_of_digit_products.test.cpp
     - icon: ':heavy_check_mark:'
@@ -637,7 +637,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rerooting_dp.test.cpp
       title: tests/rerooting_dp.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
     - icon: ':heavy_check_mark:'
@@ -687,47 +687,47 @@ data:
       title: tests/zero_one_bfs.test.cpp
   - name: tests/bigdecimal
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/divides.test.cpp
       title: tests/bigdecimal/divides.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/hand.test.cpp
       title: tests/bigdecimal/hand.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/minus.test.cpp
       title: tests/bigdecimal/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/multiplies.test.cpp
       title: tests/bigdecimal/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/plus.test.cpp
       title: tests/bigdecimal/plus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigdecimal/random.test.cpp
       title: tests/bigdecimal/random.test.cpp
   - name: tests/bigint
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/divides.test.cpp
       title: tests/bigint/divides.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/minus.test.cpp
       title: tests/bigint/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/modulus.test.cpp
       title: tests/bigint/modulus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/multiplies.test.cpp
       title: tests/bigint/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
   - name: tests/convolution
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/convolution/mod1000000007.test.cpp
       title: tests/convolution/mod1000000007.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/convolution/mod998244353.test.cpp
       title: tests/convolution/mod998244353.test.cpp
   - name: tests/cycle_detection
@@ -740,13 +740,13 @@ data:
       title: tests/cycle_detection/undirected.test.cpp
   - name: tests/directed_line_segment_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/cross_point.test.cpp
       title: tests/directed_line_segment_2d/cross_point.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/intersection.test.cpp
       title: tests/directed_line_segment_2d/intersection.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - name: tests/fact_mod_cache
@@ -760,8 +760,29 @@ data:
   - name: tests/fps
     pages:
     - icon: ':x:'
-      path: tests/fps/inv.test.cpp
-      title: tests/fps/inv.test.cpp
+      path: tests/fps/exp_mod1000000007.test.cpp
+      title: tests/fps/exp_mod1000000007.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fps/exp_mod998244353.test.cpp
+      title: tests/fps/exp_mod998244353.test.cpp
+    - icon: ':x:'
+      path: tests/fps/inv_mod1000000007.test.cpp
+      title: tests/fps/inv_mod1000000007.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fps/inv_mod998244353.test.cpp
+      title: tests/fps/inv_mod998244353.test.cpp
+    - icon: ':x:'
+      path: tests/fps/log_mod1000000007.test.cpp
+      title: tests/fps/log_mod1000000007.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fps/log_mod998244353.test.cpp
+      title: tests/fps/log_mod998244353.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fps/pow_mod1000000007.test.cpp
+      title: tests/fps/pow_mod1000000007.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fps/pow_mod998244353.test.cpp
+      title: tests/fps/pow_mod998244353.test.cpp
   - name: tests/hld
     pages:
     - icon: ':heavy_check_mark:'
