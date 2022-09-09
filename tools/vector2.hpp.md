@@ -12,6 +12,9 @@ data:
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
@@ -44,13 +47,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
     title: tests/ccw.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
@@ -90,6 +99,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/incircle.test.cpp
+    title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
@@ -292,6 +307,7 @@ data:
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp
   - tools/ccw.hpp
+  - tools/circle_2d.hpp
   - tools/greater_by_arg.hpp
   - tools/convex_hull.hpp
   - tools/polygon_2d.hpp
@@ -306,11 +322,15 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/less_by_arg_total.test.cpp
   - tests/greater_by_arg.test.cpp
   - tests/greater_by_arg_total.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

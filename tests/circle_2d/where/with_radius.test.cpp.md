@@ -8,6 +8,9 @@ data:
     path: tools/chmax.hpp
     title: chmax function
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
     path: tools/detail/line_like_2d.hpp
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -38,44 +41,28 @@ data:
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/circumcircle.test.cpp
-    title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/incircle.test.cpp
-    title: tests/triangle_2d/incircle.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/triangle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
-    \n\n\n\n#include <algorithm>\n#include <array>\n#include <cassert>\n#include <cstddef>\n\
-    #include <initializer_list>\n#include <type_traits>\n#include <vector>\n#line\
-    \ 1 \"tools/abs.hpp\"\n\n\n\n#include <cmath>\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return\
-    \ ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs())\
-    \ {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated = lhs < rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\
-    \n#include <optional>\n#line 9 \"tools/detail/line_like_2d.hpp\"\n#include <variant>\n\
-    #line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  struct is_rational {\n    static constexpr bool value = false;\n  };\n\
-    \n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
-    }\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept\
-    \ {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x\
-    \ < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"\
-    tools/vector2.hpp\"\n\n\n\n#line 8 \"tools/vector2.hpp\"\n#include <iostream>\n\
-    #include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
-    \n#include <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include\
-    \ <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n  struct\
-    \ pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
-    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
-    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_A
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_A
+  bundledCode: "#line 1 \"tests/circle_2d/where/with_radius.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_A\"\n\n#include <cstdint>\n\
+    #include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n\
+    #include <cmath>\n#include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\
+    \n#include <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\
+    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
+    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
+    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
+    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
+    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
     \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
     \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
     \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
@@ -175,12 +162,28 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 14 \"tools/detail/line_like_2d.hpp\"\n\n\
-    namespace tools {\n  template <typename T>\n  class directed_line_segment_2d;\n\
-    \n  template <typename T>\n  class half_line_2d;\n\n  template <typename T>\n\
-    \  class line_2d;\n\n  template <typename T>\n  class directed_line_segment_2d\
-    \ {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\
-    \n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
+    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1\
+    \ \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#include <algorithm>\n#line 6 \"\
+    tools/detail/polygon_like_2d.hpp\"\n#include <cassert>\n#line 8 \"tools/detail/polygon_like_2d.hpp\"\
+    \n#include <initializer_list>\n#line 10 \"tools/detail/polygon_like_2d.hpp\"\n\
+    #include <vector>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 5 \"tools/chmax.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmax(M&\
+    \ lhs, const N& rhs) {\n    const bool updated = lhs < rhs;\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\
+    \n#include <optional>\n#line 9 \"tools/detail/line_like_2d.hpp\"\n#include <variant>\n\
+    #line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  struct is_rational {\n    static constexpr bool value = false;\n  };\n\
+    \n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
+    }\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept\
+    \ {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x\
+    \ < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 14\
+    \ \"tools/detail/line_like_2d.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n  class half_line_2d;\n\
+    \n  template <typename T>\n  class line_2d;\n\n  template <typename T>\n  class\
+    \ directed_line_segment_2d {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T>\
+    \ m_p2;\n\n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
     \ ::tools::directed_line_segment_2d<T>&) = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
     \ = default;\n    ~directed_line_segment_2d() = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(const ::tools::directed_line_segment_2d<T>&) = default;\n    ::tools::directed_line_segment_2d<T>&\
@@ -721,190 +724,43 @@ data:
     \ && lhs.m_squared_radius == rhs.m_squared_radius;\n  }\n\n  template <typename\
     \ T, bool HasRadius>\n  bool operator!=(const ::tools::circle_2d<T, HasRadius>&\
     \ lhs, const ::tools::circle_2d<T, HasRadius>& rhs) {\n    return !(lhs == rhs);\n\
-    \  }\n}\n\n\n#line 5 \"tools/triangle_2d.hpp\"\n\n\n"
-  code: '#ifndef TOOLS_TRIANGLE_2D_HPP
-
-    #define TOOLS_TRIANGLE_2D_HPP
-
-
-    #include "tools/detail/polygon_like_2d.hpp"
-
-
-    #endif
-
-    '
+    \  }\n}\n\n\n#line 5 \"tools/circle_2d.hpp\"\n\n\n#line 7 \"tests/circle_2d/where/with_radius.test.cpp\"\
+    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  i64 c1x, c1y, c1r, c2x, c2y, c2r;\n\
+    \  std::cin >> c1x >> c1y >> c1r >> c2x >> c2y >> c2r;\n  std::cout << tools::circle_2d<i64>(tools::vector2<i64>(c1x,\
+    \ c1y), c1r).where(tools::circle_2d<i64>(tools::vector2<i64>(c2x, c2y), c2r)).first\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_A\"\n\n\
+    #include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\n#include\
+    \ \"tools/circle_2d.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 c1x,\
+    \ c1y, c1r, c2x, c2y, c2r;\n  std::cin >> c1x >> c1y >> c1r >> c2x >> c2y >> c2r;\n\
+    \  std::cout << tools::circle_2d<i64>(tools::vector2<i64>(c1x, c1y), c1r).where(tools::circle_2d<i64>(tools::vector2<i64>(c2x,\
+    \ c2y), c2r)).first << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tools/detail/polygon_like_2d.hpp
+  - tools/vector2.hpp
   - tools/abs.hpp
+  - tools/pair_hash.hpp
+  - tools/circle_2d.hpp
+  - tools/detail/polygon_like_2d.hpp
   - tools/chmax.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/detail/line_like_2d.hpp
   - tools/is_rational.hpp
   - tools/signum.hpp
-  - tools/vector2.hpp
-  - tools/pair_hash.hpp
   - tools/less_by.hpp
   - tools/square.hpp
   - tools/monoid.hpp
-  isVerificationFile: false
-  path: tools/triangle_2d.hpp
+  isVerificationFile: true
+  path: tests/circle_2d/where/with_radius.test.cpp
   requiredBy: []
   timestamp: '2022-09-10 03:32:40+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-documentation_of: tools/triangle_2d.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/circle_2d/where/with_radius.test.cpp
 layout: document
-title: Two-dimensional triangle
+redirect_from:
+- /verify/tests/circle_2d/where/with_radius.test.cpp
+- /verify/tests/circle_2d/where/with_radius.test.cpp.html
+title: tests/circle_2d/where/with_radius.test.cpp
 ---
-
-It is a triangle which consists of 3 points $p_0, p_1, p_2$.
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## Constructor
-```cpp
-(1)
-template <typename T> template <typename InputIterator>
-triangle_2d<T> s(InputIterator begin, InputIterator end);
-
-(2)
-template <typename T>
-triangle_2d<T> s(std::initializer_list<tools::vector2<T>> init);
-```
-
-It creates a triangle.
-
-### Constraints
-- (1)
-    - $\mathrm{end} - \mathrm{begin} = 3$
-- (2)
-    - `init.size()` $= 3$
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## area
-```cpp
-T s.area();
-```
-
-It returns the area of $s$.
-
-### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## circumcircle
-```cpp
-tools::circle_2d<T, false> s.circumcircle();
-```
-
-It returns the circumcircle of $s$.
-
-### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## doubled_area
-```cpp
-T s.doubled_area();
-```
-
-It returns the doubled area of $s$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## incircle
-```cpp
-tools::circle_2d<T> s.incircle();
-```
-
-It returns the incircle of $s$.
-
-### Constraints
-- `<T>` is a built-in floating point type.
-
-### Time Complexity
-- $O(1)$
-
-## is_counterclockwise
-```cpp
-bool s.is_counterclockwise();
-```
-
-It returns whether $s$ is counterclockwise or not.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## minimum_bounding_circle
-```cpp
-tools::circle_2d<T, false> s.minimum_bounding_circle();
-```
-
-It returns the minimum bounding circle of $s$.
-
-### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## type
-```cpp
-int s.type();
-```
-
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
-0 & \text{(if $s$ is acute)}\\
-1 & \text{(if $s$ is right)}\\
-2 & \text{(if $s$ is obtuse)}
-\end{array}\right.&
-\end{align*}$$
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## where
-```cpp
-int s.where(tools::vector2<T> p);
-```
-
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $p$ is on the outside of $s$)}\\
-0 & \text{(if $p$ is on the edge of $s$)}\\
-1 & \text{(if $p$ is on the inside of $s$)}
-\end{array}\right.&
-\end{align*}$$
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type

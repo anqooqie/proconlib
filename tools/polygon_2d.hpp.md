@@ -23,11 +23,17 @@ data:
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
+    path: tools/monoid.hpp
+    title: Typical monoids
+  - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
   - icon: ':heavy_check_mark:'
     path: tools/signum.hpp
     title: Sign function
+  - icon: ':heavy_check_mark:'
+    path: tools/square.hpp
+    title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
@@ -526,20 +532,43 @@ data:
     \    F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
     \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
     \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
-    \ 17 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class polygon_2d;\n\n  template <typename T>\n  class triangle_2d;\n\n\
-    \  template <typename T>\n  class polygon_2d {\n  protected:\n    ::std::vector<::tools::vector2<T>>\
-    \ m_points;\n\n  private:\n    T doubled_signed_area() const;\n\n  public:\n \
-    \   polygon_2d() = default;\n    polygon_2d(const ::tools::polygon_2d<T>&) = default;\n\
-    \    polygon_2d(::tools::polygon_2d<T>&&) = default;\n    ~polygon_2d() = default;\n\
-    \    ::tools::polygon_2d<T>& operator=(const ::tools::polygon_2d<T>&) = default;\n\
-    \    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&) = default;\n\n\
-    \    template <typename InputIterator>\n    polygon_2d(const InputIterator& begin,\
-    \ const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ 17 \"tools/detail/polygon_like_2d.hpp\"\n\n#line 19 \"tools/detail/polygon_like_2d.hpp\"\
+    \n#include <limits>\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\
+    \n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n\
+    \  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
+    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 23 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class polygon_2d;\n\n  template <typename T>\n\
+    \  class triangle_2d;\n\n  template <typename T, bool HasRadius = true>\n  class\
+    \ circle_2d;\n\n  template <typename T>\n  class polygon_2d {\n  protected:\n\
+    \    ::std::vector<::tools::vector2<T>> m_points;\n\n  private:\n    T doubled_signed_area()\
+    \ const;\n\n  public:\n    polygon_2d() = default;\n    polygon_2d(const ::tools::polygon_2d<T>&)\
+    \ = default;\n    polygon_2d(::tools::polygon_2d<T>&&) = default;\n    ~polygon_2d()\
+    \ = default;\n    ::tools::polygon_2d<T>& operator=(const ::tools::polygon_2d<T>&)\
+    \ = default;\n    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    polygon_2d(const InputIterator&\
+    \ begin, const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
     \ init);\n\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
     \ || ::std::is_floating_point_v<U>, T> area() const;\n    T doubled_area() const;\n\
     \    bool is_counterclockwise() const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
-    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle()\
+    \ || ::std::is_floating_point_v<U>, ::tools::circle_2d<T, false>> minimum_bounding_circle()\
     \ const;\n    int where(const ::tools::vector2<T>& p) const;\n  };\n\n  template\
     \ <typename T>\n  class triangle_2d : public polygon_2d<T> {\n  private:\n   \
     \ template <typename OutputIterator>\n    void sorted_edges(OutputIterator result)\
@@ -550,10 +579,31 @@ data:
     \ = default;\n\n    template <typename InputIterator>\n    triangle_2d(const InputIterator&\
     \ begin, const InputIterator& end);\n    triangle_2d(::std::initializer_list<::tools::vector2<T>>\
     \ init);\n\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
-    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> circumcircle()\
-    \ const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
-    \ || ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> minimum_bounding_circle()\
-    \ const;\n    int type() const;\n  };\n\n  template <typename T>\n  T polygon_2d<T>::doubled_signed_area()\
+    \ || ::std::is_floating_point_v<U>, ::tools::circle_2d<T, false>> circumcircle()\
+    \ const;\n    template <typename U = T>\n    ::std::enable_if_t<::std::is_floating_point_v<U>,\
+    \ ::tools::circle_2d<T>> incircle() const;\n    template <typename U = T>\n  \
+    \  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
+    \ ::tools::circle_2d<T, false>> minimum_bounding_circle() const;\n    int type()\
+    \ const;\n  };\n\n  template <typename T, bool HasRadius>\n  class circle_2d {\n\
+    \  private:\n    using F = ::std::conditional<::std::is_floating_point_v<T>, T,\
+    \ double>;\n    ::tools::vector2<T> m_center;\n    T m_radius;\n    T m_squared_radius;\n\
+    \n  public:\n    circle_2d() = default;\n    circle_2d(const ::tools::circle_2d<T,\
+    \ HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T, HasRadius>&&) =\
+    \ default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T, HasRadius>&\
+    \ operator=(const ::tools::circle_2d<T, HasRadius>&) = default;\n    ::tools::circle_2d<T,\
+    \ HasRadius>& operator=(::tools::circle_2d<T, HasRadius>&&) = default;\n\n   \
+    \ template <bool R = HasRadius, ::std::enable_if_t<R, ::std::nullptr_t> = nullptr>\n\
+    \    circle_2d(const ::tools::vector2<T>& center, const T& radius);\n    template\
+    \ <bool R = HasRadius, ::std::enable_if_t<!R, ::std::nullptr_t> = nullptr>\n \
+    \   circle_2d(const ::tools::vector2<T>& center, const T& squared_radius);\n\n\
+    \    F area() const;\n    ::tools::vector2<T> center() const;\n    template <bool\
+    \ R = HasRadius>\n    ::std::enable_if_t<R, T> radius() const;\n    T squared_radius()\
+    \ const;\n    ::std::pair<int, int> where(const ::tools::circle_2d<T, HasRadius>&\
+    \ other) const;\n    int where(const ::tools::vector2<T>& p) const;\n\n    template\
+    \ <typename U, bool R>\n    friend bool operator==(const ::tools::circle_2d<U,\
+    \ R>& lhs, const ::tools::circle_2d<U, R>& rhs);\n    template <typename U, bool\
+    \ R>\n    friend bool operator!=(const ::tools::circle_2d<U, R>& lhs, const ::tools::circle_2d<U,\
+    \ R>& rhs);\n  };\n\n  template <typename T>\n  T polygon_2d<T>::doubled_signed_area()\
     \ const {\n    T result(0);\n    for (::std::size_t i = 0; i < this->m_points.size();\
     \ ++i) {\n      result += (this->m_points[i].x - this->m_points[(i + 1) % this->m_points.size()].x)\
     \ * (this->m_points[i].y + this->m_points[(i + 1) % this->m_points.size()].y);\n\
@@ -569,31 +619,30 @@ data:
     \ <typename T>\n  bool polygon_2d<T>::is_counterclockwise() const {\n    return\
     \ this->doubled_signed_area() > T(0);\n  }\n\n  template <typename T> template\
     \ <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
-    \ ::std::pair<::tools::vector2<T>, T>> polygon_2d<T>::minimum_bounding_circle()\
-    \ const {\n    T squared_radius(0);\n    ::tools::vector2<T> center;\n    for\
-    \ (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      for (::std::size_t\
-    \ j = i + 1; j < this->m_points.size(); ++j) {\n        for (::std::size_t k =\
-    \ j + 1; k < this->m_points.size(); ++k) {\n          const auto [possible_center,\
-    \ possible_squared_radius] = ::tools::triangle_2d<T>({this->m_points[i], this->m_points[j],\
-    \ this->m_points[k]}).minimum_bounding_circle();\n          if (::tools::chmax(squared_radius,\
-    \ possible_squared_radius)) {\n            center = possible_center;\n       \
-    \   }\n        }\n      }\n    }\n    return ::std::make_pair(center, squared_radius);\n\
-    \  }\n\n  template <typename T>\n  int polygon_2d<T>::where(const ::tools::vector2<T>&\
-    \ p) const {\n    ::std::vector<::tools::directed_line_segment_2d<T>> edges;\n\
-    \    for (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n      edges.emplace_back(this->m_points[i],\
-    \ this->m_points[(i + 1) % this->m_points.size()]);\n    }\n\n    if (std::any_of(edges.begin(),\
-    \ edges.end(), [&](const auto& edge) { return edge.contains(p); })) {\n      return\
-    \ 1;\n    } else {\n      bool in = false;\n      for (const auto& edge : edges)\
-    \ {\n        if ([&]() {\n            const auto l = edge.to_line();\n       \
-    \     if (l == ::tools::line_2d<T>(T(0), T(1), -p.y)) return false;\n        \
-    \    if (p.x <= edge.p1().x && p.y == edge.p1().y) return edge.p2().y < edge.p1().y;\n\
-    \            if (p.x <= edge.p2().x && p.y == edge.p2().y) return edge.p1().y\
-    \ < edge.p2().y;\n            if ((edge.p1().y - p.y) * (edge.p2().y - p.y) >\
-    \ T(0)) return false;\n            return l.a() * (l.a() * p.x + l.b() * p.y +\
-    \ l.c()) < T(0);\n        }()) {\n          in = !in;\n        }\n      }\n  \
-    \    return in ? 2 : 0;\n    }\n  }\n\n  template <typename T>\n  template <typename\
-    \ OutputIterator>\n  void triangle_2d<T>::sorted_edges(OutputIterator result)\
-    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
+    \ ::tools::circle_2d<T, false>> polygon_2d<T>::minimum_bounding_circle() const\
+    \ {\n    ::std::optional<::tools::circle_2d<T, false>> answer;\n    for (::std::size_t\
+    \ i = 0; i < this->m_points.size(); ++i) {\n      for (::std::size_t j = i + 1;\
+    \ j < this->m_points.size(); ++j) {\n        for (::std::size_t k = j + 1; k <\
+    \ this->m_points.size(); ++k) {\n          if (const auto possible_answer = ::tools::triangle_2d<T>({this->m_points[i],\
+    \ this->m_points[j], this->m_points[k]}).minimum_bounding_circle();\n        \
+    \      !answer || answer->squared_radius() < possible_answer.squared_radius())\
+    \ {\n            answer = ::std::move(possible_answer);\n          }\n       \
+    \ }\n      }\n    }\n    return *answer;\n  }\n\n  template <typename T>\n  int\
+    \ polygon_2d<T>::where(const ::tools::vector2<T>& p) const {\n    ::std::vector<::tools::directed_line_segment_2d<T>>\
+    \ edges;\n    for (::std::size_t i = 0; i < this->m_points.size(); ++i) {\n  \
+    \    edges.emplace_back(this->m_points[i], this->m_points[(i + 1) % this->m_points.size()]);\n\
+    \    }\n\n    if (std::any_of(edges.begin(), edges.end(), [&](const auto& edge)\
+    \ { return edge.contains(p); })) {\n      return 0;\n    } else {\n      bool\
+    \ in = false;\n      for (const auto& edge : edges) {\n        if ([&]() {\n \
+    \           const auto l = edge.to_line();\n            if (l == ::tools::line_2d<T>(T(0),\
+    \ T(1), -p.y)) return false;\n            if (p.x <= edge.p1().x && p.y == edge.p1().y)\
+    \ return edge.p2().y < edge.p1().y;\n            if (p.x <= edge.p2().x && p.y\
+    \ == edge.p2().y) return edge.p1().y < edge.p2().y;\n            if ((edge.p1().y\
+    \ - p.y) * (edge.p2().y - p.y) > T(0)) return false;\n            return l.a()\
+    \ * (l.a() * p.x + l.b() * p.y + l.c()) < T(0);\n        }()) {\n          in\
+    \ = !in;\n        }\n      }\n      return in ? 1 : -1;\n    }\n  }\n\n  template\
+    \ <typename T>\n  template <typename OutputIterator>\n  void triangle_2d<T>::sorted_edges(OutputIterator\
+    \ result) const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
     \    for (int i = 0; i < 3; ++i) {\n      edges[i] = ::tools::directed_line_segment_2d<T>(this->m_points[i],\
     \ this->m_points[(i + 1) % 3]);\n    }\n    ::std::sort(edges.begin(), edges.end(),\
     \ ::tools::less_by([](const auto& edge) {\n      return edge.squared_length();\n\
@@ -604,27 +653,78 @@ data:
     \  }\n\n  template <typename T>\n  triangle_2d<T>::triangle_2d(::std::initializer_list<::tools::vector2<T>>\
     \ init) : triangle_2d(init.begin(), init.end()) {\n  }\n\n  template <typename\
     \ T> template <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> ||\
-    \ ::std::is_floating_point_v<U>, ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::circumcircle()\
+    \ ::std::is_floating_point_v<U>, ::tools::circle_2d<T, false>> triangle_2d<T>::circumcircle()\
     \ const {\n    const auto& A = this->m_points[0];\n    const auto& B = this->m_points[1];\n\
     \    const auto& C = this->m_points[2];\n    const auto a2 = (C - B).squared_l2_norm();\n\
     \    const auto b2 = (A - C).squared_l2_norm();\n    const auto c2 = (B - A).squared_l2_norm();\n\
     \    const auto kA = a2 * (b2 + c2 - a2);\n    const auto kB = b2 * (c2 + a2 -\
     \ b2);\n    const auto kC = c2 * (a2 + b2 - c2);\n    const auto circumcenter\
-    \ = (kA * A + kB * B + kC * C) / (kA + kB + kC);\n    return ::std::make_pair(circumcenter,\
-    \ (circumcenter - A).squared_l2_norm());\n  }\n\n  template <typename T> template\
+    \ = (kA * A + kB * B + kC * C) / (kA + kB + kC);\n    return ::tools::circle_2d<T,\
+    \ false>(circumcenter, (circumcenter - A).squared_l2_norm());\n  }\n\n  template\
+    \ <typename T> template <typename U>\n  ::std::enable_if_t<::std::is_floating_point_v<U>,\
+    \ ::tools::circle_2d<T>> triangle_2d<T>::incircle() const {\n    const auto& A\
+    \ = this->m_points[0];\n    const auto& B = this->m_points[1];\n    const auto&\
+    \ C = this->m_points[2];\n    const auto a = (C - B).l2_norm();\n    const auto\
+    \ b = (A - C).l2_norm();\n    const auto c = (B - A).l2_norm();\n    const auto\
+    \ incenter = (a * A + b * B + c * C) / (a + b + c);\n    return ::tools::circle_2d<T>(incenter,\
+    \ this->doubled_area() / (a + b + c));\n  }\n\n  template <typename T> template\
     \ <typename U>\n  ::std::enable_if_t<::tools::is_rational_v<U> || ::std::is_floating_point_v<U>,\
-    \ ::std::pair<::tools::vector2<T>, T>> triangle_2d<T>::minimum_bounding_circle()\
-    \ const {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n\
-    \    this->sorted_edges(edges.begin());\n    if (edges[0].squared_length() + edges[1].squared_length()\
-    \ <= edges[2].squared_length()) {\n      const auto center = edges[2].midpoint();\n\
-    \      return ::std::make_pair(center, (center - edges[2].p1()).squared_l2_norm());\n\
-    \    } else {\n      return this->circumcircle();\n    }\n  }\n\n  template <typename\
-    \ T>\n  int triangle_2d<T>::type() const {\n    ::std::array<::tools::directed_line_segment_2d<T>,\
+    \ ::tools::circle_2d<T, false>> triangle_2d<T>::minimum_bounding_circle() const\
+    \ {\n    ::std::array<::tools::directed_line_segment_2d<T>, 3> edges;\n    this->sorted_edges(edges.begin());\n\
+    \    if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length())\
+    \ {\n      const auto center = edges[2].midpoint();\n      return ::tools::circle_2d<T,\
+    \ false>(center, (center - edges[2].p1()).squared_l2_norm());\n    } else {\n\
+    \      return this->circumcircle();\n    }\n  }\n\n  template <typename T>\n \
+    \ int triangle_2d<T>::type() const {\n    ::std::array<::tools::directed_line_segment_2d<T>,\
     \ 3> edges;\n    this->sorted_edges(edges.begin());\n    const auto c2 = edges[2].squared_length();\n\
     \    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();\n\
     \    if (c2 < a2b2) {\n      return 0;\n    } else if (c2 == a2b2) {\n      return\
-    \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/polygon_2d.hpp\"\
-    \n\n\n"
+    \ 1;\n    } else {\n      return 2;\n    }\n  }\n\n  template <typename T, bool\
+    \ HasRadius> template <bool R, ::std::enable_if_t<R, ::std::nullptr_t>>\n  circle_2d<T,\
+    \ HasRadius>::circle_2d(const ::tools::vector2<T>& center, const T& radius) :\
+    \ m_center(center), m_radius(radius), m_squared_radius(radius * radius) {\n  \
+    \  assert(radius > T(0));\n  }\n\n  template <typename T, bool HasRadius> template\
+    \ <bool R, ::std::enable_if_t<!R, ::std::nullptr_t>>\n  circle_2d<T, HasRadius>::circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& squared_radius) : m_center(center), m_squared_radius(squared_radius)\
+    \ {\n    assert(squared_radius > T(0));\n  }\n\n  template <typename T, bool HasRadius>\n\
+    \  typename circle_2d<T, HasRadius>::F circle_2d<T, HasRadius>::area() const {\n\
+    \    return ::std::acos(static_cast<F>(-1)) * static_cast<F>(this->squared_radius);\n\
+    \  }\n\n  template <typename T, bool HasRadius>\n  ::tools::vector2<T> circle_2d<T,\
+    \ HasRadius>::center() const {\n    return this->m_center;\n  }\n\n  template\
+    \ <typename T, bool HasRadius> template <bool R>\n  ::std::enable_if_t<R, T> circle_2d<T,\
+    \ HasRadius>::radius() const {\n    return this->m_radius;\n  }\n\n  template\
+    \ <typename T, bool HasRadius>\n  T circle_2d<T, HasRadius>::squared_radius()\
+    \ const {\n    return this->m_squared_radius;\n  }\n\n  template <typename T,\
+    \ bool HasRadius>\n  ::std::pair<int, int> circle_2d<T, HasRadius>::where(const\
+    \ ::tools::circle_2d<T, HasRadius>& other) const {\n    return ::std::make_pair([&]()\
+    \ {\n      if (*this == other) {\n        return ::std::numeric_limits<int>::max();\n\
+    \      }\n      if constexpr (HasRadius) {\n        const auto d2 = (this->m_center\
+    \ - other.m_center).squared_l2_norm();\n        const auto& a_r = this->m_radius;\n\
+    \        const auto& b_r = other.m_radius;\n        const ::std::array<T, 2> threshold\
+    \ = {::tools::square(a_r - b_r), ::tools::square(a_r + b_r)};\n        if (d2\
+    \ < threshold[0]) {\n          return 0;\n        } else if (d2 == threshold[0])\
+    \ {\n          return 1;\n        } else if (d2 == threshold[1]) {\n         \
+    \ return 3;\n        } else if (threshold[1] < d2) {\n          return 4;\n  \
+    \      } else {\n          return 2;\n        }\n      } else {\n        const\
+    \ auto d2 = (this->m_center - other.m_center).squared_l2_norm();\n        const\
+    \ auto& a_r2 = this->m_squared_radius;\n        const auto& b_r2 = other.m_squared_radius;\n\
+    \        const auto threshold = a_r2 + b_r2 - d2;\n        const auto squared_threshold\
+    \ = ::tools::square(threshold);\n        const auto v = T(4) * a_r2 * b_r2;\n\
+    \        if (threshold > T(0) && v < squared_threshold) {\n          return 0;\n\
+    \        } else if (threshold > T(0) && v == squared_threshold) {\n          return\
+    \ 1;\n        } else if (threshold < T(0) && v == squared_threshold) {\n     \
+    \     return 3;\n        } else if (threshold < T(0) && v < squared_threshold)\
+    \ {\n          return 4;\n        } else {\n          return 2;\n        }\n \
+    \     }\n    }(), ::tools::signum(this->m_squared_radius - other.m_squared_radius));\n\
+    \  }\n\n  template <typename T, bool HasRadius>\n  int circle_2d<T, HasRadius>::where(const\
+    \ ::tools::vector2<T>& p) const {\n    return ::tools::signum(this->m_squared_radius\
+    \ - (p - this->m_center).squared_l2_norm());\n  }\n\n  template <typename T, bool\
+    \ HasRadius>\n  bool operator==(const ::tools::circle_2d<T, HasRadius>& lhs, const\
+    \ ::tools::circle_2d<T, HasRadius>& rhs) {\n    return lhs.m_center == rhs.m_center\
+    \ && lhs.m_squared_radius == rhs.m_squared_radius;\n  }\n\n  template <typename\
+    \ T, bool HasRadius>\n  bool operator!=(const ::tools::circle_2d<T, HasRadius>&\
+    \ lhs, const ::tools::circle_2d<T, HasRadius>& rhs) {\n    return !(lhs == rhs);\n\
+    \  }\n}\n\n\n#line 5 \"tools/polygon_2d.hpp\"\n\n\n"
   code: '#ifndef TOOLS_POLYGON_2D_HPP
 
     #define TOOLS_POLYGON_2D_HPP
@@ -647,10 +747,12 @@ data:
   - tools/vector2.hpp
   - tools/pair_hash.hpp
   - tools/less_by.hpp
+  - tools/square.hpp
+  - tools/monoid.hpp
   isVerificationFile: false
   path: tools/polygon_2d.hpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-09-10 03:32:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
@@ -732,10 +834,10 @@ It returns whether $s$ is counterclockwise or not.
 
 ## minimum_bounding_circle
 ```cpp
-std::pair<tools::vector2<T>, T> s.minimum_bounding_circle();
+tools::circle_2d<T, false> s.minimum_bounding_circle();
 ```
 
-It returns the center and the squared radius of the minimum bounding circle of $s$.
+It returns the minimum bounding circle of $s$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.
@@ -752,9 +854,9 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-0 & \text{(if $p$ is on the outside of $s$)}\\
-1 & \text{(if $p$ is on the edge of $s$)}\\
-2 & \text{(if $p$ is on the inside of $s$)}
+-1 & \text{(if $p$ is on the outside of $s$)}\\
+0 & \text{(if $p$ is on the edge of $s$)}\\
+1 & \text{(if $p$ is on the inside of $s$)}
 \end{array}\right.&
 \end{align*}$$
 

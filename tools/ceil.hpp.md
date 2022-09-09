@@ -147,6 +147,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -204,6 +207,7 @@ data:
   - tests/bezout.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/mo.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/bigdecimal/hand.test.cpp

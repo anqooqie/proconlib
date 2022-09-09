@@ -6,6 +6,9 @@ data:
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
     path: tools/detail/line_like_2d.hpp
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -26,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -48,6 +51,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
@@ -84,6 +93,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/incircle.test.cpp
+    title: tests/triangle_2d/incircle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -109,6 +124,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp
+  - tools/circle_2d.hpp
   - tools/polygon_2d.hpp
   - tools/bigdecimal.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -121,8 +137,12 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp

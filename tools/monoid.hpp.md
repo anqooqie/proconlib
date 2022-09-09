@@ -6,6 +6,12 @@ data:
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/polygon_like_2d.hpp
+    title: tools/detail/polygon_like_2d.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -17,6 +23,9 @@ data:
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
+  - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
@@ -32,10 +41,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
+  - icon: ':heavy_check_mark:'
+    path: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_kth_root.test.cpp
     title: tests/ceil_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -49,6 +67,15 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rerooting_dp.test.cpp
     title: tests/rerooting_dp.test.cpp
   - icon: ':heavy_check_mark:'
@@ -60,6 +87,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/incircle.test.cpp
+    title: tests/triangle_2d/incircle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -108,12 +141,16 @@ data:
   - tools/tetration_mod.hpp
   - tools/lis.hpp
   - tools/rolling_hash.hpp
+  - tools/detail/polygon_like_2d.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/triangle_2d.hpp
   - tools/ceil_kth_root.hpp
   - tools/totient.hpp
   - tools/pow.hpp
+  - tools/circle_2d.hpp
   - tools/square.hpp
   - tools/floor_kth_root.hpp
+  - tools/polygon_2d.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -123,9 +160,16 @@ data:
   - tests/tetration_mod.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/permutation.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
   - tests/floor_kth_root.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/lis.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
   - tests/rolling_hash.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document

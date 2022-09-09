@@ -180,6 +180,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -287,6 +290,7 @@ data:
   - tests/polygon_2d/area.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp

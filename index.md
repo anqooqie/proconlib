@@ -61,6 +61,9 @@ data:
       path: tools/chromatic_number.hpp
       title: Chromatic number
     - icon: ':heavy_check_mark:'
+      path: tools/circle_2d.hpp
+      title: Two-dimensional circle
+    - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
     - icon: ':heavy_check_mark:'
@@ -400,7 +403,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
       title: Diameter of a tree
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/triangle_2d.hpp
       title: Two-dimensional triangle
     - icon: ':heavy_check_mark:'
@@ -722,6 +725,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
+  - name: tests/circle_2d/where
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/circle_2d/where/with_radius.test.cpp
+      title: tests/circle_2d/where/with_radius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/circle_2d/where/without_radius.test.cpp
+      title: tests/circle_2d/where/without_radius.test.cpp
   - name: tests/convolution
     pages:
     - icon: ':heavy_check_mark:'
@@ -866,6 +877,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/scc_graph/sccs.test.cpp
       title: tests/scc_graph/sccs.test.cpp
+  - name: tests/triangle_2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/triangle_2d/circumcircle.test.cpp
+      title: tests/triangle_2d/circumcircle.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/triangle_2d/incircle.test.cpp
+      title: tests/triangle_2d/incircle.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
     - icon: ':heavy_check_mark:'

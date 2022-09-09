@@ -40,17 +40,17 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/circumcircle.test.cpp
-    title: tests/triangle_2d/circumcircle.test.cpp
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/incircle.test.cpp
-    title: tests/triangle_2d/incircle.test.cpp
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/triangle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
+  bundledCode: "#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <array>\n#include <cassert>\n#include <cstddef>\n\
     #include <initializer_list>\n#include <type_traits>\n#include <vector>\n#line\
     \ 1 \"tools/abs.hpp\"\n\n\n\n#include <cmath>\n\nnamespace tools {\n\n  template\
@@ -721,10 +721,10 @@ data:
     \ && lhs.m_squared_radius == rhs.m_squared_radius;\n  }\n\n  template <typename\
     \ T, bool HasRadius>\n  bool operator!=(const ::tools::circle_2d<T, HasRadius>&\
     \ lhs, const ::tools::circle_2d<T, HasRadius>& rhs) {\n    return !(lhs == rhs);\n\
-    \  }\n}\n\n\n#line 5 \"tools/triangle_2d.hpp\"\n\n\n"
-  code: '#ifndef TOOLS_TRIANGLE_2D_HPP
+    \  }\n}\n\n\n#line 5 \"tools/circle_2d.hpp\"\n\n\n"
+  code: '#ifndef TOOLS_CIRCLE_2D_HPP
 
-    #define TOOLS_TRIANGLE_2D_HPP
+    #define TOOLS_CIRCLE_2D_HPP
 
 
     #include "tools/detail/polygon_like_2d.hpp"
@@ -747,19 +747,19 @@ data:
   - tools/square.hpp
   - tools/monoid.hpp
   isVerificationFile: false
-  path: tools/triangle_2d.hpp
+  path: tools/circle_2d.hpp
   requiredBy: []
   timestamp: '2022-09-10 03:32:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-documentation_of: tools/triangle_2d.hpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+documentation_of: tools/circle_2d.hpp
 layout: document
-title: Two-dimensional triangle
+title: Two-dimensional circle
 ---
 
-It is a triangle which consists of 3 points $p_0, p_1, p_2$.
+It is a circle.
 
 ### License
 - CC0
@@ -770,57 +770,40 @@ It is a triangle which consists of 3 points $p_0, p_1, p_2$.
 ## Constructor
 ```cpp
 (1)
-template <typename T> template <typename InputIterator>
-triangle_2d<T> s(InputIterator begin, InputIterator end);
+template <typename T>
+circle_2d<T> c(tools::vector2<T> o, T r);
 
 (2)
-template <typename T>
-triangle_2d<T> s(std::initializer_list<tools::vector2<T>> init);
+template <typename T, bool HasRadius>
+circle_2d<T, true> c(tools::vector2<T> o, T r);
+
+(3)
+template <typename T, bool HasRadius>
+circle_2d<T, false> c(tools::vector2<T> o, T r2);
 ```
 
-It creates a triangle.
+- (1)
+    - It is same as (2).
+- (2)
+    - It creates a circle with center $o$ and radius $r$.
+- (3)
+    - It creates a circle with center $o$ and radius $\sqrt{r^2}$.
 
 ### Constraints
-- (1)
-    - $\mathrm{end} - \mathrm{begin} = 3$
-- (2)
-    - `init.size()` $= 3$
+- (1), (2)
+    - $r > 0$
+- (3)
+    - $r^2 > 0$
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
 ## area
 ```cpp
-T s.area();
+std::conditional<std::is_floating_point_v<T>, T, double> c.area();
 ```
 
-It returns the area of $s$.
-
-### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## circumcircle
-```cpp
-tools::circle_2d<T, false> s.circumcircle();
-```
-
-It returns the circumcircle of $s$.
-
-### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
-
-### Time Complexity
-- $O(1)$ if `<T>` is a built-in numerical type
-
-## doubled_area
-```cpp
-T s.doubled_area();
-```
-
-It returns the doubled area of $s$.
+It returns the area of $c$.
 
 ### Constraints
 - None
@@ -828,25 +811,12 @@ It returns the doubled area of $s$.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
-## incircle
+## center
 ```cpp
-tools::circle_2d<T> s.incircle();
+tools::vector2<T> c.center();
 ```
 
-It returns the incircle of $s$.
-
-### Constraints
-- `<T>` is a built-in floating point type.
-
-### Time Complexity
-- $O(1)$
-
-## is_counterclockwise
-```cpp
-bool s.is_counterclockwise();
-```
-
-It returns whether $s$ is counterclockwise or not.
+It returns $o$.
 
 ### Constraints
 - None
@@ -854,31 +824,56 @@ It returns whether $s$ is counterclockwise or not.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
-## minimum_bounding_circle
+## radius
 ```cpp
-tools::circle_2d<T, false> s.minimum_bounding_circle();
+T c.radius();
 ```
 
-It returns the minimum bounding circle of $s$.
+It returns $r$.
 
 ### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
+- `HasRadius` is `true`.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
-## type
+## squared_radius
 ```cpp
-int s.type();
+bool c.squared_radius();
 ```
 
-It returns
+It returns $r^2$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
+## where
+```cpp
+std::pair<int, int> c1.where(circle_2d<T, HasRadius> c2);
+```
+
+It returns the number of common tangent lines between $c_1$ and $c_2$ and the sign of $r1 - r2$.
+In other words, it returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-0 & \text{(if $s$ is acute)}\\
-1 & \text{(if $s$ is right)}\\
-2 & \text{(if $s$ is obtuse)}
+(0, -1) & \text{(if $c_2$ includes $c_1$)}\\
+(0, 1) & \text{(if $c_1$ includes $c_2$)}\\
+(1, -1) & \text{(if $c_1$ is inscribed in $c_2$)}\\
+(1, 1) & \text{(if $c_2$ is inscribed in $c_1$)}\\
+(2, -1) & \text{(if $c_1$ and $c_2$ intersects and $r_1 < r_2$)}\\
+(2, 0) & \text{(if $c_1$ and $c_2$ intersects and $r_1 = r_2$)}\\
+(2, 1) & \text{(if $c_1$ and $c_2$ intersects and $r_1 > r_2$)}\\
+(3, -1) & \text{(if $c_1$ and $c_2$ are cicumscribed and $r_1 < r_2$)}\\
+(3, 0) & \text{(if $c_1$ and $c_2$ are cicumscribed and $r_1 = r_2$)}\\
+(3, 1) & \text{(if $c_1$ and $c_2$ are cicumscribed and $r_1 > r_2$)}\\
+(4, -1) & \text{(if $c_1$ and $c_2$ do not cross and $r_1 < r_2$)}\\
+(4, 0) & \text{(if $c_1$ and $c_2$ do not cross and $r_1 = r_2$)}\\
+(4, 1) & \text{(if $c_1$ and $c_2$ do not cross and $r_1 > r_2$)}\\
+(\infty, 0) & \text{(if $c_1$ is identical to $c_2$)}
 \end{array}\right.&
 \end{align*}$$
 
@@ -890,7 +885,7 @@ $$\begin{align*}
 
 ## where
 ```cpp
-int s.where(tools::vector2<T> p);
+int c.where(tools::vector2<T> p);
 ```
 
 It returns
@@ -902,6 +897,32 @@ $$\begin{align*}
 1 & \text{(if $p$ is on the inside of $s$)}
 \end{array}\right.&
 \end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
+## operator==
+```cpp
+bool operator==(circle_2d<T, HasRadius> c_1, circle_2d<T, HasRadius> c_2);
+```
+
+It returns whether $c_1$ is identical to $c_2$ or not.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
+## operator!=
+```cpp
+bool operator!=(circle_2d<T, HasRadisu> c1, circle_2d<T, HasRadius> c2);
+```
+
+It returns `!(c1 == c2)`.
 
 ### Constraints
 - None

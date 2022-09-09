@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
@@ -17,10 +20,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/scc_graph.hpp
     title: Strongly connected component decomposition
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
@@ -60,6 +69,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/scc_graph/sccs.test.cpp
     title: tests/scc_graph/sccs.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/triangle_2d/incircle.test.cpp
+    title: tests/triangle_2d/incircle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -82,6 +97,7 @@ data:
   - tools/detail/polygon_like_2d.hpp
   - tools/triangle_2d.hpp
   - tools/scc_graph.hpp
+  - tools/circle_2d.hpp
   - tools/convex_hull.hpp
   - tools/polygon_2d.hpp
   - tools/hld.hpp
@@ -101,6 +117,10 @@ data:
   - tests/hld/epath.test.cpp
   - tests/hld/vsubtree.test.cpp
   - tests/hld/lca.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key
