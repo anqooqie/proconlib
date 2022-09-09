@@ -39,8 +39,7 @@ int main() {
   for (const auto& i : convex_hull) {
     v2.emplace_back(tools::rational(v[i].x), tools::rational(v[i].y));
   }
-  const auto [center, squared_radius] = tools::polygon_2d<tools::rational>(v2.begin(), v2.end()).minimum_bounding_circle();
 
-  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(squared_radius)) << '\n';
+  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational>(v2.begin(), v2.end()).minimum_bounding_circle().squared_radius())) << '\n';
   return 0;
 }

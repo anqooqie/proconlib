@@ -48,10 +48,10 @@ It returns the area of $s$.
 
 ## circumcircle
 ```cpp
-std::pair<tools::vector2<T>, T> s.circumcircle();
+tools::circle_2d<T, false> s.circumcircle();
 ```
 
-It returns the center and the squared radius of the circumcircle of $s$.
+It returns the circumcircle of $s$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.
@@ -72,6 +72,19 @@ It returns the doubled area of $s$.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
+## incircle
+```cpp
+tools::circle_2d<T> s.incircle();
+```
+
+It returns the incircle of $s$.
+
+### Constraints
+- `<T>` is a built-in floating point type.
+
+### Time Complexity
+- $O(1)$
+
 ## is_counterclockwise
 ```cpp
 bool s.is_counterclockwise();
@@ -87,10 +100,10 @@ It returns whether $s$ is counterclockwise or not.
 
 ## minimum_bounding_circle
 ```cpp
-std::pair<tools::vector2<T>, T> s.minimum_bounding_circle();
+tools::circle_2d<T, false> s.minimum_bounding_circle();
 ```
 
-It returns the center and the squared radius of the minimum bounding circle of $s$.
+It returns the minimum bounding circle of $s$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.
@@ -128,9 +141,9 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-0 & \text{(if $p$ is on the outside of $s$)}\\
-1 & \text{(if $p$ is on the edge of $s$)}\\
-2 & \text{(if $p$ is on the inside of $s$)}
+-1 & \text{(if $p$ is on the outside of $s$)}\\
+0 & \text{(if $p$ is on the edge of $s$)}\\
+1 & \text{(if $p$ is on the inside of $s$)}
 \end{array}\right.&
 \end{align*}$$
 
