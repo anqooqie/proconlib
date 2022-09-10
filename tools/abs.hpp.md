@@ -112,6 +112,9 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -163,6 +166,7 @@ data:
   - tests/ccw.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
   - tests/matrix/determinant.test.cpp
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp

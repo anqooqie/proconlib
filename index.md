@@ -849,6 +849,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/minimum_bounding_circle.test.cpp
       title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polygon_2d/where.test.cpp
+      title: tests/polygon_2d/where.test.cpp
   - name: tests/rational
     pages:
     - icon: ':heavy_check_mark:'
