@@ -14,9 +14,6 @@ data:
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
-    path: tools/chmax.hpp
-    title: chmax function
-  - icon: ':heavy_check_mark:'
     path: tools/detail/line_like_2d.hpp
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -1114,19 +1111,17 @@ data:
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
     \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line\
-    \ 1 \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#line 8 \"tools/detail/polygon_like_2d.hpp\"\
-    \n#include <initializer_list>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 5 \"tools/chmax.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmax(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs < rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\
-    \n#include <optional>\n#line 9 \"tools/detail/line_like_2d.hpp\"\n#include <variant>\n\
-    #line 14 \"tools/detail/line_like_2d.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n  class half_line_2d;\n\
-    \n  template <typename T>\n  class line_2d;\n\n  template <typename T>\n  class\
-    \ directed_line_segment_2d {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T>\
-    \ m_p2;\n\n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
-    \ ::tools::directed_line_segment_2d<T>&) = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
+    \ 1 \"tools/detail/polygon_like_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/polygon_like_2d.hpp\"\
+    \n#include <initializer_list>\n#line 11 \"tools/detail/polygon_like_2d.hpp\"\n\
+    #include <optional>\n#line 1 \"tools/directed_line_segment_2d.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/line_like_2d.hpp\"\
+    \n#include <variant>\n#line 14 \"tools/detail/line_like_2d.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  class directed_line_segment_2d;\n\n  template\
+    \ <typename T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\
+    \n  template <typename T>\n  class directed_line_segment_2d {\n  private:\n  \
+    \  ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\n  public:\n   \
+    \ directed_line_segment_2d() = default;\n    directed_line_segment_2d(const ::tools::directed_line_segment_2d<T>&)\
+    \ = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
     \ = default;\n    ~directed_line_segment_2d() = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(const ::tools::directed_line_segment_2d<T>&) = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(::tools::directed_line_segment_2d<T>&&) = default;\n\n    directed_line_segment_2d(const\
@@ -1474,38 +1469,38 @@ data:
     \    F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
     \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
     \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
-    \ 17 \"tools/detail/polygon_like_2d.hpp\"\n\n#line 1 \"tools/square.hpp\"\n\n\n\
-    \n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace\
-    \ tools {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
-    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
-    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 23 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename T>\n  class polygon_2d;\n\n  template <typename T>\n\
-    \  class triangle_2d;\n\n  template <typename T, bool HasRadius = true>\n  class\
-    \ circle_2d;\n\n  template <typename T>\n  class polygon_2d {\n  protected:\n\
-    \    ::std::vector<::tools::vector2<T>> m_points;\n\n  private:\n    T doubled_signed_area()\
-    \ const;\n\n  public:\n    polygon_2d() = default;\n    polygon_2d(const ::tools::polygon_2d<T>&)\
-    \ = default;\n    polygon_2d(::tools::polygon_2d<T>&&) = default;\n    ~polygon_2d()\
-    \ = default;\n    ::tools::polygon_2d<T>& operator=(const ::tools::polygon_2d<T>&)\
-    \ = default;\n    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&)\
-    \ = default;\n\n    template <typename InputIterator>\n    polygon_2d(const InputIterator&\
-    \ begin, const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
+    \ 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 7 \"\
+    tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
+    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
+    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
+    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
+    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
+    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
+    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
+    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
+    }\n\n\n#line 22 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  class polygon_2d;\n\n  template <typename T>\n  class triangle_2d;\n\
+    \n  template <typename T, bool HasRadius = true>\n  class circle_2d;\n\n  template\
+    \ <typename T>\n  class polygon_2d {\n  protected:\n    ::std::vector<::tools::vector2<T>>\
+    \ m_points;\n\n  private:\n    T doubled_signed_area() const;\n\n  public:\n \
+    \   polygon_2d() = default;\n    polygon_2d(const ::tools::polygon_2d<T>&) = default;\n\
+    \    polygon_2d(::tools::polygon_2d<T>&&) = default;\n    ~polygon_2d() = default;\n\
+    \    ::tools::polygon_2d<T>& operator=(const ::tools::polygon_2d<T>&) = default;\n\
+    \    ::tools::polygon_2d<T>& operator=(::tools::polygon_2d<T>&&) = default;\n\n\
+    \    template <typename InputIterator>\n    polygon_2d(const InputIterator& begin,\
+    \ const InputIterator& end);\n    polygon_2d(::std::initializer_list<::tools::vector2<T>>\
     \ init);\n\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
     \ || ::std::is_floating_point_v<U>, T> area() const;\n    T doubled_area() const;\n\
     \    bool is_counterclockwise() const;\n    template <typename U = T>\n    ::std::enable_if_t<::tools::is_rational_v<U>\
@@ -1703,7 +1698,6 @@ data:
   - tools/pair_hash.hpp
   - tools/polygon_2d.hpp
   - tools/detail/polygon_like_2d.hpp
-  - tools/chmax.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/detail/line_like_2d.hpp
   - tools/less_by.hpp
@@ -1712,7 +1706,7 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/area.test.cpp
   requiredBy: []
-  timestamp: '2022-09-10 03:32:40+09:00'
+  timestamp: '2022-09-10 13:16:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polygon_2d/area.test.cpp

@@ -5,9 +5,6 @@ data:
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
   - icon: ':heavy_check_mark:'
-    path: tools/chmax.hpp
-    title: chmax function
-  - icon: ':heavy_check_mark:'
     path: tools/detail/line_like_2d.hpp
     title: tools/detail/line_like_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -51,29 +48,26 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/triangle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/polygon_like_2d.hpp\"\
-    \n\n\n\n#include <algorithm>\n#include <array>\n#include <cassert>\n#include <cstddef>\n\
-    #include <initializer_list>\n#include <type_traits>\n#include <vector>\n#line\
-    \ 1 \"tools/abs.hpp\"\n\n\n\n#include <cmath>\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return\
-    \ ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs())\
-    \ {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated = lhs < rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 7 \"tools/detail/line_like_2d.hpp\"\
-    \n#include <optional>\n#line 9 \"tools/detail/line_like_2d.hpp\"\n#include <variant>\n\
-    #line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  struct is_rational {\n    static constexpr bool value = false;\n  };\n\
-    \n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
-    }\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept\
-    \ {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x\
-    \ < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"\
-    tools/vector2.hpp\"\n\n\n\n#line 8 \"tools/vector2.hpp\"\n#include <iostream>\n\
-    #include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 5 \"tools/pair_hash.hpp\"\
-    \n#include <utility>\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n#include\
-    \ <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n  struct\
-    \ pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \n\n\n\n#include <algorithm>\n#include <array>\n#include <cassert>\n#include <cmath>\n\
+    #include <cstddef>\n#include <initializer_list>\n#include <limits>\n#include <optional>\n\
+    #include <type_traits>\n#include <utility>\n#include <vector>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n\
+    \  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n\
+    \    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/line_like_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/line_like_2d.hpp\"\
+    \n#include <variant>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  struct is_rational {\n    static constexpr bool\
+    \ value = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
+    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\
+    \n#line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
+    \ x;\n    }\n  }\n}\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#line 8 \"tools/vector2.hpp\"\
+    \n#include <iostream>\n#include <functional>\n#line 1 \"tools/pair_hash.hpp\"\n\
+    \n\n\n#line 6 \"tools/pair_hash.hpp\"\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\
+    \n#include <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
+    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
     \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
     \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
     \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
@@ -529,10 +523,9 @@ data:
     \    F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
     \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
     \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
-    \ 17 \"tools/detail/polygon_like_2d.hpp\"\n\n#line 19 \"tools/detail/polygon_like_2d.hpp\"\
-    \n#include <limits>\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\
-    \n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n\
-    \  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \ 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"\
+    tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
+    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
     \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
     \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
@@ -551,7 +544,7 @@ data:
     \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
     \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
     \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 23 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools\
+    \  }\n}\n\n\n#line 22 \"tools/detail/polygon_like_2d.hpp\"\n\nnamespace tools\
     \ {\n  template <typename T>\n  class polygon_2d;\n\n  template <typename T>\n\
     \  class triangle_2d;\n\n  template <typename T, bool HasRadius = true>\n  class\
     \ circle_2d;\n\n  template <typename T>\n  class polygon_2d {\n  protected:\n\
@@ -736,7 +729,6 @@ data:
   dependsOn:
   - tools/detail/polygon_like_2d.hpp
   - tools/abs.hpp
-  - tools/chmax.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/detail/line_like_2d.hpp
   - tools/is_rational.hpp
@@ -749,7 +741,7 @@ data:
   isVerificationFile: false
   path: tools/triangle_2d.hpp
   requiredBy: []
-  timestamp: '2022-09-10 03:32:40+09:00'
+  timestamp: '2022-09-10 13:16:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/triangle_2d/incircle.test.cpp
