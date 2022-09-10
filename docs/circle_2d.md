@@ -99,7 +99,7 @@ It returns $r^2$.
 std::pair<int, int> c1.where(circle_2d<T, HasRadius> c2);
 ```
 
-It returns the number of common tangent lines between $c_1$ and $c_2$ and the sign of $r1 - r2$.
+It returns the number of common tangent lines between $c_1$ and $c_2$ and the sign of $r_1 - r_2$.
 In other words, it returns
 
 $$\begin{align*}
@@ -136,9 +136,9 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
--1 & \text{(if $p$ is on the outside of $s$)}\\
-0 & \text{(if $p$ is on the edge of $s$)}\\
-1 & \text{(if $p$ is on the inside of $s$)}
+-1 & \text{(if $p$ is on the outside of $c$)}\\
+0 & \text{(if $p$ is on the edge of $c$)}\\
+1 & \text{(if $p$ is on the inside of $c$)}
 \end{array}\right.&
 \end{align*}$$
 
@@ -150,7 +150,7 @@ $$\begin{align*}
 
 ## operator==
 ```cpp
-bool operator==(circle_2d<T, HasRadius> c_1, circle_2d<T, HasRadius> c_2);
+bool operator==(circle_2d<T, HasRadius> c1, circle_2d<T, HasRadius> c2);
 ```
 
 It returns whether $c_1$ is identical to $c_2$ or not.
@@ -163,7 +163,7 @@ It returns whether $c_1$ is identical to $c_2$ or not.
 
 ## operator!=
 ```cpp
-bool operator!=(circle_2d<T, HasRadisu> c1, circle_2d<T, HasRadius> c2);
+bool operator!=(circle_2d<T, HasRadius> c1, circle_2d<T, HasRadius> c2);
 ```
 
 It returns `!(c1 == c2)`.
