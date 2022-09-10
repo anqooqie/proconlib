@@ -55,9 +55,6 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/where.test.cpp
-    title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
@@ -108,7 +105,6 @@ data:
   - tests/convex_hull.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/scc_graph/scc_id.test.cpp
   - tests/scc_graph/sccs.test.cpp

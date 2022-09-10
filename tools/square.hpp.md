@@ -64,9 +64,6 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/where.test.cpp
-    title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -139,7 +136,6 @@ data:
   - tests/permutation.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
   - tests/floor_kth_root.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
