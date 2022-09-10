@@ -831,7 +831,7 @@ It returns $r$.
 
 ## squared_radius
 ```cpp
-bool c.squared_radius();
+T c.squared_radius();
 ```
 
 It returns $r^2$.
