@@ -4,22 +4,21 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <cmath>
 #include <cstddef>
 #include <initializer_list>
+#include <limits>
+#include <optional>
 #include <type_traits>
+#include <utility>
 #include <vector>
 #include "tools/abs.hpp"
-#include "tools/chmax.hpp"
 #include "tools/directed_line_segment_2d.hpp"
 #include "tools/is_rational.hpp"
 #include "tools/less_by.hpp"
-#include "tools/vector2.hpp"
-
-#include <optional>
-#include <limits>
-#include <utility>
 #include "tools/signum.hpp"
 #include "tools/square.hpp"
+#include "tools/vector2.hpp"
 
 namespace tools {
   template <typename T>
