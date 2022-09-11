@@ -150,6 +150,9 @@ data:
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
+    - icon: ':heavy_check_mark:'
+      path: tools/gcd_convolution.hpp
+      title: GCD convolution
     - icon: ':warning:'
       path: tools/greater_by.hpp
       title: std::greater by key
@@ -204,6 +207,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
+    - icon: ':heavy_check_mark:'
+      path: tools/lcm_convolution.hpp
+      title: LCM convolution
     - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
@@ -551,6 +557,9 @@ data:
       path: tests/floor_sqrt.test.cpp
       title: tests/floor_sqrt.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/gcd_convolution.test.cpp
+      title: tests/gcd_convolution.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
     - icon: ':heavy_check_mark:'
@@ -571,6 +580,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lcm_convolution.test.cpp
+      title: tests/lcm_convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
