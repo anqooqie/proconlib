@@ -1,5 +1,5 @@
 #ifndef TOOLS_GCD_CONVOLUTION_HPP
-#define TOOLS_GCD_CONVOLUITON_HPP
+#define TOOLS_GCD_CONVOLUTION_HPP
 
 #include <type_traits>
 #include <vector>

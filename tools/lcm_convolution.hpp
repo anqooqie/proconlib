@@ -1,5 +1,5 @@
 #ifndef TOOLS_LCM_CONVOLUTION_HPP
-#define TOOLS_LCM_CONVOLUITON_HPP
+#define TOOLS_LCM_CONVOLUTION_HPP
 
 #include <type_traits>
 #include <vector>
