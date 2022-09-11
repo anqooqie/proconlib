@@ -1,38 +1,39 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
+    IGNORE_IF_CLANG: ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/util.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#line 1 \"tools/util.hpp\"\n\n\n\n// To see the details of my library, visit\
-    \ my GitHub Pages.\n// https://anqooqie.github.io/proconlib/\n\n#ifdef LOCAL\n\
-    \  #ifndef _GLIBCXX_DEBUG\n    #define _GLIBCXX_DEBUG\n  #endif\n#else\n  #ifndef\
-    \ NDEBUG\n    #define NDEBUG\n  #endif\n#endif\n\n#include <bits/stdc++.h>\n#line\
-    \ 1 \"tools/resize.hpp\"\n\n\n\n#line 8 \"tools/resize.hpp\"\n\nnamespace tools\
-    \ {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
+    \n#ifdef __clang__\n  #define IGNORE\n#endif\n\n#line 1 \"tools/util.hpp\"\n\n\
+    \n\n// To see the details of my library, visit my GitHub Pages.\n// https://anqooqie.github.io/proconlib/\n\
+    \n#ifdef LOCAL\n  #ifndef _GLIBCXX_DEBUG\n    #define _GLIBCXX_DEBUG\n  #endif\n\
+    #else\n  #ifndef NDEBUG\n    #define NDEBUG\n  #endif\n#endif\n\n#include <bits/stdc++.h>\n\
+    #line 1 \"tools/resize.hpp\"\n\n\n\n#line 8 \"tools/resize.hpp\"\n\nnamespace\
+    \ tools {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
     \ Allocator>& vector, const Head& head) {\n    vector.resize(head);\n  }\n  template\
     \ <class T, ::std::size_t N, typename Head>\n  void resize([[maybe_unused]] ::std::array<T,\
     \ N>& array, [[maybe_unused]] const Head& head) {\n    assert(array.size() ==\
@@ -341,7 +342,7 @@ data:
     \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
     \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
     \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
-    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 6 \"tests/util.test.cpp\"\
+    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 9 \"tests/util.test.cpp\"\
     \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  {\n    mint v;\n    std::istringstream\
     \ iss(\"123\");\n    iss >> v;\n    assert_that(v == mint(123));\n  }\n  {\n \
@@ -386,45 +387,45 @@ data:
     \ int, int> v(123, 456, 789);\n    std::ostringstream oss;\n    oss << v;\n  \
     \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  std::cout << \"Hello\
     \ World\" << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include \"tools/util.hpp\"\n#include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  {\n    mint v;\n    std::istringstream\
-    \ iss(\"123\");\n    iss >> v;\n    assert_that(v == mint(123));\n  }\n  {\n \
-    \   std::vector<mint> v;\n    std::istringstream iss(\"123 456 789 111 222 333\"\
-    );\n    std::copy_n(std::istream_iterator<mint>(iss), 3, std::back_inserter(v));\n\
-    \    assert_that(v.size() == 3);\n    assert_that(v[0] == mint(123));\n    assert_that(v[1]\
-    \ == mint(456));\n    assert_that(v[2] == mint(789));\n  }\n  {\n    std::ostringstream\
-    \ oss;\n    oss << mint(123);\n    assert_that(oss.str() == \"123\");\n  }\n \
-    \ {\n    std::vector<int> v(3);\n    std::istringstream iss(\"123 456 789 111\
-    \ 222 333\");\n    iss >> v;\n    assert_that(v.size() == 3);\n    assert_that(v[0]\
-    \ == 123);\n    assert_that(v[1] == 456);\n    assert_that(v[2] == 789);\n  }\n\
-    \  {\n    std::array<int, 3> v;\n    std::istringstream iss(\"123 456 789 111\
-    \ 222 333\");\n    iss >> v;\n    assert_that(v[0] == 123);\n    assert_that(v[1]\
-    \ == 456);\n    assert_that(v[2] == 789);\n  }\n  {\n    std::vector<int> v =\
-    \ {123, 456, 789};\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
-    \ == \"[123, 456, 789]\");\n  }\n  {\n    std::array<int, 3> v = {123, 456, 789};\n\
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\
+    #ifdef __clang__\n  #define IGNORE\n#endif\n\n#include \"tools/util.hpp\"\n#include\
+    \ \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  {\n    mint v;\n    std::istringstream iss(\"123\");\n    iss >> v;\n    assert_that(v\
+    \ == mint(123));\n  }\n  {\n    std::vector<mint> v;\n    std::istringstream iss(\"\
+    123 456 789 111 222 333\");\n    std::copy_n(std::istream_iterator<mint>(iss),\
+    \ 3, std::back_inserter(v));\n    assert_that(v.size() == 3);\n    assert_that(v[0]\
+    \ == mint(123));\n    assert_that(v[1] == mint(456));\n    assert_that(v[2] ==\
+    \ mint(789));\n  }\n  {\n    std::ostringstream oss;\n    oss << mint(123);\n\
+    \    assert_that(oss.str() == \"123\");\n  }\n  {\n    std::vector<int> v(3);\n\
+    \    std::istringstream iss(\"123 456 789 111 222 333\");\n    iss >> v;\n   \
+    \ assert_that(v.size() == 3);\n    assert_that(v[0] == 123);\n    assert_that(v[1]\
+    \ == 456);\n    assert_that(v[2] == 789);\n  }\n  {\n    std::array<int, 3> v;\n\
+    \    std::istringstream iss(\"123 456 789 111 222 333\");\n    iss >> v;\n   \
+    \ assert_that(v[0] == 123);\n    assert_that(v[1] == 456);\n    assert_that(v[2]\
+    \ == 789);\n  }\n  {\n    std::vector<int> v = {123, 456, 789};\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\
+    \  {\n    std::array<int, 3> v = {123, 456, 789};\n    std::ostringstream oss;\n\
+    \    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n  {\n\
+    \    std::unordered_set<int> v = {123, 456, 789};\n    std::ostringstream oss;\n\
+    \    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\" || oss.str()\
+    \ == \"[123, 789, 456]\" || oss.str() == \"[456, 123, 789]\" || oss.str() == \"\
+    [456, 789, 123]\" || oss.str() == \"[789, 123, 456]\" || oss.str() == \"[789,\
+    \ 456, 123]\");\n  }\n  {\n    std::unordered_map<int, int> v = {{{1, 123}, {2,\
+    \ 456}, {3, 789}}};\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
+    \ == \"[[1, 123], [2, 456], [3, 789]]\" || oss.str() == \"[[1, 123], [3, 789],\
+    \ [2, 456]]\" || oss.str() == \"[[2, 456], [1, 123], [3, 789]]\" || oss.str()\
+    \ == \"[[2, 456], [3, 789], [1, 123]]\" || oss.str() == \"[[3, 789], [1, 123],\
+    \ [2, 456]]\" || oss.str() == \"[[3, 789], [2, 456], [1, 123]]\");\n  }\n  {\n\
+    \    std::stack<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
     \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
-    \ 456, 789]\");\n  }\n  {\n    std::unordered_set<int> v = {123, 456, 789};\n\
+    \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.top() == 789);\n\
+    \  }\n  {\n    std::queue<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
     \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
-    \ 456, 789]\" || oss.str() == \"[123, 789, 456]\" || oss.str() == \"[456, 123,\
-    \ 789]\" || oss.str() == \"[456, 789, 123]\" || oss.str() == \"[789, 123, 456]\"\
-    \ || oss.str() == \"[789, 456, 123]\");\n  }\n  {\n    std::unordered_map<int,\
-    \ int> v = {{{1, 123}, {2, 456}, {3, 789}}};\n    std::ostringstream oss;\n  \
-    \  oss << v;\n    assert_that(oss.str() == \"[[1, 123], [2, 456], [3, 789]]\"\
-    \ || oss.str() == \"[[1, 123], [3, 789], [2, 456]]\" || oss.str() == \"[[2, 456],\
-    \ [1, 123], [3, 789]]\" || oss.str() == \"[[2, 456], [3, 789], [1, 123]]\" ||\
-    \ oss.str() == \"[[3, 789], [1, 123], [2, 456]]\" || oss.str() == \"[[3, 789],\
-    \ [2, 456], [1, 123]]\");\n  }\n  {\n    std::stack<int> v;\n    v.push(123);\n\
-    \    v.push(456);\n    v.push(789);\n    std::ostringstream oss;\n    oss << v;\n\
-    \    assert_that(oss.str() == \"[123, 456, 789]\");\n    assert_that(v.size()\
-    \ == 3);\n    assert_that(v.top() == 789);\n  }\n  {\n    std::queue<int> v;\n\
-    \    v.push(123);\n    v.push(456);\n    v.push(789);\n    std::ostringstream\
-    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  \
-    \  assert_that(v.size() == 3);\n    assert_that(v.front() == 123);\n  }\n  {\n\
-    \    std::pair<int, int> v;\n    std::istringstream iss(\"123 456 111 222\");\n\
-    \    iss >> v;\n    assert_that(v.first == 123);\n    assert_that(v.second ==\
-    \ 456);\n  }\n  {\n    std::pair<int, int> v(123, 456);\n    std::ostringstream\
+    \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.front() ==\
+    \ 123);\n  }\n  {\n    std::pair<int, int> v;\n    std::istringstream iss(\"123\
+    \ 456 111 222\");\n    iss >> v;\n    assert_that(v.first == 123);\n    assert_that(v.second\
+    \ == 456);\n  }\n  {\n    std::pair<int, int> v(123, 456);\n    std::ostringstream\
     \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456]\");\n  }\n  {\n\
     \    std::tuple<int, int, int> v;\n    std::istringstream iss(\"123 456 789 111\
     \ 222 333\");\n    iss >> v;\n    assert_that(std::get<0>(v) == 123);\n    assert_that(std::get<1>(v)\
@@ -441,8 +442,8 @@ data:
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2022-09-11 14:57:39+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-09-11 15:08:31+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

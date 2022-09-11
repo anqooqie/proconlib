@@ -9,7 +9,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/alphabetical_order.hpp
       title: Alphabetical order of a given character
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -112,7 +112,7 @@ data:
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -192,7 +192,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
     - icon: ':heavy_check_mark:'
@@ -354,7 +354,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -425,7 +425,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
     - icon: ':heavy_check_mark:'
@@ -691,7 +691,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
     - icon: ':heavy_check_mark:'
