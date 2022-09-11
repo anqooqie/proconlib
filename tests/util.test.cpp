@@ -1,4 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
+#ifdef __clang__
+  #define IGNORE
+#endif
 
 #include "tools/util.hpp"
 #include "atcoder/modint.hpp"
