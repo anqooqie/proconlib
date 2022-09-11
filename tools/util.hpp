@@ -43,12 +43,14 @@ namespace tools {
   }
 }
 
-template <typename T>
-auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
-  ::std::int_fast64_t n;
-  is >> n;
-  x = T(n);
-  return is;
+namespace std {
+  template <typename T>
+  auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
+    ::std::int_fast64_t n;
+    is >> n;
+    x = T(n);
+    return is;
+  }
 }
 template <typename T>
 auto operator<<(::std::ostream& os, const T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::ostream&> {
