@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
@@ -12,9 +12,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/util.test.cpp
+    title: tests/util.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/resize.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -61,10 +64,11 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2022-09-03 15:52:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/resize.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/resize.hpp
 layout: document
 title: Resize a multi-dimensional vector

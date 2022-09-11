@@ -99,12 +99,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
+  - icon: ':x:'
+    path: tests/util.test.cpp
+    title: tests/util.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -122,7 +125,7 @@ data:
   path: tools/assert_that.hpp
   requiredBy: []
   timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/multiset.test.cpp
   - tests/tsort.test.cpp
@@ -153,6 +156,7 @@ data:
   - tests/floor_log2.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/util.test.cpp
   - tests/random_tree.test.cpp
   - tests/digit_sum.test.cpp
   - tests/fix.test.cpp

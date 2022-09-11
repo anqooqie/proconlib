@@ -2,10 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':warning:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
@@ -15,9 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/util.test.cpp
+    title: tests/util.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_range.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -39,10 +42,11 @@ data:
   - tools/fill.hpp
   - tools/util.hpp
   timestamp: '2021-07-17 23:00:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fill.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/is_range.hpp
 layout: document
 title: Check whether T is a range type
