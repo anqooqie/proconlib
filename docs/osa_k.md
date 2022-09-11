@@ -17,7 +17,7 @@ It provides various operations related to prime factors by using the table.
 osa_k<T> osa_k(T N);
 ```
 
-It calculates the least prime factor of positive integers up to $N$.
+It calculates the least prime factor for each positive integer $n$ such that $1 \leq n < N$.
 
 ### Constraints
 - $N \geq 1$
@@ -33,7 +33,7 @@ T osa_k.divisor_count(T n);
 It returns the number of divisors of $n$.
 
 ### Constraints
-- $1 \leq n \leq N$
+- $1 \leq n < N$
 
 ### Time Complexity
 - $O(1)$
@@ -56,7 +56,7 @@ struct {
 It returns the prime factors of $n$ in ascending order.
 
 ### Constraints
-- $1 \leq n \leq N$
+- $1 \leq n < N$
 
 ### Time Complexity
 - If you just call `prime_factor_range`, it takes only $O(1)$.
@@ -81,7 +81,7 @@ By using some primes $p_1 < p_2 < \cdots < p_k$ and some positive integers $q_1,
 It returns $((p_1, q_1), (p_2, q_2), \ldots, (p_k, q_k))$.
 
 ### Constraints
-- $1 \leq n \leq N$
+- $1 \leq n < N$
 
 ### Time Complexity
 - If you just call `distinct_prime_factor_range`, it takes only $O(1)$.
@@ -99,17 +99,17 @@ struct {
   };
   iterator begin();
   iterator end();
-} osa_k.prime_range();
+} osa_k.prime_range(T l, T r);
 ```
 
-It returns the primes up to $N$ in ascending order.
+It returns the primes $p$ such that $l \leq p < r$ in ascending order.
 
 ### Constraints
-- None
+- $1 \leq l \leq r \leq N$
 
 ### Time Complexity
 - If you just call `prime_range`, it takes only $O(1)$.
-- If you enumerate all the primes up to $N$, it takes $O(N)$.
+- If you enumerate all the primes $p$ such that $l \leq p < r$, it takes $O(r - l)$.
 
 ## divisors
 ```cpp
@@ -119,7 +119,7 @@ std::vector<T> osa_k.divisors(T n);
 It returns the divisors of $n$ in ascending order.
 
 ### Constraints
-- $1 \leq n \leq N$
+- $1 \leq n < N$
 
 ### Time Complexity
 - $O\left(n^\frac{1}{\log\log n} \frac{\log n}{\log\log n}\right)$

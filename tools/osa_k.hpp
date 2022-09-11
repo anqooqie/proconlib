@@ -4,10 +4,10 @@
 #include <vector>
 #include <cstddef>
 #include <iterator>
+#include <utility>
 #include <algorithm>
 #include <limits>
-#include <utility>
-#include <unordered_map>
+#include <cassert>
 
 namespace tools {
 
@@ -16,6 +16,10 @@ namespace tools {
   private:
     ::std::vector<T> m_min_prime_factors;
     ::std::vector<T> m_divisor_counts;
+
+    T size() const {
+      return this->m_min_prime_factors.size();
+    }
 
   public:
     class prime_factor_iterable {
@@ -167,12 +171,18 @@ namespace tools {
     class prime_iterable {
     private:
       const ::std::vector<T>& m_min_prime_factors;
+      T m_l;
+      T m_r;
 
     public:
       class iterator {
       private:
         const ::std::vector<T>& m_min_prime_factors;
-        T m_n;
+        T m_p;
+
+        T size() const {
+          return this->m_min_prime_factors.size();
+        }
 
       public:
         using difference_type = ::std::ptrdiff_t;
@@ -181,9 +191,10 @@ namespace tools {
         using pointer = T*;
         using iterator_category = ::std::input_iterator_tag;
 
-        iterator(const ::std::vector<T>& min_prime_factors, const T& n) :
+        iterator(const ::std::vector<T>& min_prime_factors, const T p) :
           m_min_prime_factors(min_prime_factors),
-          m_n(n) {
+          m_p(p) {
+          for (; this->m_p < this->size() && this->m_min_prime_factors[this->m_p] != this->m_p; ++this->m_p);
         }
 
         iterator(const iterator& other) = default;
@@ -191,7 +202,7 @@ namespace tools {
         iterator& operator=(const iterator& other) = default;
 
         iterator& operator++() {
-          for (++this->m_n; this->m_n < static_cast<T>(this->m_min_prime_factors.size()) && this->m_min_prime_factors[this->m_n] != this->m_n; ++this->m_n);
+          for (++this->m_p; this->m_p < this->size() && this->m_min_prime_factors[this->m_p] != this->m_p; ++this->m_p);
           return *this;
         }
 
@@ -202,11 +213,11 @@ namespace tools {
         }
 
         T operator*() const {
-          return this->m_n;
+          return this->m_p;
         }
 
         friend bool operator==(const iterator& lhs, const iterator& rhs) {
-          return lhs.m_n == rhs.m_n;
+          return lhs.m_p == rhs.m_p;
         }
 
         friend bool operator!=(const iterator& lhs, const iterator& rhs) {
@@ -214,28 +225,28 @@ namespace tools {
         }
       };
 
-      prime_iterable(const ::std::vector<T>& min_prime_factors) :
-        m_min_prime_factors(min_prime_factors) {
+      prime_iterable(const ::std::vector<T>& min_prime_factors, const T l, const T r) :
+        m_min_prime_factors(min_prime_factors), m_l(l), m_r(r) {
       }
 
       iterator begin() const {
-        return iterator(this->m_min_prime_factors, 2);
+        return iterator(this->m_min_prime_factors, this->m_l);
       };
 
       iterator end() const {
-        return iterator(this->m_min_prime_factors, this->m_min_prime_factors.size());
+        return iterator(this->m_min_prime_factors, this->m_r);
       }
     };
 
-    osa_k(T N) :
-      m_min_prime_factors(::std::max<T>(N, 1) + 1, ::std::numeric_limits<T>::max()),
-      m_divisor_counts(::std::max<T>(N, 1) + 1) {
-      N = ::std::max<T>(N, 1);
+    osa_k(const T N) :
+      m_min_prime_factors(::std::max<T>(N, 1), ::std::numeric_limits<T>::max()),
+      m_divisor_counts(::std::max<T>(N, 1)) {
+      assert(N >= 1);
 
-      for (T i = 2; i <= N; ++i) {
+      for (T i = 2; i < N; ++i) {
         if (this->m_min_prime_factors[i] == ::std::numeric_limits<T>::max()) {
           this->m_min_prime_factors[i] = i;
-          for (T j = i * i; j <= N; j += i) {
+          for (T j = i * i; j < N; j += i) {
             if (this->m_min_prime_factors[j] == ::std::numeric_limits<T>::max()) {
               this->m_min_prime_factors[j] = i;
             }
@@ -243,42 +254,47 @@ namespace tools {
         }
       }
 
-      ::std::vector<::std::pair<T, T>> dp(N + 1);
+      ::std::vector<::std::pair<T, T>> dp(N);
       dp[0] = ::std::make_pair(0, 0);
-      dp[1] = ::std::make_pair(1, 1);
-      for (T i = 2; i <= N; ++i) {
-        const ::std::pair<T, T>& prev = dp[i / this->m_min_prime_factors[i]];
+      if (N > 1) dp[1] = ::std::make_pair(1, 1);
+      for (T i = 2; i < N; ++i) {
+        const auto& prev = dp[i / this->m_min_prime_factors[i]];
         if (this->m_min_prime_factors[i / this->m_min_prime_factors[i]] == this->m_min_prime_factors[i]) {
           dp[i] = ::std::make_pair(prev.first + 1, prev.second);
         } else {
-          dp[i] = ::std::make_pair(static_cast<T>(2), prev.first * prev.second);
+          dp[i] = ::std::make_pair(T(2), prev.first * prev.second);
         }
       }
 
-      for (T i = 0; i <= N; ++i) {
+      for (T i = 0; i < N; ++i) {
         this->m_divisor_counts[i] = dp[i].first * dp[i].second;
       }
     }
 
-    T divisor_count(const T& n) const {
+    T divisor_count(const T n) const {
+      assert(1 <= n && n < this->size());
       return this->m_divisor_counts[n];
     }
 
-    prime_factor_iterable prime_factor_range(const T& n) const {
+    prime_factor_iterable prime_factor_range(const T n) const {
+      assert(1 <= n && n < this->size());
       return prime_factor_iterable(this->m_min_prime_factors, n);
     }
 
-    distinct_prime_factor_iterable distinct_prime_factor_range(const T& n) const {
+    distinct_prime_factor_iterable distinct_prime_factor_range(const T n) const {
+      assert(1 <= n && n < this->size());
       return distinct_prime_factor_iterable(this->m_min_prime_factors, n);
     }
 
-    prime_iterable prime_range() const {
-      return prime_iterable(this->m_min_prime_factors);
+    prime_iterable prime_range(const T l, const T r) const {
+      assert(1 <= l && l <= r && r <= this->size());
+      return prime_iterable(this->m_min_prime_factors, l, r);
     }
 
-    ::std::vector<T> divisors(const T& n) const {
+    ::std::vector<T> divisors(const T n) const {
+      assert(1 <= n && n < this->size());
       ::std::vector<T> result({1});
-      for (const ::std::pair<T, T>& pair : this->distinct_prime_factor_range(n)) {
+      for (const auto& pair : this->distinct_prime_factor_range(n)) {
         const T end = result.size();
         for (T i = 1, x = pair.first; i <= pair.second; ++i, x *= pair.first) {
           for (T j = 0; j < end; ++j) {

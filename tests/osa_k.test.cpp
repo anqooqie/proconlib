@@ -19,7 +19,7 @@ int main() {
   for (auto& A_i : A) std::cin >> A_i;
 
   std::sort(A.begin(), A.end());
-  tools::osa_k<i64> osa_k(A.back());
+  tools::osa_k<i64> osa_k(A.back() + 1);
   std::unordered_set<i64> set;
   i64 answer = 0;
   for (i64 l = 0, r = 0; l < N; l = r) {
