@@ -10,6 +10,9 @@ data:
       path: tools/alphabetical_order.hpp
       title: Alphabetical order of a given character
     - icon: ':heavy_check_mark:'
+      path: tools/and_convolution.hpp
+      title: Bitwise AND convolution
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -466,6 +469,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/alphabetical_order.test.cpp
       title: tests/alphabetical_order.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/and_convolution.test.cpp
+      title: tests/and_convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp

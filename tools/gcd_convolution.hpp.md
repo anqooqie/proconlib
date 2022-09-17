@@ -130,8 +130,8 @@ data:
     \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
     \ {\n    if (c_begin == c_end) return;\n\n    using T = ::std::decay_t<decltype(*a_begin)>;\n\
     \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
-    \    ::std::fill(c_begin, c_end, T(0));\n    if (a.empty() || b.empty()) {\n \
-    \     return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
+    \    if (a.empty() || b.empty()) {\n      ::std::fill(c_begin, c_end, T(0));\n\
+    \      return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
     \ M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin, c_end);\n\
     \n    ::std::vector<T> base(K, T(0));\n    base[0] = a[0] * b[0];\n    for (::std::size_t\
     \ i = 1; i < ::std::min(N, K); ++i) {\n      base[i] += a[i] * b[0];\n    }\n\
@@ -141,9 +141,9 @@ data:
     \ k = (N - 1) / p; k >= 1; --k) {\n        a[k] += a[k * p];\n      }\n    }\n\
     \    for (const auto p : osa_k.prime_range(1, M)) {\n      for (::std::size_t\
     \ k = (M - 1) / p; k >= 1; --k) {\n        b[k] += b[k * p];\n      }\n    }\n\
-    \n    a.resize(::std::min({N, M, K}));\n    b.resize(::std::min({N, M, K}));\n\
-    \    for (::std::size_t i = 1; i < ::std::min({N, M, K}); ++i) {\n      c_begin[i]\
-    \ = a[i] * b[i];\n    }\n\n    for (const auto p : osa_k.prime_range(1, K)) {\n\
+    \n    for (::std::size_t i = 1; i < ::std::min({N, M, K}); ++i) {\n      c_begin[i]\
+    \ = a[i] * b[i];\n    }\n    ::std::fill(::std::next(c_begin, ::std::min({N, M,\
+    \ K})), c_end, T(0));\n\n    for (const auto p : osa_k.prime_range(1, K)) {\n\
     \      for (::std::size_t k = 1; k * p < K; ++k) {\n        c_begin[k] -= c_begin[k\
     \ * p];\n      }\n    }\n\n    for (::std::size_t i = 0; i < K; ++i) {\n     \
     \ c_begin[i] += base[i];\n    }\n  }\n}\n\n\n"
@@ -154,8 +154,8 @@ data:
     \ a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator\
     \ c_begin, OutputIterator c_end) {\n    if (c_begin == c_end) return;\n\n    using\
     \ T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin, a_end);\n\
-    \    ::std::vector<T> b(b_begin, b_end);\n    ::std::fill(c_begin, c_end, T(0));\n\
-    \    if (a.empty() || b.empty()) {\n      return;\n    }\n    const ::std::size_t\
+    \    ::std::vector<T> b(b_begin, b_end);\n    if (a.empty() || b.empty()) {\n\
+    \      ::std::fill(c_begin, c_end, T(0));\n      return;\n    }\n    const ::std::size_t\
     \ N = a.size();\n    const ::std::size_t M = b.size();\n    const ::std::size_t\
     \ K = ::std::distance(c_begin, c_end);\n\n    ::std::vector<T> base(K, T(0));\n\
     \    base[0] = a[0] * b[0];\n    for (::std::size_t i = 1; i < ::std::min(N, K);\
@@ -165,9 +165,9 @@ data:
     \ N)) {\n      for (::std::size_t k = (N - 1) / p; k >= 1; --k) {\n        a[k]\
     \ += a[k * p];\n      }\n    }\n    for (const auto p : osa_k.prime_range(1, M))\
     \ {\n      for (::std::size_t k = (M - 1) / p; k >= 1; --k) {\n        b[k] +=\
-    \ b[k * p];\n      }\n    }\n\n    a.resize(::std::min({N, M, K}));\n    b.resize(::std::min({N,\
-    \ M, K}));\n    for (::std::size_t i = 1; i < ::std::min({N, M, K}); ++i) {\n\
-    \      c_begin[i] = a[i] * b[i];\n    }\n\n    for (const auto p : osa_k.prime_range(1,\
+    \ b[k * p];\n      }\n    }\n\n    for (::std::size_t i = 1; i < ::std::min({N,\
+    \ M, K}); ++i) {\n      c_begin[i] = a[i] * b[i];\n    }\n    ::std::fill(::std::next(c_begin,\
+    \ ::std::min({N, M, K})), c_end, T(0));\n\n    for (const auto p : osa_k.prime_range(1,\
     \ K)) {\n      for (::std::size_t k = 1; k * p < K; ++k) {\n        c_begin[k]\
     \ -= c_begin[k * p];\n      }\n    }\n\n    for (::std::size_t i = 0; i < K; ++i)\
     \ {\n      c_begin[i] += base[i];\n    }\n  }\n}\n\n#endif\n"
@@ -176,7 +176,7 @@ data:
   isVerificationFile: false
   path: tools/gcd_convolution.hpp
   requiredBy: []
-  timestamp: '2022-09-11 15:00:29+09:00'
+  timestamp: '2022-09-17 11:30:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/gcd_convolution.test.cpp

@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/and_convolution.hpp
+    title: Bitwise AND convolution
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -51,6 +54,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/and_convolution.test.cpp
+    title: tests/and_convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
@@ -227,6 +233,7 @@ data:
   - tools/li_chao_segtree.hpp
   - tools/rational.hpp
   - tools/extended_lucas.hpp
+  - tools/and_convolution.hpp
   - tools/fps.hpp
   - tools/lca.hpp
   - tools/totient.hpp
@@ -278,6 +285,7 @@ data:
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/and_convolution.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp

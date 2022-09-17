@@ -341,8 +341,8 @@ data:
     \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
     \ {\n    if (c_begin == c_end) return;\n\n    using T = ::std::decay_t<decltype(*a_begin)>;\n\
     \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
-    \    ::std::fill(c_begin, c_end, T(0));\n    if (a.empty() || b.empty()) {\n \
-    \     return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
+    \    if (a.empty() || b.empty()) {\n      ::std::fill(c_begin, c_end, T(0));\n\
+    \      return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
     \ M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin, c_end);\n\
     \n    c_begin[0] = a[0] * b[0];\n    for (::std::size_t i = 1; i < N; ++i) {\n\
     \      c_begin[0] += a[i] * b[0];\n    }\n    for (::std::size_t i = 1; i < M;\
@@ -381,7 +381,7 @@ data:
   isVerificationFile: true
   path: tests/lcm_convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-09-11 15:00:29+09:00'
+  timestamp: '2022-09-17 11:30:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lcm_convolution.test.cpp
