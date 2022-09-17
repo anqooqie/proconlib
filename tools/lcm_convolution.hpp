@@ -16,8 +16,8 @@ namespace tools {
     using T = ::std::decay_t<decltype(*a_begin)>;
     ::std::vector<T> a(a_begin, a_end);
     ::std::vector<T> b(b_begin, b_end);
-    ::std::fill(c_begin, c_end, T(0));
     if (a.empty() || b.empty()) {
+      ::std::fill(c_begin, c_end, T(0));
       return;
     }
     const ::std::size_t N = a.size();

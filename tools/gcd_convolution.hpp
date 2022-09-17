@@ -16,8 +16,8 @@ namespace tools {
     using T = ::std::decay_t<decltype(*a_begin)>;
     ::std::vector<T> a(a_begin, a_end);
     ::std::vector<T> b(b_begin, b_end);
-    ::std::fill(c_begin, c_end, T(0));
     if (a.empty() || b.empty()) {
+      ::std::fill(c_begin, c_end, T(0));
       return;
     }
     const ::std::size_t N = a.size();
@@ -45,11 +45,10 @@ namespace tools {
       }
     }
 
-    a.resize(::std::min({N, M, K}));
-    b.resize(::std::min({N, M, K}));
     for (::std::size_t i = 1; i < ::std::min({N, M, K}); ++i) {
       c_begin[i] = a[i] * b[i];
     }
+    ::std::fill(::std::next(c_begin, ::std::min({N, M, K})), c_end, T(0));
 
     for (const auto p : osa_k.prime_range(1, K)) {
       for (::std::size_t k = 1; k * p < K; ++k) {
