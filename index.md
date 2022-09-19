@@ -97,6 +97,9 @@ data:
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
+      path: tools/dsu.hpp
+      title: Disjoint set union
+    - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':heavy_check_mark:'
@@ -526,6 +529,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/dsu.test.cpp
+      title: tests/dsu.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
