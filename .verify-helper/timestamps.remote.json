@@ -39,6 +39,7 @@
 "tests/directed_line_segment_2d/squared_distance.test.cpp": "2022-09-02 23:00:38 +0900",
 "tests/disjoint_sparse_table.test.cpp": "2021-12-29 01:11:21 +0900",
 "tests/divisors.test.cpp": "2022-02-05 17:57:38 +0900",
+"tests/dsu.test.cpp": "2022-09-19 16:01:52 +0900",
 "tests/dual_segtree.test.cpp": "2022-07-31 21:19:42 +0900",
 "tests/extended_garner.test.cpp": "2022-05-21 22:34:54 +0900",
 "tests/extended_lucas.test.cpp": "2022-05-21 22:34:54 +0900",
