@@ -109,10 +109,12 @@ It returns $p_2$.
 ## squared_distance
 ```cpp
 T s.squared_distance(directed_line_segment_2d<T> t);
+T s.squared_distance(tools::half_line_2d<T> t);
+T s.squared_distance(tools::line_2d<T> t);
 T s.squared_distance(tools::vector2<T> t);
 ```
 
-It returns the squared distance of $s$ and $t$.
+It returns the squared distance between $s$ and $t$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.

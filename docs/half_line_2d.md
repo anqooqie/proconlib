@@ -80,6 +80,22 @@ It returns $d$.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
+## squared_distance
+```cpp
+T s.squared_distance(tools::directed_line_segment_2d<T> t);
+T s.squared_distance(half_line_2d<T> t);
+T s.squared_distance(tools::line_2d<T> t);
+T s.squared_distance(tools::vector2<T> t);
+```
+
+It returns the squared distance between $s$ and $t$.
+
+### Constraints
+- `<T>` is `tools::rational` or a built-in floating point type.
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
 ## to_line
 ```cpp
 tools::line_2d<T> s.to_line();
