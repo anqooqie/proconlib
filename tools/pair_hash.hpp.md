@@ -12,11 +12,8 @@ data:
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
-    path: tools/detail/line_like_2d.hpp
-    title: tools/detail/line_like_2d.hpp
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/polygon_like_2d.hpp
-    title: tools/detail/polygon_like_2d.hpp
+    path: tools/detail/geometry_2d.hpp
+    title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
@@ -200,8 +197,7 @@ data:
   - tools/less_by_arg.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/greater_by_arg_total.hpp
-  - tools/detail/polygon_like_2d.hpp
-  - tools/detail/line_like_2d.hpp
+  - tools/detail/geometry_2d.hpp
   - tools/triangle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/line_2d.hpp

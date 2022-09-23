@@ -9,11 +9,20 @@ data:
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
-    path: tools/detail/polygon_like_2d.hpp
-    title: tools/detail/polygon_like_2d.hpp
+    path: tools/detail/geometry_2d.hpp
+    title: tools/detail/geometry_2d.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: Two-dimensional half line
   - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
@@ -34,6 +43,15 @@ data:
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
   - icon: ':heavy_check_mark:'
@@ -48,6 +66,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -94,8 +118,11 @@ data:
   isVerificationFile: false
   path: tools/less_by.hpp
   requiredBy:
-  - tools/detail/polygon_like_2d.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/detail/geometry_2d.hpp
   - tools/triangle_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/line_2d.hpp
   - tools/scc_graph.hpp
   - tools/circle_2d.hpp
   - tools/convex_hull.hpp
@@ -119,8 +146,13 @@ data:
   - tests/hld/lca.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

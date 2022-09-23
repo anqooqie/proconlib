@@ -12,14 +12,23 @@ data:
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
   - icon: ':heavy_check_mark:'
-    path: tools/detail/polygon_like_2d.hpp
-    title: tools/detail/polygon_like_2d.hpp
+    path: tools/detail/geometry_2d.hpp
+    title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
+  - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: Two-dimensional half line
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: Two-dimensional line
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
@@ -52,8 +61,23 @@ data:
     path: tests/circle_2d/where/without_radius.test.cpp
     title: tests/circle_2d/where/without_radius.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -119,10 +143,13 @@ data:
   path: tools/square.hpp
   requiredBy:
   - tools/tetration_mod.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/rolling_hash.hpp
-  - tools/detail/polygon_like_2d.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/detail/geometry_2d.hpp
   - tools/triangle_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/line_2d.hpp
   - tools/ceil_kth_root.hpp
   - tools/totient.hpp
   - tools/pow.hpp
@@ -143,9 +170,14 @@ data:
   - tests/floor_kth_root.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
 documentation_of: tools/square.hpp
 layout: document
 title: $x^2$ under a given monoid

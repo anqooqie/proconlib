@@ -455,14 +455,11 @@ data:
   - name: tools/detail
     pages:
     - icon: ':heavy_check_mark:'
+      path: tools/detail/geometry_2d.hpp
+      title: tools/detail/geometry_2d.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':heavy_check_mark:'
-      path: tools/detail/line_like_2d.hpp
-      title: tools/detail/line_like_2d.hpp
-    - icon: ':heavy_check_mark:'
-      path: tools/detail/polygon_like_2d.hpp
-      title: tools/detail/polygon_like_2d.hpp
     - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
