@@ -18,7 +18,7 @@ int main() {
   std::cin >> n;
   std::vector<tools::vector2<T>> g;
   std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));
-  tools::polygon_2d<T> polygon(g.begin(), g.end());
+  tools::polygon_2d<T, false> polygon(g.begin(), g.end());
 
   i64 Q;
   std::cin >> Q;

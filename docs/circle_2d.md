@@ -13,31 +13,18 @@ It is a circle.
 
 ## Constructor
 ```cpp
-(1)
-template <typename T>
-circle_2d<T> c(tools::vector2<T> o, T r);
-
-(2)
-template <typename T, bool HasRadius>
-circle_2d<T, true> c(tools::vector2<T> o, T r);
-
-(3)
-template <typename T, bool HasRadius>
-circle_2d<T, false> c(tools::vector2<T> o, T r2);
+template <typename T, bool Filled, bool HasRadius = true>
+circle_2d<T, Filled, HasRadius> c(tools::vector2<T> o, T x);
 ```
 
-- (1)
-    - It is same as (2).
-- (2)
-    - It creates a circle with center $o$ and radius $r$.
-- (3)
-    - It creates a circle with center $o$ and radius $\sqrt{r^2}$.
+It creates a circle with center $o$.
+If `Filled` is `true`, it consists of both the boundary and the interior.
+If `Filled` is `false`, it consists only of the boundary.
+If `HasRadius` is `true`, the radius of it is $x$.
+If `HasRadius` is `false`, the radius of it is $\sqrt{x}$.
 
 ### Constraints
-- (1), (2)
-    - $r > 0$
-- (3)
-    - $r^2 > 0$
+- $x > 0$
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
@@ -50,7 +37,7 @@ std::conditional<std::is_floating_point_v<T>, T, double> c.area();
 It returns the area of $c$.
 
 ### Constraints
-- None
+- `Filled` is `true`.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
@@ -96,7 +83,7 @@ It returns $r^2$.
 
 ## where
 ```cpp
-std::pair<int, int> c1.where(circle_2d<T, HasRadius> c2);
+std::pair<int, int> c1.where(circle_2d<T, Filled, HasRadius> c2);
 ```
 
 It returns the number of common tangent lines between $c_1$ and $c_2$ and the sign of $r_1 - r_2$.
@@ -150,7 +137,7 @@ $$\begin{align*}
 
 ## operator==
 ```cpp
-bool operator==(circle_2d<T, HasRadius> c1, circle_2d<T, HasRadius> c2);
+bool operator==(circle_2d<T, Filled, HasRadius> c1, circle_2d<T, Filled, HasRadius> c2);
 ```
 
 It returns whether $c_1$ is identical to $c_2$ or not.
@@ -163,7 +150,7 @@ It returns whether $c_1$ is identical to $c_2$ or not.
 
 ## operator!=
 ```cpp
-bool operator!=(circle_2d<T, HasRadius> c1, circle_2d<T, HasRadius> c2);
+bool operator!=(circle_2d<T, Filled, HasRadius> c1, circle_2d<T, Filled, HasRadius> c2);
 ```
 
 It returns `!(c1 == c2)`.

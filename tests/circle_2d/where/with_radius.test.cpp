@@ -13,6 +13,6 @@ int main() {
 
   i64 c1x, c1y, c1r, c2x, c2y, c2r;
   std::cin >> c1x >> c1y >> c1r >> c2x >> c2y >> c2r;
-  std::cout << tools::circle_2d<i64>(tools::vector2<i64>(c1x, c1y), c1r).where(tools::circle_2d<i64>(tools::vector2<i64>(c2x, c2y), c2r)).first << '\n';
+  std::cout << tools::circle_2d<i64, false>(tools::vector2<i64>(c1x, c1y), c1r).where(tools::circle_2d<i64, false>(tools::vector2<i64>(c2x, c2y), c2r)).first << '\n';
   return 0;
 }

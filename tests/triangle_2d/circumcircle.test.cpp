@@ -15,7 +15,7 @@ int main() {
 
   std::array<tools::vector2<tools::rational>, 3> p;
   std::cin >> p[0] >> p[1] >> p[2];
-  const auto circumcircle = tools::triangle_2d<tools::rational>(p.begin(), p.end()).circumcircle();
+  const auto circumcircle = tools::triangle_2d<tools::rational, false>(p.begin(), p.end()).circumcircle();
   std::cout << std::fixed << std::setprecision(10) << static_cast<double>(circumcircle.center().x) << ' ' << static_cast<double>(circumcircle.center().y) << ' ' << std::sqrt(static_cast<double>(circumcircle.squared_radius())) << '\n';
 
   return 0;

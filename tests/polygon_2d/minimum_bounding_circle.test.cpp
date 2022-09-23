@@ -40,6 +40,6 @@ int main() {
     v2.emplace_back(tools::rational(v[i].x), tools::rational(v[i].y));
   }
 
-  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational>(v2.begin(), v2.end()).minimum_bounding_circle().squared_radius())) << '\n';
+  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational, false>(v2.begin(), v2.end()).minimum_bounding_circle().squared_radius())) << '\n';
   return 0;
 }

@@ -13,7 +13,7 @@ int main() {
 
   std::array<tools::vector2<double>, 3> p;
   std::cin >> p[0] >> p[1] >> p[2];
-  const auto incircle = tools::triangle_2d<double>(p.begin(), p.end()).incircle();
+  const auto incircle = tools::triangle_2d<double, false>(p.begin(), p.end()).incircle();
   std::cout << std::fixed << std::setprecision(10) << incircle.center().x << ' ' << incircle.center().y << ' ' << incircle.radius() << '\n';
 
   return 0;

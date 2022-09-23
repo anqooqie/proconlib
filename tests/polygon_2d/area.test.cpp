@@ -19,7 +19,7 @@ int main() {
   std::cin >> n;
   std::vector<tools::vector2<T>> g;
   std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));
-  tools::polygon_2d<T> polygon(g.begin(), g.end());
+  tools::polygon_2d<T, true> polygon(g.begin(), g.end());
 
   std::cout << std::fixed << std::setprecision(1) << static_cast<double>(polygon.area()) << '\n';
   return 0;

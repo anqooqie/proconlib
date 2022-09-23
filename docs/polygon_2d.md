@@ -14,15 +14,17 @@ It is a polygon which consists of $n$ points $p_0, p_1, \ldots, p_{n - 1}$.
 ## Constructor
 ```cpp
 (1)
-template <typename T> template <typename InputIterator>
-polygon_2d<T> s(InputIterator begin, InputIterator end);
+template <typename T, bool Filled> template <typename InputIterator>
+polygon_2d<T, Filled> s(InputIterator begin, InputIterator end);
 
 (2)
-template <typename T>
-polygon_2d<T> s(std::initializer_list<tools::vector2<T>> init);
+template <typename T, bool Filled>
+polygon_2d<T, Filled> s(std::initializer_list<tools::vector2<T>> init);
 ```
 
 It creates a polygon.
+If `Filled` is `true`, it consists of both the boundary and the interior.
+If `Filled` is `false`, it consists only of the boundary.
 
 ### Constraints
 - (1)
@@ -42,6 +44,7 @@ It returns the area of $s$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.
+- `Filled` is `true`.
 
 ### Time Complexity
 - $O(n)$ if `<T>` is a built-in numerical type
@@ -54,7 +57,7 @@ T s.doubled_area();
 It returns the doubled area of $s$.
 
 ### Constraints
-- None
+- `Filled` is `true`.
 
 ### Time Complexity
 - $O(n)$ if `<T>` is a built-in numerical type
@@ -74,7 +77,7 @@ It returns whether $s$ is counterclockwise or not.
 
 ## minimum_bounding_circle
 ```cpp
-tools::circle_2d<T, false> s.minimum_bounding_circle();
+tools::circle_2d<T, Filled, false> s.minimum_bounding_circle();
 ```
 
 It returns the minimum bounding circle of $s$.
