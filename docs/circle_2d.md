@@ -31,13 +31,14 @@ If `HasRadius` is `false`, the radius of it is $\sqrt{x}$.
 
 ## area
 ```cpp
-std::conditional<std::is_floating_point_v<T>, T, double> c.area();
+T c.area();
 ```
 
 It returns the area of $c$.
 
 ### Constraints
-- `Filled` is `true`.
+- `<T>` is a built-in floating point type.
+- `<Filled>` is `true`.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type

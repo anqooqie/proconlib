@@ -44,7 +44,7 @@ It returns the area of $s$.
 
 ### Constraints
 - `<T>` is `tools::rational` or a built-in floating point type.
-- `Filled` is `true`.
+- `<Filled>` is `true`.
 
 ### Time Complexity
 - $O(n)$ if `<T>` is a built-in numerical type
@@ -57,7 +57,7 @@ T s.doubled_area();
 It returns the doubled area of $s$.
 
 ### Constraints
-- `Filled` is `true`.
+- `<Filled>` is `true`.
 
 ### Time Complexity
 - $O(n)$ if `<T>` is a built-in numerical type

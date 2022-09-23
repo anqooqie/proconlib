@@ -42,7 +42,6 @@ namespace tools {
   template <typename T, bool Filled, bool HasRadius>
   class circle_2d {
   private:
-    using F = ::std::conditional<::std::is_floating_point_v<T>, T, double>;
     ::tools::vector2<T> m_center;
     T m_radius;
     T m_squared_radius;
@@ -57,8 +56,8 @@ namespace tools {
 
     circle_2d(const ::tools::vector2<T>& center, const T& radius_or_squared_radius);
 
-    template <bool Filled_ = Filled>
-    ::std::enable_if_t<Filled_, F> area() const;
+    template <typename T_ = T, bool Filled_ = Filled>
+    ::std::enable_if_t<::std::is_floating_point_v<T_> && Filled_, T> area() const;
     ::tools::vector2<T> center() const;
     template <bool HasRadius_ = HasRadius>
     ::std::enable_if_t<HasRadius_, T> radius() const;
@@ -327,9 +326,9 @@ namespace tools {
     }
   }
 
-  template <typename T, bool Filled, bool HasRadius> template <bool Filled_>
-  ::std::enable_if_t<Filled_, typename circle_2d<T, Filled, HasRadius>::F> circle_2d<T, Filled, HasRadius>::area() const {
-    return ::std::acos(static_cast<F>(-1)) * static_cast<F>(this->m_squared_radius);
+  template <typename T, bool Filled, bool HasRadius> template <typename T_, bool Filled_>
+  ::std::enable_if_t<::std::is_floating_point_v<T_> && Filled_, T> circle_2d<T, Filled, HasRadius>::area() const {
+    return ::std::acos(T(-1)) * this->m_squared_radius;
   }
 
   template <typename T, bool Filled, bool HasRadius>
