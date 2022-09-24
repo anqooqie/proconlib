@@ -49,6 +49,9 @@ data:
     path: tests/bigdecimal/random.test.cpp
     title: tests/bigdecimal/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_line.test.cpp
+    title: tests/circle_2d/intersection_to_line.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/circle_2d/where/with_radius.test.cpp
     title: tests/circle_2d/where/with_radius.test.cpp
   - icon: ':heavy_check_mark:'
@@ -139,6 +142,7 @@ data:
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/random.test.cpp

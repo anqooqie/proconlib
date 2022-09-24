@@ -749,6 +749,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
+  - name: tests/circle_2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/circle_2d/intersection_to_line.test.cpp
+      title: tests/circle_2d/intersection_to_line.test.cpp
   - name: tests/circle_2d/where
     pages:
     - icon: ':heavy_check_mark:'

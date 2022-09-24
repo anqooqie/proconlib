@@ -156,7 +156,7 @@ data:
     \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/line_2d.hpp\"\n\n\n\n#line 1 \"\
     tools/detail/geometry_2d.hpp\"\n\n\n\n#include <algorithm>\n#line 6 \"tools/detail/geometry_2d.hpp\"\
     \n#include <cassert>\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
-    #include <limits>\n#include <optional>\n#line 14 \"tools/detail/geometry_2d.hpp\"\
+    #include <limits>\n#include <optional>\n#include <tuple>\n#line 15 \"tools/detail/geometry_2d.hpp\"\
     \n#include <variant>\n#include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\
     \n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n   \
     \ static constexpr bool value = false;\n  };\n\n  template <typename T>\n  inline\
@@ -190,34 +190,39 @@ data:
     \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
     \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
     \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 22 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
+    \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
     \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
     \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
     \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
     \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
     \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
-    \ bool HasRadius>\n  class circle_2d {\n  private:\n    using F = ::std::conditional<::std::is_floating_point_v<T>,\
-    \ T, double>;\n    ::tools::vector2<T> m_center;\n    T m_radius;\n    T m_squared_radius;\n\
-    \n  public:\n    circle_2d() = default;\n    circle_2d(const ::tools::circle_2d<T,\
-    \ Filled, HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T, Filled,\
-    \ HasRadius>&&) = default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T,\
-    \ Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&)\
-    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n\n    circle_2d(const ::tools::vector2<T>&\
-    \ center, const T& radius_or_squared_radius);\n\n    template <bool Filled_ =\
-    \ Filled>\n    ::std::enable_if_t<Filled_, F> area() const;\n    ::tools::vector2<T>\
-    \ center() const;\n    template <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_,\
-    \ T> radius() const;\n    T squared_radius() const;\n    ::std::pair<int, int>\
-    \ where(const ::tools::circle_2d<T, Filled, HasRadius>& other) const;\n    int\
-    \ where(const ::tools::vector2<T>& p) const;\n\n    template <typename T_, bool\
-    \ Filled_, bool HasRadius1, bool HasRadius2>\n    friend bool operator==(const\
-    \ ::tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const ::tools::circle_2d<T_,\
-    \ Filled_, HasRadius2>& rhs);\n    template <typename T_, bool Filled_, bool HasRadius1,\
-    \ bool HasRadius2>\n    friend bool operator!=(const ::tools::circle_2d<T_, Filled_,\
-    \ HasRadius1>& lhs, const ::tools::circle_2d<T_, Filled_, HasRadius2>& rhs);\n\
-    \  };\n\n  template <typename T>\n  class directed_line_segment_2d {\n  private:\n\
-    \    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\n  public:\n \
-    \   directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
+    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
+    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
+    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
+    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
+    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
+    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
+    \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
+    \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
+    \ ::tools::circle_2d<T, Filled, HasRadius>& other) const;\n    int where(const\
+    \ ::tools::vector2<T>& p) const;\n\n    template <typename T_, bool HasRadius_>\n\
+    \    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>\n\
+    \    operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::line_2d<T_>&\
+    \ rhs);\n    template <typename T_, bool HasRadius_>\n    friend ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>\n\
+    \    operator&(const ::tools::circle_2d<T_, true, HasRadius_>& lhs, const ::tools::line_2d<T_>&\
+    \ rhs);\n    template <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>\n\
+    \    friend bool operator==(const ::tools::circle_2d<T_, Filled_, HasRadius1>&\
+    \ lhs, const ::tools::circle_2d<T_, Filled_, HasRadius2>& rhs);\n    template\
+    \ <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>\n    friend bool\
+    \ operator!=(const ::tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const ::tools::circle_2d<T_,\
+    \ Filled_, HasRadius2>& rhs);\n  };\n\n  template <typename T>\n  class directed_line_segment_2d\
+    \ {\n  private:\n    ::tools::vector2<T> m_p1;\n    ::tools::vector2<T> m_p2;\n\
+    \n  public:\n    directed_line_segment_2d() = default;\n    directed_line_segment_2d(const\
     \ ::tools::directed_line_segment_2d<T>&) = default;\n    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&)\
     \ = default;\n    ~directed_line_segment_2d() = default;\n    ::tools::directed_line_segment_2d<T>&\
     \ operator=(const ::tools::directed_line_segment_2d<T>&) = default;\n    ::tools::directed_line_segment_2d<T>&\
@@ -326,7 +331,13 @@ data:
     \ || ::std::is_floating_point_v<T_>, T>\n    squared_distance(const ::tools::line_2d<T>&\
     \ other) const;\n    template <typename T_ = T>\n    ::std::enable_if_t<::tools::is_rational_v<T_>\
     \ || ::std::is_floating_point_v<T_>, T>\n    squared_distance(const ::tools::vector2<T>&\
-    \ p) const;\n\n    template <typename T_>\n    friend ::std::enable_if_t<::tools::is_rational_v<T_>\
+    \ p) const;\n\n    template <typename T_, bool HasRadius_>\n    friend ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ ::std::vector<::tools::vector2<T_>>>\n    operator&(const ::tools::line_2d<T_>&\
+    \ lhs, const ::tools::circle_2d<T_, false, HasRadius_>& rhs);\n    template <typename\
+    \ T_, bool HasRadius_>\n    friend ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>\n\
+    \    operator&(const ::tools::line_2d<T_>& lhs, const ::tools::circle_2d<T_, true,\
+    \ HasRadius_>& rhs);\n    template <typename T_>\n    friend ::std::enable_if_t<::tools::is_rational_v<T_>\
     \ || ::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::vector2<T_>,\
     \ ::tools::directed_line_segment_2d<T_>>>>\n    operator&(const ::tools::line_2d<T_>&\
     \ lhs, const ::tools::directed_line_segment_2d<T_>& rhs);\n    template <typename\
@@ -376,9 +387,9 @@ data:
     \ > T(0));\n    if constexpr (HasRadius) {\n      this->m_radius = radius_or_squared_radius;\n\
     \      this->m_squared_radius = ::tools::square(this->m_radius);\n    } else {\n\
     \      this->m_squared_radius = radius_or_squared_radius;\n    }\n  }\n\n  template\
-    \ <typename T, bool Filled, bool HasRadius> template <bool Filled_>\n  ::std::enable_if_t<Filled_,\
-    \ typename circle_2d<T, Filled, HasRadius>::F> circle_2d<T, Filled, HasRadius>::area()\
-    \ const {\n    return ::std::acos(static_cast<F>(-1)) * static_cast<F>(this->m_squared_radius);\n\
+    \ <typename T, bool Filled, bool HasRadius> template <typename T_, bool Filled_>\n\
+    \  ::std::enable_if_t<::std::is_floating_point_v<T_> && Filled_, T> circle_2d<T,\
+    \ Filled, HasRadius>::area() const {\n    return ::std::acos(T(-1)) * this->m_squared_radius;\n\
     \  }\n\n  template <typename T, bool Filled, bool HasRadius>\n  ::tools::vector2<T>\
     \ circle_2d<T, Filled, HasRadius>::center() const {\n    return this->m_center;\n\
     \  }\n\n  template <typename T, bool Filled, bool HasRadius> template <bool HasRadius_>\n\
@@ -410,22 +421,52 @@ data:
     \  }\n\n  template <typename T, bool Filled, bool HasRadius>\n  int circle_2d<T,\
     \ Filled, HasRadius>::where(const ::tools::vector2<T>& p) const {\n    return\
     \ ::tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());\n\
+    \  }\n\n  template <typename T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ ::std::vector<::tools::vector2<T>>>\n  operator&(const ::tools::circle_2d<T,\
+    \ false, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {\n    using result_t\
+    \ = ::std::vector<::tools::vector2<T>>;\n    if (const auto intersection = ::tools::circle_2d<T,\
+    \ true, HasRadius>(lhs.m_center, HasRadius ? lhs.m_radius : lhs.m_squared_radius)\
+    \ & rhs; intersection) {\n      struct {\n        result_t operator()(const ::tools::vector2<T>&\
+    \ v) {\n          return result_t({v});\n        }\n        result_t operator()(const\
+    \ ::tools::directed_line_segment_2d<T>& s) {\n          return result_t({s.p1(),\
+    \ s.p2()});\n        }\n      } visitor;\n      return ::std::visit(visitor, *intersection);\n\
+    \    } else {\n      return result_t();\n    }\n  }\n\n  template <typename T,\
+    \ bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::circle_2d<T,\
+    \ true, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {\n    using variant_t\
+    \ = ::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>;\n\
+    \    using result_t = ::std::optional<variant_t>;\n\n    const auto [a, b, c]\
+    \ = (rhs.projection(lhs.m_center) - lhs.m_center).inner_product(rhs.normal())\
+    \ >= T(0) ? ::std::make_tuple(rhs.a(), rhs.b(), rhs.c()) : ::std::make_tuple(-rhs.a(),\
+    \ -rhs.b(), -rhs.c());\n    const auto& x = lhs.m_center.x;\n    const auto& y\
+    \ = lhs.m_center.y;\n    const auto r = HasRadius ? lhs.m_radius : ::std::sqrt(lhs.m_squared_radius);\n\
+    \    const auto& r2 = lhs.m_squared_radius;\n    const auto d2 = rhs.squared_distance(lhs.m_center);\n\
+    \n    if (d2 < r2) {\n      const auto D = ::std::abs(a * x + b * y + c);\n  \
+    \    return result_t(variant_t(::tools::directed_line_segment_2d<T>(\n       \
+    \ ::tools::vector2<T>((a * D - b * ::std::sqrt((a * a + b * b) * r2 - D * D))\
+    \ / (a * a + b * b) + x, (b * D + a * ::std::sqrt((a * a + b * b) * r2 - D * D))\
+    \ / (a * a + b * b) + y),\n        ::tools::vector2<T>((a * D + b * ::std::sqrt((a\
+    \ * a + b * b) * r2 - D * D)) / (a * a + b * b) + x, (b * D - a * ::std::sqrt((a\
+    \ * a + b * b) * r2 - D * D)) / (a * a + b * b) + y)\n      )));\n    } else if\
+    \ (d2 == r2) {\n      return result_t(variant_t(::tools::vector2<T>(a * r / ::std::sqrt(a\
+    \ * a + b * b) + x, b * r / ::std::sqrt(a * a + b * b) + y)));\n    } else {\n\
+    \      return ::std::nullopt;\n    }\n  }\n\n  template <typename T, bool Filled,\
+    \ bool HasRadius1, bool HasRadius2>\n  bool operator==(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius1>& lhs, const ::tools::circle_2d<T, Filled, HasRadius2>& rhs)\
+    \ {\n    return lhs.m_center == rhs.m_center && lhs.m_squared_radius == rhs.m_squared_radius;\n\
     \  }\n\n  template <typename T, bool Filled, bool HasRadius1, bool HasRadius2>\n\
-    \  bool operator==(const ::tools::circle_2d<T, Filled, HasRadius1>& lhs, const\
-    \ ::tools::circle_2d<T, Filled, HasRadius2>& rhs) {\n    return lhs.m_center ==\
-    \ rhs.m_center && lhs.m_squared_radius == rhs.m_squared_radius;\n  }\n\n  template\
-    \ <typename T, bool Filled, bool HasRadius1, bool HasRadius2>\n  bool operator!=(const\
-    \ ::tools::circle_2d<T, Filled, HasRadius1>& lhs, const ::tools::circle_2d<T,\
-    \ Filled, HasRadius2>& rhs) {\n    return !(lhs == rhs);\n  }\n\n  template <typename\
-    \ T>\n  directed_line_segment_2d<T>::directed_line_segment_2d(const ::tools::vector2<T>&\
-    \ p1, const ::tools::vector2<T>& p2) :\n    m_p1(p1),\n    m_p2(p2) {\n    assert(p1\
-    \ != p2);\n  }\n\n  template <typename T>\n  bool directed_line_segment_2d<T>::contains(const\
-    \ ::tools::vector2<T>& p) const {\n    if (p == this->m_p1 || p == this->m_p2)\
-    \ return true;\n    const ::tools::line_2d<T> l = this->to_line();\n    if (!l.contains(p))\
-    \ return false;\n    const T d = (p - this->m_p1).inner_product(this->to_vector());\n\
-    \    return T(0) <= d && d <= this->squared_length();\n  }\n\n  template <typename\
-    \ T> template <typename T_>\n  ::std::enable_if_t<::tools::is_rational_v<T_> ||\
-    \ ::std::is_floating_point_v<T_>, ::std::optional<::tools::vector2<T>>>\n  directed_line_segment_2d<T>::cross_point(const\
+    \  bool operator!=(const ::tools::circle_2d<T, Filled, HasRadius1>& lhs, const\
+    \ ::tools::circle_2d<T, Filled, HasRadius2>& rhs) {\n    return !(lhs == rhs);\n\
+    \  }\n\n  template <typename T>\n  directed_line_segment_2d<T>::directed_line_segment_2d(const\
+    \ ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2) :\n    m_p1(p1),\n \
+    \   m_p2(p2) {\n    assert(p1 != p2);\n  }\n\n  template <typename T>\n  bool\
+    \ directed_line_segment_2d<T>::contains(const ::tools::vector2<T>& p) const {\n\
+    \    if (p == this->m_p1 || p == this->m_p2) return true;\n    const ::tools::line_2d<T>\
+    \ l = this->to_line();\n    if (!l.contains(p)) return false;\n    const T d =\
+    \ (p - this->m_p1).inner_product(this->to_vector());\n    return T(0) <= d &&\
+    \ d <= this->squared_length();\n  }\n\n  template <typename T> template <typename\
+    \ T_>\n  ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>,\
+    \ ::std::optional<::tools::vector2<T>>>\n  directed_line_segment_2d<T>::cross_point(const\
     \ ::tools::directed_line_segment_2d<T>& other) const {\n    using result_t = ::std::optional<::tools::vector2<T>>;\n\
     \    const auto intersection = *this & other;\n    struct {\n      result_t operator()(const\
     \ ::tools::vector2<T>& v) {\n        return result_t(v);\n      }\n      result_t\
@@ -689,10 +730,17 @@ data:
     \ <typename T_>\n  ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>,\
     \ T>\n  line_2d<T>::squared_distance(const ::tools::vector2<T>& p) const {\n \
     \   return (p - this->projection(p)).squared_l2_norm();\n  }\n\n  template <typename\
-    \ T>\n  ::std::enable_if_t<::tools::is_rational_v<T> || ::std::is_floating_point_v<T>,\
-    \ ::std::optional<::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>>>\n\
-    \  operator&(const ::tools::line_2d<T>& lhs, const ::tools::directed_line_segment_2d<T>&\
-    \ rhs) {\n    return rhs & lhs;\n  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::vector<::tools::vector2<T>>>\n\
+    \  operator&(const ::tools::line_2d<T>& lhs, const ::tools::circle_2d<T, false,\
+    \ HasRadius>& rhs) {\n    return rhs & lhs;\n  }\n\n  template <typename T, bool\
+    \ HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::line_2d<T>&\
+    \ lhs, const ::tools::circle_2d<T, true, HasRadius>& rhs) {\n    return rhs &\
+    \ lhs;\n  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
+    \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
+    \ ::tools::directed_line_segment_2d<T>>>>\n  operator&(const ::tools::line_2d<T>&\
+    \ lhs, const ::tools::directed_line_segment_2d<T>& rhs) {\n    return rhs & lhs;\n\
+    \  }\n\n  template <typename T>\n  ::std::enable_if_t<::tools::is_rational_v<T>\
     \ || ::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>,\
     \ ::tools::half_line_2d<T>>>>\n  operator&(const ::tools::line_2d<T>& lhs, const\
     \ ::tools::half_line_2d<T>& rhs) {\n    return rhs & lhs;\n  }\n\n  template <typename\
@@ -827,7 +875,7 @@ data:
   isVerificationFile: true
   path: tests/line_2d/is_parallel_to.test.cpp
   requiredBy: []
-  timestamp: '2022-09-24 06:34:17+09:00'
+  timestamp: '2022-09-24 20:04:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/line_2d/is_parallel_to.test.cpp
