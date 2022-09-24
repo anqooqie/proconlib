@@ -136,6 +136,23 @@ $$\begin{align*}
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
+## operator&
+```cpp
+(1) std::vector<tools::vector2<T>> operator&(circle_2d<T, false> t, tools::line_2d<T> t);
+(2) std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(circle_2d<T, true> s, tools::line_2d<T> t);
+```
+
+- (1)
+    - It returns the intersections of $s$ and $t$.
+- (2)
+    - If there is an intersection of $s$ and $t$, it returns the intersection. Otherwise, it returns `std::nullopt`.
+
+### Constraints
+- `<T>` is a built-in floating point type.
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
 ## operator==
 ```cpp
 bool operator==(circle_2d<T, Filled, HasRadius> c1, circle_2d<T, Filled, HasRadius> c2);

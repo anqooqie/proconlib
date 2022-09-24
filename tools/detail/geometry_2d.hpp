@@ -9,6 +9,7 @@
 #include <initializer_list>
 #include <limits>
 #include <optional>
+#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <variant>
@@ -65,6 +66,12 @@ namespace tools {
     ::std::pair<int, int> where(const ::tools::circle_2d<T, Filled, HasRadius>& other) const;
     int where(const ::tools::vector2<T>& p) const;
 
+    template <typename T_, bool HasRadius_>
+    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>
+    operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::line_2d<T_>& rhs);
+    template <typename T_, bool HasRadius_>
+    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>
+    operator&(const ::tools::circle_2d<T_, true, HasRadius_>& lhs, const ::tools::line_2d<T_>& rhs);
     template <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>
     friend bool operator==(const ::tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const ::tools::circle_2d<T_, Filled_, HasRadius2>& rhs);
     template <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>
@@ -243,6 +250,12 @@ namespace tools {
     ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>, T>
     squared_distance(const ::tools::vector2<T>& p) const;
 
+    template <typename T_, bool HasRadius_>
+    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>
+    operator&(const ::tools::line_2d<T_>& lhs, const ::tools::circle_2d<T_, false, HasRadius_>& rhs);
+    template <typename T_, bool HasRadius_>
+    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>
+    operator&(const ::tools::line_2d<T_>& lhs, const ::tools::circle_2d<T_, true, HasRadius_>& rhs);
     template <typename T_>
     friend ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>
     operator&(const ::tools::line_2d<T_>& lhs, const ::tools::directed_line_segment_2d<T_>& rhs);
@@ -393,6 +406,51 @@ namespace tools {
   template <typename T, bool Filled, bool HasRadius>
   int circle_2d<T, Filled, HasRadius>::where(const ::tools::vector2<T>& p) const {
     return ::tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());
+  }
+
+  template <typename T, bool HasRadius>
+  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::vector<::tools::vector2<T>>>
+  operator&(const ::tools::circle_2d<T, false, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {
+    using result_t = ::std::vector<::tools::vector2<T>>;
+    if (const auto intersection = ::tools::circle_2d<T, true, HasRadius>(lhs.m_center, HasRadius ? lhs.m_radius : lhs.m_squared_radius) & rhs; intersection) {
+      struct {
+        result_t operator()(const ::tools::vector2<T>& v) {
+          return result_t({v});
+        }
+        result_t operator()(const ::tools::directed_line_segment_2d<T>& s) {
+          return result_t({s.p1(), s.p2()});
+        }
+      } visitor;
+      return ::std::visit(visitor, *intersection);
+    } else {
+      return result_t();
+    }
+  }
+
+  template <typename T, bool HasRadius>
+  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>>>
+  operator&(const ::tools::circle_2d<T, true, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {
+    using variant_t = ::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>;
+    using result_t = ::std::optional<variant_t>;
+
+    const auto [a, b, c] = (rhs.projection(lhs.m_center) - lhs.m_center).inner_product(rhs.normal()) >= T(0) ? ::std::make_tuple(rhs.a(), rhs.b(), rhs.c()) : ::std::make_tuple(-rhs.a(), -rhs.b(), -rhs.c());
+    const auto& x = lhs.m_center.x;
+    const auto& y = lhs.m_center.y;
+    const auto r = HasRadius ? lhs.m_radius : ::std::sqrt(lhs.m_squared_radius);
+    const auto& r2 = lhs.m_squared_radius;
+    const auto d2 = rhs.squared_distance(lhs.m_center);
+
+    if (d2 < r2) {
+      const auto D = ::std::abs(a * x + b * y + c);
+      return result_t(variant_t(::tools::directed_line_segment_2d<T>(
+        ::tools::vector2<T>((a * D - b * ::std::sqrt((a * a + b * b) * r2 - D * D)) / (a * a + b * b) + x, (b * D + a * ::std::sqrt((a * a + b * b) * r2 - D * D)) / (a * a + b * b) + y),
+        ::tools::vector2<T>((a * D + b * ::std::sqrt((a * a + b * b) * r2 - D * D)) / (a * a + b * b) + x, (b * D - a * ::std::sqrt((a * a + b * b) * r2 - D * D)) / (a * a + b * b) + y)
+      )));
+    } else if (d2 == r2) {
+      return result_t(variant_t(::tools::vector2<T>(a * r / ::std::sqrt(a * a + b * b) + x, b * r / ::std::sqrt(a * a + b * b) + y)));
+    } else {
+      return ::std::nullopt;
+    }
   }
 
   template <typename T, bool Filled, bool HasRadius1, bool HasRadius2>
@@ -933,6 +991,18 @@ namespace tools {
   ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>, T>
   line_2d<T>::squared_distance(const ::tools::vector2<T>& p) const {
     return (p - this->projection(p)).squared_l2_norm();
+  }
+
+  template <typename T, bool HasRadius>
+  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::vector<::tools::vector2<T>>>
+  operator&(const ::tools::line_2d<T>& lhs, const ::tools::circle_2d<T, false, HasRadius>& rhs) {
+    return rhs & lhs;
+  }
+
+  template <typename T, bool HasRadius>
+  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::vector2<T>, ::tools::directed_line_segment_2d<T>>>>
+  operator&(const ::tools::line_2d<T>& lhs, const ::tools::circle_2d<T, true, HasRadius>& rhs) {
+    return rhs & lhs;
   }
 
   template <typename T>

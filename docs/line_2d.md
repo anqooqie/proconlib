@@ -164,16 +164,23 @@ It returns the squared distance between $s$ and $t$.
 
 ## operator&
 ```cpp
-std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(line_2d<T> s, tools::directed_line_segment_2d<T> t);
-std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>> operator&(line_2d<T> s, tools::half_line_2d<T> t);
-std::optional<std::variant<tools::vector2<T>, line_2d<T>>> operator&(line_2d<T> s, line_2d<T> t);
+(1) std::vector<tools::vector2<T>> operator&(line_2d<T> s, tools::circle_2d<T, false> t);
+(2) std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(line_2d<T> s, tools::circle_2d<T, true> t);
+(3) std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(line_2d<T> s, tools::directed_line_segment_2d<T> t);
+(4) std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>> operator&(line_2d<T> s, tools::half_line_2d<T> t);
+(5) std::optional<std::variant<tools::vector2<T>, line_2d<T>>> operator&(line_2d<T> s, line_2d<T> t);
 ```
 
-If there is an intersection of $s$ and $t$, it returns the intersection.
-Otherwise, it returns `std::nullopt`.
+- (1)
+    - It returns the intersections of $s$ and $t$.
+- (2), (3), (4), (5)
+    - If there is an intersection of $s$ and $t$, it returns the intersection. Otherwise, it returns `std::nullopt`.
 
 ### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
+- (1), (2)
+    - `<T>` is a built-in floating point type.
+- (3), (4), (5)
+    - `<T>` is `tools::rational` or a built-in floating point type.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
