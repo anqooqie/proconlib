@@ -232,6 +232,9 @@ namespace tools {
     iterator insert(const Key& x) {
       return this->internal_insert(x).first;
     }
+    iterator insert([[maybe_unused]] const iterator position, const Key& x) {
+      return this->insert(x);
+    }
     template <typename InputIterator>
     void insert(InputIterator first, InputIterator last) {
       for (auto it = first; it != last; ++it) {
