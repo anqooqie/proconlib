@@ -106,14 +106,15 @@ data:
     \ {\n      return this->m_set.size();\n    }\n    ::std::size_t max_size() const\
     \ {\n      return this->m_set.max_size();\n    }\n\n    void clear() {\n     \
     \ this->m_set.clear();\n    }\n    iterator insert(const Key& x) {\n      return\
-    \ this->internal_insert(x).first;\n    }\n    template <typename InputIterator>\n\
-    \    void insert(InputIterator first, InputIterator last) {\n      for (auto it\
-    \ = first; it != last; ++it) {\n        this->internal_insert(*it);\n      }\n\
-    \    }\n    void insert(::std::initializer_list<Key> init) {\n      for (auto&\
-    \ x : init) {\n        this->internal_insert(x);\n      }\n    }\n    template\
-    \ <class... Args>\n    ::std::pair<iterator, bool> emplace(Args&&... args) {\n\
-    \      return this->internal_insert(Key(::std::forward<Args>(args)...));\n   \
-    \ }\n    iterator erase(iterator position) {\n      return iterator(this->m_set.erase(position.base()));\n\
+    \ this->internal_insert(x).first;\n    }\n    iterator insert([[maybe_unused]]\
+    \ const iterator position, const Key& x) {\n      return this->insert(x);\n  \
+    \  }\n    template <typename InputIterator>\n    void insert(InputIterator first,\
+    \ InputIterator last) {\n      for (auto it = first; it != last; ++it) {\n   \
+    \     this->internal_insert(*it);\n      }\n    }\n    void insert(::std::initializer_list<Key>\
+    \ init) {\n      for (auto& x : init) {\n        this->internal_insert(x);\n \
+    \     }\n    }\n    template <class... Args>\n    ::std::pair<iterator, bool>\
+    \ emplace(Args&&... args) {\n      return this->internal_insert(Key(::std::forward<Args>(args)...));\n\
+    \    }\n    iterator erase(iterator position) {\n      return iterator(this->m_set.erase(position.base()));\n\
     \    }\n    iterator erase(iterator first, iterator last) {\n      const ::std::size_t\
     \ n = ::std::distance(first, last);\n      auto it = first;\n      for (::std::size_t\
     \ i = 0; i < n; ++i) {\n        it = this->erase(it);\n      }\n      return it;\n\
@@ -240,14 +241,15 @@ data:
     \ {\n      return this->m_set.size();\n    }\n    ::std::size_t max_size() const\
     \ {\n      return this->m_set.max_size();\n    }\n\n    void clear() {\n     \
     \ this->m_set.clear();\n    }\n    iterator insert(const Key& x) {\n      return\
-    \ this->internal_insert(x).first;\n    }\n    template <typename InputIterator>\n\
-    \    void insert(InputIterator first, InputIterator last) {\n      for (auto it\
-    \ = first; it != last; ++it) {\n        this->internal_insert(*it);\n      }\n\
-    \    }\n    void insert(::std::initializer_list<Key> init) {\n      for (auto&\
-    \ x : init) {\n        this->internal_insert(x);\n      }\n    }\n    template\
-    \ <class... Args>\n    ::std::pair<iterator, bool> emplace(Args&&... args) {\n\
-    \      return this->internal_insert(Key(::std::forward<Args>(args)...));\n   \
-    \ }\n    iterator erase(iterator position) {\n      return iterator(this->m_set.erase(position.base()));\n\
+    \ this->internal_insert(x).first;\n    }\n    iterator insert([[maybe_unused]]\
+    \ const iterator position, const Key& x) {\n      return this->insert(x);\n  \
+    \  }\n    template <typename InputIterator>\n    void insert(InputIterator first,\
+    \ InputIterator last) {\n      for (auto it = first; it != last; ++it) {\n   \
+    \     this->internal_insert(*it);\n      }\n    }\n    void insert(::std::initializer_list<Key>\
+    \ init) {\n      for (auto& x : init) {\n        this->internal_insert(x);\n \
+    \     }\n    }\n    template <class... Args>\n    ::std::pair<iterator, bool>\
+    \ emplace(Args&&... args) {\n      return this->internal_insert(Key(::std::forward<Args>(args)...));\n\
+    \    }\n    iterator erase(iterator position) {\n      return iterator(this->m_set.erase(position.base()));\n\
     \    }\n    iterator erase(iterator first, iterator last) {\n      const ::std::size_t\
     \ n = ::std::distance(first, last);\n      auto it = first;\n      for (::std::size_t\
     \ i = 0; i < n; ++i) {\n        it = this->erase(it);\n      }\n      return it;\n\
@@ -292,7 +294,7 @@ data:
   isVerificationFile: false
   path: tools/multiset.hpp
   requiredBy: []
-  timestamp: '2022-08-13 21:21:02+09:00'
+  timestamp: '2022-10-01 21:52:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/multiset.test.cpp
