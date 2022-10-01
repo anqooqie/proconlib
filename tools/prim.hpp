@@ -3,92 +3,104 @@
 
 #include <cstddef>
 #include <vector>
-#include <queue>
-#include <functional>
+#include <cassert>
+#include <utility>
+#include <algorithm>
 #include <limits>
+#include <queue>
+#include "tools/greater_by.hpp"
 
 namespace tools {
 
   template <typename T>
   class prim {
   public:
-    class edge {
-    private:
-      ::std::size_t m_from;
-      ::std::size_t m_to;
-      T m_distance;
-
-    public:
-      edge(const ::std::size_t& from, const ::std::size_t& to, const T& distance) :
-        m_from(from),
-        m_to(to),
-        m_distance(distance) {
-      }
-
-      ::std::size_t from() const {
-        return this->m_from;
-      }
-      ::std::size_t to() const {
-        return this->m_to;
-      }
-      T distance() const {
-        return this->m_distance;
-      }
+    struct edge {
+      ::std::size_t id;
+      ::std::size_t from;
+      ::std::size_t to;
+      T cost;
     };
 
-    class result {
-    public:
-      T total_distance;
-      ::std::vector<edge> edges;
-      result() :
-        total_distance(0), edges() {
-      }
-    };
+  private:
+    ::std::vector<edge> m_edges;
+    ::std::vector<::std::vector<::std::size_t>> m_graph;
 
-    ::std::vector<::std::vector<edge>> edges;
+  public:
+    prim() = default;
+    prim(const ::tools::prim<T>&) = default;
+    prim(::tools::prim<T>&&) = default;
+    ~prim() = default;
+    ::tools::prim<T>& operator=(const ::tools::prim<T>&) = default;
+    ::tools::prim<T>& operator=(::tools::prim<T>&&) = default;
 
-    prim(const ::std::size_t& node_count) :
-      edges(node_count) {
+    prim(const ::std::size_t n) : m_graph(n) {
     }
 
-    ::std::size_t node_count() const {
-      return this->edges.size();
+    ::std::size_t size() const {
+      return this->m_graph.size();
     }
 
-    void add_edge(const ::std::size_t& v1, const ::std::size_t& v2, const T& distance) {
-      this->edges[v1].emplace_back(v1, v2, distance);
-      this->edges[v2].emplace_back(v2, v1, distance);
+    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T w) {
+      assert(u < this->size());
+      assert(v < this->size());
+      ::std::tie(u, v) = ::std::minmax({u, v});
+      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+      this->m_graph[u].push_back(this->m_edges.size() - 1);
+      this->m_graph[v].push_back(this->m_edges.size() - 1);
+      return this->m_edges.size() - 1;
     }
 
-    result query() const {
-      result result;
-      ::std::vector<bool> visited(this->node_count(), false);
-      const auto greater_by_distance = [](const edge& x, const edge& y) {
-        return x.distance() > y.distance();
-      };
-      ::std::priority_queue<edge, ::std::vector<edge>, decltype(greater_by_distance)> tasks(greater_by_distance);
-      tasks.emplace(::std::numeric_limits<::std::size_t>::max(), 0, 0);
-      bool is_first_task = true;
+    const edge& get_edge(const ::std::size_t k) const {
+      assert(k < this->m_edges.size());
+      return this->m_edges[k];
+    }
 
-      while (!tasks.empty()) {
-        const edge task = tasks.top();
-        tasks.pop();
-        if (visited[task.to()]) continue;
-        if (is_first_task) {
-          is_first_task = false;
-        } else {
-          result.total_distance += task.distance();
-          result.edges.push_back(task);
+    const ::std::vector<edge>& edges() const {
+      return this->m_edges;
+    }
+
+    ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> query() const {
+      ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> res;
+      auto& [groups, belongs_to] = res;
+      belongs_to.resize(this->size());
+      ::std::fill(belongs_to.begin(), belongs_to.end(), ::std::numeric_limits<::std::size_t>::max());
+
+      for (::std::size_t root = 0; root < this->size(); ++root) {
+        if (belongs_to[root] < ::std::numeric_limits<::std::size_t>::max()) continue;
+
+        const auto greater_by_cost = ::tools::greater_by([&](const auto& pair) { return this->m_edges[pair.first].cost; });
+        ::std::priority_queue<::std::pair<::std::size_t, ::std::size_t>, ::std::vector<::std::pair<::std::size_t, ::std::size_t>>, decltype(greater_by_cost)> pq(greater_by_cost);
+        groups.emplace_back(0, ::std::vector<::std::size_t>());
+        auto& [total_cost, edge_ids] = groups.back();
+
+        belongs_to[root] = groups.size() - 1;
+        for (const auto e : this->m_graph[root]) {
+          const auto next = this->m_edges[e].from ^ this->m_edges[e].to ^ root;
+          if (belongs_to[next] < ::std::numeric_limits<::std::size_t>::max()) continue;
+
+          pq.emplace(e, next);
         }
-        visited[task.to()] = true;
-        for (const edge& edge : this->edges[task.to()]) {
-          if (!visited[edge.to()]) {
-            tasks.push(edge);
+
+        while (!pq.empty()) {
+          const auto [from_edge_id, here] = pq.top();
+          pq.pop();
+
+          if (belongs_to[here] < ::std::numeric_limits<::std::size_t>::max()) continue;
+
+          belongs_to[here] = belongs_to[root];
+          total_cost += this->m_edges[from_edge_id].cost;
+          edge_ids.push_back(from_edge_id);
+          for (const auto e : this->m_graph[here]) {
+            const auto next = this->m_edges[e].from ^ this->m_edges[e].to ^ here;
+            if (belongs_to[next] < ::std::numeric_limits<::std::size_t>::max()) continue;
+
+            pq.emplace(e, next);
           }
         }
       }
 
-      return result;
+      return res;
     }
   };
 }

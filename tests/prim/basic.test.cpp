@@ -19,6 +19,6 @@ int main() {
     prim.add_edge(s, t, w);
   }
 
-  std::cout << prim.query().total_distance << '\n';
+  std::cout << prim.query().first[0].first << '\n';
   return 0;
 }
