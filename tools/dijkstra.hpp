@@ -5,6 +5,7 @@
 #include <vector>
 #include <cassert>
 #include <utility>
+#include <algorithm>
 #include <limits>
 #include <queue>
 #include "tools/greater_by_second.hpp"
@@ -12,7 +13,7 @@
 
 namespace tools {
 
-  template <typename T>
+  template <bool Directed, typename T>
   class dijkstra {
   public:
     struct edge {
@@ -28,11 +29,11 @@ namespace tools {
 
   public:
     dijkstra() = default;
-    dijkstra(const ::tools::dijkstra<T>&) = default;
-    dijkstra(::tools::dijkstra<T>&&) = default;
+    dijkstra(const ::tools::dijkstra<Directed, T>&) = default;
+    dijkstra(::tools::dijkstra<Directed, T>&&) = default;
     ~dijkstra() = default;
-    ::tools::dijkstra<T>& operator=(const ::tools::dijkstra<T>&) = default;
-    ::tools::dijkstra<T>& operator=(::tools::dijkstra<T>&&) = default;
+    ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed, T>&) = default;
+    ::tools::dijkstra<Directed, T>& operator=(::tools::dijkstra<Directed, T>&&) = default;
 
     dijkstra(const ::std::size_t n) : m_graph(n) {
     }
@@ -41,12 +42,18 @@ namespace tools {
       return this->m_graph.size();
     }
 
-    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
+    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T& w) {
       assert(u < this->size());
       assert(v < this->size());
       assert(w >= 0);
+      if constexpr (!Directed) {
+        ::std::tie(u, v) = ::std::minmax({u, v});
+      }
       this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
       this->m_graph[u].push_back(this->m_edges.size() - 1);
+      if constexpr (!Directed) {
+        this->m_graph[v].push_back(this->m_edges.size() - 1);
+      }
       return this->m_edges.size() - 1;
     }
 
@@ -75,9 +82,10 @@ namespace tools {
         if (dist[here] < d) continue;
         for (const auto edge_id : this->m_graph[here]) {
           const auto& edge = this->m_edges[edge_id];
-          if (::tools::chmin(dist[edge.to], dist[here] + edge.cost)) {
-            prev[edge.to] = edge.id;
-            pq.emplace(edge.to, dist[edge.to]);
+          const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);
+          if (::tools::chmin(dist[next], dist[here] + edge.cost)) {
+            prev[next] = edge.id;
+            pq.emplace(next, dist[next]);
           }
         }
       }

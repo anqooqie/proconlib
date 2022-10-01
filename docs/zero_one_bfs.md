@@ -14,10 +14,11 @@ For all the edges, the cost of the edge must be $0$ or $1$.
 
 ## Constructor
 ```cpp
-zero_one_bfs<T> graph(std::size_t n);
+zero_one_bfs<Directed, T> graph(std::size_t n);
 ```
 
-It creates a graph with $n$ vertices and $0$ edges.
+If the type parameter `<Directed>` is `true`, it creates a directed graph with $n$ vertices and $0$ edges.
+If the type parameter `<Directed>` is `false`, it creates an undirected graph with $n$ vertices and $0$ edges.
 The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
@@ -44,7 +45,8 @@ It returns $n$.
 std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
 ```
 
-It adds an edge oriented from $u$ to $v$ with cost `w`.
+If `<Directed>` is `true`, it adds a directed edge oriented from $u$ to $v$ with cost `w`.
+If `<Directed>` is `false`, it adds an undirected edge between $u$ and $v$ with cost `w`.
 It returns an integer $k$ such that this is the $k$-th edge that is added.
 
 ### Constraints
@@ -69,7 +71,7 @@ edge graph.get_edge(std::size_t k);
 It returns the $k$-th edge.
 
 ### Constraints
-- None
+- $0 \leq k < \|E\|$ where $\|E\|$ is the number of edges
 
 ### Time Complexity
 - $O(1)$

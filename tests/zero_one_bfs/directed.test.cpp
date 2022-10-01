@@ -20,7 +20,7 @@ int main() {
     i64 A, B, C, D;
     std::cin >> A >> B >> C >> D;
     --A, --B;
-    tools::zero_one_bfs<i64> graph(100 * 100);
+    tools::zero_one_bfs<true, i64> graph(100 * 100);
     for (i64 x = 0; x < 100; ++x) {
       for (i64 y = 0; y < 100; ++y) {
         for (const auto& [dx, dy] : std::array<std::pair<i64, i64>, 4>({std::make_pair(1, 0), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(0, -1)})) {

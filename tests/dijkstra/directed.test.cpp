@@ -17,7 +17,7 @@ int main() {
   i64 N, M, s, t;
   std::cin >> N >> M >> s >> t;
 
-  tools::dijkstra<i64> graph(N);
+  tools::dijkstra<true, i64> graph(N);
   for (i64 i = 0; i < M; ++i) {
     i64 a, b, c;
     std::cin >> a >> b >> c;
