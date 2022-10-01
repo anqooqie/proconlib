@@ -1,11 +1,20 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/prim.hpp
+    title: Prim's algorithm
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/prim/basic.test.cpp
+    title: tests/prim/basic.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/prim/unconnected.test.cpp
+    title: tests/prim/unconnected.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/greater_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
@@ -21,10 +30,13 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/greater_by.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/prim.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/prim/basic.test.cpp
+  - tests/prim/unconnected.test.cpp
 documentation_of: tools/greater_by.hpp
 layout: document
 title: std::greater by key

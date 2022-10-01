@@ -36,9 +36,9 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/next_matching.test.cpp
-  - tests/largest_rectangle_in_histogram.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/largest_rectangle_in_histogram.test.cpp
+  - tests/next_matching.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

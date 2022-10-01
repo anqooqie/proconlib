@@ -49,9 +49,9 @@ data:
   timestamp: '2021-11-12 22:35:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/persistent_dual_segtree.test.cpp
   - tests/cumsum2d.test.cpp
   - tests/pdsu.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
   - tests/parse_fixed_point_number.test.cpp
 documentation_of: tools/group.hpp
 layout: document

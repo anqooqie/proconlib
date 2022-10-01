@@ -31,11 +31,17 @@ data:
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/dijkstra.test.cpp
-    title: tests/dijkstra.test.cpp
+    path: tests/dijkstra/directed.test.cpp
+    title: tests/dijkstra/directed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/dijkstra/undirected.test.cpp
+    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/prim/unconnected.test.cpp
+    title: tests/prim/unconnected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
@@ -55,8 +61,11 @@ data:
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/zero_one_bfs.test.cpp
-    title: tests/zero_one_bfs.test.cpp
+    path: tests/zero_one_bfs/directed.test.cpp
+    title: tests/zero_one_bfs/directed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_bfs/undirected.test.cpp
+    title: tests/zero_one_bfs/undirected.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -74,26 +83,29 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/dijkstra.hpp
   - tools/tree_diameter.hpp
-  - tools/bellman_ford.hpp
   - tools/segmented_sieve.hpp
-  - tools/zero_one_bfs.hpp
   - tools/mcf_graph.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/bellman_ford.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/xor_basis.hpp
+  - tools/dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/zero_one_bfs.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/bellman_ford.test.cpp
-  - tests/dijkstra.test.cpp
-  - tests/tree_diameter.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/xor_basis.test.cpp
+  - tests/zero_one_bfs/undirected.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/dijkstra/undirected.test.cpp
+  - tests/dijkstra/directed.test.cpp
   - tests/segmented_sieve.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document

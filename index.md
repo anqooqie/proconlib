@@ -159,7 +159,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
     - icon: ':heavy_check_mark:'
@@ -518,9 +518,6 @@ data:
       path: tests/digit_sum.test.cpp
       title: tests/digit_sum.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/dijkstra.test.cpp
-      title: tests/dijkstra.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table.test.cpp
       title: tests/disjoint_sparse_table.test.cpp
     - icon: ':heavy_check_mark:'
@@ -641,9 +638,6 @@ data:
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/prim.test.cpp
-      title: tests/prim.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
     - icon: ':heavy_check_mark:'
@@ -709,9 +703,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/zero_one_bfs.test.cpp
-      title: tests/zero_one_bfs.test.cpp
   - name: tests/bigdecimal
     pages:
     - icon: ':heavy_check_mark:'
@@ -778,6 +769,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/cycle_detection/undirected.test.cpp
       title: tests/cycle_detection/undirected.test.cpp
+  - name: tests/dijkstra
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/dijkstra/directed.test.cpp
+      title: tests/dijkstra/directed.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/dijkstra/undirected.test.cpp
+      title: tests/dijkstra/undirected.test.cpp
   - name: tests/directed_line_segment_2d
     pages:
     - icon: ':heavy_check_mark:'
@@ -881,6 +880,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp
+  - name: tests/prim
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/prim/basic.test.cpp
+      title: tests/prim/basic.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/prim/unconnected.test.cpp
+      title: tests/prim/unconnected.test.cpp
   - name: tests/rational
     pages:
     - icon: ':heavy_check_mark:'
@@ -925,5 +932,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - name: tests/zero_one_bfs
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_bfs/directed.test.cpp
+      title: tests/zero_one_bfs/directed.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_bfs/undirected.test.cpp
+      title: tests/zero_one_bfs/undirected.test.cpp
 layout: toppage
 ---

@@ -69,18 +69,18 @@ data:
   isVerificationFile: false
   path: tools/run_length.hpp
   requiredBy:
+  - tools/totient.hpp
   - tools/tetration_mod.hpp
   - tools/divisors.hpp
   - tools/extended_lucas.hpp
-  - tools/totient.hpp
   timestamp: '2021-07-25 10:07:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/totient.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/run_length.test.cpp
-  - tests/extended_lucas.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/run_length.hpp
 layout: document
 title: Run-length encoding

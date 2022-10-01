@@ -33,7 +33,7 @@ data:
     \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
     \  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\n\n\n\n#include\
     \ <functional>\n#include <type_traits>\n#include <unordered_map>\n#include <cstddef>\n\
-    #include <vector>\n#include <optional>\n#include <utility>\n#include <algorithm>\n\
+    #include <vector>\n#include <utility>\n#include <algorithm>\n#include <limits>\n\
     #include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n#include <string>\n#line\
     \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\
     \n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
@@ -63,10 +63,10 @@ data:
     \ <class Key, class Priority, class Compare = ::std::less<Priority>, bool UseVectorToStoreKeys\
     \ = ::std::is_integral_v<Key>>\n  class binary_heap {\n  private:\n    Compare\
     \ m_compare;\n    ::std::unordered_map<Key, ::std::size_t> m_heap_index;\n   \
-    \ ::std::vector<::std::optional<::std::size_t>> m_heap_index_fast;\n    ::std::vector<::std::pair<Key,\
+    \ ::std::vector<::std::size_t> m_heap_index_fast;\n    ::std::vector<::std::pair<Key,\
     \ Priority>> m_heap;\n    ::std::size_t m_size;\n\n    void swap(::std::size_t\
     \ x, ::std::size_t y) {\n      if constexpr (UseVectorToStoreKeys) {\n       \
-    \ ::std::swap(*this->m_heap_index_fast[this->m_heap[x].first], *this->m_heap_index_fast[this->m_heap[y].first]);\n\
+    \ ::std::swap(this->m_heap_index_fast[this->m_heap[x].first], this->m_heap_index_fast[this->m_heap[y].first]);\n\
     \      } else {\n        ::std::swap(this->m_heap_index[this->m_heap[x].first],\
     \ this->m_heap_index[this->m_heap[y].first]);\n      }\n      ::std::swap(this->m_heap[x],\
     \ this->m_heap[y]);\n    }\n\n    void upheap(::std::size_t i) {\n      for (;\
@@ -79,71 +79,77 @@ data:
     \      [this](const ::std::size_t x, const ::std::size_t y) {\n            return\
     \ this->m_compare(this->m_heap[x].second, this->m_heap[y].second);\n         \
     \ }\n        );\n      };\n      for (::std::size_t next_i; i != (next_i = calc_next_i(i));\
-    \ i = next_i) {\n        this->swap(i, next_i);\n      }\n    }\n\n    ::std::optional<::std::size_t>\
+    \ i = next_i) {\n        this->swap(i, next_i);\n      }\n    }\n\n    ::std::size_t\
     \ get_internal_index(const Key& k) const {\n      if constexpr (UseVectorToStoreKeys)\
     \ {\n        if (::std::size_t(k) < this->m_heap_index_fast.size()) {\n      \
-    \    return this->m_heap_index_fast[k];\n        } else {\n          return ::std::nullopt;\n\
-    \        }\n      } else {\n        if (auto it = this->m_heap_index.find(k);\
-    \ it != this->m_heap_index.end()) {\n          return ::std::make_optional(it->second);\n\
-    \        } else {\n          return ::std::nullopt;\n        }\n      }\n    }\n\
-    \n  public:\n    explicit binary_heap(const Compare& compare = Compare()) : m_compare(compare),\
-    \ m_heap_index(), m_heap_index_fast(), m_heap(1), m_size(0) {\n    }\n    binary_heap(const\
-    \ binary_heap&) = default;\n    binary_heap(binary_heap&&) = default;\n    ~binary_heap()\
-    \ = default;\n    binary_heap& operator=(const binary_heap&) = default;\n    binary_heap&\
-    \ operator=(binary_heap&&) = default;\n\n    bool empty() const noexcept {\n \
-    \     return this->m_size == 0;\n    }\n\n    ::std::size_t size() const noexcept\
-    \ {\n      return this->m_size;\n    }\n\n    const ::std::pair<Key, Priority>&\
-    \ top() const {\n      assert(!this->empty());\n      return this->m_heap[1];\n\
-    \    }\n\n    bool contains(const Key& k) const {\n      if constexpr (UseVectorToStoreKeys)\
-    \ {\n        return this->m_heap_index_fast[k].has_value();\n      } else {\n\
-    \        return this->m_heap_index.find(k) != this->m_heap_index.end();\n    \
-    \  }\n    }\n\n    Priority at(const Key& k) const {\n      if constexpr (UseVectorToStoreKeys)\
-    \ {\n        return this->m_heap[*this->m_heap_index_fast[k]].second;\n      }\
-    \ else {\n        return this->m_heap[this->m_heap_index.at(k)].second;\n    \
-    \  }\n    }\n\n    bool push(const ::std::pair<Key, Priority>& x) {\n      ::std::optional<::std::size_t>\
-    \ internal_index = this->get_internal_index(x.first);\n\n      if (internal_index)\
-    \ {\n        const Priority prev_priority = this->m_heap[*internal_index].second;\n\
-    \        this->m_heap[*internal_index].second = x.second;\n        if (this->m_compare(prev_priority,\
-    \ x.second)) {\n          this->upheap(*internal_index);\n        } else if (this->m_compare(x.second,\
-    \ prev_priority)) {\n          this->downheap(*internal_index);\n        }\n \
-    \     } else {\n        if (this->m_size + 1 == this->m_heap.size()) {\n     \
-    \     this->m_heap.resize(this->m_heap.size() * 2);\n        }\n        ++this->m_size;\n\
+    \    return this->m_heap_index_fast[k];\n        } else {\n          return ::std::numeric_limits<::std::size_t>::max();\n\
+    \        }\n      } else {\n        if (const auto it = this->m_heap_index.find(k);\
+    \ it != this->m_heap_index.end()) {\n          return it->second;\n        } else\
+    \ {\n          return ::std::numeric_limits<::std::size_t>::max();\n        }\n\
+    \      }\n    }\n\n  public:\n    explicit binary_heap(const Compare& compare\
+    \ = Compare()) : m_compare(compare), m_heap_index(), m_heap_index_fast(), m_heap(1),\
+    \ m_size(0) {\n    }\n    binary_heap(const binary_heap&) = default;\n    binary_heap(binary_heap&&)\
+    \ = default;\n    ~binary_heap() = default;\n    binary_heap& operator=(const\
+    \ binary_heap&) = default;\n    binary_heap& operator=(binary_heap&&) = default;\n\
+    \n    bool empty() const noexcept {\n      return this->m_size == 0;\n    }\n\n\
+    \    ::std::size_t size() const noexcept {\n      return this->m_size;\n    }\n\
+    \n    const ::std::pair<Key, Priority>& top() const {\n      assert(!this->empty());\n\
+    \      return this->m_heap[1];\n    }\n\n    bool contains(const Key& k) const\
+    \ {\n      if constexpr (UseVectorToStoreKeys) {\n        if (::std::size_t(k)\
+    \ < this->m_heap_index_fast.size()) {\n          return this->m_heap_index_fast[k]\
+    \ != ::std::numeric_limits<::std::size_t>::max();\n        } else {\n        \
+    \  return false;\n        }\n      } else {\n        return this->m_heap_index.find(k)\
+    \ != this->m_heap_index.end();\n      }\n    }\n\n    Priority at(const Key& k)\
+    \ const {\n      if constexpr (UseVectorToStoreKeys) {\n        return this->m_heap[this->m_heap_index_fast[k]].second;\n\
+    \      } else {\n        return this->m_heap[this->m_heap_index.at(k)].second;\n\
+    \      }\n    }\n\n    bool push(const ::std::pair<Key, Priority>& x) {\n    \
+    \  ::std::size_t internal_index = this->get_internal_index(x.first);\n\n     \
+    \ if (internal_index != ::std::numeric_limits<::std::size_t>::max()) {\n     \
+    \   const Priority prev_priority = this->m_heap[internal_index].second;\n    \
+    \    this->m_heap[internal_index].second = x.second;\n        if (this->m_compare(prev_priority,\
+    \ x.second)) {\n          this->upheap(internal_index);\n        } else if (this->m_compare(x.second,\
+    \ prev_priority)) {\n          this->downheap(internal_index);\n        }\n  \
+    \    } else {\n        if (this->m_size + 1 == this->m_heap.size()) {\n      \
+    \    this->m_heap.resize(this->m_heap.size() * 2);\n        }\n        ++this->m_size;\n\
     \n        if constexpr (UseVectorToStoreKeys) {\n          if (::std::size_t(x.first)\
     \ >= this->m_heap_index_fast.size()) {\n            this->m_heap_index_fast.resize(::tools::pow2(::tools::ceil_log2(x.first\
-    \ + 1)));\n          }\n          this->m_heap_index_fast[x.first] = this->m_size;\n\
-    \        } else {\n          this->m_heap_index.emplace(x.first, this->m_size);\n\
-    \        }\n        this->m_heap[this->m_size] = x;\n        this->upheap(this->m_size);\n\
-    \      }\n\n      return !internal_index;\n    }\n\n    template <typename...\
+    \ + 1)), ::std::numeric_limits<::std::size_t>::max());\n          }\n        \
+    \  this->m_heap_index_fast[x.first] = this->m_size;\n        } else {\n      \
+    \    this->m_heap_index.emplace(x.first, this->m_size);\n        }\n        this->m_heap[this->m_size]\
+    \ = x;\n        this->upheap(this->m_size);\n      }\n\n      return internal_index\
+    \ == ::std::numeric_limits<::std::size_t>::max();\n    }\n\n    template <typename...\
     \ Args>\n    bool emplace(Args&&... args) {\n      return this->push(::std::make_pair(::std::forward<Args>(args)...));\n\
     \    }\n\n    void pop() {\n      assert(!this->empty());\n      const Key k =\
     \ this->m_heap[1].first;\n      if (this->m_size > 1) {\n        this->swap(1,\
     \ this->m_size);\n      }\n\n      if constexpr (UseVectorToStoreKeys) {\n   \
-    \     this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
-    \      }\n      --this->m_size;\n\n      if (this->m_size >= 1) {\n        this->downheap(1);\n\
-    \      }\n    }\n\n    ::std::size_t erase(const Key& k) {\n      ::std::optional<::std::size_t>\
-    \ internal_index = this->get_internal_index(k);\n      if (!internal_index) {\n\
-    \        return 0;\n      }\n\n      const Priority prev_priority = this->m_heap[*internal_index].second;\n\
+    \     this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      } else {\n        this->m_heap_index.erase(k);\n      }\n      --this->m_size;\n\
+    \n      if (this->m_size >= 1) {\n        this->downheap(1);\n      }\n    }\n\
+    \n    ::std::size_t erase(const Key& k) {\n      ::std::size_t internal_index\
+    \ = this->get_internal_index(k);\n      if (internal_index == ::std::numeric_limits<::std::size_t>::max())\
+    \ {\n        return 0;\n      }\n\n      const Priority prev_priority = this->m_heap[internal_index].second;\n\
     \      const Priority new_priority = this->m_heap[this->m_size].second;\n\n  \
-    \    if (*internal_index < this->m_size) {\n        this->swap(*internal_index,\
+    \    if (internal_index < this->m_size) {\n        this->swap(internal_index,\
     \ this->m_size);\n      }\n\n      if constexpr (UseVectorToStoreKeys) {\n   \
-    \     this->m_heap_index_fast[k].reset();\n      } else {\n        this->m_heap_index.erase(k);\n\
-    \      }\n      --this->m_size;\n\n      if (*internal_index <= this->m_size)\
-    \ {\n        if (this->m_compare(prev_priority, new_priority)) {\n          this->upheap(*internal_index);\n\
-    \        } else if (this->m_compare(new_priority, prev_priority)) {\n        \
-    \  this->downheap(*internal_index);\n        }\n      }\n\n      return 1;\n \
-    \   }\n\n    friend ::std::ostream& operator<<(::std::ostream& os, binary_heap&\
-    \ self) {\n      std::string delimiter = \"\";\n      os << '[';\n      for (::std::size_t\
-    \ i = 1; i <= self.m_size; ++i) {\n        os << delimiter << '[' << self.m_heap[i].first\
-    \ << \", \" << self.m_heap[i].second << ']';\n        delimiter = \", \";\n  \
-    \    }\n      os << ']';\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 7 \"tests/ssize.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::ssize(std::vector<int>({1,\
-    \ 2, 3})) == 3);\n\n  tools::binary_heap<int, int> heap;\n  heap.emplace(1, 1);\n\
-    \  heap.emplace(2, 2);\n  heap.emplace(3, 3);\n  assert_that(tools::ssize(heap)\
-    \ == 3);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \     this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();\n\
+    \      } else {\n        this->m_heap_index.erase(k);\n      }\n      --this->m_size;\n\
+    \n      if (internal_index <= this->m_size) {\n        if (this->m_compare(prev_priority,\
+    \ new_priority)) {\n          this->upheap(internal_index);\n        } else if\
+    \ (this->m_compare(new_priority, prev_priority)) {\n          this->downheap(internal_index);\n\
+    \        }\n      }\n\n      return 1;\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, binary_heap& self) {\n      std::string delimiter = \"\";\n      os << '[';\n\
+    \      for (::std::size_t i = 1; i <= self.m_size; ++i) {\n        os << delimiter\
+    \ << '[' << self.m_heap[i].first << \", \" << self.m_heap[i].second << ']';\n\
+    \        delimiter = \", \";\n      }\n      os << ']';\n      return os;\n  \
+    \  }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
+    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 7 \"tests/ssize.test.cpp\"\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  assert_that(tools::ssize(std::vector<int>({1, 2, 3})) == 3);\n\n  tools::binary_heap<int,\
+    \ int> heap;\n  heap.emplace(1, 1);\n  heap.emplace(2, 2);\n  heap.emplace(3,\
+    \ 3);\n  assert_that(tools::ssize(heap) == 3);\n\n  std::cout << \"Hello World\"\
+    \ << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"tools/binary_heap.hpp\"\
     \n#include \"tools/ssize.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
@@ -160,7 +166,7 @@ data:
   isVerificationFile: true
   path: tests/ssize.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
+  timestamp: '2022-10-01 11:10:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ssize.test.cpp

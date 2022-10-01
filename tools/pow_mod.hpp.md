@@ -223,65 +223,65 @@ data:
   isVerificationFile: false
   path: tools/pow_mod.hpp
   requiredBy:
-  - tools/nth_term.hpp
-  - tools/tetration_mod.hpp
-  - tools/divisors.hpp
-  - tools/rational.hpp
-  - tools/extended_lucas.hpp
-  - tools/fps.hpp
-  - tools/garner2.hpp
-  - tools/fact_mod_cache.hpp
   - tools/totient.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/garner3.hpp
+  - tools/prime_factorization.hpp
+  - tools/bigdecimal.hpp
+  - tools/rational.hpp
+  - tools/is_prime.hpp
+  - tools/tetration_mod.hpp
   - tools/bigint.hpp
   - tools/convolution.hpp
-  - tools/prime_factorization.hpp
-  - tools/garner3.hpp
-  - tools/is_prime.hpp
-  - tools/bigdecimal.hpp
+  - tools/divisors.hpp
+  - tools/nth_term.hpp
+  - tools/fps.hpp
+  - tools/garner2.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2021-12-31 20:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/bigint/modulus.test.cpp
+  - tests/bigint/plus.test.cpp
   - tests/bigint/divides.test.cpp
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/minus.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/totient.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/fact_mod_cache/permutation.test.cpp
-  - tests/fact_mod_cache/combination.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
-  - tests/nth_term.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/extended_lucas.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/is_prime.test.cpp
+  - tests/bigdecimal/plus.test.cpp
   - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/fact_mod_cache/combination.test.cpp
+  - tests/fact_mod_cache/permutation.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/nth_term.test.cpp
   - tests/divisors.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
 title: $x^y \pmod{M}$

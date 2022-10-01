@@ -67,6 +67,9 @@ data:
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/prim/unconnected.test.cpp
+    title: tests/prim/unconnected.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -142,37 +145,38 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
-  - tools/chromatic_number.hpp
-  - tools/divisors.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/extended_lucas.hpp
-  - tools/lca.hpp
   - tools/totient.hpp
-  - tools/wavelet_matrix.hpp
-  - tools/ntz.hpp
-  - tools/floor_log2.hpp
-  - tools/disjoint_sparse_table.hpp
   - tools/prime_factorization.hpp
+  - tools/lca.hpp
+  - tools/chromatic_number.hpp
   - tools/dynamic_bitset.hpp
+  - tools/tetration_mod.hpp
+  - tools/divisors.hpp
+  - tools/floor_log2.hpp
+  - tools/ntz.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/wavelet_matrix.test.cpp
-  - tests/chromatic_number.test.cpp
   - tests/rotate_left.test.cpp
-  - tests/totient.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/extended_lucas.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp
   - tests/lca.test.cpp
-  - tests/divisors.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/chromatic_number.test.cpp
+  - tests/prim/unconnected.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/divisors.test.cpp
+  - tests/wavelet_matrix.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

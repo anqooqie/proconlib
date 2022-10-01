@@ -108,8 +108,8 @@ data:
   isVerificationFile: false
   path: tools/garner.hpp
   requiredBy:
-  - tools/tetration_mod.hpp
   - tools/extended_garner.hpp
+  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
