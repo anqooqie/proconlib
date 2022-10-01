@@ -6,9 +6,9 @@
 #include <unordered_map>
 #include <cstddef>
 #include <vector>
-#include <optional>
 #include <utility>
 #include <algorithm>
+#include <limits>
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -22,13 +22,13 @@ namespace tools {
   private:
     Compare m_compare;
     ::std::unordered_map<Key, ::std::size_t> m_heap_index;
-    ::std::vector<::std::optional<::std::size_t>> m_heap_index_fast;
+    ::std::vector<::std::size_t> m_heap_index_fast;
     ::std::vector<::std::pair<Key, Priority>> m_heap;
     ::std::size_t m_size;
 
     void swap(::std::size_t x, ::std::size_t y) {
       if constexpr (UseVectorToStoreKeys) {
-        ::std::swap(*this->m_heap_index_fast[this->m_heap[x].first], *this->m_heap_index_fast[this->m_heap[y].first]);
+        ::std::swap(this->m_heap_index_fast[this->m_heap[x].first], this->m_heap_index_fast[this->m_heap[y].first]);
       } else {
         ::std::swap(this->m_heap_index[this->m_heap[x].first], this->m_heap_index[this->m_heap[y].first]);
       }
@@ -57,18 +57,18 @@ namespace tools {
       }
     }
 
-    ::std::optional<::std::size_t> get_internal_index(const Key& k) const {
+    ::std::size_t get_internal_index(const Key& k) const {
       if constexpr (UseVectorToStoreKeys) {
         if (::std::size_t(k) < this->m_heap_index_fast.size()) {
           return this->m_heap_index_fast[k];
         } else {
-          return ::std::nullopt;
+          return ::std::numeric_limits<::std::size_t>::max();
         }
       } else {
-        if (auto it = this->m_heap_index.find(k); it != this->m_heap_index.end()) {
-          return ::std::make_optional(it->second);
+        if (const auto it = this->m_heap_index.find(k); it != this->m_heap_index.end()) {
+          return it->second;
         } else {
-          return ::std::nullopt;
+          return ::std::numeric_limits<::std::size_t>::max();
         }
       }
     }
@@ -97,7 +97,11 @@ namespace tools {
 
     bool contains(const Key& k) const {
       if constexpr (UseVectorToStoreKeys) {
-        return this->m_heap_index_fast[k].has_value();
+        if (::std::size_t(k) < this->m_heap_index_fast.size()) {
+          return this->m_heap_index_fast[k] != ::std::numeric_limits<::std::size_t>::max();
+        } else {
+          return false;
+        }
       } else {
         return this->m_heap_index.find(k) != this->m_heap_index.end();
       }
@@ -105,22 +109,22 @@ namespace tools {
 
     Priority at(const Key& k) const {
       if constexpr (UseVectorToStoreKeys) {
-        return this->m_heap[*this->m_heap_index_fast[k]].second;
+        return this->m_heap[this->m_heap_index_fast[k]].second;
       } else {
         return this->m_heap[this->m_heap_index.at(k)].second;
       }
     }
 
     bool push(const ::std::pair<Key, Priority>& x) {
-      ::std::optional<::std::size_t> internal_index = this->get_internal_index(x.first);
+      ::std::size_t internal_index = this->get_internal_index(x.first);
 
-      if (internal_index) {
-        const Priority prev_priority = this->m_heap[*internal_index].second;
-        this->m_heap[*internal_index].second = x.second;
+      if (internal_index != ::std::numeric_limits<::std::size_t>::max()) {
+        const Priority prev_priority = this->m_heap[internal_index].second;
+        this->m_heap[internal_index].second = x.second;
         if (this->m_compare(prev_priority, x.second)) {
-          this->upheap(*internal_index);
+          this->upheap(internal_index);
         } else if (this->m_compare(x.second, prev_priority)) {
-          this->downheap(*internal_index);
+          this->downheap(internal_index);
         }
       } else {
         if (this->m_size + 1 == this->m_heap.size()) {
@@ -130,7 +134,7 @@ namespace tools {
 
         if constexpr (UseVectorToStoreKeys) {
           if (::std::size_t(x.first) >= this->m_heap_index_fast.size()) {
-            this->m_heap_index_fast.resize(::tools::pow2(::tools::ceil_log2(x.first + 1)));
+            this->m_heap_index_fast.resize(::tools::pow2(::tools::ceil_log2(x.first + 1)), ::std::numeric_limits<::std::size_t>::max());
           }
           this->m_heap_index_fast[x.first] = this->m_size;
         } else {
@@ -140,7 +144,7 @@ namespace tools {
         this->upheap(this->m_size);
       }
 
-      return !internal_index;
+      return internal_index == ::std::numeric_limits<::std::size_t>::max();
     }
 
     template <typename... Args>
@@ -156,7 +160,7 @@ namespace tools {
       }
 
       if constexpr (UseVectorToStoreKeys) {
-        this->m_heap_index_fast[k].reset();
+        this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();
       } else {
         this->m_heap_index.erase(k);
       }
@@ -168,30 +172,30 @@ namespace tools {
     }
 
     ::std::size_t erase(const Key& k) {
-      ::std::optional<::std::size_t> internal_index = this->get_internal_index(k);
-      if (!internal_index) {
+      ::std::size_t internal_index = this->get_internal_index(k);
+      if (internal_index == ::std::numeric_limits<::std::size_t>::max()) {
         return 0;
       }
 
-      const Priority prev_priority = this->m_heap[*internal_index].second;
+      const Priority prev_priority = this->m_heap[internal_index].second;
       const Priority new_priority = this->m_heap[this->m_size].second;
 
-      if (*internal_index < this->m_size) {
-        this->swap(*internal_index, this->m_size);
+      if (internal_index < this->m_size) {
+        this->swap(internal_index, this->m_size);
       }
 
       if constexpr (UseVectorToStoreKeys) {
-        this->m_heap_index_fast[k].reset();
+        this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();
       } else {
         this->m_heap_index.erase(k);
       }
       --this->m_size;
 
-      if (*internal_index <= this->m_size) {
+      if (internal_index <= this->m_size) {
         if (this->m_compare(prev_priority, new_priority)) {
-          this->upheap(*internal_index);
+          this->upheap(internal_index);
         } else if (this->m_compare(new_priority, prev_priority)) {
-          this->downheap(*internal_index);
+          this->downheap(internal_index);
         }
       }
 
