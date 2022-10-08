@@ -4,25 +4,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: 2D vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []

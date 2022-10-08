@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
   _extendedRequiredBy: []

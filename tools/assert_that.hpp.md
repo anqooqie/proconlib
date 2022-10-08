@@ -102,12 +102,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -125,7 +125,7 @@ data:
   path: tools/assert_that.hpp
   requiredBy: []
   timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rational/random.test.cpp
   - tests/floor_log.test.cpp

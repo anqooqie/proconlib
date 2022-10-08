@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []

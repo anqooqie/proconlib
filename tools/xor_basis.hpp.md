@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://twitter.com/noshi91/status/1200702280128856064
@@ -45,7 +45,7 @@ data:
   path: tools/xor_basis.hpp
   requiredBy: []
   timestamp: '2021-12-05 13:54:20+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/xor_basis.test.cpp
 documentation_of: tools/xor_basis.hpp

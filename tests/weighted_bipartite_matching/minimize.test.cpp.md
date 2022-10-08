@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []

@@ -65,7 +65,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'

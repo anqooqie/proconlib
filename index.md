@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -57,7 +57,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -174,7 +174,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -249,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
@@ -397,7 +397,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -440,13 +440,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/wavelet_matrix.hpp
       title: Wavelet matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/xor_basis.hpp
       title: Basis of xor
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
   - name: tools/detail
@@ -694,7 +694,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/wavelet_matrix.test.cpp
       title: tests/wavelet_matrix.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
   - name: tests/bigdecimal
@@ -926,12 +926,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/minimize.test.cpp
       title: tests/weighted_bipartite_matching/minimize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - name: tests/zero_one_bfs
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/directed.test.cpp
       title: tests/zero_one_bfs/directed.test.cpp
     - icon: ':heavy_check_mark:'
