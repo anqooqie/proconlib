@@ -139,5 +139,8 @@
 "tests/wavelet_matrix.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/weighted_bipartite_matching/maximize.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/weighted_bipartite_matching/minimize.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/weighted_bipartite_matching/multiple_calls.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/xor_basis.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/zero_one_bfs/directed.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/zero_one_bfs/undirected.test.cpp": "2022-10-01 12:56:27 +0900"
 }
