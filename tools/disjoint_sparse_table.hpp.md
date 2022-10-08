@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':question:'
@@ -18,7 +18,7 @@ data:
     path: tools/lca.hpp
     title: Lowest common ancestor
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
   - icon: ':x:'
@@ -26,7 +26,7 @@ data:
     title: tests/lca.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/disjoint_sparse_table.hpp\"\n\n\n\n#include <vector>\n\
@@ -178,7 +178,7 @@ data:
   requiredBy:
   - tools/lca.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp

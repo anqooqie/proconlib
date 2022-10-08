@@ -9,7 +9,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
   - icon: ':x:'

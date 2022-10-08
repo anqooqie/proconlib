@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -12,7 +12,7 @@ data:
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'

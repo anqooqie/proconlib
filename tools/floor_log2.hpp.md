@@ -5,13 +5,13 @@ data:
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
   - icon: ':x:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':x:'
@@ -30,16 +30,16 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
   - icon: ':x:'
@@ -62,7 +62,7 @@ data:
     title: tests/totient.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -133,7 +133,7 @@ data:
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/disjoint_sparse_table.test.cpp
   - tests/floor_log2.test.cpp

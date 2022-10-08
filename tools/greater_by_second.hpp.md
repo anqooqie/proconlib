@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':x:'
@@ -12,7 +12,7 @@ data:
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'

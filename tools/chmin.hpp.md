@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':x:'
@@ -30,7 +30,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'

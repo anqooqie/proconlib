@@ -10,7 +10,7 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
   - icon: ':question:'

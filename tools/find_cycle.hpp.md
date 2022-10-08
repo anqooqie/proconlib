@@ -15,7 +15,7 @@ data:
     path: tools/rolling_hash.hpp
     title: Rolling hash
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/find_cycle.test.cpp
     title: tests/find_cycle.test.cpp
   - icon: ':x:'
@@ -23,7 +23,7 @@ data:
     title: tests/rolling_hash.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#include <utility>\n\nnamespace\
@@ -53,7 +53,7 @@ data:
   - tools/detail/rolling_hash.hpp
   - tools/rolling_hash.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rolling_hash.test.cpp
   - tests/find_cycle.test.cpp

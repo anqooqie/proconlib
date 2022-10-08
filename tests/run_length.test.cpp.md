@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
   _extendedRequiredBy: []

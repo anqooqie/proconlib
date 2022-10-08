@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':question:'

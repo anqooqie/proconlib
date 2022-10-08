@@ -75,53 +75,53 @@ data:
     - icon: ':question:'
       path: tools/convolution.hpp
       title: Arbitrary modulus convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/cycle_detection.hpp
       title: Cycle detection on a graph
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/digit_sum.hpp
       title: Sum of digits
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/dijkstra.hpp
       title: Dijkstra's algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/directed_line_segment_2d.hpp
       title: Two-dimensional directed line segment
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
       path: tools/dsu.hpp
       title: Disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':x:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
     - icon: ':question:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
     - icon: ':question:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':question:'
@@ -130,22 +130,22 @@ data:
     - icon: ':question:'
       path: tools/floor.hpp
       title: $\left\lfloor \frac{x}{y} \right\rfloor$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_kth_root.hpp
       title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':question:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/fps.hpp
       title: Formal power series
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/garner.hpp
       title: Garner's algorithm
     - icon: ':question:'
@@ -189,7 +189,7 @@ data:
     - icon: ':x:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
     - icon: ':x:'
@@ -330,7 +330,7 @@ data:
     - icon: ':x:'
       path: tools/prim.hpp
       title: Prim's algorithm
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
     - icon: ':question:'
@@ -348,7 +348,7 @@ data:
     - icon: ':x:'
       path: tools/range_of_digit_products.hpp
       title: Range of digit products
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/rational.hpp
       title: Rational number
     - icon: ':x:'
@@ -375,10 +375,10 @@ data:
     - icon: ':question:'
       path: tools/rounding_mode.hpp
       title: Rounding mode
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/run_length.hpp
       title: Run-length encoding
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
@@ -508,37 +508,37 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/convex_hull.test.cpp
       title: tests/convex_hull.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/digit_sum.test.cpp
       title: tests/digit_sum.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table.test.cpp
       title: tests/disjoint_sparse_table.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dsu.test.cpp
       title: tests/dsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extended_garner.test.cpp
       title: tests/extended_garner.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extended_lucas.test.cpp
       title: tests/extended_lucas.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extgcd.test.cpp
       title: tests/extgcd.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/find_cycle.test.cpp
       title: tests/find_cycle.test.cpp
     - icon: ':heavy_check_mark:'
@@ -547,13 +547,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor.test.cpp
       title: tests/floor.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/floor_kth_root.test.cpp
       title: tests/floor_kth_root.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/floor_log.test.cpp
       title: tests/floor_log.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/floor_log2.test.cpp
       title: tests/floor_log2.test.cpp
     - icon: ':heavy_check_mark:'
@@ -760,15 +760,15 @@ data:
       title: tests/convolution/mod998244353.test.cpp
   - name: tests/cycle_detection
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/cycle_detection/directed.test.cpp
       title: tests/cycle_detection/directed.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/cycle_detection/undirected.test.cpp
       title: tests/cycle_detection/undirected.test.cpp
   - name: tests/dijkstra
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/dijkstra/directed.test.cpp
       title: tests/dijkstra/directed.test.cpp
     - icon: ':heavy_check_mark:'
@@ -776,38 +776,38 @@ data:
       title: tests/dijkstra/undirected.test.cpp
   - name: tests/directed_line_segment_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/cross_point.test.cpp
       title: tests/directed_line_segment_2d/cross_point.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/intersection.test.cpp
       title: tests/directed_line_segment_2d/intersection.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - name: tests/fact_mod_cache
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fact_mod_cache/combination.test.cpp
       title: tests/fact_mod_cache/combination.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fact_mod_cache/permutation.test.cpp
       title: tests/fact_mod_cache/permutation.test.cpp
   - name: tests/fps
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/exp_mod1000000007.test.cpp
       title: tests/fps/exp_mod1000000007.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/exp_mod998244353.test.cpp
       title: tests/fps/exp_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod1000000007.test.cpp
       title: tests/fps/inv_mod1000000007.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod998244353.test.cpp
       title: tests/fps/inv_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod1000000007.test.cpp
       title: tests/fps/log_mod1000000007.test.cpp
     - icon: ':x:'

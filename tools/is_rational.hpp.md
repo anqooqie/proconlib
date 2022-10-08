@@ -8,7 +8,7 @@ data:
   - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
   - icon: ':warning:'
@@ -20,7 +20,7 @@ data:
   - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':question:'
@@ -36,13 +36,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/circle_2d/where/without_radius.test.cpp
     title: tests/circle_2d/where/without_radius.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':x:'

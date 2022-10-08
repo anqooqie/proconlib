@@ -3,15 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/cycle_detection/directed.test.cpp
     title: tests/cycle_detection/directed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/cycle_detection/undirected.test.cpp
     title: tests/cycle_detection/undirected.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/cycle_detection.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -99,7 +99,7 @@ data:
   path: tools/cycle_detection.hpp
   requiredBy: []
   timestamp: '2022-09-02 09:37:09+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cycle_detection/undirected.test.cpp
   - tests/cycle_detection/directed.test.cpp

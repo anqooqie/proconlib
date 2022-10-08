@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/cumsum2d.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -73,7 +73,7 @@ data:
   path: tools/cumsum2d.hpp
   requiredBy: []
   timestamp: '2021-12-18 13:17:06+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cumsum2d.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp

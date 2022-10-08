@@ -9,15 +9,15 @@ data:
     title: std::greater by second
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dijkstra.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -106,7 +106,7 @@ data:
   path: tools/dijkstra.hpp
   requiredBy: []
   timestamp: '2022-10-01 12:56:27+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
