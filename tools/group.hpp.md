@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/pdsu.hpp
     title: Potentialized disjoint set union
   _extendedVerifiedWith:
@@ -12,15 +12,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace\
@@ -47,7 +47,7 @@ data:
   requiredBy:
   - tools/pdsu.hpp
   timestamp: '2021-11-12 22:35:05+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cumsum2d.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/gcd_convolution.hpp
     title: GCD convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []

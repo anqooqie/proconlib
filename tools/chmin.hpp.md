@@ -36,10 +36,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
   - icon: ':x:'

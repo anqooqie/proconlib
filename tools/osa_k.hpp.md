@@ -15,12 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lcm_convolution.test.cpp
     title: tests/lcm_convolution.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/osa_k.test.cpp
     title: tests/osa_k.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/osa_k.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -248,7 +248,7 @@ data:
   - tools/gcd_convolution.hpp
   - tools/lcm_convolution.hpp
   timestamp: '2022-09-11 13:33:11+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/osa_k.test.cpp
   - tests/gcd_convolution.test.cpp

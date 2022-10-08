@@ -36,7 +36,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bipartite_matching.hpp
       title: Matching on bipartite graph
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':question:'
@@ -69,7 +69,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':heavy_check_mark:'
@@ -124,7 +124,7 @@ data:
     - icon: ':question:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
     - icon: ':question:'
@@ -159,7 +159,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
     - icon: ':heavy_check_mark:'
@@ -177,7 +177,7 @@ data:
     - icon: ':question:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
@@ -288,28 +288,28 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':question:'
       path: tools/pair_hash.hpp
       title: Hash of std::pair
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_dual_segtree.hpp
       title: Persistent dual segment tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_queue.hpp
       title: Persistent queue
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
     - icon: ':question:'
@@ -327,7 +327,7 @@ data:
     - icon: ':x:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':question:'
@@ -613,22 +613,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/nth_term.test.cpp
       title: tests/nth_term.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/permutation.test.cpp
       title: tests/permutation.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/persistent_dual_segtree.test.cpp
       title: tests/persistent_dual_segtree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/persistent_queue.test.cpp
       title: tests/persistent_queue.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
     - icon: ':x:'
@@ -868,21 +868,21 @@ data:
       title: tests/matrix/solve.test.cpp
   - name: tests/polygon_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/area.test.cpp
       title: tests/polygon_2d/area.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/minimum_bounding_circle.test.cpp
       title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp
   - name: tests/prim
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prim/basic.test.cpp
       title: tests/prim/basic.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prim/unconnected.test.cpp
       title: tests/prim/unconnected.test.cpp
   - name: tests/rational

@@ -69,7 +69,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':x:'
