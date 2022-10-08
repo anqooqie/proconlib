@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -69,13 +69,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':x:'

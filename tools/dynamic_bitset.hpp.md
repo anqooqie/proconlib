@@ -9,10 +9,10 @@ data:
     title: Popcount
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
     title: tests/scc_graph/edges_to_scc.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -307,7 +307,7 @@ data:
   path: tools/dynamic_bitset.hpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rotate_left.test.cpp
   - tests/rotate_right.test.cpp

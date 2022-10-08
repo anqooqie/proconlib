@@ -12,7 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
   - icon: ':x:'

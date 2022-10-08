@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://twitter.com/anta_prg/status/869633557362163712
@@ -57,7 +57,7 @@ data:
   path: tools/random_tree.hpp
   requiredBy: []
   timestamp: '2022-07-09 11:13:10+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/random_tree.test.cpp
 documentation_of: tools/random_tree.hpp

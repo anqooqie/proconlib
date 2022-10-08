@@ -84,7 +84,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
   - icon: ':x:'

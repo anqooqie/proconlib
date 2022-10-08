@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
     - icon: ':question:'
@@ -102,7 +102,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
@@ -121,7 +121,7 @@ data:
     - icon: ':question:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
@@ -324,7 +324,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -342,16 +342,16 @@ data:
     - icon: ':question:'
       path: tools/quo.hpp
       title: Quotient as integer division
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/random_tree.hpp
       title: Random tree generator
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/range_of_digit_products.hpp
       title: Range of digit products
     - icon: ':question:'
       path: tools/rational.hpp
       title: Rational number
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
     - icon: ':heavy_check_mark:'
@@ -360,13 +360,13 @@ data:
     - icon: ':question:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_right.hpp
       title: Circular shift to the right
     - icon: ':warning:'
@@ -425,7 +425,7 @@ data:
       path: tools/unordered_set.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type,
         Hash&amp;gt;
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
     - icon: ':x:'
@@ -454,10 +454,10 @@ data:
     - icon: ':question:'
       path: tools/detail/geometry_2d.hpp
       title: tools/detail/geometry_2d.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
   verificationCategories:
@@ -631,19 +631,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/qcfium.test.cpp
       title: tests/qcfium.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/random_tree.test.cpp
       title: tests/random_tree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/range_of_digit_products.test.cpp
       title: tests/range_of_digit_products.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
@@ -652,13 +652,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_left.test.cpp
       title: tests/rotate_left.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_right.test.cpp
       title: tests/rotate_right.test.cpp
     - icon: ':x:'
@@ -887,16 +887,16 @@ data:
       title: tests/prim/unconnected.test.cpp
   - name: tests/rational
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/minus.test.cpp
       title: tests/rational/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/multiplies.test.cpp
       title: tests/rational/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/plus.test.cpp
       title: tests/rational/plus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph

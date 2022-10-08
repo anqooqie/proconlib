@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':question:'

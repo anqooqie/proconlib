@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':question:'
@@ -19,14 +19,14 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rotate_left.hpp
     title: Circular shift to the left
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -1384,7 +1384,7 @@ data:
   path: tests/rotate_left.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/rotate_left.test.cpp
 layout: document

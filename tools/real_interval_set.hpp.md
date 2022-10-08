@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/real_interval_set.hpp\"\n\n\n\n#line 1 \"tools/detail/interval_set.hpp\"\
@@ -75,7 +75,7 @@ data:
   path: tools/real_interval_set.hpp
   requiredBy: []
   timestamp: '2021-10-23 20:26:02+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/real_interval_set.test.cpp
 documentation_of: tools/real_interval_set.hpp

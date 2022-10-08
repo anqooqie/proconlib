@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
   - icon: ':heavy_check_mark:'
