@@ -63,10 +63,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
   - icon: ':x:'

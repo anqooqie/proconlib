@@ -9,7 +9,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
   - icon: ':x:'

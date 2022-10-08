@@ -13,7 +13,7 @@ data:
   - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':question:'
@@ -33,9 +33,9 @@ data:
     title: 2D vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
@@ -876,7 +876,7 @@ data:
   path: tests/line_2d/is_parallel_to.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/line_2d/is_parallel_to.test.cpp
 layout: document

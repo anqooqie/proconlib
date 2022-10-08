@@ -8,7 +8,7 @@ data:
   - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
   - icon: ':heavy_check_mark:'
@@ -28,14 +28,14 @@ data:
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
   - icon: ':question:'
@@ -144,10 +144,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
   - icon: ':x:'

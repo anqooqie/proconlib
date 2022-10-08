@@ -2,29 +2,29 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
   - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':x:'

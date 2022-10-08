@@ -26,7 +26,7 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':warning:'
@@ -75,10 +75,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':x:'

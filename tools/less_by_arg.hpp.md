@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by_arg.hpp\"\n\n\n\n#include <cassert>\n#line\
@@ -187,7 +187,7 @@ data:
   requiredBy:
   - tools/greater_by_arg.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/greater_by_arg.test.cpp

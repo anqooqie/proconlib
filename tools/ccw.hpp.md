@@ -20,10 +20,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
   _extendedVerifiedWith:
@@ -39,10 +39,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg_total.test.cpp
     title: tests/greater_by_arg_total.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
   - icon: ':x:'

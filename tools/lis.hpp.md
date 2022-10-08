@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
   - icon: ':question:'
@@ -12,12 +12,12 @@ data:
     title: Typical monoids
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <iterator>\n#include <vector>\n\
@@ -141,7 +141,7 @@ data:
   path: tools/lis.hpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lis.test.cpp
 documentation_of: tools/lis.hpp

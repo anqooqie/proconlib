@@ -35,7 +35,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':x:'
@@ -162,13 +162,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':x:'

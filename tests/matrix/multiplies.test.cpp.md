@@ -4,17 +4,17 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/matrix_product
@@ -447,7 +447,7 @@ data:
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp
 layout: document

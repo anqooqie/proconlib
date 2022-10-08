@@ -66,13 +66,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/circle_2d.hpp
       title: Two-dimensional circle
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
     - icon: ':question:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Arbitrary modulus convolution
     - icon: ':heavy_check_mark:'
@@ -152,7 +152,7 @@ data:
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -213,16 +213,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lcm_convolution.hpp
       title: LCM convolution
     - icon: ':question:'
       path: tools/less_by.hpp
       title: std::less by key
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_arg.hpp
       title: std::less by the argument
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
     - icon: ':warning:'
@@ -234,28 +234,28 @@ data:
     - icon: ':warning:'
       path: tools/less_by_second.hpp
       title: std::less by second
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/line_2d.hpp
       title: Two-dimensional line
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
     - icon: ':question:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
     - icon: ':x:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/median_heap.hpp
       title: Heap managing median
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
     - icon: ':heavy_check_mark:'
@@ -270,19 +270,19 @@ data:
     - icon: ':question:'
       path: tools/monoid.hpp
       title: Typical monoids
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/multiset.hpp
       title: __gnu_pbds::tree allowing duplicated values
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/next_matching.hpp
       title: Enumerate all matchings
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/nth_term.hpp
       title: Bostan-Mori algorithm
     - icon: ':heavy_check_mark:'
@@ -388,7 +388,7 @@ data:
     - icon: ':x:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/set.hpp
       title: Alias for __gnu_pbds::tree
     - icon: ':question:'
@@ -431,7 +431,7 @@ data:
     - icon: ':x:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: Vector
     - icon: ':question:'
@@ -583,34 +583,34 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lcm_convolution.test.cpp
       title: tests/lcm_convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/less_by_arg_total.test.cpp
       title: tests/less_by_arg_total.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/median_heap.test.cpp
       title: tests/median_heap.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/mo.test.cpp
       title: tests/mo.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/multiset.test.cpp
       title: tests/multiset.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/nth_term.test.cpp
       title: tests/nth_term.test.cpp
     - icon: ':x:'
@@ -838,32 +838,32 @@ data:
       title: tests/hld/vsubtree.test.cpp
   - name: tests/li_chao_segtree
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/li_chao_segtree/line.test.cpp
       title: tests/li_chao_segtree/line.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/li_chao_segtree/segment.test.cpp
       title: tests/li_chao_segtree/segment.test.cpp
   - name: tests/line_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/is_parallel_to.test.cpp
       title: tests/line_2d/is_parallel_to.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
   - name: tests/matrix
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/determinant.test.cpp
       title: tests/matrix/determinant.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/inv.test.cpp
       title: tests/matrix/inv.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/multiplies.test.cpp
       title: tests/matrix/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/solve.test.cpp
       title: tests/matrix/solve.test.cpp
   - name: tests/polygon_2d

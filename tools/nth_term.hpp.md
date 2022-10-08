@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -25,12 +25,12 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/nth_term.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -522,7 +522,7 @@ data:
   path: tools/nth_term.hpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/nth_term.test.cpp
 documentation_of: tools/nth_term.hpp

@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
   - icon: ':question:'

@@ -84,7 +84,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':x:'

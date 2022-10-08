@@ -4,14 +4,14 @@ data:
   - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/next_matching.hpp
     title: Enumerate all matchings
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc236/tasks/abc236_d
@@ -63,7 +63,7 @@ data:
   path: tests/next_matching.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/next_matching.test.cpp
 layout: document

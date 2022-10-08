@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
   - icon: ':question:'

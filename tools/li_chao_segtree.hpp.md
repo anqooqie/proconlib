@@ -21,15 +21,15 @@ data:
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/li_chao_segtree.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -238,7 +238,7 @@ data:
   path: tools/li_chao_segtree.hpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -24,7 +24,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
   _extendedVerifiedWith:
@@ -58,12 +58,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -552,7 +552,7 @@ data:
   - tools/nth_term.hpp
   - tools/fps.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/nth_term.test.cpp
   - tests/convolution/mod1000000007.test.cpp
