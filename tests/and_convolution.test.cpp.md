@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []

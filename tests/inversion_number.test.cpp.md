@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy: []

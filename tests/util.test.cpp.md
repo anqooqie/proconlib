@@ -4,23 +4,23 @@ data:
   - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -443,7 +443,7 @@ data:
   path: tests/util.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

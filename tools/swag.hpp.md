@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/swag.test.cpp
     title: tests/swag.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/swag.hpp\"\n\n\n\n#include <stack>\n#include <utility>\n\
@@ -56,7 +56,7 @@ data:
   path: tools/swag.hpp
   requiredBy: []
   timestamp: '2021-11-27 16:35:12+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/swag.test.cpp
 documentation_of: tools/swag.hpp

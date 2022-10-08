@@ -87,19 +87,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
   - icon: ':x:'

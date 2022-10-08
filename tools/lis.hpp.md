@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   _extendedRequiredBy: []
