@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
   _extendedRequiredBy: []

@@ -14,11 +14,11 @@ data:
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
   - icon: ':x:'
@@ -26,7 +26,7 @@ data:
     title: tests/less_by_arg.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by_arg.hpp\"\n\n\n\n#include <cassert>\n#line\
@@ -187,7 +187,7 @@ data:
   requiredBy:
   - tools/greater_by_arg.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/less_by_arg.test.cpp
   - tests/greater_by_arg.test.cpp

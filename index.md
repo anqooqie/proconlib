@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/chmax.hpp
       title: chmax function
     - icon: ':question:'
@@ -66,7 +66,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/circle_2d.hpp
       title: Two-dimensional circle
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/compress.hpp
       title: Compress values
     - icon: ':question:'
@@ -90,7 +90,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/directed_line_segment_2d.hpp
       title: Two-dimensional directed line segment
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
     - icon: ':heavy_check_mark:'
@@ -142,7 +142,7 @@ data:
     - icon: ':question:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fps.hpp
       title: Formal power series
     - icon: ':question:'
@@ -156,16 +156,16 @@ data:
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
     - icon: ':x:'
       path: tools/greater_by.hpp
       title: std::greater by key
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_arg.hpp
       title: std::greater by the argument
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_arg_total.hpp
       title: std::greater by the argument (total order)
     - icon: ':warning:'
@@ -183,16 +183,16 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/hld.hpp
       title: Heavy-light decomposition
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
     - icon: ':question:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
     - icon: ':question:'
@@ -207,10 +207,10 @@ data:
     - icon: ':x:'
       path: tools/join.hpp
       title: Join elements with delimiter
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/largest_rectangle_in_histogram.hpp
       title: Largest rectangle in histogram
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
     - icon: ':x:'
@@ -219,10 +219,10 @@ data:
     - icon: ':question:'
       path: tools/less_by.hpp
       title: std::less by key
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/less_by_arg.hpp
       title: std::less by the argument
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
     - icon: ':warning:'
@@ -243,7 +243,7 @@ data:
     - icon: ':x:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':x:'
@@ -288,7 +288,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':question:'
@@ -454,7 +454,7 @@ data:
     - icon: ':question:'
       path: tools/detail/geometry_2d.hpp
       title: tools/detail/geometry_2d.hpp
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
     - icon: ':x:'
@@ -559,28 +559,28 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_sqrt.test.cpp
       title: tests/floor_sqrt.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/gcd_convolution.test.cpp
       title: tests/gcd_convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg_total.test.cpp
       title: tests/greater_by_arg_total.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/integer_interval_set.test.cpp
       title: tests/integer_interval_set.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/largest_rectangle_in_histogram.test.cpp
       title: tests/largest_rectangle_in_histogram.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
     - icon: ':x:'
@@ -810,30 +810,30 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod1000000007.test.cpp
       title: tests/fps/log_mod1000000007.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod998244353.test.cpp
       title: tests/fps/log_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_mod1000000007.test.cpp
       title: tests/fps/pow_mod1000000007.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_mod998244353.test.cpp
       title: tests/fps/pow_mod998244353.test.cpp
   - name: tests/hld
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/hld/epath.test.cpp
       title: tests/hld/epath.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/hld/lca.test.cpp
       title: tests/hld/lca.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/hld/vancestor.test.cpp
       title: tests/hld/vancestor.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/hld/vpath.test.cpp
       title: tests/hld/vpath.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/hld/vsubtree.test.cpp
       title: tests/hld/vsubtree.test.cpp
   - name: tests/li_chao_segtree

@@ -17,7 +17,7 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
   - icon: ':question:'
@@ -54,19 +54,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/lca.test.cpp
     title: tests/hld/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vancestor.test.cpp
     title: tests/hld/vancestor.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vpath.test.cpp
     title: tests/hld/vpath.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
   - icon: ':x:'

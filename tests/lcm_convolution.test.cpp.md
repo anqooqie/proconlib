@@ -4,7 +4,7 @@ data:
   - icon: ':x:'
     path: tools/lcm_convolution.hpp
     title: LCM convolution
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []

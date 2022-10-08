@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/gcd_convolution.hpp
     title: GCD convolution
   - icon: ':x:'
     path: tools/lcm_convolution.hpp
     title: LCM convolution
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/gcd_convolution.test.cpp
     title: tests/gcd_convolution.test.cpp
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
     title: tests/osa_k.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/osa_k.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -248,7 +248,7 @@ data:
   - tools/gcd_convolution.hpp
   - tools/lcm_convolution.hpp
   timestamp: '2022-09-11 13:33:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/osa_k.test.cpp
   - tests/gcd_convolution.test.cpp

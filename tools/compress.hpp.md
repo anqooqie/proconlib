@@ -1,18 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
   - icon: ':x:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
     title: tests/lis.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/compress.hpp\"\n\n\n\n#include <utility>\n#include\
@@ -74,7 +74,7 @@ data:
   - tools/lis.hpp
   - tools/inversion_number.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/lis.test.cpp
   - tests/inversion_number.test.cpp

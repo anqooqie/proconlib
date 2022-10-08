@@ -7,10 +7,10 @@ data:
   - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
   - icon: ':question:'
@@ -21,9 +21,9 @@ data:
     title: 2D vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc225/tasks/abc225_e
@@ -205,7 +205,7 @@ data:
   path: tests/greater_by_arg.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/greater_by_arg.test.cpp
 layout: document

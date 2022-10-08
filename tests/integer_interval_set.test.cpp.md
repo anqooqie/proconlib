@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/integer_interval_set.hpp
     title: Set of integers as closed integer intervals
   - icon: ':question:'
@@ -12,9 +12,9 @@ data:
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc228/tasks/abc228_d
@@ -113,7 +113,7 @@ data:
   path: tests/integer_interval_set.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/integer_interval_set.test.cpp
 layout: document

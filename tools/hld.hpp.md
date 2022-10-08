@@ -9,24 +9,24 @@ data:
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/lca.test.cpp
     title: tests/hld/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vancestor.test.cpp
     title: tests/hld/vancestor.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vpath.test.cpp
     title: tests/hld/vpath.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/hld.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -402,7 +402,7 @@ data:
   path: tools/hld.hpp
   requiredBy: []
   timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp
