@@ -1,13 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
 #include <iostream>
-#include <cstdint>
 #include <random>
 #include "atcoder/dsu.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/random_tree.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
@@ -16,11 +15,11 @@ int main() {
   std::random_device seed_gen;
   std::mt19937 engine(seed_gen());
 
-  for (i64 n = 1; n <= 1000; ++n) {
-    tools::random_tree<i64> dist(n);
-    for (i64 i = 0; i < 10; ++i) {
+  for (ll n = 1; n <= 1000; ++n) {
+    tools::random_tree<ll> dist(n);
+    for (ll i = 0; i < 10; ++i) {
       atcoder::dsu dsu(n);
-      i64 edge_count = 0;
+      ll edge_count = 0;
       for (const auto& [u, v] : dist(engine)) {
         dsu.merge(u, v);
         ++edge_count;

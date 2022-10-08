@@ -16,23 +16,23 @@
 namespace tools {
 
   template <typename Iterator, typename ModType>
-  ::std::optional<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>> extended_garner(const Iterator& begin, const Iterator& end, const ModType& mod) {
-    ::std::vector<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>> v;
+  ::std::optional<::std::pair<long long, long long>> extended_garner(const Iterator& begin, const Iterator& end, const ModType& mod) {
+    ::std::vector<::std::pair<long long, long long>> v;
     for (auto it = begin; it != end; ++it) {
       v.emplace_back(::tools::mod(it->first, it->second), it->second);
     }
 
     for (::std::size_t i = 0; i < v.size(); ++i) {
       for (::std::size_t j = 0; j < i; ++j) {
-        ::std::int_fast64_t g = ::std::gcd(v[i].second, v[j].second);
+        long long g = ::std::gcd(v[i].second, v[j].second);
 
         if ((v[i].first - v[j].first) % g != 0) return ::std::nullopt;
 
         v[i].second /= g;
         v[j].second /= g;
 
-        ::std::int_fast64_t gi = ::std::gcd(v[i].second, g);
-        ::std::int_fast64_t gj = g / gi;
+        long long gi = ::std::gcd(v[i].second, g);
+        long long gj = g / gi;
 
         do {
           g = ::std::gcd(gi, gj);
@@ -48,7 +48,7 @@ namespace tools {
       }
     }
 
-    return ::std::optional<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>>(::tools::garner(v.begin(), v.end(), mod));
+    return ::std::optional<::std::pair<long long, long long>>(::tools::garner(v.begin(), v.end(), mod));
   }
 
   template <typename M, typename Iterator>

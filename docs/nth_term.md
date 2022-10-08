@@ -5,7 +5,7 @@ documentation_of: //tools/nth_term.hpp
 
 ```cpp
 template <typename InputIterator>
-auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, std::uint_fast64_t n) -> std::decay_t<decltype(*a_begin)>;
+auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, unsigned long long n) -> std::decay_t<decltype(*a_begin)>;
 ```
 
 Given a sequence of elements $(a_0, a_1, \ldots, a_{d - 1})$ on a field $K$ and a linear recurrence equation $a_i + \sum_{j=1}^d c_j a_{i - j} \equiv 0$ for $i \geq d$, it returns $a_n$.

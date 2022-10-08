@@ -1,7 +1,6 @@
 #ifndef TOOLS_NTH_TERM_HPP
 #define TOOLS_NTH_TERM_HPP
 
-#include <cstdint>
 #include <type_traits>
 #include <vector>
 #include <cassert>
@@ -10,7 +9,7 @@
 
 namespace tools {
   template <typename InputIterator>
-  auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, ::std::uint_fast64_t n) -> ::std::decay_t<decltype(*a_begin)> {
+  auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, unsigned long long n) -> ::std::decay_t<decltype(*a_begin)> {
     using M = ::std::decay_t<decltype(*a_begin)>;
     ::std::vector<M> G(a_begin, a_end);
     ::std::vector<M> Q(c_begin, c_end);

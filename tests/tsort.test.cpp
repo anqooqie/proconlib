@@ -1,7 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 // oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B properly, so I implemented a special judge for the problem.
 
-#include <cstdint>
 #include <cstdlib>
 #include <vector>
 #include <utility>
@@ -10,22 +9,22 @@
 #include "tools/tsort.hpp"
 #include "tools/lower_bound.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
-void verify(const i64 node_count, std::vector<std::pair<i64, i64>>& edges) {
+void verify(const ll node_count, std::vector<std::pair<ll, ll>>& edges) {
 
   tools::tsort tsort(node_count);
   for (const auto& [s, t] : edges) {
     tsort.add_edge(s, t);
   }
 
-  std::vector<i64> result;
+  std::vector<ll> result;
   tsort.query(std::back_inserter(result));
 
-  assert_that(i64(result.size()) == node_count);
+  assert_that(ll(result.size()) == node_count);
 
-  std::vector<i64> order(node_count);
-  for (i64 i = 0; i < node_count; ++i) {
+  std::vector<ll> order(node_count);
+  for (ll i = 0; i < node_count; ++i) {
     order[result[i]] = i;
   }
   for (const auto& [s, t] : edges) {
@@ -34,7 +33,7 @@ void verify(const i64 node_count, std::vector<std::pair<i64, i64>>& edges) {
 }
 
 void sample_00() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(1, 2);
   edges.emplace_back(3, 1);
@@ -45,7 +44,7 @@ void sample_00() {
 }
 
 void small_00() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(0, 2);
   edges.emplace_back(2, 3);
@@ -55,7 +54,7 @@ void small_00() {
 }
 
 void small_01() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(0, 3);
   edges.emplace_back(0, 2);
@@ -67,7 +66,7 @@ void small_01() {
 }
 
 void small_02() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(0, 2);
   edges.emplace_back(2, 1);
@@ -83,7 +82,7 @@ void small_02() {
 }
 
 void small_03() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(0, 3);
   edges.emplace_back(1, 2);
@@ -95,7 +94,7 @@ void small_03() {
 }
 
 void small_04() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 7);
   edges.emplace_back(1, 7);
   edges.emplace_back(2, 7);
@@ -107,7 +106,7 @@ void small_04() {
 }
 
 void small_05() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(1, 2);
   edges.emplace_back(3, 4);
   edges.emplace_back(5, 6);
@@ -120,7 +119,7 @@ void small_05() {
 }
 
 void small_06() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(0, 2);
   edges.emplace_back(2, 3);
@@ -130,25 +129,25 @@ void small_06() {
 }
 
 void corner_00() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   verify(2, edges);
 }
 
 void corner_01() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   verify(2, edges);
 }
 
 void corner_02() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 1);
   edges.emplace_back(2, 3);
   verify(4, edges);
 }
 
 void corner_03() {
-  std::vector<std::pair<i64, i64>> edges;
+  std::vector<std::pair<ll, ll>> edges;
   edges.emplace_back(0, 2);
   edges.emplace_back(1, 2);
   verify(3, edges);

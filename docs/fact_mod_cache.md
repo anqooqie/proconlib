@@ -14,7 +14,7 @@ It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {
 ## Constructor
 ```cpp
 (1) fact_mod_cache<M> cache();
-(2) fact_mod_cache<M> cache(std::int_fast64_t N);
+(2) fact_mod_cache<M> cache(long long N);
 ```
 
 - (1)
@@ -34,7 +34,7 @@ It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {
 
 ## inv
 ```cpp
-M cache.inv(std::int_fast64_t n);
+M cache.inv(long long n);
 ```
 
 It returns $n^{-1} \pmod{P}$.
@@ -48,7 +48,7 @@ It returns $n^{-1} \pmod{P}$.
 
 ## fact
 ```cpp
-M cache.fact(std::int_fast64_t n);
+M cache.fact(long long n);
 ```
 
 It returns $n! \pmod{P}$.
@@ -62,7 +62,7 @@ It returns $n! \pmod{P}$.
 
 ## fact_inv
 ```cpp
-M cache.fact_inv(std::int_fast64_t n);
+M cache.fact_inv(long long n);
 ```
 
 It returns $n!^{-1} \pmod{P}$.
@@ -76,7 +76,7 @@ It returns $n!^{-1} \pmod{P}$.
 
 ## combination
 ```cpp
-M cache.combination(std::int_fast64_t n, std::int_fast64_t r);
+M cache.combination(long long n, long long r);
 ```
 
 It returns
@@ -97,7 +97,7 @@ $$\begin{align*}
 
 ## permutation
 ```cpp
-M cache.permutation(std::int_fast64_t n, std::int_fast64_t r);
+M cache.permutation(long long n, long long r);
 ```
 
 It returns

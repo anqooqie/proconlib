@@ -1,25 +1,24 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/factorize"
 
-#include <cstdint>
 #include <iostream>
 #include <vector>
 #include "tools/prime_factorization.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  i64 Q;
+  ll Q;
   std::cin >> Q;
-  for (i64 i = 0; i < Q; ++i) {
-    i64 a_i;
+  for (ll i = 0; i < Q; ++i) {
+    ll a_i;
     std::cin >> a_i;
 
-    const ::std::vector<i64> prime_factors = tools::prime_factorization(a_i);
+    const ::std::vector<ll> prime_factors = tools::prime_factorization(a_i);
     std::cout << prime_factors.size();
-    for (const i64& p : prime_factors) {
+    for (const ll& p : prime_factors) {
       std::cout << ' ' << p;
     }
     std::cout << '\n';

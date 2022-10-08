@@ -1,8 +1,9 @@
 #ifndef TOOLS_RATIONAL_HPP
 #define TOOLS_RATIONAL_HPP
 
-#include <cstdint>
 #include <cassert>
+#include <type_traits>
+#include <cstddef>
 #include <limits>
 #include <iostream>
 #include "tools/bigint.hpp"
@@ -60,7 +61,7 @@ namespace tools {
     ::tools::rational& operator=(const ::tools::rational&) = default;
     ::tools::rational& operator=(::tools::rational&&) = default;
 
-    explicit rational(const ::std::int_fast64_t n) : m_numerator(n), m_denominator(1) {
+    explicit rational(const long long n) : m_numerator(n), m_denominator(1) {
     }
     explicit rational(const ::tools::bigint& n) : m_numerator(n), m_denominator(1) {
     }
@@ -69,7 +70,7 @@ namespace tools {
         m_denominator(::tools::bigint(1).multiply_by_pow10(::std::max<::std::ptrdiff_t>(0, d.scale()))) {
       this->regularize();
     }
-    rational(const ::std::int_fast64_t numerator, const ::std::int_fast64_t denominator)
+    rational(const long long numerator, const long long denominator)
       : m_numerator(numerator), m_denominator(denominator) {
       assert(denominator != 0);
       this->regularize();
@@ -150,6 +151,11 @@ namespace tools {
     }
     friend ::tools::rational operator/(const ::tools::rational& lhs, const ::tools::rational& rhs) {
       return ::tools::rational(lhs) /= rhs;
+    }
+
+    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>
+    explicit operator T() const {
+      return static_cast<T>(this->m_numerator / this->m_denominator);
     }
 
     explicit operator double() const {

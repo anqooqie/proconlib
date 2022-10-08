@@ -30,7 +30,7 @@ It precomputes ${}_n C_r \pmod{M}$ for any $n$ and $r$ where $M$ is `T::mod()`.
 
 ## combination
 ```cpp
-T cache.combination(std::int_fast64_t n, std::int_fast64_t r);
+T cache.combination(long long n, long long r);
 ```
 
 It returns ${}_n C_r \pmod{M}$ if $0 \leq r \leq n$.

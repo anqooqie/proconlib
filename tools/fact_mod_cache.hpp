@@ -2,7 +2,6 @@
 #define TOOLS_FACT_MOD_CACHE_HPP
 
 #include <vector>
-#include <cstdint>
 #include <cassert>
 #include <algorithm>
 #include <cmath>
@@ -14,7 +13,6 @@ namespace tools {
   template <class M>
   class fact_mod_cache {
   private:
-    using i64 = ::std::int_fast64_t;
     ::std::vector<M> m_inv;
     ::std::vector<M> m_fact;
     ::std::vector<M> m_fact_inv;
@@ -29,48 +27,48 @@ namespace tools {
     ::tools::fact_mod_cache<M>& operator=(const ::tools::fact_mod_cache<M>&) = default;
     ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&) = default;
 
-    M inv(const i64 n) {
+    M inv(const long long n) {
       assert(n % M::mod() != 0);
-      const i64 size = ::tools::ssize(this->m_inv);
-      this->m_inv.resize(::std::clamp<i64>(::std::abs(n) + 1, size, M::mod()));
-      for (i64 i = size; i < ::tools::ssize(this->m_inv); ++i) {
+      const long long size = ::tools::ssize(this->m_inv);
+      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));
+      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {
         this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);
       }
       M result = this->m_inv[::std::abs(n) % M::mod()];
       if (n < 0) result = -result;
       return result;
     }
-    M fact(const i64 n) {
+    M fact(const long long n) {
       assert(n >= 0);
-      const i64 size = ::tools::ssize(this->m_fact);
-      this->m_fact.resize(::std::clamp<i64>(n + 1, size, M::mod()));
-      for (i64 i = size; i < ::tools::ssize(this->m_fact); ++i) {
+      const long long size = ::tools::ssize(this->m_fact);
+      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));
+      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {
         this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);
       }
       return n < M::mod() ? this->m_fact[n] : M::raw(0);
     }
-    M fact_inv(const i64 n) {
+    M fact_inv(const long long n) {
       assert(0 <= n && n < M::mod());
-      const i64 size = ::tools::ssize(this->m_fact_inv);
-      this->m_fact_inv.resize(::std::max<i64>(size, n + 1));
+      const long long size = ::tools::ssize(this->m_fact_inv);
+      this->m_fact_inv.resize(::std::max<long long>(size, n + 1));
       this->inv(this->m_fact_inv.size() - 1);
-      for (i64 i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {
+      for (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {
         this->m_fact_inv[i] = this->m_fact_inv[i - 1] * this->m_inv[i];
       }
       return this->m_fact_inv[n];
     }
 
-    explicit fact_mod_cache(const i64 max) : fact_mod_cache() {
-      this->fact(::std::min<i64>(max, M::mod() - 1));
-      this->fact_inv(::std::min<i64>(max, M::mod() - 1));
+    explicit fact_mod_cache(const long long max) : fact_mod_cache() {
+      this->fact(::std::min<long long>(max, M::mod() - 1));
+      this->fact_inv(::std::min<long long>(max, M::mod() - 1));
     }
 
-    M combination(i64 n, i64 r) {
+    M combination(long long n, long long r) {
       if (!(0 <= r && r <= n)) return M::raw(0);
 
-      this->fact(::std::min<i64>(n, M::mod() - 1));
-      this->fact_inv(::std::min<i64>(n, M::mod() - 1));
-      const auto c = [&](const i64 nn, const i64 rr) {
+      this->fact(::std::min<long long>(n, M::mod() - 1));
+      this->fact_inv(::std::min<long long>(n, M::mod() - 1));
+      const auto c = [&](const long long nn, const long long rr) {
         return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn - rr] * this->m_fact_inv[rr] : M::raw(0);
       };
 
@@ -83,7 +81,7 @@ namespace tools {
 
       return result;
     }
-    M permutation(const i64 n, const i64 r) {
+    M permutation(const long long n, const long long r) {
       if (!(0 <= r && r <= n)) return M::raw(0);
       return this->combination(n, r) * this->fact(r);
     }

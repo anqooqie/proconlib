@@ -29,7 +29,7 @@ If `maximal` is `true`, it will calculate the maximal $y$ at given $x$.
 If `maximal` is `false`, it will calculate the minimal $y$ at given $x$.
 
 ### Constraints
-- $\mathrm{end} - \mathrm{begin} \geq 1$
+- $\mathrm{begin} \leq \mathrm{end}$
 - The elements from `begin` to `end` are sorted.
 
 ### Time Complexity

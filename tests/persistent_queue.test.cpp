@@ -1,31 +1,30 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/persistent_queue"
 
-#include <cstdint>
 #include <iostream>
 #include <vector>
 #include "tools/persistent_queue.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  tools::persistent_queue<i64>::buffer buffer;
-  std::vector<tools::persistent_queue<i64>> S;
+  tools::persistent_queue<ll>::buffer buffer;
+  std::vector<tools::persistent_queue<ll>> S;
   S.emplace_back(buffer);
-  i64 Q;
+  ll Q;
   std::cin >> Q;
-  for (i64 q = 0; q < Q; ++q) {
-    i64 type;
+  for (ll q = 0; q < Q; ++q) {
+    ll type;
     std::cin >> type;
     if (type == 0) {
-      i64 t, x;
+      ll t, x;
       std::cin >> t >> x;
       ++t;
       S.push_back(S[t].push(x));
     } else {
-      i64 t;
+      ll t;
       std::cin >> t;
       ++t;
       std::cout << S[t].front() << '\n';

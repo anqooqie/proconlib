@@ -1,15 +1,14 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
-#include <cstdint>
 #include <iostream>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/fps.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 using mint = atcoder::modint1000000007;
 
-void solve(const tools::fps<mint>& a, const i64 M, const tools::fps<mint>& expected) {
+void solve(const tools::fps<mint>& a, const ll M, const tools::fps<mint>& expected) {
   assert_that(expected == a.pow(M));
 }
 

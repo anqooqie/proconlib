@@ -5,7 +5,7 @@ documentation_of: //tools/garner.hpp
 
 ```cpp
 template <typename Iterator, typename ModType>
-std::pair<std::int_fast64_t, std::int_fast64_t> garner(Iterator begin, Iterator end, ModType M);
+std::pair<long long, long long> garner(Iterator begin, Iterator end, ModType M);
 
 template <typename M, typename Iterator>
 std::pair<M, M> garner(Iterator begin, Iterator end);

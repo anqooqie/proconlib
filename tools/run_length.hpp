@@ -2,6 +2,7 @@
 #define TOOLS_RUN_LENGTH_HPP
 
 #include <iterator>
+#include <cstddef>
 #include <utility>
 #include <cstdint>
 
@@ -11,7 +12,7 @@ namespace tools {
     using T = typename ::std::iterator_traits<InputIterator>::value_type;
     if (begin == end) return;
 
-    ::std::pair<T, ::std::int_fast64_t> prev;
+    ::std::pair<T, ::std::size_t> prev;
     for (auto [it, breaks] = ::std::make_pair(begin, false); !breaks; breaks = it == end, it = ::std::next(it, breaks ? 0 : 1)) {
       bool flg1, flg2;
       if (it == begin) {

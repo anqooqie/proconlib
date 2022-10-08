@@ -1,13 +1,12 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_A"
 #define ERROR 1e-9
 
-#include <cstdint>
 #include <iostream>
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 #include "tools/line_2d.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 using T = tools::rational;
 
 int main() {
@@ -17,9 +16,9 @@ int main() {
   tools::vector2<T> p1, p2;
   std::cin >> p1 >> p2;
   const auto l = tools::line_2d<T>::through(p1, p2);
-  i64 q;
+  ll q;
   std::cin >> q;
-  for (i64 i = 0; i < q; ++i) {
+  for (ll i = 0; i < q; ++i) {
     tools::vector2<T> p;
     std::cin >> p;
     const auto x = l.projection(p);

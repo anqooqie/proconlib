@@ -1,6 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
-#include <cstdlib>
 #include <iostream>
 #include <cstdint>
 #include "tools/assert_that.hpp"

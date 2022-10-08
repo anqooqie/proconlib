@@ -1,10 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/kth_root_integer"
 
-#include <cstdint>
 #include <iostream>
 #include "tools/floor_kth_root.hpp"
 
-using u64 = std::uint_fast64_t;
+using ull = unsigned long long;
 
 int main() {
   std::cin.tie(nullptr);
@@ -13,7 +12,7 @@ int main() {
   int T;
   std::cin >> T;
   for (int t = 0; t < T; ++t) {
-    u64 A;
+    ull A;
     int K;
     std::cin >> A >> K;
     std::cout << tools::floor_kth_root(A, K) << '\n';

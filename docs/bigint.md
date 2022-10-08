@@ -299,6 +299,20 @@ It returns $\gcd(x, y)$.
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
 
+## operator T
+```cpp
+T explicit operator T(bigint& x);
+```
+
+It casts $x$ to the type `T`.
+
+### Constraints
+- `T` is a built-in integral type or `double`.
+- `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
+
+### Time Complexity
+- $O(\log \|x\|)$
+
 ## operator>>
 ```cpp
 std::istream& operator>>(std::istream& is, bigint& x);

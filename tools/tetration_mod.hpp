@@ -1,7 +1,6 @@
 #ifndef TOOLS_TETRATION_MOD_HPP
 #define TOOLS_TETRATION_MOD_HPP
 
-#include <cstdint>
 #include <limits>
 #include <vector>
 #include <utility>
@@ -24,21 +23,21 @@ namespace tools {
     if (m == 1) return 0;
 
     // It returns min(fa^^fb, 2^63 - 1).
-    const auto f = [](const ::std::int_fast64_t fa, const ::std::int_fast64_t fb) {
-      if (fa == 0) return 1 - fb % 2;
-      if (fa == 1) return ::std::int_fast64_t(1);
-      if (fb == 0) return ::std::int_fast64_t(1);
-      if (fb == 1) return fa;
-      if (fb == 2 && fa <= 15) return ::tools::pow(fa, fa);
-      if (fb == 3 && fa <= 3) return ::tools::pow(fa, ::tools::pow(fa, fa));
-      if (fb == 4 && fa <= 2) return ::tools::pow(fa, ::tools::pow(fa, ::tools::pow(fa, fa)));
+    const auto f = [](const long long lla, const long long llb) {
+      if (lla == 0) return 1 - llb % 2;
+      if (lla == 1) return 1LL;
+      if (llb == 0) return 1LL;
+      if (llb == 1) return lla;
+      if (llb == 2 && lla <= 15) return ::tools::pow(lla, lla);
+      if (llb == 3 && lla <= 3) return ::tools::pow(lla, ::tools::pow(lla, lla));
+      if (llb == 4 && lla <= 2) return ::tools::pow(lla, ::tools::pow(lla, ::tools::pow(lla, lla)));
 
       // Too large
-      return ::std::numeric_limits<::std::int_fast64_t>::max();
+      return ::std::numeric_limits<long long>::max();
     };
 
-    if (f(a, b) < ::std::numeric_limits<::std::int_fast64_t>::max()) {
-      return f(a, b) % m;
+    if (const auto x = f(a, b); x < ::std::numeric_limits<long long>::max()) {
+      return x % m;
     }
 
     ::std::vector<::std::pair<T, T>> answers;

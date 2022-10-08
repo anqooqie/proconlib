@@ -4,16 +4,15 @@ documentation_of: //tools/floor_log2.hpp
 ---
 
 ```cpp
-std::int32_t floor_log2(std::int32_t x);
-std::uint32_t floor_log2(std::uint32_t x);
-std::int64_t floor_log2(std::int64_t x);
-std::uint64_t floor_log2(std::uint64_t x);
+template <typename T>
+T floor_log2(T x);
 ```
 
 It returns $\left\lfloor \log_2(x) \right\rfloor$.
 
 ## Constraints
-- $x \geq 1$
+- $x > 0$
+- `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
 ## Time Complexity
 - $O(\log\log x)$

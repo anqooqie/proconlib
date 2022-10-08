@@ -5,7 +5,7 @@ documentation_of: //tools/ccw.hpp
 
 ```cpp
 template <typename T>
-std::int_fast64_t ccw(tools::vector2<T> a, tools::vector2<T> b, tools::vector2<T> c);
+int ccw(tools::vector2<T> a, tools::vector2<T> b, tools::vector2<T> c);
 ```
 
 It returns 

@@ -16,10 +16,10 @@ For explanatory purposes, let $n_\circ$ denote the numerator of $\circ$ and $d_\
 ## Constructor
 ```cpp
 (1) rational x;
-(2) rational x(std::int_fast64_t n);
+(2) rational x(long long n);
 (3) rational x(const tools::bigint& n);
 (4) rational x(const tools::bigdecimal& n);
-(5) rational x(std::int_fast64_t n, std::int_fast64_t d);
+(5) rational x(long long n, long long d);
 (6) rational x(const tools::bigint& n, const tools::bigint& d);
 ```
 
@@ -253,6 +253,20 @@ It compares $x$ and $y$, and returns the result.
 ### Constraints
 - $3 \left\lceil \log_{10000} \|d_x n_y\| \right\rceil + 2 \leq 2^{25}$
 - $\left\lceil \log_{10000} \|n_x d_y\| \right\rceil + \left\lceil \log_{10000} \|d_x n_y\| \right\rceil \leq 2^{25}$
+
+### Time Complexity
+- $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$
+
+## operator T
+```cpp
+T explicit operator T(rational& x);
+```
+
+It casts $x$ to the type `T`.
+
+### Constraints
+- `T` is a built-in integral type or `double`.
+- `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
 
 ### Time Complexity
 - $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$

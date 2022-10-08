@@ -4,7 +4,6 @@
 #include <vector>
 #include <optional>
 #include <utility>
-#include <cstdint>
 #include <algorithm>
 #include <cassert>
 #include "tools/ssize.hpp"
@@ -22,7 +21,7 @@ namespace tools {
     ::std::vector<M> m_cumsum;
     ::std::vector<M> m_inv_pow;
     ::std::vector<M> m_inv_cumsum;
-    ::std::optional<::std::pair<::std::int_fast64_t, ::std::int_fast64_t>> m_period;
+    ::std::optional<::std::pair<long long, long long>> m_period;
 
   public:
     pow_mod_cache() = default;
@@ -32,13 +31,13 @@ namespace tools {
     ::tools::pow_mod_cache<M>& operator=(const ::tools::pow_mod_cache<M>&) = default;
     ::tools::pow_mod_cache<M>& operator=(::tools::pow_mod_cache<M>&&) = default;
 
-    M operator[](const ::std::int_fast64_t n) {
+    M operator[](const long long n) {
       if (!this->m_period) {
-        if (::std::max<::std::int_fast64_t>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<::std::int_fast64_t>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
+        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
           if (n >= 0) {
-            const ::std::int_fast64_t size = ::tools::ssize(this->m_pow);
+            const long long size = ::tools::ssize(this->m_pow);
             this->m_pow.resize(::std::max(size, n + 1));
-            for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_pow); ++i) {
+            for (long long i = size; i < ::tools::ssize(this->m_pow); ++i) {
               this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
             }
             return this->m_pow[n];
@@ -46,9 +45,9 @@ namespace tools {
             if (this->m_inv_pow.size() == 1) {
               this->m_inv_pow.push_back(this->m_pow[1].inv());
             }
-            const ::std::int_fast64_t size = ::tools::ssize(this->m_inv_pow);
+            const long long size = ::tools::ssize(this->m_inv_pow);
             this->m_inv_pow.resize(::std::max(size, -n + 1));
-            for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {
+            for (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {
               this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];
             }
             return this->m_inv_pow[-n];
@@ -56,9 +55,9 @@ namespace tools {
         }
 
         this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; }));
-        const ::std::int_fast64_t size = ::tools::ssize(this->m_pow);
+        const long long size = ::tools::ssize(this->m_pow);
         this->m_pow.resize(this->m_period->first + this->m_period->second);
-        for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_pow); ++i) {
+        for (long long i = size; i < ::tools::ssize(this->m_pow); ++i) {
           this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
         }
         this->m_inv_pow.clear();
@@ -77,24 +76,24 @@ namespace tools {
       }
     }
 
-    M sum(const ::std::int_fast64_t l, const ::std::int_fast64_t r) {
+    M sum(const long long l, const long long r) {
       if (l >= r) return M::raw(0);
 
       (*this)[r - 1];
       (*this)[l];
 
       {
-        const ::std::int_fast64_t size = ::tools::ssize(this->m_cumsum);
+        const long long size = ::tools::ssize(this->m_cumsum);
         this->m_cumsum.resize(this->m_pow.size() + 1);
-        for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_cumsum); ++i) {
+        for (long long i = size; i < ::tools::ssize(this->m_cumsum); ++i) {
           this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i - 1];
         }
       }
 
       if (!this->m_period) {
-        const ::std::int_fast64_t size = ::tools::ssize(this->m_inv_cumsum);
+        const long long size = ::tools::ssize(this->m_inv_cumsum);
         this->m_inv_cumsum.resize(this->m_inv_pow.size() + 1);
-        for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_inv_cumsum); ++i) {
+        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum); ++i) {
           this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i - 1];
         }
 
@@ -107,12 +106,12 @@ namespace tools {
         }
       }
 
-      static const auto cumsum = [&](const ::std::int_fast64_t ll, const ::std::int_fast64_t rr) {
+      static const auto cumsum = [&](const long long ll, const long long rr) {
         return this->m_cumsum[rr] - this->m_cumsum[ll];
       };
 
       if (l >= 0) {
-        static const auto f = [&](const ::std::int_fast64_t x) {
+        static const auto f = [&](const long long x) {
           if (x <= this->m_period->first + this->m_period->second) {
             return cumsum(0, x);
           } else {
@@ -130,7 +129,7 @@ namespace tools {
 
     explicit pow_mod_cache(const M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)}) {
     }
-    explicit pow_mod_cache(const ::std::int_fast64_t base) : pow_mod_cache(M(base)) {
+    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base)) {
     }
   };
 }

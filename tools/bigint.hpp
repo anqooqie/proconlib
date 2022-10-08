@@ -294,13 +294,13 @@ namespace tools {
 
       this->m_digits.clear();
       this->m_digits.reserve(c1.size() + 1);
-      ::std::int_fast64_t carry = 0;
+      long long carry = 0;
       for (::std::size_t i = 0; i < c1.size(); ++i) {
 
         // Since a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(), other.m_digits.size()) holds.
         // In addition, since this->m_digits.size() + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216 holds eventually.
         // 1677386072457216 < 167772161 * 469762049 = 78812994116517889 holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049) by CRT.
-        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i]);
+        long long c_i = ::tools::garner2(c1[i], c2[i]);
 
         c_i += carry;
         carry = c_i / BASE;

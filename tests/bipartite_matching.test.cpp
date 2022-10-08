@@ -1,20 +1,19 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/bipartitematching"
 
-#include <cstdint>
 #include <iostream>
 #include "tools/bipartite_matching.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  i64 L, R, M;
+  ll L, R, M;
   std::cin >> L >> R >> M;
   tools::bipartite_matching graph(L, R);
-  for (i64 i = 0; i < M; ++i) {
-    i64 a, b;
+  for (ll i = 0; i < M; ++i) {
+    ll a, b;
     std::cin >> a >> b;
     graph.add_edge(a, b);
   }

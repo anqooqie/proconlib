@@ -13,7 +13,7 @@ It returns $b^n \pmod{M}$.
 
 ## Constructor
 ```cpp
-pow_mod_cache<M> cache(std::int_fast64_t b);
+pow_mod_cache<M> cache(long long b);
 pow_mod_cache<M> cache(M b);
 ```
 
@@ -27,7 +27,7 @@ It creates an empty cache to store $b^n \pmod{M}$.
 
 ## operator[]
 ```cpp
-M cache.operator[](std::int_fast64_t n);
+M cache.operator[](long long n);
 ```
 
 It returns $b^n \pmod{M}$.
@@ -41,7 +41,7 @@ It returns $b^n \pmod{M}$.
 
 ## sum
 ```cpp
-M cache.sum(std::int_fast64_t l, std::int_fast64_t r);
+M cache.sum(long long l, long long r);
 ```
 
 It returns

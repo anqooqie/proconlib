@@ -16,7 +16,7 @@ Given an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$ and an abelian g
 
 ## Constructor
 ```cpp
-template <typename G>
+template <typename G = tools::group::plus<long long>>
 pdsu<G> d(int n);
 ```
 

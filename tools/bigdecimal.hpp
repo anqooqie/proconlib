@@ -3,9 +3,9 @@
 
 #include <cstddef>
 #include <algorithm>
-#include <cstdint>
 #include <string>
 #include <cassert>
+#include <type_traits>
 #include <limits>
 #include <cmath>
 #include <iostream>
@@ -86,7 +86,7 @@ namespace tools {
     ::tools::bigdecimal& operator=(const ::tools::bigdecimal&) = default;
     ::tools::bigdecimal& operator=(::tools::bigdecimal&&) = default;
 
-    explicit bigdecimal(const ::std::int_fast64_t n) : m_unscaled_value(n), m_scale(0) {
+    explicit bigdecimal(const long long n) : m_unscaled_value(n), m_scale(0) {
     }
     explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n), m_scale(0) {
     }
@@ -225,6 +225,13 @@ namespace tools {
     }
     friend ::tools::bigdecimal operator/(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {
       return ::tools::bigdecimal(lhs) /= rhs;
+    }
+
+    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>
+    explicit operator T() const {
+      auto x = *this;
+      x.set_scale(0);
+      return static_cast<T>(x.m_unscaled_value);
     }
 
     explicit operator double() const {

@@ -1,6 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/find_linear_recurrence"
 
-#include <cstdint>
 #include <iostream>
 #include <vector>
 #include <iterator>

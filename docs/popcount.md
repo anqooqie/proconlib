@@ -4,16 +4,15 @@ documentation_of: //tools/popcount.hpp
 ---
 
 ```cpp
-std::int32_t popcount(std::int32_t x);
-std::uint32_t popcount(std::uint32_t x);
-std::int64_t popcount(std::int64_t x);
-std::uint64_t popcount(std::uint64_t x);
+template <typename T>
+T popcount(T x);
 ```
 
 It returns the number of 1 bits in the value of $x$.
 
 ## Constraints
 - $x \geq 0$
+- `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
 ## Time Complexity
 - $O(\log\log x)$

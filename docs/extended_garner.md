@@ -5,7 +5,7 @@ documentation_of: //tools/extended_garner.hpp
 
 ```cpp
 template <typename Iterator, typename ModType>
-std::optional<std::pair<std::int_fast64_t, std::int_fast64_t>> extended_garner(Iterator begin, Iterator end, ModType M);
+std::optional<std::pair<long long, long long>> extended_garner(Iterator begin, Iterator end, ModType M);
 
 template <typename M, typename Iterator>
 std::optional<std::pair<M, M>> extended_garner(Iterator begin, Iterator end);

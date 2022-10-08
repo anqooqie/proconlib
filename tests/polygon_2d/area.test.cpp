@@ -8,14 +8,14 @@
 #include "tools/vector2.hpp"
 #include "tools/polygon_2d.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 using T = tools::rational;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  i64 n;
+  ll n;
   std::cin >> n;
   std::vector<tools::vector2<T>> g;
   std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));

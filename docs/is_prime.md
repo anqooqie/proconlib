@@ -4,7 +4,7 @@ documentation_of: //tools/is_prime.hpp
 ---
 
 ```cpp
-constexpr bool is_prime(std::uint_fast64_t n);
+constexpr bool is_prime(unsigned long long n);
 ```
 
 It returns `true` if $n$ is a prime, and `false` if $n$ is not a prime.

@@ -16,7 +16,7 @@ It calculates the chromatic number of a given graph which is not necessarily sim
 
 ## Constructor
 ```cpp
-chromatic_number graph(::std::size_t n);
+chromatic_number graph(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
@@ -29,7 +29,7 @@ It creates a graph with $n$ vertices and $0$ edges.
 
 ## add_edge
 ```cpp
-void graph.add_edge(::std::size_t s, ::std::size_t t);
+void graph.add_edge(std::size_t s, std::size_t t);
 ```
 
 It adds a edge from $s$ to $t$.
@@ -43,7 +43,7 @@ It adds a edge from $s$ to $t$.
 
 ## query
 ```cpp
-::std::int_fast64_t graph.query();
+long long graph.query();
 ```
 
 It returns the chromatic number of the graph.

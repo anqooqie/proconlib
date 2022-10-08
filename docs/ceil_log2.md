@@ -4,16 +4,15 @@ documentation_of: //tools/ceil_log2.hpp
 ---
 
 ```cpp
-std::int32_t ceil_log2(std::int32_t x);
-std::uint32_t ceil_log2(std::uint32_t x);
-std::int64_t ceil_log2(std::int64_t x);
-std::uint64_t ceil_log2(std::uint64_t x);
+template <typename T>
+T ceil_log2(T x);
 ```
 
 It returns $\left\lceil \log_2(x) \right\rceil$.
 
 ## Constraints
-- $x \geq 1$
+- $x > 0$
+- `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
 ## Time Complexity
 - $O(\log\log x)$

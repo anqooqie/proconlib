@@ -57,7 +57,7 @@ namespace tools {
     explicit modint_for_rolling_hash(const ::std::uint64_t x) : m_val(calc_mod(x)) {
     }
 
-    ::tools::modint_for_rolling_hash pow(const ::std::int_fast64_t n) const {
+    ::tools::modint_for_rolling_hash pow(const long long n) const {
       return ::tools::pow(*this, n);
     }
     ::tools::modint_for_rolling_hash inv() const {
@@ -125,14 +125,14 @@ namespace tools {
       return lhs.m_val != rhs.m_val;
     }
 
-    ::std::int_fast64_t val() const {
+    long long val() const {
       return this->m_val;
     }
 
     static ::tools::modint_for_rolling_hash raw(const ::std::uint64_t x) {
       return ::tools::modint_for_rolling_hash(x, 0);
     }
-    static ::std::int_fast64_t mod() {
+    static long long mod() {
       return MOD;
     }
 

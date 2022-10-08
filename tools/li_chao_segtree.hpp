@@ -72,8 +72,10 @@ namespace tools {
     li_chao_segtree(const Iterator& begin, const Iterator& end, const bool maximal) :
       m_maximal(maximal),
       m_xs(begin, end),
-      m_height(::tools::ceil_log2(this->m_xs.size())),
-      m_nodes(::tools::pow2(this->m_height + 1), ::std::pair<T, T>(0, maximal ? ::std::numeric_limits<T>::min() : ::std::numeric_limits<T>::max())) {
+      m_height(this->m_xs.empty() ? ::std::numeric_limits<T>::min() : ::tools::ceil_log2(this->m_xs.size())),
+      m_nodes(this->m_xs.empty() ? 0 : ::tools::pow2(this->m_height + 1), ::std::pair<T, T>(0, maximal ? ::std::numeric_limits<T>::min() : ::std::numeric_limits<T>::max())) {
+      if (this->m_xs.empty()) return;
+
       assert(::std::is_sorted(this->m_xs.begin(), this->m_xs.end()));
       const ::std::size_t n = this->m_xs.size();
       this->m_xs.resize(this->capacity() + 1);
@@ -88,10 +90,14 @@ namespace tools {
     ::tools::li_chao_segtree<T>& operator=(::tools::li_chao_segtree<T>&&) = default;
 
     void add(const T& a, const T& b) {
+      if (this->m_xs.empty()) return;
+
       this->add_impl(a, b, 1);
     }
 
     void add(const T& a, const T& b, const T& l, const T& r) {
+      if (this->m_xs.empty()) return;
+
       auto l_id = ::tools::lower_bound(this->m_xs.begin(), ::std::prev(this->m_xs.end()), l);
       auto r_id = ::tools::lower_bound(this->m_xs.begin(), ::std::prev(this->m_xs.end()), r);
       if (r_id == ::tools::ssize(this->m_xs) - 1 || r < this->m_xs[r_id]) --r_id;

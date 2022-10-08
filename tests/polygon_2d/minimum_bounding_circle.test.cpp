@@ -1,7 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc151/tasks/abc151_f"
 #define ERROR 1e-6
 
-#include <cstdint>
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -11,15 +10,15 @@
 #include "tools/rational.hpp"
 #include "tools/polygon_2d.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  i64 N;
+  ll N;
   std::cin >> N;
-  std::vector<tools::vector2<i64>> v(N);
+  std::vector<tools::vector2<ll>> v(N);
   for (auto& v_i : v) std::cin >> v_i;
 
   if (N == 2) {
@@ -27,7 +26,7 @@ int main() {
     return 0;
   }
 
-  std::vector<i64> convex_hull;
+  std::vector<ll> convex_hull;
   tools::convex_hull(v.begin(), v.end(), true, std::back_inserter(convex_hull));
 
   if (convex_hull.size() == 2) {

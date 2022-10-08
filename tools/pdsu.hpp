@@ -1,7 +1,6 @@
 #ifndef TOOLS_PDSU_HPP
 #define TOOLS_PDSU_HPP
 
-#include <cstdint>
 #include <vector>
 #include <cassert>
 #include <numeric>
@@ -9,7 +8,7 @@
 #include "tools/group.hpp"
 
 namespace tools {
-  template <typename G = ::tools::group::plus<::std::int_fast64_t>>
+  template <typename G = ::tools::group::plus<long long>>
   class pdsu {
   private:
     using T = typename G::T;

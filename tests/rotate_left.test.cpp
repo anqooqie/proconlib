@@ -1,14 +1,11 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
-#include <cstdlib>
 #include <iostream>
 #include <cstdint>
 #include <bitset>
 #include "tools/assert_that.hpp"
 #include "tools/rotate_left.hpp"
 #include "tools/dynamic_bitset.hpp"
-
-using u64 = std::uint64_t;
 
 int main() {
   std::cin.tie(nullptr);

@@ -1,7 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
 #include <iostream>
-#include <cstdint>
 #include "tools/assert_that.hpp"
 #include "atcoder/modint.hpp"
 #include "tools/find_cycle.hpp"
@@ -12,7 +11,7 @@ int main() {
 
   using mint12 = atcoder::static_modint<12>;
   using mint13 = atcoder::static_modint<13>;
-  using pair = std::pair<std::int_fast64_t, std::int_fast64_t>;
+  using pair = std::pair<long long, long long>;
 
   assert_that(tools::find_cycle(mint12(0), [](const auto& x) { return x * mint12(0); }) == pair(0, 1));
   assert_that(tools::find_cycle(mint12(1), [](const auto& x) { return x * mint12(1); }) == pair(0, 1));

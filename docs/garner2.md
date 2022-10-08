@@ -5,7 +5,7 @@ documentation_of: //tools/garner2.hpp
 
 ```cpp
 template <typename M1, typename M2>
-std::int_fast64_t garner2(M1 a, M2 b);
+long long garner2(M1 a, M2 b);
 ```
 
 It solves the following modular equation system and returns $x \bmod M_1 M_2$ where $M_1$ is `M1::mod()` and $M_2$ is `M2::mod()`.

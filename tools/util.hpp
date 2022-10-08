@@ -18,13 +18,15 @@
 #include "tools/resize.hpp"
 #include "tools/fill.hpp"
 
-using i64 = ::std::int_fast64_t;
-using u64 = ::std::uint_fast64_t;
-using i32 = ::std::int_fast32_t;
-using u32 = ::std::uint_fast32_t;
+using ll = long long;
+using ull = unsigned long long;
+using i32 = ::std::int32_t;
+using u32 = ::std::uint32_t;
+using i64 = ::std::int64_t;
+using u64 = ::std::uint64_t;
 
-#define ALL(x) ::std::begin((x)), ::std::end((x))
-#define REP(i, n) for (::std::int_fast64_t i = 0; i < static_cast<::std::int_fast64_t>(n); ++i)
+#define ALL(x) ::std::begin(x), ::std::end(x)
+#define REP(i, n) for (long long i = 0; i < static_cast<long long>(n); ++i)
 
 namespace tools {
   namespace detail {
@@ -46,7 +48,7 @@ namespace tools {
 namespace std {
   template <typename T>
   auto operator>>(::std::istream& is, T& x) -> ::std::enable_if_t<::tools::detail::util::has_mod<T>::value, ::std::istream&> {
-    ::std::int_fast64_t n;
+    long long n;
     is >> n;
     x = T(n);
     return is;

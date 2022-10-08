@@ -1,25 +1,24 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C"
 
-#include <cstdint>
 #include <iostream>
 #include <string>
 #include <utility>
 #include "tools/binary_heap.hpp"
 
-using i64 = std::int_fast64_t;
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  tools::binary_heap<i64, i64> heap;
-  i64 id = 0;
+  tools::binary_heap<ll, ll> heap;
+  ll id = 0;
 
   std::string instruction;
   while (true) {
     std::cin >> instruction;
     if (instruction == "insert") {
-      i64 k;
+      ll k;
       std::cin >> k;
       heap.push(std::make_pair(id++, k));
     } else if (instruction == "extract") {

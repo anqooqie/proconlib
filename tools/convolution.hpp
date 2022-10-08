@@ -1,7 +1,6 @@
 #ifndef TOOLS_CONVOLUTION_HPP
 #define TOOLS_CONVOLUTION_HPP
 
-#include <cstdint>
 #include <type_traits>
 #include <vector>
 #include <cassert>
@@ -16,14 +15,13 @@ namespace tools {
 
   template <typename InputIterator, typename OutputIterator>
   void convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-    using u64 = ::std::uint_fast64_t;
     using M = ::std::decay_t<decltype(*a_begin)>;
     using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1
     using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1
     using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1
 
     // return maximum 2^k s.t. x = 1 (mod 2^k)
-    static const auto pow2_k = [](const u64 x) {
+    static const auto pow2_k = [](const unsigned long long x) {
       return (x - 1) & -(x - 1);
     };
 

@@ -1,25 +1,21 @@
 #ifndef TOOLS_NTZ_HPP
 #define TOOLS_NTZ_HPP
 
-#include <cstdint>
+#include <type_traits>
+#include <cassert>
 #include "tools/popcount.hpp"
 
 namespace tools {
 
-  inline ::std::uint32_t ntz(const ::std::uint32_t& x) {
-    return ::tools::popcount((x & -x) - static_cast<::std::uint32_t>(1));
-  }
-
-  inline ::std::uint64_t ntz(const ::std::uint64_t& x) {
-    return ::tools::popcount((x & -x) - static_cast<::std::uint64_t>(1));
-  }
-
-  inline ::std::int32_t ntz(::std::int32_t x) {
-    return static_cast<::std::int32_t>(::tools::ntz(static_cast<::std::uint32_t>(x)));
-  }
-
-  inline ::std::int64_t ntz(::std::int64_t x) {
-    return static_cast<::std::int64_t>(::tools::ntz(static_cast<::std::uint64_t>(x)));
+  template <typename T>
+  T ntz(T x) {
+    static_assert(::std::is_integral_v<T>);
+    assert(x > 0);
+    if constexpr (::std::is_signed_v<T>) {
+      return static_cast<T>(::tools::ntz<::std::make_unsigned_t<T>>(x));
+    } else {
+      return ::tools::popcount((x & -x) - static_cast<T>(1));
+    }
   }
 }
 

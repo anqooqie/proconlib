@@ -18,7 +18,7 @@ For explanatory purposes, let $u_\circ$ denote the unscaled value of $\circ$ and
 ## Constructor
 ```cpp
 (1) bigdecimal x;
-(2) bigdecimal x(std::int_fast64_t n);
+(2) bigdecimal x(long long n);
 (3) bigdecimal x(const tools::bigint& n);
 (4) bigdecimal x(const std::string& s);
 ```
@@ -316,6 +316,20 @@ It compares $x$ and $y$, and returns the result.
 
 ### Time Complexity
 - $O((\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|) \log (\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|))$
+
+## operator T
+```cpp
+T explicit operator T(bigdecimal& x);
+```
+
+It casts $x$ to the type `T`.
+
+### Constraints
+- `T` is a built-in integral type or `double`.
+- `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
+
+### Time Complexity
+- $O(\log \|u_x\|)$
 
 ## operator>>
 ```cpp

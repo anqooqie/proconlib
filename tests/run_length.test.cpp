@@ -3,17 +3,18 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include <cstdint>
 #include <iterator>
 #include "tools/assert_that.hpp"
 #include "tools/run_length.hpp"
+
+using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
   std::string s;
-  std::vector<std::pair<char, std::int_fast64_t>> v;
+  std::vector<std::pair<char, ll>> v;
 
   s = "ABBCCC";
   v.clear();
