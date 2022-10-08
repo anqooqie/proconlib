@@ -5,58 +5,61 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/binary_heap.hpp
     title: Binary heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lca.hpp
     title: Lowest common ancestor
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
     title: tests/and_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
@@ -93,120 +96,120 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/lca.test.cpp
     title: tests/hld/lca.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vancestor.test.cpp
     title: tests/hld/vancestor.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vpath.test.cpp
     title: tests/hld/vpath.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/integer_interval_set.test.cpp
     title: tests/integer_interval_set.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -245,7 +248,7 @@ data:
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rational/plus.test.cpp
   - tests/rational/multiplies.test.cpp
@@ -269,6 +272,7 @@ data:
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp

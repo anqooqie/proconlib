@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by.hpp
     title: std::greater by key
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/basic.test.cpp
     title: tests/prim/basic.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prim.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
@@ -115,7 +115,7 @@ data:
   path: tools/prim.hpp
   requiredBy: []
   timestamp: '2022-10-01 12:09:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/prim/basic.test.cpp
   - tests/prim/unconnected.test.cpp

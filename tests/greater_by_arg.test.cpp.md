@@ -1,46 +1,46 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc225/tasks/abc225_e
     links:
     - https://atcoder.jp/contests/abc225/tasks/abc225_e
   bundledCode: "#line 1 \"tests/greater_by_arg.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc225/tasks/abc225_e\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n#include <cmath>\n\
-    #include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
-    \ <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\n\
-    namespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
-    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
-    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
-    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#line 1 \"tools/vector2.hpp\"\
+    \n\n\n\n#include <type_traits>\n#include <cmath>\n#include <cstddef>\n#include\
+    \ <array>\n#line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n\
+    \  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n\
+    \    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n#line 8 \"\
+    tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n  template <class\
+    \ T1, class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n\
+    \    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
     \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
     \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
     \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
@@ -144,12 +144,12 @@ data:
     \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/greater_by_arg.hpp\"\n\n\n\n#line\
     \ 1 \"tools/less_by_arg.hpp\"\n\n\n\n#include <cassert>\n#line 1 \"tools/ccw.hpp\"\
     \n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  ::std::int_fast64_t ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b,\
-    \ ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
-    \    return 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n    ::tools::vector2<T>\
+    \  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T>\
+    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n\
+    \    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c) < 0) return\
+    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
+    \ 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\n\nnamespace tools {\n\n \
+    \ template <typename T>\n  class less_by_arg {\n  private:\n    ::tools::vector2<T>\
     \ o;\n    ::tools::vector2<T> d;\n\n    int where(const ::tools::vector2<T>& p)\
     \ const {\n      assert(p != this->o);\n      const auto ccw = ::tools::ccw(this->o,\
     \ this->d, p);\n      if (ccw == +1) return 1;\n      if (ccw == -1) return 3;\n\
@@ -172,27 +172,27 @@ data:
     \ = default;\n\n    greater_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>&\
     \ d) : m_comp(o, d) {\n    }\n\n    bool operator()(const ::tools::vector2<T>&\
     \ a, const ::tools::vector2<T>& b) const {\n      return this->m_comp(b, a);\n\
-    \    }\n  };\n}\n\n\n#line 9 \"tests/greater_by_arg.test.cpp\"\n\nusing i64 =\
-    \ std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
-    \ (auto& v_i : v) std::cin >> v_i;\n\n  const tools::greater_by_arg<i64> comp(tools::vector2<i64>(0,\
-    \ 0), tools::vector2<i64>(1, 0));\n  std::sort(v.rbegin(), v.rend(), [&](const\
-    \ auto& v1, const auto& v2) {\n    return comp(v1 + tools::vector2<i64>(-1, 0),\
-    \ v2 + tools::vector2<i64>(-1, 0));\n  });\n\n  i64 answer = 0;\n  for (i64 i\
-    \ = 0; i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<i64>(-1,\
-    \ 0);\n    for (; i < N && comp(end, v[i] + tools::vector2<i64>(0, -1)); ++i);\n\
+    \    }\n  };\n}\n\n\n#line 8 \"tests/greater_by_arg.test.cpp\"\n\nusing ll = long\
+    \ long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<tools::vector2<ll>> v(N);\n  for (auto&\
+    \ v_i : v) std::cin >> v_i;\n\n  const tools::greater_by_arg<ll> comp(tools::vector2<ll>(0,\
+    \ 0), tools::vector2<ll>(1, 0));\n  std::sort(v.rbegin(), v.rend(), [&](const\
+    \ auto& v1, const auto& v2) {\n    return comp(v1 + tools::vector2<ll>(-1, 0),\
+    \ v2 + tools::vector2<ll>(-1, 0));\n  });\n\n  ll answer = 0;\n  for (ll i = 0;\
+    \ i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<ll>(-1,\
+    \ 0);\n    for (; i < N && comp(end, v[i] + tools::vector2<ll>(0, -1)); ++i);\n\
     \  }\n  std::cout << answer << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc225/tasks/abc225_e\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include \"tools/vector2.hpp\"\n#include \"tools/greater_by_arg.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  std::vector<tools::vector2<i64>> v(N);\n  for\
-    \ (auto& v_i : v) std::cin >> v_i;\n\n  const tools::greater_by_arg<i64> comp(tools::vector2<i64>(0,\
-    \ 0), tools::vector2<i64>(1, 0));\n  std::sort(v.rbegin(), v.rend(), [&](const\
-    \ auto& v1, const auto& v2) {\n    return comp(v1 + tools::vector2<i64>(-1, 0),\
-    \ v2 + tools::vector2<i64>(-1, 0));\n  });\n\n  i64 answer = 0;\n  for (i64 i\
-    \ = 0; i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<i64>(-1,\
-    \ 0);\n    for (; i < N && comp(end, v[i] + tools::vector2<i64>(0, -1)); ++i);\n\
+    #include <iostream>\n#include <vector>\n#include <algorithm>\n#include \"tools/vector2.hpp\"\
+    \n#include \"tools/greater_by_arg.hpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N;\n  std::cin >> N;\n  std::vector<tools::vector2<ll>> v(N);\n  for (auto&\
+    \ v_i : v) std::cin >> v_i;\n\n  const tools::greater_by_arg<ll> comp(tools::vector2<ll>(0,\
+    \ 0), tools::vector2<ll>(1, 0));\n  std::sort(v.rbegin(), v.rend(), [&](const\
+    \ auto& v1, const auto& v2) {\n    return comp(v1 + tools::vector2<ll>(-1, 0),\
+    \ v2 + tools::vector2<ll>(-1, 0));\n  });\n\n  ll answer = 0;\n  for (ll i = 0;\
+    \ i < N;) {\n    ++answer;\n    const auto end = v[i] + tools::vector2<ll>(-1,\
+    \ 0);\n    for (; i < N && comp(end, v[i] + tools::vector2<ll>(0, -1)); ++i);\n\
     \  }\n  std::cout << answer << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
@@ -204,8 +204,8 @@ data:
   isVerificationFile: true
   path: tests/greater_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/greater_by_arg.test.cpp
 layout: document

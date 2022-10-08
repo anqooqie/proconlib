@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dijkstra.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -106,7 +106,7 @@ data:
   path: tools/dijkstra.hpp
   requiredBy: []
   timestamp: '2022-10-01 12:56:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp

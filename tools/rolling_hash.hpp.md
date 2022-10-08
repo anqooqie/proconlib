@@ -1,50 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/rolling_hash.hpp\"\n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\
@@ -95,53 +95,52 @@ data:
     \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#line 6 \"tools/find_cycle.hpp\"\n\n\
-    namespace tools {\n\n  template <typename T, typename F>\n  ::std::pair<::std::int_fast64_t,\
-    \ ::std::int_fast64_t> find_cycle(const T& seed, const F& f) {\n    ::std::int_fast64_t\
-    \ i = 1;\n    ::std::int_fast64_t j = 2;\n    T x = f(seed);\n    T y = f(f(seed));\n\
-    \    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    i = 0;\n    x\
-    \ = seed;\n    for (; x != y; ++i, ++j, x = f(x), y = f(y));\n\n    const ::std::int_fast64_t\
-    \ head = i;\n\n    ++i;\n    j = i + 1;\n    x = f(x);\n    y = f(f(y));\n   \
-    \ for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const ::std::int_fast64_t\
-    \ cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\n#line\
-    \ 1 \"tools/mod.hpp\"\n\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const\
-    \ M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 6 \"\
-    tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> floor(const M lhs, const N rhs) {\n  \
-    \  assert(rhs != 0);\n    return lhs / rhs - (((lhs > 0 && rhs < 0) || (lhs <\
-    \ 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n\
-    #line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
-    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
-    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 15 \"tools/pow_mod_cache.hpp\"\
+    \n#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T, typename F>\n  ::std::pair<long long,\
+    \ long long> find_cycle(const T& seed, const F& f) {\n    auto i = 1LL;\n    auto\
+    \ j = 2LL;\n    T x = f(seed);\n    T y = f(f(seed));\n    for (; x != y; ++i,\
+    \ j += 2, x = f(x), y = f(f(y)));\n\n    i = 0;\n    x = seed;\n    for (; x !=\
+    \ y; ++i, ++j, x = f(x), y = f(y));\n\n    const auto head = i;\n\n    ++i;\n\
+    \    j = i + 1;\n    x = f(x);\n    y = f(f(y));\n    for (; x != y; ++i, j +=\
+    \ 2, x = f(x), y = f(f(y)));\n\n    const auto cycle = j - i;\n\n    return ::std::make_pair(head,\
+    \ cycle);\n  }\n}\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 6 \"tools/mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
+    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
+    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\
+    \n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M lhs, const\
+    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs - (((lhs > 0 && rhs <\
+    \ 0) || (lhs < 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\
+    \n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const\
+    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs >\
+    \ 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 14 \"tools/pow_mod_cache.hpp\"\
     \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n  private:\n\
     \    ::std::vector<M> m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M>\
-    \ m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<::std::int_fast64_t,\
-    \ ::std::int_fast64_t>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n\
-    \    pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
+    \ m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long\
+    \ long, long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n \
+    \   pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
     \ = default;\n    ~pow_mod_cache() = default;\n    ::tools::pow_mod_cache<M>&\
     \ operator=(const ::tools::pow_mod_cache<M>&) = default;\n    ::tools::pow_mod_cache<M>&\
     \ operator=(::tools::pow_mod_cache<M>&&) = default;\n\n    M operator[](const\
-    \ ::std::int_fast64_t n) {\n      if (!this->m_period) {\n        if (::std::max<::std::int_fast64_t>(::tools::ssize(this->m_pow)\
-    \ - 1, n) - ::std::min<::std::int_fast64_t>(n, -(::tools::ssize(this->m_inv_pow)\
-    \ - 1)) + 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const ::std::int_fast64_t\
-    \ size = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
-    \ n + 1));\n            for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_pow);\
+    \ long long n) {\n      if (!this->m_period) {\n        if (::std::max<long long>(::tools::ssize(this->m_pow)\
+    \ - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) +\
+    \ 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const long long size\
+    \ = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
+    \ n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_pow);\
     \ ++i) {\n              this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n\
     \            }\n            return this->m_pow[n];\n          } else {\n     \
     \       if (this->m_inv_pow.size() == 1) {\n              this->m_inv_pow.push_back(this->m_pow[1].inv());\n\
-    \            }\n            const ::std::int_fast64_t size = ::tools::ssize(this->m_inv_pow);\n\
+    \            }\n            const long long size = ::tools::ssize(this->m_inv_pow);\n\
     \            this->m_inv_pow.resize(::std::max(size, -n + 1));\n            for\
-    \ (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {\n\
-    \              this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n\
-    \            }\n            return this->m_inv_pow[-n];\n          }\n       \
-    \ }\n\n        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0],\
-    \ [&](const M& prev) { return prev * this->m_pow[1]; }));\n        const ::std::int_fast64_t\
-    \ size = ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
-    \ + this->m_period->second);\n        for (::std::int_fast64_t i = size; i < ::tools::ssize(this->m_pow);\
+    \ (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {\n         \
+    \     this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n    \
+    \        }\n            return this->m_inv_pow[-n];\n          }\n        }\n\n\
+    \        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0],\
+    \ [&](const M& prev) { return prev * this->m_pow[1]; }));\n        const long\
+    \ long size = ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
+    \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
     \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
     \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
     \      }\n\n      if (this->m_period->first == 0) {\n        return this->m_pow[::tools::mod(n,\
@@ -149,46 +148,45 @@ data:
     \ if (n < this->m_period->first + this->m_period->second) {\n          return\
     \ this->m_pow[n];\n        } else {\n          return this->m_pow[(n - this->m_period->first)\
     \ % this->m_period->second + this->m_period->first];\n        }\n      }\n   \
-    \ }\n\n    M sum(const ::std::int_fast64_t l, const ::std::int_fast64_t r) {\n\
-    \      if (l >= r) return M::raw(0);\n\n      (*this)[r - 1];\n      (*this)[l];\n\
-    \n      {\n        const ::std::int_fast64_t size = ::tools::ssize(this->m_cumsum);\n\
-    \        this->m_cumsum.resize(this->m_pow.size() + 1);\n        for (::std::int_fast64_t\
-    \ i = size; i < ::tools::ssize(this->m_cumsum); ++i) {\n          this->m_cumsum[i]\
-    \ = this->m_cumsum[i - 1] + this->m_pow[i - 1];\n        }\n      }\n\n      if\
-    \ (!this->m_period) {\n        const ::std::int_fast64_t size = ::tools::ssize(this->m_inv_cumsum);\n\
-    \        this->m_inv_cumsum.resize(this->m_inv_pow.size() + 1);\n        for (::std::int_fast64_t\
-    \ i = size; i < ::tools::ssize(this->m_inv_cumsum); ++i) {\n          this->m_inv_cumsum[i]\
-    \ = this->m_inv_cumsum[i - 1] + this->m_pow[i - 1];\n        }\n\n        if (l\
-    \ >= 0) {\n          return this->m_cumsum[r] - this->m_cumsum[l];\n        }\
-    \ else if (r <= 0) {\n          return this->m_inv_cumsum[-l] - this->m_inv_cumsum[-r];\n\
-    \        } else {\n          return (this->m_inv_cumsum[-l] - this->m_inv_cumsum[1])\
-    \ + (this->m_cumsum[r] - this->m_cumsum[0]);\n        }\n      }\n\n      static\
-    \ const auto cumsum = [&](const ::std::int_fast64_t ll, const ::std::int_fast64_t\
-    \ rr) {\n        return this->m_cumsum[rr] - this->m_cumsum[ll];\n      };\n\n\
-    \      if (l >= 0) {\n        static const auto f = [&](const ::std::int_fast64_t\
-    \ x) {\n          if (x <= this->m_period->first + this->m_period->second) {\n\
-    \            return cumsum(0, x);\n          } else {\n            return cumsum(0,\
-    \ this->m_period->first) +\n              cumsum(this->m_period->first, this->m_period->first\
-    \ + this->m_period->second) * ((x - this->m_period->first) / this->m_period->second)\
-    \ +\n              cumsum(this->m_period->first, (x - this->m_period->first) %\
-    \ this->m_period->second + this->m_period->first);\n          }\n        };\n\
-    \        return f(r) - f(l);\n      } else {\n        const auto& n = this->m_period->second;\n\
-    \        return cumsum(::tools::mod(l, n), n) + cumsum(0, ::tools::mod(r, n))\
-    \ + cumsum(0, n) * M(::tools::floor(r, n) - ::tools::ceil(l, n));\n      }\n \
-    \   }\n\n    explicit pow_mod_cache(const M& base) : m_pow({M(1), base}), m_cumsum({M(0)}),\
-    \ m_inv_pow({M(1)}), m_inv_cumsum({M(0)}) {\n    }\n    explicit pow_mod_cache(const\
-    \ ::std::int_fast64_t base) : pow_mod_cache(M(base)) {\n    }\n  };\n}\n\n\n#line\
-    \ 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace tools {\n  class rolling_hash;\n\
-    \n  class modint_for_rolling_hash {\n  private:\n    static constexpr ::std::uint64_t\
-    \ MASK30 = (::std::uint64_t(1) << 30) - 1;\n    static constexpr ::std::uint64_t\
-    \ MASK31 = (::std::uint64_t(1) << 31) - 1;\n    static constexpr ::std::uint64_t\
-    \ MOD = (::std::uint64_t(1) << 61) - 1;\n    static constexpr ::std::uint64_t\
-    \ MASK61 = MOD;\n    static constexpr ::std::uint64_t POSITIVIZER = MOD * 4;\n\
-    \n    ::std::uint64_t m_val;\n\n    modint_for_rolling_hash(const ::std::uint64_t\
-    \ x, int) : m_val(x) {\n    }\n\n    static ::std::uint64_t mul(const ::std::uint64_t\
-    \ a, const ::std::uint64_t b) {\n      assert(a < MOD);\n      assert(b < MOD);\n\
-    \      const ::std::uint64_t au = a >> 31;\n      const ::std::uint64_t ad = a\
-    \ & MASK31;\n      const ::std::uint64_t bu = b >> 31;\n      const ::std::uint64_t\
+    \ }\n\n    M sum(const long long l, const long long r) {\n      if (l >= r) return\
+    \ M::raw(0);\n\n      (*this)[r - 1];\n      (*this)[l];\n\n      {\n        const\
+    \ long long size = ::tools::ssize(this->m_cumsum);\n        this->m_cumsum.resize(this->m_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_cumsum);\
+    \ ++i) {\n          this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n      }\n\n      if (!this->m_period) {\n        const long\
+    \ long size = ::tools::ssize(this->m_inv_cumsum);\n        this->m_inv_cumsum.resize(this->m_inv_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum);\
+    \ ++i) {\n          this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n\n        if (l >= 0) {\n          return this->m_cumsum[r]\
+    \ - this->m_cumsum[l];\n        } else if (r <= 0) {\n          return this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[-r];\n        } else {\n          return (this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[1]) + (this->m_cumsum[r] - this->m_cumsum[0]);\n      \
+    \  }\n      }\n\n      static const auto cumsum = [&](const long long ll, const\
+    \ long long rr) {\n        return this->m_cumsum[rr] - this->m_cumsum[ll];\n \
+    \     };\n\n      if (l >= 0) {\n        static const auto f = [&](const long\
+    \ long x) {\n          if (x <= this->m_period->first + this->m_period->second)\
+    \ {\n            return cumsum(0, x);\n          } else {\n            return\
+    \ cumsum(0, this->m_period->first) +\n              cumsum(this->m_period->first,\
+    \ this->m_period->first + this->m_period->second) * ((x - this->m_period->first)\
+    \ / this->m_period->second) +\n              cumsum(this->m_period->first, (x\
+    \ - this->m_period->first) % this->m_period->second + this->m_period->first);\n\
+    \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
+    \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
+    \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
+    \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
+    \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
+    \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
+    \ {\n    }\n  };\n}\n\n\n#line 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace\
+    \ tools {\n  class rolling_hash;\n\n  class modint_for_rolling_hash {\n  private:\n\
+    \    static constexpr ::std::uint64_t MASK30 = (::std::uint64_t(1) << 30) - 1;\n\
+    \    static constexpr ::std::uint64_t MASK31 = (::std::uint64_t(1) << 31) - 1;\n\
+    \    static constexpr ::std::uint64_t MOD = (::std::uint64_t(1) << 61) - 1;\n\
+    \    static constexpr ::std::uint64_t MASK61 = MOD;\n    static constexpr ::std::uint64_t\
+    \ POSITIVIZER = MOD * 4;\n\n    ::std::uint64_t m_val;\n\n    modint_for_rolling_hash(const\
+    \ ::std::uint64_t x, int) : m_val(x) {\n    }\n\n    static ::std::uint64_t mul(const\
+    \ ::std::uint64_t a, const ::std::uint64_t b) {\n      assert(a < MOD);\n    \
+    \  assert(b < MOD);\n      const ::std::uint64_t au = a >> 31;\n      const ::std::uint64_t\
+    \ ad = a & MASK31;\n      const ::std::uint64_t bu = b >> 31;\n      const ::std::uint64_t\
     \ bd = b & MASK31;\n      const ::std::uint64_t mid = ad * bu + au * bd;\n   \
     \   const ::std::uint64_t midu = mid >> 30;\n      const ::std::uint64_t midd\
     \ = mid & MASK30;\n      return au * bu * 2 + midu + (midd << 31) + ad * bd;\n\
@@ -202,8 +200,8 @@ data:
     \ operator=(const ::tools::modint_for_rolling_hash&) = default;\n    ::tools::modint_for_rolling_hash&\
     \ operator=(::tools::modint_for_rolling_hash&&) = default;\n\n    explicit modint_for_rolling_hash(const\
     \ ::std::uint64_t x) : m_val(calc_mod(x)) {\n    }\n\n    ::tools::modint_for_rolling_hash\
-    \ pow(const ::std::int_fast64_t n) const {\n      return ::tools::pow(*this, n);\n\
-    \    }\n    ::tools::modint_for_rolling_hash inv() const {\n      assert(this->m_val\
+    \ pow(const long long n) const {\n      return ::tools::pow(*this, n);\n    }\n\
+    \    ::tools::modint_for_rolling_hash inv() const {\n      assert(this->m_val\
     \ != 0);\n      return ::tools::modint_for_rolling_hash(::std::get<0>(::tools::extgcd(this->m_val,\
     \ MOD)));\n    }\n\n    ::tools::modint_for_rolling_hash operator+() const {\n\
     \      return *this;\n    }\n    ::tools::modint_for_rolling_hash operator-()\
@@ -238,11 +236,11 @@ data:
     \ const ::tools::modint_for_rolling_hash& rhs) {\n      return lhs.m_val == rhs.m_val;\n\
     \    }\n    friend bool operator!=(const ::tools::modint_for_rolling_hash& lhs,\
     \ const ::tools::modint_for_rolling_hash& rhs) {\n      return lhs.m_val != rhs.m_val;\n\
-    \    }\n\n    ::std::int_fast64_t val() const {\n      return this->m_val;\n \
-    \   }\n\n    static ::tools::modint_for_rolling_hash raw(const ::std::uint64_t\
-    \ x) {\n      return ::tools::modint_for_rolling_hash(x, 0);\n    }\n    static\
-    \ ::std::int_fast64_t mod() {\n      return MOD;\n    }\n\n    friend ::tools::rolling_hash;\n\
-    \  };\n\n  class rolling_hash {\n  private:\n    using mint = ::tools::modint_for_rolling_hash;\n\
+    \    }\n\n    long long val() const {\n      return this->m_val;\n    }\n\n  \
+    \  static ::tools::modint_for_rolling_hash raw(const ::std::uint64_t x) {\n  \
+    \    return ::tools::modint_for_rolling_hash(x, 0);\n    }\n    static long long\
+    \ mod() {\n      return MOD;\n    }\n\n    friend ::tools::rolling_hash;\n  };\n\
+    \n  class rolling_hash {\n  private:\n    using mint = ::tools::modint_for_rolling_hash;\n\
     \    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count());\n\
     \    ::std::vector<mint> m_hash;\n\n  public:\n    rolling_hash() = default;\n\
     \    rolling_hash(const ::tools::rolling_hash&) = default;\n    rolling_hash(::tools::rolling_hash&&)\
@@ -284,8 +282,8 @@ data:
   isVerificationFile: false
   path: tools/rolling_hash.hpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/rolling_hash.test.cpp
 documentation_of: tools/rolling_hash.hpp

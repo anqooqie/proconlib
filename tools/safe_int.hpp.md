@@ -5,22 +5,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_kth_root.test.cpp
     title: tests/ceil_kth_root.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/safe_int.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -580,7 +580,7 @@ data:
   - tools/ceil_kth_root.hpp
   - tools/floor_kth_root.hpp
   timestamp: '2022-07-03 14:14:33+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/floor_kth_root.test.cpp
   - tests/safe_int.test.cpp

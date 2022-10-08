@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/integer_interval_set.hpp
     title: Set of integers as closed integer intervals
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc228/tasks/abc228_d
     links:
     - https://atcoder.jp/contests/abc228/tasks/abc228_d
   bundledCode: "#line 1 \"tests/integer_interval_set.test.cpp\"\n#define PROBLEM \"\
-    https://atcoder.jp/contests/abc228/tasks/abc228_d\"\n\n#include <cstdint>\n#include\
-    \ <iostream>\n#include <vector>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <cstddef>\n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    https://atcoder.jp/contests/abc228/tasks/abc228_d\"\n\n#include <iostream>\n#include\
+    \ <vector>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
+    \ <cstddef>\n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
@@ -79,33 +79,32 @@ data:
     \          delimiter = \", \";\n        }\n        os << '}';\n        return\
     \ os;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/integer_interval_set.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  using integer_interval_set =\
-    \ ::tools::detail::interval_set<T, true>;\n}\n\n\n#line 8 \"tests/integer_interval_set.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  const i64 N = tools::pow2(20);\n\
-    \  std::vector<i64> A(N, -1);\n  tools::integer_interval_set<i64> set;\n\n  i64\
-    \ Q;\n  std::cin >> Q;\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t, x;\n    std::cin\
-    \ >> t >> x;\n    if (t == 1) {\n      const i64 h = [&]() -> i64 {\n        if\
-    \ (auto it = set.find(x % N); it != set.end()) {\n          if (it->second ==\
-    \ N - 1) {\n            if (auto it2 = set.find(0); it2 != set.end()) {\n    \
-    \          return it2->second + 1;\n            } else {\n              return\
-    \ 0;\n            }\n          } else {\n            return it->second + 1;\n\
-    \          }\n        } else {\n          return x % N;\n        }\n      }();\n\
-    \      A[h] = x;\n      set.insert(h, h);\n    } else {\n      std::cout << A[x\
-    \ % N] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \ ::tools::detail::interval_set<T, true>;\n}\n\n\n#line 7 \"tests/integer_interval_set.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  const ll N = tools::pow2(20);\n  std::vector<ll> A(N, -1);\n  tools::integer_interval_set<ll>\
+    \ set;\n\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q < Q; ++q) {\n    ll t,\
+    \ x;\n    std::cin >> t >> x;\n    if (t == 1) {\n      const ll h = [&]() ->\
+    \ ll {\n        if (auto it = set.find(x % N); it != set.end()) {\n          if\
+    \ (it->second == N - 1) {\n            if (auto it2 = set.find(0); it2 != set.end())\
+    \ {\n              return it2->second + 1;\n            } else {\n           \
+    \   return 0;\n            }\n          } else {\n            return it->second\
+    \ + 1;\n          }\n        } else {\n          return x % N;\n        }\n  \
+    \    }();\n      A[h] = x;\n      set.insert(h, h);\n    } else {\n      std::cout\
+    \ << A[x % N] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc228/tasks/abc228_d\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include \"tools/pow2.hpp\"\
-    \n#include \"tools/integer_interval_set.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  const i64 N = tools::pow2(20);\n  std::vector<i64> A(N, -1);\n  tools::integer_interval_set<i64>\
-    \ set;\n\n  i64 Q;\n  std::cin >> Q;\n  for (i64 q = 0; q < Q; ++q) {\n    i64\
-    \ t, x;\n    std::cin >> t >> x;\n    if (t == 1) {\n      const i64 h = [&]()\
-    \ -> i64 {\n        if (auto it = set.find(x % N); it != set.end()) {\n      \
-    \    if (it->second == N - 1) {\n            if (auto it2 = set.find(0); it2 !=\
-    \ set.end()) {\n              return it2->second + 1;\n            } else {\n\
-    \              return 0;\n            }\n          } else {\n            return\
-    \ it->second + 1;\n          }\n        } else {\n          return x % N;\n  \
-    \      }\n      }();\n      A[h] = x;\n      set.insert(h, h);\n    } else {\n\
-    \      std::cout << A[x % N] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include <vector>\n#include \"tools/pow2.hpp\"\n#include\
+    \ \"tools/integer_interval_set.hpp\"\n\nusing ll = long long;\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  const\
+    \ ll N = tools::pow2(20);\n  std::vector<ll> A(N, -1);\n  tools::integer_interval_set<ll>\
+    \ set;\n\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q < Q; ++q) {\n    ll t,\
+    \ x;\n    std::cin >> t >> x;\n    if (t == 1) {\n      const ll h = [&]() ->\
+    \ ll {\n        if (auto it = set.find(x % N); it != set.end()) {\n          if\
+    \ (it->second == N - 1) {\n            if (auto it2 = set.find(0); it2 != set.end())\
+    \ {\n              return it2->second + 1;\n            } else {\n           \
+    \   return 0;\n            }\n          } else {\n            return it->second\
+    \ + 1;\n          }\n        } else {\n          return x % N;\n        }\n  \
+    \    }();\n      A[h] = x;\n      set.insert(h, h);\n    } else {\n      std::cout\
+    \ << A[x % N] << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/pow2.hpp
   - tools/integer_interval_set.hpp
@@ -113,8 +112,8 @@ data:
   isVerificationFile: true
   path: tests/integer_interval_set.test.cpp
   requiredBy: []
-  timestamp: '2022-03-12 16:17:46+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/integer_interval_set.test.cpp
 layout: document

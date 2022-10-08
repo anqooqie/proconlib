@@ -1,64 +1,64 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
   bundledCode: "#line 1 \"tests/line_2d/is_parallel_to.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <cmath>\n#include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\
-    \n#include <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n\n#include <iostream>\n\
+    #line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n#include <cmath>\n\
+    #include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
+    \ <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
     \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
     \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\
     \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
-    #line 9 \"tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1,\
-    \ class T2>\n  struct pair_hash {\n    using result_type = ::std::size_t;\n  \
-    \  using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
-    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
-    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
-    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
-    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
-    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    #line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n \
+    \ template <class T1, class T2>\n  struct pair_hash {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
+    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
+    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
+    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
+    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
+    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
+    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
@@ -841,9 +841,9 @@ data:
     \    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();\n\
     \    if (c2 < a2b2) {\n      return 0;\n    } else if (c2 == a2b2) {\n      return\
     \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/line_2d.hpp\"\
-    \n\n\n#line 7 \"tests/line_2d/is_parallel_to.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    using T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 q;\n  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<T>\
+    \n\n\n#line 6 \"tests/line_2d/is_parallel_to.test.cpp\"\n\nusing ll = long long;\n\
+    using T = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll q;\n  std::cin >> q;\n  for (ll i = 0; i < q; ++i) {\n    tools::vector2<T>\
     \ p0, p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const auto s1\
     \ = tools::line_2d<T>::through(p0, p1);\n    const auto s2 = tools::line_2d<T>::through(p2,\
     \ p3);\n\n    if (s1.is_parallel_to(s2)) {\n      std::cout << 2 << '\\n';\n \
@@ -851,16 +851,16 @@ data:
     \ s2.b())) == T(0)) {\n      std::cout << 1 << '\\n';\n    } else {\n      std::cout\
     \ << 0 << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\n#include\
-    \ \"tools/line_2d.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing T = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 q;\n  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<T>\
-    \ p0, p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const auto s1\
-    \ = tools::line_2d<T>::through(p0, p1);\n    const auto s2 = tools::line_2d<T>::through(p2,\
-    \ p3);\n\n    if (s1.is_parallel_to(s2)) {\n      std::cout << 2 << '\\n';\n \
-    \   } else if (tools::vector2<T>(s1.a(), s1.b()).inner_product(tools::vector2<T>(s2.a(),\
-    \ s2.b())) == T(0)) {\n      std::cout << 1 << '\\n';\n    } else {\n      std::cout\
-    \ << 0 << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include \"tools/vector2.hpp\"\n#include \"tools/line_2d.hpp\"\
+    \n\nusing ll = long long;\nusing T = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll q;\n  std::cin >> q;\n  for\
+    \ (ll i = 0; i < q; ++i) {\n    tools::vector2<T> p0, p1, p2, p3;\n    std::cin\
+    \ >> p0 >> p1 >> p2 >> p3;\n\n    const auto s1 = tools::line_2d<T>::through(p0,\
+    \ p1);\n    const auto s2 = tools::line_2d<T>::through(p2, p3);\n\n    if (s1.is_parallel_to(s2))\
+    \ {\n      std::cout << 2 << '\\n';\n    } else if (tools::vector2<T>(s1.a(),\
+    \ s1.b()).inner_product(tools::vector2<T>(s2.a(), s2.b())) == T(0)) {\n      std::cout\
+    \ << 1 << '\\n';\n    } else {\n      std::cout << 0 << '\\n';\n    }\n  }\n\n\
+    \  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/abs.hpp
@@ -875,8 +875,8 @@ data:
   isVerificationFile: true
   path: tests/line_2d/is_parallel_to.test.cpp
   requiredBy: []
-  timestamp: '2022-09-24 20:04:29+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/line_2d/is_parallel_to.test.cpp
 layout: document

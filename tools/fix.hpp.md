@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fix.hpp\"\n\n\n\n#include <utility>\n#include <type_traits>\n\
@@ -36,7 +36,7 @@ data:
   requiredBy:
   - tools/persistent_dual_segtree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fix.test.cpp
   - tests/persistent_dual_segtree.test.cpp

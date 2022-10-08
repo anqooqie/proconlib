@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc253/tasks/abc253_f
@@ -28,7 +28,7 @@ data:
     - https://atcoder.jp/contests/abc253/tasks/abc253_f
   bundledCode: "#line 1 \"tests/persistent_dual_segtree.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc253/tasks/abc253_f\"\n\n#include <iostream>\n\
-    #include <cstdint>\n#include <vector>\n#include <utility>\n#line 1 \"tools/persistent_dual_segtree.hpp\"\
+    #include <vector>\n#include <utility>\n#line 1 \"tools/persistent_dual_segtree.hpp\"\
     \n\n\n\n#include <cstddef>\n#include <limits>\n#line 7 \"tools/persistent_dual_segtree.hpp\"\
     \n#include <cassert>\n#include <algorithm>\n#line 1 \"tools/fix.hpp\"\n\n\n\n\
     #line 5 \"tools/fix.hpp\"\n#include <type_traits>\n\nnamespace tools {\n  template\
@@ -44,29 +44,35 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 5 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
-    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  inline std::uint32_t\
-    \ ceil_log2(std::uint32_t x) {\n    static const ::std::uint32_t t[6] = {\n  \
-    \    0xFFFF0000u,\n      0x0000FF00u,\n      0x000000F0u,\n      0x0000000Cu,\n\
-    \      0x00000002u\n    };\n\n    ::std::uint32_t y = (((x & (x - 1)) == 0) ?\
-    \ 0 : 1);\n    ::std::uint32_t j = 16;\n\n    for (const ::std::uint32_t& t_i\
-    \ : t) {\n      ::std::uint32_t k = (((x & t_i) == 0) ? 0 : j);\n      y += k;\n\
-    \      x >>= k;\n      j >>= 1;\n    }\n\n    return y;\n  }\n\n  inline ::std::uint64_t\
-    \ ceil_log2(::std::uint64_t x) {\n    static const ::std::uint64_t t[6] = {\n\
-    \      0xFFFFFFFF00000000u,\n      0x00000000FFFF0000u,\n      0x000000000000FF00u,\n\
-    \      0x00000000000000F0u,\n      0x000000000000000Cu,\n      0x0000000000000002u\n\
-    \    };\n\n    ::std::uint64_t y = (((x & (x - 1)) == 0) ? 0 : 1);\n    ::std::uint64_t\
-    \ j = 32;\n\n    for (const ::std::uint64_t& t_i : t) {\n      ::std::uint64_t\
-    \ k = (((x & t_i) == 0) ? 0 : j);\n      y += k;\n      x >>= k;\n      j >>=\
-    \ 1;\n    }\n\n    return y;\n  }\n\n  inline ::std::int32_t ceil_log2(::std::int32_t\
-    \ x) {\n    return static_cast<::std::int32_t>(::tools::ceil_log2(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t ceil_log2(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::ceil_log2(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 12 \"tools/persistent_dual_segtree.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M>\n  class persistent_dual_segtree {\n  private:\n\
-    \    using T = typename M::T;\n\n    struct node {\n      T lazy;\n      ::std::size_t\
-    \ left;\n      ::std::size_t right;\n    };\n\n  public:\n    class buffer {\n\
-    \    private:\n      ::std::vector<::tools::persistent_dual_segtree<M>::node>\
-    \ m_nodes;\n\n    public:\n      buffer() = default;\n      buffer(const ::tools::persistent_dual_segtree<M>::buffer&)\
+    \n\n\n\n#line 7 \"tools/ceil_log2.hpp\"\n#include <tuple>\n#include <array>\n\
+    #include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::ceil_log2<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      constexpr auto t = ::std::make_tuple(\n        ::std::array<::std::uint8_t,\
+    \ 3>({\n          UINT8_C(0xf0),\n          UINT8_C(0x0c),\n          UINT8_C(0x02)\n\
+    \        }),\n        ::std::array<::std::uint16_t, 4>({\n          UINT16_C(0xff00),\n\
+    \          UINT16_C(0x00f0),\n          UINT16_C(0x000c),\n          UINT16_C(0x0002)\n\
+    \        }),\n        ::std::array<::std::uint32_t, 5>({\n          UINT32_C(0xffff0000),\n\
+    \          UINT32_C(0x0000ff00),\n          UINT32_C(0x000000f0),\n          UINT32_C(0x0000000c),\n\
+    \          UINT32_C(0x00000002)\n        }),\n        ::std::array<::std::uint64_t,\
+    \ 6>({\n          UINT64_C(0xffffffff00000000),\n          UINT64_C(0x00000000ffff0000),\n\
+    \          UINT64_C(0x000000000000ff00),\n          UINT64_C(0x00000000000000f0),\n\
+    \          UINT64_C(0x000000000000000c),\n          UINT64_C(0x0000000000000002)\n\
+    \        })\n      );\n\n      T y = (((x & (x - 1)) == 0) ? 0 : 1);\n      T\
+    \ j = ::std::numeric_limits<T>::digits / 2;\n\n      for (const auto t_i : ::std::get<log2(::std::numeric_limits<T>::digits)\
+    \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
+    \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
+    \n#line 12 \"tools/persistent_dual_segtree.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M>\n  class persistent_dual_segtree {\n  private:\n    using T = typename\
+    \ M::T;\n\n    struct node {\n      T lazy;\n      ::std::size_t left;\n     \
+    \ ::std::size_t right;\n    };\n\n  public:\n    class buffer {\n    private:\n\
+    \      ::std::vector<::tools::persistent_dual_segtree<M>::node> m_nodes;\n\n \
+    \   public:\n      buffer() = default;\n      buffer(const ::tools::persistent_dual_segtree<M>::buffer&)\
     \ = default;\n      buffer(::tools::persistent_dual_segtree<M>::buffer&&) = default;\n\
     \      ~buffer() = default;\n      ::tools::persistent_dual_segtree<M>::buffer&\
     \ operator=(const ::tools::persistent_dual_segtree<M>::buffer&) = default;\n \
@@ -128,36 +134,33 @@ data:
     \    struct bit_xor {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n       \
     \ return T(0);\n      }\n      static T inv(const T v) {\n        return v;\n\
-    \      }\n    };\n  }\n}\n\n\n#line 9 \"tests/persistent_dual_segtree.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, Q;\n  std::cin >> N >>\
-    \ M >> Q;\n\n  std::vector<std::pair<i64, i64>> updated(N, std::make_pair(0, 0));\n\
-    \  tools::persistent_dual_segtree<tools::group::plus<i64>>::buffer buffer;\n \
-    \ std::vector<tools::persistent_dual_segtree<tools::group::plus<i64>>> dual_segtrees;\n\
-    \  dual_segtrees.emplace_back(buffer, M);\n\n  for (i64 q = 0; q < Q; ++q) {\n\
-    \    i64 t;\n    std::cin >> t;\n    if (t == 1) {\n      i64 l, r, x;\n     \
-    \ std::cin >> l >> r >> x;\n      --l;\n      dual_segtrees.push_back(dual_segtrees.back().apply(l,\
-    \ r, x));\n    } else if (t == 2) {\n      i64 i, x;\n      std::cin >> i >> x;\n\
+    \      }\n    };\n  }\n}\n\n\n#line 8 \"tests/persistent_dual_segtree.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<std::pair<ll, ll>>\
+    \ updated(N, std::make_pair(0, 0));\n  tools::persistent_dual_segtree<tools::group::plus<ll>>::buffer\
+    \ buffer;\n  std::vector<tools::persistent_dual_segtree<tools::group::plus<ll>>>\
+    \ dual_segtrees;\n  dual_segtrees.emplace_back(buffer, M);\n\n  for (ll q = 0;\
+    \ q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 1) {\n      ll l,\
+    \ r, x;\n      std::cin >> l >> r >> x;\n      --l;\n      dual_segtrees.push_back(dual_segtrees.back().apply(l,\
+    \ r, x));\n    } else if (t == 2) {\n      ll i, x;\n      std::cin >> i >> x;\n\
     \      --i;\n      dual_segtrees.push_back(dual_segtrees.back());\n      updated[i]\
-    \ = std::make_pair(q, x);\n    } else {\n      i64 i, j;\n      std::cin >> i\
-    \ >> j;\n      --i, --j;\n      dual_segtrees.push_back(dual_segtrees.back());\n\
+    \ = std::make_pair(q, x);\n    } else {\n      ll i, j;\n      std::cin >> i >>\
+    \ j;\n      --i, --j;\n      dual_segtrees.push_back(dual_segtrees.back());\n\
     \      const auto& [t, x] = updated[i];\n      std::cout << dual_segtrees.back().get(j)\
     \ - dual_segtrees[t].get(j) + x << '\\n';\n    }\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc253/tasks/abc253_f\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include <vector>\n#include <utility>\n\
-    #include \"tools/persistent_dual_segtree.hpp\"\n#include \"tools/group.hpp\"\n\
-    \nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n \
-    \ std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, Q;\n  std::cin >> N >>\
-    \ M >> Q;\n\n  std::vector<std::pair<i64, i64>> updated(N, std::make_pair(0, 0));\n\
-    \  tools::persistent_dual_segtree<tools::group::plus<i64>>::buffer buffer;\n \
-    \ std::vector<tools::persistent_dual_segtree<tools::group::plus<i64>>> dual_segtrees;\n\
-    \  dual_segtrees.emplace_back(buffer, M);\n\n  for (i64 q = 0; q < Q; ++q) {\n\
-    \    i64 t;\n    std::cin >> t;\n    if (t == 1) {\n      i64 l, r, x;\n     \
-    \ std::cin >> l >> r >> x;\n      --l;\n      dual_segtrees.push_back(dual_segtrees.back().apply(l,\
-    \ r, x));\n    } else if (t == 2) {\n      i64 i, x;\n      std::cin >> i >> x;\n\
+    #include <iostream>\n#include <vector>\n#include <utility>\n#include \"tools/persistent_dual_segtree.hpp\"\
+    \n#include \"tools/group.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, M, Q;\n  std::cin >> N >>\
+    \ M >> Q;\n\n  std::vector<std::pair<ll, ll>> updated(N, std::make_pair(0, 0));\n\
+    \  tools::persistent_dual_segtree<tools::group::plus<ll>>::buffer buffer;\n  std::vector<tools::persistent_dual_segtree<tools::group::plus<ll>>>\
+    \ dual_segtrees;\n  dual_segtrees.emplace_back(buffer, M);\n\n  for (ll q = 0;\
+    \ q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 1) {\n      ll l,\
+    \ r, x;\n      std::cin >> l >> r >> x;\n      --l;\n      dual_segtrees.push_back(dual_segtrees.back().apply(l,\
+    \ r, x));\n    } else if (t == 2) {\n      ll i, x;\n      std::cin >> i >> x;\n\
     \      --i;\n      dual_segtrees.push_back(dual_segtrees.back());\n      updated[i]\
-    \ = std::make_pair(q, x);\n    } else {\n      i64 i, j;\n      std::cin >> i\
-    \ >> j;\n      --i, --j;\n      dual_segtrees.push_back(dual_segtrees.back());\n\
+    \ = std::make_pair(q, x);\n    } else {\n      ll i, j;\n      std::cin >> i >>\
+    \ j;\n      --i, --j;\n      dual_segtrees.push_back(dual_segtrees.back());\n\
     \      const auto& [t, x] = updated[i];\n      std::cout << dual_segtrees.back().get(j)\
     \ - dual_segtrees[t].get(j) + x << '\\n';\n    }\n  }\n  return 0;\n}\n"
   dependsOn:
@@ -169,8 +172,8 @@ data:
   isVerificationFile: true
   path: tests/persistent_dual_segtree.test.cpp
   requiredBy: []
-  timestamp: '2022-06-18 20:06:32+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/persistent_dual_segtree.test.cpp
 layout: document

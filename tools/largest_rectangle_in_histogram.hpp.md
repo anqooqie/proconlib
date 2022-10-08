@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/chmax.hpp
     title: chmax function
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/largest_rectangle_in_histogram.hpp\"\n\n\n\n#include\
@@ -54,7 +54,7 @@ data:
   path: tools/largest_rectangle_in_histogram.hpp
   requiredBy: []
   timestamp: '2021-07-18 21:35:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/largest_rectangle_in_histogram.test.cpp
 documentation_of: tools/largest_rectangle_in_histogram.hpp

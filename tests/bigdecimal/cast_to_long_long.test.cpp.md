@@ -2,11 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
+    path: tools/bigdecimal.hpp
+    title: Arbitrary precision floating-point number
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
+  - icon: ':question:'
+    path: tools/cumsum2d.hpp
+    title: 2D cumulative sum
   - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
@@ -14,6 +20,9 @@ data:
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
+  - icon: ':question:'
+    path: tools/group.hpp
+    title: Typical groups
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
@@ -33,6 +42,12 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':question:'
+    path: tools/rounding_mode.hpp
+    title: Rounding mode
+  - icon: ':question:'
+    path: tools/signum.hpp
+    title: Sign function
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
@@ -42,17 +57,20 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E
+    PROBLEM: https://atcoder.jp/contests/agc047/tasks/agc047_a
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E
-  bundledCode: "#line 1 \"tests/bigint/modulus.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E\"\
-    \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstdint>\n#include <array>\n#include <cstddef>\n#include <algorithm>\n\
-    #include <iterator>\n#include <type_traits>\n#include <string>\n#include <cassert>\n\
-    #include <utility>\n#include <limits>\n#include <cmath>\n#line 17 \"tools/bigint.hpp\"\
-    \n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://atcoder.jp/contests/agc047/tasks/agc047_a
+  bundledCode: "#line 1 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\n#define PROBLEM\
+    \ \"https://atcoder.jp/contests/agc047/tasks/agc047_a\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <string>\n#include <array>\n#line 1 \"tools/bigdecimal.hpp\"\
+    \n\n\n\n#include <cstddef>\n#include <algorithm>\n#line 7 \"tools/bigdecimal.hpp\"\
+    \n#include <cassert>\n#include <type_traits>\n#include <limits>\n#include <cmath>\n\
+    #line 1 \"tools/bigint.hpp\"\n\n\n\n#line 5 \"tools/bigint.hpp\"\n#include <cstdint>\n\
+    #line 9 \"tools/bigint.hpp\"\n#include <iterator>\n#line 13 \"tools/bigint.hpp\"\
+    \n#include <utility>\n#line 17 \"tools/bigint.hpp\"\n#include <iomanip>\n#line\
+    \ 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
@@ -743,15 +761,197 @@ data:
     \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
     \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
-    \    }\n  };\n}\n\n\n#line 5 \"tests/bigint/modulus.test.cpp\"\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint\
-    \ A, B;\n  std::cin >> A >> B;\n  std::cout << A % B << '\\n';\n  return 0;\n\
-    }\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_E\"\n\n\
-    #include <iostream>\n#include \"tools/bigint.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::bigint A, B;\n  std::cin\
-    \ >> A >> B;\n  std::cout << A % B << '\\n';\n  return 0;\n}\n"
+    \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const\
+    \ T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
+    \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
+    #line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace tools {\n  enum class rounding_mode\
+    \ {\n    ceiling,\n    down,\n    floor,\n    half_down,\n    half_even,\n   \
+    \ half_up,\n    up\n  };\n}\n\n\n#line 16 \"tools/bigdecimal.hpp\"\n\nnamespace\
+    \ tools {\n  class bigdecimal {\n  private:\n    // *this := this->m_unscaled_value\
+    \ * (10 ** -this->m_scale)\n    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t\
+    \ m_scale;\n\n    ::tools::bigdecimal& regularize() {\n      if (this->m_unscaled_value.signum()\
+    \ == 0) {\n        this->m_scale = 0;\n      }\n      return *this;\n    }\n\n\
+    \  public:\n    const ::tools::bigint& unscaled_value() const {\n      return\
+    \ this->m_unscaled_value;\n    }\n    ::std::size_t precision() const {\n    \
+    \  return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t scale()\
+    \ const {\n      return this->m_scale;\n    }\n    int signum() const {\n    \
+    \  return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal& negate()\
+    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal\
+    \ abs() const {\n      ::tools::bigdecimal result(*this);\n      if (result.signum()\
+    \ < 0) result.negate();\n      return result;\n    }\n    ::tools::bigdecimal&\
+    \ multiply_by_pow10(const ::std::ptrdiff_t n) {\n      this->m_scale -= n;\n \
+    \     return *this;\n    }\n    ::tools::bigdecimal& divide_by_pow10(const ::std::ptrdiff_t\
+    \ n) {\n      return this->multiply_by_pow10(-n);\n    }\n    ::tools::bigdecimal&\
+    \ set_scale(const ::std::ptrdiff_t s) {\n      this->m_unscaled_value.multiply_by_pow10(s\
+    \ - this->m_scale);\n      this->m_scale = s;\n      this->regularize();\n   \
+    \   return *this;\n    }\n    static int compare_3way(const ::tools::bigdecimal&\
+    \ x, const ::tools::bigdecimal& y) {\n      if (const auto comp = ::tools::signum(x.m_unscaled_value.signum()\
+    \ - y.m_unscaled_value.signum()); comp != 0) {\n        return comp;\n      }\n\
+    \      return [&]() {\n        ::tools::bigdecimal abs_x(x);\n        if (abs_x.signum()\
+    \ < 0) abs_x.negate();\n        abs_x.set_scale(::std::max(x.m_scale, y.m_scale));\n\
+    \        ::tools::bigdecimal abs_y(y);\n        if (abs_y.signum() < 0) abs_y.negate();\n\
+    \        abs_y.set_scale(::std::max(x.m_scale, y.m_scale));\n        return ::tools::bigint::compare_3way(abs_x.m_unscaled_value,\
+    \ abs_y.m_unscaled_value);\n      }() * x.m_unscaled_value.signum();\n    }\n\n\
+    \    bigdecimal() : m_unscaled_value(0), m_scale(0) {\n    }\n    bigdecimal(const\
+    \ ::tools::bigdecimal&) = default;\n    bigdecimal(::tools::bigdecimal&&) = default;\n\
+    \    ~bigdecimal() = default;\n    ::tools::bigdecimal& operator=(const ::tools::bigdecimal&)\
+    \ = default;\n    ::tools::bigdecimal& operator=(::tools::bigdecimal&&) = default;\n\
+    \n    explicit bigdecimal(const long long n) : m_unscaled_value(n), m_scale(0)\
+    \ {\n    }\n    explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n),\
+    \ m_scale(0) {\n    }\n    explicit bigdecimal(::std::string s) {\n      if (const\
+    \ auto pos = s.find('.'); pos != ::std::string::npos) {\n        this->m_scale\
+    \ = s.size() - pos - 1;\n        s.erase(pos, 1);\n      } else {\n        this->m_scale\
+    \ = 0;\n      }\n      this->m_unscaled_value = ::tools::bigint(s);\n      this->regularize();\n\
+    \    }\n\n    friend bool operator==(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) == 0;\n   \
+    \ }\n    friend bool operator!=(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) != 0;\n   \
+    \ }\n    friend bool operator<(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) < 0;\n    }\n\
+    \    friend bool operator>(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) > 0;\n    }\n\
+    \    friend bool operator<=(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) <= 0;\n   \
+    \ }\n    friend bool operator>=(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) >= 0;\n   \
+    \ }\n\n    ::tools::bigdecimal operator+() const {\n      return *this;\n    }\n\
+    \    ::tools::bigdecimal operator-() const {\n      return ::tools::bigdecimal(*this).negate();\n\
+    \    }\n\n    ::tools::bigdecimal& operator+=(::tools::bigdecimal other) {\n \
+    \     const ::std::size_t scale = ::std::max(this->m_scale, other.m_scale);\n\
+    \      this->set_scale(scale);\n      other.set_scale(scale);\n      this->m_unscaled_value\
+    \ += other.m_unscaled_value;\n      return this->regularize();\n    }\n    ::tools::bigdecimal&\
+    \ operator-=(::tools::bigdecimal other) {\n      const ::std::size_t scale = ::std::max(this->m_scale,\
+    \ other.m_scale);\n      this->set_scale(scale);\n      other.set_scale(scale);\n\
+    \      this->m_unscaled_value -= other.m_unscaled_value;\n      return this->regularize();\n\
+    \    }\n    ::tools::bigdecimal& operator*=(const ::tools::bigdecimal& other)\
+    \ {\n      this->m_unscaled_value *= other.m_unscaled_value;\n      this->m_scale\
+    \ += other.m_scale;\n      return this->regularize();\n    }\n    ::tools::bigdecimal&\
+    \ divide(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const\
+    \ ::tools::rounding_mode rounding_mode) {\n      assert(other.signum() != 0);\n\
+    \n      static const auto compare_3way_abs = [](::tools::bigdecimal& x, ::tools::bigdecimal&\
+    \ y) {\n        const bool x_positive = x.signum() >= 0;\n        const bool y_positive\
+    \ = y.signum() >= 0;\n        if (!x_positive) x.negate();\n        if (!y_positive)\
+    \ y.negate();\n        const int result = ::tools::bigdecimal::compare_3way(x,\
+    \ y);\n        if (!x_positive) x.negate();\n        if (!y_positive) y.negate();\n\
+    \        return result;\n      };\n\n      ::tools::bigdecimal old_this(*this);\n\
+    \n      this->m_unscaled_value.multiply_by_pow10(scale - (this->m_scale - other.m_scale));\n\
+    \      this->m_unscaled_value /= other.m_unscaled_value;\n      this->m_scale\
+    \ = scale;\n      this->regularize();\n\n      if ([&]() {\n        if (rounding_mode\
+    \ == ::tools::rounding_mode::down) {\n          return false;\n        }\n   \
+    \     if (rounding_mode == ::tools::rounding_mode::ceiling || rounding_mode ==\
+    \ ::tools::rounding_mode::floor || rounding_mode == ::tools::rounding_mode::up)\
+    \ {\n          if ((rounding_mode == ::tools::rounding_mode::ceiling && old_this.signum()\
+    \ * other.signum() > 0)\n            || (rounding_mode == ::tools::rounding_mode::floor\
+    \ && old_this.signum() * other.signum() < 0)\n            || rounding_mode ==\
+    \ ::tools::rounding_mode::up) {\n            ::tools::bigdecimal d(*this);\n \
+    \           d *= other;\n            return compare_3way_abs(old_this, d) > 0;\n\
+    \          } else {\n            return false;\n          }\n        }\n\n   \
+    \     ::tools::bigdecimal d(*this);\n        d += ::tools::bigdecimal(5 * old_this.signum()\
+    \ * other.signum()).divide_by_pow10(scale + 1);\n        d *= other;\n       \
+    \ const int comp = compare_3way_abs(old_this, d);\n        if (rounding_mode ==\
+    \ ::tools::rounding_mode::half_down) {\n          return comp > 0;\n        }\n\
+    \        if (rounding_mode == ::tools::rounding_mode::half_up) {\n          return\
+    \ comp >= 0;\n        }\n        return comp > 0 || (comp == 0 && this->m_unscaled_value[0]\
+    \ % 2 != 0);\n      }()) {\n        this->m_unscaled_value += ::tools::bigint(old_this.signum()\
+    \ * other.signum());\n        this->regularize();\n      }\n\n      return *this;\n\
+    \    }\n    ::tools::bigdecimal& divide(const ::tools::bigdecimal& other, const\
+    \ ::std::ptrdiff_t scale) {\n      return this->divide(other, scale, ::tools::rounding_mode::half_even);\n\
+    \    }\n    ::tools::bigdecimal& operator/=(const ::tools::bigdecimal& other)\
+    \ {\n      return this->divide(other, this->m_scale - other.m_scale);\n    }\n\
+    \n    friend ::tools::bigdecimal operator+(const ::tools::bigdecimal& lhs, const\
+    \ ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) += rhs;\n\
+    \    }\n    friend ::tools::bigdecimal operator-(const ::tools::bigdecimal& lhs,\
+    \ const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) -=\
+    \ rhs;\n    }\n    friend ::tools::bigdecimal operator*(const ::tools::bigdecimal&\
+    \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
+    \ *= rhs;\n    }\n    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal&\
+    \ other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode)\
+    \ const {\n      return ::tools::bigdecimal(*this).divide(other, scale, rounding_mode);\n\
+    \    }\n    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal& other,\
+    \ const ::std::ptrdiff_t scale) const {\n      return ::tools::bigdecimal(*this).divide(other,\
+    \ scale);\n    }\n    friend ::tools::bigdecimal operator/(const ::tools::bigdecimal&\
+    \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
+    \ /= rhs;\n    }\n\n    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit operator T() const {\n      auto\
+    \ x = *this;\n      x.set_scale(0);\n      return static_cast<T>(x.m_unscaled_value);\n\
+    \    }\n\n    explicit operator double() const {\n      long double result = 0.0;\n\
+    \      const ::std::size_t precision = this->precision();\n      for (::std::size_t\
+    \ i = 0; i < ::std::numeric_limits<long double>::digits10; ++i) {\n        result\
+    \ = result * 10.0L + (precision >= i + 1 ? this->m_unscaled_value[precision -\
+    \ 1 - i] : 0) * this->signum();\n      }\n      result *= ::std::pow(10.0L, static_cast<long\
+    \ double>(precision) - static_cast<long double>(this->m_scale) - static_cast<long\
+    \ double>(::std::numeric_limits<long double>::digits10));\n      return static_cast<double>(result);\n\
+    \    }\n\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::bigdecimal&\
+    \ self) {\n      ::std::string s;\n      is >> s;\n      self = ::tools::bigdecimal(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::bigdecimal& self) {\n      if (self.signum() < 0) {\n   \
+    \     os << '-';\n      }\n      for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value)\
+    \ - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i)\
+    \ {\n        if (i == self.m_scale - 1) {\n          os << '.';\n        }\n \
+    \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
+    \ : 0);\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/cumsum2d.hpp\"\
+    \n\n\n\n#line 9 \"tools/cumsum2d.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ G>\n  class cumsum2d {\n  private:\n    using T = typename G::T;\n    ::std::size_t\
+    \ height;\n    ::std::size_t width;\n    ::std::vector<T> preprocessed;\n\n  public:\n\
+    \    template <typename Range>\n    explicit cumsum2d(const Range& range) {\n\
+    \      const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
+    \      this->height = ::std::distance(begin, end);\n      this->width = this->height\
+    \ == 0 ? 0 : ::std::distance(::std::begin(*begin), ::std::end(*begin));\n    \
+    \  this->preprocessed.reserve((this->height + 1) * (this->width + 1));\n     \
+    \ ::std::fill_n(::std::back_inserter(this->preprocessed), (this->height + 1) *\
+    \ (this->width + 1), G::e());\n\n      {\n        auto it1 = begin;\n        for\
+    \ (::std::size_t y = 0; y < this->height; ++y, ++it1) {\n          auto it2 =\
+    \ ::std::begin(*it1);\n          for (::std::size_t x = 0; x < this->width; ++x,\
+    \ ++it2) {\n            this->preprocessed[(y + 1) * (this->width + 1) + (x +\
+    \ 1)] = G::op(this->preprocessed[(y + 1) * (this->width + 1) + x], *it2);\n  \
+    \        }\n        }\n      }\n      for (::std::size_t x = 0; x < this->width;\
+    \ ++x) {\n        for (::std::size_t y = 0; y < this->height; ++y) {\n       \
+    \   this->preprocessed[(y + 1) * (this->width + 1) + (x + 1)] = G::op(this->preprocessed[y\
+    \ * (this->width + 1) + (x + 1)], this->preprocessed[(y + 1) * (this->width +\
+    \ 1) + (x + 1)]);\n        }\n      }\n    }\n\n    T query(const ::std::size_t\
+    \ y1, const ::std::size_t y2, const ::std::size_t x1, const ::std::size_t x2)\
+    \ const {\n      assert(y1 <= y2 && y2 <= this->height);\n      assert(x1 <= x2\
+    \ && x2 <= this->width);\n      return G::op(\n        G::op(\n          G::op(\n\
+    \            this->preprocessed[y2 * (this->width + 1) + x2],\n            G::inv(this->preprocessed[y2\
+    \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
+    \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
+    \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
+    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
+    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
+    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
+    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
+    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<std::string> A(N);\n  for (auto& A_i\
+    \ : A) std::cin >> A_i;\n\n  std::array<std::array<ll, 19>, 19> matrix({{}});\n\
+    \  for (const auto& A_i : A) {\n    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));\n\
+    \    ll y;\n    for (y = 0; y < 18 && A_i_ll % 2 == 0; ++y, A_i_ll /= 2);\n  \
+    \  ll x;\n    for (x = 0; x < 18 && A_i_ll % 5 == 0; ++x, A_i_ll /= 5);\n \n \
+    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<tools::group::plus<ll>>(matrix);\n\
+    \  auto answer = 0LL;\n  for (ll y = 0; y <= 18; ++y) {\n    for (ll x = 0; x\
+    \ <= 18; ++x) {\n      answer += matrix[y][x] * cumsum.query(18 - y, 19, 18 -\
+    \ x, 19);\n    }\n  }\n  answer -= cumsum.query(9, 19, 9, 19);\n  answer /= 2;\n\
+    \  std::cout << answer << std::endl;\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/agc047/tasks/agc047_a\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <string>\n#include <array>\n\
+    #include \"tools/bigdecimal.hpp\"\n#include \"tools/cumsum2d.hpp\"\n#include \"\
+    tools/group.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<std::string>\
+    \ A(N);\n  for (auto& A_i : A) std::cin >> A_i;\n\n  std::array<std::array<ll,\
+    \ 19>, 19> matrix({{}});\n  for (const auto& A_i : A) {\n    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));\n\
+    \    ll y;\n    for (y = 0; y < 18 && A_i_ll % 2 == 0; ++y, A_i_ll /= 2);\n  \
+    \  ll x;\n    for (x = 0; x < 18 && A_i_ll % 5 == 0; ++x, A_i_ll /= 5);\n \n \
+    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<tools::group::plus<ll>>(matrix);\n\
+    \  auto answer = 0LL;\n  for (ll y = 0; y <= 18; ++y) {\n    for (ll x = 0; x\
+    \ <= 18; ++x) {\n      answer += matrix[y][x] * cumsum.query(18 - y, 19, 18 -\
+    \ x, 19);\n    }\n  }\n  answer -= cumsum.query(9, 19, 9, 19);\n  answer /= 2;\n\
+    \  std::cout << answer << std::endl;\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/bigdecimal.hpp
   - tools/bigint.hpp
   - tools/quo.hpp
   - tools/mod.hpp
@@ -763,16 +963,20 @@ data:
   - tools/prod_mod.hpp
   - tools/pow_mod.hpp
   - tools/pow2.hpp
+  - tools/signum.hpp
+  - tools/rounding_mode.hpp
+  - tools/cumsum2d.hpp
+  - tools/group.hpp
   isVerificationFile: true
-  path: tests/bigint/modulus.test.cpp
+  path: tests/bigdecimal/cast_to_long_long.test.cpp
   requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bigint/modulus.test.cpp
+documentation_of: tests/bigdecimal/cast_to_long_long.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bigint/modulus.test.cpp
-- /verify/tests/bigint/modulus.test.cpp.html
-title: tests/bigint/modulus.test.cpp
+- /verify/tests/bigdecimal/cast_to_long_long.test.cpp
+- /verify/tests/bigdecimal/cast_to_long_long.test.cpp.html
+title: tests/bigdecimal/cast_to_long_long.test.cpp
 ---

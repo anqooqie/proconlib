@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc247/tasks/abc247_g
@@ -28,42 +28,42 @@ data:
     - https://atcoder.jp/contests/abc247/tasks/abc247_g
   bundledCode: "#line 1 \"tests/weighted_bipartite_matching/multiple_calls.test.cpp\"\
     \n#define PROBLEM \"https://atcoder.jp/contests/abc247/tasks/abc247_g\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <optional>\n#include\
-    \ <utility>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\n\n\n\n#include\
-    \ <cstddef>\n#line 8 \"tools/weighted_bipartite_matching.hpp\"\n#include <limits>\n\
-    #line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include\
-    \ <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\n#include <numeric>\n#include <stack>\n\
-    #include <algorithm>\n#include <queue>\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n \
-    \   return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\
-    \n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class greater_by_second\
-    \ {\n  public:\n    template <class T1, class T2>\n    bool operator()(const ::std::pair<T1,\
-    \ T2>& x, const ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n\
-    \    }\n  };\n}\n\n\n#line 16 \"tools/mcf_graph.hpp\"\n\nnamespace tools {\n \
-    \ template <typename Cap, typename Cost>\n  class mcf_graph {\n  public:\n   \
-    \ struct edge {\n      int from, to;\n      Cap cap, flow;\n      Cost cost;\n\
-    \    };\n\n  private:\n    ::std::vector<::std::vector<int>> m_graph;\n    ::std::vector<::tools::mcf_graph<Cap,\
-    \ Cost>::edge> m_edges;\n    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n\
-    \    ::std::vector<Cost> m_potentials;\n    bool m_filled_negative_cycles;\n \
-    \   ::std::optional<bool> m_is_dag;\n    bool m_calculated_potentials;\n\n   \
-    \ int size() const {\n      return this->m_graph.size();\n    }\n\n  public:\n\
-    \    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap, Cost>&)\
-    \ = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n    ~mcf_graph()\
-    \ = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const ::tools::mcf_graph<Cap,\
-    \ Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(::tools::mcf_graph<Cap,\
-    \ Cost>&&) = default;\n\n    explicit mcf_graph(const int n) : m_graph(n), m_slope({::std::pair<Cap,\
-    \ Cost>(0, 0)}), m_potentials(n, 0), m_filled_negative_cycles(false), m_calculated_potentials(false)\
-    \ {\n    }\n\n    int add_edge(const int from, const int to, const Cap cap, const\
-    \ Cost cost) {\n      assert(0 <= from && from < this->size());\n      assert(0\
-    \ <= to && to < this->size());\n      assert(0 <= cap);\n      assert(cost !=\
-    \ ::std::numeric_limits<Cost>::min());\n      assert(cost != ::std::numeric_limits<Cost>::max());\n\
-    \n      this->m_graph[from].push_back(this->m_edges.size());\n      this->m_edges.push_back(::tools::mcf_graph<Cap,\
-    \ Cost>::edge({from, to, cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
+    \ <iostream>\n#include <vector>\n#include <optional>\n#include <utility>\n#line\
+    \ 1 \"tools/weighted_bipartite_matching.hpp\"\n\n\n\n#include <cstddef>\n#line\
+    \ 8 \"tools/weighted_bipartite_matching.hpp\"\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\
+    \n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\
+    \n#include <numeric>\n#include <stack>\n#include <algorithm>\n#include <queue>\n\
+    #line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/ssize.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
+    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\
+    \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
+    \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
+    \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
+    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 16 \"tools/mcf_graph.hpp\"\
+    \n\nnamespace tools {\n  template <typename Cap, typename Cost>\n  class mcf_graph\
+    \ {\n  public:\n    struct edge {\n      int from, to;\n      Cap cap, flow;\n\
+    \      Cost cost;\n    };\n\n  private:\n    ::std::vector<::std::vector<int>>\
+    \ m_graph;\n    ::std::vector<::tools::mcf_graph<Cap, Cost>::edge> m_edges;\n\
+    \    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n    ::std::vector<Cost> m_potentials;\n\
+    \    bool m_filled_negative_cycles;\n    ::std::optional<bool> m_is_dag;\n   \
+    \ bool m_calculated_potentials;\n\n    int size() const {\n      return this->m_graph.size();\n\
+    \    }\n\n  public:\n    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap,\
+    \ Cost>&) = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n\
+    \    ~mcf_graph() = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const\
+    \ ::tools::mcf_graph<Cap, Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>&\
+    \ operator=(::tools::mcf_graph<Cap, Cost>&&) = default;\n\n    explicit mcf_graph(const\
+    \ int n) : m_graph(n), m_slope({::std::pair<Cap, Cost>(0, 0)}), m_potentials(n,\
+    \ 0), m_filled_negative_cycles(false), m_calculated_potentials(false) {\n    }\n\
+    \n    int add_edge(const int from, const int to, const Cap cap, const Cost cost)\
+    \ {\n      assert(0 <= from && from < this->size());\n      assert(0 <= to &&\
+    \ to < this->size());\n      assert(0 <= cap);\n      assert(cost != ::std::numeric_limits<Cost>::min());\n\
+    \      assert(cost != ::std::numeric_limits<Cost>::max());\n\n      this->m_graph[from].push_back(this->m_edges.size());\n\
+    \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({from, to,\
+    \ cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
     \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({to, from,\
     \ cap, cap, -cost}));\n      return this->m_edges.size() / 2 - 1;\n    }\n\n \
     \ private:\n    void fill_negative_cycles() {\n      ::std::vector<::std::pair<::std::vector<int>,\
@@ -289,25 +289,25 @@ data:
     \       if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow ==\
     \ 1) {\n          edges.push_back(this->m_edges[i]);\n        }\n      }\n\n \
     \     return ::std::make_pair(this->m_maximize ? -cost : cost, edges);\n    }\n\
-    \  };\n}\n\n\n#line 9 \"tests/weighted_bipartite_matching/multiple_calls.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<i64>\
-    \ graph(150, 150, true);\n  for (i64 i = 0; i < N; ++i) {\n    i64 A, B, C;\n\
-    \    std::cin >> A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n \
-    \ }\n\n  std::vector<i64> answers;\n  std::optional<std::pair<i64, std::vector<tools::weighted_bipartite_matching<i64>::edge>>>\
-    \ matching;\n  for (i64 k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
+    \  };\n}\n\n\n#line 8 \"tests/weighted_bipartite_matching/multiple_calls.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<ll> graph(150,\
+    \ 150, true);\n  for (ll i = 0; i < N; ++i) {\n    ll A, B, C;\n    std::cin >>\
+    \ A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n  }\n\n  std::vector<ll>\
+    \ answers;\n  std::optional<std::pair<ll, std::vector<tools::weighted_bipartite_matching<ll>::edge>>>\
+    \ matching;\n  for (ll k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
     \    answers.push_back(matching->first);\n  }\n\n  std::cout << answers.size()\
     \ << '\\n';\n  for (const auto answer : answers) {\n    std::cout << answer <<\
     \ '\\n';\n  }\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc247/tasks/abc247_g\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <optional>\n\
-    #include <utility>\n#include \"tools/weighted_bipartite_matching.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<i64> graph(150,\
-    \ 150, true);\n  for (i64 i = 0; i < N; ++i) {\n    i64 A, B, C;\n    std::cin\
-    \ >> A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n  }\n\n  std::vector<i64>\
-    \ answers;\n  std::optional<std::pair<i64, std::vector<tools::weighted_bipartite_matching<i64>::edge>>>\
-    \ matching;\n  for (i64 k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
+    #include <iostream>\n#include <vector>\n#include <optional>\n#include <utility>\n\
+    #include \"tools/weighted_bipartite_matching.hpp\"\n\nusing ll = long long;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  tools::weighted_bipartite_matching<ll> graph(150,\
+    \ 150, true);\n  for (ll i = 0; i < N; ++i) {\n    ll A, B, C;\n    std::cin >>\
+    \ A >> B >> C;\n    --A, --B;\n    graph.add_edge(A, B, C);\n  }\n\n  std::vector<ll>\
+    \ answers;\n  std::optional<std::pair<ll, std::vector<tools::weighted_bipartite_matching<ll>::edge>>>\
+    \ matching;\n  for (ll k = 1; (matching = graph.query(k)).has_value(); ++k) {\n\
     \    answers.push_back(matching->first);\n  }\n\n  std::cout << answers.size()\
     \ << '\\n';\n  for (const auto answer : answers) {\n    std::cout << answer <<\
     \ '\\n';\n  }\n  return 0;\n}\n"
@@ -320,8 +320,8 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   requiredBy: []
-  timestamp: '2022-07-03 21:34:15+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/multiple_calls.test.cpp
 layout: document

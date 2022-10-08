@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/scc_graph.hpp
     title: Strongly connected component decomposition
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc204/tasks/abc204_c
     links:
     - https://atcoder.jp/contests/abc204/tasks/abc204_c
   bundledCode: "#line 1 \"tests/scc_graph/edges_to_scc.test.cpp\"\n#define PROBLEM\
-    \ \"https://atcoder.jp/contests/abc204/tasks/abc204_c\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#line 1 \"tools/scc_graph.hpp\"\n\n\n\n#include <vector>\n\
-    #include <utility>\n#include <cstddef>\n#include <cassert>\n#include <stack>\n\
-    #include <algorithm>\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\
-    \n  template <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n\
-    \    less_by(const F& selector) : selector(selector) {\n    }\n\n    template\
-    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 11 \"tools/scc_graph.hpp\"\
-    \n\nnamespace tools {\n  class scc_graph {\n  private:\n    ::std::vector<::std::pair<::std::size_t,\
+    \ \"https://atcoder.jp/contests/abc204/tasks/abc204_c\"\n\n#include <iostream>\n\
+    #line 1 \"tools/scc_graph.hpp\"\n\n\n\n#include <vector>\n#include <utility>\n\
+    #include <cstddef>\n#include <cassert>\n#include <stack>\n#include <algorithm>\n\
+    #line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n\
+    \  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 11 \"tools/scc_graph.hpp\"\n\nnamespace tools {\n \
+    \ class scc_graph {\n  private:\n    ::std::vector<::std::pair<::std::size_t,\
     \ ::std::size_t>> m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\
     \    ::std::vector<::std::vector<::std::size_t>> m_rev_graph;\n    ::std::vector<::std::size_t>\
     \ m_vid2scc;\n    ::std::vector<::std::vector<::std::size_t>> m_sccs;\n    ::std::vector<::std::vector<::std::size_t>>\
@@ -112,40 +112,46 @@ data:
     \ const ::std::vector<::std::pair<::std::size_t, ::std::vector<::std::size_t>>>&\
     \ edges_to_scc(const ::std::size_t i) const {\n      assert(i < this->m_sccs.size());\n\
     \      assert(this->m_built);\n      return this->m_rev_scc_graph[i];\n    }\n\
-    \  };\n}\n\n\n#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#line 7 \"tools/dynamic_bitset.hpp\"\
-    \n#include <limits>\n#include <string>\n#line 11 \"tools/dynamic_bitset.hpp\"\n\
-    #include <iterator>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n\
+    \  };\n}\n\n\n#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#line 6 \"tools/dynamic_bitset.hpp\"\
+    \n#include <cstdint>\n#include <limits>\n#include <string>\n#line 11 \"tools/dynamic_bitset.hpp\"\
+    \n#include <iterator>\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n\
     #line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
     \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
     \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
     \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/popcount.hpp\"\n\
-    \n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  inline ::std::uint32_t\
-    \ popcount(::std::uint32_t x) {\n    x = (x & static_cast<::std::uint32_t>(0x55555555ull))\
-    \ + (x >> static_cast<::std::uint32_t>(1) & static_cast<::std::uint32_t>(0x55555555ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x33333333ull)) + (x >> static_cast<::std::uint32_t>(2)\
-    \ & static_cast<::std::uint32_t>(0x33333333ull));\n    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint32_t>(4) & static_cast<::std::uint32_t>(0x0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull)) + (x >> static_cast<::std::uint32_t>(8)\
-    \ & static_cast<::std::uint32_t>(0x00ff00ffull));\n    return (x & static_cast<::std::uint32_t>(0x0000ffffull))\
-    \ + (x >> static_cast<::std::uint32_t>(16) & static_cast<::std::uint32_t>(0x0000ffffull));\n\
-    \  }\n\n  inline ::std::uint64_t popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
-    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
-    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
-    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
-    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
-    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
-    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
-    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\n\nnamespace tools {\n  class\
-    \ dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n    ::std::vector<::std::uint64_t>\
-    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    dynamic_bitset(const\
-    \ ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
-    \ = default;\n    ~dynamic_bitset() = default;\n    ::tools::dynamic_bitset& operator=(const\
-    \ ::tools::dynamic_bitset&) = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
+    \n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
+    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\
+    \n\nnamespace tools {\n  class dynamic_bitset {\n  private:\n    ::std::size_t\
+    \ m_size;\n    ::std::vector<::std::uint64_t> m_bits;\n\n  public:\n    dynamic_bitset()\
+    \ : m_size(0) {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n\
+    \    dynamic_bitset(::tools::dynamic_bitset&&) = default;\n    ~dynamic_bitset()\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&)\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
     \ = default;\n\n    explicit dynamic_bitset(const ::std::size_t size) : m_size(size),\
     \ m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits),\
     \ 0) {}\n    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()),\
@@ -258,28 +264,27 @@ data:
     \      if (size % ::std::numeric_limits<::std::uint64_t>::digits > 0) {\n    \
     \    this->m_bits.back() &= (::std::uint64_t(1) << (size % ::std::numeric_limits<::std::uint64_t>::digits))\
     \ - 1;\n      }\n    }\n    void shrink_to_fit() {\n      this->m_bits.shrink_to_fit();\n\
-    \    }\n  };\n}\n\n\n#line 7 \"tests/scc_graph/edges_to_scc.test.cpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M;\n  std::cin >> N >> M;\n  tools::scc_graph graph(N);\n  for (i64\
-    \ i = 0; i < M; ++i) {\n    i64 A, B;\n    std::cin >> A >> B;\n    --A, --B;\n\
-    \    graph.add_edge(A, B);\n  }\n\n  graph.build();\n\n  std::vector<tools::dynamic_bitset>\
-    \ dp(graph.sccs().size(), tools::dynamic_bitset(N));\n  for (i64 i = graph.sccs().size()\
+    \    }\n  };\n}\n\n\n#line 6 \"tests/scc_graph/edges_to_scc.test.cpp\"\n\nusing\
+    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  tools::scc_graph graph(N);\n  for (ll i\
+    \ = 0; i < M; ++i) {\n    ll A, B;\n    std::cin >> A >> B;\n    --A, --B;\n \
+    \   graph.add_edge(A, B);\n  }\n\n  graph.build();\n\n  std::vector<tools::dynamic_bitset>\
+    \ dp(graph.sccs().size(), tools::dynamic_bitset(N));\n  for (ll i = graph.sccs().size()\
     \ - 1; i >= 0; --i) {\n    for (const auto v : graph.sccs()[i]) {\n      dp[i].set(v);\n\
     \    }\n    for (const auto& [j, unused] : graph.edges_to_scc(i)) {\n      dp[j]\
-    \ |= dp[i];\n    }\n  }\n\n  i64 answer = 0;\n  for (i64 i = 0; i < N; ++i) {\n\
+    \ |= dp[i];\n    }\n  }\n\n  ll answer = 0;\n  for (ll i = 0; i < N; ++i) {\n\
     \    answer += dp[graph.scc_id(i)].count();\n  }\n  std::cout << answer << '\\\
     n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc204/tasks/abc204_c\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/scc_graph.hpp\"\n#include\
-    \ \"tools/dynamic_bitset.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, M;\n  std::cin >> N >> M;\n  tools::scc_graph graph(N);\n  for (i64 i = 0;\
-    \ i < M; ++i) {\n    i64 A, B;\n    std::cin >> A >> B;\n    --A, --B;\n    graph.add_edge(A,\
-    \ B);\n  }\n\n  graph.build();\n\n  std::vector<tools::dynamic_bitset> dp(graph.sccs().size(),\
-    \ tools::dynamic_bitset(N));\n  for (i64 i = graph.sccs().size() - 1; i >= 0;\
-    \ --i) {\n    for (const auto v : graph.sccs()[i]) {\n      dp[i].set(v);\n  \
-    \  }\n    for (const auto& [j, unused] : graph.edges_to_scc(i)) {\n      dp[j]\
-    \ |= dp[i];\n    }\n  }\n\n  i64 answer = 0;\n  for (i64 i = 0; i < N; ++i) {\n\
+    #include <iostream>\n#include \"tools/scc_graph.hpp\"\n#include \"tools/dynamic_bitset.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  tools::scc_graph graph(N);\n  for (ll i\
+    \ = 0; i < M; ++i) {\n    ll A, B;\n    std::cin >> A >> B;\n    --A, --B;\n \
+    \   graph.add_edge(A, B);\n  }\n\n  graph.build();\n\n  std::vector<tools::dynamic_bitset>\
+    \ dp(graph.sccs().size(), tools::dynamic_bitset(N));\n  for (ll i = graph.sccs().size()\
+    \ - 1; i >= 0; --i) {\n    for (const auto v : graph.sccs()[i]) {\n      dp[i].set(v);\n\
+    \    }\n    for (const auto& [j, unused] : graph.edges_to_scc(i)) {\n      dp[j]\
+    \ |= dp[i];\n    }\n  }\n\n  ll answer = 0;\n  for (ll i = 0; i < N; ++i) {\n\
     \    answer += dp[graph.scc_id(i)].count();\n  }\n  std::cout << answer << '\\\
     n';\n  return 0;\n}\n"
   dependsOn:
@@ -291,8 +296,8 @@ data:
   isVerificationFile: true
   path: tests/scc_graph/edges_to_scc.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/scc_graph/edges_to_scc.test.cpp
 layout: document

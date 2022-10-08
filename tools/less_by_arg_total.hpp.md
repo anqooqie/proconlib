@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/greater_by_arg_total.test.cpp
     title: tests/greater_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by_arg_total.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\
@@ -141,10 +141,10 @@ data:
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
     \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
-    \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
-    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
-    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \n\nnamespace tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>&\
+    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
+    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
+    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
     \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 6 \"tools/less_by_arg_total.hpp\"\
     \n\nnamespace tools {\n\n  template <typename T>\n  class less_by_arg_total {\n\
     \  private:\n    ::tools::vector2<T> o;\n    ::tools::vector2<T> d;\n\n    int\
@@ -213,8 +213,8 @@ data:
   path: tools/less_by_arg_total.hpp
   requiredBy:
   - tools/greater_by_arg_total.hpp
-  timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/greater_by_arg_total.test.cpp
   - tests/less_by_arg_total.test.cpp

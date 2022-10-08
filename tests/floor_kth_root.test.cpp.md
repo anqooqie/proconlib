@@ -1,46 +1,46 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/kth_root_integer
     links:
     - https://judge.yosupo.jp/problem/kth_root_integer
   bundledCode: "#line 1 \"tests/floor_kth_root.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/kth_root_integer\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/floor_kth_root.hpp\"\
-    \n\n\n\n#include <cassert>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"\
-    tools/floor_sqrt.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(const\
-    \ T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng\
-    \ <= n / ng; ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok +\
-    \ (ng - ok) / 2;\n      if (mid <= n / mid) {\n        ok = mid;\n      } else\
-    \ {\n        ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1\
-    \ \"tools/pow.hpp\"\n\n\n\n#include <cstddef>\n#line 1 \"tools/monoid.hpp\"\n\n\
-    \n\n#include <algorithm>\n#include <limits>\n#include <numeric>\n\nnamespace tools\
-    \ {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \n\n#include <iostream>\n#line 1 \"tools/floor_kth_root.hpp\"\n\n\n\n#include\
+    \ <cassert>\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#line 5 \"tools/floor_sqrt.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(const T n) {\n\
+    \    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng <= n / ng;\
+    \ ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) /\
+    \ 2;\n      if (mid <= n / mid) {\n        ok = mid;\n      } else {\n       \
+    \ ng = mid;\n      }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\
+    \n\n\n\n#include <cstddef>\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n\
+    #include <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
+    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
     \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
     \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
@@ -351,18 +351,17 @@ data:
     \ ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) /\
     \ 2;\n      if (::tools::pow(::tools::safe_int<T>(mid), k) <= ::tools::safe_int<T>(x))\
     \ {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n\
-    \    return ok;\n  }\n}\n\n\n#line 6 \"tests/floor_kth_root.test.cpp\"\n\nusing\
-    \ u64 = std::uint_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int T;\n  std::cin >> T;\n  for (int t = 0; t < T; ++t) {\n    u64 A;\n  \
+    \    return ok;\n  }\n}\n\n\n#line 5 \"tests/floor_kth_root.test.cpp\"\n\nusing\
+    \ ull = unsigned long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int T;\n  std::cin >> T;\n  for (int t = 0; t < T; ++t) {\n    ull A;\n  \
     \  int K;\n    std::cin >> A >> K;\n    std::cout << tools::floor_kth_root(A,\
     \ K) << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/kth_root_integer\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/floor_kth_root.hpp\"\
-    \n\nusing u64 = std::uint_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  int T;\n  std::cin >> T;\n  for\
-    \ (int t = 0; t < T; ++t) {\n    u64 A;\n    int K;\n    std::cin >> A >> K;\n\
-    \    std::cout << tools::floor_kth_root(A, K) << '\\n';\n  }\n\n  return 0;\n\
-    }\n"
+    #include <iostream>\n#include \"tools/floor_kth_root.hpp\"\n\nusing ull = unsigned\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int T;\n  std::cin >> T;\n  for (int t = 0; t < T; ++t) {\n    ull A;\n  \
+    \  int K;\n    std::cin >> A >> K;\n    std::cout << tools::floor_kth_root(A,\
+    \ K) << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/floor_kth_root.hpp
   - tools/floor_sqrt.hpp
@@ -373,8 +372,8 @@ data:
   isVerificationFile: true
   path: tests/floor_kth_root.test.cpp
   requiredBy: []
-  timestamp: '2022-07-03 14:14:33+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/floor_kth_root.test.cpp
 layout: document

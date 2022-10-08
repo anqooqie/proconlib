@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
@@ -18,27 +18,26 @@ data:
     links:
     - https://judge.yosupo.jp/problem/bitwise_and_convolution
   bundledCode: "#line 1 \"tests/and_convolution.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
-    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
-    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
-    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -254,36 +253,33 @@ data:
     \ state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i) - 1)) << 1) |\
     \ (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i)) < K; ++state)\
     \ {\n        c_begin[lower] -= c_begin[upper];\n      }\n    }\n  }\n}\n\n\n#line\
-    \ 9 \"tests/and_convolution.test.cpp\"\n\nusing i64 = std::int_fast64_t;\nusing\
-    \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n  std::vector<mint>\
-    \ a(tools::pow2(N)), b(tools::pow2(N));\n  for (auto& a_i : a) {\n    i64 a_i_i64;\n\
-    \    std::cin >> a_i_i64;\n    a_i = mint::raw(a_i_i64);\n  }\n  for (auto& b_i\
-    \ : b) {\n    i64 b_i_i64;\n    std::cin >> b_i_i64;\n    b_i = mint::raw(b_i_i64);\n\
-    \  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::and_convolution(a.begin(),\
+    \ 8 \"tests/and_convolution.test.cpp\"\n\nusing ll = long long;\nusing mint =\
+    \ atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));\n\
+    \  for (auto& a_i : a) {\n    ll a_i_ll;\n    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n\
+    \  }\n  for (auto& b_i : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i\
+    \ = mint::raw(b_i_ll);\n  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::and_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
     \ = \"\";\n  for (const auto& c_i : c) {\n    std::cout << delimiter << c_i.val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/and_convolution.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N;\n  std::cin >> N;\n  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));\n\
-    \  for (auto& a_i : a) {\n    i64 a_i_i64;\n    std::cin >> a_i_i64;\n    a_i\
-    \ = mint::raw(a_i_i64);\n  }\n  for (auto& b_i : b) {\n    i64 b_i_i64;\n    std::cin\
-    \ >> b_i_i64;\n    b_i = mint::raw(b_i_i64);\n  }\n\n  std::vector<mint> c(tools::pow2(N));\n\
-    \  tools::and_convolution(a.begin(), a.end(), b.begin(), b.end(), c.begin(), c.end());\n\
-    \n  std::string delimiter = \"\";\n  for (const auto& c_i : c) {\n    std::cout\
-    \ << delimiter << c_i.val();\n    delimiter = \" \";\n  }\n  std::cout << '\\\
-    n';\n\n  return 0;\n}\n"
+    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/and_convolution.hpp\"\n\nusing ll = long long;\nusing mint\
+    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));\n\
+    \  for (auto& a_i : a) {\n    ll a_i_ll;\n    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n\
+    \  }\n  for (auto& b_i : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i\
+    \ = mint::raw(b_i_ll);\n  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::and_convolution(a.begin(),\
+    \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
+    \ = \"\";\n  for (const auto& c_i : c) {\n    std::cout << delimiter << c_i.val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/and_convolution.hpp
   - tools/pow2.hpp
   isVerificationFile: true
   path: tests/and_convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-09-17 11:30:02+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/and_convolution.test.cpp

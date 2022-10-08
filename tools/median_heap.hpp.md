@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/median_heap.test.cpp
     title: tests/median_heap.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/median_heap.hpp\"\n\n\n\n#include <functional>\n#include\
@@ -81,7 +81,7 @@ data:
   path: tools/median_heap.hpp
   requiredBy: []
   timestamp: '2022-03-19 14:14:06+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/median_heap.test.cpp
 documentation_of: tools/median_heap.hpp

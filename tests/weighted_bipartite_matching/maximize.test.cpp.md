@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/acl1/tasks/acl1_c
@@ -37,11 +37,11 @@ data:
     - https://atcoder.jp/contests/acl1/tasks/acl1_c
   bundledCode: "#line 1 \"tests/weighted_bipartite_matching/maximize.test.cpp\"\n\
     #define PROBLEM \"https://atcoder.jp/contests/acl1/tasks/acl1_c\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n#include\
-    \ <variant>\n#include <queue>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\
-    \n\n\n\n#include <cstddef>\n#line 6 \"tools/weighted_bipartite_matching.hpp\"\n\
-    #include <optional>\n#include <utility>\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\
-    \n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\
+    \ <iostream>\n#include <vector>\n#include <string>\n#include <variant>\n#include\
+    \ <queue>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\n\n\n\n#include <cstddef>\n\
+    #line 6 \"tools/weighted_bipartite_matching.hpp\"\n#include <optional>\n#include\
+    \ <utility>\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#line 7\
+    \ \"tools/mcf_graph.hpp\"\n#include <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\
     \n#include <numeric>\n#include <stack>\n#include <algorithm>\n#line 1 \"tools/ssize.hpp\"\
     \n\n\n\n#include <type_traits>\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
@@ -305,13 +305,13 @@ data:
     \ abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n  }\n\
     \n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n   \
     \ return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line 6\
-    \ \"tools/pair_hash.hpp\"\n#include <random>\n#line 9 \"tools/pair_hash.hpp\"\n\
-    \nnamespace tools {\n\n  template <class T1, class T2>\n  struct pair_hash {\n\
-    \    using result_type = ::std::size_t;\n    using argument_type = ::std::pair<T1,\
-    \ T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n\
-    \      static const ::std::size_t salt = ::std::random_device()();\n      static\
-    \ const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static const ::std::hash<T2>\
-    \ hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
+    \ \"tools/pair_hash.hpp\"\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\n\
+    #include <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n \
+    \ struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
+    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
+    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
     \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
     \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
     \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
@@ -409,15 +409,15 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 11 \"tests/weighted_bipartite_matching/maximize.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M;\n  std::cin >> N >> M;\n\
-    \  std::vector<std::string> S(N);\n  for (auto& S_i : S) std::cin >> S_i;\n\n\
-    \  tools::weighted_bipartite_matching<i64> graph(N * M, N * M, true);\n  i64 number_of_pieces\
-    \ = 0;\n  for (i64 y1 = 0; y1 < N; ++y1) {\n    for (i64 x1 = 0; x1 < M; ++x1)\
-    \ {\n      if (S[y1][x1] == 'o') {\n        ++number_of_pieces;\n        std::queue<tools::vector2<i64>>\
-    \ queue;\n        queue.emplace(x1, y1);\n        auto will_visit = std::vector(N,\
-    \ std::vector(M, false));\n        will_visit[y1][x1] = true;\n        while (!queue.empty())\
+    \ key.y));\n    }\n  };\n}\n\n\n#line 10 \"tests/weighted_bipartite_matching/maximize.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<std::string> S(N);\n  for (auto&\
+    \ S_i : S) std::cin >> S_i;\n\n  tools::weighted_bipartite_matching<ll> graph(N\
+    \ * M, N * M, true);\n  ll number_of_pieces = 0;\n  for (ll y1 = 0; y1 < N; ++y1)\
+    \ {\n    for (ll x1 = 0; x1 < M; ++x1) {\n      if (S[y1][x1] == 'o') {\n    \
+    \    ++number_of_pieces;\n        std::queue<tools::vector2<ll>> queue;\n    \
+    \    queue.emplace(x1, y1);\n        auto will_visit = std::vector(N, std::vector(M,\
+    \ false));\n        will_visit[y1][x1] = true;\n        while (!queue.empty())\
     \ {\n          const auto here = queue.front();\n          queue.pop();\n    \
     \      graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x\
     \ - x1));\n          if (here.y + 1 < N && !will_visit[here.y + 1][here.x] &&\
@@ -429,16 +429,15 @@ data:
     \  }\n  }\n\n  std::cout << graph.query(number_of_pieces)->first << '\\n';\n \
     \ return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/acl1/tasks/acl1_c\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <string>\n#include\
-    \ <variant>\n#include <queue>\n#include \"tools/weighted_bipartite_matching.hpp\"\
-    \n#include \"tools/vector2.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, M;\n  std::cin >> N >> M;\n  std::vector<std::string> S(N);\n  for (auto&\
-    \ S_i : S) std::cin >> S_i;\n\n  tools::weighted_bipartite_matching<i64> graph(N\
-    \ * M, N * M, true);\n  i64 number_of_pieces = 0;\n  for (i64 y1 = 0; y1 < N;\
-    \ ++y1) {\n    for (i64 x1 = 0; x1 < M; ++x1) {\n      if (S[y1][x1] == 'o') {\n\
-    \        ++number_of_pieces;\n        std::queue<tools::vector2<i64>> queue;\n\
-    \        queue.emplace(x1, y1);\n        auto will_visit = std::vector(N, std::vector(M,\
+    \ <iostream>\n#include <vector>\n#include <string>\n#include <variant>\n#include\
+    \ <queue>\n#include \"tools/weighted_bipartite_matching.hpp\"\n#include \"tools/vector2.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<std::string> S(N);\n  for (auto&\
+    \ S_i : S) std::cin >> S_i;\n\n  tools::weighted_bipartite_matching<ll> graph(N\
+    \ * M, N * M, true);\n  ll number_of_pieces = 0;\n  for (ll y1 = 0; y1 < N; ++y1)\
+    \ {\n    for (ll x1 = 0; x1 < M; ++x1) {\n      if (S[y1][x1] == 'o') {\n    \
+    \    ++number_of_pieces;\n        std::queue<tools::vector2<ll>> queue;\n    \
+    \    queue.emplace(x1, y1);\n        auto will_visit = std::vector(N, std::vector(M,\
     \ false));\n        will_visit[y1][x1] = true;\n        while (!queue.empty())\
     \ {\n          const auto here = queue.front();\n          queue.pop();\n    \
     \      graph.add_edge(y1 * M + x1, here.y * M + here.x, (here.y - y1) + (here.x\
@@ -462,8 +461,8 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/maximize.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/maximize.test.cpp
 layout: document

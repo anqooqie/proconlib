@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#include <utility>\n\
@@ -94,7 +94,7 @@ data:
   - tools/bezout.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bezout.test.cpp
   - tests/extgcd.test.cpp

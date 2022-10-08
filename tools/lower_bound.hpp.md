@@ -2,40 +2,40 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inversion_number.hpp
     title: The number of inversions
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/li_chao_segtree/line.test.cpp
     title: tests/li_chao_segtree/line.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -63,7 +63,7 @@ data:
   - tools/li_chao_segtree.hpp
   - tools/inversion_number.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/lis.test.cpp
   - tests/li_chao_segtree/line.test.cpp

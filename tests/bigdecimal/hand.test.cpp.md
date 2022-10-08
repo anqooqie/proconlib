@@ -1,50 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
@@ -63,19 +63,19 @@ data:
     \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
     \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
     \  }\\\n} while (false)\n\n\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#include\
-    \ <cstddef>\n#include <algorithm>\n#include <cstdint>\n#include <string>\n#include\
-    \ <cassert>\n#include <limits>\n#include <cmath>\n#line 1 \"tools/bigint.hpp\"\
-    \n\n\n\n#include <vector>\n#line 6 \"tools/bigint.hpp\"\n#include <array>\n#line\
-    \ 9 \"tools/bigint.hpp\"\n#include <iterator>\n#include <type_traits>\n#line 13\
-    \ \"tools/bigint.hpp\"\n#include <utility>\n#line 17 \"tools/bigint.hpp\"\n#include\
-    \ <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \ <cstddef>\n#include <algorithm>\n#include <string>\n#include <cassert>\n#include\
+    \ <type_traits>\n#include <limits>\n#include <cmath>\n#line 1 \"tools/bigint.hpp\"\
+    \n\n\n\n#include <vector>\n#include <cstdint>\n#include <array>\n#line 9 \"tools/bigint.hpp\"\
+    \n#include <iterator>\n#line 13 \"tools/bigint.hpp\"\n#include <utility>\n#line\
+    \ 17 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line\
+    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
+    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
+    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -463,31 +463,30 @@ data:
     \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
     \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
     \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
     \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
-    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ n) {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
     \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
-    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
-    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
-    \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
-    \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
-    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
-    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
-    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 7 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M1, typename M2>\n  ::std::int_fast64_t garner2(const M1& a, const\
-    \ M2& b) {\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64 m1_m2\
-    \ = u64(M1::mod()) * u64(M2::mod());\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
-    \n    assert(M1::mod() < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
-    \    assert(::tools::is_prime(M2::mod()));\n\n    // t = (b - a) / M1; (mod M2)\n\
-    \    // return a + t * M1;\n    const M2 t = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n\
-    \    u64 r = t.val();\n    r *= M1::mod();\n    r += a.val();\n    if (r >= m1_m2)\
-    \ r -= m1_m2;\n    return r;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
-    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
-    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
-    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 6 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template <typename M1, typename\
+    \ M2>\n  long long garner2(const M1& a, const M2& b) {\n    using ull = unsigned\
+    \ long long;\n    static constexpr ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n\
+    \    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod()\
+    \ < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n    assert(::tools::is_prime(M2::mod()));\n\
+    \n    // t = (b - a) / M1; (mod M2)\n    // return a + t * M1;\n    const M2 t\
+    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    ull r = t.val();\n    r *= M1::mod();\n\
+    \    r += a.val();\n    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 27 \"tools/bigint.hpp\"\
@@ -615,30 +614,30 @@ data:
     \ other.m_digits) {\n        b1.push_back(mint1::raw(b_i));\n        b2.push_back(mint2::raw(b_i));\n\
     \      }\n\n      const auto c1 = ::atcoder::convolution(a1, b1);\n      const\
     \ auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
-    \      this->m_digits.reserve(c1.size() + 1);\n      ::std::int_fast64_t carry\
-    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since\
-    \ a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
+    \      this->m_digits.reserve(c1.size() + 1);\n      long long carry = 0;\n  \
+    \    for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since a_i <=\
+    \ 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
     \ other.m_digits.size()) holds.\n        // In addition, since this->m_digits.size()\
     \ + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\
     \ holds eventually.\n        // 1677386072457216 < 167772161 * 469762049 = 78812994116517889\
     \ holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049)\
-    \ by CRT.\n        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i]);\n\
-    \n        c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n \
-    \       this->m_digits.push_back(c_i);\n      }\n      if (carry > 0) {\n    \
-    \    this->m_digits.push_back(carry);\n      }\n\n      this->m_positive = this->m_positive\
-    \ == other.m_positive;\n      this->regularize(0);\n      return *this;\n    }\n\
-    \n    friend ::tools::bigint operator+(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint\
-    \ operator-(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
-    \ ::tools::bigint(lhs) -= rhs;\n    }\n    friend ::tools::bigint operator*(const\
+    \ by CRT.\n        long long c_i = ::tools::garner2(c1[i], c2[i]);\n\n       \
+    \ c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n        this->m_digits.push_back(c_i);\n\
+    \      }\n      if (carry > 0) {\n        this->m_digits.push_back(carry);\n \
+    \     }\n\n      this->m_positive = this->m_positive == other.m_positive;\n  \
+    \    this->regularize(0);\n      return *this;\n    }\n\n    friend ::tools::bigint\
+    \ operator+(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
+    \ ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint operator-(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
-    \ *= rhs;\n    }\n\n    ::tools::bigint& operator++() {\n      return *this +=\
-    \ ::tools::bigint(1);\n    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint\
-    \ old(*this);\n      ++(*this);\n      return old;\n    }\n    ::tools::bigint&\
-    \ operator--() {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint\
-    \ operator--(int) {\n      ::tools::bigint old(*this);\n      --(*this);\n   \
-    \   return old;\n    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint&\
-    \ other) {\n      assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
+    \ -= rhs;\n    }\n    friend ::tools::bigint operator*(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs) *= rhs;\n\
+    \    }\n\n    ::tools::bigint& operator++() {\n      return *this += ::tools::bigint(1);\n\
+    \    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint old(*this);\n\
+    \      ++(*this);\n      return old;\n    }\n    ::tools::bigint& operator--()\
+    \ {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint operator--(int)\
+    \ {\n      ::tools::bigint old(*this);\n      --(*this);\n      return old;\n\
+    \    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint& other) {\n  \
+    \    assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
     \ other) < 0) {\n        this->m_digits.clear();\n        this->m_positive = true;\
     \        \n        return *this;\n      }\n      if (other.m_digits.size() ==\
     \ 1 && other.m_digits[0] == 1) {\n        this->m_positive = (this->m_positive\
@@ -798,8 +797,8 @@ data:
     \ ::tools::bigdecimal&) = default;\n    bigdecimal(::tools::bigdecimal&&) = default;\n\
     \    ~bigdecimal() = default;\n    ::tools::bigdecimal& operator=(const ::tools::bigdecimal&)\
     \ = default;\n    ::tools::bigdecimal& operator=(::tools::bigdecimal&&) = default;\n\
-    \n    explicit bigdecimal(const ::std::int_fast64_t n) : m_unscaled_value(n),\
-    \ m_scale(0) {\n    }\n    explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n),\
+    \n    explicit bigdecimal(const long long n) : m_unscaled_value(n), m_scale(0)\
+    \ {\n    }\n    explicit bigdecimal(const ::tools::bigint& n) : m_unscaled_value(n),\
     \ m_scale(0) {\n    }\n    explicit bigdecimal(::std::string s) {\n      if (const\
     \ auto pos = s.find('.'); pos != ::std::string::npos) {\n        this->m_scale\
     \ = s.size() - pos - 1;\n        s.erase(pos, 1);\n      } else {\n        this->m_scale\
@@ -873,23 +872,25 @@ data:
     \ const ::std::ptrdiff_t scale) const {\n      return ::tools::bigdecimal(*this).divide(other,\
     \ scale);\n    }\n    friend ::tools::bigdecimal operator/(const ::tools::bigdecimal&\
     \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
-    \ /= rhs;\n    }\n\n    explicit operator double() const {\n      long double\
-    \ result = 0.0;\n      const ::std::size_t precision = this->precision();\n  \
-    \    for (::std::size_t i = 0; i < ::std::numeric_limits<long double>::digits10;\
-    \ ++i) {\n        result = result * 10.0L + (precision >= i + 1 ? this->m_unscaled_value[precision\
-    \ - 1 - i] : 0) * this->signum();\n      }\n      result *= ::std::pow(10.0L,\
-    \ static_cast<long double>(precision) - static_cast<long double>(this->m_scale)\
-    \ - static_cast<long double>(::std::numeric_limits<long double>::digits10));\n\
-    \      return static_cast<double>(result);\n    }\n\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::bigdecimal& self) {\n      ::std::string\
-    \ s;\n      is >> s;\n      self = ::tools::bigdecimal(s);\n      return is;\n\
-    \    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::bigdecimal&\
-    \ self) {\n      if (self.signum() < 0) {\n        os << '-';\n      }\n     \
-    \ for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value) - 1, self.m_scale);\
-    \ i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i) {\n        if (i ==\
-    \ self.m_scale - 1) {\n          os << '.';\n        }\n        os << (0 <= i\
-    \ && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i] : 0);\n\
-    \      }\n      return os;\n    }\n  };\n}\n\n\n#line 6 \"tests/bigdecimal/hand.test.cpp\"\
+    \ /= rhs;\n    }\n\n    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit operator T() const {\n      auto\
+    \ x = *this;\n      x.set_scale(0);\n      return static_cast<T>(x.m_unscaled_value);\n\
+    \    }\n\n    explicit operator double() const {\n      long double result = 0.0;\n\
+    \      const ::std::size_t precision = this->precision();\n      for (::std::size_t\
+    \ i = 0; i < ::std::numeric_limits<long double>::digits10; ++i) {\n        result\
+    \ = result * 10.0L + (precision >= i + 1 ? this->m_unscaled_value[precision -\
+    \ 1 - i] : 0) * this->signum();\n      }\n      result *= ::std::pow(10.0L, static_cast<long\
+    \ double>(precision) - static_cast<long double>(this->m_scale) - static_cast<long\
+    \ double>(::std::numeric_limits<long double>::digits10));\n      return static_cast<double>(result);\n\
+    \    }\n\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::bigdecimal&\
+    \ self) {\n      ::std::string s;\n      is >> s;\n      self = ::tools::bigdecimal(s);\n\
+    \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::bigdecimal& self) {\n      if (self.signum() < 0) {\n   \
+    \     os << '-';\n      }\n      for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value)\
+    \ - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i)\
+    \ {\n        if (i == self.m_scale - 1) {\n          os << '.';\n        }\n \
+    \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
+    \ : 0);\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 6 \"tests/bigdecimal/hand.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  assert_that(::tools::bigdecimal(\"0.003\").divide_and_copy(::tools::bigdecimal(\"\
     20\"), 4, ::tools::rounding_mode::half_even) == ::tools::bigdecimal(\"0.0002\"\
@@ -971,7 +972,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/hand.test.cpp
   requiredBy: []
-  timestamp: '2022-09-02 23:00:38+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/hand.test.cpp

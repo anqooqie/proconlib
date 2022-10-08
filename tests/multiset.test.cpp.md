@@ -1,56 +1,55 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/multiset.hpp
     title: __gnu_pbds::tree allowing duplicated values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/set.hpp
     title: Alias for __gnu_pbds::tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/multiset.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/multiset.hpp\"\
-    \n\n\n\n#include <functional>\n#include <utility>\n#include <cstddef>\n#include\
-    \ <iterator>\n#include <limits>\n#include <initializer_list>\n#include <vector>\n\
-    #include <algorithm>\n#line 1 \"tools/set.hpp\"\n\n\n\n#line 5 \"tools/set.hpp\"\
-    \n#include <ext/pb_ds/assoc_container.hpp>\n#include <ext/pb_ds/tree_policy.hpp>\n\
-    #include <ext/pb_ds/tag_and_trait.hpp>\n\nnamespace tools {\n  template <typename\
-    \ Key, typename Compare = ::std::less<Key>>\n  using set = ::__gnu_pbds::tree<Key,\
-    \ ::__gnu_pbds::null_type, Compare, ::__gnu_pbds::rb_tree_tag, ::__gnu_pbds::tree_order_statistics_node_update>;\n\
-    }\n\n\n#line 13 \"tools/multiset.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ Key, typename Compare = ::std::less<Key>>\n  class multiset {\n  private:\n\
-    \    class PairCompare {\n    private:\n      Compare m_key_comp;\n\n    public:\n\
-    \      PairCompare() = default;\n      explicit PairCompare(const Compare& key_comp)\
-    \ : m_key_comp(key_comp) {\n      }\n      PairCompare(const PairCompare&) = default;\n\
-    \      PairCompare(PairCompare&&) = default;\n      ~PairCompare() = default;\n\
-    \      PairCompare& operator=(const PairCompare&) = default;\n      PairCompare&\
-    \ operator=(PairCompare&&) = default;\n\n      bool operator()(const ::std::pair<Key,\
-    \ ::std::size_t>& lhs, const ::std::pair<Key, ::std::size_t>& rhs) const {\n \
-    \       if (this->m_key_comp(lhs.first, rhs.first)) return true;\n        if (this->m_key_comp(rhs.first,\
-    \ lhs.first)) return false;\n        return lhs.second < rhs.second;\n      }\n\
-    \n      Compare key_comp() const {\n        return this->m_key_comp;\n      }\n\
-    \    };\n\n    ::std::size_t m_next_id;\n    ::tools::set<::std::pair<Key, ::std::size_t>,\
-    \ PairCompare> m_set;\n\n  public:\n    class iterator {\n    private:\n     \
-    \ typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator\
-    \ m_it;\n\n    public:\n      using difference_type = ::std::ptrdiff_t;\n    \
-    \  using value_type = Key;\n      using reference = Key&;\n      using pointer\
-    \ = Key*;\n      using iterator_category = ::std::bidirectional_iterator_tag;\n\
+    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
+    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
+    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n\n\n#line 1 \"tools/multiset.hpp\"\n\n\n\n#include <functional>\n\
+    #include <utility>\n#include <cstddef>\n#include <iterator>\n#include <limits>\n\
+    #include <initializer_list>\n#include <vector>\n#include <algorithm>\n#line 1\
+    \ \"tools/set.hpp\"\n\n\n\n#line 5 \"tools/set.hpp\"\n#include <ext/pb_ds/assoc_container.hpp>\n\
+    #include <ext/pb_ds/tree_policy.hpp>\n#include <ext/pb_ds/tag_and_trait.hpp>\n\
+    \nnamespace tools {\n  template <typename Key, typename Compare = ::std::less<Key>>\n\
+    \  using set = ::__gnu_pbds::tree<Key, ::__gnu_pbds::null_type, Compare, ::__gnu_pbds::rb_tree_tag,\
+    \ ::__gnu_pbds::tree_order_statistics_node_update>;\n}\n\n\n#line 13 \"tools/multiset.hpp\"\
+    \n\nnamespace tools {\n  template <typename Key, typename Compare = ::std::less<Key>>\n\
+    \  class multiset {\n  private:\n    class PairCompare {\n    private:\n     \
+    \ Compare m_key_comp;\n\n    public:\n      PairCompare() = default;\n      explicit\
+    \ PairCompare(const Compare& key_comp) : m_key_comp(key_comp) {\n      }\n   \
+    \   PairCompare(const PairCompare&) = default;\n      PairCompare(PairCompare&&)\
+    \ = default;\n      ~PairCompare() = default;\n      PairCompare& operator=(const\
+    \ PairCompare&) = default;\n      PairCompare& operator=(PairCompare&&) = default;\n\
+    \n      bool operator()(const ::std::pair<Key, ::std::size_t>& lhs, const ::std::pair<Key,\
+    \ ::std::size_t>& rhs) const {\n        if (this->m_key_comp(lhs.first, rhs.first))\
+    \ return true;\n        if (this->m_key_comp(rhs.first, lhs.first)) return false;\n\
+    \        return lhs.second < rhs.second;\n      }\n\n      Compare key_comp()\
+    \ const {\n        return this->m_key_comp;\n      }\n    };\n\n    ::std::size_t\
+    \ m_next_id;\n    ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare> m_set;\n\
+    \n  public:\n    class iterator {\n    private:\n      typename ::tools::set<::std::pair<Key,\
+    \ ::std::size_t>, PairCompare>::iterator m_it;\n\n    public:\n      using difference_type\
+    \ = ::std::ptrdiff_t;\n      using value_type = Key;\n      using reference =\
+    \ Key&;\n      using pointer = Key*;\n      using iterator_category = ::std::bidirectional_iterator_tag;\n\
     \n      iterator() = default;\n      iterator(const typename ::tools::set<::std::pair<Key,\
     \ ::std::size_t>, PairCompare>::iterator it) : m_it(it) {\n      }\n      iterator(const\
     \ iterator&) = default;\n      iterator(iterator&&) = default;\n      ~iterator()\
@@ -165,7 +164,7 @@ data:
     \ Compare>& y) {\n      return !(x < y);\n    }\n\n    iterator find_by_order(const\
     \ ::std::size_t order) const {\n      return iterator(this->m_set.find_by_order(order));\n\
     \    }\n    ::std::size_t order_of_key(const Key& x) const {\n      return this->m_set.order_of_key(::std::make_pair(x,\
-    \ 0));\n    }\n  };\n}\n\n\n#line 7 \"tests/multiset.test.cpp\"\n\nint main()\
+    \ 0));\n    }\n  };\n}\n\n\n#line 6 \"tests/multiset.test.cpp\"\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  tools::multiset<int,\
     \ std::greater<int>> bag({3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5});\n\n  assert_that(bag.size()\
     \ == 11);\n\n  {\n    auto it = bag.begin();\n    assert_that(*it == 9);\n   \
@@ -287,8 +286,8 @@ data:
     \    assert_that(*it == 1);\n    ++it;\n    assert_that(*it == 1);\n  }\n\n  std::cout\
     \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include \"tools/assert_that.hpp\"\n\
-    #include \"tools/multiset.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"tools/multiset.hpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  tools::multiset<int, std::greater<int>> bag({3, 1, 4, 1, 5, 9, 2, 6, 5, 3,\
     \ 5});\n\n  assert_that(bag.size() == 11);\n\n  {\n    auto it = bag.begin();\n\
     \    assert_that(*it == 9);\n    ++it;\n    assert_that(*it == 6);\n    ++it;\n\
@@ -415,8 +414,8 @@ data:
   isVerificationFile: true
   path: tests/multiset.test.cpp
   requiredBy: []
-  timestamp: '2022-10-01 21:52:08+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/multiset.test.cpp
 layout: document

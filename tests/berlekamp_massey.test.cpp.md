@@ -15,27 +15,27 @@ data:
     links:
     - https://judge.yosupo.jp/problem/find_linear_recurrence
   bundledCode: "#line 1 \"tests/berlekamp_massey.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
-    #include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
-    \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace\
-    \ atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod\
-    \ m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %= m;\n \
-    \   if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication by\
-    \ barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \n\n#include <iostream>\n#include <vector>\n#include <iterator>\n#include <string>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -239,7 +239,7 @@ data:
     \          L = n + 1 - L;\n          B = ::std::move(T);\n          b = d;\n \
     \         m = 1;\n        } else {\n          update_C();\n          ++m;\n  \
     \      }\n      }\n    }\n\n    for (const auto& C_i : C) {\n      *result = C_i;\n\
-    \      ++result;\n    }\n  }\n}\n\n\n#line 10 \"tests/berlekamp_massey.test.cpp\"\
+    \      ++result;\n    }\n  }\n}\n\n\n#line 9 \"tests/berlekamp_massey.test.cpp\"\
     \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
     \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
@@ -249,9 +249,9 @@ data:
     \ i = 1; i < c.size(); ++i) {\n    std::cout << delimiter << (-c[i]).val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/find_linear_recurrence\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <iterator>\n\
-    #include <string>\n#include \"atcoder/modint.hpp\"\n#include \"tools/berlekamp_massey.hpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \n\n#include <iostream>\n#include <vector>\n#include <iterator>\n#include <string>\n\
+    #include \"atcoder/modint.hpp\"\n#include \"tools/berlekamp_massey.hpp\"\n\nusing\
+    \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  std::vector<mint>\
     \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
     \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  std::vector<mint> c;\n \
@@ -264,7 +264,7 @@ data:
   isVerificationFile: true
   path: tests/berlekamp_massey.test.cpp
   requiredBy: []
-  timestamp: '2022-08-20 00:15:40+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/berlekamp_massey.test.cpp

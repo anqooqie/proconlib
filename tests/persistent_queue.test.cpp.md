@@ -1,21 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_queue.hpp
     title: Persistent queue
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/persistent_queue
     links:
     - https://judge.yosupo.jp/problem/persistent_queue
   bundledCode: "#line 1 \"tests/persistent_queue.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/persistent_queue\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#line 1 \"tools/persistent_queue.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n#line 1 \"tools/persistent_queue.hpp\"\
     \n\n\n\n#line 5 \"tools/persistent_queue.hpp\"\n#include <cstddef>\n#include <limits>\n\
     #include <cassert>\n#include <type_traits>\n\nnamespace tools {\n  template <typename\
     \ T>\n  class persistent_queue {\n  private:\n    struct node {\n      ::std::vector<::std::size_t>\
@@ -59,32 +59,32 @@ data:
     \ }\n      return ::tools::persistent_queue<T>(*this->m_buffer, v, this->m_back);\n\
     \    }\n\n    template <typename... Args>\n    ::tools::persistent_queue<T> emplace(Args&&...\
     \ args) const {\n      return this->push(T(::std::forward<Args>(args)...));\n\
-    \    }\n  };\n}\n\n\n#line 7 \"tests/persistent_queue.test.cpp\"\n\nusing i64\
-    \ = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  tools::persistent_queue<i64>::buffer buffer;\n  std::vector<tools::persistent_queue<i64>>\
-    \ S;\n  S.emplace_back(buffer);\n  i64 Q;\n  std::cin >> Q;\n  for (i64 q = 0;\
-    \ q < Q; ++q) {\n    i64 type;\n    std::cin >> type;\n    if (type == 0) {\n\
-    \      i64 t, x;\n      std::cin >> t >> x;\n      ++t;\n      S.push_back(S[t].push(x));\n\
-    \    } else {\n      i64 t;\n      std::cin >> t;\n      ++t;\n      std::cout\
+    \    }\n  };\n}\n\n\n#line 6 \"tests/persistent_queue.test.cpp\"\n\nusing ll =\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  tools::persistent_queue<ll>::buffer buffer;\n  std::vector<tools::persistent_queue<ll>>\
+    \ S;\n  S.emplace_back(buffer);\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q\
+    \ < Q; ++q) {\n    ll type;\n    std::cin >> type;\n    if (type == 0) {\n   \
+    \   ll t, x;\n      std::cin >> t >> x;\n      ++t;\n      S.push_back(S[t].push(x));\n\
+    \    } else {\n      ll t;\n      std::cin >> t;\n      ++t;\n      std::cout\
     \ << S[t].front() << '\\n';\n      S.push_back(S[t].pop());\n    }\n  }\n\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/persistent_queue\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include \"tools/persistent_queue.hpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::persistent_queue<i64>::buffer\
-    \ buffer;\n  std::vector<tools::persistent_queue<i64>> S;\n  S.emplace_back(buffer);\n\
-    \  i64 Q;\n  std::cin >> Q;\n  for (i64 q = 0; q < Q; ++q) {\n    i64 type;\n\
-    \    std::cin >> type;\n    if (type == 0) {\n      i64 t, x;\n      std::cin\
-    \ >> t >> x;\n      ++t;\n      S.push_back(S[t].push(x));\n    } else {\n   \
-    \   i64 t;\n      std::cin >> t;\n      ++t;\n      std::cout << S[t].front()\
-    \ << '\\n';\n      S.push_back(S[t].pop());\n    }\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include <vector>\n#include \"tools/persistent_queue.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  tools::persistent_queue<ll>::buffer buffer;\n  std::vector<tools::persistent_queue<ll>>\
+    \ S;\n  S.emplace_back(buffer);\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q\
+    \ < Q; ++q) {\n    ll type;\n    std::cin >> type;\n    if (type == 0) {\n   \
+    \   ll t, x;\n      std::cin >> t >> x;\n      ++t;\n      S.push_back(S[t].push(x));\n\
+    \    } else {\n      ll t;\n      std::cin >> t;\n      ++t;\n      std::cout\
+    \ << S[t].front() << '\\n';\n      S.push_back(S[t].pop());\n    }\n  }\n\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/persistent_queue.hpp
   isVerificationFile: true
   path: tests/persistent_queue.test.cpp
   requiredBy: []
-  timestamp: '2022-04-16 09:34:34+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/persistent_queue.test.cpp
 layout: document

@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
@@ -24,23 +24,22 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C
   bundledCode: "#line 1 \"tests/ccw.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\
-    \n\n#include <type_traits>\n#include <cmath>\n#include <cstddef>\n#include <array>\n\
-    #line 9 \"tools/vector2.hpp\"\n#include <functional>\n#line 1 \"tools/abs.hpp\"\
-    \n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n    return ::std::abs(v);\n\
-    \  }\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(v.abs()) {\n\
-    \    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n#line 9 \"\
-    tools/pair_hash.hpp\"\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
-    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
-    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
-    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
-    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
-    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
-    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
-    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
-    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    \n\n#include <iostream>\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n\
+    #include <cmath>\n#include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\
+    \n#include <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\
+    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
+    #line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n \
+    \ template <class T1, class T2>\n  struct pair_hash {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
+    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
+    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
+    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
+    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
+    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
+    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
@@ -136,31 +135,31 @@ data:
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
     \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  ::std::int_fast64_t ccw(const\
-    \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
-    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
-    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
-    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tests/ccw.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::vector2<i64> p0, p1;\n \
-    \ i64 q;\n  std::cin >> p0 >> p1 >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<i64>\
-    \ p2;\n    std::cin >> p2;\n    switch (tools::ccw(p0, p1, p2)) {\n    case +1:\n\
-    \      std::cout << \"COUNTER_CLOCKWISE\" << '\\n';\n      break;\n    case -1:\n\
-    \      std::cout << \"CLOCKWISE\" << '\\n';\n      break;\n    case +2:\n    \
-    \  std::cout << \"ONLINE_BACK\" << '\\n';\n      break;\n    case -2:\n      std::cout\
-    \ << \"ONLINE_FRONT\" << '\\n';\n      break;\n    default: // 0\n      std::cout\
-    \ << \"ON_SEGMENT\" << '\\n';\n      break;\n    }\n  }\n}\n"
+    \n\nnamespace tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>&\
+    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
+    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
+    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 6 \"tests/ccw.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  tools::vector2<ll> p0, p1;\n  ll q;\n  std::cin >> p0 >> p1 >> q;\n  for (ll\
+    \ i = 0; i < q; ++i) {\n    tools::vector2<ll> p2;\n    std::cin >> p2;\n    switch\
+    \ (tools::ccw(p0, p1, p2)) {\n    case +1:\n      std::cout << \"COUNTER_CLOCKWISE\"\
+    \ << '\\n';\n      break;\n    case -1:\n      std::cout << \"CLOCKWISE\" << '\\\
+    n';\n      break;\n    case +2:\n      std::cout << \"ONLINE_BACK\" << '\\n';\n\
+    \      break;\n    case -2:\n      std::cout << \"ONLINE_FRONT\" << '\\n';\n \
+    \     break;\n    default: // 0\n      std::cout << \"ON_SEGMENT\" << '\\n';\n\
+    \      break;\n    }\n  }\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_1_C\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/vector2.hpp\"\n#include\
-    \ \"tools/ccw.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  tools::vector2<i64> p0, p1;\n \
-    \ i64 q;\n  std::cin >> p0 >> p1 >> q;\n  for (i64 i = 0; i < q; ++i) {\n    tools::vector2<i64>\
-    \ p2;\n    std::cin >> p2;\n    switch (tools::ccw(p0, p1, p2)) {\n    case +1:\n\
-    \      std::cout << \"COUNTER_CLOCKWISE\" << '\\n';\n      break;\n    case -1:\n\
-    \      std::cout << \"CLOCKWISE\" << '\\n';\n      break;\n    case +2:\n    \
-    \  std::cout << \"ONLINE_BACK\" << '\\n';\n      break;\n    case -2:\n      std::cout\
-    \ << \"ONLINE_FRONT\" << '\\n';\n      break;\n    default: // 0\n      std::cout\
-    \ << \"ON_SEGMENT\" << '\\n';\n      break;\n    }\n  }\n}\n"
+    #include <iostream>\n#include \"tools/vector2.hpp\"\n#include \"tools/ccw.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  tools::vector2<ll> p0, p1;\n  ll q;\n  std::cin >> p0 >> p1 >> q;\n  for (ll\
+    \ i = 0; i < q; ++i) {\n    tools::vector2<ll> p2;\n    std::cin >> p2;\n    switch\
+    \ (tools::ccw(p0, p1, p2)) {\n    case +1:\n      std::cout << \"COUNTER_CLOCKWISE\"\
+    \ << '\\n';\n      break;\n    case -1:\n      std::cout << \"CLOCKWISE\" << '\\\
+    n';\n      break;\n    case +2:\n      std::cout << \"ONLINE_BACK\" << '\\n';\n\
+    \      break;\n    case -2:\n      std::cout << \"ONLINE_FRONT\" << '\\n';\n \
+    \     break;\n    default: // 0\n      std::cout << \"ON_SEGMENT\" << '\\n';\n\
+    \      break;\n    }\n  }\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/abs.hpp
@@ -169,7 +168,7 @@ data:
   isVerificationFile: true
   path: tests/ccw.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ccw.test.cpp

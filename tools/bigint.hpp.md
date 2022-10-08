@@ -1,45 +1,48 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/divides.test.cpp
     title: tests/bigdecimal/divides.test.cpp
@@ -73,42 +76,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#include <cstdint>\n\
@@ -510,31 +513,30 @@ data:
     \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
     \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
     \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
     \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
-    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ n) {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
     \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
-    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
-    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
-    \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
-    \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
-    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
-    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
-    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 7 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M1, typename M2>\n  ::std::int_fast64_t garner2(const M1& a, const\
-    \ M2& b) {\n    using u64 = ::std::uint_fast64_t;\n    static constexpr u64 m1_m2\
-    \ = u64(M1::mod()) * u64(M2::mod());\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
-    \n    assert(M1::mod() < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
-    \    assert(::tools::is_prime(M2::mod()));\n\n    // t = (b - a) / M1; (mod M2)\n\
-    \    // return a + t * M1;\n    const M2 t = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n\
-    \    u64 r = t.val();\n    r *= M1::mod();\n    r += a.val();\n    if (r >= m1_m2)\
-    \ r -= m1_m2;\n    return r;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
-    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
-    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
-    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 6 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template <typename M1, typename\
+    \ M2>\n  long long garner2(const M1& a, const M2& b) {\n    using ull = unsigned\
+    \ long long;\n    static constexpr ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n\
+    \    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod()\
+    \ < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n    assert(::tools::is_prime(M2::mod()));\n\
+    \n    // t = (b - a) / M1; (mod M2)\n    // return a + t * M1;\n    const M2 t\
+    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    ull r = t.val();\n    r *= M1::mod();\n\
+    \    r += a.val();\n    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 27 \"tools/bigint.hpp\"\
@@ -662,30 +664,30 @@ data:
     \ other.m_digits) {\n        b1.push_back(mint1::raw(b_i));\n        b2.push_back(mint2::raw(b_i));\n\
     \      }\n\n      const auto c1 = ::atcoder::convolution(a1, b1);\n      const\
     \ auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
-    \      this->m_digits.reserve(c1.size() + 1);\n      ::std::int_fast64_t carry\
-    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since\
-    \ a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
+    \      this->m_digits.reserve(c1.size() + 1);\n      long long carry = 0;\n  \
+    \    for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since a_i <=\
+    \ 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
     \ other.m_digits.size()) holds.\n        // In addition, since this->m_digits.size()\
     \ + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\
     \ holds eventually.\n        // 1677386072457216 < 167772161 * 469762049 = 78812994116517889\
     \ holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049)\
-    \ by CRT.\n        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i]);\n\
-    \n        c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n \
-    \       this->m_digits.push_back(c_i);\n      }\n      if (carry > 0) {\n    \
-    \    this->m_digits.push_back(carry);\n      }\n\n      this->m_positive = this->m_positive\
-    \ == other.m_positive;\n      this->regularize(0);\n      return *this;\n    }\n\
-    \n    friend ::tools::bigint operator+(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint\
-    \ operator-(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
-    \ ::tools::bigint(lhs) -= rhs;\n    }\n    friend ::tools::bigint operator*(const\
+    \ by CRT.\n        long long c_i = ::tools::garner2(c1[i], c2[i]);\n\n       \
+    \ c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n        this->m_digits.push_back(c_i);\n\
+    \      }\n      if (carry > 0) {\n        this->m_digits.push_back(carry);\n \
+    \     }\n\n      this->m_positive = this->m_positive == other.m_positive;\n  \
+    \    this->regularize(0);\n      return *this;\n    }\n\n    friend ::tools::bigint\
+    \ operator+(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
+    \ ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint operator-(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
-    \ *= rhs;\n    }\n\n    ::tools::bigint& operator++() {\n      return *this +=\
-    \ ::tools::bigint(1);\n    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint\
-    \ old(*this);\n      ++(*this);\n      return old;\n    }\n    ::tools::bigint&\
-    \ operator--() {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint\
-    \ operator--(int) {\n      ::tools::bigint old(*this);\n      --(*this);\n   \
-    \   return old;\n    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint&\
-    \ other) {\n      assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
+    \ -= rhs;\n    }\n    friend ::tools::bigint operator*(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs) *= rhs;\n\
+    \    }\n\n    ::tools::bigint& operator++() {\n      return *this += ::tools::bigint(1);\n\
+    \    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint old(*this);\n\
+    \      ++(*this);\n      return old;\n    }\n    ::tools::bigint& operator--()\
+    \ {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint operator--(int)\
+    \ {\n      ::tools::bigint old(*this);\n      --(*this);\n      return old;\n\
+    \    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint& other) {\n  \
+    \    assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
     \ other) < 0) {\n        this->m_digits.clear();\n        this->m_positive = true;\
     \        \n        return *this;\n      }\n      if (other.m_digits.size() ==\
     \ 1 && other.m_digits[0] == 1) {\n        this->m_positive = (this->m_positive\
@@ -941,30 +943,30 @@ data:
     \ other.m_digits) {\n        b1.push_back(mint1::raw(b_i));\n        b2.push_back(mint2::raw(b_i));\n\
     \      }\n\n      const auto c1 = ::atcoder::convolution(a1, b1);\n      const\
     \ auto c2 = ::atcoder::convolution(a2, b2);\n\n      this->m_digits.clear();\n\
-    \      this->m_digits.reserve(c1.size() + 1);\n      ::std::int_fast64_t carry\
-    \ = 0;\n      for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since\
-    \ a_i <= 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
+    \      this->m_digits.reserve(c1.size() + 1);\n      long long carry = 0;\n  \
+    \    for (::std::size_t i = 0; i < c1.size(); ++i) {\n\n        // Since a_i <=\
+    \ 10^4 - 1 and b_i <= 10^4 - 1, c_i <= (10^4 - 1)^2 * min(this->m_digits.size(),\
     \ other.m_digits.size()) holds.\n        // In addition, since this->m_digits.size()\
     \ + other.m_digits.size() <= 2^25 + 1, c_i <= (10^4 - 1)^2 * 2^24 = 1677386072457216\
     \ holds eventually.\n        // 1677386072457216 < 167772161 * 469762049 = 78812994116517889\
     \ holds, so we can reconstruct c_i from mod(c_i, 167772161) and mod(c_i, 469762049)\
-    \ by CRT.\n        ::std::int_fast64_t c_i = ::tools::garner2(c1[i], c2[i]);\n\
-    \n        c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n \
-    \       this->m_digits.push_back(c_i);\n      }\n      if (carry > 0) {\n    \
-    \    this->m_digits.push_back(carry);\n      }\n\n      this->m_positive = this->m_positive\
-    \ == other.m_positive;\n      this->regularize(0);\n      return *this;\n    }\n\
-    \n    friend ::tools::bigint operator+(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint\
-    \ operator-(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
-    \ ::tools::bigint(lhs) -= rhs;\n    }\n    friend ::tools::bigint operator*(const\
+    \ by CRT.\n        long long c_i = ::tools::garner2(c1[i], c2[i]);\n\n       \
+    \ c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n        this->m_digits.push_back(c_i);\n\
+    \      }\n      if (carry > 0) {\n        this->m_digits.push_back(carry);\n \
+    \     }\n\n      this->m_positive = this->m_positive == other.m_positive;\n  \
+    \    this->regularize(0);\n      return *this;\n    }\n\n    friend ::tools::bigint\
+    \ operator+(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
+    \ ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint operator-(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
-    \ *= rhs;\n    }\n\n    ::tools::bigint& operator++() {\n      return *this +=\
-    \ ::tools::bigint(1);\n    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint\
-    \ old(*this);\n      ++(*this);\n      return old;\n    }\n    ::tools::bigint&\
-    \ operator--() {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint\
-    \ operator--(int) {\n      ::tools::bigint old(*this);\n      --(*this);\n   \
-    \   return old;\n    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint&\
-    \ other) {\n      assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
+    \ -= rhs;\n    }\n    friend ::tools::bigint operator*(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs) *= rhs;\n\
+    \    }\n\n    ::tools::bigint& operator++() {\n      return *this += ::tools::bigint(1);\n\
+    \    }\n    ::tools::bigint operator++(int) {\n      ::tools::bigint old(*this);\n\
+    \      ++(*this);\n      return old;\n    }\n    ::tools::bigint& operator--()\
+    \ {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint operator--(int)\
+    \ {\n      ::tools::bigint old(*this);\n      --(*this);\n      return old;\n\
+    \    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint& other) {\n  \
+    \    assert(other.signum() != 0);\n      if (::tools::bigint::compare_3way_abs(*this,\
     \ other) < 0) {\n        this->m_digits.clear();\n        this->m_positive = true;\
     \        \n        return *this;\n      }\n      if (other.m_digits.size() ==\
     \ 1 && other.m_digits[0] == 1) {\n        this->m_positive = (this->m_positive\
@@ -1105,8 +1107,8 @@ data:
   requiredBy:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
-  timestamp: '2022-09-02 23:00:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rational/plus.test.cpp
   - tests/rational/multiplies.test.cpp
@@ -1125,6 +1127,7 @@ data:
   - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
@@ -1430,6 +1433,20 @@ It returns $\gcd(x, y)$.
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
+
+## operator T
+```cpp
+T explicit operator T(bigint& x);
+```
+
+It casts $x$ to the type `T`.
+
+### Constraints
+- `T` is a built-in integral type or `double`.
+- `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
+
+### Time Complexity
+- $O(\log \|x\|)$
 
 ## operator>>
 ```cpp

@@ -4,14 +4,14 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
+  - icon: ':x:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/parse_fixed_point_number.test.cpp
-    title: tests/parse_fixed_point_number.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/cumsum2d.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -73,10 +73,10 @@ data:
   path: tools/cumsum2d.hpp
   requiredBy: []
   timestamp: '2021-12-18 13:17:06+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/cumsum2d.test.cpp
-  - tests/parse_fixed_point_number.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
 documentation_of: tools/cumsum2d.hpp
 layout: document
 title: 2D cumulative sum

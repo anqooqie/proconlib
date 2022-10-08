@@ -1,24 +1,24 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/random_tree.hpp
     title: Random tree generator
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/random_tree.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#include <random>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\
+    \n\n#include <iostream>\n#include <random>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\
     \n\n\n\n#include <algorithm>\n#include <cassert>\n#include <vector>\n\nnamespace\
     \ atcoder {\n\n// Implement (union by size) + (path compression)\n// Reference:\n\
     // Zvi Galil and Giuseppe F. Italiano,\n// Data structures and algorithms for\
@@ -67,35 +67,34 @@ data:
     \        const auto y = ::std::uniform_int_distribution<::std::size_t>(0, this->size()\
     \ - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n        if\
     \ (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
-    \ perm[i + 1]);\n      }\n\n      return edges;\n    }\n  };\n}\n\n\n#line 9 \"\
-    tests/random_tree.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  std::random_device\
-    \ seed_gen;\n  std::mt19937 engine(seed_gen());\n\n  for (i64 n = 1; n <= 1000;\
-    \ ++n) {\n    tools::random_tree<i64> dist(n);\n    for (i64 i = 0; i < 10; ++i)\
-    \ {\n      atcoder::dsu dsu(n);\n      i64 edge_count = 0;\n      for (const auto&\
-    \ [u, v] : dist(engine)) {\n        dsu.merge(u, v);\n        ++edge_count;\n\
-    \      }\n      assert_that(dsu.groups().size() == 1);\n      assert_that(edge_count\
-    \ == n - 1);\n    }\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
-    \ 0;\n}\n"
+    \ perm[i + 1]);\n      }\n\n      return edges;\n    }\n  };\n}\n\n\n#line 8 \"\
+    tests/random_tree.test.cpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  std::random_device seed_gen;\n\
+    \  std::mt19937 engine(seed_gen());\n\n  for (ll n = 1; n <= 1000; ++n) {\n  \
+    \  tools::random_tree<ll> dist(n);\n    for (ll i = 0; i < 10; ++i) {\n      atcoder::dsu\
+    \ dsu(n);\n      ll edge_count = 0;\n      for (const auto& [u, v] : dist(engine))\
+    \ {\n        dsu.merge(u, v);\n        ++edge_count;\n      }\n      assert_that(dsu.groups().size()\
+    \ == 1);\n      assert_that(edge_count == n - 1);\n    }\n  }\n\n  std::cout <<\
+    \ \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include <random>\n#include \"atcoder/dsu.hpp\"\
-    \n#include \"tools/assert_that.hpp\"\n#include \"tools/random_tree.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include <iostream>\n#include <random>\n#include \"atcoder/dsu.hpp\"\n#include\
+    \ \"tools/assert_that.hpp\"\n#include \"tools/random_tree.hpp\"\n\nusing ll =\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  std::random_device seed_gen;\n  std::mt19937 engine(seed_gen());\n\n  for\
-    \ (i64 n = 1; n <= 1000; ++n) {\n    tools::random_tree<i64> dist(n);\n    for\
-    \ (i64 i = 0; i < 10; ++i) {\n      atcoder::dsu dsu(n);\n      i64 edge_count\
-    \ = 0;\n      for (const auto& [u, v] : dist(engine)) {\n        dsu.merge(u,\
-    \ v);\n        ++edge_count;\n      }\n      assert_that(dsu.groups().size() ==\
-    \ 1);\n      assert_that(edge_count == n - 1);\n    }\n  }\n\n  std::cout << \"\
-    Hello World\" << '\\n';\n  return 0;\n}\n"
+    \ (ll n = 1; n <= 1000; ++n) {\n    tools::random_tree<ll> dist(n);\n    for (ll\
+    \ i = 0; i < 10; ++i) {\n      atcoder::dsu dsu(n);\n      ll edge_count = 0;\n\
+    \      for (const auto& [u, v] : dist(engine)) {\n        dsu.merge(u, v);\n \
+    \       ++edge_count;\n      }\n      assert_that(dsu.groups().size() == 1);\n\
+    \      assert_that(edge_count == n - 1);\n    }\n  }\n\n  std::cout << \"Hello\
+    \ World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
   - tools/random_tree.hpp
   isVerificationFile: true
   path: tests/random_tree.test.cpp
   requiredBy: []
-  timestamp: '2022-07-09 11:13:10+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/random_tree.test.cpp
 layout: document

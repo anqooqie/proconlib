@@ -1,35 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/vertex_set_path_composite
     links:
     - https://judge.yosupo.jp/problem/vertex_set_path_composite
   bundledCode: "#line 1 \"tests/hld/vpath.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
-    \n\n#include <cstdint>\n#include <utility>\n#include <iostream>\n#include <vector>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \n\n#include <utility>\n#include <iostream>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -477,58 +476,58 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 10 \"tests/hld/vpath.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    using mint = atcoder::modint998244353;\n\nstd::pair<mint, mint> op(const std::pair<mint,\
+    }\n\n\n#line 9 \"tests/hld/vpath.test.cpp\"\n\nusing ll = long long;\nusing mint\
+    \ = atcoder::modint998244353;\n\nstd::pair<mint, mint> op(const std::pair<mint,\
     \ mint> e1, const std::pair<mint, mint> e2) {\n  return ::std::make_pair(e1.first\
     \ * e2.first, e1.first * e2.second + e1.second);\n}\nstd::pair<mint, mint> po(const\
     \ std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {\n  return op(e2,\
     \ e1);\n}\nstd::pair<mint, mint> e() {\n  return ::std::make_pair(mint::raw(1),\
     \ mint::raw(0));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n\
-    \  f.reserve(N);\n  for (i64 i = 0; i < N; ++i) {\n    i64 a, b;\n    std::cin\
-    \ >> a >> b;\n    f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld\
-    \ hld(N);\n  for (i64 i = 0; i < N - 1; ++i) {\n    i64 u, v;\n    std::cin >>\
-    \ u >> v;\n    hld.add_edge(u, v);\n  }\n\n  hld.build(0);\n  std::vector<std::pair<mint,\
-    \ mint>> g(N);\n  for (i64 i = 0; i < N; ++i) {\n    g[hld.vid2dfs(i)] = f[i];\n\
+    \n  ll N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n\
+    \  f.reserve(N);\n  for (ll i = 0; i < N; ++i) {\n    ll a, b;\n    std::cin >>\
+    \ a >> b;\n    f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld\
+    \ hld(N);\n  for (ll i = 0; i < N - 1; ++i) {\n    ll u, v;\n    std::cin >> u\
+    \ >> v;\n    hld.add_edge(u, v);\n  }\n\n  hld.build(0);\n  std::vector<std::pair<mint,\
+    \ mint>> g(N);\n  for (ll i = 0; i < N; ++i) {\n    g[hld.vid2dfs(i)] = f[i];\n\
     \  }\n  atcoder::segtree<std::pair<mint, mint>, op, e> segtree_to_root(g);\n \
     \ atcoder::segtree<std::pair<mint, mint>, po, e> segtree_to_leaf(g);\n\n  for\
-    \ (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin >> t;\n    if (t == 0) {\n\
-    \      i64 p, c, d;\n      std::cin >> p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs(p),\
+    \ (ll q = 0; q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n\
+    \      ll p, c, d;\n      std::cin >> p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs(p),\
     \ std::make_pair(mint::raw(c), mint::raw(d)));\n      segtree_to_leaf.set(hld.vid2dfs(p),\
-    \ std::make_pair(mint::raw(c), mint::raw(d)));\n    } else {\n      i64 u, v,\
-    \ x;\n      std::cin >> u >> v >> x;\n      std::pair<mint, mint> prod = e();\n\
-    \      for (const auto& [from, to] : hld.vpath(u, v)) {\n        if (from < to)\
-    \ {\n          prod = op(segtree_to_leaf.prod(from, to), prod);\n        } else\
-    \ {\n          prod = op(segtree_to_root.prod(to, from), prod);\n        }\n \
-    \     }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val() <<\
-    \ '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \ std::make_pair(mint::raw(c), mint::raw(d)));\n    } else {\n      ll u, v, x;\n\
+    \      std::cin >> u >> v >> x;\n      std::pair<mint, mint> prod = e();\n   \
+    \   for (const auto& [from, to] : hld.vpath(u, v)) {\n        if (from < to) {\n\
+    \          prod = op(segtree_to_leaf.prod(from, to), prod);\n        } else {\n\
+    \          prod = op(segtree_to_root.prod(to, from), prod);\n        }\n     \
+    \ }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val() << '\\\
+    n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
-    \n\n#include <cstdint>\n#include <utility>\n#include <iostream>\n#include <vector>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"atcoder/segtree.hpp\"\n#include \"\
-    tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\
-    \nstd::pair<mint, mint> op(const std::pair<mint, mint> e1, const std::pair<mint,\
-    \ mint> e2) {\n  return ::std::make_pair(e1.first * e2.first, e1.first * e2.second\
-    \ + e1.second);\n}\nstd::pair<mint, mint> po(const std::pair<mint, mint> e1, const\
-    \ std::pair<mint, mint> e2) {\n  return op(e2, e1);\n}\nstd::pair<mint, mint>\
-    \ e() {\n  return ::std::make_pair(mint::raw(1), mint::raw(0));\n}\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n  f.reserve(N);\n\
-    \  for (i64 i = 0; i < N; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n   \
-    \ f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld hld(N);\n  for\
-    \ (i64 i = 0; i < N - 1; ++i) {\n    i64 u, v;\n    std::cin >> u >> v;\n    hld.add_edge(u,\
-    \ v);\n  }\n\n  hld.build(0);\n  std::vector<std::pair<mint, mint>> g(N);\n  for\
-    \ (i64 i = 0; i < N; ++i) {\n    g[hld.vid2dfs(i)] = f[i];\n  }\n  atcoder::segtree<std::pair<mint,\
-    \ mint>, op, e> segtree_to_root(g);\n  atcoder::segtree<std::pair<mint, mint>,\
-    \ po, e> segtree_to_leaf(g);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n\
-    \    std::cin >> t;\n    if (t == 0) {\n      i64 p, c, d;\n      std::cin >>\
-    \ p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs(p), std::make_pair(mint::raw(c),\
-    \ mint::raw(d)));\n      segtree_to_leaf.set(hld.vid2dfs(p), std::make_pair(mint::raw(c),\
-    \ mint::raw(d)));\n    } else {\n      i64 u, v, x;\n      std::cin >> u >> v\
-    \ >> x;\n      std::pair<mint, mint> prod = e();\n      for (const auto& [from,\
-    \ to] : hld.vpath(u, v)) {\n        if (from < to) {\n          prod = op(segtree_to_leaf.prod(from,\
-    \ to), prod);\n        } else {\n          prod = op(segtree_to_root.prod(to,\
-    \ from), prod);\n        }\n      }\n      std::cout << (prod.first * mint::raw(x)\
-    \ + prod.second).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    \n\n#include <utility>\n#include <iostream>\n#include <vector>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"atcoder/segtree.hpp\"\n#include \"tools/hld.hpp\"\n\nusing ll = long\
+    \ long;\nusing mint = atcoder::modint998244353;\n\nstd::pair<mint, mint> op(const\
+    \ std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {\n  return ::std::make_pair(e1.first\
+    \ * e2.first, e1.first * e2.second + e1.second);\n}\nstd::pair<mint, mint> po(const\
+    \ std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {\n  return op(e2,\
+    \ e1);\n}\nstd::pair<mint, mint> e() {\n  return ::std::make_pair(mint::raw(1),\
+    \ mint::raw(0));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, Q;\n  std::cin >> N >> Q;\n  std::vector<std::pair<mint, mint>> f;\n\
+    \  f.reserve(N);\n  for (ll i = 0; i < N; ++i) {\n    ll a, b;\n    std::cin >>\
+    \ a >> b;\n    f.emplace_back(mint::raw(a), mint::raw(b));\n  }\n  tools::hld\
+    \ hld(N);\n  for (ll i = 0; i < N - 1; ++i) {\n    ll u, v;\n    std::cin >> u\
+    \ >> v;\n    hld.add_edge(u, v);\n  }\n\n  hld.build(0);\n  std::vector<std::pair<mint,\
+    \ mint>> g(N);\n  for (ll i = 0; i < N; ++i) {\n    g[hld.vid2dfs(i)] = f[i];\n\
+    \  }\n  atcoder::segtree<std::pair<mint, mint>, op, e> segtree_to_root(g);\n \
+    \ atcoder::segtree<std::pair<mint, mint>, po, e> segtree_to_leaf(g);\n\n  for\
+    \ (ll q = 0; q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n\
+    \      ll p, c, d;\n      std::cin >> p >> c >> d;\n      segtree_to_root.set(hld.vid2dfs(p),\
+    \ std::make_pair(mint::raw(c), mint::raw(d)));\n      segtree_to_leaf.set(hld.vid2dfs(p),\
+    \ std::make_pair(mint::raw(c), mint::raw(d)));\n    } else {\n      ll u, v, x;\n\
+    \      std::cin >> u >> v >> x;\n      std::pair<mint, mint> prod = e();\n   \
+    \   for (const auto& [from, to] : hld.vpath(u, v)) {\n        if (from < to) {\n\
+    \          prod = op(segtree_to_leaf.prod(from, to), prod);\n        } else {\n\
+    \          prod = op(segtree_to_root.prod(to, from), prod);\n        }\n     \
+    \ }\n      std::cout << (prod.first * mint::raw(x) + prod.second).val() << '\\\
+    n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
@@ -536,8 +535,8 @@ data:
   isVerificationFile: true
   path: tests/hld/vpath.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/hld/vpath.test.cpp
 layout: document

@@ -1,31 +1,31 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_stack.hpp
     title: Persistent stack
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/shortest_path
     links:
     - https://judge.yosupo.jp/problem/shortest_path
   bundledCode: "#line 1 \"tests/persistent_stack.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <utility>\n\
-    #include <limits>\n#include <queue>\n#include <algorithm>\n#line 1 \"tools/persistent_stack.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n#include <utility>\n#include <limits>\n\
+    #include <queue>\n#include <algorithm>\n#line 1 \"tools/persistent_stack.hpp\"\
     \n\n\n\n#include <cstddef>\n#line 7 \"tools/persistent_stack.hpp\"\n#include <cassert>\n\
     #include <type_traits>\n\nnamespace tools {\n  template <typename T>\n  class\
     \ persistent_stack {\n  private:\n    struct node {\n      ::std::size_t parent;\n\
@@ -69,47 +69,45 @@ data:
     \ rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line\
     \ 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
     \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
-    \ {\n    return c.size();\n  }\n}\n\n\n#line 14 \"tests/persistent_stack.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, s, t;\n  std::cin >>\
-    \ N >> M >> s >> t;\n  std::vector<std::vector<std::pair<i64, i64>>> graph(N);\n\
-    \  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin >> a >> b >>\
-    \ c;\n    graph[a].emplace_back(b, c);\n  }\n\n  std::vector<i64> dist(N, std::numeric_limits<i64>::max());\n\
-    \  dist[s] = 0;\n\n  tools::persistent_stack<i64>::buffer buffer;\n  std::vector<tools::persistent_stack<i64>>\
-    \ path(N, tools::persistent_stack<i64>(buffer));\n  path[s] = path[s].push(s);\n\
-    \n  std::priority_queue<std::pair<i64, i64>, std::vector<std::pair<i64, i64>>,\
-    \ tools::greater_by_second> pq;\n  pq.emplace(s, 0);\n  while (!pq.empty()) {\n\
-    \    const auto [here, d] = pq.top();\n    pq.pop();\n    if (dist[here] < d)\
-    \ continue;\n    for (const auto& [next, w] : graph[here]) {\n      if (tools::chmin(dist[next],\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 13 \"tests/persistent_stack.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n  std::vector<std::vector<std::pair<ll,\
+    \ ll>>> graph(N);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b, c;\n    std::cin\
+    \ >> a >> b >> c;\n    graph[a].emplace_back(b, c);\n  }\n\n  std::vector<ll>\
+    \ dist(N, std::numeric_limits<ll>::max());\n  dist[s] = 0;\n\n  tools::persistent_stack<ll>::buffer\
+    \ buffer;\n  std::vector<tools::persistent_stack<ll>> path(N, tools::persistent_stack<ll>(buffer));\n\
+    \  path[s] = path[s].push(s);\n\n  std::priority_queue<std::pair<ll, ll>, std::vector<std::pair<ll,\
+    \ ll>>, tools::greater_by_second> pq;\n  pq.emplace(s, 0);\n  while (!pq.empty())\
+    \ {\n    const auto [here, d] = pq.top();\n    pq.pop();\n    if (dist[here] <\
+    \ d) continue;\n    for (const auto& [next, w] : graph[here]) {\n      if (tools::chmin(dist[next],\
     \ dist[here] + w)) {\n        path[next] = path[here].push(next);\n        pq.emplace(next,\
-    \ dist[next]);\n      }\n    }\n  }\n\n  if (dist[t] == std::numeric_limits<i64>::max())\
+    \ dist[next]);\n      }\n    }\n  }\n\n  if (dist[t] == std::numeric_limits<ll>::max())\
     \ {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n  std::cout << dist[t]\
-    \ << ' ' << path[t].size() - 1 << '\\n';\n  std::vector<i64> answers;\n  for (auto\
+    \ << ' ' << path[t].size() - 1 << '\\n';\n  std::vector<ll> answers;\n  for (auto\
     \ stack = path[t]; !stack.empty(); stack = stack.pop()) {\n    answers.push_back(stack.top());\n\
-    \  }\n  std::reverse(answers.begin(), answers.end());\n  for (i64 i = 0; i + 1\
+    \  }\n  std::reverse(answers.begin(), answers.end());\n  for (ll i = 0; i + 1\
     \ < tools::ssize(answers); ++i) {\n    std::cout << answers[i] << ' ' << answers[i\
     \ + 1] << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <utility>\n#include\
-    \ <limits>\n#include <queue>\n#include <algorithm>\n#include \"tools/persistent_stack.hpp\"\
-    \n#include \"tools/greater_by_second.hpp\"\n#include \"tools/chmin.hpp\"\n#include\
-    \ \"tools/ssize.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, s, t;\n  std::cin >>\
-    \ N >> M >> s >> t;\n  std::vector<std::vector<std::pair<i64, i64>>> graph(N);\n\
-    \  for (i64 i = 0; i < M; ++i) {\n    i64 a, b, c;\n    std::cin >> a >> b >>\
-    \ c;\n    graph[a].emplace_back(b, c);\n  }\n\n  std::vector<i64> dist(N, std::numeric_limits<i64>::max());\n\
-    \  dist[s] = 0;\n\n  tools::persistent_stack<i64>::buffer buffer;\n  std::vector<tools::persistent_stack<i64>>\
-    \ path(N, tools::persistent_stack<i64>(buffer));\n  path[s] = path[s].push(s);\n\
-    \n  std::priority_queue<std::pair<i64, i64>, std::vector<std::pair<i64, i64>>,\
-    \ tools::greater_by_second> pq;\n  pq.emplace(s, 0);\n  while (!pq.empty()) {\n\
-    \    const auto [here, d] = pq.top();\n    pq.pop();\n    if (dist[here] < d)\
-    \ continue;\n    for (const auto& [next, w] : graph[here]) {\n      if (tools::chmin(dist[next],\
+    \ <iostream>\n#include <vector>\n#include <utility>\n#include <limits>\n#include\
+    \ <queue>\n#include <algorithm>\n#include \"tools/persistent_stack.hpp\"\n#include\
+    \ \"tools/greater_by_second.hpp\"\n#include \"tools/chmin.hpp\"\n#include \"tools/ssize.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n  std::vector<std::vector<std::pair<ll,\
+    \ ll>>> graph(N);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b, c;\n    std::cin\
+    \ >> a >> b >> c;\n    graph[a].emplace_back(b, c);\n  }\n\n  std::vector<ll>\
+    \ dist(N, std::numeric_limits<ll>::max());\n  dist[s] = 0;\n\n  tools::persistent_stack<ll>::buffer\
+    \ buffer;\n  std::vector<tools::persistent_stack<ll>> path(N, tools::persistent_stack<ll>(buffer));\n\
+    \  path[s] = path[s].push(s);\n\n  std::priority_queue<std::pair<ll, ll>, std::vector<std::pair<ll,\
+    \ ll>>, tools::greater_by_second> pq;\n  pq.emplace(s, 0);\n  while (!pq.empty())\
+    \ {\n    const auto [here, d] = pq.top();\n    pq.pop();\n    if (dist[here] <\
+    \ d) continue;\n    for (const auto& [next, w] : graph[here]) {\n      if (tools::chmin(dist[next],\
     \ dist[here] + w)) {\n        path[next] = path[here].push(next);\n        pq.emplace(next,\
-    \ dist[next]);\n      }\n    }\n  }\n\n  if (dist[t] == std::numeric_limits<i64>::max())\
+    \ dist[next]);\n      }\n    }\n  }\n\n  if (dist[t] == std::numeric_limits<ll>::max())\
     \ {\n    std::cout << -1 << '\\n';\n    return 0;\n  }\n\n  std::cout << dist[t]\
-    \ << ' ' << path[t].size() - 1 << '\\n';\n  std::vector<i64> answers;\n  for (auto\
+    \ << ' ' << path[t].size() - 1 << '\\n';\n  std::vector<ll> answers;\n  for (auto\
     \ stack = path[t]; !stack.empty(); stack = stack.pop()) {\n    answers.push_back(stack.top());\n\
-    \  }\n  std::reverse(answers.begin(), answers.end());\n  for (i64 i = 0; i + 1\
+    \  }\n  std::reverse(answers.begin(), answers.end());\n  for (ll i = 0; i + 1\
     \ < tools::ssize(answers); ++i) {\n    std::cout << answers[i] << ' ' << answers[i\
     \ + 1] << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
@@ -120,8 +118,8 @@ data:
   isVerificationFile: true
   path: tests/persistent_stack.test.cpp
   requiredBy: []
-  timestamp: '2022-04-16 10:31:14+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/persistent_stack.test.cpp
 layout: document

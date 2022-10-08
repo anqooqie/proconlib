@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []
@@ -27,27 +27,27 @@ data:
     links:
     - https://yukicoder.me/problems/no/1358
   bundledCode: "#line 1 \"tests/bezout.test.cpp\"\n#define PROBLEM \"https://yukicoder.me/problems/no/1358\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <array>\n#include <algorithm>\n\
-    #include <tuple>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
-    \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace\
-    \ atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod\
-    \ m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %= m;\n \
-    \   if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication by\
-    \ barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \n\n#include <iostream>\n#include <array>\n#include <algorithm>\n#include <tuple>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -260,30 +260,30 @@ data:
     \ \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
     \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
     \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
-    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 12\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 11\
     \ \"tests/bezout.test.cpp\"\n\nusing mint = atcoder::modint1000000007;\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 T;\n  std::cin >> T;\n  for (i64 t = 0; t < T; ++t) {\n    i64 N, K, H,\
-    \ Y;\n    std::cin >> N >> K >> H >> Y;\n\n    {\n      std::array<i64, 3> arr\
-    \ = {N, K, H};\n      std::sort(arr.begin(), arr.end());\n      std::tie(N, K,\
-    \ H) = std::make_tuple(arr[0], arr[1], arr[2]);\n    }\n\n    mint answer = 0;\n\
-    \    for (i64 z = 0; z <= Y / H; ++z) {\n      const auto solution = tools::bezout(N,\
+    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll T;\n  std::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    ll N, K, H, Y;\n\
+    \    std::cin >> N >> K >> H >> Y;\n\n    {\n      std::array<ll, 3> arr = {N,\
+    \ K, H};\n      std::sort(arr.begin(), arr.end());\n      std::tie(N, K, H) =\
+    \ std::make_tuple(arr[0], arr[1], arr[2]);\n    }\n\n    mint answer = 0;\n  \
+    \  for (ll z = 0; z <= Y / H; ++z) {\n      const auto solution = tools::bezout(N,\
     \ K, Y - H * z);\n      if (!solution) continue;\n      const auto [p, q, r, s]\
-    \ = *solution;\n      answer += mint(std::max<i64>(0, tools::floor(-q, p) - tools::ceil(-s,\
+    \ = *solution;\n      answer += mint(std::max<ll>(0, tools::floor(-q, p) - tools::ceil(-s,\
     \ r) + 1));\n    }\n\n    std::cout << answer.val() << '\\n';\n  }\n\n  return\
     \ 0;\n}\n"
-  code: "#define PROBLEM \"https://yukicoder.me/problems/no/1358\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#include <array>\n#include <algorithm>\n#include <tuple>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/bezout.hpp\"\n#include \"tools/floor.hpp\"\
-    \n#include \"tools/ceil.hpp\"\n\nusing mint = atcoder::modint1000000007;\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 T;\n  std::cin >> T;\n  for (i64 t = 0; t < T; ++t) {\n    i64 N, K, H,\
-    \ Y;\n    std::cin >> N >> K >> H >> Y;\n\n    {\n      std::array<i64, 3> arr\
-    \ = {N, K, H};\n      std::sort(arr.begin(), arr.end());\n      std::tie(N, K,\
-    \ H) = std::make_tuple(arr[0], arr[1], arr[2]);\n    }\n\n    mint answer = 0;\n\
-    \    for (i64 z = 0; z <= Y / H; ++z) {\n      const auto solution = tools::bezout(N,\
+  code: "#define PROBLEM \"https://yukicoder.me/problems/no/1358\"\n\n#include <iostream>\n\
+    #include <array>\n#include <algorithm>\n#include <tuple>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/bezout.hpp\"\n#include \"tools/floor.hpp\"\n#include \"tools/ceil.hpp\"\
+    \n\nusing mint = atcoder::modint1000000007;\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ T;\n  std::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    ll N, K, H, Y;\n \
+    \   std::cin >> N >> K >> H >> Y;\n\n    {\n      std::array<ll, 3> arr = {N,\
+    \ K, H};\n      std::sort(arr.begin(), arr.end());\n      std::tie(N, K, H) =\
+    \ std::make_tuple(arr[0], arr[1], arr[2]);\n    }\n\n    mint answer = 0;\n  \
+    \  for (ll z = 0; z <= Y / H; ++z) {\n      const auto solution = tools::bezout(N,\
     \ K, Y - H * z);\n      if (!solution) continue;\n      const auto [p, q, r, s]\
-    \ = *solution;\n      answer += mint(std::max<i64>(0, tools::floor(-q, p) - tools::ceil(-s,\
+    \ = *solution;\n      answer += mint(std::max<ll>(0, tools::floor(-q, p) - tools::ceil(-s,\
     \ r) + 1));\n    }\n\n    std::cout << answer.val() << '\\n';\n  }\n\n  return\
     \ 0;\n}\n"
   dependsOn:
@@ -295,7 +295,7 @@ data:
   isVerificationFile: true
   path: tests/bezout.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bezout.test.cpp

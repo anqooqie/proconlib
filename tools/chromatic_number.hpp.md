@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy: []
@@ -19,7 +19,7 @@ data:
     links:
     - https://drken1215.hatenablog.com/entry/2019/01/16/030000
   bundledCode: "#line 1 \"tools/chromatic_number.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstdint>\n#include <cstddef>\n#include <cassert>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    #include <cstddef>\n#include <cassert>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#include\
     \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
     lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include <utility>\n\n#ifdef\
@@ -226,112 +226,111 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/ntz.hpp\"\
-    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\
-    \nnamespace tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
-    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
-    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
-    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
-    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
-    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
-    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
-    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
-    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
-    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
-    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
-    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
-    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
-    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
-    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 6 \"tools/ntz.hpp\"\n\nnamespace tools {\n\n  inline ::std::uint32_t\
-    \ ntz(const ::std::uint32_t& x) {\n    return ::tools::popcount((x & -x) - static_cast<::std::uint32_t>(1));\n\
-    \  }\n\n  inline ::std::uint64_t ntz(const ::std::uint64_t& x) {\n    return ::tools::popcount((x\
-    \ & -x) - static_cast<::std::uint64_t>(1));\n  }\n\n  inline ::std::int32_t ntz(::std::int32_t\
-    \ x) {\n    return static_cast<::std::int32_t>(::tools::ntz(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t ntz(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::ntz(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 11 \"tools/chromatic_number.hpp\"\n\n// Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000\n\
+    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 6 \"tools/popcount.hpp\"\n\
+    #include <limits>\n#include <cstdint>\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
+    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 7 \"tools/ntz.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  T ntz(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::ntz<::std::make_unsigned_t<T>>(x));\n    } else {\n\
+    \      return ::tools::popcount((x & -x) - static_cast<T>(1));\n    }\n  }\n}\n\
+    \n\n#line 10 \"tools/chromatic_number.hpp\"\n\n// Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n  class chromatic_number\
-    \ {\n  private:\n    ::std::vector<::std::uint_fast64_t> neighbor;\n\n  public:\n\
+    \ {\n  private:\n    ::std::vector<unsigned long long> neighbor;\n\n  public:\n\
     \    chromatic_number() = default;\n    chromatic_number(const ::tools::chromatic_number&)\
     \ = default;\n    chromatic_number(::tools::chromatic_number&&) = default;\n \
     \   ~chromatic_number() = default;\n    ::tools::chromatic_number& operator=(const\
     \ ::tools::chromatic_number&) = default;\n    ::tools::chromatic_number& operator=(::tools::chromatic_number&&)\
     \ = default;\n\n    explicit chromatic_number(const ::std::size_t n) : neighbor(n)\
     \ {\n      for (::std::size_t i = 0; i < n; ++i) {\n        this->neighbor[i]\
-    \ = (::std::uint_fast64_t(1) << ::std::uint_fast64_t(i));\n      }\n    }\n\n\
-    \    ::std::size_t node_count() const {\n      return this->neighbor.size();\n\
-    \    }\n\n    void add_edge(const ::std::size_t s, const ::std::size_t t) {\n\
-    \      assert(s < this->node_count());\n      assert(t < this->node_count());\n\
-    \      this->neighbor[s] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(t));\n\
-    \      this->neighbor[t] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(s));\n\
-    \    }\n\n    ::std::int_fast64_t query() const {\n      const auto pow2 = [](const\
-    \ ::std::uint_fast64_t x) {\n        return ::std::uint_fast64_t(1) << x;\n  \
-    \    };\n      const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets\
-    \ of S\n      ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));\n\
-    \      I[0] = ::atcoder::modint1000000007(1);\n      for (::std::uint_fast64_t\
-    \ S = 1; S < pow2(this->node_count()); ++S) {\n        const ::std::uint_fast64_t\
+    \ = (1ULL << i);\n      }\n    }\n\n    ::std::size_t node_count() const {\n \
+    \     return this->neighbor.size();\n    }\n\n    void add_edge(const ::std::size_t\
+    \ s, const ::std::size_t t) {\n      assert(s < this->node_count());\n      assert(t\
+    \ < this->node_count());\n      this->neighbor[s] |= (1ULL << t);\n      this->neighbor[t]\
+    \ |= (1ULL << s);\n    }\n\n    long long query() const {\n      const auto pow2\
+    \ = [](const unsigned long long x) {\n        return 1ULL << x;\n      };\n  \
+    \    const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets of S\n\
+    \      ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));\n\
+    \      I[0] = ::atcoder::modint1000000007(1);\n      for (unsigned long long S\
+    \ = 1; S < pow2(this->node_count()); ++S) {\n        const unsigned long long\
     \ v = ::tools::ntz(S);\n        I[S] = I[S & ~set(v)] + I[S & ~this->neighbor[v]];\n\
-    \      }\n\n      ::std::int_fast64_t ng = 0;\n      ::std::int_fast64_t ok =\
-    \ this->node_count();\n      while (ok - ng > 1) {\n        ::std::int_fast64_t\
-    \ k = (ok + ng) / 2;\n\n        // g[S] := #. of \"k independent sets\" which\
-    \ cover S just\n        // f[S] := #. of \"k independent sets\" which consist\
-    \ of subsets of S\n        // then\n        //   f[S] = sum_{T in S} g(T)\n  \
-    \      //   g[S] = sum_{T in S} (-1)^(|S|-|T|)f[T]\n        ::atcoder::modint1000000007\
-    \ g(0);\n        for (::std::uint_fast64_t S = 0; S < pow2(this->node_count());\
-    \ ++S) {\n          if ((::std::uint_fast64_t(this->node_count()) - ::tools::popcount(S))\
-    \ & 1) {\n            g -= I[S].pow(k);\n          } else {\n            g +=\
-    \ I[S].pow(k);\n          }\n        }\n\n        if (g.val() != 0) {\n      \
-    \    ok = k;\n        } else {\n          ng = k;\n        }\n      }\n\n    \
-    \  return ok;\n    }\n  };\n}\n\n\n"
+    \      }\n\n      long long ng = 0;\n      long long ok = this->node_count();\n\
+    \      while (ok - ng > 1) {\n        long long k = (ok + ng) / 2;\n\n       \
+    \ // g[S] := #. of \"k independent sets\" which cover S just\n        // f[S]\
+    \ := #. of \"k independent sets\" which consist of subsets of S\n        // then\n\
+    \        //   f[S] = sum_{T in S} g(T)\n        //   g[S] = sum_{T in S} (-1)^(|S|-|T|)f[T]\n\
+    \        ::atcoder::modint1000000007 g(0);\n        for (unsigned long long S\
+    \ = 0; S < pow2(this->node_count()); ++S) {\n          if ((static_cast<unsigned\
+    \ long long>(this->node_count()) - ::tools::popcount(S)) & 1) {\n            g\
+    \ -= I[S].pow(k);\n          } else {\n            g += I[S].pow(k);\n       \
+    \   }\n        }\n\n        if (g.val() != 0) {\n          ok = k;\n        }\
+    \ else {\n          ng = k;\n        }\n      }\n\n      return ok;\n    }\n \
+    \ };\n}\n\n\n"
   code: "#ifndef TOOLS_CHROMATIC_NUMBER_HPP\n#define TOOLS_CHROMATIC_NUMBER_HPP\n\n\
-    #include <vector>\n#include <cstdint>\n#include <cstddef>\n#include <cassert>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/ntz.hpp\"\n#include \"tools/popcount.hpp\"\
-    \n\n// Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000\n// License:\
-    \ unknown\n// Author: drken\n\nnamespace tools {\n  class chromatic_number {\n\
-    \  private:\n    ::std::vector<::std::uint_fast64_t> neighbor;\n\n  public:\n\
+    #include <vector>\n#include <cstddef>\n#include <cassert>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/ntz.hpp\"\n#include \"tools/popcount.hpp\"\n\n// Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000\n\
+    // License: unknown\n// Author: drken\n\nnamespace tools {\n  class chromatic_number\
+    \ {\n  private:\n    ::std::vector<unsigned long long> neighbor;\n\n  public:\n\
     \    chromatic_number() = default;\n    chromatic_number(const ::tools::chromatic_number&)\
     \ = default;\n    chromatic_number(::tools::chromatic_number&&) = default;\n \
     \   ~chromatic_number() = default;\n    ::tools::chromatic_number& operator=(const\
     \ ::tools::chromatic_number&) = default;\n    ::tools::chromatic_number& operator=(::tools::chromatic_number&&)\
     \ = default;\n\n    explicit chromatic_number(const ::std::size_t n) : neighbor(n)\
     \ {\n      for (::std::size_t i = 0; i < n; ++i) {\n        this->neighbor[i]\
-    \ = (::std::uint_fast64_t(1) << ::std::uint_fast64_t(i));\n      }\n    }\n\n\
-    \    ::std::size_t node_count() const {\n      return this->neighbor.size();\n\
-    \    }\n\n    void add_edge(const ::std::size_t s, const ::std::size_t t) {\n\
-    \      assert(s < this->node_count());\n      assert(t < this->node_count());\n\
-    \      this->neighbor[s] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(t));\n\
-    \      this->neighbor[t] |= (::std::uint_fast64_t(1) << ::std::uint_fast64_t(s));\n\
-    \    }\n\n    ::std::int_fast64_t query() const {\n      const auto pow2 = [](const\
-    \ ::std::uint_fast64_t x) {\n        return ::std::uint_fast64_t(1) << x;\n  \
-    \    };\n      const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets\
-    \ of S\n      ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));\n\
-    \      I[0] = ::atcoder::modint1000000007(1);\n      for (::std::uint_fast64_t\
-    \ S = 1; S < pow2(this->node_count()); ++S) {\n        const ::std::uint_fast64_t\
+    \ = (1ULL << i);\n      }\n    }\n\n    ::std::size_t node_count() const {\n \
+    \     return this->neighbor.size();\n    }\n\n    void add_edge(const ::std::size_t\
+    \ s, const ::std::size_t t) {\n      assert(s < this->node_count());\n      assert(t\
+    \ < this->node_count());\n      this->neighbor[s] |= (1ULL << t);\n      this->neighbor[t]\
+    \ |= (1ULL << s);\n    }\n\n    long long query() const {\n      const auto pow2\
+    \ = [](const unsigned long long x) {\n        return 1ULL << x;\n      };\n  \
+    \    const auto& set = pow2;\n\n      // I[S] := #. of indepndent subsets of S\n\
+    \      ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));\n\
+    \      I[0] = ::atcoder::modint1000000007(1);\n      for (unsigned long long S\
+    \ = 1; S < pow2(this->node_count()); ++S) {\n        const unsigned long long\
     \ v = ::tools::ntz(S);\n        I[S] = I[S & ~set(v)] + I[S & ~this->neighbor[v]];\n\
-    \      }\n\n      ::std::int_fast64_t ng = 0;\n      ::std::int_fast64_t ok =\
-    \ this->node_count();\n      while (ok - ng > 1) {\n        ::std::int_fast64_t\
-    \ k = (ok + ng) / 2;\n\n        // g[S] := #. of \"k independent sets\" which\
-    \ cover S just\n        // f[S] := #. of \"k independent sets\" which consist\
-    \ of subsets of S\n        // then\n        //   f[S] = sum_{T in S} g(T)\n  \
-    \      //   g[S] = sum_{T in S} (-1)^(|S|-|T|)f[T]\n        ::atcoder::modint1000000007\
-    \ g(0);\n        for (::std::uint_fast64_t S = 0; S < pow2(this->node_count());\
-    \ ++S) {\n          if ((::std::uint_fast64_t(this->node_count()) - ::tools::popcount(S))\
-    \ & 1) {\n            g -= I[S].pow(k);\n          } else {\n            g +=\
-    \ I[S].pow(k);\n          }\n        }\n\n        if (g.val() != 0) {\n      \
-    \    ok = k;\n        } else {\n          ng = k;\n        }\n      }\n\n    \
-    \  return ok;\n    }\n  };\n}\n\n#endif\n"
+    \      }\n\n      long long ng = 0;\n      long long ok = this->node_count();\n\
+    \      while (ok - ng > 1) {\n        long long k = (ok + ng) / 2;\n\n       \
+    \ // g[S] := #. of \"k independent sets\" which cover S just\n        // f[S]\
+    \ := #. of \"k independent sets\" which consist of subsets of S\n        // then\n\
+    \        //   f[S] = sum_{T in S} g(T)\n        //   g[S] = sum_{T in S} (-1)^(|S|-|T|)f[T]\n\
+    \        ::atcoder::modint1000000007 g(0);\n        for (unsigned long long S\
+    \ = 0; S < pow2(this->node_count()); ++S) {\n          if ((static_cast<unsigned\
+    \ long long>(this->node_count()) - ::tools::popcount(S)) & 1) {\n            g\
+    \ -= I[S].pow(k);\n          } else {\n            g += I[S].pow(k);\n       \
+    \   }\n        }\n\n        if (g.val() != 0) {\n          ok = k;\n        }\
+    \ else {\n          ng = k;\n        }\n      }\n\n      return ok;\n    }\n \
+    \ };\n}\n\n#endif\n"
   dependsOn:
   - tools/ntz.hpp
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/chromatic_number.hpp
   requiredBy: []
-  timestamp: '2021-07-22 17:17:38+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/chromatic_number.test.cpp
@@ -353,7 +352,7 @@ It calculates the chromatic number of a given graph which is not necessarily sim
 
 ## Constructor
 ```cpp
-chromatic_number graph(::std::size_t n);
+chromatic_number graph(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
@@ -366,7 +365,7 @@ It creates a graph with $n$ vertices and $0$ edges.
 
 ## add_edge
 ```cpp
-void graph.add_edge(::std::size_t s, ::std::size_t t);
+void graph.add_edge(std::size_t s, std::size_t t);
 ```
 
 It adds a edge from $s$ to $t$.
@@ -380,7 +379,7 @@ It adds a edge from $s$ to $t$.
 
 ## query
 ```cpp
-::std::int_fast64_t graph.query();
+long long graph.query();
 ```
 
 It returns the chromatic number of the graph.

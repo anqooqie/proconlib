@@ -2,22 +2,22 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/largest_rectangle_in_histogram.hpp
     title: Largest rectangle in histogram
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmax.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -34,7 +34,7 @@ data:
   requiredBy:
   - tools/largest_rectangle_in_histogram.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/rolling_hash.test.cpp
   - tests/largest_rectangle_in_histogram.test.cpp

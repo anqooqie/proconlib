@@ -1,46 +1,46 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc170/tasks/abc170_d
     links:
     - https://atcoder.jp/contests/abc170/tasks/abc170_d
   bundledCode: "#line 1 \"tests/osa_k.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc170/tasks/abc170_d\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include <unordered_set>\n#line 1 \"tools/osa_k.hpp\"\n\n\n\n#line 5 \"tools/osa_k.hpp\"\
-    \n#include <cstddef>\n#include <iterator>\n#include <utility>\n#line 9 \"tools/osa_k.hpp\"\
-    \n#include <limits>\n#include <cassert>\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  class osa_k {\n  private:\n    ::std::vector<T> m_min_prime_factors;\n\
-    \    ::std::vector<T> m_divisor_counts;\n\n    T size() const {\n      return\
-    \ this->m_min_prime_factors.size();\n    }\n\n  public:\n    class prime_factor_iterable\
-    \ {\n    private:\n      const ::std::vector<T>& m_min_prime_factors;\n      T\
-    \ m_n;\n\n    public:\n      class iterator {\n      private:\n        const ::std::vector<T>&\
-    \ m_min_prime_factors;\n        T m_n;\n\n      public:\n        using difference_type\
-    \ = ::std::ptrdiff_t;\n        using value_type = T;\n        using reference\
-    \ = T&;\n        using pointer = T*;\n        using iterator_category = ::std::input_iterator_tag;\n\
-    \n        iterator(const ::std::vector<T>& min_prime_factors, const T& n) :\n\
-    \          m_min_prime_factors(min_prime_factors),\n          m_n(n) {\n     \
-    \   }\n\n        iterator(const iterator& other) = default;\n        ~iterator()\
-    \ = default;\n        iterator& operator=(const iterator& other) = default;\n\n\
-    \        T operator*() const {\n          return this->m_min_prime_factors[this->m_n];\n\
-    \        }\n\n        iterator& operator++() {\n          this->m_n /= **this;\n\
-    \          return *this;\n        }\n\n        iterator operator++(int) {\n  \
-    \        const iterator self = *this;\n          ++*this;\n          return self;\n\
-    \        }\n\n        friend bool operator==(const iterator& lhs, const iterator&\
-    \ rhs) {\n          return lhs.m_n == rhs.m_n;\n        }\n\n        friend bool\
-    \ operator!=(const iterator& lhs, const iterator& rhs) {\n          return !(lhs\
-    \ == rhs);\n        }\n      };\n\n      prime_factor_iterable(const ::std::vector<T>&\
-    \ min_prime_factors, const T& n) :\n        m_min_prime_factors(min_prime_factors),\n\
-    \        m_n(n) {\n      }\n\n      iterator begin() const {\n        return iterator(this->m_min_prime_factors,\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <unordered_set>\n\
+    #line 1 \"tools/osa_k.hpp\"\n\n\n\n#line 5 \"tools/osa_k.hpp\"\n#include <cstddef>\n\
+    #include <iterator>\n#include <utility>\n#line 9 \"tools/osa_k.hpp\"\n#include\
+    \ <limits>\n#include <cassert>\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  class osa_k {\n  private:\n    ::std::vector<T> m_min_prime_factors;\n    ::std::vector<T>\
+    \ m_divisor_counts;\n\n    T size() const {\n      return this->m_min_prime_factors.size();\n\
+    \    }\n\n  public:\n    class prime_factor_iterable {\n    private:\n      const\
+    \ ::std::vector<T>& m_min_prime_factors;\n      T m_n;\n\n    public:\n      class\
+    \ iterator {\n      private:\n        const ::std::vector<T>& m_min_prime_factors;\n\
+    \        T m_n;\n\n      public:\n        using difference_type = ::std::ptrdiff_t;\n\
+    \        using value_type = T;\n        using reference = T&;\n        using pointer\
+    \ = T*;\n        using iterator_category = ::std::input_iterator_tag;\n\n    \
+    \    iterator(const ::std::vector<T>& min_prime_factors, const T& n) :\n     \
+    \     m_min_prime_factors(min_prime_factors),\n          m_n(n) {\n        }\n\
+    \n        iterator(const iterator& other) = default;\n        ~iterator() = default;\n\
+    \        iterator& operator=(const iterator& other) = default;\n\n        T operator*()\
+    \ const {\n          return this->m_min_prime_factors[this->m_n];\n        }\n\
+    \n        iterator& operator++() {\n          this->m_n /= **this;\n         \
+    \ return *this;\n        }\n\n        iterator operator++(int) {\n          const\
+    \ iterator self = *this;\n          ++*this;\n          return self;\n       \
+    \ }\n\n        friend bool operator==(const iterator& lhs, const iterator& rhs)\
+    \ {\n          return lhs.m_n == rhs.m_n;\n        }\n\n        friend bool operator!=(const\
+    \ iterator& lhs, const iterator& rhs) {\n          return !(lhs == rhs);\n   \
+    \     }\n      };\n\n      prime_factor_iterable(const ::std::vector<T>& min_prime_factors,\
+    \ const T& n) :\n        m_min_prime_factors(min_prime_factors),\n        m_n(n)\
+    \ {\n      }\n\n      iterator begin() const {\n        return iterator(this->m_min_prime_factors,\
     \ this->m_n);\n      };\n\n      iterator end() const {\n        return iterator(this->m_min_prime_factors,\
     \ 1);\n      }\n    };\n\n    class distinct_prime_factor_iterable {\n    private:\n\
     \      const ::std::vector<T>& m_min_prime_factors;\n      T m_n;\n\n    public:\n\
@@ -124,35 +124,34 @@ data:
     \ result.size();\n        for (T i = 1, x = pair.first; i <= pair.second; ++i,\
     \ x *= pair.first) {\n          for (T j = 0; j < end; ++j) {\n            result.push_back(result[j]\
     \ * x);\n          }\n        }\n      }\n\n      ::std::sort(result.begin(),\
-    \ result.end());\n      return result;\n    }\n  };\n}\n\n\n#line 9 \"tests/osa_k.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n  std::vector<i64>\
+    \ result.end());\n      return result;\n    }\n  };\n}\n\n\n#line 8 \"tests/osa_k.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<ll> A(N);\n  for (auto& A_i : A) std::cin\
+    \ >> A_i;\n\n  std::sort(A.begin(), A.end());\n  tools::osa_k<ll> osa_k(A.back()\
+    \ + 1);\n  std::unordered_set<ll> set;\n  ll answer = 0;\n  for (ll l = 0, r =\
+    \ 0; l < N; l = r) {\n    for (; r < N && A[l] == A[r]; ++r);\n    if (r - l ==\
+    \ 1 && [&]() {\n      for (const auto d : osa_k.divisors(A[l])) {\n        if\
+    \ (set.find(d) != set.end()) return false;\n      }\n      return true;\n    }())\
+    \ {\n      ++answer;\n    }\n    set.insert(A[l]);\n  }\n\n  std::cout << answer\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc170/tasks/abc170_d\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <algorithm>\n#include <unordered_set>\n\
+    #include \"tools/osa_k.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<ll>\
     \ A(N);\n  for (auto& A_i : A) std::cin >> A_i;\n\n  std::sort(A.begin(), A.end());\n\
-    \  tools::osa_k<i64> osa_k(A.back() + 1);\n  std::unordered_set<i64> set;\n  i64\
-    \ answer = 0;\n  for (i64 l = 0, r = 0; l < N; l = r) {\n    for (; r < N && A[l]\
+    \  tools::osa_k<ll> osa_k(A.back() + 1);\n  std::unordered_set<ll> set;\n  ll\
+    \ answer = 0;\n  for (ll l = 0, r = 0; l < N; l = r) {\n    for (; r < N && A[l]\
     \ == A[r]; ++r);\n    if (r - l == 1 && [&]() {\n      for (const auto d : osa_k.divisors(A[l]))\
     \ {\n        if (set.find(d) != set.end()) return false;\n      }\n      return\
     \ true;\n    }()) {\n      ++answer;\n    }\n    set.insert(A[l]);\n  }\n\n  std::cout\
-    \ << answer << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc170/tasks/abc170_d\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include <unordered_set>\n#include \"tools/osa_k.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  std::vector<i64> A(N);\n  for (auto& A_i : A)\
-    \ std::cin >> A_i;\n\n  std::sort(A.begin(), A.end());\n  tools::osa_k<i64> osa_k(A.back()\
-    \ + 1);\n  std::unordered_set<i64> set;\n  i64 answer = 0;\n  for (i64 l = 0,\
-    \ r = 0; l < N; l = r) {\n    for (; r < N && A[l] == A[r]; ++r);\n    if (r -\
-    \ l == 1 && [&]() {\n      for (const auto d : osa_k.divisors(A[l])) {\n     \
-    \   if (set.find(d) != set.end()) return false;\n      }\n      return true;\n\
-    \    }()) {\n      ++answer;\n    }\n    set.insert(A[l]);\n  }\n\n  std::cout\
     \ << answer << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/osa_k.hpp
   isVerificationFile: true
   path: tests/osa_k.test.cpp
   requiredBy: []
-  timestamp: '2022-09-11 13:33:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/osa_k.test.cpp
 layout: document

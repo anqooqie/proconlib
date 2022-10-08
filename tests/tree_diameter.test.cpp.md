@@ -1,35 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tree_diameter
     links:
     - https://judge.yosupo.jp/problem/tree_diameter
   bundledCode: "#line 1 \"tests/tree_diameter.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <utility>\n\
-    #line 1 \"tools/tree_diameter.hpp\"\n\n\n\n#line 5 \"tools/tree_diameter.hpp\"\
-    \n#include <cstddef>\n#line 7 \"tools/tree_diameter.hpp\"\n#include <cassert>\n\
-    #include <tuple>\n#include <limits>\n#include <queue>\n#include <iterator>\n#include\
-    \ <algorithm>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
-    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
-    \ rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/tree_diameter.hpp\"\n\
-    \nnamespace tools {\n  template <typename T>\n  class tree_diameter {\n  private:\n\
+    \n\n#include <iostream>\n#include <vector>\n#include <utility>\n#line 1 \"tools/tree_diameter.hpp\"\
+    \n\n\n\n#line 5 \"tools/tree_diameter.hpp\"\n#include <cstddef>\n#line 7 \"tools/tree_diameter.hpp\"\
+    \n#include <cassert>\n#include <tuple>\n#include <limits>\n#include <queue>\n\
+    #include <iterator>\n#include <algorithm>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n\
+    #line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/tree_diameter.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class tree_diameter {\n  private:\n\
     \    ::std::vector<::std::vector<::std::size_t>> m_graph;\n    ::std::vector<::std::pair<::std::size_t,\
     \ T>> m_edges;\n\n  public:\n    tree_diameter() = default;\n    tree_diameter(const\
     \ ::tools::tree_diameter<T>&) = default;\n    tree_diameter(::tools::tree_diameter<T>&&)\
@@ -72,24 +71,23 @@ data:
     \ {\n    ::std::ostringstream ss;\n    ::std::string current_delimiter = \"\"\
     ;\n    for (Iterator it = begin; it != end; ++it) {\n      ss << current_delimiter\
     \ << *it;\n      current_delimiter = delimiter;\n    }\n    return ss.str();\n\
-    \  }\n}\n\n\n#line 9 \"tests/tree_diameter.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
+    \  }\n}\n\n\n#line 8 \"tests/tree_diameter.test.cpp\"\n\nusing ll = long long;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  tools::tree_diameter<i64> tree(N);\n  std::vector<std::pair<i64,\
-    \ i64>> edges;\n  for (i64 i = 0; i < N - 1; ++i) {\n    i64 a, b, c;\n    std::cin\
+    \n  ll N;\n  std::cin >> N;\n  tools::tree_diameter<ll> tree(N);\n  std::vector<std::pair<ll,\
+    \ ll>> edges;\n  for (ll i = 0; i < N - 1; ++i) {\n    ll a, b, c;\n    std::cin\
     \ >> a >> b >> c;\n    tree.add_edge(a, b, c);\n    edges.emplace_back(a, b);\n\
     \  }\n\n  const auto [X, u, unused] = tree.query();\n  std::cout << X << ' ' <<\
     \ u.size() << '\\n';\n  std::cout << ::tools::join(u.begin(), u.end(), \" \")\
     \ << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <utility>\n#include\
-    \ \"tools/tree_diameter.hpp\"\n#include \"tools/join.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  tools::tree_diameter<i64> tree(N);\n  std::vector<std::pair<i64,\
-    \ i64>> edges;\n  for (i64 i = 0; i < N - 1; ++i) {\n    i64 a, b, c;\n    std::cin\
-    \ >> a >> b >> c;\n    tree.add_edge(a, b, c);\n    edges.emplace_back(a, b);\n\
-    \  }\n\n  const auto [X, u, unused] = tree.query();\n  std::cout << X << ' ' <<\
-    \ u.size() << '\\n';\n  std::cout << ::tools::join(u.begin(), u.end(), \" \")\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ <iostream>\n#include <vector>\n#include <utility>\n#include \"tools/tree_diameter.hpp\"\
+    \n#include \"tools/join.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  tools::tree_diameter<ll>\
+    \ tree(N);\n  std::vector<std::pair<ll, ll>> edges;\n  for (ll i = 0; i < N -\
+    \ 1; ++i) {\n    ll a, b, c;\n    std::cin >> a >> b >> c;\n    tree.add_edge(a,\
+    \ b, c);\n    edges.emplace_back(a, b);\n  }\n\n  const auto [X, u, unused] =\
+    \ tree.query();\n  std::cout << X << ' ' << u.size() << '\\n';\n  std::cout <<\
+    \ ::tools::join(u.begin(), u.end(), \" \") << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/tree_diameter.hpp
   - tools/chmin.hpp
@@ -97,8 +95,8 @@ data:
   isVerificationFile: true
   path: tests/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2022-04-29 23:42:50+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/tree_diameter.test.cpp
 layout: document

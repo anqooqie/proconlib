@@ -2,17 +2,17 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#include <cassert>\n\nnamespace\
@@ -49,7 +49,7 @@ data:
   - tools/floor_kth_root.hpp
   - tools/mo.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/mo.test.cpp
   - tests/floor_kth_root.test.cpp

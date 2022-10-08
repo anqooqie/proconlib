@@ -1,27 +1,27 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
   bundledCode: "#line 1 \"tests/prim/basic.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/prim.hpp\"\n\n\n\n\
-    #include <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n\
-    #include <algorithm>\n#include <limits>\n#include <queue>\n#line 1 \"tools/greater_by.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <class F>\n  class greater_by {\n  private:\n\
+    \n\n#include <iostream>\n#line 1 \"tools/prim.hpp\"\n\n\n\n#include <cstddef>\n\
+    #include <vector>\n#include <cassert>\n#include <utility>\n#include <algorithm>\n\
+    #include <limits>\n#include <queue>\n#line 1 \"tools/greater_by.hpp\"\n\n\n\n\
+    namespace tools {\n\n  template <class F>\n  class greater_by {\n  private:\n\
     \    F selector;\n\n  public:\n    greater_by(const F& selector) : selector(selector)\
     \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
     \ y) const {\n      return selector(x) > selector(y);\n    }\n  };\n}\n\n\n#line\
@@ -65,17 +65,17 @@ data:
     \ next = this->m_edges[e].from ^ this->m_edges[e].to ^ here;\n            if (belongs_to[next]\
     \ < ::std::numeric_limits<::std::size_t>::max()) continue;\n\n            pq.emplace(e,\
     \ next);\n          }\n        }\n      }\n\n      return res;\n    }\n  };\n\
-    }\n\n\n#line 6 \"tests/prim/basic.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 V, E;\n  std::cin >> V >> E;\n  tools::prim<i64> prim(V);\n  for (i64\
-    \ i = 0; i < E; ++i) {\n    i64 s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
+    }\n\n\n#line 5 \"tests/prim/basic.test.cpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ V, E;\n  std::cin >> V >> E;\n  tools::prim<ll> prim(V);\n  for (ll i = 0; i\
+    \ < E; ++i) {\n    ll s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
     \ t, w);\n  }\n\n  std::cout << prim.query().first[0].first << '\\n';\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/prim.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 V, E;\n  std::cin >> V >> E;\n  tools::prim<i64> prim(V);\n  for (i64\
-    \ i = 0; i < E; ++i) {\n    i64 s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
+    #include <iostream>\n#include \"tools/prim.hpp\"\n\nusing ll = long long;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll V, E;\n  std::cin >> V >> E;\n  tools::prim<ll> prim(V);\n  for (ll i =\
+    \ 0; i < E; ++i) {\n    ll s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
     \ t, w);\n  }\n\n  std::cout << prim.query().first[0].first << '\\n';\n  return\
     \ 0;\n}\n"
   dependsOn:
@@ -84,8 +84,8 @@ data:
   isVerificationFile: true
   path: tests/prim/basic.test.cpp
   requiredBy: []
-  timestamp: '2022-10-01 12:09:47+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/prim/basic.test.cpp
 layout: document

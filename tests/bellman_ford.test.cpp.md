@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   _extendedRequiredBy: []
@@ -18,17 +18,17 @@ data:
     links:
     - https://atcoder.jp/contests/abc137/tasks/abc137_e
   bundledCode: "#line 1 \"tests/bellman_ford.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc137/tasks/abc137_e\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <limits>\n#include <algorithm>\n\
-    #line 1 \"tools/bellman_ford.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
-    #include <cassert>\n#include <utility>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 10 \"tools/bellman_ford.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  class bellman_ford {\n  public:\n\
-    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
-    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n\
-    \    ::std::vector<edge> m_edges;\n\n  public:\n    bellman_ford() = default;\n\
-    \    bellman_ford(const ::tools::bellman_ford<T>&) = default;\n    bellman_ford(::tools::bellman_ford<T>&&)\
+    \n\n#include <iostream>\n#include <limits>\n#include <algorithm>\n#line 1 \"tools/bellman_ford.hpp\"\
+    \n\n\n\n#include <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n\
+    #line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs)\
+    \ {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 10 \"tools/bellman_ford.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  class bellman_ford {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge>\
+    \ m_edges;\n\n  public:\n    bellman_ford() = default;\n    bellman_ford(const\
+    \ ::tools::bellman_ford<T>&) = default;\n    bellman_ford(::tools::bellman_ford<T>&&)\
     \ = default;\n    ~bellman_ford() = default;\n    ::tools::bellman_ford<T>& operator=(const\
     \ ::tools::bellman_ford<T>&) = default;\n    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&)\
     \ = default;\n\n    bellman_ford(const ::std::size_t n) : m_size(n) {\n    }\n\
@@ -55,24 +55,22 @@ data:
     \ < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from]\
     \ + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0))) {\n\
     \            prev[edge.to] = edge.id;\n          }\n        }\n      }\n\n   \
-    \   return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n\n#line 8 \"tests/bellman_ford.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, P;\n  std::cin >> N >>\
-    \ M >> P;\n  tools::bellman_ford<i64> graph(N);\n  for (i64 i = 0; i < M; ++i)\
-    \ {\n    i64 A, B, C;\n    std::cin >> A >> B >> C;\n    --A, --B;\n    graph.add_edge(A,\
-    \ B, -C + P);\n  }\n\n  const auto [dist, prev] = graph.query(0);\n  if (dist[N\
-    \ - 1] == std::numeric_limits<i64>::min()) {\n    std::cout << -1 << '\\n';\n\
-    \  } else {\n    std::cout << std::max<i64>(0, -dist[N - 1]) << '\\n';\n  }\n\n\
-    \  return 0;\n}\n"
+    \   return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n\n#line 7 \"tests/bellman_ford.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, P;\n  std::cin >> N >> M >> P;\n  tools::bellman_ford<ll> graph(N);\n\
+    \  for (ll i = 0; i < M; ++i) {\n    ll A, B, C;\n    std::cin >> A >> B >> C;\n\
+    \    --A, --B;\n    graph.add_edge(A, B, -C + P);\n  }\n\n  const auto [dist,\
+    \ prev] = graph.query(0);\n  if (dist[N - 1] == std::numeric_limits<ll>::min())\
+    \ {\n    std::cout << -1 << '\\n';\n  } else {\n    std::cout << std::max<ll>(0,\
+    \ -dist[N - 1]) << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc137/tasks/abc137_e\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <limits>\n#include <algorithm>\n\
-    #include \"tools/bellman_ford.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64\
-    \ N, M, P;\n  std::cin >> N >> M >> P;\n  tools::bellman_ford<i64> graph(N);\n\
-    \  for (i64 i = 0; i < M; ++i) {\n    i64 A, B, C;\n    std::cin >> A >> B >>\
-    \ C;\n    --A, --B;\n    graph.add_edge(A, B, -C + P);\n  }\n\n  const auto [dist,\
-    \ prev] = graph.query(0);\n  if (dist[N - 1] == std::numeric_limits<i64>::min())\
-    \ {\n    std::cout << -1 << '\\n';\n  } else {\n    std::cout << std::max<i64>(0,\
+    #include <iostream>\n#include <limits>\n#include <algorithm>\n#include \"tools/bellman_ford.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, P;\n  std::cin >> N >> M >> P;\n  tools::bellman_ford<ll> graph(N);\n\
+    \  for (ll i = 0; i < M; ++i) {\n    ll A, B, C;\n    std::cin >> A >> B >> C;\n\
+    \    --A, --B;\n    graph.add_edge(A, B, -C + P);\n  }\n\n  const auto [dist,\
+    \ prev] = graph.query(0);\n  if (dist[N - 1] == std::numeric_limits<ll>::min())\
+    \ {\n    std::cout << -1 << '\\n';\n  } else {\n    std::cout << std::max<ll>(0,\
     \ -dist[N - 1]) << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/bellman_ford.hpp
@@ -80,7 +78,7 @@ data:
   isVerificationFile: true
   path: tests/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2022-07-16 04:36:47+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bellman_ford.test.cpp

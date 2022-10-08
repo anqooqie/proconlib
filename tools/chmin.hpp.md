@@ -5,70 +5,70 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/xor_basis.hpp
     title: Basis of xor
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -92,7 +92,7 @@ data:
   - tools/xor_basis.hpp
   - tools/dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/persistent_stack.test.cpp
   - tests/bellman_ford.test.cpp

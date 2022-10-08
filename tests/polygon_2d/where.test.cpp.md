@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C
@@ -841,21 +841,21 @@ data:
     \    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();\n\
     \    if (c2 < a2b2) {\n      return 0;\n    } else if (c2 == a2b2) {\n      return\
     \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/polygon_2d.hpp\"\
-    \n\n\n#line 9 \"tests/polygon_2d/where.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    using T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>> g;\n  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin),\
+    \n\n\n#line 9 \"tests/polygon_2d/where.test.cpp\"\n\nusing ll = long long;\nusing\
+    \ T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>> g;\n  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin),\
     \ n, std::back_inserter(g));\n  tools::polygon_2d<T, false> polygon(g.begin(),\
-    \ g.end());\n\n  i64 Q;\n  std::cin >> Q;\n  for (i64 q = 0; q < Q; ++q) {\n \
-    \   tools::vector2<T> p;\n    std::cin >> p;\n    std::cout << polygon.where(p)\
+    \ g.end());\n\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q < Q; ++q) {\n   \
+    \ tools::vector2<T> p;\n    std::cin >> p;\n    std::cout << polygon.where(p)\
     \ + 1 << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C\"\n\n\
     #include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
-    #include \"tools/vector2.hpp\"\n#include \"tools/polygon_2d.hpp\"\n\nusing i64\
-    \ = std::int_fast64_t;\nusing T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>>\
+    #include \"tools/vector2.hpp\"\n#include \"tools/polygon_2d.hpp\"\n\nusing ll\
+    \ = long long;\nusing T = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll n;\n  std::cin >> n;\n  std::vector<tools::vector2<T>>\
     \ g;\n  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));\n\
-    \  tools::polygon_2d<T, false> polygon(g.begin(), g.end());\n\n  i64 Q;\n  std::cin\
-    \ >> Q;\n  for (i64 q = 0; q < Q; ++q) {\n    tools::vector2<T> p;\n    std::cin\
+    \  tools::polygon_2d<T, false> polygon(g.begin(), g.end());\n\n  ll Q;\n  std::cin\
+    \ >> Q;\n  for (ll q = 0; q < Q; ++q) {\n    tools::vector2<T> p;\n    std::cin\
     \ >> p;\n    std::cout << polygon.where(p) + 1 << '\\n';\n  }\n\n  return 0;\n\
     }\n"
   dependsOn:
@@ -872,8 +872,8 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/where.test.cpp
   requiredBy: []
-  timestamp: '2022-09-24 20:04:29+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/polygon_2d/where.test.cpp
 layout: document

@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/lca.test.cpp
     title: tests/hld/lca.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vancestor.test.cpp
     title: tests/hld/vancestor.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vpath.test.cpp
     title: tests/hld/vpath.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/hld.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -402,7 +402,7 @@ data:
   path: tools/hld.hpp
   requiredBy: []
   timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp

@@ -15,30 +15,29 @@ data:
     links:
     - https://judge.yosupo.jp/problem/bipartitematching
   bundledCode: "#line 1 \"tests/bipartite_matching.test.cpp\"\n#define PROBLEM \"\
-    https://judge.yosupo.jp/problem/bipartitematching\"\n\n#include <cstdint>\n#include\
-    \ <iostream>\n#line 1 \"tools/bipartite_matching.hpp\"\n\n\n\n#include <cstddef>\n\
-    #include <vector>\n#line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n\n\n#include\
-    \ <algorithm>\n#include <cassert>\n#include <limits>\n#include <queue>\n#line\
-    \ 9 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_queue.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_queue.hpp\"\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\ntemplate <class T> struct simple_queue {\n    std::vector<T>\
-    \ payload;\n    int pos = 0;\n    void reserve(int n) { payload.reserve(n); }\n\
-    \    int size() const { return int(payload.size()) - pos; }\n    bool empty()\
-    \ const { return pos == int(payload.size()); }\n    void push(const T& t) { payload.push_back(t);\
-    \ }\n    T& front() { return payload[pos]; }\n    void clear() {\n        payload.clear();\n\
-    \        pos = 0;\n    }\n    void pop() { pos++; }\n};\n\n}  // namespace internal\n\
-    \n}  // namespace atcoder\n\n\n#line 11 \"lib/ac-library/atcoder/maxflow.hpp\"\
-    \n\nnamespace atcoder {\n\ntemplate <class Cap> struct mf_graph {\n  public:\n\
-    \    mf_graph() : _n(0) {}\n    explicit mf_graph(int n) : _n(n), g(n) {}\n\n\
-    \    int add_edge(int from, int to, Cap cap) {\n        assert(0 <= from && from\
-    \ < _n);\n        assert(0 <= to && to < _n);\n        assert(0 <= cap);\n   \
-    \     int m = int(pos.size());\n        pos.push_back({from, int(g[from].size())});\n\
-    \        int from_id = int(g[from].size());\n        int to_id = int(g[to].size());\n\
-    \        if (from == to) to_id++;\n        g[from].push_back(_edge{to, to_id,\
-    \ cap});\n        g[to].push_back(_edge{from, from_id, 0});\n        return m;\n\
-    \    }\n\n    struct edge {\n        int from, to;\n        Cap cap, flow;\n \
-    \   };\n\n    edge get_edge(int i) {\n        int m = int(pos.size());\n     \
-    \   assert(0 <= i && i < m);\n        auto _e = g[pos[i].first][pos[i].second];\n\
+    https://judge.yosupo.jp/problem/bipartitematching\"\n\n#include <iostream>\n#line\
+    \ 1 \"tools/bipartite_matching.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
+    #line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n\n\n#include <algorithm>\n#include\
+    \ <cassert>\n#include <limits>\n#include <queue>\n#line 9 \"lib/ac-library/atcoder/maxflow.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_queue.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_queue.hpp\"\
+    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class T> struct simple_queue\
+    \ {\n    std::vector<T> payload;\n    int pos = 0;\n    void reserve(int n) {\
+    \ payload.reserve(n); }\n    int size() const { return int(payload.size()) - pos;\
+    \ }\n    bool empty() const { return pos == int(payload.size()); }\n    void push(const\
+    \ T& t) { payload.push_back(t); }\n    T& front() { return payload[pos]; }\n \
+    \   void clear() {\n        payload.clear();\n        pos = 0;\n    }\n    void\
+    \ pop() { pos++; }\n};\n\n}  // namespace internal\n\n}  // namespace atcoder\n\
+    \n\n#line 11 \"lib/ac-library/atcoder/maxflow.hpp\"\n\nnamespace atcoder {\n\n\
+    template <class Cap> struct mf_graph {\n  public:\n    mf_graph() : _n(0) {}\n\
+    \    explicit mf_graph(int n) : _n(n), g(n) {}\n\n    int add_edge(int from, int\
+    \ to, Cap cap) {\n        assert(0 <= from && from < _n);\n        assert(0 <=\
+    \ to && to < _n);\n        assert(0 <= cap);\n        int m = int(pos.size());\n\
+    \        pos.push_back({from, int(g[from].size())});\n        int from_id = int(g[from].size());\n\
+    \        int to_id = int(g[to].size());\n        if (from == to) to_id++;\n  \
+    \      g[from].push_back(_edge{to, to_id, cap});\n        g[to].push_back(_edge{from,\
+    \ from_id, 0});\n        return m;\n    }\n\n    struct edge {\n        int from,\
+    \ to;\n        Cap cap, flow;\n    };\n\n    edge get_edge(int i) {\n        int\
+    \ m = int(pos.size());\n        assert(0 <= i && i < m);\n        auto _e = g[pos[i].first][pos[i].second];\n\
     \        auto _re = g[_e.to][_e.rev];\n        return edge{pos[i].first, _e.to,\
     \ _e.cap + _re.cap, _re.cap};\n    }\n    std::vector<edge> edges() {\n      \
     \  int m = int(pos.size());\n        std::vector<edge> result;\n        for (int\
@@ -111,29 +110,27 @@ data:
     \ + 1);\n      for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {\n  \
     \      if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1)\
     \ {\n          edges.push_back(this->m_edges[i]);\n        }\n      }\n\n    \
-    \  return edges;\n    }\n  };\n}\n\n\n#line 6 \"tests/bipartite_matching.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 L, R, M;\n  std::cin >> L >>\
-    \ R >> M;\n  tools::bipartite_matching graph(L, R);\n  for (i64 i = 0; i < M;\
-    \ ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    graph.add_edge(a, b);\n\
-    \  }\n\n  const auto edges = graph.query();\n  std::cout << edges.size() << '\\\
-    n';\n  for (const auto& edge : edges) {\n    std::cout << edge.from << ' ' <<\
-    \ edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
+    \  return edges;\n    }\n  };\n}\n\n\n#line 5 \"tests/bipartite_matching.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll L, R, M;\n  std::cin >> L >> R >> M;\n  tools::bipartite_matching graph(L,\
+    \ R);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n\
+    \    graph.add_edge(a, b);\n  }\n\n  const auto edges = graph.query();\n  std::cout\
+    \ << edges.size() << '\\n';\n  for (const auto& edge : edges) {\n    std::cout\
+    \ << edge.from << ' ' << edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bipartitematching\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include \"tools/bipartite_matching.hpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 L, R, M;\n  std::cin >> L >>\
-    \ R >> M;\n  tools::bipartite_matching graph(L, R);\n  for (i64 i = 0; i < M;\
-    \ ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    graph.add_edge(a, b);\n\
-    \  }\n\n  const auto edges = graph.query();\n  std::cout << edges.size() << '\\\
-    n';\n  for (const auto& edge : edges) {\n    std::cout << edge.from << ' ' <<\
-    \ edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include \"tools/bipartite_matching.hpp\"\n\nusing ll = long\
+    \ long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll L, R, M;\n  std::cin >> L >> R >> M;\n  tools::bipartite_matching graph(L,\
+    \ R);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n\
+    \    graph.add_edge(a, b);\n  }\n\n  const auto edges = graph.query();\n  std::cout\
+    \ << edges.size() << '\\n';\n  for (const auto& edge : edges) {\n    std::cout\
+    \ << edge.from << ' ' << edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/bipartite_matching.hpp
   isVerificationFile: true
   path: tests/bipartite_matching.test.cpp
   requiredBy: []
-  timestamp: '2022-07-09 11:54:45+09:00'
+  timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bipartite_matching.test.cpp

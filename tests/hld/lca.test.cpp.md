@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/lca
     links:
     - https://judge.yosupo.jp/problem/lca
   bundledCode: "#line 1 \"tests/hld/lca.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/hld.hpp\"\n\n\n\n\
-    #include <vector>\n#include <cstddef>\n#include <iterator>\n#include <cassert>\n\
-    #include <limits>\n#include <stack>\n#include <utility>\n#include <algorithm>\n\
-    #include <numeric>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7\
-    \ \"lib/ac-library/atcoder/dsu.hpp\"\n\nnamespace atcoder {\n\n// Implement (union\
-    \ by size) + (path compression)\n// Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n\
-    // Data structures and algorithms for disjoint set union problems\nstruct dsu\
-    \ {\n  public:\n    dsu() : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n,\
-    \ -1) {}\n\n    int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n\
-    \        assert(0 <= b && b < _n);\n        int x = leader(a), y = leader(b);\n\
-    \        if (x == y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y])\
-    \ std::swap(x, y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
+    \n\n#include <iostream>\n#line 1 \"tools/hld.hpp\"\n\n\n\n#include <vector>\n\
+    #include <cstddef>\n#include <iterator>\n#include <cassert>\n#include <limits>\n\
+    #include <stack>\n#include <utility>\n#include <algorithm>\n#include <numeric>\n\
+    #line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/dsu.hpp\"\
+    \n\nnamespace atcoder {\n\n// Implement (union by size) + (path compression)\n\
+    // Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n// Data structures and\
+    \ algorithms for disjoint set union problems\nstruct dsu {\n  public:\n    dsu()\
+    \ : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n, -1) {}\n\n  \
+    \  int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n        assert(0\
+    \ <= b && b < _n);\n        int x = leader(a), y = leader(b);\n        if (x ==\
+    \ y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y]) std::swap(x,\
+    \ y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
     \ = x;\n        return x;\n    }\n\n    bool same(int a, int b) {\n        assert(0\
     \ <= a && a < _n);\n        assert(0 <= b && b < _n);\n        return leader(a)\
     \ == leader(b);\n    }\n\n    int leader(int a) {\n        assert(0 <= a && a\
@@ -221,19 +221,19 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 6 \"tests/hld/lca.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n\n  tools::hld hld(N);\n  for (i64 v = 1;\
-    \ v < N; ++v) {\n    i64 p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\
-    \n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 u, v;\n    std::cin\
-    \ >> u >> v;\n    std::cout << hld.lca(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#include \"tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n\n  tools::hld hld(N);\n  for (i64 v = 1;\
-    \ v < N; ++v) {\n    i64 p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\
-    \n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 u, v;\n    std::cin\
-    \ >> u >> v;\n    std::cout << hld.lca(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
+    }\n\n\n#line 5 \"tests/hld/lca.test.cpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N, Q;\n  std::cin >> N >> Q;\n\n  tools::hld hld(N);\n  for (ll v = 1; v < N;\
+    \ ++v) {\n    ll p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n\
+    \n  for (ll q = 0; q < Q; ++q) {\n    ll u, v;\n    std::cin >> u >> v;\n    std::cout\
+    \ << hld.lca(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n\n#include <iostream>\n\
+    #include \"tools/hld.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, Q;\n  std::cin >> N >> Q;\n\
+    \n  tools::hld hld(N);\n  for (ll v = 1; v < N; ++v) {\n    ll p;\n    std::cin\
+    \ >> p;\n    hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n\n  for (ll q = 0; q\
+    \ < Q; ++q) {\n    ll u, v;\n    std::cin >> u >> v;\n    std::cout << hld.lca(u,\
+    \ v) << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
@@ -241,8 +241,8 @@ data:
   isVerificationFile: true
   path: tests/hld/lca.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/hld/lca.test.cpp
 layout: document

@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2945
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/2945
   bundledCode: "#line 1 \"tests/zero_one_bfs/directed.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/2945\"\n\n#include <cstdint>\n#include\
-    \ <iostream>\n#include <array>\n#include <utility>\n#include <tuple>\n#line 1\
-    \ \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n#include\
-    \ <cassert>\n#line 8 \"tools/zero_one_bfs.hpp\"\n#include <algorithm>\n#include\
-    \ <limits>\n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/2945\"\n\n#include <iostream>\n\
+    #include <array>\n#include <utility>\n#include <tuple>\n#line 1 \"tools/zero_one_bfs.hpp\"\
+    \n\n\n\n#include <cstddef>\n#include <vector>\n#include <cassert>\n#line 8 \"\
+    tools/zero_one_bfs.hpp\"\n#include <algorithm>\n#include <limits>\n#include <deque>\n\
+    #line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs)\
+    \ {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs {\n  public:\n\
+    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
+    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
     \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
     \    zero_one_bfs() = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<Directed,\
     \ T>&) = default;\n    zero_one_bfs(::tools::zero_one_bfs<Directed, T>&&) = default;\n\
@@ -59,49 +59,48 @@ data:
     \ (edge.cost == 0) {\n              deque.emplace_front(next, dist[next]);\n \
     \           } else {\n              deque.emplace_back(next, dist[next]);\n  \
     \          }\n          }\n        }\n      }\n\n      return ::std::make_pair(dist,\
-    \ prev);\n    }\n  };\n}\n\n\n#line 9 \"tests/zero_one_bfs/directed.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  const auto P = [](const i64 x,\
-    \ const i64 y) {\n    return 100 * y + x;\n  };\n  for (i64 N; std::cin >> N,\
-    \ N > 0;) {\n    i64 A, B, C, D;\n    std::cin >> A >> B >> C >> D;\n    --A,\
-    \ --B;\n    tools::zero_one_bfs<true, i64> graph(100 * 100);\n    for (i64 x =\
-    \ 0; x < 100; ++x) {\n      for (i64 y = 0; y < 100; ++y) {\n        for (const\
-    \ auto& [dx, dy] : std::array<std::pair<i64, i64>, 4>({std::make_pair(1, 0), std::make_pair(-1,\
+    \ prev);\n    }\n  };\n}\n\n\n#line 8 \"tests/zero_one_bfs/directed.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  const auto P = [](const ll x, const ll y) {\n    return 100 * y + x;\n  };\n\
+    \  for (ll N; std::cin >> N, N > 0;) {\n    ll A, B, C, D;\n    std::cin >> A\
+    \ >> B >> C >> D;\n    --A, --B;\n    tools::zero_one_bfs<true, ll> graph(100\
+    \ * 100);\n    for (ll x = 0; x < 100; ++x) {\n      for (ll y = 0; y < 100; ++y)\
+    \ {\n        for (const auto& [dx, dy] : std::array<std::pair<ll, ll>, 4>({std::make_pair(1,\
+    \ 0), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(0, -1)})) {\n\
+    \          if (0 <= x + dx && x + dx < 100 && 0 <= y + dy && y + dy < 100) {\n\
+    \            graph.add_edge(P(x, y), P(x + dx, y + dy), A <= x + dx && x + dx\
+    \ < C && B <= y + dy && y + dy < D ? 0 : 1);\n          }\n        }\n      }\n\
+    \    }\n\n    ll answer = 0;\n    ll pX, pY;\n    std::cin >> pX >> pY;\n    --pX,\
+    \ --pY;\n    for (ll i = 0; i < N; ++i) {\n      ll X, Y;\n      std::cin >> X\
+    \ >> Y;\n      --X, --Y;\n      answer += graph.query(P(pX, pY)).first[P(X, Y)];\n\
+    \      std::tie(pX, pY) = std::make_pair(X, Y);\n    }\n\n    std::cout << answer\
+    \ << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2945\"\n\n#include\
+    \ <iostream>\n#include <array>\n#include <utility>\n#include <tuple>\n#include\
+    \ \"tools/zero_one_bfs.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  const auto P = [](const ll x, const\
+    \ ll y) {\n    return 100 * y + x;\n  };\n  for (ll N; std::cin >> N, N > 0;)\
+    \ {\n    ll A, B, C, D;\n    std::cin >> A >> B >> C >> D;\n    --A, --B;\n  \
+    \  tools::zero_one_bfs<true, ll> graph(100 * 100);\n    for (ll x = 0; x < 100;\
+    \ ++x) {\n      for (ll y = 0; y < 100; ++y) {\n        for (const auto& [dx,\
+    \ dy] : std::array<std::pair<ll, ll>, 4>({std::make_pair(1, 0), std::make_pair(-1,\
     \ 0), std::make_pair(0, 1), std::make_pair(0, -1)})) {\n          if (0 <= x +\
     \ dx && x + dx < 100 && 0 <= y + dy && y + dy < 100) {\n            graph.add_edge(P(x,\
     \ y), P(x + dx, y + dy), A <= x + dx && x + dx < C && B <= y + dy && y + dy <\
-    \ D ? 0 : 1);\n          }\n        }\n      }\n    }\n\n    i64 answer = 0;\n\
-    \    i64 pX, pY;\n    std::cin >> pX >> pY;\n    --pX, --pY;\n    for (i64 i =\
-    \ 0; i < N; ++i) {\n      i64 X, Y;\n      std::cin >> X >> Y;\n      --X, --Y;\n\
+    \ D ? 0 : 1);\n          }\n        }\n      }\n    }\n\n    ll answer = 0;\n\
+    \    ll pX, pY;\n    std::cin >> pX >> pY;\n    --pX, --pY;\n    for (ll i = 0;\
+    \ i < N; ++i) {\n      ll X, Y;\n      std::cin >> X >> Y;\n      --X, --Y;\n\
     \      answer += graph.query(P(pX, pY)).first[P(X, Y)];\n      std::tie(pX, pY)\
     \ = std::make_pair(X, Y);\n    }\n\n    std::cout << answer << '\\n';\n  }\n\n\
     \  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2945\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <array>\n#include <utility>\n#include\
-    \ <tuple>\n#include \"tools/zero_one_bfs.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  const auto P = [](const i64 x, const i64 y) {\n    return 100 * y + x;\n \
-    \ };\n  for (i64 N; std::cin >> N, N > 0;) {\n    i64 A, B, C, D;\n    std::cin\
-    \ >> A >> B >> C >> D;\n    --A, --B;\n    tools::zero_one_bfs<true, i64> graph(100\
-    \ * 100);\n    for (i64 x = 0; x < 100; ++x) {\n      for (i64 y = 0; y < 100;\
-    \ ++y) {\n        for (const auto& [dx, dy] : std::array<std::pair<i64, i64>,\
-    \ 4>({std::make_pair(1, 0), std::make_pair(-1, 0), std::make_pair(0, 1), std::make_pair(0,\
-    \ -1)})) {\n          if (0 <= x + dx && x + dx < 100 && 0 <= y + dy && y + dy\
-    \ < 100) {\n            graph.add_edge(P(x, y), P(x + dx, y + dy), A <= x + dx\
-    \ && x + dx < C && B <= y + dy && y + dy < D ? 0 : 1);\n          }\n        }\n\
-    \      }\n    }\n\n    i64 answer = 0;\n    i64 pX, pY;\n    std::cin >> pX >>\
-    \ pY;\n    --pX, --pY;\n    for (i64 i = 0; i < N; ++i) {\n      i64 X, Y;\n \
-    \     std::cin >> X >> Y;\n      --X, --Y;\n      answer += graph.query(P(pX,\
-    \ pY)).first[P(X, Y)];\n      std::tie(pX, pY) = std::make_pair(X, Y);\n    }\n\
-    \n    std::cout << answer << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/zero_one_bfs.hpp
   - tools/chmin.hpp
   isVerificationFile: true
   path: tests/zero_one_bfs/directed.test.cpp
   requiredBy: []
-  timestamp: '2022-10-01 12:56:27+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/zero_one_bfs/directed.test.cpp
 layout: document

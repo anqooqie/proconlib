@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -100,7 +100,7 @@ data:
   path: tools/zero_one_bfs.hpp
   requiredBy: []
   timestamp: '2022-10-01 12:56:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp

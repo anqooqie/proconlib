@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/detail/interval_set.hpp
     title: tools/detail/interval_set.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/real_interval_set.hpp
     title: Set of real numbers as closed integer intervals
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2880
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/2880
   bundledCode: "#line 1 \"tests/real_interval_set.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2880\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include <utility>\n#line 1 \"tools/real_interval_set.hpp\"\n\n\n\n#line 1 \"\
-    tools/detail/interval_set.hpp\"\n\n\n\n#include <map>\n#include <iterator>\n#include\
-    \ <optional>\n#line 9 \"tools/detail/interval_set.hpp\"\n#include <string>\n\n\
-    namespace tools {\n  namespace detail {\n    template <typename T, bool Mergeable>\n\
-    \    class interval_set {\n    private:\n      // closed intervals\n      ::std::map<T,\
-    \ T> m_intervals;\n  \n    public:\n      interval_set() = default;\n      interval_set(const\
-    \ ::tools::detail::interval_set<T, Mergeable>&) = default;\n      interval_set(::tools::detail::interval_set<T,\
-    \ Mergeable>&&) = default;\n      ~interval_set() = default;\n      ::tools::detail::interval_set<T,\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <utility>\n\
+    #line 1 \"tools/real_interval_set.hpp\"\n\n\n\n#line 1 \"tools/detail/interval_set.hpp\"\
+    \n\n\n\n#include <map>\n#include <iterator>\n#include <optional>\n#line 9 \"tools/detail/interval_set.hpp\"\
+    \n#include <string>\n\nnamespace tools {\n  namespace detail {\n    template <typename\
+    \ T, bool Mergeable>\n    class interval_set {\n    private:\n      // closed\
+    \ intervals\n      ::std::map<T, T> m_intervals;\n  \n    public:\n      interval_set()\
+    \ = default;\n      interval_set(const ::tools::detail::interval_set<T, Mergeable>&)\
+    \ = default;\n      interval_set(::tools::detail::interval_set<T, Mergeable>&&)\
+    \ = default;\n      ~interval_set() = default;\n      ::tools::detail::interval_set<T,\
     \ Mergeable>& operator=(const ::tools::detail::interval_set<T, Mergeable>&) =\
     \ default;\n      ::tools::detail::interval_set<T, Mergeable>& operator=(::tools::detail::interval_set<T,\
     \ Mergeable>&&) = default;\n  \n      auto begin() const {\n        return this->m_intervals.begin();\n\
@@ -76,44 +76,42 @@ data:
     \ template <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n\
     \    less_by(const F& selector) : selector(selector) {\n    }\n\n    template\
     \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 10 \"tests/real_interval_set.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nstruct query {\n  i64 query_type;\n  i64\
-    \ id;\n  i64 day;\n  i64 from;\n  i64 to;\n  query(i64 query_type, i64 id, i64\
-    \ day, i64 from, i64 to) :\n    query_type(query_type),\n    id(id),\n    day(day),\n\
-    \    from(from),\n    to(to) {\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, Q;\n  std::cin >> N >>\
-    \ M >> Q;\n\n  std::vector<query> queries;\n  for (i64 i = 0; i < M; ++i) {\n\
-    \    i64 D, A, B;\n    std::cin >> D >> A >> B;\n    queries.emplace_back(1, i,\
-    \ D, A, B);\n  }\n  for (i64 i = 0; i < Q; ++i) {\n    i64 E, S, T;\n    std::cin\
-    \ >> E >> S >> T;\n    queries.emplace_back(0, i, E, S, T);\n  }\n\n  std::sort(queries.begin(),\
-    \ queries.end(), tools::less_by([](const query& q) {\n    return std::make_pair(q.day,\
-    \ q.query_type);\n  }));\n\n  tools::real_interval_set<i64> set;\n  std::vector<bool>\
-    \ answers(Q);\n  for (const query& query : queries) {\n    if (query.query_type\
-    \ == 0) {\n      const auto it = set.find(query.from);\n      const i64 reachable\
-    \ = it != set.end() ? it->second : query.from;\n      answers[query.id] = query.to\
-    \ <= reachable;\n    } else {\n      set.insert(query.from, query.to);\n    }\n\
-    \  }\n\n  for (const bool answer : answers) {\n    std::cout << (answer ? \"Yes\"\
-    \ : \"No\") << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 9 \"tests/real_interval_set.test.cpp\"\
+    \n\nusing ll = long long;\n\nstruct query {\n  ll query_type;\n  ll id;\n  ll\
+    \ day;\n  ll from;\n  ll to;\n  query(ll query_type, ll id, ll day, ll from, ll\
+    \ to) :\n    query_type(query_type),\n    id(id),\n    day(day),\n    from(from),\n\
+    \    to(to) {\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<query> queries;\n\
+    \  for (ll i = 0; i < M; ++i) {\n    ll D, A, B;\n    std::cin >> D >> A >> B;\n\
+    \    queries.emplace_back(1, i, D, A, B);\n  }\n  for (ll i = 0; i < Q; ++i) {\n\
+    \    ll E, S, T;\n    std::cin >> E >> S >> T;\n    queries.emplace_back(0, i,\
+    \ E, S, T);\n  }\n\n  std::sort(queries.begin(), queries.end(), tools::less_by([](const\
+    \ query& q) {\n    return std::make_pair(q.day, q.query_type);\n  }));\n\n  tools::real_interval_set<ll>\
+    \ set;\n  std::vector<bool> answers(Q);\n  for (const query& query : queries)\
+    \ {\n    if (query.query_type == 0) {\n      const auto it = set.find(query.from);\n\
+    \      const ll reachable = it != set.end() ? it->second : query.from;\n     \
+    \ answers[query.id] = query.to <= reachable;\n    } else {\n      set.insert(query.from,\
+    \ query.to);\n    }\n  }\n\n  for (const bool answer : answers) {\n    std::cout\
+    \ << (answer ? \"Yes\" : \"No\") << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2880\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include\
-    \ <utility>\n#include \"tools/real_interval_set.hpp\"\n#include \"tools/less_by.hpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nstruct query {\n  i64 query_type;\n  i64\
-    \ id;\n  i64 day;\n  i64 from;\n  i64 to;\n  query(i64 query_type, i64 id, i64\
-    \ day, i64 from, i64 to) :\n    query_type(query_type),\n    id(id),\n    day(day),\n\
-    \    from(from),\n    to(to) {\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N, M, Q;\n  std::cin >> N >>\
-    \ M >> Q;\n\n  std::vector<query> queries;\n  for (i64 i = 0; i < M; ++i) {\n\
-    \    i64 D, A, B;\n    std::cin >> D >> A >> B;\n    queries.emplace_back(1, i,\
-    \ D, A, B);\n  }\n  for (i64 i = 0; i < Q; ++i) {\n    i64 E, S, T;\n    std::cin\
-    \ >> E >> S >> T;\n    queries.emplace_back(0, i, E, S, T);\n  }\n\n  std::sort(queries.begin(),\
-    \ queries.end(), tools::less_by([](const query& q) {\n    return std::make_pair(q.day,\
-    \ q.query_type);\n  }));\n\n  tools::real_interval_set<i64> set;\n  std::vector<bool>\
-    \ answers(Q);\n  for (const query& query : queries) {\n    if (query.query_type\
-    \ == 0) {\n      const auto it = set.find(query.from);\n      const i64 reachable\
-    \ = it != set.end() ? it->second : query.from;\n      answers[query.id] = query.to\
-    \ <= reachable;\n    } else {\n      set.insert(query.from, query.to);\n    }\n\
-    \  }\n\n  for (const bool answer : answers) {\n    std::cout << (answer ? \"Yes\"\
-    \ : \"No\") << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ <iostream>\n#include <vector>\n#include <algorithm>\n#include <utility>\n#include\
+    \ \"tools/real_interval_set.hpp\"\n#include \"tools/less_by.hpp\"\n\nusing ll\
+    \ = long long;\n\nstruct query {\n  ll query_type;\n  ll id;\n  ll day;\n  ll\
+    \ from;\n  ll to;\n  query(ll query_type, ll id, ll day, ll from, ll to) :\n \
+    \   query_type(query_type),\n    id(id),\n    day(day),\n    from(from),\n   \
+    \ to(to) {\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<query> queries;\n\
+    \  for (ll i = 0; i < M; ++i) {\n    ll D, A, B;\n    std::cin >> D >> A >> B;\n\
+    \    queries.emplace_back(1, i, D, A, B);\n  }\n  for (ll i = 0; i < Q; ++i) {\n\
+    \    ll E, S, T;\n    std::cin >> E >> S >> T;\n    queries.emplace_back(0, i,\
+    \ E, S, T);\n  }\n\n  std::sort(queries.begin(), queries.end(), tools::less_by([](const\
+    \ query& q) {\n    return std::make_pair(q.day, q.query_type);\n  }));\n\n  tools::real_interval_set<ll>\
+    \ set;\n  std::vector<bool> answers(Q);\n  for (const query& query : queries)\
+    \ {\n    if (query.query_type == 0) {\n      const auto it = set.find(query.from);\n\
+    \      const ll reachable = it != set.end() ? it->second : query.from;\n     \
+    \ answers[query.id] = query.to <= reachable;\n    } else {\n      set.insert(query.from,\
+    \ query.to);\n    }\n  }\n\n  for (const bool answer : answers) {\n    std::cout\
+    \ << (answer ? \"Yes\" : \"No\") << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/real_interval_set.hpp
   - tools/detail/interval_set.hpp
@@ -121,8 +119,8 @@ data:
   isVerificationFile: true
   path: tests/real_interval_set.test.cpp
   requiredBy: []
-  timestamp: '2021-10-23 20:26:02+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/real_interval_set.test.cpp
 layout: document

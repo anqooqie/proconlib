@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/inversion_number.hpp\"\n\n\n\n#include <iterator>\n\
@@ -122,7 +122,7 @@ data:
   path: tools/inversion_number.hpp
   requiredBy: []
   timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/inversion_number.test.cpp
 documentation_of: tools/inversion_number.hpp

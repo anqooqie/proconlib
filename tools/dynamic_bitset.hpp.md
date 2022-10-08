@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dynamic_bitset.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -30,34 +30,40 @@ data:
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
     \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\n\
-    namespace tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
-    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
-    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
-    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
-    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
-    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
-    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
-    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
-    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
-    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
-    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
-    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
-    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
-    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
-    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\n\nnamespace tools {\n  class\
-    \ dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n    ::std::vector<::std::uint64_t>\
-    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    dynamic_bitset(const\
-    \ ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
-    \ = default;\n    ~dynamic_bitset() = default;\n    ::tools::dynamic_bitset& operator=(const\
-    \ ::tools::dynamic_bitset&) = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
+    }\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\
+    \n\nnamespace tools {\n  class dynamic_bitset {\n  private:\n    ::std::size_t\
+    \ m_size;\n    ::std::vector<::std::uint64_t> m_bits;\n\n  public:\n    dynamic_bitset()\
+    \ : m_size(0) {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n\
+    \    dynamic_bitset(::tools::dynamic_bitset&&) = default;\n    ~dynamic_bitset()\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&)\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
     \ = default;\n\n    explicit dynamic_bitset(const ::std::size_t size) : m_size(size),\
     \ m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits),\
     \ 0) {}\n    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()),\
@@ -300,8 +306,8 @@ data:
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/rotate_left.test.cpp
   - tests/rotate_right.test.cpp

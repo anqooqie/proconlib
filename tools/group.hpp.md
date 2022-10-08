@@ -2,25 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/pdsu.hpp
     title: Potentialized disjoint set union
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
+  - icon: ':x:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/parse_fixed_point_number.test.cpp
-    title: tests/parse_fixed_point_number.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace\
@@ -47,12 +47,12 @@ data:
   requiredBy:
   - tools/pdsu.hpp
   timestamp: '2021-11-12 22:35:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/cumsum2d.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/pdsu.test.cpp
   - tests/persistent_dual_segtree.test.cpp
-  - tests/parse_fixed_point_number.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

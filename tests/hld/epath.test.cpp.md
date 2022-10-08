@@ -1,49 +1,49 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D
   bundledCode: "#line 1 \"tests/hld/epath.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\n\n\n\n#include <cassert>\n\
-    #line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n#include\
-    \ <numeric>\n#include <type_traits>\n\nnamespace atcoder {\n\nnamespace internal\
-    \ {\n\n#ifndef _MSC_VER\ntemplate <class T>\nusing is_signed_int128 =\n    typename\
-    \ std::conditional<std::is_same<T, __int128_t>::value ||\n                   \
-    \               std::is_same<T, __int128>::value,\n                          \
-    \    std::true_type,\n                              std::false_type>::type;\n\n\
-    template <class T>\nusing is_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
-    \ __uint128_t>::value ||\n                                  std::is_same<T, unsigned\
-    \ __int128>::value,\n                              std::true_type,\n         \
-    \                     std::false_type>::type;\n\ntemplate <class T>\nusing make_unsigned_int128\
-    \ =\n    typename std::conditional<std::is_same<T, __int128_t>::value,\n     \
-    \                         __uint128_t,\n                              unsigned\
-    \ __int128>;\n\ntemplate <class T>\nusing is_integral = typename std::conditional<std::is_integral<T>::value\
-    \ ||\n                                                  is_signed_int128<T>::value\
-    \ ||\n                                                  is_unsigned_int128<T>::value,\n\
-    \                                              std::true_type,\n             \
-    \                                 std::false_type>::type;\n\ntemplate <class T>\n\
-    using is_signed_int = typename std::conditional<(is_integral<T>::value &&\n  \
-    \                                               std::is_signed<T>::value) ||\n\
-    \                                                    is_signed_int128<T>::value,\n\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\n\n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n#include <numeric>\n#include\
+    \ <type_traits>\n\nnamespace atcoder {\n\nnamespace internal {\n\n#ifndef _MSC_VER\n\
+    template <class T>\nusing is_signed_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __int128_t>::value ||\n                                  std::is_same<T, __int128>::value,\n\
+    \                              std::true_type,\n                             \
+    \ std::false_type>::type;\n\ntemplate <class T>\nusing is_unsigned_int128 =\n\
+    \    typename std::conditional<std::is_same<T, __uint128_t>::value ||\n      \
+    \                            std::is_same<T, unsigned __int128>::value,\n    \
+    \                          std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing make_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __int128_t>::value,\n                              __uint128_t,\n          \
+    \                    unsigned __int128>;\n\ntemplate <class T>\nusing is_integral\
+    \ = typename std::conditional<std::is_integral<T>::value ||\n                \
+    \                                  is_signed_int128<T>::value ||\n           \
+    \                                       is_unsigned_int128<T>::value,\n      \
+    \                                        std::true_type,\n                   \
+    \                           std::false_type>::type;\n\ntemplate <class T>\nusing\
+    \ is_signed_int = typename std::conditional<(is_integral<T>::value &&\n      \
+    \                                           std::is_signed<T>::value) ||\n   \
+    \                                                 is_signed_int128<T>::value,\n\
     \                                                std::true_type,\n           \
     \                                     std::false_type>::type;\n\ntemplate <class\
     \ T>\nusing is_unsigned_int =\n    typename std::conditional<(is_integral<T>::value\
@@ -277,34 +277,34 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 9 \"tests/hld/epath.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> parent(n, -1);\n  for (i64 i\
-    \ = 0; i < n; ++i) {\n    i64 k;\n    std::cin >> k;\n    for (i64 j = 0; j <\
-    \ k; ++j) {\n      i64 c;\n      std::cin >> c;\n      parent[c] = i;\n    }\n\
-    \  }\n\n  tools::hld hld(n);\n  for (i64 i = 1; i < n; ++i) {\n    hld.add_edge(parent[i],\
-    \ i);\n  }\n  hld.build(0);\n  atcoder::fenwick_tree<i64> fw(n - 1);\n  i64 q;\n\
-    \  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    i64 t;\n    std::cin >>\
-    \ t;\n    if (t == 0) {\n      i64 v, w;\n      std::cin >> v >> w;\n      fw.add(hld.eid2dfs(v\
-    \ - 1), w);\n    } else {\n      i64 u;\n      std::cin >> u;\n      i64 sum =\
-    \ 0;\n      for (const auto& [from, to] : hld.epath(0, u)) {\n        const auto\
-    \ [l, r] = std::minmax(from, to);\n        sum += fw.sum(l, r);\n      }\n   \
-    \   std::cout << sum << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    }\n\n\n#line 8 \"tests/hld/epath.test.cpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ n;\n  std::cin >> n;\n  std::vector<ll> parent(n, -1);\n  for (ll i = 0; i <\
+    \ n; ++i) {\n    ll k;\n    std::cin >> k;\n    for (ll j = 0; j < k; ++j) {\n\
+    \      ll c;\n      std::cin >> c;\n      parent[c] = i;\n    }\n  }\n\n  tools::hld\
+    \ hld(n);\n  for (ll i = 1; i < n; ++i) {\n    hld.add_edge(parent[i], i);\n \
+    \ }\n  hld.build(0);\n  atcoder::fenwick_tree<ll> fw(n - 1);\n  ll q;\n  std::cin\
+    \ >> q;\n  for (ll i = 0; i < q; ++i) {\n    ll t;\n    std::cin >> t;\n    if\
+    \ (t == 0) {\n      ll v, w;\n      std::cin >> v >> w;\n      fw.add(hld.eid2dfs(v\
+    \ - 1), w);\n    } else {\n      ll u;\n      std::cin >> u;\n      ll sum = 0;\n\
+    \      for (const auto& [from, to] : hld.epath(0, u)) {\n        const auto [l,\
+    \ r] = std::minmax(from, to);\n        sum += fw.sum(l, r);\n      }\n      std::cout\
+    \ << sum << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_5_D\"\n\n\
-    #include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include \"atcoder/fenwicktree.hpp\"\n#include \"tools/hld.hpp\"\n\nusing i64\
-    \ = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> parent(n, -1);\n  for (i64 i\
-    \ = 0; i < n; ++i) {\n    i64 k;\n    std::cin >> k;\n    for (i64 j = 0; j <\
-    \ k; ++j) {\n      i64 c;\n      std::cin >> c;\n      parent[c] = i;\n    }\n\
-    \  }\n\n  tools::hld hld(n);\n  for (i64 i = 1; i < n; ++i) {\n    hld.add_edge(parent[i],\
-    \ i);\n  }\n  hld.build(0);\n  atcoder::fenwick_tree<i64> fw(n - 1);\n  i64 q;\n\
-    \  std::cin >> q;\n  for (i64 i = 0; i < q; ++i) {\n    i64 t;\n    std::cin >>\
-    \ t;\n    if (t == 0) {\n      i64 v, w;\n      std::cin >> v >> w;\n      fw.add(hld.eid2dfs(v\
-    \ - 1), w);\n    } else {\n      i64 u;\n      std::cin >> u;\n      i64 sum =\
-    \ 0;\n      for (const auto& [from, to] : hld.epath(0, u)) {\n        const auto\
-    \ [l, r] = std::minmax(from, to);\n        sum += fw.sum(l, r);\n      }\n   \
-    \   std::cout << sum << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include <vector>\n#include <algorithm>\n#include \"atcoder/fenwicktree.hpp\"\
+    \n#include \"tools/hld.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll n;\n  std::cin >> n;\n  std::vector<ll>\
+    \ parent(n, -1);\n  for (ll i = 0; i < n; ++i) {\n    ll k;\n    std::cin >> k;\n\
+    \    for (ll j = 0; j < k; ++j) {\n      ll c;\n      std::cin >> c;\n      parent[c]\
+    \ = i;\n    }\n  }\n\n  tools::hld hld(n);\n  for (ll i = 1; i < n; ++i) {\n \
+    \   hld.add_edge(parent[i], i);\n  }\n  hld.build(0);\n  atcoder::fenwick_tree<ll>\
+    \ fw(n - 1);\n  ll q;\n  std::cin >> q;\n  for (ll i = 0; i < q; ++i) {\n    ll\
+    \ t;\n    std::cin >> t;\n    if (t == 0) {\n      ll v, w;\n      std::cin >>\
+    \ v >> w;\n      fw.add(hld.eid2dfs(v - 1), w);\n    } else {\n      ll u;\n \
+    \     std::cin >> u;\n      ll sum = 0;\n      for (const auto& [from, to] : hld.epath(0,\
+    \ u)) {\n        const auto [l, r] = std::minmax(from, to);\n        sum += fw.sum(l,\
+    \ r);\n      }\n      std::cout << sum << '\\n';\n    }\n  }\n\n  return 0;\n\
+    }\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
@@ -312,8 +312,8 @@ data:
   isVerificationFile: true
   path: tests/hld/epath.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/hld/epath.test.cpp
 layout: document

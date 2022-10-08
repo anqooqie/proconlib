@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mex.hpp
     title: Minimum excluded value
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -31,20 +31,20 @@ data:
     \      if (0 <= o && o < n) {\n        exists[o] = true;\n      }\n    }\n   \
     \ for (T i = 0; i < n; ++i) {\n      if (!exists[i]) {\n        return i;\n  \
     \    }\n    }\n    return n;\n  }\n}\n\n\n#line 8 \"tests/mex.test.cpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  std::vector<i64> v({1000000000000000000, 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 3);\n  v = std::vector<i64>({3, 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 4);\n  v = std::vector<i64>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 5);\n  v = std::vector<i64>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
+    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  std::vector<ll> v({1000000000000000000, 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(),\
+    \ v.end()) == 3);\n  v = std::vector<ll>({3, 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(),\
+    \ v.end()) == 4);\n  v = std::vector<ll>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(),\
+    \ v.end()) == 5);\n  v = std::vector<ll>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
     \ v.end()) == 0);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <cstdlib>\n#include <iostream>\n#include <vector>\n#include \"tools/assert_that.hpp\"\
-    \n#include \"tools/mex.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  std::vector<i64>\
-    \ v({1000000000000000000, 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 3);\n  v = std::vector<i64>({3, 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 4);\n  v = std::vector<i64>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(),\
-    \ v.end()) == 5);\n  v = std::vector<i64>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
+    \n#include \"tools/mex.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  std::vector<ll> v({1000000000000000000,\
+    \ 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(), v.end()) == 3);\n  v = std::vector<ll>({3,\
+    \ 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(), v.end()) == 4);\n \
+    \ v = std::vector<ll>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(), v.end())\
+    \ == 5);\n  v = std::vector<ll>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
     \ v.end()) == 0);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
@@ -52,8 +52,8 @@ data:
   isVerificationFile: true
   path: tests/mex.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/mex.test.cpp
 layout: document

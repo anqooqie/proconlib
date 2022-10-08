@@ -1,30 +1,30 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/find_cycle.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
+    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
+    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\
+    \n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -229,19 +229,19 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/find_cycle.hpp\"\
-    \n\n\n\n#line 6 \"tools/find_cycle.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename F>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t> find_cycle(const\
-    \ T& seed, const F& f) {\n    ::std::int_fast64_t i = 1;\n    ::std::int_fast64_t\
-    \ j = 2;\n    T x = f(seed);\n    T y = f(f(seed));\n    for (; x != y; ++i, j\
-    \ += 2, x = f(x), y = f(f(y)));\n\n    i = 0;\n    x = seed;\n    for (; x !=\
-    \ y; ++i, ++j, x = f(x), y = f(y));\n\n    const ::std::int_fast64_t head = i;\n\
-    \n    ++i;\n    j = i + 1;\n    x = f(x);\n    y = f(f(y));\n    for (; x != y;\
-    \ ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const ::std::int_fast64_t cycle\
-    \ = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\n#line 8 \"\
-    tests/find_cycle.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  using mint12 = atcoder::static_modint<12>;\n  using mint13 = atcoder::static_modint<13>;\n\
-    \  using pair = std::pair<std::int_fast64_t, std::int_fast64_t>;\n\n  assert_that(tools::find_cycle(mint12(0),\
-    \ [](const auto& x) { return x * mint12(0); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(1),\
+    \n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename F>\n  ::std::pair<long long, long long> find_cycle(const T& seed,\
+    \ const F& f) {\n    auto i = 1LL;\n    auto j = 2LL;\n    T x = f(seed);\n  \
+    \  T y = f(f(seed));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\
+    \n    i = 0;\n    x = seed;\n    for (; x != y; ++i, ++j, x = f(x), y = f(y));\n\
+    \n    const auto head = i;\n\n    ++i;\n    j = i + 1;\n    x = f(x);\n    y =\
+    \ f(f(y));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const\
+    \ auto cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\
+    \n#line 7 \"tests/find_cycle.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  using mint12 = atcoder::static_modint<12>;\n\
+    \  using mint13 = atcoder::static_modint<13>;\n  using pair = std::pair<long long,\
+    \ long long>;\n\n  assert_that(tools::find_cycle(mint12(0), [](const auto& x)\
+    \ { return x * mint12(0); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(1),\
     \ [](const auto& x) { return x * mint12(1); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(2),\
     \ [](const auto& x) { return x * mint12(2); }) == pair(1, 2));\n  assert_that(tools::find_cycle(mint12(3),\
     \ [](const auto& x) { return x * mint12(3); }) == pair(0, 2));\n  assert_that(tools::find_cycle(mint12(4),\
@@ -268,12 +268,12 @@ data:
     \ [](const auto& x) { return x * mint13(12); }) == pair(0, 2));\n\n  std::cout\
     \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include \"tools/assert_that.hpp\"\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/find_cycle.hpp\"\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  using\
-    \ mint12 = atcoder::static_modint<12>;\n  using mint13 = atcoder::static_modint<13>;\n\
-    \  using pair = std::pair<std::int_fast64_t, std::int_fast64_t>;\n\n  assert_that(tools::find_cycle(mint12(0),\
-    \ [](const auto& x) { return x * mint12(0); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(1),\
+    #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/find_cycle.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  using mint12 = atcoder::static_modint<12>;\n\
+    \  using mint13 = atcoder::static_modint<13>;\n  using pair = std::pair<long long,\
+    \ long long>;\n\n  assert_that(tools::find_cycle(mint12(0), [](const auto& x)\
+    \ { return x * mint12(0); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(1),\
     \ [](const auto& x) { return x * mint12(1); }) == pair(0, 1));\n  assert_that(tools::find_cycle(mint12(2),\
     \ [](const auto& x) { return x * mint12(2); }) == pair(1, 2));\n  assert_that(tools::find_cycle(mint12(3),\
     \ [](const auto& x) { return x * mint12(3); }) == pair(0, 2));\n  assert_that(tools::find_cycle(mint12(4),\
@@ -305,8 +305,8 @@ data:
   isVerificationFile: true
   path: tests/find_cycle.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/find_cycle.test.cpp
 layout: document

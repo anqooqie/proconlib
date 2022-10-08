@@ -1,27 +1,27 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/matrix_product
     links:
     - https://judge.yosupo.jp/problem/matrix_product
   bundledCode: "#line 1 \"tests/matrix/multiplies.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#include <iostream>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
@@ -414,31 +414,31 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/multiplies.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
-    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
-    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
-    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
-    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
-    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
-    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 7 \"tests/matrix/multiplies.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n  for\
+    \ (ll r = 0; r < N; ++r) {\n    for (ll c = 0; c < M; ++c) {\n      ll A_rc;\n\
+    \      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::matrix<mint>\
+    \ B(M, K);\n  for (ll r = 0; r < M; ++r) {\n    for (ll c = 0; c < K; ++c) {\n\
+    \      ll B_rc;\n      std::cin >> B_rc;\n      B[r][c] = mint::raw(B_rc);\n \
+    \   }\n  }\n\n  const tools::matrix<mint> C = A * B;\n  for (ll r = 0; r < N;\
+    \ ++r) {\n    std::string delimiter = \"\";\n    for (ll c = 0; c < K; ++c) {\n\
+    \      std::cout << delimiter << C[r][c].val();\n      delimiter = \" \";\n  \
+    \  }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/matrix.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
-    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
-    \  for (i64 r = 0; r < N; ++r) {\n    for (i64 c = 0; c < M; ++c) {\n      i64\
-    \ A_rc;\n      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n\
-    \  tools::matrix<mint> B(M, K);\n  for (i64 r = 0; r < M; ++r) {\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      i64 B_rc;\n      std::cin >> B_rc;\n      B[r][c]\
-    \ = mint::raw(B_rc);\n    }\n  }\n\n  const tools::matrix<mint> C = A * B;\n \
-    \ for (i64 r = 0; r < N; ++r) {\n    std::string delimiter = \"\";\n    for (i64\
-    \ c = 0; c < K; ++c) {\n      std::cout << delimiter << C[r][c].val();\n     \
-    \ delimiter = \" \";\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\n#include \"\
+    tools/matrix.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n\
+    \  for (ll r = 0; r < N; ++r) {\n    for (ll c = 0; c < M; ++c) {\n      ll A_rc;\n\
+    \      std::cin >> A_rc;\n      A[r][c] = mint::raw(A_rc);\n    }\n  }\n  tools::matrix<mint>\
+    \ B(M, K);\n  for (ll r = 0; r < M; ++r) {\n    for (ll c = 0; c < K; ++c) {\n\
+    \      ll B_rc;\n      std::cin >> B_rc;\n      B[r][c] = mint::raw(B_rc);\n \
+    \   }\n  }\n\n  const tools::matrix<mint> C = A * B;\n  for (ll r = 0; r < N;\
+    \ ++r) {\n    std::string delimiter = \"\";\n    for (ll c = 0; c < K; ++c) {\n\
+    \      std::cout << delimiter << C[r][c].val();\n      delimiter = \" \";\n  \
+    \  }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/matrix.hpp
   - tools/vector.hpp
@@ -446,8 +446,8 @@ data:
   isVerificationFile: true
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp
 layout: document

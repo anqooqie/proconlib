@@ -1,57 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rotate_right.hpp
     title: Circular shift to the right
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/rotate_right.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <cstdlib>\n#include <iostream>\n#include <cstdint>\n#include <bitset>\n\
-    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n\
-    #define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
-    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
-    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
-    \n\n#line 1 \"tools/rotate_right.hpp\"\n\n\n\n#include <cassert>\n#include <limits>\n\
-    #line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\
-    \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
-    \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
-    \ if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n\
-    \        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6\
-    \ \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename N>\n\
-    \  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n    if\
-    \ constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n      return\
-    \ lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs) * rhs;\n\
-    \    }\n  }\n}\n\n\n#line 7 \"tools/rotate_right.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T, typename U>\n  constexpr T rotate_right(const T x, const\
-    \ ::std::size_t n, U s) {\n    assert(n <= ::std::numeric_limits<T>::digits);\n\
+    \n\n#include <iostream>\n#include <cstdint>\n#include <bitset>\n#line 1 \"tools/assert_that.hpp\"\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/rotate_right.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <limits>\n#line 1 \"tools/mod.hpp\"\n\n\n\
+    \n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
+    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
+    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
+    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
+    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 7 \"tools/rotate_right.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T, typename U>\n  constexpr T rotate_right(const\
+    \ T x, const ::std::size_t n, U s) {\n    assert(n <= ::std::numeric_limits<T>::digits);\n\
     \    const T mask = (n == ::std::numeric_limits<T>::digits ? ::std::numeric_limits<T>::max()\
     \ : (T(1) << n) - 1);\n    assert(0 <= x && x <= mask);\n    s = ::tools::mod(s,\
     \ n);\n    return ((x << ((n - s) % n)) | (x >> s)) & mask;\n  }\n\n  template\
@@ -64,34 +63,40 @@ data:
     \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
     \ ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs\
     \ + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\
-    \n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 5 \"tools/popcount.hpp\"\n\nnamespace\
-    \ tools {\n\n  inline ::std::uint32_t popcount(::std::uint32_t x) {\n    x = (x\
-    \ & static_cast<::std::uint32_t>(0x55555555ull)) + (x >> static_cast<::std::uint32_t>(1)\
-    \ & static_cast<::std::uint32_t>(0x55555555ull));\n    x = (x & static_cast<::std::uint32_t>(0x33333333ull))\
-    \ + (x >> static_cast<::std::uint32_t>(2) & static_cast<::std::uint32_t>(0x33333333ull));\n\
-    \    x = (x & static_cast<::std::uint32_t>(0x0f0f0f0full)) + (x >> static_cast<::std::uint32_t>(4)\
-    \ & static_cast<::std::uint32_t>(0x0f0f0f0full));\n    x = (x & static_cast<::std::uint32_t>(0x00ff00ffull))\
-    \ + (x >> static_cast<::std::uint32_t>(8) & static_cast<::std::uint32_t>(0x00ff00ffull));\n\
-    \    return (x & static_cast<::std::uint32_t>(0x0000ffffull)) + (x >> static_cast<::std::uint32_t>(16)\
-    \ & static_cast<::std::uint32_t>(0x0000ffffull));\n  }\n\n  inline ::std::uint64_t\
-    \ popcount(::std::uint64_t x) {\n    x = (x & static_cast<::std::uint64_t>(0x5555555555555555ull))\
-    \ + (x >> static_cast<::std::uint64_t>(1) & static_cast<::std::uint64_t>(0x5555555555555555ull));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x3333333333333333ull)) + (x >> static_cast<::std::uint64_t>(2)\
-    \ & static_cast<::std::uint64_t>(0x3333333333333333ull));\n    x = (x & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full))\
-    \ + (x >> static_cast<::std::uint64_t>(4) & static_cast<::std::uint64_t>(0x0f0f0f0f0f0f0f0full));\n\
-    \    x = (x & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull)) + (x >> static_cast<::std::uint64_t>(8)\
-    \ & static_cast<::std::uint64_t>(0x00ff00ff00ff00ffull));\n    x = (x & static_cast<::std::uint64_t>(0x0000ffff0000ffffull))\
-    \ + (x >> static_cast<::std::uint64_t>(16) & static_cast<::std::uint64_t>(0x0000ffff0000ffffull));\n\
-    \    return (x & static_cast<::std::uint64_t>(0x00000000ffffffffull)) + (x >>\
-    \ static_cast<::std::uint64_t>(32) & static_cast<::std::uint64_t>(0x00000000ffffffffull));\n\
-    \  }\n\n  inline ::std::int32_t popcount(::std::int32_t x) {\n    return static_cast<::std::int32_t>(::tools::popcount(static_cast<::std::uint32_t>(x)));\n\
-    \  }\n\n  inline ::std::int64_t popcount(::std::int64_t x) {\n    return static_cast<::std::int64_t>(::tools::popcount(static_cast<::std::uint64_t>(x)));\n\
-    \  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\n\nnamespace tools {\n  class\
-    \ dynamic_bitset {\n  private:\n    ::std::size_t m_size;\n    ::std::vector<::std::uint64_t>\
-    \ m_bits;\n\n  public:\n    dynamic_bitset() : m_size(0) {}\n    dynamic_bitset(const\
-    \ ::tools::dynamic_bitset&) = default;\n    dynamic_bitset(::tools::dynamic_bitset&&)\
-    \ = default;\n    ~dynamic_bitset() = default;\n    ::tools::dynamic_bitset& operator=(const\
-    \ ::tools::dynamic_bitset&) = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
+    \n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 15 \"tools/dynamic_bitset.hpp\"\
+    \n\nnamespace tools {\n  class dynamic_bitset {\n  private:\n    ::std::size_t\
+    \ m_size;\n    ::std::vector<::std::uint64_t> m_bits;\n\n  public:\n    dynamic_bitset()\
+    \ : m_size(0) {}\n    dynamic_bitset(const ::tools::dynamic_bitset&) = default;\n\
+    \    dynamic_bitset(::tools::dynamic_bitset&&) = default;\n    ~dynamic_bitset()\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&)\
+    \ = default;\n    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&)\
     \ = default;\n\n    explicit dynamic_bitset(const ::std::size_t size) : m_size(size),\
     \ m_bits(::tools::ceil(size, ::std::numeric_limits<::std::uint64_t>::digits),\
     \ 0) {}\n    explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()),\
@@ -204,9 +209,8 @@ data:
     \      if (size % ::std::numeric_limits<::std::uint64_t>::digits > 0) {\n    \
     \    this->m_bits.back() &= (::std::uint64_t(1) << (size % ::std::numeric_limits<::std::uint64_t>::digits))\
     \ - 1;\n      }\n    }\n    void shrink_to_fit() {\n      this->m_bits.shrink_to_fit();\n\
-    \    }\n  };\n}\n\n\n#line 10 \"tests/rotate_right.test.cpp\"\n\nusing u64 = std::uint64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
+    \    }\n  };\n}\n\n\n#line 9 \"tests/rotate_right.test.cpp\"\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
     \ 64, -9223372036854775807 - 1) == UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000));\n\
     \  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
     \ 64,     -9223372036854775807) == UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000));\n\
@@ -787,10 +791,10 @@ data:
     \ 1, 9223372036854775807) == 1);\n\n  std::cout << \"Hello World\" << '\\n';\n\
     \  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <cstdlib>\n#include <iostream>\n#include <cstdint>\n#include <bitset>\n\
-    #include \"tools/assert_that.hpp\"\n#include \"tools/rotate_right.hpp\"\n#include\
-    \ \"tools/dynamic_bitset.hpp\"\n\nusing u64 = std::uint64_t;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
+    #include <iostream>\n#include <cstdint>\n#include <bitset>\n#include \"tools/assert_that.hpp\"\
+    \n#include \"tools/rotate_right.hpp\"\n#include \"tools/dynamic_bitset.hpp\"\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
     \ 64, -9223372036854775807 - 1) == UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000));\n\
     \  assert_that(tools::rotate_right(UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000),\
     \ 64,     -9223372036854775807) == UINT64_C(0b0000000000000000000000000000000000000000000000000000000000000000));\n\
@@ -1381,8 +1385,8 @@ data:
   isVerificationFile: true
   path: tests/rotate_right.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/rotate_right.test.cpp
 layout: document

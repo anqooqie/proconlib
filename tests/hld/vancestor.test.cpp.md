@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/jump_on_tree
     links:
     - https://judge.yosupo.jp/problem/jump_on_tree
   bundledCode: "#line 1 \"tests/hld/vancestor.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"tools/hld.hpp\"\n\n\n\n\
-    #include <vector>\n#include <cstddef>\n#include <iterator>\n#include <cassert>\n\
-    #include <limits>\n#include <stack>\n#include <utility>\n#include <algorithm>\n\
-    #include <numeric>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7\
-    \ \"lib/ac-library/atcoder/dsu.hpp\"\n\nnamespace atcoder {\n\n// Implement (union\
-    \ by size) + (path compression)\n// Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n\
-    // Data structures and algorithms for disjoint set union problems\nstruct dsu\
-    \ {\n  public:\n    dsu() : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n,\
-    \ -1) {}\n\n    int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n\
-    \        assert(0 <= b && b < _n);\n        int x = leader(a), y = leader(b);\n\
-    \        if (x == y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y])\
-    \ std::swap(x, y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
+    \n\n#include <iostream>\n#line 1 \"tools/hld.hpp\"\n\n\n\n#include <vector>\n\
+    #include <cstddef>\n#include <iterator>\n#include <cassert>\n#include <limits>\n\
+    #include <stack>\n#include <utility>\n#include <algorithm>\n#include <numeric>\n\
+    #line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/dsu.hpp\"\
+    \n\nnamespace atcoder {\n\n// Implement (union by size) + (path compression)\n\
+    // Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n// Data structures and\
+    \ algorithms for disjoint set union problems\nstruct dsu {\n  public:\n    dsu()\
+    \ : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n, -1) {}\n\n  \
+    \  int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n        assert(0\
+    \ <= b && b < _n);\n        int x = leader(a), y = leader(b);\n        if (x ==\
+    \ y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y]) std::swap(x,\
+    \ y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
     \ = x;\n        return x;\n    }\n\n    bool same(int a, int b) {\n        assert(0\
     \ <= a && a < _n);\n        assert(0 <= b && b < _n);\n        return leader(a)\
     \ == leader(b);\n    }\n\n    int leader(int a) {\n        assert(0 <= a && a\
@@ -221,27 +221,27 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 6 \"tests/hld/vancestor.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (i64 i = 0;\
-    \ i < N - 1; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a,\
-    \ b);\n  }\n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 s, t,\
-    \ i;\n    std::cin >> s >> t >> i;\n    const i64 lca = hld.lca(s, t);\n    const\
-    \ i64 s_depth = hld.depth(s) - hld.depth(lca);\n    const i64 t_depth = hld.depth(t)\
+    }\n\n\n#line 5 \"tests/hld/vancestor.test.cpp\"\n\nusing ll = long long;\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (ll i = 0; i\
+    \ < N - 1; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a,\
+    \ b);\n  }\n  hld.build(0);\n\n  for (ll q = 0; q < Q; ++q) {\n    ll s, t, i;\n\
+    \    std::cin >> s >> t >> i;\n    const ll lca = hld.lca(s, t);\n    const ll\
+    \ s_depth = hld.depth(s) - hld.depth(lca);\n    const ll t_depth = hld.depth(t)\
     \ - hld.depth(lca);\n    if (i <= s_depth) {\n      std::cout << hld.vancestor(s,\
     \ i) << '\\n';\n    } else if (i <= s_depth + t_depth) {\n      std::cout << hld.vancestor(t,\
     \ s_depth + t_depth - i) << '\\n';\n    } else {\n      std::cout << -1 << '\\\
     n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/jump_on_tree\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include \"tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (i64 i = 0;\
-    \ i < N - 1; ++i) {\n    i64 a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a,\
-    \ b);\n  }\n  hld.build(0);\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 s, t,\
-    \ i;\n    std::cin >> s >> t >> i;\n    const i64 lca = hld.lca(s, t);\n    const\
-    \ i64 s_depth = hld.depth(s) - hld.depth(lca);\n    const i64 t_depth = hld.depth(t)\
-    \ - hld.depth(lca);\n    if (i <= s_depth) {\n      std::cout << hld.vancestor(s,\
-    \ i) << '\\n';\n    } else if (i <= s_depth + t_depth) {\n      std::cout << hld.vancestor(t,\
+    \ <iostream>\n#include \"tools/hld.hpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N, Q;\n  std::cin >> N >> Q;\n  tools::hld hld(N);\n  for (ll i = 0; i < N -\
+    \ 1; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n    hld.add_edge(a, b);\n\
+    \  }\n  hld.build(0);\n\n  for (ll q = 0; q < Q; ++q) {\n    ll s, t, i;\n   \
+    \ std::cin >> s >> t >> i;\n    const ll lca = hld.lca(s, t);\n    const ll s_depth\
+    \ = hld.depth(s) - hld.depth(lca);\n    const ll t_depth = hld.depth(t) - hld.depth(lca);\n\
+    \    if (i <= s_depth) {\n      std::cout << hld.vancestor(s, i) << '\\n';\n \
+    \   } else if (i <= s_depth + t_depth) {\n      std::cout << hld.vancestor(t,\
     \ s_depth + t_depth - i) << '\\n';\n    } else {\n      std::cout << -1 << '\\\
     n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
@@ -251,8 +251,8 @@ data:
   isVerificationFile: true
   path: tests/hld/vancestor.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/hld/vancestor.test.cpp
 layout: document

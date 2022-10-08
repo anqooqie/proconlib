@@ -1,30 +1,30 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
   _extendedVerifiedWith:
@@ -34,43 +34,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <cstdint>\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cassert>\n#include <algorithm>\n\
-    #include <cstddef>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+  bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <type_traits>\n\
+    #include <vector>\n#include <cassert>\n#include <algorithm>\n#include <cstddef>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -452,24 +452,24 @@ data:
     \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
     \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
     \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 8 \"tools/is_prime.hpp\"\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
     \n\nnamespace tools {\n\n  constexpr bool is_prime(const ::std::uint_fast64_t\
-    \ n) {\n    constexpr ::std::array<::std::uint_fast64_t, 7> bases = {2, 325, 9375,\
+    \ n) {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
     \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    ::std::uint_fast64_t\
-    \ d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const ::std::uint_fast64_t\
-    \ a : bases) {\n      if (a % n == 0) return true;\n\n      ::std::uint_fast64_t\
-    \ power = d;\n      ::std::uint_fast64_t target = ::tools::pow_mod(a, power, n);\n\
-    \n      bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
-    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
-    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
-    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 1 \"tools/garner3.hpp\"\n\n\n\n#line 8 \"tools/garner3.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename M1, typename M2, typename\
-    \ M3>\n  M garner3(const M1& a, const M2& b, const M3& c, const M m) {\n    using\
-    \ u64 = ::std::uint_fast64_t;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
-    \    static const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
-    \n    static const auto plus_mod = [](u64 x, const u64 y, const u64 mod) {\n \
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename M1, typename M2, typename M3>\n  M garner3(const\
+    \ M1& a, const M2& b, const M3& c, const M m) {\n    using ull = unsigned long\
+    \ long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n    static\
+    \ const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
+    \n    static const auto plus_mod = [](ull x, const ull y, const ull mod) {\n \
     \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
     \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
     \ < M2::mod());\n    assert(M2::mod() < M3::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
@@ -477,52 +477,20 @@ data:
     \n    // t1 = (b - a) / M1; (mod M2)\n    // t2 = (c - a - t1 * M1) / M1 / M2;\
     \ (mod M3)\n    // return a + t1 * M1 + t2 * M1 * M2; (mod m)\n    const M2 t1\
     \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    const M3 t2 = (c - M3::raw(a.val())\
-    \ - M3::raw(t1.val()) * M3::raw(M1::mod())) * m1_m2_inv_mod_m3;\n    u64 r = ::tools::prod_mod(t2.val(),\
-    \ u64(M1::mod()) * u64(M2::mod()), m);\n    assert(r < u64(m));\n    r = plus_mod(r,\
-    \ u64(t1.val()) * u64(M1::mod()) % m, m);\n    assert(r < u64(m));\n    r = plus_mod(r,\
-    \ a.val() % m, m);\n    assert(r < u64(m));\n    return r;\n  }\n}\n\n\n#line\
-    \ 14 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator,\
+    \ - M3::raw(t1.val()) * M3::raw(M1::mod())) * m1_m2_inv_mod_m3;\n    ull r = ::tools::prod_mod(t2.val(),\
+    \ ull(M1::mod()) * ull(M2::mod()), m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
+    \ ull(t1.val()) * ull(M1::mod()) % m, m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
+    \ a.val() % m, m);\n    assert(r < ull(m));\n    return r;\n  }\n}\n\n\n#line\
+    \ 13 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator,\
     \ typename OutputIterator>\n  void convolution(const InputIterator a_begin, const\
     \ InputIterator a_end, const InputIterator b_begin, const InputIterator b_end,\
-    \ OutputIterator result) {\n    using u64 = ::std::uint_fast64_t;\n    using M\
-    \ = ::std::decay_t<decltype(*a_begin)>;\n    using M1 = ::atcoder::static_modint<1107296257>;\
-    \ // 33 * 2^25 + 1\n    using M2 = ::atcoder::static_modint<1711276033>; // 51\
-    \ * 2^25 + 1\n    using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26\
-    \ + 1\n\n    // return maximum 2^k s.t. x = 1 (mod 2^k)\n    static const auto\
-    \ pow2_k = [](const u64 x) {\n      return (x - 1) & -(x - 1);\n    };\n\n   \
-    \ ::std::vector<M> a(a_begin, a_end);\n    ::std::vector<M> b(b_begin, b_end);\n\
-    \n    if (::tools::is_prime(M::mod()) && a.size() + b.size() <= pow2_k(M::mod())\
-    \ + 1) {\n      for (const auto& c_i : ::atcoder::convolution(a, b)) {\n     \
-    \   *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\n    assert(a.size()\
-    \ + b.size() <= ::std::min({pow2_k(M1::mod()), pow2_k(M2::mod()), pow2_k(M3::mod())})\
-    \ + 1);\n\n    // No need for the following assertion because the condition always\
-    \ holds.\n    // assert(std::min(a.size(), b.size()) * tools::square(M::mod()\
-    \ - 1) < M1::mod() * M2::mod() * M3::mod());\n\n    ::std::vector<M1> a1;\n  \
-    \  ::std::vector<M2> a2;\n    ::std::vector<M3> a3;\n    a1.reserve(a.size());\n\
-    \    a2.reserve(a.size());\n    a3.reserve(a.size());\n    for (const auto& a_i\
-    \ : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
-    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
-    \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
-    \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
-    \      b2.emplace_back(b_i.val());\n      b3.emplace_back(b_i.val());\n    }\n\
-    \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
-    \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
-    \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
-    \ <cstdint>\n#include <type_traits>\n#include <vector>\n#include <cassert>\n#include\
-    \ <algorithm>\n#include <cstddef>\n#include \"atcoder/modint.hpp\"\n#include \"\
-    atcoder/convolution.hpp\"\n#include \"tools/is_prime.hpp\"\n#include \"tools/garner3.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void convolution(const InputIterator a_begin, const InputIterator a_end, const\
-    \ InputIterator b_begin, const InputIterator b_end, OutputIterator result) {\n\
-    \    using u64 = ::std::uint_fast64_t;\n    using M = ::std::decay_t<decltype(*a_begin)>;\n\
+    \ OutputIterator result) {\n    using M = ::std::decay_t<decltype(*a_begin)>;\n\
     \    using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1\n    using\
     \ M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1\n    using M3 =\
     \ ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1\n\n    // return maximum\
-    \ 2^k s.t. x = 1 (mod 2^k)\n    static const auto pow2_k = [](const u64 x) {\n\
-    \      return (x - 1) & -(x - 1);\n    };\n\n    ::std::vector<M> a(a_begin, a_end);\n\
-    \    ::std::vector<M> b(b_begin, b_end);\n\n    if (::tools::is_prime(M::mod())\
+    \ 2^k s.t. x = 1 (mod 2^k)\n    static const auto pow2_k = [](const unsigned long\
+    \ long x) {\n      return (x - 1) & -(x - 1);\n    };\n\n    ::std::vector<M>\
+    \ a(a_begin, a_end);\n    ::std::vector<M> b(b_begin, b_end);\n\n    if (::tools::is_prime(M::mod())\
     \ && a.size() + b.size() <= pow2_k(M::mod()) + 1) {\n      for (const auto& c_i\
     \ : ::atcoder::convolution(a, b)) {\n        *result = c_i;\n        ++result;\n\
     \      }\n      return;\n    }\n\n    assert(a.size() + b.size() <= ::std::min({pow2_k(M1::mod()),\
@@ -532,6 +500,37 @@ data:
     \n    ::std::vector<M1> a1;\n    ::std::vector<M2> a2;\n    ::std::vector<M3>\
     \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
     \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
+    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
+    \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
+    \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
+    \      b2.emplace_back(b_i.val());\n      b3.emplace_back(b_i.val());\n    }\n\
+    \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
+    \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
+    \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
+    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
+    \ <type_traits>\n#include <vector>\n#include <cassert>\n#include <algorithm>\n\
+    #include <cstddef>\n#include \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\
+    \n#include \"tools/is_prime.hpp\"\n#include \"tools/garner3.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename InputIterator, typename OutputIterator>\n  void\
+    \ convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator\
+    \ b_begin, const InputIterator b_end, OutputIterator result) {\n    using M =\
+    \ ::std::decay_t<decltype(*a_begin)>;\n    using M1 = ::atcoder::static_modint<1107296257>;\
+    \ // 33 * 2^25 + 1\n    using M2 = ::atcoder::static_modint<1711276033>; // 51\
+    \ * 2^25 + 1\n    using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26\
+    \ + 1\n\n    // return maximum 2^k s.t. x = 1 (mod 2^k)\n    static const auto\
+    \ pow2_k = [](const unsigned long long x) {\n      return (x - 1) & -(x - 1);\n\
+    \    };\n\n    ::std::vector<M> a(a_begin, a_end);\n    ::std::vector<M> b(b_begin,\
+    \ b_end);\n\n    if (::tools::is_prime(M::mod()) && a.size() + b.size() <= pow2_k(M::mod())\
+    \ + 1) {\n      for (const auto& c_i : ::atcoder::convolution(a, b)) {\n     \
+    \   *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\n    assert(a.size()\
+    \ + b.size() <= ::std::min({pow2_k(M1::mod()), pow2_k(M2::mod()), pow2_k(M3::mod())})\
+    \ + 1);\n\n    // No need for the following assertion because the condition always\
+    \ holds.\n    // assert(std::min(a.size(), b.size()) * tools::square(M::mod()\
+    \ - 1) < M1::mod() * M2::mod() * M3::mod());\n\n    ::std::vector<M1> a1;\n  \
+    \  ::std::vector<M2> a2;\n    ::std::vector<M3> a3;\n    a1.reserve(a.size());\n\
+    \    a2.reserve(a.size());\n    a3.reserve(a.size());\n    for (const auto& a_i\
+    \ : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
     \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
     \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
     \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
@@ -552,8 +551,8 @@ data:
   requiredBy:
   - tools/nth_term.hpp
   - tools/fps.hpp
-  timestamp: '2022-09-02 23:00:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/nth_term.test.cpp
   - tests/convolution/mod1000000007.test.cpp

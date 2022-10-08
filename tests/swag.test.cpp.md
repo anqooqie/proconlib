@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/swag.hpp
     title: Sliding window aggregation
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/queue_operate_all_composite
     links:
     - https://judge.yosupo.jp/problem/queue_operate_all_composite
   bundledCode: "#line 1 \"tests/swag.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
+    #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -240,37 +240,37 @@ data:
     \            );\n          this->stack1.pop();\n        }\n        this->stack1_prod\
     \ = M::e();\n      }\n      this->stack2.pop();\n    }\n\n    T prod() const {\n\
     \      return M::op(this->stack2_prod(), this->stack1_prod);\n    }\n  };\n}\n\
-    \n\n#line 7 \"tests/swag.test.cpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint\
-    \ = atcoder::modint998244353;\n\nstruct monoid {\n  using T = std::pair<mint,\
-    \ mint>;\n  static T op(T x, T y) {\n    return std::make_pair(y.first * x.first,\
-    \ y.first * x.second + y.second);\n  }\n  static T e() {\n    return std::make_pair(mint(1),\
-    \ mint(0));\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (i64 i = 0; i\
-    \ < Q; ++i) {\n    i64 t;\n    std::cin >> t;\n    if (t == 0) {\n      i64 a,\
-    \ b;\n      std::cin >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n\
-    \    } else if (t == 1) {\n      swag.pop();\n    } else {\n      i64 x;\n   \
-    \   std::cin >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout <<\
-    \ (a * mint::raw(x) + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n\
-    #include \"tools/swag.hpp\"\n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\
+    \n\n#line 6 \"tests/swag.test.cpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
     \nstruct monoid {\n  using T = std::pair<mint, mint>;\n  static T op(T x, T y)\
     \ {\n    return std::make_pair(y.first * x.first, y.first * x.second + y.second);\n\
     \  }\n  static T e() {\n    return std::make_pair(mint(1), mint(0));\n  }\n};\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (i64 i = 0; i\
-    \ < Q; ++i) {\n    i64 t;\n    std::cin >> t;\n    if (t == 0) {\n      i64 a,\
-    \ b;\n      std::cin >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n\
-    \    } else if (t == 1) {\n      swag.pop();\n    } else {\n      i64 x;\n   \
-    \   std::cin >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout <<\
+    \n  ll Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll i = 0; i <\
+    \ Q; ++i) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n\
+    \      std::cin >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n\
+    \    } else if (t == 1) {\n      swag.pop();\n    } else {\n      ll x;\n    \
+    \  std::cin >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout <<\
     \ (a * mint::raw(x) + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
+    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/swag.hpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nstruct monoid\
+    \ {\n  using T = std::pair<mint, mint>;\n  static T op(T x, T y) {\n    return\
+    \ std::make_pair(y.first * x.first, y.first * x.second + y.second);\n  }\n  static\
+    \ T e() {\n    return std::make_pair(mint(1), mint(0));\n  }\n};\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll i = 0; i < Q; ++i)\
+    \ {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n      std::cin\
+    \ >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n    } else if (t\
+    \ == 1) {\n      swag.pop();\n    } else {\n      ll x;\n      std::cin >> x;\n\
+    \      const auto& [a, b] = swag.prod();\n      std::cout << (a * mint::raw(x)\
+    \ + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/swag.hpp
   isVerificationFile: true
   path: tests/swag.test.cpp
   requiredBy: []
-  timestamp: '2021-11-27 16:35:12+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/swag.test.cpp
 layout: document

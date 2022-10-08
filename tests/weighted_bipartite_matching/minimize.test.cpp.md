@@ -1,37 +1,37 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/assignment
     links:
     - https://judge.yosupo.jp/problem/assignment
   bundledCode: "#line 1 \"tests/weighted_bipartite_matching/minimize.test.cpp\"\n\
-    #define PROBLEM \"https://judge.yosupo.jp/problem/assignment\"\n\n#include <cstdint>\n\
-    #include <iostream>\n#include <variant>\n#include <vector>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\
+    #define PROBLEM \"https://judge.yosupo.jp/problem/assignment\"\n\n#include <iostream>\n\
+    #include <variant>\n#include <vector>\n#line 1 \"tools/weighted_bipartite_matching.hpp\"\
     \n\n\n\n#include <cstddef>\n#line 6 \"tools/weighted_bipartite_matching.hpp\"\n\
     #include <optional>\n#include <utility>\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\
     \n\n\n\n#line 7 \"tools/mcf_graph.hpp\"\n#include <cassert>\n#line 9 \"tools/mcf_graph.hpp\"\
@@ -297,26 +297,25 @@ data:
     \ Iterator begin, const Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream\
     \ ss;\n    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin;\
     \ it != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
-    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 9 \"tests/weighted_bipartite_matching/minimize.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n  std::cin >> N;\n\n  tools::weighted_bipartite_matching<i64>\
-    \ graph(N, N, false);\n  for (i64 i = 0; i < N; ++i) {\n    for (i64 j = 0; j\
-    \ < N; ++j) {\n      i64 a_ij;\n      std::cin >> a_ij;\n      graph.add_edge(i,\
-    \ j, a_ij);\n    }\n  }\n\n  std::vector<i64> p(N);\n  const auto [cost, edges]\
-    \ = *graph.query(N);\n  for (const auto& edge : edges) {\n    p[edge.from] = edge.to;\n\
-    \  }\n\n  std::cout << cost << '\\n';\n  std::cout << tools::join(p.begin(), p.end(),\
-    \ \" \") << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/assignment\"\n\n#include\
-    \ <cstdint>\n#include <iostream>\n#include <variant>\n#include <vector>\n#include\
-    \ \"tools/weighted_bipartite_matching.hpp\"\n#include \"tools/join.hpp\"\n\nusing\
-    \ i64 = std::int_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n\n  tools::weighted_bipartite_matching<i64> graph(N,\
-    \ N, false);\n  for (i64 i = 0; i < N; ++i) {\n    for (i64 j = 0; j < N; ++j)\
-    \ {\n      i64 a_ij;\n      std::cin >> a_ij;\n      graph.add_edge(i, j, a_ij);\n\
-    \    }\n  }\n\n  std::vector<i64> p(N);\n  const auto [cost, edges] = *graph.query(N);\n\
+    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 8 \"tests/weighted_bipartite_matching/minimize.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n\n  tools::weighted_bipartite_matching<ll> graph(N,\
+    \ N, false);\n  for (ll i = 0; i < N; ++i) {\n    for (ll j = 0; j < N; ++j) {\n\
+    \      ll a_ij;\n      std::cin >> a_ij;\n      graph.add_edge(i, j, a_ij);\n\
+    \    }\n  }\n\n  std::vector<ll> p(N);\n  const auto [cost, edges] = *graph.query(N);\n\
     \  for (const auto& edge : edges) {\n    p[edge.from] = edge.to;\n  }\n\n  std::cout\
     \ << cost << '\\n';\n  std::cout << tools::join(p.begin(), p.end(), \" \") <<\
     \ '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/assignment\"\n\n#include\
+    \ <iostream>\n#include <variant>\n#include <vector>\n#include \"tools/weighted_bipartite_matching.hpp\"\
+    \n#include \"tools/join.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n\n  tools::weighted_bipartite_matching<ll>\
+    \ graph(N, N, false);\n  for (ll i = 0; i < N; ++i) {\n    for (ll j = 0; j <\
+    \ N; ++j) {\n      ll a_ij;\n      std::cin >> a_ij;\n      graph.add_edge(i,\
+    \ j, a_ij);\n    }\n  }\n\n  std::vector<ll> p(N);\n  const auto [cost, edges]\
+    \ = *graph.query(N);\n  for (const auto& edge : edges) {\n    p[edge.from] = edge.to;\n\
+    \  }\n\n  std::cout << cost << '\\n';\n  std::cout << tools::join(p.begin(), p.end(),\
+    \ \" \") << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
@@ -327,8 +326,8 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/minimize.test.cpp
   requiredBy: []
-  timestamp: '2022-07-03 21:34:15+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/minimize.test.cpp
 layout: document

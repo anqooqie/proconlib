@@ -1,48 +1,48 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links:
     - https://qiita.com/drken/items/ae02240cd1f8edfc86fd
-  bundledCode: "#line 1 \"tools/garner.hpp\"\n\n\n\n#include <utility>\n#include <cstdint>\n\
-    #include <vector>\n#include <cstddef>\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\n\
-    namespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+  bundledCode: "#line 1 \"tools/garner.hpp\"\n\n\n\n#include <utility>\n#include <vector>\n\
+    #include <cstddef>\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
     \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
     \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
@@ -62,40 +62,38 @@ data:
     \n\nnamespace tools {\n\n  template <typename T1, typename T2>\n  constexpr T2\
     \ inv_mod(const T1 x, const T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x,\
     \ m);\n    assert(gcd == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line\
-    \ 10 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    \ 9 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
-    \ Iterator, typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t>\
-    \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
-    \   ::std::vector<::std::int_fast64_t> b, m;\n    for (auto it = begin; it !=\
-    \ end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n    \
-    \  m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n    for\
-    \ (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n  \
-    \  }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t> coeffs(m.size(),\
-    \ 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(), 0);\n    for\
-    \ (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t t = ::tools::mod((b[k]\
-    \ - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t\
-    \ i = k + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %=\
-    \ m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
+    \ Iterator, typename ModType>\n  ::std::pair<long long, long long> garner(const\
+    \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<long\
+    \ long> b, m;\n    for (auto it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first,\
+    \ it->second));\n      m.push_back(it->second);\n    }\n\n    auto lcm = 1LL;\n\
+    \    for (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n\
+    \    }\n\n    m.push_back(mod);\n    ::std::vector<long long> coeffs(m.size(),\
+    \ 1);\n    ::std::vector<long long> constants(m.size(), 0);\n    for (::std::size_t\
+    \ k = 0; k < b.size(); ++k) {\n      long long t = ::tools::mod((b[k] - constants[k])\
+    \ * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t i = k\
+    \ + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %= m[i];\n\
+    \        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
     \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
     \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
     \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
     \ M::raw(z));\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_GARNER_HPP\n#define TOOLS_GARNER_HPP\n\n#include <utility>\n\
-    #include <cstdint>\n#include <vector>\n#include <cstddef>\n#include \"tools/mod.hpp\"\
-    \n#include \"tools/inv_mod.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    #include <vector>\n#include <cstddef>\n#include \"tools/mod.hpp\"\n#include \"\
+    tools/inv_mod.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
-    \ Iterator, typename ModType>\n  ::std::pair<::std::int_fast64_t, ::std::int_fast64_t>\
-    \ garner(const Iterator& begin, const Iterator& end, const ModType& mod) {\n \
-    \   ::std::vector<::std::int_fast64_t> b, m;\n    for (auto it = begin; it !=\
-    \ end; ++it) {\n      b.push_back(::tools::mod(it->first, it->second));\n    \
-    \  m.push_back(it->second);\n    }\n\n    ::std::int_fast64_t lcm = 1;\n    for\
-    \ (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n  \
-    \  }\n\n    m.push_back(mod);\n    ::std::vector<::std::int_fast64_t> coeffs(m.size(),\
-    \ 1);\n    ::std::vector<::std::int_fast64_t> constants(m.size(), 0);\n    for\
-    \ (::std::size_t k = 0; k < b.size(); ++k) {\n      ::std::int_fast64_t t = ::tools::mod((b[k]\
-    \ - constants[k]) * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t\
-    \ i = k + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %=\
-    \ m[i];\n        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
+    \ Iterator, typename ModType>\n  ::std::pair<long long, long long> garner(const\
+    \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<long\
+    \ long> b, m;\n    for (auto it = begin; it != end; ++it) {\n      b.push_back(::tools::mod(it->first,\
+    \ it->second));\n      m.push_back(it->second);\n    }\n\n    auto lcm = 1LL;\n\
+    \    for (::std::size_t i = 0; i < b.size(); ++i) {\n      (lcm *= m[i]) %= mod;\n\
+    \    }\n\n    m.push_back(mod);\n    ::std::vector<long long> coeffs(m.size(),\
+    \ 1);\n    ::std::vector<long long> constants(m.size(), 0);\n    for (::std::size_t\
+    \ k = 0; k < b.size(); ++k) {\n      long long t = ::tools::mod((b[k] - constants[k])\
+    \ * ::tools::inv_mod(coeffs[k], m[k]), m[k]);\n      for (::std::size_t i = k\
+    \ + 1; i < m.size(); ++i) {\n        (constants[i] += t * coeffs[i]) %= m[i];\n\
+    \        (coeffs[i] *= m[k]) %= m[i];\n      }\n    }\n\n    return ::std::make_pair(constants.back(),\
     \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
     \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
     \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
@@ -111,8 +109,8 @@ data:
   - tools/extended_garner.hpp
   - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
-  timestamp: '2022-05-21 22:34:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/tetration_mod.test.cpp
   - tests/extended_garner.test.cpp
@@ -124,7 +122,7 @@ title: Garner's algorithm
 
 ```cpp
 template <typename Iterator, typename ModType>
-std::pair<std::int_fast64_t, std::int_fast64_t> garner(Iterator begin, Iterator end, ModType M);
+std::pair<long long, long long> garner(Iterator begin, Iterator end, ModType M);
 
 template <typename M, typename Iterator>
 std::pair<M, M> garner(Iterator begin, Iterator end);

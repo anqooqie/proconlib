@@ -1,44 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lcm_convolution.hpp
     title: LCM convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/lcm_convolution
     links:
     - https://judge.yosupo.jp/problem/lcm_convolution
   bundledCode: "#line 1 \"tests/lcm_convolution.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/lcm_convolution\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#include <vector>\n#include <string>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
-    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
-    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
-    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -353,27 +352,26 @@ data:
     \    }\n    }\n\n    for (::std::size_t i = 1; i < K; ++i) {\n      c_begin[i]\
     \ = a[i] * b[i];\n    }\n\n    for (const auto p : osa_k.prime_range(1, K)) {\n\
     \      for (::std::size_t k = (K - 1) / p; k >= 1; --k) {\n        c_begin[k *\
-    \ p] -= c_begin[k];\n      }\n    }\n  }\n}\n\n\n#line 9 \"tests/lcm_convolution.test.cpp\"\
-    \n\nusing i64 = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (i64\
-    \ i = 1; i <= N; ++i) {\n    i64 a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
-    \  }\n  for (i64 i = 1; i <= N; ++i) {\n    i64 b_i;\n    std::cin >> b_i;\n \
-    \   b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
+    \ p] -= c_begin[k];\n      }\n    }\n  }\n}\n\n\n#line 8 \"tests/lcm_convolution.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (ll i =\
+    \ 1; i <= N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
+    \  }\n  for (ll i = 1; i <= N; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n   \
+    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
-    \ = \"\";\n  for (i64 i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
+    \ = \"\";\n  for (ll i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lcm_convolution\"\n\n#include\
-    \ <iostream>\n#include <cstdint>\n#include <vector>\n#include <string>\n#include\
-    \ \"atcoder/modint.hpp\"\n#include \"tools/lcm_convolution.hpp\"\n\nusing i64\
-    \ = std::int_fast64_t;\nusing mint = atcoder::modint998244353;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 N;\n\
-    \  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (i64 i = 1;\
-    \ i <= N; ++i) {\n    i64 a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
-    \  }\n  for (i64 i = 1; i <= N; ++i) {\n    i64 b_i;\n    std::cin >> b_i;\n \
-    \   b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
+    \ <iostream>\n#include <vector>\n#include <string>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/lcm_convolution.hpp\"\n\nusing ll = long long;\nusing mint\
+    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (ll\
+    \ i = 1; i <= N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
+    \  }\n  for (ll i = 1; i <= N; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n   \
+    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
-    \ = \"\";\n  for (i64 i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
+    \ = \"\";\n  for (ll i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/lcm_convolution.hpp
@@ -381,8 +379,8 @@ data:
   isVerificationFile: true
   path: tests/lcm_convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-09-17 11:30:02+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/lcm_convolution.test.cpp
 layout: document

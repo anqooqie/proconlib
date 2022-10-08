@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/permutation.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -130,7 +130,7 @@ data:
   path: tools/permutation.hpp
   requiredBy: []
   timestamp: '2021-12-26 18:29:38+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/permutation.test.cpp
 documentation_of: tools/permutation.hpp

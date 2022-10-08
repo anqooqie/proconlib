@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/determinant.test.cpp
     title: tests/matrix/determinant.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/inv.test.cpp
     title: tests/matrix/inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -347,7 +347,7 @@ data:
   path: tools/matrix.hpp
   requiredBy: []
   timestamp: '2022-07-23 13:26:40+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/matrix/determinant.test.cpp
   - tests/matrix/multiplies.test.cpp

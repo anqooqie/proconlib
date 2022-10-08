@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pair_hash.hpp
     title: Hash of std::pair
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: 2D vector
   _extendedRequiredBy: []
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -148,12 +148,12 @@ data:
     \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
     \      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\
     \n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  ::std::int_fast64_t ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b,\
-    \ ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
-    \    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
+    \  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T>\
+    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n\
+    \    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c) < 0) return\
+    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
+    \ 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
     \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
     \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
     \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
@@ -247,8 +247,8 @@ data:
   isVerificationFile: false
   path: tools/convex_hull.hpp
   requiredBy: []
-  timestamp: '2022-10-01 21:53:00+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/convex_hull.test.cpp

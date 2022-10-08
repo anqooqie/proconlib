@@ -1,51 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inversion_number.hpp
     title: The number of inversions
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D
   bundledCode: "#line 1 \"tests/inversion_number.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include <iterator>\n#line 1 \"tools/inversion_number.hpp\"\n\n\n\n#line 6 \"\
-    tools/inversion_number.hpp\"\n#include <cstddef>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
-    \n\n\n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n#include <numeric>\n#include\
-    \ <type_traits>\n\nnamespace atcoder {\n\nnamespace internal {\n\n#ifndef _MSC_VER\n\
-    template <class T>\nusing is_signed_int128 =\n    typename std::conditional<std::is_same<T,\
-    \ __int128_t>::value ||\n                                  std::is_same<T, __int128>::value,\n\
-    \                              std::true_type,\n                             \
-    \ std::false_type>::type;\n\ntemplate <class T>\nusing is_unsigned_int128 =\n\
-    \    typename std::conditional<std::is_same<T, __uint128_t>::value ||\n      \
-    \                            std::is_same<T, unsigned __int128>::value,\n    \
-    \                          std::true_type,\n                              std::false_type>::type;\n\
-    \ntemplate <class T>\nusing make_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
-    \ __int128_t>::value,\n                              __uint128_t,\n          \
-    \                    unsigned __int128>;\n\ntemplate <class T>\nusing is_integral\
-    \ = typename std::conditional<std::is_integral<T>::value ||\n                \
-    \                                  is_signed_int128<T>::value ||\n           \
-    \                                       is_unsigned_int128<T>::value,\n      \
-    \                                        std::true_type,\n                   \
-    \                           std::false_type>::type;\n\ntemplate <class T>\nusing\
-    \ is_signed_int = typename std::conditional<(is_integral<T>::value &&\n      \
-    \                                           std::is_signed<T>::value) ||\n   \
-    \                                                 is_signed_int128<T>::value,\n\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
+    #line 1 \"tools/inversion_number.hpp\"\n\n\n\n#line 6 \"tools/inversion_number.hpp\"\
+    \n#include <cstddef>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\n\n\n\
+    \n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\n\n#line\
+    \ 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\
+    \n#include <numeric>\n#include <type_traits>\n\nnamespace atcoder {\n\nnamespace\
+    \ internal {\n\n#ifndef _MSC_VER\ntemplate <class T>\nusing is_signed_int128 =\n\
+    \    typename std::conditional<std::is_same<T, __int128_t>::value ||\n       \
+    \                           std::is_same<T, __int128>::value,\n              \
+    \                std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing is_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __uint128_t>::value ||\n                                  std::is_same<T, unsigned\
+    \ __int128>::value,\n                              std::true_type,\n         \
+    \                     std::false_type>::type;\n\ntemplate <class T>\nusing make_unsigned_int128\
+    \ =\n    typename std::conditional<std::is_same<T, __int128_t>::value,\n     \
+    \                         __uint128_t,\n                              unsigned\
+    \ __int128>;\n\ntemplate <class T>\nusing is_integral = typename std::conditional<std::is_integral<T>::value\
+    \ ||\n                                                  is_signed_int128<T>::value\
+    \ ||\n                                                  is_unsigned_int128<T>::value,\n\
+    \                                              std::true_type,\n             \
+    \                                 std::false_type>::type;\n\ntemplate <class T>\n\
+    using is_signed_int = typename std::conditional<(is_integral<T>::value &&\n  \
+    \                                               std::is_signed<T>::value) ||\n\
+    \                                                    is_signed_int128<T>::value,\n\
     \                                                std::true_type,\n           \
     \                                     std::false_type>::type;\n\ntemplate <class\
     \ T>\nusing is_unsigned_int =\n    typename std::conditional<(is_integral<T>::value\
@@ -111,16 +110,16 @@ data:
     \ compressed.end()) + 1);\n    T result = 0;\n    for (::std::size_t i = 0; i\
     \ < compressed.size(); ++i) {\n      result += i - fw.sum(0, compressed[i] + 1);\n\
     \      fw.add(compressed[i], 1);\n    }\n\n    return result;\n  }\n}\n\n\n#line\
-    \ 9 \"tests/inversion_number.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    \ 8 \"tests/inversion_number.test.cpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ n;\n  std::cin >> n;\n  std::vector<ll> a;\n  std::copy_n(std::istream_iterator<ll>(std::cin),\
     \ n, std::back_inserter(a));\n  std::cout << tools::inversion_number(a.begin(),\
     \ a.end()) << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_5_D\"\n\
-    \n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\
-    #include <iterator>\n#include \"tools/inversion_number.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 n;\n  std::cin >> n;\n  std::vector<i64> a;\n  std::copy_n(std::istream_iterator<i64>(std::cin),\
+    \n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n\
+    #include \"tools/inversion_number.hpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ n;\n  std::cin >> n;\n  std::vector<ll> a;\n  std::copy_n(std::istream_iterator<ll>(std::cin),\
     \ n, std::back_inserter(a));\n  std::cout << tools::inversion_number(a.begin(),\
     \ a.end()) << '\\n';\n  return 0;\n}\n"
   dependsOn:
@@ -130,8 +129,8 @@ data:
   isVerificationFile: true
   path: tests/inversion_number.test.cpp
   requiredBy: []
-  timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/inversion_number.test.cpp
 layout: document

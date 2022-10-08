@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/gcd_convolution.test.cpp
     title: tests/gcd_convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/gcd_convolution.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -177,7 +177,7 @@ data:
   path: tools/gcd_convolution.hpp
   requiredBy: []
   timestamp: '2022-09-17 11:30:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/gcd_convolution.test.cpp
 documentation_of: tools/gcd_convolution.hpp

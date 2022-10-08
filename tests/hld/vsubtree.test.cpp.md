@@ -1,27 +1,27 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/vertex_add_subtree_sum
     links:
     - https://judge.yosupo.jp/problem/vertex_add_subtree_sum
   bundledCode: "#line 1 \"tests/hld/vsubtree.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\n#include <iostream>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
     \n\n\n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
     \n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\n\n#line 5\
     \ \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n#include <numeric>\n#include\
@@ -277,30 +277,29 @@ data:
     \      } else if (this->m_depth[u] < this->m_depth[v]) {\n        head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()],\
     \ this->m_eid2dfs[this->m_parent[v]] + 1);\n      }\n\n      ::std::copy(tail.rbegin(),\
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
-    }\n\n\n#line 8 \"tests/hld/vsubtree.test.cpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  i64 N, Q;\n  std::cin >> N >> Q;\n  std::vector<i64> a(N);\n  for (auto& a_i\
-    \ : a) std::cin >> a_i;\n\n  tools::hld hld(N);\n  for (i64 v = 1; v < N; ++v)\
-    \ {\n    i64 p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n\
-    \  atcoder::fenwick_tree<i64> fw(N);\n  for (i64 v = 0; v < N; ++v) {\n    fw.add(hld.vid2dfs(v),\
-    \ a[v]);\n  }\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin >>\
-    \ t;\n    if (t == 0) {\n      i64 u, x;\n      std::cin >> u >> x;\n      fw.add(hld.vid2dfs(u),\
-    \ x);\n    } else {\n      i64 u;\n      std::cin >> u;\n      const auto& [l,\
+    }\n\n\n#line 7 \"tests/hld/vsubtree.test.cpp\"\n\nusing ll = long long;\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, Q;\n  std::cin >> N >> Q;\n  std::vector<ll> a(N);\n  for (auto& a_i\
+    \ : a) std::cin >> a_i;\n\n  tools::hld hld(N);\n  for (ll v = 1; v < N; ++v)\
+    \ {\n    ll p;\n    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n\
+    \  atcoder::fenwick_tree<ll> fw(N);\n  for (ll v = 0; v < N; ++v) {\n    fw.add(hld.vid2dfs(v),\
+    \ a[v]);\n  }\n\n  for (ll q = 0; q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n\
+    \    if (t == 0) {\n      ll u, x;\n      std::cin >> u >> x;\n      fw.add(hld.vid2dfs(u),\
+    \ x);\n    } else {\n      ll u;\n      std::cin >> u;\n      const auto& [l,\
     \ r] = hld.vsubtree(u);\n      std::cout << fw.sum(l, r) << '\\n';\n    }\n  }\n\
     \n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\
-    \n\n#include <cstdint>\n#include <iostream>\n#include <vector>\n#include \"atcoder/fenwicktree.hpp\"\
-    \n#include \"tools/hld.hpp\"\n\nusing i64 = std::int_fast64_t;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  i64 N,\
-    \ Q;\n  std::cin >> N >> Q;\n  std::vector<i64> a(N);\n  for (auto& a_i : a) std::cin\
-    \ >> a_i;\n\n  tools::hld hld(N);\n  for (i64 v = 1; v < N; ++v) {\n    i64 p;\n\
-    \    std::cin >> p;\n    hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n  atcoder::fenwick_tree<i64>\
-    \ fw(N);\n  for (i64 v = 0; v < N; ++v) {\n    fw.add(hld.vid2dfs(v), a[v]);\n\
-    \  }\n\n  for (i64 q = 0; q < Q; ++q) {\n    i64 t;\n    std::cin >> t;\n    if\
-    \ (t == 0) {\n      i64 u, x;\n      std::cin >> u >> x;\n      fw.add(hld.vid2dfs(u),\
-    \ x);\n    } else {\n      i64 u;\n      std::cin >> u;\n      const auto& [l,\
-    \ r] = hld.vsubtree(u);\n      std::cout << fw.sum(l, r) << '\\n';\n    }\n  }\n\
-    \n  return 0;\n}\n"
+    \n\n#include <iostream>\n#include <vector>\n#include \"atcoder/fenwicktree.hpp\"\
+    \n#include \"tools/hld.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, Q;\n  std::cin >> N >> Q;\n\
+    \  std::vector<ll> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  tools::hld\
+    \ hld(N);\n  for (ll v = 1; v < N; ++v) {\n    ll p;\n    std::cin >> p;\n   \
+    \ hld.add_edge(p, v);\n  }\n\n  hld.build(0);\n  atcoder::fenwick_tree<ll> fw(N);\n\
+    \  for (ll v = 0; v < N; ++v) {\n    fw.add(hld.vid2dfs(v), a[v]);\n  }\n\n  for\
+    \ (ll q = 0; q < Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n\
+    \      ll u, x;\n      std::cin >> u >> x;\n      fw.add(hld.vid2dfs(u), x);\n\
+    \    } else {\n      ll u;\n      std::cin >> u;\n      const auto& [l, r] = hld.vsubtree(u);\n\
+    \      std::cout << fw.sum(l, r) << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/hld.hpp
   - tools/less_by.hpp
@@ -308,8 +307,8 @@ data:
   isVerificationFile: true
   path: tests/hld/vsubtree.test.cpp
   requiredBy: []
-  timestamp: '2022-07-31 14:57:39+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/hld/vsubtree.test.cpp
 layout: document

@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/permutation.hpp
     title: Permutation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -31,15 +31,15 @@ data:
     - https://atcoder.jp/contests/abc013/tasks/abc013_4
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/permutation.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <cstdint>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/permutation.hpp\"\n\n\n\n#line 5\
-    \ \"tools/permutation.hpp\"\n#include <cstddef>\n#line 7 \"tools/permutation.hpp\"\
-    \n#include <cassert>\n#include <utility>\n#include <iterator>\n#line 11 \"tools/permutation.hpp\"\
-    \n#include <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
+    \n\n#include <iostream>\n#include <vector>\n#include <numeric>\n#include <algorithm>\n\
+    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include\
+    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
+    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
+    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
+    } while (false)\n\n\n#line 1 \"tools/permutation.hpp\"\n\n\n\n#line 5 \"tools/permutation.hpp\"\
+    \n#include <cstddef>\n#line 7 \"tools/permutation.hpp\"\n#include <cassert>\n\
+    #include <utility>\n#include <iterator>\n#line 11 \"tools/permutation.hpp\"\n\
+    #include <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
     \ {\n  private:\n    ::std::vector<T> m_vector;\n\n    void verify_consistency()\
     \ const {\n#ifndef NDEBUG\n      ::std::vector<bool> unique(this->m_vector.size(),\
     \ true);\n      for (const T& x : this->m_vector) {\n        assert(0 <= x &&\
@@ -123,49 +123,49 @@ data:
     \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
     \ exponent - 1), base);\n  }\n\n  template <typename T>\n  T pow(const T& base,\
     \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
-    \ exponent);\n  }\n}\n\n\n#line 12 \"tests/permutation.test.cpp\"\n\nusing i64\
-    \ = std::int_fast64_t;\n\nstruct group {\n  using T = tools::permutation<i64>;\n\
-    \  inline static i64 N;\n  static T op(const T& lhs, const T& rhs) {\n    return\
-    \ lhs * rhs;\n  }\n  static T e() {\n    return T(N);\n  }\n  static T inv(const\
-    \ T& p) {\n    return p.inv();\n  }\n};\n\n// Source: https://atcoder.jp/contests/abc013/tasks/abc013_4\n\
-    void abc013d(const i64& N, const i64& D, const std::vector<i64>& A, const std::vector<i64>&\
-    \ expected) {\n  group::N = N;\n  tools::permutation<i64> unit(N);\n  for (i64\
-    \ i = 0; i < tools::ssize(A); ++i) {\n    unit.swap(A[i] - 1, A[i]);\n  }\n\n\
-    \  const auto p = tools::pow<group>(unit, D).inv();\n  std::vector<i64> actual(p.begin(),\
-    \ p.end());\n  for (i64& actual_i : actual) ++actual_i;\n\n  assert_that(actual\
+    \ exponent);\n  }\n}\n\n\n#line 11 \"tests/permutation.test.cpp\"\n\nusing ll\
+    \ = long long;\n\nstruct group {\n  using T = tools::permutation<ll>;\n  inline\
+    \ static ll N;\n  static T op(const T& lhs, const T& rhs) {\n    return lhs *\
+    \ rhs;\n  }\n  static T e() {\n    return T(N);\n  }\n  static T inv(const T&\
+    \ p) {\n    return p.inv();\n  }\n};\n\n// Source: https://atcoder.jp/contests/abc013/tasks/abc013_4\n\
+    void abc013d(const ll& N, const ll& D, const std::vector<ll>& A, const std::vector<ll>&\
+    \ expected) {\n  group::N = N;\n  tools::permutation<ll> unit(N);\n  for (ll i\
+    \ = 0; i < tools::ssize(A); ++i) {\n    unit.swap(A[i] - 1, A[i]);\n  }\n\n  const\
+    \ auto p = tools::pow<group>(unit, D).inv();\n  std::vector<ll> actual(p.begin(),\
+    \ p.end());\n  for (ll& actual_i : actual) ++actual_i;\n\n  assert_that(actual\
     \ == expected);\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  abc013d(5, 1, std::vector<i64>({1, 4, 3, 4, 2, 3, 1}), std::vector<i64>({4,\
-    \ 2, 5, 3, 1}));\n  abc013d(5, 2, std::vector<i64>({1, 4, 3, 4, 2, 3, 1}), std::vector<i64>({3,\
-    \ 2, 1, 5, 4}));\n  abc013d(10, 300, std::vector<i64>({9, 1, 2, 5, 8, 1, 9, 3,\
-    \ 5, 6, 4, 5, 4, 6, 8, 3, 2, 7, 9, 6}), std::vector<i64>({3, 7, 2, 4, 5, 9, 6,\
-    \ 1, 8, 10}));\n\n  for (i64 n = 0; n <= 5; ++n) {\n    std::vector<i64> expected(n);\n\
-    \    std::iota(expected.begin(), expected.end(), 0);\n    i64 id = 0;\n    do\
-    \ {\n      const auto actual = tools::permutation<i64>::from(n, id);\n      assert_that(actual\
-    \ == tools::permutation<i64>(expected.begin(), expected.end()));\n      assert_that(actual.id()\
+    \n  abc013d(5, 1, std::vector<ll>({1, 4, 3, 4, 2, 3, 1}), std::vector<ll>({4,\
+    \ 2, 5, 3, 1}));\n  abc013d(5, 2, std::vector<ll>({1, 4, 3, 4, 2, 3, 1}), std::vector<ll>({3,\
+    \ 2, 1, 5, 4}));\n  abc013d(10, 300, std::vector<ll>({9, 1, 2, 5, 8, 1, 9, 3,\
+    \ 5, 6, 4, 5, 4, 6, 8, 3, 2, 7, 9, 6}), std::vector<ll>({3, 7, 2, 4, 5, 9, 6,\
+    \ 1, 8, 10}));\n\n  for (ll n = 0; n <= 5; ++n) {\n    std::vector<ll> expected(n);\n\
+    \    std::iota(expected.begin(), expected.end(), 0);\n    ll id = 0;\n    do {\n\
+    \      const auto actual = tools::permutation<ll>::from(n, id);\n      assert_that(actual\
+    \ == tools::permutation<ll>(expected.begin(), expected.end()));\n      assert_that(actual.id()\
     \ == id);\n      ++id;\n    } while (std::next_permutation(expected.begin(), expected.end()));\n\
     \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <cstdint>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#include \"tools/assert_that.hpp\"\n#include \"tools/permutation.hpp\"\
-    \n#include \"tools/ssize.hpp\"\n#include \"tools/pow.hpp\"\n\nusing i64 = std::int_fast64_t;\n\
-    \nstruct group {\n  using T = tools::permutation<i64>;\n  inline static i64 N;\n\
-    \  static T op(const T& lhs, const T& rhs) {\n    return lhs * rhs;\n  }\n  static\
+    #include <iostream>\n#include <vector>\n#include <numeric>\n#include <algorithm>\n\
+    #include \"tools/assert_that.hpp\"\n#include \"tools/permutation.hpp\"\n#include\
+    \ \"tools/ssize.hpp\"\n#include \"tools/pow.hpp\"\n\nusing ll = long long;\n\n\
+    struct group {\n  using T = tools::permutation<ll>;\n  inline static ll N;\n \
+    \ static T op(const T& lhs, const T& rhs) {\n    return lhs * rhs;\n  }\n  static\
     \ T e() {\n    return T(N);\n  }\n  static T inv(const T& p) {\n    return p.inv();\n\
     \  }\n};\n\n// Source: https://atcoder.jp/contests/abc013/tasks/abc013_4\nvoid\
-    \ abc013d(const i64& N, const i64& D, const std::vector<i64>& A, const std::vector<i64>&\
-    \ expected) {\n  group::N = N;\n  tools::permutation<i64> unit(N);\n  for (i64\
-    \ i = 0; i < tools::ssize(A); ++i) {\n    unit.swap(A[i] - 1, A[i]);\n  }\n\n\
-    \  const auto p = tools::pow<group>(unit, D).inv();\n  std::vector<i64> actual(p.begin(),\
-    \ p.end());\n  for (i64& actual_i : actual) ++actual_i;\n\n  assert_that(actual\
+    \ abc013d(const ll& N, const ll& D, const std::vector<ll>& A, const std::vector<ll>&\
+    \ expected) {\n  group::N = N;\n  tools::permutation<ll> unit(N);\n  for (ll i\
+    \ = 0; i < tools::ssize(A); ++i) {\n    unit.swap(A[i] - 1, A[i]);\n  }\n\n  const\
+    \ auto p = tools::pow<group>(unit, D).inv();\n  std::vector<ll> actual(p.begin(),\
+    \ p.end());\n  for (ll& actual_i : actual) ++actual_i;\n\n  assert_that(actual\
     \ == expected);\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  abc013d(5, 1, std::vector<i64>({1, 4, 3, 4, 2, 3, 1}), std::vector<i64>({4,\
-    \ 2, 5, 3, 1}));\n  abc013d(5, 2, std::vector<i64>({1, 4, 3, 4, 2, 3, 1}), std::vector<i64>({3,\
-    \ 2, 1, 5, 4}));\n  abc013d(10, 300, std::vector<i64>({9, 1, 2, 5, 8, 1, 9, 3,\
-    \ 5, 6, 4, 5, 4, 6, 8, 3, 2, 7, 9, 6}), std::vector<i64>({3, 7, 2, 4, 5, 9, 6,\
-    \ 1, 8, 10}));\n\n  for (i64 n = 0; n <= 5; ++n) {\n    std::vector<i64> expected(n);\n\
-    \    std::iota(expected.begin(), expected.end(), 0);\n    i64 id = 0;\n    do\
-    \ {\n      const auto actual = tools::permutation<i64>::from(n, id);\n      assert_that(actual\
-    \ == tools::permutation<i64>(expected.begin(), expected.end()));\n      assert_that(actual.id()\
+    \n  abc013d(5, 1, std::vector<ll>({1, 4, 3, 4, 2, 3, 1}), std::vector<ll>({4,\
+    \ 2, 5, 3, 1}));\n  abc013d(5, 2, std::vector<ll>({1, 4, 3, 4, 2, 3, 1}), std::vector<ll>({3,\
+    \ 2, 1, 5, 4}));\n  abc013d(10, 300, std::vector<ll>({9, 1, 2, 5, 8, 1, 9, 3,\
+    \ 5, 6, 4, 5, 4, 6, 8, 3, 2, 7, 9, 6}), std::vector<ll>({3, 7, 2, 4, 5, 9, 6,\
+    \ 1, 8, 10}));\n\n  for (ll n = 0; n <= 5; ++n) {\n    std::vector<ll> expected(n);\n\
+    \    std::iota(expected.begin(), expected.end(), 0);\n    ll id = 0;\n    do {\n\
+    \      const auto actual = tools::permutation<ll>::from(n, id);\n      assert_that(actual\
+    \ == tools::permutation<ll>(expected.begin(), expected.end()));\n      assert_that(actual.id()\
     \ == id);\n      ++id;\n    } while (std::next_permutation(expected.begin(), expected.end()));\n\
     \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
@@ -178,8 +178,8 @@ data:
   isVerificationFile: true
   path: tests/permutation.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-10-08 19:22:04+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/permutation.test.cpp
 layout: document

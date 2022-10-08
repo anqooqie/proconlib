@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tsort.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -50,7 +50,7 @@ data:
   path: tools/tsort.hpp
   requiredBy: []
   timestamp: '2021-04-11 14:15:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/tsort.test.cpp
 documentation_of: tools/tsort.hpp
