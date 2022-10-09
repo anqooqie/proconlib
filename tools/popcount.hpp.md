@@ -27,6 +27,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
   - icon: ':heavy_check_mark:'
@@ -66,6 +69,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
@@ -167,6 +173,7 @@ data:
   - tools/floor_log2.hpp
   - tools/ntz.hpp
   - tools/li_chao_segtree.hpp
+  - tools/log_mod.hpp
   - tools/wavelet_matrix.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
@@ -185,6 +192,7 @@ data:
   - tests/chromatic_number.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/log_mod.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/divisors.test.cpp
   - tests/wavelet_matrix.test.cpp

@@ -54,6 +54,9 @@ data:
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':warning:'
@@ -196,6 +199,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
@@ -282,6 +288,7 @@ data:
   - tools/modint_for_rolling_hash.hpp
   - tools/detail/rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/log_mod.hpp
   - tools/fps.hpp
   - tools/bezout.hpp
   - tools/garner2.hpp
@@ -321,6 +328,7 @@ data:
   - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/log_mod.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

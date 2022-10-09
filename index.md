@@ -244,6 +244,9 @@ data:
       path: tools/lis.hpp
       title: Longest increasing subsequence
     - icon: ':heavy_check_mark:'
+      path: tools/log_mod.hpp
+      title: $\log_x y \pmod{M}$
+    - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -595,6 +598,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/log_mod.test.cpp
+      title: tests/log_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/median_heap.test.cpp
       title: tests/median_heap.test.cpp

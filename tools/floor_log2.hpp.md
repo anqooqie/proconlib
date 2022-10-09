@@ -21,6 +21,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -51,6 +54,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -130,6 +136,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/divisors.hpp
   - tools/li_chao_segtree.hpp
+  - tools/log_mod.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
@@ -143,6 +150,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/log_mod.test.cpp
   - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/floor_log2.hpp

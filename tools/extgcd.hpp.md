@@ -23,6 +23,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
+  - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
@@ -91,6 +97,7 @@ data:
   - tools/modint_for_rolling_hash.hpp
   - tools/detail/rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/log_mod.hpp
   - tools/bezout.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
@@ -101,6 +108,7 @@ data:
   - tests/rolling_hash.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_garner.test.cpp
+  - tests/log_mod.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document

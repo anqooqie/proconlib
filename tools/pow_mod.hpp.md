@@ -45,6 +45,9 @@ data:
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
@@ -154,6 +157,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
@@ -238,6 +244,7 @@ data:
   - tools/convolution.hpp
   - tools/divisors.hpp
   - tools/nth_term.hpp
+  - tools/log_mod.hpp
   - tools/fps.hpp
   - tools/garner2.hpp
   - tools/extended_lucas.hpp
@@ -269,6 +276,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
+  - tests/log_mod.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

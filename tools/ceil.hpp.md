@@ -24,6 +24,9 @@ data:
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
   - icon: ':warning:'
@@ -112,6 +115,9 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
   - icon: ':heavy_check_mark:'
@@ -187,6 +193,7 @@ data:
   - tools/mo.hpp
   - tools/detail/rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/log_mod.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -217,6 +224,7 @@ data:
   - tests/range_of_digit_products.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/log_mod.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/ceil.test.cpp
   - tests/line_2d/projection.test.cpp

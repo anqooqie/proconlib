@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/log_mod.hpp
+    title: $\log_x y \pmod{M}$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_kth_root.test.cpp
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/log_mod.test.cpp
+    title: tests/log_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -45,10 +51,12 @@ data:
   path: tools/ceil_sqrt.hpp
   requiredBy:
   - tools/ceil_kth_root.hpp
+  - tools/log_mod.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
+  - tests/log_mod.test.cpp
   - tests/ceil_sqrt.test.cpp
 documentation_of: tools/ceil_sqrt.hpp
 layout: document
