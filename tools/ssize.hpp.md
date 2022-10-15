@@ -161,6 +161,9 @@ data:
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/tsp.test.cpp
+    title: tests/tsp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -232,6 +235,7 @@ data:
   - tests/fact_mod_cache/permutation.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/ssize.test.cpp
+  - tests/tsp.test.cpp
   - tests/permutation.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

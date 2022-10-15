@@ -53,6 +53,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
+  - icon: ':heavy_check_mark:'
+    path: tools/tsp.hpp
+    title: Traveling salesman problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
@@ -207,6 +210,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tsp.test.cpp
+    title: tests/tsp.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -244,6 +250,7 @@ data:
   - tools/divisors.hpp
   - tools/and_convolution.hpp
   - tools/li_chao_segtree.hpp
+  - tools/tsp.hpp
   - tools/fps.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
@@ -283,6 +290,7 @@ data:
   - tests/line_2d/projection.test.cpp
   - tests/integer_interval_set.test.cpp
   - tests/ssize.test.cpp
+  - tests/tsp.test.cpp
   - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp
   - tests/hld/vpath.test.cpp

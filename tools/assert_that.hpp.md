@@ -100,6 +100,9 @@ data:
     path: tests/tsort.test.cpp
     title: tests/tsort.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/tsp.test.cpp
+    title: tests/tsp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
   - icon: ':heavy_check_mark:'
@@ -151,6 +154,7 @@ data:
   - tests/rotate_right.test.cpp
   - tests/ceil.test.cpp
   - tests/ssize.test.cpp
+  - tests/tsp.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/permutation.test.cpp
   - tests/mex.test.cpp

@@ -18,6 +18,9 @@ data:
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
   - icon: ':heavy_check_mark:'
+    path: tools/tsp.hpp
+    title: Traveling salesman problem
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   - icon: ':heavy_check_mark:'
@@ -48,6 +51,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tsp.test.cpp
+    title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
@@ -89,6 +95,7 @@ data:
   - tools/zero_one_bfs.hpp
   - tools/bellman_ford.hpp
   - tools/weighted_bipartite_matching.hpp
+  - tools/tsp.hpp
   - tools/xor_basis.hpp
   - tools/dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -104,6 +111,7 @@ data:
   - tests/zero_one_bfs/directed.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/tsp.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
   - tests/segmented_sieve.test.cpp

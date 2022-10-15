@@ -422,6 +422,9 @@ data:
       path: tools/tsort.hpp
       title: Topological sorting
     - icon: ':heavy_check_mark:'
+      path: tools/tsp.hpp
+      title: Traveling salesman problem
+    - icon: ':heavy_check_mark:'
       path: tools/unordered_map.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
     - icon: ':warning:'
@@ -694,6 +697,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort.test.cpp
       title: tests/tsort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/tsp.test.cpp
+      title: tests/tsp.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
