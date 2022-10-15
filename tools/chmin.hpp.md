@@ -29,6 +29,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
+  - icon: ':heavy_check_mark:'
+    path: tools/zero_one_knapsack.hpp
+    title: 0-1 knapsack problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bellman_ford.test.cpp
@@ -72,6 +75,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+    title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -93,6 +105,7 @@ data:
   - tools/segmented_sieve.hpp
   - tools/mcf_graph.hpp
   - tools/zero_one_bfs.hpp
+  - tools/zero_one_knapsack.hpp
   - tools/bellman_ford.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/tsp.hpp
@@ -111,6 +124,9 @@ data:
   - tests/zero_one_bfs/directed.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/tsp.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp

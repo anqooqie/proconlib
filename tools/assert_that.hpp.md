@@ -108,6 +108,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+    title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -154,6 +163,9 @@ data:
   - tests/rotate_right.test.cpp
   - tests/ceil.test.cpp
   - tests/ssize.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/tsp.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/permutation.test.cpp

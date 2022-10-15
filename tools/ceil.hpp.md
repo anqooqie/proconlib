@@ -50,6 +50,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
+  - icon: ':heavy_check_mark:'
+    path: tools/zero_one_knapsack.hpp
+    title: 0-1 knapsack problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
@@ -159,6 +162,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+    title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -184,6 +196,7 @@ data:
   - tools/segmented_sieve.hpp
   - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/zero_one_knapsack.hpp
   - tools/pow_mod_cache.hpp
   - tools/range_of_digit_products.hpp
   - tools/dynamic_bitset.hpp
@@ -228,6 +241,9 @@ data:
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/ceil.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

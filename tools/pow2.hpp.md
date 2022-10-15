@@ -56,6 +56,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
+  - icon: ':heavy_check_mark:'
+    path: tools/zero_one_knapsack.hpp
+    title: 0-1 knapsack problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
@@ -213,6 +216,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+    title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -242,6 +254,7 @@ data:
   - tools/lca.hpp
   - tools/bigdecimal.hpp
   - tools/rational.hpp
+  - tools/zero_one_knapsack.hpp
   - tools/persistent_dual_segtree.hpp
   - tools/tetration_mod.hpp
   - tools/binary_heap.hpp
@@ -290,6 +303,9 @@ data:
   - tests/line_2d/projection.test.cpp
   - tests/integer_interval_set.test.cpp
   - tests/ssize.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/tsp.test.cpp
   - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp

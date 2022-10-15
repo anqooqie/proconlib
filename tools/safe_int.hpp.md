@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
+  - icon: ':heavy_check_mark:'
+    path: tools/zero_one_knapsack.hpp
+    title: 0-1 knapsack problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_kth_root.test.cpp
@@ -18,6 +21,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+    title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -578,6 +590,7 @@ data:
   path: tools/safe_int.hpp
   requiredBy:
   - tools/ceil_kth_root.hpp
+  - tools/zero_one_knapsack.hpp
   - tools/floor_kth_root.hpp
   timestamp: '2022-07-03 14:14:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -585,6 +598,9 @@ data:
   - tests/floor_kth_root.test.cpp
   - tests/safe_int.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
 documentation_of: tools/safe_int.hpp
 layout: document
 title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq 0}

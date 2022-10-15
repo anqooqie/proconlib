@@ -455,6 +455,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
+    - icon: ':heavy_check_mark:'
+      path: tools/zero_one_knapsack.hpp
+      title: 0-1 knapsack problem
   - name: tools/detail
     pages:
     - icon: ':heavy_check_mark:'
@@ -949,5 +952,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/undirected.test.cpp
       title: tests/zero_one_bfs/undirected.test.cpp
+  - name: tests/zero_one_knapsack
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+      title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+      title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+      title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 layout: toppage
 ---
