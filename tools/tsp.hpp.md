@@ -38,7 +38,7 @@ data:
     \ T>&) = default;\n    tsp(::tools::tsp<Directed, T>&&) = default;\n    ~tsp()\
     \ = default;\n    ::tools::tsp<Directed, T>& operator=(const ::tools::tsp<Directed,\
     \ T>&) = default;\n    ::tools::tsp<Directed, T>& operator=(::tools::tsp<Directed,\
-    \ T>&&) = default;\n\n    tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
+    \ T>&&) = default;\n\n    explicit tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
     \ ::std::numeric_limits<::std::size_t>::max())) {\n      assert(n >= 2);\n   \
     \ }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
@@ -80,18 +80,18 @@ data:
     \            }\n          }\n        }\n      }\n\n      ::std::reverse(vids.begin(),\
     \ vids.end());\n      ::std::reverse(eids.begin(), eids.end());\n\n      return\
     \ res;\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_TSP\n#define TOOLS_TSP\n\n#include <cstddef>\n#include <vector>\n\
-    #include <limits>\n#include <cassert>\n#include <utility>\n#include <algorithm>\n\
-    #include <optional>\n#include <tuple>\n#include \"tools/pow2.hpp\"\n#include \"\
-    tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <bool Directed, typename\
-    \ T>\n  class tsp {\n  public:\n    struct edge {\n      ::std::size_t id;\n \
-    \     ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n    };\n\n\
-    \  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
+  code: "#ifndef TOOLS_TSP_HPP\n#define TOOLS_TSP_HPP\n\n#include <cstddef>\n#include\
+    \ <vector>\n#include <limits>\n#include <cassert>\n#include <utility>\n#include\
+    \ <algorithm>\n#include <optional>\n#include <tuple>\n#include \"tools/pow2.hpp\"\
+    \n#include \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <bool Directed,\
+    \ typename T>\n  class tsp {\n  public:\n    struct edge {\n      ::std::size_t\
+    \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
+    \ };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
     \ m_graph;\n\n  public:\n    tsp() = default;\n    tsp(const ::tools::tsp<Directed,\
     \ T>&) = default;\n    tsp(::tools::tsp<Directed, T>&&) = default;\n    ~tsp()\
     \ = default;\n    ::tools::tsp<Directed, T>& operator=(const ::tools::tsp<Directed,\
     \ T>&) = default;\n    ::tools::tsp<Directed, T>& operator=(::tools::tsp<Directed,\
-    \ T>&&) = default;\n\n    tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
+    \ T>&&) = default;\n\n    explicit tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
     \ ::std::numeric_limits<::std::size_t>::max())) {\n      assert(n >= 2);\n   \
     \ }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
@@ -139,7 +139,7 @@ data:
   isVerificationFile: false
   path: tools/tsp.hpp
   requiredBy: []
-  timestamp: '2022-10-15 14:53:38+09:00'
+  timestamp: '2022-10-15 15:02:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tsp.test.cpp

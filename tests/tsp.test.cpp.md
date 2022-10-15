@@ -48,7 +48,7 @@ data:
     \ T>&) = default;\n    tsp(::tools::tsp<Directed, T>&&) = default;\n    ~tsp()\
     \ = default;\n    ::tools::tsp<Directed, T>& operator=(const ::tools::tsp<Directed,\
     \ T>&) = default;\n    ::tools::tsp<Directed, T>& operator=(::tools::tsp<Directed,\
-    \ T>&&) = default;\n\n    tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
+    \ T>&&) = default;\n\n    explicit tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
     \ ::std::numeric_limits<::std::size_t>::max())) {\n      assert(n >= 2);\n   \
     \ }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
@@ -131,7 +131,7 @@ data:
   isVerificationFile: true
   path: tests/tsp.test.cpp
   requiredBy: []
-  timestamp: '2022-10-15 14:53:38+09:00'
+  timestamp: '2022-10-15 15:02:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsp.test.cpp
