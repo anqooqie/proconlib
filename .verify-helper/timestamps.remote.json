@@ -87,6 +87,7 @@
 "tests/line_2d/projection.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/lis.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/log_mod.test.cpp": "2022-10-09 16:03:42 +0900",
+"tests/logn_integer_partition.test.cpp": "2022-10-15 20:30:06 +0900",
 "tests/matrix/determinant.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/matrix/inv.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/matrix/multiplies.test.cpp": "2022-10-08 19:22:04 +0900",
