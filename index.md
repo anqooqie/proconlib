@@ -247,6 +247,10 @@ data:
       path: tools/log_mod.hpp
       title: $\log_x y \pmod{M}$
     - icon: ':heavy_check_mark:'
+      path: tools/logn_integer_partition.hpp
+      title: Multiset $S$ such that $\{S' \subseteq S | \sum_{x \in S'} x\} = \{0,
+        1, \ldots, N\}$ and $|S| = O(\log N)$
+    - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -607,6 +611,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/log_mod.test.cpp
       title: tests/log_mod.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/logn_integer_partition.test.cpp
+      title: tests/logn_integer_partition.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/median_heap.test.cpp
       title: tests/median_heap.test.cpp

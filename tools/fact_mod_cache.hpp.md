@@ -160,8 +160,8 @@ data:
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fact_mod_cache/combination.test.cpp
   - tests/fact_mod_cache/permutation.test.cpp
+  - tests/fact_mod_cache/combination.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
 title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},

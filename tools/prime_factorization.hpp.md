@@ -212,18 +212,18 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
-  - tools/totient.hpp
   - tools/tetration_mod.hpp
+  - tools/totient.hpp
   - tools/divisors.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/divisors.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/divisors.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document
 title: Pollard's rho algorithm
