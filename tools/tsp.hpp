@@ -1,5 +1,5 @@
-#ifndef TOOLS_TSP
-#define TOOLS_TSP
+#ifndef TOOLS_TSP_HPP
+#define TOOLS_TSP_HPP
 
 #include <cstddef>
 #include <vector>
@@ -36,7 +36,7 @@ namespace tools {
     ::tools::tsp<Directed, T>& operator=(const ::tools::tsp<Directed, T>&) = default;
     ::tools::tsp<Directed, T>& operator=(::tools::tsp<Directed, T>&&) = default;
 
-    tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n, ::std::numeric_limits<::std::size_t>::max())) {
+    explicit tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n, ::std::numeric_limits<::std::size_t>::max())) {
       assert(n >= 2);
     }
 
