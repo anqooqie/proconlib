@@ -1,37 +1,30 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/2891"
+#define PROBLEM "https://judge.yosupo.jp/problem/cycle_detection_undirected"
 
 #include <iostream>
-#include <vector>
+#include <cstddef>
 #include "tools/cycle_detection.hpp"
-
-using ll = long long;
+#include "tools/join.hpp"
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N;
-  std::cin >> N;
+  std::size_t N, M;
+  std::cin >> N >> M;
   tools::cycle_detection<false> graph(N);
-  for (ll i = 0; i < N; ++i) {
-    ll u, v;
+  for (std::size_t i = 0; i < M; ++i) {
+    std::size_t u, v;
     std::cin >> u >> v;
-    --u, --v;
     graph.add_edge(u, v);
   }
 
-  std::vector<bool> is_in_cycle(N, false);
-  for (const auto v : std::vector(graph.query()->first)) {
-    is_in_cycle[v] = true;
-  }
-
-  ll Q;
-  std::cin >> Q;
-  for (ll q = 0; q < Q; ++q) {
-    ll a, b;
-    std::cin >> a >> b;
-    --a, --b;
-    std::cout << (is_in_cycle[a] && is_in_cycle[b] ? 2 : 1) << '\n';
+  if (const auto answer = graph.query(); answer) {
+    const auto& [vids, eids] = *answer;
+    std::cout << vids.size() << '\n';
+    std::cout << tools::join(vids.begin(), vids.end(), " ") << '\n';
+    std::cout << tools::join(eids.begin(), eids.end(), " ") << '\n';
+  } else {
+    std::cout << -1 << '\n';
   }
 
   return 0;
