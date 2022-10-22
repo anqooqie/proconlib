@@ -67,6 +67,9 @@ namespace tools {
     int where(const ::tools::vector2<T>& p) const;
 
     template <typename T_, bool HasRadius_>
+    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::circle_2d<T_, false, HasRadius_>, ::std::vector<::tools::vector2<T_>>>>>
+    operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::circle_2d<T_, false, HasRadius_>& rhs);
+    template <typename T_, bool HasRadius_>
     friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>
     operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::line_2d<T_>& rhs);
     template <typename T_, bool HasRadius_>
@@ -406,6 +409,25 @@ namespace tools {
   template <typename T, bool Filled, bool HasRadius>
   int circle_2d<T, Filled, HasRadius>::where(const ::tools::vector2<T>& p) const {
     return ::tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());
+  }
+
+  template <typename T, bool HasRadius>
+  ::std::enable_if_t<::std::is_floating_point_v<T>, ::std::optional<::std::variant<::tools::circle_2d<T, false, HasRadius>, ::std::vector<::tools::vector2<T>>>>>
+  operator&(const ::tools::circle_2d<T, false, HasRadius>& lhs, const ::tools::circle_2d<T, false, HasRadius>& rhs) {
+    using variant_t = ::std::variant<::tools::circle_2d<T, false, HasRadius>, ::std::vector<::tools::vector2<T>>>;
+    using result_t = ::std::optional<variant_t>;
+
+    const auto t = lhs.where(rhs).first;
+    if (t == ::std::numeric_limits<int>::max()) return result_t(variant_t(lhs));
+    if (t == 0 || t == 4) return ::std::nullopt;
+
+    const auto& x1 = lhs.m_center.x;
+    const auto& y1 = lhs.m_center.y;
+    const auto& x2 = rhs.m_center.x;
+    const auto& y2 = rhs.m_center.y;
+    const ::tools::line_2d<T> l(2 * (x2 - x1), 2 * (y2 - y1), (x1 + x2) * (x1 - x2) + (y1 + y2) * (y1 - y2) + rhs.m_squared_radius - lhs.m_squared_radius);
+
+    return result_t(variant_t(lhs & l));
   }
 
   template <typename T, bool HasRadius>

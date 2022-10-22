@@ -138,13 +138,16 @@ $$\begin{align*}
 
 ## operator&
 ```cpp
-(1) std::vector<tools::vector2<T>> operator&(circle_2d<T, false> t, tools::line_2d<T> t);
-(2) std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(circle_2d<T, true> s, tools::line_2d<T> t);
+(1) std::optional<std::variant<circle_2d<T, false, HasRadius>, std::vector<tools::vector2<T>>>> operator&(circle_2d<T, false, HasRadius> s, circle_2d<T, false, HasRadius> t);
+(2) std::vector<tools::vector2<T>> operator&(circle_2d<T, false> s, tools::line_2d<T> t);
+(3) std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>> operator&(circle_2d<T, true> s, tools::line_2d<T> t);
 ```
 
 - (1)
-    - It returns the intersections of $s$ and $t$.
+    - If there are intersections of $s$ and $t$, it returns the intersections. Otherwise, it returns `std::nullopt`.
 - (2)
+    - It returns the intersections of $s$ and $t$.
+- (3)
     - If there is an intersection of $s$ and $t$, it returns the intersection. Otherwise, it returns `std::nullopt`.
 
 ### Constraints
