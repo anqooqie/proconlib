@@ -2,6 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_log2.hpp
+    title: $\left\lceil \log_2(x) \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/convolution.hpp
+    title: Arbitrary modulus convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/fps.hpp
+    title: Formal power series
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -12,6 +21,9 @@ data:
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
+    path: tools/pow2.hpp
+    title: $2^x$
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -20,74 +32,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: tools/fps.hpp
-    title: Formal power series
-  - icon: ':heavy_check_mark:'
-    path: tools/nth_term.hpp
-    title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
-    path: tools/partition_function.hpp
-    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
-    path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    path: tools/ssize.hpp
+    title: Polyfill of std::ssize
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/convolution/mod1000000007.test.cpp
-    title: tests/convolution/mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/convolution/mod998244353.test.cpp
-    title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod1000000007.test.cpp
-    title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod998244353.test.cpp
-    title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod1000000007.test.cpp
-    title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod998244353.test.cpp
-    title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod1000000007.test.cpp
-    title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod998244353.test.cpp
-    title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod1000000007.test.cpp
-    title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod998244353.test.cpp
-    title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/nth_term.test.cpp
-    title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function.test.cpp
     title: tests/partition_function.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cassert>\n#include <algorithm>\n#include <cstddef>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+  bundledCode: "#line 1 \"tools/partition_function.hpp\"\n\n\n\n#include <cassert>\n\
+    #line 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#line 6 \"tools/fps.hpp\"\n\
+    #include <algorithm>\n#include <iterator>\n#include <utility>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 7 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <type_traits>\n#line\
+    \ 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
+    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
+    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
+    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
+    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
+    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
+    }  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\
+    \n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7\
+    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
+    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
+    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
     \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
@@ -287,20 +268,7 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
-    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
-    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
-    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
-    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
-    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
-    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
-    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
     \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
     \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
@@ -445,7 +413,8 @@ data:
     \     if (diff < 0) diff += MOD1;\n        static constexpr unsigned long long\
     \ offset[5] = {\n            0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};\n        x\
     \ -= offset[diff % 5];\n        c[i] = x;\n    }\n\n    return c;\n}\n\n}  //\
-    \ namespace atcoder\n\n\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\
+    \ namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 8 \"tools/convolution.hpp\"\
+    \n#include <cstddef>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\
     \n\n\n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
     \  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128\
     \ = unsigned __int128;\n    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >=\
@@ -520,91 +489,277 @@ data:
     \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
     \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
     \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cassert>\n#include <algorithm>\n\
-    #include <cstddef>\n#include \"atcoder/modint.hpp\"\n#include \"atcoder/convolution.hpp\"\
-    \n#include \"tools/is_prime.hpp\"\n#include \"tools/garner3.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename InputIterator, typename OutputIterator>\n  void\
-    \ convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator\
-    \ b_begin, const InputIterator b_end, OutputIterator result) {\n    using M =\
-    \ ::std::decay_t<decltype(*a_begin)>;\n    using M1 = ::atcoder::static_modint<1107296257>;\
-    \ // 33 * 2^25 + 1\n    using M2 = ::atcoder::static_modint<1711276033>; // 51\
-    \ * 2^25 + 1\n    using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26\
-    \ + 1\n\n    // return maximum 2^k s.t. x = 1 (mod 2^k)\n    static const auto\
-    \ pow2_k = [](const unsigned long long x) {\n      return (x - 1) & -(x - 1);\n\
-    \    };\n\n    ::std::vector<M> a(a_begin, a_end);\n    ::std::vector<M> b(b_begin,\
-    \ b_end);\n\n    if (::tools::is_prime(M::mod()) && a.size() + b.size() <= pow2_k(M::mod())\
-    \ + 1) {\n      for (const auto& c_i : ::atcoder::convolution(a, b)) {\n     \
-    \   *result = c_i;\n        ++result;\n      }\n      return;\n    }\n\n    assert(a.size()\
-    \ + b.size() <= ::std::min({pow2_k(M1::mod()), pow2_k(M2::mod()), pow2_k(M3::mod())})\
-    \ + 1);\n\n    // No need for the following assertion because the condition always\
-    \ holds.\n    // assert(std::min(a.size(), b.size()) * tools::square(M::mod()\
-    \ - 1) < M1::mod() * M2::mod() * M3::mod());\n\n    ::std::vector<M1> a1;\n  \
-    \  ::std::vector<M2> a2;\n    ::std::vector<M3> a3;\n    a1.reserve(a.size());\n\
-    \    a2.reserve(a.size());\n    a3.reserve(a.size());\n    for (const auto& a_i\
-    \ : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
-    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
-    \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
-    \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
-    \      b2.emplace_back(b_i.val());\n      b3.emplace_back(b_i.val());\n    }\n\
-    \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
-    \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
-    \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n#endif\n"
+    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\
+    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
+    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
+    \n\n\n\n#line 6 \"tools/ceil_log2.hpp\"\n#include <limits>\n#include <tuple>\n\
+    #line 9 \"tools/ceil_log2.hpp\"\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::ceil_log2<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      constexpr auto t = ::std::make_tuple(\n        ::std::array<::std::uint8_t,\
+    \ 3>({\n          UINT8_C(0xf0),\n          UINT8_C(0x0c),\n          UINT8_C(0x02)\n\
+    \        }),\n        ::std::array<::std::uint16_t, 4>({\n          UINT16_C(0xff00),\n\
+    \          UINT16_C(0x00f0),\n          UINT16_C(0x000c),\n          UINT16_C(0x0002)\n\
+    \        }),\n        ::std::array<::std::uint32_t, 5>({\n          UINT32_C(0xffff0000),\n\
+    \          UINT32_C(0x0000ff00),\n          UINT32_C(0x000000f0),\n          UINT32_C(0x0000000c),\n\
+    \          UINT32_C(0x00000002)\n        }),\n        ::std::array<::std::uint64_t,\
+    \ 6>({\n          UINT64_C(0xffffffff00000000),\n          UINT64_C(0x00000000ffff0000),\n\
+    \          UINT64_C(0x000000000000ff00),\n          UINT64_C(0x00000000000000f0),\n\
+    \          UINT64_C(0x000000000000000c),\n          UINT64_C(0x0000000000000002)\n\
+    \        })\n      );\n\n      T y = (((x & (x - 1)) == 0) ? 0 : 1);\n      T\
+    \ j = ::std::numeric_limits<T>::digits / 2;\n\n      for (const auto t_i : ::std::get<log2(::std::numeric_limits<T>::digits)\
+    \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
+    \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
+    \n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 14 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
+    // License: CC0\n// Author: opt\n\nnamespace tools {\n  template <typename M>\n\
+    \  class fps : public ::std::vector<M> {\n  private:\n    using F = ::tools::fps<M>;\n\
+    \n  public:\n    using ::std::vector<M>::vector;\n    using ::std::vector<M>::operator=;\n\
+    \n    F operator-() const {\n      F res(*this);\n      for (auto& e : res) {\n\
+    \        e = -e;\n      }\n      return res;\n    }\n    F& operator*=(const M&\
+    \ g) {\n      for (auto& e : *this) {\n        e *= g;\n      }\n      return\
+    \ *this;\n    }\n    F& operator/=(const M& g) {\n      assert(g != M(0));\n \
+    \     *this *= g.inv();\n      return *this;\n    }\n    F& operator+=(const F&\
+    \ g) {\n      const int n = this->size();\n      const int m = g.size();\n   \
+    \   for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n\
+    \      }\n      return *this;\n    }\n    F& operator-=(const F& g) {\n      const\
+    \ int n = this->size();\n      const int m = g.size();\n      for (int i = 0;\
+    \ i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n      }\n      return\
+    \ *this;\n    }\n    F& operator<<=(const int d) {\n      const int n = this->size();\n\
+    \      this->insert(this->begin(), d, 0);\n      this->resize(n);\n      return\
+    \ *this;\n    }\n    F& operator>>=(const int d) {\n      const int n = this->size();\n\
+    \      this->erase(this->begin(), this->begin() + ::std::min(n, d));\n      this->resize(n);\n\
+    \      return *this;\n    }\n    F& multiply_inplace(const F& g, int d = -1) {\n\
+    \      const int n = this->size();\n      if (d == -1) d = n;\n      assert(d\
+    \ >= 0);\n      F res;\n      ::tools::convolution(this->cbegin(), this->cend(),\
+    \ g.cbegin(), g.cend(), ::std::back_inserter(res));\n      res.resize(d);\n  \
+    \    *this = ::std::move(res);\n      return *this;\n    }\n    F multiply(const\
+    \ F& g, const int d = -1) const { return F(*this).multiply_inplace(g, d); }\n\n\
+    \    F inv(int d = -1) const {\n      const int n = this->size();\n      assert(n\
+    \ != 0 && (*this)[0] != M(0));\n      if (d == -1) d = n;\n      assert(d > 0);\n\
+    \n      // return maximum 2^k s.t. x = 1 (mod 2^k)\n      static const auto pow2_k\
+    \ = [](const unsigned int x) -> int {\n        return (x - 1) & -(x - 1);\n  \
+    \    };\n\n      // If M is an NTT-friendly prime, we use a faster algorithm.\n\
+    \      if (::tools::is_prime(M::mod()) && ::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod()) + 1) {\n        F res{(*this)[0].inv()};\n        for (int\
+    \ m = 1; m < d; m *= 2) {\n          F f(this->begin(), this->begin() + ::std::min(n,\
+    \ 2 * m));\n          F r(res);\n          f.resize(2 * m);\n          ::atcoder::internal::butterfly(f);\n\
+    \          r.resize(2 * m);\n          ::atcoder::internal::butterfly(r);\n  \
+    \        for (int i = 0; i < 2 * m; ++i) {\n            f[i] *= r[i];\n      \
+    \    }\n          ::atcoder::internal::butterfly_inv(f);\n          f.erase(f.begin(),\
+    \ f.begin() + m);\n          f.resize(2 * m);\n          ::atcoder::internal::butterfly(f);\n\
+    \          for (int i = 0; i < 2 * m; ++i) {\n            f[i] *= r[i];\n    \
+    \      }\n          ::atcoder::internal::butterfly_inv(f);\n          M iz = M(2\
+    \ * m).inv();\n          iz *= -iz;\n          for (int i = 0; i < m; ++i) {\n\
+    \            f[i] *= iz;\n          }\n          res.insert(res.end(), f.begin(),\
+    \ f.begin() + m);\n        }\n        res.resize(d);\n        return res;\n  \
+    \    }\n\n      F res{(*this)[0].inv()};\n      for (int m = 1; m < d; m *= 2)\
+    \ {\n        F f(this->begin(), this->begin() + ::std::min(n, 2 * m));\n     \
+    \   f *= -1;\n        F r(res);\n        r.multiply_inplace(r, 2 * m);\n     \
+    \   r.multiply_inplace(f);\n        r += res;\n        r += res;\n        res\
+    \ = ::std::move(r);\n      }\n      res.resize(d);\n      return res;\n    }\n\
+    \n    F& divide_inplace(const F& g, int d = -1) {\n      const int n = this->size();\n\
+    \      if (d == -1) d = n;\n      assert(d >= 0);\n      const auto g_inv = g.inv(n);\n\
+    \      F res;\n      ::tools::convolution(this->cbegin(), this->cend(), g_inv.cbegin(),\
+    \ g_inv.cend(), ::std::back_inserter(res));\n      res.resize(d);\n      return\
+    \ *this;\n    }\n    F divide(const F& g, const int d = -1) const { return F(*this).divide_inplace(g,\
+    \ d); }\n\n    // sparse\n    F& multiply_inplace(::std::vector<::std::pair<int,\
+    \ M>> g) {\n      const int n = this->size();\n      auto [d, c] = g.front();\n\
+    \      if (d == 0) {\n        g.erase(g.begin());\n      } else {\n        c =\
+    \ 0;\n      }\n      for (int i = n - 1; i >= 0; --i) {\n        (*this)[i] *=\
+    \ c;\n        for (auto& [j, b] : g) {\n          if (j > i) break;\n        \
+    \  (*this)[i] += (*this)[i - j] * b;\n        }\n      }\n      return *this;\n\
+    \    }\n    F multiply(const ::std::vector<::std::pair<int, M>>& g) const { return\
+    \ F(*this).multiply_inplace(g); }\n\n    F& divide_inplace(::std::vector<::std::pair<int,\
+    \ M>> g) {\n      const int n = this->size();\n      auto [d, c] = g.front();\n\
+    \      assert(d == 0 && c != M(0));\n      const M ic = c.inv();\n      g.erase(g.begin());\n\
+    \      for (int i = 0; i < n; ++i) {\n        for (auto& [j, b] : g) {\n     \
+    \     if (j > i) break;\n          (*this)[i] -= (*this)[i - j] * b;\n       \
+    \ }\n        (*this)[i] *= ic;\n      }\n      return *this;\n    }\n    F divide(const\
+    \ ::std::vector<::std::pair<int, M>>& g) const { return F(*this).divide_inplace(g);\
+    \ }\n\n    // multiply and divide (1 + cz^d)\n    void multiply_inplace(const\
+    \ int d, const M c) {\n      const int n = this->size();\n      if (c == M(1))\
+    \ {\n        for (int i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d]\
+    \ += (*this)[i];\n        }\n      } else if (c == M(-1)) {\n        for (int\
+    \ i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d] -= (*this)[i];\n   \
+    \     }\n      } else {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
+    \      (*this)[i + d] += (*this)[i] * c;\n        }\n      }\n    }\n    void\
+    \ divide_inplace(const int d, const M c) {\n      const int n = this->size();\n\
+    \      if (c == M(1)) {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
+    \      (*this)[i + d] -= (*this)[i];\n        }\n      } else if (c == M(-1))\
+    \ {\n        for (int i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d]\
+    \ += (*this)[i];\n        }\n      } else {\n        for (int i = n - d - 1; i\
+    \ >= 0; --i) {\n          (*this)[i + d] -= (*this)[i] * c;\n        }\n     \
+    \ }\n    }\n\n    M eval(const M& a) const {\n      M x(1);\n      M res(0);\n\
+    \      for (auto e : *this) {\n        res += e * x;\n        x *= a;\n      }\n\
+    \      return res;\n    }\n\n    F& integral_inplace() {\n      const int n =\
+    \ this->size();\n      assert(n > 0);\n      if (n == 1) return *this = F{0};\n\
+    \      this->insert(this->begin(), 0);\n      this->pop_back();\n      ::std::vector<M>\
+    \ inv(n);\n      inv[1] = M(1);\n      int p = M::mod();\n      for (int i = 2;\
+    \ i < n; ++i) {\n        inv[i] = -inv[p % i] * (p / i);\n      }\n      for (int\
+    \ i = 2; i < n; ++i) {\n        (*this)[i] *= inv[i];\n      }\n      return *this;\n\
+    \    }\n    F integral() const { return F(*this).integral_inplace(); }\n\n   \
+    \ F& derivative_inplace() {\n      const int n = this->size();\n      assert(n\
+    \ > 0);\n      for (int i = 2; i < n; ++i) {\n        (*this)[i] *= i;\n     \
+    \ }\n      this->erase(this->begin());\n      this->push_back(0);\n      return\
+    \ *this;\n    }\n    F derivative() const { return F(*this).derivative_inplace();\
+    \ }\n\n    F& log_inplace(int d = -1) {\n      const int n = this->size();\n \
+    \     assert(n > 0 && (*this)[0] == 1);\n      if (d == -1) d = n;\n      assert(d\
+    \ >= 0);\n      if (d < n) this->resize(d);\n      const F f_inv = this->inv();\n\
+    \      this->derivative_inplace();\n      this->multiply_inplace(f_inv);\n   \
+    \   this->integral_inplace();\n      return *this;\n    }\n    F log(const int\
+    \ d = -1) const { return F(*this).log_inplace(d); }\n\n    F& exp_inplace(int\
+    \ d = -1) {\n      const int n = this->size();\n      assert(n > 0 && (*this)[0]\
+    \ == 0);\n      if (d == -1) d = n;\n      assert(d >= 0);\n\n      // return\
+    \ maximum 2^k s.t. x = 1 (mod 2^k)\n      static const auto pow2_k = [](const\
+    \ unsigned int x) -> int {\n        return (x - 1) & -(x - 1);\n      };\n\n \
+    \     // If M is an NTT-friendly prime, we use a faster algorithm.\n      if (::tools::is_prime(M::mod())\
+    \ && ::tools::pow2(::tools::ceil_log2(d)) <= pow2_k(M::mod()) + 1) {\n       \
+    \ F g{1}, g_fft{1, 1};\n        (*this)[0] = 1;\n        this->resize(d);\n  \
+    \      F h_drv(this->derivative());\n        for (int m = 2; m < d; m *= 2) {\n\
+    \          // prepare\n          F f_fft(this->begin(), this->begin() + m);\n\
+    \          f_fft.resize(2 * m);\n          ::atcoder::internal::butterfly(f_fft);\n\
+    \n          // Step 2.a'\n          {\n            F g_(m);\n            for (int\
+    \ i = 0; i < m; ++i) {\n              g_[i] = f_fft[i] * g_fft[i];\n         \
+    \   }\n            ::atcoder::internal::butterfly_inv(g_);\n            g_.erase(g_.begin(),\
+    \ g_.begin() + m / 2);\n            g_.resize(m);\n            ::atcoder::internal::butterfly(g_);\n\
+    \            for (int i = 0; i < m; ++i) {\n              g_[i] *= g_fft[i];\n\
+    \            }\n            ::atcoder::internal::butterfly_inv(g_);\n        \
+    \    g_.resize(m / 2);\n            g_ /= M(-m) * m;\n            g.insert(g.end(),\
+    \ g_.begin(), g_.begin() + m / 2);\n          }\n\n          // Step 2.b'--d'\n\
+    \          F t(this->begin(), this->begin() + m);\n          t.derivative_inplace();\n\
+    \          {\n            // Step 2.b'\n            F r{h_drv.begin(), h_drv.begin()\
+    \ + m - 1};\n            // Step 2.c'\n            r.resize(m);\n            ::atcoder::internal::butterfly(r);\n\
+    \            for (int i = 0; i < m; ++i) {\n              r[i] *= f_fft[i];\n\
+    \            }\n            ::atcoder::internal::butterfly_inv(r);\n         \
+    \   r /= -m;\n            // Step 2.d'\n            t += r;\n            t.insert(t.begin(),\
+    \ t.back());\n            t.pop_back();\n          }\n\n          // Step 2.e'\n\
+    \          if (2 * m < d) {\n            t.resize(2 * m);\n            ::atcoder::internal::butterfly(t);\n\
+    \            g_fft = g;\n            g_fft.resize(2*m);\n            ::atcoder::internal::butterfly(g_fft);\n\
+    \            for (int i = 0; i < 2 * m; ++i) {\n              t[i] *= g_fft[i];\n\
+    \            }\n            ::atcoder::internal::butterfly_inv(t);\n         \
+    \   t.resize(m);\n            t /= 2 * m;\n          } else { // \u3053\u306E\u5834\
+    \u5408\u5206\u3051\u3092\u3057\u3066\u3082\u6570\u30D1\u30FC\u30BB\u30F3\u30C8\
+    \u3057\u304B\u901F\u304F\u306A\u3089\u306A\u3044\n            F g1(g.begin() +\
+    \ m / 2, g.end());\n            F s1(t.begin() + m / 2, t.end());\n          \
+    \  t.resize(m/2);\n            g1.resize(m);\n            ::atcoder::internal::butterfly(g1);\n\
+    \            t.resize(m);\n            ::atcoder::internal::butterfly(t);\n  \
+    \          s1.resize(m);\n            ::atcoder::internal::butterfly(s1);\n  \
+    \          for (int i = 0; i < m; ++i) {\n              s1[i] = g_fft[i] * s1[i]\
+    \ + g1[i] * t[i];\n            }\n            for (int i = 0; i < m; ++i) {\n\
+    \              t[i] *= g_fft[i];\n            }\n            ::atcoder::internal::butterfly_inv(t);\n\
+    \            ::atcoder::internal::butterfly_inv(s1);\n            for (int i =\
+    \ 0; i < m / 2; ++i) {\n              t[i + m / 2] += s1[i];\n            }\n\
+    \            t /= m;\n          }\n\n          // Step 2.f'\n          F v(this->begin()\
+    \ + m, this->begin() + ::std::min<int>(d, 2 * m));\n          v.resize(m);\n \
+    \         t.insert(t.begin(), m - 1, 0);\n          t.push_back(0);\n        \
+    \  t.integral_inplace();\n          for (int i = 0; i < m; ++i) {\n          \
+    \  v[i] -= t[m + i];\n          }\n\n          // Step 2.g'\n          v.resize(2\
+    \ * m);\n          ::atcoder::internal::butterfly(v);\n          for (int i =\
+    \ 0; i < 2 * m; ++i) {\n            v[i] *= f_fft[i];\n          }\n         \
+    \ ::atcoder::internal::butterfly_inv(v);\n          v.resize(m);\n          v\
+    \ /= 2 * m;\n\n          // Step 2.h'\n          for (int i = 0; i < ::std::min(d\
+    \ - m, m); ++i) {\n            (*this)[m + i] = v[i];\n          }\n        }\n\
+    \        return *this;\n      }\n\n      F g{1};\n      for (int m = 1; m < d;\
+    \ m *= 2) {\n        F r(g);\n        r.resize(2 * m);\n        r.log_inplace();\n\
+    \        r *= -1;\n        r += F(this->begin(), this->begin() + ::std::min(n,\
+    \ 2 * m));\n        ++r[0];\n        r.multiply_inplace(g);\n        g = ::std::move(r);\n\
+    \      }\n      g.resize(d);\n      *this = ::std::move(g);\n      return *this;\n\
+    \    }\n    F exp(const int d = -1) const { return F(*this).exp_inplace(d); }\n\
+    \n    F& pow_inplace(const long long k, int d = -1) {\n      const int n = this->size();\n\
+    \      if (d == -1) d = n;\n      assert(d >= 0 && k >= 0);\n      if (d == 0)\
+    \ {\n        return *this = F(0);\n      }\n      if (k == 0) {\n        *this\
+    \ = F(d);\n        (*this)[0] = M(1);\n        return *this;\n      }\n      int\
+    \ l = 0;\n      while (l < n && (*this)[l] == M(0)) ++l;\n      if (l == n ||\
+    \ l > (d - 1) / k) {\n        return *this = F(d);\n      }\n      M c{(*this)[l]};\n\
+    \      this->erase(this->begin(), this->begin() + l);\n      *this /= c;\n   \
+    \   this->log_inplace(d - l * k);\n      *this *= k;\n      this->exp_inplace();\n\
+    \      *this *= c.pow(k);\n      this->insert(this->begin(), l * k, 0);\n    \
+    \  return *this;\n    }\n    F pow(const long long k, const int d = -1) const\
+    \ { return F(*this).pow_inplace(k, d); }\n\n    F operator*(const M& g) const\
+    \ { return F(*this) *= g; }\n    F operator/(const M& g) const { return F(*this)\
+    \ /= g; }\n    F operator+(const F& g) const { return F(*this) += g; }\n    F\
+    \ operator-(const F& g) const { return F(*this) -= g; }\n    F operator<<(const\
+    \ int d) const { return F(*this) <<= d; }\n    F operator>>(const int d) const\
+    \ { return F(*this) >>= d; }\n  };\n}\n\n\n#line 6 \"tools/partition_function.hpp\"\
+    \n\nnamespace tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
+    \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
+    \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
+    \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
+    \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
+    \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
+    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n}\n\
+    \n\n"
+  code: "#ifndef TOOLS_PARTITION_FUNCTION_HPP\n#define TOOLS_PARTITION_FUNCTION_HPP\n\
+    \n#include <cassert>\n#include \"tools/fps.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename M>\n  ::tools::fps<M> partition_function(const int n) {\n    assert(n\
+    \ >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod() == 1) return p;\n\n\
+    \    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n; k += 2) --p[k * (3\
+    \ * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <= n; k += 2) ++p[k\
+    \ * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) / 2 <= n; k += 2) --p[k\
+    \ * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k - 1) / 2 <= n; k += 2) ++p[k\
+    \ * (3 * k - 1) / 2];\n    return p.inv();\n  }\n}\n\n#endif\n"
   dependsOn:
+  - tools/fps.hpp
+  - tools/convolution.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
   - tools/garner3.hpp
+  - tools/pow2.hpp
+  - tools/ceil_log2.hpp
+  - tools/ssize.hpp
   isVerificationFile: false
-  path: tools/convolution.hpp
-  requiredBy:
-  - tools/nth_term.hpp
-  - tools/fps.hpp
-  - tools/stirling_2nd.hpp
-  - tools/partition_function.hpp
-  timestamp: '2022-10-08 19:22:04+09:00'
+  path: tools/partition_function.hpp
+  requiredBy: []
+  timestamp: '2022-10-22 14:11:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/partition_function.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/nth_term.test.cpp
-documentation_of: tools/convolution.hpp
+documentation_of: tools/partition_function.hpp
 layout: document
-title: Arbitrary modulus convolution
+title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
 ---
 
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
+template <typename M>
+tools::fps<M> partition_function(int n);
 ```
 
-Given two sequences $(a_0, a_1, \ldots, a_{N - 1})$ and $(b_0, b_1, \ldots, b_{M - 1})$ under $\mathbb{Z}/m\mathbb{Z}$, it returns the sequence $(c_0, c_1, \ldots, c_{N + M - 2})$ under $\mathbb{Z}/m\mathbb{Z}$ where
-
-$$\begin{align*}
-c_i = \sum_{j = 0}^i a_j b_{i - j}
-\end{align*}$$
+It returns values of the partition function $P(k, k)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $k$ such that $0 \leq k \leq n$.
 
 ## Constraints
-- `std::decay_t<decltype(*a_begin)>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- `std::decay_t<decltype(*a_begin)>` is assignable to `*result`.
-- $N + M \leq 2^{25} + 1 = 33554433$
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $n \geq 0$
 
 ## Time Complexity
-- $O((N + M) \log (N + M))$
+- $O(n \log n)$
+
+## Algorithm
+The following equation holds.
+
+$$\begin{align*}
+P(k, k) &= [x^k] \prod_{i = 0}^\infty \sum_{j = 0}^\infty x^{ij}\\
+&= [x^k] \prod_{i = 0}^\infty \frac{1}{1 - x^i}\\
+&= [x^k] \frac{1}{\prod_{i = 0}^\infty (1 - x^i)}\\
+&= [x^k] \frac{1}{1 + \sum_{i = 1}^\infty (-1)^i \left(x^\frac{i (3i + 1)}{2} + x^\frac{i (3i - 1)}{2}\right)} & \text{(by the Euler's pentagonal number theorem)}
+\end{align*}$$
+
+Therefore, $P(k, k)$ can be calculated by inversion of the formal power series.
 
 ## License
 - CC0

@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/cycle_detection/undirected.test.cpp
+    title: tests/cycle_detection/undirected.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
   - icon: ':heavy_check_mark:'
@@ -35,6 +38,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tree_diameter.test.cpp
+  - tests/cycle_detection/undirected.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
 documentation_of: tools/join.hpp
 layout: document

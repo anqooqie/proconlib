@@ -302,6 +302,9 @@ data:
       path: tools/pair_hash.hpp
       title: Hash of std::pair
     - icon: ':heavy_check_mark:'
+      path: tools/partition_function.hpp
+      title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+    - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
     - icon: ':heavy_check_mark:'
@@ -407,6 +410,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
+    - icon: ':heavy_check_mark:'
+      path: tools/stirling_2nd.hpp
+      title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k
+        \leq n$
     - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
@@ -636,6 +643,9 @@ data:
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/partition_function.test.cpp
+      title: tests/partition_function.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
     - icon: ':heavy_check_mark:'
@@ -692,6 +702,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/stirling_2nd.test.cpp
+      title: tests/stirling_2nd.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp

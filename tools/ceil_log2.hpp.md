@@ -21,8 +21,15 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/partition_function.hpp
+    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_2nd.hpp
+    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
@@ -70,11 +77,17 @@ data:
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/partition_function.test.cpp
+    title: tests/partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd.test.cpp
+    title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -135,33 +148,37 @@ data:
   isVerificationFile: false
   path: tools/ceil_log2.hpp
   requiredBy:
+  - tools/dual_segtree.hpp
+  - tools/lca.hpp
   - tools/li_chao_segtree.hpp
   - tools/fps.hpp
-  - tools/dual_segtree.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/lca.hpp
-  - tools/binary_heap.hpp
+  - tools/stirling_2nd.hpp
+  - tools/partition_function.hpp
   - tools/persistent_dual_segtree.hpp
+  - tools/binary_heap.hpp
+  - tools/disjoint_sparse_table.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/ceil_log2.test.cpp
-  - tests/binary_heap.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/partition_function.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/inv_mod1000000007.test.cpp
-  - tests/lca.test.cpp
-  - tests/dual_segtree.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/stirling_2nd.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
-  - tests/ssize.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/dual_segtree.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/lca.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/ssize.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

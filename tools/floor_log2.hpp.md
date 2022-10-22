@@ -130,29 +130,29 @@ data:
   isVerificationFile: false
   path: tools/floor_log2.hpp
   requiredBy:
-  - tools/log_mod.hpp
-  - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
-  - tools/totient.hpp
-  - tools/divisors.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/lca.hpp
   - tools/extended_lucas.hpp
+  - tools/lca.hpp
+  - tools/tetration_mod.hpp
+  - tools/log_mod.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/prime_factorization.hpp
+  - tools/divisors.hpp
+  - tools/totient.hpp
+  - tools/disjoint_sparse_table.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/divisors.test.cpp
-  - tests/lca.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
   - tests/log_mod.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/divisors.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/totient.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/lca.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

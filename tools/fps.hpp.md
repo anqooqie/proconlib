@@ -32,7 +32,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/partition_function.hpp
+    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_2nd.hpp
+    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
@@ -58,6 +65,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/partition_function.test.cpp
+    title: tests/partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd.test.cpp
+    title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -900,18 +913,22 @@ data:
   - tools/ssize.hpp
   isVerificationFile: false
   path: tools/fps.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/stirling_2nd.hpp
+  - tools/partition_function.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/partition_function.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/stirling_2nd.test.cpp
 documentation_of: tools/fps.hpp
 layout: document
 title: Formal power series

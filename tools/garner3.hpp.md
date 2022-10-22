@@ -26,6 +26,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/partition_function.hpp
+    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_2nd.hpp
+    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod1000000007.test.cpp
@@ -60,6 +67,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/partition_function.test.cpp
+    title: tests/partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd.test.cpp
+    title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -142,22 +155,26 @@ data:
   isVerificationFile: false
   path: tools/garner3.hpp
   requiredBy:
-  - tools/fps.hpp
   - tools/nth_term.hpp
+  - tools/fps.hpp
+  - tools/stirling_2nd.hpp
+  - tools/partition_function.hpp
   - tools/convolution.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/partition_function.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
   - tests/nth_term.test.cpp
 documentation_of: tools/garner3.hpp
 layout: document
