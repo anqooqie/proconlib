@@ -1,9 +1,9 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind"
+#define PROBLEM "https://judge.yosupo.jp/problem/partition_function"
 
 #include <iostream>
 #include <string>
 #include "atcoder/modint.hpp"
-#include "tools/stirling_2nd.hpp"
+#include "tools/partition_function.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -15,7 +15,7 @@ int main() {
   std::cin >> N;
 
   std::string delimiter = "";
-  for (const auto s : tools::stirling_2nd<mint>(N)) {
+  for (const auto s : tools::partition_function<mint>(N)) {
     std::cout << delimiter << s.val();
     delimiter = " ";
   }

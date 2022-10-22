@@ -1,7 +1,6 @@
 #ifndef TOOLS_STIRLING_2ND_HPP
 #define TOOLS_STIRLING_2ND_HPP
 
-#include <cstddef>
 #include <cassert>
 #include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
