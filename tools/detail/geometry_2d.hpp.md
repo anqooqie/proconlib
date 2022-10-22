@@ -46,6 +46,9 @@ data:
     title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_circle.test.cpp
+    title: tests/circle_2d/intersection_to_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/circle_2d/intersection_to_line.test.cpp
     title: tests/circle_2d/intersection_to_line.test.cpp
   - icon: ':heavy_check_mark:'
@@ -255,7 +258,11 @@ data:
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
     \ ::tools::circle_2d<T, Filled, HasRadius>& other) const;\n    int where(const\
     \ ::tools::vector2<T>& p) const;\n\n    template <typename T_, bool HasRadius_>\n\
-    \    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>\n\
+    \    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::circle_2d<T_,\
+    \ false, HasRadius_>, ::std::vector<::tools::vector2<T_>>>>>\n    operator&(const\
+    \ ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::circle_2d<T_,\
+    \ false, HasRadius_>& rhs);\n    template <typename T_, bool HasRadius_>\n   \
+    \ friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>\n\
     \    operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::line_2d<T_>&\
     \ rhs);\n    template <typename T_, bool HasRadius_>\n    friend ::std::enable_if_t<::std::is_floating_point_v<T_>,\
     \ ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>\n\
@@ -467,6 +474,18 @@ data:
     \ Filled, HasRadius>::where(const ::tools::vector2<T>& p) const {\n    return\
     \ ::tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());\n\
     \  }\n\n  template <typename T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ ::std::optional<::std::variant<::tools::circle_2d<T, false, HasRadius>, ::std::vector<::tools::vector2<T>>>>>\n\
+    \  operator&(const ::tools::circle_2d<T, false, HasRadius>& lhs, const ::tools::circle_2d<T,\
+    \ false, HasRadius>& rhs) {\n    using variant_t = ::std::variant<::tools::circle_2d<T,\
+    \ false, HasRadius>, ::std::vector<::tools::vector2<T>>>;\n    using result_t\
+    \ = ::std::optional<variant_t>;\n\n    const auto t = lhs.where(rhs).first;\n\
+    \    if (t == ::std::numeric_limits<int>::max()) return result_t(variant_t(lhs));\n\
+    \    if (t == 0 || t == 4) return ::std::nullopt;\n\n    const auto& x1 = lhs.m_center.x;\n\
+    \    const auto& y1 = lhs.m_center.y;\n    const auto& x2 = rhs.m_center.x;\n\
+    \    const auto& y2 = rhs.m_center.y;\n    const ::tools::line_2d<T> l(2 * (x2\
+    \ - x1), 2 * (y2 - y1), (x1 + x2) * (x1 - x2) + (y1 + y2) * (y1 - y2) + rhs.m_squared_radius\
+    \ - lhs.m_squared_radius);\n\n    return result_t(variant_t(lhs & l));\n  }\n\n\
+    \  template <typename T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ ::std::vector<::tools::vector2<T>>>\n  operator&(const ::tools::circle_2d<T,\
     \ false, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {\n    using result_t\
     \ = ::std::vector<::tools::vector2<T>>;\n    if (const auto intersection = ::tools::circle_2d<T,\
@@ -912,7 +931,11 @@ data:
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
     \ ::tools::circle_2d<T, Filled, HasRadius>& other) const;\n    int where(const\
     \ ::tools::vector2<T>& p) const;\n\n    template <typename T_, bool HasRadius_>\n\
-    \    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>\n\
+    \    friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::optional<::std::variant<::tools::circle_2d<T_,\
+    \ false, HasRadius_>, ::std::vector<::tools::vector2<T_>>>>>\n    operator&(const\
+    \ ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::circle_2d<T_,\
+    \ false, HasRadius_>& rhs);\n    template <typename T_, bool HasRadius_>\n   \
+    \ friend ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::vector<::tools::vector2<T_>>>\n\
     \    operator&(const ::tools::circle_2d<T_, false, HasRadius_>& lhs, const ::tools::line_2d<T_>&\
     \ rhs);\n    template <typename T_, bool HasRadius_>\n    friend ::std::enable_if_t<::std::is_floating_point_v<T_>,\
     \ ::std::optional<::std::variant<::tools::vector2<T_>, ::tools::directed_line_segment_2d<T_>>>>\n\
@@ -1124,6 +1147,18 @@ data:
     \ Filled, HasRadius>::where(const ::tools::vector2<T>& p) const {\n    return\
     \ ::tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());\n\
     \  }\n\n  template <typename T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ ::std::optional<::std::variant<::tools::circle_2d<T, false, HasRadius>, ::std::vector<::tools::vector2<T>>>>>\n\
+    \  operator&(const ::tools::circle_2d<T, false, HasRadius>& lhs, const ::tools::circle_2d<T,\
+    \ false, HasRadius>& rhs) {\n    using variant_t = ::std::variant<::tools::circle_2d<T,\
+    \ false, HasRadius>, ::std::vector<::tools::vector2<T>>>;\n    using result_t\
+    \ = ::std::optional<variant_t>;\n\n    const auto t = lhs.where(rhs).first;\n\
+    \    if (t == ::std::numeric_limits<int>::max()) return result_t(variant_t(lhs));\n\
+    \    if (t == 0 || t == 4) return ::std::nullopt;\n\n    const auto& x1 = lhs.m_center.x;\n\
+    \    const auto& y1 = lhs.m_center.y;\n    const auto& x2 = rhs.m_center.x;\n\
+    \    const auto& y2 = rhs.m_center.y;\n    const ::tools::line_2d<T> l(2 * (x2\
+    \ - x1), 2 * (y2 - y1), (x1 + x2) * (x1 - x2) + (y1 + y2) * (y1 - y2) + rhs.m_squared_radius\
+    \ - lhs.m_squared_radius);\n\n    return result_t(variant_t(lhs & l));\n  }\n\n\
+    \  template <typename T, bool HasRadius>\n  ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ ::std::vector<::tools::vector2<T>>>\n  operator&(const ::tools::circle_2d<T,\
     \ false, HasRadius>& lhs, const ::tools::line_2d<T>& rhs) {\n    using result_t\
     \ = ::std::vector<::tools::vector2<T>>;\n    if (const auto intersection = ::tools::circle_2d<T,\
@@ -1561,9 +1596,10 @@ data:
   - tools/half_line_2d.hpp
   - tools/polygon_2d.hpp
   - tools/circle_2d.hpp
-  timestamp: '2022-09-24 20:04:29+09:00'
+  timestamp: '2022-10-22 17:10:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp

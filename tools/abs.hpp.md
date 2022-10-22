@@ -55,6 +55,9 @@ data:
     path: tests/ccw.test.cpp
     title: tests/ccw.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_circle.test.cpp
+    title: tests/circle_2d/intersection_to_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/circle_2d/intersection_to_line.test.cpp
     title: tests/circle_2d/intersection_to_line.test.cpp
   - icon: ':heavy_check_mark:'
@@ -160,6 +163,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp

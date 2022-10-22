@@ -5,6 +5,9 @@ data:
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
   - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -13,9 +16,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
-    path: tools/line_2d.hpp
-    title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
@@ -38,27 +38,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
+    ERROR: 1e-6
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_E
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
-  bundledCode: "#line 1 \"tests/line_2d/is_parallel_to.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n\n#include <iostream>\n\
-    #line 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n#include <cmath>\n\
-    #include <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include\
-    \ <functional>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\n\
-    namespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    - https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_E
+  bundledCode: "#line 1 \"tests/circle_2d/intersection_to_circle.test.cpp\"\n#define\
+    \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_E\"\n#define ERROR\
+    \ 1e-6\n\n#include <iostream>\n#include <vector>\n#include <cstdlib>\n#include\
+    \ <utility>\n#include <algorithm>\n#include <variant>\n#include <iomanip>\n#line\
+    \ 1 \"tools/vector2.hpp\"\n\n\n\n#include <type_traits>\n#include <cmath>\n#include\
+    \ <cstddef>\n#include <array>\n#line 9 \"tools/vector2.hpp\"\n#include <functional>\n\
+    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
     \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
     \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/pair_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/pair_hash.hpp\"\n#include <utility>\n#include <random>\n\
-    #line 8 \"tools/pair_hash.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n \
-    \ template <class T1, class T2>\n  struct pair_hash {\n    using result_type =\
-    \ ::std::size_t;\n    using argument_type = ::std::pair<T1, T2>;\n    ::std::size_t\
-    \ operator()(const ::std::pair<T1, T2>& key) const {\n      static const ::std::size_t\
-    \ salt = ::std::random_device()();\n      static const ::std::hash<T1> hasher1\
-    \ = ::std::hash<T1>();\n      static const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n\
-    \      static const ::std::hash<::std::size_t> hasher3 = ::std::hash<::std::size_t>();\n\
-    \      ::std::size_t result = 0;\n      result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9)\
-    \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
+    \n\n\n\n#line 6 \"tools/pair_hash.hpp\"\n#include <random>\n#line 8 \"tools/pair_hash.hpp\"\
+    \n#include <cstdint>\n\nnamespace tools {\n\n  template <class T1, class T2>\n\
+    \  struct pair_hash {\n    using result_type = ::std::size_t;\n    using argument_type\
+    \ = ::std::pair<T1, T2>;\n    ::std::size_t operator()(const ::std::pair<T1, T2>&\
+    \ key) const {\n      static const ::std::size_t salt = ::std::random_device()();\n\
+    \      static const ::std::hash<T1> hasher1 = ::std::hash<T1>();\n      static\
+    \ const ::std::hash<T2> hasher2 = ::std::hash<T2>();\n      static const ::std::hash<::std::size_t>\
+    \ hasher3 = ::std::hash<::std::size_t>();\n      ::std::size_t result = 0;\n \
+    \     result ^= hasher1(key.first) + static_cast<::std::size_t>(0x9e3779b9) +\
+    \ (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher2(key.second) + static_cast<::std::size_t>(0x9e3779b9)\
     \ + (result << static_cast<::std::size_t>(6)) + (result >> static_cast<::std::size_t>(2));\n\
     \      result ^= hasher3(salt) + static_cast<::std::size_t>(0x9e3779b9) + (result\
@@ -153,16 +156,15 @@ data:
     \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
     \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::pair_hash<T,\
     \ T> hasher = ::tools::pair_hash<T, T>();\n      return hasher(::std::make_pair(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/line_2d.hpp\"\n\n\n\n#line 1 \"\
-    tools/detail/geometry_2d.hpp\"\n\n\n\n#include <algorithm>\n#line 6 \"tools/detail/geometry_2d.hpp\"\
+    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1\
+    \ \"tools/detail/geometry_2d.hpp\"\n\n\n\n#line 6 \"tools/detail/geometry_2d.hpp\"\
     \n#include <cassert>\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
-    #include <limits>\n#include <optional>\n#include <tuple>\n#line 15 \"tools/detail/geometry_2d.hpp\"\
-    \n#include <variant>\n#include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\
-    \n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n   \
-    \ static constexpr bool value = false;\n  };\n\n  template <typename T>\n  inline\
-    \ constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\n#line\
-    \ 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n \
-    \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    #include <limits>\n#include <optional>\n#include <tuple>\n#line 1 \"tools/is_rational.hpp\"\
+    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
+    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
+    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
+    \n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
+    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
@@ -856,32 +858,49 @@ data:
     \ 3> edges;\n    this->sorted_edges(edges.begin());\n    const auto c2 = edges[2].squared_length();\n\
     \    const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();\n\
     \    if (c2 < a2b2) {\n      return 0;\n    } else if (c2 == a2b2) {\n      return\
-    \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/line_2d.hpp\"\
-    \n\n\n#line 6 \"tests/line_2d/is_parallel_to.test.cpp\"\n\nusing ll = long long;\n\
-    using T = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll q;\n  std::cin >> q;\n  for (ll i = 0; i < q; ++i) {\n    tools::vector2<T>\
-    \ p0, p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const auto s1\
-    \ = tools::line_2d<T>::through(p0, p1);\n    const auto s2 = tools::line_2d<T>::through(p2,\
-    \ p3);\n\n    if (s1.is_parallel_to(s2)) {\n      std::cout << 2 << '\\n';\n \
-    \   } else if (tools::vector2<T>(s1.a(), s1.b()).inner_product(tools::vector2<T>(s2.a(),\
-    \ s2.b())) == T(0)) {\n      std::cout << 1 << '\\n';\n    } else {\n      std::cout\
-    \ << 0 << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A\"\n\n\
-    #include <iostream>\n#include \"tools/vector2.hpp\"\n#include \"tools/line_2d.hpp\"\
-    \n\nusing ll = long long;\nusing T = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll q;\n  std::cin >> q;\n  for\
-    \ (ll i = 0; i < q; ++i) {\n    tools::vector2<T> p0, p1, p2, p3;\n    std::cin\
-    \ >> p0 >> p1 >> p2 >> p3;\n\n    const auto s1 = tools::line_2d<T>::through(p0,\
-    \ p1);\n    const auto s2 = tools::line_2d<T>::through(p2, p3);\n\n    if (s1.is_parallel_to(s2))\
-    \ {\n      std::cout << 2 << '\\n';\n    } else if (tools::vector2<T>(s1.a(),\
-    \ s1.b()).inner_product(tools::vector2<T>(s2.a(), s2.b())) == T(0)) {\n      std::cout\
-    \ << 1 << '\\n';\n    } else {\n      std::cout << 0 << '\\n';\n    }\n  }\n\n\
-    \  return 0;\n}\n"
+    \ 1;\n    } else {\n      return 2;\n    }\n  }\n}\n\n\n#line 5 \"tools/circle_2d.hpp\"\
+    \n\n\n#line 14 \"tests/circle_2d/intersection_to_circle.test.cpp\"\n\nusing T\
+    \ = double;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  T c1x, c1y, c1r, c2x, c2y, c2r;\n  std::cin >> c1x >> c1y >> c1r >> c2x >>\
+    \ c2y >> c2r;\n\n  const tools::circle_2d<T, false, true> c1(tools::vector2<T>(c1x,\
+    \ c1y), c1r);\n  const tools::circle_2d<T, false, true> c2(tools::vector2<T>(c2x,\
+    \ c2y), c2r);\n\n  struct {\n    std::vector<tools::vector2<T>> operator()(const\
+    \ tools::circle_2d<T, false, true>&) {\n      std::exit(EXIT_FAILURE);\n    }\n\
+    \    std::vector<tools::vector2<T>> operator()(const std::vector<tools::vector2<T>>&\
+    \ intersections) {\n      if (intersections.size() == 1) {\n        return std::vector<tools::vector2<T>>({intersections[0],\
+    \ intersections[0]});\n      } else if (intersections.size() == 2) {\n       \
+    \ const auto comp = tools::less_by([](const auto& p) { return std::make_pair(p.x,\
+    \ p.y); });\n        const auto [p1, p2] = std::minmax({intersections[0], intersections[1]},\
+    \ comp);\n        return std::vector<tools::vector2<T>>({p1, p2});\n      } else\
+    \ {\n        std::exit(EXIT_FAILURE);\n      }\n    }\n  } visitor;\n  const auto\
+    \ answers = std::visit(visitor, *(c1 & c2));\n\n  std::cout << std::fixed << std::setprecision(10)\
+    \ << answers[0].x << ' ' << answers[0].y << ' ' << answers[1].x << ' ' << answers[1].y\
+    \ << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_E\"\n#define\
+    \ ERROR 1e-6\n\n#include <iostream>\n#include <vector>\n#include <cstdlib>\n#include\
+    \ <utility>\n#include <algorithm>\n#include <variant>\n#include <iomanip>\n#include\
+    \ \"tools/vector2.hpp\"\n#include \"tools/circle_2d.hpp\"\n#include \"tools/less_by.hpp\"\
+    \n\nusing T = double;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  T c1x, c1y, c1r, c2x, c2y, c2r;\n  std::cin >> c1x >> c1y >> c1r >> c2x >>\
+    \ c2y >> c2r;\n\n  const tools::circle_2d<T, false, true> c1(tools::vector2<T>(c1x,\
+    \ c1y), c1r);\n  const tools::circle_2d<T, false, true> c2(tools::vector2<T>(c2x,\
+    \ c2y), c2r);\n\n  struct {\n    std::vector<tools::vector2<T>> operator()(const\
+    \ tools::circle_2d<T, false, true>&) {\n      std::exit(EXIT_FAILURE);\n    }\n\
+    \    std::vector<tools::vector2<T>> operator()(const std::vector<tools::vector2<T>>&\
+    \ intersections) {\n      if (intersections.size() == 1) {\n        return std::vector<tools::vector2<T>>({intersections[0],\
+    \ intersections[0]});\n      } else if (intersections.size() == 2) {\n       \
+    \ const auto comp = tools::less_by([](const auto& p) { return std::make_pair(p.x,\
+    \ p.y); });\n        const auto [p1, p2] = std::minmax({intersections[0], intersections[1]},\
+    \ comp);\n        return std::vector<tools::vector2<T>>({p1, p2});\n      } else\
+    \ {\n        std::exit(EXIT_FAILURE);\n      }\n    }\n  } visitor;\n  const auto\
+    \ answers = std::visit(visitor, *(c1 & c2));\n\n  std::cout << std::fixed << std::setprecision(10)\
+    \ << answers[0].x << ' ' << answers[0].y << ' ' << answers[1].x << ' ' << answers[1].y\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
   - tools/abs.hpp
   - tools/pair_hash.hpp
-  - tools/line_2d.hpp
+  - tools/circle_2d.hpp
   - tools/detail/geometry_2d.hpp
   - tools/is_rational.hpp
   - tools/less_by.hpp
@@ -889,15 +908,15 @@ data:
   - tools/square.hpp
   - tools/monoid.hpp
   isVerificationFile: true
-  path: tests/line_2d/is_parallel_to.test.cpp
+  path: tests/circle_2d/intersection_to_circle.test.cpp
   requiredBy: []
   timestamp: '2022-10-22 17:10:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/line_2d/is_parallel_to.test.cpp
+documentation_of: tests/circle_2d/intersection_to_circle.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/line_2d/is_parallel_to.test.cpp
-- /verify/tests/line_2d/is_parallel_to.test.cpp.html
-title: tests/line_2d/is_parallel_to.test.cpp
+- /verify/tests/circle_2d/intersection_to_circle.test.cpp
+- /verify/tests/circle_2d/intersection_to_circle.test.cpp.html
+title: tests/circle_2d/intersection_to_circle.test.cpp
 ---

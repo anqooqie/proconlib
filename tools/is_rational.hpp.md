@@ -28,6 +28,9 @@ data:
     title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_circle.test.cpp
+    title: tests/circle_2d/intersection_to_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/circle_2d/intersection_to_line.test.cpp
     title: tests/circle_2d/intersection_to_line.test.cpp
   - icon: ':heavy_check_mark:'
@@ -106,6 +109,7 @@ data:
   timestamp: '2022-01-29 15:03:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp

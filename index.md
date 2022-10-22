@@ -773,6 +773,9 @@ data:
   - name: tests/circle_2d
     pages:
     - icon: ':heavy_check_mark:'
+      path: tests/circle_2d/intersection_to_circle.test.cpp
+      title: tests/circle_2d/intersection_to_circle.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/circle_2d/intersection_to_line.test.cpp
       title: tests/circle_2d/intersection_to_line.test.cpp
   - name: tests/circle_2d/where

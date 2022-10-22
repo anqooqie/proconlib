@@ -58,6 +58,9 @@ data:
     path: tests/ceil_kth_root.test.cpp
     title: tests/ceil_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_circle.test.cpp
+    title: tests/circle_2d/intersection_to_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/circle_2d/intersection_to_line.test.cpp
     title: tests/circle_2d/intersection_to_line.test.cpp
   - icon: ':heavy_check_mark:'
@@ -187,6 +190,7 @@ data:
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
   - tests/rerooting_dp.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
