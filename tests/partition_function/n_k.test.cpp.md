@@ -22,7 +22,8 @@ data:
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
-    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+    title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
+      \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
@@ -45,31 +46,31 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/partition_function
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_J
     links:
-    - https://judge.yosupo.jp/problem/partition_function
-  bundledCode: "#line 1 \"tests/partition_function.test.cpp\"\n#define PROBLEM \"\
-    https://judge.yosupo.jp/problem/partition_function\"\n\n#include <iostream>\n\
-    #include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
-    \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace\
-    \ atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod\
-    \ m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %= m;\n \
-    \   if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication by\
-    \ barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    - https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_J
+  bundledCode: "#line 1 \"tests/partition_function/n_k.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_J\"\n\n#include <iostream>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
+    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
+    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
+    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -257,91 +258,91 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/partition_function.hpp\"\
-    \n\n\n\n#line 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#line 6 \"tools/fps.hpp\"\
-    \n#include <algorithm>\n#include <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
-    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
-    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
-    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
-    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
-    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
+    \n\n\n\n#line 5 \"tools/partition_function.hpp\"\n#include <vector>\n#line 1 \"\
+    tools/fps.hpp\"\n\n\n\n#line 6 \"tools/fps.hpp\"\n#include <algorithm>\n#include\
+    \ <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line\
+    \ 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
+    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
     \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
-    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
-    \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
-    \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
-    \ - 1);\n    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint,\
-    \ rank2 + 1> iroot;  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0,\
-    \ rank2 - 2 + 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\
-    \n    std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint,\
-    \ std::max(0, rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2]\
-    \ = mint(g).pow((mint::mod() - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n\
-    \        for (int i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i\
-    \ + 1] * root[i + 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n \
-    \       }\n\n        {\n            mint prod = 1, iprod = 1;\n            for\
-    \ (int i = 0; i <= rank2 - 2; i++) {\n                rate2[i] = root[i + 2] *\
-    \ prod;\n                irate2[i] = iroot[i + 2] * iprod;\n                prod\
-    \ *= iroot[i + 2];\n                iprod *= root[i + 2];\n            }\n   \
-    \     }\n        {\n            mint prod = 1, iprod = 1;\n            for (int\
-    \ i = 0; i <= rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n\
-    \                irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i\
-    \ + 3];\n                iprod *= root[i + 3];\n            }\n        }\n   \
-    \ }\n};\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\n\
-    void butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h\
-    \ = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\n    int\
-    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
-    \ < h) {\n        if (h - len == 1) {\n            int p = 1 << (h - len - 1);\n\
-    \            mint rot = 1;\n            for (int s = 0; s < (1 << len); s++) {\n\
-    \                int offset = s << (h - len);\n                for (int i = 0;\
-    \ i < p; i++) {\n                    auto l = a[i + offset];\n               \
-    \     auto r = a[i + offset + p] * rot;\n                    a[i + offset] = l\
-    \ + r;\n                    a[i + offset + p] = l - r;\n                }\n  \
-    \              if (s + 1 != (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned\
-    \ int)(s))];\n            }\n            len++;\n        } else {\n          \
-    \  // 4-base\n            int p = 1 << (h - len - 2);\n            mint rot =\
-    \ 1, imag = info.root[2];\n            for (int s = 0; s < (1 << len); s++) {\n\
-    \                mint rot2 = rot * rot;\n                mint rot3 = rot2 * rot;\n\
-    \                int offset = s << (h - len);\n                for (int i = 0;\
-    \ i < p; i++) {\n                    auto mod2 = 1ULL * mint::mod() * mint::mod();\n\
-    \                    auto a0 = 1ULL * a[i + offset].val();\n                 \
-    \   auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n                  \
-    \  auto a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n              \
-    \      auto a3 = 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n          \
-    \          auto a1na3imag =\n                        1ULL * mint(a1 + mod2 - a3).val()\
-    \ * imag.val();\n                    auto na2 = mod2 - a2;\n                 \
-    \   a[i + offset] = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 *\
-    \ p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2\
-    \ * p] = a0 + na2 + a1na3imag;\n                    a[i + offset + 3 * p] = a0\
-    \ + na2 + (mod2 - a1na3imag);\n                }\n                if (s + 1 !=\
-    \ (1 << len))\n                    rot *= info.rate3[bsf(~(unsigned int)(s))];\n\
-    \            }\n            len += 2;\n        }\n    }\n}\n\ntemplate <class\
-    \ mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid butterfly_inv(std::vector<mint>&\
-    \ a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\n  \
-    \  static const fft_info<mint> info;\n\n    int len = h;  // a[i, i+(n>>len),\
-    \ i+2*(n>>len), ..] is transformed\n    while (len) {\n        if (len == 1) {\n\
-    \            int p = 1 << (h - len);\n            mint irot = 1;\n           \
-    \ for (int s = 0; s < (1 << (len - 1)); s++) {\n                int offset = s\
-    \ << (h - len + 1);\n                for (int i = 0; i < p; i++) {\n         \
+    \ `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n)\
+    \ {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n//\
+    \ @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x))\
+    \ != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n\
+    \    _BitScanForward(&index, n);\n    return index;\n#else\n    return __builtin_ctz(n);\n\
+    #endif\n}\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12\
+    \ \"lib/ac-library/atcoder/convolution.hpp\"\n\nnamespace atcoder {\n\nnamespace\
+    \ internal {\n\ntemplate <class mint,\n          int g = internal::primitive_root<mint::mod()>,\n\
+    \          internal::is_static_modint_t<mint>* = nullptr>\nstruct fft_info {\n\
+    \    static constexpr int rank2 = bsf_constexpr(mint::mod() - 1);\n    std::array<mint,\
+    \ rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint, rank2 + 1> iroot;\
+    \  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0, rank2 - 2 +\
+    \ 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\n   \
+    \ std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint, std::max(0,\
+    \ rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2] = mint(g).pow((mint::mod()\
+    \ - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n        for (int\
+    \ i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i + 1] * root[i +\
+    \ 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n        }\n\n    \
+    \    {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
+    \ rank2 - 2; i++) {\n                rate2[i] = root[i + 2] * prod;\n        \
+    \        irate2[i] = iroot[i + 2] * iprod;\n                prod *= iroot[i +\
+    \ 2];\n                iprod *= root[i + 2];\n            }\n        }\n     \
+    \   {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
+    \ rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n        \
+    \        irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i +\
+    \ 3];\n                iprod *= root[i + 3];\n            }\n        }\n    }\n\
+    };\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid\
+    \ butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\
+    \n    static const fft_info<mint> info;\n\n    int len = 0;  // a[i, i+(n>>len),\
+    \ i+2*(n>>len), ..] is transformed\n    while (len < h) {\n        if (h - len\
+    \ == 1) {\n            int p = 1 << (h - len - 1);\n            mint rot = 1;\n\
+    \            for (int s = 0; s < (1 << len); s++) {\n                int offset\
+    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
     \           auto l = a[i + offset];\n                    auto r = a[i + offset\
-    \ + p];\n                    a[i + offset] = l + r;\n                    a[i +\
-    \ offset + p] =\n                        (unsigned long long)(mint::mod() + l.val()\
-    \ - r.val()) *\n                        irot.val();\n                    ;\n \
-    \               }\n                if (s + 1 != (1 << (len - 1)))\n          \
-    \          irot *= info.irate2[bsf(~(unsigned int)(s))];\n            }\n    \
-    \        len--;\n        } else {\n            // 4-base\n            int p =\
-    \ 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n       \
-    \     for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint irot2\
-    \ = irot * irot;\n                mint irot3 = irot2 * irot;\n               \
-    \ int offset = s << (h - len + 2);\n                for (int i = 0; i < p; i++)\
-    \ {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n     \
-    \               auto a1 = 1ULL * a[i + offset + 1 * p].val();\n              \
-    \      auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                    auto\
-    \ a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
+    \ + p] * rot;\n                    a[i + offset] = l + r;\n                  \
+    \  a[i + offset + p] = l - r;\n                }\n                if (s + 1 !=\
+    \ (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned int)(s))];\n\
+    \            }\n            len++;\n        } else {\n            // 4-base\n\
+    \            int p = 1 << (h - len - 2);\n            mint rot = 1, imag = info.root[2];\n\
+    \            for (int s = 0; s < (1 << len); s++) {\n                mint rot2\
+    \ = rot * rot;\n                mint rot3 = rot2 * rot;\n                int offset\
+    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
+    \           auto mod2 = 1ULL * mint::mod() * mint::mod();\n                  \
+    \  auto a0 = 1ULL * a[i + offset].val();\n                    auto a1 = 1ULL *\
+    \ a[i + offset + p].val() * rot.val();\n                    auto a2 = 1ULL * a[i\
+    \ + offset + 2 * p].val() * rot2.val();\n                    auto a3 = 1ULL *\
+    \ a[i + offset + 3 * p].val() * rot3.val();\n                    auto a1na3imag\
+    \ =\n                        1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n\
+    \                    auto na2 = mod2 - a2;\n                    a[i + offset]\
+    \ = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 * p] = a0 + a2 +\
+    \ (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2 * p] = a0 + na2\
+    \ + a1na3imag;\n                    a[i + offset + 3 * p] = a0 + na2 + (mod2 -\
+    \ a1na3imag);\n                }\n                if (s + 1 != (1 << len))\n \
+    \                   rot *= info.rate3[bsf(~(unsigned int)(s))];\n            }\n\
+    \            len += 2;\n        }\n    }\n}\n\ntemplate <class mint, internal::is_static_modint_t<mint>*\
+    \ = nullptr>\nvoid butterfly_inv(std::vector<mint>& a) {\n    int n = int(a.size());\n\
+    \    int h = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\
+    \n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n   \
+    \ while (len) {\n        if (len == 1) {\n            int p = 1 << (h - len);\n\
+    \            mint irot = 1;\n            for (int s = 0; s < (1 << (len - 1));\
+    \ s++) {\n                int offset = s << (h - len + 1);\n                for\
+    \ (int i = 0; i < p; i++) {\n                    auto l = a[i + offset];\n   \
+    \                 auto r = a[i + offset + p];\n                    a[i + offset]\
+    \ = l + r;\n                    a[i + offset + p] =\n                        (unsigned\
+    \ long long)(mint::mod() + l.val() - r.val()) *\n                        irot.val();\n\
+    \                    ;\n                }\n                if (s + 1 != (1 <<\
+    \ (len - 1)))\n                    irot *= info.irate2[bsf(~(unsigned int)(s))];\n\
+    \            }\n            len--;\n        } else {\n            // 4-base\n\
+    \            int p = 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n\
+    \            for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint\
+    \ irot2 = irot * irot;\n                mint irot3 = irot2 * irot;\n         \
+    \       int offset = s << (h - len + 2);\n                for (int i = 0; i <\
+    \ p; i++) {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n\
+    \                    auto a1 = 1ULL * a[i + offset + 1 * p].val();\n         \
+    \           auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                  \
+    \  auto a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
     \ =\n                        1ULL *\n                        mint((mint::mod()\
     \ + a2 - a3) * iimag.val()).val();\n\n                    a[i + offset] = a0 +\
     \ a1 + a2 + a3;\n                    a[i + offset + 1 * p] =\n               \
@@ -696,28 +697,31 @@ data:
     \ /= g; }\n    F operator+(const F& g) const { return F(*this) += g; }\n    F\
     \ operator-(const F& g) const { return F(*this) -= g; }\n    F operator<<(const\
     \ int d) const { return F(*this) <<= d; }\n    F operator>>(const int d) const\
-    \ { return F(*this) >>= d; }\n  };\n}\n\n\n#line 6 \"tools/partition_function.hpp\"\
+    \ { return F(*this) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
     \n\nnamespace tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
     \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
     \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
     \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
     \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
     \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
-    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n}\n\
-    \n\n#line 7 \"tests/partition_function.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N;\n  std::cin >> N;\n\n  std::string delimiter = \"\";\n  for (const\
-    \ auto s : tools::partition_function<mint>(N)) {\n    std::cout << delimiter <<\
-    \ s.val();\n    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n\
-    }\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/partition_function\"\n\n\
-    #include <iostream>\n#include <string>\n#include \"atcoder/modint.hpp\"\n#include\
-    \ \"tools/partition_function.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N;\n  std::cin >> N;\n\n  std::string delimiter = \"\";\n  for (const\
-    \ auto s : tools::partition_function<mint>(N)) {\n    std::cout << delimiter <<\
-    \ s.val();\n    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n\
-    }\n"
+    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n\n\
+    \  template <typename M>\n  ::std::vector<::std::vector<M>> partition_function(const\
+    \ int n, const int k) {\n    assert(n >= 0);\n    assert(k >= 0);\n\n    auto\
+    \ dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));\n\n    dp[0][0] = M(1);\n\
+    \    for (int i = 0; i <= n; ++i) {\n      for (int j = !i; j <= k; ++j) {\n \
+    \       dp[i][j] = M(0);\n        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];\n\
+    \        if (i - j >= 0) dp[i][j] += dp[i - j][j];\n      }\n    }\n\n    return\
+    \ dp;\n  }\n}\n\n\n#line 6 \"tests/partition_function/n_k.test.cpp\"\n\nusing\
+    \ mint = atcoder::modint1000000007;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int n, k;\n  std::cin >> n >> k;\n\
+    \  std::cout << tools::partition_function<mint>(n, k)[n][k].val() << '\\n';\n\
+    \  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_J\"\n\n\
+    #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/partition_function.hpp\"\
+    \n\nusing mint = atcoder::modint1000000007;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int n, k;\n  std::cin >> n >> k;\n\
+    \  std::cout << tools::partition_function<mint>(n, k)[n][k].val() << '\\n';\n\
+    \  return 0;\n}\n"
   dependsOn:
   - tools/partition_function.hpp
   - tools/fps.hpp
@@ -732,15 +736,15 @@ data:
   - tools/ceil_log2.hpp
   - tools/ssize.hpp
   isVerificationFile: true
-  path: tests/partition_function.test.cpp
+  path: tests/partition_function/n_k.test.cpp
   requiredBy: []
-  timestamp: '2022-10-22 14:11:28+09:00'
+  timestamp: '2022-10-22 15:46:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/partition_function.test.cpp
+documentation_of: tests/partition_function/n_k.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/partition_function.test.cpp
-- /verify/tests/partition_function.test.cpp.html
-title: tests/partition_function.test.cpp
+- /verify/tests/partition_function/n_k.test.cpp
+- /verify/tests/partition_function/n_k.test.cpp.html
+title: tests/partition_function/n_k.test.cpp
 ---

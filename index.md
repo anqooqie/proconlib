@@ -303,7 +303,8 @@ data:
       title: Hash of std::pair
     - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
-      title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+      title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
+        j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
     - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
@@ -643,9 +644,6 @@ data:
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/partition_function.test.cpp
-      title: tests/partition_function.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
     - icon: ':heavy_check_mark:'
@@ -901,6 +899,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/matrix/solve.test.cpp
       title: tests/matrix/solve.test.cpp
+  - name: tests/partition_function
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/partition_function/n.test.cpp
+      title: tests/partition_function/n.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/partition_function/n_k.test.cpp
+      title: tests/partition_function/n_k.test.cpp
   - name: tests/polygon_2d
     pages:
     - icon: ':heavy_check_mark:'

@@ -38,15 +38,18 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function.test.cpp
-    title: tests/partition_function.test.cpp
+    path: tests/partition_function/n.test.cpp
+    title: tests/partition_function/n.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/partition_function/n_k.test.cpp
+    title: tests/partition_function/n_k.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/partition_function.hpp\"\n\n\n\n#include <cassert>\n\
-    #line 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#line 6 \"tools/fps.hpp\"\n\
+    #include <vector>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 6 \"tools/fps.hpp\"\n\
     #include <algorithm>\n#include <iterator>\n#include <utility>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
     #line 7 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <type_traits>\n#line\
@@ -693,24 +696,37 @@ data:
     \ /= g; }\n    F operator+(const F& g) const { return F(*this) += g; }\n    F\
     \ operator-(const F& g) const { return F(*this) -= g; }\n    F operator<<(const\
     \ int d) const { return F(*this) <<= d; }\n    F operator>>(const int d) const\
-    \ { return F(*this) >>= d; }\n  };\n}\n\n\n#line 6 \"tools/partition_function.hpp\"\
+    \ { return F(*this) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
     \n\nnamespace tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
     \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
     \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
     \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
     \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
     \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
-    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n}\n\
-    \n\n"
+    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n\n\
+    \  template <typename M>\n  ::std::vector<::std::vector<M>> partition_function(const\
+    \ int n, const int k) {\n    assert(n >= 0);\n    assert(k >= 0);\n\n    auto\
+    \ dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));\n\n    dp[0][0] = M(1);\n\
+    \    for (int i = 0; i <= n; ++i) {\n      for (int j = !i; j <= k; ++j) {\n \
+    \       dp[i][j] = M(0);\n        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];\n\
+    \        if (i - j >= 0) dp[i][j] += dp[i - j][j];\n      }\n    }\n\n    return\
+    \ dp;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_PARTITION_FUNCTION_HPP\n#define TOOLS_PARTITION_FUNCTION_HPP\n\
-    \n#include <cassert>\n#include \"tools/fps.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename M>\n  ::tools::fps<M> partition_function(const int n) {\n    assert(n\
-    \ >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod() == 1) return p;\n\n\
-    \    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n; k += 2) --p[k * (3\
-    \ * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <= n; k += 2) ++p[k\
-    \ * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) / 2 <= n; k += 2) --p[k\
-    \ * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k - 1) / 2 <= n; k += 2) ++p[k\
-    \ * (3 * k - 1) / 2];\n    return p.inv();\n  }\n}\n\n#endif\n"
+    \n#include <cassert>\n#include <vector>\n#include \"tools/fps.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
+    \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
+    \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
+    \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
+    \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
+    \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
+    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n\n\
+    \  template <typename M>\n  ::std::vector<::std::vector<M>> partition_function(const\
+    \ int n, const int k) {\n    assert(n >= 0);\n    assert(k >= 0);\n\n    auto\
+    \ dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));\n\n    dp[0][0] = M(1);\n\
+    \    for (int i = 0; i <= n; ++i) {\n      for (int j = !i; j <= k; ++j) {\n \
+    \       dp[i][j] = M(0);\n        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];\n\
+    \        if (i - j >= 0) dp[i][j] += dp[i - j][j];\n      }\n    }\n\n    return\
+    \ dp;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -726,43 +742,83 @@ data:
   isVerificationFile: false
   path: tools/partition_function.hpp
   requiredBy: []
-  timestamp: '2022-10-22 14:11:28+09:00'
+  timestamp: '2022-10-22 15:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/partition_function.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
 documentation_of: tools/partition_function.hpp
 layout: document
-title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j) \pmod{M}$
+  for $0 \leq i \leq n, 0 \leq j \leq k$
 ---
+
+## (1)
 
 ```cpp
 template <typename M>
 tools::fps<M> partition_function(int n);
 ```
 
-It returns values of the partition function $P(k, k)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $k$ such that $0 \leq k \leq n$.
+It returns values of the partition function $P(i, i)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $i$ such that $0 \leq i \leq n$.
 
-## Constraints
+### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $n \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(n \log n)$
 
-## Algorithm
+### Algorithm
 The following equation holds.
 
 $$\begin{align*}
-P(k, k) &= [x^k] \prod_{i = 0}^\infty \sum_{j = 0}^\infty x^{ij}\\
-&= [x^k] \prod_{i = 0}^\infty \frac{1}{1 - x^i}\\
-&= [x^k] \frac{1}{\prod_{i = 0}^\infty (1 - x^i)}\\
-&= [x^k] \frac{1}{1 + \sum_{i = 1}^\infty (-1)^i \left(x^\frac{i (3i + 1)}{2} + x^\frac{i (3i - 1)}{2}\right)} & \text{(by the Euler's pentagonal number theorem)}
+P(n, n) &= [x^n] \prod_{i = 0}^\infty \sum_{j = 0}^\infty x^{ij}\\
+&= [x^n] \prod_{i = 0}^\infty \frac{1}{1 - x^i}\\
+&= [x^n] \frac{1}{\prod_{i = 0}^\infty (1 - x^i)}\\
+&= [x^n] \frac{1}{1 + \sum_{i = 1}^\infty (-1)^i \left(x^\frac{i (3i + 1)}{2} + x^\frac{i (3i - 1)}{2}\right)} & \text{(by the Euler's pentagonal number theorem)}
 \end{align*}$$
 
-Therefore, $P(k, k)$ can be calculated by inversion of the formal power series.
+Therefore, $P(n, n)$ can be calculated by inversion of the formal power series.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
+- anqooqie
+
+## (2)
+
+```cpp
+template <typename M>
+std::vector<std::vector<M>> partition_function(int n, int k);
+```
+
+It returns values of the partition function $P(i, j)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $i$ such that $0 \leq i \leq n$ and all $j$ such that $0 \leq j \leq k$.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $n \geq 0$
+- $k \geq 0$
+
+### Time Complexity
+- $O(nk)$
+
+### Algorithm
+The following equation holds.
+
+$$\begin{align*}
+P(n, k) &= \left\{\begin{array}{ll}
+0 & \text{(if $n < 0$ or $k < 0$)}\\
+1 & \text{(if $n = 0$ and $k = 0$)}\\
+P(n, k - 1) + P(n - k, k) & \text{(otherwise)}
+\end{array}\right.
+\end{align*}$$
+
+Therefore, $P(n, k)$ can be calculated by dynamic programming.
+
+### License
+- CC0
+
+### Author
 - anqooqie

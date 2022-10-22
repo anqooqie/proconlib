@@ -29,7 +29,8 @@ data:
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
-    title: Partition function $P(k, k) \pmod{M}$ for $0 \leq k \leq n$
+    title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
+      \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
@@ -69,8 +70,11 @@ data:
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function.test.cpp
-    title: tests/partition_function.test.cpp
+    path: tests/partition_function/n.test.cpp
+    title: tests/partition_function/n.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/partition_function/n_k.test.cpp
+    title: tests/partition_function/n_k.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
@@ -569,7 +573,8 @@ data:
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/partition_function.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/inv_mod1000000007.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
