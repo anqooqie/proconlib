@@ -401,13 +401,13 @@ data:
     \ res.begin() + r, ::tools::less_by_get<1>()));\n        }\n\n        ::std::size_t\
     \ vl = 0;\n        for (::std::size_t vr = 0, al = 0, ar = 0; al < res.size();\
     \ vl = vr, al = ar) {\n          for (; ar < res.size() && ::std::get<1>(res[al])\
-    \ >= ::std::get<1>(res[ar]); ++vr, ++ar);\n          for (::std::size_t vi = vl,\
-    \ ai = al; vi < vr; ++vi, ++ai) ::std::swap(res[vi], res[ai]);\n          vr =\
-    \ vl + 1;\n        }\n        res.erase(res.begin() + vl, res.end());\n\n    \
-    \    return res;\n      };\n\n      const auto first_half = f(0, this->size()\
-    \ / 2);\n      const auto second_half = f(this->size() / 2, this->size());\n\n\
-    \      ::std::pair<T, ::std::vector<::std::size_t>> res;\n      auto& [answer,\
-    \ selected] = res;\n      answer = ::std::numeric_limits<T>::min();\n      ::std::pair<::std::size_t,\
+    \ >= ::std::get<1>(res[ar]); ++vr, ++ar);\n          if (vl < al) ::std::move(res.begin()\
+    \ + al, res.begin() + ar, res.begin() + vl);\n          vr = vl + 1;\n       \
+    \ }\n        res.erase(res.begin() + vl, res.end());\n\n        return res;\n\
+    \      };\n\n      const auto first_half = f(0, this->size() / 2);\n      const\
+    \ auto second_half = f(this->size() / 2, this->size());\n\n      ::std::pair<T,\
+    \ ::std::vector<::std::size_t>> res;\n      auto& [answer, selected] = res;\n\
+    \      answer = ::std::numeric_limits<T>::min();\n      ::std::pair<::std::size_t,\
     \ ::std::size_t> selected_as_bitset;\n      ::std::size_t r = second_half.size();\n\
     \      for (const auto [state, v, w] : first_half) {\n        for (; w + ::std::get<2>(second_half[r\
     \ - 1]) > this->m_W; --r);\n        if (::tools::chmax(answer, v + ::std::get<1>(second_half[r\
@@ -463,7 +463,7 @@ data:
   isVerificationFile: true
   path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   requiredBy: []
-  timestamp: '2022-10-15 19:42:07+09:00'
+  timestamp: '2022-10-23 17:30:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp

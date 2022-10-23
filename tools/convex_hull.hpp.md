@@ -161,8 +161,8 @@ data:
     \ T& i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>>\
     \ duplicates;\n\n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t\
     \ vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar\
-    \ < a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        for (::std::size_t\
-    \ i = 0; i < ar - al; ++i) ::std::swap(a[vl + i], a[al + i]);\n        if (v[a[vl]].y\
+    \ < a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
+    \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
     \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
     \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
     \ + 1], a[vr - 1]);\n          vr -= vr - vl - 2;\n          duplicates.emplace_back();\n\
@@ -171,10 +171,10 @@ data:
     \ a.erase(::std::next(a.begin(), vl), a.end());\n    } else {\n      ::std::size_t\
     \ vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl\
     \ = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]] == v[a[ar]]; ++vr,\
-    \ ++ar);\n        for (::std::size_t i = 0; i < ar - al; ++i) ::std::swap(a[vl\
-    \ + i], a[al + i]);\n        duplicates.emplace_back();\n        for (::std::size_t\
-    \ i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n     \
-    \   }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
+    \ ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(),\
+    \ ar), ::std::next(a.begin(), vl));\n        duplicates.emplace_back();\n    \
+    \    for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
+    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
     \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
     \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
     \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
@@ -206,8 +206,8 @@ data:
     \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
     \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
     \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
-    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        for (::std::size_t\
-    \ i = 0; i < ar - al; ++i) ::std::swap(a[vl + i], a[al + i]);\n        if (v[a[vl]].y\
+    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
+    \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
     \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
     \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
     \ + 1], a[vr - 1]);\n          vr -= vr - vl - 2;\n          duplicates.emplace_back();\n\
@@ -216,10 +216,10 @@ data:
     \ a.erase(::std::next(a.begin(), vl), a.end());\n    } else {\n      ::std::size_t\
     \ vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl\
     \ = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]] == v[a[ar]]; ++vr,\
-    \ ++ar);\n        for (::std::size_t i = 0; i < ar - al; ++i) ::std::swap(a[vl\
-    \ + i], a[al + i]);\n        duplicates.emplace_back();\n        for (::std::size_t\
-    \ i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n     \
-    \   }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
+    \ ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(),\
+    \ ar), ::std::next(a.begin(), vl));\n        duplicates.emplace_back();\n    \
+    \    for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
+    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
     \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
     \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
     \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
@@ -247,7 +247,7 @@ data:
   isVerificationFile: false
   path: tools/convex_hull.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-10-23 17:30:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
