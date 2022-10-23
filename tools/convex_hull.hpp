@@ -30,7 +30,7 @@ namespace tools {
       ::std::size_t vl = 0;
       for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {
         for (; ar < a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);
-        for (::std::size_t i = 0; i < ar - al; ++i) ::std::swap(a[vl + i], a[al + i]);
+        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));
         if (v[a[vl]].y == v[a[vr - 1]].y) {
           vr -= vr - vl - 1;
           duplicates.emplace_back();
@@ -49,7 +49,7 @@ namespace tools {
       ::std::size_t vl = 0;
       for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {
         for (; ar < a.size() && v[a[al]] == v[a[ar]]; ++vr, ++ar);
-        for (::std::size_t i = 0; i < ar - al; ++i) ::std::swap(a[vl + i], a[al + i]);
+        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));
         duplicates.emplace_back();
         for (::std::size_t i = vl; i < vr; ++i) {
           duplicates.back().push_back(a[i]);

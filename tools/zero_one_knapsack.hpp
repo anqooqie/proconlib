@@ -147,7 +147,7 @@ namespace tools {
         ::std::size_t vl = 0;
         for (::std::size_t vr = 0, al = 0, ar = 0; al < res.size(); vl = vr, al = ar) {
           for (; ar < res.size() && ::std::get<1>(res[al]) >= ::std::get<1>(res[ar]); ++vr, ++ar);
-          for (::std::size_t vi = vl, ai = al; vi < vr; ++vi, ++ai) ::std::swap(res[vi], res[ai]);
+          if (vl < al) ::std::move(res.begin() + al, res.begin() + ar, res.begin() + vl);
           vr = vl + 1;
         }
         res.erase(res.begin() + vl, res.end());
