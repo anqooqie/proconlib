@@ -1,9 +1,10 @@
 ---
-title: 2D vector
+title: Two dimensional vector
 documentation_of: //tools/vector2.hpp
 ---
 
 It is a two-dimensional vector.
+Not only the members written in this page but also the members of `std::array<T, 2>` are available.
 
 ### License
 - CC0
@@ -20,9 +21,7 @@ It is a two-dimensional vector.
 - (1)
     - It creates a vector $(0, 0)$.
 - (2)
-    - It creates a vector whose coordinates are the specified values.
-
-The type parameter `<T>` represents the type of the coordinates.
+    - It creates a vector $(x, y)$.
 
 ### Constraints
 - None
@@ -32,17 +31,67 @@ The type parameter `<T>` represents the type of the coordinates.
 
 ## x
 ```cpp
-T v.x;
+T& v.x;
 ```
 
-It is the x-coordinate of the vector.
+It is the reference to `v[0]`.
 
 ## y
 ```cpp
-T v.y;
+T& v.y;
 ```
 
-It is the y-coordinate of the vector.
+It is the reference to `v[1]`.
+
+## Arithmetic operators
+```cpp
+(1) vector2<T> operator+(vector2<T> v);
+(2) vector2<T> operator-(vector2<T> v);
+(3) vector2<T>& v.operator+=(vector2<T> u);
+(4) vector2<T> operator+(vector2<T> v, vector2<T> u);
+(5) vector2<T>& v.operator-=(vector2<T> u);
+(6) vector2<T> operator-(vector2<T> v, vector2<T> u);
+(7) vector2<T>& v.operator*=(T c);
+(8) vector2<T> operator*(T c, vector2<T> v);
+(9) vector2<T> operator*(vector2<T> v, T c);
+(10) vector2<T>& v.operator/=(T c);
+(11) vector2<T> operator/(vector2<T> v, T c);
+```
+
+It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another vector and $c$ is a scholar value.
+
+### Constraints
+- (10), (11)
+    - $c \neq 0$
+
+### Time Complexity
+- $O(1)$
+
+## inner_product
+```cpp
+T v.inner_product(vector2<T> u);
+```
+
+It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## outer_product
+```cpp
+T v.outer_product(vector2<T> u);
+```
+
+It returns `v.x * u.y - v.y * u.x`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## l1_norm
 ```cpp
@@ -91,14 +140,14 @@ vector2<T> v.normalized();
 It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
-- `std::is_floating_point_v<T>` is `true`
+- `std::is_floating_point_v<T>` is `true`.
 
 ### Time Complexity
 - $O(1)$
 
-## turn90
+## turned90
 ```cpp
-vector2<T> v.turn90();
+vector2<T> v.turned90();
 ```
 
 It returns $(-y, x)$.
@@ -109,9 +158,9 @@ It returns $(-y, x)$.
 ### Time Complexity
 - $O(1)$
 
-## turn270
+## turned270
 ```cpp
-vector2<T> v.turn270();
+vector2<T> v.turned270();
 ```
 
 It returns $(y, -x)$.
@@ -122,12 +171,12 @@ It returns $(y, -x)$.
 ### Time Complexity
 - $O(1)$
 
-## inner_product
+## operator>>
 ```cpp
-T v.inner_product(vector2<T> u);
+std::istream& operator>>(std::istream& is, vector2<T>& self);
 ```
 
-It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
+It returns `is >> self.x >> self.y`.
 
 ### Constraints
 - None
@@ -135,41 +184,15 @@ It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
 ### Time Complexity
 - $O(1)$
 
-## outer_product
+## operator<<
 ```cpp
-T v.outer_product(vector2<T> u);
+std::ostream& operator<<(std::ostream& os, const vector2<T>& self);
 ```
 
-It returns $\left\|\overrightarrow{v} \times \overrightarrow{u}\right\|$.
+It returns `os << '(' << self.x << ", " << self.y << ')'`.
 
 ### Constraints
 - None
-
-### Time Complexity
-- $O(1)$
-
-## Arithmetic operations
-```cpp
-(1) vector2<T> +v;
-(2) vector2<T> -v;
-(3) vector2<T> v + u;
-(4) vector2<T> v - u;
-(5) vector2<T> v * c;
-(6) vector2<T> c * v;
-(7) vector2<T> v / c;
-(8) vector2<T>& v += u;
-(9) vector2<T>& v -= u;
-(10) vector2<T>& v *= c;
-(11) vector2<T>& v /= c;
-(12) bool v == u;
-(13) bool v != u;
-```
-
-It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another vector and $c$ is a scholar value.
-
-### Constraints
-- (7), (11)
-    - $c \neq 0$
 
 ### Time Complexity
 - $O(1)$

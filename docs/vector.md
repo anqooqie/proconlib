@@ -4,6 +4,7 @@ documentation_of: //tools/vector.hpp
 ---
 
 It is a $n$-dimensional vector.
+Not only the members written in this page but also the members of `std::vector<T>` are available.
 
 ### License
 - CC0
@@ -11,50 +12,44 @@ It is a $n$-dimensional vector.
 ### Author
 - anqooqie
 
-## Constructor
+## Arithmetic operators
 ```cpp
-(1) vector<T> v(std::size_t n);
-(2) vector<T> v(std::size_t n, T x);
+(1) vector<T> operator+(vector<T> v);
+(2) vector<T> operator-(vector<T> v);
+(3) vector<T>& v.operator+=(vector<T> u);
+(4) vector<T> operator+(vector<T> v, vector<T> u);
+(5) vector<T>& v.operator-=(vector<T> u);
+(6) vector<T> operator-(vector<T> v, vector<T> u);
+(7) vector<T>& v.operator*=(T c);
+(8) vector<T> operator*(T c, vector<T> v);
+(9) vector<T> operator*(vector<T> v, T c);
+(10) vector<T>& v.operator/=(T c);
+(11) vector<T> operator/(vector<T> v, T c);
 ```
 
-- (1)
-    - It creates a $n$-dimensional vector.
-- (2)
-    - It creates a $n$-dimensional vector, of which all the elements $x$.
-
-The type parameter `<T>` represents the type of the elements.
+It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another $n$-dimensional vector and $c$ is a scholar value.
 
 ### Constraints
-- None
+- (3), (4), (5), (6)
+    - The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
+- (10), (11)
+    - $c \neq 0$
 
 ### Time Complexity
 - $O(n)$
 
-## operator[]
+## inner_product
 ```cpp
-T& v[std::size_t i];
+T v.inner_product(vector<T> u);
 ```
 
-It is the $i$-th element of the vector.
+It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
 
 ### Constraints
-- $0 \leq i < n$
+- The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
 
 ### Time Complexity
-- $O(1)$
-
-## dim
-```cpp
-std::size_t v.dim();
-```
-
-It returns the dimension of the vector.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+- $O(n)$
 
 ## l1_norm
 ```cpp
@@ -103,48 +98,48 @@ vector<T> v.normalized();
 It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
-- `std::is_floating_point_v<T>` is `true`
+- `std::is_floating_point_v<T>` is `true`.
 
 ### Time Complexity
 - $O(n)$
 
-## inner_product
+## operator>>
 ```cpp
-T v.inner_product(vector<T> u);
+std::istream& operator>>(std::istream& is, vector<T>& self);
 ```
 
-It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
+It is equivalent to the following code.
+
+```cpp
+for (auto& v : self) is >> v;
+return is;
+```
 
 ### Constraints
-- The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
+- None
 
 ### Time Complexity
 - $O(n)$
 
-## Arithmetic operations
+## operator<<
 ```cpp
-(1) vector<T> +v;
-(2) vector<T> -v;
-(3) vector<T> v + u;
-(4) vector<T> v - u;
-(5) vector<T> v * c;
-(6) vector<T> c * v;
-(7) vector<T> v / c;
-(8) vector<T>& v += u;
-(9) vector<T>& v -= u;
-(10) vector<T>& v *= c;
-(11) vector<T>& v /= c;
-(12) bool v == u;
-(13) bool v != u;
+std::ostream& operator<<(std::ostream& os, const vector<T>& self);
 ```
 
-It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another $n$-dimensional vector and $c$ is a scholar value.
+It is equivalent to the following code.
+
+```cpp
+os << '(';
+for (std::size_t i = 0; i < self.size(); ++i) {
+  if (i > 0) os << ", ";
+  os << self[i];
+}
+os << ')';
+return os;
+```
 
 ### Constraints
-- (3), (4), (8), (9), (12), (13)
-    - The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
-- (7), (11)
-    - $c \neq 0$
+- None
 
 ### Time Complexity
 - $O(n)$

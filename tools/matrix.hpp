@@ -74,7 +74,7 @@ namespace tools {
       return result;
     }
     friend ::tools::vector<T> operator*(const ::tools::matrix<T>& lhs, const ::tools::vector<T>& rhs) {
-      assert(lhs.m_cols == rhs.dim());
+      assert(lhs.m_cols == rhs.size());
       ::tools::vector<T> result(lhs.m_rows, T(0));
       for (::std::size_t i = 0; i < lhs.m_rows; ++i) {
         for (::std::size_t j = 0; j < lhs.m_cols; ++j) {
@@ -193,7 +193,7 @@ namespace tools {
     }
 
     ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {
-      assert(this->m_rows == b.dim());
+      assert(this->m_rows == b.size());
       assert(this->m_cols >= 1);
       ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);
       for (::std::size_t r = 0; r < this->m_rows; ++r) {
