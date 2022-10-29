@@ -1,9 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
+  - icon: ':question:'
+    path: tools/detail/vector_common.hpp
+    title: tools/detail/vector_common.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
@@ -26,136 +29,128 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <type_traits>\n#include\
-    \ <vector>\n#include <cstddef>\n#include <cmath>\n#include <cassert>\n#include\
-    \ <iostream>\n#include <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+  bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
+    #include <initializer_list>\n#line 1 \"tools/detail/vector_common.hpp\"\n\n\n\n\
+    #include <type_traits>\n#include <cassert>\n#line 7 \"tools/detail/vector_common.hpp\"\
+    \n#include <algorithm>\n#include <cmath>\n#include <iostream>\n#include <string>\n\
+    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
     \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/vector.hpp\"\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
+    \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
+    \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
+    \ }\\\n\\\n    V& operator+=(const V& other) {\\\n      assert(this->size() ==\
+    \ other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\
+    \n        (*this)[i] += other[i];\\\n      }\\\n      return *this;\\\n    }\\\
+    \n    friend V operator+(const V& lhs, const V& rhs) {\\\n      return V(lhs)\
+    \ += rhs;\\\n    }\\\n\\\n    V& operator-=(const V& other) {\\\n      assert(this->size()\
+    \ == other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i)\
+    \ {\\\n        (*this)[i] -= other[i];\\\n      }\\\n      return *this;\\\n \
+    \   }\\\n    friend V operator-(const V& lhs, const V& rhs) {\\\n      return\
+    \ V(lhs) -= rhs;\\\n    }\\\n\\\n    V& operator*=(const T& c) {\\\n      for\
+    \ (auto& v : *this) {\\\n        v *= c;\\\n      }\\\n      return *this;\\\n\
+    \    }\\\n    friend V operator*(const T& lhs, const V& rhs) {\\\n      return\
+    \ V(rhs) *= lhs;\\\n    }\\\n    friend V operator*(const V& lhs, const T& rhs)\
+    \ {\\\n      return V(lhs) *= rhs;\\\n    }\\\n\\\n    V& operator/=(const T&\
+    \ c) {\\\n      for (auto& v : *this) {\\\n        v /= c;\\\n      }\\\n    \
+    \  return *this;\\\n    }\\\n    friend V operator/(const V& lhs, const T& rhs)\
+    \ {\\\n      return V(lhs) /= rhs;\\\n    }\\\n\\\n    friend bool operator==(const\
+    \ V& lhs, const V& rhs) {\\\n      return ::std::equal(lhs.begin(), lhs.end(),\
+    \ rhs.begin());\\\n    }\\\n    friend bool operator!=(const V& lhs, const V&\
+    \ rhs) {\\\n      return !(lhs == rhs);\\\n    }\\\n\\\n    T inner_product(const\
+    \ V& other) const {\\\n      assert(this->size() == other.size());\\\n      T\
+    \ res(0);\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\n    \
+    \    res += (*this)[i] * other[i];\\\n      }\\\n      return res;\\\n    }\\\n\
+    \\\n    T l1_norm() const {\\\n      T res(0);\\\n      for (const auto& v : *this)\
+    \ {\\\n        res += ::tools::abs(v);\\\n      }\\\n      return res;\\\n   \
+    \ }\\\n\\\n    T squared_l2_norm() const {\\\n      return this->inner_product(*this);\\\
+    \n    }\\\n\\\n    F l2_norm() const {\\\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\\\
+    \n    }\\\n\\\n    template <typename T_ = T>\\\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ V> normalized() const {\\\n      return *this / this->l2_norm();\\\n    }\\\n\
+    \\\n    friend ::std::ostream& operator<<(::std::ostream& os, const V& self) {\\\
+    \n      os << '(';\\\n      ::std::string delimiter = \"\";\\\n      for (const\
+    \ auto& v : self) {\\\n        os << delimiter << v;\\\n        delimiter = \"\
+    , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
+    \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 8 \"tools/vector.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
-    \    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\
-    \    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
-    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
-    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
-    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
-    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
-    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
-    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
-    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
-    \ dim() const {\n      return this->m_values.size();\n    }\n\n    T l1_norm()\
-    \ const {\n      return ::std::accumulate(this->m_values.begin(), this->m_values.end(),\
-    \ T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });\n   \
-    \ }\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
-    \    }\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
-    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector<T> normalized() const {\n\
-    \      return *this / this->l2_norm();\n    }\n\n    T inner_product(const ::tools::vector<T>&\
-    \ other) const {\n      assert(this->dim() == other.dim());\n      T result(0);\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        result += this->m_values[i]\
-    \ * other.m_values[i];\n      }\n      return result;\n    }\n\n    friend ::tools::vector<T>&\
-    \ operator+(::tools::vector<T>& self) {\n      return self;\n    }\n    friend\
-    \ const ::tools::vector<T>& operator+(const ::tools::vector<T>& self) {\n    \
-    \  return self;\n    }\n    friend ::tools::vector<T> operator+(const ::tools::vector<T>&\
-    \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ += rhs;\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
-    \ self) {\n      return ::tools::vector<T>(self) *= T(-1);\n    }\n    friend\
-    \ ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return ::tools::vector<T>(lhs) -= rhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator*(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ *= rhs;\n    }\n    friend ::tools::vector<T> operator*(const T& lhs, const\
-    \ ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n \
-    \   }\n    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs,\
-    \ const T& rhs) {\n      return ::tools::vector<T>(lhs) /= rhs;\n    }\n    ::tools::vector<T>&\
-    \ operator+=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ += other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator-=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
-    \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
-    \  ::tools::vector<T>& operator/=(const T& c) {\n      const T c_inv = T(1) /\
-    \ c;\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ *= c_inv;\n      }\n      return *this;\n    }\n    friend bool operator==(const\
-    \ ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n      if (lhs.dim()\
-    \ != rhs.dim()) {\n        return false;\n      }\n      for (::std::size_t i\
-    \ = 0; i < lhs.dim(); ++i) {\n        if (lhs.m_values[i] != rhs.m_values[i])\
-    \ {\n          return false;\n        }\n      }\n      return true;\n    }\n\
-    \    friend bool operator!=(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::vector<T>& self) {\n      os << '(';\n      ::std::string\
-    \ delimiter = \"\";\n      for (const T& value : self.m_values) {\n        os\
-    \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
-    \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
-    \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_VECTOR_HPP\n#define TOOLS_VECTOR_HPP\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cstddef>\n#include <cmath>\n#include <cassert>\n\
-    #include <iostream>\n#include <string>\n#include \"tools/abs.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename T>\n  class vector {\n  private:\n    using F\
-    \ = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n    ::std::vector<T>\
-    \ m_values;\n\n  public:\n    vector() = default;\n    vector(const ::tools::vector<T>&)\
-    \ = default;\n    vector(::tools::vector<T>&&) = default;\n    ~vector() = default;\n\
-    \    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;\n   \
-    \ ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\n    vector(::std::size_t\
-    \ dim) : m_values(dim) {\n    }\n    vector(::std::size_t dim, const T& value)\
-    \ : m_values(dim, value) {\n    }\n\n    T& operator[](const ::std::size_t i)\
-    \ {\n      return this->m_values[i];\n    }\n    T operator[](const ::std::size_t\
-    \ i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t dim()\
-    \ const {\n      return this->m_values.size();\n    }\n\n    T l1_norm() const\
-    \ {\n      return ::std::accumulate(this->m_values.begin(), this->m_values.end(),\
-    \ T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });\n   \
-    \ }\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
-    \    }\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
-    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector<T> normalized() const {\n\
-    \      return *this / this->l2_norm();\n    }\n\n    T inner_product(const ::tools::vector<T>&\
-    \ other) const {\n      assert(this->dim() == other.dim());\n      T result(0);\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        result += this->m_values[i]\
-    \ * other.m_values[i];\n      }\n      return result;\n    }\n\n    friend ::tools::vector<T>&\
-    \ operator+(::tools::vector<T>& self) {\n      return self;\n    }\n    friend\
-    \ const ::tools::vector<T>& operator+(const ::tools::vector<T>& self) {\n    \
-    \  return self;\n    }\n    friend ::tools::vector<T> operator+(const ::tools::vector<T>&\
-    \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ += rhs;\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
-    \ self) {\n      return ::tools::vector<T>(self) *= T(-1);\n    }\n    friend\
-    \ ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return ::tools::vector<T>(lhs) -= rhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator*(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ *= rhs;\n    }\n    friend ::tools::vector<T> operator*(const T& lhs, const\
-    \ ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n \
-    \   }\n    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs,\
-    \ const T& rhs) {\n      return ::tools::vector<T>(lhs) /= rhs;\n    }\n    ::tools::vector<T>&\
-    \ operator+=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ += other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator-=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
-    \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
-    \  ::tools::vector<T>& operator/=(const T& c) {\n      const T c_inv = T(1) /\
-    \ c;\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ *= c_inv;\n      }\n      return *this;\n    }\n    friend bool operator==(const\
-    \ ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n      if (lhs.dim()\
-    \ != rhs.dim()) {\n        return false;\n      }\n      for (::std::size_t i\
-    \ = 0; i < lhs.dim(); ++i) {\n        if (lhs.m_values[i] != rhs.m_values[i])\
-    \ {\n          return false;\n        }\n      }\n      return true;\n    }\n\
-    \    friend bool operator!=(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::vector<T>& self) {\n      os << '(';\n      ::std::string\
-    \ delimiter = \"\";\n      for (const T& value : self.m_values) {\n        os\
-    \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
-    \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
-    \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n#endif\n"
+    \    ::std::vector<T> m_values;\n\n  public:\n    using reference = T&;\n    using\
+    \ const_reference = const T&;\n    using size_type = ::std::size_t;\n    using\
+    \ difference_type = ::std::ptrdiff_t;\n    using pointer = T*;\n    using const_pointer\
+    \ = const T*;\n    using value_type = T;\n    using iterator = typename ::std::vector<T>::iterator;\n\
+    \    using const_iterator = typename ::std::vector<T>::const_iterator;\n    using\
+    \ reverse_iterator = typename ::std::vector<T>::reverse_iterator;\n    using const_reverse_iterator\
+    \ = typename ::std::vector<T>::const_reverse_iterator;\n\n    vector() = default;\n\
+    \    vector(const ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&)\
+    \ = default;\n    ~vector() = default;\n    ::tools::vector<T>& operator=(const\
+    \ ::tools::vector<T>&) = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&)\
+    \ = default;\n\n    explicit vector(size_type n) : m_values(n) {}\n    vector(size_type\
+    \ n, const_reference value) : m_values(n, value) {}\n    template <typename InputIter>\
+    \ vector(const InputIter first, const InputIter last) : m_values(first, last)\
+    \ {}\n    vector(const ::std::initializer_list<T> il) : m_values(il) {}\n\n  \
+    \  iterator begin() { return this->m_values.begin(); }\n    const_iterator begin()\
+    \ const { return this->m_values.begin(); }\n    iterator end() { return this->m_values.end();\
+    \ }\n    const_iterator end() const { return this->m_values.end(); }\n    const_iterator\
+    \ cbegin() const { return this->m_values.cbegin(); }\n    const_iterator cend()\
+    \ const { return this->m_values.cend(); }\n    reverse_iterator rbegin() { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator rbegin() const { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator crbegin() const { return\
+    \ this->m_values.crbegin(); }\n    reverse_iterator rend() { return this->m_values.rend();\
+    \ }\n    const_reverse_iterator rend() const { return this->m_values.rend(); }\n\
+    \    const_reverse_iterator crend() const { return this->m_values.crend(); }\n\
+    \n    size_type size() const { return this->m_values.size(); }\n    bool empty()\
+    \ const { return this->m_values.empty(); }\n\n    reference operator[](const size_type\
+    \ n) { return this->m_values[n]; }\n    const_reference operator[](const size_type\
+    \ n) const { return this->m_values[n]; }\n    reference front() { return *this->begin();\
+    \ }\n    const_reference front() const { return *this->begin(); }\n    reference\
+    \ back() { return *this->rbegin(); }\n    const_reference back() const { return\
+    \ *this->rbegin(); }\n\n    void swap(::tools::vector<T>& other) { this->m_values.swap(other.m_values);\
+    \ }\n\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector<T>)\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_VECTOR_HPP\n#define TOOLS_VECTOR_HPP\n\n#include <vector>\n\
+    #include <cstddef>\n#include <initializer_list>\n#include \"tools/detail/vector_common.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
+    \    ::std::vector<T> m_values;\n\n  public:\n    using reference = T&;\n    using\
+    \ const_reference = const T&;\n    using size_type = ::std::size_t;\n    using\
+    \ difference_type = ::std::ptrdiff_t;\n    using pointer = T*;\n    using const_pointer\
+    \ = const T*;\n    using value_type = T;\n    using iterator = typename ::std::vector<T>::iterator;\n\
+    \    using const_iterator = typename ::std::vector<T>::const_iterator;\n    using\
+    \ reverse_iterator = typename ::std::vector<T>::reverse_iterator;\n    using const_reverse_iterator\
+    \ = typename ::std::vector<T>::const_reverse_iterator;\n\n    vector() = default;\n\
+    \    vector(const ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&)\
+    \ = default;\n    ~vector() = default;\n    ::tools::vector<T>& operator=(const\
+    \ ::tools::vector<T>&) = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&)\
+    \ = default;\n\n    explicit vector(size_type n) : m_values(n) {}\n    vector(size_type\
+    \ n, const_reference value) : m_values(n, value) {}\n    template <typename InputIter>\
+    \ vector(const InputIter first, const InputIter last) : m_values(first, last)\
+    \ {}\n    vector(const ::std::initializer_list<T> il) : m_values(il) {}\n\n  \
+    \  iterator begin() { return this->m_values.begin(); }\n    const_iterator begin()\
+    \ const { return this->m_values.begin(); }\n    iterator end() { return this->m_values.end();\
+    \ }\n    const_iterator end() const { return this->m_values.end(); }\n    const_iterator\
+    \ cbegin() const { return this->m_values.cbegin(); }\n    const_iterator cend()\
+    \ const { return this->m_values.cend(); }\n    reverse_iterator rbegin() { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator rbegin() const { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator crbegin() const { return\
+    \ this->m_values.crbegin(); }\n    reverse_iterator rend() { return this->m_values.rend();\
+    \ }\n    const_reverse_iterator rend() const { return this->m_values.rend(); }\n\
+    \    const_reverse_iterator crend() const { return this->m_values.crend(); }\n\
+    \n    size_type size() const { return this->m_values.size(); }\n    bool empty()\
+    \ const { return this->m_values.empty(); }\n\n    reference operator[](const size_type\
+    \ n) { return this->m_values[n]; }\n    const_reference operator[](const size_type\
+    \ n) const { return this->m_values[n]; }\n    reference front() { return *this->begin();\
+    \ }\n    const_reference front() const { return *this->begin(); }\n    reference\
+    \ back() { return *this->rbegin(); }\n    const_reference back() const { return\
+    \ *this->rbegin(); }\n\n    void swap(::tools::vector<T>& other) { this->m_values.swap(other.m_values);\
+    \ }\n\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector<T>)\n  };\n}\n\n#endif\n"
   dependsOn:
+  - tools/detail/vector_common.hpp
   - tools/abs.hpp
   isVerificationFile: false
   path: tools/vector.hpp
   requiredBy:
   - tools/matrix.hpp
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-10-29 17:35:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/determinant.test.cpp
@@ -175,50 +170,88 @@ It is a $n$-dimensional vector.
 ### Author
 - anqooqie
 
-## Constructor
+## Methods based on std::vector&lt;T&gt;
 ```cpp
-(1) vector<T> v(std::size_t n);
-(2) vector<T> v(std::size_t n, T x);
+vector<T> v();
+vector<T> v(const vector<T>& u);
+vector<T> v(vector<T>&& u);
+vector<T>& v.operator=(const vector<T>& u);
+vector<T>& v.operator=(vector<T>&& u);
+
+vector<T> v(std::size_t n);
+vector<T> v(std::size_t n, T value);
+template <typename InputIter>
+vector<T> v(InputIter first, InputIter last);
+vector<T> v(std::initializer_list<T> il);
+
+(vector<T>::iterator or vector<T>::const_iterator) v.begin();
+(vector<T>::iterator or vector<T>::const_iterator) v.end();
+vector<T>::const_iterator v.cbegin();
+vector<T>::const_iterator v.cend();
+(vector<T>::reverse_iterator or vector<T>::const_reverse_iterator) v.rbegin();
+(vector<T>::reverse_iterator or vector<T>::const_reverse_iterator) v.rend();
+vector<T>::const_reverse_iterator v.crbegin();
+vector<T>::const_reverse_iterator v.crend();
+
+std::size_t v.size();
+bool v.empty();
+
+(T& or const T&) v.operator[](std::size_t i);
+(T& or const T&) v.front();
+(T& or const T&) v.back();
+
+void v.swap(vector<T>& u);
+
+bool operator==(vector<T> v, vector<T> u);
+bool operator!=(vector<T> v, vector<T> u);
 ```
 
-- (1)
-    - It creates a $n$-dimensional vector.
-- (2)
-    - It creates a $n$-dimensional vector, of which all the elements $x$.
-
-The type parameter `<T>` represents the type of the elements.
+They are methods based on `std::vector<T>`.
 
 ### Constraints
-- None
+- Same as ones of `std::vector<T>`.
+
+### Time Complexity
+- Same as ones of `std::vector<T>`.
+
+## Arithmetic operators
+```cpp
+(1) vector<T> operator+(vector<T> v);
+(2) vector<T> operator-(vector<T> v);
+(3) vector<T>& v.operator+=(vector<T> u);
+(4) vector<T> operator+(vector<T> v, vector<T> u);
+(5) vector<T>& v.operator-=(vector<T> u);
+(6) vector<T> operator-(vector<T> v, vector<T> u);
+(7) vector<T>& v.operator*=(T c);
+(8) vector<T> operator*(T c, vector<T> v);
+(9) vector<T> operator*(vector<T> v, T c);
+(10) vector<T>& v.operator/=(T c);
+(11) vector<T> operator/(vector<T> v, T c);
+```
+
+It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another $n$-dimensional vector and $c$ is a scholar value.
+
+### Constraints
+- (3), (4), (5), (6)
+    - The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
+- (10), (11)
+    - $c \neq 0$
 
 ### Time Complexity
 - $O(n)$
 
-## operator[]
+## inner_product
 ```cpp
-T& v[std::size_t i];
+T v.inner_product(vector<T> u);
 ```
 
-It is the $i$-th element of the vector.
+It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
 
 ### Constraints
-- $0 \leq i < n$
+- The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
 
 ### Time Complexity
-- $O(1)$
-
-## dim
-```cpp
-std::size_t v.dim();
-```
-
-It returns the dimension of the vector.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+- $O(n)$
 
 ## l1_norm
 ```cpp
@@ -226,19 +259,6 @@ T v.l1_norm();
 ```
 
 It returns $\left\\|\overrightarrow{v}\right\\|_1$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n)$
-
-## l2_norm
-```cpp
-std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
-```
-
-It returns $\left\\|\overrightarrow{v}\right\\|_2$.
 
 ### Constraints
 - None
@@ -259,6 +279,19 @@ It returns $\left\\|\overrightarrow{v}\right\\|_2^2 = \overrightarrow{v} \cdot \
 ### Time Complexity
 - $O(n)$
 
+## l2_norm
+```cpp
+std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
+```
+
+It returns $\left\\|\overrightarrow{v}\right\\|_2$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$
+
 ## normalized
 ```cpp
 vector<T> v.normalized();
@@ -267,48 +300,48 @@ vector<T> v.normalized();
 It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 
 ### Constraints
-- `std::is_floating_point_v<T>` is `true`
+- `std::is_floating_point_v<T>` is `true`.
 
 ### Time Complexity
 - $O(n)$
 
-## inner_product
+## operator&gt;&gt;
 ```cpp
-T v.inner_product(vector<T> u);
+std::istream& operator>>(std::istream& is, vector<T>& self);
 ```
 
-It returns $\overrightarrow{v} \cdot \overrightarrow{u}$.
+It is equivalent to the following code.
+
+```cpp
+for (auto& v : self) is >> v;
+return is;
+```
 
 ### Constraints
-- The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
+- None
 
 ### Time Complexity
 - $O(n)$
 
-## Arithmetic operations
+## operator&lt;&lt;
 ```cpp
-(1) vector<T> +v;
-(2) vector<T> -v;
-(3) vector<T> v + u;
-(4) vector<T> v - u;
-(5) vector<T> v * c;
-(6) vector<T> c * v;
-(7) vector<T> v / c;
-(8) vector<T>& v += u;
-(9) vector<T>& v -= u;
-(10) vector<T>& v *= c;
-(11) vector<T>& v /= c;
-(12) bool v == u;
-(13) bool v != u;
+std::ostream& operator<<(std::ostream& os, const vector<T>& self);
 ```
 
-It supports basic arithmetic operations on vectors where $\overrightarrow{u}$ is another $n$-dimensional vector and $c$ is a scholar value.
+It is equivalent to the following code.
+
+```cpp
+os << '(';
+for (std::size_t i = 0; i < self.size(); ++i) {
+  if (i > 0) os << ", ";
+  os << self[i];
+}
+os << ')';
+return os;
+```
 
 ### Constraints
-- (3), (4), (8), (9), (12), (13)
-    - The dimension of $\overrightarrow{u}$ is equal to the dimension of $\overrightarrow{v}$.
-- (7), (11)
-    - $c \neq 0$
+- None
 
 ### Time Complexity
 - $O(n)$

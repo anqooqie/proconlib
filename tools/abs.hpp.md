@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
+  - icon: ':question:'
+    path: tools/detail/vector_common.hpp
+    title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
@@ -47,9 +50,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
-    title: 2D vector
+    title: Two dimensional vector
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
@@ -123,12 +126,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/abs.hpp\"\n\n\n\n#include <cmath>\n\nnamespace tools\
@@ -146,6 +149,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/greater_by_arg.hpp
   - tools/detail/geometry_2d.hpp
+  - tools/detail/vector_common.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp
   - tools/vector2.hpp
@@ -160,7 +164,7 @@ data:
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
   timestamp: '2022-01-31 01:05:41+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp

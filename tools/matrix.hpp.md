@@ -1,9 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
+  - icon: ':question:'
+    path: tools/detail/vector_common.hpp
+    title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
@@ -28,79 +31,95 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
     #include <cassert>\n#include <iostream>\n#include <string>\n#include <optional>\n\
-    #line 1 \"tools/vector.hpp\"\n\n\n\n#include <type_traits>\n#line 7 \"tools/vector.hpp\"\
-    \n#include <cmath>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
+    #line 1 \"tools/vector.hpp\"\n\n\n\n#line 6 \"tools/vector.hpp\"\n#include <initializer_list>\n\
+    #line 1 \"tools/detail/vector_common.hpp\"\n\n\n\n#include <type_traits>\n#line\
+    \ 7 \"tools/detail/vector_common.hpp\"\n#include <algorithm>\n#include <cmath>\n\
+    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
     \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/vector.hpp\"\
+    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
+    \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
+    \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
+    \ }\\\n\\\n    V& operator+=(const V& other) {\\\n      assert(this->size() ==\
+    \ other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\
+    \n        (*this)[i] += other[i];\\\n      }\\\n      return *this;\\\n    }\\\
+    \n    friend V operator+(const V& lhs, const V& rhs) {\\\n      return V(lhs)\
+    \ += rhs;\\\n    }\\\n\\\n    V& operator-=(const V& other) {\\\n      assert(this->size()\
+    \ == other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i)\
+    \ {\\\n        (*this)[i] -= other[i];\\\n      }\\\n      return *this;\\\n \
+    \   }\\\n    friend V operator-(const V& lhs, const V& rhs) {\\\n      return\
+    \ V(lhs) -= rhs;\\\n    }\\\n\\\n    V& operator*=(const T& c) {\\\n      for\
+    \ (auto& v : *this) {\\\n        v *= c;\\\n      }\\\n      return *this;\\\n\
+    \    }\\\n    friend V operator*(const T& lhs, const V& rhs) {\\\n      return\
+    \ V(rhs) *= lhs;\\\n    }\\\n    friend V operator*(const V& lhs, const T& rhs)\
+    \ {\\\n      return V(lhs) *= rhs;\\\n    }\\\n\\\n    V& operator/=(const T&\
+    \ c) {\\\n      for (auto& v : *this) {\\\n        v /= c;\\\n      }\\\n    \
+    \  return *this;\\\n    }\\\n    friend V operator/(const V& lhs, const T& rhs)\
+    \ {\\\n      return V(lhs) /= rhs;\\\n    }\\\n\\\n    friend bool operator==(const\
+    \ V& lhs, const V& rhs) {\\\n      return ::std::equal(lhs.begin(), lhs.end(),\
+    \ rhs.begin());\\\n    }\\\n    friend bool operator!=(const V& lhs, const V&\
+    \ rhs) {\\\n      return !(lhs == rhs);\\\n    }\\\n\\\n    T inner_product(const\
+    \ V& other) const {\\\n      assert(this->size() == other.size());\\\n      T\
+    \ res(0);\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\n    \
+    \    res += (*this)[i] * other[i];\\\n      }\\\n      return res;\\\n    }\\\n\
+    \\\n    T l1_norm() const {\\\n      T res(0);\\\n      for (const auto& v : *this)\
+    \ {\\\n        res += ::tools::abs(v);\\\n      }\\\n      return res;\\\n   \
+    \ }\\\n\\\n    T squared_l2_norm() const {\\\n      return this->inner_product(*this);\\\
+    \n    }\\\n\\\n    F l2_norm() const {\\\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\\\
+    \n    }\\\n\\\n    template <typename T_ = T>\\\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ V> normalized() const {\\\n      return *this / this->l2_norm();\\\n    }\\\n\
+    \\\n    friend ::std::ostream& operator<<(::std::ostream& os, const V& self) {\\\
+    \n      os << '(';\\\n      ::std::string delimiter = \"\";\\\n      for (const\
+    \ auto& v : self) {\\\n        os << delimiter << v;\\\n        delimiter = \"\
+    , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
+    \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 8 \"tools/vector.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class vector {\n  private:\n\
-    \    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\
-    \    ::std::vector<T> m_values;\n\n  public:\n    vector() = default;\n    vector(const\
-    \ ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&) = default;\n\
-    \    ~vector() = default;\n    ::tools::vector<T>& operator=(const ::tools::vector<T>&)\
-    \ = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;\n\
-    \n    vector(::std::size_t dim) : m_values(dim) {\n    }\n    vector(::std::size_t\
-    \ dim, const T& value) : m_values(dim, value) {\n    }\n\n    T& operator[](const\
-    \ ::std::size_t i) {\n      return this->m_values[i];\n    }\n    T operator[](const\
-    \ ::std::size_t i) const {\n      return this->m_values[i];\n    }\n\n    ::std::size_t\
-    \ dim() const {\n      return this->m_values.size();\n    }\n\n    T l1_norm()\
-    \ const {\n      return ::std::accumulate(this->m_values.begin(), this->m_values.end(),\
-    \ T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });\n   \
-    \ }\n    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
-    \    }\n    T squared_l2_norm() const {\n      return this->inner_product(*this);\n\
-    \    }\n    template <typename SFINAE = T, ::std::enable_if_t<::std::is_floating_point_v<SFINAE>,\
-    \ ::std::nullptr_t> = nullptr>\n    ::tools::vector<T> normalized() const {\n\
-    \      return *this / this->l2_norm();\n    }\n\n    T inner_product(const ::tools::vector<T>&\
-    \ other) const {\n      assert(this->dim() == other.dim());\n      T result(0);\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        result += this->m_values[i]\
-    \ * other.m_values[i];\n      }\n      return result;\n    }\n\n    friend ::tools::vector<T>&\
-    \ operator+(::tools::vector<T>& self) {\n      return self;\n    }\n    friend\
-    \ const ::tools::vector<T>& operator+(const ::tools::vector<T>& self) {\n    \
-    \  return self;\n    }\n    friend ::tools::vector<T> operator+(const ::tools::vector<T>&\
-    \ lhs, const ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ += rhs;\n    }\n    friend ::tools::vector<T> operator-(const ::tools::vector<T>&\
-    \ self) {\n      return ::tools::vector<T>(self) *= T(-1);\n    }\n    friend\
-    \ ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return ::tools::vector<T>(lhs) -= rhs;\n    }\n    friend ::tools::vector<T>\
-    \ operator*(const ::tools::vector<T>& lhs, const T& rhs) {\n      return ::tools::vector<T>(lhs)\
-    \ *= rhs;\n    }\n    friend ::tools::vector<T> operator*(const T& lhs, const\
-    \ ::tools::vector<T>& rhs) {\n      return ::tools::vector<T>(rhs) *= lhs;\n \
-    \   }\n    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs,\
-    \ const T& rhs) {\n      return ::tools::vector<T>(lhs) /= rhs;\n    }\n    ::tools::vector<T>&\
-    \ operator+=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ += other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator-=(const ::tools::vector<T>& other) {\n      assert(this->dim() == other.dim());\n\
-    \      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ -= other.m_values[i];\n      }\n      return *this;\n    }\n    ::tools::vector<T>&\
-    \ operator*=(const T& c) {\n      for (::std::size_t i = 0; i < this->dim(); ++i)\
-    \ {\n        this->m_values[i] *= c;\n      }\n      return *this;\n    }\n  \
-    \  ::tools::vector<T>& operator/=(const T& c) {\n      const T c_inv = T(1) /\
-    \ c;\n      for (::std::size_t i = 0; i < this->dim(); ++i) {\n        this->m_values[i]\
-    \ *= c_inv;\n      }\n      return *this;\n    }\n    friend bool operator==(const\
-    \ ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {\n      if (lhs.dim()\
-    \ != rhs.dim()) {\n        return false;\n      }\n      for (::std::size_t i\
-    \ = 0; i < lhs.dim(); ++i) {\n        if (lhs.m_values[i] != rhs.m_values[i])\
-    \ {\n          return false;\n        }\n      }\n      return true;\n    }\n\
-    \    friend bool operator!=(const ::tools::vector<T>& lhs, const ::tools::vector<T>&\
-    \ rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::vector<T>& self) {\n      os << '(';\n      ::std::string\
-    \ delimiter = \"\";\n      for (const T& value : self.m_values) {\n        os\
-    \ << delimiter << value;\n        delimiter = \", \";\n      }\n      return os\
-    \ << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>&\
-    \ self) {\n      for (T& value : self.m_values) {\n        is >> value;\n    \
-    \  }\n      return is;\n    }\n  };\n}\n\n\n#line 11 \"tools/matrix.hpp\"\n\n\
-    namespace tools {\n  template <typename T>\n  class matrix {\n  private:\n   \
-    \ ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n    ::std::size_t m_cols;\n\
-    \n  public:\n    matrix() = default;\n    matrix(const ::tools::matrix<T>&) =\
-    \ default;\n    matrix(::tools::matrix<T>&&) = default;\n    ~matrix() = default;\n\
-    \    ::tools::matrix<T>& operator=(const ::tools::matrix<T>&) = default;\n   \
-    \ ::tools::matrix<T>& operator=(::tools::matrix<T>&&) = default;\n\n    matrix(::std::size_t\
-    \ rows, ::std::size_t cols) :\n      m_values(rows * cols), m_rows(rows), m_cols(cols)\
-    \ {\n    }\n    matrix(::std::size_t rows, ::std::size_t cols, const T& value)\
-    \ :\n      m_values(rows * cols, value), m_rows(rows), m_cols(cols) {\n    }\n\
-    \n    typename ::std::vector<T>::iterator operator[](const ::std::size_t r) {\n\
-    \      return this->m_values.begin() + r * this->m_cols;\n    }\n    typename\
+    \    ::std::vector<T> m_values;\n\n  public:\n    using reference = T&;\n    using\
+    \ const_reference = const T&;\n    using size_type = ::std::size_t;\n    using\
+    \ difference_type = ::std::ptrdiff_t;\n    using pointer = T*;\n    using const_pointer\
+    \ = const T*;\n    using value_type = T;\n    using iterator = typename ::std::vector<T>::iterator;\n\
+    \    using const_iterator = typename ::std::vector<T>::const_iterator;\n    using\
+    \ reverse_iterator = typename ::std::vector<T>::reverse_iterator;\n    using const_reverse_iterator\
+    \ = typename ::std::vector<T>::const_reverse_iterator;\n\n    vector() = default;\n\
+    \    vector(const ::tools::vector<T>&) = default;\n    vector(::tools::vector<T>&&)\
+    \ = default;\n    ~vector() = default;\n    ::tools::vector<T>& operator=(const\
+    \ ::tools::vector<T>&) = default;\n    ::tools::vector<T>& operator=(::tools::vector<T>&&)\
+    \ = default;\n\n    explicit vector(size_type n) : m_values(n) {}\n    vector(size_type\
+    \ n, const_reference value) : m_values(n, value) {}\n    template <typename InputIter>\
+    \ vector(const InputIter first, const InputIter last) : m_values(first, last)\
+    \ {}\n    vector(const ::std::initializer_list<T> il) : m_values(il) {}\n\n  \
+    \  iterator begin() { return this->m_values.begin(); }\n    const_iterator begin()\
+    \ const { return this->m_values.begin(); }\n    iterator end() { return this->m_values.end();\
+    \ }\n    const_iterator end() const { return this->m_values.end(); }\n    const_iterator\
+    \ cbegin() const { return this->m_values.cbegin(); }\n    const_iterator cend()\
+    \ const { return this->m_values.cend(); }\n    reverse_iterator rbegin() { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator rbegin() const { return\
+    \ this->m_values.rbegin(); }\n    const_reverse_iterator crbegin() const { return\
+    \ this->m_values.crbegin(); }\n    reverse_iterator rend() { return this->m_values.rend();\
+    \ }\n    const_reverse_iterator rend() const { return this->m_values.rend(); }\n\
+    \    const_reverse_iterator crend() const { return this->m_values.crend(); }\n\
+    \n    size_type size() const { return this->m_values.size(); }\n    bool empty()\
+    \ const { return this->m_values.empty(); }\n\n    reference operator[](const size_type\
+    \ n) { return this->m_values[n]; }\n    const_reference operator[](const size_type\
+    \ n) const { return this->m_values[n]; }\n    reference front() { return *this->begin();\
+    \ }\n    const_reference front() const { return *this->begin(); }\n    reference\
+    \ back() { return *this->rbegin(); }\n    const_reference back() const { return\
+    \ *this->rbegin(); }\n\n    void swap(::tools::vector<T>& other) { this->m_values.swap(other.m_values);\
+    \ }\n\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector<T>)\n  };\n}\n\n\n#line\
+    \ 11 \"tools/matrix.hpp\"\n\nnamespace tools {\n  template <typename T>\n  class\
+    \ matrix {\n  private:\n    ::std::vector<T> m_values;\n    ::std::size_t m_rows;\n\
+    \    ::std::size_t m_cols;\n\n  public:\n    matrix() = default;\n    matrix(const\
+    \ ::tools::matrix<T>&) = default;\n    matrix(::tools::matrix<T>&&) = default;\n\
+    \    ~matrix() = default;\n    ::tools::matrix<T>& operator=(const ::tools::matrix<T>&)\
+    \ = default;\n    ::tools::matrix<T>& operator=(::tools::matrix<T>&&) = default;\n\
+    \n    matrix(::std::size_t rows, ::std::size_t cols) :\n      m_values(rows *\
+    \ cols), m_rows(rows), m_cols(cols) {\n    }\n    matrix(::std::size_t rows, ::std::size_t\
+    \ cols, const T& value) :\n      m_values(rows * cols, value), m_rows(rows), m_cols(cols)\
+    \ {\n    }\n\n    typename ::std::vector<T>::iterator operator[](const ::std::size_t\
+    \ r) {\n      return this->m_values.begin() + r * this->m_cols;\n    }\n    typename\
     \ ::std::vector<T>::const_iterator operator[](const ::std::size_t r) const {\n\
     \      return this->m_values.begin() + r * this->m_cols;\n    }\n\n    ::std::size_t\
     \ rows() const {\n      return this->m_rows;\n    }\n    ::std::size_t cols()\
@@ -120,7 +139,7 @@ data:
     \ j = 0; j < rhs.m_cols; ++j) {\n            result[i][j] += lhs[i][k] * rhs[k][j];\n\
     \          }\n        }\n      }\n      return result;\n    }\n    friend ::tools::vector<T>\
     \ operator*(const ::tools::matrix<T>& lhs, const ::tools::vector<T>& rhs) {\n\
-    \      assert(lhs.m_cols == rhs.dim());\n      ::tools::vector<T> result(lhs.m_rows,\
+    \      assert(lhs.m_cols == rhs.size());\n      ::tools::vector<T> result(lhs.m_rows,\
     \ T(0));\n      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {\n        for\
     \ (::std::size_t j = 0; j < lhs.m_cols; ++j) {\n          result[i] += lhs[i][j]\
     \ * rhs[j];\n        }\n      }\n      return result;\n    }\n    friend ::tools::matrix<T>\
@@ -170,8 +189,8 @@ data:
     \     ++rank;\n      }\n\n      return ::std::make_pair(rank, coeff);\n    }\n\
     \n  public:\n    ::std::size_t gauss_jordan() {\n      return this->internal_gauss_jordan().first;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
-    \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
-    \    ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
+    \      assert(this->m_rows == b.size());\n      assert(this->m_cols >= 1);\n \
+    \     ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
     \ r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c = 0; c < this->m_cols;\
     \ ++c) {\n          Ab[r][c] = (*this)[r][c];\n        }\n        Ab[r][this->m_cols]\
     \ = b[r];\n      }\n\n      Ab.internal_gauss_jordan();\n\n      ::std::vector<::std::size_t>\
@@ -246,7 +265,7 @@ data:
     \ j = 0; j < rhs.m_cols; ++j) {\n            result[i][j] += lhs[i][k] * rhs[k][j];\n\
     \          }\n        }\n      }\n      return result;\n    }\n    friend ::tools::vector<T>\
     \ operator*(const ::tools::matrix<T>& lhs, const ::tools::vector<T>& rhs) {\n\
-    \      assert(lhs.m_cols == rhs.dim());\n      ::tools::vector<T> result(lhs.m_rows,\
+    \      assert(lhs.m_cols == rhs.size());\n      ::tools::vector<T> result(lhs.m_rows,\
     \ T(0));\n      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {\n        for\
     \ (::std::size_t j = 0; j < lhs.m_cols; ++j) {\n          result[i] += lhs[i][j]\
     \ * rhs[j];\n        }\n      }\n      return result;\n    }\n    friend ::tools::matrix<T>\
@@ -296,8 +315,8 @@ data:
     \     ++rank;\n      }\n\n      return ::std::make_pair(rank, coeff);\n    }\n\
     \n  public:\n    ::std::size_t gauss_jordan() {\n      return this->internal_gauss_jordan().first;\n\
     \    }\n\n    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {\n\
-    \      assert(this->m_rows == b.dim());\n      assert(this->m_cols >= 1);\n  \
-    \    ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
+    \      assert(this->m_rows == b.size());\n      assert(this->m_cols >= 1);\n \
+    \     ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);\n      for (::std::size_t\
     \ r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c = 0; c < this->m_cols;\
     \ ++c) {\n          Ab[r][c] = (*this)[r][c];\n        }\n        Ab[r][this->m_cols]\
     \ = b[r];\n      }\n\n      Ab.internal_gauss_jordan();\n\n      ::std::vector<::std::size_t>\
@@ -342,11 +361,12 @@ data:
     \        }\n      }\n      return B;\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector.hpp
+  - tools/detail/vector_common.hpp
   - tools/abs.hpp
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2022-07-23 13:26:40+09:00'
+  timestamp: '2022-10-29 17:35:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/determinant.test.cpp
