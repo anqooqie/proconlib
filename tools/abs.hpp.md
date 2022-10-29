@@ -53,6 +53,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
+  - icon: ':warning:'
+    path: tools/vector3.hpp
+    title: Three dimensional vector
+  - icon: ':warning:'
+    path: tools/vector4.hpp
+    title: Four dimensional vector
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ccw.test.cpp
@@ -153,6 +159,7 @@ data:
   - tools/directed_line_segment_2d.hpp
   - tools/ccw.hpp
   - tools/vector2.hpp
+  - tools/vector4.hpp
   - tools/line_2d.hpp
   - tools/half_line_2d.hpp
   - tools/greater_by_arg_total.hpp
@@ -160,6 +167,7 @@ data:
   - tools/polygon_2d.hpp
   - tools/matrix.hpp
   - tools/convex_hull.hpp
+  - tools/vector3.hpp
   - tools/less_by_arg_total.hpp
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
