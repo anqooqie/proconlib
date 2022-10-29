@@ -4,13 +4,49 @@ documentation_of: //tools/vector2.hpp
 ---
 
 It is a two-dimensional vector.
-Not only the members written in this page but also the members of `std::array<T, 2>` are available.
 
 ### License
 - CC0
 
 ### Author
 - anqooqie
+
+## Methods based on std::array&lt;T, 2&gt;
+```cpp
+vector2<T> v(const vector2<T>& u);
+vector2<T> v(vector2<T>&& u);
+vector2<T>& v.operator=(const vector2<T>& u);
+vector2<T>& v.operator=(vector2<T>&& u);
+
+(vector2<T>::iterator or vector2<T>::const_iterator) v.begin();
+(vector2<T>::iterator or vector2<T>::const_iterator) v.end();
+vector2<T>::const_iterator v.cbegin();
+vector2<T>::const_iterator v.cend();
+(vector2<T>::reverse_iterator or vector2<T>::const_reverse_iterator) v.rbegin();
+(vector2<T>::reverse_iterator or vector2<T>::const_reverse_iterator) v.rend();
+vector2<T>::const_reverse_iterator v.crbegin();
+vector2<T>::const_reverse_iterator v.crend();
+
+std::size_t v.size();
+bool v.empty();
+
+(T& or const T&) v.operator[](std::size_t i);
+(T& or const T&) v.front();
+(T& or const T&) v.back();
+
+void v.swap(vector2<T>& u);
+
+bool operator==(vector2<T> v, vector2<T> u);
+bool operator!=(vector2<T> v, vector2<T> u);
+```
+
+They are methods based on `std::array<T, 2>`.
+
+### Constraints
+- Same as ones of `std::array<T, 2>`.
+
+### Time Complexity
+- Same as ones of `std::array<T, 2>`.
 
 ## Constructor
 ```cpp
@@ -31,17 +67,17 @@ Not only the members written in this page but also the members of `std::array<T,
 
 ## x
 ```cpp
-T& v.x;
+T v.x;
 ```
 
-It is the reference to `v[0]`.
+It is identical to `v[0]`.
 
 ## y
 ```cpp
-T& v.y;
+T v.y;
 ```
 
-It is the reference to `v[1]`.
+It is identical to `v[1]`.
 
 ## Arithmetic operators
 ```cpp
@@ -106,12 +142,12 @@ It returns $\left\\|\overrightarrow{v}\right\\|_1 = \|x\| + \|y\|$.
 ### Time Complexity
 - $O(1)$
 
-## l2_norm
+## squared_l2_norm
 ```cpp
-std::conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
+T v.squared_l2_norm();
 ```
 
-It returns $\left\\|\overrightarrow{v}\right\\|_2 = \sqrt{x^2 + y^2}$.
+It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
 
 ### Constraints
 - None
@@ -119,12 +155,12 @@ It returns $\left\\|\overrightarrow{v}\right\\|_2 = \sqrt{x^2 + y^2}$.
 ### Time Complexity
 - $O(1)$
 
-## squared_l2_norm
+## l2_norm
 ```cpp
-T v.squared_l2_norm();
+std::conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
 ```
 
-It returns $\overrightarrow{v} \cdot \overrightarrow{v} = x^2 + y^2$.
+It returns $\left\\|\overrightarrow{v}\right\\|_2 = \sqrt{x^2 + y^2}$.
 
 ### Constraints
 - None
@@ -171,7 +207,7 @@ It returns $(y, -x)$.
 ### Time Complexity
 - $O(1)$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, vector2<T>& self);
 ```
@@ -184,7 +220,7 @@ It returns `is >> self.x >> self.y`.
 ### Time Complexity
 - $O(1)$
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const vector2<T>& self);
 ```

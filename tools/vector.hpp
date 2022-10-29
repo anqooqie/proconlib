@@ -2,119 +2,67 @@
 #define TOOLS_VECTOR_HPP
 
 #include <vector>
-#include <type_traits>
-#include <algorithm>
-#include <iterator>
-#include <functional>
-#include <cassert>
 #include <cstddef>
-#include <cmath>
-#include <iostream>
-#include <string>
-#include "tools/abs.hpp"
+#include <initializer_list>
+#include "tools/detail/vector_common.hpp"
 
 namespace tools {
   template <typename T>
-  class vector : public ::std::vector<T> {
+  class vector {
   private:
-    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
+    ::std::vector<T> m_values;
 
   public:
-    using ::std::vector<T>::vector;
-    using ::std::vector<T>::operator=;
+    using reference = T&;
+    using const_reference = const T&;
+    using size_type = ::std::size_t;
+    using difference_type = ::std::ptrdiff_t;
+    using pointer = T*;
+    using const_pointer = const T*;
+    using value_type = T;
+    using iterator = typename ::std::vector<T>::iterator;
+    using const_iterator = typename ::std::vector<T>::const_iterator;
+    using reverse_iterator = typename ::std::vector<T>::reverse_iterator;
+    using const_reverse_iterator = typename ::std::vector<T>::const_reverse_iterator;
 
-    ::tools::vector<T> operator+() const {
-      return *this;
-    }
+    vector() = default;
+    vector(const ::tools::vector<T>&) = default;
+    vector(::tools::vector<T>&&) = default;
+    ~vector() = default;
+    ::tools::vector<T>& operator=(const ::tools::vector<T>&) = default;
+    ::tools::vector<T>& operator=(::tools::vector<T>&&) = default;
 
-    ::tools::vector<T> operator-() const {
-      ::tools::vector<T> res;
-      res.reserve(this->size());
-      ::std::transform(this->begin(), this->end(), ::std::back_inserter(res), ::std::negate<T>());
-      return res;
-    }
+    explicit vector(size_type n) : m_values(n) {}
+    vector(size_type n, const_reference value) : m_values(n, value) {}
+    template <typename InputIter> vector(const InputIter first, const InputIter last) : m_values(first, last) {}
+    vector(const ::std::initializer_list<T> il) : m_values(il) {}
 
-    ::tools::vector<T>& operator+=(const ::tools::vector<T>& other) {
-      assert(this->size() == other.size());
-      for (::std::size_t i = 0; i < this->size(); ++i) {
-        (*this)[i] += other[i];
-      }
-      return *this;
-    }
-    friend ::tools::vector<T> operator+(const ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {
-      return ::tools::vector<T>(lhs) += rhs;
-    }
+    iterator begin() { return this->m_values.begin(); }
+    const_iterator begin() const { return this->m_values.begin(); }
+    iterator end() { return this->m_values.end(); }
+    const_iterator end() const { return this->m_values.end(); }
+    const_iterator cbegin() const { return this->m_values.cbegin(); }
+    const_iterator cend() const { return this->m_values.cend(); }
+    reverse_iterator rbegin() { return this->m_values.rbegin(); }
+    const_reverse_iterator rbegin() const { return this->m_values.rbegin(); }
+    const_reverse_iterator crbegin() const { return this->m_values.crbegin(); }
+    reverse_iterator rend() { return this->m_values.rend(); }
+    const_reverse_iterator rend() const { return this->m_values.rend(); }
+    const_reverse_iterator crend() const { return this->m_values.crend(); }
 
-    ::tools::vector<T>& operator-=(const ::tools::vector<T>& other) {
-      assert(this->size() == other.size());
-      for (::std::size_t i = 0; i < this->size(); ++i) {
-        (*this)[i] -= other[i];
-      }
-      return *this;
-    }
-    friend ::tools::vector<T> operator-(const ::tools::vector<T>& lhs, const ::tools::vector<T>& rhs) {
-      return ::tools::vector<T>(lhs) -= rhs;
-    }
+    size_type size() const { return this->m_values.size(); }
+    bool empty() const { return this->m_values.empty(); }
 
-    ::tools::vector<T>& operator*=(const T& c) {
-      for (auto& v : *this) v *= c;
-      return *this;
-    }
-    friend ::tools::vector<T> operator*(const T& lhs, const ::tools::vector<T>& rhs) {
-      return ::tools::vector<T>(rhs) *= lhs;
-    }
-    friend ::tools::vector<T> operator*(const ::tools::vector<T>& lhs, const T& rhs) {
-      return ::tools::vector<T>(lhs) *= rhs;
-    }
+    reference operator[](const size_type n) { return this->m_values[n]; }
+    const_reference operator[](const size_type n) const { return this->m_values[n]; }
+    reference front() { return *this->begin(); }
+    const_reference front() const { return *this->begin(); }
+    reference back() { return *this->rbegin(); }
+    const_reference back() const { return *this->rbegin(); }
 
-    ::tools::vector<T>& operator/=(const T& c) {
-      for (auto& v : *this) v /= c;
-      return *this;
-    }
-    friend ::tools::vector<T> operator/(const ::tools::vector<T>& lhs, const T& rhs) {
-      return ::tools::vector<T>(lhs) /= rhs;
-    }
+    void swap(::tools::vector<T>& other) { this->m_values.swap(other.m_values); }
 
-    T inner_product(const ::tools::vector<T>& other) const {
-      assert(this->size() == other.size());
-      T result(0);
-      for (::std::size_t i = 0; i < this->size(); ++i) {
-        result += (*this)[i] * other[i];
-      }
-      return result;
-    }
-
-    T l1_norm() const {
-      return ::std::accumulate(this->begin(), this->end(), T(0), [](const T& sum, const T& v) { return sum + ::tools::abs(v); });
-    }
-
-    F l2_norm() const {
-      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));
-    }
-
-    T squared_l2_norm() const {
-      return this->inner_product(*this);
-    }
-
-    template <typename T_ = T>
-    ::std::enable_if_t<::std::is_floating_point_v<T_>, ::tools::vector<T_>> normalized() const {
-      return *this / this->l2_norm();
-    }
-
-    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::vector<T>& self) {
-      os << '(';
-      ::std::string delimiter = "";
-      for (const auto& v : self) {
-        os << delimiter << v;
-        delimiter = ", ";
-      }
-      return os << ')';
-    }
-
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector<T>& self) {
-      for (auto& v : self) is >> v;
-      return is;
-    }
+    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector<T>)
   };
 }
 

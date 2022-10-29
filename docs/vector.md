@@ -4,13 +4,56 @@ documentation_of: //tools/vector.hpp
 ---
 
 It is a $n$-dimensional vector.
-Not only the members written in this page but also the members of `std::vector<T>` are available.
 
 ### License
 - CC0
 
 ### Author
 - anqooqie
+
+## Methods based on std::vector&lt;T&gt;
+```cpp
+vector<T> v();
+vector<T> v(const vector<T>& u);
+vector<T> v(vector<T>&& u);
+vector<T>& v.operator=(const vector<T>& u);
+vector<T>& v.operator=(vector<T>&& u);
+
+vector<T> v(std::size_t n);
+vector<T> v(std::size_t n, T value);
+template <typename InputIter>
+vector<T> v(InputIter first, InputIter last);
+vector<T> v(std::initializer_list<T> il);
+
+(vector<T>::iterator or vector<T>::const_iterator) v.begin();
+(vector<T>::iterator or vector<T>::const_iterator) v.end();
+vector<T>::const_iterator v.cbegin();
+vector<T>::const_iterator v.cend();
+(vector<T>::reverse_iterator or vector<T>::const_reverse_iterator) v.rbegin();
+(vector<T>::reverse_iterator or vector<T>::const_reverse_iterator) v.rend();
+vector<T>::const_reverse_iterator v.crbegin();
+vector<T>::const_reverse_iterator v.crend();
+
+std::size_t v.size();
+bool v.empty();
+
+(T& or const T&) v.operator[](std::size_t i);
+(T& or const T&) v.front();
+(T& or const T&) v.back();
+
+void v.swap(vector<T>& u);
+
+bool operator==(vector<T> v, vector<T> u);
+bool operator!=(vector<T> v, vector<T> u);
+```
+
+They are methods based on `std::vector<T>`.
+
+### Constraints
+- Same as ones of `std::vector<T>`.
+
+### Time Complexity
+- Same as ones of `std::vector<T>`.
 
 ## Arithmetic operators
 ```cpp
@@ -64,12 +107,12 @@ It returns $\left\\|\overrightarrow{v}\right\\|_1$.
 ### Time Complexity
 - $O(n)$
 
-## l2_norm
+## squared_l2_norm
 ```cpp
-std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
+T v.squared_l2_norm();
 ```
 
-It returns $\left\\|\overrightarrow{v}\right\\|_2$.
+It returns $\left\\|\overrightarrow{v}\right\\|_2^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
 
 ### Constraints
 - None
@@ -77,12 +120,12 @@ It returns $\left\\|\overrightarrow{v}\right\\|_2$.
 ### Time Complexity
 - $O(n)$
 
-## squared_l2_norm
+## l2_norm
 ```cpp
-T v.squared_l2_norm();
+std::is_conditional_t<std::is_floating_point_v<T>, T, double> v.l2_norm();
 ```
 
-It returns $\left\\|\overrightarrow{v}\right\\|_2^2 = \overrightarrow{v} \cdot \overrightarrow{v}$.
+It returns $\left\\|\overrightarrow{v}\right\\|_2$.
 
 ### Constraints
 - None
@@ -103,7 +146,7 @@ It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 ### Time Complexity
 - $O(n)$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, vector<T>& self);
 ```
@@ -121,7 +164,7 @@ return is;
 ### Time Complexity
 - $O(n)$
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const vector<T>& self);
 ```

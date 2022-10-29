@@ -2,120 +2,36 @@
 #define TOOLS_VECTOR2_HPP
 
 #include <array>
-#include <type_traits>
-#include <utility>
-#include <cmath>
-#include <iostream>
-#include <cstddef>
 #include <functional>
-#include "tools/abs.hpp"
-#include "tools/pair_hash.hpp"
+#include <utility>
+#include <cstddef>
+#include "tools/detail/vector_static_common.hpp"
+#include "tools/detail/vector_common.hpp"
+#include "tools/tuple_hash.hpp"
 
 namespace tools {
   template <typename T>
-  class vector2 : public ::std::array<T, 2> {
+  class vector2 {
+  public:
+    T x;
+    T y;
+
   private:
-    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
+    ::std::array<::std::reference_wrapper<T>, 2> m_refs;
 
   public:
-    T& x = (*this)[0];
-    T& y = (*this)[1];
-
-    vector2(const T& x, const T& y) {
-      this->x = x;
-      this->y = y;
-    }
-
-    vector2() : vector2(T(), T()) {
-    }
-    vector2(const ::tools::vector2<T>& other) : vector2(other.x, other.y) {
-    }
-    vector2(::tools::vector2<T>&& other) {
-      this->x = ::std::move(other.x);
-      this->y = ::std::move(other.y);
-    }
+    vector2(const T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)}) {}
+    vector2() : vector2(T(), T()) {}
+    vector2(const ::tools::vector2<T>& other) : vector2(other.x, other.y) {}
+    vector2(::tools::vector2<T>&& other) : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x), ::std::ref(this->y)}) {}
     ~vector2() = default;
-    ::tools::vector2<T>& operator=(const ::tools::vector2<T>& other) {
-      this->x = other.x;
-      this->y = other.y;
-      return *this;
-    }
-    ::tools::vector2<T>& operator=(::tools::vector2<T>&& other) {
-      this->x = ::std::move(other.x);
-      this->y = ::std::move(other.y);
-      return *this;
-    }
 
-    ::tools::vector2<T> operator+() const {
-      return *this;
-    }
+    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)
+    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)
 
-    ::tools::vector2<T> operator-() const {
-      return ::tools::vector2<T>(-this->x, -this->y);
-    }
-
-    ::tools::vector2<T>& operator+=(const ::tools::vector2<T>& other) {
-      this->x += other.x;
-      this->y += other.y;
-      return *this;
-    }
-    friend ::tools::vector2<T> operator+(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs) {
-      return ::tools::vector2<T>(lhs) += rhs;
-    }
-
-    ::tools::vector2<T>& operator-=(const ::tools::vector2<T>& other) {
-      this->x -= other.x;
-      this->y -= other.y;
-      return *this;
-    }
-    friend ::tools::vector2<T> operator-(const ::tools::vector2<T>& lhs, const ::tools::vector2<T>& rhs) {
-      return ::tools::vector2<T>(lhs) -= rhs;
-    }
-
-    ::tools::vector2<T>& operator*=(const T& c) {
-      this->x *= c;
-      this->y *= c;
-      return *this;
-    }
-    friend ::tools::vector2<T> operator*(const T& lhs, const ::tools::vector2<T>& rhs) {
-      return ::tools::vector2<T>(rhs) *= lhs;
-    }
-    friend ::tools::vector2<T> operator*(const ::tools::vector2<T>& lhs, const T& rhs) {
-      return ::tools::vector2<T>(lhs) *= rhs;
-    }
-
-    ::tools::vector2<T>& operator/=(const T& c) {
-      this->x /= c;
-      this->y /= c;
-      return *this;
-    }
-    friend ::tools::vector2<T> operator/(const ::tools::vector2<T>& lhs, const T& rhs) {
-      return ::tools::vector2<T>(lhs) /= rhs;
-    }
-
-    T inner_product(const ::tools::vector2<T>& other) const {
-      return this->x * other.x + this->y * other.y;
-    }
-
+  public:
     T outer_product(const ::tools::vector2<T>& other) const {
       return this->x * other.y - this->y * other.x;
-    }
-
-    T l1_norm() const {
-      return ::tools::abs(this->x) + ::tools::abs(this->y);
-    }
-
-    F l2_norm() const {
-      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));
-    }
-
-    T squared_l2_norm() const {
-      return this->inner_product(*this);
-    }
-
-    template <typename T_ = T>
-    ::std::enable_if_t<::std::is_floating_point_v<T_>, ::tools::vector2<T_>> normalized() const {
-      return *this / this->l2_norm();
     }
 
     ::tools::vector2<T> turned90() const {
@@ -124,14 +40,6 @@ namespace tools {
 
     ::tools::vector2<T> turned270() const {
       return ::tools::vector2<T>(this->y, -this->x);
-    }
-
-    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::vector2<T>& self) {
-      return os << '(' << self.x << ", " << self.y << ')';
-    }
-
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::vector2<T>& self) {
-      return is >> self.x >> self.y;
     }
 
     static ::std::array<::tools::vector2<T>, 4> four_directions() {
@@ -160,12 +68,17 @@ namespace tools {
 
 namespace std {
   template <typename T>
+  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {
+    x.swap(y);
+  }
+
+  template <typename T>
   struct hash<::tools::vector2<T>> {
     using result_type = ::std::size_t;
     using argument_type = ::tools::vector2<T>;
     ::std::size_t operator()(const ::tools::vector2<T>& key) const {
-      static const ::tools::pair_hash<T, T> hasher = ::tools::pair_hash<T, T>();
-      return hasher(::std::make_pair(key.x, key.y));
+      static const ::tools::tuple_hash<T, T> hasher;
+      return hasher(::std::make_tuple(key.x, key.y));
     }
   };
 }
