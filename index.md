@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: Unified interface for std::abs(x) and x.abs()
     - icon: ':heavy_check_mark:'
@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -57,7 +57,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -174,7 +174,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -256,7 +256,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
@@ -405,7 +405,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -433,7 +433,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -452,13 +452,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: Vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: Two dimensional vector
     - icon: ':heavy_check_mark:'
       path: tools/wavelet_matrix.hpp
       title: Wavelet matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
     - icon: ':heavy_check_mark:'
@@ -481,10 +481,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/vector_common.hpp
       title: tools/detail/vector_common.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/vector_static_common.hpp
       title: tools/detail/vector_static_common.hpp
   verificationCategories:
@@ -727,7 +727,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsp.test.cpp
       title: tests/tsp.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/tuple_hash.test.cpp
       title: tests/tuple_hash.test.cpp
     - icon: ':heavy_check_mark:'
@@ -973,7 +973,7 @@ data:
       title: tests/triangle_2d/incircle.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/maximize.test.cpp
       title: tests/weighted_bipartite_matching/maximize.test.cpp
     - icon: ':heavy_check_mark:'
