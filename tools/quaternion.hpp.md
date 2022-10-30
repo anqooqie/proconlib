@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedRequiredBy: []
@@ -30,12 +30,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/quaternion.hpp\"\n\n\n\n#include <cmath>\n#include\
@@ -302,7 +302,7 @@ data:
     \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
     }\n\n\n#line 12 \"tools/quaternion.hpp\"\n\nnamespace tools {\n  template <typename\
     \ T>\n  class quaternion {\n  private:\n    ::tools::vector4<T> m_vector;\n  \
-    \  static constexpr T eps = 1e-5;\n    static constexpr T pi = ::std::acos(static_cast<T>(-1));\n\
+    \  static constexpr T eps = 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510;\n\
     \n  public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
     \ = default;\n    quaternion(::tools::quaternion<T>&&) = default;\n    ~quaternion()\
     \ = default;\n    ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&)\
@@ -420,10 +420,11 @@ data:
     #include \"tools/vector4.hpp\"\n#include \"tools/vector3.hpp\"\n#include \"tools/square.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class quaternion {\n  private:\n\
     \    ::tools::vector4<T> m_vector;\n    static constexpr T eps = 1e-5;\n    static\
-    \ constexpr T pi = ::std::acos(static_cast<T>(-1));\n\n  public:\n    quaternion()\
-    \ = default;\n    quaternion(const ::tools::quaternion<T>&) = default;\n    quaternion(::tools::quaternion<T>&&)\
-    \ = default;\n    ~quaternion() = default;\n    ::tools::quaternion<T>& operator=(const\
-    \ ::tools::quaternion<T>&) = default;\n    ::tools::quaternion<T>& operator=(::tools::quaternion<T>&&)\
+    \ constexpr T pi = 3.14159265358979323846264338327950288419716939937510;\n\n \
+    \ public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
+    \ = default;\n    quaternion(::tools::quaternion<T>&&) = default;\n    ~quaternion()\
+    \ = default;\n    ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&)\
+    \ = default;\n    ::tools::quaternion<T>& operator=(::tools::quaternion<T>&&)\
     \ = default;\n\n    quaternion(const T x, const T y, const T z, const T w) : m_vector(x,\
     \ y, z, w) {}\n\n    T x() const {\n      return this->m_vector.x;\n    }\n  \
     \  void x(const T val) {\n      return this->m_vector.x = val;\n    }\n    T y()\
@@ -544,8 +545,8 @@ data:
   isVerificationFile: false
   path: tools/quaternion.hpp
   requiredBy: []
-  timestamp: '2022-10-30 19:14:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2022-10-30 19:35:14+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp

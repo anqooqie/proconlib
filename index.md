@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: Unified interface for std::abs(x) and x.abs()
     - icon: ':heavy_check_mark:'
@@ -216,7 +216,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lcm_convolution.hpp
       title: LCM convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':heavy_check_mark:'
@@ -274,7 +274,7 @@ data:
     - icon: ':warning:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':heavy_check_mark:'
@@ -347,7 +347,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: tools/quaternion.hpp
     - icon: ':heavy_check_mark:'
@@ -405,7 +405,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':heavy_check_mark:'
@@ -436,7 +436,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -458,10 +458,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: Two dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector3.hpp
       title: Three dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector4.hpp
       title: Four dimensional vector
     - icon: ':heavy_check_mark:'
@@ -490,10 +490,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/vector_common.hpp
       title: tools/detail/vector_common.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/vector_static_common.hpp
       title: tools/detail/vector_static_common.hpp
   verificationCategories:
@@ -952,7 +952,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/quaternion/angle_axis.test.cpp
       title: tests/quaternion/angle_axis.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/look_rotation.test.cpp
       title: tests/quaternion/look_rotation.test.cpp
   - name: tests/rational

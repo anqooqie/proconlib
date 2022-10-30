@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: tools/quaternion.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedRequiredBy: []
@@ -306,7 +306,7 @@ data:
     \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
     }\n\n\n#line 12 \"tools/quaternion.hpp\"\n\nnamespace tools {\n  template <typename\
     \ T>\n  class quaternion {\n  private:\n    ::tools::vector4<T> m_vector;\n  \
-    \  static constexpr T eps = 1e-5;\n    static constexpr T pi = ::std::acos(static_cast<T>(-1));\n\
+    \  static constexpr T eps = 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510;\n\
     \n  public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
     \ = default;\n    quaternion(::tools::quaternion<T>&&) = default;\n    ~quaternion()\
     \ = default;\n    ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&)\
@@ -475,7 +475,7 @@ data:
   isVerificationFile: true
   path: tests/quaternion/angle_axis.test.cpp
   requiredBy: []
-  timestamp: '2022-10-30 19:14:15+09:00'
+  timestamp: '2022-10-30 19:35:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/quaternion/angle_axis.test.cpp
