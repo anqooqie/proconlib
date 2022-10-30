@@ -16,7 +16,7 @@ namespace tools {
   private:
     ::tools::vector4<T> m_vector;
     static constexpr T eps = 1e-5;
-    static constexpr T pi = ::std::acos(static_cast<T>(-1));
+    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510;
 
   public:
     quaternion() = default;
