@@ -38,16 +38,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
+  - icon: ':question:'
+    path: tools/quaternion.hpp
+    title: tools/quaternion.hpp
   - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':warning:'
+  - icon: ':question:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':warning:'
+  - icon: ':question:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedVerifiedWith:
@@ -106,6 +109,12 @@ data:
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/angle_axis.test.cpp
+    title: tests/quaternion/angle_axis.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/look_rotation.test.cpp
+    title: tests/quaternion/look_rotation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -117,9 +126,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h
@@ -193,6 +202,7 @@ data:
   - tools/vector2.hpp
   - tools/vector4.hpp
   - tools/line_2d.hpp
+  - tools/quaternion.hpp
   - tools/half_line_2d.hpp
   - tools/greater_by_arg_total.hpp
   - tools/polygon_2d.hpp
@@ -202,13 +212,15 @@ data:
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
   timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/less_by_arg.test.cpp

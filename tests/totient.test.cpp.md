@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
@@ -37,7 +37,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'

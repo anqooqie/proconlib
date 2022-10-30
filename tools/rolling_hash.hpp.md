@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'

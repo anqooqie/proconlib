@@ -1,23 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedRequiredBy:
+  - icon: ':question:'
+    path: tools/quaternion.hpp
+    title: tools/quaternion.hpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/quaternion/angle_axis.test.cpp
+    title: tests/quaternion/angle_axis.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/look_rotation.test.cpp
+    title: tests/quaternion/look_rotation.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector4.hpp\"\n\n\n\n#include <array>\n#include <functional>\n\
@@ -251,10 +260,13 @@ data:
   - tools/tuple_hash.hpp
   isVerificationFile: false
   path: tools/vector4.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/quaternion.hpp
   timestamp: '2022-10-29 18:12:55+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_SOME_WA
+  verifiedWith:
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/vector4.hpp
 layout: document
 title: Four dimensional vector

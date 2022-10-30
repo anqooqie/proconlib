@@ -88,6 +88,12 @@ data:
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/angle_axis.test.cpp
+    title: tests/quaternion/angle_axis.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/look_rotation.test.cpp
+    title: tests/quaternion/look_rotation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
@@ -105,9 +111,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
@@ -135,12 +141,14 @@ data:
   - tools/scc_graph.hpp
   - tools/circle_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/hld/epath.test.cpp
   - tests/hld/vpath.test.cpp
   - tests/hld/vancestor.test.cpp
