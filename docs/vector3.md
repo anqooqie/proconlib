@@ -188,6 +188,27 @@ It returns $\frac{\overrightarrow{v}}{\left\\|\overrightarrow{v}\right\\|_2}$.
 ### Time Complexity
 - $O(1)$
 
+## orthonormal_basis
+```cpp
+std::array<vector3<T>, 3> v.orthonormal_basis();
+```
+
+It returns three vectors $u_1, u_2, u_3$ which satisfy the following conditions.
+
+$$\begin{align*}
+\left\{\begin{array}{l}
+u_1 = \frac{v}{|v|}\\
+|u_1| = |u_2| = |u_3| = 1\\
+u_1 \cdot u_2 = u_2 \cdot u_3 = u_3 \cdot u_1 = 0
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- `std::is_floating_point_v<T>` is `true`.
+
+### Time Complexity
+- $O(1)$
+
 ## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, vector3<T>& self);

@@ -4,6 +4,7 @@
 #include <array>
 #include <functional>
 #include <utility>
+#include <cassert>
 #include <cstddef>
 #include "tools/detail/vector_static_common.hpp"
 #include "tools/detail/vector_common.hpp"
@@ -32,7 +33,47 @@ namespace tools {
 
   public:
     ::tools::vector3<T> outer_product(const ::tools::vector3<T>& other) const {
-      return ::tools::vector3<T>(this->x * other.y - this->y * other.x, this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z);
+      return ::tools::vector3<T>(this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y * other.x);
+    }
+
+    template <typename T_ = T>
+    ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::array<::tools::vector3<T>, 3>> orthonormal_basis() const {
+      assert(*this != ::tools::vector3<T>(0, 0, 0));
+
+      ::std::array<::tools::vector3<T>, 3> v;
+      {
+        auto it = v.begin();
+        *it = *this;
+        ++it;
+        if (const auto v_i = ::tools::vector3<T>(0, this->z, -this->y); v_i != ::tools::vector3<T>(0, 0, 0)) {
+          *it = ::std::move(v_i);
+          ++it;
+        }
+        if (const auto v_i = ::tools::vector3<T>(-this->z, 0, this->x); v_i != ::tools::vector3<T>(0, 0, 0)) {
+          *it = ::std::move(v_i);
+          ++it;
+        }
+        if (it != v.end()) {
+          if (const auto v_i = ::tools::vector3<T>(this->y, -this->x, 0); v_i != ::tools::vector3<T>(0, 0, 0)) {
+            *it = ::std::move(v_i);
+            ++it;
+          }
+        }
+      }
+
+      ::std::array<::tools::vector3<T>, 3> u;
+      for (::std::size_t i = 0; i < 3; ++i) {
+        u[i] = v[i];
+        for (::std::size_t j = 0; j < i; ++j) {
+          u[i] -= u[j].inner_product(v[i]) / u[j].inner_product(u[j]) * u[j];
+        }
+      }
+
+      for (auto& u_i : u) {
+        u_i = u_i.normalized();
+      }
+
+      return u;
     }
   };
 }
