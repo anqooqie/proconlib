@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -41,10 +41,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   - icon: ':heavy_check_mark:'
@@ -114,21 +114,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tuple_hash.test.cpp
     title: tests/tuple_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h
@@ -212,7 +212,7 @@ data:
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
   timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp

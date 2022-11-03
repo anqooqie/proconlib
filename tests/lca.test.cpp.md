@@ -7,16 +7,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []

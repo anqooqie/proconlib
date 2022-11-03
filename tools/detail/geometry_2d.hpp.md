@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy:
@@ -47,7 +47,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -87,15 +87,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/geometry_2d.hpp\"\n\n\n\n#include <algorithm>\n\
@@ -1707,7 +1707,7 @@ data:
   - tools/polygon_2d.hpp
   - tools/circle_2d.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp

@@ -2,13 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -78,12 +78,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/gcd.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -102,7 +102,7 @@ data:
   - tools/rational.hpp
   - tools/bigint.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rational/plus.test.cpp
   - tests/rational/random.test.cpp
