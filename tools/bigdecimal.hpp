@@ -13,6 +13,7 @@
 #include "tools/signum.hpp"
 #include "tools/ssize.hpp"
 #include "tools/rounding_mode.hpp"
+#include "tools/abs.hpp"
 
 namespace tools {
   class bigdecimal {
@@ -44,11 +45,6 @@ namespace tools {
     ::tools::bigdecimal& negate() {
       this->m_unscaled_value.negate();
       return *this;
-    }
-    ::tools::bigdecimal abs() const {
-      ::tools::bigdecimal result(*this);
-      if (result.signum() < 0) result.negate();
-      return result;
     }
     ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t n) {
       this->m_scale -= n;
@@ -263,6 +259,11 @@ namespace tools {
       return os;
     }
   };
+
+  inline ::tools::bigdecimal abs(::tools::bigdecimal x) {
+    if (x.signum() < 0) x.negate();
+    return x;
+  }
 }
 
 #endif

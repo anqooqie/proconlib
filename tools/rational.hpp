@@ -7,10 +7,12 @@
 #include <limits>
 #include <iostream>
 #include "tools/bigint.hpp"
+#include "tools/gcd.hpp"
 #include "tools/bigdecimal.hpp"
 #include "tools/signum.hpp"
 #include "tools/ssize.hpp"
 #include "tools/is_rational.hpp"
+#include "tools/abs.hpp"
 
 namespace tools {
   class rational {
@@ -26,7 +28,7 @@ namespace tools {
       if (this->m_numerator.signum() == 0) {
         this->m_denominator = ::tools::bigint(1);
       } else {
-        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator, this->m_denominator);
+        const ::tools::bigint gcd = ::tools::gcd(this->m_numerator, this->m_denominator);
         this->m_numerator /= gcd;
         this->m_denominator /= gcd;
       }
@@ -40,11 +42,6 @@ namespace tools {
     ::tools::rational& negate() {
       this->m_numerator.negate();
       return *this;
-    }
-    ::tools::rational abs() const {
-      ::tools::rational result(*this);
-      if (result.signum() < 0) result.negate();
-      return result;
     }
     static int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs) {
       if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum()); comp != 0) {
@@ -183,6 +180,11 @@ namespace tools {
   struct is_rational<::tools::rational> {
     static constexpr bool value = true;
   };
+
+  inline ::tools::rational abs(::tools::rational x) {
+    if (x.signum() < 0) x.negate();
+    return x;
+  }
 }
 
 #endif

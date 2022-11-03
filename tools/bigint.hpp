@@ -24,6 +24,8 @@
 #include "tools/ceil.hpp"
 #include "tools/garner2.hpp"
 #include "tools/pow2.hpp"
+#include "tools/abs.hpp"
+#include "tools/gcd.hpp"
 
 namespace tools {
   class bigint {
@@ -111,11 +113,6 @@ namespace tools {
         this->m_positive = !this->m_positive;
       }
       return *this;
-    }
-    ::tools::bigint abs() const {
-      ::tools::bigint result(*this);
-      if (!result.m_positive) result.negate();
-      return result;
     }
     ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {
       if (!this->m_digits.empty()) {
@@ -564,18 +561,6 @@ namespace tools {
       return ::tools::bigint(lhs) %= rhs;
     }
 
-    static ::tools::bigint gcd(::tools::bigint x, ::tools::bigint y) {
-      if (x.signum() < 0) x.negate();
-      if (y.signum() < 0) y.negate();
-
-      while (y.signum() != 0) {
-        x %= y;
-        ::std::swap(x, y);
-      }
-
-      return x;
-    }
-
     template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>
     explicit operator T() const {
       assert(::tools::bigint(::std::numeric_limits<T>::min()) <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));
@@ -615,7 +600,26 @@ namespace tools {
       }
       return os;
     }
+
+    friend ::tools::bigint abs(::tools::bigint x);
   };
+
+  inline ::tools::bigint abs(::tools::bigint x) {
+    if (!x.m_positive) x.negate();
+    return x;
+  }
+
+  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint y) {
+    if (x.signum() < 0) x.negate();
+    if (y.signum() < 0) y.negate();
+
+    while (y.signum() != 0) {
+      x %= y;
+      ::std::swap(x, y);
+    }
+
+    return x;
+  }
 }
 
 #endif

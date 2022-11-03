@@ -25,7 +25,6 @@ namespace tools {
     vector4(const T& x, const T& y, const T& z, const T& w) : x(x), y(y), z(z), w(w), m_refs({::std::ref(this->x), ::std::ref(this->y), ::std::ref(this->z), ::std::ref(this->w)}) {}
     vector4() : vector4(T(), T(), T(), T()) {}
     vector4(const ::tools::vector4<T>& other) : vector4(other.x, other.y, other.z, other.w) {}
-    vector4(::tools::vector4<T>&& other) : x(::std::move(other.x)), y(::std::move(other.y)), z(::std::move(other.z)), w(::std::move(other.w)), m_refs({::std::ref(this->x), ::std::ref(this->y), ::std::ref(this->z), ::std::ref(this->w)}) {}
     ~vector4() = default;
 
     TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector4<T>)
@@ -34,11 +33,6 @@ namespace tools {
 }
 
 namespace std {
-  template <typename T>
-  void swap(::tools::vector4<T>& x, ::tools::vector4<T>& y) {
-    x.swap(y);
-  }
-
   template <typename T>
   struct hash<::tools::vector4<T>> {
     using result_type = ::std::size_t;

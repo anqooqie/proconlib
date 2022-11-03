@@ -1,29 +1,27 @@
 ---
-title: Unified interface for std::abs(x) and x.abs()
+title: std::abs(x) extended for my library
 documentation_of: //tools/abs.hpp
 ---
 
 ```cpp
-(1)
-template <typename T>
-auto abs(T x) -> decltype(std::abs(x));
-
-(2)
-template <typename T>
-auto abs(T x) -> decltype(x.abs());
+constexpr float abs(float x);
+constexpr double abs(double x);
+constexpr long double abs(long double x);
+constexpr int abs(int x);
+constexpr long abs(long x);
+constexpr long long abs(long long x);
 ```
 
 If `std::abs(x)` is available, it returns `std::abs(x)`.
-If `x.abs()` is available, it returns `x.abs()`.
+
+`tools::abs(x)` will be extended by other header files in my library.
+For example, `tools::abs(tools::bigint)` gets available if you include `tools/bigint.hpp`.
 
 ## Constraints
-- Either `std::abs(x)` or `x.abs()` is available.
+- See the standard or the explanation of the corresponding header file.
 
 ## Time Complexity
-- (1)
-    - $O(1)$
-- (2)
-    - Same as `x.abs()`
+- See the standard or the explanation of the corresponding header file.
 
 ## License
 - CC0

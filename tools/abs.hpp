@@ -1,18 +1,24 @@
 #ifndef TOOLS_ABS_HPP
 #define TOOLS_ABS_HPP
 
-#include <cmath>
-
 namespace tools {
-
-  template <typename T>
-  auto abs(const T& v) -> decltype(::std::abs(v)) {
-    return ::std::abs(v);
+  constexpr float abs(const float x) {
+    return x < 0 ? -x : x;
   }
-
-  template <typename T>
-  auto abs(const T& v) -> decltype(v.abs()) {
-    return v.abs();
+  constexpr double abs(const double x) {
+    return x < 0 ? -x : x;
+  }
+  constexpr long double abs(const long double x) {
+    return x < 0 ? -x : x;
+  }
+  constexpr int abs(const int x) {
+    return x < 0 ? -x : x;
+  }
+  constexpr long abs(const long x) {
+    return x < 0 ? -x : x;
+  }
+  constexpr long long abs(const long long x) {
+    return x < 0 ? -x : x;
   }
 }
 

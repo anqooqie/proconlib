@@ -14,9 +14,7 @@ It is a two-dimensional vector.
 ## Methods based on std::array&lt;T, 2&gt;
 ```cpp
 vector2<T> v(const vector2<T>& u);
-vector2<T> v(vector2<T>&& u);
 vector2<T>& v.operator=(const vector2<T>& u);
-vector2<T>& v.operator=(vector2<T>&& u);
 
 (vector2<T>::iterator or vector2<T>::const_iterator) v.begin();
 (vector2<T>::iterator or vector2<T>::const_iterator) v.end();

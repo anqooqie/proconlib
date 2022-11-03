@@ -1,22 +1,38 @@
 #ifndef TOOLS_QUATERNION_HPP
 #define TOOLS_QUATERNION_HPP
 
+#include <type_traits>
 #include <cmath>
 #include <algorithm>
 #include <cassert>
 #include <sstream>
 #include <random>
+#include "tools/exp.hpp"
+#include "tools/log.hpp"
+#include "tools/pow.hpp"
 #include "tools/vector4.hpp"
 #include "tools/vector3.hpp"
 #include "tools/square.hpp"
 
 namespace tools {
   template <typename T>
+  class quaternion;
+
+  template <typename T>
+  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);
+  template <typename T>
+  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q);
+  template <typename T>
+  ::tools::quaternion<T> pow(const ::tools::quaternion<T>& base, T exponent);
+
+  template <typename T>
   class quaternion {
+    static_assert(::std::is_floating_point_v<T>);
+
   private:
     ::tools::vector4<T> m_vector;
     static constexpr T eps = 1e-5;
-    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510;
+    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;
 
   public:
     quaternion() = default;
@@ -143,7 +159,9 @@ namespace tools {
     }
 
     ::tools::quaternion<T> inv() const {
-      return this->conj() / this->norm();
+      const auto norm = this->norm();
+      assert(norm != 0);
+      return this->conj() / norm;
     }
     friend ::tools::quaternion<T> operator/(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {
       return lhs * rhs.inv();
@@ -166,41 +184,6 @@ namespace tools {
       s.precision(os.precision());
       s << '(' << self.x() << ',' << self.y() << ',' << self.z() << ',' << self.w() << ')';
       return os << s.str();
-    }
-
-  private:
-    ::tools::quaternion<T> log() const {
-      const auto inorm = this->imag().l2_norm();
-      if (inorm == 0) {
-        assert(this->real() != 0);
-        return ::std::log(this->real());
-      }
-
-      const auto real = ::std::log(this->abs());
-      const auto imag = ::std::acos(::std::clamp<T>(this->real() / this->abs(), -1, 1)) / inorm * this->imag();
-      return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);
-    }
-    ::tools::quaternion<T> exp() const {
-      const auto inorm = this->imag().l2_norm();
-      if (inorm == 0) {
-        return ::std::exp(this->real());
-      }
-
-      const auto rexp = ::std::exp(this->real());
-      const auto real = rexp * ::std::cos(inorm);
-      const auto imag = rexp * ::std::sin(inorm) / inorm * this->imag();
-      return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);
-    }
-
-  public:
-    ::tools::quaternion<T> pow(const T t) const {
-      const auto norm = this->norm();
-      if (norm == 0) {
-        assert(t != 0);
-        return ::tools::quaternion<T>(0, 0, 0, 0);
-      }
-
-      return (t * this->log()).exp();
     }
 
     static ::tools::quaternion<T> angle_axis(const T angle, const ::tools::vector3<T>& axis) {
@@ -253,13 +236,47 @@ namespace tools {
     }
 
     static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const T t) {
-      return q0 * (q1 / q0).pow(t);
+      return q0 * ::tools::pow(q1 / q0, t);
     }
 
     static ::tools::quaternion<T> identity() {
       return ::tools::quaternion<T>(0, 0, 0, 1);
     }
   };
+
+  template <typename T>
+  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {
+    const auto inorm = q.imag().l2_norm();
+    if (inorm == 0) {
+      return ::std::exp(q.real());
+    }
+
+    const auto rexp = ::std::exp(q.real());
+    const auto real = rexp * ::std::cos(inorm);
+    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();
+    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);
+  }
+
+  template <typename T>
+  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {
+    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));
+    const auto inorm = q.imag().l2_norm();
+    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() / inorm;
+    const auto real = ::std::log(q.abs());
+    const auto imag = ::std::atan2(inorm, q.real()) * uimag;
+    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);
+  }
+
+  template <typename T>
+  ::tools::quaternion<T> pow(const ::tools::quaternion<T>& base, const T exponent) {
+    const auto norm = base.norm();
+    if (norm == 0) {
+      assert(exponent != 0);
+      return ::tools::quaternion<T>(0, 0, 0, 0);
+    }
+
+    return ::tools::exp(exponent * ::tools::log(base));
+  }
 }
 
 #endif

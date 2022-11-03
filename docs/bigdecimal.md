@@ -117,19 +117,6 @@ It updates $u_x$ to $-u_x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
-## abs
-```cpp
-bigdecimal x.abs();
-```
-
-It returns $\|x\|$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|u_x\|)$
-
 ## multiply_by_pow10
 ```cpp
 bigdecimal& x.multiply_by_pow10(std::ptrdiff_t n);
@@ -331,7 +318,7 @@ It casts $x$ to the type `T`.
 ### Time Complexity
 - $O(\log \|u_x\|)$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, bigdecimal& x);
 ```
@@ -344,7 +331,7 @@ It parses the input as a signed number and creates an arbitrary precision floati
 ### Time Complexity
 - $O(n)$ where $n$ is the length of the input
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const bigdecimal& x);
 ```
@@ -356,3 +343,16 @@ It prints $x$ to `os`.
 
 ### Time Complexity
 - $O(\max(\log(\|u_x\|), \|s_x\|))$
+
+## tools::abs
+```cpp
+bigdecimal tools::abs(bigdecimal x);
+```
+
+It returns $\|x\|$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|u_x\|)$

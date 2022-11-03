@@ -14,9 +14,7 @@ It is a four-dimensional vector.
 ## Methods based on std::array&lt;T, 4&gt;
 ```cpp
 vector4<T> v(const vector4<T>& u);
-vector4<T> v(vector4<T>&& u);
 vector4<T>& v.operator=(const vector4<T>& u);
-vector4<T>& v.operator=(vector4<T>&& u);
 
 (vector4<T>::iterator or vector4<T>::const_iterator) v.begin();
 (vector4<T>::iterator or vector4<T>::const_iterator) v.end();

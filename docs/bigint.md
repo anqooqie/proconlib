@@ -50,19 +50,6 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
-## abs
-```cpp
-bigint x.abs();
-```
-
-It returns $\|x\|$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|x\|)$
-
 ## multiply_by_pow10
 ```cpp
 bigint& x.multiply_by_pow10(std::ptrdiff_t n);
@@ -285,20 +272,6 @@ It compares $x$ and $y$, and returns the result.
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
 
-## gcd
-```cpp
-bigint bigint::gcd(bigint x, bigint y);
-```
-
-It returns $\gcd(x, y)$.
-
-### Constraints
-- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
-
-### Time Complexity
-- $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
-
 ## operator T
 ```cpp
 T explicit operator T(bigint& x);
@@ -313,7 +286,7 @@ It casts $x$ to the type `T`.
 ### Time Complexity
 - $O(\log \|x\|)$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, bigint& x);
 ```
@@ -326,7 +299,7 @@ It parses the input as a signed integer and creates an arbitrary precision integ
 ### Time Complexity
 - $O(n)$ where $n$ is the length of the input
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const bigint& x);
 ```
@@ -338,3 +311,30 @@ It prints $x$ to `os`.
 
 ### Time Complexity
 - $O(\log \|x\|)$
+
+## tools::abs
+```cpp
+bigint tools::abs(bigint x);
+```
+
+It returns $\|x\|$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x\|)$
+
+## tools::gcd
+```cpp
+bigint tools::gcd(bigint x, bigint y);
+```
+
+It returns $\gcd(x, y)$.
+
+### Constraints
+- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
+- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+
+### Time Complexity
+- $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$

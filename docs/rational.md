@@ -109,19 +109,6 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
-## abs
-```cpp
-rational x.abs();
-```
-
-It returns $\|x\|$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|n_x\| + \log \|d_x\|)$
-
 ## compare_3way
 ```cpp
 int rational::compare_3way(const rational& x, const rational& y);
@@ -271,7 +258,7 @@ It casts $x$ to the type `T`.
 ### Time Complexity
 - $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, rational& x);
 ```
@@ -284,12 +271,25 @@ It parses the input as a signed number and creates a rational number which is nu
 ### Time Complexity
 - $O(n^2 \log n)$ where $n$ is the length of the input
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const rational& x);
 ```
 
 It prints $x$ to `os`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|n_x\| + \log \|d_x\|)$
+
+## tools::abs
+```cpp
+rational tools::abs(rational x);
+```
+
+It returns $\|x\|$.
 
 ### Constraints
 - None

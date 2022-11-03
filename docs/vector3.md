@@ -14,9 +14,7 @@ It is a three-dimensional vector.
 ## Methods based on std::array&lt;T, 3&gt;
 ```cpp
 vector3<T> v(const vector3<T>& u);
-vector3<T> v(vector3<T>&& u);
 vector3<T>& v.operator=(const vector3<T>& u);
-vector3<T>& v.operator=(vector3<T>&& u);
 
 (vector3<T>::iterator or vector3<T>::const_iterator) v.begin();
 (vector3<T>::iterator or vector3<T>::const_iterator) v.end();
@@ -198,8 +196,9 @@ It returns three vectors $u_1, u_2, u_3$ which satisfy the following conditions.
 $$\begin{align*}
 \left\{\begin{array}{l}
 u_1 = \frac{v}{|v|}\\
-|u_1| = |u_2| = |u_3| = 1\\
-u_1 \cdot u_2 = u_2 \cdot u_3 = u_3 \cdot u_1 = 0
+|u_2| = 1\\
+u_1 \cdot u_2 = 0\\
+u_3 = u_1 \times u_2
 \end{array}\right.&
 \end{align*}$$
 

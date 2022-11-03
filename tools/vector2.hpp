@@ -23,7 +23,6 @@ namespace tools {
     vector2(const T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)}) {}
     vector2() : vector2(T(), T()) {}
     vector2(const ::tools::vector2<T>& other) : vector2(other.x, other.y) {}
-    vector2(::tools::vector2<T>&& other) : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x), ::std::ref(this->y)}) {}
     ~vector2() = default;
 
     TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)
@@ -67,11 +66,6 @@ namespace tools {
 }
 
 namespace std {
-  template <typename T>
-  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {
-    x.swap(y);
-  }
-
   template <typename T>
   struct hash<::tools::vector2<T>> {
     using result_type = ::std::size_t;

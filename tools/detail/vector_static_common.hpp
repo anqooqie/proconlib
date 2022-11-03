@@ -30,12 +30,6 @@
     }\
     return *this;\
   }\
-  V& operator=(V&& other) {\
-    for (size_type i = 0; i < this->size(); ++i) {\
-      (*this)[i] = ::std::move(other[i]);\
-    }\
-    return *this;\
-  }\
 \
   class iterator {\
   private:\
