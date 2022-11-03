@@ -1,50 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/abs.hpp
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
@@ -58,33 +64,33 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/rational.hpp\"\n\n\n\n#include <cassert>\n#include\
@@ -515,28 +521,37 @@ data:
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 27 \"tools/bigint.hpp\"\
-    \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
-    \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
-    \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
-    \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
-    \  static constexpr ::std::array<::std::int_fast32_t, 5> POW10 = {1, 10, 100,\
-    \ 1000, 10000};\n\n    static int compare_3way(const ::std::size_t lhs, const\
-    \ ::std::size_t rhs) {\n      if (lhs < rhs) return -1;\n      if (lhs == rhs)\
-    \ return 0;\n      return 1;\n    }\n    static int compare_3way_abs(const ::tools::bigint&\
-    \ lhs, const ::tools::bigint& rhs) {\n      if (const auto comp = ::tools::bigint::compare_3way(lhs.m_digits.size(),\
-    \ rhs.m_digits.size()); comp != 0) {\n        return comp;\n      }\n      for\
-    \ (::std::size_t i = 0; i < lhs.m_digits.size(); ++i) {\n        if (const auto\
-    \ comp = ::tools::bigint::compare_3way(lhs.m_digits[lhs.m_digits.size() - 1 -\
-    \ i], rhs.m_digits[rhs.m_digits.size() - 1 - i]); comp != 0) {\n          return\
-    \ comp;\n        }\n      }\n      return 0;\n    }\n\n    ::tools::bigint& regularize(const\
-    \ int level) {\n      if (level > 0) {\n        if (level == 2) {\n          for\
-    \ (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n            this->m_digits[i\
-    \ + 1] += ::tools::quo(this->m_digits[i], BASE);\n            this->m_digits[i]\
-    \ = ::tools::mod(this->m_digits[i], BASE);\n          }\n        } else {\n  \
-    \        for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n   \
-    \         if (this->m_digits[i] < 0) {\n              this->m_digits[i] += BASE;\n\
-    \              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/abs.hpp\"\n\
+    \n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x <\
+    \ 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x :\
+    \ x;\n  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n}\n\n\n#line 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\
+    \n\nnamespace tools {\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> gcd(const M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line\
+    \ 29 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
+    \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
+    \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
+    \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
+    \ LOG10_BASE = 4;\n    static constexpr ::std::array<::std::int_fast32_t, 5> POW10\
+    \ = {1, 10, 100, 1000, 10000};\n\n    static int compare_3way(const ::std::size_t\
+    \ lhs, const ::std::size_t rhs) {\n      if (lhs < rhs) return -1;\n      if (lhs\
+    \ == rhs) return 0;\n      return 1;\n    }\n    static int compare_3way_abs(const\
+    \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      if (const auto comp\
+    \ = ::tools::bigint::compare_3way(lhs.m_digits.size(), rhs.m_digits.size()); comp\
+    \ != 0) {\n        return comp;\n      }\n      for (::std::size_t i = 0; i <\
+    \ lhs.m_digits.size(); ++i) {\n        if (const auto comp = ::tools::bigint::compare_3way(lhs.m_digits[lhs.m_digits.size()\
+    \ - 1 - i], rhs.m_digits[rhs.m_digits.size() - 1 - i]); comp != 0) {\n       \
+    \   return comp;\n        }\n      }\n      return 0;\n    }\n\n    ::tools::bigint&\
+    \ regularize(const int level) {\n      if (level > 0) {\n        if (level ==\
+    \ 2) {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i)\
+    \ {\n            this->m_digits[i + 1] += ::tools::quo(this->m_digits[i], BASE);\n\
+    \            this->m_digits[i] = ::tools::mod(this->m_digits[i], BASE);\n    \
+    \      }\n        } else {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size();\
+    \ ++i) {\n            if (this->m_digits[i] < 0) {\n              this->m_digits[i]\
+    \ += BASE;\n              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
     \ >= BASE) {\n              this->m_digits[i] -= BASE;\n              ++this->m_digits[i\
     \ + 1];\n            }\n          }\n        }\n        if (!this->m_digits.empty()\
     \ && this->m_digits.back() < 0) {\n          this->m_positive = !this->m_positive;\n\
@@ -555,10 +570,8 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
-    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
-    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
-    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
+    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -763,12 +776,9 @@ data:
     \ ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
     \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
     \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
-    \ gcd(::tools::bigint x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n\
-    \      if (y.signum() < 0) y.negate();\n\n      while (y.signum() != 0) {\n  \
-    \      x %= y;\n        ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\
-    \n    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t>\
-    \ = nullptr>\n    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
+    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    template <typename\
+    \ T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>\n\
+    \    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
     \ <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));\n  \
     \    T result = 0;\n      for (::std::size_t i = this->m_digits.size(); i -->\
     \ 0;) {\n        result = result * BASE + this->m_digits[i] * (this->m_positive\
@@ -787,16 +797,21 @@ data:
     \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
     \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#line 1 \"tools/signum.hpp\"\
-    \n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
-    \ x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace\
-    \ tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n    floor,\n\
-    \    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 16 \"\
-    tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n  private:\n\
-    \    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n    ::tools::bigint\
-    \ m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n    ::tools::bigdecimal&\
+    \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
+    \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
+    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
+    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
+    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
+    \ }\n\n    return x;\n  }\n}\n\n\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept {\n\
+    \    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x < T(0));\n\
+    \    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\
+    \n\n\n\nnamespace tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n\
+    \    floor,\n    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\
+    \n#line 17 \"tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n\
+    \  private:\n    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n\
+    \    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n    ::tools::bigdecimal&\
     \ regularize() {\n      if (this->m_unscaled_value.signum() == 0) {\n        this->m_scale\
     \ = 0;\n      }\n      return *this;\n    }\n\n  public:\n    const ::tools::bigint&\
     \ unscaled_value() const {\n      return this->m_unscaled_value;\n    }\n    ::std::size_t\
@@ -804,9 +819,7 @@ data:
     \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
     \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
     \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
-    \    return *this;\n    }\n    ::tools::bigdecimal abs() const {\n      ::tools::bigdecimal\
-    \ result(*this);\n      if (result.signum() < 0) result.negate();\n      return\
-    \ result;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
+    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
     \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
@@ -917,24 +930,24 @@ data:
     \ - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i)\
     \ {\n        if (i == self.m_scale - 1) {\n          os << '.';\n        }\n \
     \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
-    \ : 0);\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
-    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
-    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
-    \n#line 14 \"tools/rational.hpp\"\n\nnamespace tools {\n  class rational {\n \
-    \ private:\n    ::tools::bigint m_numerator;\n    ::tools::bigint m_denominator;\n\
-    \n    ::tools::rational& regularize() {\n      if (this->m_denominator.signum()\
-    \ < 0) {\n        this->m_numerator.negate();\n        this->m_denominator.negate();\n\
-    \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
-    \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator,\
-    \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
-    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    int signum()\
-    \ const {\n      return this->m_numerator.signum();\n    }\n    ::tools::rational&\
-    \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
-    \    ::tools::rational abs() const {\n      ::tools::rational result(*this);\n\
-    \      if (result.signum() < 0) result.negate();\n      return result;\n    }\n\
-    \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
-    \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ : 0);\n      }\n      return os;\n    }\n  };\n\n  inline ::tools::bigdecimal\
+    \ abs(::tools::bigdecimal x) {\n    if (x.signum() < 0) x.negate();\n    return\
+    \ x;\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\
+    \n  template <typename T>\n  struct is_rational {\n    static constexpr bool value\
+    \ = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
+    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 16 \"tools/rational.hpp\"\n\n\
+    namespace tools {\n  class rational {\n  private:\n    ::tools::bigint m_numerator;\n\
+    \    ::tools::bigint m_denominator;\n\n    ::tools::rational& regularize() {\n\
+    \      if (this->m_denominator.signum() < 0) {\n        this->m_numerator.negate();\n\
+    \        this->m_denominator.negate();\n      }\n      if (this->m_numerator.signum()\
+    \ == 0) {\n        this->m_denominator = ::tools::bigint(1);\n      } else {\n\
+    \        const ::tools::bigint gcd = ::tools::gcd(this->m_numerator, this->m_denominator);\n\
+    \        this->m_numerator /= gcd;\n        this->m_denominator /= gcd;\n    \
+    \  }\n      return *this;\n    }\n\n  public:\n    int signum() const {\n    \
+    \  return this->m_numerator.signum();\n    }\n    ::tools::rational& negate()\
+    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    static\
+    \ int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs)\
+    \ {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
     \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
     \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
     \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
@@ -1000,27 +1013,27 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n"
+    \ {\n    static constexpr bool value = true;\n  };\n\n  inline ::tools::rational\
+    \ abs(::tools::rational x) {\n    if (x.signum() < 0) x.negate();\n    return\
+    \ x;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_RATIONAL_HPP\n#define TOOLS_RATIONAL_HPP\n\n#include <cassert>\n\
     #include <type_traits>\n#include <cstddef>\n#include <limits>\n#include <iostream>\n\
-    #include \"tools/bigint.hpp\"\n#include \"tools/bigdecimal.hpp\"\n#include \"\
-    tools/signum.hpp\"\n#include \"tools/ssize.hpp\"\n#include \"tools/is_rational.hpp\"\
-    \n\nnamespace tools {\n  class rational {\n  private:\n    ::tools::bigint m_numerator;\n\
-    \    ::tools::bigint m_denominator;\n\n    ::tools::rational& regularize() {\n\
-    \      if (this->m_denominator.signum() < 0) {\n        this->m_numerator.negate();\n\
+    #include \"tools/bigint.hpp\"\n#include \"tools/gcd.hpp\"\n#include \"tools/bigdecimal.hpp\"\
+    \n#include \"tools/signum.hpp\"\n#include \"tools/ssize.hpp\"\n#include \"tools/is_rational.hpp\"\
+    \n#include \"tools/abs.hpp\"\n\nnamespace tools {\n  class rational {\n  private:\n\
+    \    ::tools::bigint m_numerator;\n    ::tools::bigint m_denominator;\n\n    ::tools::rational&\
+    \ regularize() {\n      if (this->m_denominator.signum() < 0) {\n        this->m_numerator.negate();\n\
     \        this->m_denominator.negate();\n      }\n      if (this->m_numerator.signum()\
     \ == 0) {\n        this->m_denominator = ::tools::bigint(1);\n      } else {\n\
-    \        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator, this->m_denominator);\n\
+    \        const ::tools::bigint gcd = ::tools::gcd(this->m_numerator, this->m_denominator);\n\
     \        this->m_numerator /= gcd;\n        this->m_denominator /= gcd;\n    \
     \  }\n      return *this;\n    }\n\n  public:\n    int signum() const {\n    \
     \  return this->m_numerator.signum();\n    }\n    ::tools::rational& negate()\
-    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    ::tools::rational\
-    \ abs() const {\n      ::tools::rational result(*this);\n      if (result.signum()\
-    \ < 0) result.negate();\n      return result;\n    }\n    static int compare_3way(const\
-    \ ::tools::rational& lhs, const ::tools::rational& rhs) {\n      if (const auto\
-    \ comp = ::tools::signum(lhs.signum() - rhs.signum()); comp != 0) {\n        return\
-    \ comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator *\
-    \ rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
+    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    static\
+    \ int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs)\
+    \ {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
+    \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
     \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
     \ = default;\n    rational(::tools::rational&&) = default;\n    ~rational() =\
     \ default;\n    ::tools::rational& operator=(const ::tools::rational&) = default;\n\
@@ -1084,7 +1097,9 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n#endif\n"
+    \ {\n    static constexpr bool value = true;\n  };\n\n  inline ::tools::rational\
+    \ abs(::tools::rational x) {\n    if (x.signum() < 0) x.negate();\n    return\
+    \ x;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/bigint.hpp
   - tools/quo.hpp
@@ -1097,6 +1112,8 @@ data:
   - tools/prod_mod.hpp
   - tools/pow_mod.hpp
   - tools/pow2.hpp
+  - tools/abs.hpp
+  - tools/gcd.hpp
   - tools/bigdecimal.hpp
   - tools/signum.hpp
   - tools/rounding_mode.hpp
@@ -1104,8 +1121,8 @@ data:
   isVerificationFile: false
   path: tools/rational.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rational/plus.test.cpp
   - tests/rational/random.test.cpp
@@ -1228,19 +1245,6 @@ It updates $x$ to $-x$, and returns the updated $x$.
 
 ### Time Complexity
 - $O(1)$
-
-## abs
-```cpp
-rational x.abs();
-```
-
-It returns $\|x\|$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\log \|n_x\| + \log \|d_x\|)$
 
 ## compare_3way
 ```cpp
@@ -1391,7 +1395,7 @@ It casts $x$ to the type `T`.
 ### Time Complexity
 - $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$
 
-## operator>>
+## operator&gt;&gt;
 ```cpp
 std::istream& operator>>(std::istream& is, rational& x);
 ```
@@ -1404,12 +1408,25 @@ It parses the input as a signed number and creates a rational number which is nu
 ### Time Complexity
 - $O(n^2 \log n)$ where $n$ is the length of the input
 
-## operator<<
+## operator&lt;&lt;
 ```cpp
 std::ostream& operator<<(std::ostream& os, const rational& x);
 ```
 
 It prints $x$ to `os`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|n_x\| + \log \|d_x\|)$
+
+## tools::abs
+```cpp
+rational tools::abs(rational x);
+```
+
+It returns $\|x\|$.
 
 ### Constraints
 - None

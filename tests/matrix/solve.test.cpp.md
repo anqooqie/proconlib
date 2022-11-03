@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/system_of_linear_equations
@@ -235,10 +235,13 @@ data:
     #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 6 \"tools/vector.hpp\"\
     \n#include <initializer_list>\n#line 1 \"tools/detail/vector_common.hpp\"\n\n\n\
     \n#line 7 \"tools/detail/vector_common.hpp\"\n#include <algorithm>\n#include <cmath>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -474,8 +477,8 @@ data:
   isVerificationFile: true
   path: tests/matrix/solve.test.cpp
   requiredBy: []
-  timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/matrix/solve.test.cpp
 layout: document

@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
-    title: $b^n$ under a given monoid
-  - icon: ':heavy_check_mark:'
+    title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/totient.hpp\"\n\n\n\n#include <cassert>\n#include\
@@ -202,18 +202,22 @@ data:
     \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
     \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
-    \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
-    \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T>\n  T pow(const T& base,\
-    \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
-    \ exponent);\n  }\n}\n\n\n#line 11 \"tools/totient.hpp\"\n\nnamespace tools {\n\
-    \n  template <typename T>\n  T totient(const T& x) {\n    assert(1 <= x && x <=\
-    \ 1000000000000000000);\n    T prod = 1;\n    const ::std::vector<T> prime_factors\
-    \ = ::tools::prime_factorization(x);\n    ::std::vector<::std::pair<T, T>> distinct_prime_factors;\n\
-    \    ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n\
-    \    for (const auto& [p, q] : distinct_prime_factors) {\n      prod *= ::tools::pow(p,\
+    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
+    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
+    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
+    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
+    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
+    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
+    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
+    \  }\n}\n\n\n#line 11 \"tools/totient.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T>\n  T totient(const T& x) {\n    assert(1 <= x && x <= 1000000000000000000);\n\
+    \    T prod = 1;\n    const ::std::vector<T> prime_factors = ::tools::prime_factorization(x);\n\
+    \    ::std::vector<::std::pair<T, T>> distinct_prime_factors;\n    ::tools::run_length(prime_factors.begin(),\
+    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n    for\
+    \ (const auto& [p, q] : distinct_prime_factors) {\n      prod *= ::tools::pow(p,\
     \ q - 1) * (p - 1);\n    }\n    return prod;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_TOTIENT_HPP\n#define TOOLS_TOTIENT_HPP\n\n#include <cassert>\n\
     #include <vector>\n#include <utility>\n#include <iterator>\n#include \"tools/prime_factorization.hpp\"\
@@ -242,8 +246,8 @@ data:
   path: tools/totient.hpp
   requiredBy:
   - tools/tetration_mod.hpp
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp

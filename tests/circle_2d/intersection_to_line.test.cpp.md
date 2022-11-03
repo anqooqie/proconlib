@@ -1,43 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
+    title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -66,8 +66,6 @@ data:
     \n  }\\\n  const_reference operator[](const size_type n) const {\\\n    return\
     \ this->m_refs[n].get();\\\n  }\\\n\\\n  V& operator=(const V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\
-    \n    }\\\n    return *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for\
-    \ (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\
     \n    }\\\n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n\
     \    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type\
     \ = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using reference = T&;\\\
@@ -170,11 +168,14 @@ data:
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
     \n\n\n#include <type_traits>\n#line 8 \"tools/detail/vector_common.hpp\"\n#include\
     \ <cmath>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n#line\
-    \ 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n\
-    \    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const T&\
-    \ v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
-    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\n\n\
+    #define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
     \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
@@ -245,9 +246,7 @@ data:
     \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
     \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
     \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    vector2(::tools::vector2<T>&& other)\
-    \ : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y)}) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
+    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
     \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
@@ -263,20 +262,19 @@ data:
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
     \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {\n    x.swap(y);\n\
-    \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n\
-    \    ::std::size_t operator()(const ::tools::vector2<T>& key) const {\n      static\
-    \ const ::tools::tuple_hash<T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1\
-    \ \"tools/detail/geometry_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\
-    \n#include <initializer_list>\n#include <limits>\n#include <optional>\n#line 15\
-    \ \"tools/detail/geometry_2d.hpp\"\n#include <variant>\n#include <vector>\n#line\
-    \ 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  struct is_rational {\n    static constexpr bool value = false;\n  };\n\
-    \n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
-    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
-    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
+    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
+    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
+    \ };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
+    \n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
+    #include <limits>\n#include <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\
+    \n#include <variant>\n#include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\
+    \n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n   \
+    \ static constexpr bool value = false;\n  };\n\n  template <typename T>\n  inline\
+    \ constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\n#line\
+    \ 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n \
+    \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
@@ -1014,7 +1012,7 @@ data:
   isVerificationFile: true
   path: tests/circle_2d/intersection_to_line.test.cpp
   requiredBy: []
-  timestamp: '2022-10-29 17:35:46+09:00'
+  timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/circle_2d/intersection_to_line.test.cpp

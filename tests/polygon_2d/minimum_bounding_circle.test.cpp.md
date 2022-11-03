@@ -1,96 +1,99 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     ERROR: 1e-6
@@ -112,10 +115,8 @@ data:
     \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
     \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
     \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for (size_type i = 0; i\
-    \ < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\n    }\\\
-    \n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\
-    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
+    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
     \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
     \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
     \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
@@ -216,10 +217,13 @@ data:
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
     \n\n\n#include <type_traits>\n#include <cassert>\n#line 7 \"tools/detail/vector_common.hpp\"\
     \n#include <algorithm>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include\
-    \ <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
+    \ abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const\
+    \ long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const\
+    \ int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -291,9 +295,7 @@ data:
     \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
     \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
     \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    vector2(::tools::vector2<T>&& other)\
-    \ : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y)}) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
+    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
     \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
@@ -309,33 +311,32 @@ data:
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
     \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {\n    x.swap(y);\n\
-    \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n\
-    \    ::std::size_t operator()(const ::tools::vector2<T>& key) const {\n      static\
-    \ const ::tools::tuple_hash<T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line\
-    \ 7 \"tools/convex_hull.hpp\"\n#include <numeric>\n#line 11 \"tools/convex_hull.hpp\"\
-    \n#include <stack>\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n\
-    \  template <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n\
-    \    less_by(const F& selector) : selector(selector) {\n    }\n\n    template\
-    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\
-    \n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T>\
-    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n\
-    \    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c) < 0) return\
-    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
-    \ 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
-    \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
-    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
-    \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
-    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
-    \ T& i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>>\
-    \ duplicates;\n\n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t\
-    \ vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar\
-    \ < a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
+    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
+    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
+    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
+    \ };\n}\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line 7 \"tools/convex_hull.hpp\"\
+    \n#include <numeric>\n#line 11 \"tools/convex_hull.hpp\"\n#include <stack>\n#line\
+    \ 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n \
+    \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>&\
+    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
+    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
+    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
+    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
+    \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
+    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
+    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
+    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
+    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
+    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
+    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
     \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
     \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
     \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
@@ -789,8 +790,11 @@ data:
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 27 \"tools/bigint.hpp\"\
-    \n\nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/gcd.hpp\"\n\
+    \n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools {\n  template <typename M,\
+    \ typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const M m, const N n)\
+    \ {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 29 \"tools/bigint.hpp\"\n\
+    \nnamespace tools {\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -829,10 +833,8 @@ data:
     \ && !this->m_positive) {\n        this->m_positive = true;\n      }\n      return\
     \ *this;\n    }\n\n  public:\n    ::tools::bigint& negate() {\n      if (!this->m_digits.empty())\
     \ {\n        this->m_positive = !this->m_positive;\n      }\n      return *this;\n\
-    \    }\n    ::tools::bigint abs() const {\n      ::tools::bigint result(*this);\n\
-    \      if (!result.m_positive) result.negate();\n      return result;\n    }\n\
-    \    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent) {\n \
-    \     if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
+    \    }\n    ::tools::bigint& multiply_by_pow10(const ::std::ptrdiff_t exponent)\
+    \ {\n      if (!this->m_digits.empty()) {\n        const ::std::ptrdiff_t exponent10000\
     \ = ::tools::floor(exponent, LOG10_BASE);\n        ::std::int_fast32_t mod = 0;\n\
     \        if (exponent10000 > 0) {\n          ::std::vector<::std::int_fast32_t>\
     \ zero(exponent10000, 0);\n          this->m_digits.insert(this->m_digits.begin(),\
@@ -1037,12 +1039,9 @@ data:
     \ ::tools::bigint self = *this;\n      *this /= other;\n      this->negate();\n\
     \      *this *= other;\n      *this += self;\n      return *this;\n    }\n   \
     \ friend ::tools::bigint operator%(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    static ::tools::bigint\
-    \ gcd(::tools::bigint x, ::tools::bigint y) {\n      if (x.signum() < 0) x.negate();\n\
-    \      if (y.signum() < 0) y.negate();\n\n      while (y.signum() != 0) {\n  \
-    \      x %= y;\n        ::std::swap(x, y);\n      }\n\n      return x;\n    }\n\
-    \n    template <typename T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t>\
-    \ = nullptr>\n    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
+    \ rhs) {\n      return ::tools::bigint(lhs) %= rhs;\n    }\n\n    template <typename\
+    \ T, ::std::enable_if_t<::std::is_integral_v<T>, ::std::nullptr_t> = nullptr>\n\
+    \    explicit operator T() const {\n      assert(::tools::bigint(::std::numeric_limits<T>::min())\
     \ <= *this && *this <= ::tools::bigint(::std::numeric_limits<T>::max()));\n  \
     \    T result = 0;\n      for (::std::size_t i = this->m_digits.size(); i -->\
     \ 0;) {\n        result = result * BASE + this->m_digits[i] * (this->m_positive\
@@ -1061,16 +1060,21 @@ data:
     \      }\n      os << self.m_digits.back();\n      for (::std::size_t i = 1; i\
     \ < self.m_digits.size(); ++i) {\n        os << ::std::setw(LOG10_BASE) << ::std::setfill('0')\
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#line 1 \"tools/signum.hpp\"\
-    \n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
-    \ x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace\
-    \ tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n    floor,\n\
-    \    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 16 \"\
-    tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n  private:\n\
-    \    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n    ::tools::bigint\
-    \ m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n    ::tools::bigdecimal&\
+    \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
+    \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
+    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
+    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
+    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
+    \ }\n\n    return x;\n  }\n}\n\n\n#line 1 \"tools/bigdecimal.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept {\n\
+    \    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x < T(0));\n\
+    \    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\
+    \n\n\n\nnamespace tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n\
+    \    floor,\n    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\
+    \n#line 17 \"tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n\
+    \  private:\n    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n\
+    \    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n    ::tools::bigdecimal&\
     \ regularize() {\n      if (this->m_unscaled_value.signum() == 0) {\n        this->m_scale\
     \ = 0;\n      }\n      return *this;\n    }\n\n  public:\n    const ::tools::bigint&\
     \ unscaled_value() const {\n      return this->m_unscaled_value;\n    }\n    ::std::size_t\
@@ -1078,9 +1082,7 @@ data:
     \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
     \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
     \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
-    \    return *this;\n    }\n    ::tools::bigdecimal abs() const {\n      ::tools::bigdecimal\
-    \ result(*this);\n      if (result.signum() < 0) result.negate();\n      return\
-    \ result;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
+    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
     \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
     \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
@@ -1191,24 +1193,24 @@ data:
     \ - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i)\
     \ {\n        if (i == self.m_scale - 1) {\n          os << '.';\n        }\n \
     \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
-    \ : 0);\n      }\n      return os;\n    }\n  };\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
-    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
-    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
-    \n#line 14 \"tools/rational.hpp\"\n\nnamespace tools {\n  class rational {\n \
-    \ private:\n    ::tools::bigint m_numerator;\n    ::tools::bigint m_denominator;\n\
-    \n    ::tools::rational& regularize() {\n      if (this->m_denominator.signum()\
-    \ < 0) {\n        this->m_numerator.negate();\n        this->m_denominator.negate();\n\
-    \      }\n      if (this->m_numerator.signum() == 0) {\n        this->m_denominator\
-    \ = ::tools::bigint(1);\n      } else {\n        const ::tools::bigint gcd = ::tools::bigint::gcd(this->m_numerator,\
-    \ this->m_denominator);\n        this->m_numerator /= gcd;\n        this->m_denominator\
-    \ /= gcd;\n      }\n      return *this;\n    }\n\n  public:\n    int signum()\
-    \ const {\n      return this->m_numerator.signum();\n    }\n    ::tools::rational&\
-    \ negate() {\n      this->m_numerator.negate();\n      return *this;\n    }\n\
-    \    ::tools::rational abs() const {\n      ::tools::rational result(*this);\n\
-    \      if (result.signum() < 0) result.negate();\n      return result;\n    }\n\
-    \    static int compare_3way(const ::tools::rational& lhs, const ::tools::rational&\
-    \ rhs) {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
+    \ : 0);\n      }\n      return os;\n    }\n  };\n\n  inline ::tools::bigdecimal\
+    \ abs(::tools::bigdecimal x) {\n    if (x.signum() < 0) x.negate();\n    return\
+    \ x;\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\
+    \n  template <typename T>\n  struct is_rational {\n    static constexpr bool value\
+    \ = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
+    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 16 \"tools/rational.hpp\"\n\n\
+    namespace tools {\n  class rational {\n  private:\n    ::tools::bigint m_numerator;\n\
+    \    ::tools::bigint m_denominator;\n\n    ::tools::rational& regularize() {\n\
+    \      if (this->m_denominator.signum() < 0) {\n        this->m_numerator.negate();\n\
+    \        this->m_denominator.negate();\n      }\n      if (this->m_numerator.signum()\
+    \ == 0) {\n        this->m_denominator = ::tools::bigint(1);\n      } else {\n\
+    \        const ::tools::bigint gcd = ::tools::gcd(this->m_numerator, this->m_denominator);\n\
+    \        this->m_numerator /= gcd;\n        this->m_denominator /= gcd;\n    \
+    \  }\n      return *this;\n    }\n\n  public:\n    int signum() const {\n    \
+    \  return this->m_numerator.signum();\n    }\n    ::tools::rational& negate()\
+    \ {\n      this->m_numerator.negate();\n      return *this;\n    }\n    static\
+    \ int compare_3way(const ::tools::rational& lhs, const ::tools::rational& rhs)\
+    \ {\n      if (const auto comp = ::tools::signum(lhs.signum() - rhs.signum());\
     \ comp != 0) {\n        return comp;\n      }\n      return ::tools::bigint::compare_3way(lhs.m_numerator\
     \ * rhs.m_denominator, rhs.m_numerator * lhs.m_denominator);\n    }\n\n    rational()\
     \ : m_numerator(0), m_denominator(1) {\n    }\n    rational(const ::tools::rational&)\
@@ -1274,46 +1276,47 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\
-    \n#include <initializer_list>\n#line 11 \"tools/detail/geometry_2d.hpp\"\n#include\
-    \ <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\n#include <variant>\n\
-    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
-    \ 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
-    \ <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
-    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\n  template\
-    \ <typename T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n\
-    \  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n  template\
-    \ <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename T, bool\
-    \ Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled, bool HasRadius>\n\
-    \  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n    T m_radius;\n\
-    \    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n    circle_2d(const\
-    \ ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T,\
-    \ Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&)\
-    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n\n    circle_2d(const ::tools::vector2<T>&\
-    \ center, const T& radius_or_squared_radius);\n\n    template <typename T_ = T,\
-    \ bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    \ {\n    static constexpr bool value = true;\n  };\n\n  inline ::tools::rational\
+    \ abs(::tools::rational x) {\n    if (x.signum() < 0) x.negate();\n    return\
+    \ x;\n  }\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
+    \n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
+    #line 11 \"tools/detail/geometry_2d.hpp\"\n#include <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\
+    \n#include <variant>\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\
+    \n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid\
+    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
+    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
+    \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
+    \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
+    \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
+    \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
+    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
+    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
+    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
+    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
+    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
+    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
     \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
     \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
@@ -2018,6 +2021,7 @@ data:
   - tools/prod_mod.hpp
   - tools/pow_mod.hpp
   - tools/pow2.hpp
+  - tools/gcd.hpp
   - tools/bigdecimal.hpp
   - tools/signum.hpp
   - tools/rounding_mode.hpp
@@ -2029,8 +2033,8 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/minimum_bounding_circle.test.cpp
   requiredBy: []
-  timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/polygon_2d/minimum_bounding_circle.test.cpp
 layout: document

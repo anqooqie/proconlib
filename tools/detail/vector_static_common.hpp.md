@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -29,28 +29,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
-    title: tools/quaternion.hpp
-  - icon: ':heavy_check_mark:'
+    title: Quaternion
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedVerifiedWith:
@@ -90,42 +90,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/vector_static_common.hpp\"\n\n\n\n#include\
@@ -138,8 +138,6 @@ data:
     \n  }\\\n  const_reference operator[](const size_type n) const {\\\n    return\
     \ this->m_refs[n].get();\\\n  }\\\n\\\n  V& operator=(const V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\
-    \n    }\\\n    return *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for\
-    \ (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\
     \n    }\\\n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n\
     \    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type\
     \ = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using reference = T&;\\\
@@ -250,8 +248,6 @@ data:
     \n  }\\\n  const_reference operator[](const size_type n) const {\\\n    return\
     \ this->m_refs[n].get();\\\n  }\\\n\\\n  V& operator=(const V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\
-    \n    }\\\n    return *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for\
-    \ (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\
     \n    }\\\n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n\
     \    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type\
     \ = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using reference = T&;\\\
@@ -373,8 +369,8 @@ data:
   - tools/less_by_arg_total.hpp
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
-  timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp

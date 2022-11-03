@@ -4,17 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
-    title: $b^n$ under a given monoid
+    title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy: []
@@ -34,37 +34,42 @@ data:
     \n    while (ng - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if\
     \ (mid <= n / mid) {\n        ok = mid;\n      } else {\n        ng = mid;\n \
     \     }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\n\n\n\n\
-    #include <cstddef>\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n\
-    #include <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
-    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    #include <type_traits>\n#line 6 \"tools/pow.hpp\"\n#include <cmath>\n#line 1 \"\
+    tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include <limits>\n#include <numeric>\n\
+    \nnamespace tools {\n  namespace monoid {\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::min()>\n    struct max {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::max(lhs,\
     \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
-    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
-    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 7 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T pow(const typename M::T& base, const ::std::size_t& exponent)\
-    \ {\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n   \
-    \     ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T>\n  T pow(const T& base,\
-    \ const ::std::size_t& exponent) {\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
-    \ exponent);\n  }\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\n\n\n\n#include <type_traits>\n\
-    #line 8 \"tools/safe_int.hpp\"\n#include <array>\n#include <optional>\n\nnamespace\
-    \ tools {\n  template <typename T, typename = void>\n  class safe_int;\n\n  template\
-    \ <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>>\
+    \    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n \
+    \   struct min {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
+    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
+    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
+    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
+    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
+    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
+    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
+    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
+    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
+    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
+    \  }\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\n\n\n\n#line 5 \"tools/safe_int.hpp\"\
+    \n#include <cstddef>\n#line 8 \"tools/safe_int.hpp\"\n#include <array>\n#include\
+    \ <optional>\n\nnamespace tools {\n  template <typename T, typename = void>\n\
+    \  class safe_int;\n\n  template <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>>\
     \ {\n  private:\n    enum class type {\n      finite,\n      pos_inf,\n      neg_inf,\n\
     \      nan\n    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\
     \n    constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n \
@@ -371,7 +376,7 @@ data:
   isVerificationFile: false
   path: tools/floor_kth_root.hpp
   requiredBy: []
-  timestamp: '2022-07-03 14:14:33+09:00'
+  timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/floor_kth_root.test.cpp

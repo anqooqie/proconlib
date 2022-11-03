@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -49,10 +49,8 @@ data:
     \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
     \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
     \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for (size_type i = 0; i\
-    \ < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\n    }\\\
-    \n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\
-    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
+    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
     \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
     \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
     \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
@@ -153,10 +151,13 @@ data:
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
     \n\n\n#include <type_traits>\n#include <cassert>\n#line 8 \"tools/detail/vector_common.hpp\"\
     \n#include <cmath>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -228,9 +229,7 @@ data:
     \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
     \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
     \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    vector2(::tools::vector2<T>&& other)\
-    \ : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y)}) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
+    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
     \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
@@ -246,33 +245,32 @@ data:
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
     \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {\n    x.swap(y);\n\
-    \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n\
-    \    ::std::size_t operator()(const ::tools::vector2<T>& key) const {\n      static\
-    \ const ::tools::tuple_hash<T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line\
-    \ 7 \"tools/convex_hull.hpp\"\n#include <numeric>\n#line 11 \"tools/convex_hull.hpp\"\
-    \n#include <stack>\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n\
-    \  template <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n\
-    \    less_by(const F& selector) : selector(selector) {\n    }\n\n    template\
-    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\
-    \n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T>\
-    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n\
-    \    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c) < 0) return\
-    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
-    \ 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
-    \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
-    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
-    \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
-    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
-    \ T& i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>>\
-    \ duplicates;\n\n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t\
-    \ vr = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar\
-    \ < a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
+    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
+    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
+    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
+    \ };\n}\n\n\n#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#line 7 \"tools/convex_hull.hpp\"\
+    \n#include <numeric>\n#line 11 \"tools/convex_hull.hpp\"\n#include <stack>\n#line\
+    \ 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n \
+    \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>&\
+    \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
+    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
+    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
+    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
+    \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
+    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
+    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
+    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
+    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
+    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
+    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
     \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
     \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
     \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
@@ -337,7 +335,7 @@ data:
   isVerificationFile: true
   path: tests/convex_hull.test.cpp
   requiredBy: []
-  timestamp: '2022-10-29 17:35:46+09:00'
+  timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/convex_hull.test.cpp

@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy:
@@ -41,13 +41,13 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -72,40 +72,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/geometry_2d.hpp\"\n\n\n\n#include <algorithm>\n\
     #include <array>\n#include <cassert>\n#include <cmath>\n#include <cstddef>\n#include\
     \ <initializer_list>\n#include <limits>\n#include <optional>\n#include <tuple>\n\
     #include <type_traits>\n#include <utility>\n#include <variant>\n#include <vector>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 1 \"tools/is_rational.hpp\"\
     \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
     \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
     \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
@@ -150,10 +153,8 @@ data:
     \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
     \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
     \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for (size_type i = 0; i\
-    \ < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\n    }\\\
-    \n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\
-    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
+    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
     \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
     \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
     \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
@@ -325,9 +326,7 @@ data:
     \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
     \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
     \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    vector2(::tools::vector2<T>&& other)\
-    \ : x(::std::move(other.x)), y(::std::move(other.y)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y)}) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
+    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
     \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
@@ -343,26 +342,25 @@ data:
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
     \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  void swap(::tools::vector2<T>& x, ::tools::vector2<T>& y) {\n    x.swap(y);\n\
-    \  }\n\n  template <typename T>\n  struct hash<::tools::vector2<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n\
-    \    ::std::size_t operator()(const ::tools::vector2<T>& key) const {\n      static\
-    \ const ::tools::tuple_hash<T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y));\n    }\n  };\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\n\
-    namespace tools {\n  template <typename T, bool Filled, bool HasRadius = true>\n\
-    \  class circle_2d;\n\n  template <typename T>\n  class directed_line_segment_2d;\n\
-    \n  template <typename T>\n  class half_line_2d;\n\n  template <typename T>\n\
-    \  class line_2d;\n\n  template <typename T, bool Filled>\n  class polygon_2d;\n\
-    \n  template <typename T, bool Filled>\n  class triangle_2d;\n\n  template <typename\
-    \ T, bool Filled, bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T>\
-    \ m_center;\n    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d()\
-    \ = default;\n    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) =\
-    \ default;\n    circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\
-    \    ~circle_2d() = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const\
-    \ ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T,\
-    \ Filled, HasRadius>& operator=(::tools::circle_2d<T, Filled, HasRadius>&&) =\
-    \ default;\n\n    circle_2d(const ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\
-    \n    template <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
+    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
+    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
+    \ };\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
+    \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
+    \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
+    \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
+    \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
+    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
+    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
+    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
+    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
+    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
+    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
     \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
     \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
@@ -1708,8 +1706,8 @@ data:
   - tools/half_line_2d.hpp
   - tools/polygon_2d.hpp
   - tools/circle_2d.hpp
-  timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp

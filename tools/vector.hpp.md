@@ -1,42 +1,45 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/matrix.hpp
     title: Matrix
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/determinant.test.cpp
     title: tests/matrix/determinant.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/inv.test.cpp
     title: tests/matrix/inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
     #include <initializer_list>\n#line 1 \"tools/detail/vector_common.hpp\"\n\n\n\n\
     #include <type_traits>\n#include <cassert>\n#line 7 \"tools/detail/vector_common.hpp\"\
     \n#include <algorithm>\n#include <cmath>\n#include <iostream>\n#include <string>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -150,8 +153,8 @@ data:
   path: tools/vector.hpp
   requiredBy:
   - tools/matrix.hpp
-  timestamp: '2022-10-29 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/matrix/determinant.test.cpp
   - tests/matrix/inv.test.cpp

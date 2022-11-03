@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
-    title: tools/quaternion.hpp
+    title: Quaternion
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector3.hpp\"\n\n\n\n#include <array>\n#include <functional>\n\
@@ -41,10 +41,8 @@ data:
     \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
     \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
     \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for (size_type i = 0; i\
-    \ < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\n    }\\\
-    \n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\
-    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
+    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
     \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
     \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
     \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
@@ -145,11 +143,14 @@ data:
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
     \n\n\n#include <type_traits>\n#line 7 \"tools/detail/vector_common.hpp\"\n#include\
     \ <algorithm>\n#include <cmath>\n#include <iostream>\n#include <string>\n#line\
-    \ 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v)) {\n\
-    \    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const T&\
-    \ v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
-    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\n\n\
+    #define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
     \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
@@ -221,36 +222,24 @@ data:
     \    vector3(const T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
     \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    vector3() : vector3(T(),\
     \ T(), T()) {}\n    vector3(const ::tools::vector3<T>& other) : vector3(other.x,\
-    \ other.y, other.z) {}\n    vector3(::tools::vector3<T>&& other) : x(::std::move(other.x)),\
-    \ y(::std::move(other.y)), z(::std::move(other.z)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    ~vector3() = default;\n\n\
-    \    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\
-    \n  public:\n    ::tools::vector3<T> outer_product(const ::tools::vector3<T>&\
-    \ other) const {\n      return ::tools::vector3<T>(this->y * other.z - this->z\
-    \ * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y\
-    \ * other.x);\n    }\n\n    template <typename T_ = T>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
-    \ ::std::array<::tools::vector3<T>, 3>> orthonormal_basis() const {\n      assert(*this\
-    \ != ::tools::vector3<T>(0, 0, 0));\n\n      ::std::array<::tools::vector3<T>,\
-    \ 3> v;\n      {\n        auto it = v.begin();\n        *it = *this;\n       \
-    \ ++it;\n        if (const auto v_i = ::tools::vector3<T>(0, this->z, -this->y);\
-    \ v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (const auto v_i = ::tools::vector3<T>(-this->z,\
-    \ 0, this->x); v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (it != v.end()) {\n          if (const\
-    \ auto v_i = ::tools::vector3<T>(this->y, -this->x, 0); v_i != ::tools::vector3<T>(0,\
-    \ 0, 0)) {\n            *it = ::std::move(v_i);\n            ++it;\n         \
-    \ }\n        }\n      }\n\n      ::std::array<::tools::vector3<T>, 3> u;\n   \
-    \   for (::std::size_t i = 0; i < 3; ++i) {\n        u[i] = v[i];\n        for\
-    \ (::std::size_t j = 0; j < i; ++j) {\n          u[i] -= u[j].inner_product(v[i])\
-    \ / u[j].inner_product(u[j]) * u[j];\n        }\n      }\n\n      for (auto& u_i\
-    \ : u) {\n        u_i = u_i.normalized();\n      }\n\n      return u;\n    }\n\
-    \  };\n}\n\nnamespace std {\n  template <typename T>\n  void swap(::tools::vector3<T>&\
-    \ x, ::tools::vector3<T>& y) {\n    x.swap(y);\n  }\n\n  template <typename T>\n\
-    \  struct hash<::tools::vector3<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector3<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector3<T>& key) const {\n      static const ::tools::tuple_hash<T,\
-    \ T, T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y, key.z));\n\
-    \    }\n  };\n}\n\n\n"
+    \ other.y, other.z) {}\n    ~vector3() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n\
+    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\n  public:\n    ::tools::vector3<T>\
+    \ outer_product(const ::tools::vector3<T>& other) const {\n      return ::tools::vector3<T>(this->y\
+    \ * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x\
+    \ * other.y - this->y * other.x);\n    }\n\n    template <typename T_ = T>\n \
+    \   ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::array<::tools::vector3<T>,\
+    \ 3>> orthonormal_basis() const {\n      assert(*this != ::tools::vector3<T>(0,\
+    \ 0, 0));\n\n      ::std::array<::tools::vector3<T>, 3> v;\n      v[0] = *this;\n\
+    \      v[1] = ::tools::vector3<T>(0, this->z, -this->y);\n      if (v[1] == ::tools::vector3<T>(0,\
+    \ 0, 0)) {\n        v[1] = ::tools::vector3<T>(-this->z, 0, this->x);\n      }\n\
+    \      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0]) * v[0];\n\n\
+    \      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n      v[2]\
+    \ = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\nnamespace\
+    \ std {\n  template <typename T>\n  struct hash<::tools::vector3<T>> {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
+    \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z));\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_VECTOR3_HPP\n#define TOOLS_VECTOR3_HPP\n\n#include <array>\n\
     #include <functional>\n#include <utility>\n#include <cassert>\n#include <cstddef>\n\
     #include \"tools/detail/vector_static_common.hpp\"\n#include \"tools/detail/vector_common.hpp\"\
@@ -260,36 +249,24 @@ data:
     \ T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
     \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    vector3() : vector3(T(),\
     \ T(), T()) {}\n    vector3(const ::tools::vector3<T>& other) : vector3(other.x,\
-    \ other.y, other.z) {}\n    vector3(::tools::vector3<T>&& other) : x(::std::move(other.x)),\
-    \ y(::std::move(other.y)), z(::std::move(other.z)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    ~vector3() = default;\n\n\
-    \    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\
-    \n  public:\n    ::tools::vector3<T> outer_product(const ::tools::vector3<T>&\
-    \ other) const {\n      return ::tools::vector3<T>(this->y * other.z - this->z\
-    \ * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y\
-    \ * other.x);\n    }\n\n    template <typename T_ = T>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
-    \ ::std::array<::tools::vector3<T>, 3>> orthonormal_basis() const {\n      assert(*this\
-    \ != ::tools::vector3<T>(0, 0, 0));\n\n      ::std::array<::tools::vector3<T>,\
-    \ 3> v;\n      {\n        auto it = v.begin();\n        *it = *this;\n       \
-    \ ++it;\n        if (const auto v_i = ::tools::vector3<T>(0, this->z, -this->y);\
-    \ v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (const auto v_i = ::tools::vector3<T>(-this->z,\
-    \ 0, this->x); v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (it != v.end()) {\n          if (const\
-    \ auto v_i = ::tools::vector3<T>(this->y, -this->x, 0); v_i != ::tools::vector3<T>(0,\
-    \ 0, 0)) {\n            *it = ::std::move(v_i);\n            ++it;\n         \
-    \ }\n        }\n      }\n\n      ::std::array<::tools::vector3<T>, 3> u;\n   \
-    \   for (::std::size_t i = 0; i < 3; ++i) {\n        u[i] = v[i];\n        for\
-    \ (::std::size_t j = 0; j < i; ++j) {\n          u[i] -= u[j].inner_product(v[i])\
-    \ / u[j].inner_product(u[j]) * u[j];\n        }\n      }\n\n      for (auto& u_i\
-    \ : u) {\n        u_i = u_i.normalized();\n      }\n\n      return u;\n    }\n\
-    \  };\n}\n\nnamespace std {\n  template <typename T>\n  void swap(::tools::vector3<T>&\
-    \ x, ::tools::vector3<T>& y) {\n    x.swap(y);\n  }\n\n  template <typename T>\n\
-    \  struct hash<::tools::vector3<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector3<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector3<T>& key) const {\n      static const ::tools::tuple_hash<T,\
-    \ T, T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y, key.z));\n\
-    \    }\n  };\n}\n\n#endif\n"
+    \ other.y, other.z) {}\n    ~vector3() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n\
+    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\n  public:\n    ::tools::vector3<T>\
+    \ outer_product(const ::tools::vector3<T>& other) const {\n      return ::tools::vector3<T>(this->y\
+    \ * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x\
+    \ * other.y - this->y * other.x);\n    }\n\n    template <typename T_ = T>\n \
+    \   ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::array<::tools::vector3<T>,\
+    \ 3>> orthonormal_basis() const {\n      assert(*this != ::tools::vector3<T>(0,\
+    \ 0, 0));\n\n      ::std::array<::tools::vector3<T>, 3> v;\n      v[0] = *this;\n\
+    \      v[1] = ::tools::vector3<T>(0, this->z, -this->y);\n      if (v[1] == ::tools::vector3<T>(0,\
+    \ 0, 0)) {\n        v[1] = ::tools::vector3<T>(-this->z, 0, this->x);\n      }\n\
+    \      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0]) * v[0];\n\n\
+    \      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n      v[2]\
+    \ = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\nnamespace\
+    \ std {\n  template <typename T>\n  struct hash<::tools::vector3<T>> {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
+    \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z));\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/detail/vector_static_common.hpp
   - tools/detail/vector_common.hpp
@@ -299,8 +276,8 @@ data:
   path: tools/vector3.hpp
   requiredBy:
   - tools/quaternion.hpp
-  timestamp: '2022-10-30 19:14:15+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
@@ -320,9 +297,7 @@ It is a three-dimensional vector.
 ## Methods based on std::array&lt;T, 3&gt;
 ```cpp
 vector3<T> v(const vector3<T>& u);
-vector3<T> v(vector3<T>&& u);
 vector3<T>& v.operator=(const vector3<T>& u);
-vector3<T>& v.operator=(vector3<T>&& u);
 
 (vector3<T>::iterator or vector3<T>::const_iterator) v.begin();
 (vector3<T>::iterator or vector3<T>::const_iterator) v.end();
@@ -504,8 +479,9 @@ It returns three vectors $u_1, u_2, u_3$ which satisfy the following conditions.
 $$\begin{align*}
 \left\{\begin{array}{l}
 u_1 = \frac{v}{|v|}\\
-|u_1| = |u_2| = |u_3| = 1\\
-u_1 \cdot u_2 = u_2 \cdot u_3 = u_3 \cdot u_1 = 0
+|u_2| = 1\\
+u_1 \cdot u_2 = 0\\
+u_3 = u_1 \times u_2
 \end{array}\right.&
 \end{align*}$$
 

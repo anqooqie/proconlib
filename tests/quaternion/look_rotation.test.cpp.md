@@ -1,41 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
-    title: Unified interface for std::abs(x) and x.abs()
-  - icon: ':heavy_check_mark:'
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/exp.hpp
+    title: std::exp(x) extended for my library
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/log.hpp
+    title: std::log(x) extended for my library
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/pow.hpp
+    title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
+  - icon: ':x:'
     path: tools/quaternion.hpp
-    title: tools/quaternion.hpp
-  - icon: ':heavy_check_mark:'
+    title: Quaternion
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B
@@ -44,11 +53,46 @@ data:
   bundledCode: "#line 1 \"tests/quaternion/look_rotation.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B\"\n\n#include <iostream>\n\
     #include <array>\n#include <algorithm>\n#include <iterator>\n#line 1 \"tools/quaternion.hpp\"\
-    \n\n\n\n#include <cmath>\n#line 6 \"tools/quaternion.hpp\"\n#include <cassert>\n\
-    #include <sstream>\n#include <random>\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/vector4.hpp\"\n#include <functional>\n#include <utility>\n#include\
-    \ <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\n\n\n\n#line 7\
-    \ \"tools/detail/vector_static_common.hpp\"\n\n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V)\
+    \n\n\n\n#include <type_traits>\n#include <cmath>\n#line 7 \"tools/quaternion.hpp\"\
+    \n#include <cassert>\n#include <sstream>\n#include <random>\n#line 1 \"tools/exp.hpp\"\
+    \n\n\n\n#line 5 \"tools/exp.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    \  auto exp(const T x) {\n    return ::std::exp(x);\n  }\n}\n\n\n#line 1 \"tools/log.hpp\"\
+    \n\n\n\n#line 5 \"tools/log.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    \  auto log(const T x) {\n    return ::std::log(x);\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\
+    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include\
+    \ <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid {\n  \
+    \  template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n   \
+    \ struct max {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
+    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
+    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
+    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
+    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
+    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
+    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
+    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
+    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
+    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
+    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
+    \  }\n}\n\n\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#line 5 \"tools/vector4.hpp\"\
+    \n#include <functional>\n#include <utility>\n#include <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
+    \n\n\n\n#line 7 \"tools/detail/vector_static_common.hpp\"\n\n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V)\
     \ \\\n  using reference = T&;\\\n  using const_reference = const T&;\\\n  using\
     \ size_type = ::std::size_t;\\\n  using difference_type = ::std::ptrdiff_t;\\\n\
     \  using pointer = T*;\\\n  using const_pointer = const T*;\\\n  using value_type\
@@ -57,8 +101,6 @@ data:
     \n  }\\\n  const_reference operator[](const size_type n) const {\\\n    return\
     \ this->m_refs[n].get();\\\n  }\\\n\\\n  V& operator=(const V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\
-    \n    }\\\n    return *this;\\\n  }\\\n  V& operator=(V&& other) {\\\n    for\
-    \ (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = ::std::move(other[i]);\\\
     \n    }\\\n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n\
     \    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type\
     \ = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using reference = T&;\\\
@@ -159,12 +201,15 @@ data:
     \    return this->m_refs.empty();\\\n  }\\\n\\\n  void swap(V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      ::std::swap((*this)[i],\
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
-    \n\n\n#include <type_traits>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include\
-    \ <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\n#line 5 \"tools/abs.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  auto abs(const T& v) -> decltype(::std::abs(v))\
-    \ {\n    return ::std::abs(v);\n  }\n\n  template <typename T>\n  auto abs(const\
-    \ T& v) -> decltype(v.abs()) {\n    return v.abs();\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
-    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \n\n\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n#line 1\
+    \ \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\n\n\
+    #define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
     \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
@@ -237,14 +282,10 @@ data:
     \ y(y), z(z), w(w), m_refs({::std::ref(this->x), ::std::ref(this->y), ::std::ref(this->z),\
     \ ::std::ref(this->w)}) {}\n    vector4() : vector4(T(), T(), T(), T()) {}\n \
     \   vector4(const ::tools::vector4<T>& other) : vector4(other.x, other.y, other.z,\
-    \ other.w) {}\n    vector4(::tools::vector4<T>&& other) : x(::std::move(other.x)),\
-    \ y(::std::move(other.y)), z(::std::move(other.z)), w(::std::move(other.w)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y), ::std::ref(this->z), ::std::ref(this->w)}) {}\n    ~vector4()\
-    \ = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector4<T>)\n \
-    \   TOOLS_DETAIL_VECTOR_COMMON(::tools::vector4<T>)\n  };\n}\n\nnamespace std\
-    \ {\n  template <typename T>\n  void swap(::tools::vector4<T>& x, ::tools::vector4<T>&\
-    \ y) {\n    x.swap(y);\n  }\n\n  template <typename T>\n  struct hash<::tools::vector4<T>>\
-    \ {\n    using result_type = ::std::size_t;\n    using argument_type = ::tools::vector4<T>;\n\
+    \ other.w) {}\n    ~vector4() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector4<T>)\n\
+    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector4<T>)\n  };\n}\n\nnamespace std\
+    \ {\n  template <typename T>\n  struct hash<::tools::vector4<T>> {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector4<T>;\n\
     \    ::std::size_t operator()(const ::tools::vector4<T>& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
     \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 1 \"tools/vector3.hpp\"\n\n\
@@ -254,60 +295,31 @@ data:
     \ T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
     \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    vector3() : vector3(T(),\
     \ T(), T()) {}\n    vector3(const ::tools::vector3<T>& other) : vector3(other.x,\
-    \ other.y, other.z) {}\n    vector3(::tools::vector3<T>&& other) : x(::std::move(other.x)),\
-    \ y(::std::move(other.y)), z(::std::move(other.z)), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    ~vector3() = default;\n\n\
-    \    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\
-    \n  public:\n    ::tools::vector3<T> outer_product(const ::tools::vector3<T>&\
-    \ other) const {\n      return ::tools::vector3<T>(this->y * other.z - this->z\
-    \ * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y\
-    \ * other.x);\n    }\n\n    template <typename T_ = T>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
-    \ ::std::array<::tools::vector3<T>, 3>> orthonormal_basis() const {\n      assert(*this\
-    \ != ::tools::vector3<T>(0, 0, 0));\n\n      ::std::array<::tools::vector3<T>,\
-    \ 3> v;\n      {\n        auto it = v.begin();\n        *it = *this;\n       \
-    \ ++it;\n        if (const auto v_i = ::tools::vector3<T>(0, this->z, -this->y);\
-    \ v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (const auto v_i = ::tools::vector3<T>(-this->z,\
-    \ 0, this->x); v_i != ::tools::vector3<T>(0, 0, 0)) {\n          *it = ::std::move(v_i);\n\
-    \          ++it;\n        }\n        if (it != v.end()) {\n          if (const\
-    \ auto v_i = ::tools::vector3<T>(this->y, -this->x, 0); v_i != ::tools::vector3<T>(0,\
-    \ 0, 0)) {\n            *it = ::std::move(v_i);\n            ++it;\n         \
-    \ }\n        }\n      }\n\n      ::std::array<::tools::vector3<T>, 3> u;\n   \
-    \   for (::std::size_t i = 0; i < 3; ++i) {\n        u[i] = v[i];\n        for\
-    \ (::std::size_t j = 0; j < i; ++j) {\n          u[i] -= u[j].inner_product(v[i])\
-    \ / u[j].inner_product(u[j]) * u[j];\n        }\n      }\n\n      for (auto& u_i\
-    \ : u) {\n        u_i = u_i.normalized();\n      }\n\n      return u;\n    }\n\
-    \  };\n}\n\nnamespace std {\n  template <typename T>\n  void swap(::tools::vector3<T>&\
-    \ x, ::tools::vector3<T>& y) {\n    x.swap(y);\n  }\n\n  template <typename T>\n\
-    \  struct hash<::tools::vector3<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector3<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector3<T>& key) const {\n      static const ::tools::tuple_hash<T,\
-    \ T, T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y, key.z));\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\
-    \n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include <limits>\n#include <numeric>\n\n\
-    namespace tools {\n  namespace monoid {\n    template <typename Type, Type E =\
-    \ ::std::numeric_limits<Type>::min()>\n    struct max {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::max(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n \
-    \   struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
-    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 12 \"tools/quaternion.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class quaternion {\n  private:\n    ::tools::vector4<T> m_vector;\n  \
-    \  static constexpr T eps = 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510;\n\
+    \ other.y, other.z) {}\n    ~vector3() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n\
+    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\n  public:\n    ::tools::vector3<T>\
+    \ outer_product(const ::tools::vector3<T>& other) const {\n      return ::tools::vector3<T>(this->y\
+    \ * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x\
+    \ * other.y - this->y * other.x);\n    }\n\n    template <typename T_ = T>\n \
+    \   ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::array<::tools::vector3<T>,\
+    \ 3>> orthonormal_basis() const {\n      assert(*this != ::tools::vector3<T>(0,\
+    \ 0, 0));\n\n      ::std::array<::tools::vector3<T>, 3> v;\n      v[0] = *this;\n\
+    \      v[1] = ::tools::vector3<T>(0, this->z, -this->y);\n      if (v[1] == ::tools::vector3<T>(0,\
+    \ 0, 0)) {\n        v[1] = ::tools::vector3<T>(-this->z, 0, this->x);\n      }\n\
+    \      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0]) * v[0];\n\n\
+    \      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n      v[2]\
+    \ = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\nnamespace\
+    \ std {\n  template <typename T>\n  struct hash<::tools::vector3<T>> {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
+    \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 16 \"tools/quaternion.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  class quaternion;\n\n  template <typename\
+    \ T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n  template\
+    \ <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q);\n\
+    \  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
+    \ base, T exponent);\n\n  template <typename T>\n  class quaternion {\n    static_assert(::std::is_floating_point_v<T>);\n\
+    \n  private:\n    ::tools::vector4<T> m_vector;\n    static constexpr T eps =\
+    \ 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;\n\
     \n  public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
     \ = default;\n    quaternion(::tools::quaternion<T>&&) = default;\n    ~quaternion()\
     \ = default;\n    ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&)\
@@ -358,8 +370,9 @@ data:
     \ q.conj()).imag();\n    }\n\n    ::tools::quaternion<T>& operator/=(const T c)\
     \ {\n      this->m_vector /= c;\n      return *this;\n    }\n    friend ::tools::quaternion<T>\
     \ operator/(const ::tools::quaternion<T>& self, const T c) {\n      return ::tools::quaternion<T>(self)\
-    \ /= c;\n    }\n\n    ::tools::quaternion<T> inv() const {\n      return this->conj()\
-    \ / this->norm();\n    }\n    friend ::tools::quaternion<T> operator/(const ::tools::quaternion<T>&\
+    \ /= c;\n    }\n\n    ::tools::quaternion<T> inv() const {\n      const auto norm\
+    \ = this->norm();\n      assert(norm != 0);\n      return this->conj() / norm;\n\
+    \    }\n    friend ::tools::quaternion<T> operator/(const ::tools::quaternion<T>&\
     \ lhs, const ::tools::quaternion<T>& rhs) {\n      return lhs * rhs.inv();\n \
     \   }\n    ::tools::quaternion<T>& operator/=(const ::tools::quaternion<T>& other)\
     \ {\n      return *this = *this / other;\n    }\n\n    friend bool operator==(const\
@@ -370,30 +383,16 @@ data:
     \ self) {\n      ::std::ostringstream s;\n      s.flags(os.flags());\n      s.imbue(os.getloc());\n\
     \      s.precision(os.precision());\n      s << '(' << self.x() << ',' << self.y()\
     \ << ',' << self.z() << ',' << self.w() << ')';\n      return os << s.str();\n\
-    \    }\n\n  private:\n    ::tools::quaternion<T> log() const {\n      const auto\
-    \ inorm = this->imag().l2_norm();\n      if (inorm == 0) {\n        assert(this->real()\
-    \ != 0);\n        return ::std::log(this->real());\n      }\n\n      const auto\
-    \ real = ::std::log(this->abs());\n      const auto imag = ::std::acos(::std::clamp<T>(this->real()\
-    \ / this->abs(), -1, 1)) / inorm * this->imag();\n      return ::tools::quaternion<T>(imag.x,\
-    \ imag.y, imag.z, real);\n    }\n    ::tools::quaternion<T> exp() const {\n  \
-    \    const auto inorm = this->imag().l2_norm();\n      if (inorm == 0) {\n   \
-    \     return ::std::exp(this->real());\n      }\n\n      const auto rexp = ::std::exp(this->real());\n\
-    \      const auto real = rexp * ::std::cos(inorm);\n      const auto imag = rexp\
-    \ * ::std::sin(inorm) / inorm * this->imag();\n      return ::tools::quaternion<T>(imag.x,\
-    \ imag.y, imag.z, real);\n    }\n\n  public:\n    ::tools::quaternion<T> pow(const\
-    \ T t) const {\n      const auto norm = this->norm();\n      if (norm == 0) {\n\
-    \        assert(t != 0);\n        return ::tools::quaternion<T>(0, 0, 0, 0);\n\
-    \      }\n\n      return (t * this->log()).exp();\n    }\n\n    static ::tools::quaternion<T>\
-    \ angle_axis(const T angle, const ::tools::vector3<T>& axis) {\n      assert(axis\
-    \ != ::tools::vector3<T>(0, 0, 0));\n      const auto real = ::std::cos(angle\
-    \ / 2);\n      const auto imag = ::std::sin(angle / 2) * axis.normalized();\n\
-    \      return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n    }\n\n\
-    \    static ::tools::quaternion<T> from_to_rotation(::tools::vector3<T> from_direction,\
-    \ ::tools::vector3<T> to_direction) {\n      assert(from_direction != ::tools::vector3<T>(0,\
-    \ 0, 0));\n      assert(to_direction != ::tools::vector3<T>(0, 0, 0));\n     \
-    \ from_direction = from_direction.normalized();\n      to_direction = to_direction.normalized();\n\
-    \      if (from_direction.inner_product(to_direction) <= -1 + eps) {\n       \
-    \ return ::tools::quaternion<T>::angle_axis(pi, from_direction.orthonormal_basis()[1]);\n\
+    \    }\n\n    static ::tools::quaternion<T> angle_axis(const T angle, const ::tools::vector3<T>&\
+    \ axis) {\n      assert(axis != ::tools::vector3<T>(0, 0, 0));\n      const auto\
+    \ real = ::std::cos(angle / 2);\n      const auto imag = ::std::sin(angle / 2)\
+    \ * axis.normalized();\n      return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
+    \ real);\n    }\n\n    static ::tools::quaternion<T> from_to_rotation(::tools::vector3<T>\
+    \ from_direction, ::tools::vector3<T> to_direction) {\n      assert(from_direction\
+    \ != ::tools::vector3<T>(0, 0, 0));\n      assert(to_direction != ::tools::vector3<T>(0,\
+    \ 0, 0));\n      from_direction = from_direction.normalized();\n      to_direction\
+    \ = to_direction.normalized();\n      if (from_direction.inner_product(to_direction)\
+    \ <= -1 + eps) {\n        return ::tools::quaternion<T>::angle_axis(pi, from_direction.orthonormal_basis()[1]);\n\
     \      }\n      const auto bisect = (from_direction + to_direction).normalized();\n\
     \      const auto real = from_direction.inner_product(bisect);\n      const auto\
     \ imag = from_direction.outer_product(bisect);\n      return ::tools::quaternion<T>(imag.x,\
@@ -417,9 +416,24 @@ data:
     \ - u1) * ::std::cos(2 * pi * u2),\n        ::std::sqrt(u1) * ::std::sin(2 * pi\
     \ * u3),\n        ::std::sqrt(u1) * ::std::cos(2 * pi * u3)\n      );\n    }\n\
     \n    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const\
-    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * (q1 / q0).pow(t);\n\
-    \    }\n\n    static ::tools::quaternion<T> identity() {\n      return ::tools::quaternion<T>(0,\
-    \ 0, 0, 1);\n    }\n  };\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace\
+    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q1\
+    \ / q0, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
+    \ ::tools::quaternion<T>(0, 0, 0, 1);\n    }\n  };\n\n  template <typename T>\n\
+    \  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {\n    const auto\
+    \ inorm = q.imag().l2_norm();\n    if (inorm == 0) {\n      return ::std::exp(q.real());\n\
+    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
+    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
+    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
+    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
+    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
+    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
+    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
+    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
+    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
+    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
+    \ * ::tools::log(base));\n  }\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace\
     \ tools {\n\n  template <class F>\n  class less_by {\n  private:\n    F selector;\n\
     \n  public:\n    less_by(const F& selector) : selector(selector) {\n    }\n\n\
     \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
@@ -461,20 +475,23 @@ data:
     \ << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/quaternion.hpp
+  - tools/exp.hpp
+  - tools/log.hpp
+  - tools/pow.hpp
+  - tools/monoid.hpp
+  - tools/square.hpp
   - tools/vector4.hpp
   - tools/detail/vector_static_common.hpp
   - tools/detail/vector_common.hpp
   - tools/abs.hpp
   - tools/tuple_hash.hpp
   - tools/vector3.hpp
-  - tools/square.hpp
-  - tools/monoid.hpp
   - tools/less_by.hpp
   isVerificationFile: true
   path: tests/quaternion/look_rotation.test.cpp
   requiredBy: []
-  timestamp: '2022-10-30 19:35:14+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-03 23:21:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/quaternion/look_rotation.test.cpp
 layout: document
