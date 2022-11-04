@@ -236,7 +236,7 @@ namespace tools {
     }
 
     static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const T t) {
-      return q0 * ::tools::pow(q1 / q0, t);
+      return q0 * ::tools::pow(q0.inv() * q1, t);
     }
 
     static ::tools::quaternion<T> identity() {

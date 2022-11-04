@@ -418,6 +418,7 @@ quaternion<T> quaternion<T>::slerp(quaternion<T> q0, quaternion<T> q1, T t);
 ```
 
 It spherically interpolates between quaternions $q_0$ and $q_1$ by ratio $t$.
+In other words, it returns $q_0 \left(q_0^{-1} q_1\right)^t$.
 
 ### Constraints
 - $\mathbb{q_0} \neq 0$
