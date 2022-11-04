@@ -411,8 +411,8 @@ data:
     \ - u1) * ::std::cos(2 * pi * u2),\n        ::std::sqrt(u1) * ::std::sin(2 * pi\
     \ * u3),\n        ::std::sqrt(u1) * ::std::cos(2 * pi * u3)\n      );\n    }\n\
     \n    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const\
-    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q1\
-    \ / q0, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
+    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q0.inv()\
+    \ * q1, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
     \ ::tools::quaternion<T>(0, 0, 0, 1);\n    }\n  };\n\n  template <typename T>\n\
     \  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {\n    const auto\
     \ inorm = q.imag().l2_norm();\n    if (inorm == 0) {\n      return ::std::exp(q.real());\n\
@@ -537,8 +537,8 @@ data:
     \ - u1) * ::std::cos(2 * pi * u2),\n        ::std::sqrt(u1) * ::std::sin(2 * pi\
     \ * u3),\n        ::std::sqrt(u1) * ::std::cos(2 * pi * u3)\n      );\n    }\n\
     \n    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const\
-    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q1\
-    \ / q0, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
+    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q0.inv()\
+    \ * q1, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
     \ ::tools::quaternion<T>(0, 0, 0, 1);\n    }\n  };\n\n  template <typename T>\n\
     \  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {\n    const auto\
     \ inorm = q.imag().l2_norm();\n    if (inorm == 0) {\n      return ::std::exp(q.real());\n\
@@ -570,7 +570,7 @@ data:
   isVerificationFile: false
   path: tools/quaternion.hpp
   requiredBy: []
-  timestamp: '2022-11-03 23:21:16+09:00'
+  timestamp: '2022-11-04 23:14:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/angle_axis.test.cpp
@@ -995,6 +995,7 @@ quaternion<T> quaternion<T>::slerp(quaternion<T> q0, quaternion<T> q1, T t);
 ```
 
 It spherically interpolates between quaternions $q_0$ and $q_1$ by ratio $t$.
+In other words, it returns $q_0 \left(q_0^{-1} q_1\right)^t$.
 
 ### Constraints
 - $\mathbb{q_0} \neq 0$
