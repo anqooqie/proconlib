@@ -453,6 +453,19 @@ It returns a random rotation.
 ### Time Complexity
 - $O(1)$
 
+## dice_rotations
+```cpp
+std::array<quaternion<T>, 24> quaternion<T>::dice_rotations();
+```
+
+It returns all the states which a dice can have..
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## tools::exp
 ```cpp
 quaternion<T> tools::exp(quaternion<T> q);
@@ -461,7 +474,7 @@ quaternion<T> tools::exp(quaternion<T> q);
 It returns $e^q = \sum_{n = 0}^\infty \frac{q^n}{n!}$.
 
 ### Note
-$e^q$ is the following quaternion where $\mathbb{v} = xi + yj + zk$.
+$e^q$ is equal to the following quaternion where $\mathbb{v} = xi + yj + zk$.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}

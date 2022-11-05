@@ -34,8 +34,8 @@ int main() {
     const auto answer_with_error = q * tools::vector3<double>(1, 0, 0);
 
     std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(), six_directions.end(), tools::less_by([&](const auto& possible_answer) {
-       return (possible_answer - answer_with_error).squared_l2_norm();
-     })))] << '\n';
+      return (possible_answer - answer_with_error).squared_l2_norm();
+    })))] << '\n';
   }
 
   return 0;

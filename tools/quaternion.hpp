@@ -221,6 +221,14 @@ namespace tools {
       return q2 * q1;
     }
 
+    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const T t) {
+      return q0 * ::tools::pow(q0.inv() * q1, t);
+    }
+
+    static ::tools::quaternion<T> identity() {
+      return ::tools::quaternion<T>(0, 0, 0, 1);
+    }
+
     template <typename R>
     static ::tools::quaternion<T> random(R& engine) {
       static ::std::uniform_real_distribution<T> dist(0, 1);
@@ -235,12 +243,33 @@ namespace tools {
       );
     }
 
-    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const T t) {
-      return q0 * ::tools::pow(q0.inv() * q1, t);
-    }
-
-    static ::tools::quaternion<T> identity() {
-      return ::tools::quaternion<T>(0, 0, 0, 1);
+    static ::std::array<::tools::quaternion<T>, 24> dice_rotations() {
+      return ::std::array<::tools::quaternion<T>, 24>({
+        ::tools::quaternion<double>::identity(),
+        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(1, 0, 0)),
+        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(1, 0, 0)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1, 0, 0)),
+        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0, 1, 0)),
+        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0, 1, 0)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0, 1, 0)),
+        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0, 0, 1)),
+        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0, 0, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0, 0, 1)),
+        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1, -1, 1)),
+        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1, -1, 1)),
+        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1, 1, 1)),
+        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1, 1, 1)),
+        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1, -1, 1)),
+        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1, -1, 1)),
+        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1, 1, 1)),
+        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1, 1, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0, -1, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0, 1, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1, 0, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1, 0, 1)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1, 1, 0)),
+        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1, 1, 0))
+      });
     }
   };
 
