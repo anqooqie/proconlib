@@ -13,49 +13,75 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/swag.hpp\"\n\n\n\n#include <stack>\n#include <utility>\n\
     #include <cassert>\n\nnamespace tools {\n  template <typename M>\n  class swag\
-    \ {\n  private:\n    using T = typename M::T;\n    ::std::stack<T> stack1;\n \
-    \   T stack1_prod;\n    ::std::stack<::std::pair<T, T>> stack2;\n\n    T stack2_prod()\
-    \ const {\n      return this->stack2.empty() ? M::e() : this->stack2.top().second;\n\
-    \    }\n\n  public:\n    swag() : stack1_prod(M::e()) {\n    }\n    swag(const\
-    \ ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&) = default;\n   \
-    \ ~swag() = default;\n    ::tools::swag<M>& operator=(const ::tools::swag<M>&)\
+    \ {\n  private:\n    using T = typename M::T;\n    ::std::stack<::std::pair<T,\
+    \ T>> m_head;\n    ::std::stack<::std::pair<T, T>> m_tail;\n\n    T head_prod()\
+    \ const {\n      return this->m_head.empty() ? M::e() : this->m_head.top().second;\n\
+    \    }\n    T tail_prod() const {\n      return this->m_tail.empty() ? M::e()\
+    \ : this->m_tail.top().second;\n    }\n\n  public:\n    swag() = default;\n  \
+    \  swag(const ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&) = default;\n\
+    \    ~swag() = default;\n    ::tools::swag<M>& operator=(const ::tools::swag<M>&)\
     \ = default;\n    ::tools::swag<M>& operator=(::tools::swag<M>&&) = default;\n\
-    \n    bool empty() const {\n      return this->stack1.empty() && this->stack2.empty();\n\
-    \    }\n\n    void push(const T& x) {\n      this->stack1_prod = M::op(this->stack1_prod,\
-    \ x);\n      this->stack1.push(x);\n    }\n\n    template <typename... Args>\n\
-    \    void emplace(Args&&... args) {\n      this->push(T(::std::forward<Args>(args)...));\n\
-    \    }\n\n    void pop() {\n      assert(!this->empty());\n      if (this->stack2.empty())\
-    \ {\n        while (!this->stack1.empty()) {\n          this->stack2.emplace(\n\
-    \            this->stack1.top(),\n            M::op(this->stack1.top(), this->stack2_prod())\n\
-    \            );\n          this->stack1.pop();\n        }\n        this->stack1_prod\
-    \ = M::e();\n      }\n      this->stack2.pop();\n    }\n\n    T prod() const {\n\
-    \      return M::op(this->stack2_prod(), this->stack1_prod);\n    }\n  };\n}\n\
-    \n\n"
+    \n    bool empty() const {\n      return this->m_head.empty() && this->m_tail.empty();\n\
+    \    }\n\n    void push_back(const T& x) {\n      this->m_tail.emplace(x, M::op(this->tail_prod(),\
+    \ x));\n    }\n\n    template <typename... Args>\n    void emplace_back(Args&&...\
+    \ args) {\n      this->push_back(T(::std::forward<Args>(args)...));\n    }\n\n\
+    \    void pop_back() {\n      assert(!this->empty());\n      if (this->m_tail.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (tmp.size() + 1 < this->m_head.size())\
+    \ {\n          tmp.push(this->m_head.top().first);\n          this->m_head.pop();\n\
+    \        }\n        while (!this->m_head.empty()) {\n          this->m_tail.emplace(this->m_head.top().first,\
+    \ M::op(this->tail_prod(), this->m_head.top().first));\n          this->m_head.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_head.emplace(tmp.top(),\
+    \ M::op(tmp.top(), this->head_prod()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_tail.pop();\n    }\n\n    void push_front(const T& x) {\n\
+    \      this->m_head.emplace(x, M::op(x, this->head_prod()));\n    }\n\n    template\
+    \ <typename... Args>\n    void emplace_front(Args&&... args) {\n      this->push_front(T(::std::forward<Args>(args)...));\n\
+    \    }\n\n    void pop_front() {\n      assert(!this->empty());\n      if (this->m_head.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (this->m_tail.size() > tmp.size()\
+    \ + 1) {\n          tmp.push(this->m_tail.top().first);\n          this->m_tail.pop();\n\
+    \        }\n        while (!this->m_tail.empty()) {\n          this->m_head.emplace(this->m_tail.top().first,\
+    \ M::op(this->m_tail.top().first, this->head_prod()));\n          this->m_tail.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_tail.emplace(tmp.top(),\
+    \ M::op(this->tail_prod(), tmp.top()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_head.pop();\n    }\n\n    T prod() const {\n      return\
+    \ M::op(this->head_prod(), this->tail_prod());\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_SWAG_HPP\n#define TOOLS_SWAG_HPP\n\n#include <stack>\n#include\
     \ <utility>\n#include <cassert>\n\nnamespace tools {\n  template <typename M>\n\
-    \  class swag {\n  private:\n    using T = typename M::T;\n    ::std::stack<T>\
-    \ stack1;\n    T stack1_prod;\n    ::std::stack<::std::pair<T, T>> stack2;\n\n\
-    \    T stack2_prod() const {\n      return this->stack2.empty() ? M::e() : this->stack2.top().second;\n\
-    \    }\n\n  public:\n    swag() : stack1_prod(M::e()) {\n    }\n    swag(const\
-    \ ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&) = default;\n   \
-    \ ~swag() = default;\n    ::tools::swag<M>& operator=(const ::tools::swag<M>&)\
+    \  class swag {\n  private:\n    using T = typename M::T;\n    ::std::stack<::std::pair<T,\
+    \ T>> m_head;\n    ::std::stack<::std::pair<T, T>> m_tail;\n\n    T head_prod()\
+    \ const {\n      return this->m_head.empty() ? M::e() : this->m_head.top().second;\n\
+    \    }\n    T tail_prod() const {\n      return this->m_tail.empty() ? M::e()\
+    \ : this->m_tail.top().second;\n    }\n\n  public:\n    swag() = default;\n  \
+    \  swag(const ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&) = default;\n\
+    \    ~swag() = default;\n    ::tools::swag<M>& operator=(const ::tools::swag<M>&)\
     \ = default;\n    ::tools::swag<M>& operator=(::tools::swag<M>&&) = default;\n\
-    \n    bool empty() const {\n      return this->stack1.empty() && this->stack2.empty();\n\
-    \    }\n\n    void push(const T& x) {\n      this->stack1_prod = M::op(this->stack1_prod,\
-    \ x);\n      this->stack1.push(x);\n    }\n\n    template <typename... Args>\n\
-    \    void emplace(Args&&... args) {\n      this->push(T(::std::forward<Args>(args)...));\n\
-    \    }\n\n    void pop() {\n      assert(!this->empty());\n      if (this->stack2.empty())\
-    \ {\n        while (!this->stack1.empty()) {\n          this->stack2.emplace(\n\
-    \            this->stack1.top(),\n            M::op(this->stack1.top(), this->stack2_prod())\n\
-    \            );\n          this->stack1.pop();\n        }\n        this->stack1_prod\
-    \ = M::e();\n      }\n      this->stack2.pop();\n    }\n\n    T prod() const {\n\
-    \      return M::op(this->stack2_prod(), this->stack1_prod);\n    }\n  };\n}\n\
-    \n#endif\n"
+    \n    bool empty() const {\n      return this->m_head.empty() && this->m_tail.empty();\n\
+    \    }\n\n    void push_back(const T& x) {\n      this->m_tail.emplace(x, M::op(this->tail_prod(),\
+    \ x));\n    }\n\n    template <typename... Args>\n    void emplace_back(Args&&...\
+    \ args) {\n      this->push_back(T(::std::forward<Args>(args)...));\n    }\n\n\
+    \    void pop_back() {\n      assert(!this->empty());\n      if (this->m_tail.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (tmp.size() + 1 < this->m_head.size())\
+    \ {\n          tmp.push(this->m_head.top().first);\n          this->m_head.pop();\n\
+    \        }\n        while (!this->m_head.empty()) {\n          this->m_tail.emplace(this->m_head.top().first,\
+    \ M::op(this->tail_prod(), this->m_head.top().first));\n          this->m_head.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_head.emplace(tmp.top(),\
+    \ M::op(tmp.top(), this->head_prod()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_tail.pop();\n    }\n\n    void push_front(const T& x) {\n\
+    \      this->m_head.emplace(x, M::op(x, this->head_prod()));\n    }\n\n    template\
+    \ <typename... Args>\n    void emplace_front(Args&&... args) {\n      this->push_front(T(::std::forward<Args>(args)...));\n\
+    \    }\n\n    void pop_front() {\n      assert(!this->empty());\n      if (this->m_head.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (this->m_tail.size() > tmp.size()\
+    \ + 1) {\n          tmp.push(this->m_tail.top().first);\n          this->m_tail.pop();\n\
+    \        }\n        while (!this->m_tail.empty()) {\n          this->m_head.emplace(this->m_tail.top().first,\
+    \ M::op(this->m_tail.top().first, this->head_prod()));\n          this->m_tail.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_tail.emplace(tmp.top(),\
+    \ M::op(this->tail_prod(), tmp.top()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_head.pop();\n    }\n\n    T prod() const {\n      return\
+    \ M::op(this->head_prod(), this->tail_prod());\n    }\n  };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/swag.hpp
   requiredBy: []
-  timestamp: '2021-11-27 16:35:12+09:00'
+  timestamp: '2022-11-05 13:33:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/swag.test.cpp
@@ -67,8 +93,10 @@ title: Sliding window aggregation
 It is a data structure which supports the following operations.
 
 - Create an empty sequence of elements on a given monoid in $O(1)$.
+- Add an element to the sequence as the first element in $O(1)$.
 - Add an element to the sequence as the last element in $O(1)$.
-- Remove the first element from the sequence in amortized $O(1)$.
+- Remove the first element from the sequence in $O(1)$ amortized.
+- Remove the last element from the sequence in $O(1)$ amortized.
 - Calculate the production on the monoid of all elements in the sequence, in $O(1)$.
 
 ### License
@@ -105,9 +133,36 @@ It returns whether the sequence is empty or not.
 ### Time Complexity
 - $O(1)$
 
-## push
+## push_front
 ```cpp
-void swag.push(typename M::T x);
+void swag.push_front(typename M::T x);
+```
+
+It adds an element $x$ to the sequence as the first element.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## emplace_front
+```cpp
+template <typename... Args>
+void swag.emplace_front(Args&&... args);
+```
+
+It adds an element `typename M::T(args...)` to the sequence as the first element.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## push_back
+```cpp
+void swag.push_back(typename M::T x);
 ```
 
 It adds an element $x$ to the sequence as the last element.
@@ -118,10 +173,10 @@ It adds an element $x$ to the sequence as the last element.
 ### Time Complexity
 - $O(1)$
 
-## emplace
+## emplace_back
 ```cpp
 template <typename... Args>
-void swag.emplace(Args&&... args);
+void swag.emplace_back(Args&&... args);
 ```
 
 It adds an element `typename M::T(args...)` to the sequence as the last element.
@@ -132,9 +187,9 @@ It adds an element `typename M::T(args...)` to the sequence as the last element.
 ### Time Complexity
 - $O(1)$
 
-## pop
+## pop_front
 ```cpp
-void swag.pop();
+void swag.pop_front();
 ```
 
 It removes the first element from the sequence.
@@ -143,7 +198,20 @@ It removes the first element from the sequence.
 - The sequence is not empty.
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$ amortized
+
+## pop_back
+```cpp
+void swag.pop_back();
+```
+
+It removes the last element from the sequence.
+
+### Constraints
+- The sequence is not empty.
+
+### Time Complexity
+- $O(1)$ amortized
 
 ## prod
 ```cpp

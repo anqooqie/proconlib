@@ -11,10 +11,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/queue_operate_all_composite
+    PROBLEM: https://judge.yosupo.jp/problem/deque_operate_all_composite
     links:
-    - https://judge.yosupo.jp/problem/queue_operate_all_composite
-  bundledCode: "#line 1 \"tests/swag.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
+    - https://judge.yosupo.jp/problem/deque_operate_all_composite
+  bundledCode: "#line 1 \"tests/swag.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/deque_operate_all_composite\"\
     \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
     #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
@@ -224,52 +224,70 @@ data:
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/swag.hpp\"\
     \n\n\n\n#include <stack>\n#line 7 \"tools/swag.hpp\"\n\nnamespace tools {\n  template\
     \ <typename M>\n  class swag {\n  private:\n    using T = typename M::T;\n   \
-    \ ::std::stack<T> stack1;\n    T stack1_prod;\n    ::std::stack<::std::pair<T,\
-    \ T>> stack2;\n\n    T stack2_prod() const {\n      return this->stack2.empty()\
-    \ ? M::e() : this->stack2.top().second;\n    }\n\n  public:\n    swag() : stack1_prod(M::e())\
-    \ {\n    }\n    swag(const ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&)\
+    \ ::std::stack<::std::pair<T, T>> m_head;\n    ::std::stack<::std::pair<T, T>>\
+    \ m_tail;\n\n    T head_prod() const {\n      return this->m_head.empty() ? M::e()\
+    \ : this->m_head.top().second;\n    }\n    T tail_prod() const {\n      return\
+    \ this->m_tail.empty() ? M::e() : this->m_tail.top().second;\n    }\n\n  public:\n\
+    \    swag() = default;\n    swag(const ::tools::swag<M>&) = default;\n    swag(::tools::swag<M>&&)\
     \ = default;\n    ~swag() = default;\n    ::tools::swag<M>& operator=(const ::tools::swag<M>&)\
     \ = default;\n    ::tools::swag<M>& operator=(::tools::swag<M>&&) = default;\n\
-    \n    bool empty() const {\n      return this->stack1.empty() && this->stack2.empty();\n\
-    \    }\n\n    void push(const T& x) {\n      this->stack1_prod = M::op(this->stack1_prod,\
-    \ x);\n      this->stack1.push(x);\n    }\n\n    template <typename... Args>\n\
-    \    void emplace(Args&&... args) {\n      this->push(T(::std::forward<Args>(args)...));\n\
-    \    }\n\n    void pop() {\n      assert(!this->empty());\n      if (this->stack2.empty())\
-    \ {\n        while (!this->stack1.empty()) {\n          this->stack2.emplace(\n\
-    \            this->stack1.top(),\n            M::op(this->stack1.top(), this->stack2_prod())\n\
-    \            );\n          this->stack1.pop();\n        }\n        this->stack1_prod\
-    \ = M::e();\n      }\n      this->stack2.pop();\n    }\n\n    T prod() const {\n\
-    \      return M::op(this->stack2_prod(), this->stack1_prod);\n    }\n  };\n}\n\
-    \n\n#line 6 \"tests/swag.test.cpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
-    \nstruct monoid {\n  using T = std::pair<mint, mint>;\n  static T op(T x, T y)\
-    \ {\n    return std::make_pair(y.first * x.first, y.first * x.second + y.second);\n\
-    \  }\n  static T e() {\n    return std::make_pair(mint(1), mint(0));\n  }\n};\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll i = 0; i <\
-    \ Q; ++i) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n\
-    \      std::cin >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n\
-    \    } else if (t == 1) {\n      swag.pop();\n    } else {\n      ll x;\n    \
-    \  std::cin >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout <<\
-    \ (a * mint::raw(x) + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
+    \n    bool empty() const {\n      return this->m_head.empty() && this->m_tail.empty();\n\
+    \    }\n\n    void push_back(const T& x) {\n      this->m_tail.emplace(x, M::op(this->tail_prod(),\
+    \ x));\n    }\n\n    template <typename... Args>\n    void emplace_back(Args&&...\
+    \ args) {\n      this->push_back(T(::std::forward<Args>(args)...));\n    }\n\n\
+    \    void pop_back() {\n      assert(!this->empty());\n      if (this->m_tail.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (tmp.size() + 1 < this->m_head.size())\
+    \ {\n          tmp.push(this->m_head.top().first);\n          this->m_head.pop();\n\
+    \        }\n        while (!this->m_head.empty()) {\n          this->m_tail.emplace(this->m_head.top().first,\
+    \ M::op(this->tail_prod(), this->m_head.top().first));\n          this->m_head.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_head.emplace(tmp.top(),\
+    \ M::op(tmp.top(), this->head_prod()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_tail.pop();\n    }\n\n    void push_front(const T& x) {\n\
+    \      this->m_head.emplace(x, M::op(x, this->head_prod()));\n    }\n\n    template\
+    \ <typename... Args>\n    void emplace_front(Args&&... args) {\n      this->push_front(T(::std::forward<Args>(args)...));\n\
+    \    }\n\n    void pop_front() {\n      assert(!this->empty());\n      if (this->m_head.empty())\
+    \ {\n        ::std::stack<T> tmp;\n        while (this->m_tail.size() > tmp.size()\
+    \ + 1) {\n          tmp.push(this->m_tail.top().first);\n          this->m_tail.pop();\n\
+    \        }\n        while (!this->m_tail.empty()) {\n          this->m_head.emplace(this->m_tail.top().first,\
+    \ M::op(this->m_tail.top().first, this->head_prod()));\n          this->m_tail.pop();\n\
+    \        }\n        while (!tmp.empty()) {\n          this->m_tail.emplace(tmp.top(),\
+    \ M::op(this->tail_prod(), tmp.top()));\n          tmp.pop();\n        }\n   \
+    \   }\n      this->m_head.pop();\n    }\n\n    T prod() const {\n      return\
+    \ M::op(this->head_prod(), this->tail_prod());\n    }\n  };\n}\n\n\n#line 6 \"\
+    tests/swag.test.cpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
+    \nstruct monoid {\n  using T = std::pair<mint, mint>;\n  static T op(const T&\
+    \ x, const T& y) {\n    return std::make_pair(y.first * x.first, y.first * x.second\
+    \ + y.second);\n  }\n  static T e() {\n    return std::make_pair(mint::raw(1),\
+    \ mint::raw(0));\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll q = 0; q <\
+    \ Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n\
+    \      std::cin >> a >> b;\n      swag.emplace_front(mint::raw(a), mint::raw(b));\n\
+    \    } else if (t == 1) {\n      ll a, b;\n      std::cin >> a >> b;\n      swag.emplace_back(mint::raw(a),\
+    \ mint::raw(b));\n    } else if (t == 2) {\n      swag.pop_front();\n    } else\
+    \ if (t == 3) {\n      swag.pop_back();\n    } else {\n      ll x;\n      std::cin\
+    \ >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout << (a * mint::raw(x)\
+    \ + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/deque_operate_all_composite\"\
     \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/swag.hpp\"\
     \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nstruct monoid\
-    \ {\n  using T = std::pair<mint, mint>;\n  static T op(T x, T y) {\n    return\
-    \ std::make_pair(y.first * x.first, y.first * x.second + y.second);\n  }\n  static\
-    \ T e() {\n    return std::make_pair(mint(1), mint(0));\n  }\n};\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll i = 0; i < Q; ++i)\
-    \ {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n      std::cin\
-    \ >> a >> b;\n      swag.emplace(mint::raw(a), mint::raw(b));\n    } else if (t\
-    \ == 1) {\n      swag.pop();\n    } else {\n      ll x;\n      std::cin >> x;\n\
-    \      const auto& [a, b] = swag.prod();\n      std::cout << (a * mint::raw(x)\
+    \ {\n  using T = std::pair<mint, mint>;\n  static T op(const T& x, const T& y)\
+    \ {\n    return std::make_pair(y.first * x.first, y.first * x.second + y.second);\n\
+    \  }\n  static T e() {\n    return std::make_pair(mint::raw(1), mint::raw(0));\n\
+    \  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll Q;\n  std::cin >> Q;\n  tools::swag<monoid> swag;\n  for (ll q = 0; q <\
+    \ Q; ++q) {\n    ll t;\n    std::cin >> t;\n    if (t == 0) {\n      ll a, b;\n\
+    \      std::cin >> a >> b;\n      swag.emplace_front(mint::raw(a), mint::raw(b));\n\
+    \    } else if (t == 1) {\n      ll a, b;\n      std::cin >> a >> b;\n      swag.emplace_back(mint::raw(a),\
+    \ mint::raw(b));\n    } else if (t == 2) {\n      swag.pop_front();\n    } else\
+    \ if (t == 3) {\n      swag.pop_back();\n    } else {\n      ll x;\n      std::cin\
+    \ >> x;\n      const auto& [a, b] = swag.prod();\n      std::cout << (a * mint::raw(x)\
     \ + b).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/swag.hpp
   isVerificationFile: true
   path: tests/swag.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-11-05 13:33:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/swag.test.cpp
