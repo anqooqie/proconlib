@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/assert_that.hpp
+    title: Assertion macro
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
@@ -30,31 +33,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E
+    PROBLEM: https://yukicoder.me/problems/no/117
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E
-  bundledCode: "#line 1 \"tests/fact_mod_cache/combination.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E\"\n\n#include <iostream>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
-    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
-    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
-    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    - https://yukicoder.me/problems/no/117
+  bundledCode: "#line 1 \"tests/fact_mod_cache.test.cpp\"\n#define PROBLEM \"https://yukicoder.me/problems/no/117\"\
+    \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
+    #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -316,17 +318,39 @@ data:
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
     \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n\n#line 6 \"tests/fact_mod_cache/combination.test.cpp\"\n\n\
-    using ll = long long;\nusing mint = atcoder::modint1000000007;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll n,\
-    \ k;\n  std::cin >> n >> k;\n  tools::fact_mod_cache<mint> cache;\n  std::cout\
-    \ << cache.combination(k, n).val() << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E\"\n\n\
-    #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\
-    \n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ n, k;\n  std::cin >> n >> k;\n  tools::fact_mod_cache<mint> cache;\n  std::cout\
-    \ << cache.combination(k, n).val() << '\\n';\n  return 0;\n}\n"
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 7 \"tests/fact_mod_cache.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\ntools::fact_mod_cache<mint>\
+    \ cache;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  static const auto discard = [](const char c) {\n    assert_that(std::cin.peek()\
+    \ == c);\n    std::cin.ignore();\n  };\n\n  ll T;\n  std::cin >> T;\n  discard('\\\
+    n');\n  for (ll t = 0; t < T; ++t) {\n    char type;\n    ll N, K;\n    std::cin\
+    \ >> type;\n    assert_that(type == 'C' || type == 'P' || type == 'H');\n    discard('(');\n\
+    \    std::cin >> N;\n    discard(',');\n    std::cin >> K;\n    discard(')');\n\
+    \    discard('\\n');\n\n    if (type == 'C') {\n      std::cout << cache.combination(N,\
+    \ K).val() << '\\n';\n    } else if (type == 'P') {\n      std::cout << cache.permutation(N,\
+    \ K).val() << '\\n';\n    } else if (type == 'H') {\n      std::cout << cache.combination_with_repetition(N,\
+    \ K).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://yukicoder.me/problems/no/117\"\n\n#include <iostream>\n\
+    #include \"atcoder/modint.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\n#include\
+    \ \"tools/assert_that.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\n\
+    tools::fact_mod_cache<mint> cache;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  static const auto discard = [](const\
+    \ char c) {\n    assert_that(std::cin.peek() == c);\n    std::cin.ignore();\n\
+    \  };\n\n  ll T;\n  std::cin >> T;\n  discard('\\n');\n  for (ll t = 0; t < T;\
+    \ ++t) {\n    char type;\n    ll N, K;\n    std::cin >> type;\n    assert_that(type\
+    \ == 'C' || type == 'P' || type == 'H');\n    discard('(');\n    std::cin >> N;\n\
+    \    discard(',');\n    std::cin >> K;\n    discard(')');\n    discard('\\n');\n\
+    \n    if (type == 'C') {\n      std::cout << cache.combination(N, K).val() <<\
+    \ '\\n';\n    } else if (type == 'P') {\n      std::cout << cache.permutation(N,\
+    \ K).val() << '\\n';\n    } else if (type == 'H') {\n      std::cout << cache.combination_with_repetition(N,\
+    \ K).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/fact_mod_cache.hpp
   - tools/is_prime.hpp
@@ -335,16 +359,17 @@ data:
   - tools/mod.hpp
   - tools/quo.hpp
   - tools/ssize.hpp
+  - tools/assert_that.hpp
   isVerificationFile: true
-  path: tests/fact_mod_cache/combination.test.cpp
+  path: tests/fact_mod_cache.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-11-05 12:43:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/fact_mod_cache/combination.test.cpp
+documentation_of: tests/fact_mod_cache.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/fact_mod_cache/combination.test.cpp
-- /verify/tests/fact_mod_cache/combination.test.cpp.html
-title: tests/fact_mod_cache/combination.test.cpp
+- /verify/tests/fact_mod_cache.test.cpp
+- /verify/tests/fact_mod_cache.test.cpp.html
+title: tests/fact_mod_cache.test.cpp
 ---

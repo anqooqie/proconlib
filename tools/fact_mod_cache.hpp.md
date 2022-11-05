@@ -26,11 +26,8 @@ data:
       n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/fact_mod_cache/combination.test.cpp
-    title: tests/fact_mod_cache/combination.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fact_mod_cache/permutation.test.cpp
-    title: tests/fact_mod_cache/permutation.test.cpp
+    path: tests/fact_mod_cache.test.cpp
+    title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
@@ -113,7 +110,10 @@ data:
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
     \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n\n"
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_FACT_MOD_CACHE_HPP\n#define TOOLS_FACT_MOD_CACHE_HPP\n\n#include\
     \ <vector>\n#include <cassert>\n#include <algorithm>\n#include <cmath>\n#include\
     \ \"tools/is_prime.hpp\"\n#include \"tools/ssize.hpp\"\n\nnamespace tools {\n\n\
@@ -153,7 +153,10 @@ data:
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
     \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n#endif\n"
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -165,12 +168,11 @@ data:
   path: tools/fact_mod_cache.hpp
   requiredBy:
   - tools/stirling_2nd.hpp
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-11-05 12:43:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fact_mod_cache/combination.test.cpp
-  - tests/fact_mod_cache/permutation.test.cpp
   - tests/stirling_2nd.test.cpp
+  - tests/fact_mod_cache.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
 title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
@@ -289,3 +291,24 @@ $$\begin{align*}
 ### Time Complexity
 - $O(\min(n, P) + \log_P(n))$ worst
 - $O(\log_P(n))$ amortized
+
+## combination_with_repetition
+```cpp
+M cache.combination_with_repetition(long long n, long long r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n H_r \pmod{P} & \text{(if $n \geq 0$ and $r \geq 0$)}\\
+0 \pmod{P} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\min(n + r, P) + \log_P(n + r))$ worst
+- $O(\log_P(n + r))$ amortized

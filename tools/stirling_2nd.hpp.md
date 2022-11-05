@@ -735,12 +735,16 @@ data:
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
     \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n\n#line 8 \"tools/stirling_2nd.hpp\"\n\nnamespace tools {\n\
-    \  template <typename M>\n  ::tools::fps<M> stirling_2nd(const int n) {\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(0 <= n && n < M::mod());\n    ::tools::fact_mod_cache<M> cache;\n\
-    \    ::tools::fps<M> a, b;\n    for (int i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n)\
-    \ * cache.fact_inv(i));\n      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n\
-    \    }\n    return a.multiply_inplace(b);\n  }\n}\n\n\n"
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/stirling_2nd.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename M>\n  ::tools::fps<M> stirling_2nd(const int n)\
+    \ {\n    assert(::tools::is_prime(M::mod()));\n    assert(0 <= n && n < M::mod());\n\
+    \    ::tools::fact_mod_cache<M> cache;\n    ::tools::fps<M> a, b;\n    for (int\
+    \ i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n) * cache.fact_inv(i));\n\
+    \      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n    }\n    return\
+    \ a.multiply_inplace(b);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_STIRLING_2ND_HPP\n#define TOOLS_STIRLING_2ND_HPP\n\n#include\
     \ <cassert>\n#include \"tools/fps.hpp\"\n#include \"tools/is_prime.hpp\"\n#include\
     \ \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n  template <typename M>\n\
@@ -765,7 +769,7 @@ data:
   isVerificationFile: false
   path: tools/stirling_2nd.hpp
   requiredBy: []
-  timestamp: '2022-10-22 14:11:28+09:00'
+  timestamp: '2022-11-05 12:43:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/stirling_2nd.test.cpp

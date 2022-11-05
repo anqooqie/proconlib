@@ -581,6 +581,9 @@ data:
       path: tests/extgcd.test.cpp
       title: tests/extgcd.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/fact_mod_cache.test.cpp
+      title: tests/fact_mod_cache.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
     - icon: ':heavy_check_mark:'
@@ -848,14 +851,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - name: tests/fact_mod_cache
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: tests/fact_mod_cache/combination.test.cpp
-      title: tests/fact_mod_cache/combination.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/fact_mod_cache/permutation.test.cpp
-      title: tests/fact_mod_cache/permutation.test.cpp
   - name: tests/fps
     pages:
     - icon: ':heavy_check_mark:'

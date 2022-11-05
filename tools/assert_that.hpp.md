@@ -31,6 +31,9 @@ data:
     path: tests/digit_sum.test.cpp
     title: tests/digit_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fact_mod_cache.test.cpp
+    title: tests/fact_mod_cache.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':heavy_check_mark:'
@@ -176,6 +179,7 @@ data:
   - tests/floor_sqrt.test.cpp
   - tests/random_tree.test.cpp
   - tests/find_cycle.test.cpp
+  - tests/fact_mod_cache.test.cpp
   - tests/safe_int.test.cpp
   - tests/util.test.cpp
   - tests/run_length.test.cpp

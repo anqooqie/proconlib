@@ -738,13 +738,17 @@ data:
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
     \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
     \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n  };\n}\n\n\n#line 8 \"tools/stirling_2nd.hpp\"\n\nnamespace tools {\n\
-    \  template <typename M>\n  ::tools::fps<M> stirling_2nd(const int n) {\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(0 <= n && n < M::mod());\n    ::tools::fact_mod_cache<M> cache;\n\
-    \    ::tools::fps<M> a, b;\n    for (int i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n)\
-    \ * cache.fact_inv(i));\n      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n\
-    \    }\n    return a.multiply_inplace(b);\n  }\n}\n\n\n#line 7 \"tests/stirling_2nd.test.cpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/stirling_2nd.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename M>\n  ::tools::fps<M> stirling_2nd(const int n)\
+    \ {\n    assert(::tools::is_prime(M::mod()));\n    assert(0 <= n && n < M::mod());\n\
+    \    ::tools::fact_mod_cache<M> cache;\n    ::tools::fps<M> a, b;\n    for (int\
+    \ i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n) * cache.fact_inv(i));\n\
+    \      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n    }\n    return\
+    \ a.multiply_inplace(b);\n  }\n}\n\n\n#line 7 \"tests/stirling_2nd.test.cpp\"\n\
+    \nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n\n  std::string\
     \ delimiter = \"\";\n  for (const auto s : tools::stirling_2nd<mint>(N)) {\n \
     \   std::cout << delimiter << s.val();\n    delimiter = \" \";\n  }\n  std::cout\
@@ -773,7 +777,7 @@ data:
   isVerificationFile: true
   path: tests/stirling_2nd.test.cpp
   requiredBy: []
-  timestamp: '2022-10-22 14:11:28+09:00'
+  timestamp: '2022-11-05 12:43:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/stirling_2nd.test.cpp

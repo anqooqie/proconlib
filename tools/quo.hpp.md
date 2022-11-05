@@ -171,11 +171,8 @@ data:
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fact_mod_cache/combination.test.cpp
-    title: tests/fact_mod_cache/combination.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fact_mod_cache/permutation.test.cpp
-    title: tests/fact_mod_cache/permutation.test.cpp
+    path: tests/fact_mod_cache.test.cpp
+    title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
@@ -319,8 +316,6 @@ data:
   - tests/bezout.test.cpp
   - tests/log_mod.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/fact_mod_cache/combination.test.cpp
-  - tests/fact_mod_cache/permutation.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
@@ -363,6 +358,7 @@ data:
   - tests/bigint/minus.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/rotate_left.test.cpp
+  - tests/fact_mod_cache.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
