@@ -46,6 +46,9 @@ data:
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/dice_rotations.test.cpp
+    title: tests/quaternion/dice_rotations.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -125,6 +128,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/floor_kth_root.test.cpp

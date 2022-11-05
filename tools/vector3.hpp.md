@@ -22,6 +22,9 @@ data:
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/dice_rotations.test.cpp
+    title: tests/quaternion/dice_rotations.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   _isVerificationFailed: false
@@ -279,6 +282,7 @@ data:
   timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/vector3.hpp

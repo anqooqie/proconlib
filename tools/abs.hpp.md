@@ -178,6 +178,9 @@ data:
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/dice_rotations.test.cpp
+    title: tests/quaternion/dice_rotations.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -259,6 +262,7 @@ data:
   - tests/rational/random.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp

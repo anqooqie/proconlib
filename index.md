@@ -962,6 +962,9 @@ data:
       path: tests/quaternion/angle_axis.test.cpp
       title: tests/quaternion/angle_axis.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/quaternion/dice_rotations.test.cpp
+      title: tests/quaternion/dice_rotations.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/look_rotation.test.cpp
       title: tests/quaternion/look_rotation.test.cpp
   - name: tests/rational

@@ -40,6 +40,9 @@ data:
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/dice_rotations.test.cpp
+    title: tests/quaternion/dice_rotations.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   _isVerificationFailed: false
@@ -403,32 +406,58 @@ data:
     \ 0, 1), forward);\n      const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).inner_product(upwards));\n      const auto q2 = ::tools::quaternion<T>::angle_axis(theta,\
-    \ forward);\n      return q2 * q1;\n    }\n\n    template <typename R>\n    static\
-    \ ::tools::quaternion<T> random(R& engine) {\n      static ::std::uniform_real_distribution<T>\
-    \ dist(0, 1);\n      const auto u1 = dist(engine);\n      const auto u2 = dist(engine);\n\
+    \ forward);\n      return q2 * q1;\n    }\n\n    static ::tools::quaternion<T>\
+    \ slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const\
+    \ T t) {\n      return q0 * ::tools::pow(q0.inv() * q1, t);\n    }\n\n    static\
+    \ ::tools::quaternion<T> identity() {\n      return ::tools::quaternion<T>(0,\
+    \ 0, 0, 1);\n    }\n\n    template <typename R>\n    static ::tools::quaternion<T>\
+    \ random(R& engine) {\n      static ::std::uniform_real_distribution<T> dist(0,\
+    \ 1);\n      const auto u1 = dist(engine);\n      const auto u2 = dist(engine);\n\
     \      const auto u3 = dist(engine);\n      return ::tools::quaternion<T>(\n \
     \       ::std::sqrt(1 - u1) * ::std::sin(2 * pi * u2),\n        ::std::sqrt(1\
     \ - u1) * ::std::cos(2 * pi * u2),\n        ::std::sqrt(u1) * ::std::sin(2 * pi\
     \ * u3),\n        ::std::sqrt(u1) * ::std::cos(2 * pi * u3)\n      );\n    }\n\
-    \n    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const\
-    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q0.inv()\
-    \ * q1, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
-    \ ::tools::quaternion<T>(0, 0, 0, 1);\n    }\n  };\n\n  template <typename T>\n\
-    \  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {\n    const auto\
-    \ inorm = q.imag().l2_norm();\n    if (inorm == 0) {\n      return ::std::exp(q.real());\n\
-    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
-    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
-    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
-    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
-    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
-    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
-    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
-    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
-    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
-    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
-    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
-    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
-    \ * ::tools::log(base));\n  }\n}\n\n\n"
+    \n    static ::std::array<::tools::quaternion<T>, 24> dice_rotations() {\n   \
+    \   return ::std::array<::tools::quaternion<T>, 24>({\n        ::tools::quaternion<double>::identity(),\n\
+    \        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 1, 0))\n      });\n    }\n  };\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ exp(const ::tools::quaternion<T>& q) {\n    const auto inorm = q.imag().l2_norm();\n\
+    \    if (inorm == 0) {\n      return ::std::exp(q.real());\n    }\n\n    const\
+    \ auto rexp = ::std::exp(q.real());\n    const auto real = rexp * ::std::cos(inorm);\n\
+    \    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();\n    return\
+    \ ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n  }\n\n  template <typename\
+    \ T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {\n    assert(q\
+    \ != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm = q.imag().l2_norm();\n\
+    \    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() /\
+    \ inorm;\n    const auto real = ::std::log(q.abs());\n    const auto imag = ::std::atan2(inorm,\
+    \ q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
+    \ real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
+    \ base, const T exponent) {\n    const auto norm = base.norm();\n    if (norm\
+    \ == 0) {\n      assert(exponent != 0);\n      return ::tools::quaternion<T>(0,\
+    \ 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent * ::tools::log(base));\n\
+    \  }\n}\n\n\n"
   code: "#ifndef TOOLS_QUATERNION_HPP\n#define TOOLS_QUATERNION_HPP\n\n#include <type_traits>\n\
     #include <cmath>\n#include <algorithm>\n#include <cassert>\n#include <sstream>\n\
     #include <random>\n#include \"tools/exp.hpp\"\n#include \"tools/log.hpp\"\n#include\
@@ -529,32 +558,58 @@ data:
     \ 0, 1), forward);\n      const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).inner_product(upwards));\n      const auto q2 = ::tools::quaternion<T>::angle_axis(theta,\
-    \ forward);\n      return q2 * q1;\n    }\n\n    template <typename R>\n    static\
-    \ ::tools::quaternion<T> random(R& engine) {\n      static ::std::uniform_real_distribution<T>\
-    \ dist(0, 1);\n      const auto u1 = dist(engine);\n      const auto u2 = dist(engine);\n\
+    \ forward);\n      return q2 * q1;\n    }\n\n    static ::tools::quaternion<T>\
+    \ slerp(const ::tools::quaternion<T>& q0, const ::tools::quaternion<T>& q1, const\
+    \ T t) {\n      return q0 * ::tools::pow(q0.inv() * q1, t);\n    }\n\n    static\
+    \ ::tools::quaternion<T> identity() {\n      return ::tools::quaternion<T>(0,\
+    \ 0, 0, 1);\n    }\n\n    template <typename R>\n    static ::tools::quaternion<T>\
+    \ random(R& engine) {\n      static ::std::uniform_real_distribution<T> dist(0,\
+    \ 1);\n      const auto u1 = dist(engine);\n      const auto u2 = dist(engine);\n\
     \      const auto u3 = dist(engine);\n      return ::tools::quaternion<T>(\n \
     \       ::std::sqrt(1 - u1) * ::std::sin(2 * pi * u2),\n        ::std::sqrt(1\
     \ - u1) * ::std::cos(2 * pi * u2),\n        ::std::sqrt(u1) * ::std::sin(2 * pi\
     \ * u3),\n        ::std::sqrt(u1) * ::std::cos(2 * pi * u3)\n      );\n    }\n\
-    \n    static ::tools::quaternion<T> slerp(const ::tools::quaternion<T>& q0, const\
-    \ ::tools::quaternion<T>& q1, const T t) {\n      return q0 * ::tools::pow(q0.inv()\
-    \ * q1, t);\n    }\n\n    static ::tools::quaternion<T> identity() {\n      return\
-    \ ::tools::quaternion<T>(0, 0, 0, 1);\n    }\n  };\n\n  template <typename T>\n\
-    \  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {\n    const auto\
-    \ inorm = q.imag().l2_norm();\n    if (inorm == 0) {\n      return ::std::exp(q.real());\n\
-    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
-    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
-    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
-    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
-    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
-    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
-    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
-    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
-    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
-    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
-    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
-    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
-    \ * ::tools::log(base));\n  }\n}\n\n#endif\n"
+    \n    static ::std::array<::tools::quaternion<T>, 24> dice_rotations() {\n   \
+    \   return ::std::array<::tools::quaternion<T>, 24>({\n        ::tools::quaternion<double>::identity(),\n\
+    \        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 0, 0)),\n        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(-0.5 * pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(0.5 * pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(-1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(-2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(2.0 / 3.0 * pi, ::tools::vector3<double>(1,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ -1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(0,\
+    \ 1, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 0, 1)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(-1,\
+    \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
+    \ 1, 0))\n      });\n    }\n  };\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ exp(const ::tools::quaternion<T>& q) {\n    const auto inorm = q.imag().l2_norm();\n\
+    \    if (inorm == 0) {\n      return ::std::exp(q.real());\n    }\n\n    const\
+    \ auto rexp = ::std::exp(q.real());\n    const auto real = rexp * ::std::cos(inorm);\n\
+    \    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();\n    return\
+    \ ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n  }\n\n  template <typename\
+    \ T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {\n    assert(q\
+    \ != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm = q.imag().l2_norm();\n\
+    \    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() /\
+    \ inorm;\n    const auto real = ::std::log(q.abs());\n    const auto imag = ::std::atan2(inorm,\
+    \ q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
+    \ real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
+    \ base, const T exponent) {\n    const auto norm = base.norm();\n    if (norm\
+    \ == 0) {\n      assert(exponent != 0);\n      return ::tools::quaternion<T>(0,\
+    \ 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent * ::tools::log(base));\n\
+    \  }\n}\n\n#endif\n"
   dependsOn:
   - tools/exp.hpp
   - tools/log.hpp
@@ -570,9 +625,10 @@ data:
   isVerificationFile: false
   path: tools/quaternion.hpp
   requiredBy: []
-  timestamp: '2022-11-04 23:14:27+09:00'
+  timestamp: '2022-11-05 11:05:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/quaternion.hpp
@@ -1030,6 +1086,19 @@ It returns a random rotation.
 ### Time Complexity
 - $O(1)$
 
+## dice_rotations
+```cpp
+std::array<quaternion<T>, 24> quaternion<T>::dice_rotations();
+```
+
+It returns all the states which a dice can have..
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## tools::exp
 ```cpp
 quaternion<T> tools::exp(quaternion<T> q);
@@ -1038,7 +1107,7 @@ quaternion<T> tools::exp(quaternion<T> q);
 It returns $e^q = \sum_{n = 0}^\infty \frac{q^n}{n!}$.
 
 ### Note
-$e^q$ is the following quaternion where $\mathbb{v} = xi + yj + zk$.
+$e^q$ is equal to the following quaternion where $\mathbb{v} = xi + yj + zk$.
 
 $$\begin{align*}
 \left\{\begin{array}{ll}

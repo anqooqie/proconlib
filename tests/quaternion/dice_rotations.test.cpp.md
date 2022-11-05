@@ -47,51 +47,14 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B
-  bundledCode: "#line 1 \"tests/quaternion/look_rotation.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B\"\n\n#include <iostream>\n\
-    #include <array>\n#include <algorithm>\n#include <iterator>\n#line 1 \"tools/quaternion.hpp\"\
-    \n\n\n\n#include <type_traits>\n#include <cmath>\n#line 7 \"tools/quaternion.hpp\"\
-    \n#include <cassert>\n#include <sstream>\n#include <random>\n#line 1 \"tools/exp.hpp\"\
-    \n\n\n\n#line 5 \"tools/exp.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  auto exp(const T x) {\n    return ::std::exp(x);\n  }\n}\n\n\n#line 1 \"tools/log.hpp\"\
-    \n\n\n\n#line 5 \"tools/log.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  auto log(const T x) {\n    return ::std::log(x);\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\
-    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include\
-    \ <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid {\n  \
-    \  template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n   \
-    \ struct max {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
-    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
-    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
-    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
-    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
-    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
-    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
-    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
-    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
-    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
-    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
-    \  }\n}\n\n\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#line 5 \"tools/vector4.hpp\"\
-    \n#include <functional>\n#include <utility>\n#include <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_C
+  bundledCode: "#line 1 \"tests/quaternion/dice_rotations.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_C\"\n\n#include <iostream>\n\
+    #include <array>\n#include <cstddef>\n#include <iterator>\n#include <algorithm>\n\
+    #line 1 \"tools/vector3.hpp\"\n\n\n\n#line 5 \"tools/vector3.hpp\"\n#include <functional>\n\
+    #include <utility>\n#include <cassert>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
     \n\n\n\n#line 7 \"tools/detail/vector_static_common.hpp\"\n\n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V)\
     \ \\\n  using reference = T&;\\\n  using const_reference = const T&;\\\n  using\
     \ size_type = ::std::size_t;\\\n  using difference_type = ::std::ptrdiff_t;\\\n\
@@ -201,8 +164,9 @@ data:
     \    return this->m_refs.empty();\\\n  }\\\n\\\n  void swap(V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      ::std::swap((*this)[i],\
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
-    \n\n\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n#line 1\
-    \ \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \n\n\n#include <type_traits>\n#line 8 \"tools/detail/vector_common.hpp\"\n#include\
+    \ <cmath>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n#line\
+    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
     \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
     \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
     \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
@@ -275,24 +239,10 @@ data:
     \        result_type a = (hasher(::std::get<I>(key)) ^ seed) * k_mul;\n      \
     \  a ^= (a >> 47);\n        result_type b = (seed ^ a) * k_mul;\n        b ^=\
     \ (b >> 47);\n        seed = b * k_mul;\n        return seed;\n      }\n    }\n\
-    \  };\n}\n\n\n#line 11 \"tools/vector4.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector4 {\n  public:\n    T x;\n    T y;\n    T z;\n \
-    \   T w;\n\n  private:\n    ::std::array<::std::reference_wrapper<T>, 4> m_refs;\n\
-    \n  public:\n    vector4(const T& x, const T& y, const T& z, const T& w) : x(x),\
-    \ y(y), z(z), w(w), m_refs({::std::ref(this->x), ::std::ref(this->y), ::std::ref(this->z),\
-    \ ::std::ref(this->w)}) {}\n    vector4() : vector4(T(), T(), T(), T()) {}\n \
-    \   vector4(const ::tools::vector4<T>& other) : vector4(other.x, other.y, other.z,\
-    \ other.w) {}\n    ~vector4() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector4<T>)\n\
-    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector4<T>)\n  };\n}\n\nnamespace std\
-    \ {\n  template <typename T>\n  struct hash<::tools::vector4<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector4<T>;\n\
-    \    ::std::size_t operator()(const ::tools::vector4<T>& key) const {\n      static\
-    \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 1 \"tools/vector3.hpp\"\n\n\
-    \n\n#line 12 \"tools/vector3.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class vector3 {\n  public:\n    T x;\n    T y;\n    T z;\n\n  private:\n\
-    \    ::std::array<::std::reference_wrapper<T>, 3> m_refs;\n\n  public:\n    vector3(const\
-    \ T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
+    \  };\n}\n\n\n#line 12 \"tools/vector3.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  class vector3 {\n  public:\n    T x;\n    T y;\n    T z;\n\n\
+    \  private:\n    ::std::array<::std::reference_wrapper<T>, 3> m_refs;\n\n  public:\n\
+    \    vector3(const T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
     \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    vector3() : vector3(T(),\
     \ T(), T()) {}\n    vector3(const ::tools::vector3<T>& other) : vector3(other.x,\
     \ other.y, other.z) {}\n    ~vector3() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n\
@@ -312,11 +262,61 @@ data:
     \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
     \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 16 \"tools/quaternion.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename T>\n  class quaternion;\n\n  template <typename\
-    \ T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n  template\
-    \ <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q);\n\
-    \  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
+    \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 1 \"tools/quaternion.hpp\"\n\n\n\n\
+    #line 8 \"tools/quaternion.hpp\"\n#include <sstream>\n#include <random>\n#line\
+    \ 1 \"tools/exp.hpp\"\n\n\n\n#line 5 \"tools/exp.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T>\n  auto exp(const T x) {\n    return ::std::exp(x);\n\
+    \  }\n}\n\n\n#line 1 \"tools/log.hpp\"\n\n\n\n#line 5 \"tools/log.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  auto log(const T x) {\n    return ::std::log(x);\n\
+    \  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\
+    \n\n#line 5 \"tools/monoid.hpp\"\n#include <limits>\n#include <numeric>\n\nnamespace\
+    \ tools {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
+    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
+    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
+    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
+    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
+    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
+    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
+    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
+    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
+    \  }\n}\n\n\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#line 11 \"tools/vector4.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class vector4 {\n  public:\n\
+    \    T x;\n    T y;\n    T z;\n    T w;\n\n  private:\n    ::std::array<::std::reference_wrapper<T>,\
+    \ 4> m_refs;\n\n  public:\n    vector4(const T& x, const T& y, const T& z, const\
+    \ T& w) : x(x), y(y), z(z), w(w), m_refs({::std::ref(this->x), ::std::ref(this->y),\
+    \ ::std::ref(this->z), ::std::ref(this->w)}) {}\n    vector4() : vector4(T(),\
+    \ T(), T(), T()) {}\n    vector4(const ::tools::vector4<T>& other) : vector4(other.x,\
+    \ other.y, other.z, other.w) {}\n    ~vector4() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector4<T>)\n\
+    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector4<T>)\n  };\n}\n\nnamespace std\
+    \ {\n  template <typename T>\n  struct hash<::tools::vector4<T>> {\n    using\
+    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector4<T>;\n\
+    \    ::std::size_t operator()(const ::tools::vector4<T>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 16 \"tools/quaternion.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class quaternion;\n\n  template\
+    \ <typename T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n\
+    \  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q);\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
     \ base, T exponent);\n\n  template <typename T>\n  class quaternion {\n    static_assert(::std::is_floating_point_v<T>);\n\
     \n  private:\n    ::tools::vector4<T> m_vector;\n    static constexpr T eps =\
     \ 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;\n\
@@ -463,43 +463,47 @@ data:
     \ <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n   \
     \ less_by(const F& selector) : selector(selector) {\n    }\n\n    template <class\
     \ T>\n    bool operator()(const T& x, const T& y) const {\n      return selector(x)\
-    \ < selector(y);\n    }\n  };\n}\n\n\n#line 10 \"tests/quaternion/look_rotation.test.cpp\"\
+    \ < selector(y);\n    }\n  };\n}\n\n\n#line 11 \"tests/quaternion/dice_rotations.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const std::array<tools::vector3<double>, 6> six_directions = {\n    tools::vector3<double>(0,\
     \ 1, 0),\n    tools::vector3<double>(0, 0, 1),\n    tools::vector3<double>(1,\
     \ 0, 0),\n    tools::vector3<double>(-1, 0, 0),\n    tools::vector3<double>(0,\
     \ 0, -1),\n    tools::vector3<double>(0, -1, 0)\n  };\n\n  std::array<int, 6>\
-    \ faces;\n  for (auto& f : faces) std::cin >> f;\n  int Q;\n  std::cin >> Q;\n\
-    \  for (int i = 0; i < Q; ++i) {\n    int top_face, front_face;\n    std::cin\
-    \ >> top_face >> front_face;\n    const auto top_direction = six_directions[std::distance(faces.begin(),\
-    \ std::find(faces.begin(), faces.end(), top_face))];\n    const auto front_direction\
-    \ = six_directions[std::distance(faces.begin(), std::find(faces.begin(), faces.end(),\
-    \ front_face))];\n    const auto q = ::tools::quaternion<double>::look_rotation(front_direction,\
-    \ top_direction);\n    const auto answer_with_error = q * tools::vector3<double>(1,\
-    \ 0, 0);\n\n    std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(),\
-    \ six_directions.end(), tools::less_by([&](const auto& possible_answer) {\n  \
-    \    return (possible_answer - answer_with_error).squared_l2_norm();\n    })))]\
-    \ << '\\n';\n  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_B\"\n\
-    \n#include <iostream>\n#include <array>\n#include <algorithm>\n#include <iterator>\n\
-    #include \"tools/quaternion.hpp\"\n#include \"tools/vector3.hpp\"\n#include \"\
-    tools/less_by.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  const std::array<tools::vector3<double>, 6> six_directions = {\n    tools::vector3<double>(0,\
-    \ 1, 0),\n    tools::vector3<double>(0, 0, 1),\n    tools::vector3<double>(1,\
-    \ 0, 0),\n    tools::vector3<double>(-1, 0, 0),\n    tools::vector3<double>(0,\
-    \ 0, -1),\n    tools::vector3<double>(0, -1, 0)\n  };\n\n  std::array<int, 6>\
-    \ faces;\n  for (auto& f : faces) std::cin >> f;\n  int Q;\n  std::cin >> Q;\n\
-    \  for (int i = 0; i < Q; ++i) {\n    int top_face, front_face;\n    std::cin\
-    \ >> top_face >> front_face;\n    const auto top_direction = six_directions[std::distance(faces.begin(),\
-    \ std::find(faces.begin(), faces.end(), top_face))];\n    const auto front_direction\
-    \ = six_directions[std::distance(faces.begin(), std::find(faces.begin(), faces.end(),\
-    \ front_face))];\n    const auto q = ::tools::quaternion<double>::look_rotation(front_direction,\
-    \ top_direction);\n    const auto answer_with_error = q * tools::vector3<double>(1,\
-    \ 0, 0);\n\n    std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(),\
-    \ six_directions.end(), tools::less_by([&](const auto& possible_answer) {\n  \
-    \    return (possible_answer - answer_with_error).squared_l2_norm();\n    })))]\
-    \ << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ faces1, faces2;\n  for (auto& f : faces1) std::cin >> f;\n  for (auto& f : faces2)\
+    \ std::cin >> f;\n\n  std::cout << ([&]() {\n    for (const auto& q : tools::quaternion<double>::dice_rotations())\
+    \ {\n      if ([&]() {\n        for (std::size_t i = 0; i < six_directions.size();\
+    \ ++i) {\n          const auto& v1 = six_directions[i];\n          const auto\
+    \ v2_with_error = q * v1;\n          const auto j = std::distance(six_directions.begin(),\
+    \ std::min_element(six_directions.begin(), six_directions.end(), tools::less_by([&](const\
+    \ auto& v2) { return (v2_with_error - v2).squared_l2_norm(); })));\n         \
+    \ if (faces1[i] != faces2[j]) return false;\n        }\n        return true;\n\
+    \      }()) {\n        return true;\n      }\n    }\n    return false;\n  }()\
+    \ ? \"Yes\" : \"No\") << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_C\"\n\
+    \n#include <iostream>\n#include <array>\n#include <cstddef>\n#include <iterator>\n\
+    #include <algorithm>\n#include \"tools/vector3.hpp\"\n#include \"tools/quaternion.hpp\"\
+    \n#include \"tools/less_by.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n \
+    \ std::ios_base::sync_with_stdio(false);\n\n  const std::array<tools::vector3<double>,\
+    \ 6> six_directions = {\n    tools::vector3<double>(0, 1, 0),\n    tools::vector3<double>(0,\
+    \ 0, 1),\n    tools::vector3<double>(1, 0, 0),\n    tools::vector3<double>(-1,\
+    \ 0, 0),\n    tools::vector3<double>(0, 0, -1),\n    tools::vector3<double>(0,\
+    \ -1, 0)\n  };\n\n  std::array<int, 6> faces1, faces2;\n  for (auto& f : faces1)\
+    \ std::cin >> f;\n  for (auto& f : faces2) std::cin >> f;\n\n  std::cout << ([&]()\
+    \ {\n    for (const auto& q : tools::quaternion<double>::dice_rotations()) {\n\
+    \      if ([&]() {\n        for (std::size_t i = 0; i < six_directions.size();\
+    \ ++i) {\n          const auto& v1 = six_directions[i];\n          const auto\
+    \ v2_with_error = q * v1;\n          const auto j = std::distance(six_directions.begin(),\
+    \ std::min_element(six_directions.begin(), six_directions.end(), tools::less_by([&](const\
+    \ auto& v2) { return (v2_with_error - v2).squared_l2_norm(); })));\n         \
+    \ if (faces1[i] != faces2[j]) return false;\n        }\n        return true;\n\
+    \      }()) {\n        return true;\n      }\n    }\n    return false;\n  }()\
+    \ ? \"Yes\" : \"No\") << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/vector3.hpp
+  - tools/detail/vector_static_common.hpp
+  - tools/detail/vector_common.hpp
+  - tools/abs.hpp
+  - tools/tuple_hash.hpp
   - tools/quaternion.hpp
   - tools/exp.hpp
   - tools/log.hpp
@@ -507,22 +511,17 @@ data:
   - tools/monoid.hpp
   - tools/square.hpp
   - tools/vector4.hpp
-  - tools/detail/vector_static_common.hpp
-  - tools/detail/vector_common.hpp
-  - tools/abs.hpp
-  - tools/tuple_hash.hpp
-  - tools/vector3.hpp
   - tools/less_by.hpp
   isVerificationFile: true
-  path: tests/quaternion/look_rotation.test.cpp
+  path: tests/quaternion/dice_rotations.test.cpp
   requiredBy: []
   timestamp: '2022-11-05 11:05:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/quaternion/look_rotation.test.cpp
+documentation_of: tests/quaternion/dice_rotations.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/quaternion/look_rotation.test.cpp
-- /verify/tests/quaternion/look_rotation.test.cpp.html
-title: tests/quaternion/look_rotation.test.cpp
+- /verify/tests/quaternion/dice_rotations.test.cpp
+- /verify/tests/quaternion/dice_rotations.test.cpp.html
+title: tests/quaternion/dice_rotations.test.cpp
 ---
