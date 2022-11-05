@@ -85,6 +85,12 @@ namespace tools {
       if (!(0 <= r && r <= n)) return M::raw(0);
       return this->combination(n, r) * this->fact(r);
     }
+    M combination_with_repetition(const long long n, const long long r) {
+      if (n < 0) return M::raw(0);
+      if (r < 0) return M::raw(0);
+      if (n == 0 && r == 0) return M(1);
+      return this->combination(n + r - 1, r);
+    }
   };
 }
 

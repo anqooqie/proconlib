@@ -115,3 +115,24 @@ $$\begin{align*}
 ### Time Complexity
 - $O(\min(n, P) + \log_P(n))$ worst
 - $O(\log_P(n))$ amortized
+
+## combination_with_repetition
+```cpp
+M cache.combination_with_repetition(long long n, long long r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n H_r \pmod{P} & \text{(if $n \geq 0$ and $r \geq 0$)}\\
+0 \pmod{P} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\min(n + r, P) + \log_P(n + r))$ worst
+- $O(\log_P(n + r))$ amortized
