@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/queue_operate_all_composite"
+#define PROBLEM "https://judge.yosupo.jp/problem/deque_operate_all_composite"
 
 #include <iostream>
 #include "atcoder/modint.hpp"
@@ -9,11 +9,11 @@ using mint = atcoder::modint998244353;
 
 struct monoid {
   using T = std::pair<mint, mint>;
-  static T op(T x, T y) {
+  static T op(const T& x, const T& y) {
     return std::make_pair(y.first * x.first, y.first * x.second + y.second);
   }
   static T e() {
-    return std::make_pair(mint(1), mint(0));
+    return std::make_pair(mint::raw(1), mint::raw(0));
   }
 };
 
@@ -24,15 +24,21 @@ int main() {
   ll Q;
   std::cin >> Q;
   tools::swag<monoid> swag;
-  for (ll i = 0; i < Q; ++i) {
+  for (ll q = 0; q < Q; ++q) {
     ll t;
     std::cin >> t;
     if (t == 0) {
       ll a, b;
       std::cin >> a >> b;
-      swag.emplace(mint::raw(a), mint::raw(b));
+      swag.emplace_front(mint::raw(a), mint::raw(b));
     } else if (t == 1) {
-      swag.pop();
+      ll a, b;
+      std::cin >> a >> b;
+      swag.emplace_back(mint::raw(a), mint::raw(b));
+    } else if (t == 2) {
+      swag.pop_front();
+    } else if (t == 3) {
+      swag.pop_back();
     } else {
       ll x;
       std::cin >> x;

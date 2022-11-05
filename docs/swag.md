@@ -6,8 +6,10 @@ documentation_of: //tools/swag.hpp
 It is a data structure which supports the following operations.
 
 - Create an empty sequence of elements on a given monoid in $O(1)$.
+- Add an element to the sequence as the first element in $O(1)$.
 - Add an element to the sequence as the last element in $O(1)$.
-- Remove the first element from the sequence in amortized $O(1)$.
+- Remove the first element from the sequence in $O(1)$ amortized.
+- Remove the last element from the sequence in $O(1)$ amortized.
 - Calculate the production on the monoid of all elements in the sequence, in $O(1)$.
 
 ### License
@@ -44,9 +46,36 @@ It returns whether the sequence is empty or not.
 ### Time Complexity
 - $O(1)$
 
-## push
+## push_front
 ```cpp
-void swag.push(typename M::T x);
+void swag.push_front(typename M::T x);
+```
+
+It adds an element $x$ to the sequence as the first element.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## emplace_front
+```cpp
+template <typename... Args>
+void swag.emplace_front(Args&&... args);
+```
+
+It adds an element `typename M::T(args...)` to the sequence as the first element.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## push_back
+```cpp
+void swag.push_back(typename M::T x);
 ```
 
 It adds an element $x$ to the sequence as the last element.
@@ -57,10 +86,10 @@ It adds an element $x$ to the sequence as the last element.
 ### Time Complexity
 - $O(1)$
 
-## emplace
+## emplace_back
 ```cpp
 template <typename... Args>
-void swag.emplace(Args&&... args);
+void swag.emplace_back(Args&&... args);
 ```
 
 It adds an element `typename M::T(args...)` to the sequence as the last element.
@@ -71,9 +100,9 @@ It adds an element `typename M::T(args...)` to the sequence as the last element.
 ### Time Complexity
 - $O(1)$
 
-## pop
+## pop_front
 ```cpp
-void swag.pop();
+void swag.pop_front();
 ```
 
 It removes the first element from the sequence.
@@ -82,7 +111,20 @@ It removes the first element from the sequence.
 - The sequence is not empty.
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$ amortized
+
+## pop_back
+```cpp
+void swag.pop_back();
+```
+
+It removes the last element from the sequence.
+
+### Constraints
+- The sequence is not empty.
+
+### Time Complexity
+- $O(1)$ amortized
 
 ## prod
 ```cpp

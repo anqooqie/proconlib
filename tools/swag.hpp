@@ -10,17 +10,18 @@ namespace tools {
   class swag {
   private:
     using T = typename M::T;
-    ::std::stack<T> stack1;
-    T stack1_prod;
-    ::std::stack<::std::pair<T, T>> stack2;
+    ::std::stack<::std::pair<T, T>> m_head;
+    ::std::stack<::std::pair<T, T>> m_tail;
 
-    T stack2_prod() const {
-      return this->stack2.empty() ? M::e() : this->stack2.top().second;
+    T head_prod() const {
+      return this->m_head.empty() ? M::e() : this->m_head.top().second;
+    }
+    T tail_prod() const {
+      return this->m_tail.empty() ? M::e() : this->m_tail.top().second;
     }
 
   public:
-    swag() : stack1_prod(M::e()) {
-    }
+    swag() = default;
     swag(const ::tools::swag<M>&) = default;
     swag(::tools::swag<M>&&) = default;
     ~swag() = default;
@@ -28,36 +29,69 @@ namespace tools {
     ::tools::swag<M>& operator=(::tools::swag<M>&&) = default;
 
     bool empty() const {
-      return this->stack1.empty() && this->stack2.empty();
+      return this->m_head.empty() && this->m_tail.empty();
     }
 
-    void push(const T& x) {
-      this->stack1_prod = M::op(this->stack1_prod, x);
-      this->stack1.push(x);
+    void push_back(const T& x) {
+      this->m_tail.emplace(x, M::op(this->tail_prod(), x));
     }
 
     template <typename... Args>
-    void emplace(Args&&... args) {
-      this->push(T(::std::forward<Args>(args)...));
+    void emplace_back(Args&&... args) {
+      this->push_back(T(::std::forward<Args>(args)...));
     }
 
-    void pop() {
+    void pop_back() {
       assert(!this->empty());
-      if (this->stack2.empty()) {
-        while (!this->stack1.empty()) {
-          this->stack2.emplace(
-            this->stack1.top(),
-            M::op(this->stack1.top(), this->stack2_prod())
-            );
-          this->stack1.pop();
+      if (this->m_tail.empty()) {
+        ::std::stack<T> tmp;
+        while (tmp.size() + 1 < this->m_head.size()) {
+          tmp.push(this->m_head.top().first);
+          this->m_head.pop();
         }
-        this->stack1_prod = M::e();
+        while (!this->m_head.empty()) {
+          this->m_tail.emplace(this->m_head.top().first, M::op(this->tail_prod(), this->m_head.top().first));
+          this->m_head.pop();
+        }
+        while (!tmp.empty()) {
+          this->m_head.emplace(tmp.top(), M::op(tmp.top(), this->head_prod()));
+          tmp.pop();
+        }
       }
-      this->stack2.pop();
+      this->m_tail.pop();
+    }
+
+    void push_front(const T& x) {
+      this->m_head.emplace(x, M::op(x, this->head_prod()));
+    }
+
+    template <typename... Args>
+    void emplace_front(Args&&... args) {
+      this->push_front(T(::std::forward<Args>(args)...));
+    }
+
+    void pop_front() {
+      assert(!this->empty());
+      if (this->m_head.empty()) {
+        ::std::stack<T> tmp;
+        while (this->m_tail.size() > tmp.size() + 1) {
+          tmp.push(this->m_tail.top().first);
+          this->m_tail.pop();
+        }
+        while (!this->m_tail.empty()) {
+          this->m_head.emplace(this->m_tail.top().first, M::op(this->m_tail.top().first, this->head_prod()));
+          this->m_tail.pop();
+        }
+        while (!tmp.empty()) {
+          this->m_tail.emplace(tmp.top(), M::op(this->tail_prod(), tmp.top()));
+          tmp.pop();
+        }
+      }
+      this->m_head.pop();
     }
 
     T prod() const {
-      return M::op(this->stack2_prod(), this->stack1_prod);
+      return M::op(this->head_prod(), this->tail_prod());
     }
   };
 }
