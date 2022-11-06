@@ -28,32 +28,26 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
-    path: tools/run_length.hpp
-    title: Run-length encoding
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/divisors.test.cpp
-    title: tests/divisors.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/primitive_root.test.cpp
+    title: tests/primitive_root.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/divisors.hpp\"\n\n\n\n#include <vector>\n#include\
-    \ <utility>\n#include <iterator>\n#include <cstddef>\n#include <algorithm>\n#line\
-    \ 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 5 \"tools/prime_factorization.hpp\"\
-    \n#include <cassert>\n#include <queue>\n#line 9 \"tools/prime_factorization.hpp\"\
-    \n#include <cmath>\n#include <numeric>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n\
-    #include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n\
-    \  template <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const\
-    \ T1 x, const T2 y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128\
-    \ prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if\
-    \ ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
-    \  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
-    \n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+  bundledCode: "#line 1 \"tools/primitive_root.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <algorithm>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1\
+    \ \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename T1,\
+    \ typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const\
+    \ T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod = u128(x >=\
+    \ 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0))\
+    \ prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"\
+    tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
     \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
     \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
@@ -78,10 +72,13 @@ data:
     \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
     \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
     \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\
-    \n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <vector>\n#line 6 \"tools/prime_factorization.hpp\"\
+    \n#include <queue>\n#include <utility>\n#line 9 \"tools/prime_factorization.hpp\"\
+    \n#include <cmath>\n#include <numeric>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/pow2.hpp\"\n#include <cstddef>\n\nnamespace tools {\n\n  template\
+    \ <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
+    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\
@@ -152,79 +149,56 @@ data:
     \         }\n            factors.emplace(g, occurrences * n);\n            if\
     \ (h > 1) factors.emplace(h, occurrences);\n            break;\n          }\n\
     \        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
-    \    return result;\n  }\n}\n\n\n#line 1 \"tools/run_length.hpp\"\n\n\n\n#line\
-    \ 8 \"tools/run_length.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
-    \ typename OutputIterator>\n  void run_length(const InputIterator& begin, const\
-    \ InputIterator& end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    if (begin == end) return;\n\n    ::std::pair<T, ::std::size_t> prev;\n  \
-    \  for (auto [it, breaks] = ::std::make_pair(begin, false); !breaks; breaks =\
-    \ it == end, it = ::std::next(it, breaks ? 0 : 1)) {\n      bool flg1, flg2;\n\
-    \      if (it == begin) {\n        flg1 = false;\n        flg2 = true;\n     \
-    \ } else if (it == end) {\n        flg1 = true;\n        flg2 = false;\n     \
-    \ } else if (*it != prev.first) {\n        flg1 = true;\n        flg2 = true;\n\
-    \      } else {\n        flg1 = false;\n        flg2 = false;\n      }\n     \
-    \ if (flg1 || flg2) {\n        if (flg1) {\n          *result = prev;\n      \
-    \    ++result;\n        }\n        if (flg2) {\n          prev.first = *it;\n\
-    \          prev.second = 1;\n        }\n      } else {\n        ++prev.second;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 11 \"tools/divisors.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  ::std::vector<T> divisors(const T& n) {\n  \
-    \  const ::std::vector<T> prime_factors = ::tools::prime_factorization(n);\n \
-    \   ::std::vector<::std::pair<T, T>> distinct_prime_factors;\n    ::tools::run_length(prime_factors.begin(),\
-    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n\n    ::std::vector<T>\
-    \ result({1});\n    for (const auto& [p, q] : distinct_prime_factors) {\n    \
-    \  const ::std::size_t prev_size = result.size();\n      for (::std::size_t i\
-    \ = 0; i < prev_size; ++i) {\n        for (T e = 1, p_e = p; e <= q; ++e, p_e\
-    \ *= p) {\n          result.push_back(result[i] * p_e);\n        }\n      }\n\
-    \    }\n    ::std::sort(result.begin(), result.end());\n    return result;\n \
-    \ }\n}\n\n\n"
-  code: "#ifndef TOOLS_DIVISORS_HPP\n#define TOOLS_DIVISORS_HPP\n\n#include <vector>\n\
-    #include <utility>\n#include <iterator>\n#include <cstddef>\n#include <algorithm>\n\
-    #include \"tools/prime_factorization.hpp\"\n#include \"tools/run_length.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename T>\n  ::std::vector<T> divisors(const\
-    \ T& n) {\n    const ::std::vector<T> prime_factors = ::tools::prime_factorization(n);\n\
-    \    ::std::vector<::std::pair<T, T>> distinct_prime_factors;\n    ::tools::run_length(prime_factors.begin(),\
-    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n\n    ::std::vector<T>\
-    \ result({1});\n    for (const auto& [p, q] : distinct_prime_factors) {\n    \
-    \  const ::std::size_t prev_size = result.size();\n      for (::std::size_t i\
-    \ = 0; i < prev_size; ++i) {\n        for (T e = 1, p_e = p; e <= q; ++e, p_e\
-    \ *= p) {\n          result.push_back(result[i] * p_e);\n        }\n      }\n\
-    \    }\n    ::std::sort(result.begin(), result.end());\n    return result;\n \
-    \ }\n}\n\n#endif\n"
+    \    return result;\n  }\n}\n\n\n#line 9 \"tools/primitive_root.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  T primitive_root(const T x) {\n    assert(::tools::is_prime(x));\n\
+    \    if (x == 2) return 1;\n\n    auto prime_factors = ::tools::prime_factorization(x\
+    \ - 1);\n    prime_factors.erase(::std::unique(prime_factors.begin(), prime_factors.end()),\
+    \ prime_factors.end());\n\n    for (T g = 2; ; ++g) {\n      if (::std::all_of(prime_factors.begin(),\
+    \ prime_factors.end(), [&](const T p) { return ::tools::pow_mod(g, (x - 1) / p,\
+    \ x) != 1; })) {\n        return g;\n      }\n    }\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_PRIMITIVE_ROOT_HPP\n#define TOOLS_PRIMITIVE_ROOT_HPP\n\n#include\
+    \ <cassert>\n#include <algorithm>\n#include \"tools/is_prime.hpp\"\n#include \"\
+    tools/prime_factorization.hpp\"\n#include \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  T primitive_root(const T x) {\n    assert(::tools::is_prime(x));\n\
+    \    if (x == 2) return 1;\n\n    auto prime_factors = ::tools::prime_factorization(x\
+    \ - 1);\n    prime_factors.erase(::std::unique(prime_factors.begin(), prime_factors.end()),\
+    \ prime_factors.end());\n\n    for (T g = 2; ; ++g) {\n      if (::std::all_of(prime_factors.begin(),\
+    \ prime_factors.end(), [&](const T p) { return ::tools::pow_mod(g, (x - 1) / p,\
+    \ x) != 1; })) {\n        return g;\n      }\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
-  - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
+  - tools/prime_factorization.hpp
   - tools/pow2.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
-  - tools/run_length.hpp
   isVerificationFile: false
-  path: tools/divisors.hpp
+  path: tools/primitive_root.hpp
   requiredBy: []
   timestamp: '2022-11-06 13:36:53+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - tests/divisors.test.cpp
-documentation_of: tools/divisors.hpp
+  - tests/primitive_root.test.cpp
+documentation_of: tools/primitive_root.hpp
 layout: document
-title: List all divisors
+title: Primitive root
 ---
 
 ```cpp
 template <typename T>
-std::vector<T> divisors(T n);
+T primitive_root(T p);
 ```
 
-It returns the sorted divisors of $n$.
+It returns the minimal primitive root of $p$.
 
 ## Constraints
-- $1 \leq n \leq 10^{18}$
+- $p$ is a prime.
 
 ## Time Complexity
-- Supposed to be $O\left(n^\frac{1}{4}\right)$ expected
+- $O\left(\left(\log p\right)^2\right)$ expected
 
 ## License
 - CC0

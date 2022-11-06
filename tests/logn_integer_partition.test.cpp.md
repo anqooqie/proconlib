@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/logn_integer_partition.hpp
     title: Multiset $S$ such that $\{S' \subseteq S | \sum_{x \in S'} x\} = \{0, 1,
       \ldots, N\}$ and $|S| = O(\log N)$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
