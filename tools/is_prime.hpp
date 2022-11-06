@@ -7,7 +7,7 @@
 
 namespace tools {
 
-  constexpr bool is_prime(const ::std::uint_fast64_t n) {
+  constexpr bool is_prime(const unsigned long long n) {
     constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
     if (n <= 1) return false;
