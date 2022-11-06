@@ -2,14 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/compress.hpp
-    title: Compress values
-  - icon: ':heavy_check_mark:'
-    path: tools/lower_bound.hpp
-    title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
-    path: tools/monoid.hpp
-    title: Typical monoids
+    path: tools/persistent_stack.hpp
+    title: Persistent stack
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -20,127 +14,86 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <iterator>\n#include <vector>\n\
-    #include <algorithm>\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/segtree.hpp\"\n#include <cassert>\n#line 7 \"lib/ac-library/atcoder/segtree.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
-    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
-    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n)\
-    \ {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n//\
-    \ @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x))\
-    \ != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n\
-    \    _BitScanForward(&index, n);\n    return index;\n#else\n    return __builtin_ctz(n);\n\
-    #endif\n}\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 9\
-    \ \"lib/ac-library/atcoder/segtree.hpp\"\n\nnamespace atcoder {\n\ntemplate <class\
-    \ S, S (*op)(S, S), S (*e)()> struct segtree {\n  public:\n    segtree() : segtree(0)\
-    \ {}\n    explicit segtree(int n) : segtree(std::vector<S>(n, e())) {}\n    explicit\
-    \ segtree(const std::vector<S>& v) : _n(int(v.size())) {\n        log = internal::ceil_pow2(_n);\n\
-    \        size = 1 << log;\n        d = std::vector<S>(2 * size, e());\n      \
-    \  for (int i = 0; i < _n; i++) d[size + i] = v[i];\n        for (int i = size\
-    \ - 1; i >= 1; i--) {\n            update(i);\n        }\n    }\n\n    void set(int\
-    \ p, S x) {\n        assert(0 <= p && p < _n);\n        p += size;\n        d[p]\
-    \ = x;\n        for (int i = 1; i <= log; i++) update(p >> i);\n    }\n\n    S\
-    \ get(int p) const {\n        assert(0 <= p && p < _n);\n        return d[p +\
-    \ size];\n    }\n\n    S prod(int l, int r) const {\n        assert(0 <= l &&\
-    \ l <= r && r <= _n);\n        S sml = e(), smr = e();\n        l += size;\n \
-    \       r += size;\n\n        while (l < r) {\n            if (l & 1) sml = op(sml,\
-    \ d[l++]);\n            if (r & 1) smr = op(d[--r], smr);\n            l >>= 1;\n\
-    \            r >>= 1;\n        }\n        return op(sml, smr);\n    }\n\n    S\
-    \ all_prod() const { return d[1]; }\n\n    template <bool (*f)(S)> int max_right(int\
-    \ l) const {\n        return max_right(l, [](S x) { return f(x); });\n    }\n\
-    \    template <class F> int max_right(int l, F f) const {\n        assert(0 <=\
-    \ l && l <= _n);\n        assert(f(e()));\n        if (l == _n) return _n;\n \
-    \       l += size;\n        S sm = e();\n        do {\n            while (l %\
-    \ 2 == 0) l >>= 1;\n            if (!f(op(sm, d[l]))) {\n                while\
-    \ (l < size) {\n                    l = (2 * l);\n                    if (f(op(sm,\
-    \ d[l]))) {\n                        sm = op(sm, d[l]);\n                    \
-    \    l++;\n                    }\n                }\n                return l\
-    \ - size;\n            }\n            sm = op(sm, d[l]);\n            l++;\n \
-    \       } while ((l & -l) != l);\n        return _n;\n    }\n\n    template <bool\
-    \ (*f)(S)> int min_left(int r) const {\n        return min_left(r, [](S x) { return\
-    \ f(x); });\n    }\n    template <class F> int min_left(int r, F f) const {\n\
-    \        assert(0 <= r && r <= _n);\n        assert(f(e()));\n        if (r ==\
-    \ 0) return 0;\n        r += size;\n        S sm = e();\n        do {\n      \
-    \      r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n            if (!f(op(d[r],\
-    \ sm))) {\n                while (r < size) {\n                    r = (2 * r\
-    \ + 1);\n                    if (f(op(d[r], sm))) {\n                        sm\
-    \ = op(d[r], sm);\n                        r--;\n                    }\n     \
-    \           }\n                return r + 1 - size;\n            }\n         \
-    \   sm = op(d[r], sm);\n        } while ((r & -r) != r);\n        return 0;\n\
-    \    }\n\n  private:\n    int _n, size, log;\n    std::vector<S> d;\n\n    void\
-    \ update(int k) { d[k] = op(d[2 * k], d[2 * k + 1]); }\n};\n\n}  // namespace\
-    \ atcoder\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\
-    \n#include <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
-    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/compress.hpp\"\
-    \n\n\n\n#include <utility>\n#include <map>\n#line 1 \"tools/lower_bound.hpp\"\n\
-    \n\n\n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
-    \ last, const T& value) {\n    return ::std::distance(first, ::std::lower_bound(first,\
-    \ last, value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
-    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
-    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
-    \ last, value, comp));\n  }\n}\n\n\n#line 10 \"tools/compress.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename InputIterator>\n  ::std::pair<\n    ::std::map<\n\
-    \      typename ::std::iterator_traits<InputIterator>::value_type,\n      typename\
-    \ ::std::iterator_traits<InputIterator>::value_type\n    >,\n    ::std::vector<typename\
-    \ ::std::iterator_traits<InputIterator>::value_type>\n  > compress(InputIterator\
-    \ begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \n    ::std::vector<T> g(begin, end);\n    ::std::sort(g.begin(), g.end());\n\
-    \    g.erase(::std::unique(g.begin(), g.end()), g.end());\n\n    ::std::map<T,\
-    \ T> f;\n    for (T i = 0; i < T(g.size()); ++i) {\n      f.emplace(g[i], i);\n\
-    \    }\n\n    return ::std::make_pair(f, g);\n  }\n\n  template <typename InputIterator,\
-    \ typename OutputIterator>\n  void compress(InputIterator begin, InputIterator\
-    \ end, OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    ::std::vector<T> orig(begin, end);\n    ::std::vector<T> sorted(orig);\n\
-    \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
-    \ sorted.end()), sorted.end());\n    for (auto it = orig.begin(); it != orig.end();\
-    \ ++it, ++result) {\n      *result = ::tools::lower_bound(sorted.begin(), sorted.end(),\
-    \ *it);\n    }\n  }\n}\n\n\n#line 10 \"tools/lis.hpp\"\n\nnamespace tools {\n\
-    \  template <typename InputIterator>\n  long long lis(const InputIterator& begin,\
-    \ const InputIterator& end, const bool strict) {\n    using M = ::tools::monoid::max<long\
-    \ long, 0>;\n\n    ::std::vector<long long> compressed;\n    ::tools::compress(begin,\
-    \ end, ::std::back_inserter(compressed));\n\n    ::atcoder::segtree<long long,\
-    \ M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(),\
-    \ compressed.end()) + 1);\n    for (const auto c : compressed) {\n      segtree.set(c,\
-    \ segtree.prod(0, c + (strict ? 0 : 1)) + 1);\n    }\n\n    return segtree.all_prod();\n\
-    \  }\n}\n\n\n"
-  code: "#ifndef TOOLS_LIS_HPP\n#define TOOLS_LIS_HPP\n\n#include <iterator>\n#include\
-    \ <vector>\n#include <algorithm>\n#include \"atcoder/segtree.hpp\"\n#include \"\
-    tools/monoid.hpp\"\n#include \"tools/compress.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator>\n  long long lis(const InputIterator& begin, const\
-    \ InputIterator& end, const bool strict) {\n    using M = ::tools::monoid::max<long\
-    \ long, 0>;\n\n    ::std::vector<long long> compressed;\n    ::tools::compress(begin,\
-    \ end, ::std::back_inserter(compressed));\n\n    ::atcoder::segtree<long long,\
-    \ M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(),\
-    \ compressed.end()) + 1);\n    for (const auto c : compressed) {\n      segtree.set(c,\
-    \ segtree.prod(0, c + (strict ? 0 : 1)) + 1);\n    }\n\n    return segtree.all_prod();\n\
-    \  }\n}\n\n#endif\n"
+  bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <tuple>\n#include <vector>\n\
+    #include <type_traits>\n#include <cstddef>\n#include <algorithm>\n#include <iterator>\n\
+    #line 1 \"tools/persistent_stack.hpp\"\n\n\n\n#line 6 \"tools/persistent_stack.hpp\"\
+    \n#include <limits>\n#include <cassert>\n#line 9 \"tools/persistent_stack.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class persistent_stack {\n \
+    \ private:\n    struct node {\n      ::std::size_t parent;\n      ::std::size_t\
+    \ depth;\n      T value;\n    };\n\n  public:\n    class buffer {\n    private:\n\
+    \      ::std::vector<::tools::persistent_stack<T>::node> m_nodes;\n\n    public:\n\
+    \      buffer() = default;\n      buffer(const ::tools::persistent_stack<T>::buffer&)\
+    \ = default;\n      buffer(::tools::persistent_stack<T>::buffer&&) = default;\n\
+    \      ~buffer() = default;\n      ::tools::persistent_stack<T>::buffer& operator=(const\
+    \ ::tools::persistent_stack<T>::buffer&) = default;\n      ::tools::persistent_stack<T>::buffer&\
+    \ operator=(::tools::persistent_stack<T>::buffer&&) = default;\n\n      friend\
+    \ ::tools::persistent_stack<T>;\n    };\n\n  private:\n    static const ::std::size_t\
+    \ EMPTY = ::std::numeric_limits<::std::size_t>::max();\n    ::tools::persistent_stack<T>::buffer\
+    \ *m_buffer;\n    ::std::size_t m_top;\n\n    persistent_stack(::tools::persistent_stack<T>::buffer&\
+    \ buffer, const ::std::size_t top) : m_buffer(&buffer), m_top(top) {\n    }\n\n\
+    \  public:\n    persistent_stack() = default;\n    persistent_stack(const ::tools::persistent_stack<T>&)\
+    \ = default;\n    persistent_stack(::tools::persistent_stack<T>&&) = default;\n\
+    \    ~persistent_stack() = default;\n    ::tools::persistent_stack<T>& operator=(const\
+    \ ::tools::persistent_stack<T>&) = default;\n    ::tools::persistent_stack<T>&\
+    \ operator=(::tools::persistent_stack<T>&&) = default;\n\n    explicit persistent_stack(::tools::persistent_stack<T>::buffer&\
+    \ buffer) : m_buffer(&buffer), m_top(EMPTY) {\n    }\n\n    bool empty() const\
+    \ {\n      return this->m_top == EMPTY;\n    }\n\n    ::std::size_t size() const\
+    \ {\n      return this->empty() ? 0 : this->m_buffer->m_nodes[this->m_top].depth\
+    \ + 1;\n    }\n\n    T top() const {\n      assert(!this->empty());\n      return\
+    \ this->m_buffer->m_nodes[this->m_top].value;\n    }\n\n    ::tools::persistent_stack<T>\
+    \ push(const T& x) const {\n      this->m_buffer->m_nodes.emplace_back();\n  \
+    \    this->m_buffer->m_nodes.back().parent = this->m_top;\n      this->m_buffer->m_nodes.back().depth\
+    \ = this->empty() ? 0 : this->m_buffer->m_nodes[this->m_top].depth + 1;\n    \
+    \  this->m_buffer->m_nodes.back().value = x;\n      return ::tools::persistent_stack<T>(*this->m_buffer,\
+    \ this->m_buffer->m_nodes.size() - 1);\n    }\n\n    ::tools::persistent_stack<T>\
+    \ pop() const {\n      assert(!this->empty());\n      return ::tools::persistent_stack<T>(*this->m_buffer,\
+    \ this->m_buffer->m_nodes[this->m_top].parent);\n    }\n\n    template <typename...\
+    \ Args>\n    ::tools::persistent_stack<T> emplace(Args&&... args) const {\n  \
+    \    return this->push(T(::std::forward<Args>(args)...));\n    }\n  };\n}\n\n\n\
+    #line 11 \"tools/lis.hpp\"\n\nnamespace tools {\n  template <typename InputIterator>\n\
+    \  auto lis(const InputIterator begin, const InputIterator end, const bool strict)\
+    \ -> ::std::pair<::std::vector<::std::decay_t<decltype(*begin)>>, ::std::vector<::std::size_t>>\
+    \ {\n    using T = ::std::decay_t<decltype(*begin)>;\n    ::std::vector<T> a(begin,\
+    \ end);\n    ::tools::persistent_stack<::std::size_t>::buffer buffer;\n    ::std::vector<::tools::persistent_stack<::std::size_t>>\
+    \ dp({::tools::persistent_stack<::std::size_t>(buffer)});\n\n    for (::std::size_t\
+    \ i = 0; i < a.size(); ++i) {\n      ::std::size_t ok = 0;\n      ::std::size_t\
+    \ ng = dp.size();\n      while (ng - ok > 1) {\n        const auto mid = ok +\
+    \ (ng - ok) / 2;\n        if (a[dp[mid].top()] < a[i] + (strict ? 0 : 1)) {\n\
+    \          ok = mid;\n        } else {\n          ng = mid;\n        }\n     \
+    \ }\n      if (ng < dp.size()) {\n        if (a[i] < a[dp[ng].top()]) {\n    \
+    \      dp[ng] = dp[ok].push(i);\n        }\n      } else {\n        dp.push_back(dp[ok].push(i));\n\
+    \      }\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
+    \ res;\n    auto& [lis, indices] = res;\n\n    for (auto stack = dp.back(); !stack.empty();\
+    \ stack = stack.pop()) {\n      indices.push_back(stack.top());\n    }\n    ::std::reverse(indices.begin(),\
+    \ indices.end());\n    ::std::transform(indices.begin(), indices.end(), ::std::back_inserter(lis),\
+    \ [&](const ::std::size_t i) { return a[i]; });\n\n    return res;\n  }\n}\n\n\
+    \n"
+  code: "#ifndef TOOLS_LIS_HPP\n#define TOOLS_LIS_HPP\n\n#include <tuple>\n#include\
+    \ <vector>\n#include <type_traits>\n#include <cstddef>\n#include <algorithm>\n\
+    #include <iterator>\n#include \"tools/persistent_stack.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename InputIterator>\n  auto lis(const InputIterator begin,\
+    \ const InputIterator end, const bool strict) -> ::std::pair<::std::vector<::std::decay_t<decltype(*begin)>>,\
+    \ ::std::vector<::std::size_t>> {\n    using T = ::std::decay_t<decltype(*begin)>;\n\
+    \    ::std::vector<T> a(begin, end);\n    ::tools::persistent_stack<::std::size_t>::buffer\
+    \ buffer;\n    ::std::vector<::tools::persistent_stack<::std::size_t>> dp({::tools::persistent_stack<::std::size_t>(buffer)});\n\
+    \n    for (::std::size_t i = 0; i < a.size(); ++i) {\n      ::std::size_t ok =\
+    \ 0;\n      ::std::size_t ng = dp.size();\n      while (ng - ok > 1) {\n     \
+    \   const auto mid = ok + (ng - ok) / 2;\n        if (a[dp[mid].top()] < a[i]\
+    \ + (strict ? 0 : 1)) {\n          ok = mid;\n        } else {\n          ng =\
+    \ mid;\n        }\n      }\n      if (ng < dp.size()) {\n        if (a[i] < a[dp[ng].top()])\
+    \ {\n          dp[ng] = dp[ok].push(i);\n        }\n      } else {\n        dp.push_back(dp[ok].push(i));\n\
+    \      }\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
+    \ res;\n    auto& [lis, indices] = res;\n\n    for (auto stack = dp.back(); !stack.empty();\
+    \ stack = stack.pop()) {\n      indices.push_back(stack.top());\n    }\n    ::std::reverse(indices.begin(),\
+    \ indices.end());\n    ::std::transform(indices.begin(), indices.end(), ::std::back_inserter(lis),\
+    \ [&](const ::std::size_t i) { return a[i]; });\n\n    return res;\n  }\n}\n\n\
+    #endif\n"
   dependsOn:
-  - tools/monoid.hpp
-  - tools/compress.hpp
-  - tools/lower_bound.hpp
+  - tools/persistent_stack.hpp
   isVerificationFile: false
   path: tools/lis.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-11-06 09:37:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lis.test.cpp
@@ -151,11 +104,14 @@ title: Longest increasing subsequence
 
 ```cpp
 template <typename Iterator>
-long long lis(Iterator begin, Iterator end, bool strict);
+auto lis(Iterator begin, Iterator end, bool strict) -> std::pair<std::vector<std::decay_t<decltype(*begin)>>, std::vector<std::size_t>>;
 ```
 
-If `strict` is true, it returns the length of the longest strictly increasing subsequence.
-If `strict` is false, it returns the length of the longest non-decreasing subsequence.
+If `strict` is true, it returns one of the longest strictly increasing subsequence.
+If `strict` is false, it returns one of the longest non-decreasing subsequence.
+
+The first element is the subsequence itself.
+The second element is the indices of the subsequence.
 
 ## Constraints
 - `begin` $\leq$ `end`

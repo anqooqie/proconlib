@@ -11,9 +11,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
-    path: tools/lis.hpp
-    title: Longest increasing subsequence
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
@@ -24,9 +21,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lis.test.cpp
-    title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
@@ -60,7 +54,6 @@ data:
   requiredBy:
   - tools/compress.hpp
   - tools/li_chao_segtree.hpp
-  - tools/lis.hpp
   - tools/inversion_number.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -69,7 +62,6 @@ data:
   - tests/tsort.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/lis.test.cpp
   - tests/range_of_digit_products.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document

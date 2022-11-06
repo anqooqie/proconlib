@@ -26,9 +26,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
-    path: tools/lis.hpp
-    title: Longest increasing subsequence
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
@@ -93,9 +90,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lis.test.cpp
-    title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -193,7 +187,6 @@ data:
   - tools/half_line_2d.hpp
   - tools/polygon_2d.hpp
   - tools/rolling_hash.hpp
-  - tools/lis.hpp
   - tools/pow.hpp
   - tools/totient.hpp
   - tools/circle_2d.hpp
@@ -214,7 +207,6 @@ data:
   - tests/line_2d/projection.test.cpp
   - tests/floor_kth_root.test.cpp
   - tests/totient.test.cpp
-  - tests/lis.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
