@@ -47,7 +47,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':question:'
@@ -85,9 +85,9 @@ data:
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_A
@@ -1960,7 +1960,7 @@ data:
   path: tests/polygon_2d/area.test.cpp
   requiredBy: []
   timestamp: '2022-11-06 13:36:53+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polygon_2d/area.test.cpp
 layout: document

@@ -22,7 +22,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':question:'

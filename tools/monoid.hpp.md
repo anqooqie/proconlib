@@ -23,13 +23,13 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':question:'
@@ -87,16 +87,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'

@@ -27,7 +27,7 @@ data:
   - icon: ':warning:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -102,22 +102,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,13 +126,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -141,19 +141,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
   - icon: ':x:'
