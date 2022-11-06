@@ -1,27 +1,52 @@
 #ifndef TOOLS_LIS_HPP
 #define TOOLS_LIS_HPP
 
-#include <iterator>
+#include <tuple>
 #include <vector>
+#include <type_traits>
+#include <cstddef>
 #include <algorithm>
-#include "atcoder/segtree.hpp"
-#include "tools/monoid.hpp"
-#include "tools/compress.hpp"
+#include <iterator>
+#include "tools/persistent_stack.hpp"
 
 namespace tools {
   template <typename InputIterator>
-  long long lis(const InputIterator& begin, const InputIterator& end, const bool strict) {
-    using M = ::tools::monoid::max<long long, 0>;
+  auto lis(const InputIterator begin, const InputIterator end, const bool strict) -> ::std::pair<::std::vector<::std::decay_t<decltype(*begin)>>, ::std::vector<::std::size_t>> {
+    using T = ::std::decay_t<decltype(*begin)>;
+    ::std::vector<T> a(begin, end);
+    ::tools::persistent_stack<::std::size_t>::buffer buffer;
+    ::std::vector<::tools::persistent_stack<::std::size_t>> dp({::tools::persistent_stack<::std::size_t>(buffer)});
 
-    ::std::vector<long long> compressed;
-    ::tools::compress(begin, end, ::std::back_inserter(compressed));
-
-    ::atcoder::segtree<long long, M::op, M::e> segtree(compressed.empty() ? 0 : *::std::max_element(compressed.begin(), compressed.end()) + 1);
-    for (const auto c : compressed) {
-      segtree.set(c, segtree.prod(0, c + (strict ? 0 : 1)) + 1);
+    for (::std::size_t i = 0; i < a.size(); ++i) {
+      ::std::size_t ok = 0;
+      ::std::size_t ng = dp.size();
+      while (ng - ok > 1) {
+        const auto mid = ok + (ng - ok) / 2;
+        if (a[dp[mid].top()] < a[i] + (strict ? 0 : 1)) {
+          ok = mid;
+        } else {
+          ng = mid;
+        }
+      }
+      if (ng < dp.size()) {
+        if (a[i] < a[dp[ng].top()]) {
+          dp[ng] = dp[ok].push(i);
+        }
+      } else {
+        dp.push_back(dp[ok].push(i));
+      }
     }
 
-    return segtree.all_prod();
+    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> res;
+    auto& [lis, indices] = res;
+
+    for (auto stack = dp.back(); !stack.empty(); stack = stack.pop()) {
+      indices.push_back(stack.top());
+    }
+    ::std::reverse(indices.begin(), indices.end());
+    ::std::transform(indices.begin(), indices.end(), ::std::back_inserter(lis), [&](const ::std::size_t i) { return a[i]; });
+
+    return res;
   }
 }
 
