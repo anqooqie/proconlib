@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   _extendedRequiredBy:
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -47,13 +47,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   - icon: ':heavy_check_mark:'
@@ -126,30 +126,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tuple_hash.test.cpp
     title: tests/tuple_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <tuple>\n#include <limits>\n#include <functional>\n#line 1 \"tools/now.hpp\"\
-    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  long long now() {\n    return\
-    \ ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline long long now() {\n \
+    \   return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
     \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
@@ -213,8 +213,8 @@ data:
   - tools/util.hpp
   - tools/circle_2d.hpp
   - tools/less_by_arg.hpp
-  timestamp: '2022-11-12 11:43:14+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-12 12:10:52+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp

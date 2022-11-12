@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -10,16 +10,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
@@ -28,13 +28,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
@@ -187,7 +187,7 @@ data:
     \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
     \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
     \ {\n    }\n  };\n}\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\n\
-    namespace tools {\n  long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    namespace tools {\n  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace tools {\n\
     \  class rolling_hash;\n\n  class modint_for_rolling_hash {\n  private:\n    static\
     \ constexpr ::std::uint64_t MASK30 = (::std::uint64_t(1) << 30) - 1;\n    static\
@@ -367,7 +367,7 @@ data:
   requiredBy:
   - tools/rolling_hash.hpp
   - tools/modint_for_rolling_hash.hpp
-  timestamp: '2022-11-12 11:43:14+09:00'
+  timestamp: '2022-11-12 12:10:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rolling_hash.test.cpp
