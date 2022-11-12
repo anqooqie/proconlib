@@ -260,7 +260,7 @@ data:
       title: $\log_x y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/logn_integer_partition.hpp
-      title: Multiset $S$ such that $\{S' \subseteq S | \sum_{x \in S'} x\} = \{0,
+      title: Multiset $S$ such that $\{\sum_{x \in S'} x | S' \subseteq S\} = \{0,
         1, \ldots, N\}$ and $|S| = O(\log N)$
     - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
