@@ -321,7 +321,7 @@ data:
     \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector4<T>;\n\
     \    ::std::size_t operator()(const ::tools::vector4<T>& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 16 \"tools/quaternion.hpp\"\
+    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 15 \"tools/quaternion.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class quaternion;\n\n  template\
     \ <typename T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n\
     \  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
@@ -408,12 +408,12 @@ data:
     \ imag.y, imag.z, real);\n    }\n\n    static ::tools::quaternion<T> look_rotation(::tools::vector3<T>\
     \ forward, ::tools::vector3<T> upwards = ::tools::vector3<T>(0, 1, 0)) {\n   \
     \   assert(forward != ::tools::vector3<T>(0, 0, 0));\n      assert(upwards !=\
-    \ ::tools::vector3<T>(0, 0, 0));\n      forward = forward.normalized();\n    \
-    \  upwards = upwards.normalized();\n      upwards = ::std::abs(::tools::square(forward.inner_product(upwards))\
-    \ - 1) <= eps\n        ? forward.orthonormal_basis()[1]\n        : -::std::sqrt(1\
-    \ / 1 - ::tools::square(forward.inner_product(upwards))) * forward.inner_product(upwards)\
-    \ * forward + ::std::sqrt(1 / 1 - ::tools::square(forward.inner_product(upwards)))\
-    \ * upwards;\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
+    \ ::tools::vector3<T>(0, 0, 0));\n\n      auto side = upwards.outer_product(forward);\n\
+    \      if (side == ::tools::vector3<T>(0, 0, 0)) {\n        upwards = ::tools::vector3<T>(0,\
+    \ 1, 0);\n        side = upwards.outer_product(forward);\n      }\n      if (side\
+    \ == ::tools::vector3<T>(0, 0, 0)) {\n        side = forward.orthonormal_basis()[1];\n\
+    \      }\n      upwards = forward.outer_product(side);\n\n      forward = forward.normalized();\n\
+    \      upwards = upwards.normalized();\n\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
     \ 0, 1), forward);\n      const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).inner_product(upwards));\n      const auto q2 = ::tools::quaternion<T>::angle_axis(theta,\
@@ -455,24 +455,24 @@ data:
     \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
     \ 1, 0))\n      });\n    }\n  };\n\n  template <typename T>\n  ::tools::quaternion<T>\
     \ exp(const ::tools::quaternion<T>& q) {\n    const auto inorm = q.imag().l2_norm();\n\
-    \    if (inorm == 0) {\n      return ::std::exp(q.real());\n    }\n\n    const\
-    \ auto rexp = ::std::exp(q.real());\n    const auto real = rexp * ::std::cos(inorm);\n\
-    \    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();\n    return\
-    \ ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n  }\n\n  template <typename\
-    \ T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {\n    assert(q\
-    \ != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm = q.imag().l2_norm();\n\
-    \    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() /\
-    \ inorm;\n    const auto real = ::std::log(q.abs());\n    const auto imag = ::std::atan2(inorm,\
-    \ q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
-    \ real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
-    \ base, const T exponent) {\n    const auto norm = base.norm();\n    if (norm\
-    \ == 0) {\n      assert(exponent != 0);\n      return ::tools::quaternion<T>(0,\
-    \ 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent * ::tools::log(base));\n\
-    \  }\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
-    \ <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n   \
-    \ less_by(const F& selector) : selector(selector) {\n    }\n\n    template <class\
-    \ T>\n    bool operator()(const T& x, const T& y) const {\n      return selector(x)\
-    \ < selector(y);\n    }\n  };\n}\n\n\n#line 11 \"tests/quaternion/dice_rotations.test.cpp\"\
+    \    if (inorm == 0) {\n      return ::tools::quaternion<T>(0, 0, 0, ::std::exp(q.real()));\n\
+    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
+    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
+    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
+    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
+    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
+    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
+    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
+    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
+    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
+    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
+    \ * ::tools::log(base));\n  }\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace\
+    \ tools {\n\n  template <class F>\n  class less_by {\n  private:\n    F selector;\n\
+    \n  public:\n    less_by(const F& selector) : selector(selector) {\n    }\n\n\
+    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
+    \      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 11 \"tests/quaternion/dice_rotations.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const std::array<tools::vector3<double>, 6> six_directions = {\n    tools::vector3<double>(0,\
     \ 1, 0),\n    tools::vector3<double>(0, 0, 1),\n    tools::vector3<double>(1,\
@@ -526,7 +526,7 @@ data:
   isVerificationFile: true
   path: tests/quaternion/dice_rotations.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
+  timestamp: '2022-11-12 13:21:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/quaternion/dice_rotations.test.cpp

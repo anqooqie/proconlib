@@ -109,6 +109,9 @@ data:
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -185,6 +188,7 @@ data:
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp

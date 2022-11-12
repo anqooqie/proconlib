@@ -974,6 +974,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/quaternion/look_rotation.test.cpp
       title: tests/quaternion/look_rotation.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/quaternion/slerp.test.cpp
+      title: tests/quaternion/slerp.test.cpp
   - name: tests/rational
     pages:
     - icon: ':heavy_check_mark:'

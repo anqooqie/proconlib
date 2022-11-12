@@ -51,6 +51,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -319,7 +322,7 @@ data:
     \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
     \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 16 \"tools/quaternion.hpp\"\n\nnamespace\
+    \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 15 \"tools/quaternion.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  class quaternion;\n\n  template <typename\
     \ T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n  template\
     \ <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q);\n\
@@ -406,12 +409,12 @@ data:
     \ imag.y, imag.z, real);\n    }\n\n    static ::tools::quaternion<T> look_rotation(::tools::vector3<T>\
     \ forward, ::tools::vector3<T> upwards = ::tools::vector3<T>(0, 1, 0)) {\n   \
     \   assert(forward != ::tools::vector3<T>(0, 0, 0));\n      assert(upwards !=\
-    \ ::tools::vector3<T>(0, 0, 0));\n      forward = forward.normalized();\n    \
-    \  upwards = upwards.normalized();\n      upwards = ::std::abs(::tools::square(forward.inner_product(upwards))\
-    \ - 1) <= eps\n        ? forward.orthonormal_basis()[1]\n        : -::std::sqrt(1\
-    \ / 1 - ::tools::square(forward.inner_product(upwards))) * forward.inner_product(upwards)\
-    \ * forward + ::std::sqrt(1 / 1 - ::tools::square(forward.inner_product(upwards)))\
-    \ * upwards;\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
+    \ ::tools::vector3<T>(0, 0, 0));\n\n      auto side = upwards.outer_product(forward);\n\
+    \      if (side == ::tools::vector3<T>(0, 0, 0)) {\n        upwards = ::tools::vector3<T>(0,\
+    \ 1, 0);\n        side = upwards.outer_product(forward);\n      }\n      if (side\
+    \ == ::tools::vector3<T>(0, 0, 0)) {\n        side = forward.orthonormal_basis()[1];\n\
+    \      }\n      upwards = forward.outer_product(side);\n\n      forward = forward.normalized();\n\
+    \      upwards = upwards.normalized();\n\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
     \ 0, 1), forward);\n      const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).inner_product(upwards));\n      const auto q2 = ::tools::quaternion<T>::angle_axis(theta,\
@@ -453,30 +456,29 @@ data:
     \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
     \ 1, 0))\n      });\n    }\n  };\n\n  template <typename T>\n  ::tools::quaternion<T>\
     \ exp(const ::tools::quaternion<T>& q) {\n    const auto inorm = q.imag().l2_norm();\n\
-    \    if (inorm == 0) {\n      return ::std::exp(q.real());\n    }\n\n    const\
-    \ auto rexp = ::std::exp(q.real());\n    const auto real = rexp * ::std::cos(inorm);\n\
-    \    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();\n    return\
-    \ ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n  }\n\n  template <typename\
-    \ T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {\n    assert(q\
-    \ != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm = q.imag().l2_norm();\n\
-    \    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() /\
-    \ inorm;\n    const auto real = ::std::log(q.abs());\n    const auto imag = ::std::atan2(inorm,\
-    \ q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
-    \ real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
-    \ base, const T exponent) {\n    const auto norm = base.norm();\n    if (norm\
-    \ == 0) {\n      assert(exponent != 0);\n      return ::tools::quaternion<T>(0,\
-    \ 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent * ::tools::log(base));\n\
-    \  }\n}\n\n\n"
+    \    if (inorm == 0) {\n      return ::tools::quaternion<T>(0, 0, 0, ::std::exp(q.real()));\n\
+    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
+    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
+    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
+    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
+    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
+    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
+    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
+    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
+    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
+    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
+    \ * ::tools::log(base));\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_QUATERNION_HPP\n#define TOOLS_QUATERNION_HPP\n\n#include <type_traits>\n\
     #include <cmath>\n#include <algorithm>\n#include <cassert>\n#include <sstream>\n\
     #include <random>\n#include \"tools/exp.hpp\"\n#include \"tools/log.hpp\"\n#include\
     \ \"tools/pow.hpp\"\n#include \"tools/vector4.hpp\"\n#include \"tools/vector3.hpp\"\
-    \n#include \"tools/square.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  class quaternion;\n\n  template <typename T>\n  ::tools::quaternion<T> exp(const\
-    \ ::tools::quaternion<T>& q);\n  template <typename T>\n  ::tools::quaternion<T>\
-    \ log(const ::tools::quaternion<T>& q);\n  template <typename T>\n  ::tools::quaternion<T>\
-    \ pow(const ::tools::quaternion<T>& base, T exponent);\n\n  template <typename\
-    \ T>\n  class quaternion {\n    static_assert(::std::is_floating_point_v<T>);\n\
+    \n\nnamespace tools {\n  template <typename T>\n  class quaternion;\n\n  template\
+    \ <typename T>\n  ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q);\n\
+    \  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q);\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
+    \ base, T exponent);\n\n  template <typename T>\n  class quaternion {\n    static_assert(::std::is_floating_point_v<T>);\n\
     \n  private:\n    ::tools::vector4<T> m_vector;\n    static constexpr T eps =\
     \ 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;\n\
     \n  public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
@@ -558,12 +560,12 @@ data:
     \ imag.y, imag.z, real);\n    }\n\n    static ::tools::quaternion<T> look_rotation(::tools::vector3<T>\
     \ forward, ::tools::vector3<T> upwards = ::tools::vector3<T>(0, 1, 0)) {\n   \
     \   assert(forward != ::tools::vector3<T>(0, 0, 0));\n      assert(upwards !=\
-    \ ::tools::vector3<T>(0, 0, 0));\n      forward = forward.normalized();\n    \
-    \  upwards = upwards.normalized();\n      upwards = ::std::abs(::tools::square(forward.inner_product(upwards))\
-    \ - 1) <= eps\n        ? forward.orthonormal_basis()[1]\n        : -::std::sqrt(1\
-    \ / 1 - ::tools::square(forward.inner_product(upwards))) * forward.inner_product(upwards)\
-    \ * forward + ::std::sqrt(1 / 1 - ::tools::square(forward.inner_product(upwards)))\
-    \ * upwards;\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
+    \ ::tools::vector3<T>(0, 0, 0));\n\n      auto side = upwards.outer_product(forward);\n\
+    \      if (side == ::tools::vector3<T>(0, 0, 0)) {\n        upwards = ::tools::vector3<T>(0,\
+    \ 1, 0);\n        side = upwards.outer_product(forward);\n      }\n      if (side\
+    \ == ::tools::vector3<T>(0, 0, 0)) {\n        side = forward.orthonormal_basis()[1];\n\
+    \      }\n      upwards = forward.outer_product(side);\n\n      forward = forward.normalized();\n\
+    \      upwards = upwards.normalized();\n\n      const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0,\
     \ 0, 1), forward);\n      const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0,\
     \ 1, 0)).inner_product(upwards));\n      const auto q2 = ::tools::quaternion<T>::angle_axis(theta,\
@@ -605,20 +607,20 @@ data:
     \ 1, 0)),\n        ::tools::quaternion<double>::angle_axis(pi, ::tools::vector3<double>(1,\
     \ 1, 0))\n      });\n    }\n  };\n\n  template <typename T>\n  ::tools::quaternion<T>\
     \ exp(const ::tools::quaternion<T>& q) {\n    const auto inorm = q.imag().l2_norm();\n\
-    \    if (inorm == 0) {\n      return ::std::exp(q.real());\n    }\n\n    const\
-    \ auto rexp = ::std::exp(q.real());\n    const auto real = rexp * ::std::cos(inorm);\n\
-    \    const auto imag = rexp * ::std::sin(inorm) / inorm * q.imag();\n    return\
-    \ ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n  }\n\n  template <typename\
-    \ T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>& q) {\n    assert(q\
-    \ != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm = q.imag().l2_norm();\n\
-    \    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1, 0, 0) : q.imag() /\
-    \ inorm;\n    const auto real = ::std::log(q.abs());\n    const auto imag = ::std::atan2(inorm,\
-    \ q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
-    \ real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T> pow(const ::tools::quaternion<T>&\
-    \ base, const T exponent) {\n    const auto norm = base.norm();\n    if (norm\
-    \ == 0) {\n      assert(exponent != 0);\n      return ::tools::quaternion<T>(0,\
-    \ 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent * ::tools::log(base));\n\
-    \  }\n}\n\n#endif\n"
+    \    if (inorm == 0) {\n      return ::tools::quaternion<T>(0, 0, 0, ::std::exp(q.real()));\n\
+    \    }\n\n    const auto rexp = ::std::exp(q.real());\n    const auto real = rexp\
+    \ * ::std::cos(inorm);\n    const auto imag = rexp * ::std::sin(inorm) / inorm\
+    \ * q.imag();\n    return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n\
+    \  }\n\n  template <typename T>\n  ::tools::quaternion<T> log(const ::tools::quaternion<T>&\
+    \ q) {\n    assert(q != ::tools::quaternion<T>(0, 0, 0, 0));\n    const auto inorm\
+    \ = q.imag().l2_norm();\n    const auto uimag = inorm == 0 ? ::tools::vector3<T>(1,\
+    \ 0, 0) : q.imag() / inorm;\n    const auto real = ::std::log(q.abs());\n    const\
+    \ auto imag = ::std::atan2(inorm, q.real()) * uimag;\n    return ::tools::quaternion<T>(imag.x,\
+    \ imag.y, imag.z, real);\n  }\n\n  template <typename T>\n  ::tools::quaternion<T>\
+    \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
+    \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
+    \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
+    \ * ::tools::log(base));\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/exp.hpp
   - tools/log.hpp
@@ -636,10 +638,11 @@ data:
   isVerificationFile: false
   path: tools/quaternion.hpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
+  timestamp: '2022-11-12 13:21:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/quaternion.hpp

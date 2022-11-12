@@ -5,6 +5,9 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
+    path: tools/assert_that.hpp
+    title: Assertion macro
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
@@ -16,9 +19,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
-    path: tools/less_by.hpp
-    title: std::less by key
   - icon: ':heavy_check_mark:'
     path: tools/log.hpp
     title: std::log(x) extended for my library
@@ -53,18 +53,20 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_A
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_A
-  bundledCode: "#line 1 \"tests/quaternion/angle_axis.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_A\"\n\n#include <iostream>\n\
-    #include <array>\n#include <string>\n#include <unordered_map>\n#include <cmath>\n\
-    #include <iterator>\n#include <algorithm>\n#line 1 \"tools/quaternion.hpp\"\n\n\
-    \n\n#include <type_traits>\n#line 7 \"tools/quaternion.hpp\"\n#include <cassert>\n\
-    #include <sstream>\n#include <random>\n#line 1 \"tools/exp.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/exp.hpp\"\n\nnamespace tools {\n  template <typename T>\n  auto exp(const\
-    \ T x) {\n    return ::std::exp(x);\n  }\n}\n\n\n#line 1 \"tools/log.hpp\"\n\n\
-    \n\n#line 5 \"tools/log.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/quaternion/slerp.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
+    \n\n#include <iostream>\n#include <cmath>\n#line 1 \"tools/assert_that.hpp\"\n\
+    \n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/quaternion.hpp\"\
+    \n\n\n\n#include <type_traits>\n#line 6 \"tools/quaternion.hpp\"\n#include <algorithm>\n\
+    #include <cassert>\n#include <sstream>\n#include <random>\n#line 1 \"tools/exp.hpp\"\
+    \n\n\n\n#line 5 \"tools/exp.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    \  auto exp(const T x) {\n    return ::std::exp(x);\n  }\n}\n\n\n#line 1 \"tools/log.hpp\"\
+    \n\n\n\n#line 5 \"tools/log.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
     \  auto log(const T x) {\n    return ::std::log(x);\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\
     \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include\
     \ <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid {\n  \
@@ -97,22 +99,23 @@ data:
     \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
     \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
     \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
-    \  }\n}\n\n\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#line 5 \"tools/vector4.hpp\"\
-    \n#include <functional>\n#include <utility>\n#include <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
-    \n\n\n\n#line 7 \"tools/detail/vector_static_common.hpp\"\n\n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V)\
-    \ \\\n  using reference = T&;\\\n  using const_reference = const T&;\\\n  using\
-    \ size_type = ::std::size_t;\\\n  using difference_type = ::std::ptrdiff_t;\\\n\
-    \  using pointer = T*;\\\n  using const_pointer = const T*;\\\n  using value_type\
-    \ = T;\\\n\\\n  constexpr size_type size() const {\\\n    return this->m_refs.size();\\\
-    \n  }\\\n  reference operator[](const size_type n) {\\\n    return this->m_refs[n].get();\\\
-    \n  }\\\n  const_reference operator[](const size_type n) const {\\\n    return\
-    \ this->m_refs[n].get();\\\n  }\\\n\\\n  V& operator=(const V& other) {\\\n  \
-    \  for (size_type i = 0; i < this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\
-    \n    }\\\n    return *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n\
-    \    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type\
-    \ = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using reference = T&;\\\
-    \n    using pointer = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\
-    \n\\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
+    \  }\n}\n\n\n#line 1 \"tools/vector4.hpp\"\n\n\n\n#include <array>\n#include <functional>\n\
+    #include <utility>\n#include <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
+    \n\n\n\n#line 6 \"tools/detail/vector_static_common.hpp\"\n#include <iterator>\n\
+    \n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V) \\\n  using reference = T&;\\\n\
+    \  using const_reference = const T&;\\\n  using size_type = ::std::size_t;\\\n\
+    \  using difference_type = ::std::ptrdiff_t;\\\n  using pointer = T*;\\\n  using\
+    \ const_pointer = const T*;\\\n  using value_type = T;\\\n\\\n  constexpr size_type\
+    \ size() const {\\\n    return this->m_refs.size();\\\n  }\\\n  reference operator[](const\
+    \ size_type n) {\\\n    return this->m_refs[n].get();\\\n  }\\\n  const_reference\
+    \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
+    \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
+    \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
+    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
+    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
+    \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
+    \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
     \ {}\\\n\\\n    iterator() = default;\\\n    iterator(const iterator&) = default;\\\
     \n    iterator(iterator&&) = default;\\\n    ~iterator() = default;\\\n    iterator&\
     \ operator=(const iterator&) = default;\\\n    iterator& operator=(iterator&&)\
@@ -208,14 +211,15 @@ data:
     \    return this->m_refs.empty();\\\n  }\\\n\\\n  void swap(V& other) {\\\n  \
     \  for (size_type i = 0; i < this->size(); ++i) {\\\n      ::std::swap((*this)[i],\
     \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
-    \n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
-    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
-    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
-    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
-    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \n\n\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n#line 1\
+    \ \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\n\n\
+    #define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
     \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
@@ -468,50 +472,58 @@ data:
     \ pow(const ::tools::quaternion<T>& base, const T exponent) {\n    const auto\
     \ norm = base.norm();\n    if (norm == 0) {\n      assert(exponent != 0);\n  \
     \    return ::tools::quaternion<T>(0, 0, 0, 0);\n    }\n\n    return ::tools::exp(exponent\
-    \ * ::tools::log(base));\n  }\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace\
-    \ tools {\n\n  template <class F>\n  class less_by {\n  private:\n    F selector;\n\
-    \n  public:\n    less_by(const F& selector) : selector(selector) {\n    }\n\n\
-    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
-    \      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 13 \"tests/quaternion/angle_axis.test.cpp\"\
+    \ * ::tools::log(base));\n  }\n}\n\n\n#line 8 \"tests/quaternion/slerp.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  std::array<int, 6> faces;\n  for (auto& f : faces) std::cin >> f;\n  std::string\
-    \ ops;\n  std::cin >> ops;\n\n  std::unordered_map<char, tools::quaternion<double>>\
-    \ map;\n  map['N'] = tools::quaternion<double>::angle_axis(-std::acos(-1) / 2,\
-    \ tools::vector3<double>(1, 0, 0));\n  map['E'] = tools::quaternion<double>::angle_axis(-std::acos(-1)\
-    \ / 2, tools::vector3<double>(0, 0, 1));\n  map['S'] = tools::quaternion<double>::angle_axis(std::acos(-1)\
-    \ / 2, tools::vector3<double>(1, 0, 0));\n  map['W'] = tools::quaternion<double>::angle_axis(std::acos(-1)\
-    \ / 2, tools::vector3<double>(0, 0, 1));\n\n  auto q = tools::quaternion<double>::identity();\n\
-    \  for (const auto op : ops) q = map[op] * q;\n\n  const auto answer_with_error\
-    \ = q.conj() * tools::vector3<double>(0, 1, 0);\n\n  const std::array<tools::vector3<double>,\
-    \ 6> six_directions = {\n    tools::vector3<double>(0, 1, 0),\n    tools::vector3<double>(0,\
-    \ 0, 1),\n    tools::vector3<double>(1, 0, 0),\n    tools::vector3<double>(-1,\
-    \ 0, 0),\n    tools::vector3<double>(0, 0, -1),\n    tools::vector3<double>(0,\
-    \ -1, 0)\n  };\n\n  std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(),\
-    \ six_directions.end(), tools::less_by([&](const auto& possible_answer) {\n  \
-    \  return (possible_answer - answer_with_error).squared_l2_norm();\n  })))] <<\
-    \ '\\n';\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_A\"\n\
-    \n#include <iostream>\n#include <array>\n#include <string>\n#include <unordered_map>\n\
-    #include <cmath>\n#include <iterator>\n#include <algorithm>\n#include \"tools/quaternion.hpp\"\
-    \n#include \"tools/vector3.hpp\"\n#include \"tools/less_by.hpp\"\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  std::array<int,\
-    \ 6> faces;\n  for (auto& f : faces) std::cin >> f;\n  std::string ops;\n  std::cin\
-    \ >> ops;\n\n  std::unordered_map<char, tools::quaternion<double>> map;\n  map['N']\
-    \ = tools::quaternion<double>::angle_axis(-std::acos(-1) / 2, tools::vector3<double>(1,\
-    \ 0, 0));\n  map['E'] = tools::quaternion<double>::angle_axis(-std::acos(-1) /\
-    \ 2, tools::vector3<double>(0, 0, 1));\n  map['S'] = tools::quaternion<double>::angle_axis(std::acos(-1)\
-    \ / 2, tools::vector3<double>(1, 0, 0));\n  map['W'] = tools::quaternion<double>::angle_axis(std::acos(-1)\
-    \ / 2, tools::vector3<double>(0, 0, 1));\n\n  auto q = tools::quaternion<double>::identity();\n\
-    \  for (const auto op : ops) q = map[op] * q;\n\n  const auto answer_with_error\
-    \ = q.conj() * tools::vector3<double>(0, 1, 0);\n\n  const std::array<tools::vector3<double>,\
-    \ 6> six_directions = {\n    tools::vector3<double>(0, 1, 0),\n    tools::vector3<double>(0,\
-    \ 0, 1),\n    tools::vector3<double>(1, 0, 0),\n    tools::vector3<double>(-1,\
-    \ 0, 0),\n    tools::vector3<double>(0, 0, -1),\n    tools::vector3<double>(0,\
-    \ -1, 0)\n  };\n\n  std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(),\
-    \ six_directions.end(), tools::less_by([&](const auto& possible_answer) {\n  \
-    \  return (possible_answer - answer_with_error).squared_l2_norm();\n  })))] <<\
-    \ '\\n';\n\n  return 0;\n}\n"
+    \n  const auto pi = std::acos(-1);\n\n  {\n    const auto q0 = tools::quaternion<double>::identity();\n\
+    \    const auto q1 = tools::quaternion<double>::angle_axis(0.8 * pi, tools::vector3<double>(1,\
+    \ 2, 3));\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.0) - q0).norm()\
+    \ <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.25) -\
+    \ tools::quaternion<double>::angle_axis(0.2 * pi, tools::vector3<double>(1, 2,\
+    \ 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.5) - tools::quaternion<double>::angle_axis(0.4 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.75) - tools::quaternion<double>::angle_axis(0.6 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 1.0) - q1).norm() <= 1e-5);\n  }\n\n  {\n    const auto q0 = tools::quaternion<double>::identity();\n\
+    \    const auto q1 = tools::quaternion<double>::angle_axis(1.2 * pi, tools::vector3<double>(1,\
+    \ 2, 3));\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.0) - q0).norm()\
+    \ <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.25) -\
+    \ tools::quaternion<double>::angle_axis(0.3 * pi, tools::vector3<double>(1, 2,\
+    \ 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.5) - tools::quaternion<double>::angle_axis(0.6 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.75) - tools::quaternion<double>::angle_axis(0.9 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 1.0) - q1).norm() <= 1e-5);\n  }\n\n  std::cout << \"Hello World\" << '\\\
+    n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include <cmath>\n#include \"tools/assert_that.hpp\"\n#include\
+    \ \"tools/quaternion.hpp\"\n#include \"tools/vector3.hpp\"\n\nint main() {\n \
+    \ std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  const\
+    \ auto pi = std::acos(-1);\n\n  {\n    const auto q0 = tools::quaternion<double>::identity();\n\
+    \    const auto q1 = tools::quaternion<double>::angle_axis(0.8 * pi, tools::vector3<double>(1,\
+    \ 2, 3));\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.0) - q0).norm()\
+    \ <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.25) -\
+    \ tools::quaternion<double>::angle_axis(0.2 * pi, tools::vector3<double>(1, 2,\
+    \ 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.5) - tools::quaternion<double>::angle_axis(0.4 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.75) - tools::quaternion<double>::angle_axis(0.6 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 1.0) - q1).norm() <= 1e-5);\n  }\n\n  {\n    const auto q0 = tools::quaternion<double>::identity();\n\
+    \    const auto q1 = tools::quaternion<double>::angle_axis(1.2 * pi, tools::vector3<double>(1,\
+    \ 2, 3));\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.0) - q0).norm()\
+    \ <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0, q1, 0.25) -\
+    \ tools::quaternion<double>::angle_axis(0.3 * pi, tools::vector3<double>(1, 2,\
+    \ 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.5) - tools::quaternion<double>::angle_axis(0.6 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 0.75) - tools::quaternion<double>::angle_axis(0.9 * pi, tools::vector3<double>(1,\
+    \ 2, 3))).norm() <= 1e-5);\n    assert_that((tools::quaternion<double>::slerp(q0,\
+    \ q1, 1.0) - q1).norm() <= 1e-5);\n  }\n\n  std::cout << \"Hello World\" << '\\\
+    n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/assert_that.hpp
   - tools/quaternion.hpp
   - tools/exp.hpp
   - tools/log.hpp
@@ -526,17 +538,16 @@ data:
   - tools/now.hpp
   - tools/hash_combine.hpp
   - tools/vector3.hpp
-  - tools/less_by.hpp
   isVerificationFile: true
-  path: tests/quaternion/angle_axis.test.cpp
+  path: tests/quaternion/slerp.test.cpp
   requiredBy: []
   timestamp: '2022-11-12 13:21:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/quaternion/angle_axis.test.cpp
+documentation_of: tests/quaternion/slerp.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/quaternion/angle_axis.test.cpp
-- /verify/tests/quaternion/angle_axis.test.cpp.html
-title: tests/quaternion/angle_axis.test.cpp
+- /verify/tests/quaternion/slerp.test.cpp
+- /verify/tests/quaternion/slerp.test.cpp.html
+title: tests/quaternion/slerp.test.cpp
 ---

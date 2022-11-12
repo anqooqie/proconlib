@@ -52,6 +52,9 @@ data:
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -129,6 +132,7 @@ data:
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/floor_kth_root.test.cpp

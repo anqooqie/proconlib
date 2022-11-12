@@ -79,6 +79,9 @@ data:
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -162,6 +165,7 @@ data:
   - tests/multiset.test.cpp
   - tests/ceil.test.cpp
   - tests/rational/random.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/floor_log.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/alphabetical_order.test.cpp

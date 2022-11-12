@@ -15,6 +15,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -35,6 +38,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/exp.hpp
