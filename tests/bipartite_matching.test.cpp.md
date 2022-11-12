@@ -17,9 +17,10 @@ data:
   bundledCode: "#line 1 \"tests/bipartite_matching.test.cpp\"\n#define PROBLEM \"\
     https://judge.yosupo.jp/problem/bipartitematching\"\n\n#include <iostream>\n#line\
     \ 1 \"tools/bipartite_matching.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
-    #line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n\n\n#include <algorithm>\n#include\
-    \ <cassert>\n#include <limits>\n#include <queue>\n#line 9 \"lib/ac-library/atcoder/maxflow.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_queue.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_queue.hpp\"\
+    #include <cassert>\n#line 1 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n\n\n#include\
+    \ <algorithm>\n#line 6 \"lib/ac-library/atcoder/maxflow.hpp\"\n#include <limits>\n\
+    #include <queue>\n#line 9 \"lib/ac-library/atcoder/maxflow.hpp\"\n\n#line 1 \"\
+    lib/ac-library/atcoder/internal_queue.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_queue.hpp\"\
     \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class T> struct simple_queue\
     \ {\n    std::vector<T> payload;\n    int pos = 0;\n    void reserve(int n) {\
     \ payload.reserve(n); }\n    int size() const { return int(payload.size()) - pos;\
@@ -80,57 +81,56 @@ data:
     \   }\n        return visited;\n    }\n\n  private:\n    int _n;\n    struct _edge\
     \ {\n        int to, rev;\n        Cap cap;\n    };\n    std::vector<std::pair<int,\
     \ int>> pos;\n    std::vector<std::vector<_edge>> g;\n};\n\n}  // namespace atcoder\n\
-    \n\n#line 7 \"tools/bipartite_matching.hpp\"\n\nnamespace tools {\n\n  class bipartite_matching\
+    \n\n#line 8 \"tools/bipartite_matching.hpp\"\n\nnamespace tools {\n\n  class bipartite_matching\
     \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      edge() = default;\n      edge(const ::tools::bipartite_matching::edge&)\
-    \ = default;\n      edge(::tools::bipartite_matching::edge&&) = default;\n   \
-    \   ~edge() = default;\n      ::tools::bipartite_matching::edge& operator=(const\
-    \ ::tools::bipartite_matching::edge&) = default;\n      ::tools::bipartite_matching::edge&\
-    \ operator=(::tools::bipartite_matching::edge&&) = default;\n      edge(const\
-    \ ::std::size_t id, const ::std::size_t from, const ::std::size_t to) :\n    \
-    \    id(id), from(from), to(to) {\n      }\n    };\n\n  private:\n    ::std::size_t\
-    \ m_size1;\n    ::std::size_t m_size2;\n    ::atcoder::mf_graph<int> m_graph;\n\
-    \    ::std::vector<::tools::bipartite_matching::edge> m_edges;\n\n  public:\n\
-    \    bipartite_matching() = default;\n    bipartite_matching(const ::tools::bipartite_matching&)\
-    \ = default;\n    bipartite_matching(::tools::bipartite_matching&&) = default;\n\
-    \    ~bipartite_matching() = default;\n    ::tools::bipartite_matching& operator=(const\
-    \ ::tools::bipartite_matching&) = default;\n    ::tools::bipartite_matching& operator=(::tools::bipartite_matching&&)\
-    \ = default;\n\n    bipartite_matching(const ::std::size_t size1, const ::std::size_t\
-    \ size2) :\n      m_size1(size1), m_size2(size2), m_graph(size1 + size2 + 2) {\n\
-    \      for (::std::size_t i = 0; i < size1; ++i) {\n        this->m_graph.add_edge(size1\
-    \ + size2, i, 1);\n      }\n      for (::std::size_t i = 0; i < size2; ++i) {\n\
-    \        this->m_graph.add_edge(size1 + i, size1 + size2 + 1, 1);\n      }\n \
-    \   }\n\n    ::std::size_t size1() const {\n      return this->m_size1;\n    }\n\
-    \n    ::std::size_t size2() const {\n      return this->m_size2;\n    }\n\n  \
-    \  ::std::size_t add_edge(const ::std::size_t i, const ::std::size_t j) {\n  \
-    \    this->m_graph.add_edge(i, this->m_size1 + j, 1);\n      this->m_edges.emplace_back(this->m_edges.size(),\
-    \ i, j);\n      return this->m_edges.size() - 1;\n    }\n\n    ::std::vector<::tools::bipartite_matching::edge>\
-    \ query() {\n      ::std::vector<::tools::bipartite_matching::edge> edges;\n\n\
-    \      this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2\
-    \ + 1);\n      for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {\n  \
-    \      if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1)\
-    \ {\n          edges.push_back(this->m_edges[i]);\n        }\n      }\n\n    \
-    \  return edges;\n    }\n  };\n}\n\n\n#line 5 \"tests/bipartite_matching.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ from;\n      ::std::size_t to;\n    };\n\n  private:\n    ::std::size_t m_size1;\n\
+    \    ::std::size_t m_size2;\n    ::atcoder::mf_graph<int> m_graph;\n    ::std::vector<edge>\
+    \ m_edges;\n\n  public:\n    bipartite_matching() = default;\n    bipartite_matching(const\
+    \ ::tools::bipartite_matching&) = default;\n    bipartite_matching(::tools::bipartite_matching&&)\
+    \ = default;\n    ~bipartite_matching() = default;\n    ::tools::bipartite_matching&\
+    \ operator=(const ::tools::bipartite_matching&) = default;\n    ::tools::bipartite_matching&\
+    \ operator=(::tools::bipartite_matching&&) = default;\n\n    bipartite_matching(const\
+    \ ::std::size_t size1, const ::std::size_t size2) :\n      m_size1(size1), m_size2(size2),\
+    \ m_graph(size1 + size2 + 2) {\n      for (::std::size_t i = 0; i < size1; ++i)\
+    \ {\n        this->m_graph.add_edge(size1 + size2, i, 1);\n      }\n      for\
+    \ (::std::size_t i = 0; i < size2; ++i) {\n        this->m_graph.add_edge(size1\
+    \ + i, size1 + size2 + 1, 1);\n      }\n    }\n\n    ::std::size_t size1() const\
+    \ {\n      return this->m_size1;\n    }\n\n    ::std::size_t size2() const {\n\
+    \      return this->m_size2;\n    }\n\n    ::std::size_t add_edge(const ::std::size_t\
+    \ i, const ::std::size_t j) {\n      assert(i < this->size1());\n      assert(j\
+    \ < this->size2());\n      this->m_graph.add_edge(i, this->m_size1 + j, 1);\n\
+    \      this->m_edges.emplace_back(edge({this->m_edges.size(), i, j}));\n     \
+    \ return this->m_edges.size() - 1;\n    }\n\n    const edge& get_edge(const ::std::size_t\
+    \ k) const {\n      assert(k < this->m_edges.size());\n      return this->m_edges[k];\n\
+    \    }\n\n    const ::std::vector<edge>& edges() const {\n      return this->m_edges;\n\
+    \    }\n\n    ::std::vector<::std::size_t> query() {\n      ::std::vector<::std::size_t>\
+    \ edges;\n\n      this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1\
+    \ + this->m_size2 + 1);\n      for (::std::size_t i = 0; i < this->m_edges.size();\
+    \ ++i) {\n        if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow\
+    \ == 1) {\n          edges.push_back(i);\n        }\n      }\n\n      return edges;\n\
+    \    }\n  };\n}\n\n\n#line 5 \"tests/bipartite_matching.test.cpp\"\n\nusing ll\
+    \ = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll L, R, M;\n  std::cin >> L >> R >> M;\n  tools::bipartite_matching graph(L,\
     \ R);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n\
     \    graph.add_edge(a, b);\n  }\n\n  const auto edges = graph.query();\n  std::cout\
-    \ << edges.size() << '\\n';\n  for (const auto& edge : edges) {\n    std::cout\
-    \ << edge.from << ' ' << edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ << edges.size() << '\\n';\n  for (const auto k : edges) {\n    std::cout <<\
+    \ graph.get_edge(k).from << ' ' << graph.get_edge(k).to << '\\n';\n  }\n\n  return\
+    \ 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bipartitematching\"\n\n\
     #include <iostream>\n#include \"tools/bipartite_matching.hpp\"\n\nusing ll = long\
     \ long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll L, R, M;\n  std::cin >> L >> R >> M;\n  tools::bipartite_matching graph(L,\
     \ R);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b;\n    std::cin >> a >> b;\n\
     \    graph.add_edge(a, b);\n  }\n\n  const auto edges = graph.query();\n  std::cout\
-    \ << edges.size() << '\\n';\n  for (const auto& edge : edges) {\n    std::cout\
-    \ << edge.from << ' ' << edge.to << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ << edges.size() << '\\n';\n  for (const auto k : edges) {\n    std::cout <<\
+    \ graph.get_edge(k).from << ' ' << graph.get_edge(k).to << '\\n';\n  }\n\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/bipartite_matching.hpp
   isVerificationFile: true
   path: tests/bipartite_matching.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2022-11-12 14:09:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bipartite_matching.test.cpp
