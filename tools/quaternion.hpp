@@ -12,7 +12,6 @@
 #include "tools/pow.hpp"
 #include "tools/vector4.hpp"
 #include "tools/vector3.hpp"
-#include "tools/square.hpp"
 
 namespace tools {
   template <typename T>
@@ -210,11 +209,20 @@ namespace tools {
     static ::tools::quaternion<T> look_rotation(::tools::vector3<T> forward, ::tools::vector3<T> upwards = ::tools::vector3<T>(0, 1, 0)) {
       assert(forward != ::tools::vector3<T>(0, 0, 0));
       assert(upwards != ::tools::vector3<T>(0, 0, 0));
+
+      auto side = upwards.outer_product(forward);
+      if (side == ::tools::vector3<T>(0, 0, 0)) {
+        upwards = ::tools::vector3<T>(0, 1, 0);
+        side = upwards.outer_product(forward);
+      }
+      if (side == ::tools::vector3<T>(0, 0, 0)) {
+        side = forward.orthonormal_basis()[1];
+      }
+      upwards = forward.outer_product(side);
+
       forward = forward.normalized();
       upwards = upwards.normalized();
-      upwards = ::std::abs(::tools::square(forward.inner_product(upwards)) - 1) <= eps
-        ? forward.orthonormal_basis()[1]
-        : -::std::sqrt(1 / 1 - ::tools::square(forward.inner_product(upwards))) * forward.inner_product(upwards) * forward + ::std::sqrt(1 / 1 - ::tools::square(forward.inner_product(upwards))) * upwards;
+
       const auto q1 = ::tools::quaternion<T>::from_to_rotation(::tools::vector3<T>(0, 0, 1), forward);
       const auto theta = ::std::atan2((q1 * ::tools::vector3<T>(0, 1, 0)).outer_product(upwards).inner_product(forward), (q1 * ::tools::vector3<T>(0, 1, 0)).inner_product(upwards));
       const auto q2 = ::tools::quaternion<T>::angle_axis(theta, forward);
@@ -277,7 +285,7 @@ namespace tools {
   ::tools::quaternion<T> exp(const ::tools::quaternion<T>& q) {
     const auto inorm = q.imag().l2_norm();
     if (inorm == 0) {
-      return ::std::exp(q.real());
+      return ::tools::quaternion<T>(0, 0, 0, ::std::exp(q.real()));
     }
 
     const auto rexp = ::std::exp(q.real());
