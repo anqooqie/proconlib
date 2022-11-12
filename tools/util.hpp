@@ -17,6 +17,7 @@
 #include <bits/stdc++.h>
 #include "tools/resize.hpp"
 #include "tools/fill.hpp"
+#include "tools/tuple_hash.hpp"
 
 using ll = long long;
 using ull = unsigned long long;
@@ -181,6 +182,24 @@ template <int I = -1, typename... Args>
   } else {
     return os;
   }
+}
+
+namespace std {
+  template <class T1, class T2>
+  struct hash<::std::pair<T1, T2>> {
+    ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {
+      static const ::tools::tuple_hash<T1, T2> hasher;
+      return hasher(::std::make_tuple(key.first, key.second));
+    }
+  };
+
+  template <class... Args>
+  struct hash<::std::tuple<Args...>> {
+    ::std::size_t operator()(const ::std::tuple<Args...>& key) const {
+      static const ::tools::tuple_hash<Args...> hasher;
+      return hasher(key);
+    }
+  };
 }
 
 #endif

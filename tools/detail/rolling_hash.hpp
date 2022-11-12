@@ -4,11 +4,11 @@
 #include <cstdint>
 #include <cassert>
 #include <tuple>
-#include <chrono>
 #include <vector>
 #include "tools/pow.hpp"
 #include "tools/extgcd.hpp"
 #include "tools/pow_mod_cache.hpp"
+#include "tools/now.hpp"
 
 namespace tools {
   class rolling_hash;
@@ -142,7 +142,7 @@ namespace tools {
   class rolling_hash {
   private:
     using mint = ::tools::modint_for_rolling_hash;
-    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count());
+    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::tools::now());
     ::std::vector<mint> m_hash;
 
   public:
