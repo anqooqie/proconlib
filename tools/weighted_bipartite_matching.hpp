@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <cassert>
 #include <optional>
 #include <utility>
 #include <limits>
@@ -18,15 +19,6 @@ namespace tools {
       ::std::size_t from;
       ::std::size_t to;
       W weight;
-      edge() = default;
-      edge(const ::tools::weighted_bipartite_matching<W>::edge&) = default;
-      edge(::tools::weighted_bipartite_matching<W>::edge&&) = default;
-      ~edge() = default;
-      ::tools::weighted_bipartite_matching<W>::edge& operator=(const ::tools::weighted_bipartite_matching<W>::edge&) = default;
-      ::tools::weighted_bipartite_matching<W>::edge& operator=(::tools::weighted_bipartite_matching<W>::edge&&) = default;
-      edge(const ::std::size_t id, const ::std::size_t from, const ::std::size_t to, const W& weight) :
-        id(id), from(from), to(to), weight(weight) {
-      }
     };
 
   private:
@@ -34,7 +26,7 @@ namespace tools {
     ::std::size_t m_size2;
     bool m_maximize;
     ::tools::mcf_graph<int, W> m_graph;
-    ::std::vector<::tools::weighted_bipartite_matching<W>::edge> m_edges;
+    ::std::vector<edge> m_edges;
 
   public:
     weighted_bipartite_matching() = default;
@@ -63,26 +55,37 @@ namespace tools {
     }
 
     ::std::size_t add_edge(const ::std::size_t i, const ::std::size_t j, const W& w) {
+      assert(i < this->size1());
+      assert(j < this->size2());
       this->m_graph.add_edge(i, this->m_size1 + j, 1, this->m_maximize ? -w : w);
-      this->m_edges.emplace_back(this->m_edges.size(), i, j, w);
+      this->m_edges.emplace_back(edge({this->m_edges.size(), i, j, w}));
       return this->m_edges.size() - 1;
     }
 
-    ::std::optional<::std::pair<W, ::std::vector<::tools::weighted_bipartite_matching<W>::edge>>> query(const ::std::size_t k) {
+    const edge& get_edge(const ::std::size_t k) const {
+      assert(k < this->m_edges.size());
+      return this->m_edges[k];
+    }
+
+    const ::std::vector<edge>& edges() const {
+      return this->m_edges;
+    }
+
+    ::std::optional<::std::pair<W, ::std::vector<::std::size_t>>> query(const ::std::size_t k) {
       const auto [flow, cost] = this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1, k);
       if (flow < static_cast<int>(k)) return ::std::nullopt;
 
-      ::std::vector<::tools::weighted_bipartite_matching<W>::edge> edges;
+      ::std::vector<::std::size_t> edges;
       for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {
         if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1) {
-          edges.push_back(this->m_edges[i]);
+          edges.push_back(i);
         }
       }
 
       return ::std::make_optional(::std::make_pair(this->m_maximize ? -cost : cost, edges));
     }
 
-    ::std::pair<W, ::std::vector<::tools::weighted_bipartite_matching<W>::edge>> query() {
+    ::std::pair<W, ::std::vector<::std::size_t>> query() {
       auto tmp_graph = this->m_graph;
       int min_cost_flow = 0;
       auto min_cost = ::std::numeric_limits<W>::max();
@@ -94,10 +97,10 @@ namespace tools {
 
       const auto [flow, cost] = this->m_graph.flow(this->m_size1 + this->m_size2, this->m_size1 + this->m_size2 + 1, min_cost_flow);
 
-      ::std::vector<::tools::weighted_bipartite_matching<W>::edge> edges;
+      ::std::vector<::std::size_t> edges;
       for (::std::size_t i = 0; i < this->m_edges.size(); ++i) {
         if (this->m_graph.get_edge(this->m_size1 + this->m_size2 + i).flow == 1) {
-          edges.push_back(this->m_edges[i]);
+          edges.push_back(i);
         }
       }
 

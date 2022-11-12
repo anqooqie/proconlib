@@ -57,7 +57,8 @@ It returns $n_2$.
 std::size_t graph.add_edge(std::size_t a, std::size_t b);
 ```
 
-It adds an edge connecting $a \in U$ and $b \in V$, and returns the index of the added edge.
+It adds an edge between $a \in U$ and $b \in V$.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
 
 ### Constraints
 - $0 \leq a < n_1$
@@ -66,16 +67,44 @@ It adds an edge connecting $a \in U$ and $b \in V$, and returns the index of the
 ### Time Complexity
 - $O(1)$ amortized
 
-## query
+## get_edge
 ```cpp
-std::vector<struct {
+struct edge {
   std::size_t id;
   std::size_t from;
   std::size_t to;
-}> graph.query();
+};
+edge graph.get_edge(std::size_t k);
 ```
 
-It returns the edges which can reach the maximum matching. 
+It returns the $k$-th edge.
+
+### Constraints
+- $0 \leq k < \|E\|$ where $\|E\|$ is the number of edges
+
+### Time Complexity
+- $O(1)$
+
+## edges
+```cpp
+std::vector<edge> graph.edges();
+```
+
+It returns all the edges in the graph.
+The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## query
+```cpp
+std::vector<std::size_t> graph.query();
+```
+
+It returns the indices of the edges which can reach the maximum matching.
 
 ### Constraints
 - None

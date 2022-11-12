@@ -20,8 +20,8 @@ int main() {
 
   const auto edges = graph.query();
   std::cout << edges.size() << '\n';
-  for (const auto& edge : edges) {
-    std::cout << edge.from << ' ' << edge.to << '\n';
+  for (const auto k : edges) {
+    std::cout << graph.get_edge(k).from << ' ' << graph.get_edge(k).to << '\n';
   }
 
   return 0;

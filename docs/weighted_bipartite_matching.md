@@ -62,32 +62,56 @@ It returns $n_2$.
 std::size_t graph.add_edge(std::size_t a, std::size_t b, W w);
 ```
 
-It adds an edge connecting $a \in U$ and $b \in V$ with the weight `w`, and returns the index of the added edge.
+It adds an edge connecting $a \in U$ and $b \in V$ with the weight `w`.
+It returns an integer $k$ such that this is the $k$-th edge that is added.
 
 ### Constraints
 - $0 \leq a < n_1$
 - $0 \leq b < n_2$
 
 ### Time Complexity
-- amortized $O(1)$
+- $O(1)$ amortized
+
+## get_edge
+```cpp
+struct edge {
+  std::size_t id;
+  std::size_t from;
+  std::size_t to;
+  W weight;
+};
+edge graph.get_edge(std::size_t k);
+```
+
+It returns the $k$-th edge.
+
+### Constraints
+- $0 \leq k < \|E\|$ where $\|E\|$ is the number of edges
+
+### Time Complexity
+- $O(1)$
+
+## edges
+```cpp
+std::vector<edge> graph.edges();
+```
+
+It returns all the edges in the graph.
+The edges are ordered in the same order as added by `add_edge`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## query
 ```cpp
 (1)
-std::optional<std::pair<W, std::vector<struct {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
-  W weight;
-}>>> graph.query(std::size_t k);
+std::optional<std::pair<W, std::vector<std::size_t>>> graph.query(std::size_t k);
 
 (2)
-std::pair<W, std::vector<struct {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
-  W weight;
-}>> graph.query();
+std::pair<W, std::vector<std::size_t>> graph.query();
 ```
 
 - (1)

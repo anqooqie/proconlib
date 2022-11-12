@@ -23,7 +23,7 @@ int main() {
   }
 
   std::vector<ll> answers;
-  std::optional<std::pair<ll, std::vector<tools::weighted_bipartite_matching<ll>::edge>>> matching;
+  std::optional<std::pair<ll, std::vector<std::size_t>>> matching;
   for (ll k = 1; (matching = graph.query(k)).has_value(); ++k) {
     answers.push_back(matching->first);
   }

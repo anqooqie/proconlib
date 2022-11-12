@@ -26,8 +26,8 @@ int main() {
 
   std::vector<ll> p(N);
   const auto [cost, edges] = *graph.query(N);
-  for (const auto& edge : edges) {
-    p[edge.from] = edge.to;
+  for (const auto k : edges) {
+    p[graph.get_edge(k).from] = graph.get_edge(k).to;
   }
 
   std::cout << cost << '\n';
