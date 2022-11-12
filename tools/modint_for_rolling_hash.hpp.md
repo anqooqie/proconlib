@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -13,28 +13,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
+  - icon: ':question:'
+    path: tools/now.hpp
+    title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
@@ -45,11 +48,11 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/modint_for_rolling_hash.hpp\"\n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\
-    \n\n\n\n#include <cstdint>\n#include <cassert>\n#include <tuple>\n#include <chrono>\n\
-    #include <vector>\n#line 1 \"tools/pow.hpp\"\n\n\n\n#include <type_traits>\n#line\
-    \ 6 \"tools/pow.hpp\"\n#include <cmath>\n#line 1 \"tools/monoid.hpp\"\n\n\n\n\
-    #include <algorithm>\n#include <limits>\n#include <numeric>\n\nnamespace tools\
-    \ {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \n\n\n\n#include <cstdint>\n#include <cassert>\n#include <tuple>\n#include <vector>\n\
+    #line 1 \"tools/pow.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/pow.hpp\"\
+    \n#include <cmath>\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n\
+    #include <limits>\n#include <numeric>\n\nnamespace tools {\n  namespace monoid\
+    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
     \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
     \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
@@ -177,12 +180,14 @@ data:
     \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
     \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
     \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
-    \ {\n    }\n  };\n}\n\n\n#line 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace\
-    \ tools {\n  class rolling_hash;\n\n  class modint_for_rolling_hash {\n  private:\n\
-    \    static constexpr ::std::uint64_t MASK30 = (::std::uint64_t(1) << 30) - 1;\n\
-    \    static constexpr ::std::uint64_t MASK31 = (::std::uint64_t(1) << 31) - 1;\n\
-    \    static constexpr ::std::uint64_t MOD = (::std::uint64_t(1) << 61) - 1;\n\
-    \    static constexpr ::std::uint64_t MASK61 = MOD;\n    static constexpr ::std::uint64_t\
+    \ {\n    }\n  };\n}\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\n\
+    namespace tools {\n  long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \  }\n}\n\n\n#line 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace tools {\n\
+    \  class rolling_hash;\n\n  class modint_for_rolling_hash {\n  private:\n    static\
+    \ constexpr ::std::uint64_t MASK30 = (::std::uint64_t(1) << 30) - 1;\n    static\
+    \ constexpr ::std::uint64_t MASK31 = (::std::uint64_t(1) << 31) - 1;\n    static\
+    \ constexpr ::std::uint64_t MOD = (::std::uint64_t(1) << 61) - 1;\n    static\
+    \ constexpr ::std::uint64_t MASK61 = MOD;\n    static constexpr ::std::uint64_t\
     \ POSITIVIZER = MOD * 4;\n\n    ::std::uint64_t m_val;\n\n    modint_for_rolling_hash(const\
     \ ::std::uint64_t x, int) : m_val(x) {\n    }\n\n    static ::std::uint64_t mul(const\
     \ ::std::uint64_t a, const ::std::uint64_t b) {\n      assert(a < MOD);\n    \
@@ -242,7 +247,7 @@ data:
     \    return ::tools::modint_for_rolling_hash(x, 0);\n    }\n    static long long\
     \ mod() {\n      return MOD;\n    }\n\n    friend ::tools::rolling_hash;\n  };\n\
     \n  class rolling_hash {\n  private:\n    using mint = ::tools::modint_for_rolling_hash;\n\
-    \    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count());\n\
+    \    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::tools::now());\n\
     \    ::std::vector<mint> m_hash;\n\n  public:\n    rolling_hash() = default;\n\
     \    rolling_hash(const ::tools::rolling_hash&) = default;\n    rolling_hash(::tools::rolling_hash&&)\
     \ = default;\n    ~rolling_hash() = default;\n    ::tools::rolling_hash& operator=(const\
@@ -280,10 +285,11 @@ data:
   - tools/mod.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
+  - tools/now.hpp
   isVerificationFile: false
   path: tools/modint_for_rolling_hash.hpp
   requiredBy: []
-  timestamp: '2022-11-03 23:21:16+09:00'
+  timestamp: '2022-11-12 11:43:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/modint_for_rolling_hash.hpp

@@ -1,86 +1,92 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/hash_combine.hpp
+    title: Combine hash values
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/now.hpp
+    title: The number of nanoseconds that have elapsed since epoch
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -1167,8 +1173,11 @@ data:
     , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
     \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
     \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <chrono>\n\
-    #line 8 \"tools/tuple_hash.hpp\"\n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#line 1 \"tools/now.hpp\"\
+    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  long long now() {\n    return\
+    \ ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
+    \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
     //\n// Permission is hereby granted, free of charge, to any person obtaining a\
     \ copy\n// of this software and associated documentation files (the \"Software\"\
@@ -1184,24 +1193,25 @@ data:
     \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
     \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
     \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n// THE SOFTWARE.\n\nnamespace\
-    \ tools {\n  template <typename... Ts>\n  class tuple_hash {\n  public:\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::std::tuple<Ts...>;\n\
-    \n  private:\n    static constexpr result_type k_mul = 0x9ddfea08eb382d69ULL;\n\
-    \n  public:\n    template <int I = int(sizeof...(Ts)) - 1>\n      result_type\
-    \ operator()(const argument_type& key) const {\n      if constexpr (I == -1) {\n\
-    \        static const result_type seed = ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
-    \        return seed;\n      } else {\n        static const ::std::hash<::std::tuple_element_t<I,\
-    \ argument_type>> hasher;\n        result_type seed = this->operator()<I - 1>(key);\n\
-    \        result_type a = (hasher(::std::get<I>(key)) ^ seed) * k_mul;\n      \
-    \  a ^= (a >> 47);\n        result_type b = (seed ^ a) * k_mul;\n        b ^=\
-    \ (b >> 47);\n        seed = b * k_mul;\n        return seed;\n      }\n    }\n\
-    \  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\n  private:\n\
-    \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
-    \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
-    \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
-    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
+    \ tools {\n  template <typename T>\n  void hash_combine(::std::size_t& seed, const\
+    \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
+    \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
+    \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n#line 11 \"tools/tuple_hash.hpp\"\n\
+    \nnamespace tools {\n  template <typename... Ts>\n  struct tuple_hash {\n    template\
+    \ <::std::size_t I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
+    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
+    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
+    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
+    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
+    \      }\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\
+    \n  private:\n    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n\
+    \    vector2(const T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x),\
+    \ ::std::ref(this->y)}) {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const\
+    \ ::tools::vector2<T>& other) : vector2(other.x, other.y) {}\n    ~vector2() =\
+    \ default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n   \
+    \ TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
@@ -1954,6 +1964,8 @@ data:
   - tools/detail/vector_static_common.hpp
   - tools/detail/vector_common.hpp
   - tools/tuple_hash.hpp
+  - tools/now.hpp
+  - tools/hash_combine.hpp
   - tools/line_2d.hpp
   - tools/detail/geometry_2d.hpp
   - tools/less_by.hpp
@@ -1962,7 +1974,7 @@ data:
   isVerificationFile: true
   path: tests/line_2d/projection.test.cpp
   requiredBy: []
-  timestamp: '2022-11-06 13:36:53+09:00'
+  timestamp: '2022-11-12 11:43:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/line_2d/projection.test.cpp

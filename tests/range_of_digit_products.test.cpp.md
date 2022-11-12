@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   - icon: ':heavy_check_mark:'
@@ -16,10 +16,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'

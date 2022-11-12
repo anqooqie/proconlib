@@ -1,86 +1,92 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/hash_combine.hpp
+    title: Combine hash values
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/now.hpp
+    title: The number of nanoseconds that have elapsed since epoch
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -254,8 +260,11 @@ data:
     , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
     \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
     \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <chrono>\n\
-    #line 8 \"tools/tuple_hash.hpp\"\n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <limits>\n\
+    #line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  long\
+    \ long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
+    \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
     //\n// Permission is hereby granted, free of charge, to any person obtaining a\
     \ copy\n// of this software and associated documentation files (the \"Software\"\
@@ -271,24 +280,25 @@ data:
     \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
     \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
     \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n// THE SOFTWARE.\n\nnamespace\
-    \ tools {\n  template <typename... Ts>\n  class tuple_hash {\n  public:\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::std::tuple<Ts...>;\n\
-    \n  private:\n    static constexpr result_type k_mul = 0x9ddfea08eb382d69ULL;\n\
-    \n  public:\n    template <int I = int(sizeof...(Ts)) - 1>\n      result_type\
-    \ operator()(const argument_type& key) const {\n      if constexpr (I == -1) {\n\
-    \        static const result_type seed = ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
-    \        return seed;\n      } else {\n        static const ::std::hash<::std::tuple_element_t<I,\
-    \ argument_type>> hasher;\n        result_type seed = this->operator()<I - 1>(key);\n\
-    \        result_type a = (hasher(::std::get<I>(key)) ^ seed) * k_mul;\n      \
-    \  a ^= (a >> 47);\n        result_type b = (seed ^ a) * k_mul;\n        b ^=\
-    \ (b >> 47);\n        seed = b * k_mul;\n        return seed;\n      }\n    }\n\
-    \  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\n  private:\n\
-    \    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n    vector2(const\
-    \ T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x), ::std::ref(this->y)})\
-    \ {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const ::tools::vector2<T>&\
-    \ other) : vector2(other.x, other.y) {}\n    ~vector2() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n\
-    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
+    \ tools {\n  template <typename T>\n  void hash_combine(::std::size_t& seed, const\
+    \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
+    \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
+    \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n#line 11 \"tools/tuple_hash.hpp\"\n\
+    \nnamespace tools {\n  template <typename... Ts>\n  struct tuple_hash {\n    template\
+    \ <::std::size_t I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
+    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
+    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
+    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
+    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
+    \      }\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\
+    \n  private:\n    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n\
+    \    vector2(const T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x),\
+    \ ::std::ref(this->y)}) {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const\
+    \ ::tools::vector2<T>& other) : vector2(other.x, other.y) {}\n    ~vector2() =\
+    \ default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n   \
+    \ TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
     \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
@@ -309,55 +319,56 @@ data:
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n#line 1 \"tools/directed_line_segment_2d.hpp\"\n\n\n\n#line 1 \"\
     tools/detail/geometry_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\
-    \n#include <initializer_list>\n#include <limits>\n#include <optional>\n#line 15\
-    \ \"tools/detail/geometry_2d.hpp\"\n#include <variant>\n#include <vector>\n#line\
-    \ 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  struct is_rational {\n    static constexpr bool value = false;\n  };\n\
-    \n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
-    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
-    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
-    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
-    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const\
-    \ T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
-    \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
-    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
-    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
-    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
-    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
-    \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
-    \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
-    \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
-    \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
-    \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
-    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
-    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
-    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
-    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
-    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
-    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
-    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
-    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
-    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    \n#include <initializer_list>\n#line 11 \"tools/detail/geometry_2d.hpp\"\n#include\
+    \ <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\n#include <variant>\n\
+    #include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\
+    \n  template <typename T>\n  struct is_rational {\n    static constexpr bool value\
+    \ = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
+    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\
+    \nnamespace tools {\n\n  template <class F>\n  class less_by {\n  private:\n \
+    \   F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
+    \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
+    \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
+    \ 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept {\n\
+    \    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x < T(0));\n\
+    \    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
+    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include\
+    \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
+    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
+    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
+    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
+    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
+    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
+    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
+    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
+    }\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\n  template\
+    \ <typename T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n\
+    \  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n  template\
+    \ <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename T, bool\
+    \ Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled, bool HasRadius>\n\
+    \  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n    T m_radius;\n\
+    \    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n    circle_2d(const\
+    \ ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T,\
+    \ Filled, HasRadius>&&) = default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T,\
+    \ Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&)\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T,\
+    \ Filled, HasRadius>&&) = default;\n\n    circle_2d(const ::tools::vector2<T>&\
+    \ center, const T& radius_or_squared_radius);\n\n    template <typename T_ = T,\
+    \ bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
     \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
     \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
@@ -1938,6 +1949,8 @@ data:
   - tools/detail/vector_common.hpp
   - tools/abs.hpp
   - tools/tuple_hash.hpp
+  - tools/now.hpp
+  - tools/hash_combine.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/detail/geometry_2d.hpp
   - tools/is_rational.hpp
@@ -1963,7 +1976,7 @@ data:
   isVerificationFile: true
   path: tests/directed_line_segment_2d/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2022-11-06 13:36:53+09:00'
+  timestamp: '2022-11-12 11:43:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/cross_point.test.cpp

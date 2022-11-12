@@ -1,12 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':question:'
-    path: tools/hash_combine.hpp
-    title: Combine hash values
-  - icon: ':question:'
-    path: tools/now.hpp
-    title: The number of nanoseconds that have elapsed since epoch
+  _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
@@ -50,6 +44,9 @@ data:
   - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
+  - icon: ':question:'
+    path: tools/tuple_hash.hpp
+    title: Hash of std::tuple
   - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
@@ -145,13 +142,10 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <tuple>\n#include <limits>\n#include <functional>\n#line 1 \"tools/now.hpp\"\
-    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  long long now() {\n    return\
-    \ ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
-    \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
-    \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    links:
+    - https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h
+  bundledCode: "#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#include <cstddef>\n#include\
+    \ <functional>\n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
     //\n// Permission is hereby granted, free of charge, to any person obtaining a\
     \ copy\n// of this software and associated documentation files (the \"Software\"\
@@ -171,29 +165,32 @@ data:
     \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
     \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
     \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
-    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n#line 11 \"tools/tuple_hash.hpp\"\n\
-    \nnamespace tools {\n  template <typename... Ts>\n  struct tuple_hash {\n    template\
-    \ <::std::size_t I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
-    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
-    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
-    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
-    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
-    \      }\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_TUPLE_HASH_HPP\n#define TOOLS_TUPLE_HASH_HPP\n\n#include <cstddef>\n\
-    #include <tuple>\n#include <limits>\n#include <functional>\n#include <tuple>\n\
-    #include \"tools/now.hpp\"\n#include \"tools/hash_combine.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename... Ts>\n  struct tuple_hash {\n    template <::std::size_t\
-    \ I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
-    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
-    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
-    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
-    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
-    \      }\n    }\n  };\n}\n\n#endif\n"
-  dependsOn:
-  - tools/now.hpp
-  - tools/hash_combine.hpp
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_HASH_COMBINE_HPP\n#define TOOLS_HASH_COMBINE_HPP\n\n#include\
+    \ <cstddef>\n#include <functional>\n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
+    //\n// Permission is hereby granted, free of charge, to any person obtaining a\
+    \ copy\n// of this software and associated documentation files (the \"Software\"\
+    ), to deal\n// in the Software without restriction, including without limitation\
+    \ the rights\n// to use, copy, modify, merge, publish, distribute, sublicense,\
+    \ and/or sell\n// copies of the Software, and to permit persons to whom the Software\
+    \ is\n// furnished to do so, subject to the following conditions:\n//\n// The\
+    \ above copyright notice and this permission notice shall be included in\n// all\
+    \ copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED\
+    \ \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n// IMPLIED, INCLUDING BUT\
+    \ NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n// FITNESS FOR A PARTICULAR\
+    \ PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n// AUTHORS OR COPYRIGHT\
+    \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
+    \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
+    \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n// THE SOFTWARE.\n\nnamespace\
+    \ tools {\n  template <typename T>\n  void hash_combine(::std::size_t& seed, const\
+    \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
+    \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
+    \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n#endif\n"
+  dependsOn: []
   isVerificationFile: false
-  path: tools/tuple_hash.hpp
+  path: tools/hash_combine.hpp
   requiredBy:
   - tools/triangle_2d.hpp
   - tools/greater_by_arg.hpp
@@ -207,6 +204,7 @@ data:
   - tools/half_line_2d.hpp
   - tools/greater_by_arg_total.hpp
   - tools/polygon_2d.hpp
+  - tools/tuple_hash.hpp
   - tools/convex_hull.hpp
   - tools/vector3.hpp
   - tools/less_by_arg_total.hpp
@@ -242,22 +240,34 @@ data:
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/convex_hull.test.cpp
   - tests/tuple_hash.test.cpp
-documentation_of: tools/tuple_hash.hpp
+documentation_of: tools/hash_combine.hpp
 layout: document
-title: Hash of std::tuple
+title: Combine hash values
 ---
 
 ```cpp
-template <typename... Ts>
-struct tuple_hash {
-  std::size_t operator()(std::tuple<Ts...> key);
-};
+void hash_combine(std::size_t& seed, T key);
 ```
 
-It is a class for calculating the hash value of `std::tuple<Ts...>`.
+It is a utility function for combining hash values.
+
+## Example
+
+```cpp
+std::size_t hash_value(const std::pair<int, int>& pair) {
+  static const std::size_t seed = tools::now();
+  std::size_t res = seed;
+  tools::hash_combine(res, pair.first);
+  tools::hash_combine(res, pair.second);
+  return res;
+}
+```
+
+## References
+- [c++ - How to create a good hash_combine with 64 bit output (inspired by boost::hash_combine) - Stack Overflow](https://stackoverflow.com/questions/8513911/how-to-create-a-good-hash-combine-with-64-bit-output-inspired-by-boosthash-co/8980550#8980550)
 
 ## License
-- CC0
+- MIT
 
 ## Author
-- anqooqie
+- Google Inc.

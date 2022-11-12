@@ -1,26 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/hash_combine.hpp
+    title: Combine hash values
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/now.hpp
+    title: The number of nanoseconds that have elapsed since epoch
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/tuple_hash.hpp
+    title: Hash of std::tuple
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -72,8 +81,39 @@ data:
     \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
     \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
     \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n}\n\n\n#line 20 \"tools/util.hpp\"\n\nusing ll = long long;\nusing\
-    \ ull = unsigned long long;\nusing i32 = ::std::int32_t;\nusing u32 = ::std::uint32_t;\n\
+    \    }\n  }\n}\n\n\n#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#line 1 \"tools/now.hpp\"\
+    \n\n\n\n#line 5 \"tools/now.hpp\"\n\nnamespace tools {\n  long long now() {\n\
+    \    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
+    \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
+    //\n// Permission is hereby granted, free of charge, to any person obtaining a\
+    \ copy\n// of this software and associated documentation files (the \"Software\"\
+    ), to deal\n// in the Software without restriction, including without limitation\
+    \ the rights\n// to use, copy, modify, merge, publish, distribute, sublicense,\
+    \ and/or sell\n// copies of the Software, and to permit persons to whom the Software\
+    \ is\n// furnished to do so, subject to the following conditions:\n//\n// The\
+    \ above copyright notice and this permission notice shall be included in\n// all\
+    \ copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED\
+    \ \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n// IMPLIED, INCLUDING BUT\
+    \ NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n// FITNESS FOR A PARTICULAR\
+    \ PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n// AUTHORS OR COPYRIGHT\
+    \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
+    \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
+    \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n// THE SOFTWARE.\n\nnamespace\
+    \ tools {\n  template <typename T>\n  void hash_combine(::std::size_t& seed, const\
+    \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
+    \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
+    \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n#line 11 \"tools/tuple_hash.hpp\"\n\
+    \nnamespace tools {\n  template <typename... Ts>\n  struct tuple_hash {\n    template\
+    \ <::std::size_t I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
+    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
+    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
+    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
+    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
+    \      }\n    }\n  };\n}\n\n\n#line 21 \"tools/util.hpp\"\n\nusing ll = long long;\n\
+    using ull = unsigned long long;\nusing i32 = ::std::int32_t;\nusing u32 = ::std::uint32_t;\n\
     using i64 = ::std::int64_t;\nusing u64 = ::std::uint64_t;\n\n#define ALL(x) ::std::begin(x),\
     \ ::std::end(x)\n#define REP(i, n) for (long long i = 0; i < static_cast<long\
     \ long>(n); ++i)\n\nnamespace tools {\n  namespace detail {\n    namespace util\
@@ -132,14 +172,21 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \ else {\n    return os;\n  }\n}\n\nnamespace std {\n  template <class T1, class\
+    \ T2>\n  struct hash<::std::pair<T1, T2>> {\n    ::std::size_t operator()(const\
+    \ ::std::pair<T1, T2>& key) const {\n      static const ::tools::tuple_hash<T1,\
+    \ T2> hasher;\n      return hasher(::std::make_tuple(key.first, key.second));\n\
+    \    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
+    \ {\n    ::std::size_t operator()(const ::std::tuple<Args...>& key) const {\n\
+    \      static const ::tools::tuple_hash<Args...> hasher;\n      return hasher(key);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
+    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
+    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
+    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -385,8 +432,19 @@ data:
     \ 222 333\");\n    iss >> v;\n    assert_that(std::get<0>(v) == 123);\n    assert_that(std::get<1>(v)\
     \ == 456);\n    assert_that(std::get<2>(v) == 789);\n  }\n  {\n    std::tuple<int,\
     \ int, int> v(123, 456, 789);\n    std::ostringstream oss;\n    oss << v;\n  \
-    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  std::cout << \"Hello\
-    \ World\" << '\\n';\n  return 0;\n}\n"
+    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n    std::vector<std::size_t>\
+    \ v;\n    const std::hash<std::pair<int, int>> hasher;\n    for (int i = 0; i\
+    \ < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n        const auto pair\
+    \ = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n        assert_that(hasher(pair)\
+    \ == v.back());\n      }\n    }\n\n    const auto old_size = v.size();\n    std::sort(v.begin(),\
+    \ v.end());\n    v.erase(std::unique(v.begin(), v.end()), v.end());\n    assert_that(v.size()\
+    \ == old_size);\n  }\n\n  {\n    std::vector<std::size_t> v;\n    const std::hash<std::tuple<int,\
+    \ int>> hasher;\n    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j\
+    \ < 3000; ++j) {\n        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
+    \        assert_that(hasher(tuple) == v.back());\n      }\n    }\n\n    const\
+    \ auto old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
+    \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\
     #ifdef __clang__\n  #define IGNORE\n#endif\n\n#include \"tools/util.hpp\"\n#include\
     \ \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
@@ -431,19 +489,33 @@ data:
     \ 222 333\");\n    iss >> v;\n    assert_that(std::get<0>(v) == 123);\n    assert_that(std::get<1>(v)\
     \ == 456);\n    assert_that(std::get<2>(v) == 789);\n  }\n  {\n    std::tuple<int,\
     \ int, int> v(123, 456, 789);\n    std::ostringstream oss;\n    oss << v;\n  \
-    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  std::cout << \"Hello\
-    \ World\" << '\\n';\n  return 0;\n}\n"
+    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n    std::vector<std::size_t>\
+    \ v;\n    const std::hash<std::pair<int, int>> hasher;\n    for (int i = 0; i\
+    \ < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n        const auto pair\
+    \ = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n        assert_that(hasher(pair)\
+    \ == v.back());\n      }\n    }\n\n    const auto old_size = v.size();\n    std::sort(v.begin(),\
+    \ v.end());\n    v.erase(std::unique(v.begin(), v.end()), v.end());\n    assert_that(v.size()\
+    \ == old_size);\n  }\n\n  {\n    std::vector<std::size_t> v;\n    const std::hash<std::tuple<int,\
+    \ int>> hasher;\n    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j\
+    \ < 3000; ++j) {\n        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
+    \        assert_that(hasher(tuple) == v.back());\n      }\n    }\n\n    const\
+    \ auto old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
+    \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/util.hpp
   - tools/resize.hpp
   - tools/fill.hpp
   - tools/is_range.hpp
+  - tools/tuple_hash.hpp
+  - tools/now.hpp
+  - tools/hash_combine.hpp
   - tools/assert_that.hpp
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-12 11:43:14+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

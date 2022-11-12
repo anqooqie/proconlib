@@ -1,37 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/exp.hpp
     title: std::exp(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/hash_combine.hpp
+    title: Combine hash values
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
     path: tools/log.hpp
     title: std::log(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
+  - icon: ':question:'
+    path: tools/now.hpp
+    title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
@@ -211,8 +217,11 @@ data:
     , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
     \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
     \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <chrono>\n\
-    #line 8 \"tools/tuple_hash.hpp\"\n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
+    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <limits>\n\
+    #line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  long\
+    \ long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
+    \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
     //\n// Permission is hereby granted, free of charge, to any person obtaining a\
     \ copy\n// of this software and associated documentation files (the \"Software\"\
@@ -228,38 +237,38 @@ data:
     \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
     \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
     \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n// THE SOFTWARE.\n\nnamespace\
-    \ tools {\n  template <typename... Ts>\n  class tuple_hash {\n  public:\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::std::tuple<Ts...>;\n\
-    \n  private:\n    static constexpr result_type k_mul = 0x9ddfea08eb382d69ULL;\n\
-    \n  public:\n    template <int I = int(sizeof...(Ts)) - 1>\n      result_type\
-    \ operator()(const argument_type& key) const {\n      if constexpr (I == -1) {\n\
-    \        static const result_type seed = ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
-    \        return seed;\n      } else {\n        static const ::std::hash<::std::tuple_element_t<I,\
-    \ argument_type>> hasher;\n        result_type seed = this->operator()<I - 1>(key);\n\
-    \        result_type a = (hasher(::std::get<I>(key)) ^ seed) * k_mul;\n      \
-    \  a ^= (a >> 47);\n        result_type b = (seed ^ a) * k_mul;\n        b ^=\
-    \ (b >> 47);\n        seed = b * k_mul;\n        return seed;\n      }\n    }\n\
-    \  };\n}\n\n\n#line 12 \"tools/vector3.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class vector3 {\n  public:\n    T x;\n    T y;\n    T z;\n\n\
-    \  private:\n    ::std::array<::std::reference_wrapper<T>, 3> m_refs;\n\n  public:\n\
-    \    vector3(const T& x, const T& y, const T& z) : x(x), y(y), z(z), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y), ::std::ref(this->z)}) {}\n    vector3() : vector3(T(),\
-    \ T(), T()) {}\n    vector3(const ::tools::vector3<T>& other) : vector3(other.x,\
-    \ other.y, other.z) {}\n    ~vector3() = default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n\
-    \    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\n  public:\n    ::tools::vector3<T>\
-    \ outer_product(const ::tools::vector3<T>& other) const {\n      return ::tools::vector3<T>(this->y\
-    \ * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x\
-    \ * other.y - this->y * other.x);\n    }\n\n    template <typename T_ = T>\n \
-    \   ::std::enable_if_t<::std::is_floating_point_v<T_>, ::std::array<::tools::vector3<T>,\
-    \ 3>> orthonormal_basis() const {\n      assert(*this != ::tools::vector3<T>(0,\
-    \ 0, 0));\n\n      ::std::array<::tools::vector3<T>, 3> v;\n      v[0] = *this;\n\
-    \      v[1] = ::tools::vector3<T>(0, this->z, -this->y);\n      if (v[1] == ::tools::vector3<T>(0,\
-    \ 0, 0)) {\n        v[1] = ::tools::vector3<T>(-this->z, 0, this->x);\n      }\n\
-    \      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0]) * v[0];\n\n\
-    \      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n      v[2]\
-    \ = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\nnamespace\
-    \ std {\n  template <typename T>\n  struct hash<::tools::vector3<T>> {\n    using\
-    \ result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
+    \ tools {\n  template <typename T>\n  void hash_combine(::std::size_t& seed, const\
+    \ T& v) {\n    static const ::std::hash<T> hasher;\n    static constexpr ::std::size_t\
+    \ k_mul = 0x9ddfea08eb382d69ULL;\n    ::std::size_t a = (hasher(v) ^ seed) * k_mul;\n\
+    \    a ^= (a >> 47);\n    ::std::size_t b = (seed ^ a) * k_mul;\n    b ^= (b >>\
+    \ 47);\n    seed = b * k_mul;\n  }\n}\n\n\n#line 11 \"tools/tuple_hash.hpp\"\n\
+    \nnamespace tools {\n  template <typename... Ts>\n  struct tuple_hash {\n    template\
+    \ <::std::size_t I = sizeof...(Ts) - 1>\n    ::std::size_t operator()(const ::std::tuple<Ts...>&\
+    \ key) const {\n      if constexpr (I == ::std::numeric_limits<::std::size_t>::max())\
+    \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
+    \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
+    \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
+    \      }\n    }\n  };\n}\n\n\n#line 12 \"tools/vector3.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class vector3 {\n  public:\n    T x;\n    T y;\n\
+    \    T z;\n\n  private:\n    ::std::array<::std::reference_wrapper<T>, 3> m_refs;\n\
+    \n  public:\n    vector3(const T& x, const T& y, const T& z) : x(x), y(y), z(z),\
+    \ m_refs({::std::ref(this->x), ::std::ref(this->y), ::std::ref(this->z)}) {}\n\
+    \    vector3() : vector3(T(), T(), T()) {}\n    vector3(const ::tools::vector3<T>&\
+    \ other) : vector3(other.x, other.y, other.z) {}\n    ~vector3() = default;\n\n\
+    \    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector3<T>)\n    TOOLS_DETAIL_VECTOR_COMMON(::tools::vector3<T>)\n\
+    \n  public:\n    ::tools::vector3<T> outer_product(const ::tools::vector3<T>&\
+    \ other) const {\n      return ::tools::vector3<T>(this->y * other.z - this->z\
+    \ * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y\
+    \ * other.x);\n    }\n\n    template <typename T_ = T>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
+    \ ::std::array<::tools::vector3<T>, 3>> orthonormal_basis() const {\n      assert(*this\
+    \ != ::tools::vector3<T>(0, 0, 0));\n\n      ::std::array<::tools::vector3<T>,\
+    \ 3> v;\n      v[0] = *this;\n      v[1] = ::tools::vector3<T>(0, this->z, -this->y);\n\
+    \      if (v[1] == ::tools::vector3<T>(0, 0, 0)) {\n        v[1] = ::tools::vector3<T>(-this->z,\
+    \ 0, this->x);\n      }\n      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0])\
+    \ * v[0];\n\n      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n\
+    \      v[2] = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\n\
+    namespace std {\n  template <typename T>\n  struct hash<::tools::vector3<T>> {\n\
+    \    using result_type = ::std::size_t;\n    using argument_type = ::tools::vector3<T>;\n\
     \    ::std::size_t operator()(const ::tools::vector3<T>& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
     \ key.y, key.z));\n    }\n  };\n}\n\n\n#line 1 \"tools/quaternion.hpp\"\n\n\n\n\
@@ -269,8 +278,8 @@ data:
     \  }\n}\n\n\n#line 1 \"tools/log.hpp\"\n\n\n\n#line 5 \"tools/log.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  auto log(const T x) {\n    return ::std::log(x);\n\
     \  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\
-    \n\n#line 5 \"tools/monoid.hpp\"\n#include <limits>\n#include <numeric>\n\nnamespace\
-    \ tools {\n  namespace monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \n\n#line 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
+    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
     \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
     \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
     \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
@@ -504,6 +513,8 @@ data:
   - tools/detail/vector_common.hpp
   - tools/abs.hpp
   - tools/tuple_hash.hpp
+  - tools/now.hpp
+  - tools/hash_combine.hpp
   - tools/quaternion.hpp
   - tools/exp.hpp
   - tools/log.hpp
@@ -515,7 +526,7 @@ data:
   isVerificationFile: true
   path: tests/quaternion/dice_rotations.test.cpp
   requiredBy: []
-  timestamp: '2022-11-05 11:05:27+09:00'
+  timestamp: '2022-11-12 11:43:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/quaternion/dice_rotations.test.cpp
