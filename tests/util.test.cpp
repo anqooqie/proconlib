@@ -123,6 +123,18 @@ int main() {
     oss << v;
     assert_that(oss.str() == "[123, 456, 789]");
   }
+  {
+    std::optional<int> v;
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "null");
+  }
+  {
+    std::optional<int> v(123);
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "123");
+  }
 
   {
     std::vector<std::size_t> v;

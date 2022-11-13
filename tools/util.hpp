@@ -184,6 +184,15 @@ template <int I = -1, typename... Args>
   }
 }
 
+template <typename T>
+::std::ostream& operator<<(::std::ostream& os, const ::std::optional<T>& optional) {
+  if (optional) {
+    return os << *optional;
+  } else {
+    return os << "null";
+  }
+}
+
 namespace std {
   template <class T1, class T2>
   struct hash<::std::pair<T1, T2>> {
