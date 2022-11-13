@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links:
     - https://anqooqie.github.io/proconlib/
@@ -165,11 +165,13 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\nnamespace std {\n  template <class T1, class\
-    \ T2>\n  struct hash<::std::pair<T1, T2>> {\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::tools::tuple_hash<T1,\
-    \ T2> hasher;\n      return hasher(::std::make_tuple(key.first, key.second));\n\
-    \    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
+    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\n::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::optional<T>& optional) {\n  if (optional) {\n    return os\
+    \ << *optional;\n  } else {\n    return os << \"null\";\n  }\n}\n\nnamespace std\
+    \ {\n  template <class T1, class T2>\n  struct hash<::std::pair<T1, T2>> {\n \
+    \   ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T1, T2> hasher;\n      return hasher(::std::make_tuple(key.first,\
+    \ key.second));\n    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
     \ {\n    ::std::size_t operator()(const ::std::tuple<Args...>& key) const {\n\
     \      static const ::tools::tuple_hash<Args...> hasher;\n      return hasher(key);\n\
     \    }\n  };\n}\n\n\n"
@@ -237,11 +239,13 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\nnamespace std {\n  template <class T1, class\
-    \ T2>\n  struct hash<::std::pair<T1, T2>> {\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::tools::tuple_hash<T1,\
-    \ T2> hasher;\n      return hasher(::std::make_tuple(key.first, key.second));\n\
-    \    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
+    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\n::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::optional<T>& optional) {\n  if (optional) {\n    return os\
+    \ << *optional;\n  } else {\n    return os << \"null\";\n  }\n}\n\nnamespace std\
+    \ {\n  template <class T1, class T2>\n  struct hash<::std::pair<T1, T2>> {\n \
+    \   ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T1, T2> hasher;\n      return hasher(::std::make_tuple(key.first,\
+    \ key.second));\n    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
     \ {\n    ::std::size_t operator()(const ::std::tuple<Args...>& key) const {\n\
     \      static const ::tools::tuple_hash<Args...> hasher;\n      return hasher(key);\n\
     \    }\n  };\n}\n\n#endif\n"
@@ -255,8 +259,8 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-11-13 18:44:28+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/util.test.cpp
 documentation_of: tools/util.hpp

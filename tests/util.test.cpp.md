@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -172,11 +172,13 @@ data:
     \ {\n    os << ']';\n  } else if constexpr (I == 0) {\n    os << ::std::get<I>(tuple);\n\
     \  } else {\n    os << \", \" << ::std::get<I>(tuple);\n  }\n\n  if constexpr\
     \ (I < int(sizeof...(Args))) {\n    return operator<<<I + 1>(os, tuple);\n  }\
-    \ else {\n    return os;\n  }\n}\n\nnamespace std {\n  template <class T1, class\
-    \ T2>\n  struct hash<::std::pair<T1, T2>> {\n    ::std::size_t operator()(const\
-    \ ::std::pair<T1, T2>& key) const {\n      static const ::tools::tuple_hash<T1,\
-    \ T2> hasher;\n      return hasher(::std::make_tuple(key.first, key.second));\n\
-    \    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
+    \ else {\n    return os;\n  }\n}\n\ntemplate <typename T>\n::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::optional<T>& optional) {\n  if (optional) {\n    return os\
+    \ << *optional;\n  } else {\n    return os << \"null\";\n  }\n}\n\nnamespace std\
+    \ {\n  template <class T1, class T2>\n  struct hash<::std::pair<T1, T2>> {\n \
+    \   ::std::size_t operator()(const ::std::pair<T1, T2>& key) const {\n      static\
+    \ const ::tools::tuple_hash<T1, T2> hasher;\n      return hasher(::std::make_tuple(key.first,\
+    \ key.second));\n    }\n  };\n\n  template <class... Args>\n  struct hash<::std::tuple<Args...>>\
     \ {\n    ::std::size_t operator()(const ::std::tuple<Args...>& key) const {\n\
     \      static const ::tools::tuple_hash<Args...> hasher;\n      return hasher(key);\n\
     \    }\n  };\n}\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
@@ -432,15 +434,19 @@ data:
     \ 222 333\");\n    iss >> v;\n    assert_that(std::get<0>(v) == 123);\n    assert_that(std::get<1>(v)\
     \ == 456);\n    assert_that(std::get<2>(v) == 789);\n  }\n  {\n    std::tuple<int,\
     \ int, int> v(123, 456, 789);\n    std::ostringstream oss;\n    oss << v;\n  \
-    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n    std::vector<std::size_t>\
-    \ v;\n    const std::hash<std::pair<int, int>> hasher;\n    for (int i = 0; i\
-    \ < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n        const auto pair\
-    \ = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n        assert_that(hasher(pair)\
-    \ == v.back());\n      }\n    }\n\n    const auto old_size = v.size();\n    std::sort(v.begin(),\
-    \ v.end());\n    v.erase(std::unique(v.begin(), v.end()), v.end());\n    assert_that(v.size()\
-    \ == old_size);\n  }\n\n  {\n    std::vector<std::size_t> v;\n    const std::hash<std::tuple<int,\
-    \ int>> hasher;\n    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j\
-    \ < 3000; ++j) {\n        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
+    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n  {\n    std::optional<int>\
+    \ v;\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() ==\
+    \ \"null\");\n  }\n  {\n    std::optional<int> v(123);\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"123\");\n  }\n\n  {\n  \
+    \  std::vector<std::size_t> v;\n    const std::hash<std::pair<int, int>> hasher;\n\
+    \    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n\
+    \        const auto pair = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n\
+    \        assert_that(hasher(pair) == v.back());\n      }\n    }\n\n    const auto\
+    \ old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
+    \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  {\n  \
+    \  std::vector<std::size_t> v;\n    const std::hash<std::tuple<int, int>> hasher;\n\
+    \    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n\
+    \        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
     \        assert_that(hasher(tuple) == v.back());\n      }\n    }\n\n    const\
     \ auto old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
     \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  std::cout\
@@ -489,15 +495,19 @@ data:
     \ 222 333\");\n    iss >> v;\n    assert_that(std::get<0>(v) == 123);\n    assert_that(std::get<1>(v)\
     \ == 456);\n    assert_that(std::get<2>(v) == 789);\n  }\n  {\n    std::tuple<int,\
     \ int, int> v(123, 456, 789);\n    std::ostringstream oss;\n    oss << v;\n  \
-    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n    std::vector<std::size_t>\
-    \ v;\n    const std::hash<std::pair<int, int>> hasher;\n    for (int i = 0; i\
-    \ < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n        const auto pair\
-    \ = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n        assert_that(hasher(pair)\
-    \ == v.back());\n      }\n    }\n\n    const auto old_size = v.size();\n    std::sort(v.begin(),\
-    \ v.end());\n    v.erase(std::unique(v.begin(), v.end()), v.end());\n    assert_that(v.size()\
-    \ == old_size);\n  }\n\n  {\n    std::vector<std::size_t> v;\n    const std::hash<std::tuple<int,\
-    \ int>> hasher;\n    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j\
-    \ < 3000; ++j) {\n        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
+    \  assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n  {\n    std::optional<int>\
+    \ v;\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() ==\
+    \ \"null\");\n  }\n  {\n    std::optional<int> v(123);\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"123\");\n  }\n\n  {\n  \
+    \  std::vector<std::size_t> v;\n    const std::hash<std::pair<int, int>> hasher;\n\
+    \    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n\
+    \        const auto pair = std::make_pair(i, j);\n        v.push_back(hasher(pair));\n\
+    \        assert_that(hasher(pair) == v.back());\n      }\n    }\n\n    const auto\
+    \ old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
+    \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  {\n  \
+    \  std::vector<std::size_t> v;\n    const std::hash<std::tuple<int, int>> hasher;\n\
+    \    for (int i = 0; i < 3000; ++i) {\n      for (int j = 0; j < 3000; ++j) {\n\
+    \        const auto tuple = std::make_tuple(i, j);\n        v.push_back(hasher(tuple));\n\
     \        assert_that(hasher(tuple) == v.back());\n      }\n    }\n\n    const\
     \ auto old_size = v.size();\n    std::sort(v.begin(), v.end());\n    v.erase(std::unique(v.begin(),\
     \ v.end()), v.end());\n    assert_that(v.size() == old_size);\n  }\n\n  std::cout\
@@ -514,8 +524,8 @@ data:
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-13 18:44:28+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

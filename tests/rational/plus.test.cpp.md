@@ -1,66 +1,66 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_2_A
@@ -556,33 +556,34 @@ data:
     \        }\n        if (const ::std::int_fast32_t coefficient = POW10[exponent\
     \ - LOG10_BASE * exponent10000]; coefficient > POW10[0]) {\n          for (auto&\
     \ d : this->m_digits) {\n            d *= coefficient;\n          }\n        \
-    \  if (mod > 0 && this->m_digits.empty()) {\n            this->m_digits.push_back(0);\n\
-    \          }\n          this->m_digits[0] += mod;\n          this->regularize(2);\n\
-    \        } else {\n          this->regularize(0);\n        }\n      }\n      return\
-    \ *this;\n    }\n    ::tools::bigint& divide_by_pow10(const ::std::ptrdiff_t exponent)\
-    \ {\n      this->multiply_by_pow10(-exponent);\n      return *this;\n    }\n \
-    \   static int compare_3way(const ::tools::bigint& lhs, const ::tools::bigint&\
-    \ rhs) {\n      if (!lhs.m_positive && rhs.m_positive) return -1;\n      if (lhs.m_positive\
-    \ && !rhs.m_positive) return 1;\n      return ::tools::bigint::compare_3way_abs(lhs,\
-    \ rhs) * (lhs.m_positive ? 1 : -1);\n    }\n    int signum() const {\n      if\
-    \ (!this->m_positive) return -1;\n      if (this->m_digits.empty()) return 0;\n\
-    \      return 1;\n    }\n    ::std::size_t size() const {\n      if (this->m_digits.empty())\
-    \ return 0;\n      return LOG10_BASE * (this->m_digits.size() - 1) + ::std::distance(POW10.begin(),\
-    \ ::std::upper_bound(POW10.begin(), POW10.end(), this->m_digits[this->m_digits.size()\
-    \ - 1]));\n    }\n    ::std::int_fast32_t operator[](const ::std::size_t i) const\
-    \ {\n      return i < LOG10_BASE * this->m_digits.size() ? this->m_digits[i /\
-    \ LOG10_BASE] / POW10[i % LOG10_BASE] % 10 : 0;\n    }\n\n  private:\n    ::tools::bigint&\
-    \ internal_add(const ::tools::bigint& other, const bool plus) {\n      const bool\
-    \ this_positive = this->m_positive;\n      if (!this_positive) {\n        this->negate();\n\
-    \      }\n      this->m_digits.resize(::std::max(this->m_digits.size(), other.m_digits.size()));\n\
-    \      if (this_positive == (other.m_positive == plus)) {\n        for (::std::size_t\
-    \ i = 0; i < other.m_digits.size(); ++i) {\n          this->m_digits[i] += other.m_digits[i];\n\
-    \        }\n      } else {\n        for (::std::size_t i = 0; i < other.m_digits.size();\
-    \ ++i) {\n          this->m_digits[i] -= other.m_digits[i];\n        }\n     \
-    \ }\n      this->regularize(1);\n      if (!this_positive) {\n        this->negate();\n\
-    \      }\n      return *this;\n    }\n\n  public:\n    bigint() : m_positive(true)\
-    \ {\n    }\n    bigint(const ::tools::bigint&) = default;\n    bigint(::tools::bigint&&)\
-    \ = default;\n    ~bigint() = default;\n    ::tools::bigint& operator=(const ::tools::bigint&)\
+    \  if (mod > 0) {\n            if (this->m_digits.empty()) {\n              this->m_digits.push_back(0);\n\
+    \            }\n            this->m_digits[0] += mod;\n          }\n         \
+    \ this->regularize(2);\n        } else {\n          this->regularize(0);\n   \
+    \     }\n      }\n      return *this;\n    }\n    ::tools::bigint& divide_by_pow10(const\
+    \ ::std::ptrdiff_t exponent) {\n      this->multiply_by_pow10(-exponent);\n  \
+    \    return *this;\n    }\n    static int compare_3way(const ::tools::bigint&\
+    \ lhs, const ::tools::bigint& rhs) {\n      if (!lhs.m_positive && rhs.m_positive)\
+    \ return -1;\n      if (lhs.m_positive && !rhs.m_positive) return 1;\n      return\
+    \ ::tools::bigint::compare_3way_abs(lhs, rhs) * (lhs.m_positive ? 1 : -1);\n \
+    \   }\n    int signum() const {\n      if (!this->m_positive) return -1;\n   \
+    \   if (this->m_digits.empty()) return 0;\n      return 1;\n    }\n    ::std::size_t\
+    \ size() const {\n      if (this->m_digits.empty()) return 0;\n      return LOG10_BASE\
+    \ * (this->m_digits.size() - 1) + ::std::distance(POW10.begin(), ::std::upper_bound(POW10.begin(),\
+    \ POW10.end(), this->m_digits[this->m_digits.size() - 1]));\n    }\n    ::std::int_fast32_t\
+    \ operator[](const ::std::size_t i) const {\n      return i < LOG10_BASE * this->m_digits.size()\
+    \ ? this->m_digits[i / LOG10_BASE] / POW10[i % LOG10_BASE] % 10 : 0;\n    }\n\n\
+    \  private:\n    ::tools::bigint& internal_add(const ::tools::bigint& other, const\
+    \ bool plus) {\n      const bool this_positive = this->m_positive;\n      if (!this_positive)\
+    \ {\n        this->negate();\n      }\n      this->m_digits.resize(::std::max(this->m_digits.size(),\
+    \ other.m_digits.size()));\n      if (this_positive == (other.m_positive == plus))\
+    \ {\n        for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n   \
+    \       this->m_digits[i] += other.m_digits[i];\n        }\n      } else {\n \
+    \       for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n        \
+    \  this->m_digits[i] -= other.m_digits[i];\n        }\n      }\n      this->regularize(1);\n\
+    \      if (!this_positive) {\n        this->negate();\n      }\n      return *this;\n\
+    \    }\n\n  public:\n    bigint() : m_positive(true) {\n    }\n    bigint(const\
+    \ ::tools::bigint&) = default;\n    bigint(::tools::bigint&&) = default;\n   \
+    \ ~bigint() = default;\n    ::tools::bigint& operator=(const ::tools::bigint&)\
     \ = default;\n    ::tools::bigint& operator=(::tools::bigint&&) = default;\n\n\
     \    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>,\
     \ ::std::nullptr_t>::type = nullptr>\n    explicit bigint(T n) : m_positive(n\
@@ -866,17 +867,17 @@ data:
     \ ::tools::rounding_mode::half_down) {\n          return comp > 0;\n        }\n\
     \        if (rounding_mode == ::tools::rounding_mode::half_up) {\n          return\
     \ comp >= 0;\n        }\n        return comp > 0 || (comp == 0 && this->m_unscaled_value[0]\
-    \ % 2 != 0);\n      }()) {\n        this->m_unscaled_value += ::tools::bigint(old_this.signum()\
-    \ * other.signum());\n        this->regularize();\n      }\n\n      return *this;\n\
-    \    }\n    ::tools::bigdecimal& divide(const ::tools::bigdecimal& other, const\
-    \ ::std::ptrdiff_t scale) {\n      return this->divide(other, scale, ::tools::rounding_mode::half_even);\n\
-    \    }\n    ::tools::bigdecimal& operator/=(const ::tools::bigdecimal& other)\
-    \ {\n      return this->divide(other, this->m_scale - other.m_scale);\n    }\n\
-    \n    friend ::tools::bigdecimal operator+(const ::tools::bigdecimal& lhs, const\
-    \ ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) += rhs;\n\
-    \    }\n    friend ::tools::bigdecimal operator-(const ::tools::bigdecimal& lhs,\
-    \ const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) -=\
-    \ rhs;\n    }\n    friend ::tools::bigdecimal operator*(const ::tools::bigdecimal&\
+    \ % 2 != 0);\n      }()) {\n        this->m_scale = scale;\n        this->m_unscaled_value\
+    \ += ::tools::bigint(old_this.signum() * other.signum());\n        this->regularize();\n\
+    \      }\n\n      return *this;\n    }\n    ::tools::bigdecimal& divide(const\
+    \ ::tools::bigdecimal& other, const ::std::ptrdiff_t scale) {\n      return this->divide(other,\
+    \ scale, ::tools::rounding_mode::half_even);\n    }\n    ::tools::bigdecimal&\
+    \ operator/=(const ::tools::bigdecimal& other) {\n      return this->divide(other,\
+    \ this->m_scale - other.m_scale);\n    }\n\n    friend ::tools::bigdecimal operator+(const\
+    \ ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
+    \ += rhs;\n    }\n    friend ::tools::bigdecimal operator-(const ::tools::bigdecimal&\
+    \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
+    \ -= rhs;\n    }\n    friend ::tools::bigdecimal operator*(const ::tools::bigdecimal&\
     \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
     \ *= rhs;\n    }\n    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal&\
     \ other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode)\
@@ -1018,8 +1019,8 @@ data:
   isVerificationFile: true
   path: tests/rational/plus.test.cpp
   requiredBy: []
-  timestamp: '2022-11-06 13:36:53+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-13 18:44:50+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/rational/plus.test.cpp
 layout: document
