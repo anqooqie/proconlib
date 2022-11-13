@@ -131,10 +131,12 @@ namespace tools {
           for (auto& d : this->m_digits) {
             d *= coefficient;
           }
-          if (mod > 0 && this->m_digits.empty()) {
-            this->m_digits.push_back(0);
+          if (mod > 0) {
+            if (this->m_digits.empty()) {
+              this->m_digits.push_back(0);
+            }
+            this->m_digits[0] += mod;
           }
-          this->m_digits[0] += mod;
           this->regularize(2);
         } else {
           this->regularize(0);

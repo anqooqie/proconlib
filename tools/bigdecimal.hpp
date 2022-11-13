@@ -191,6 +191,7 @@ namespace tools {
         }
         return comp > 0 || (comp == 0 && this->m_unscaled_value[0] % 2 != 0);
       }()) {
+        this->m_scale = scale;
         this->m_unscaled_value += ::tools::bigint(old_this.signum() * other.signum());
         this->regularize();
       }
