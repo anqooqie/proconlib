@@ -1,55 +1,58 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
+  - icon: ':question:'
+    path: tools/uint128_t.hpp
+    title: Alias for unsigned __int128
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -452,40 +455,42 @@ data:
     \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
     \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
     }\n\n\n#line 1 \"tools/garner2.hpp\"\n\n\n\n#line 1 \"tools/is_prime.hpp\"\n\n\
-    \n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\nnamespace tools {\n\n  template <typename\
-    \ T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2\
-    \ y, const T3 m) {\n    using u128 = unsigned __int128;\n    u128 prod_mod = u128(x\
-    \ >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >=\
-    \ 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
-    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
-    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
-    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
-    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
-    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
-    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
-    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
-    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
-    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
-    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
-    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
-    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
-    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 6 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template <typename M1, typename\
-    \ M2>\n  long long garner2(const M1& a, const M2& b) {\n    using ull = unsigned\
-    \ long long;\n    static constexpr ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n\
-    \    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod()\
-    \ < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n    assert(::tools::is_prime(M2::mod()));\n\
-    \n    // t = (b - a) / M1; (mod M2)\n    // return a + t * M1;\n    const M2 t\
-    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    ull r = t.val();\n    r *= M1::mod();\n\
-    \    r += a.val();\n    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\
-    \n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\
+    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n\n#line 5 \"\
+    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
+    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
+    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
+    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
+    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
+    \n\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const T1 x, T2 n, const\
+    \ T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x,\
+    \ m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r,\
+    \ y, m);\n      }\n      y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n\
+    \    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\n\nnamespace tools\
+    \ {\n\n  constexpr bool is_prime(const unsigned long long n) {\n    constexpr\
+    \ ::std::array<unsigned long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504,\
+    \ 1795265022};\n\n    if (n <= 1) return false;\n    if (n == 2) return true;\n\
+    \    if (n % 2 == 0) return false;\n\n    auto d = n - 1;\n    for (; d % 2 ==\
+    \ 0; d /= 2);\n\n    for (const auto a : bases) {\n      if (a % n == 0) return\
+    \ true;\n\n      auto power = d;\n      auto target = ::tools::pow_mod(a, power,\
+    \ n);\n\n      bool is_composite = true;\n      if (target == 1) is_composite\
+    \ = false;\n      for (; is_composite && power != n - 1; power *= 2, target =\
+    \ ::tools::prod_mod(target, target, n)) {\n        if (target == n - 1) is_composite\
+    \ = false;\n      }\n\n      if (is_composite) {\n        return false;\n    \
+    \  }\n    }\n\n    return true;\n  }\n}\n\n\n#line 6 \"tools/garner2.hpp\"\n\n\
+    namespace tools {\n\n  template <typename M1, typename M2>\n  long long garner2(const\
+    \ M1& a, const M2& b) {\n    using ull = unsigned long long;\n    static constexpr\
+    \ ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n    static const M2 m1_inv_mod_m2\
+    \ = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod() < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
+    \    assert(::tools::is_prime(M2::mod()));\n\n    // t = (b - a) / M1; (mod M2)\n\
+    \    // return a + t * M1;\n    const M2 t = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n\
+    \    ull r = t.val();\n    r *= M1::mod();\n    r += a.val();\n    if (r >= m1_m2)\
+    \ r -= m1_m2;\n    return r;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/abs.hpp\"\n\
@@ -498,7 +503,7 @@ data:
     \ -x : x;\n  }\n}\n\n\n#line 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\
     \n\nnamespace tools {\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
     \ N> gcd(const M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line\
-    \ 29 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
+    \ 30 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint {\n  private:\n\
     \    using mint1 = ::atcoder::static_modint<167772161>;\n    using mint2 = ::atcoder::static_modint<469762049>;\n\
     \n    bool m_positive;\n    ::std::vector<::std::int_fast32_t> m_digits;\n   \
     \ static constexpr ::std::int_fast32_t BASE = 10000;\n    static constexpr ::std::int_fast32_t\
@@ -650,7 +655,7 @@ data:
     \ 1 && other.m_digits[0] == 1) {\n        this->m_positive = (this->m_positive\
     \ == other.m_positive);\n        return *this;\n      }\n\n      using u64 = ::std::uint_fast64_t;\n\
     \      static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max()\
-    \ - (BASE - 1)) / BASE);\n      using u128 = unsigned __int128;\n      static\
+    \ - (BASE - 1)) / BASE);\n      using u128 = ::tools::uint128_t;\n      static\
     \ const ::tools::bigint u128_threshold(\"34028236692093846346337460743176820\"\
     );\n\n      #define TOOLS_BIGINT_NAIVE(type) do {\\\n        if (::tools::bigint::compare_3way_abs(other,\
     \ type ## _threshold) <= 0) { \\\n          type mod = 0;\\\n          for (::std::size_t\
@@ -728,7 +733,7 @@ data:
     \ /= rhs;\n    }\n    ::tools::bigint& operator%=(const ::tools::bigint& other)\
     \ {\n      using u64 = ::std::uint_fast64_t;\n      static const ::tools::bigint\
     \ u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);\n  \
-    \    using u128 = unsigned __int128;\n      static const ::tools::bigint u128_threshold(\"\
+    \    using u128 = ::tools::uint128_t;\n      static const ::tools::bigint u128_threshold(\"\
     34028236692093846346337460743176820\");\n\n      #define TOOLS_BIGINT_NAIVE(type)\
     \ do {\\\n        if (::tools::bigint::compare_3way_abs(other, type ## _threshold)\
     \ <= 0) { \\\n          type mod = 0;\\\n          for (::std::size_t i = other.m_digits.size();\
@@ -918,6 +923,7 @@ data:
   - tools/garner2.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
+  - tools/uint128_t.hpp
   - tools/pow_mod.hpp
   - tools/pow2.hpp
   - tools/abs.hpp
@@ -927,7 +933,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/plus.test.cpp
   requiredBy: []
-  timestamp: '2022-11-13 18:44:50+09:00'
+  timestamp: '2022-11-20 17:00:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/plus.test.cpp

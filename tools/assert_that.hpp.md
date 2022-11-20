@@ -31,6 +31,15 @@ data:
     path: tests/digit_sum.test.cpp
     title: tests/digit_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/extend_hash.test.cpp
+    title: tests/extend_hash.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/extend_input.test.cpp
+    title: tests/extend_input.test.cpp
+  - icon: ':x:'
+    path: tests/extend_output.test.cpp
+    title: tests/extend_output.test.cpp
+  - icon: ':x:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
@@ -54,18 +63,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
+  - icon: ':x:'
+    path: tests/has_mod.test.cpp
+    title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
@@ -84,7 +96,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -115,9 +127,6 @@ data:
     path: tests/tuple_hash.test.cpp
     title: tests/tuple_hash.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/util.test.cpp
-    title: tests/util.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
   - icon: ':heavy_check_mark:'
@@ -129,9 +138,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -149,7 +158,7 @@ data:
   path: tools/assert_that.hpp
   requiredBy: []
   timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/floor_sqrt.test.cpp
   - tests/ceil_log2.test.cpp
@@ -159,6 +168,8 @@ data:
   - tests/floor_log2.test.cpp
   - tests/fact_mod_cache.test.cpp
   - tests/find_cycle.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/extend_output.test.cpp
   - tests/random_tree.test.cpp
   - tests/fill.test.cpp
   - tests/fix.test.cpp
@@ -171,6 +182,7 @@ data:
   - tests/floor.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
+  - tests/has_mod.test.cpp
   - tests/safe_int.test.cpp
   - tests/rational/random.test.cpp
   - tests/resize.test.cpp
@@ -185,8 +197,8 @@ data:
   - tests/tuple_hash.test.cpp
   - tests/logn_integer_partition.test.cpp
   - tests/floor_log.test.cpp
+  - tests/extend_hash.test.cpp
   - tests/permutation.test.cpp
-  - tests/util.test.cpp
   - tests/ceil.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/ssize.test.cpp
