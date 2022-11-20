@@ -5,19 +5,19 @@ data:
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
   - icon: ':x:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extend_output.hpp\"\n\n\n\n#include <array>\n#include\
@@ -122,7 +122,7 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2022-11-20 17:00:02+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/extend_output.test.cpp
   - tests/util.test.cpp
