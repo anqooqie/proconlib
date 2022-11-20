@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
   - icon: ':heavy_check_mark:'
@@ -15,7 +15,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
   - icon: ':heavy_check_mark:'
@@ -24,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/has_mod.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -51,7 +51,7 @@ data:
   - tools/util.hpp
   - tools/extend_input.hpp
   timestamp: '2022-11-20 17:00:02+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp

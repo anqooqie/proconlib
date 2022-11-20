@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -114,7 +114,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extend_input.hpp
       title: Extend operator>>
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extend_output.hpp
       title: Extend operator<<
     - icon: ':heavy_check_mark:'
@@ -198,7 +198,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
     - icon: ':heavy_check_mark:'
@@ -607,7 +607,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/extend_input.test.cpp
       title: tests/extend_input.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extend_output.test.cpp
       title: tests/extend_output.test.cpp
     - icon: ':heavy_check_mark:'
