@@ -24,6 +24,7 @@
 #include "tools/ceil.hpp"
 #include "tools/garner2.hpp"
 #include "tools/pow2.hpp"
+#include "tools/uint128_t.hpp"
 #include "tools/abs.hpp"
 #include "tools/gcd.hpp"
 
@@ -356,7 +357,7 @@ namespace tools {
 
       using u64 = ::std::uint_fast64_t;
       static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);
-      using u128 = unsigned __int128;
+      using u128 = ::tools::uint128_t;
       static const ::tools::bigint u128_threshold("34028236692093846346337460743176820");
 
       #define TOOLS_BIGINT_NAIVE(type) do {\
@@ -519,7 +520,7 @@ namespace tools {
     ::tools::bigint& operator%=(const ::tools::bigint& other) {
       using u64 = ::std::uint_fast64_t;
       static const ::tools::bigint u64_threshold((::std::numeric_limits<u64>::max() - (BASE - 1)) / BASE);
-      using u128 = unsigned __int128;
+      using u128 = ::tools::uint128_t;
       static const ::tools::bigint u128_threshold("34028236692093846346337460743176820");
 
       #define TOOLS_BIGINT_NAIVE(type) do {\
