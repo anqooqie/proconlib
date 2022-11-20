@@ -14,7 +14,7 @@ It returns the minimal primitive root of $p$.
 - $p$ is a prime.
 
 ## Time Complexity
-- $O\left(\left(\log p\right)^2\right)$ expected
+- Supposed to be $O\left(p^\frac{1}{4}\right)$ expected
 
 ## License
 - CC0
