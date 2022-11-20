@@ -30,13 +30,13 @@ data:
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -51,37 +51,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
   - icon: ':x:'

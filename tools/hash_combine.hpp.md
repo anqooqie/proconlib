@@ -8,13 +8,13 @@ data:
   - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':question:'
@@ -35,11 +35,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':question:'
@@ -59,7 +59,7 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
   - icon: ':question:'
@@ -71,20 +71,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':question:'
@@ -93,7 +93,7 @@ data:
   - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':question:'
@@ -218,31 +218,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
@@ -251,10 +251,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/greater_by_arg_total.test.cpp
     title: tests/greater_by_arg_total.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
   - icon: ':heavy_check_mark:'
@@ -266,34 +266,34 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
   - icon: ':heavy_check_mark:'
@@ -308,7 +308,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':x:'

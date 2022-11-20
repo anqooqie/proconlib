@@ -39,9 +39,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/factorize
@@ -230,7 +230,7 @@ data:
   path: tests/prime_factorization.test.cpp
   requiredBy: []
   timestamp: '2022-11-20 20:53:03+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/prime_factorization.test.cpp
 layout: document

@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -120,25 +120,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':x:'

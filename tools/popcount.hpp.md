@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -35,7 +35,7 @@ data:
   - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':x:'
@@ -72,16 +72,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
   - icon: ':heavy_check_mark:'

@@ -12,12 +12,12 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/int128_t.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -104,7 +104,7 @@ data:
   path: tools/int128_t.hpp
   requiredBy: []
   timestamp: '2022-11-20 20:53:03+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/int128_t.test.cpp
 documentation_of: tools/int128_t.hpp
