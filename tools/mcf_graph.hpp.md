@@ -450,8 +450,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
 documentation_of: tools/mcf_graph.hpp
 layout: document
 title: Solver of minimum-cost flow problem

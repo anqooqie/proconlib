@@ -923,17 +923,17 @@ data:
   timestamp: '2022-11-06 13:36:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/stirling_2nd.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/partition_function/n.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/pow_mod1000000007.test.cpp
-  - tests/stirling_2nd.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
 documentation_of: tools/fps.hpp
 layout: document
 title: Formal power series

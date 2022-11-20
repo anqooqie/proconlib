@@ -117,8 +117,8 @@ data:
   timestamp: '2022-10-01 12:09:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prim/basic.test.cpp
   - tests/prim/unconnected.test.cpp
+  - tests/prim/basic.test.cpp
 documentation_of: tools/prim.hpp
 layout: document
 title: Prim's algorithm

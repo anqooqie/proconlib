@@ -171,8 +171,8 @@ data:
   timestamp: '2022-11-06 13:36:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_2nd.test.cpp
   - tests/fact_mod_cache.test.cpp
+  - tests/stirling_2nd.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
 title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},

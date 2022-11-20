@@ -102,8 +102,8 @@ data:
   timestamp: '2022-10-01 12:56:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/zero_one_bfs/directed.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
 documentation_of: tools/zero_one_bfs.hpp
 layout: document
 title: 01-BFS
