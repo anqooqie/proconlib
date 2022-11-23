@@ -613,40 +613,39 @@ data:
     \     }\n      } else {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
     \      (*this)[i + d] += (*this)[i] * c;\n        }\n      }\n    }\n    void\
     \ divide_inplace(const int d, const M c) {\n      const int n = this->size();\n\
-    \      if (c == M(1)) {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
-    \      (*this)[i + d] -= (*this)[i];\n        }\n      } else if (c == M(-1))\
-    \ {\n        for (int i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d]\
-    \ += (*this)[i];\n        }\n      } else {\n        for (int i = n - d - 1; i\
-    \ >= 0; --i) {\n          (*this)[i + d] -= (*this)[i] * c;\n        }\n     \
-    \ }\n    }\n\n    M eval(const M& a) const {\n      M x(1);\n      M res(0);\n\
-    \      for (auto e : *this) {\n        res += e * x;\n        x *= a;\n      }\n\
-    \      return res;\n    }\n\n    F& integral_inplace() {\n      const int n =\
-    \ this->size();\n      assert(n > 0);\n      if (n == 1) return *this = F{0};\n\
-    \      this->insert(this->begin(), 0);\n      this->pop_back();\n      ::std::vector<M>\
-    \ inv(n);\n      inv[1] = M(1);\n      int p = M::mod();\n      for (int i = 2;\
-    \ i < n; ++i) {\n        inv[i] = -inv[p % i] * (p / i);\n      }\n      for (int\
-    \ i = 2; i < n; ++i) {\n        (*this)[i] *= inv[i];\n      }\n      return *this;\n\
-    \    }\n    F integral() const { return F(*this).integral_inplace(); }\n\n   \
-    \ F& derivative_inplace() {\n      const int n = this->size();\n      assert(n\
-    \ > 0);\n      for (int i = 2; i < n; ++i) {\n        (*this)[i] *= i;\n     \
-    \ }\n      this->erase(this->begin());\n      this->push_back(0);\n      return\
-    \ *this;\n    }\n    F derivative() const { return F(*this).derivative_inplace();\
-    \ }\n\n    F& log_inplace(int d = -1) {\n      const int n = this->size();\n \
-    \     assert(n > 0 && (*this)[0] == 1);\n      if (d == -1) d = n;\n      assert(d\
-    \ >= 0);\n      if (d < n) this->resize(d);\n      const F f_inv = this->inv();\n\
-    \      this->derivative_inplace();\n      this->multiply_inplace(f_inv);\n   \
-    \   this->integral_inplace();\n      return *this;\n    }\n    F log(const int\
-    \ d = -1) const { return F(*this).log_inplace(d); }\n\n    F& exp_inplace(int\
-    \ d = -1) {\n      const int n = this->size();\n      assert(n > 0 && (*this)[0]\
-    \ == 0);\n      if (d == -1) d = n;\n      assert(d >= 0);\n\n      // return\
-    \ maximum 2^k s.t. x = 1 (mod 2^k)\n      static const auto pow2_k = [](const\
-    \ unsigned int x) -> int {\n        return (x - 1) & -(x - 1);\n      };\n\n \
-    \     // If M is an NTT-friendly prime, we use a faster algorithm.\n      if (::tools::is_prime(M::mod())\
-    \ && ::tools::pow2(::tools::ceil_log2(d)) <= pow2_k(M::mod()) + 1) {\n       \
-    \ F g{1}, g_fft{1, 1};\n        (*this)[0] = 1;\n        this->resize(d);\n  \
-    \      F h_drv(this->derivative());\n        for (int m = 2; m < d; m *= 2) {\n\
-    \          // prepare\n          F f_fft(this->begin(), this->begin() + m);\n\
-    \          f_fft.resize(2 * m);\n          ::atcoder::internal::butterfly(f_fft);\n\
+    \      if (c == M(1)) {\n        for (int i = 0; i < n - d; ++i) {\n         \
+    \ (*this)[i + d] -= (*this)[i];\n        }\n      } else if (c == M(-1)) {\n \
+    \       for (int i = 0; i < n - d; ++i) {\n          (*this)[i + d] += (*this)[i];\n\
+    \        }\n      } else {\n        for (int i = 0; i < n - d; ++i) {\n      \
+    \    (*this)[i + d] -= (*this)[i] * c;\n        }\n      }\n    }\n\n    M eval(const\
+    \ M& a) const {\n      M x(1);\n      M res(0);\n      for (auto e : *this) {\n\
+    \        res += e * x;\n        x *= a;\n      }\n      return res;\n    }\n\n\
+    \    F& integral_inplace() {\n      const int n = this->size();\n      assert(n\
+    \ > 0);\n      if (n == 1) return *this = F{0};\n      this->insert(this->begin(),\
+    \ 0);\n      this->pop_back();\n      ::std::vector<M> inv(n);\n      inv[1] =\
+    \ M(1);\n      int p = M::mod();\n      for (int i = 2; i < n; ++i) {\n      \
+    \  inv[i] = -inv[p % i] * (p / i);\n      }\n      for (int i = 2; i < n; ++i)\
+    \ {\n        (*this)[i] *= inv[i];\n      }\n      return *this;\n    }\n    F\
+    \ integral() const { return F(*this).integral_inplace(); }\n\n    F& derivative_inplace()\
+    \ {\n      const int n = this->size();\n      assert(n > 0);\n      for (int i\
+    \ = 2; i < n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
+    \      this->push_back(0);\n      return *this;\n    }\n    F derivative() const\
+    \ { return F(*this).derivative_inplace(); }\n\n    F& log_inplace(int d = -1)\
+    \ {\n      const int n = this->size();\n      assert(n > 0 && (*this)[0] == 1);\n\
+    \      if (d == -1) d = n;\n      assert(d >= 0);\n      if (d < n) this->resize(d);\n\
+    \      const F f_inv = this->inv();\n      this->derivative_inplace();\n     \
+    \ this->multiply_inplace(f_inv);\n      this->integral_inplace();\n      return\
+    \ *this;\n    }\n    F log(const int d = -1) const { return F(*this).log_inplace(d);\
+    \ }\n\n    F& exp_inplace(int d = -1) {\n      const int n = this->size();\n \
+    \     assert(n > 0 && (*this)[0] == 0);\n      if (d == -1) d = n;\n      assert(d\
+    \ >= 0);\n\n      // return maximum 2^k s.t. x = 1 (mod 2^k)\n      static const\
+    \ auto pow2_k = [](const unsigned int x) -> int {\n        return (x - 1) & -(x\
+    \ - 1);\n      };\n\n      // If M is an NTT-friendly prime, we use a faster algorithm.\n\
+    \      if (::tools::is_prime(M::mod()) && ::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod()) + 1) {\n        F g{1}, g_fft{1, 1};\n        (*this)[0]\
+    \ = 1;\n        this->resize(d);\n        F h_drv(this->derivative());\n     \
+    \   for (int m = 2; m < d; m *= 2) {\n          // prepare\n          F f_fft(this->begin(),\
+    \ this->begin() + m);\n          f_fft.resize(2 * m);\n          ::atcoder::internal::butterfly(f_fft);\n\
     \n          // Step 2.a'\n          {\n            F g_(m);\n            for (int\
     \ i = 0; i < m; ++i) {\n              g_[i] = f_fft[i] * g_fft[i];\n         \
     \   }\n            ::atcoder::internal::butterfly_inv(g_);\n            g_.erase(g_.begin(),\
@@ -754,7 +753,7 @@ data:
   isVerificationFile: true
   path: tests/partition_function/n.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:49:11+09:00'
+  timestamp: '2022-11-23 17:13:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/partition_function/n.test.cpp
