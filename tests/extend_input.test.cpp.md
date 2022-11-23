@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -238,19 +238,19 @@ data:
     // Strictly speaking, it is not allowed in C++.\n// It makes the program ill-formed\
     \ to include this file, and may cause undefined behavior.\n\n#line 1 \"tools/has_mod.hpp\"\
     \n\n\n\n#line 6 \"tools/has_mod.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class has_mod {\n  private:\n    template <typename U>\n    static auto\
-    \ check(U x) -> decltype(x.mod(), ::std::true_type{});\n    static ::std::false_type\
-    \ check(...);\n\n  public:\n    static constexpr bool value = decltype(check(::std::declval<T>()))::value;\n\
-    \  };\n\n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
-    }\n\n\n#line 16 \"tools/extend_input.hpp\"\n\nnamespace tools {\n  namespace detail\
-    \ {\n    namespace extend_input {\n      template <typename T>\n      ::std::istream&\
-    \ read(::std::istream& is, T& container) {\n        for (auto& v : container)\
-    \ {\n          is >> v;\n        }\n        return is;\n      }\n    }\n  }\n\
-    }\n\nnamespace std {\n  template <class T, ::std::size_t N>\n  ::std::istream&\
-    \ operator>>(::std::istream& is, ::std::array<T, N>& array) {\n    return ::tools::detail::extend_input::read(is,\
-    \ array);\n  }\n\n  template <class T1, class T2>\n  ::std::istream& operator>>(::std::istream&\
-    \ is, ::std::pair<T1, T2>& pair) {\n    return is >> pair.first >> pair.second;\n\
-    \  }\n\n  template <int I = 0, typename... Args>\n  ::std::istream& operator>>(::std::istream&\
+    \ T, typename = ::std::void_t<>>\n  struct has_mod : ::std::false_type {};\n\n\
+    \  template <typename T>\n  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>>\
+    \ : ::std::true_type {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v\
+    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 16 \"tools/extend_input.hpp\"\n\n\
+    namespace tools {\n  namespace detail {\n    namespace extend_input {\n      template\
+    \ <typename T>\n      ::std::istream& read(::std::istream& is, T& container) {\n\
+    \        for (auto& v : container) {\n          is >> v;\n        }\n        return\
+    \ is;\n      }\n    }\n  }\n}\n\nnamespace std {\n  template <class T, ::std::size_t\
+    \ N>\n  ::std::istream& operator>>(::std::istream& is, ::std::array<T, N>& array)\
+    \ {\n    return ::tools::detail::extend_input::read(is, array);\n  }\n\n  template\
+    \ <class T1, class T2>\n  ::std::istream& operator>>(::std::istream& is, ::std::pair<T1,\
+    \ T2>& pair) {\n    return is >> pair.first >> pair.second;\n  }\n\n  template\
+    \ <int I = 0, typename... Args>\n  ::std::istream& operator>>(::std::istream&\
     \ is, ::std::tuple<Args...>& tuple) {\n    if constexpr (I < int(sizeof...(Args)))\
     \ {\n        is >> ::std::get<I>(tuple);\n        return operator>><I + 1>(is,\
     \ tuple);\n      } else {\n      return is;\n    }\n  }\n\n  template <class T,\
@@ -372,8 +372,8 @@ data:
   isVerificationFile: true
   path: tests/extend_input.test.cpp
   requiredBy: []
-  timestamp: '2022-11-20 17:00:02+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-23 11:35:29+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/extend_input.test.cpp
 layout: document

@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/upper_bound.hpp
     title: std::upper_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc208/tasks/abc208_e
@@ -78,36 +78,35 @@ data:
     \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
     \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 1 \"tools/is_range.hpp\"\
     \n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools\
-    \ {\n  template <typename T>\n  class is_range {\n  private:\n    template <typename\
-    \ U>\n    static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});\n\
-    \    static ::std::false_type check(...);\n\n  public:\n    static const bool\
-    \ value = decltype(check(::std::declval<T>()))::value;\n  };\n}\n\n\n#line 11\
-    \ \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class Allocator,\
-    \ typename V>\n  auto fill(::std::vector<T, Allocator>& vector, const V& value)\
-    \ -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n    ::std::fill(::std::begin(vector),\
+    \ {\n  template <typename T, typename = ::std::void_t<>>\n  struct is_range :\
+    \ ::std::false_type {};\n\n  template <typename T>\n  struct is_range<T, ::std::void_t<decltype(::std::begin(::std::declval<T>()),\
+    \ ::std::end(::std::declval<T>()))>> : ::std::true_type {};\n\n  template <typename\
+    \ T>\n  inline constexpr bool is_range_v = ::tools::is_range<T>::value;\n}\n\n\
+    \n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class\
+    \ Allocator, typename V>\n  ::std::enable_if_t<!::tools::is_range_v<T>, void>\
+    \ fill(::std::vector<T, Allocator>& vector, const V& value) {\n    ::std::fill(::std::begin(vector),\
     \ ::std::end(vector), value);\n  }\n  template <class T, ::std::size_t N, typename\
-    \ V>\n  auto fill(::std::array<T, N>& array, const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value,\
-    \ void> {\n    ::std::fill(::std::begin(array), ::std::end(array), value);\n \
-    \ }\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
-    \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void>;\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
-    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void>;\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
-    \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void> {\n    for (auto& child : vector) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
-    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
-    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
-    \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\
-    \n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ ForwardIterator, class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
-    \ last, const T& value) {\n    return ::std::distance(first, ::std::lower_bound(first,\
-    \ last, value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
-    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
-    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ V>\n  ::std::enable_if_t<!::tools::is_range_v<T>, void> fill(::std::array<T,\
+    \ N>& array, const V& value) {\n    ::std::fill(::std::begin(array), ::std::end(array),\
+    \ value);\n  }\n\n  template <class T, class Allocator, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::vector<T, Allocator>& vector, const V& value);\n  template\
+    \ <class T, ::std::size_t N, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::array<T, N>& array, const V& value);\n\n  template <class\
+    \ T, class Allocator, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::vector<T, Allocator>& vector, const V& value) {\n    for (auto&\
+    \ child : vector) {\n      ::tools::fill(child, value);\n    }\n  }\n  template\
+    \ <class T, ::std::size_t N, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::array<T, N>& array, const V& value) {\n    for (auto& child\
+    \ : array) {\n      ::tools::fill(child, value);\n    }\n  }\n}\n\n\n#line 1 \"\
+    tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#line 6 \"tools/lower_bound.hpp\"\n\
+    \nnamespace tools {\n\n  template <class ForwardIterator, class T>\n  auto lower_bound(ForwardIterator\
+    \ first, ForwardIterator last, const T& value) {\n    return ::std::distance(first,\
+    \ ::std::lower_bound(first, last, value));\n  }\n\n  template <class ForwardIterator,\
+    \ class T, class Compare>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
+    \ last, const T& value, Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
     \ last, value, comp));\n  }\n}\n\n\n#line 1 \"tools/upper_bound.hpp\"\n\n\n\n\
     #line 6 \"tools/upper_bound.hpp\"\n\nnamespace tools {\n\n  template <class ForwardIterator,\
     \ class T>\n  auto upper_bound(ForwardIterator first, ForwardIterator last, const\
@@ -175,8 +174,8 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-23 11:35:29+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp
 layout: document

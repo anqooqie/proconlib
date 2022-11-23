@@ -1,46 +1,46 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -277,9 +277,9 @@ data:
     \ };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
     \n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
     #line 11 \"tools/detail/geometry_2d.hpp\"\n#include <optional>\n#line 1 \"tools/is_rational.hpp\"\
-    \n\n\n\nnamespace tools {\n\n  template <typename T>\n  struct is_rational {\n\
-    \    static constexpr bool value = false;\n  };\n\n  template <typename T>\n \
-    \ inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
+    \n\n\n\n#line 5 \"tools/is_rational.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ T>\n  struct is_rational : std::false_type {};\n\n  template <typename T>\n\
+    \  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n}\n\n\
     \n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
     \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
@@ -1031,7 +1031,7 @@ data:
   isVerificationFile: true
   path: tests/circle_2d/intersection_to_circle.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
+  timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/circle_2d/intersection_to_circle.test.cpp

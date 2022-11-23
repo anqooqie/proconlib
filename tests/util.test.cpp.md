@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -67,38 +67,36 @@ data:
     \  void resize(::std::array<T, N>& array, [[maybe_unused]] const Head& head, const\
     \ Tail&... tail) {\n    assert(array.size() == static_cast<::std::size_t>(head));\n\
     \    for (auto& child : array) {\n      ::tools::resize(child, tail...);\n   \
-    \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#line 5 \"tools/fill.hpp\"\n\
-    #include <type_traits>\n#line 1 \"tools/is_range.hpp\"\n\n\n\n#line 7 \"tools/is_range.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  class is_range {\n  private:\n\
-    \    template <typename U>\n    static auto check(U x) -> decltype(::std::begin(x),\
-    \ ::std::end(x), ::std::true_type{});\n    static ::std::false_type check(...);\n\
-    \n  public:\n    static const bool value = decltype(check(::std::declval<T>()))::value;\n\
-    \  };\n}\n\n\n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class\
-    \ T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>& vector,\
-    \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
-    \    ::std::fill(::std::begin(vector), ::std::end(vector), value);\n  }\n  template\
-    \ <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T, N>& array,\
-    \ const V& value) -> ::std::enable_if_t<!::tools::is_range<T>::value, void> {\n\
-    \    ::std::fill(::std::begin(array), ::std::end(array), value);\n  }\n\n  template\
-    \ <class T, class Allocator, typename V>\n  auto fill(::std::vector<T, Allocator>&\
-    \ vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value, void>;\n\
-    \  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
-    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void>;\n\n  template <class T, class Allocator, typename V>\n  auto fill(::std::vector<T,\
-    \ Allocator>& vector, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void> {\n    for (auto& child : vector) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n  template <class T, ::std::size_t N, typename V>\n  auto fill(::std::array<T,\
-    \ N>& array, const V& value) -> ::std::enable_if_t<::tools::is_range<T>::value,\
-    \ void> {\n    for (auto& child : array) {\n      ::tools::fill(child, value);\n\
-    \    }\n  }\n}\n\n\n#line 1 \"tools/extend_input.hpp\"\n\n\n\n// WARNING:\n//\
-    \ This file adds functions to std namespace for convenience.\n// Strictly speaking,\
-    \ it is not allowed in C++.\n// It makes the program ill-formed to include this\
-    \ file, and may cause undefined behavior.\n\n#line 1 \"tools/has_mod.hpp\"\n\n\
-    \n\n#line 6 \"tools/has_mod.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  class has_mod {\n  private:\n    template <typename U>\n    static auto check(U\
-    \ x) -> decltype(x.mod(), ::std::true_type{});\n    static ::std::false_type check(...);\n\
-    \n  public:\n    static constexpr bool value = decltype(check(::std::declval<T>()))::value;\n\
-    \  };\n\n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
+    \ }\n  }\n}\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#include <type_traits>\n#line\
+    \ 1 \"tools/is_range.hpp\"\n\n\n\n#line 7 \"tools/is_range.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename = ::std::void_t<>>\n  struct is_range\
+    \ : ::std::false_type {};\n\n  template <typename T>\n  struct is_range<T, ::std::void_t<decltype(::std::begin(::std::declval<T>()),\
+    \ ::std::end(::std::declval<T>()))>> : ::std::true_type {};\n\n  template <typename\
+    \ T>\n  inline constexpr bool is_range_v = ::tools::is_range<T>::value;\n}\n\n\
+    \n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class\
+    \ Allocator, typename V>\n  ::std::enable_if_t<!::tools::is_range_v<T>, void>\
+    \ fill(::std::vector<T, Allocator>& vector, const V& value) {\n    ::std::fill(::std::begin(vector),\
+    \ ::std::end(vector), value);\n  }\n  template <class T, ::std::size_t N, typename\
+    \ V>\n  ::std::enable_if_t<!::tools::is_range_v<T>, void> fill(::std::array<T,\
+    \ N>& array, const V& value) {\n    ::std::fill(::std::begin(array), ::std::end(array),\
+    \ value);\n  }\n\n  template <class T, class Allocator, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::vector<T, Allocator>& vector, const V& value);\n  template\
+    \ <class T, ::std::size_t N, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::array<T, N>& array, const V& value);\n\n  template <class\
+    \ T, class Allocator, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::vector<T, Allocator>& vector, const V& value) {\n    for (auto&\
+    \ child : vector) {\n      ::tools::fill(child, value);\n    }\n  }\n  template\
+    \ <class T, ::std::size_t N, typename V>\n  ::std::enable_if_t<::tools::is_range_v<T>,\
+    \ void> fill(::std::array<T, N>& array, const V& value) {\n    for (auto& child\
+    \ : array) {\n      ::tools::fill(child, value);\n    }\n  }\n}\n\n\n#line 1 \"\
+    tools/extend_input.hpp\"\n\n\n\n// WARNING:\n// This file adds functions to std\
+    \ namespace for convenience.\n// Strictly speaking, it is not allowed in C++.\n\
+    // It makes the program ill-formed to include this file, and may cause undefined\
+    \ behavior.\n\n#line 1 \"tools/has_mod.hpp\"\n\n\n\n#line 6 \"tools/has_mod.hpp\"\
+    \n\nnamespace tools {\n  template <typename T, typename = ::std::void_t<>>\n \
+    \ struct has_mod : ::std::false_type {};\n\n  template <typename T>\n  struct\
+    \ has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>> : ::std::true_type\
+    \ {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
     }\n\n\n#line 16 \"tools/extend_input.hpp\"\n\nnamespace tools {\n  namespace detail\
     \ {\n    namespace extend_input {\n      template <typename T>\n      ::std::istream&\
     \ read(::std::istream& is, T& container) {\n        for (auto& v : container)\
@@ -229,8 +227,8 @@ data:
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2022-11-20 17:35:34+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-23 11:35:29+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

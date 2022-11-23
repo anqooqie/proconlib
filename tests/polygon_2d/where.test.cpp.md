@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_C
@@ -273,54 +273,53 @@ data:
     \ };\n}\n\n\n#line 1 \"tools/polygon_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
     \n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
     #line 11 \"tools/detail/geometry_2d.hpp\"\n#include <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\
-    \n#include <variant>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  struct is_rational {\n    static constexpr bool\
-    \ value = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
-    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\
-    \nnamespace tools {\n\n  template <class F>\n  class less_by {\n  private:\n \
-    \   F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
-    \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
-    \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
-    \ 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept {\n\
-    \    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x < T(0));\n\
-    \    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
-    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include\
-    \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
-    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
-    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\n  template\
-    \ <typename T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n\
-    \  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n  template\
-    \ <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename T, bool\
-    \ Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled, bool HasRadius>\n\
-    \  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n    T m_radius;\n\
-    \    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n    circle_2d(const\
-    \ ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T,\
-    \ Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&)\
-    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n\n    circle_2d(const ::tools::vector2<T>&\
-    \ center, const T& radius_or_squared_radius);\n\n    template <typename T_ = T,\
-    \ bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    \n#include <variant>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\n#line 5 \"tools/is_rational.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  struct is_rational : std::false_type\
+    \ {};\n\n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
+    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
+    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const\
+    \ T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
+    \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
+    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
+    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
+    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
+    \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
+    \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
+    \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
+    \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
+    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
+    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
+    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
+    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
+    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
+    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
     \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
     \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
@@ -1008,8 +1007,8 @@ data:
   isVerificationFile: true
   path: tests/polygon_2d/where.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-23 11:35:29+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/polygon_2d/where.test.cpp
 layout: document

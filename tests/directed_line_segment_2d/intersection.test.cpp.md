@@ -1,95 +1,95 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -324,54 +324,53 @@ data:
     tools/detail/geometry_2d.hpp\"\n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\
     \n#include <initializer_list>\n#line 11 \"tools/detail/geometry_2d.hpp\"\n#include\
     \ <optional>\n#line 15 \"tools/detail/geometry_2d.hpp\"\n#include <variant>\n\
-    #include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\nnamespace tools {\n\
-    \n  template <typename T>\n  struct is_rational {\n    static constexpr bool value\
-    \ = false;\n  };\n\n  template <typename T>\n  inline constexpr bool is_rational_v\
-    \ = ::tools::is_rational<T>::value;\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\
-    \nnamespace tools {\n\n  template <class F>\n  class less_by {\n  private:\n \
-    \   F selector;\n\n  public:\n    less_by(const F& selector) : selector(selector)\
-    \ {\n    }\n\n    template <class T>\n    bool operator()(const T& x, const T&\
-    \ y) const {\n      return selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line\
-    \ 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  constexpr int signum(const T x) noexcept {\n\
-    \    if constexpr (::std::is_signed_v<T>) {\n      return (T(0) < x) - (x < T(0));\n\
-    \    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
-    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include\
-    \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
-    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M>\n  typename M::T square(const typename M::T& x)\
-    \ {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\n  template\
-    \ <typename T>\n  class directed_line_segment_2d;\n\n  template <typename T>\n\
-    \  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n  template\
-    \ <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename T, bool\
-    \ Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled, bool HasRadius>\n\
-    \  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n    T m_radius;\n\
-    \    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n    circle_2d(const\
-    \ ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n    circle_2d(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n    ~circle_2d() = default;\n    ::tools::circle_2d<T,\
-    \ Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&)\
-    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T,\
-    \ Filled, HasRadius>&&) = default;\n\n    circle_2d(const ::tools::vector2<T>&\
-    \ center, const T& radius_or_squared_radius);\n\n    template <typename T_ = T,\
-    \ bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
+    #include <vector>\n#line 1 \"tools/is_rational.hpp\"\n\n\n\n#line 5 \"tools/is_rational.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  struct is_rational : std::false_type\
+    \ {};\n\n  template <typename T>\n  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;\n\
+    }\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class\
+    \ F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
+    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
+    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5 \"tools/signum.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const\
+    \ T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
+    \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
+    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
+    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
+    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
+    \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
+    \ T>\n  class half_line_2d;\n\n  template <typename T>\n  class line_2d;\n\n \
+    \ template <typename T, bool Filled>\n  class polygon_2d;\n\n  template <typename\
+    \ T, bool Filled>\n  class triangle_2d;\n\n  template <typename T, bool Filled,\
+    \ bool HasRadius>\n  class circle_2d {\n  private:\n    ::tools::vector2<T> m_center;\n\
+    \    T m_radius;\n    T m_squared_radius;\n\n  public:\n    circle_2d() = default;\n\
+    \    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;\n \
+    \   circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n    ~circle_2d()\
+    \ = default;\n    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T,\
+    \ Filled, HasRadius>&) = default;\n    ::tools::circle_2d<T, Filled, HasRadius>&\
+    \ operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;\n\n    circle_2d(const\
+    \ ::tools::vector2<T>& center, const T& radius_or_squared_radius);\n\n    template\
+    \ <typename T_ = T, bool Filled_ = Filled>\n    ::std::enable_if_t<::std::is_floating_point_v<T_>\
     \ && Filled_, T> area() const;\n    ::tools::vector2<T> center() const;\n    template\
     \ <bool HasRadius_ = HasRadius>\n    ::std::enable_if_t<HasRadius_, T> radius()\
     \ const;\n    T squared_radius() const;\n    ::std::pair<int, int> where(const\
@@ -1412,7 +1411,7 @@ data:
     \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
     }\n\n\n#line 1 \"tools/garner2.hpp\"\n\n\n\n#line 1 \"tools/is_prime.hpp\"\n\n\
     \n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\
-    \n#line 12 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t = unsigned\
+    \n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t = unsigned\
     \ __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
     \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
     \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
@@ -1420,46 +1419,40 @@ data:
     ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
     \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
     \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
-    \ os << s;\n}\n\nnamespace std {\n  template <>\n  struct hash<::tools::uint128_t>\
-    \ {\n    ::std::size_t operator()(const ::tools::uint128_t& key) const {\n   \
-    \   static const ::std::size_t seed = ::tools::now();\n\n      ::std::size_t hash\
-    \ = seed;\n      ::tools::hash_combine(hash, static_cast<unsigned long long>(key\
-    \ >> 64));\n      ::tools::hash_combine(hash, static_cast<unsigned long long>(key\
-    \ & 0xFFFFFFFFFFFFFFFFULL));\n      return hash;\n    }\n  };\n}\n\n\n#line 5\
-    \ \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
-    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
-    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
-    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
-    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const T1 x, T2 n, const\
-    \ T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x,\
-    \ m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r,\
-    \ y, m);\n      }\n      y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n\
-    \    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\n\nnamespace tools\
-    \ {\n\n  constexpr bool is_prime(const unsigned long long n) {\n    constexpr\
-    \ ::std::array<unsigned long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504,\
-    \ 1795265022};\n\n    if (n <= 1) return false;\n    if (n == 2) return true;\n\
-    \    if (n % 2 == 0) return false;\n\n    auto d = n - 1;\n    for (; d % 2 ==\
-    \ 0; d /= 2);\n\n    for (const auto a : bases) {\n      if (a % n == 0) return\
-    \ true;\n\n      auto power = d;\n      auto target = ::tools::pow_mod(a, power,\
-    \ n);\n\n      bool is_composite = true;\n      if (target == 1) is_composite\
-    \ = false;\n      for (; is_composite && power != n - 1; power *= 2, target =\
-    \ ::tools::prod_mod(target, target, n)) {\n        if (target == n - 1) is_composite\
-    \ = false;\n      }\n\n      if (is_composite) {\n        return false;\n    \
-    \  }\n    }\n\n    return true;\n  }\n}\n\n\n#line 6 \"tools/garner2.hpp\"\n\n\
-    namespace tools {\n\n  template <typename M1, typename M2>\n  long long garner2(const\
-    \ M1& a, const M2& b) {\n    using ull = unsigned long long;\n    static constexpr\
-    \ ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n    static const M2 m1_inv_mod_m2\
-    \ = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod() < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
-    \    assert(::tools::is_prime(M2::mod()));\n\n    // t = (b - a) / M1; (mod M2)\n\
-    \    // return a + t * M1;\n    const M2 t = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n\
-    \    ull r = t.val();\n    r *= M1::mod();\n    r += a.val();\n    if (r >= m1_m2)\
-    \ r -= m1_m2;\n    return r;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
-    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
-    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
-    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
+    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
+    \ pow_mod(const T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r\
+    \ = 1;\n    T3 y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1)\
+    \ > 0) {\n        r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
+    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 6 \"tools/garner2.hpp\"\n\nnamespace tools {\n\n  template <typename M1, typename\
+    \ M2>\n  long long garner2(const M1& a, const M2& b) {\n    using ull = unsigned\
+    \ long long;\n    static constexpr ull m1_m2 = ull(M1::mod()) * ull(M2::mod());\n\
+    \    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\n    assert(M1::mod()\
+    \ < M2::mod());\n    assert(::tools::is_prime(M1::mod()));\n    assert(::tools::is_prime(M2::mod()));\n\
+    \n    // t = (b - a) / M1; (mod M2)\n    // return a + t * M1;\n    const M2 t\
+    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    ull r = t.val();\n    r *= M1::mod();\n\
+    \    r += a.val();\n    if (r >= m1_m2) r -= m1_m2;\n    return r;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/gcd.hpp\"\n\
@@ -1941,15 +1934,14 @@ data:
     \ is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream& os, const\
     \ ::tools::rational& self) {\n      return os << '(' << self.m_numerator << '/'\
     \ << self.m_denominator << ')';\n    }\n  };\n\n  template <>\n  struct is_rational<::tools::rational>\
-    \ {\n    static constexpr bool value = true;\n  };\n\n  inline ::tools::rational\
-    \ abs(::tools::rational x) {\n    if (x.signum() < 0) x.negate();\n    return\
-    \ x;\n  }\n}\n\n\n#line 7 \"tests/directed_line_segment_2d/intersection.test.cpp\"\
-    \n\nusing ll = long long;\nusing T = tools::rational;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll q;\n  std::cin >> q;\n  for\
-    \ (ll i = 0; i < q; ++i) {\n    tools::vector2<T> p0, p1, p2, p3;\n    std::cin\
-    \ >> p0 >> p1 >> p2 >> p3;\n\n    const tools::directed_line_segment_2d<T> s1(p0,\
-    \ p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n\n    std::cout\
-    \ << ((s1 & s2) ? 1 : 0) << '\\n';\n  }\n\n  return 0;\n}\n"
+    \ : ::std::true_type {};\n\n  inline ::tools::rational abs(::tools::rational x)\
+    \ {\n    if (x.signum() < 0) x.negate();\n    return x;\n  }\n}\n\n\n#line 7 \"\
+    tests/directed_line_segment_2d/intersection.test.cpp\"\n\nusing ll = long long;\n\
+    using T = tools::rational;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll q;\n  std::cin >> q;\n  for (ll i = 0; i < q; ++i) {\n    tools::vector2<T>\
+    \ p0, p1, p2, p3;\n    std::cin >> p0 >> p1 >> p2 >> p3;\n\n    const tools::directed_line_segment_2d<T>\
+    \ s1(p0, p1);\n    const tools::directed_line_segment_2d<T> s2(p2, p3);\n\n  \
+    \  std::cout << ((s1 & s2) ? 1 : 0) << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B\"\n\n\
     #include <iostream>\n#include \"tools/vector2.hpp\"\n#include \"tools/directed_line_segment_2d.hpp\"\
     \n#include \"tools/rational.hpp\"\n\nusing ll = long long;\nusing T = tools::rational;\n\
@@ -1992,7 +1984,7 @@ data:
   isVerificationFile: true
   path: tests/directed_line_segment_2d/intersection.test.cpp
   requiredBy: []
-  timestamp: '2022-11-20 20:53:03+09:00'
+  timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/intersection.test.cpp

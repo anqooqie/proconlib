@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -272,34 +272,34 @@ data:
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/has_mod.hpp\"\
     \n\n\n\n#line 6 \"tools/has_mod.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class has_mod {\n  private:\n    template <typename U>\n    static auto\
-    \ check(U x) -> decltype(x.mod(), ::std::true_type{});\n    static ::std::false_type\
-    \ check(...);\n\n  public:\n    static constexpr bool value = decltype(check(::std::declval<T>()))::value;\n\
-    \  };\n\n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
-    }\n\n\n#line 1 \"tools/modint_for_rolling_hash.hpp\"\n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\
-    \n\n\n\n#include <cstdint>\n#line 6 \"tools/detail/rolling_hash.hpp\"\n#include\
-    \ <tuple>\n#include <vector>\n#line 1 \"tools/pow.hpp\"\n\n\n\n#line 6 \"tools/pow.hpp\"\
-    \n#include <cmath>\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n\
-    #include <limits>\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace\
-    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
-    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
-    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \ T, typename = ::std::void_t<>>\n  struct has_mod : ::std::false_type {};\n\n\
+    \  template <typename T>\n  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>>\
+    \ : ::std::true_type {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v\
+    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 1 \"tools/modint_for_rolling_hash.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\n\n\n\n#include <cstdint>\n\
+    #line 6 \"tools/detail/rolling_hash.hpp\"\n#include <tuple>\n#include <vector>\n\
+    #line 1 \"tools/pow.hpp\"\n\n\n\n#line 6 \"tools/pow.hpp\"\n#include <cmath>\n\
+    #line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include <limits>\n\
+    #line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
+    \ <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
+    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
+    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
+    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
+    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
+    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
+    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
+    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
+    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
+    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
+    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
+    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
+    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
     \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
     \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
@@ -524,8 +524,8 @@ data:
   isVerificationFile: true
   path: tests/has_mod.test.cpp
   requiredBy: []
-  timestamp: '2022-11-20 17:00:02+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2022-11-23 11:35:29+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/has_mod.test.cpp
 layout: document
