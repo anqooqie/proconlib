@@ -211,15 +211,15 @@ namespace tools {
     void divide_inplace(const int d, const M c) {
       const int n = this->size();
       if (c == M(1)) {
-        for (int i = n - d - 1; i >= 0; --i) {
+        for (int i = 0; i < n - d; ++i) {
           (*this)[i + d] -= (*this)[i];
         }
       } else if (c == M(-1)) {
-        for (int i = n - d - 1; i >= 0; --i) {
+        for (int i = 0; i < n - d; ++i) {
           (*this)[i + d] += (*this)[i];
         }
       } else {
-        for (int i = n - d - 1; i >= 0; --i) {
+        for (int i = 0; i < n - d; ++i) {
           (*this)[i + d] -= (*this)[i] * c;
         }
       }
