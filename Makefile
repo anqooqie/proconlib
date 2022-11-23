@@ -1,3 +1,7 @@
+.PHONY: test
+test:
+	oj-verify run -j 2
+
 .PHONY: docs
 docs:
 	oj-verify docs
