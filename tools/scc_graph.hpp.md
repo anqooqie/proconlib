@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
   _extendedRequiredBy: []
@@ -194,8 +194,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/scc_graph/sccs.test.cpp
-  - tests/scc_graph/scc_id.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/scc_graph/scc_id.test.cpp
 documentation_of: tools/scc_graph.hpp
 layout: document
 title: Strongly connected component decomposition

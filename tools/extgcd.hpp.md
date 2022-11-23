@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -17,10 +17,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
@@ -57,12 +57,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#include <utility>\n\
@@ -93,27 +93,27 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
-  - tools/inv_mod.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/log_mod.hpp
-  - tools/rolling_hash.hpp
   - tools/garner.hpp
-  - tools/extended_garner.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/inv_mod.hpp
+  - tools/extended_garner.hpp
+  - tools/tetration_mod.hpp
   - tools/bezout.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
+  - tools/log_mod.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/has_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/extgcd.test.cpp
-  - tests/bezout.test.cpp
   - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/extgcd.test.cpp
+  - tests/bezout.test.cpp
+  - tests/log_mod.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document
 title: Extended Euclidean algorithm

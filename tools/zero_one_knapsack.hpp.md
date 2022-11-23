@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
@@ -542,9 +542,9 @@ data:
   timestamp: '2022-10-23 17:30:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
 documentation_of: tools/zero_one_knapsack.hpp
 layout: document
 title: 0-1 knapsack problem

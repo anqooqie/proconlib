@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
@@ -210,13 +210,13 @@ data:
   path: tools/pow_mod_cache.hpp
   requiredBy:
   - tools/modint_for_rolling_hash.hpp
-  - tools/rolling_hash.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/has_mod.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/has_mod.test.cpp
 documentation_of: tools/pow_mod_cache.hpp
 layout: document
 title: Cache of $b^n \pmod{M}$

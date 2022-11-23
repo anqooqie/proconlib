@@ -2,25 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
@@ -47,22 +47,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   - icon: ':heavy_check_mark:'
@@ -171,10 +171,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
@@ -189,30 +189,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
@@ -233,78 +233,78 @@ data:
   isVerificationFile: false
   path: tools/abs.hpp
   requiredBy:
-  - tools/quaternion.hpp
-  - tools/less_by_arg.hpp
-  - tools/vector4.hpp
-  - tools/greater_by_arg_total.hpp
-  - tools/less_by_arg_total.hpp
   - tools/vector.hpp
-  - tools/bigint.hpp
-  - tools/bigdecimal.hpp
-  - tools/convex_hull.hpp
-  - tools/polygon_2d.hpp
-  - tools/line_2d.hpp
-  - tools/circle_2d.hpp
-  - tools/half_line_2d.hpp
   - tools/vector3.hpp
-  - tools/detail/geometry_2d.hpp
-  - tools/detail/vector_common.hpp
+  - tools/vector4.hpp
+  - tools/line_2d.hpp
+  - tools/rational.hpp
+  - tools/polygon_2d.hpp
   - tools/triangle_2d.hpp
   - tools/greater_by_arg.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/rational.hpp
-  - tools/ccw.hpp
-  - tools/matrix.hpp
+  - tools/bigdecimal.hpp
+  - tools/greater_by_arg_total.hpp
+  - tools/circle_2d.hpp
   - tools/vector2.hpp
+  - tools/bigint.hpp
+  - tools/convex_hull.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/matrix.hpp
+  - tools/half_line_2d.hpp
+  - tools/less_by_arg.hpp
+  - tools/detail/vector_common.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/quaternion.hpp
+  - tools/ccw.hpp
+  - tools/directed_line_segment_2d.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/greater_by_arg.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/ccw.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
-  - tests/ccw.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/bigdecimal/random.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/matrix/inv.test.cpp
   - tests/matrix/determinant.test.cpp
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/solve.test.cpp
-  - tests/matrix/inv.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/greater_by_arg_total.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/less_by_arg.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/convex_hull.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/less_by_arg.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: std::abs(x) extended for my library

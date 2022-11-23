@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
@@ -405,10 +405,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/vsubtree.test.cpp
-  - tests/hld/lca.test.cpp
-  - tests/hld/vpath.test.cpp
   - tests/hld/vancestor.test.cpp
+  - tests/hld/vpath.test.cpp
   - tests/hld/epath.test.cpp
+  - tests/hld/lca.test.cpp
 documentation_of: tools/hld.hpp
 layout: document
 title: Heavy-light decomposition

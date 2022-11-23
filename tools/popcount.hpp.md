@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -32,16 +32,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
@@ -78,10 +78,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
   - icon: ':heavy_check_mark:'
@@ -93,18 +93,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix.test.cpp
     title: tests/wavelet_matrix.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -169,42 +169,42 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/wavelet_matrix.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/totient.hpp
-  - tools/log_mod.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/divisors.hpp
-  - tools/lca.hpp
-  - tools/chromatic_number.hpp
-  - tools/tetration_mod.hpp
-  - tools/floor_log2.hpp
   - tools/extended_lucas.hpp
-  - tools/prime_factorization.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/li_chao_segtree.hpp
-  - tools/primitive_root.hpp
   - tools/ntz.hpp
+  - tools/totient.hpp
+  - tools/lca.hpp
+  - tools/floor_log2.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/prime_factorization.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/primitive_root.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/log_mod.hpp
+  - tools/chromatic_number.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prim/unconnected.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/divisors.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/lca.test.cpp
-  - tests/totient.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/wavelet_matrix.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/floor_log2.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/rotate_left.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/totient.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/lca.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/chromatic_number.test.cpp
+  - tests/rotate_left.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

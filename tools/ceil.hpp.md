@@ -2,10 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -35,10 +35,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -132,22 +132,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -165,7 +165,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -177,9 +177,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -196,67 +196,67 @@ data:
   isVerificationFile: false
   path: tools/ceil.hpp
   requiredBy:
-  - tools/ceil_log.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/zero_one_knapsack.hpp
-  - tools/log_mod.hpp
-  - tools/bigint.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/rolling_hash.hpp
-  - tools/ceil_kth_root.hpp
-  - tools/bigdecimal.hpp
   - tools/pow_mod_cache.hpp
-  - tools/mo.hpp
-  - tools/ceil_sqrt.hpp
-  - tools/detail/rolling_hash.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rational.hpp
+  - tools/zero_one_knapsack.hpp
+  - tools/round.hpp
+  - tools/bigdecimal.hpp
   - tools/segmented_sieve.hpp
   - tools/range_of_digit_products.hpp
-  - tools/rational.hpp
-  - tools/round.hpp
+  - tools/ceil_sqrt.hpp
+  - tools/bigint.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
+  - tools/mo.hpp
+  - tools/ceil_log.hpp
+  - tools/log_mod.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rotate_right.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/mo.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/ceil.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/ceil_log.test.cpp
   - tests/line_2d/projection.test.cpp
-  - tests/bigdecimal/random.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/mo.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/range_of_digit_products.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/ceil_sqrt.test.cpp
   - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/bezout.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/ceil.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/ceil_log.test.cpp
   - tests/rotate_left.test.cpp
-  - tests/range_of_digit_products.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
 title: $\left\lceil \frac{x}{y} \right\rceil$

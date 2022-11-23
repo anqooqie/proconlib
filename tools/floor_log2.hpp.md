@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
@@ -23,16 +23,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -60,21 +60,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -136,31 +136,31 @@ data:
   isVerificationFile: false
   path: tools/floor_log2.hpp
   requiredBy:
-  - tools/disjoint_sparse_table.hpp
-  - tools/totient.hpp
-  - tools/log_mod.hpp
-  - tools/divisors.hpp
-  - tools/lca.hpp
-  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
-  - tools/prime_factorization.hpp
+  - tools/disjoint_sparse_table.hpp
   - tools/li_chao_segtree.hpp
+  - tools/totient.hpp
+  - tools/lca.hpp
+  - tools/divisors.hpp
+  - tools/tetration_mod.hpp
+  - tools/prime_factorization.hpp
   - tools/primitive_root.hpp
+  - tools/log_mod.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prime_factorization.test.cpp
-  - tests/divisors.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/lca.test.cpp
-  - tests/totient.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/log_mod.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/floor_log2.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/tetration_mod.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/totient.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/divisors.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/lca.test.cpp
+  - tests/log_mod.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

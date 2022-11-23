@@ -245,8 +245,8 @@ data:
   isVerificationFile: false
   path: tools/osa_k.hpp
   requiredBy:
-  - tools/gcd_convolution.hpp
   - tools/lcm_convolution.hpp
+  - tools/gcd_convolution.hpp
   timestamp: '2022-09-11 13:33:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
