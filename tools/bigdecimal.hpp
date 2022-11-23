@@ -22,13 +22,6 @@ namespace tools {
     ::tools::bigint m_unscaled_value;
     ::std::ptrdiff_t m_scale;
 
-    ::tools::bigdecimal& regularize() {
-      if (this->m_unscaled_value.signum() == 0) {
-        this->m_scale = 0;
-      }
-      return *this;
-    }
-
   public:
     const ::tools::bigint& unscaled_value() const {
       return this->m_unscaled_value;
@@ -56,7 +49,6 @@ namespace tools {
     ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {
       this->m_unscaled_value.multiply_by_pow10(s - this->m_scale);
       this->m_scale = s;
-      this->regularize();
       return *this;
     }
     static int compare_3way(const ::tools::bigdecimal& x, const ::tools::bigdecimal& y) {
@@ -94,7 +86,6 @@ namespace tools {
         this->m_scale = 0;
       }
       this->m_unscaled_value = ::tools::bigint(s);
-      this->regularize();
     }
 
     friend bool operator==(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {
@@ -128,19 +119,19 @@ namespace tools {
       this->set_scale(scale);
       other.set_scale(scale);
       this->m_unscaled_value += other.m_unscaled_value;
-      return this->regularize();
+      return *this;
     }
     ::tools::bigdecimal& operator-=(::tools::bigdecimal other) {
       const ::std::size_t scale = ::std::max(this->m_scale, other.m_scale);
       this->set_scale(scale);
       other.set_scale(scale);
       this->m_unscaled_value -= other.m_unscaled_value;
-      return this->regularize();
+      return *this;
     }
     ::tools::bigdecimal& operator*=(const ::tools::bigdecimal& other) {
       this->m_unscaled_value *= other.m_unscaled_value;
       this->m_scale += other.m_scale;
-      return this->regularize();
+      return *this;
     }
     ::tools::bigdecimal& divide(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode) {
       assert(other.signum() != 0);
@@ -161,7 +152,6 @@ namespace tools {
       this->m_unscaled_value.multiply_by_pow10(scale - (this->m_scale - other.m_scale));
       this->m_unscaled_value /= other.m_unscaled_value;
       this->m_scale = scale;
-      this->regularize();
 
       if ([&]() {
         if (rounding_mode == ::tools::rounding_mode::down) {
@@ -193,7 +183,6 @@ namespace tools {
       }()) {
         this->m_scale = scale;
         this->m_unscaled_value += ::tools::bigint(old_this.signum() * other.signum());
-        this->regularize();
       }
 
       return *this;
@@ -248,6 +237,10 @@ namespace tools {
       return is;
     }
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::bigdecimal& self) {
+      if (self.signum() == 0 && self.m_scale <= 0) {
+        return os << '0';
+      }
+
       if (self.signum() < 0) {
         os << '-';
       }
