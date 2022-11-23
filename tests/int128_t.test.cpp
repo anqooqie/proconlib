@@ -2,10 +2,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <vector>
-#include <cstddef>
-#include <functional>
-#include <algorithm>
 #include "tools/assert_that.hpp"
 #include "tools/int128_t.hpp"
 
@@ -89,20 +85,6 @@ int main() {
     std::ostringstream oss;
     oss << v;
     assert_that(oss.str() == "170141183460469231731687303715884105727");
-  }
-
-  {
-    std::vector<std::size_t> v;
-    const std::hash<tools::int128_t> hasher;
-    for (int i = 0; i < 1000000; ++i) {
-      v.push_back(hasher(i));
-      assert_that(hasher(i) == v.back());
-    }
-
-    const auto old_size = v.size();
-    std::sort(v.begin(), v.end());
-    v.erase(std::unique(v.begin(), v.end()), v.end());
-    assert_that(v.size() == old_size);
   }
 
   std::cout << "Hello World" << '\n';

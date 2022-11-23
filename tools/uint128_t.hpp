@@ -6,9 +6,6 @@
 #include <cassert>
 #include <cstddef>
 #include <algorithm>
-#include <functional>
-#include "tools/now.hpp"
-#include "tools/hash_combine.hpp"
 
 namespace tools {
   using uint128_t = unsigned __int128;
@@ -39,20 +36,6 @@ namespace tools {
   ::std::reverse(s.begin(), s.end());
 
   return os << s;
-}
-
-namespace std {
-  template <>
-  struct hash<::tools::uint128_t> {
-    ::std::size_t operator()(const ::tools::uint128_t& key) const {
-      static const ::std::size_t seed = ::tools::now();
-
-      ::std::size_t hash = seed;
-      ::tools::hash_combine(hash, static_cast<unsigned long long>(key >> 64));
-      ::tools::hash_combine(hash, static_cast<unsigned long long>(key & 0xFFFFFFFFFFFFFFFFULL));
-      return hash;
-    }
-  };
 }
 
 #endif

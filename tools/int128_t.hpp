@@ -6,7 +6,6 @@
 #include <cassert>
 #include <cstddef>
 #include <algorithm>
-#include <functional>
 #include "tools/uint128_t.hpp"
 
 namespace tools {
@@ -50,16 +49,6 @@ namespace tools {
   if (negative) s.push_back('-');
   ::std::reverse(s.begin(), s.end());
   return os << s;
-}
-
-namespace std {
-  template <>
-  struct hash<::tools::int128_t> {
-    ::std::size_t operator()(const ::tools::int128_t& key) const {
-      static ::std::hash<::tools::uint128_t> hasher;
-      return hasher(static_cast<::tools::uint128_t>(key));
-    }
-  };
 }
 
 #endif
