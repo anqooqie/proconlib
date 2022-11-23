@@ -177,9 +177,7 @@ namespace tools {
   };
 
   template <>
-  struct is_rational<::tools::rational> {
-    static constexpr bool value = true;
-  };
+  struct is_rational<::tools::rational> : ::std::true_type {};
 
   inline ::tools::rational abs(::tools::rational x) {
     if (x.signum() < 0) x.negate();

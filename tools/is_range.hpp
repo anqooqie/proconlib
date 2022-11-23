@@ -1,21 +1,19 @@
 #ifndef TOOLS_IS_RANGE_HPP
 #define TOOLS_IS_RANGE_HPP
 
-#include <iterator>
 #include <type_traits>
+#include <iterator>
 #include <utility>
 
 namespace tools {
-  template <typename T>
-  class is_range {
-  private:
-    template <typename U>
-    static auto check(U x) -> decltype(::std::begin(x), ::std::end(x), ::std::true_type{});
-    static ::std::false_type check(...);
+  template <typename T, typename = ::std::void_t<>>
+  struct is_range : ::std::false_type {};
 
-  public:
-    static const bool value = decltype(check(::std::declval<T>()))::value;
-  };
+  template <typename T>
+  struct is_range<T, ::std::void_t<decltype(::std::begin(::std::declval<T>()), ::std::end(::std::declval<T>()))>> : ::std::true_type {};
+
+  template <typename T>
+  inline constexpr bool is_range_v = ::tools::is_range<T>::value;
 }
 
 #endif

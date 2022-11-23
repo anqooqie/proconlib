@@ -5,16 +5,11 @@
 #include <utility>
 
 namespace tools {
-  template <typename T>
-  class has_mod {
-  private:
-    template <typename U>
-    static auto check(U x) -> decltype(x.mod(), ::std::true_type{});
-    static ::std::false_type check(...);
+  template <typename T, typename = ::std::void_t<>>
+  struct has_mod : ::std::false_type {};
 
-  public:
-    static constexpr bool value = decltype(check(::std::declval<T>()))::value;
-  };
+  template <typename T>
+  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>> : ::std::true_type {};
 
   template <typename T>
   inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;
