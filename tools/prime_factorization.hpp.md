@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':x:'
@@ -232,20 +232,20 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
   - tools/totient.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
   - tools/primitive_root.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/tetration_mod.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/divisors.test.cpp
+  - tests/totient.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document
 title: Pollard's rho algorithm

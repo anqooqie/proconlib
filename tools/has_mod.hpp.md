@@ -2,23 +2,23 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extend_output.hpp
     title: Extend operator<<
   - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':x:'
@@ -26,7 +26,7 @@ data:
     title: tests/util.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/has_mod.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -49,11 +49,11 @@ data:
   - tools/util.hpp
   - tools/extend_input.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/has_mod.test.cpp
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp
-  - tests/has_mod.test.cpp
   - tests/util.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document

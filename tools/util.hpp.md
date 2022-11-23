@@ -4,22 +4,22 @@ data:
   - icon: ':question:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   - icon: ':question:'

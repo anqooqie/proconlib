@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':question:'
@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -57,7 +57,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
@@ -72,7 +72,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -169,42 +169,42 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/ntz.hpp
-  - tools/totient.hpp
-  - tools/lca.hpp
-  - tools/floor_log2.hpp
-  - tools/divisors.hpp
-  - tools/tetration_mod.hpp
-  - tools/prime_factorization.hpp
   - tools/wavelet_matrix.hpp
-  - tools/primitive_root.hpp
-  - tools/dynamic_bitset.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/totient.hpp
   - tools/log_mod.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/divisors.hpp
+  - tools/lca.hpp
   - tools/chromatic_number.hpp
+  - tools/tetration_mod.hpp
+  - tools/floor_log2.hpp
+  - tools/extended_lucas.hpp
+  - tools/prime_factorization.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/primitive_root.hpp
+  - tools/ntz.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/wavelet_matrix.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/prime_factorization.test.cpp
   - tests/prim/unconnected.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/divisors.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
+  - tests/totient.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/log_mod.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/chromatic_number.test.cpp
+  - tests/wavelet_matrix.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/rotate_left.test.cpp
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

@@ -4,10 +4,10 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   - icon: ':question:'

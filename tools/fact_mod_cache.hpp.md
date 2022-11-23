@@ -28,7 +28,7 @@ data:
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':x:'
@@ -36,7 +36,7 @@ data:
     title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -183,7 +183,7 @@ data:
   requiredBy:
   - tools/stirling_2nd.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fact_mod_cache.test.cpp
   - tests/stirling_2nd.test.cpp

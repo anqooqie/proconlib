@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
@@ -27,7 +27,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':x:'
@@ -106,15 +106,15 @@ data:
   isVerificationFile: false
   path: tools/garner.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
   - tools/extended_garner.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/extended_lucas.test.cpp
   - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
 documentation_of: tools/garner.hpp
 layout: document
 title: Garner's algorithm

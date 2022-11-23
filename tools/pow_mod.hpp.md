@@ -26,14 +26,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':question:'
@@ -47,13 +47,13 @@ data:
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/nth_term.hpp
     title: Bostan-Mori algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -134,55 +134,55 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':x:'
@@ -269,75 +269,75 @@ data:
   isVerificationFile: false
   path: tools/pow_mod.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
-  - tools/rational.hpp
-  - tools/bigdecimal.hpp
-  - tools/stirling_2nd.hpp
+  - tools/fact_mod_cache.hpp
   - tools/totient.hpp
+  - tools/log_mod.hpp
   - tools/garner3.hpp
+  - tools/bigint.hpp
+  - tools/divisors.hpp
+  - tools/nth_term.hpp
+  - tools/bigdecimal.hpp
   - tools/fps.hpp
   - tools/convolution.hpp
-  - tools/bigint.hpp
-  - tools/nth_term.hpp
   - tools/partition_function.hpp
-  - tools/divisors.hpp
-  - tools/garner2.hpp
+  - tools/stirling_2nd.hpp
   - tools/tetration_mod.hpp
+  - tools/garner2.hpp
+  - tools/rational.hpp
+  - tools/extended_lucas.hpp
   - tools/prime_factorization.hpp
-  - tools/primitive_root.hpp
   - tools/is_prime.hpp
-  - tools/log_mod.hpp
-  - tools/fact_mod_cache.hpp
+  - tools/primitive_root.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/line_2d/projection.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/nth_term.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/exp_mod1000000007.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
-  - tests/divisors.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/is_prime.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/divisors.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/totient.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/log_mod.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/nth_term.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/is_prime.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
 title: $x^y \pmod{M}$

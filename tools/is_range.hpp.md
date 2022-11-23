@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
   - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
     title: tests/util.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_range.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -41,10 +41,10 @@ data:
   isVerificationFile: false
   path: tools/is_range.hpp
   requiredBy:
-  - tools/fill.hpp
   - tools/util.hpp
+  - tools/fill.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fill.test.cpp
   - tests/range_of_digit_products.test.cpp

@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
@@ -18,7 +18,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
@@ -70,18 +70,18 @@ data:
   isVerificationFile: false
   path: tools/run_length.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
   - tools/totient.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/tetration_mod.test.cpp
-  - tests/run_length.test.cpp
+  - tests/divisors.test.cpp
   - tests/totient.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/divisors.test.cpp
+  - tests/run_length.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/run_length.hpp
 layout: document
 title: Run-length encoding

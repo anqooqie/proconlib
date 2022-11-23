@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   _extendedRequiredBy:
@@ -9,7 +9,7 @@ data:
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
   - icon: ':x:'
@@ -20,7 +20,7 @@ data:
     title: tests/util.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fill.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -72,7 +72,7 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fill.test.cpp
   - tests/range_of_digit_products.test.cpp

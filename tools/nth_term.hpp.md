@@ -28,12 +28,12 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/nth_term.test.cpp
     title: tests/nth_term.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/nth_term.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -536,7 +536,7 @@ data:
   path: tools/nth_term.hpp
   requiredBy: []
   timestamp: '2022-11-23 11:49:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/nth_term.test.cpp
 documentation_of: tools/nth_term.hpp

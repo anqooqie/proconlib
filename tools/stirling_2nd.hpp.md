@@ -7,11 +7,11 @@ data:
   - icon: ':question:'
     path: tools/convolution.hpp
     title: Arbitrary modulus convolution
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':question:'

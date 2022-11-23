@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -44,28 +44,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod1000000007.test.cpp
     title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod1000000007.test.cpp
     title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
@@ -77,10 +77,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -153,37 +153,37 @@ data:
   path: tools/ceil_log2.hpp
   requiredBy:
   - tools/disjoint_sparse_table.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/stirling_2nd.hpp
-  - tools/fps.hpp
-  - tools/lca.hpp
-  - tools/partition_function.hpp
-  - tools/dual_segtree.hpp
-  - tools/binary_heap.hpp
   - tools/persistent_dual_segtree.hpp
+  - tools/lca.hpp
+  - tools/fps.hpp
+  - tools/partition_function.hpp
+  - tools/stirling_2nd.hpp
+  - tools/dual_segtree.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/binary_heap.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/ceil_log2.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/dual_segtree.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/binary_heap.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/exp_mod1000000007.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
   - tests/ssize.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/dual_segtree.test.cpp
+  - tests/binary_heap.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

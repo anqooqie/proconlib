@@ -8,16 +8,16 @@ data:
   - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':question:'
@@ -87,13 +87,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':x:'
@@ -136,47 +136,47 @@ data:
   isVerificationFile: false
   path: tools/floor.hpp
   requiredBy:
-  - tools/pow_mod_cache.hpp
   - tools/modint_for_rolling_hash.hpp
+  - tools/bigint.hpp
+  - tools/floor_log.hpp
+  - tools/rolling_hash.hpp
+  - tools/bigdecimal.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/rational.hpp
   - tools/round.hpp
-  - tools/bigdecimal.hpp
-  - tools/floor_log.hpp
-  - tools/bigint.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/rolling_hash.hpp
   timestamp: '2022-07-02 14:04:07+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/line_2d/projection.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/rolling_hash.test.cpp
+  - tests/has_mod.test.cpp
   - tests/floor.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/divides.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/rounding.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/floor_log.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/bezout.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
 title: $\left\lfloor \frac{x}{y} \right\rfloor$
