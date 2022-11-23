@@ -791,20 +791,18 @@ data:
     \    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 17 \"tools/bigdecimal.hpp\"\
     \n\nnamespace tools {\n  class bigdecimal {\n  private:\n    // *this := this->m_unscaled_value\
     \ * (10 ** -this->m_scale)\n    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t\
-    \ m_scale;\n\n    ::tools::bigdecimal& regularize() {\n      if (this->m_unscaled_value.signum()\
-    \ == 0) {\n        this->m_scale = 0;\n      }\n      return *this;\n    }\n\n\
-    \  public:\n    const ::tools::bigint& unscaled_value() const {\n      return\
-    \ this->m_unscaled_value;\n    }\n    ::std::size_t precision() const {\n    \
-    \  return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t scale()\
-    \ const {\n      return this->m_scale;\n    }\n    int signum() const {\n    \
-    \  return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal& negate()\
-    \ {\n      this->m_unscaled_value.negate();\n      return *this;\n    }\n    ::tools::bigdecimal&\
-    \ multiply_by_pow10(const ::std::ptrdiff_t n) {\n      this->m_scale -= n;\n \
-    \     return *this;\n    }\n    ::tools::bigdecimal& divide_by_pow10(const ::std::ptrdiff_t\
-    \ n) {\n      return this->multiply_by_pow10(-n);\n    }\n    ::tools::bigdecimal&\
-    \ set_scale(const ::std::ptrdiff_t s) {\n      this->m_unscaled_value.multiply_by_pow10(s\
-    \ - this->m_scale);\n      this->m_scale = s;\n      this->regularize();\n   \
-    \   return *this;\n    }\n    static int compare_3way(const ::tools::bigdecimal&\
+    \ m_scale;\n\n  public:\n    const ::tools::bigint& unscaled_value() const {\n\
+    \      return this->m_unscaled_value;\n    }\n    ::std::size_t precision() const\
+    \ {\n      return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t\
+    \ scale() const {\n      return this->m_scale;\n    }\n    int signum() const\
+    \ {\n      return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal&\
+    \ negate() {\n      this->m_unscaled_value.negate();\n      return *this;\n  \
+    \  }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t n) {\n\
+    \      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
+    \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
+    \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
+    \ this->m_unscaled_value.multiply_by_pow10(s - this->m_scale);\n      this->m_scale\
+    \ = s;\n      return *this;\n    }\n    static int compare_3way(const ::tools::bigdecimal&\
     \ x, const ::tools::bigdecimal& y) {\n      if (const auto comp = ::tools::signum(x.m_unscaled_value.signum()\
     \ - y.m_unscaled_value.signum()); comp != 0) {\n        return comp;\n      }\n\
     \      return [&]() {\n        ::tools::bigdecimal abs_x(x);\n        if (abs_x.signum()\
@@ -821,8 +819,8 @@ data:
     \ m_scale(0) {\n    }\n    explicit bigdecimal(::std::string s) {\n      if (const\
     \ auto pos = s.find('.'); pos != ::std::string::npos) {\n        this->m_scale\
     \ = s.size() - pos - 1;\n        s.erase(pos, 1);\n      } else {\n        this->m_scale\
-    \ = 0;\n      }\n      this->m_unscaled_value = ::tools::bigint(s);\n      this->regularize();\n\
-    \    }\n\n    friend bool operator==(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
+    \ = 0;\n      }\n      this->m_unscaled_value = ::tools::bigint(s);\n    }\n\n\
+    \    friend bool operator==(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
     \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) == 0;\n   \
     \ }\n    friend bool operator!=(const ::tools::bigdecimal& lhs, const ::tools::bigdecimal&\
     \ rhs) {\n      return ::tools::bigdecimal::compare_3way(lhs, rhs) != 0;\n   \
@@ -839,27 +837,26 @@ data:
     \    }\n\n    ::tools::bigdecimal& operator+=(::tools::bigdecimal other) {\n \
     \     const ::std::size_t scale = ::std::max(this->m_scale, other.m_scale);\n\
     \      this->set_scale(scale);\n      other.set_scale(scale);\n      this->m_unscaled_value\
-    \ += other.m_unscaled_value;\n      return this->regularize();\n    }\n    ::tools::bigdecimal&\
+    \ += other.m_unscaled_value;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ operator-=(::tools::bigdecimal other) {\n      const ::std::size_t scale = ::std::max(this->m_scale,\
     \ other.m_scale);\n      this->set_scale(scale);\n      other.set_scale(scale);\n\
-    \      this->m_unscaled_value -= other.m_unscaled_value;\n      return this->regularize();\n\
+    \      this->m_unscaled_value -= other.m_unscaled_value;\n      return *this;\n\
     \    }\n    ::tools::bigdecimal& operator*=(const ::tools::bigdecimal& other)\
     \ {\n      this->m_unscaled_value *= other.m_unscaled_value;\n      this->m_scale\
-    \ += other.m_scale;\n      return this->regularize();\n    }\n    ::tools::bigdecimal&\
-    \ divide(const ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const\
-    \ ::tools::rounding_mode rounding_mode) {\n      assert(other.signum() != 0);\n\
-    \n      static const auto compare_3way_abs = [](::tools::bigdecimal& x, ::tools::bigdecimal&\
-    \ y) {\n        const bool x_positive = x.signum() >= 0;\n        const bool y_positive\
+    \ += other.m_scale;\n      return *this;\n    }\n    ::tools::bigdecimal& divide(const\
+    \ ::tools::bigdecimal& other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode\
+    \ rounding_mode) {\n      assert(other.signum() != 0);\n\n      static const auto\
+    \ compare_3way_abs = [](::tools::bigdecimal& x, ::tools::bigdecimal& y) {\n  \
+    \      const bool x_positive = x.signum() >= 0;\n        const bool y_positive\
     \ = y.signum() >= 0;\n        if (!x_positive) x.negate();\n        if (!y_positive)\
     \ y.negate();\n        const int result = ::tools::bigdecimal::compare_3way(x,\
     \ y);\n        if (!x_positive) x.negate();\n        if (!y_positive) y.negate();\n\
     \        return result;\n      };\n\n      ::tools::bigdecimal old_this(*this);\n\
     \n      this->m_unscaled_value.multiply_by_pow10(scale - (this->m_scale - other.m_scale));\n\
     \      this->m_unscaled_value /= other.m_unscaled_value;\n      this->m_scale\
-    \ = scale;\n      this->regularize();\n\n      if ([&]() {\n        if (rounding_mode\
-    \ == ::tools::rounding_mode::down) {\n          return false;\n        }\n   \
-    \     if (rounding_mode == ::tools::rounding_mode::ceiling || rounding_mode ==\
-    \ ::tools::rounding_mode::floor || rounding_mode == ::tools::rounding_mode::up)\
+    \ = scale;\n\n      if ([&]() {\n        if (rounding_mode == ::tools::rounding_mode::down)\
+    \ {\n          return false;\n        }\n        if (rounding_mode == ::tools::rounding_mode::ceiling\
+    \ || rounding_mode == ::tools::rounding_mode::floor || rounding_mode == ::tools::rounding_mode::up)\
     \ {\n          if ((rounding_mode == ::tools::rounding_mode::ceiling && old_this.signum()\
     \ * other.signum() > 0)\n            || (rounding_mode == ::tools::rounding_mode::floor\
     \ && old_this.signum() * other.signum() < 0)\n            || rounding_mode ==\
@@ -873,16 +870,16 @@ data:
     \        if (rounding_mode == ::tools::rounding_mode::half_up) {\n          return\
     \ comp >= 0;\n        }\n        return comp > 0 || (comp == 0 && this->m_unscaled_value[0]\
     \ % 2 != 0);\n      }()) {\n        this->m_scale = scale;\n        this->m_unscaled_value\
-    \ += ::tools::bigint(old_this.signum() * other.signum());\n        this->regularize();\n\
-    \      }\n\n      return *this;\n    }\n    ::tools::bigdecimal& divide(const\
-    \ ::tools::bigdecimal& other, const ::std::ptrdiff_t scale) {\n      return this->divide(other,\
-    \ scale, ::tools::rounding_mode::half_even);\n    }\n    ::tools::bigdecimal&\
-    \ operator/=(const ::tools::bigdecimal& other) {\n      return this->divide(other,\
-    \ this->m_scale - other.m_scale);\n    }\n\n    friend ::tools::bigdecimal operator+(const\
-    \ ::tools::bigdecimal& lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
-    \ += rhs;\n    }\n    friend ::tools::bigdecimal operator-(const ::tools::bigdecimal&\
-    \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
-    \ -= rhs;\n    }\n    friend ::tools::bigdecimal operator*(const ::tools::bigdecimal&\
+    \ += ::tools::bigint(old_this.signum() * other.signum());\n      }\n\n      return\
+    \ *this;\n    }\n    ::tools::bigdecimal& divide(const ::tools::bigdecimal& other,\
+    \ const ::std::ptrdiff_t scale) {\n      return this->divide(other, scale, ::tools::rounding_mode::half_even);\n\
+    \    }\n    ::tools::bigdecimal& operator/=(const ::tools::bigdecimal& other)\
+    \ {\n      return this->divide(other, this->m_scale - other.m_scale);\n    }\n\
+    \n    friend ::tools::bigdecimal operator+(const ::tools::bigdecimal& lhs, const\
+    \ ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) += rhs;\n\
+    \    }\n    friend ::tools::bigdecimal operator-(const ::tools::bigdecimal& lhs,\
+    \ const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs) -=\
+    \ rhs;\n    }\n    friend ::tools::bigdecimal operator*(const ::tools::bigdecimal&\
     \ lhs, const ::tools::bigdecimal& rhs) {\n      return ::tools::bigdecimal(lhs)\
     \ *= rhs;\n    }\n    ::tools::bigdecimal divide_and_copy(const ::tools::bigdecimal&\
     \ other, const ::std::ptrdiff_t scale, const ::tools::rounding_mode rounding_mode)\
@@ -904,8 +901,9 @@ data:
     \    }\n\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::bigdecimal&\
     \ self) {\n      ::std::string s;\n      is >> s;\n      self = ::tools::bigdecimal(s);\n\
     \      return is;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::tools::bigdecimal& self) {\n      if (self.signum() < 0) {\n   \
-    \     os << '-';\n      }\n      for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value)\
+    \ os, const ::tools::bigdecimal& self) {\n      if (self.signum() == 0 && self.m_scale\
+    \ <= 0) {\n        return os << '0';\n      }\n\n      if (self.signum() < 0)\
+    \ {\n        os << '-';\n      }\n      for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value)\
     \ - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i)\
     \ {\n        if (i == self.m_scale - 1) {\n          os << '.';\n        }\n \
     \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
@@ -943,7 +941,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/rounding.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:49:11+09:00'
+  timestamp: '2022-11-23 13:54:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/rounding.test.cpp
