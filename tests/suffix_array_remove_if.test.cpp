@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "atcoder/string.hpp"
-#include "tools/suffix_array_erase_if.hpp"
+#include "tools/suffix_array_remove_if.hpp"
 #include "tools/chmin.hpp"
 
 using ll = long long;
@@ -20,7 +20,7 @@ int main() {
   auto sa = atcoder::suffix_array(SSTT);
   auto lcpa = atcoder::lcp_array(SSTT, sa);
 
-  const auto [sa_end, lcpa_end] = tools::suffix_array_erase_if(sa.begin(), sa.end(), lcpa.begin(), lcpa.end(), [&](const auto sa_i) { return sa_i / N % 2; });
+  const auto [sa_end, lcpa_end] = tools::suffix_array_remove_if(sa.begin(), sa.end(), lcpa.begin(), lcpa.end(), [&](const auto sa_i) { return sa_i / N % 2; });
   sa.erase(sa_end, sa.end());
   lcpa.erase(lcpa_end, lcpa.end());
 

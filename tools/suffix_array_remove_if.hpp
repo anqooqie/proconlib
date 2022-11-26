@@ -1,5 +1,5 @@
-#ifndef TOOLS_SUFFIX_ARRAY_ERASE_IF_HPP
-#define TOOLS_SUFFIX_ARRAY_ERASE_IF_HPP
+#ifndef TOOLS_SUFFIX_ARRAY_REMOVE_IF_HPP
+#define TOOLS_SUFFIX_ARRAY_REMOVE_IF_HPP
 
 #include <utility>
 #include <cstddef>
@@ -8,7 +8,7 @@
 
 namespace tools {
   template <typename RandomAccessIterator, typename Predicate>
-  ::std::pair<RandomAccessIterator, RandomAccessIterator> suffix_array_erase_if(
+  ::std::pair<RandomAccessIterator, RandomAccessIterator> suffix_array_remove_if(
       const RandomAccessIterator sa,
       const RandomAccessIterator sa_end,
       const RandomAccessIterator lcpa,
