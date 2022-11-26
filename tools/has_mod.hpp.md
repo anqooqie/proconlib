@@ -51,9 +51,9 @@ data:
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/has_mod.test.cpp
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp
-  - tests/has_mod.test.cpp
   - tests/util.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document

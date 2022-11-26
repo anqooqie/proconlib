@@ -66,8 +66,8 @@ data:
   timestamp: '2022-09-03 15:52:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/range_of_digit_products.test.cpp
   - tests/resize.test.cpp
+  - tests/range_of_digit_products.test.cpp
   - tests/util.test.cpp
 documentation_of: tools/resize.hpp
 layout: document

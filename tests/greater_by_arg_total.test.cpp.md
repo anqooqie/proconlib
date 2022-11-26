@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -78,7 +78,7 @@ data:
     \ iterator& self, const difference_type n) {\\\n      return iterator(self) -=\
     \ n;\\\n    }\\\n    friend difference_type operator-(const iterator& lhs, const\
     \ iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return\
-    \ rhs.m_i - lhs.m_i;\\\n    }\\\n\\\n    reference operator*() const {\\\n   \
+    \ lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference operator*() const {\\\n   \
     \   return (*this->m_parent)[this->m_i];\\\n    }\\\n    reference operator[](const\
     \ difference_type n) const {\\\n      return (*this->m_parent)[this->m_i + n];\\\
     \n    }\\\n\\\n    friend bool operator<(const iterator& lhs, const iterator&\
@@ -118,7 +118,7 @@ data:
     \ }\\\n    friend const_iterator operator-(const const_iterator& self, const difference_type\
     \ n) {\\\n      return const_iterator(self) -= n;\\\n    }\\\n    friend difference_type\
     \ operator-(const const_iterator& lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent\
-    \ == rhs.m_parent);\\\n      return rhs.m_i - lhs.m_i;\\\n    }\\\n\\\n    reference\
+    \ == rhs.m_parent);\\\n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference\
     \ operator*() const {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\
     \n    reference operator[](const difference_type n) const {\\\n      return (*this->m_parent)[this->m_i\
     \ + n];\\\n    }\\\n\\\n    friend bool operator<(const const_iterator& lhs, const\
@@ -331,7 +331,7 @@ data:
   isVerificationFile: true
   path: tests/greater_by_arg_total.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
+  timestamp: '2022-11-26 16:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/greater_by_arg_total.test.cpp

@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'
@@ -930,22 +930,22 @@ data:
   isVerificationFile: false
   path: tools/fps.hpp
   requiredBy:
-  - tools/stirling_2nd.hpp
   - tools/partition_function.hpp
+  - tools/stirling_2nd.hpp
   timestamp: '2022-11-23 17:13:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_2nd.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/exp_mod1000000007.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
 documentation_of: tools/fps.hpp
 layout: document
 title: Formal power series

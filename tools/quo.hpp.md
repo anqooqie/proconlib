@@ -290,96 +290,96 @@ data:
   isVerificationFile: false
   path: tools/quo.hpp
   requiredBy:
-  - tools/garner.hpp
-  - tools/extended_lucas.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/inv_mod.hpp
-  - tools/rational.hpp
-  - tools/pow_mod.hpp
-  - tools/round.hpp
-  - tools/bigdecimal.hpp
-  - tools/stirling_2nd.hpp
-  - tools/totient.hpp
-  - tools/garner3.hpp
-  - tools/fps.hpp
-  - tools/convolution.hpp
-  - tools/bigint.hpp
   - tools/mod.hpp
-  - tools/nth_term.hpp
-  - tools/partition_function.hpp
-  - tools/rotate_right.hpp
-  - tools/divisors.hpp
-  - tools/garner2.hpp
-  - tools/extended_garner.hpp
-  - tools/tetration_mod.hpp
-  - tools/rotate_left.hpp
-  - tools/prime_factorization.hpp
   - tools/extgcd.hpp
+  - tools/inv_mod.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/totient.hpp
+  - tools/log_mod.hpp
+  - tools/rotate_left.hpp
+  - tools/garner3.hpp
+  - tools/bigint.hpp
+  - tools/divisors.hpp
+  - tools/rolling_hash.hpp
+  - tools/nth_term.hpp
+  - tools/bigdecimal.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/garner.hpp
+  - tools/fps.hpp
+  - tools/extended_garner.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/convolution.hpp
+  - tools/partition_function.hpp
+  - tools/stirling_2nd.hpp
+  - tools/rotate_right.hpp
+  - tools/tetration_mod.hpp
+  - tools/garner2.hpp
+  - tools/pow_mod.hpp
+  - tools/rational.hpp
+  - tools/extended_lucas.hpp
+  - tools/prime_factorization.hpp
+  - tools/round.hpp
+  - tools/is_prime.hpp
   - tools/primitive_root.hpp
   - tools/bezout.hpp
-  - tools/is_prime.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/rolling_hash.hpp
-  - tools/log_mod.hpp
-  - tools/fact_mod_cache.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extended_garner.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/nth_term.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/exp_mod1000000007.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
-  - tests/divisors.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/extgcd.test.cpp
-  - tests/bezout.test.cpp
-  - tests/is_prime.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/divisors.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/totient.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/log_mod.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/nth_term.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/extgcd.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/bezout.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/rotate_left.test.cpp
+  - tests/is_prime.test.cpp
 documentation_of: tools/quo.hpp
 layout: document
 title: Quotient as integer division

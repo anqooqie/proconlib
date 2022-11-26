@@ -405,10 +405,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/vsubtree.test.cpp
-  - tests/hld/vancestor.test.cpp
-  - tests/hld/vpath.test.cpp
-  - tests/hld/epath.test.cpp
   - tests/hld/lca.test.cpp
+  - tests/hld/vpath.test.cpp
+  - tests/hld/vancestor.test.cpp
+  - tests/hld/epath.test.cpp
 documentation_of: tools/hld.hpp
 layout: document
 title: Heavy-light decomposition
