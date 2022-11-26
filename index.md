@@ -449,8 +449,8 @@ data:
       title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k
         \leq n$
     - icon: ':heavy_check_mark:'
-      path: tools/suffix_array_erase_if.hpp
-      title: std::erase_if for suffix array and LCP array
+      path: tools/suffix_array_remove_if.hpp
+      title: std::remove_if for suffix array and LCP array
     - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
@@ -779,8 +779,8 @@ data:
       path: tests/stirling_2nd.test.cpp
       title: tests/stirling_2nd.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/suffix_array_erase_if.test.cpp
-      title: tests/suffix_array_erase_if.test.cpp
+      path: tests/suffix_array_remove_if.test.cpp
+      title: tests/suffix_array_remove_if.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp

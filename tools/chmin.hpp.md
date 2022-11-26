@@ -52,8 +52,8 @@ data:
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/suffix_array_erase_if.test.cpp
-    title: tests/suffix_array_erase_if.test.cpp
+    path: tests/suffix_array_remove_if.test.cpp
+    title: tests/suffix_array_remove_if.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
@@ -128,13 +128,13 @@ data:
   - tests/tree_diameter.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/xor_basis.test.cpp
-  - tests/suffix_array_erase_if.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/suffix_array_remove_if.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

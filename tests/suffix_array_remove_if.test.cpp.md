@@ -5,8 +5,8 @@ data:
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
-    path: tools/suffix_array_erase_if.hpp
-    title: std::erase_if for suffix array and LCP array
+    path: tools/suffix_array_remove_if.hpp
+    title: std::remove_if for suffix array and LCP array
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,7 +17,7 @@ data:
     PROBLEM: https://atcoder.jp/contests/abc272/tasks/abc272_f
     links:
     - https://atcoder.jp/contests/abc272/tasks/abc272_f
-  bundledCode: "#line 1 \"tests/suffix_array_erase_if.test.cpp\"\n#define PROBLEM\
+  bundledCode: "#line 1 \"tests/suffix_array_remove_if.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc272/tasks/abc272_f\"\n\n#include <iostream>\n\
     #include <string>\n#line 1 \"lib/ac-library/atcoder/string.hpp\"\n\n\n\n#include\
     \ <algorithm>\n#include <cassert>\n#include <numeric>\n#line 8 \"lib/ac-library/atcoder/string.hpp\"\
@@ -116,10 +116,10 @@ data:
     \ + z[i]) j = i;\n    }\n    z[0] = n;\n    return z;\n}\n\nstd::vector<int> z_algorithm(const\
     \ std::string& s) {\n    int n = int(s.size());\n    std::vector<int> s2(n);\n\
     \    for (int i = 0; i < n; i++) {\n        s2[i] = s[i];\n    }\n    return z_algorithm(s2);\n\
-    }\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/suffix_array_erase_if.hpp\"\n\
-    \n\n\n#include <utility>\n#include <cstddef>\n#line 8 \"tools/suffix_array_erase_if.hpp\"\
+    }\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/suffix_array_remove_if.hpp\"\
+    \n\n\n\n#include <utility>\n#include <cstddef>\n#line 8 \"tools/suffix_array_remove_if.hpp\"\
     \n\nnamespace tools {\n  template <typename RandomAccessIterator, typename Predicate>\n\
-    \  ::std::pair<RandomAccessIterator, RandomAccessIterator> suffix_array_erase_if(\n\
+    \  ::std::pair<RandomAccessIterator, RandomAccessIterator> suffix_array_remove_if(\n\
     \      const RandomAccessIterator sa,\n      const RandomAccessIterator sa_end,\n\
     \      const RandomAccessIterator lcpa,\n      const RandomAccessIterator lcpa_end,\n\
     \      const Predicate pred\n  ) {\n    const ::std::size_t N = sa_end - sa;\n\
@@ -139,11 +139,11 @@ data:
     \ + sa_vl, lcpa + lcpa_vl);\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
     \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
     \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 8 \"tests/suffix_array_erase_if.test.cpp\"\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 8 \"tests/suffix_array_remove_if.test.cpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::string S, T;\n  std::cin >> N >> S >> T;\n\n  const auto SSTT\
     \ = S + S + T + T;\n  auto sa = atcoder::suffix_array(SSTT);\n  auto lcpa = atcoder::lcp_array(SSTT,\
-    \ sa);\n\n  const auto [sa_end, lcpa_end] = tools::suffix_array_erase_if(sa.begin(),\
+    \ sa);\n\n  const auto [sa_end, lcpa_end] = tools::suffix_array_remove_if(sa.begin(),\
     \ sa.end(), lcpa.begin(), lcpa.end(), [&](const auto sa_i) { return sa_i / N %\
     \ 2; });\n  sa.erase(sa_end, sa.end());\n  lcpa.erase(lcpa_end, lcpa.end());\n\
     \n  for (auto& sa_i : sa) {\n    if (sa_i >= N) sa_i -= N;\n  }\n  for (auto&\
@@ -155,11 +155,11 @@ data:
     \ answer << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc272/tasks/abc272_f\"\n\n\
     #include <iostream>\n#include <string>\n#include \"atcoder/string.hpp\"\n#include\
-    \ \"tools/suffix_array_erase_if.hpp\"\n#include \"tools/chmin.hpp\"\n\nusing ll\
-    \ = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ \"tools/suffix_array_remove_if.hpp\"\n#include \"tools/chmin.hpp\"\n\nusing\
+    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::string S, T;\n  std::cin >> N >> S >> T;\n\n  const auto SSTT\
     \ = S + S + T + T;\n  auto sa = atcoder::suffix_array(SSTT);\n  auto lcpa = atcoder::lcp_array(SSTT,\
-    \ sa);\n\n  const auto [sa_end, lcpa_end] = tools::suffix_array_erase_if(sa.begin(),\
+    \ sa);\n\n  const auto [sa_end, lcpa_end] = tools::suffix_array_remove_if(sa.begin(),\
     \ sa.end(), lcpa.begin(), lcpa.end(), [&](const auto sa_i) { return sa_i / N %\
     \ 2; });\n  sa.erase(sa_end, sa.end());\n  lcpa.erase(lcpa_end, lcpa.end());\n\
     \n  for (auto& sa_i : sa) {\n    if (sa_i >= N) sa_i -= N;\n  }\n  for (auto&\
@@ -170,18 +170,18 @@ data:
     \      if (sa[i] >= N) answer += partial_answer;\n    }\n  }\n\n  std::cout <<\
     \ answer << '\\n';\n  return 0;\n}\n"
   dependsOn:
-  - tools/suffix_array_erase_if.hpp
+  - tools/suffix_array_remove_if.hpp
   - tools/chmin.hpp
   isVerificationFile: true
-  path: tests/suffix_array_erase_if.test.cpp
+  path: tests/suffix_array_remove_if.test.cpp
   requiredBy: []
-  timestamp: '2022-11-20 14:18:05+09:00'
+  timestamp: '2022-11-26 23:39:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/suffix_array_erase_if.test.cpp
+documentation_of: tests/suffix_array_remove_if.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/suffix_array_erase_if.test.cpp
-- /verify/tests/suffix_array_erase_if.test.cpp.html
-title: tests/suffix_array_erase_if.test.cpp
+- /verify/tests/suffix_array_remove_if.test.cpp
+- /verify/tests/suffix_array_remove_if.test.cpp.html
+title: tests/suffix_array_remove_if.test.cpp
 ---
