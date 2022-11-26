@@ -10,6 +10,7 @@
 #include <stack>
 #include <algorithm>
 #include <queue>
+#include <tuple>
 #include "tools/ssize.hpp"
 #include "tools/chmin.hpp"
 #include "tools/greater_by_second.hpp"
