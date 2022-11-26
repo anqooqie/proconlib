@@ -1,47 +1,47 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/acl1/tasks/acl1_c
@@ -54,37 +54,38 @@ data:
     #line 6 \"tools/weighted_bipartite_matching.hpp\"\n#include <cassert>\n#include\
     \ <optional>\n#include <utility>\n#include <limits>\n#line 1 \"tools/mcf_graph.hpp\"\
     \n\n\n\n#line 9 \"tools/mcf_graph.hpp\"\n#include <numeric>\n#include <stack>\n\
-    #include <algorithm>\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n\
-    #line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n\
-    \  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n \
-    \   return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\
-    \n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class greater_by_second\
-    \ {\n  public:\n    template <class T1, class T2>\n    bool operator()(const ::std::pair<T1,\
-    \ T2>& x, const ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n\
-    \    }\n  };\n}\n\n\n#line 16 \"tools/mcf_graph.hpp\"\n\nnamespace tools {\n \
-    \ template <typename Cap, typename Cost>\n  class mcf_graph {\n  public:\n   \
-    \ struct edge {\n      int from, to;\n      Cap cap, flow;\n      Cost cost;\n\
-    \    };\n\n  private:\n    ::std::vector<::std::vector<int>> m_graph;\n    ::std::vector<::tools::mcf_graph<Cap,\
-    \ Cost>::edge> m_edges;\n    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n\
-    \    ::std::vector<Cost> m_potentials;\n    bool m_filled_negative_cycles;\n \
-    \   ::std::optional<bool> m_is_dag;\n    bool m_calculated_potentials;\n\n   \
-    \ int size() const {\n      return this->m_graph.size();\n    }\n\n  public:\n\
-    \    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap, Cost>&)\
-    \ = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n    ~mcf_graph()\
-    \ = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const ::tools::mcf_graph<Cap,\
-    \ Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(::tools::mcf_graph<Cap,\
-    \ Cost>&&) = default;\n\n    explicit mcf_graph(const int n) : m_graph(n), m_slope({::std::pair<Cap,\
-    \ Cost>(0, 0)}), m_potentials(n, 0), m_filled_negative_cycles(false), m_calculated_potentials(false)\
-    \ {\n    }\n\n    int add_edge(const int from, const int to, const Cap cap, const\
-    \ Cost cost) {\n      assert(0 <= from && from < this->size());\n      assert(0\
-    \ <= to && to < this->size());\n      assert(0 <= cap);\n      assert(cost !=\
-    \ ::std::numeric_limits<Cost>::min());\n      assert(cost != ::std::numeric_limits<Cost>::max());\n\
-    \n      this->m_graph[from].push_back(this->m_edges.size());\n      this->m_edges.push_back(::tools::mcf_graph<Cap,\
-    \ Cost>::edge({from, to, cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
+    #include <algorithm>\n#line 13 \"tools/mcf_graph.hpp\"\n#include <tuple>\n#line\
+    \ 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/ssize.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
+    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\
+    \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
+    \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
+    \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
+    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 17 \"tools/mcf_graph.hpp\"\
+    \n\nnamespace tools {\n  template <typename Cap, typename Cost>\n  class mcf_graph\
+    \ {\n  public:\n    struct edge {\n      int from, to;\n      Cap cap, flow;\n\
+    \      Cost cost;\n    };\n\n  private:\n    ::std::vector<::std::vector<int>>\
+    \ m_graph;\n    ::std::vector<::tools::mcf_graph<Cap, Cost>::edge> m_edges;\n\
+    \    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n    ::std::vector<Cost> m_potentials;\n\
+    \    bool m_filled_negative_cycles;\n    ::std::optional<bool> m_is_dag;\n   \
+    \ bool m_calculated_potentials;\n\n    int size() const {\n      return this->m_graph.size();\n\
+    \    }\n\n  public:\n    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap,\
+    \ Cost>&) = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n\
+    \    ~mcf_graph() = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const\
+    \ ::tools::mcf_graph<Cap, Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>&\
+    \ operator=(::tools::mcf_graph<Cap, Cost>&&) = default;\n\n    explicit mcf_graph(const\
+    \ int n) : m_graph(n), m_slope({::std::pair<Cap, Cost>(0, 0)}), m_potentials(n,\
+    \ 0), m_filled_negative_cycles(false), m_calculated_potentials(false) {\n    }\n\
+    \n    int add_edge(const int from, const int to, const Cap cap, const Cost cost)\
+    \ {\n      assert(0 <= from && from < this->size());\n      assert(0 <= to &&\
+    \ to < this->size());\n      assert(0 <= cap);\n      assert(cost != ::std::numeric_limits<Cost>::min());\n\
+    \      assert(cost != ::std::numeric_limits<Cost>::max());\n\n      this->m_graph[from].push_back(this->m_edges.size());\n\
+    \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({from, to,\
+    \ cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
     \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({to, from,\
     \ cap, cap, -cost}));\n      return this->m_edges.size() / 2 - 1;\n    }\n\n \
     \ private:\n    void fill_negative_cycles() {\n      ::std::vector<::std::pair<::std::vector<int>,\
@@ -461,9 +462,8 @@ data:
     , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
     \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
     \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#line 1 \"tools/now.hpp\"\
-    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline long long now() {\n \
-    \   return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \n\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools\
+    \ {\n  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
     \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
@@ -574,8 +574,8 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/maximize.test.cpp
   requiredBy: []
-  timestamp: '2022-11-26 16:11:09+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2022-11-26 16:53:52+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/maximize.test.cpp
 layout: document

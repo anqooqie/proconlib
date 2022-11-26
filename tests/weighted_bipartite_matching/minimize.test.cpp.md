@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
@@ -35,10 +35,10 @@ data:
     \n\n\n\n#include <cstddef>\n#line 6 \"tools/weighted_bipartite_matching.hpp\"\n\
     #include <cassert>\n#include <optional>\n#include <utility>\n#include <limits>\n\
     #line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#line 9 \"tools/mcf_graph.hpp\"\n#include\
-    \ <numeric>\n#include <stack>\n#include <algorithm>\n#include <queue>\n#line 1\
-    \ \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/ssize.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
-    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ <numeric>\n#include <stack>\n#include <algorithm>\n#include <queue>\n#include\
+    \ <tuple>\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#line 6\
+    \ \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
+    \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
     \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
     \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
@@ -46,7 +46,7 @@ data:
     \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
     \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
     \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
-    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 16 \"tools/mcf_graph.hpp\"\
+    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 17 \"tools/mcf_graph.hpp\"\
     \n\nnamespace tools {\n  template <typename Cap, typename Cost>\n  class mcf_graph\
     \ {\n  public:\n    struct edge {\n      int from, to;\n      Cap cap, flow;\n\
     \      Cost cost;\n    };\n\n  private:\n    ::std::vector<::std::vector<int>>\
@@ -320,7 +320,7 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/minimize.test.cpp
   requiredBy: []
-  timestamp: '2022-11-12 14:09:50+09:00'
+  timestamp: '2022-11-26 16:53:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/minimize.test.cpp
