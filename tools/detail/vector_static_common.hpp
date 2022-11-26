@@ -92,7 +92,7 @@
     }\
     friend difference_type operator-(const iterator& lhs, const iterator& rhs) {\
       assert(lhs.m_parent == rhs.m_parent);\
-      return rhs.m_i - lhs.m_i;\
+      return lhs.m_i - rhs.m_i;\
     }\
 \
     reference operator*() const {\
@@ -189,7 +189,7 @@
     }\
     friend difference_type operator-(const const_iterator& lhs, const const_iterator& rhs) {\
       assert(lhs.m_parent == rhs.m_parent);\
-      return rhs.m_i - lhs.m_i;\
+      return lhs.m_i - rhs.m_i;\
     }\
 \
     reference operator*() const {\
