@@ -31,6 +31,19 @@ The type parameter `<T>` represents the type of the elements.
 ### Time Complexity
 - $O(n)$
 
+## size
+```cpp
+std::size_t p.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## operator[]
 ```cpp
 T p[std::size_t i];
@@ -71,29 +84,52 @@ It returns the iterator pointing to the element which would follow the last elem
 ### Time Complexity
 - $O(1)$
 
-## size
+## swap_from_left
 ```cpp
-std::size_t p.size();
+permutation<T>& p.swap_from_left(T x, T y);
 ```
 
-It returns the number of elements.
+Let $p^\ast$ be $p$ just before the function call.
+Let $q$ be the following permutation of $n$ elements.
+
+$$\begin{align*}
+q(i) &= \left\{\begin{array}{ll}
+p^\ast(y) & \text{(if $i = x$)}\\
+p^\ast(x) & \text{(if $i = y$)}\\
+p^\ast(i) & \text{(otherwise)}
+\end{array}\right.
+\end{align*}$$
+
+It updates $p$ to $q$, and returns the updated $p$.
 
 ### Constraints
-- None
+- $0 \leq x < n$
+- $0 \leq y < n$
 
 ### Time Complexity
 - $O(1)$
 
-## swap
+## swap_from_right
 ```cpp
-void p.swap(std::size_t i, std::size_t j);
+permutation<T>& p.swap_from_right(T x, T y);
 ```
 
-It swaps the $i$-th element and the $j$-th element.
+Let $p^\ast$ be $p$ just before the function call.
+Let $q$ be the following permutation of $n$ elements.
+
+$$\begin{align*}
+q(i) &= \left\{\begin{array}{ll}
+y & \text{(if $p^\ast(i) = x$)}\\
+x & \text{(if $p^\ast(i) = y$)}\\
+p^\ast(i) & \text{(otherwise)}
+\end{array}\right.
+\end{align*}$$
+
+It updates $p$ to $q$, and returns the updated $p$.
 
 ### Constraints
-- $0 \leq i < n$
-- $0 \leq j < n$
+- $0 \leq x < n$
+- $0 \leq y < n$
 
 ### Time Complexity
 - $O(1)$
@@ -138,13 +174,39 @@ $p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
 ### Time Complexity
 - $O(n)$
 
-## operator*
+## inv_inplace
 ```cpp
-tools::permutation<T> p2 * p1;
+tools::permutation<T>& p.inv_inplace();
 ```
 
-It returns the merged permutation $p_3 = p_2 \circ p_1$.
+It updates $p$ to $p^{-1}$, and returns the updated $p$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## operator*
+```cpp
+tools::permutation<T> operator*(permutation<T> p1, permutation<T> p2);
+```
+
+It returns the merged permutation $p_3 = p_1 \circ p_2$.
 $p_3$ maps the $i$-th element to the `p2[p1[i]]`-th element.
+
+### Constraints
+- `p1.size() == p2.size()`
+
+### Time Complexity
+- $O(n)$
+
+## operator*=
+```cpp
+tools::permutation<T>& p1.operator*=(permutation<T> p2);
+```
+
+It updates $p_1$ to $p_1 \circ p_2$, and returns the updated $p_1$.
 
 ### Constraints
 - `p1.size() == p2.size()`

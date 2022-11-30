@@ -30,12 +30,12 @@ void abc013d(const ll& N, const ll& D, const std::vector<ll>& A, const std::vect
   group::N = N;
   tools::permutation<ll> unit(N);
   for (ll i = 0; i < tools::ssize(A); ++i) {
-    unit.swap(A[i] - 1, A[i]);
+    unit.swap_from_right(A[i] - 1, A[i]);
   }
 
-  const auto p = tools::pow<group>(unit, D).inv();
+  const auto p = tools::pow<group>(unit, D);
   std::vector<ll> actual(p.begin(), p.end());
-  for (ll& actual_i : actual) ++actual_i;
+  for (auto& x : actual) ++x;
 
   assert_that(actual == expected);
 }
