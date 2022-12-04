@@ -2,15 +2,17 @@
 #define TOOLS_FPS_HPP
 
 #include <vector>
-#include <cassert>
+#include <cstddef>
+#include <initializer_list>
 #include <algorithm>
-#include <iterator>
 #include <utility>
+#include <cassert>
+#include <iterator>
 #include "atcoder/convolution.hpp"
 #include "tools/convolution.hpp"
 #include "tools/pow2.hpp"
 #include "tools/ceil_log2.hpp"
-#include "tools/ssize.hpp"
+#include "tools/less_by_first.hpp"
 
 // Source: https://opt-cp.com/fps-implementation/
 // License: CC0
@@ -18,14 +20,144 @@
 
 namespace tools {
   template <typename M>
-  class fps : public ::std::vector<M> {
+  class fps {
   private:
     using F = ::tools::fps<M>;
+    ::std::vector<M> m_vector;
 
   public:
-    using ::std::vector<M>::vector;
-    using ::std::vector<M>::operator=;
+    using reference = M&;
+    using const_reference = const M&;
+    using iterator = typename ::std::vector<M>::iterator;
+    using const_iterator = typename ::std::vector<M>::const_iterator;
+    using size_type = ::std::size_t;
+    using difference_type = ::std::ptrdiff_t;
+    using value_type = M;
+    using allocator_type = typename ::std::vector<M>::allocator_type;
+    using pointer = M*;
+    using const_pointer = const M*;
+    using reverse_iterator = typename ::std::vector<M>::reverse_iterator;
+    using const_reverse_iterator = typename ::std::vector<M>::const_reverse_iterator;
 
+    fps() = default;
+    fps(const F&) = default;
+    fps(F&&) = default;
+    ~fps() = default;
+    F& operator=(const F&) = default;
+    F& operator=(F&&) = default;
+
+    explicit fps(const size_type n) : m_vector(n) {}
+    fps(const size_type n, const_reference value) : m_vector(n, value) {}
+    template <class InputIter> fps(const InputIter first, const InputIter last) : m_vector(first, last) {}
+    fps(const ::std::initializer_list<M> il) : m_vector(il) {}
+    fps(const ::std::initializer_list<int> il) {
+      this->m_vector.reserve(il.size());
+      for (const auto x : il) {
+        this->m_vector.emplace_back(x);
+      }
+    }
+
+    iterator begin() noexcept { return this->m_vector.begin(); }
+    const_iterator begin() const noexcept { return this->m_vector.begin(); }
+    iterator end() noexcept { return this->m_vector.end(); }
+    const_iterator end() const noexcept { return this->m_vector.end(); }
+    const_iterator cbegin() const noexcept { return this->m_vector.cbegin(); }
+    const_iterator cend() const noexcept { return this->m_vector.cend(); }
+    reverse_iterator rbegin() noexcept { return this->m_vector.rbegin(); }
+    const_reverse_iterator rbegin() const noexcept { return this->m_vector.rbegin(); }
+    const_reverse_iterator crbegin() const noexcept { return this->m_vector.crbegin(); }
+    reverse_iterator rend() noexcept { return this->m_vector.rend(); }
+    const_reverse_iterator rend() const noexcept { return this->m_vector.rend(); }
+    const_reverse_iterator crend() const noexcept { return this->m_vector.crend(); }
+
+    size_type size() const noexcept { return this->m_vector.size(); }
+    size_type max_size() const noexcept { return this->m_vector.max_size(); }
+    void resize(const size_type sz) { this->m_vector.resize(sz); }
+    void resize(const size_type sz, const M& c) { this->m_vector.resize(sz, c); }
+    size_type capacity() const noexcept { return this->m_vector.capacity(); }
+    bool empty() const noexcept { return this->m_vector.empty(); }
+    void reserve(const size_type n) { this->m_vector.reserve(n); }
+    void shrink_to_fit() { this->m_vector.shrink_to_fit(); }
+
+    reference operator[](const size_type n) { return this->m_vector[n]; }
+    const_reference operator[](const size_type n) const { return this->m_vector[n]; }
+    reference at(const size_type n) { return this->m_vector.at(n); }
+    const_reference at(const size_type n) const { return this->m_vector.at(n); }
+    pointer data() noexcept { return this->m_vector.data(); }
+    const_pointer data() const noexcept { return this->m_vector.data(); }
+    reference front() { return this->m_vector.front(); }
+    const_reference front() const { return this->m_vector.front(); }
+    reference back() { return this->m_vector.back(); }
+    const_reference back() const { return this->m_vector.back(); }
+
+    template <class InputIterator> void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first, last); }
+    void assign(const size_type n, const M& u) { this->m_vector.assign(n, u); }
+    void assign(const ::std::initializer_list<M> il) { this->m_vector.assign(il); }
+    void assign(const ::std::initializer_list<int> il) {
+      this->m_vector.reserve(il.size());
+      for (size_type i = 0; i < ::std::min(this->m_vector.size(), il.size()); ++i) {
+        this->m_vector[i] = M(il.begin()[i]);
+      }
+      for (size_type i = this->m_vector.size(); i < il.size(); ++i) {
+        this->m_vector.emplace_back(il.begin()[i]);
+      }
+      this->m_vector.resize(il.size());
+    }
+    void push_back(const M& x) { this->m_vector.push_back(x); }
+    void push_back(M&& x) { this->m_vector.push_back(::std::forward<M>(x)); }
+    template <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...); }
+    void pop_back() { this->m_vector.pop_back(); }
+    iterator insert(const const_iterator position, const M& x) { return this->m_vector.insert(position, x); }
+    iterator insert(const const_iterator position, M&& x) { return this->m_vector.insert(position, ::std::forward<M>(x)); }
+    iterator insert(const const_iterator position, const size_type n, const M& x) { return this->m_vector.insert(position, n, x); }
+    template <class InputIterator> iterator insert(const const_iterator position, const InputIterator first, const InputIterator last) { return this->m_vector.insert(position, first, last); }
+    iterator insert(const const_iterator position, const ::std::initializer_list<M> il) { return this->m_vector.insert(position, il); }
+    iterator insert(const const_iterator position, const ::std::initializer_list<int> il) {
+      const size_type p = position - this->m_vector.begin();
+      const size_type n = this->m_vector.size();
+      const size_type m = il.size();
+      this->m_vector.reserve(n + m);
+      if (n - p >= m) {
+        for (size_type i = n - m; i < n; ++i) {
+          this->m_vector.push_back(::std::move(this->m_vector[i]));
+        }
+        ::std::move_backward(this->m_vector.begin() + p, this->m_vector.begin() + (n - m), this->m_vector.begin() + n);
+        for (size_type i = 0; i < m; ++i) {
+          this->m_vector[p + i] = M(il.begin()[i]);
+        }
+      } else {
+        for (size_type i = n - p; i < m; ++i) {
+          this->m_vector.emplace_back(il.begin()[i]);
+        }
+        for (size_type i = p; i < n; ++i) {
+          this->m_vector.push_back(::std::move(this->m_vector[i]));
+        }
+        for (size_type i = 0; i < n - p; ++i) {
+          this->m_vector[p + i] = M(il.begin()[i]);
+        }
+      }
+      return this->m_vector.begin() + p;
+    }
+    template <class... Args> iterator emplace(const const_iterator position, Args&&... args) { return this->m_vector.emplace(position, ::std::forward<Args>(args)...); }
+    iterator erase(const const_iterator position) { return this->m_vector.erase(position); }
+    iterator erase(const const_iterator first, const const_iterator last) { return this->m_vector.erase(first, last); }
+    void swap(F& x) noexcept { this->m_vector.swap(x.m_vector); }
+    void clear() { this->m_vector.clear(); }
+
+    allocator_type get_allocator() const noexcept { return this->m_vector.get_allocator(); }
+
+    friend bool operator==(const F& x, const F& y) {
+      const auto n = ::std::min(x.size(), y.size());
+      static const auto is_zero = [](const M& e) { return e == M::raw(0); };
+      return ::std::equal(x.begin(), x.begin() + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero) && ::std::all_of(y.begin() + n, y.end(), is_zero);
+    }
+    friend bool operator!=(const F& x, const F& y) { return !(x == y); }
+
+    friend void swap(F& x, F& y) noexcept { x.m_vector.swap(y.m_vector); }
+
+    F operator+() const {
+      return *this;
+    }
     F operator-() const {
       F res(*this);
       for (auto& e : res) {
@@ -62,33 +194,35 @@ namespace tools {
     }
     F& operator<<=(const int d) {
       const int n = this->size();
-      this->insert(this->begin(), d, 0);
+      this->erase(this->begin(), this->begin() + ::std::min(n, d));
       this->resize(n);
       return *this;
     }
     F& operator>>=(const int d) {
       const int n = this->size();
-      this->erase(this->begin(), this->begin() + ::std::min(n, d));
+      this->insert(this->begin(), d, 0);
       this->resize(n);
       return *this;
     }
-    F& multiply_inplace(const F& g, int d = -1) {
-      const int n = this->size();
-      if (d == -1) d = n;
+    F& multiply_inplace(const F& g, const int d) {
       assert(d >= 0);
+      const int n = this->size();
       F res;
-      ::tools::convolution(this->cbegin(), this->cend(), g.cbegin(), g.cend(), ::std::back_inserter(res));
+      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n), g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));
       res.resize(d);
       *this = ::std::move(res);
       return *this;
     }
-    F multiply(const F& g, const int d = -1) const { return F(*this).multiply_inplace(g, d); }
+    F& multiply_inplace(const F& g) { return this->multiply_inplace(g, this->size()); }
+    F multiply(const F& g, const int d) const { return F(*this).multiply_inplace(g, d); }
+    F multiply(const F& g) const { return this->multiply(g, this->size()); }
 
-    F inv(int d = -1) const {
+    F inv(const int d) const {
       const int n = this->size();
-      assert(n != 0 && (*this)[0] != M(0));
-      if (d == -1) d = n;
-      assert(d > 0);
+      assert(n != 0 && (*this)[0] != M::raw(0));
+      assert(d >= 0);
+
+      if (d == 0) return F();
 
       // return maximum 2^k s.t. x = 1 (mod 2^k)
       static const auto pow2_k = [](const unsigned int x) -> int {
@@ -102,20 +236,20 @@ namespace tools {
           F f(this->begin(), this->begin() + ::std::min(n, 2 * m));
           F r(res);
           f.resize(2 * m);
-          ::atcoder::internal::butterfly(f);
+          ::atcoder::internal::butterfly(f.m_vector);
           r.resize(2 * m);
-          ::atcoder::internal::butterfly(r);
+          ::atcoder::internal::butterfly(r.m_vector);
           for (int i = 0; i < 2 * m; ++i) {
             f[i] *= r[i];
           }
-          ::atcoder::internal::butterfly_inv(f);
+          ::atcoder::internal::butterfly_inv(f.m_vector);
           f.erase(f.begin(), f.begin() + m);
           f.resize(2 * m);
-          ::atcoder::internal::butterfly(f);
+          ::atcoder::internal::butterfly(f.m_vector);
           for (int i = 0; i < 2 * m; ++i) {
             f[i] *= r[i];
           }
-          ::atcoder::internal::butterfly_inv(f);
+          ::atcoder::internal::butterfly_inv(f.m_vector);
           M iz = M(2 * m).inv();
           iz *= -iz;
           for (int i = 0; i < m; ++i) {
@@ -141,47 +275,67 @@ namespace tools {
       res.resize(d);
       return res;
     }
+    F inv() const { return this->inv(this->size()); }
 
-    F& divide_inplace(const F& g, int d = -1) {
-      const int n = this->size();
-      if (d == -1) d = n;
+    F& divide_inplace(const F& g, const int d) {
       assert(d >= 0);
-      const auto g_inv = g.inv(n);
+      const int n = this->size();
+      const auto g_inv = g.inv(d);
       F res;
-      ::tools::convolution(this->cbegin(), this->cend(), g_inv.cbegin(), g_inv.cend(), ::std::back_inserter(res));
+      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n), g_inv.cbegin(), g_inv.cend(), ::std::back_inserter(res));
       res.resize(d);
+      *this = ::std::move(res);
       return *this;
     }
-    F divide(const F& g, const int d = -1) const { return F(*this).divide_inplace(g, d); }
+    F& divide_inplace(const F& g) { return this->divide_inplace(g, this->size()); }
+    F divide(const F& g, const int d) const { return F(*this).divide_inplace(g, d); }
+    F divide(const F& g) const { return this->divide(g, this->size()); }
 
     // sparse
-    F& multiply_inplace(::std::vector<::std::pair<int, M>> g) {
+    template <class InputIterator>
+    F& multiply_inplace(InputIterator g_begin, const InputIterator g_end) {
+      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));
+
       const int n = this->size();
-      auto [d, c] = g.front();
+      if (g_begin == g_end) {
+        ::std::fill(this->begin(), this->end(), M::raw(0));
+        return *this;
+      }
+
+      const auto [d, c] = *g_begin;
       if (d == 0) {
-        g.erase(g.begin());
+        ++g_begin;
       } else {
-        c = 0;
+        c = M::raw(0);
       }
       for (int i = n - 1; i >= 0; --i) {
         (*this)[i] *= c;
-        for (auto& [j, b] : g) {
+        for (auto it = g_begin; it != g_end; ++it) {
+          const auto& [j, b] = *it;
           if (j > i) break;
           (*this)[i] += (*this)[i - j] * b;
         }
       }
       return *this;
     }
-    F multiply(const ::std::vector<::std::pair<int, M>>& g) const { return F(*this).multiply_inplace(g); }
+    F& multiply_inplace(const ::std::initializer_list<::std::pair<int, M>> il) { return this->multiply_inplace(il.begin(), il.end()); }
+    template <class InputIterator>
+    F multiply(const InputIterator g_begin, const InputIterator g_end) const { return F(*this).multiply_inplace(g_begin, g_end); }
+    F multiply(const ::std::initializer_list<::std::pair<int, M>> il) const { return this->multiply(il.begin(), il.end()); }
 
-    F& divide_inplace(::std::vector<::std::pair<int, M>> g) {
+    template <class InputIterator>
+    F& divide_inplace(InputIterator g_begin, const InputIterator g_end) {
+      assert(g_begin != g_end);
+      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));
+
       const int n = this->size();
-      auto [d, c] = g.front();
-      assert(d == 0 && c != M(0));
+      const auto [d, c] = *g_begin;
+      assert(d == 0 && c != M::raw(0));
       const M ic = c.inv();
-      g.erase(g.begin());
+      ++g_begin;
       for (int i = 0; i < n; ++i) {
-        for (auto& [j, b] : g) {
+        for (auto it = g_begin; it != g_end; ++it) {
+          const auto& [j, b] = *it;
           if (j > i) break;
           (*this)[i] -= (*this)[i - j] * b;
         }
@@ -189,10 +343,13 @@ namespace tools {
       }
       return *this;
     }
-    F divide(const ::std::vector<::std::pair<int, M>>& g) const { return F(*this).divide_inplace(g); }
+    F& divide_inplace(const ::std::initializer_list<::std::pair<int, M>> il) { return this->divide_inplace(il.begin(), il.end()); }
+    template <class InputIterator>
+    F divide(const InputIterator g_begin, const InputIterator g_end) const { return F(*this).divide_inplace(g_begin, g_end); }
+    F divide(const ::std::initializer_list<::std::pair<int, M>> il) const { return this->divide(il.begin(), il.end()); }
 
     // multiply and divide (1 + cz^d)
-    void multiply_inplace(const int d, const M c) {
+    F& multiply_inplace(const int d, const M c) {
       const int n = this->size();
       if (c == M(1)) {
         for (int i = n - d - 1; i >= 0; --i) {
@@ -207,8 +364,10 @@ namespace tools {
           (*this)[i + d] += (*this)[i] * c;
         }
       }
+      return *this;
     }
-    void divide_inplace(const int d, const M c) {
+    F multiply(const int d, const M c) const { return F(*this).multiply_inplace(d, c); }
+    F& divide_inplace(const int d, const M c) {
       const int n = this->size();
       if (c == M(1)) {
         for (int i = 0; i < n - d; ++i) {
@@ -223,12 +382,14 @@ namespace tools {
           (*this)[i + d] -= (*this)[i] * c;
         }
       }
+      return *this;
     }
+    F divide(const int d, const M c) const { return F(*this).divide_inplace(d, c); }
 
     M eval(const M& a) const {
       M x(1);
       M res(0);
-      for (auto e : *this) {
+      for (const auto e : *this) {
         res += e * x;
         x *= a;
       }
@@ -237,7 +398,7 @@ namespace tools {
 
     F& integral_inplace() {
       const int n = this->size();
-      assert(n > 0);
+      if (n == 0) return *this;
       if (n == 1) return *this = F{0};
       this->insert(this->begin(), 0);
       this->pop_back();
@@ -256,7 +417,7 @@ namespace tools {
 
     F& derivative_inplace() {
       const int n = this->size();
-      assert(n > 0);
+      if (n == 0) return *this;
       for (int i = 2; i < n; ++i) {
         (*this)[i] *= i;
       }
@@ -266,10 +427,9 @@ namespace tools {
     }
     F derivative() const { return F(*this).derivative_inplace(); }
 
-    F& log_inplace(int d = -1) {
+    F& log_inplace(const int d) {
       const int n = this->size();
-      assert(n > 0 && (*this)[0] == 1);
-      if (d == -1) d = n;
+      assert(n > 0 && (*this)[0] == M(1));
       assert(d >= 0);
       if (d < n) this->resize(d);
       const F f_inv = this->inv();
@@ -278,13 +438,21 @@ namespace tools {
       this->integral_inplace();
       return *this;
     }
-    F log(const int d = -1) const { return F(*this).log_inplace(d); }
+    F& log_inplace() { return this->log_inplace(this->size()); }
+    F log(const int d) const { return F(*this).log_inplace(d); }
+    F log() const { return this->log(this->size()); }
 
-    F& exp_inplace(int d = -1) {
+    F& exp_inplace(const int d) {
       const int n = this->size();
-      assert(n > 0 && (*this)[0] == 0);
-      if (d == -1) d = n;
+      if (n == 0) return *this;
+
+      assert((*this)[0] == M::raw(0));
       assert(d >= 0);
+
+      if (d == 0) {
+        this->clear();
+        return *this;
+      }
 
       // return maximum 2^k s.t. x = 1 (mod 2^k)
       static const auto pow2_k = [](const unsigned int x) -> int {
@@ -301,7 +469,7 @@ namespace tools {
           // prepare
           F f_fft(this->begin(), this->begin() + m);
           f_fft.resize(2 * m);
-          ::atcoder::internal::butterfly(f_fft);
+          ::atcoder::internal::butterfly(f_fft.m_vector);
 
           // Step 2.a'
           {
@@ -309,14 +477,14 @@ namespace tools {
             for (int i = 0; i < m; ++i) {
               g_[i] = f_fft[i] * g_fft[i];
             }
-            ::atcoder::internal::butterfly_inv(g_);
+            ::atcoder::internal::butterfly_inv(g_.m_vector);
             g_.erase(g_.begin(), g_.begin() + m / 2);
             g_.resize(m);
-            ::atcoder::internal::butterfly(g_);
+            ::atcoder::internal::butterfly(g_.m_vector);
             for (int i = 0; i < m; ++i) {
               g_[i] *= g_fft[i];
             }
-            ::atcoder::internal::butterfly_inv(g_);
+            ::atcoder::internal::butterfly_inv(g_.m_vector);
             g_.resize(m / 2);
             g_ /= M(-m) * m;
             g.insert(g.end(), g_.begin(), g_.begin() + m / 2);
@@ -330,11 +498,11 @@ namespace tools {
             F r{h_drv.begin(), h_drv.begin() + m - 1};
             // Step 2.c'
             r.resize(m);
-            ::atcoder::internal::butterfly(r);
+            ::atcoder::internal::butterfly(r.m_vector);
             for (int i = 0; i < m; ++i) {
               r[i] *= f_fft[i];
             }
-            ::atcoder::internal::butterfly_inv(r);
+            ::atcoder::internal::butterfly_inv(r.m_vector);
             r /= -m;
             // Step 2.d'
             t += r;
@@ -345,14 +513,14 @@ namespace tools {
           // Step 2.e'
           if (2 * m < d) {
             t.resize(2 * m);
-            ::atcoder::internal::butterfly(t);
+            ::atcoder::internal::butterfly(t.m_vector);
             g_fft = g;
             g_fft.resize(2*m);
-            ::atcoder::internal::butterfly(g_fft);
+            ::atcoder::internal::butterfly(g_fft.m_vector);
             for (int i = 0; i < 2 * m; ++i) {
               t[i] *= g_fft[i];
             }
-            ::atcoder::internal::butterfly_inv(t);
+            ::atcoder::internal::butterfly_inv(t.m_vector);
             t.resize(m);
             t /= 2 * m;
           } else { // この場合分けをしても数パーセントしか速くならない
@@ -360,19 +528,19 @@ namespace tools {
             F s1(t.begin() + m / 2, t.end());
             t.resize(m/2);
             g1.resize(m);
-            ::atcoder::internal::butterfly(g1);
+            ::atcoder::internal::butterfly(g1.m_vector);
             t.resize(m);
-            ::atcoder::internal::butterfly(t);
+            ::atcoder::internal::butterfly(t.m_vector);
             s1.resize(m);
-            ::atcoder::internal::butterfly(s1);
+            ::atcoder::internal::butterfly(s1.m_vector);
             for (int i = 0; i < m; ++i) {
               s1[i] = g_fft[i] * s1[i] + g1[i] * t[i];
             }
             for (int i = 0; i < m; ++i) {
               t[i] *= g_fft[i];
             }
-            ::atcoder::internal::butterfly_inv(t);
-            ::atcoder::internal::butterfly_inv(s1);
+            ::atcoder::internal::butterfly_inv(t.m_vector);
+            ::atcoder::internal::butterfly_inv(s1.m_vector);
             for (int i = 0; i < m / 2; ++i) {
               t[i + m / 2] += s1[i];
             }
@@ -391,11 +559,11 @@ namespace tools {
 
           // Step 2.g'
           v.resize(2 * m);
-          ::atcoder::internal::butterfly(v);
+          ::atcoder::internal::butterfly(v.m_vector);
           for (int i = 0; i < 2 * m; ++i) {
             v[i] *= f_fft[i];
           }
-          ::atcoder::internal::butterfly_inv(v);
+          ::atcoder::internal::butterfly_inv(v.m_vector);
           v.resize(m);
           v /= 2 * m;
 
@@ -422,11 +590,12 @@ namespace tools {
       *this = ::std::move(g);
       return *this;
     }
-    F exp(const int d = -1) const { return F(*this).exp_inplace(d); }
+    F& exp_inplace() { return this->exp_inplace(this->size()); }
+    F exp(const int d) const { return F(*this).exp_inplace(d); }
+    F exp() const { return this->exp(this->size()); }
 
-    F& pow_inplace(const long long k, int d = -1) {
+    F& pow_inplace(const long long k, const int d) {
       const int n = this->size();
-      if (d == -1) d = n;
       assert(d >= 0 && k >= 0);
       if (d == 0) {
         return *this = F(0);
@@ -437,7 +606,7 @@ namespace tools {
         return *this;
       }
       int l = 0;
-      while (l < n && (*this)[l] == M(0)) ++l;
+      while (l < n && (*this)[l] == M::raw(0)) ++l;
       if (l == n || l > (d - 1) / k) {
         return *this = F(d);
       }
@@ -451,14 +620,20 @@ namespace tools {
       this->insert(this->begin(), l * k, 0);
       return *this;
     }
-    F pow(const long long k, const int d = -1) const { return F(*this).pow_inplace(k, d); }
+    F& pow_inplace(const long long k) { return this->pow_inplace(k, this->size()); }
+    F pow(const long long k, const int d) const { return F(*this).pow_inplace(k, d); }
+    F pow(const long long k) const { return this->pow(k, this->size()); }
 
-    F operator*(const M& g) const { return F(*this) *= g; }
-    F operator/(const M& g) const { return F(*this) /= g; }
-    F operator+(const F& g) const { return F(*this) += g; }
-    F operator-(const F& g) const { return F(*this) -= g; }
-    F operator<<(const int d) const { return F(*this) <<= d; }
-    F operator>>(const int d) const { return F(*this) >>= d; }
+    friend F operator*(const F& f, const M& g) { return F(f) *= g; }
+    friend F operator*(const M& f, const F& g) { return F(g) *= f; }
+    friend F operator/(const F& f, const M& g) { return F(f) /= g; }
+    friend F operator/(const M& f, const F& g) { return F(g) /= f; }
+    friend F operator+(const F& f, const F& g) { return F(f) += g; }
+    friend F operator-(const F& f, const F& g) { return F(f) -= g; }
+    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g); }
+    friend F operator/(const F& f, const F& g) { return F(f).divide_inplace(g); }
+    friend F operator<<(const F& f, const int d) { return F(f) <<= d; }
+    friend F operator>>(const F& f, const int d) { return F(f) >>= d; }
   };
 }
 
