@@ -2,49 +2,42 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
   - icon: ':heavy_check_mark:'
-    path: tools/fps.hpp
-    title: Formal power series
-  - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
-    path: tools/partition_function.hpp
-    title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
-      \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
@@ -100,30 +93,6 @@ data:
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod1000000007.test.cpp
-    title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod998244353.test.cpp
-    title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod1000000007.test.cpp
-    title: tests/fps/inv_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod998244353.test.cpp
-    title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod1000000007.test.cpp
-    title: tests/fps/log_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod998244353.test.cpp
-    title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod1000000007.test.cpp
-    title: tests/fps/pow_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod998244353.test.cpp
-    title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -136,21 +105,15 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n.test.cpp
-    title: tests/partition_function/n.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n_k.test.cpp
-    title: tests/partition_function/n_k.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -174,16 +137,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -192,9 +155,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -216,24 +179,14 @@ data:
   - tools/rolling_hash.hpp
   - tools/bigdecimal.hpp
   - tools/pow_mod_cache.hpp
-  - tools/fps.hpp
   - tools/detail/rolling_hash.hpp
-  - tools/partition_function.hpp
   - tools/stirling_2nd.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/rational.hpp
   - tools/li_chao_segtree.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fact_mod_cache.test.cpp
   - tests/tsp.test.cpp
   - tests/has_mod.test.cpp
@@ -259,8 +212,6 @@ data:
   - tests/bigdecimal/divides.test.cpp
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/multiplies.test.cpp

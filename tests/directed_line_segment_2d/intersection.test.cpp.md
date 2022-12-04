@@ -1,95 +1,95 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -116,33 +116,33 @@ data:
     \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
     \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
     \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n\\\n  class iterator {\\\n  private:\\\n    V* m_parent;\\\n\
-    \    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
-    \n    using value_type = T;\\\n    using reference = T&;\\\n    using pointer\
-    \ = T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\n\
-    \\\n    iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i)\
-    \ {}\\\n\\\n    iterator() = default;\\\n    iterator(const iterator&) = default;\\\
-    \n    iterator(iterator&&) = default;\\\n    ~iterator() = default;\\\n    iterator&\
-    \ operator=(const iterator&) = default;\\\n    iterator& operator=(iterator&&)\
-    \ = default;\\\n\\\n    iterator& operator++() {\\\n      ++this->m_i;\\\n   \
-    \   return *this;\\\n    }\\\n    iterator operator++(int) {\\\n      const iterator\
-    \ self = *this;\\\n      ++*this;\\\n      return self;\\\n    }\\\n\\\n    iterator&\
-    \ operator--() {\\\n      --this->m_i;\\\n      return *this;\\\n    }\\\n   \
-    \ iterator operator--(int) {\\\n      const iterator self = *this;\\\n      --*this;\\\
-    \n      return self;\\\n    }\\\n\\\n    iterator& operator+=(const difference_type\
-    \ n) {\\\n      this->m_i += n;\\\n      return *this;\\\n    }\\\n    friend\
-    \ iterator operator+(const iterator& self, const difference_type n) {\\\n    \
-    \  return iterator(self) += n;\\\n    }\\\n    friend iterator operator+(const\
-    \ difference_type n, const iterator& self) {\\\n      return iterator(self) +=\
-    \ n;\\\n    }\\\n\\\n    iterator& operator-=(const difference_type n) {\\\n \
-    \     this->m_i -= n;\\\n      return *this;\\\n    }\\\n    friend iterator operator-(const\
-    \ iterator& self, const difference_type n) {\\\n      return iterator(self) -=\
-    \ n;\\\n    }\\\n    friend difference_type operator-(const iterator& lhs, const\
-    \ iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return\
-    \ lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference operator*() const {\\\n   \
-    \   return (*this->m_parent)[this->m_i];\\\n    }\\\n    reference operator[](const\
-    \ difference_type n) const {\\\n      return (*this->m_parent)[this->m_i + n];\\\
-    \n    }\\\n\\\n    friend bool operator<(const iterator& lhs, const iterator&\
+    \ *this;\\\n  }\\\n\\\n  class const_iterator;\\\n\\\n  class iterator {\\\n \
+    \ private:\\\n    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using\
+    \ difference_type = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using\
+    \ reference = T&;\\\n    using pointer = T*;\\\n    using iterator_category =\
+    \ ::std::random_access_iterator_tag;\\\n\\\n    iterator(V * const parent, const\
+    \ size_type i) : m_parent(parent), m_i(i) {}\\\n\\\n    iterator() = default;\\\
+    \n    iterator(const iterator&) = default;\\\n    iterator(iterator&&) = default;\\\
+    \n    ~iterator() = default;\\\n    iterator& operator=(const iterator&) = default;\\\
+    \n    iterator& operator=(iterator&&) = default;\\\n\\\n    iterator& operator++()\
+    \ {\\\n      ++this->m_i;\\\n      return *this;\\\n    }\\\n    iterator operator++(int)\
+    \ {\\\n      const iterator self = *this;\\\n      ++*this;\\\n      return self;\\\
+    \n    }\\\n\\\n    iterator& operator--() {\\\n      --this->m_i;\\\n      return\
+    \ *this;\\\n    }\\\n    iterator operator--(int) {\\\n      const iterator self\
+    \ = *this;\\\n      --*this;\\\n      return self;\\\n    }\\\n\\\n    iterator&\
+    \ operator+=(const difference_type n) {\\\n      this->m_i += n;\\\n      return\
+    \ *this;\\\n    }\\\n    friend iterator operator+(const iterator& self, const\
+    \ difference_type n) {\\\n      return iterator(self) += n;\\\n    }\\\n    friend\
+    \ iterator operator+(const difference_type n, const iterator& self) {\\\n    \
+    \  return iterator(self) += n;\\\n    }\\\n\\\n    iterator& operator-=(const\
+    \ difference_type n) {\\\n      this->m_i -= n;\\\n      return *this;\\\n   \
+    \ }\\\n    friend iterator operator-(const iterator& self, const difference_type\
+    \ n) {\\\n      return iterator(self) -= n;\\\n    }\\\n    friend difference_type\
+    \ operator-(const iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent\
+    \ == rhs.m_parent);\\\n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference\
+    \ operator*() const {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\
+    \n    reference operator[](const difference_type n) const {\\\n      return (*this->m_parent)[this->m_i\
+    \ + n];\\\n    }\\\n\\\n    friend bool operator<(const iterator& lhs, const iterator&\
     \ rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i\
     \ < rhs.m_i;\\\n    }\\\n    friend bool operator<=(const iterator& lhs, const\
     \ iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return\
@@ -154,38 +154,40 @@ data:
     \ iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
     \n      return lhs.m_i == rhs.m_i;\\\n    }\\\n    friend bool operator!=(const\
     \ iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i != rhs.m_i;\\\n    }\\\n  };\\\n\\\n  class const_iterator\
-    \ {\\\n  private:\\\n    const V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\
-    \n    using difference_type = ::std::ptrdiff_t;\\\n    using value_type = const\
-    \ T;\\\n    using reference = const T&;\\\n    using pointer = const T*;\\\n \
-    \   using iterator_category = ::std::random_access_iterator_tag;\\\n\\\n    const_iterator(const\
-    \ V * const parent, const size_type i) : m_parent(parent), m_i(i) {}\\\n\\\n \
-    \   const_iterator() = default;\\\n    const_iterator(const const_iterator&) =\
-    \ default;\\\n    const_iterator(const_iterator&&) = default;\\\n    ~const_iterator()\
-    \ = default;\\\n    const_iterator& operator=(const const_iterator&) = default;\\\
-    \n    const_iterator& operator=(const_iterator&&) = default;\\\n\\\n    const_iterator&\
-    \ operator++() {\\\n      ++this->m_i;\\\n      return *this;\\\n    }\\\n   \
-    \ const_iterator operator++(int) {\\\n      const const_iterator self = *this;\\\
-    \n      ++*this;\\\n      return self;\\\n    }\\\n\\\n    const_iterator& operator--()\
-    \ {\\\n      --this->m_i;\\\n      return *this;\\\n    }\\\n    const_iterator\
-    \ operator--(int) {\\\n      const const_iterator self = *this;\\\n      --*this;\\\
-    \n      return self;\\\n    }\\\n\\\n    const_iterator& operator+=(const difference_type\
-    \ n) {\\\n      this->m_i += n;\\\n      return *this;\\\n    }\\\n    friend\
-    \ const_iterator operator+(const const_iterator& self, const difference_type n)\
-    \ {\\\n      return const_iterator(self) += n;\\\n    }\\\n    friend const_iterator\
-    \ operator+(const difference_type n, const const_iterator& self) {\\\n      return\
-    \ const_iterator(self) += n;\\\n    }\\\n\\\n    const_iterator& operator-=(const\
-    \ difference_type n) {\\\n      this->m_i -= n;\\\n      return *this;\\\n   \
-    \ }\\\n    friend const_iterator operator-(const const_iterator& self, const difference_type\
-    \ n) {\\\n      return const_iterator(self) -= n;\\\n    }\\\n    friend difference_type\
-    \ operator-(const const_iterator& lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent\
-    \ == rhs.m_parent);\\\n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference\
-    \ operator*() const {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\
-    \n    reference operator[](const difference_type n) const {\\\n      return (*this->m_parent)[this->m_i\
-    \ + n];\\\n    }\\\n\\\n    friend bool operator<(const const_iterator& lhs, const\
-    \ const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n  \
-    \    return lhs.m_i < rhs.m_i;\\\n    }\\\n    friend bool operator<=(const const_iterator&\
+    \n      return lhs.m_i != rhs.m_i;\\\n    }\\\n\\\n    friend const_iterator;\\\
+    \n  };\\\n\\\n  class const_iterator {\\\n  private:\\\n    const V* m_parent;\\\
+    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
+    \n    using value_type = const T;\\\n    using reference = const T&;\\\n    using\
+    \ pointer = const T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\
+    \n\\\n    const_iterator(const V * const parent, const size_type i) : m_parent(parent),\
+    \ m_i(i) {}\\\n\\\n    const_iterator() = default;\\\n    const_iterator(const\
+    \ const_iterator&) = default;\\\n    const_iterator(const_iterator&&) = default;\\\
+    \n    ~const_iterator() = default;\\\n    const_iterator& operator=(const const_iterator&)\
+    \ = default;\\\n    const_iterator& operator=(const_iterator&&) = default;\\\n\
+    \\\n    const_iterator(const iterator it) : m_parent(it.m_parent), m_i(it.m_i)\
+    \ {}\\\n\\\n    const_iterator& operator++() {\\\n      ++this->m_i;\\\n     \
+    \ return *this;\\\n    }\\\n    const_iterator operator++(int) {\\\n      const\
+    \ const_iterator self = *this;\\\n      ++*this;\\\n      return self;\\\n   \
+    \ }\\\n\\\n    const_iterator& operator--() {\\\n      --this->m_i;\\\n      return\
+    \ *this;\\\n    }\\\n    const_iterator operator--(int) {\\\n      const const_iterator\
+    \ self = *this;\\\n      --*this;\\\n      return self;\\\n    }\\\n\\\n    const_iterator&\
+    \ operator+=(const difference_type n) {\\\n      this->m_i += n;\\\n      return\
+    \ *this;\\\n    }\\\n    friend const_iterator operator+(const const_iterator&\
+    \ self, const difference_type n) {\\\n      return const_iterator(self) += n;\\\
+    \n    }\\\n    friend const_iterator operator+(const difference_type n, const\
+    \ const_iterator& self) {\\\n      return const_iterator(self) += n;\\\n    }\\\
+    \n\\\n    const_iterator& operator-=(const difference_type n) {\\\n      this->m_i\
+    \ -= n;\\\n      return *this;\\\n    }\\\n    friend const_iterator operator-(const\
+    \ const_iterator& self, const difference_type n) {\\\n      return const_iterator(self)\
+    \ -= n;\\\n    }\\\n    friend difference_type operator-(const const_iterator&\
     \ lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
+    \n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference operator*() const\
+    \ {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\n    reference operator[](const\
+    \ difference_type n) const {\\\n      return (*this->m_parent)[this->m_i + n];\\\
+    \n    }\\\n\\\n    friend bool operator<(const const_iterator& lhs, const const_iterator&\
+    \ rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i\
+    \ < rhs.m_i;\\\n    }\\\n    friend bool operator<=(const const_iterator& lhs,\
+    \ const const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
     \n      return lhs.m_i <= rhs.m_i;\\\n    }\\\n    friend bool operator>(const\
     \ const_iterator& lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent\
     \ == rhs.m_parent);\\\n      return lhs.m_i > rhs.m_i;\\\n    }\\\n    friend\
@@ -1982,7 +1984,7 @@ data:
   isVerificationFile: true
   path: tests/directed_line_segment_2d/intersection.test.cpp
   requiredBy: []
-  timestamp: '2022-11-26 16:11:09+09:00'
+  timestamp: '2022-12-04 17:44:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/intersection.test.cpp
