@@ -172,7 +172,7 @@ namespace tools {
       return *this;
     }
     F& operator/=(const M& g) {
-      assert(g != M(0));
+      assert(g != M::raw(0));
       *this *= g.inv();
       return *this;
     }
@@ -200,7 +200,7 @@ namespace tools {
     }
     F& operator>>=(const int d) {
       const int n = this->size();
-      this->insert(this->begin(), d, 0);
+      this->insert(this->begin(), d, M::raw(0));
       this->resize(n);
       return *this;
     }
@@ -627,7 +627,6 @@ namespace tools {
     friend F operator*(const F& f, const M& g) { return F(f) *= g; }
     friend F operator*(const M& f, const F& g) { return F(g) *= f; }
     friend F operator/(const F& f, const M& g) { return F(f) /= g; }
-    friend F operator/(const M& f, const F& g) { return F(g) /= f; }
     friend F operator+(const F& f, const F& g) { return F(f) += g; }
     friend F operator-(const F& f, const F& g) { return F(f) -= g; }
     friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g); }
