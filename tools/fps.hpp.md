@@ -41,6 +41,9 @@ data:
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: tools/polynomial.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -75,6 +78,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
@@ -669,17 +678,17 @@ data:
     \   for (auto& e : res) {\n        e = -e;\n      }\n      return res;\n    }\n\
     \    F& operator*=(const M& g) {\n      for (auto& e : *this) {\n        e *=\
     \ g;\n      }\n      return *this;\n    }\n    F& operator/=(const M& g) {\n \
-    \     assert(g != M(0));\n      *this *= g.inv();\n      return *this;\n    }\n\
-    \    F& operator+=(const F& g) {\n      const int n = this->size();\n      const\
-    \ int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i) {\n    \
-    \    (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    F& operator-=(const\
-    \ F& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
-    \      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n\
-    \      }\n      return *this;\n    }\n    F& operator<<=(const int d) {\n    \
-    \  const int n = this->size();\n      this->erase(this->begin(), this->begin()\
+    \     assert(g != M::raw(0));\n      *this *= g.inv();\n      return *this;\n\
+    \    }\n    F& operator+=(const F& g) {\n      const int n = this->size();\n \
+    \     const int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i)\
+    \ {\n        (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    F&\
+    \ operator-=(const F& g) {\n      const int n = this->size();\n      const int\
+    \ m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i]\
+    \ -= g[i];\n      }\n      return *this;\n    }\n    F& operator<<=(const int\
+    \ d) {\n      const int n = this->size();\n      this->erase(this->begin(), this->begin()\
     \ + ::std::min(n, d));\n      this->resize(n);\n      return *this;\n    }\n \
     \   F& operator>>=(const int d) {\n      const int n = this->size();\n      this->insert(this->begin(),\
-    \ d, 0);\n      this->resize(n);\n      return *this;\n    }\n    F& multiply_inplace(const\
+    \ d, M::raw(0));\n      this->resize(n);\n      return *this;\n    }\n    F& multiply_inplace(const\
     \ F& g, const int d) {\n      assert(d >= 0);\n      const int n = this->size();\n\
     \      F res;\n      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d,\
     \ n), g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));\n\
@@ -857,10 +866,9 @@ data:
     \ long k) const { return this->pow(k, this->size()); }\n\n    friend F operator*(const\
     \ F& f, const M& g) { return F(f) *= g; }\n    friend F operator*(const M& f,\
     \ const F& g) { return F(g) *= f; }\n    friend F operator/(const F& f, const\
-    \ M& g) { return F(f) /= g; }\n    friend F operator/(const M& f, const F& g)\
-    \ { return F(g) /= f; }\n    friend F operator+(const F& f, const F& g) { return\
-    \ F(f) += g; }\n    friend F operator-(const F& f, const F& g) { return F(f) -=\
-    \ g; }\n    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g);\
+    \ M& g) { return F(f) /= g; }\n    friend F operator+(const F& f, const F& g)\
+    \ { return F(f) += g; }\n    friend F operator-(const F& f, const F& g) { return\
+    \ F(f) -= g; }\n    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g);\
     \ }\n    friend F operator/(const F& f, const F& g) { return F(f).divide_inplace(g);\
     \ }\n    friend F operator<<(const F& f, const int d) { return F(f) <<= d; }\n\
     \    friend F operator>>(const F& f, const int d) { return F(f) >>= d; }\n  };\n\
@@ -966,17 +974,17 @@ data:
     \   for (auto& e : res) {\n        e = -e;\n      }\n      return res;\n    }\n\
     \    F& operator*=(const M& g) {\n      for (auto& e : *this) {\n        e *=\
     \ g;\n      }\n      return *this;\n    }\n    F& operator/=(const M& g) {\n \
-    \     assert(g != M(0));\n      *this *= g.inv();\n      return *this;\n    }\n\
-    \    F& operator+=(const F& g) {\n      const int n = this->size();\n      const\
-    \ int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i) {\n    \
-    \    (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    F& operator-=(const\
-    \ F& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
-    \      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n\
-    \      }\n      return *this;\n    }\n    F& operator<<=(const int d) {\n    \
-    \  const int n = this->size();\n      this->erase(this->begin(), this->begin()\
+    \     assert(g != M::raw(0));\n      *this *= g.inv();\n      return *this;\n\
+    \    }\n    F& operator+=(const F& g) {\n      const int n = this->size();\n \
+    \     const int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i)\
+    \ {\n        (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    F&\
+    \ operator-=(const F& g) {\n      const int n = this->size();\n      const int\
+    \ m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i]\
+    \ -= g[i];\n      }\n      return *this;\n    }\n    F& operator<<=(const int\
+    \ d) {\n      const int n = this->size();\n      this->erase(this->begin(), this->begin()\
     \ + ::std::min(n, d));\n      this->resize(n);\n      return *this;\n    }\n \
     \   F& operator>>=(const int d) {\n      const int n = this->size();\n      this->insert(this->begin(),\
-    \ d, 0);\n      this->resize(n);\n      return *this;\n    }\n    F& multiply_inplace(const\
+    \ d, M::raw(0));\n      this->resize(n);\n      return *this;\n    }\n    F& multiply_inplace(const\
     \ F& g, const int d) {\n      assert(d >= 0);\n      const int n = this->size();\n\
     \      F res;\n      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d,\
     \ n), g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));\n\
@@ -1154,10 +1162,9 @@ data:
     \ long k) const { return this->pow(k, this->size()); }\n\n    friend F operator*(const\
     \ F& f, const M& g) { return F(f) *= g; }\n    friend F operator*(const M& f,\
     \ const F& g) { return F(g) *= f; }\n    friend F operator/(const F& f, const\
-    \ M& g) { return F(f) /= g; }\n    friend F operator/(const M& f, const F& g)\
-    \ { return F(g) /= f; }\n    friend F operator+(const F& f, const F& g) { return\
-    \ F(f) += g; }\n    friend F operator-(const F& f, const F& g) { return F(f) -=\
-    \ g; }\n    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g);\
+    \ M& g) { return F(f) /= g; }\n    friend F operator+(const F& f, const F& g)\
+    \ { return F(f) += g; }\n    friend F operator-(const F& f, const F& g) { return\
+    \ F(f) -= g; }\n    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g);\
     \ }\n    friend F operator/(const F& f, const F& g) { return F(f).divide_inplace(g);\
     \ }\n    friend F operator<<(const F& f, const int d) { return F(f) <<= d; }\n\
     \    friend F operator>>(const F& f, const int d) { return F(f) >>= d; }\n  };\n\
@@ -1179,7 +1186,8 @@ data:
   requiredBy:
   - tools/partition_function.hpp
   - tools/stirling_2nd.hpp
-  timestamp: '2022-12-04 17:44:59+09:00'
+  - tools/polynomial.hpp
+  timestamp: '2022-12-04 23:25:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fps/pow_mod1000000007.test.cpp
@@ -1190,6 +1198,8 @@ data:
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp

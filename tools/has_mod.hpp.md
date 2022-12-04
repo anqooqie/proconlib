@@ -9,6 +9,9 @@ data:
     path: tools/extend_output.hpp
     title: Extend operator<<
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: tools/polynomial.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
@@ -21,6 +24,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
@@ -48,9 +57,12 @@ data:
   - tools/extend_output.hpp
   - tools/util.hpp
   - tools/extend_input.hpp
+  - tools/polynomial.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/has_mod.test.cpp
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp

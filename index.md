@@ -351,6 +351,9 @@ data:
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
     - icon: ':heavy_check_mark:'
+      path: tools/polynomial.hpp
+      title: tools/polynomial.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -1000,6 +1003,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp
+  - name: tests/polynomial
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/polynomial/naive_division.test.cpp
+      title: tests/polynomial/naive_division.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polynomial/ntt_division.test.cpp
+      title: tests/polynomial/ntt_division.test.cpp
   - name: tests/prim
     pages:
     - icon: ':heavy_check_mark:'

@@ -49,6 +49,9 @@ data:
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: tools/polynomial.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -183,6 +186,12 @@ data:
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -262,6 +271,7 @@ data:
   - tools/extended_lucas.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
+  - tools/polynomial.hpp
   - tools/primitive_root.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -277,6 +287,8 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/divisors.test.cpp
   - tests/fact_mod_cache.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/rational/random.test.cpp
   - tests/rational/plus.test.cpp
   - tests/rational/multiplies.test.cpp

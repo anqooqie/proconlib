@@ -28,6 +28,9 @@ data:
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: tools/polynomial.hpp
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -86,6 +89,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
@@ -160,6 +169,7 @@ data:
   - tools/stirling_2nd.hpp
   - tools/dual_segtree.hpp
   - tools/li_chao_segtree.hpp
+  - tools/polynomial.hpp
   - tools/binary_heap.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -172,6 +182,8 @@ data:
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/log_mod1000000007.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
   - tests/ssize.test.cpp
