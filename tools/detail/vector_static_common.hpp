@@ -31,6 +31,8 @@
     return *this;\
   }\
 \
+  class const_iterator;\
+\
   class iterator {\
   private:\
     V* m_parent;\
@@ -126,6 +128,8 @@
       assert(lhs.m_parent == rhs.m_parent);\
       return lhs.m_i != rhs.m_i;\
     }\
+\
+    friend const_iterator;\
   };\
 \
   class const_iterator {\
@@ -148,6 +152,8 @@
     ~const_iterator() = default;\
     const_iterator& operator=(const const_iterator&) = default;\
     const_iterator& operator=(const_iterator&&) = default;\
+\
+    const_iterator(const iterator it) : m_parent(it.m_parent), m_i(it.m_i) {}\
 \
     const_iterator& operator++() {\
       ++this->m_i;\
