@@ -556,20 +556,18 @@ data:
     \   explicit fps(const size_type n) : m_vector(n) {}\n    fps(const size_type\
     \ n, const_reference value) : m_vector(n, value) {}\n    template <class InputIter>\
     \ fps(const InputIter first, const InputIter last) : m_vector(first, last) {}\n\
-    \    fps(const ::std::initializer_list<M> il) : m_vector(il) {}\n    fps(const\
-    \ ::std::initializer_list<int> il) {\n      this->m_vector.reserve(il.size());\n\
-    \      for (const auto x : il) {\n        this->m_vector.emplace_back(x);\n  \
-    \    }\n    }\n\n    iterator begin() noexcept { return this->m_vector.begin();\
-    \ }\n    const_iterator begin() const noexcept { return this->m_vector.begin();\
-    \ }\n    iterator end() noexcept { return this->m_vector.end(); }\n    const_iterator\
-    \ end() const noexcept { return this->m_vector.end(); }\n    const_iterator cbegin()\
-    \ const noexcept { return this->m_vector.cbegin(); }\n    const_iterator cend()\
-    \ const noexcept { return this->m_vector.cend(); }\n    reverse_iterator rbegin()\
-    \ noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator rbegin()\
-    \ const noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator\
-    \ crbegin() const noexcept { return this->m_vector.crbegin(); }\n    reverse_iterator\
-    \ rend() noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
-    \ rend() const noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
+    \    fps(const ::std::initializer_list<M> il) : m_vector(il) {}\n\n    iterator\
+    \ begin() noexcept { return this->m_vector.begin(); }\n    const_iterator begin()\
+    \ const noexcept { return this->m_vector.begin(); }\n    iterator end() noexcept\
+    \ { return this->m_vector.end(); }\n    const_iterator end() const noexcept {\
+    \ return this->m_vector.end(); }\n    const_iterator cbegin() const noexcept {\
+    \ return this->m_vector.cbegin(); }\n    const_iterator cend() const noexcept\
+    \ { return this->m_vector.cend(); }\n    reverse_iterator rbegin() noexcept {\
+    \ return this->m_vector.rbegin(); }\n    const_reverse_iterator rbegin() const\
+    \ noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator crbegin()\
+    \ const noexcept { return this->m_vector.crbegin(); }\n    reverse_iterator rend()\
+    \ noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator rend()\
+    \ const noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
     \ crend() const noexcept { return this->m_vector.crend(); }\n\n    size_type size()\
     \ const noexcept { return this->m_vector.size(); }\n    size_type max_size() const\
     \ noexcept { return this->m_vector.max_size(); }\n    void resize(const size_type\
@@ -590,38 +588,21 @@ data:
     \ void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first,\
     \ last); }\n    void assign(const size_type n, const M& u) { this->m_vector.assign(n,\
     \ u); }\n    void assign(const ::std::initializer_list<M> il) { this->m_vector.assign(il);\
-    \ }\n    void assign(const ::std::initializer_list<int> il) {\n      this->m_vector.reserve(il.size());\n\
-    \      for (size_type i = 0; i < ::std::min(this->m_vector.size(), il.size());\
-    \ ++i) {\n        this->m_vector[i] = M(il.begin()[i]);\n      }\n      for (size_type\
-    \ i = this->m_vector.size(); i < il.size(); ++i) {\n        this->m_vector.emplace_back(il.begin()[i]);\n\
-    \      }\n      this->m_vector.resize(il.size());\n    }\n    void push_back(const\
-    \ M& x) { this->m_vector.push_back(x); }\n    void push_back(M&& x) { this->m_vector.push_back(::std::forward<M>(x));\
-    \ }\n    template <class... Args> reference emplace_back(Args&&... args) { return\
-    \ this->m_vector.emplace_back(::std::forward<Args>(args)...); }\n    void pop_back()\
-    \ { this->m_vector.pop_back(); }\n    iterator insert(const const_iterator position,\
-    \ const M& x) { return this->m_vector.insert(position, x); }\n    iterator insert(const\
-    \ const_iterator position, M&& x) { return this->m_vector.insert(position, ::std::forward<M>(x));\
-    \ }\n    iterator insert(const const_iterator position, const size_type n, const\
-    \ M& x) { return this->m_vector.insert(position, n, x); }\n    template <class\
-    \ InputIterator> iterator insert(const const_iterator position, const InputIterator\
-    \ first, const InputIterator last) { return this->m_vector.insert(position, first,\
-    \ last); }\n    iterator insert(const const_iterator position, const ::std::initializer_list<M>\
-    \ il) { return this->m_vector.insert(position, il); }\n    iterator insert(const\
-    \ const_iterator position, const ::std::initializer_list<int> il) {\n      const\
-    \ size_type p = position - this->m_vector.begin();\n      const size_type n =\
-    \ this->m_vector.size();\n      const size_type m = il.size();\n      this->m_vector.reserve(n\
-    \ + m);\n      if (n - p >= m) {\n        for (size_type i = n - m; i < n; ++i)\
-    \ {\n          this->m_vector.push_back(::std::move(this->m_vector[i]));\n   \
-    \     }\n        ::std::move_backward(this->m_vector.begin() + p, this->m_vector.begin()\
-    \ + (n - m), this->m_vector.begin() + n);\n        for (size_type i = 0; i < m;\
-    \ ++i) {\n          this->m_vector[p + i] = M(il.begin()[i]);\n        }\n   \
-    \   } else {\n        for (size_type i = n - p; i < m; ++i) {\n          this->m_vector.emplace_back(il.begin()[i]);\n\
-    \        }\n        for (size_type i = p; i < n; ++i) {\n          this->m_vector.push_back(::std::move(this->m_vector[i]));\n\
-    \        }\n        for (size_type i = 0; i < n - p; ++i) {\n          this->m_vector[p\
-    \ + i] = M(il.begin()[i]);\n        }\n      }\n      return this->m_vector.begin()\
-    \ + p;\n    }\n    template <class... Args> iterator emplace(const const_iterator\
-    \ position, Args&&... args) { return this->m_vector.emplace(position, ::std::forward<Args>(args)...);\
-    \ }\n    iterator erase(const const_iterator position) { return this->m_vector.erase(position);\
+    \ }\n    void push_back(const M& x) { this->m_vector.push_back(x); }\n    void\
+    \ push_back(M&& x) { this->m_vector.push_back(::std::forward<M>(x)); }\n    template\
+    \ <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...);\
+    \ }\n    void pop_back() { this->m_vector.pop_back(); }\n    iterator insert(const\
+    \ const_iterator position, const M& x) { return this->m_vector.insert(position,\
+    \ x); }\n    iterator insert(const const_iterator position, M&& x) { return this->m_vector.insert(position,\
+    \ ::std::forward<M>(x)); }\n    iterator insert(const const_iterator position,\
+    \ const size_type n, const M& x) { return this->m_vector.insert(position, n, x);\
+    \ }\n    template <class InputIterator> iterator insert(const const_iterator position,\
+    \ const InputIterator first, const InputIterator last) { return this->m_vector.insert(position,\
+    \ first, last); }\n    iterator insert(const const_iterator position, const ::std::initializer_list<M>\
+    \ il) { return this->m_vector.insert(position, il); }\n    template <class...\
+    \ Args> iterator emplace(const const_iterator position, Args&&... args) { return\
+    \ this->m_vector.emplace(position, ::std::forward<Args>(args)...); }\n    iterator\
+    \ erase(const const_iterator position) { return this->m_vector.erase(position);\
     \ }\n    iterator erase(const const_iterator first, const const_iterator last)\
     \ { return this->m_vector.erase(first, last); }\n    void swap(F& x) noexcept\
     \ { this->m_vector.swap(x.m_vector); }\n    void clear() { this->m_vector.clear();\
@@ -877,7 +858,7 @@ data:
   isVerificationFile: false
   path: tools/partition_function.hpp
   requiredBy: []
-  timestamp: '2022-12-04 23:25:29+09:00'
+  timestamp: '2022-12-11 17:55:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/partition_function/n.test.cpp
