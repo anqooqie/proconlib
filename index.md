@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -72,7 +72,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Arbitrary modulus convolution
     - icon: ':heavy_check_mark:'
@@ -154,7 +154,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fps.hpp
       title: Formal power series
     - icon: ':heavy_check_mark:'
@@ -164,7 +164,7 @@ data:
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -219,7 +219,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
     - icon: ':heavy_check_mark:'
@@ -249,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
     - icon: ':heavy_check_mark:'
@@ -295,7 +295,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
@@ -359,10 +359,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -377,7 +377,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/primitive_root.hpp
       title: Primitive root
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -386,7 +386,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -478,7 +478,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/uint128_t.hpp
       title: 128 bit unsigned integer
     - icon: ':heavy_check_mark:'
@@ -919,13 +919,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fps/exp_mod998244353.test.cpp
       title: tests/fps/exp_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod1000000007.test.cpp
       title: tests/fps/inv_mod1000000007.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod998244353.test.cpp
       title: tests/fps/inv_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod1000000007.test.cpp
       title: tests/fps/log_mod1000000007.test.cpp
     - icon: ':heavy_check_mark:'
