@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -53,13 +53,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod1000000007.test.cpp
     title: tests/fps/inv_mod1000000007.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod1000000007.test.cpp
     title: tests/fps/log_mod1000000007.test.cpp
   - icon: ':heavy_check_mark:'
@@ -101,9 +101,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
@@ -172,7 +172,7 @@ data:
   - tools/polynomial.hpp
   - tools/binary_heap.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fps/pow_mod1000000007.test.cpp
   - tests/fps/inv_mod1000000007.test.cpp

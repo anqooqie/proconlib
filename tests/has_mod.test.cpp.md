@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
@@ -22,7 +22,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
@@ -40,7 +40,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'

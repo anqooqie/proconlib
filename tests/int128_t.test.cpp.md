@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
