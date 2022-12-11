@@ -50,12 +50,6 @@ namespace tools {
     fps(const size_type n, const_reference value) : m_vector(n, value) {}
     template <class InputIter> fps(const InputIter first, const InputIter last) : m_vector(first, last) {}
     fps(const ::std::initializer_list<M> il) : m_vector(il) {}
-    fps(const ::std::initializer_list<int> il) {
-      this->m_vector.reserve(il.size());
-      for (const auto x : il) {
-        this->m_vector.emplace_back(x);
-      }
-    }
 
     iterator begin() noexcept { return this->m_vector.begin(); }
     const_iterator begin() const noexcept { return this->m_vector.begin(); }
@@ -93,16 +87,6 @@ namespace tools {
     template <class InputIterator> void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first, last); }
     void assign(const size_type n, const M& u) { this->m_vector.assign(n, u); }
     void assign(const ::std::initializer_list<M> il) { this->m_vector.assign(il); }
-    void assign(const ::std::initializer_list<int> il) {
-      this->m_vector.reserve(il.size());
-      for (size_type i = 0; i < ::std::min(this->m_vector.size(), il.size()); ++i) {
-        this->m_vector[i] = M(il.begin()[i]);
-      }
-      for (size_type i = this->m_vector.size(); i < il.size(); ++i) {
-        this->m_vector.emplace_back(il.begin()[i]);
-      }
-      this->m_vector.resize(il.size());
-    }
     void push_back(const M& x) { this->m_vector.push_back(x); }
     void push_back(M&& x) { this->m_vector.push_back(::std::forward<M>(x)); }
     template <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...); }
@@ -112,32 +96,6 @@ namespace tools {
     iterator insert(const const_iterator position, const size_type n, const M& x) { return this->m_vector.insert(position, n, x); }
     template <class InputIterator> iterator insert(const const_iterator position, const InputIterator first, const InputIterator last) { return this->m_vector.insert(position, first, last); }
     iterator insert(const const_iterator position, const ::std::initializer_list<M> il) { return this->m_vector.insert(position, il); }
-    iterator insert(const const_iterator position, const ::std::initializer_list<int> il) {
-      const size_type p = position - this->m_vector.begin();
-      const size_type n = this->m_vector.size();
-      const size_type m = il.size();
-      this->m_vector.reserve(n + m);
-      if (n - p >= m) {
-        for (size_type i = n - m; i < n; ++i) {
-          this->m_vector.push_back(::std::move(this->m_vector[i]));
-        }
-        ::std::move_backward(this->m_vector.begin() + p, this->m_vector.begin() + (n - m), this->m_vector.begin() + n);
-        for (size_type i = 0; i < m; ++i) {
-          this->m_vector[p + i] = M(il.begin()[i]);
-        }
-      } else {
-        for (size_type i = n - p; i < m; ++i) {
-          this->m_vector.emplace_back(il.begin()[i]);
-        }
-        for (size_type i = p; i < n; ++i) {
-          this->m_vector.push_back(::std::move(this->m_vector[i]));
-        }
-        for (size_type i = 0; i < n - p; ++i) {
-          this->m_vector[p + i] = M(il.begin()[i]);
-        }
-      }
-      return this->m_vector.begin() + p;
-    }
     template <class... Args> iterator emplace(const const_iterator position, Args&&... args) { return this->m_vector.emplace(position, ::std::forward<Args>(args)...); }
     iterator erase(const const_iterator position) { return this->m_vector.erase(position); }
     iterator erase(const const_iterator first, const const_iterator last) { return this->m_vector.erase(first, last); }
