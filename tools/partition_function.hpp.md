@@ -6,7 +6,7 @@ data:
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
-    title: Arbitrary modulus convolution
+    title: Convolution
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
@@ -420,96 +420,12 @@ data:
     \     if (diff < 0) diff += MOD1;\n        static constexpr unsigned long long\
     \ offset[5] = {\n            0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};\n        x\
     \ -= offset[diff % 5];\n        c[i] = x;\n    }\n\n    return c;\n}\n\n}  //\
-    \ namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 1 \"tools/is_prime.hpp\"\
-    \n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\
-    \n\n\n#include <iostream>\n#include <string>\n#line 9 \"tools/uint128_t.hpp\"\n\
-    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
-    \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
-    \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
-    \ = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream&\
-    \ os, ::tools::uint128_t x) {\n  if (x == 0) return os << '0';\n\n  ::std::string\
-    \ s;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n \
-    \ ::std::reverse(s.begin(), s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"\
-    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
-    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
-    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
-    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
-    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
-    \    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n      if (rhs >=\
-    \ 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n        return\
-    \ (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
-    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
-    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
-    \  constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {\n    if (m == 1) return\
-    \ 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x, m);\n    while (n > 0) {\n   \
-    \   if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r, y, m);\n      }\n   \
-    \   y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n    return r;\n  }\n\
-    }\n\n\n#line 7 \"tools/is_prime.hpp\"\n\nnamespace tools {\n\n  constexpr bool\
-    \ is_prime(const unsigned long long n) {\n    constexpr ::std::array<unsigned\
-    \ long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};\n\n\
-    \    if (n <= 1) return false;\n    if (n == 2) return true;\n    if (n % 2 ==\
-    \ 0) return false;\n\n    auto d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n\
-    \    for (const auto a : bases) {\n      if (a % n == 0) return true;\n\n    \
-    \  auto power = d;\n      auto target = ::tools::pow_mod(a, power, n);\n\n   \
-    \   bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
-    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
-    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
-    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
-    \ true;\n  }\n}\n\n\n#line 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename M1, typename M2, typename\
-    \ M3>\n  M garner3(const M1& a, const M2& b, const M3& c, const M m) {\n    using\
-    \ ull = unsigned long long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
-    \    static const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
-    \n    static const auto plus_mod = [](ull x, const ull y, const ull mod) {\n \
-    \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
-    \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
-    \ < M2::mod());\n    assert(M2::mod() < M3::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
-    \    assert(::tools::is_prime(M2::mod()));\n    assert(::tools::is_prime(M3::mod()));\n\
-    \n    // t1 = (b - a) / M1; (mod M2)\n    // t2 = (c - a - t1 * M1) / M1 / M2;\
-    \ (mod M3)\n    // return a + t1 * M1 + t2 * M1 * M2; (mod m)\n    const M2 t1\
-    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    const M3 t2 = (c - M3::raw(a.val())\
-    \ - M3::raw(t1.val()) * M3::raw(M1::mod())) * m1_m2_inv_mod_m3;\n    ull r = ::tools::prod_mod(t2.val(),\
-    \ ull(M1::mod()) * ull(M2::mod()), m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
-    \ ull(t1.val()) * ull(M1::mod()) % m, m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
-    \ a.val() % m, m);\n    assert(r < ull(m));\n    return r;\n  }\n}\n\n\n#line\
-    \ 13 \"tools/convolution.hpp\"\n\nnamespace tools {\n\n  template <typename InputIterator,\
-    \ typename OutputIterator>\n  void convolution(const InputIterator a_begin, const\
-    \ InputIterator a_end, const InputIterator b_begin, const InputIterator b_end,\
-    \ OutputIterator result) {\n    using M = ::std::decay_t<decltype(*a_begin)>;\n\
-    \    using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1\n    using\
-    \ M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1\n    using M3 =\
-    \ ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1\n\n    // return maximum\
-    \ 2^k s.t. x = 1 (mod 2^k)\n    static const auto pow2_k = [](const unsigned long\
-    \ long x) {\n      return (x - 1) & -(x - 1);\n    };\n\n    ::std::vector<M>\
-    \ a(a_begin, a_end);\n    ::std::vector<M> b(b_begin, b_end);\n\n    if (::tools::is_prime(M::mod())\
-    \ && a.size() + b.size() <= pow2_k(M::mod()) + 1) {\n      for (const auto& c_i\
-    \ : ::atcoder::convolution(a, b)) {\n        *result = c_i;\n        ++result;\n\
-    \      }\n      return;\n    }\n\n    assert(a.size() + b.size() <= ::std::min({pow2_k(M1::mod()),\
-    \ pow2_k(M2::mod()), pow2_k(M3::mod())}) + 1);\n\n    // No need for the following\
-    \ assertion because the condition always holds.\n    // assert(std::min(a.size(),\
-    \ b.size()) * tools::square(M::mod() - 1) < M1::mod() * M2::mod() * M3::mod());\n\
-    \n    ::std::vector<M1> a1;\n    ::std::vector<M2> a2;\n    ::std::vector<M3>\
-    \ a3;\n    a1.reserve(a.size());\n    a2.reserve(a.size());\n    a3.reserve(a.size());\n\
-    \    for (const auto& a_i : a) {\n      a1.emplace_back(a_i.val());\n      a2.emplace_back(a_i.val());\n\
-    \      a3.emplace_back(a_i.val());\n    }\n\n    ::std::vector<M1> b1;\n    ::std::vector<M2>\
-    \ b2;\n    ::std::vector<M3> b3;\n    b1.reserve(b.size());\n    b2.reserve(b.size());\n\
-    \    b3.reserve(b.size());\n    for (const auto& b_i : b) {\n      b1.emplace_back(b_i.val());\n\
-    \      b2.emplace_back(b_i.val());\n      b3.emplace_back(b_i.val());\n    }\n\
-    \n    const auto c1 = ::atcoder::convolution(a1, b1);\n    const auto c2 = ::atcoder::convolution(a2,\
-    \ b2);\n    const auto c3 = ::atcoder::convolution(a3, b3);\n    for (::std::size_t\
-    \ i = 0; i + 1 < a.size() + b.size(); ++i) {\n      *result = M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod()));\n      ++result;\n    }\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\
-    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
-    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
-    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 8 \"tools/convolution.hpp\"\
+    \n#include <complex>\n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
@@ -536,7 +452,154 @@ data:
     \ j = ::std::numeric_limits<T>::digits / 2;\n\n      for (const auto t_i : ::std::get<log2(::std::numeric_limits<T>::digits)\
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
-    \n#line 1 \"tools/less_by_first.hpp\"\n\n\n\n#line 5 \"tools/less_by_first.hpp\"\
+    \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
+    #line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t = unsigned\
+    \ __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
+    \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
+    \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
+    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
+    ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
+    \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
+    \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
+    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
+    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const\
+    \ M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else\
+    \ {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      }\
+    \ else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\
+    \n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
+    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
+    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
+    \ * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
+    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
+    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
+    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
+    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename M1, typename M2, typename M3>\n  M garner3(const\
+    \ M1& a, const M2& b, const M3& c, const M m) {\n    using ull = unsigned long\
+    \ long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n    static\
+    \ const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
+    \n    static const auto plus_mod = [](ull x, const ull y, const ull mod) {\n \
+    \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
+    \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
+    \ < M2::mod());\n    assert(M2::mod() < M3::mod());\n    assert(::tools::is_prime(M1::mod()));\n\
+    \    assert(::tools::is_prime(M2::mod()));\n    assert(::tools::is_prime(M3::mod()));\n\
+    \n    // t1 = (b - a) / M1; (mod M2)\n    // t2 = (c - a - t1 * M1) / M1 / M2;\
+    \ (mod M3)\n    // return a + t1 * M1 + t2 * M1 * M2; (mod m)\n    const M2 t1\
+    \ = (b - M2::raw(a.val())) * m1_inv_mod_m2;\n    const M3 t2 = (c - M3::raw(a.val())\
+    \ - M3::raw(t1.val()) * M3::raw(M1::mod())) * m1_m2_inv_mod_m3;\n    ull r = ::tools::prod_mod(t2.val(),\
+    \ ull(M1::mod()) * ull(M2::mod()), m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
+    \ ull(t1.val()) * ull(M1::mod()) % m, m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
+    \ a.val() % m, m);\n    assert(r < ull(m));\n    return r;\n  }\n}\n\n\n#line\
+    \ 19 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace detail {\n  \
+    \  namespace convolution {\n      // return maximum 2^k s.t. x = 1 (mod 2^k)\n\
+    \      constexpr unsigned int pow2_k(const unsigned int x) {\n        assert(x\
+    \ != 1);\n        return (x - 1) & -(x - 1);\n      }\n\n      template <typename\
+    \ T>\n      ::std::vector<T> naive(const ::std::vector<T>& a, const ::std::vector<T>&\
+    \ b) {\n        assert(!a.empty() && !b.empty());\n\n        ::std::vector<T>\
+    \ c(a.size() + b.size() - 1);\n        for (::std::size_t i = 0; i < a.size();\
+    \ ++i) {\n          for (::std::size_t j = 0; j < b.size(); ++j) {\n         \
+    \   c[i + j] += a[i] * b[j];\n          }\n        }\n\n        return c;\n  \
+    \    }\n\n      template <typename C>\n      ::std::vector<C> fft(::std::vector<C>\
+    \ a, ::std::vector<C> b) {\n        static_assert(::std::is_same_v<C, ::std::complex<float>>\
+    \ || ::std::is_same_v<C, ::std::complex<double>> || ::std::is_same_v<C, ::std::complex<long\
+    \ double>>);\n        assert(!a.empty() && !b.empty());\n\n        using R = typename\
+    \ C::value_type;\n\n        const auto original_n = a.size() + b.size() - 1;\n\
+    \        const auto n = ::tools::pow2(::tools::ceil_log2(original_n));\n     \
+    \   a.resize(n);\n        b.resize(n);\n\n        ::std::vector<C> pow_root;\n\
+    \        pow_root.reserve(n);\n        pow_root.emplace_back(1, 0);\n        if\
+    \ (n > 1) pow_root.push_back(::std::polar<R>(1, R(2) * ::std::acos(R(-1)) / n));\n\
+    \        for (::std::size_t p = 2; p < n; p *= 2) {\n          pow_root.push_back(pow_root[p\
+    \ / 2] * pow_root[p / 2]);\n          for (::std::size_t i = p + 1; i < p * 2;\
+    \ ++i) {\n            pow_root.push_back(pow_root[p] * pow_root[i - p]);\n   \
+    \       }\n        }\n\n        const auto butterfly = [&](::std::vector<C>& f)\
+    \ {\n          ::std::vector<C> prev(n);\n          for (::std::size_t p = n /\
+    \ 2; p >= 1; p /= 2) {\n            prev.swap(f);\n            for (::std::size_t\
+    \ qp = 0; qp < n; qp += p) {\n              for (::std::size_t r = 0; r < p; ++r)\
+    \ {\n                f[qp + r] = prev[qp * 2 % n + r] + pow_root[qp] * prev[qp\
+    \ * 2 % n + p + r];\n              }\n            }\n          }\n        };\n\
+    \n        butterfly(a);\n        butterfly(b);\n\n        ::std::vector<C> c;\n\
+    \        c.reserve(n);\n        for (::std::size_t i = 0; i < n; ++i) {\n    \
+    \      c.push_back(a[i] * b[i]);\n        }\n\n        ::std::reverse(::std::next(pow_root.begin()),\
+    \ pow_root.end());\n        butterfly(c);\n        for (auto& c_i : c) c_i /=\
+    \ n;\n\n        c.resize(original_n);\n        return c;\n      }\n\n      template\
+    \ <typename R>\n      ::std::vector<R> fft_real(const ::std::vector<R>& a, const\
+    \ ::std::vector<R>& b) {\n        static_assert(::std::is_floating_point_v<R>);\n\
+    \        assert(!a.empty() && !b.empty());\n\n        ::std::vector<::std::complex<R>>\
+    \ a_complex;\n        a_complex.reserve(a.size());\n        for (const auto& a_i\
+    \ : a) a_complex.emplace_back(a_i, 0);\n\n        ::std::vector<::std::complex<R>>\
+    \ b_complex;\n        b_complex.reserve(b.size());\n        for (const auto& b_i\
+    \ : b) b_complex.emplace_back(b_i, 0);\n\n        const auto c_complex = ::tools::detail::convolution::fft(a_complex,\
+    \ b_complex);\n\n        ::std::vector<R> c;\n        c.reserve(c_complex.size());\n\
+    \        for (const auto& c_i : c_complex) c.push_back(c_i.real());\n\n      \
+    \  return c;\n      }\n\n      template <typename M>\n      ::std::vector<M> ntt(const\
+    \ ::std::vector<M>& a, const ::std::vector<M>& b) {\n        static_assert(::atcoder::internal::is_static_modint<M>::value);\n\
+    \        static_assert(2 <= M::mod() && M::mod() <= 2000000000);\n        static_assert(::tools::is_prime(M::mod()));\n\
+    \        assert(a.size() + b.size() <= ::tools::detail::convolution::pow2_k(M::mod())\
+    \ + 1);\n\n        return ::atcoder::convolution(a, b);\n      }\n\n      template\
+    \ <typename M>\n      ::std::vector<M> ntt_and_garner(const ::std::vector<M>&\
+    \ a, const ::std::vector<M>& b) {\n        using M1 = ::atcoder::static_modint<1107296257>;\
+    \ // 33 * 2^25 + 1\n        using M2 = ::atcoder::static_modint<1711276033>; //\
+    \ 51 * 2^25 + 1\n        using M3 = ::atcoder::static_modint<1811939329>; // 27\
+    \ * 2^26 + 1\n\n        static_assert(::atcoder::internal::is_static_modint<M>::value\
+    \ || ::atcoder::internal::is_dynamic_modint<M>::value);\n        assert(a.size()\
+    \ + b.size() <= ::std::min({::tools::detail::convolution::pow2_k(M1::mod()), ::tools::detail::convolution::pow2_k(M2::mod()),\
+    \ ::tools::detail::convolution::pow2_k(M3::mod())}) + 1);\n\n        // No need\
+    \ for the following assertion because the condition always holds.\n        //\
+    \ assert(std::min(a.size(), b.size()) * tools::square(M::mod() - 1) < M1::mod()\
+    \ * M2::mod() * M3::mod());\n\n        ::std::vector<M1> a1;\n        ::std::vector<M2>\
+    \ a2;\n        ::std::vector<M3> a3;\n        a1.reserve(a.size());\n        a2.reserve(a.size());\n\
+    \        a3.reserve(a.size());\n        for (const auto& a_i : a) {\n        \
+    \  a1.emplace_back(a_i.val());\n          a2.emplace_back(a_i.val());\n      \
+    \    a3.emplace_back(a_i.val());\n        }\n\n        ::std::vector<M1> b1;\n\
+    \        ::std::vector<M2> b2;\n        ::std::vector<M3> b3;\n        b1.reserve(b.size());\n\
+    \        b2.reserve(b.size());\n        b3.reserve(b.size());\n        for (const\
+    \ auto& b_i : b) {\n          b1.emplace_back(b_i.val());\n          b2.emplace_back(b_i.val());\n\
+    \          b3.emplace_back(b_i.val());\n        }\n\n        const auto c1 = ::atcoder::convolution(a1,\
+    \ b1);\n        const auto c2 = ::atcoder::convolution(a2, b2);\n        const\
+    \ auto c3 = ::atcoder::convolution(a3, b3);\n\n        assert(c1.size() == c2.size()\
+    \ && c2.size() == c3.size());\n        ::std::vector<M> c;\n        c.reserve(c1.size());\n\
+    \n        for (::std::size_t i = 0; i < c1.size(); ++i) {\n          c.push_back(M::raw(::tools::garner3(c1[i],\
+    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n    }\n \
+    \ }\n\n  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
+    \ const InputIterator b_end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    ::std::vector<T>\
+    \ a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\n    auto c =\
+    \ [&]() {\n      if constexpr (::std::is_same_v<T, ::std::complex<float>> || ::std::is_same_v<T,\
+    \ ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>)\
+    \ {\n        return ::tools::detail::convolution::fft(a, b);\n      } else if\
+    \ constexpr (::std::is_floating_point_v<T>) {\n        return ::tools::detail::convolution::fft_real(a,\
+    \ b);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
+    \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
+    \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
+    \ ::tools::is_prime(T::mod())) {\n          if (a.size() + b.size() <= ::tools::detail::convolution::pow2_k(T::mod())\
+    \ + 1) {\n            return ::tools::detail::convolution::ntt(a, b);\n      \
+    \    } else {\n            return ::tools::detail::convolution::ntt_and_garner(a,\
+    \ b);\n          }\n        } else {\n          return ::tools::detail::convolution::ntt_and_garner(a,\
+    \ b);\n        }\n      } else {\n        return ::tools::detail::convolution::naive(a,\
+    \ b);\n      }\n    }();\n    ::std::move(c.begin(), c.end(), result);\n  }\n\
+    }\n\n\n#line 1 \"tools/less_by_first.hpp\"\n\n\n\n#line 5 \"tools/less_by_first.hpp\"\
     \n\nnamespace tools {\n\n  class less_by_first {\n  public:\n    template <class\
     \ T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
     \ T2>& y) const {\n      return x.first < y.first;\n    }\n  };\n}\n\n\n#line\
@@ -845,6 +908,8 @@ data:
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
+  - tools/pow2.hpp
+  - tools/ceil_log2.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
@@ -852,13 +917,11 @@ data:
   - tools/mod.hpp
   - tools/quo.hpp
   - tools/garner3.hpp
-  - tools/pow2.hpp
-  - tools/ceil_log2.hpp
   - tools/less_by_first.hpp
   isVerificationFile: false
   path: tools/partition_function.hpp
   requiredBy: []
-  timestamp: '2022-12-11 17:55:16+09:00'
+  timestamp: '2022-12-30 13:30:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/partition_function/n.test.cpp

@@ -13,7 +13,7 @@ data:
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
-    title: Arbitrary modulus convolution
+    title: Convolution
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
@@ -113,6 +113,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution/double.test.cpp
+    title: tests/convolution/double.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/convolution/dynamic_mod.test.cpp
+    title: tests/convolution/dynamic_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod1000000007.test.cpp
     title: tests/convolution/mod1000000007.test.cpp
@@ -252,78 +258,80 @@ data:
   isVerificationFile: false
   path: tools/prod_mod.hpp
   requiredBy:
-  - tools/fact_mod_cache.hpp
-  - tools/totient.hpp
-  - tools/log_mod.hpp
-  - tools/garner3.hpp
-  - tools/bigint.hpp
-  - tools/divisors.hpp
-  - tools/nth_term.hpp
-  - tools/bigdecimal.hpp
-  - tools/fps.hpp
-  - tools/convolution.hpp
-  - tools/partition_function.hpp
-  - tools/stirling_2nd.hpp
-  - tools/tetration_mod.hpp
   - tools/garner2.hpp
-  - tools/pow_mod.hpp
-  - tools/rational.hpp
-  - tools/extended_lucas.hpp
-  - tools/prime_factorization.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/fps.hpp
+  - tools/tetration_mod.hpp
+  - tools/convolution.hpp
+  - tools/nth_term.hpp
+  - tools/stirling_2nd.hpp
+  - tools/bigint.hpp
+  - tools/log_mod.hpp
   - tools/is_prime.hpp
+  - tools/pow_mod.hpp
+  - tools/bigdecimal.hpp
+  - tools/rational.hpp
+  - tools/garner3.hpp
   - tools/polynomial.hpp
+  - tools/divisors.hpp
+  - tools/prime_factorization.hpp
+  - tools/extended_lucas.hpp
   - tools/primitive_root.hpp
+  - tools/partition_function.hpp
+  - tools/totient.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
   - tests/fact_mod_cache.test.cpp
+  - tests/totient.test.cpp
+  - tests/log_mod.test.cpp
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
+  - tests/divisors.test.cpp
   - tests/rational/minus.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/totient.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/nth_term.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod1000000007.test.cpp
+  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_mod1000000007.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/stirling_2nd.test.cpp
   - tests/line_2d/projection.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/modulus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/divides.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/nth_term.test.cpp
   - tests/is_prime.test.cpp
 documentation_of: tools/prod_mod.hpp
 layout: document

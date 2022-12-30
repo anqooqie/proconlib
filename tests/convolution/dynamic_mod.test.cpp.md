@@ -42,7 +42,7 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
     links:
     - https://judge.yosupo.jp/problem/convolution_mod
-  bundledCode: "#line 1 \"tests/convolution/mod998244353.test.cpp\"\n#define PROBLEM\
+  bundledCode: "#line 1 \"tests/convolution/dynamic_mod.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include <iostream>\n\
     #include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
@@ -586,28 +586,28 @@ data:
     \ b);\n          }\n        } else {\n          return ::tools::detail::convolution::ntt_and_garner(a,\
     \ b);\n        }\n      } else {\n        return ::tools::detail::convolution::naive(a,\
     \ b);\n      }\n    }();\n    ::std::move(c.begin(), c.end(), result);\n  }\n\
-    }\n\n\n#line 8 \"tests/convolution/mod998244353.test.cpp\"\n\nusing ll = long\
-    \ long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, M;\n  std::cin >> N >> M;\n\
-    \  std::vector<mint> a, b;\n  a.reserve(N);\n  b.reserve(M);\n  for (ll i = 0;\
-    \ i < N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.emplace_back(a_i);\n\
-    \  }\n  for (ll i = 0; i < M; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n\
+    }\n\n\n#line 8 \"tests/convolution/dynamic_mod.test.cpp\"\n\nusing ll = long long;\n\
+    using mint = atcoder::modint;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  mint::set_mod(998244353);\n\n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<mint>\
+    \ a, b;\n  a.reserve(N);\n  b.reserve(M);\n  for (ll i = 0; i < N; ++i) {\n  \
+    \  ll a_i;\n    std::cin >> a_i;\n    a.emplace_back(a_i);\n  }\n  for (ll i =\
+    \ 0; i < M; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n\
     \  }\n\n  std::vector<mint> c;\n  tools::convolution(a.begin(), a.end(), b.begin(),\
     \ b.end(), std::back_inserter(c));\n\n  std::string delimiter = \"\";\n  for (const\
     \ mint& c_i : c) {\n    std::cout << delimiter << c_i.val();\n    delimiter =\
     \ \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include\
     \ <iostream>\n#include <vector>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/convolution.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
+    \n#include \"tools/convolution.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<mint> a, b;\n  a.reserve(N);\n\
-    \  b.reserve(M);\n  for (ll i = 0; i < N; ++i) {\n    ll a_i;\n    std::cin >>\
-    \ a_i;\n    a.emplace_back(a_i);\n  }\n  for (ll i = 0; i < M; ++i) {\n    ll\
-    \ b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n  }\n\n  std::vector<mint>\
-    \ c;\n  tools::convolution(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(c));\n\
-    \n  std::string delimiter = \"\";\n  for (const mint& c_i : c) {\n    std::cout\
-    \ << delimiter << c_i.val();\n    delimiter = \" \";\n  }\n  std::cout << '\\\
-    n';\n\n  return 0;\n}\n"
+    \n  mint::set_mod(998244353);\n\n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<mint>\
+    \ a, b;\n  a.reserve(N);\n  b.reserve(M);\n  for (ll i = 0; i < N; ++i) {\n  \
+    \  ll a_i;\n    std::cin >> a_i;\n    a.emplace_back(a_i);\n  }\n  for (ll i =\
+    \ 0; i < M; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n\
+    \  }\n\n  std::vector<mint> c;\n  tools::convolution(a.begin(), a.end(), b.begin(),\
+    \ b.end(), std::back_inserter(c));\n\n  std::string delimiter = \"\";\n  for (const\
+    \ mint& c_i : c) {\n    std::cout << delimiter << c_i.val();\n    delimiter =\
+    \ \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/convolution.hpp
   - tools/pow2.hpp
@@ -620,15 +620,15 @@ data:
   - tools/quo.hpp
   - tools/garner3.hpp
   isVerificationFile: true
-  path: tests/convolution/mod998244353.test.cpp
+  path: tests/convolution/dynamic_mod.test.cpp
   requiredBy: []
   timestamp: '2022-12-30 13:30:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/convolution/mod998244353.test.cpp
+documentation_of: tests/convolution/dynamic_mod.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/convolution/mod998244353.test.cpp
-- /verify/tests/convolution/mod998244353.test.cpp.html
-title: tests/convolution/mod998244353.test.cpp
+- /verify/tests/convolution/dynamic_mod.test.cpp
+- /verify/tests/convolution/dynamic_mod.test.cpp.html
+title: tests/convolution/dynamic_mod.test.cpp
 ---

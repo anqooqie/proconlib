@@ -113,8 +113,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
-  - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/extended_garner.test.cpp
 documentation_of: tools/garner.hpp
 layout: document
 title: Garner's algorithm

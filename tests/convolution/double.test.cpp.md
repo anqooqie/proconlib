@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/assert_that.hpp
+    title: Assertion macro
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -39,19 +42,27 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://judge.yosupo.jp/problem/convolution_mod
-  bundledCode: "#line 1 \"tests/convolution/mod998244353.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include <iostream>\n\
-    #include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/convolution/double.test.cpp\"\n#define PROBLEM \"\
+    https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <iterator>\n#include <cmath>\n#line 1 \"tools/assert_that.hpp\"\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/convolution.hpp\"\
+    \n\n\n\n#include <cassert>\n#line 6 \"tools/convolution.hpp\"\n#include <cstddef>\n\
+    #include <type_traits>\n#include <complex>\n#line 10 \"tools/convolution.hpp\"\
+    \n#include <algorithm>\n#line 12 \"tools/convolution.hpp\"\n#include <utility>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -250,22 +261,20 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\
-    \n\n\n\n#line 6 \"tools/convolution.hpp\"\n#include <cstddef>\n#line 8 \"tools/convolution.hpp\"\
-    \n#include <complex>\n#include <cmath>\n#include <algorithm>\n#include <iterator>\n\
-    #line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line\
-    \ 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param\
-    \ n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint ceil_pow2(int\
-    \ n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n)) x++;\n    return\
-    \ x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n\
-    \ & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n) {\n    int x\
-    \ = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n// @param n `1 <=\
-    \ n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned\
-    \ int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n    _BitScanForward(&index,\
-    \ n);\n    return index;\n#else\n    return __builtin_ctz(n);\n#endif\n}\n\n}\
-    \  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
+    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
+    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
+    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
+    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
+    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
+    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
     \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
     \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
@@ -441,30 +450,31 @@ data:
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
     \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
-    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace\
-    \ tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
-    \n  x = 0;\n  for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0'\
-    \ <= s[i] && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n\
-    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n\
-    \  if (x == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n  \
-    \  s.push_back('0' + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(),\
-    \ s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
-    \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n\
-    \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
-    \    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
-    \  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
-    \n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
-    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include\
+    \ <string>\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t\
+    \ = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
+    \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
+    \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
+    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
+    ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
+    \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
+    \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
+    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
+    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const\
+    \ M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else\
+    \ {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      }\
+    \ else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\
+    \n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
+    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
+    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
+    \ * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
     \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
     \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
@@ -586,29 +596,24 @@ data:
     \ b);\n          }\n        } else {\n          return ::tools::detail::convolution::ntt_and_garner(a,\
     \ b);\n        }\n      } else {\n        return ::tools::detail::convolution::naive(a,\
     \ b);\n      }\n    }();\n    ::std::move(c.begin(), c.end(), result);\n  }\n\
-    }\n\n\n#line 8 \"tests/convolution/mod998244353.test.cpp\"\n\nusing ll = long\
-    \ long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, M;\n  std::cin >> N >> M;\n\
-    \  std::vector<mint> a, b;\n  a.reserve(N);\n  b.reserve(M);\n  for (ll i = 0;\
-    \ i < N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.emplace_back(a_i);\n\
-    \  }\n  for (ll i = 0; i < M; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n\
-    \  }\n\n  std::vector<mint> c;\n  tools::convolution(a.begin(), a.end(), b.begin(),\
-    \ b.end(), std::back_inserter(c));\n\n  std::string delimiter = \"\";\n  for (const\
-    \ mint& c_i : c) {\n    std::cout << delimiter << c_i.val();\n    delimiter =\
-    \ \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n\n#include\
-    \ <iostream>\n#include <vector>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/convolution.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<mint> a, b;\n  a.reserve(N);\n\
-    \  b.reserve(M);\n  for (ll i = 0; i < N; ++i) {\n    ll a_i;\n    std::cin >>\
-    \ a_i;\n    a.emplace_back(a_i);\n  }\n  for (ll i = 0; i < M; ++i) {\n    ll\
-    \ b_i;\n    std::cin >> b_i;\n    b.emplace_back(b_i);\n  }\n\n  std::vector<mint>\
-    \ c;\n  tools::convolution(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(c));\n\
-    \n  std::string delimiter = \"\";\n  for (const mint& c_i : c) {\n    std::cout\
-    \ << delimiter << c_i.val();\n    delimiter = \" \";\n  }\n  std::cout << '\\\
-    n';\n\n  return 0;\n}\n"
+    }\n\n\n#line 9 \"tests/convolution/double.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  const std::vector<double> A({1,\
+    \ 2, 3, 4}), B({1, 2, 4, 8});\n\n  std::vector<double> C;\n  tools::convolution(A.begin(),\
+    \ A.end(), B.begin(), B.end(), std::back_inserter(C));\n  for (auto& C_i : C)\
+    \ C_i = std::round(C_i);\n\n  assert_that(C == std::vector<double>({1, 4, 11,\
+    \ 26, 36, 40, 32}));\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n\
+    }\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <iterator>\n#include <cmath>\n\
+    #include \"tools/assert_that.hpp\"\n#include \"tools/convolution.hpp\"\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  const std::vector<double> A({1, 2, 3, 4}), B({1, 2, 4, 8});\n\n  std::vector<double>\
+    \ C;\n  tools::convolution(A.begin(), A.end(), B.begin(), B.end(), std::back_inserter(C));\n\
+    \  for (auto& C_i : C) C_i = std::round(C_i);\n\n  assert_that(C == std::vector<double>({1,\
+    \ 4, 11, 26, 36, 40, 32}));\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   dependsOn:
+  - tools/assert_that.hpp
   - tools/convolution.hpp
   - tools/pow2.hpp
   - tools/ceil_log2.hpp
@@ -620,15 +625,15 @@ data:
   - tools/quo.hpp
   - tools/garner3.hpp
   isVerificationFile: true
-  path: tests/convolution/mod998244353.test.cpp
+  path: tests/convolution/double.test.cpp
   requiredBy: []
   timestamp: '2022-12-30 13:30:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/convolution/mod998244353.test.cpp
+documentation_of: tests/convolution/double.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/convolution/mod998244353.test.cpp
-- /verify/tests/convolution/mod998244353.test.cpp.html
-title: tests/convolution/mod998244353.test.cpp
+- /verify/tests/convolution/double.test.cpp
+- /verify/tests/convolution/double.test.cpp.html
+title: tests/convolution/double.test.cpp
 ---

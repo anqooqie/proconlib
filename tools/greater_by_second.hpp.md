@@ -55,11 +55,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/persistent_stack.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/weighted_bipartite_matching/minimize.test.cpp
 documentation_of: tools/greater_by_second.hpp
 layout: document
 title: std::greater by second

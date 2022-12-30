@@ -74,7 +74,7 @@ data:
       title: Convex hull
     - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
-      title: Arbitrary modulus convolution
+      title: Convolution
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
@@ -878,6 +878,12 @@ data:
       title: tests/circle_2d/where/without_radius.test.cpp
   - name: tests/convolution
     pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/convolution/double.test.cpp
+      title: tests/convolution/double.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/convolution/dynamic_mod.test.cpp
+      title: tests/convolution/dynamic_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/convolution/mod1000000007.test.cpp
       title: tests/convolution/mod1000000007.test.cpp
