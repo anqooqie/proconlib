@@ -1,45 +1,45 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -263,7 +263,7 @@ data:
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/partition_function.hpp\"\
     \n\n\n\n#line 5 \"tools/partition_function.hpp\"\n#include <vector>\n#line 1 \"\
     tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\n#include <cstddef>\n#include\
-    \ <initializer_list>\n#include <algorithm>\n#line 10 \"tools/fps.hpp\"\n#include\
+    \ <initializer_list>\n#line 10 \"tools/fps.hpp\"\n#include <algorithm>\n#include\
     \ <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line\
     \ 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
@@ -580,8 +580,13 @@ data:
     \ auto c3 = ::atcoder::convolution(a3, b3);\n\n        assert(c1.size() == c2.size()\
     \ && c2.size() == c3.size());\n        ::std::vector<M> c;\n        c.reserve(c1.size());\n\
     \n        for (::std::size_t i = 0; i < c1.size(); ++i) {\n          c.push_back(M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n    }\n \
-    \ }\n\n  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n\n      template\
+    \ <typename Z>\n      ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>&\
+    \ a, const ::std::vector<Z>& b) {\n        assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n\n        const auto c = ::atcoder::convolution_ll(::std::vector<long\
+    \ long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));\n\
+    \        return ::std::vector<Z>(c.begin(), c.end());\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
     \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
     \ const InputIterator b_end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    ::std::vector<T>\
@@ -590,6 +595,7 @@ data:
     \ ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>)\
     \ {\n        return ::tools::detail::convolution::fft(a, b);\n      } else if\
     \ constexpr (::std::is_floating_point_v<T>) {\n        return ::tools::detail::convolution::fft_real(a,\
+    \ b);\n      } else if constexpr (::std::is_integral_v<T>) {\n        return ::tools::detail::convolution::ntt_and_garner_for_ll(a,\
     \ b);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
@@ -603,7 +609,7 @@ data:
     \n\nnamespace tools {\n\n  class less_by_first {\n  public:\n    template <class\
     \ T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
     \ T2>& y) const {\n      return x.first < y.first;\n    }\n  };\n}\n\n\n#line\
-    \ 17 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
+    \ 19 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
     // License: CC0\n// Author: opt\n\nnamespace tools {\n  template <typename M>\n\
     \  class fps {\n  private:\n    using F = ::tools::fps<M>;\n    ::std::vector<M>\
     \ m_vector;\n\n    // maximum 2^k s.t. x = 1 (mod 2^k)\n    static constexpr int\
@@ -949,7 +955,7 @@ data:
   isVerificationFile: true
   path: tests/partition_function/n.test.cpp
   requiredBy: []
-  timestamp: '2022-12-31 12:28:43+09:00'
+  timestamp: '2022-12-31 23:40:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/partition_function/n.test.cpp

@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -51,9 +51,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
-    title: tools/polynomial.hpp
+    title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
@@ -63,7 +63,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -236,7 +236,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -260,7 +260,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -284,9 +284,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -333,7 +333,7 @@ data:
   - tools/persistent_dual_segtree.hpp
   - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/extended_lucas.test.cpp
   - tests/totient.test.cpp

@@ -1,36 +1,36 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -40,10 +40,10 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
-    title: tools/polynomial.hpp
-  - icon: ':heavy_check_mark:'
+    title: Polynomial
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -96,15 +96,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <cassert>\n#include\
@@ -632,8 +632,13 @@ data:
     \ auto c3 = ::atcoder::convolution(a3, b3);\n\n        assert(c1.size() == c2.size()\
     \ && c2.size() == c3.size());\n        ::std::vector<M> c;\n        c.reserve(c1.size());\n\
     \n        for (::std::size_t i = 0; i < c1.size(); ++i) {\n          c.push_back(M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n    }\n \
-    \ }\n\n  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n\n      template\
+    \ <typename Z>\n      ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>&\
+    \ a, const ::std::vector<Z>& b) {\n        assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n\n        const auto c = ::atcoder::convolution_ll(::std::vector<long\
+    \ long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));\n\
+    \        return ::std::vector<Z>(c.begin(), c.end());\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
     \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
     \ const InputIterator b_end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    ::std::vector<T>\
@@ -642,6 +647,7 @@ data:
     \ ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>)\
     \ {\n        return ::tools::detail::convolution::fft(a, b);\n      } else if\
     \ constexpr (::std::is_floating_point_v<T>) {\n        return ::tools::detail::convolution::fft_real(a,\
+    \ b);\n      } else if constexpr (::std::is_integral_v<T>) {\n        return ::tools::detail::convolution::ntt_and_garner_for_ll(a,\
     \ b);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
@@ -726,8 +732,13 @@ data:
     \ auto c3 = ::atcoder::convolution(a3, b3);\n\n        assert(c1.size() == c2.size()\
     \ && c2.size() == c3.size());\n        ::std::vector<M> c;\n        c.reserve(c1.size());\n\
     \n        for (::std::size_t i = 0; i < c1.size(); ++i) {\n          c.push_back(M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n    }\n \
-    \ }\n\n  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n\n      template\
+    \ <typename Z>\n      ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>&\
+    \ a, const ::std::vector<Z>& b) {\n        assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n\n        const auto c = ::atcoder::convolution_ll(::std::vector<long\
+    \ long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));\n\
+    \        return ::std::vector<Z>(c.begin(), c.end());\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
     \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
     \ const InputIterator b_end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    ::std::vector<T>\
@@ -736,6 +747,7 @@ data:
     \ ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>)\
     \ {\n        return ::tools::detail::convolution::fft(a, b);\n      } else if\
     \ constexpr (::std::is_floating_point_v<T>) {\n        return ::tools::detail::convolution::fft_real(a,\
+    \ b);\n      } else if constexpr (::std::is_integral_v<T>) {\n        return ::tools::detail::convolution::ntt_and_garner_for_ll(a,\
     \ b);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
@@ -764,8 +776,8 @@ data:
   - tools/stirling_2nd.hpp
   - tools/polynomial.hpp
   - tools/partition_function.hpp
-  timestamp: '2022-12-30 13:30:53+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2022-12-31 23:40:15+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
@@ -808,6 +820,7 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 - $R$ is a commutative ring.
 - $R$ is assignable to `*result`.
 - If $R$ is `atcoder::static_modint` or `atcoder::dynamic_modint`, $N + M \leq 2^{25} + 1 = 33554433$.
+- If $R$ is a built-in integer type, $N + M \leq 2^{24} + 1 = 16777217$ and all the elements of the array are in $R$ after convolution.
 
 ## Time Complexity
 - ($R$ is `atcoder::static_modint`): $O((N + M) \log (N + M))$
@@ -818,6 +831,7 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 - ($R$ is `std::complex<float>`): $O((N + M) \log (N + M))$
 - ($R$ is `std::complex<double>`): $O((N + M) \log (N + M))$
 - ($R$ is `std::complex<lond double>`): $O((N + M) \log (N + M))$
+- ($R$ is a built-in integer type): $O((N + M) \log (N + M))$
 - (otherwise): $O(NM)$
 
 ## License

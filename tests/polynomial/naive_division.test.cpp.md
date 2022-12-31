@@ -1,50 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
-    title: tools/polynomial.hpp
-  - icon: ':heavy_check_mark:'
+    title: Polynomial
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -60,30 +60,16 @@ data:
   bundledCode: "#line 1 \"tests/polynomial/naive_division.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc245/tasks/abc245_d\"\n\n#include <iostream>\n\
     #include <cmath>\n#line 1 \"tools/polynomial.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#include\
-    \ <utility>\n#include <cassert>\n#include <iterator>\n#line 1 \"tools/fps.hpp\"\
-    \n\n\n\n#line 11 \"tools/fps.hpp\"\n#include <type_traits>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
-    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
-    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
-    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
-    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
-    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
-    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
-    }  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\
-    \n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line 7\
-    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    #include <cstddef>\n#include <initializer_list>\n#include <utility>\n#include\
+    \ <algorithm>\n#include <cassert>\n#include <iterator>\n#line 1 \"tools/fps.hpp\"\
+    \n\n\n\n#line 9 \"tools/fps.hpp\"\n#include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\
+    \n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -282,7 +268,20 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
+    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
+    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
+    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
+    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
+    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
+    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
+    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
     \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
     \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
@@ -586,8 +585,13 @@ data:
     \ auto c3 = ::atcoder::convolution(a3, b3);\n\n        assert(c1.size() == c2.size()\
     \ && c2.size() == c3.size());\n        ::std::vector<M> c;\n        c.reserve(c1.size());\n\
     \n        for (::std::size_t i = 0; i < c1.size(); ++i) {\n          c.push_back(M::raw(::tools::garner3(c1[i],\
-    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n    }\n \
-    \ }\n\n  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
+    \ c2[i], c3[i], M::mod())));\n        }\n        return c;\n      }\n\n      template\
+    \ <typename Z>\n      ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>&\
+    \ a, const ::std::vector<Z>& b) {\n        assert(a.size() + b.size() <= ::tools::pow2(24)\
+    \ + 1);\n\n        const auto c = ::atcoder::convolution_ll(::std::vector<long\
+    \ long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));\n\
+    \        return ::std::vector<Z>(c.begin(), c.end());\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void convolution(const\
     \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
     \ const InputIterator b_end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    ::std::vector<T>\
@@ -596,6 +600,7 @@ data:
     \ ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>)\
     \ {\n        return ::tools::detail::convolution::fft(a, b);\n      } else if\
     \ constexpr (::std::is_floating_point_v<T>) {\n        return ::tools::detail::convolution::fft_real(a,\
+    \ b);\n      } else if constexpr (::std::is_integral_v<T>) {\n        return ::tools::detail::convolution::ntt_and_garner_for_ll(a,\
     \ b);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
@@ -609,7 +614,7 @@ data:
     \n\nnamespace tools {\n\n  class less_by_first {\n  public:\n    template <class\
     \ T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
     \ T2>& y) const {\n      return x.first < y.first;\n    }\n  };\n}\n\n\n#line\
-    \ 17 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
+    \ 19 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
     // License: CC0\n// Author: opt\n\nnamespace tools {\n  template <typename M>\n\
     \  class fps {\n  private:\n    using F = ::tools::fps<M>;\n    ::std::vector<M>\
     \ m_vector;\n\n    // maximum 2^k s.t. x = 1 (mod 2^k)\n    static constexpr int\
@@ -915,22 +920,22 @@ data:
     \ struct has_mod : ::std::false_type {};\n\n  template <typename T>\n  struct\
     \ has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>> : ::std::true_type\
     \ {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
-    }\n\n\n#line 13 \"tools/polynomial.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ F>\n  class polynomial {\n  private:\n    using P = ::tools::polynomial<F>;\n\
-    \    ::std::vector<F> m_vector;\n\n  public:\n    using reference = F&;\n    using\
-    \ const_reference = const F&;\n    using iterator = typename ::std::vector<F>::iterator;\n\
-    \    using const_iterator = typename ::std::vector<F>::const_iterator;\n    using\
+    }\n\n\n#line 14 \"tools/polynomial.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ R>\n  class polynomial {\n  private:\n    using P = ::tools::polynomial<R>;\n\
+    \    ::std::vector<R> m_vector;\n\n  public:\n    using reference = R&;\n    using\
+    \ const_reference = const R&;\n    using iterator = typename ::std::vector<R>::iterator;\n\
+    \    using const_iterator = typename ::std::vector<R>::const_iterator;\n    using\
     \ size_type = ::std::size_t;\n    using difference_type = ::std::ptrdiff_t;\n\
-    \    using value_type = F;\n    using allocator_type = typename ::std::vector<F>::allocator_type;\n\
-    \    using pointer = F*;\n    using const_pointer = const F*;\n    using reverse_iterator\
-    \ = typename ::std::vector<F>::reverse_iterator;\n    using const_reverse_iterator\
-    \ = typename ::std::vector<F>::const_reverse_iterator;\n\n    polynomial() = default;\n\
+    \    using value_type = R;\n    using allocator_type = typename ::std::vector<R>::allocator_type;\n\
+    \    using pointer = R*;\n    using const_pointer = const R*;\n    using reverse_iterator\
+    \ = typename ::std::vector<R>::reverse_iterator;\n    using const_reverse_iterator\
+    \ = typename ::std::vector<R>::const_reverse_iterator;\n\n    polynomial() = default;\n\
     \    polynomial(const P&) = default;\n    polynomial(P&&) = default;\n    ~polynomial()\
     \ = default;\n    P& operator=(const P&) = default;\n    P& operator=(P&&) = default;\n\
     \n    explicit polynomial(const size_type n) : m_vector(n) {}\n    polynomial(const\
     \ size_type n, const_reference value) : m_vector(n, value) {}\n    template <class\
     \ InputIter> polynomial(const InputIter first, const InputIter last) : m_vector(first,\
-    \ last) {}\n    polynomial(const ::std::initializer_list<F> il) : m_vector(il)\
+    \ last) {}\n    polynomial(const ::std::initializer_list<R> il) : m_vector(il)\
     \ {}\n\n    iterator begin() noexcept { return this->m_vector.begin(); }\n   \
     \ const_iterator begin() const noexcept { return this->m_vector.begin(); }\n \
     \   iterator end() noexcept { return this->m_vector.end(); }\n    const_iterator\
@@ -946,7 +951,7 @@ data:
     \ const noexcept { return this->m_vector.size(); }\n    size_type max_size() const\
     \ noexcept { return this->m_vector.max_size(); }\n    void resize(const size_type\
     \ sz) { this->m_vector.resize(sz); }\n    void resize(const size_type sz, const\
-    \ F& c) { this->m_vector.resize(sz, c); }\n    size_type capacity() const noexcept\
+    \ R& c) { this->m_vector.resize(sz, c); }\n    size_type capacity() const noexcept\
     \ { return this->m_vector.capacity(); }\n    bool empty() const noexcept { return\
     \ this->m_vector.empty(); }\n    void reserve(const size_type n) { this->m_vector.reserve(n);\
     \ }\n    void shrink_to_fit() { this->m_vector.shrink_to_fit(); }\n\n    reference\
@@ -960,19 +965,19 @@ data:
     \  reference back() { return this->m_vector.back(); }\n    const_reference back()\
     \ const { return this->m_vector.back(); }\n\n    template <class InputIterator>\
     \ void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first,\
-    \ last); }\n    void assign(const size_type n, const F& u) { this->m_vector.assign(n,\
-    \ u); }\n    void assign(const ::std::initializer_list<F> il) { this->m_vector.assign(il);\
-    \ }\n    void push_back(const F& x) { this->m_vector.push_back(x); }\n    void\
-    \ push_back(F&& x) { this->m_vector.push_back(::std::forward<F>(x)); }\n    template\
+    \ last); }\n    void assign(const size_type n, const R& u) { this->m_vector.assign(n,\
+    \ u); }\n    void assign(const ::std::initializer_list<R> il) { this->m_vector.assign(il);\
+    \ }\n    void push_back(const R& x) { this->m_vector.push_back(x); }\n    void\
+    \ push_back(R&& x) { this->m_vector.push_back(::std::forward<R>(x)); }\n    template\
     \ <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...);\
     \ }\n    void pop_back() { this->m_vector.pop_back(); }\n    iterator insert(const\
-    \ const_iterator position, const F& x) { return this->m_vector.insert(position,\
-    \ x); }\n    iterator insert(const const_iterator position, F&& x) { return this->m_vector.insert(position,\
-    \ ::std::forward<F>(x)); }\n    iterator insert(const const_iterator position,\
-    \ const size_type n, const F& x) { return this->m_vector.insert(position, n, x);\
+    \ const_iterator position, const R& x) { return this->m_vector.insert(position,\
+    \ x); }\n    iterator insert(const const_iterator position, R&& x) { return this->m_vector.insert(position,\
+    \ ::std::forward<R>(x)); }\n    iterator insert(const const_iterator position,\
+    \ const size_type n, const R& x) { return this->m_vector.insert(position, n, x);\
     \ }\n    template <class InputIterator> iterator insert(const const_iterator position,\
     \ const InputIterator first, const InputIterator last) { return this->m_vector.insert(position,\
-    \ first, last); }\n    iterator insert(const const_iterator position, const ::std::initializer_list<F>\
+    \ first, last); }\n    iterator insert(const const_iterator position, const ::std::initializer_list<R>\
     \ il) { return this->m_vector.insert(position, il); }\n    template <class...\
     \ Args> iterator emplace(const const_iterator position, Args&&... args) { return\
     \ this->m_vector.emplace(position, ::std::forward<Args>(args)...); }\n    iterator\
@@ -983,67 +988,75 @@ data:
     \ }\n\n    allocator_type get_allocator() const noexcept { return this->m_vector.get_allocator();\
     \ }\n\n    friend bool operator==(const P& x, const P& y) {\n      const auto\
     \ n = ::std::min(x.size(), y.size());\n      static const auto is_zero = [](const\
-    \ F& e) { return e == F(0); };\n      return ::std::equal(x.begin(), x.begin()\
+    \ R& e) { return e == R(0); };\n      return ::std::equal(x.begin(), x.begin()\
     \ + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero)\
     \ && ::std::all_of(y.begin() + n, y.end(), is_zero);\n    }\n    friend bool operator!=(const\
     \ P& x, const P& y) { return !(x == y); }\n\n    friend void swap(P& x, P& y)\
-    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    P& regularize() {\n      while\
-    \ (!this->empty() && this->back() == F(0)) {\n        this->pop_back();\n    \
-    \  }\n      return *this;\n    }\n\n    P operator+() const {\n      return *this;\n\
-    \    }\n    P operator-() const {\n      P res(*this);\n      for (auto& e : res)\
-    \ {\n        e = -e;\n      }\n      return res;\n    }\n    P& operator*=(const\
-    \ F& g) {\n      for (auto& e : *this) {\n        e *= g;\n      }\n      return\
-    \ *this;\n    }\n    P& operator/=(const F& g) {\n      assert(g != F(0));\n \
-    \     *this *= F(1) / g;\n      return *this;\n    }\n    P& operator+=(const\
+    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    int deg() const {\n      for\
+    \ (size_type i = this->size(); i --> 0;) {\n        if ((*this)[i] != R(0)) return\
+    \ i;\n      }\n      return -1;\n    }\n\n    P operator+() const {\n      return\
+    \ *this;\n    }\n    P operator-() const {\n      P res(*this);\n      for (auto&\
+    \ e : res) {\n        e = -e;\n      }\n      return res;\n    }\n    P& operator*=(const\
+    \ R& g) {\n      for (auto& e : *this) {\n        e *= g;\n      }\n      return\
+    \ *this;\n    }\n    P& operator/=(const R& g) {\n      assert(R(0) == R(1) ||\
+    \ g != R(0));\n      *this *= R(1) / g;\n      return *this;\n    }\n    P& operator+=(const\
     \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
     \      this->resize(::std::max(n, m));\n      for (int i = 0; i < m; ++i) {\n\
     \        (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    P& operator-=(const\
     \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
     \      this->resize(::std::max(n, m));\n      for (int i = 0; i < m; ++i) {\n\
     \        (*this)[i] -= g[i];\n      }\n      return *this;\n    }\n    P& operator<<=(const\
-    \ int d) {\n      const int n = this->size();\n      this->erase(this->begin(),\
-    \ this->begin() + ::std::min(n, d));\n      return *this;\n    }\n    P& operator>>=(const\
-    \ int d) {\n      const int n = this->size();\n      this->insert(this->begin(),\
-    \ d, F(0));\n      return *this;\n    }\n\n    P& operator*=(const P& g) {\n \
-    \     if constexpr (::tools::has_mod_v<F>) {\n        P res;\n        ::tools::convolution(this->cbegin(),\
-    \ this->cend(), g.cbegin(), g.cend(), ::std::back_inserter(res));\n        return\
-    \ *this = ::std::move(res);\n      } else {\n        const int n = this->size();\n\
-    \        const int m = g.size();\n        if (n == 0 && m == 0) {\n          this->clear();\n\
-    \          return *this;\n        }\n\n        P res(n + m - 1, F(0));\n     \
-    \   for (int i = 0; i < n; ++i) {\n          for (int j = 0; j < m; ++j) {\n \
-    \           res[i + j] += (*this)[i] * g[j];\n          }\n        }\n       \
-    \ return *this = ::std::move(res);\n      }\n    }\n    P& operator/=(P g) {\n\
-    \      this->regularize();\n      g.regularize();\n      const int n = this->size();\n\
-    \      const int m = g.size();\n\n      assert(m > 0);\n      if (n < m) {\n \
-    \       this->clear();\n        return *this;\n      }\n\n      if constexpr (::tools::has_mod_v<F>)\
-    \ {\n        ::tools::fps<F> q(this->rbegin(), this->rend());\n        q.divide_inplace(::tools::fps<F>(g.rbegin(),\
-    \ g.rend()), n - m + 1);\n        this->assign(q.rbegin(), q.rend());\n      \
-    \  return *this;\n      } else {\n        const auto ic = F(1) / g.back();\n \
-    \       P q(n - m + 1);\n        for (int i = n - m; i >= 0; --i) {\n        \
-    \  q[i] = (*this)[m - 1 + i] * ic;\n          for (int j = 0; j < m; ++j) {\n\
-    \            (*this)[j + i] -= g[j] * q[i];\n          }\n        }\n        return\
-    \ *this = ::std::move(q);\n      }\n    }\n    P& operator%=(const P& g) {\n \
-    \     auto q = (*this) / g;\n      q *= g;\n      q *= F(-1);\n      *this +=\
-    \ q;\n      return this->regularize();\n    }\n\n    F eval(const F& a) const\
-    \ {\n      F x(1);\n      F res(0);\n      for (const auto e : *this) {\n    \
-    \    res += e * x;\n        x *= a;\n      }\n      return res;\n    }\n\n   \
-    \ friend P operator*(const P& f, const F& g) { return P(f) *= g; }\n    friend\
-    \ P operator*(const F& f, const P& g) { return P(g) *= f; }\n    friend P operator/(const\
-    \ P& f, const F& g) { return P(f) /= g; }\n    friend P operator+(const P& f,\
-    \ const P& g) { return P(f) += g; }\n    friend P operator-(const P& f, const\
-    \ P& g) { return P(f) -= g; }\n    friend P operator*(const P& f, const P& g)\
-    \ { return P(f) *= g; }\n    friend P operator/(const P& f, const P& g) { return\
-    \ P(f) /= g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %=\
-    \ g; }\n    friend P operator<<(const P& f, const int d) { return P(f) <<= d;\
-    \ }\n    friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n\
-    \  };\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\n#include\
-    \ <sstream>\n\nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string\
-    \ join(const Iterator begin, const Iterator end, const ::std::string delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    ::std::string current_delimiter = \"\"\
-    ;\n    for (Iterator it = begin; it != end; ++it) {\n      ss << current_delimiter\
-    \ << *it;\n      current_delimiter = delimiter;\n    }\n    return ss.str();\n\
-    \  }\n}\n\n\n#line 7 \"tests/polynomial/naive_division.test.cpp\"\n\nusing ll\
-    \ = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ int d) {\n      if (d < 0) *this >>= -d;\n\n      const int n = this->size();\n\
+    \      this->erase(this->begin(), this->begin() + ::std::min(n, d));\n      return\
+    \ *this;\n    }\n    P& operator>>=(const int d) {\n      if (d < 0) *this <<=\
+    \ -d;\n\n      this->insert(this->begin(), d, R(0));\n      return *this;\n  \
+    \  }\n\n    P& operator*=(const P& g) {\n      const int n = this->size();\n \
+    \     const int m = g.size();\n\n      if (n == 0 && m == 0) {\n        this->clear();\n\
+    \        return *this;\n      }\n      if (n == 0 || m == 0) {\n        ::std::fill(this->begin(),\
+    \ this->end(), R(0));\n        this->resize(n + m - 1, R(0));\n        return\
+    \ *this;\n      }\n\n      P res;\n      ::tools::convolution(this->cbegin(),\
+    \ this->cend(), g.cbegin(), g.cend(), ::std::back_inserter(res));\n      return\
+    \ *this = ::std::move(res);\n    }\n\n  private:\n    P& divide_inplace_regular(const\
+    \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\n\
+    \      assert(0 < m && m <= n);\n      assert(this->back() != R(0));\n      assert(g.back()\
+    \ != R(0));\n\n      const auto ic = R(1) / g.back();\n      P q(n - m + 1);\n\
+    \      for (int i = n - m; i >= 0; --i) {\n        q[i] = (*this)[m - 1 + i] *\
+    \ ic;\n        for (int j = 0; j < m; ++j) {\n          (*this)[j + i] -= g[j]\
+    \ * q[i];\n        }\n      }\n      return *this = ::std::move(q);\n    }\n \
+    \   template <typename R_ = R>\n    P& divide_inplace_faster(const P& g) {\n \
+    \     const int n = this->size();\n      const int m = g.size();\n\n      static_assert(::tools::has_mod_v<R>);\n\
+    \      assert(::tools::is_prime(R::mod()));\n      assert(0 < m && m <= n);\n\
+    \      assert(this->back() != R(0));\n      assert(g.back() != R(0));\n\n    \
+    \  ::tools::fps<R> q(this->rbegin(), this->rend());\n      q.divide_inplace(::tools::fps<R>(g.rbegin(),\
+    \ g.rend()), n - m + 1);\n      this->assign(q.rbegin(), q.rend());\n      return\
+    \ *this;\n    }\n\n  public:\n    P& operator/=(P g) {\n      if (R(0) == R(1))\
+    \ {\n        this->clear();\n        return *this;\n      }\n\n      this->resize(this->deg()\
+    \ + 1);\n      g.resize(g.deg() + 1);\n\n      const int n = this->size();\n \
+    \     const int m = g.size();\n\n      assert(m > 0);\n      if (n < m) {\n  \
+    \      this->clear();\n        return *this;\n      }\n\n      if constexpr (::tools::has_mod_v<R>)\
+    \ {\n        assert(::tools::is_prime(R::mod()));\n        return this->divide_inplace_faster(g);\n\
+    \      } else {\n        return this->divide_inplace_regular(g);\n      }\n  \
+    \  }\n    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *=\
+    \ g;\n      q *= R(-1);\n      *this += q;\n      this->resize(this->deg() + 1);\n\
+    \      return *this;\n    }\n\n    R eval(const R& a) const {\n      R x(1);\n\
+    \      R res(0);\n      for (const auto e : *this) {\n        res += e * x;\n\
+    \        x *= a;\n      }\n      return res;\n    }\n\n    friend P operator*(const\
+    \ P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const R& c,\
+    \ const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f, const\
+    \ R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const P& g)\
+    \ { return P(f) += g; }\n    friend P operator-(const P& f, const P& g) { return\
+    \ P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return P(f) *=\
+    \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
+    \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
+    \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
+    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/join.hpp\"\
+    \n\n\n\n#line 5 \"tools/join.hpp\"\n#include <sstream>\n\nnamespace tools {\n\n\
+    \  template <typename Iterator>\n  ::std::string join(const Iterator begin, const\
+    \ Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream ss;\n\
+    \    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin; it\
+    \ != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
+    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 7 \"tests/polynomial/naive_division.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N, M;\n  std::cin >> N >> M;\n  tools::polynomial<double> A(N + 1), C(N\
     \ + M + 1);\n  for (auto& A_i : A) std::cin >> A_i;\n  for (auto& C_i : C) std::cin\
     \ >> C_i;\n\n  const auto B = C / A;\n  ::std::vector<ll> answers;\n  for (const\
@@ -1078,7 +1091,7 @@ data:
   isVerificationFile: true
   path: tests/polynomial/naive_division.test.cpp
   requiredBy: []
-  timestamp: '2022-12-31 12:28:43+09:00'
+  timestamp: '2022-12-31 23:40:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polynomial/naive_division.test.cpp

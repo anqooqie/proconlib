@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_stack.hpp
     title: Persistent stack
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
