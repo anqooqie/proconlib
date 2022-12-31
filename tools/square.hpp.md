@@ -82,6 +82,15 @@ data:
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_other_mods.test.cpp
+    title: tests/fps/pow_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -193,6 +202,9 @@ data:
   - tests/tetration_mod.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/triangle_2d/incircle.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
   - tests/floor_kth_root.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/permutation.test.cpp

@@ -147,29 +147,29 @@ data:
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod1000000007.test.cpp
-    title: tests/fps/exp_mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod1000000007.test.cpp
-    title: tests/fps/inv_mod1000000007.test.cpp
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod1000000007.test.cpp
-    title: tests/fps/log_mod1000000007.test.cpp
+    path: tests/fps/inv_other_mods.test.cpp
+    title: tests/fps/inv_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod1000000007.test.cpp
-    title: tests/fps/pow_mod1000000007.test.cpp
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_other_mods.test.cpp
+    title: tests/fps/pow_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_prime.test.cpp
     title: tests/is_prime.test.cpp
@@ -332,14 +332,14 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
   - tests/primitive_root.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
   - tests/convolution/double.test.cpp

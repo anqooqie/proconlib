@@ -11,6 +11,9 @@ data:
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
+    path: tools/floor_log2.hpp
+    title: $\left\lfloor \log_2(x) \right\rfloor$
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -27,17 +30,32 @@ data:
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
+    path: tools/monoid.hpp
+    title: Typical monoids
+  - icon: ':heavy_check_mark:'
+    path: tools/popcount.hpp
+    title: Popcount
+  - icon: ':heavy_check_mark:'
+    path: tools/pow.hpp
+    title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
+    path: tools/prime_factorization.hpp
+    title: Pollard's rho algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':heavy_check_mark:'
+    path: tools/square.hpp
+    title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
@@ -51,28 +69,29 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/fps/pow_mod1000000007.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <iostream>\n\
+  bundledCode: "#line 1 \"tests/fps/exp_other_mods.test.cpp\"\n#define PROBLEM \"\
+    https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <cstddef>\n#include\
+    \ <limits>\n#include <initializer_list>\n#include <type_traits>\n#include <iostream>\n\
     #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned int m)\
-    \ : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned\
-    \ int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param\
-    \ b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \ <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
@@ -263,11 +282,127 @@ data:
     \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
     \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/fps.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#include <initializer_list>\n#include\
-    \ <algorithm>\n#line 10 \"tools/fps.hpp\"\n#include <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/prime_factorization.hpp\"\
+    \n\n\n\n#include <vector>\n#line 6 \"tools/prime_factorization.hpp\"\n#include\
+    \ <queue>\n#line 8 \"tools/prime_factorization.hpp\"\n#include <algorithm>\n#include\
+    \ <cmath>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"\
+    tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"\
+    tools/uint128_t.hpp\"\n#include <string>\n#line 9 \"tools/uint128_t.hpp\"\n\n\
+    namespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
+    \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
+    \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
+    \ = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream&\
+    \ os, ::tools::uint128_t x) {\n  if (x == 0) return os << '0';\n\n  ::std::string\
+    \ s;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n \
+    \ ::std::reverse(s.begin(), s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"\
+    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
+    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
+    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
+    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
+    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
+    \    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n      if (rhs >=\
+    \ 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n        return\
+    \ (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
+    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
+    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
+    \  constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {\n    if (m == 1) return\
+    \ 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x, m);\n    while (n > 0) {\n   \
+    \   if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r, y, m);\n      }\n   \
+    \   y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n    return r;\n  }\n\
+    }\n\n\n#line 7 \"tools/is_prime.hpp\"\n\nnamespace tools {\n\n  constexpr bool\
+    \ is_prime(const unsigned long long n) {\n    constexpr ::std::array<unsigned\
+    \ long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};\n\n\
+    \    if (n <= 1) return false;\n    if (n == 2) return true;\n    if (n % 2 ==\
+    \ 0) return false;\n\n    auto d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n\
+    \    for (const auto a : bases) {\n      if (a % n == 0) return true;\n\n    \
+    \  auto power = d;\n      auto target = ::tools::pow_mod(a, power, n);\n\n   \
+    \   bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
+    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
+    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
+    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
+    \ true;\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\
+    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 7 \"tools/popcount.hpp\"\n\
+    #include <cstdint>\n\nnamespace tools {\n\n  template <typename T>\n  T popcount(T\
+    \ x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x >= 0);\n   \
+    \ if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 8 \"tools/floor_log2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::floor_log2<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      x |= (x >> 1);\n      x |= (x >> 2);\n      x |= (x >> 4);\n\
+    \      if constexpr (::std::numeric_limits<T>::digits > 8) x |= (x >> 8);\n  \
+    \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
+    \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
+    \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
+    \ 15 \"tools/prime_factorization.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  ::std::vector<T> prime_factorization(T n) {\n    assert(1 <= n && n <=\
+    \ 1000000000000000000);\n    ::std::vector<T> result;\n\n    if (n == 1) return\
+    \ result;\n\n    ::std::queue<::std::pair<T, T>> factors({::std::pair<T, T>(n,\
+    \ 1)});\n    while (!factors.empty()) {\n      const T factor = factors.front().first;\n\
+    \      const T occurrences = factors.front().second;\n      factors.pop();\n \
+    \     if (::tools::is_prime(factor)) {\n        for (T i = 0; i < occurrences;\
+    \ ++i) {\n          result.push_back(factor);\n        }\n      } else {\n   \
+    \     const T m = ::tools::pow2((::tools::floor_log2(factor) + 1) / 8);\n    \
+    \    for (T c = 1; ; ++c) {\n          const auto f = [&](T& x) {\n          \
+    \  x = ::tools::prod_mod(x, x, factor);\n            x += c;\n            if (x\
+    \ >= factor) x -= factor;\n          };\n          T y = 2;\n          T r = 1;\n\
+    \          T q = 1;\n          T x, g, ys;\n          do {\n            x = y;\n\
+    \            for (T i = 0; i < r; ++i) {\n              f(y);\n            }\n\
+    \            T k = 0;\n            do {\n              ys = y;\n             \
+    \ for (T i = 0; i < ::std::min(m, r - k); ++i) {\n                f(y);\n    \
+    \            q = ::tools::prod_mod(q, ::std::abs(x - y), factor);\n          \
+    \    }\n              g = ::std::gcd(q, factor);\n              k += m;\n    \
+    \        } while (k < r && g == 1);\n            r *= 2;\n          } while (g\
+    \ == 1);\n          if (g == factor) {\n            do {\n              f(ys);\n\
+    \              g = ::std::gcd(::std::abs(x - ys), factor);\n            } while\
+    \ (g == 1);\n          }\n          if (g < factor) {\n            T h = factor\
+    \ / g;\n            if (h < g) ::std::swap(g, h);\n            T n = 1;\n    \
+    \        while (h % g == 0) {\n              h /= g;\n              ++n;\n   \
+    \         }\n            factors.emplace(g, occurrences * n);\n            if\
+    \ (h > 1) factors.emplace(h, occurrences);\n            break;\n          }\n\
+    \        }\n      }\n    }\n\n    ::std::sort(result.begin(), result.end());\n\
+    \    return result;\n  }\n}\n\n\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 10 \"\
+    tools/fps.hpp\"\n#include <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
     namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
     \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
@@ -424,16 +559,8 @@ data:
     \ offset[5] = {\n            0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};\n        x\
     \ -= offset[diff % 5];\n        c[i] = x;\n    }\n\n    return c;\n}\n\n}  //\
     \ namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 8 \"tools/convolution.hpp\"\
-    \n#include <complex>\n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
-    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
-    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
-    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 6 \"tools/ceil_log2.hpp\"\n#include <limits>\n#include <tuple>\n\
-    #line 9 \"tools/ceil_log2.hpp\"\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \n#include <complex>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#line 7 \"tools/ceil_log2.hpp\"\
+    \n#include <tuple>\n#line 10 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
     \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
@@ -455,53 +582,11 @@ data:
     \ j = ::std::numeric_limits<T>::digits / 2;\n\n      for (const auto t_i : ::std::get<log2(::std::numeric_limits<T>::digits)\
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
-    \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
-    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include\
-    \ <string>\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t\
-    \ = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
-    \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
-    \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
-    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
-    ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
-    \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
-    \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
-    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
-    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
-    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
-    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
-    \n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line\
-    \ 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const\
-    \ M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else\
-    \ {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      }\
-    \ else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\
-    \n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
-    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
-    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
-    \ * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
-    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
-    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
-    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
-    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
-    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
-    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
-    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
-    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
-    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
-    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
-    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
-    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
-    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename M1, typename M2, typename M3>\n  M garner3(const\
-    \ M1& a, const M2& b, const M3& c, const M m) {\n    using ull = unsigned long\
-    \ long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n    static\
-    \ const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
+    \n#line 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename M1, typename M2, typename M3>\n\
+    \  M garner3(const M1& a, const M2& b, const M3& c, const M m) {\n    using ull\
+    \ = unsigned long long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
+    \    static const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
     \n    static const auto plus_mod = [](ull x, const ull y, const ull mod) {\n \
     \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
     \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
@@ -606,34 +691,38 @@ data:
     \n\nnamespace tools {\n\n  class less_by_first {\n  public:\n    template <class\
     \ T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1,\
     \ T2>& y) const {\n      return x.first < y.first;\n    }\n  };\n}\n\n\n#line\
-    \ 16 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
+    \ 17 \"tools/fps.hpp\"\n\n// Source: https://opt-cp.com/fps-implementation/\n\
     // License: CC0\n// Author: opt\n\nnamespace tools {\n  template <typename M>\n\
     \  class fps {\n  private:\n    using F = ::tools::fps<M>;\n    ::std::vector<M>\
-    \ m_vector;\n\n  public:\n    using reference = M&;\n    using const_reference\
-    \ = const M&;\n    using iterator = typename ::std::vector<M>::iterator;\n   \
-    \ using const_iterator = typename ::std::vector<M>::const_iterator;\n    using\
-    \ size_type = ::std::size_t;\n    using difference_type = ::std::ptrdiff_t;\n\
-    \    using value_type = M;\n    using allocator_type = typename ::std::vector<M>::allocator_type;\n\
-    \    using pointer = M*;\n    using const_pointer = const M*;\n    using reverse_iterator\
-    \ = typename ::std::vector<M>::reverse_iterator;\n    using const_reverse_iterator\
-    \ = typename ::std::vector<M>::const_reverse_iterator;\n\n    fps() = default;\n\
-    \    fps(const F&) = default;\n    fps(F&&) = default;\n    ~fps() = default;\n\
-    \    F& operator=(const F&) = default;\n    F& operator=(F&&) = default;\n\n \
-    \   explicit fps(const size_type n) : m_vector(n) {}\n    fps(const size_type\
-    \ n, const_reference value) : m_vector(n, value) {}\n    template <class InputIter>\
-    \ fps(const InputIter first, const InputIter last) : m_vector(first, last) {}\n\
-    \    fps(const ::std::initializer_list<M> il) : m_vector(il) {}\n\n    iterator\
-    \ begin() noexcept { return this->m_vector.begin(); }\n    const_iterator begin()\
-    \ const noexcept { return this->m_vector.begin(); }\n    iterator end() noexcept\
-    \ { return this->m_vector.end(); }\n    const_iterator end() const noexcept {\
-    \ return this->m_vector.end(); }\n    const_iterator cbegin() const noexcept {\
-    \ return this->m_vector.cbegin(); }\n    const_iterator cend() const noexcept\
-    \ { return this->m_vector.cend(); }\n    reverse_iterator rbegin() noexcept {\
-    \ return this->m_vector.rbegin(); }\n    const_reverse_iterator rbegin() const\
-    \ noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator crbegin()\
-    \ const noexcept { return this->m_vector.crbegin(); }\n    reverse_iterator rend()\
-    \ noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator rend()\
-    \ const noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
+    \ m_vector;\n\n    // maximum 2^k s.t. x = 1 (mod 2^k)\n    static constexpr int\
+    \ pow2_k(const unsigned int x) {\n      return (x - 1) & -(x - 1);\n    }\n\n\
+    \    // d <= lpf(M)\n    static bool is_leq_lpf_of_M(const int d) {\n      if\
+    \ (M::mod() == 1) return true;\n      for (int i = 2; i < d; ++i) {\n        if\
+    \ (M::mod() % i == 0) return false;\n      }\n      return true;\n    }\n\n  public:\n\
+    \    using reference = M&;\n    using const_reference = const M&;\n    using iterator\
+    \ = typename ::std::vector<M>::iterator;\n    using const_iterator = typename\
+    \ ::std::vector<M>::const_iterator;\n    using size_type = ::std::size_t;\n  \
+    \  using difference_type = ::std::ptrdiff_t;\n    using value_type = M;\n    using\
+    \ allocator_type = typename ::std::vector<M>::allocator_type;\n    using pointer\
+    \ = M*;\n    using const_pointer = const M*;\n    using reverse_iterator = typename\
+    \ ::std::vector<M>::reverse_iterator;\n    using const_reverse_iterator = typename\
+    \ ::std::vector<M>::const_reverse_iterator;\n\n    fps() = default;\n    fps(const\
+    \ F&) = default;\n    fps(F&&) = default;\n    ~fps() = default;\n    F& operator=(const\
+    \ F&) = default;\n    F& operator=(F&&) = default;\n\n    explicit fps(const size_type\
+    \ n) : m_vector(n) {}\n    fps(const size_type n, const_reference value) : m_vector(n,\
+    \ value) {}\n    template <class InputIter> fps(const InputIter first, const InputIter\
+    \ last) : m_vector(first, last) {}\n    fps(const ::std::initializer_list<M> il)\
+    \ : m_vector(il) {}\n\n    iterator begin() noexcept { return this->m_vector.begin();\
+    \ }\n    const_iterator begin() const noexcept { return this->m_vector.begin();\
+    \ }\n    iterator end() noexcept { return this->m_vector.end(); }\n    const_iterator\
+    \ end() const noexcept { return this->m_vector.end(); }\n    const_iterator cbegin()\
+    \ const noexcept { return this->m_vector.cbegin(); }\n    const_iterator cend()\
+    \ const noexcept { return this->m_vector.cend(); }\n    reverse_iterator rbegin()\
+    \ noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator rbegin()\
+    \ const noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator\
+    \ crbegin() const noexcept { return this->m_vector.crbegin(); }\n    reverse_iterator\
+    \ rend() noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
+    \ rend() const noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
     \ crend() const noexcept { return this->m_vector.crend(); }\n\n    size_type size()\
     \ const noexcept { return this->m_vector.size(); }\n    size_type max_size() const\
     \ noexcept { return this->m_vector.max_size(); }\n    void resize(const size_type\
@@ -673,262 +762,370 @@ data:
     \ { return this->m_vector.erase(first, last); }\n    void swap(F& x) noexcept\
     \ { this->m_vector.swap(x.m_vector); }\n    void clear() { this->m_vector.clear();\
     \ }\n\n    allocator_type get_allocator() const noexcept { return this->m_vector.get_allocator();\
-    \ }\n\n    friend bool operator==(const F& x, const F& y) {\n      const auto\
-    \ n = ::std::min(x.size(), y.size());\n      static const auto is_zero = [](const\
-    \ M& e) { return e == M::raw(0); };\n      return ::std::equal(x.begin(), x.begin()\
-    \ + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero)\
-    \ && ::std::all_of(y.begin() + n, y.end(), is_zero);\n    }\n    friend bool operator!=(const\
-    \ F& x, const F& y) { return !(x == y); }\n\n    friend void swap(F& x, F& y)\
-    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    F operator+() const {\n   \
-    \   return *this;\n    }\n    F operator-() const {\n      F res(*this);\n   \
-    \   for (auto& e : res) {\n        e = -e;\n      }\n      return res;\n    }\n\
-    \    F& operator*=(const M& g) {\n      for (auto& e : *this) {\n        e *=\
-    \ g;\n      }\n      return *this;\n    }\n    F& operator/=(const M& g) {\n \
-    \     assert(g != M::raw(0));\n      *this *= g.inv();\n      return *this;\n\
-    \    }\n    F& operator+=(const F& g) {\n      const int n = this->size();\n \
-    \     const int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i)\
-    \ {\n        (*this)[i] += g[i];\n      }\n      return *this;\n    }\n    F&\
-    \ operator-=(const F& g) {\n      const int n = this->size();\n      const int\
-    \ m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i]\
-    \ -= g[i];\n      }\n      return *this;\n    }\n    F& operator<<=(const int\
-    \ d) {\n      const int n = this->size();\n      this->erase(this->begin(), this->begin()\
+    \ }\n\n    friend bool operator==(const F& x, const F& y) { return x.m_vector\
+    \ == y.m_vector; }\n    friend bool operator!=(const F& x, const F& y) { return\
+    \ x.m_vector != y.m_vector; }\n\n    friend void swap(F& x, F& y) noexcept { x.m_vector.swap(y.m_vector);\
+    \ }\n\n    F operator+() const {\n      return *this;\n    }\n    F operator-()\
+    \ const {\n      F res(*this);\n      for (auto& e : res) {\n        e = -e;\n\
+    \      }\n      return res;\n    }\n    F& operator*=(const M& g) {\n      for\
+    \ (auto& e : *this) {\n        e *= g;\n      }\n      return *this;\n    }\n\
+    \    F& operator/=(const M& g) {\n      assert(::std::gcd(g.val(), M::mod()) ==\
+    \ 1);\n      *this *= g.inv();\n      return *this;\n    }\n    F& operator+=(const\
+    \ F& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
+    \      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n\
+    \      }\n      return *this;\n    }\n    F& operator-=(const F& g) {\n      const\
+    \ int n = this->size();\n      const int m = g.size();\n      for (int i = 0;\
+    \ i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n      }\n      return\
+    \ *this;\n    }\n    F& operator<<=(const int d) {\n      if (d < 0) *this >>=\
+    \ -d;\n\n      const int n = this->size();\n      this->erase(this->begin(), this->begin()\
     \ + ::std::min(n, d));\n      this->resize(n);\n      return *this;\n    }\n \
-    \   F& operator>>=(const int d) {\n      const int n = this->size();\n      this->insert(this->begin(),\
-    \ d, M::raw(0));\n      this->resize(n);\n      return *this;\n    }\n    F& multiply_inplace(const\
+    \   F& operator>>=(const int d) {\n      if (d < 0) *this <<= -d;\n\n      const\
+    \ int n = this->size();\n      this->resize(::std::max(0, n - d));\n      this->insert(this->begin(),\
+    \ ::std::min(n, d), M::raw(0));\n      return *this;\n    }\n    F& multiply_inplace(const\
     \ F& g, const int d) {\n      assert(d >= 0);\n      const int n = this->size();\n\
     \      F res;\n      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d,\
     \ n), g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));\n\
     \      res.resize(d);\n      *this = ::std::move(res);\n      return *this;\n\
     \    }\n    F& multiply_inplace(const F& g) { return this->multiply_inplace(g,\
-    \ this->size()); }\n    F multiply(const F& g, const int d) const { return F(*this).multiply_inplace(g,\
+    \ this->size()); }\n    F& operator*=(const F& g) { return this->multiply_inplace(g);\
+    \ }\n    F multiply(const F& g, const int d) const { return F(*this).multiply_inplace(g,\
     \ d); }\n    F multiply(const F& g) const { return this->multiply(g, this->size());\
-    \ }\n\n    F inv(const int d) const {\n      const int n = this->size();\n   \
-    \   assert(n != 0 && (*this)[0] != M::raw(0));\n      assert(d >= 0);\n\n    \
-    \  if (d == 0) return F();\n\n      // return maximum 2^k s.t. x = 1 (mod 2^k)\n\
-    \      static const auto pow2_k = [](const unsigned int x) -> int {\n        return\
-    \ (x - 1) & -(x - 1);\n      };\n\n      // If M is an NTT-friendly prime, we\
-    \ use a faster algorithm.\n      if (::tools::is_prime(M::mod()) && ::tools::pow2(::tools::ceil_log2(d))\
-    \ <= pow2_k(M::mod()) + 1) {\n        F res{(*this)[0].inv()};\n        for (int\
-    \ m = 1; m < d; m *= 2) {\n          F f(this->begin(), this->begin() + ::std::min(n,\
-    \ 2 * m));\n          F r(res);\n          f.resize(2 * m);\n          ::atcoder::internal::butterfly(f.m_vector);\n\
-    \          r.resize(2 * m);\n          ::atcoder::internal::butterfly(r.m_vector);\n\
-    \          for (int i = 0; i < 2 * m; ++i) {\n            f[i] *= r[i];\n    \
-    \      }\n          ::atcoder::internal::butterfly_inv(f.m_vector);\n        \
-    \  f.erase(f.begin(), f.begin() + m);\n          f.resize(2 * m);\n          ::atcoder::internal::butterfly(f.m_vector);\n\
-    \          for (int i = 0; i < 2 * m; ++i) {\n            f[i] *= r[i];\n    \
-    \      }\n          ::atcoder::internal::butterfly_inv(f.m_vector);\n        \
-    \  M iz = M(2 * m).inv();\n          iz *= -iz;\n          for (int i = 0; i <\
-    \ m; ++i) {\n            f[i] *= iz;\n          }\n          res.insert(res.end(),\
-    \ f.begin(), f.begin() + m);\n        }\n        res.resize(d);\n        return\
-    \ res;\n      }\n\n      F res{(*this)[0].inv()};\n      for (int m = 1; m < d;\
-    \ m *= 2) {\n        F f(this->begin(), this->begin() + ::std::min(n, 2 * m));\n\
-    \        f *= -1;\n        F r(res);\n        r.multiply_inplace(r, 2 * m);\n\
-    \        r.multiply_inplace(f);\n        r += res;\n        r += res;\n      \
-    \  res = ::std::move(r);\n      }\n      res.resize(d);\n      return res;\n \
-    \   }\n    F inv() const { return this->inv(this->size()); }\n\n    F& divide_inplace(const\
-    \ F& g, const int d) {\n      assert(d >= 0);\n      const int n = this->size();\n\
-    \      const auto g_inv = g.inv(d);\n      F res;\n      ::tools::convolution(this->cbegin(),\
-    \ this->cbegin() + ::std::min(d, n), g_inv.cbegin(), g_inv.cend(), ::std::back_inserter(res));\n\
-    \      res.resize(d);\n      *this = ::std::move(res);\n      return *this;\n\
-    \    }\n    F& divide_inplace(const F& g) { return this->divide_inplace(g, this->size());\
-    \ }\n    F divide(const F& g, const int d) const { return F(*this).divide_inplace(g,\
-    \ d); }\n    F divide(const F& g) const { return this->divide(g, this->size());\
-    \ }\n\n    // sparse\n    template <class InputIterator>\n    F& multiply_inplace(InputIterator\
-    \ g_begin, const InputIterator g_end) {\n      assert(::std::is_sorted(g_begin,\
-    \ g_end, ::tools::less_by_first()));\n\n      const int n = this->size();\n  \
-    \    if (g_begin == g_end) {\n        ::std::fill(this->begin(), this->end(),\
-    \ M::raw(0));\n        return *this;\n      }\n\n      const auto [d, c] = *g_begin;\n\
-    \      if (d == 0) {\n        ++g_begin;\n      } else {\n        c = M::raw(0);\n\
-    \      }\n      for (int i = n - 1; i >= 0; --i) {\n        (*this)[i] *= c;\n\
-    \        for (auto it = g_begin; it != g_end; ++it) {\n          const auto& [j,\
-    \ b] = *it;\n          if (j > i) break;\n          (*this)[i] += (*this)[i -\
-    \ j] * b;\n        }\n      }\n      return *this;\n    }\n    F& multiply_inplace(const\
-    \ ::std::initializer_list<::std::pair<int, M>> il) { return this->multiply_inplace(il.begin(),\
-    \ il.end()); }\n    template <class InputIterator>\n    F multiply(const InputIterator\
-    \ g_begin, const InputIterator g_end) const { return F(*this).multiply_inplace(g_begin,\
-    \ g_end); }\n    F multiply(const ::std::initializer_list<::std::pair<int, M>>\
-    \ il) const { return this->multiply(il.begin(), il.end()); }\n\n    template <class\
-    \ InputIterator>\n    F& divide_inplace(InputIterator g_begin, const InputIterator\
-    \ g_end) {\n      assert(g_begin != g_end);\n      assert(::std::is_sorted(g_begin,\
-    \ g_end, ::tools::less_by_first()));\n\n      const int n = this->size();\n  \
-    \    const auto [d, c] = *g_begin;\n      assert(d == 0 && c != M::raw(0));\n\
-    \      const M ic = c.inv();\n      ++g_begin;\n      for (int i = 0; i < n; ++i)\
-    \ {\n        for (auto it = g_begin; it != g_end; ++it) {\n          const auto&\
-    \ [j, b] = *it;\n          if (j > i) break;\n          (*this)[i] -= (*this)[i\
-    \ - j] * b;\n        }\n        (*this)[i] *= ic;\n      }\n      return *this;\n\
-    \    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int, M>>\
-    \ il) { return this->divide_inplace(il.begin(), il.end()); }\n    template <class\
-    \ InputIterator>\n    F divide(const InputIterator g_begin, const InputIterator\
+    \ }\n\n  private:\n    F inv_regular(const int d) const {\n      assert(d > 0);\n\
+    \      assert(M::mod() > 1);\n      assert(!this->empty());\n      assert(::std::gcd((*this)[0].val(),\
+    \ M::mod()) == 1);\n\n      const int n = this->size();\n      F res{(*this)[0].inv()};\n\
+    \      for (int m = 1; m < d; m *= 2) {\n        F f(this->begin(), this->begin()\
+    \ + ::std::min(n, 2 * m));\n        f *= -1;\n        F r(res);\n        r.multiply_inplace(r,\
+    \ 2 * m);\n        r.multiply_inplace(f);\n        r += res;\n        r += res;\n\
+    \        res = ::std::move(r);\n      }\n      res.resize(d);\n      return res;\n\
+    \    }\n    template <typename M_ = M>\n    F inv_faster(const int d) const {\n\
+    \      static_assert(::atcoder::internal::is_static_modint<M>::value);\n     \
+    \ static_assert(2 <= M::mod() && M::mod() <= 2000000000);\n      static_assert(::tools::is_prime(M::mod()));\n\
+    \      assert(d > 0);\n      assert(!this->empty());\n      assert(::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod()));\n      assert(::std::gcd((*this)[0].val(), M::mod()) ==\
+    \ 1);\n\n      const int n = this->size();\n      F res{(*this)[0].inv()};\n \
+    \     for (int m = 1; m < d; m *= 2) {\n        F f(this->begin(), this->begin()\
+    \ + ::std::min(n, 2 * m));\n        F r(res);\n        f.resize(2 * m);\n    \
+    \    ::atcoder::internal::butterfly(f.m_vector);\n        r.resize(2 * m);\n \
+    \       ::atcoder::internal::butterfly(r.m_vector);\n        for (int i = 0; i\
+    \ < 2 * m; ++i) {\n          f[i] *= r[i];\n        }\n        ::atcoder::internal::butterfly_inv(f.m_vector);\n\
+    \        f.erase(f.begin(), f.begin() + m);\n        f.resize(2 * m);\n      \
+    \  ::atcoder::internal::butterfly(f.m_vector);\n        for (int i = 0; i < 2\
+    \ * m; ++i) {\n          f[i] *= r[i];\n        }\n        ::atcoder::internal::butterfly_inv(f.m_vector);\n\
+    \        M iz = M(2 * m).inv();\n        iz *= -iz;\n        for (int i = 0; i\
+    \ < m; ++i) {\n          f[i] *= iz;\n        }\n        res.insert(res.end(),\
+    \ f.begin(), f.begin() + m);\n      }\n      res.resize(d);\n      return res;\n\
+    \    }\n\n  public:\n    F inv(const int d) const {\n      assert(d >= 0);\n \
+    \     if (d == 0) return F();\n      if (M::mod() == 1) return F(d);\n      assert(!this->empty());\n\
+    \      assert(::std::gcd((*this)[0].val(), M::mod()) == 1);\n\n      if constexpr\
+    \ (::atcoder::internal::is_static_modint<M>::value && M::mod() <= 2000000000 &&\
+    \ ::tools::is_prime(M::mod())) {\n        if (::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod())) {\n          return this->inv_faster(d);\n        } else\
+    \ {\n          return this->inv_regular(d);\n        }\n      } else {\n     \
+    \   return this->inv_regular(d);\n      }\n    }\n    F inv() const { return this->inv(this->size());\
+    \ }\n\n    F& divide_inplace(const F& g, const int d) {\n      assert(d >= 0);\n\
+    \      const int n = this->size();\n      const auto g_inv = g.inv(d);\n     \
+    \ F res;\n      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d,\
+    \ n), g_inv.cbegin(), g_inv.cend(), ::std::back_inserter(res));\n      res.resize(d);\n\
+    \      *this = ::std::move(res);\n      return *this;\n    }\n    F& divide_inplace(const\
+    \ F& g) { return this->divide_inplace(g, this->size()); }\n    F& operator/=(const\
+    \ F& g) { return this->divide_inplace(g); }\n    F divide(const F& g, const int\
+    \ d) const { return F(*this).divide_inplace(g, d); }\n    F divide(const F& g)\
+    \ const { return this->divide(g, this->size()); }\n\n    // sparse\n    template\
+    \ <class InputIterator>\n    F& multiply_inplace(InputIterator g_begin, const\
+    \ InputIterator g_end) {\n      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\
+    \n      const int n = this->size();\n      if (g_begin == g_end) {\n        ::std::fill(this->begin(),\
+    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      const auto\
+    \ [d, c] = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n\
+    \        c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n \
+    \       (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n\
+    \          const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
+    \ += (*this)[i - j] * b;\n        }\n      }\n      return *this;\n    }\n   \
+    \ F& multiply_inplace(const ::std::initializer_list<::std::pair<int, M>> il) {\
+    \ return this->multiply_inplace(il.begin(), il.end()); }\n    template <class\
+    \ InputIterator>\n    F multiply(const InputIterator g_begin, const InputIterator\
+    \ g_end) const { return F(*this).multiply_inplace(g_begin, g_end); }\n    F multiply(const\
+    \ ::std::initializer_list<::std::pair<int, M>> il) const { return this->multiply(il.begin(),\
+    \ il.end()); }\n\n    template <class InputIterator>\n    F& divide_inplace(InputIterator\
+    \ g_begin, const InputIterator g_end) {\n      assert(g_begin != g_end);\n   \
+    \   assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\n  \
+    \    const int n = this->size();\n      if (n == 0) return *this;\n      if (M::mod()\
+    \ == 1) return *this;\n\n      const auto [d, c] = *g_begin;\n      assert(d ==\
+    \ 0 && ::std::gcd(c, M::mod()) == 1);\n      const M ic = c.inv();\n      ++g_begin;\n\
+    \      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin; it != g_end;\
+    \ ++it) {\n          const auto& [j, b] = *it;\n          if (j > i) break;\n\
+    \          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i] *=\
+    \ ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
+    \ M>> il) { return this->divide_inplace(il.begin(), il.end()); }\n    template\
+    \ <class InputIterator>\n    F divide(const InputIterator g_begin, const InputIterator\
     \ g_end) const { return F(*this).divide_inplace(g_begin, g_end); }\n    F divide(const\
     \ ::std::initializer_list<::std::pair<int, M>> il) const { return this->divide(il.begin(),\
     \ il.end()); }\n\n    // multiply and divide (1 + cz^d)\n    F& multiply_inplace(const\
-    \ int d, const M c) {\n      const int n = this->size();\n      if (c == M(1))\
+    \ int d, const M c) {\n      assert(d > 0);\n      const int n = this->size();\n\
+    \      if (c == M(1)) {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
+    \      (*this)[i + d] += (*this)[i];\n        }\n      } else if (c == M(-1))\
     \ {\n        for (int i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d]\
-    \ += (*this)[i];\n        }\n      } else if (c == M(-1)) {\n        for (int\
-    \ i = n - d - 1; i >= 0; --i) {\n          (*this)[i + d] -= (*this)[i];\n   \
-    \     }\n      } else {\n        for (int i = n - d - 1; i >= 0; --i) {\n    \
-    \      (*this)[i + d] += (*this)[i] * c;\n        }\n      }\n      return *this;\n\
-    \    }\n    F multiply(const int d, const M c) const { return F(*this).multiply_inplace(d,\
-    \ c); }\n    F& divide_inplace(const int d, const M c) {\n      const int n =\
-    \ this->size();\n      if (c == M(1)) {\n        for (int i = 0; i < n - d; ++i)\
-    \ {\n          (*this)[i + d] -= (*this)[i];\n        }\n      } else if (c ==\
-    \ M(-1)) {\n        for (int i = 0; i < n - d; ++i) {\n          (*this)[i + d]\
-    \ += (*this)[i];\n        }\n      } else {\n        for (int i = 0; i < n - d;\
-    \ ++i) {\n          (*this)[i + d] -= (*this)[i] * c;\n        }\n      }\n  \
-    \    return *this;\n    }\n    F divide(const int d, const M c) const { return\
-    \ F(*this).divide_inplace(d, c); }\n\n    M eval(const M& a) const {\n      M\
-    \ x(1);\n      M res(0);\n      for (const auto e : *this) {\n        res += e\
-    \ * x;\n        x *= a;\n      }\n      return res;\n    }\n\n    F& integral_inplace()\
-    \ {\n      const int n = this->size();\n      if (n == 0) return *this;\n    \
-    \  if (n == 1) return *this = F{0};\n      this->insert(this->begin(), 0);\n \
-    \     this->pop_back();\n      ::std::vector<M> inv(n);\n      inv[1] = M(1);\n\
-    \      int p = M::mod();\n      for (int i = 2; i < n; ++i) {\n        inv[i]\
-    \ = -inv[p % i] * (p / i);\n      }\n      for (int i = 2; i < n; ++i) {\n   \
-    \     (*this)[i] *= inv[i];\n      }\n      return *this;\n    }\n    F integral()\
+    \ -= (*this)[i];\n        }\n      } else {\n        for (int i = n - d - 1; i\
+    \ >= 0; --i) {\n          (*this)[i + d] += (*this)[i] * c;\n        }\n     \
+    \ }\n      return *this;\n    }\n    F multiply(const int d, const M c) const\
+    \ { return F(*this).multiply_inplace(d, c); }\n    F& divide_inplace(const int\
+    \ d, const M c) {\n      assert(d > 0);\n      const int n = this->size();\n \
+    \     if (c == M(1)) {\n        for (int i = 0; i < n - d; ++i) {\n          (*this)[i\
+    \ + d] -= (*this)[i];\n        }\n      } else if (c == M(-1)) {\n        for\
+    \ (int i = 0; i < n - d; ++i) {\n          (*this)[i + d] += (*this)[i];\n   \
+    \     }\n      } else {\n        for (int i = 0; i < n - d; ++i) {\n         \
+    \ (*this)[i + d] -= (*this)[i] * c;\n        }\n      }\n      return *this;\n\
+    \    }\n    F divide(const int d, const M c) const { return F(*this).divide_inplace(d,\
+    \ c); }\n\n    F& integral_inplace() {\n      const int n = this->size();\n  \
+    \    assert(is_leq_lpf_of_M(n));\n\n      if (n == 0) return *this;\n      if\
+    \ (n == 1) return *this = F{0};\n      this->insert(this->begin(), 0);\n     \
+    \ this->pop_back();\n      ::std::vector<M> inv(n);\n      inv[1] = M(1);\n  \
+    \    int p = M::mod();\n      for (int i = 2; i < n; ++i) {\n        inv[i] =\
+    \ -inv[p % i] * (p / i);\n      }\n      for (int i = 2; i < n; ++i) {\n     \
+    \   (*this)[i] *= inv[i];\n      }\n      return *this;\n    }\n    F integral()\
     \ const { return F(*this).integral_inplace(); }\n\n    F& derivative_inplace()\
     \ {\n      const int n = this->size();\n      if (n == 0) return *this;\n    \
     \  for (int i = 2; i < n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
     \      this->push_back(0);\n      return *this;\n    }\n    F derivative() const\
     \ { return F(*this).derivative_inplace(); }\n\n    F& log_inplace(const int d)\
-    \ {\n      const int n = this->size();\n      assert(n > 0 && (*this)[0] == M(1));\n\
-    \      assert(d >= 0);\n      if (d < n) this->resize(d);\n      const F f_inv\
-    \ = this->inv();\n      this->derivative_inplace();\n      this->multiply_inplace(f_inv);\n\
+    \ {\n      assert(d >= 0);\n      assert(is_leq_lpf_of_M(d));\n      this->resize(d);\n\
+    \      if (d == 0) return *this;\n      assert((*this)[0] == M(1));\n\n      const\
+    \ F f_inv = this->inv();\n      this->derivative_inplace();\n      this->multiply_inplace(f_inv);\n\
     \      this->integral_inplace();\n      return *this;\n    }\n    F& log_inplace()\
     \ { return this->log_inplace(this->size()); }\n    F log(const int d) const {\
     \ return F(*this).log_inplace(d); }\n    F log() const { return this->log(this->size());\
-    \ }\n\n    F& exp_inplace(const int d) {\n      const int n = this->size();\n\
-    \      if (n == 0) return *this;\n\n      assert((*this)[0] == M::raw(0));\n \
-    \     assert(d >= 0);\n\n      if (d == 0) {\n        this->clear();\n       \
-    \ return *this;\n      }\n\n      // return maximum 2^k s.t. x = 1 (mod 2^k)\n\
-    \      static const auto pow2_k = [](const unsigned int x) -> int {\n        return\
-    \ (x - 1) & -(x - 1);\n      };\n\n      // If M is an NTT-friendly prime, we\
-    \ use a faster algorithm.\n      if (::tools::is_prime(M::mod()) && ::tools::pow2(::tools::ceil_log2(d))\
-    \ <= pow2_k(M::mod()) + 1) {\n        F g{1}, g_fft{1, 1};\n        (*this)[0]\
-    \ = 1;\n        this->resize(d);\n        F h_drv(this->derivative());\n     \
-    \   for (int m = 2; m < d; m *= 2) {\n          // prepare\n          F f_fft(this->begin(),\
-    \ this->begin() + m);\n          f_fft.resize(2 * m);\n          ::atcoder::internal::butterfly(f_fft.m_vector);\n\
-    \n          // Step 2.a'\n          {\n            F g_(m);\n            for (int\
-    \ i = 0; i < m; ++i) {\n              g_[i] = f_fft[i] * g_fft[i];\n         \
-    \   }\n            ::atcoder::internal::butterfly_inv(g_.m_vector);\n        \
-    \    g_.erase(g_.begin(), g_.begin() + m / 2);\n            g_.resize(m);\n  \
-    \          ::atcoder::internal::butterfly(g_.m_vector);\n            for (int\
-    \ i = 0; i < m; ++i) {\n              g_[i] *= g_fft[i];\n            }\n    \
-    \        ::atcoder::internal::butterfly_inv(g_.m_vector);\n            g_.resize(m\
-    \ / 2);\n            g_ /= M(-m) * m;\n            g.insert(g.end(), g_.begin(),\
-    \ g_.begin() + m / 2);\n          }\n\n          // Step 2.b'--d'\n          F\
-    \ t(this->begin(), this->begin() + m);\n          t.derivative_inplace();\n  \
-    \        {\n            // Step 2.b'\n            F r{h_drv.begin(), h_drv.begin()\
-    \ + m - 1};\n            // Step 2.c'\n            r.resize(m);\n            ::atcoder::internal::butterfly(r.m_vector);\n\
-    \            for (int i = 0; i < m; ++i) {\n              r[i] *= f_fft[i];\n\
-    \            }\n            ::atcoder::internal::butterfly_inv(r.m_vector);\n\
-    \            r /= -m;\n            // Step 2.d'\n            t += r;\n       \
-    \     t.insert(t.begin(), t.back());\n            t.pop_back();\n          }\n\
-    \n          // Step 2.e'\n          if (2 * m < d) {\n            t.resize(2 *\
-    \ m);\n            ::atcoder::internal::butterfly(t.m_vector);\n            g_fft\
-    \ = g;\n            g_fft.resize(2*m);\n            ::atcoder::internal::butterfly(g_fft.m_vector);\n\
-    \            for (int i = 0; i < 2 * m; ++i) {\n              t[i] *= g_fft[i];\n\
-    \            }\n            ::atcoder::internal::butterfly_inv(t.m_vector);\n\
-    \            t.resize(m);\n            t /= 2 * m;\n          } else { // \u3053\
-    \u306E\u5834\u5408\u5206\u3051\u3092\u3057\u3066\u3082\u6570\u30D1\u30FC\u30BB\
-    \u30F3\u30C8\u3057\u304B\u901F\u304F\u306A\u3089\u306A\u3044\n            F g1(g.begin()\
-    \ + m / 2, g.end());\n            F s1(t.begin() + m / 2, t.end());\n        \
-    \    t.resize(m/2);\n            g1.resize(m);\n            ::atcoder::internal::butterfly(g1.m_vector);\n\
-    \            t.resize(m);\n            ::atcoder::internal::butterfly(t.m_vector);\n\
-    \            s1.resize(m);\n            ::atcoder::internal::butterfly(s1.m_vector);\n\
-    \            for (int i = 0; i < m; ++i) {\n              s1[i] = g_fft[i] * s1[i]\
-    \ + g1[i] * t[i];\n            }\n            for (int i = 0; i < m; ++i) {\n\
-    \              t[i] *= g_fft[i];\n            }\n            ::atcoder::internal::butterfly_inv(t.m_vector);\n\
-    \            ::atcoder::internal::butterfly_inv(s1.m_vector);\n            for\
-    \ (int i = 0; i < m / 2; ++i) {\n              t[i + m / 2] += s1[i];\n      \
-    \      }\n            t /= m;\n          }\n\n          // Step 2.f'\n       \
-    \   F v(this->begin() + m, this->begin() + ::std::min<int>(d, 2 * m));\n     \
-    \     v.resize(m);\n          t.insert(t.begin(), m - 1, 0);\n          t.push_back(0);\n\
-    \          t.integral_inplace();\n          for (int i = 0; i < m; ++i) {\n  \
-    \          v[i] -= t[m + i];\n          }\n\n          // Step 2.g'\n        \
-    \  v.resize(2 * m);\n          ::atcoder::internal::butterfly(v.m_vector);\n \
-    \         for (int i = 0; i < 2 * m; ++i) {\n            v[i] *= f_fft[i];\n \
-    \         }\n          ::atcoder::internal::butterfly_inv(v.m_vector);\n     \
-    \     v.resize(m);\n          v /= 2 * m;\n\n          // Step 2.h'\n        \
-    \  for (int i = 0; i < ::std::min(d - m, m); ++i) {\n            (*this)[m + i]\
-    \ = v[i];\n          }\n        }\n        return *this;\n      }\n\n      F g{1};\n\
-    \      for (int m = 1; m < d; m *= 2) {\n        F r(g);\n        r.resize(2 *\
-    \ m);\n        r.log_inplace();\n        r *= -1;\n        r += F(this->begin(),\
-    \ this->begin() + ::std::min(n, 2 * m));\n        ++r[0];\n        r.multiply_inplace(g);\n\
+    \ }\n\n  private:\n    F& exp_inplace_regular(const int d) {\n      assert(d >=\
+    \ 0);\n      assert(is_leq_lpf_of_M(d));\n      assert(this->empty() || (*this)[0]\
+    \ == M::raw(0));\n\n      const int n = this->size();\n      F g{1};\n      for\
+    \ (int m = 1; m < d; m *= 2) {\n        F r(g);\n        r.resize(2 * m);\n  \
+    \      r.log_inplace();\n        r *= -1;\n        r += F(this->begin(), this->begin()\
+    \ + ::std::min(n, 2 * m));\n        ++r[0];\n        r.multiply_inplace(g);\n\
     \        g = ::std::move(r);\n      }\n      g.resize(d);\n      *this = ::std::move(g);\n\
-    \      return *this;\n    }\n    F& exp_inplace() { return this->exp_inplace(this->size());\
-    \ }\n    F exp(const int d) const { return F(*this).exp_inplace(d); }\n    F exp()\
-    \ const { return this->exp(this->size()); }\n\n    F& pow_inplace(const long long\
-    \ k, const int d) {\n      const int n = this->size();\n      assert(d >= 0 &&\
-    \ k >= 0);\n      if (d == 0) {\n        return *this = F(0);\n      }\n     \
-    \ if (k == 0) {\n        *this = F(d);\n        (*this)[0] = M(1);\n        return\
-    \ *this;\n      }\n      int l = 0;\n      while (l < n && (*this)[l] == M::raw(0))\
-    \ ++l;\n      if (l == n || l > (d - 1) / k) {\n        return *this = F(d);\n\
-    \      }\n      M c{(*this)[l]};\n      this->erase(this->begin(), this->begin()\
-    \ + l);\n      *this /= c;\n      this->log_inplace(d - l * k);\n      *this *=\
-    \ k;\n      this->exp_inplace();\n      *this *= c.pow(k);\n      this->insert(this->begin(),\
-    \ l * k, 0);\n      return *this;\n    }\n    F& pow_inplace(const long long k)\
-    \ { return this->pow_inplace(k, this->size()); }\n    F pow(const long long k,\
-    \ const int d) const { return F(*this).pow_inplace(k, d); }\n    F pow(const long\
-    \ long k) const { return this->pow(k, this->size()); }\n\n    friend F operator*(const\
-    \ F& f, const M& g) { return F(f) *= g; }\n    friend F operator*(const M& f,\
-    \ const F& g) { return F(g) *= f; }\n    friend F operator/(const F& f, const\
-    \ M& g) { return F(f) /= g; }\n    friend F operator+(const F& f, const F& g)\
-    \ { return F(f) += g; }\n    friend F operator-(const F& f, const F& g) { return\
-    \ F(f) -= g; }\n    friend F operator*(const F& f, const F& g) { return F(f).multiply_inplace(g);\
-    \ }\n    friend F operator/(const F& f, const F& g) { return F(f).divide_inplace(g);\
-    \ }\n    friend F operator<<(const F& f, const int d) { return F(f) <<= d; }\n\
-    \    friend F operator>>(const F& f, const int d) { return F(f) >>= d; }\n  };\n\
-    }\n\n\n#line 7 \"tests/fps/pow_mod1000000007.test.cpp\"\n\nusing ll = long long;\n\
-    using mint = atcoder::modint1000000007;\n\nvoid solve(const tools::fps<mint>&\
-    \ a, const ll M, const tools::fps<mint>& expected) {\n  assert_that(expected ==\
-    \ a.pow(M));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  solve(tools::fps<mint>{0, 0, 9, 12}, 3, tools::fps<mint>{0, 0, 0, 0});\n \
-    \ solve(tools::fps<mint>{1, 1}, 2, tools::fps<mint>{1, 2});\n  solve(tools::fps<mint>{0,\
-    \ 0}, 0, tools::fps<mint>{1, 0});\n  solve(tools::fps<mint>{0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 1, 0}, 536870912, tools::fps<mint>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});\n \
-    \ solve(tools::fps<mint>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 576460752303423488, tools::fps<mint>{0,\
-    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 0, 0, 0, 0});\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n\
-    }\n"
+    \      return *this;\n    }\n    template <typename M_ = M>\n    F& exp_inplace_faster(const\
+    \ int d) {\n      static_assert(::atcoder::internal::is_static_modint<M>::value);\n\
+    \      static_assert(2 <= M::mod() && M::mod() <= 2000000000);\n      static_assert(::tools::is_prime(M::mod()));\n\
+    \      assert(d > 0);\n      assert(is_leq_lpf_of_M(d));\n      assert(::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod()));\n      assert(this->empty() || (*this)[0] == M::raw(0));\n\
+    \ \n      F g{1}, g_fft{1, 1};\n      this->resize(d);\n      (*this)[0] = 1;\n\
+    \      F h_drv(this->derivative());\n      for (int m = 2; m < d; m *= 2) {\n\
+    \        // prepare\n        F f_fft(this->begin(), this->begin() + m);\n    \
+    \    f_fft.resize(2 * m);\n        ::atcoder::internal::butterfly(f_fft.m_vector);\n\
+    \n        // Step 2.a'\n        {\n          F g_(m);\n          for (int i =\
+    \ 0; i < m; ++i) {\n            g_[i] = f_fft[i] * g_fft[i];\n          }\n  \
+    \        ::atcoder::internal::butterfly_inv(g_.m_vector);\n          g_.erase(g_.begin(),\
+    \ g_.begin() + m / 2);\n          g_.resize(m);\n          ::atcoder::internal::butterfly(g_.m_vector);\n\
+    \          for (int i = 0; i < m; ++i) {\n            g_[i] *= g_fft[i];\n   \
+    \       }\n          ::atcoder::internal::butterfly_inv(g_.m_vector);\n      \
+    \    g_.resize(m / 2);\n          g_ /= M(-m) * m;\n          g.insert(g.end(),\
+    \ g_.begin(), g_.begin() + m / 2);\n        }\n\n        // Step 2.b'--d'\n  \
+    \      F t(this->begin(), this->begin() + m);\n        t.derivative_inplace();\n\
+    \        {\n          // Step 2.b'\n          F r{h_drv.begin(), h_drv.begin()\
+    \ + m - 1};\n          // Step 2.c'\n          r.resize(m);\n          ::atcoder::internal::butterfly(r.m_vector);\n\
+    \          for (int i = 0; i < m; ++i) {\n            r[i] *= f_fft[i];\n    \
+    \      }\n          ::atcoder::internal::butterfly_inv(r.m_vector);\n        \
+    \  r /= -m;\n          // Step 2.d'\n          t += r;\n          t.insert(t.begin(),\
+    \ t.back());\n          t.pop_back();\n        }\n\n        // Step 2.e'\n   \
+    \     if (2 * m < d) {\n          t.resize(2 * m);\n          ::atcoder::internal::butterfly(t.m_vector);\n\
+    \          g_fft = g;\n          g_fft.resize(2*m);\n          ::atcoder::internal::butterfly(g_fft.m_vector);\n\
+    \          for (int i = 0; i < 2 * m; ++i) {\n            t[i] *= g_fft[i];\n\
+    \          }\n          ::atcoder::internal::butterfly_inv(t.m_vector);\n    \
+    \      t.resize(m);\n          t /= 2 * m;\n        } else { // \u3053\u306E\u5834\
+    \u5408\u5206\u3051\u3092\u3057\u3066\u3082\u6570\u30D1\u30FC\u30BB\u30F3\u30C8\
+    \u3057\u304B\u901F\u304F\u306A\u3089\u306A\u3044\n          F g1(g.begin() + m\
+    \ / 2, g.end());\n          F s1(t.begin() + m / 2, t.end());\n          t.resize(m/2);\n\
+    \          g1.resize(m);\n          ::atcoder::internal::butterfly(g1.m_vector);\n\
+    \          t.resize(m);\n          ::atcoder::internal::butterfly(t.m_vector);\n\
+    \          s1.resize(m);\n          ::atcoder::internal::butterfly(s1.m_vector);\n\
+    \          for (int i = 0; i < m; ++i) {\n            s1[i] = g_fft[i] * s1[i]\
+    \ + g1[i] * t[i];\n          }\n          for (int i = 0; i < m; ++i) {\n    \
+    \        t[i] *= g_fft[i];\n          }\n          ::atcoder::internal::butterfly_inv(t.m_vector);\n\
+    \          ::atcoder::internal::butterfly_inv(s1.m_vector);\n          for (int\
+    \ i = 0; i < m / 2; ++i) {\n            t[i + m / 2] += s1[i];\n          }\n\
+    \          t /= m;\n        }\n\n        // Step 2.f'\n        F v(this->begin()\
+    \ + m, this->begin() + ::std::min<int>(d, 2 * m));\n        v.resize(m);\n   \
+    \     t.insert(t.begin(), m - 1, 0);\n        t.push_back(0);\n        t.integral_inplace();\n\
+    \        for (int i = 0; i < m; ++i) {\n          v[i] -= t[m + i];\n        }\n\
+    \n        // Step 2.g'\n        v.resize(2 * m);\n        ::atcoder::internal::butterfly(v.m_vector);\n\
+    \        for (int i = 0; i < 2 * m; ++i) {\n          v[i] *= f_fft[i];\n    \
+    \    }\n        ::atcoder::internal::butterfly_inv(v.m_vector);\n        v.resize(m);\n\
+    \        v /= 2 * m;\n\n        // Step 2.h'\n        for (int i = 0; i < ::std::min(d\
+    \ - m, m); ++i) {\n          (*this)[m + i] = v[i];\n        }\n      }\n    \
+    \  return *this;\n    }\n\n  public:\n    F& exp_inplace(const int d) {\n    \
+    \  assert(d >= 0);\n      assert(is_leq_lpf_of_M(d));\n      assert(this->empty()\
+    \ || (*this)[0] == M::raw(0));\n\n      if (d == 0) {\n        this->clear();\n\
+    \        return *this;\n      }\n\n      if constexpr (::atcoder::internal::is_static_modint<M>::value\
+    \ && M::mod() <= 2000000000 && ::tools::is_prime(M::mod())) {\n        if (::tools::pow2(::tools::ceil_log2(d))\
+    \ <= pow2_k(M::mod())) {\n          return this->exp_inplace_faster(d);\n    \
+    \    } else {\n          return this->exp_inplace_regular(d);\n        }\n   \
+    \   } else {\n        return this->exp_inplace_regular(d);\n      }\n    }\n \
+    \   F& exp_inplace() { return this->exp_inplace(this->size()); }\n    F exp(const\
+    \ int d) const { return F(*this).exp_inplace(d); }\n    F exp() const { return\
+    \ this->exp(this->size()); }\n\n  private:\n    F& pow_inplace_regular(long long\
+    \ k, const int d, const int l) {\n      assert(k > 0);\n      assert(d > 0);\n\
+    \      assert(l >= 0);\n      assert(d - l * k > 0);\n\n      this->erase(this->begin(),\
+    \ this->begin() + l);\n      this->resize(d - l * k);\n\n      F sum(d - l * k);\n\
+    \      for (F p = *this; k > 0; k /= 2, p *= p) {\n        if (k & 1) sum += p;\n\
+    \      }\n\n      *this = ::std::move(sum);\n      this->insert(this->begin(),\
+    \ l * k, 0);\n      return *this;\n    }\n    F& pow_inplace_faster(const long\
+    \ long k, const int d, const int l) {\n      assert(k > 0);\n      assert(d >\
+    \ 0);\n      assert(l >= 0);\n      assert(d - l * k > 0);\n      assert(is_leq_lpf_of_M(d\
+    \ - l * k));\n      assert(::std::gcd((*this)[l].val(), M::mod()) == 1);\n\n \
+    \     M c{(*this)[l]};\n      this->erase(this->begin(), this->begin() + l);\n\
+    \      *this /= c;\n      this->log_inplace(d - l * k);\n      *this *= k;\n \
+    \     this->exp_inplace();\n      *this *= c.pow(k);\n      this->insert(this->begin(),\
+    \ l * k, 0);\n      return *this;\n    }\n\n  public:\n    F& pow_inplace(const\
+    \ long long k, const int d) {\n      assert(k >= 0);\n      assert(d >= 0);\n\n\
+    \      const int n = this->size();\n      if (d == 0) {\n        this->clear();\n\
+    \        return *this;\n      }\n      if (k == 0) {\n        *this = F(d);\n\
+    \        (*this)[0] = M(1);\n        return *this;\n      }\n\n      int l = 0;\n\
+    \      while (l < n && (*this)[l] == M::raw(0)) ++l;\n      if (l == n || l >\
+    \ (d - 1) / k) {\n        return *this = F(d);\n      }\n\n      if (::std::gcd((*this)[l].val(),\
+    \ M::mod()) == 1 && is_leq_lpf_of_M(d - l * k)) {\n        return this->pow_inplace_faster(k,\
+    \ d, l);\n      } else {\n        return this->pow_inplace_regular(k, d, l);\n\
+    \      }\n    }\n    F& pow_inplace(const long long k) { return this->pow_inplace(k,\
+    \ this->size()); }\n    F pow(const long long k, const int d) const { return F(*this).pow_inplace(k,\
+    \ d); }\n    F pow(const long long k) const { return this->pow(k, this->size());\
+    \ }\n\n    friend F operator*(const F& f, const M& g) { return F(f) *= g; }\n\
+    \    friend F operator*(const M& f, const F& g) { return F(g) *= f; }\n    friend\
+    \ F operator/(const F& f, const M& g) { return F(f) /= g; }\n    friend F operator+(const\
+    \ F& f, const F& g) { return F(f) += g; }\n    friend F operator-(const F& f,\
+    \ const F& g) { return F(f) -= g; }\n    friend F operator*(const F& f, const\
+    \ F& g) { return F(f) *= g; }\n    friend F operator/(const F& f, const F& g)\
+    \ { return F(f) /= g; }\n    friend F operator<<(const F& f, const int d) { return\
+    \ F(f) <<= d; }\n    friend F operator>>(const F& f, const int d) { return F(f)\
+    \ >>= d; }\n  };\n}\n\n\n#line 1 \"tools/pow.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\
+    \n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid\
+    \ {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
+    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
+    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
+    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
+    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
+    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
+    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
+    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\
+    \n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
+    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
+    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
+    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
+    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
+    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
+    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
+    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
+    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
+    \  }\n}\n\n\n#line 13 \"tests/fps/exp_other_mods.test.cpp\"\n\ntemplate <typename\
+    \ F>\nclass monoid {\nprivate:\n  using M = typename F::value_type;\n\npublic:\n\
+    \  using T = F;\n  inline static std::size_t N;\n  static T op(const T& f, const\
+    \ T& g) {\n    return f * g;\n  }\n  static T e() {\n    T f(N);\n    f[0] = M(1);\n\
+    \    return f;\n  }\n};\n\nstd::size_t lpf(const int x) {\n  if (x == 1) return\
+    \ std::numeric_limits<std::size_t>::max();\n  return tools::prime_factorization(x)[0];\n\
+    }\n\nvoid solve(const std::initializer_list<int> il) {\n  const auto specific\
+    \ = [](const auto& a) {\n    using F = std::decay_t<decltype(a)>;\n    using M\
+    \ = typename F::value_type;\n    monoid<F>::N = a.size();\n\n    if (a.size()\
+    \ > lpf(M::mod())) return;\n\n    F expected(a.size());\n    M fact(1);\n    for\
+    \ (std::size_t i = 0; i < a.size(); ++i, fact *= M(i)) {\n      expected += tools::pow<monoid<F>>(a,\
+    \ i) / fact;\n    }\n    assert_that(a.exp() == expected);\n  };\n\n  specific(tools::fps<atcoder::static_modint<1>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<2>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::static_modint<735134400>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::static_modint<999634589>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::static_modint<1000000007>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<0>>(il.begin(), il.end()));\n \
+    \ specific(tools::fps<atcoder::dynamic_modint<1>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<2>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<3>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<4>>(il.begin(), il.end()));\n \
+    \ specific(tools::fps<atcoder::dynamic_modint<5>>(il.begin(), il.end()));\n}\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  atcoder::dynamic_modint<0>::set_mod(1);\n  atcoder::dynamic_modint<1>::set_mod(2);\n\
+    \  atcoder::dynamic_modint<2>::set_mod(735134400);\n  atcoder::dynamic_modint<3>::set_mod(999634589);\n\
+    \  atcoder::dynamic_modint<4>::set_mod(1000000007);\n  atcoder::dynamic_modint<5>::set_mod(998244353);\n\
+    \n  solve({0, 1, 2, 3, 4});\n  solve({0});\n  solve({0, 264704197});\n  solve({0,\
+    \ 682152023, 451794314});\n  solve({0, 627477696, 504915182, 841612625});\n  solve({0,\
+    \ 729561619, 415335212, 437019262, 878914770});\n  solve({0, 173330281, 220603612,\
+    \ 817609646, 512965573, 521724489});\n  solve({0, 841413509, 58432763, 698722376,\
+    \ 544666771, 190469745, 876171369});\n  solve({0, 251229786, 256388306, 355236246,\
+    \ 511734336, 908168265, 367810644, 342843868});\n  solve({0, 118232767, 222490630,\
+    \ 398642533, 451309769, 425956381, 488484142, 913374112, 586809});\n  solve({0,\
+    \ 907649120, 290651129, 813718295, 770591820, 913049957, 587190944, 411145555,\
+    \ 899491439, 722412549});\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <cstddef>\n#include <limits>\n#include <initializer_list>\n#include <type_traits>\n\
     #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\
-    \n#include \"tools/fps.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\n\
-    \nvoid solve(const tools::fps<mint>& a, const ll M, const tools::fps<mint>& expected)\
-    \ {\n  assert_that(expected == a.pow(M));\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  solve(tools::fps<mint>{0, 0, 9,\
-    \ 12}, 3, tools::fps<mint>{0, 0, 0, 0});\n  solve(tools::fps<mint>{1, 1}, 2, tools::fps<mint>{1,\
-    \ 2});\n  solve(tools::fps<mint>{0, 0}, 0, tools::fps<mint>{1, 0});\n  solve(tools::fps<mint>{0,\
-    \ 0, 0, 0, 0, 0, 0, 0, 1, 0}, 536870912, tools::fps<mint>{0, 0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 0});\n  solve(tools::fps<mint>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 576460752303423488,\
-    \ tools::fps<mint>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
-    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});\n\n  std::cout << \"Hello World\" <<\
-    \ '\\n';\n  return 0;\n}\n"
+    \n#include \"tools/prime_factorization.hpp\"\n#include \"tools/fps.hpp\"\n#include\
+    \ \"tools/pow.hpp\"\n\ntemplate <typename F>\nclass monoid {\nprivate:\n  using\
+    \ M = typename F::value_type;\n\npublic:\n  using T = F;\n  inline static std::size_t\
+    \ N;\n  static T op(const T& f, const T& g) {\n    return f * g;\n  }\n  static\
+    \ T e() {\n    T f(N);\n    f[0] = M(1);\n    return f;\n  }\n};\n\nstd::size_t\
+    \ lpf(const int x) {\n  if (x == 1) return std::numeric_limits<std::size_t>::max();\n\
+    \  return tools::prime_factorization(x)[0];\n}\n\nvoid solve(const std::initializer_list<int>\
+    \ il) {\n  const auto specific = [](const auto& a) {\n    using F = std::decay_t<decltype(a)>;\n\
+    \    using M = typename F::value_type;\n    monoid<F>::N = a.size();\n\n    if\
+    \ (a.size() > lpf(M::mod())) return;\n\n    F expected(a.size());\n    M fact(1);\n\
+    \    for (std::size_t i = 0; i < a.size(); ++i, fact *= M(i)) {\n      expected\
+    \ += tools::pow<monoid<F>>(a, i) / fact;\n    }\n    assert_that(a.exp() == expected);\n\
+    \  };\n\n  specific(tools::fps<atcoder::static_modint<1>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::static_modint<2>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::static_modint<735134400>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<999634589>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<1000000007>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<0>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<1>>(il.begin(), il.end()));\n \
+    \ specific(tools::fps<atcoder::dynamic_modint<2>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<3>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<4>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<5>>(il.begin(), il.end()));\n}\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  atcoder::dynamic_modint<0>::set_mod(1);\n  atcoder::dynamic_modint<1>::set_mod(2);\n\
+    \  atcoder::dynamic_modint<2>::set_mod(735134400);\n  atcoder::dynamic_modint<3>::set_mod(999634589);\n\
+    \  atcoder::dynamic_modint<4>::set_mod(1000000007);\n  atcoder::dynamic_modint<5>::set_mod(998244353);\n\
+    \n  solve({0, 1, 2, 3, 4});\n  solve({0});\n  solve({0, 264704197});\n  solve({0,\
+    \ 682152023, 451794314});\n  solve({0, 627477696, 504915182, 841612625});\n  solve({0,\
+    \ 729561619, 415335212, 437019262, 878914770});\n  solve({0, 173330281, 220603612,\
+    \ 817609646, 512965573, 521724489});\n  solve({0, 841413509, 58432763, 698722376,\
+    \ 544666771, 190469745, 876171369});\n  solve({0, 251229786, 256388306, 355236246,\
+    \ 511734336, 908168265, 367810644, 342843868});\n  solve({0, 118232767, 222490630,\
+    \ 398642533, 451309769, 425956381, 488484142, 913374112, 586809});\n  solve({0,\
+    \ 907649120, 290651129, 813718295, 770591820, 913049957, 587190944, 411145555,\
+    \ 899491439, 722412549});\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
-  - tools/fps.hpp
-  - tools/convolution.hpp
-  - tools/pow2.hpp
-  - tools/ceil_log2.hpp
+  - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
+  - tools/pow2.hpp
+  - tools/floor_log2.hpp
+  - tools/popcount.hpp
+  - tools/fps.hpp
+  - tools/convolution.hpp
+  - tools/ceil_log2.hpp
   - tools/garner3.hpp
   - tools/less_by_first.hpp
+  - tools/pow.hpp
+  - tools/monoid.hpp
+  - tools/square.hpp
   isVerificationFile: true
-  path: tests/fps/pow_mod1000000007.test.cpp
+  path: tests/fps/exp_other_mods.test.cpp
   requiredBy: []
-  timestamp: '2022-12-30 13:30:53+09:00'
+  timestamp: '2022-12-31 12:28:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/fps/pow_mod1000000007.test.cpp
+documentation_of: tests/fps/exp_other_mods.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/fps/pow_mod1000000007.test.cpp
-- /verify/tests/fps/pow_mod1000000007.test.cpp.html
-title: tests/fps/pow_mod1000000007.test.cpp
+- /verify/tests/fps/exp_other_mods.test.cpp
+- /verify/tests/fps/exp_other_mods.test.cpp.html
+title: tests/fps/exp_other_mods.test.cpp
 ---

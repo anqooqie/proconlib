@@ -49,6 +49,12 @@ data:
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -158,6 +164,8 @@ data:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/lca.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/primitive_root.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/prime_factorization.test.cpp

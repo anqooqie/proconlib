@@ -67,17 +67,17 @@ data:
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/exp_mod1000000007.test.cpp
-    title: tests/fps/exp_mod1000000007.test.cpp
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/inv_mod1000000007.test.cpp
-    title: tests/fps/inv_mod1000000007.test.cpp
+    path: tests/fps/inv_other_mods.test.cpp
+    title: tests/fps/inv_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/log_mod1000000007.test.cpp
-    title: tests/fps/log_mod1000000007.test.cpp
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/fps/pow_mod1000000007.test.cpp
-    title: tests/fps/pow_mod1000000007.test.cpp
+    path: tests/fps/pow_other_mods.test.cpp
+    title: tests/fps/pow_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
@@ -186,10 +186,10 @@ data:
   - tests/rational/random.test.cpp
   - tests/extend_hash.test.cpp
   - tests/digit_sum.test.cpp
-  - tests/fps/pow_mod1000000007.test.cpp
-  - tests/fps/inv_mod1000000007.test.cpp
-  - tests/fps/exp_mod1000000007.test.cpp
-  - tests/fps/log_mod1000000007.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
   - tests/rotate_right.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/convolution/double.test.cpp

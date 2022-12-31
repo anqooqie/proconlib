@@ -52,6 +52,12 @@ data:
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -244,6 +250,8 @@ data:
   - tests/totient.test.cpp
   - tests/divisors.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/primitive_root.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prime_factorization.hpp
