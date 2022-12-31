@@ -21,6 +21,7 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 - $R$ is a commutative ring.
 - $R$ is assignable to `*result`.
 - If $R$ is `atcoder::static_modint` or `atcoder::dynamic_modint`, $N + M \leq 2^{25} + 1 = 33554433$.
+- If $R$ is a built-in integer type, $N + M \leq 2^{24} + 1 = 16777217$ and all the elements of the array are in $R$ after convolution.
 
 ## Time Complexity
 - ($R$ is `atcoder::static_modint`): $O((N + M) \log (N + M))$
@@ -31,6 +32,7 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 - ($R$ is `std::complex<float>`): $O((N + M) \log (N + M))$
 - ($R$ is `std::complex<double>`): $O((N + M) \log (N + M))$
 - ($R$ is `std::complex<lond double>`): $O((N + M) \log (N + M))$
+- ($R$ is a built-in integer type): $O((N + M) \log (N + M))$
 - (otherwise): $O(NM)$
 
 ## License

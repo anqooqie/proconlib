@@ -173,6 +173,14 @@ namespace tools {
         }
         return c;
       }
+
+      template <typename Z>
+      ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>& a, const ::std::vector<Z>& b) {
+        assert(a.size() + b.size() <= ::tools::pow2(24) + 1);
+
+        const auto c = ::atcoder::convolution_ll(::std::vector<long long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));
+        return ::std::vector<Z>(c.begin(), c.end());
+      }
     }
   }
 
@@ -190,6 +198,8 @@ namespace tools {
         return ::tools::detail::convolution::fft(a, b);
       } else if constexpr (::std::is_floating_point_v<T>) {
         return ::tools::detail::convolution::fft_real(a, b);
+      } else if constexpr (::std::is_integral_v<T>) {
+        return ::tools::detail::convolution::ntt_and_garner_for_ll(a, b);
       } else if constexpr (::atcoder::internal::is_static_modint<T>::value || ::atcoder::internal::is_dynamic_modint<T>::value) {
         if constexpr (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 && ::tools::is_prime(T::mod())) {
           if (a.size() + b.size() <= ::tools::detail::convolution::pow2_k(T::mod()) + 1) {

@@ -112,7 +112,7 @@ $$\begin{align*}
 
 ## Addition operators
 ```cpp
-(1) fps<M> f.operator+(fps<M> g);
+(1) fps<M> operator+(fps<M> f, fps<M> g);
 (2) fps<M>& f.operator+=(fps<M> g);
 ```
 
@@ -134,7 +134,7 @@ $$\begin{align*}
 
 ## Subtraction operators
 ```cpp
-(1) fps<M> f.operator-(fps<M> g);
+(1) fps<M> operator-(fps<M> f, fps<M> g);
 (2) fps<M>& f.operator-=(fps<M> g);
 ```
 
@@ -265,7 +265,7 @@ $d \geq 0$ならば、$f x^d$と同じです。
 ```cpp
 (1) fps<M> f.multiply(fps<M> g, int d);
 (2) fps<M> f.multiply(fps<M> g);
-(3) fps<M> operator*(fps<M> g);
+(3) fps<M> operator*(fps<M> f, fps<M> g);
 (4) fps<M>& multiply_inplace(fps<M> g, int d);
 (5) fps<M>& multiply_inplace(fps<M> g);
 (6) fps<M>& f.operator*=(fps<M> g);
@@ -297,7 +297,7 @@ $$\begin{align*}
 ```cpp
 (1) fps<M> f.divide(fps<M> g, int d);
 (2) fps<M> f.divide(fps<M> g);
-(3) fps<M> operator/(fps<M> g);
+(3) fps<M> operator/(fps<M> f, fps<M> g);
 (4) fps<M>& divide_inplace(fps<M> g, int d);
 (5) fps<M>& divide_inplace(fps<M> g);
 (6) fps<M>& f.operator/=(fps<M> g);
