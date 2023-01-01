@@ -56,6 +56,7 @@
 "tests/extended_lucas.test.cpp": "2022-11-23 11:49:11 +0900",
 "tests/extgcd.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/fact_mod_cache.test.cpp": "2022-11-23 11:49:11 +0900",
+"tests/fastio.test.cpp": "2023-01-02 00:43:37 +0900",
 "tests/fill.test.cpp": "2022-11-23 11:35:29 +0900",
 "tests/find_cycle.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/fix.test.cpp": "2022-06-17 23:50:47 +0900",
