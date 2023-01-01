@@ -4,21 +4,20 @@ documentation_of: //tools/nth_term.hpp
 ---
 
 ```cpp
-template <typename InputIterator>
-auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, unsigned long long n) -> std::decay_t<decltype(*a_begin)>;
+template <typename M>
+M nth_term(tools::polynomial<M> P, tools::polynomial<M> Q, unsigned long long n);
 ```
 
-Given a sequence of elements $(a_0, a_1, \ldots, a_{d - 1})$ on a field $K$ and a linear recurrence equation $a_i + \sum_{j=1}^d c_j a_{i - j} \equiv 0$ for $i \geq d$, it returns $a_n$.
+It returns $[x^n]\frac{P(x)}{Q(x)}$.
 
 ### Constraints
-- `a_end` $-$ `a_begin` $+ 1 =$ `c_end` $-$ `c_begin`
-- `*c_begin` $\equiv 1$
+- $\gcd(Q(0), M) = 1$ where $M$ is `M::mod()`
 
 ### Time Complexity
-- $O(d \log d \log n)$
+- $O((\mathrm{deg}(P) + \mathrm{deg}(Q)) \log (\mathrm{deg}(P) + \mathrm{deg}(Q)) \log n + \log M)$
 
 ### References
-- [数列の漸化式の特定と第N項の計算    [いかたこのたこつぼ]](https://ikatakos.com/pot/programming_algorithm/number_theory/barlekamp_massey)
+- [線形漸化式を満たす数列の N 項目を計算するアルゴリズム](http://q.c.titech.ac.jp/docs/progs/polynomial_division.html)
 
 ### License
 - CC0

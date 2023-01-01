@@ -1,37 +1,31 @@
 #ifndef TOOLS_NTH_TERM_HPP
 #define TOOLS_NTH_TERM_HPP
 
-#include <type_traits>
-#include <vector>
 #include <cassert>
-#include <iterator>
-#include "tools/convolution.hpp"
+#include <numeric>
+#include <cstddef>
+#include "tools/polynomial.hpp"
+#include "tools/has_mod.hpp"
 
 namespace tools {
-  template <typename InputIterator>
-  auto nth_term(InputIterator a_begin, InputIterator a_end, InputIterator c_begin, InputIterator c_end, unsigned long long n) -> ::std::decay_t<decltype(*a_begin)> {
-    using M = ::std::decay_t<decltype(*a_begin)>;
-    ::std::vector<M> G(a_begin, a_end);
-    ::std::vector<M> Q(c_begin, c_end);
-    assert(G.size() + 1 == Q.size());
-    assert(Q[0] == M(1));
+  template <typename M>
+  M nth_term(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long long n) {
+    static_assert(::tools::has_mod_v<M>);
+    assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
 
-    const auto d = G.size();
-    if (d == 0) return M(0);
-
-    ::std::vector<M> P;
-    ::tools::convolution(G.begin(), G.end(), Q.begin(), Q.end(), ::std::back_inserter(P));
-    P.resize(d);
+    P.resize(P.deg() + 1);
+    Q.resize(Q.deg() + 1);
 
     while (n > 0) {
+      // Q1(x) = Q(-x)
       auto Q1 = Q;
       for (::std::size_t i = 1; i < Q1.size(); i += 2) {
         Q1[i] = -Q1[i];
       }
-      ::std::vector<M> PQ;
-      ::tools::convolution(P.begin(), P.end(), Q1.begin(), Q1.end(), ::std::back_inserter(PQ));
-      ::std::vector<M> QQ;
-      ::tools::convolution(Q.begin(), Q.end(), Q1.begin(), Q1.end(), ::std::back_inserter(QQ));
+
+      const auto PQ = P * Q1;
+      const auto QQ = Q * Q1;
+
       P.clear();
       for (::std::size_t i = n & 1; i < PQ.size(); i += 2) {
         P.push_back(PQ[i]);
@@ -40,10 +34,11 @@ namespace tools {
       for (::std::size_t i = 0; i < QQ.size(); i += 2) {
         Q.push_back(QQ[i]);
       }
+
       n /= 2;
     }
 
-    return P[0];
+    return (P.empty() ? M::raw(0) : P[0]) / (Q.empty() ? M::raw(0) : Q[0]);
   }
 }
 
