@@ -134,6 +134,9 @@ data:
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
     - icon: ':heavy_check_mark:'
+      path: tools/fastio.hpp
+      title: tools/fastio.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -631,6 +634,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fact_mod_cache.test.cpp
       title: tests/fact_mod_cache.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fastio.test.cpp
+      title: tests/fastio.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
