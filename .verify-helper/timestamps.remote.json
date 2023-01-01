@@ -3,6 +3,7 @@
 "tests/and_convolution.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/bellman_ford.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/berlekamp_massey.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/bernoulli.test.cpp": "2023-01-01 16:24:26 +0900",
 "tests/bezout.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/bigdecimal/cast_to_long_long.test.cpp": "2022-11-23 13:54:26 +0900",
 "tests/bigdecimal/divides.test.cpp": "2022-11-23 13:54:26 +0900",
