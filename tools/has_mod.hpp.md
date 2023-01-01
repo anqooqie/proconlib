@@ -9,6 +9,9 @@ data:
     path: tools/extend_output.hpp
     title: Extend operator<<
   - icon: ':heavy_check_mark:'
+    path: tools/nth_term.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -24,6 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/nth_term.test.cpp
+    title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
@@ -54,6 +60,7 @@ data:
   isVerificationFile: false
   path: tools/has_mod.hpp
   requiredBy:
+  - tools/nth_term.hpp
   - tools/extend_input.hpp
   - tools/polynomial.hpp
   - tools/extend_output.hpp
@@ -67,6 +74,7 @@ data:
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp
   - tests/util.test.cpp
+  - tests/nth_term.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document
 title: Check whether T has the member function mod()

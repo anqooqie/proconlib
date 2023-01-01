@@ -41,8 +41,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/nth_term.hpp
+    title: Bostan-Mori algorithm
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/nth_term.test.cpp
+    title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
@@ -1196,12 +1202,14 @@ data:
   - tools/has_mod.hpp
   isVerificationFile: false
   path: tools/polynomial.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/nth_term.hpp
   timestamp: '2022-12-31 23:40:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
+  - tests/nth_term.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
 title: Polynomial
