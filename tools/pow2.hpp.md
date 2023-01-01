@@ -6,6 +6,9 @@ data:
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -83,6 +86,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
     title: tests/and_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
@@ -314,6 +320,7 @@ data:
   - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
   - tools/bigint.hpp
+  - tools/bernoulli.hpp
   - tools/lca.hpp
   - tools/and_convolution.hpp
   - tools/bigdecimal.hpp
@@ -368,6 +375,7 @@ data:
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/hld/vancestor.test.cpp
   - tests/hld/vsubtree.test.cpp

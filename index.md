@@ -22,6 +22,9 @@ data:
       path: tools/berlekamp_massey.hpp
       title: Berlekamp-Massey algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/bernoulli.hpp
+      title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+    - icon: ':heavy_check_mark:'
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
     - icon: ':heavy_check_mark:'
@@ -553,6 +556,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/berlekamp_massey.test.cpp
       title: tests/berlekamp_massey.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bernoulli.test.cpp
+      title: tests/bernoulli.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bezout.test.cpp
       title: tests/bezout.test.cpp

@@ -6,6 +6,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -74,6 +77,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
@@ -266,6 +272,7 @@ data:
   - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
   - tools/bigint.hpp
+  - tools/bernoulli.hpp
   - tools/log_mod.hpp
   - tools/is_prime.hpp
   - tools/pow_mod.hpp
@@ -310,6 +317,7 @@ data:
   - tests/convolution/double.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/bigint/minus.test.cpp

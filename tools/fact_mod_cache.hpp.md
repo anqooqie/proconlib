@@ -24,10 +24,16 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
@@ -182,10 +188,12 @@ data:
   path: tools/fact_mod_cache.hpp
   requiredBy:
   - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fact_mod_cache.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document

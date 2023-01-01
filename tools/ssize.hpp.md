@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -41,6 +44,9 @@ data:
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
@@ -178,6 +184,7 @@ data:
   - tools/stirling_2nd.hpp
   - tools/pow_mod_cache.hpp
   - tools/bigint.hpp
+  - tools/bernoulli.hpp
   - tools/mcf_graph.hpp
   - tools/bigdecimal.hpp
   - tools/modint_for_rolling_hash.hpp
@@ -204,6 +211,7 @@ data:
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/permutation.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/range_of_digit_products.test.cpp

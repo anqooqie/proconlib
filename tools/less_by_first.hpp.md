@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -17,6 +20,9 @@ data:
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
@@ -76,6 +82,7 @@ data:
   requiredBy:
   - tools/fps.hpp
   - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
   - tools/polynomial.hpp
   - tools/partition_function.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -91,6 +98,7 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp

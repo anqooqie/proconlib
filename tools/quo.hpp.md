@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
   - icon: ':heavy_check_mark:'
@@ -110,6 +113,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
@@ -318,6 +324,7 @@ data:
   - tools/stirling_2nd.hpp
   - tools/pow_mod_cache.hpp
   - tools/bigint.hpp
+  - tools/bernoulli.hpp
   - tools/garner.hpp
   - tools/log_mod.hpp
   - tools/is_prime.hpp
@@ -375,6 +382,7 @@ data:
   - tests/convolution/mod1000000007.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/rotate_left.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/bezout.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/line_2d/projection.test.cpp

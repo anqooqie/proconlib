@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/binary_heap.hpp
     title: Binary heap
   - icon: ':heavy_check_mark:'
@@ -41,6 +44,9 @@ data:
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/binary_heap.test.cpp
     title: tests/binary_heap.test.cpp
@@ -187,6 +193,7 @@ data:
   - tools/convolution.hpp
   - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
   - tools/lca.hpp
   - tools/dual_segtree.hpp
   - tools/polynomial.hpp
@@ -216,6 +223,7 @@ data:
   - tests/convolution/mod1000000007.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/binary_heap.test.cpp
   - tests/persistent_dual_segtree.test.cpp

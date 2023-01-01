@@ -21,6 +21,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bernoulli.hpp
+    title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -41,6 +44,9 @@ data:
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bernoulli.test.cpp
+    title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/convolution/double.test.cpp
     title: tests/convolution/double.test.cpp
@@ -192,6 +198,7 @@ data:
   - tools/convolution.hpp
   - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
   - tools/polynomial.hpp
   - tools/partition_function.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
@@ -211,6 +218,7 @@ data:
   - tests/convolution/double.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
