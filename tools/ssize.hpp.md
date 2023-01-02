@@ -37,6 +37,9 @@ data:
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -141,6 +144,9 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -186,6 +192,7 @@ data:
   - tools/bigint.hpp
   - tools/bernoulli.hpp
   - tools/mcf_graph.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/bigdecimal.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/rational.hpp
@@ -207,6 +214,7 @@ data:
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp

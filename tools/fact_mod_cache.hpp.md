@@ -27,6 +27,9 @@ data:
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -37,6 +40,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
@@ -189,10 +195,12 @@ data:
   requiredBy:
   - tools/stirling_2nd.hpp
   - tools/bernoulli.hpp
+  - tools/sparse_fps_pow.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fact_mod_cache.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
