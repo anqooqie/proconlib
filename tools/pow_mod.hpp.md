@@ -73,6 +73,9 @@ data:
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -228,6 +231,9 @@ data:
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -301,6 +307,7 @@ data:
   - tools/bernoulli.hpp
   - tools/log_mod.hpp
   - tools/is_prime.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/bigdecimal.hpp
   - tools/rational.hpp
   - tools/garner3.hpp
@@ -337,6 +344,7 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/primitive_root.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
   - tests/convolution/double.test.cpp

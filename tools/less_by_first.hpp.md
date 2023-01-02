@@ -19,6 +19,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -66,6 +69,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
@@ -90,6 +96,7 @@ data:
   - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
   - tools/bernoulli.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/polynomial.hpp
   - tools/partition_function.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -105,6 +112,7 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/bernoulli.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/partition_function/n.test.cpp

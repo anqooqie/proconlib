@@ -448,6 +448,9 @@ data:
       path: tools/signum.hpp
       title: Sign function
     - icon: ':heavy_check_mark:'
+      path: tools/sparse_fps_pow.hpp
+      title: $f^k$ where $f$ is a sparse FPS
+    - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':heavy_check_mark:'
@@ -787,6 +790,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/sparse_fps_pow.test.cpp
+      title: tests/sparse_fps_pow.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp

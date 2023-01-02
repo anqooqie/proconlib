@@ -97,6 +97,9 @@ data:
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -267,6 +270,9 @@ data:
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -322,6 +328,7 @@ data:
   - tools/log_mod.hpp
   - tools/is_prime.hpp
   - tools/pow_mod.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/bigdecimal.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/rotate_left.hpp
@@ -364,6 +371,7 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/primitive_root.test.cpp
   - tests/rotate_right.test.cpp
   - tests/convolution/dynamic_mod.test.cpp

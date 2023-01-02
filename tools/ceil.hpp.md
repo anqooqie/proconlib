@@ -51,6 +51,9 @@ data:
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: $f^k$ where $f$ is a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -166,6 +169,9 @@ data:
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow.test.cpp
+    title: tests/sparse_fps_pow.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -203,6 +209,7 @@ data:
   - tools/pow_mod_cache.hpp
   - tools/bigint.hpp
   - tools/log_mod.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/bigdecimal.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/ceil_log.hpp
@@ -227,6 +234,7 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/segmented_sieve.test.cpp
+  - tests/sparse_fps_pow.test.cpp
   - tests/rotate_right.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/ceil_sqrt.test.cpp
