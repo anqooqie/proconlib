@@ -21,7 +21,7 @@ $f$ is given as the list of degree-coefficient pairs.
 - $n \leq p$
 
 ## Time Complexity
-- $O(nm)$ where $m$ is `end` $-$ `begin`
+- $O(nm + \log k + \log p)$ where $m$ is `end` $-$ `begin`
 
 ## License
 - CC0

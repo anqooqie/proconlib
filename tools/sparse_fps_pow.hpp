@@ -11,6 +11,7 @@
 #include "tools/is_prime.hpp"
 #include "tools/less_by_first.hpp"
 #include "tools/ceil.hpp"
+#include "tools/fact_mod_cache.hpp"
 
 namespace tools {
   template <typename InputIterator>
@@ -44,13 +45,16 @@ namespace tools {
     F res(n - offset->first * k);
     const auto deg = [&](const auto& it) -> ::std::size_t { return it->first - offset->first; };
 
+    ::tools::fact_mod_cache<M> cache;
+    const auto ic = offset->second.inv();
+
     res[0] = offset->second.pow(k);
     for (::std::size_t i = 1; i < n - offset->first * k; ++i) {
       for (auto it = ::std::next(offset); it != end; ++it) {
         if (i < deg(it)) break;
         res[i] += (M(k) * M(deg(it)) - M(i - deg(it))) * it->second * res[i - deg(it)];
       }
-      res[i] /= M(i) * offset->second;
+      res[i] *= cache.inv(i) * ic;
     }
 
     res.insert(res.begin(), offset->first * k, M::raw(0));
