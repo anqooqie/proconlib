@@ -449,7 +449,7 @@ data:
       title: Sign function
     - icon: ':heavy_check_mark:'
       path: tools/sparse_fps_pow.hpp
-      title: $f^k$ where $f$ is a sparse FPS
+      title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
@@ -791,9 +791,6 @@ data:
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/sparse_fps_pow.test.cpp
-      title: tests/sparse_fps_pow.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1082,6 +1079,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/scc_graph/sccs.test.cpp
       title: tests/scc_graph/sccs.test.cpp
+  - name: tests/sparse_fps_pow
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/sparse_fps_pow/fraction.test.cpp
+      title: tests/sparse_fps_pow/fraction.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/sparse_fps_pow/regular.test.cpp
+      title: tests/sparse_fps_pow/regular.test.cpp
   - name: tests/triangle_2d
     pages:
     - icon: ':heavy_check_mark:'

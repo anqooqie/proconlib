@@ -43,36 +43,34 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'
+    path: tools/sparse_fps_pow.hpp
+    title: Power of a sparse FPS
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/sparse_fps_pow/fraction.test.cpp
-    title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/sparse_fps_pow/regular.test.cpp
-    title: tests/sparse_fps_pow/regular.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/sparse_fps_pow.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <type_traits>\n#include <utility>\n#include <cassert>\n#include <algorithm>\n\
-    #include <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#line\
-    \ 6 \"tools/fps.hpp\"\n#include <initializer_list>\n#line 9 \"tools/fps.hpp\"\n\
-    #include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc276/tasks/abc276_g
+    links:
+    - https://atcoder.jp/contests/abc276/tasks/abc276_g
+  bundledCode: "#line 1 \"tests/sparse_fps_pow/fraction.test.cpp\"\n#define PROBLEM\
+    \ \"https://atcoder.jp/contests/abc276/tasks/abc276_g\"\n\n#include <iostream>\n\
+    #include <array>\n#include <utility>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -271,90 +269,91 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
-    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
-    namespace internal {\n\n// @param n `0 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `n <= 2**x`\nint ceil_pow2(int n) {\n    int x = 0;\n    while ((1U\
-    \ << x) < (unsigned int)(n)) x++;\n    return x;\n}\n\n// @param n `1 <= n`\n\
-    // @return minimum non-negative `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int\
-    \ bsf_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1 << x)))\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/fps.hpp\"\
+    \n\n\n\n#include <vector>\n#include <cstddef>\n#include <initializer_list>\n#line\
+    \ 10 \"tools/fps.hpp\"\n#include <algorithm>\n#include <iterator>\n#line 1 \"\
+    lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
+    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
     \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n}  // namespace internal\n\n\
-    }  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
-    \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
-    \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = bsf_constexpr(mint::mod()\
-    \ - 1);\n    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint,\
-    \ rank2 + 1> iroot;  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0,\
-    \ rank2 - 2 + 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\
-    \n    std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint,\
-    \ std::max(0, rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2]\
-    \ = mint(g).pow((mint::mod() - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n\
-    \        for (int i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i\
-    \ + 1] * root[i + 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n \
-    \       }\n\n        {\n            mint prod = 1, iprod = 1;\n            for\
-    \ (int i = 0; i <= rank2 - 2; i++) {\n                rate2[i] = root[i + 2] *\
-    \ prod;\n                irate2[i] = iroot[i + 2] * iprod;\n                prod\
-    \ *= iroot[i + 2];\n                iprod *= root[i + 2];\n            }\n   \
-    \     }\n        {\n            mint prod = 1, iprod = 1;\n            for (int\
-    \ i = 0; i <= rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n\
-    \                irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i\
-    \ + 3];\n                iprod *= root[i + 3];\n            }\n        }\n   \
-    \ }\n};\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\n\
-    void butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h\
-    \ = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\n    int\
-    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
-    \ < h) {\n        if (h - len == 1) {\n            int p = 1 << (h - len - 1);\n\
-    \            mint rot = 1;\n            for (int s = 0; s < (1 << len); s++) {\n\
-    \                int offset = s << (h - len);\n                for (int i = 0;\
-    \ i < p; i++) {\n                    auto l = a[i + offset];\n               \
-    \     auto r = a[i + offset + p] * rot;\n                    a[i + offset] = l\
-    \ + r;\n                    a[i + offset + p] = l - r;\n                }\n  \
-    \              if (s + 1 != (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned\
-    \ int)(s))];\n            }\n            len++;\n        } else {\n          \
-    \  // 4-base\n            int p = 1 << (h - len - 2);\n            mint rot =\
-    \ 1, imag = info.root[2];\n            for (int s = 0; s < (1 << len); s++) {\n\
-    \                mint rot2 = rot * rot;\n                mint rot3 = rot2 * rot;\n\
-    \                int offset = s << (h - len);\n                for (int i = 0;\
-    \ i < p; i++) {\n                    auto mod2 = 1ULL * mint::mod() * mint::mod();\n\
-    \                    auto a0 = 1ULL * a[i + offset].val();\n                 \
-    \   auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n                  \
-    \  auto a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n              \
-    \      auto a3 = 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n          \
-    \          auto a1na3imag =\n                        1ULL * mint(a1 + mod2 - a3).val()\
-    \ * imag.val();\n                    auto na2 = mod2 - a2;\n                 \
-    \   a[i + offset] = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 *\
-    \ p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2\
-    \ * p] = a0 + na2 + a1na3imag;\n                    a[i + offset + 3 * p] = a0\
-    \ + na2 + (mod2 - a1na3imag);\n                }\n                if (s + 1 !=\
-    \ (1 << len))\n                    rot *= info.rate3[bsf(~(unsigned int)(s))];\n\
-    \            }\n            len += 2;\n        }\n    }\n}\n\ntemplate <class\
-    \ mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid butterfly_inv(std::vector<mint>&\
-    \ a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\n  \
-    \  static const fft_info<mint> info;\n\n    int len = h;  // a[i, i+(n>>len),\
-    \ i+2*(n>>len), ..] is transformed\n    while (len) {\n        if (len == 1) {\n\
-    \            int p = 1 << (h - len);\n            mint irot = 1;\n           \
-    \ for (int s = 0; s < (1 << (len - 1)); s++) {\n                int offset = s\
-    \ << (h - len + 1);\n                for (int i = 0; i < p; i++) {\n         \
+    \ `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n)\
+    \ {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n//\
+    \ @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x))\
+    \ != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n\
+    \    _BitScanForward(&index, n);\n    return index;\n#else\n    return __builtin_ctz(n);\n\
+    #endif\n}\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12\
+    \ \"lib/ac-library/atcoder/convolution.hpp\"\n\nnamespace atcoder {\n\nnamespace\
+    \ internal {\n\ntemplate <class mint,\n          int g = internal::primitive_root<mint::mod()>,\n\
+    \          internal::is_static_modint_t<mint>* = nullptr>\nstruct fft_info {\n\
+    \    static constexpr int rank2 = bsf_constexpr(mint::mod() - 1);\n    std::array<mint,\
+    \ rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint, rank2 + 1> iroot;\
+    \  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0, rank2 - 2 +\
+    \ 1)> rate2;\n    std::array<mint, std::max(0, rank2 - 2 + 1)> irate2;\n\n   \
+    \ std::array<mint, std::max(0, rank2 - 3 + 1)> rate3;\n    std::array<mint, std::max(0,\
+    \ rank2 - 3 + 1)> irate3;\n\n    fft_info() {\n        root[rank2] = mint(g).pow((mint::mod()\
+    \ - 1) >> rank2);\n        iroot[rank2] = root[rank2].inv();\n        for (int\
+    \ i = rank2 - 1; i >= 0; i--) {\n            root[i] = root[i + 1] * root[i +\
+    \ 1];\n            iroot[i] = iroot[i + 1] * iroot[i + 1];\n        }\n\n    \
+    \    {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
+    \ rank2 - 2; i++) {\n                rate2[i] = root[i + 2] * prod;\n        \
+    \        irate2[i] = iroot[i + 2] * iprod;\n                prod *= iroot[i +\
+    \ 2];\n                iprod *= root[i + 2];\n            }\n        }\n     \
+    \   {\n            mint prod = 1, iprod = 1;\n            for (int i = 0; i <=\
+    \ rank2 - 3; i++) {\n                rate3[i] = root[i + 3] * prod;\n        \
+    \        irate3[i] = iroot[i + 3] * iprod;\n                prod *= iroot[i +\
+    \ 3];\n                iprod *= root[i + 3];\n            }\n        }\n    }\n\
+    };\n\ntemplate <class mint, internal::is_static_modint_t<mint>* = nullptr>\nvoid\
+    \ butterfly(std::vector<mint>& a) {\n    int n = int(a.size());\n    int h = internal::ceil_pow2(n);\n\
+    \n    static const fft_info<mint> info;\n\n    int len = 0;  // a[i, i+(n>>len),\
+    \ i+2*(n>>len), ..] is transformed\n    while (len < h) {\n        if (h - len\
+    \ == 1) {\n            int p = 1 << (h - len - 1);\n            mint rot = 1;\n\
+    \            for (int s = 0; s < (1 << len); s++) {\n                int offset\
+    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
     \           auto l = a[i + offset];\n                    auto r = a[i + offset\
-    \ + p];\n                    a[i + offset] = l + r;\n                    a[i +\
-    \ offset + p] =\n                        (unsigned long long)(mint::mod() + l.val()\
-    \ - r.val()) *\n                        irot.val();\n                    ;\n \
-    \               }\n                if (s + 1 != (1 << (len - 1)))\n          \
-    \          irot *= info.irate2[bsf(~(unsigned int)(s))];\n            }\n    \
-    \        len--;\n        } else {\n            // 4-base\n            int p =\
-    \ 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n       \
-    \     for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint irot2\
-    \ = irot * irot;\n                mint irot3 = irot2 * irot;\n               \
-    \ int offset = s << (h - len + 2);\n                for (int i = 0; i < p; i++)\
-    \ {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n     \
-    \               auto a1 = 1ULL * a[i + offset + 1 * p].val();\n              \
-    \      auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                    auto\
-    \ a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
+    \ + p] * rot;\n                    a[i + offset] = l + r;\n                  \
+    \  a[i + offset + p] = l - r;\n                }\n                if (s + 1 !=\
+    \ (1 << len))\n                    rot *= info.rate2[bsf(~(unsigned int)(s))];\n\
+    \            }\n            len++;\n        } else {\n            // 4-base\n\
+    \            int p = 1 << (h - len - 2);\n            mint rot = 1, imag = info.root[2];\n\
+    \            for (int s = 0; s < (1 << len); s++) {\n                mint rot2\
+    \ = rot * rot;\n                mint rot3 = rot2 * rot;\n                int offset\
+    \ = s << (h - len);\n                for (int i = 0; i < p; i++) {\n         \
+    \           auto mod2 = 1ULL * mint::mod() * mint::mod();\n                  \
+    \  auto a0 = 1ULL * a[i + offset].val();\n                    auto a1 = 1ULL *\
+    \ a[i + offset + p].val() * rot.val();\n                    auto a2 = 1ULL * a[i\
+    \ + offset + 2 * p].val() * rot2.val();\n                    auto a3 = 1ULL *\
+    \ a[i + offset + 3 * p].val() * rot3.val();\n                    auto a1na3imag\
+    \ =\n                        1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n\
+    \                    auto na2 = mod2 - a2;\n                    a[i + offset]\
+    \ = a0 + a2 + a1 + a3;\n                    a[i + offset + 1 * p] = a0 + a2 +\
+    \ (2 * mod2 - (a1 + a3));\n                    a[i + offset + 2 * p] = a0 + na2\
+    \ + a1na3imag;\n                    a[i + offset + 3 * p] = a0 + na2 + (mod2 -\
+    \ a1na3imag);\n                }\n                if (s + 1 != (1 << len))\n \
+    \                   rot *= info.rate3[bsf(~(unsigned int)(s))];\n            }\n\
+    \            len += 2;\n        }\n    }\n}\n\ntemplate <class mint, internal::is_static_modint_t<mint>*\
+    \ = nullptr>\nvoid butterfly_inv(std::vector<mint>& a) {\n    int n = int(a.size());\n\
+    \    int h = internal::ceil_pow2(n);\n\n    static const fft_info<mint> info;\n\
+    \n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n   \
+    \ while (len) {\n        if (len == 1) {\n            int p = 1 << (h - len);\n\
+    \            mint irot = 1;\n            for (int s = 0; s < (1 << (len - 1));\
+    \ s++) {\n                int offset = s << (h - len + 1);\n                for\
+    \ (int i = 0; i < p; i++) {\n                    auto l = a[i + offset];\n   \
+    \                 auto r = a[i + offset + p];\n                    a[i + offset]\
+    \ = l + r;\n                    a[i + offset + p] =\n                        (unsigned\
+    \ long long)(mint::mod() + l.val() - r.val()) *\n                        irot.val();\n\
+    \                    ;\n                }\n                if (s + 1 != (1 <<\
+    \ (len - 1)))\n                    irot *= info.irate2[bsf(~(unsigned int)(s))];\n\
+    \            }\n            len--;\n        } else {\n            // 4-base\n\
+    \            int p = 1 << (h - len);\n            mint irot = 1, iimag = info.iroot[2];\n\
+    \            for (int s = 0; s < (1 << (len - 2)); s++) {\n                mint\
+    \ irot2 = irot * irot;\n                mint irot3 = irot2 * irot;\n         \
+    \       int offset = s << (h - len + 2);\n                for (int i = 0; i <\
+    \ p; i++) {\n                    auto a0 = 1ULL * a[i + offset + 0 * p].val();\n\
+    \                    auto a1 = 1ULL * a[i + offset + 1 * p].val();\n         \
+    \           auto a2 = 1ULL * a[i + offset + 2 * p].val();\n                  \
+    \  auto a3 = 1ULL * a[i + offset + 3 * p].val();\n\n                    auto a2na3iimag\
     \ =\n                        1ULL *\n                        mint((mint::mod()\
     \ + a2 - a3) * iimag.val()).val();\n\n                    a[i + offset] = a0 +\
     \ a1 + a2 + a3;\n                    a[i + offset + 1 * p] =\n               \
@@ -462,9 +461,9 @@ data:
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
     \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
-    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
-    #line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t = unsigned\
-    \ __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include\
+    \ <string>\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t\
+    \ = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
     \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
     \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
     \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
@@ -919,36 +918,36 @@ data:
     \ F& g) { return F(f) *= g; }\n    friend F operator/(const F& f, const F& g)\
     \ { return F(f) /= g; }\n    friend F operator<<(const F& f, const int d) { return\
     \ F(f) <<= d; }\n    friend F operator>>(const F& f, const int d) { return F(f)\
-    \ >>= d; }\n  };\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
-    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
-    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
-    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
-    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const\
-    \ ::tools::fact_mod_cache<M>&) = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&)\
-    \ = default;\n    ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>&\
-    \ operator=(const ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>&\
-    \ operator=(::tools::fact_mod_cache<M>&&) = default;\n\n    M inv(const long long\
-    \ n) {\n      assert(n % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
-    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
-    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
-    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
-    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
-    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
-    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
-    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
-    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
-    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
-    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
-    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
-    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \ >>= d; }\n  };\n}\n\n\n#line 1 \"tools/sparse_fps_pow.hpp\"\n\n\n\n#line 1 \"\
+    tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
+    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1\
+    \ \"tools/fact_mod_cache.hpp\"\n\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n  constexpr\
+    \ auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 10 \"tools/fact_mod_cache.hpp\"\n\
+    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n\
+    \    ::std::vector<M> m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M>\
+    \ m_fact_inv;\n\n  public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}),\
+    \ m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n     \
+    \ assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const ::tools::fact_mod_cache<M>&)\
+    \ = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;\n  \
+    \  ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>& operator=(const\
+    \ ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&)\
+    \ = default;\n\n    M inv(const long long n) {\n      assert(n % M::mod() != 0);\n\
+    \      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
+    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
+    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
+    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
+    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
+    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
+    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
+    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
+    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
+    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
+    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
+    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
     \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
     \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
     \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
@@ -1013,58 +1012,29 @@ data:
     \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
     \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
     \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_SPARSE_FPS_POW_HPP\n#define TOOLS_SPARSE_FPS_POW_HPP\n\n#include\
-    \ <cstddef>\n#include <type_traits>\n#include <utility>\n#include <cassert>\n\
-    #include <algorithm>\n#include <iterator>\n#include \"tools/fps.hpp\"\n#include\
-    \ \"tools/is_prime.hpp\"\n#include \"tools/less_by_first.hpp\"\n#include \"tools/ceil.hpp\"\
-    \n#include \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
-    \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
-    \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
-    \    using F = ::tools::fps<M>;\n\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(n <= M::mod());\n    assert(begin <= end);\n    assert(::std::all_of(begin,\
-    \ end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(begin,\
-    \ end, ::tools::less_by_first()));\n\n    if (n == 0) {\n      return F();\n \
-    \   }\n    if (k == 0) {\n      F res(n);\n      res[0] = M(1);\n      return\
-    \ res;\n    }\n\n    const auto offset = ::std::find_if(begin, end, [](const auto&\
-    \ pair) { return pair.second != M::raw(0); });\n    if (offset == end) {\n   \
-    \   return F(n);\n    }\n    if (::tools::ceil(n, k) <= static_cast<::std::size_t>(offset->first))\
-    \ {\n      return F(n);\n    }\n\n    F res(n - offset->first * k);\n    const\
-    \ auto deg = [&](const auto& it) -> ::std::size_t { return it->first - offset->first;\
-    \ };\n\n    ::tools::fact_mod_cache<M> cache;\n    const auto ic = offset->second.inv();\n\
-    \n    res[0] = offset->second.pow(k);\n    for (::std::size_t i = 1; i < n - offset->first\
-    \ * k; ++i) {\n      for (auto it = ::std::next(offset); it != end; ++it) {\n\
-    \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
-    \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
-    \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
-    \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
-    \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
-    \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
-    \    using F = ::tools::fps<M>;\n\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(n <= M::mod());\n    assert(f_begin <= f_end);\n    assert(::std::all_of(f_begin,\
-    \ f_end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(f_begin,\
-    \ f_end, ::tools::less_by_first()));\n    assert(g_begin < g_end);\n    assert(::std::all_of(g_begin,\
-    \ g_end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(g_begin,\
-    \ g_end, ::tools::less_by_first()));\n    assert(g_begin->first == 0);\n    assert(g_begin->second\
-    \ != M::raw(0));\n\n    if (n == 0) {\n      return F();\n    }\n    if (k ==\
-    \ 0) {\n      F res(n);\n      res[0] = M(1);\n      return res;\n    }\n\n  \
-    \  const auto f_offset = ::std::find_if(f_begin, f_end, [](const auto& pair) {\
-    \ return pair.second != M::raw(0); });\n    if (f_offset == f_end) {\n      return\
-    \ F(n);\n    }\n    if (::tools::ceil(n, k) <= static_cast<::std::size_t>(f_offset->first))\
-    \ {\n      return F(n);\n    }\n\n    F res(n - f_offset->first * k);\n    const\
-    \ auto f_deg = [&](const auto& it) -> ::std::size_t { return it->first - f_offset->first;\
-    \ };\n\n    ::tools::fact_mod_cache<M> cache;\n    const auto ic = (f_offset->second\
-    \ * g_begin->second).inv();\n\n    res[0] = (f_offset->second / g_begin->second).pow(k);\n\
-    \    for (::std::size_t i = 1; i < n - f_offset->first * k; ++i) {\n      for\
-    \ (auto f_it = f_offset; f_it != f_end; ++f_it) {\n        if (i < f_deg(f_it))\
-    \ break;\n        for (auto g_it = std::next(g_begin, f_it == f_offset); g_it\
-    \ != g_end; ++g_it) {\n          if (i < f_deg(f_it) + g_it->first) break;\n \
-    \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
-    \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
-    \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n#endif\n"
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow/fraction.test.cpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
+    \n  tools::fps<mint> edge{mint(1)};\n  edge.resize(M + 1);\n  edge.divide_inplace(1,\
+    \ mint(-1));\n  edge.divide_inplace(1, mint(-1));\n\n  const std::array<std::pair<int,\
+    \ mint>, 2> fps_0_1_1{{{1, mint(1)}, {2, mint(1)}}};\n  const std::array<std::pair<int,\
+    \ mint>, 2> fps_1_0_0_m1{{{0, mint(1)}, {3, mint(-1)}}};\n  const auto center\
+    \ = tools::sparse_fps_pow(fps_0_1_1.begin(), fps_0_1_1.end(), fps_1_0_0_m1.begin(),\
+    \ fps_1_0_0_m1.end(), N - 1, M + 1);\n\n  mint answer(0);\n  for (int i = 0; i\
+    \ <= M; ++i) {\n    answer += center[i] * edge[M - i];\n  }\n\n  std::cout <<\
+    \ answer.val() << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc276/tasks/abc276_g\"\n\n\
+    #include <iostream>\n#include <array>\n#include <utility>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/fps.hpp\"\n#include \"tools/sparse_fps_pow.hpp\"\n\nusing mint\
+    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, M;\n  std::cin >> N >> M;\n\n  tools::fps<mint> edge{mint(1)};\n  edge.resize(M\
+    \ + 1);\n  edge.divide_inplace(1, mint(-1));\n  edge.divide_inplace(1, mint(-1));\n\
+    \n  const std::array<std::pair<int, mint>, 2> fps_0_1_1{{{1, mint(1)}, {2, mint(1)}}};\n\
+    \  const std::array<std::pair<int, mint>, 2> fps_1_0_0_m1{{{0, mint(1)}, {3, mint(-1)}}};\n\
+    \  const auto center = tools::sparse_fps_pow(fps_0_1_1.begin(), fps_0_1_1.end(),\
+    \ fps_1_0_0_m1.begin(), fps_1_0_0_m1.end(), N - 1, M + 1);\n\n  mint answer(0);\n\
+    \  for (int i = 0; i <= M; ++i) {\n    answer += center[i] * edge[M - i];\n  }\n\
+    \n  std::cout << answer.val() << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1078,81 +1048,20 @@ data:
   - tools/quo.hpp
   - tools/garner3.hpp
   - tools/less_by_first.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/ceil.hpp
   - tools/fact_mod_cache.hpp
   - tools/ssize.hpp
-  isVerificationFile: false
-  path: tools/sparse_fps_pow.hpp
+  isVerificationFile: true
+  path: tests/sparse_fps_pow/fraction.test.cpp
   requiredBy: []
   timestamp: '2023-01-03 14:10:58+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-documentation_of: tools/sparse_fps_pow.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/sparse_fps_pow/fraction.test.cpp
 layout: document
-title: Power of a sparse FPS
+redirect_from:
+- /verify/tests/sparse_fps_pow/fraction.test.cpp
+- /verify/tests/sparse_fps_pow/fraction.test.cpp.html
+title: tests/sparse_fps_pow/fraction.test.cpp
 ---
-
-## (1)
-
-```cpp
-template <typename InputIterator>
-tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator begin, InputIterator end, unsigned long long k, std::size_t n);
-```
-
-It returns $f^k$, the element of the ring $(\mathbb{Z}/p\mathbb{Z})[x]/(x^n)$.
-$f$ is given as the list of degree-coefficient pairs.
-
-### Constraints
-- `begin` $\leq$ `end`
-- `*begin` is convertible to `std::pair<int, M>` where `M` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- `std::all_of(begin, end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(begin, end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(begin, end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == end`
-- $p$ is a prime where $p$ is `M::mod()`.
-- $n \leq p$
-
-### Time Complexity
-- $O(nm + \log k + \log p)$ where $m$ is `end` $-$ `begin`
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (2)
-
-```cpp
-template <typename InputIterator>
-tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator f_begin, InputIterator f_end, InputIterator g_begin, InputIterator g_end, unsigned long long k, std::size_t n);
-```
-
-It returns $\left(\frac{f}{g}\right)^k$, the element of the ring $(\mathbb{Z}/p\mathbb{Z})[x]/(x^n)$.
-Each of $f$ and $g$ is given as the list of degree-coefficient pairs.
-
-### Constraints
-- `f_begin` $\leq$ `f_end`
-- `*f_begin` is convertible to `std::pair<int, M>` where `M` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- `std::all_of(f_begin, f_end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(f_begin, f_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(f_begin, f_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == f_end`
-- `g_begin` $<$ `g_end`
-- `*g_begin` is convertible to `std::pair<int, M>`.
-- `std::all_of(g_begin, g_end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(g_begin, g_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(g_begin, g_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == g_end`
-- `g_begin->first == 0`
-- `g_begin->second != M(0)`
-- $p$ is a prime where $p$ is `M::mod()`.
-- $n \leq p$
-
-### Time Complexity
-- $O(n m_1 m_2 + \log k + \log p)$ where $m_1$ is `f_end` $-$ `f_begin` and $m_2$ is `g_end` $-$ `g_begin`
-
-### License
-- CC0
-
-### Author
-- anqooqie

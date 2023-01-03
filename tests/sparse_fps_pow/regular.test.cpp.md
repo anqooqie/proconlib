@@ -44,7 +44,7 @@ data:
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
-    title: $f^k$ where $f$ is a sparse FPS
+    title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
@@ -61,9 +61,10 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
     links:
     - https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
-  bundledCode: "#line 1 \"tests/sparse_fps_pow.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
-    \n\n#include <iostream>\n#include <vector>\n#include <utility>\n#include <string>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+  bundledCode: "#line 1 \"tests/sparse_fps_pow/regular.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\n\n#include\
+    \ <iostream>\n#include <vector>\n#include <utility>\n#include <string>\n#line\
+    \ 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
     \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
     #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
     \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
@@ -969,8 +970,8 @@ data:
     \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
     \ r - 1, r);\n    }\n  };\n}\n\n\n#line 15 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
     \ tools {\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
-    \ sparse_fps_pow(InputIterator begin, InputIterator end, const unsigned long long\
-    \ k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
+    \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
+    \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
     \    using F = ::tools::fps<M>;\n\n    assert(::tools::is_prime(M::mod()));\n\
     \    assert(n <= M::mod());\n    assert(begin <= end);\n    assert(::std::all_of(begin,\
     \ end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(begin,\
@@ -987,15 +988,41 @@ data:
     \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
     \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
     \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow.test.cpp\"\n\nusing\
-    \ ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, K, M;\n  std::cin >> N >>\
-    \ K >> M;\n  std::vector<std::pair<int, mint>> a;\n  a.reserve(K);\n  for (ll\
-    \ k = 0; k < K; ++k) {\n    ll i, a_i;\n    std::cin >> i >> a_i;\n    a.emplace_back(i,\
-    \ mint::raw(a_i));\n  }\n\n  const auto b = tools::sparse_fps_pow(a.begin(), a.end(),\
-    \ M, N);\n\n  std::string delimiter = \"\";\n  for (const mint& b_i : b) {\n \
-    \   std::cout << delimiter << b_i.val();\n    delimiter = \" \";\n  }\n  std::cout\
-    \ << '\\n';\n\n  return 0;\n}\n"
+    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
+    \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
+    \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
+    \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
+    \    using F = ::tools::fps<M>;\n\n    assert(::tools::is_prime(M::mod()));\n\
+    \    assert(n <= M::mod());\n    assert(f_begin <= f_end);\n    assert(::std::all_of(f_begin,\
+    \ f_end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(f_begin,\
+    \ f_end, ::tools::less_by_first()));\n    assert(g_begin < g_end);\n    assert(::std::all_of(g_begin,\
+    \ g_end, [](const auto& pair) { return pair.first >= 0; }));\n    assert(::std::is_sorted(g_begin,\
+    \ g_end, ::tools::less_by_first()));\n    assert(g_begin->first == 0);\n    assert(g_begin->second\
+    \ != M::raw(0));\n\n    if (n == 0) {\n      return F();\n    }\n    if (k ==\
+    \ 0) {\n      F res(n);\n      res[0] = M(1);\n      return res;\n    }\n\n  \
+    \  const auto f_offset = ::std::find_if(f_begin, f_end, [](const auto& pair) {\
+    \ return pair.second != M::raw(0); });\n    if (f_offset == f_end) {\n      return\
+    \ F(n);\n    }\n    if (::tools::ceil(n, k) <= static_cast<::std::size_t>(f_offset->first))\
+    \ {\n      return F(n);\n    }\n\n    F res(n - f_offset->first * k);\n    const\
+    \ auto f_deg = [&](const auto& it) -> ::std::size_t { return it->first - f_offset->first;\
+    \ };\n\n    ::tools::fact_mod_cache<M> cache;\n    const auto ic = (f_offset->second\
+    \ * g_begin->second).inv();\n\n    res[0] = (f_offset->second / g_begin->second).pow(k);\n\
+    \    for (::std::size_t i = 1; i < n - f_offset->first * k; ++i) {\n      for\
+    \ (auto f_it = f_offset; f_it != f_end; ++f_it) {\n        if (i < f_deg(f_it))\
+    \ break;\n        for (auto g_it = std::next(g_begin, f_it == f_offset); g_it\
+    \ != g_end; ++g_it) {\n          if (i < f_deg(f_it) + g_it->first) break;\n \
+    \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
+    \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
+    \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow/regular.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N, K, M;\n  std::cin >> N >> K >> M;\n  std::vector<std::pair<int, mint>> a;\n\
+    \  a.reserve(K);\n  for (ll k = 0; k < K; ++k) {\n    ll i, a_i;\n    std::cin\
+    \ >> i >> a_i;\n    a.emplace_back(i, mint::raw(a_i));\n  }\n\n  const auto b\
+    \ = tools::sparse_fps_pow(a.begin(), a.end(), M, N);\n\n  std::string delimiter\
+    \ = \"\";\n  for (const mint& b_i : b) {\n    std::cout << delimiter << b_i.val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
     \n\n#include <iostream>\n#include <vector>\n#include <utility>\n#include <string>\n\
     #include \"atcoder/modint.hpp\"\n#include \"tools/sparse_fps_pow.hpp\"\n\nusing\
@@ -1025,15 +1052,15 @@ data:
   - tools/fact_mod_cache.hpp
   - tools/ssize.hpp
   isVerificationFile: true
-  path: tests/sparse_fps_pow.test.cpp
+  path: tests/sparse_fps_pow/regular.test.cpp
   requiredBy: []
-  timestamp: '2023-01-02 19:03:39+09:00'
+  timestamp: '2023-01-03 14:10:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/sparse_fps_pow.test.cpp
+documentation_of: tests/sparse_fps_pow/regular.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/sparse_fps_pow.test.cpp
-- /verify/tests/sparse_fps_pow.test.cpp.html
-title: tests/sparse_fps_pow.test.cpp
+- /verify/tests/sparse_fps_pow/regular.test.cpp
+- /verify/tests/sparse_fps_pow/regular.test.cpp.html
+title: tests/sparse_fps_pow/regular.test.cpp
 ---

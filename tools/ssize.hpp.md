@@ -38,7 +38,7 @@ data:
     title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
-    title: $f^k$ where $f$ is a sparse FPS
+    title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
@@ -144,8 +144,11 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/sparse_fps_pow.test.cpp
-    title: tests/sparse_fps_pow.test.cpp
+    path: tests/sparse_fps_pow/fraction.test.cpp
+    title: tests/sparse_fps_pow/fraction.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/sparse_fps_pow/regular.test.cpp
+    title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
@@ -207,6 +210,8 @@ data:
   - tests/persistent_stack.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
   - tests/rational/random.test.cpp
@@ -214,7 +219,6 @@ data:
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
-  - tests/sparse_fps_pow.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
