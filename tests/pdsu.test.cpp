@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B"
 
 #include <iostream>
+#include <cassert>
 #include "tools/pdsu.hpp"
 
 using ll = long long;
@@ -18,16 +19,15 @@ int main() {
     if (t == 0) {
       ll x, y, z;
       std::cin >> x >> y >> z;
-      if (pdsu.same(x, y)) {
-        assert(pdsu.diff(x, y) == z);
-      } else {
-        pdsu.merge(x, y, z);
-      }
+      pdsu.merge(x, y, z);
+      assert(pdsu.diff(x, y).first == tools::pdsu_diff::known);
     } else {
       ll x, y;
       std::cin >> x >> y;
-      if (pdsu.same(x, y)) {
-        std::cout << pdsu.diff(x, y) << '\n';
+      const auto [t, d] = pdsu.diff(x, y);
+      assert(t != tools::pdsu_diff::inconsistent);
+      if (t == tools::pdsu_diff::known) {
+        std::cout << d << '\n';
       } else {
         std::cout << "?" << '\n';
       }

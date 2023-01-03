@@ -5,7 +5,7 @@ documentation_of: //tools/pdsu.hpp
 
 Given an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$ and an abelian group $G$, it processes the following queries in $O(\alpha(n))$ time (amortized).
 
-- Receiving the information $a_y - a_x = w$ under the abelian group $G$
+- Accepting the information $a_y - a_x = w$ under the abelian group $G$
 - Reporting $a_y - a_x$ under the abelian group $G$
 
 ### License
@@ -37,79 +37,85 @@ It creates an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$.
 int d.merge(int x, int y, typename G::T w);
 ```
 
-It receives the information $a_y - a_x = w$.
+It accepts the information $a_y - a_x = w$.
 
 ### Constraints
 - $0 \leq x < n$
 - $0 \leq y < n$
-- Before calling the function, $a_y - a_x$ is unknown
 
 ### Time Complexity
-- amortized $O(\alpha(n))$
+- $O(\alpha(n))$ amortized
 
 ## diff
 ```cpp
-typename G::T d.diff(int x, int y);
+enum class pdsu_diff {
+  known,
+  unknown,
+  inconsistent
+};
+std::pair<tools::pdsu_diff, typename G::T> d.diff(int x, int y);
 ```
 
-It returns $a_y - a_x$.
+If $a_y - a_x$ can be calculated consistently, it returns $(\mathrm{known}, a_y - a_x)$.
+If $a_y - a_x$ is still unknown under the information accepted so far, it returns $(\mathrm{unknown}, e)$ where $e$ is `G::e()`.
+If it turns out that the consistent value of $a_y - a_x$ cannot be obtained, it returns $(\mathrm{inconsistent}, e)$ where $e$ is `G::e()`.
 
 ### Constraints
 - $0 \leq x < n$
 - $0 \leq y < n$
-- $a_y - a_x$ is known
 
 ### Time Complexity
-- amortized $O(\alpha(n))$
+- $O(\alpha(n))$ amortized
 
 ## same
 ```cpp
 bool d.same(int x, int y);
 ```
 
-It returns whether $a_y - a_x$ is known or not.
+If $a_y - a_x$ is still unknown under the information accepted so far, it returns `false`.
+Otherwise, it returns `true`.
 
 ### Constraints
 - $0 \leq x < n$
 - $0 \leq y < n$
 
 ### Time Complexity
-- amortized $O(\alpha(n))$
+- $O(\alpha(n))$ amortized
 
 ## leader
 ```cpp
 int d.leader(int x);
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if $a_z - a_y$ is known, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
 It returns the reprensative vertex of the connected component which contains $x$.
 
 ### Constraints
 - $0 \leq x < n$
 
 ### Time Complexity
-- amortized $O(\alpha(n))$
+- $O(\alpha(n))$ amortized
 
 ## size
 ```cpp
 int d.size(int x);
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if $a_z - a_y$ is known, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
 It returns the size of the connected component which contains $x$.
 
 ### Constraints
 - $0 \leq x < n$
 
 ### Time Complexity
-- amortized $O(\alpha(n))$
+- $O(\alpha(n))$ amortized
 
 ## groups
 ```cpp
 std::vector<std::vector<int>> d.groups();
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if $a_z - a_y$ is known, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
 It returns the list of the connected components.
 
 ### Constraints

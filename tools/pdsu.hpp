@@ -8,19 +8,28 @@
 #include "tools/group.hpp"
 
 namespace tools {
+  enum class pdsu_diff {
+    known,
+    unknown,
+    inconsistent
+  };
+
   template <typename G = ::tools::group::plus<long long>>
   class pdsu {
   private:
     using T = typename G::T;
+
     ::std::vector<int> m_parents;
     ::std::vector<int> m_sizes;
     ::std::vector<T> m_diffs;
+    ::std::vector<bool> m_consistent;
 
   public:
     pdsu(const int n) :
       m_parents(n),
       m_sizes(n, 1),
-      m_diffs(n, 0) {
+      m_diffs(n, G::e()),
+      m_consistent(n, true) {
       assert(n >= 0);
       ::std::iota(this->m_parents.begin(), this->m_parents.end(), 0);
     }
@@ -35,23 +44,26 @@ namespace tools {
         return x;
       }
       const auto r = this->leader(this->m_parents[x]);
-      this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);
+      if (this->m_consistent[r]) {
+        this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);
+      }
       return this->m_parents[x] = r;
     }
 
-  private:
-    T potential(const int x) {
-      assert(0 <= x && x < this->size());
-      this->leader(x);
-      return this->m_diffs[x];
-    }
-
-  public:
-    T diff(const int x, const int y) {
+    ::std::pair<::tools::pdsu_diff, T> diff(const int x, const int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
-      assert(this->same(x, y));
-      return G::op(this->potential(y), G::inv(this->potential(x)));
+      const auto x_r = this->leader(x);
+      const auto y_r = this->leader(y);
+      if (x_r == y_r) {
+        if (this->m_consistent[x_r]) {
+          return ::std::make_pair(::tools::pdsu_diff::known, G::op(this->m_diffs[y], G::inv(this->m_diffs[x])));
+        } else {
+          return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());
+        }
+      } else {
+        return ::std::make_pair(::tools::pdsu_diff::unknown, G::e());
+      }
     }
 
     bool same(const int x, const int y) {
@@ -63,22 +75,26 @@ namespace tools {
     int merge(int x, int y, T w) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
-      assert(!this->same(x, y));
 
-      w = G::op(G::op(w, this->potential(x)), G::inv(this->potential(y)));
-      x = this->leader(x);
-      y = this->leader(y);
-      if (x == y) return x;
+      auto x_r = this->leader(x);
+      auto y_r = this->leader(y);
 
-      if (this->m_sizes[x] < this->m_sizes[y]) {
+      if (x_r == y_r) {
+        this->m_consistent[x_r] = (this->m_consistent[x_r] && G::op(this->m_diffs[x], w) == this->m_diffs[y]);
+        return x_r;
+      }
+
+      if (this->m_sizes[x_r] < this->m_sizes[y_r]) {
         ::std::swap(x, y);
         w = G::inv(w);
+        ::std::swap(x_r, y_r);
       }
-      this->m_parents[y] = x;
-      this->m_sizes[x] += this->m_sizes[y];
-
-      this->m_diffs[y] = w;
-      return x;
+      this->m_parents[y_r] = x_r;
+      this->m_sizes[x_r] += this->m_sizes[y_r];
+      if (this->m_consistent[x_r] = (this->m_consistent[x_r] && this->m_consistent[y_r])) {
+        this->m_diffs[y_r] = G::op(G::op(w, this->m_diffs[x]), G::inv(this->m_diffs[y]));
+      }
+      return x_r;
     }
 
     int size(const int x) {
