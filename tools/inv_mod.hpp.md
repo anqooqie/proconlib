@@ -24,6 +24,9 @@ data:
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
+    path: tools/sqrt_mod.hpp
+    title: $\sqrt{x} \pmod{P}$
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
@@ -36,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/sqrt_mod.test.cpp
+    title: tests/sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -82,11 +88,13 @@ data:
   - tools/tetration_mod.hpp
   - tools/garner.hpp
   - tools/log_mod.hpp
+  - tools/sqrt_mod.hpp
   - tools/extended_lucas.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
+  - tests/sqrt_mod.test.cpp
   - tests/log_mod.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_garner.test.cpp

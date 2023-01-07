@@ -73,6 +73,9 @@ data:
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
+    path: tools/sqrt_mod.hpp
+    title: $\sqrt{x} \pmod{P}$
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -237,6 +240,9 @@ data:
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/sqrt_mod.test.cpp
+    title: tests/sqrt_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -298,6 +304,7 @@ data:
   - tools/rational.hpp
   - tools/garner3.hpp
   - tools/polynomial.hpp
+  - tools/sqrt_mod.hpp
   - tools/divisors.hpp
   - tools/prime_factorization.hpp
   - tools/extended_lucas.hpp
@@ -314,6 +321,7 @@ data:
   - tests/totient.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/uint128_t.test.cpp
+  - tests/sqrt_mod.test.cpp
   - tests/log_mod.test.cpp
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp

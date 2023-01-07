@@ -451,6 +451,9 @@ data:
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
+      path: tools/sqrt_mod.hpp
+      title: $\sqrt{x} \pmod{P}$
+    - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':heavy_check_mark:'
@@ -790,6 +793,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/sqrt_mod.test.cpp
+      title: tests/sqrt_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
