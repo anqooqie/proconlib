@@ -3,7 +3,7 @@
 #include <iostream>
 #include "atcoder/modint.hpp"
 #include "tools/polynomial.hpp"
-#include "tools/nth_term.hpp"
+#include "tools/bostan_mori.hpp"
 
 using ll = long long;
 using mint = atcoder::modint998244353;
@@ -32,6 +32,6 @@ int main() {
   a *= c;
   a.resize(d);
 
-  std::cout << tools::nth_term(a, c, k).val() << '\n';
+  std::cout << tools::bostan_mori(a, c, k).val() << '\n';
   return 0;
 }

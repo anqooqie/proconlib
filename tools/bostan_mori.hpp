@@ -1,5 +1,5 @@
-#ifndef TOOLS_NTH_TERM_HPP
-#define TOOLS_NTH_TERM_HPP
+#ifndef TOOLS_BOSTAN_MORI_HPP
+#define TOOLS_BOSTAN_MORI_HPP
 
 #include <cassert>
 #include <numeric>
@@ -9,7 +9,7 @@
 
 namespace tools {
   template <typename M>
-  M nth_term(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long long n) {
+  M bostan_mori(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long long n) {
     static_assert(::tools::has_mod_v<M>);
     assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
 
