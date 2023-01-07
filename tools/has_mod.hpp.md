@@ -3,14 +3,14 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/extend_input.hpp
     title: Extend operator>>
   - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
-    path: tools/nth_term.hpp
-    title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
@@ -18,6 +18,9 @@ data:
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
@@ -27,9 +30,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/nth_term.test.cpp
-    title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
@@ -60,8 +60,8 @@ data:
   isVerificationFile: false
   path: tools/has_mod.hpp
   requiredBy:
-  - tools/nth_term.hpp
   - tools/extend_input.hpp
+  - tools/bostan_mori.hpp
   - tools/polynomial.hpp
   - tools/extend_output.hpp
   - tools/util.hpp
@@ -69,12 +69,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/has_mod.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/extend_input.test.cpp
   - tests/extend_output.test.cpp
   - tests/util.test.cpp
-  - tests/nth_term.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document
 title: Check whether T has the member function mod()

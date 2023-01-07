@@ -27,9 +27,6 @@ data:
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
-    path: tools/nth_term.hpp
-    title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -48,24 +45,27 @@ data:
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
   _isVerificationFailed: false
-  _pathExtension: cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-    links:
-    - https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-  bundledCode: "#line 1 \"tests/nth_term.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
-    \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
-    #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    links: []
+  bundledCode: "#line 1 \"tools/bostan_mori.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <cstddef>\n#line 1 \"tools/polynomial.hpp\"\n\n\n\n#include\
+    \ <vector>\n#line 6 \"tools/polynomial.hpp\"\n#include <initializer_list>\n#include\
+    \ <utility>\n#include <algorithm>\n#line 10 \"tools/polynomial.hpp\"\n#include\
+    \ <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\
+    \n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -264,10 +264,7 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#include <initializer_list>\n#line\
-    \ 8 \"tools/polynomial.hpp\"\n#include <algorithm>\n#line 10 \"tools/polynomial.hpp\"\
-    \n#include <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
     #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\n\
@@ -458,9 +455,9 @@ data:
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
     \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
-    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include\
-    \ <string>\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t\
-    \ = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
+    #line 9 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t = unsigned\
+    \ __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
     \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
     \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
     \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
@@ -1049,9 +1046,22 @@ data:
     \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
     \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
     \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
-    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/nth_term.hpp\"\
-    \n\n\n\n#line 9 \"tools/nth_term.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ M>\n  M nth_term(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned\
+    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 9 \"tools/bostan_mori.hpp\"\
+    \n\nnamespace tools {\n  template <typename M>\n  M bostan_mori(::tools::polynomial<M>\
+    \ P, ::tools::polynomial<M> Q, unsigned long long n) {\n    static_assert(::tools::has_mod_v<M>);\n\
+    \    assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);\n\n    P.resize(P.deg()\
+    \ + 1);\n    Q.resize(Q.deg() + 1);\n\n    while (n > 0) {\n      // Q1(x) = Q(-x)\n\
+    \      auto Q1 = Q;\n      for (::std::size_t i = 1; i < Q1.size(); i += 2) {\n\
+    \        Q1[i] = -Q1[i];\n      }\n\n      const auto PQ = P * Q1;\n      const\
+    \ auto QQ = Q * Q1;\n\n      P.clear();\n      for (::std::size_t i = n & 1; i\
+    \ < PQ.size(); i += 2) {\n        P.push_back(PQ[i]);\n      }\n      Q.clear();\n\
+    \      for (::std::size_t i = 0; i < QQ.size(); i += 2) {\n        Q.push_back(QQ[i]);\n\
+    \      }\n\n      n /= 2;\n    }\n\n    return (P.empty() ? M::raw(0) : P[0])\
+    \ / (Q.empty() ? M::raw(0) : Q[0]);\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_BOSTAN_MORI_HPP\n#define TOOLS_BOSTAN_MORI_HPP\n\n#include\
+    \ <cassert>\n#include <numeric>\n#include <cstddef>\n#include \"tools/polynomial.hpp\"\
+    \n#include \"tools/has_mod.hpp\"\n\nnamespace tools {\n  template <typename M>\n\
+    \  M bostan_mori(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned\
     \ long long n) {\n    static_assert(::tools::has_mod_v<M>);\n    assert(::std::gcd(Q.empty()\
     \ ? 0 : Q[0].val(), M::mod()) == 1);\n\n    P.resize(P.deg() + 1);\n    Q.resize(Q.deg()\
     \ + 1);\n\n    while (n > 0) {\n      // Q1(x) = Q(-x)\n      auto Q1 = Q;\n \
@@ -1061,25 +1071,7 @@ data:
     \        P.push_back(PQ[i]);\n      }\n      Q.clear();\n      for (::std::size_t\
     \ i = 0; i < QQ.size(); i += 2) {\n        Q.push_back(QQ[i]);\n      }\n\n  \
     \    n /= 2;\n    }\n\n    return (P.empty() ? M::raw(0) : P[0]) / (Q.empty()\
-    \ ? M::raw(0) : Q[0]);\n  }\n}\n\n\n#line 7 \"tests/nth_term.test.cpp\"\n\nusing\
-    \ ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll d, k;\n  std::cin >> d >> k;\n\
-    \  tools::polynomial<mint> a;\n  a.reserve(d);\n  for (ll i = 0; i < d; ++i) {\n\
-    \    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n  tools::polynomial<mint>\
-    \ c({mint::raw(1)});\n  c.reserve(d + 1);\n  for (ll i = 1; i <= d; ++i) {\n \
-    \   ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n  }\n\n  a *= c;\n\
-    \  a.resize(d);\n\n  std::cout << tools::nth_term(a, c, k).val() << '\\n';\n \
-    \ return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
-    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/polynomial.hpp\"\
-    \n#include \"tools/nth_term.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll d, k;\n  std::cin >> d >> k;\n  tools::polynomial<mint> a;\n  a.reserve(d);\n\
-    \  for (ll i = 0; i < d; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n\
-    \  }\n  tools::polynomial<mint> c({mint::raw(1)});\n  c.reserve(d + 1);\n  for\
-    \ (ll i = 1; i <= d; ++i) {\n    ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n\
-    \  }\n\n  a *= c;\n  a.resize(d);\n\n  std::cout << tools::nth_term(a, c, k).val()\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ ? M::raw(0) : Q[0]);\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -1095,17 +1087,37 @@ data:
   - tools/garner3.hpp
   - tools/less_by_first.hpp
   - tools/has_mod.hpp
-  - tools/nth_term.hpp
-  isVerificationFile: true
-  path: tests/nth_term.test.cpp
+  isVerificationFile: false
+  path: tools/bostan_mori.hpp
   requiredBy: []
-  timestamp: '2023-01-01 23:07:48+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: tests/nth_term.test.cpp
+  timestamp: '2023-01-07 10:26:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/bostan_mori.test.cpp
+documentation_of: tools/bostan_mori.hpp
 layout: document
-redirect_from:
-- /verify/tests/nth_term.test.cpp
-- /verify/tests/nth_term.test.cpp.html
-title: tests/nth_term.test.cpp
+title: Bostan-Mori algorithm
 ---
+
+```cpp
+template <typename M>
+M bostan_mori(tools::polynomial<M> P, tools::polynomial<M> Q, unsigned long long n);
+```
+
+It returns $[x^n]\frac{P(x)}{Q(x)}$.
+
+### Constraints
+- $\gcd(Q(0), M) = 1$ where $M$ is `M::mod()`
+
+### Time Complexity
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $O((\mathrm{deg}(P) + \mathrm{deg}(Q)) \log (\mathrm{deg}(P) + \mathrm{deg}(Q)) \log n + \log M)$
+
+### References
+- [線形漸化式を満たす数列の N 項目を計算するアルゴリズム](http://q.c.titech.ac.jp/docs/progs/polynomial_division.html)
+
+### License
+- CC0
+
+### Author
+- anqooqie

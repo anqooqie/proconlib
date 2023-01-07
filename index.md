@@ -40,6 +40,9 @@ data:
       path: tools/bipartite_matching.hpp
       title: Matching on bipartite graph
     - icon: ':heavy_check_mark:'
+      path: tools/bostan_mori.hpp
+      title: Bostan-Mori algorithm
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':heavy_check_mark:'
@@ -326,9 +329,6 @@ data:
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
-      path: tools/nth_term.hpp
-      title: Bostan-Mori algorithm
-    - icon: ':heavy_check_mark:'
       path: tools/ntz.hpp
       title: Number of trailing zeros
     - icon: ':heavy_check_mark:'
@@ -575,6 +575,9 @@ data:
       path: tests/bipartite_matching.test.cpp
       title: tests/bipartite_matching.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/bostan_mori.test.cpp
+      title: tests/bostan_mori.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/ccw.test.cpp
       title: tests/ccw.test.cpp
     - icon: ':heavy_check_mark:'
@@ -727,9 +730,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/nth_term.test.cpp
-      title: tests/nth_term.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp

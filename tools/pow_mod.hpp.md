@@ -24,6 +24,9 @@ data:
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -53,9 +56,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
-    path: tools/nth_term.hpp
-    title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
@@ -129,6 +129,9 @@ data:
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/double.test.cpp
     title: tests/convolution/double.test.cpp
   - icon: ':heavy_check_mark:'
@@ -191,9 +194,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/nth_term.test.cpp
-    title: tests/nth_term.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
@@ -304,7 +304,6 @@ data:
   - tools/fps.hpp
   - tools/tetration_mod.hpp
   - tools/convolution.hpp
-  - tools/nth_term.hpp
   - tools/stirling_2nd.hpp
   - tools/bigint.hpp
   - tools/bernoulli.hpp
@@ -312,6 +311,7 @@ data:
   - tools/is_prime.hpp
   - tools/sparse_fps_pow.hpp
   - tools/bigdecimal.hpp
+  - tools/bostan_mori.hpp
   - tools/rational.hpp
   - tools/garner3.hpp
   - tools/polynomial.hpp
@@ -327,6 +327,7 @@ data:
   - tests/extended_lucas.test.cpp
   - tests/fact_mod_cache.test.cpp
   - tests/totient.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/log_mod.test.cpp
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
@@ -376,7 +377,6 @@ data:
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/prime_factorization.test.cpp
-  - tests/nth_term.test.cpp
   - tests/is_prime.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
