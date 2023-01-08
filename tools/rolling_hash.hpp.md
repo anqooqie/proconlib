@@ -250,19 +250,20 @@ data:
     \    return ::tools::modint_for_rolling_hash(x, 0);\n    }\n    static long long\
     \ mod() {\n      return MOD;\n    }\n\n    friend ::tools::rolling_hash;\n  };\n\
     \n  class rolling_hash {\n  private:\n    using mint = ::tools::modint_for_rolling_hash;\n\
-    \    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::tools::now());\n\
+    \    inline static ::tools::pow_mod_cache<mint> m_pow_base = ::tools::pow_mod_cache<mint>(::tools::now());\n\
     \    ::std::vector<mint> m_hash;\n\n  public:\n    rolling_hash() = default;\n\
     \    rolling_hash(const ::tools::rolling_hash&) = default;\n    rolling_hash(::tools::rolling_hash&&)\
     \ = default;\n    ~rolling_hash() = default;\n    ::tools::rolling_hash& operator=(const\
     \ ::tools::rolling_hash&) = default;\n    ::tools::rolling_hash& operator=(::tools::rolling_hash&&)\
     \ = default;\n\n    template <typename InputIterator>\n    rolling_hash(InputIterator\
     \ begin, InputIterator end) {\n      this->m_hash.push_back(mint::raw(0));\n \
-    \     const auto base = pow_base[1].m_val;\n      for (auto it = begin; it !=\
+    \     const auto base = m_pow_base[1].m_val;\n      for (auto it = begin; it !=\
     \ end; ++it) {\n        this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val,\
-    \ base) + *it);\n      }\n      pow_base[this->m_hash.size()];\n    }\n\n    mint\
-    \ slice(const ::std::size_t l, const ::std::size_t r) const {\n      assert(l\
-    \ <= r && r <= this->m_hash.size());\n      return mint(this->m_hash[r].m_val\
-    \ + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, pow_base[r - l].m_val));\n\
+    \ base) + *it);\n      }\n      m_pow_base[this->m_hash.size()];\n    }\n\n  \
+    \  mint pow_base(const ::std::size_t i) const {\n      return m_pow_base[i];\n\
+    \    }\n\n    mint slice(const ::std::size_t l, const ::std::size_t r) const {\n\
+    \      assert(l <= r && r <= this->m_hash.size());\n      return mint(this->m_hash[r].m_val\
+    \ + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, m_pow_base[r - l].m_val));\n\
     \    }\n  };\n}\n\n\n#line 5 \"tools/rolling_hash.hpp\"\n\n\n"
   code: '#ifndef TOOLS_ROLLING_HASH_HPP
 
@@ -292,7 +293,7 @@ data:
   isVerificationFile: false
   path: tools/rolling_hash.hpp
   requiredBy: []
-  timestamp: '2022-11-12 12:10:52+09:00'
+  timestamp: '2023-01-08 21:04:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rolling_hash.test.cpp
@@ -323,12 +324,26 @@ It calculates hash values for any subsequences of a given sequence.
 ### Time Complexity
 - $O(n)$ where $n$ is `end` $-$ `begin`
 
+## pow_base
+```cpp
+tools::modint_for_rolling_hash hash.pow_base(std::size_t i);
+```
+
+It returns $b^{i} \pmod{2^{61} - 1}$ where $b$ is the integer randomly determined immediately after startup of the program.
+
+### Constraints
+- None
+
+### Time Complexity
+- (first call): $O(i)$
+- (second call or later): $O(i - i^\ast)$ where $i^\ast$ is the largest $i$ in the `pow_base` calls so far
+
 ## slice
 ```cpp
 tools::modint_for_rolling_hash hash.slice(std::size_t l, std::size_t r);
 ```
 
-It returns $\sum_{i = l}^{r - 1} s_i b^{r - 1 - i} \pmod{2^{61} - 1}$ where $s_i$ is the $i$-th element of the given sequence and $b$ is the integer randomly determined immediately after startup of the program.
+It returns $\sum_{i = l}^{r - 1} s_i b^{r - 1 - i} \pmod{2^{61} - 1}$ where $s_i$ is the $i$-th element of the given sequence.
 
 ### Constraints
 - $0 \leq l \leq r \leq n$
