@@ -142,7 +142,7 @@ namespace tools {
   class rolling_hash {
   private:
     using mint = ::tools::modint_for_rolling_hash;
-    inline static ::tools::pow_mod_cache<mint> pow_base = ::tools::pow_mod_cache<mint>(::tools::now());
+    inline static ::tools::pow_mod_cache<mint> m_pow_base = ::tools::pow_mod_cache<mint>(::tools::now());
     ::std::vector<mint> m_hash;
 
   public:
@@ -156,16 +156,20 @@ namespace tools {
     template <typename InputIterator>
     rolling_hash(InputIterator begin, InputIterator end) {
       this->m_hash.push_back(mint::raw(0));
-      const auto base = pow_base[1].m_val;
+      const auto base = m_pow_base[1].m_val;
       for (auto it = begin; it != end; ++it) {
         this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val, base) + *it);
       }
-      pow_base[this->m_hash.size()];
+      m_pow_base[this->m_hash.size()];
+    }
+
+    mint pow_base(const ::std::size_t i) const {
+      return m_pow_base[i];
     }
 
     mint slice(const ::std::size_t l, const ::std::size_t r) const {
       assert(l <= r && r <= this->m_hash.size());
-      return mint(this->m_hash[r].m_val + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, pow_base[r - l].m_val));
+      return mint(this->m_hash[r].m_val + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, m_pow_base[r - l].m_val));
     }
   };
 }
