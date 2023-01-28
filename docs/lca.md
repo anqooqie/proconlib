@@ -55,7 +55,7 @@ It internally creates a data structure which can return the lowest common ancest
 
 ## query
 ```cpp
-void lca.query(std::size_t u, std::size_t v);
+std::size_t lca.query(std::size_t u, std::size_t v);
 ```
 
 It returns the lowest common ancestor of two vertices $u$ and $v$.
