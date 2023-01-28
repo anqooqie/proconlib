@@ -335,6 +335,9 @@ data:
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/partially_persistent_dsu.hpp
+      title: Partially persistent disjoint set union
+    - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
       title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
         j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -736,6 +739,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/partially_persistent_dsu.test.cpp
+      title: tests/partially_persistent_dsu.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp

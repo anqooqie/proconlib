@@ -1087,8 +1087,8 @@ data:
   timestamp: '2023-01-03 14:10:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
 documentation_of: tools/sparse_fps_pow.hpp
 layout: document
 title: Power of a sparse FPS

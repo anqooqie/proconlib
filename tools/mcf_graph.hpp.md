@@ -450,8 +450,8 @@ data:
   timestamp: '2022-11-26 16:53:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
 documentation_of: tools/mcf_graph.hpp
 layout: document
