@@ -109,6 +109,7 @@
 "tests/multiset.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/next_matching.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/osa_k.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/partially_persistent_dsu.test.cpp": "2023-01-28 13:52:56 +0900",
 "tests/partition_function/n.test.cpp": "2022-12-31 23:40:15 +0900",
 "tests/partition_function/n_k.test.cpp": "2022-12-31 23:40:15 +0900",
 "tests/pdsu.test.cpp": "2023-01-03 17:18:39 +0900",
