@@ -21,7 +21,7 @@ namespace tools {
     const ::std::vector<::tools::vector2<T>> v(begin, end);
     ::std::vector<::std::size_t> a(v.size());
     ::std::iota(a.begin(), a.end(), 0);
-    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const T& i) {
+    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const ::std::size_t i) {
       return ::std::make_pair(v[i].x, v[i].y);
     }));
     ::std::vector<::std::vector<::std::size_t>> duplicates;
