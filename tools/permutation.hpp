@@ -137,6 +137,10 @@ namespace tools {
       this->m_perm.swap(this->m_inv);
       return *this;
     }
+    T inv(const ::std::size_t i) const {
+      assert(i < this->size());
+      return this->m_inv[i];
+    }
 
     ::tools::permutation<T>& operator*=(const ::tools::permutation<T>& other) {
       assert(this->size() == other.size());

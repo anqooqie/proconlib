@@ -162,17 +162,28 @@ It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
 
 ## inv
 ```cpp
-tools::permutation<T> p.inv();
+(1) tools::permutation<T> p.inv();
+(2) tools::permutation<T> p.inv(std::size_t i);
 ```
 
-It returns $p^{-1}$.
-$p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
+- (1)
+    - It returns $p^{-1}$.
+    - $p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
+- (2)
+    - It returns the position that the permutation maps to the $i$-th element.
+    - In other words, the permutation maps the `p.inv(i)`-th element to the $i$-th element.
 
 ### Constraints
-- None
+- (1)
+    - None
+- (2)
+    - $0 \leq i < n$
 
 ### Time Complexity
-- $O(n)$
+- (1)
+    - $O(n)$
+- (2)
+    - $O(1)$
 
 ## inv_inplace
 ```cpp
