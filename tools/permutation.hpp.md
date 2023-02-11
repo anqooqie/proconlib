@@ -6,6 +6,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tsort/query.test.cpp
+    title: tests/tsort/query.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -61,23 +64,25 @@ data:
     \ p.end());\n    }\n\n    ::tools::permutation<T> inv() const {\n      return\
     \ ::tools::permutation<T>(this->m_inv.begin(), this->m_inv.end());\n    }\n  \
     \  ::tools::permutation<T>& inv_inplace() {\n      this->m_perm.swap(this->m_inv);\n\
-    \      return *this;\n    }\n\n    ::tools::permutation<T>& operator*=(const ::tools::permutation<T>&\
-    \ other) {\n      assert(this->size() == other.size());\n      for (::std::size_t\
-    \ i = 0; i < this->size(); ++i) {\n        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n\
-    \      }\n      this->m_perm.swap(this->m_inv);\n      this->make_inv();\n   \
-    \   return *this;\n    }\n    friend ::tools::permutation<T> operator*(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return ::tools::permutation<T>(lhs)\
-    \ *= rhs;\n    }\n\n    friend bool operator==(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return lhs.m_perm == rhs.m_perm;\n\
-    \    }\n    friend bool operator!=(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
-    \ rhs) {\n      return lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream&\
-    \ operator<<(::std::ostream& os, const ::tools::permutation<T>& self) {\n    \
-    \  os << '(';\n      ::std::string delimiter = \"\";\n      for (const T value\
-    \ : self.m_perm) {\n        os << delimiter << value;\n        delimiter = \"\
-    , \";\n      }\n      return os << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::permutation<T>& self) {\n      for (T& value : self.m_perm) {\n\
-    \        is >> value;\n      }\n      self.verify_consistency();\n      self.make_inv();\n\
-    \      return is;\n    }\n  };\n}\n\n\n"
+    \      return *this;\n    }\n    T inv(const ::std::size_t i) const {\n      assert(i\
+    \ < this->size());\n      return this->m_inv[i];\n    }\n\n    ::tools::permutation<T>&\
+    \ operator*=(const ::tools::permutation<T>& other) {\n      assert(this->size()\
+    \ == other.size());\n      for (::std::size_t i = 0; i < this->size(); ++i) {\n\
+    \        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n      }\n      this->m_perm.swap(this->m_inv);\n\
+    \      this->make_inv();\n      return *this;\n    }\n    friend ::tools::permutation<T>\
+    \ operator*(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return ::tools::permutation<T>(lhs) *= rhs;\n    }\n\n    friend\
+    \ bool operator==(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return lhs.m_perm == rhs.m_perm;\n    }\n    friend bool operator!=(const\
+    \ ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {\n      return\
+    \ lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::permutation<T>& self) {\n      os << '(';\n      ::std::string\
+    \ delimiter = \"\";\n      for (const T value : self.m_perm) {\n        os <<\
+    \ delimiter << value;\n        delimiter = \", \";\n      }\n      return os <<\
+    \ ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::permutation<T>&\
+    \ self) {\n      for (T& value : self.m_perm) {\n        is >> value;\n      }\n\
+    \      self.verify_consistency();\n      self.make_inv();\n      return is;\n\
+    \    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_PERMUTATION_HPP\n#define TOOLS_PERMUTATION_HPP\n\n#include\
     \ <vector>\n#include <cassert>\n#include <cstddef>\n#include <numeric>\n#include\
     \ <algorithm>\n#include <iterator>\n#include <utility>\n#include <iostream>\n\
@@ -129,30 +134,33 @@ data:
     \ p.end());\n    }\n\n    ::tools::permutation<T> inv() const {\n      return\
     \ ::tools::permutation<T>(this->m_inv.begin(), this->m_inv.end());\n    }\n  \
     \  ::tools::permutation<T>& inv_inplace() {\n      this->m_perm.swap(this->m_inv);\n\
-    \      return *this;\n    }\n\n    ::tools::permutation<T>& operator*=(const ::tools::permutation<T>&\
-    \ other) {\n      assert(this->size() == other.size());\n      for (::std::size_t\
-    \ i = 0; i < this->size(); ++i) {\n        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n\
-    \      }\n      this->m_perm.swap(this->m_inv);\n      this->make_inv();\n   \
-    \   return *this;\n    }\n    friend ::tools::permutation<T> operator*(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return ::tools::permutation<T>(lhs)\
-    \ *= rhs;\n    }\n\n    friend bool operator==(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return lhs.m_perm == rhs.m_perm;\n\
-    \    }\n    friend bool operator!=(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
-    \ rhs) {\n      return lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream&\
-    \ operator<<(::std::ostream& os, const ::tools::permutation<T>& self) {\n    \
-    \  os << '(';\n      ::std::string delimiter = \"\";\n      for (const T value\
-    \ : self.m_perm) {\n        os << delimiter << value;\n        delimiter = \"\
-    , \";\n      }\n      return os << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::permutation<T>& self) {\n      for (T& value : self.m_perm) {\n\
-    \        is >> value;\n      }\n      self.verify_consistency();\n      self.make_inv();\n\
-    \      return is;\n    }\n  };\n}\n\n#endif\n"
+    \      return *this;\n    }\n    T inv(const ::std::size_t i) const {\n      assert(i\
+    \ < this->size());\n      return this->m_inv[i];\n    }\n\n    ::tools::permutation<T>&\
+    \ operator*=(const ::tools::permutation<T>& other) {\n      assert(this->size()\
+    \ == other.size());\n      for (::std::size_t i = 0; i < this->size(); ++i) {\n\
+    \        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n      }\n      this->m_perm.swap(this->m_inv);\n\
+    \      this->make_inv();\n      return *this;\n    }\n    friend ::tools::permutation<T>\
+    \ operator*(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return ::tools::permutation<T>(lhs) *= rhs;\n    }\n\n    friend\
+    \ bool operator==(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return lhs.m_perm == rhs.m_perm;\n    }\n    friend bool operator!=(const\
+    \ ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {\n      return\
+    \ lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::permutation<T>& self) {\n      os << '(';\n      ::std::string\
+    \ delimiter = \"\";\n      for (const T value : self.m_perm) {\n        os <<\
+    \ delimiter << value;\n        delimiter = \", \";\n      }\n      return os <<\
+    \ ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::permutation<T>&\
+    \ self) {\n      for (T& value : self.m_perm) {\n        is >> value;\n      }\n\
+    \      self.verify_consistency();\n      self.make_inv();\n      return is;\n\
+    \    }\n  };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/permutation.hpp
   requiredBy: []
-  timestamp: '2022-11-30 15:43:23+09:00'
+  timestamp: '2023-02-11 13:12:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/tsort/query.test.cpp
   - tests/permutation.test.cpp
 documentation_of: tools/permutation.hpp
 layout: document
@@ -318,17 +326,28 @@ It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
 
 ## inv
 ```cpp
-tools::permutation<T> p.inv();
+(1) tools::permutation<T> p.inv();
+(2) tools::permutation<T> p.inv(std::size_t i);
 ```
 
-It returns $p^{-1}$.
-$p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
+- (1)
+    - It returns $p^{-1}$.
+    - $p^{-1}$ maps the `p[i]`-th element to the $i$-th element.
+- (2)
+    - It returns the position that the permutation maps to the $i$-th element.
+    - In other words, the permutation maps the `p.inv(i)`-th element to the $i$-th element.
 
 ### Constraints
-- None
+- (1)
+    - None
+- (2)
+    - $0 \leq i < n$
 
 ### Time Complexity
-- $O(n)$
+- (1)
+    - $O(n)$
+- (2)
+    - $O(1)$
 
 ## inv_inplace
 ```cpp

@@ -267,19 +267,20 @@ data:
     \ < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5\
     \ \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n  int ccw(const\
     \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
-    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c)\
-    \ < 0) return -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
-    \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
-    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
-    \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
-    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
-    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
-    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
-    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
-    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
-    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
+    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > T(0)) return +1;\n    if\
+    \ (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c) < T(0)) return\
+    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
+    \ 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
+    \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
+    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
+    \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
+    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
+    \ ::std::size_t i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n\
+    \    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\n    if (minimum)\
+    \ {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar\
+    \ = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]].x\
+    \ == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
     \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
     \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
     \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
@@ -320,7 +321,7 @@ data:
     \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
     \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
     \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
-    \ a.end(), ::tools::less_by([&](const T& i) {\n      return ::std::make_pair(v[i].x,\
+    \ a.end(), ::tools::less_by([&](const ::std::size_t i) {\n      return ::std::make_pair(v[i].x,\
     \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
     \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
     \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
@@ -369,7 +370,7 @@ data:
   isVerificationFile: false
   path: tools/convex_hull.hpp
   requiredBy: []
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

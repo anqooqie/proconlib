@@ -260,10 +260,10 @@ data:
     \ };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T>\
     \ b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
-    \    return 0;\n  }\n}\n\n\n#line 6 \"tools/less_by_arg_total.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  class less_by_arg_total {\n  private:\n\
+    \ > T(0)) return +1;\n    if (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c)\
+    \ < T(0)) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return\
+    \ -2;\n    return 0;\n  }\n}\n\n\n#line 6 \"tools/less_by_arg_total.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  class less_by_arg_total {\n  private:\n\
     \    ::tools::vector2<T> o;\n    ::tools::vector2<T> d;\n\n    int where(const\
     \ ::tools::vector2<T>& p) const {\n      static const ::tools::vector2<T> zero(T(0),\
     \ T(0));\n      static const ::tools::vector2<T> unit_x(T(1), T(0));\n      if\
@@ -326,7 +326,7 @@ data:
   isVerificationFile: false
   path: tools/greater_by_arg_total.hpp
   requiredBy: []
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/greater_by_arg_total.test.cpp

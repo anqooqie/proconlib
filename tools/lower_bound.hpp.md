@@ -24,9 +24,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/tsort.test.cpp
-    title: tests/tsort.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -60,7 +57,6 @@ data:
   verifiedWith:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/tsort.test.cpp
   - tests/range_of_digit_products.test.cpp
   - tests/inversion_number.test.cpp
 documentation_of: tools/lower_bound.hpp

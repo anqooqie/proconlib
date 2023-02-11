@@ -257,10 +257,10 @@ data:
     \ };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T>\
     \ b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
-    \    return 0;\n  }\n}\n\n\n#line 6 \"tests/ccw.test.cpp\"\n\nusing ll = long\
-    \ long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ > T(0)) return +1;\n    if (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c)\
+    \ < T(0)) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return\
+    \ -2;\n    return 0;\n  }\n}\n\n\n#line 6 \"tests/ccw.test.cpp\"\n\nusing ll =\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  tools::vector2<ll> p0, p1;\n  ll q;\n  std::cin >> p0 >> p1 >> q;\n  for (ll\
     \ i = 0; i < q; ++i) {\n    tools::vector2<ll> p2;\n    std::cin >> p2;\n    switch\
     \ (tools::ccw(p0, p1, p2)) {\n    case +1:\n      std::cout << \"COUNTER_CLOCKWISE\"\
@@ -292,7 +292,7 @@ data:
   isVerificationFile: true
   path: tests/ccw.test.cpp
   requiredBy: []
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ccw.test.cpp

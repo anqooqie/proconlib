@@ -264,10 +264,10 @@ data:
     \n\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T>\
     \ b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c)\
-    \ > 0) return +1;\n    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c)\
-    \ < 0) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
-    \    return 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n    ::tools::vector2<T>\
+    \ > T(0)) return +1;\n    if (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c)\
+    \ < T(0)) return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return\
+    \ -2;\n    return 0;\n  }\n}\n\n\n#line 7 \"tools/less_by_arg.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  class less_by_arg {\n  private:\n    ::tools::vector2<T>\
     \ o;\n    ::tools::vector2<T> d;\n\n    int where(const ::tools::vector2<T>& p)\
     \ const {\n      assert(p != this->o);\n      const auto ccw = ::tools::ccw(this->o,\
     \ this->d, p);\n      if (ccw == +1) return 1;\n      if (ccw == -1) return 3;\n\
@@ -326,7 +326,7 @@ data:
   isVerificationFile: true
   path: tests/greater_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/greater_by_arg.test.cpp

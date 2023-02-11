@@ -87,25 +87,27 @@ data:
     \ p.end());\n    }\n\n    ::tools::permutation<T> inv() const {\n      return\
     \ ::tools::permutation<T>(this->m_inv.begin(), this->m_inv.end());\n    }\n  \
     \  ::tools::permutation<T>& inv_inplace() {\n      this->m_perm.swap(this->m_inv);\n\
-    \      return *this;\n    }\n\n    ::tools::permutation<T>& operator*=(const ::tools::permutation<T>&\
-    \ other) {\n      assert(this->size() == other.size());\n      for (::std::size_t\
-    \ i = 0; i < this->size(); ++i) {\n        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n\
-    \      }\n      this->m_perm.swap(this->m_inv);\n      this->make_inv();\n   \
-    \   return *this;\n    }\n    friend ::tools::permutation<T> operator*(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return ::tools::permutation<T>(lhs)\
-    \ *= rhs;\n    }\n\n    friend bool operator==(const ::tools::permutation<T>&\
-    \ lhs, const ::tools::permutation<T>& rhs) {\n      return lhs.m_perm == rhs.m_perm;\n\
-    \    }\n    friend bool operator!=(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
-    \ rhs) {\n      return lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream&\
-    \ operator<<(::std::ostream& os, const ::tools::permutation<T>& self) {\n    \
-    \  os << '(';\n      ::std::string delimiter = \"\";\n      for (const T value\
-    \ : self.m_perm) {\n        os << delimiter << value;\n        delimiter = \"\
-    , \";\n      }\n      return os << ')';\n    }\n    friend ::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::permutation<T>& self) {\n      for (T& value : self.m_perm) {\n\
-    \        is >> value;\n      }\n      self.verify_consistency();\n      self.make_inv();\n\
-    \      return is;\n    }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \      return *this;\n    }\n    T inv(const ::std::size_t i) const {\n      assert(i\
+    \ < this->size());\n      return this->m_inv[i];\n    }\n\n    ::tools::permutation<T>&\
+    \ operator*=(const ::tools::permutation<T>& other) {\n      assert(this->size()\
+    \ == other.size());\n      for (::std::size_t i = 0; i < this->size(); ++i) {\n\
+    \        this->m_inv[i] = other.m_perm[this->m_perm[i]];\n      }\n      this->m_perm.swap(this->m_inv);\n\
+    \      this->make_inv();\n      return *this;\n    }\n    friend ::tools::permutation<T>\
+    \ operator*(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return ::tools::permutation<T>(lhs) *= rhs;\n    }\n\n    friend\
+    \ bool operator==(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>&\
+    \ rhs) {\n      return lhs.m_perm == rhs.m_perm;\n    }\n    friend bool operator!=(const\
+    \ ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {\n      return\
+    \ lhs.m_perm != rhs.m_perm;\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::permutation<T>& self) {\n      os << '(';\n      ::std::string\
+    \ delimiter = \"\";\n      for (const T value : self.m_perm) {\n        os <<\
+    \ delimiter << value;\n        delimiter = \", \";\n      }\n      return os <<\
+    \ ')';\n    }\n    friend ::std::istream& operator>>(::std::istream& is, ::tools::permutation<T>&\
+    \ self) {\n      for (T& value : self.m_perm) {\n        is >> value;\n      }\n\
+    \      self.verify_consistency();\n      self.make_inv();\n      return is;\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename C>\n\
+    \  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
     \n#line 1 \"tools/pow.hpp\"\n\n\n\n#line 6 \"tools/pow.hpp\"\n#include <cmath>\n\
     #line 1 \"tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include <limits>\n\
@@ -194,7 +196,7 @@ data:
   isVerificationFile: true
   path: tests/permutation.test.cpp
   requiredBy: []
-  timestamp: '2022-11-30 15:43:23+09:00'
+  timestamp: '2023-02-11 13:12:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/permutation.test.cpp

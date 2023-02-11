@@ -824,9 +824,6 @@ data:
       path: tests/tree_diameter.test.cpp
       title: tests/tree_diameter.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/tsort.test.cpp
-      title: tests/tsort.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/tsp.test.cpp
       title: tests/tsp.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1107,6 +1104,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/triangle_2d/incircle.test.cpp
       title: tests/triangle_2d/incircle.test.cpp
+  - name: tests/tsort
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/tsort/count.test.cpp
+      title: tests/tsort/count.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/tsort/query.test.cpp
+      title: tests/tsort/query.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
     - icon: ':heavy_check_mark:'

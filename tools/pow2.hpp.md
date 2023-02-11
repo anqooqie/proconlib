@@ -80,6 +80,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
+    path: tools/tsort.hpp
+    title: Topological sorting
+  - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
   - icon: ':heavy_check_mark:'
@@ -288,6 +291,12 @@ data:
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/tsort/count.test.cpp
+    title: tests/tsort/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tsort/query.test.cpp
+    title: tests/tsort/query.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'
@@ -325,6 +334,7 @@ data:
   - tools/bigint.hpp
   - tools/hld.hpp
   - tools/extended_lucas.hpp
+  - tools/tsort.hpp
   - tools/primitive_root.hpp
   - tools/and_convolution.hpp
   - tools/partition_function.hpp
@@ -368,6 +378,8 @@ data:
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/tsort/query.test.cpp
+  - tests/tsort/count.test.cpp
   - tests/bigint/divides.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/multiplies.test.cpp

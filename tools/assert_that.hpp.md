@@ -124,8 +124,11 @@ data:
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/tsort.test.cpp
-    title: tests/tsort.test.cpp
+    path: tests/tsort/count.test.cpp
+    title: tests/tsort/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/tsort/query.test.cpp
+    title: tests/tsort/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
@@ -174,11 +177,12 @@ data:
   - tests/floor_log2.test.cpp
   - tests/resize.test.cpp
   - tests/rational/random.test.cpp
-  - tests/tsort.test.cpp
   - tests/run_length.test.cpp
   - tests/floor_log.test.cpp
   - tests/rotate_left.test.cpp
   - tests/floor_sqrt.test.cpp
+  - tests/tsort/query.test.cpp
+  - tests/tsort/count.test.cpp
   - tests/alphabetical_order.test.cpp
   - tests/ceil_log.test.cpp
   - tests/extend_input.test.cpp

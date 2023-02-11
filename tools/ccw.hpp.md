@@ -285,15 +285,15 @@ data:
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename\
     \ T>\n  int ccw(const ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T>\
-    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > 0) return +1;\n\
-    \    if (b.outer_product(c) < 0) return -1;\n    if (b.inner_product(c) < 0) return\
-    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
-    \ 0;\n  }\n}\n\n\n"
+    \ c) {\n    b -= a;\n    c -= a;\n    if (b.outer_product(c) > T(0)) return +1;\n\
+    \    if (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c) < T(0))\
+    \ return +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n\
+    \    return 0;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_CCW_HPP\n#define TOOLS_CCW_HPP\n\n#include \"tools/vector2.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  int ccw(const ::tools::vector2<T>&\
     \ a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n    b -= a;\n    c -= a;\n\
-    \    if (b.outer_product(c) > 0) return +1;\n    if (b.outer_product(c) < 0) return\
-    \ -1;\n    if (b.inner_product(c) < 0) return +2;\n    if (b.squared_l2_norm()\
+    \    if (b.outer_product(c) > T(0)) return +1;\n    if (b.outer_product(c) < T(0))\
+    \ return -1;\n    if (b.inner_product(c) < T(0)) return +2;\n    if (b.squared_l2_norm()\
     \ < c.squared_l2_norm()) return -2;\n    return 0;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/vector2.hpp
@@ -311,7 +311,7 @@ data:
   - tools/less_by_arg.hpp
   - tools/convex_hull.hpp
   - tools/greater_by_arg.hpp
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/less_by_arg_total.test.cpp
