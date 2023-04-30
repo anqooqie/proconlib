@@ -56,6 +56,11 @@ test: a.out # output_checker
 submit: combined.cpp
 	acc submit --skip-filename -- --wait 0 --no-open --yes
 
+.PHONY: deploy
+deploy: combined.cpp
+	cp $< /var/www/html/private
+	echo 'https://www.anqooqie.jp/private/combined.cpp'
+
 .PHONY: clean
 clean:
 	rm -f *~ a.out combined.cpp {output_checker,input_generator,output_generator}{,_combined.cpp}
