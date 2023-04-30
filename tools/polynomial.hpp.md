@@ -1208,8 +1208,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bostan_mori.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
 title: Polynomial

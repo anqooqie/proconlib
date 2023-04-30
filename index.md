@@ -70,6 +70,9 @@ data:
       path: tools/chromatic_number.hpp
       title: Chromatic number
     - icon: ':heavy_check_mark:'
+      path: tools/cin.hpp
+      title: Fast input
+    - icon: ':heavy_check_mark:'
       path: tools/circle_2d.hpp
       title: Two-dimensional circle
     - icon: ':heavy_check_mark:'
@@ -81,6 +84,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Convolution
+    - icon: ':heavy_check_mark:'
+      path: tools/cout.hpp
+      title: Fast output
     - icon: ':heavy_check_mark:'
       path: tools/cumsum2d.hpp
       title: 2D cumulative sum
@@ -136,9 +142,6 @@ data:
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
-    - icon: ':heavy_check_mark:'
-      path: tools/fastio.hpp
-      title: tools/fastio.hpp
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
@@ -647,9 +650,6 @@ data:
       path: tests/fact_mod_cache.test.cpp
       title: tests/fact_mod_cache.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/fastio.test.cpp
-      title: tests/fastio.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/fill.test.cpp
       title: tests/fill.test.cpp
     - icon: ':heavy_check_mark:'
@@ -941,6 +941,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - name: tests/fastio
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/fastio/integer.test.cpp
+      title: tests/fastio/integer.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/fastio/string.test.cpp
+      title: tests/fastio/string.test.cpp
   - name: tests/fps
     pages:
     - icon: ':heavy_check_mark:'

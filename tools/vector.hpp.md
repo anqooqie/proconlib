@@ -157,8 +157,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
-  - tests/matrix/inv.test.cpp
   - tests/matrix/determinant.test.cpp
+  - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
 documentation_of: tools/vector.hpp
 layout: document

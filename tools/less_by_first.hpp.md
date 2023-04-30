@@ -101,35 +101,35 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
-  - tools/partition_function.hpp
-  - tools/sparse_fps_pow.hpp
   - tools/stirling_2nd.hpp
-  - tools/partially_persistent_dsu.hpp
-  - tools/fps.hpp
-  - tools/polynomial.hpp
   - tools/bernoulli.hpp
+  - tools/partition_function.hpp
+  - tools/polynomial.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/fps.hpp
   - tools/bostan_mori.hpp
+  - tools/partially_persistent_dsu.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/partially_persistent_dsu.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
   - tests/fps/pow_other_mods.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
   - tests/stirling_2nd.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/partially_persistent_dsu.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first
