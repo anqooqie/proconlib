@@ -1,7 +1,8 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
 
 #include <iostream>
-#include "tools/fastio.hpp"
+#include "tools/cin.hpp"
+#include "tools/cout.hpp"
 
 using ll = long long;
 
@@ -10,12 +11,11 @@ int main() {
   std::ios_base::sync_with_stdio(false);
 
   int T;
-  fastio::rd(T);
+  tools::cin >> T;
   for (int i = 0; i < T; ++i) {
     ll A, B;
-    fastio::rd(A);
-    fastio::rd(B);
-    fastio::wtn(A + B);
+    tools::cin >> A >> B;
+    tools::cout << A + B << '\n';
   }
 
   return 0;
