@@ -6,3 +6,7 @@ test:
 docs:
 	oj-verify docs
 	(cd .verify-helper/markdown && bundle exec jekyll serve --incremental)
+
+.PHONY: watch
+watch:
+	./watch.sh
