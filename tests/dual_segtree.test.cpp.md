@@ -30,7 +30,7 @@ data:
     \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
     \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
     \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
     \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
@@ -43,9 +43,9 @@ data:
     \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
-    #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
-    \ v) v += _m;\n        return v;\n    }\n};\n\n// @param n `0 <= n`\n// @param\
-    \ m `1 <= m`\n// @return `(x ** n) % m`\nconstexpr long long pow_mod_constexpr(long\
+    #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
+    \ - y + (z < y ? _m : 0));\n    }\n};\n\n// @param n `0 <= n`\n// @param m `1\
+    \ <= m`\n// @return `(x ** n) % m`\nconstexpr long long pow_mod_constexpr(long\
     \ long x, long long n, int m) {\n    if (m == 1) return 0;\n    unsigned int _m\
     \ = (unsigned int)(m);\n    unsigned long long r = 1;\n    unsigned long long\
     \ y = safe_mod(x, m);\n    while (n) {\n        if (n & 1) r = (r * y) % _m;\n\

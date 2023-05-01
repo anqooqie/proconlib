@@ -30,7 +30,7 @@ data:
     \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
     // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m < 2^31`\n    explicit barrett(unsigned\
+    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
     \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
     \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
@@ -43,9 +43,9 @@ data:
     \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
-    #endif\n        unsigned int v = (unsigned int)(z - x * _m);\n        if (_m <=\
-    \ v) v += _m;\n        return v;\n    }\n};\n\n// @param n `0 <= n`\n// @param\
-    \ m `1 <= m`\n// @return `(x ** n) % m`\nconstexpr long long pow_mod_constexpr(long\
+    #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
+    \ - y + (z < y ? _m : 0));\n    }\n};\n\n// @param n `0 <= n`\n// @param m `1\
+    \ <= m`\n// @return `(x ** n) % m`\nconstexpr long long pow_mod_constexpr(long\
     \ long x, long long n, int m) {\n    if (m == 1) return 0;\n    unsigned int _m\
     \ = (unsigned int)(m);\n    unsigned long long r = 1;\n    unsigned long long\
     \ y = safe_mod(x, m);\n    while (n) {\n        if (n & 1) r = (r * y) % _m;\n\
@@ -228,78 +228,85 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\
-    \n\n\n\n#include <algorithm>\n#line 7 \"lib/ac-library/atcoder/segtree.hpp\"\n\
-    \n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param n `0 <= n`\n// @return minimum non-negative `x` s.t. `n <= 2**x`\nint\
-    \ ceil_pow2(int n) {\n    int x = 0;\n    while ((1U << x) < (unsigned int)(n))\
-    \ x++;\n    return x;\n}\n\n// @param n `1 <= n`\n// @return minimum non-negative\
-    \ `x` s.t. `(n & (1 << x)) != 0`\nconstexpr int bsf_constexpr(unsigned int n)\
-    \ {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n}\n\n//\
-    \ @param n `1 <= n`\n// @return minimum non-negative `x` s.t. `(n & (1 << x))\
-    \ != 0`\nint bsf(unsigned int n) {\n#ifdef _MSC_VER\n    unsigned long index;\n\
-    \    _BitScanForward(&index, n);\n    return index;\n#else\n    return __builtin_ctz(n);\n\
-    #endif\n}\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 9\
-    \ \"lib/ac-library/atcoder/segtree.hpp\"\n\nnamespace atcoder {\n\ntemplate <class\
-    \ S, S (*op)(S, S), S (*e)()> struct segtree {\n  public:\n    segtree() : segtree(0)\
+    \n\n\n\n#include <algorithm>\n#line 6 \"lib/ac-library/atcoder/segtree.hpp\"\n\
+    #include <functional>\n#line 8 \"lib/ac-library/atcoder/segtree.hpp\"\n\n#line\
+    \ 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
+    using std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\nunsigned\
+    \ int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x < (unsigned\
+    \ int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <= n`\n// @return\
+    \ same with std::bit::countr_zero\nint countr_zero(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n// @param n `1 <= n`\n// @return\
+    \ same with std::bit::countr_zero\nconstexpr int countr_zero_constexpr(unsigned\
+    \ int n) {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n\
+    }\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 10 \"lib/ac-library/atcoder/segtree.hpp\"\
+    \n\nnamespace atcoder {\n\n#if __cplusplus >= 201703L\n\ntemplate <class S, auto\
+    \ op, auto e> struct segtree {\n    static_assert(std::is_convertible_v<decltype(op),\
+    \ std::function<S(S, S)>>,\n                  \"op must work as S(S, S)\");\n\
+    \    static_assert(std::is_convertible_v<decltype(e), std::function<S()>>,\n \
+    \                 \"e must work as S()\");\n\n#else\n\ntemplate <class S, S (*op)(S,\
+    \ S), S (*e)()> struct segtree {\n\n#endif\n\n  public:\n    segtree() : segtree(0)\
     \ {}\n    explicit segtree(int n) : segtree(std::vector<S>(n, e())) {}\n    explicit\
-    \ segtree(const std::vector<S>& v) : _n(int(v.size())) {\n        log = internal::ceil_pow2(_n);\n\
-    \        size = 1 << log;\n        d = std::vector<S>(2 * size, e());\n      \
-    \  for (int i = 0; i < _n; i++) d[size + i] = v[i];\n        for (int i = size\
-    \ - 1; i >= 1; i--) {\n            update(i);\n        }\n    }\n\n    void set(int\
-    \ p, S x) {\n        assert(0 <= p && p < _n);\n        p += size;\n        d[p]\
-    \ = x;\n        for (int i = 1; i <= log; i++) update(p >> i);\n    }\n\n    S\
-    \ get(int p) const {\n        assert(0 <= p && p < _n);\n        return d[p +\
-    \ size];\n    }\n\n    S prod(int l, int r) const {\n        assert(0 <= l &&\
-    \ l <= r && r <= _n);\n        S sml = e(), smr = e();\n        l += size;\n \
-    \       r += size;\n\n        while (l < r) {\n            if (l & 1) sml = op(sml,\
-    \ d[l++]);\n            if (r & 1) smr = op(d[--r], smr);\n            l >>= 1;\n\
-    \            r >>= 1;\n        }\n        return op(sml, smr);\n    }\n\n    S\
-    \ all_prod() const { return d[1]; }\n\n    template <bool (*f)(S)> int max_right(int\
-    \ l) const {\n        return max_right(l, [](S x) { return f(x); });\n    }\n\
-    \    template <class F> int max_right(int l, F f) const {\n        assert(0 <=\
-    \ l && l <= _n);\n        assert(f(e()));\n        if (l == _n) return _n;\n \
-    \       l += size;\n        S sm = e();\n        do {\n            while (l %\
-    \ 2 == 0) l >>= 1;\n            if (!f(op(sm, d[l]))) {\n                while\
-    \ (l < size) {\n                    l = (2 * l);\n                    if (f(op(sm,\
-    \ d[l]))) {\n                        sm = op(sm, d[l]);\n                    \
-    \    l++;\n                    }\n                }\n                return l\
-    \ - size;\n            }\n            sm = op(sm, d[l]);\n            l++;\n \
-    \       } while ((l & -l) != l);\n        return _n;\n    }\n\n    template <bool\
-    \ (*f)(S)> int min_left(int r) const {\n        return min_left(r, [](S x) { return\
-    \ f(x); });\n    }\n    template <class F> int min_left(int r, F f) const {\n\
-    \        assert(0 <= r && r <= _n);\n        assert(f(e()));\n        if (r ==\
-    \ 0) return 0;\n        r += size;\n        S sm = e();\n        do {\n      \
-    \      r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n            if (!f(op(d[r],\
-    \ sm))) {\n                while (r < size) {\n                    r = (2 * r\
-    \ + 1);\n                    if (f(op(d[r], sm))) {\n                        sm\
-    \ = op(d[r], sm);\n                        r--;\n                    }\n     \
-    \           }\n                return r + 1 - size;\n            }\n         \
-    \   sm = op(d[r], sm);\n        } while ((r & -r) != r);\n        return 0;\n\
-    \    }\n\n  private:\n    int _n, size, log;\n    std::vector<S> d;\n\n    void\
-    \ update(int k) { d[k] = op(d[2 * k], d[2 * k + 1]); }\n};\n\n}  // namespace\
-    \ atcoder\n\n\n#line 1 \"tools/hld.hpp\"\n\n\n\n#line 5 \"tools/hld.hpp\"\n#include\
-    \ <cstddef>\n#include <iterator>\n#line 8 \"tools/hld.hpp\"\n#include <limits>\n\
-    #include <stack>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7 \"\
-    lib/ac-library/atcoder/dsu.hpp\"\n\nnamespace atcoder {\n\n// Implement (union\
-    \ by size) + (path compression)\n// Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n\
-    // Data structures and algorithms for disjoint set union problems\nstruct dsu\
-    \ {\n  public:\n    dsu() : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n,\
-    \ -1) {}\n\n    int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n\
-    \        assert(0 <= b && b < _n);\n        int x = leader(a), y = leader(b);\n\
-    \        if (x == y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y])\
-    \ std::swap(x, y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
-    \ = x;\n        return x;\n    }\n\n    bool same(int a, int b) {\n        assert(0\
-    \ <= a && a < _n);\n        assert(0 <= b && b < _n);\n        return leader(a)\
-    \ == leader(b);\n    }\n\n    int leader(int a) {\n        assert(0 <= a && a\
-    \ < _n);\n        if (parent_or_size[a] < 0) return a;\n        return parent_or_size[a]\
-    \ = leader(parent_or_size[a]);\n    }\n\n    int size(int a) {\n        assert(0\
-    \ <= a && a < _n);\n        return -parent_or_size[leader(a)];\n    }\n\n    std::vector<std::vector<int>>\
-    \ groups() {\n        std::vector<int> leader_buf(_n), group_size(_n);\n     \
-    \   for (int i = 0; i < _n; i++) {\n            leader_buf[i] = leader(i);\n \
-    \           group_size[leader_buf[i]]++;\n        }\n        std::vector<std::vector<int>>\
-    \ result(_n);\n        for (int i = 0; i < _n; i++) {\n            result[i].reserve(group_size[i]);\n\
-    \        }\n        for (int i = 0; i < _n; i++) {\n            result[leader_buf[i]].push_back(i);\n\
+    \ segtree(const std::vector<S>& v) : _n(int(v.size())) {\n        size = (int)internal::bit_ceil((unsigned\
+    \ int)(_n));\n        log = internal::countr_zero((unsigned int)size);\n     \
+    \   d = std::vector<S>(2 * size, e());\n        for (int i = 0; i < _n; i++) d[size\
+    \ + i] = v[i];\n        for (int i = size - 1; i >= 1; i--) {\n            update(i);\n\
+    \        }\n    }\n\n    void set(int p, S x) {\n        assert(0 <= p && p <\
+    \ _n);\n        p += size;\n        d[p] = x;\n        for (int i = 1; i <= log;\
+    \ i++) update(p >> i);\n    }\n\n    S get(int p) const {\n        assert(0 <=\
+    \ p && p < _n);\n        return d[p + size];\n    }\n\n    S prod(int l, int r)\
+    \ const {\n        assert(0 <= l && l <= r && r <= _n);\n        S sml = e(),\
+    \ smr = e();\n        l += size;\n        r += size;\n\n        while (l < r)\
+    \ {\n            if (l & 1) sml = op(sml, d[l++]);\n            if (r & 1) smr\
+    \ = op(d[--r], smr);\n            l >>= 1;\n            r >>= 1;\n        }\n\
+    \        return op(sml, smr);\n    }\n\n    S all_prod() const { return d[1];\
+    \ }\n\n    template <bool (*f)(S)> int max_right(int l) const {\n        return\
+    \ max_right(l, [](S x) { return f(x); });\n    }\n    template <class F> int max_right(int\
+    \ l, F f) const {\n        assert(0 <= l && l <= _n);\n        assert(f(e()));\n\
+    \        if (l == _n) return _n;\n        l += size;\n        S sm = e();\n  \
+    \      do {\n            while (l % 2 == 0) l >>= 1;\n            if (!f(op(sm,\
+    \ d[l]))) {\n                while (l < size) {\n                    l = (2 *\
+    \ l);\n                    if (f(op(sm, d[l]))) {\n                        sm\
+    \ = op(sm, d[l]);\n                        l++;\n                    }\n     \
+    \           }\n                return l - size;\n            }\n            sm\
+    \ = op(sm, d[l]);\n            l++;\n        } while ((l & -l) != l);\n      \
+    \  return _n;\n    }\n\n    template <bool (*f)(S)> int min_left(int r) const\
+    \ {\n        return min_left(r, [](S x) { return f(x); });\n    }\n    template\
+    \ <class F> int min_left(int r, F f) const {\n        assert(0 <= r && r <= _n);\n\
+    \        assert(f(e()));\n        if (r == 0) return 0;\n        r += size;\n\
+    \        S sm = e();\n        do {\n            r--;\n            while (r > 1\
+    \ && (r % 2)) r >>= 1;\n            if (!f(op(d[r], sm))) {\n                while\
+    \ (r < size) {\n                    r = (2 * r + 1);\n                    if (f(op(d[r],\
+    \ sm))) {\n                        sm = op(d[r], sm);\n                      \
+    \  r--;\n                    }\n                }\n                return r +\
+    \ 1 - size;\n            }\n            sm = op(d[r], sm);\n        } while ((r\
+    \ & -r) != r);\n        return 0;\n    }\n\n  private:\n    int _n, size, log;\n\
+    \    std::vector<S> d;\n\n    void update(int k) { d[k] = op(d[2 * k], d[2 * k\
+    \ + 1]); }\n};\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/hld.hpp\"\n\n\n\
+    \n#line 5 \"tools/hld.hpp\"\n#include <cstddef>\n#include <iterator>\n#line 8\
+    \ \"tools/hld.hpp\"\n#include <limits>\n#include <stack>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\
+    \n\n\n\n#line 7 \"lib/ac-library/atcoder/dsu.hpp\"\n\nnamespace atcoder {\n\n\
+    // Implement (union by size) + (path compression)\n// Reference:\n// Zvi Galil\
+    \ and Giuseppe F. Italiano,\n// Data structures and algorithms for disjoint set\
+    \ union problems\nstruct dsu {\n  public:\n    dsu() : _n(0) {}\n    explicit\
+    \ dsu(int n) : _n(n), parent_or_size(n, -1) {}\n\n    int merge(int a, int b)\
+    \ {\n        assert(0 <= a && a < _n);\n        assert(0 <= b && b < _n);\n  \
+    \      int x = leader(a), y = leader(b);\n        if (x == y) return x;\n    \
+    \    if (-parent_or_size[x] < -parent_or_size[y]) std::swap(x, y);\n        parent_or_size[x]\
+    \ += parent_or_size[y];\n        parent_or_size[y] = x;\n        return x;\n \
+    \   }\n\n    bool same(int a, int b) {\n        assert(0 <= a && a < _n);\n  \
+    \      assert(0 <= b && b < _n);\n        return leader(a) == leader(b);\n   \
+    \ }\n\n    int leader(int a) {\n        assert(0 <= a && a < _n);\n        if\
+    \ (parent_or_size[a] < 0) return a;\n        return parent_or_size[a] = leader(parent_or_size[a]);\n\
+    \    }\n\n    int size(int a) {\n        assert(0 <= a && a < _n);\n        return\
+    \ -parent_or_size[leader(a)];\n    }\n\n    std::vector<std::vector<int>> groups()\
+    \ {\n        std::vector<int> leader_buf(_n), group_size(_n);\n        for (int\
+    \ i = 0; i < _n; i++) {\n            leader_buf[i] = leader(i);\n            group_size[leader_buf[i]]++;\n\
+    \        }\n        std::vector<std::vector<int>> result(_n);\n        for (int\
+    \ i = 0; i < _n; i++) {\n            result[i].reserve(group_size[i]);\n     \
+    \   }\n        for (int i = 0; i < _n; i++) {\n            result[leader_buf[i]].push_back(i);\n\
     \        }\n        result.erase(\n            std::remove_if(result.begin(),\
     \ result.end(),\n                           [&](const std::vector<int>& v) { return\
     \ v.empty(); }),\n            result.end());\n        return result;\n    }\n\n\
