@@ -426,9 +426,9 @@ data:
     \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
     \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
     \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
-    \ M::raw(z));\n  }\n}\n\n\n#line 11 \"tools/extended_lucas.hpp\"\n\nnamespace\
-    \ tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
-    \  // License: unknown\n  // Author: uwi\n\n  template <class M>\n  class extended_lucas\
+    \ M::raw(z));\n  }\n}\n\n\n#line 11 \"tools/extended_lucas.hpp\"\n\n// Source:\
+    \ https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n// License: unknown\n\
+    // Author: uwi\n\nnamespace tools {\n  template <class M>\n  class extended_lucas\
     \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<long\
     \ long> fact;\n      ::std::vector<long long> ifact;\n\n    public:\n      long\
     \ long p;\n      long long q;\n      long long P;\n\n      prime_power(const long\
@@ -503,7 +503,7 @@ data:
   isVerificationFile: true
   path: tests/extended_lucas.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:49:11+09:00'
+  timestamp: '2023-05-02 20:12:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extended_lucas.test.cpp

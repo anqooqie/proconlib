@@ -62,13 +62,13 @@ data:
     - https://judge.yosupo.jp/problem/division_of_big_integers
   bundledCode: "#line 1 \"tests/fastio/string.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_big_integers\"\
     \n\n#include <iostream>\n#include <string>\n#include <sstream>\n#line 1 \"tools/cin.hpp\"\
-    \n\n\n\n// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html\n\
-    // License: CC0 1.0 Universal\n// Author: Nyaan\n\n#include <cstring>\n#include\
-    \ <cstdio>\n#line 11 \"tools/cin.hpp\"\n#include <algorithm>\n#include <type_traits>\n\
-    #line 14 \"tools/cin.hpp\"\n#include <utility>\n\nnamespace tools {\n  namespace\
-    \ detail {\n    namespace istream {\n      static constexpr int SZ = 1 << 17;\n\
-    \      char inbuf[SZ];\n      int in_left = 0;\n      int in_right = 0;\n\n  \
-    \    void load() {\n        const int len = in_right - in_left;\n        ::std::memmove(inbuf,\
+    \n\n\n\n#include <cstring>\n#include <cstdio>\n#line 7 \"tools/cin.hpp\"\n#include\
+    \ <algorithm>\n#include <type_traits>\n#line 10 \"tools/cin.hpp\"\n#include <utility>\n\
+    \n// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html\n// License:\
+    \ CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  namespace detail\
+    \ {\n    namespace istream {\n      static constexpr int SZ = 1 << 17;\n     \
+    \ char inbuf[SZ];\n      int in_left = 0;\n      int in_right = 0;\n\n      void\
+    \ load() {\n        const int len = in_right - in_left;\n        ::std::memmove(inbuf,\
     \ inbuf + in_left, len);\n        in_right = len + ::std::fread(inbuf + len, 1,\
     \ SZ - len, stdin);\n        in_left = 0;\n      }\n\n      void skip_space()\
     \ {\n        if (in_left + 32 > in_right) load();\n        while (inbuf[in_left]\
@@ -95,22 +95,22 @@ data:
     \    }\n      }\n    }\n  }\n\n  struct istream {\n    template <typename... Args>\n\
     \    ::tools::istream& operator>>(Args&&... args) {\n      ::tools::detail::istream::rd(::std::forward<Args>(args)...);\n\
     \      return *this;\n    }\n  };\n\n  ::tools::istream cin;\n}\n\n\n#line 1 \"\
-    tools/cout.hpp\"\n\n\n\n// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html\n\
-    // License: CC0 1.0 Universal\n// Author: Nyaan\n\n#line 13 \"tools/cout.hpp\"\
-    \n#include <cstdint>\n#include <cstdlib>\n#line 17 \"tools/cout.hpp\"\n\nnamespace\
-    \ tools {\n  namespace detail {\n    namespace ostream {\n      static constexpr\
-    \ int SZ = 1 << 17;\n      char outbuf[SZ];\n      int out_right = 0;\n\n    \
-    \  struct Pre {\n        char num[40000];\n        constexpr Pre() : num() {\n\
-    \          for (int i = 0; i < 10000; i++) {\n            int n = i;\n       \
-    \     for (int j = 3; j >= 0; j--) {\n              num[i * 4 + j] = n % 10 +\
-    \ '0';\n              n /= 10;\n            }\n          }\n        }\n      }\
-    \ constexpr pre;\n\n      void flush() {\n        ::std::fwrite(outbuf, 1, out_right,\
-    \ stdout);\n        out_right = 0;\n      }\n\n      void wt(const char c) {\n\
-    \        if (out_right > SZ - 32) flush();\n        outbuf[out_right++] = c;\n\
-    \      }\n\n      void wt(const bool b) {\n        if (out_right > SZ - 32) flush();\n\
-    \        outbuf[out_right++] = b ? '1' : '0';\n      }\n\n      void wt(const\
-    \ ::std::string& s) {\n        for (int l = 0, w; l < int(s.size()); l += w) {\n\
-    \          w = ::std::min(int(s.size()) - l, SZ - out_right);\n          ::std::memcpy(outbuf\
+    tools/cout.hpp\"\n\n\n\n#line 9 \"tools/cout.hpp\"\n#include <cstdint>\n#include\
+    \ <cstdlib>\n#line 13 \"tools/cout.hpp\"\n\n// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html\n\
+    // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  namespace\
+    \ detail {\n    namespace ostream {\n      static constexpr int SZ = 1 << 17;\n\
+    \      char outbuf[SZ];\n      int out_right = 0;\n\n      struct Pre {\n    \
+    \    char num[40000];\n        constexpr Pre() : num() {\n          for (int i\
+    \ = 0; i < 10000; i++) {\n            int n = i;\n            for (int j = 3;\
+    \ j >= 0; j--) {\n              num[i * 4 + j] = n % 10 + '0';\n             \
+    \ n /= 10;\n            }\n          }\n        }\n      } constexpr pre;\n\n\
+    \      void flush() {\n        ::std::fwrite(outbuf, 1, out_right, stdout);\n\
+    \        out_right = 0;\n      }\n\n      void wt(const char c) {\n        if\
+    \ (out_right > SZ - 32) flush();\n        outbuf[out_right++] = c;\n      }\n\n\
+    \      void wt(const bool b) {\n        if (out_right > SZ - 32) flush();\n  \
+    \      outbuf[out_right++] = b ? '1' : '0';\n      }\n\n      void wt(const ::std::string&\
+    \ s) {\n        for (int l = 0, w; l < int(s.size()); l += w) {\n          w =\
+    \ ::std::min(int(s.size()) - l, SZ - out_right);\n          ::std::memcpy(outbuf\
     \ + out_right, s.data() + l, w);\n          out_right += w;\n          if (out_right\
     \ == SZ) flush();\n        }\n      }\n\n      void wt(const char * const s) {\n\
     \        wt(::std::string(s));\n      }\n\n      template <typename T>\n     \
@@ -903,7 +903,7 @@ data:
   isVerificationFile: true
   path: tests/fastio/string.test.cpp
   requiredBy: []
-  timestamp: '2023-05-01 06:00:19+09:00'
+  timestamp: '2023-05-02 20:12:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fastio/string.test.cpp

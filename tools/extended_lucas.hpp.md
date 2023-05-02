@@ -217,9 +217,9 @@ data:
     \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
     \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
     \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
-    \ M::raw(z));\n  }\n}\n\n\n#line 11 \"tools/extended_lucas.hpp\"\n\nnamespace\
-    \ tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
-    \  // License: unknown\n  // Author: uwi\n\n  template <class M>\n  class extended_lucas\
+    \ M::raw(z));\n  }\n}\n\n\n#line 11 \"tools/extended_lucas.hpp\"\n\n// Source:\
+    \ https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n// License: unknown\n\
+    // Author: uwi\n\nnamespace tools {\n  template <class M>\n  class extended_lucas\
     \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<long\
     \ long> fact;\n      ::std::vector<long long> ifact;\n\n    public:\n      long\
     \ long p;\n      long long q;\n      long long P;\n\n      prime_power(const long\
@@ -266,18 +266,18 @@ data:
   code: "#ifndef TOOLS_EXTENDED_LUCAS_HPP\n#define TOOLS_EXTENDED_LUCAS_HPP\n\n#include\
     \ <vector>\n#include <cassert>\n#include <utility>\n#include <iterator>\n#include\
     \ \"tools/prime_factorization.hpp\"\n#include \"tools/run_length.hpp\"\n#include\
-    \ \"tools/garner.hpp\"\n\nnamespace tools {\n\n  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
-    \  // License: unknown\n  // Author: uwi\n\n  template <class M>\n  class extended_lucas\
-    \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<long\
-    \ long> fact;\n      ::std::vector<long long> ifact;\n\n    public:\n      long\
-    \ long p;\n      long long q;\n      long long P;\n\n      prime_power(const long\
-    \ long p, const long long q) : p(p), q(q) {\n        this->P = 1;\n        for\
-    \ (long long i = 0; i < q; ++i) {\n          this->P *= p;\n        }\n\n    \
-    \    this->fact.resize(this->P + 1);\n        this->ifact.resize(this->P + 1);\n\
-    \n        this->fact[0] = 1 % this->P;\n        for (long long i = 1; i <= this->P;\
-    \ ++i) {\n          this->fact[i] = this->fact[i - 1] * (i % p == 0 ? 1 : i) %\
-    \ this->P;\n        }\n        for (long long i = 0; i <= this->P; ++i) {\n  \
-    \        long long ret = 1 % this->P;\n          long long mul = this->fact[i];\n\
+    \ \"tools/garner.hpp\"\n\n// Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n\
+    // License: unknown\n// Author: uwi\n\nnamespace tools {\n  template <class M>\n\
+    \  class extended_lucas {\n  private:\n    class prime_power {\n    private:\n\
+    \      ::std::vector<long long> fact;\n      ::std::vector<long long> ifact;\n\
+    \n    public:\n      long long p;\n      long long q;\n      long long P;\n\n\
+    \      prime_power(const long long p, const long long q) : p(p), q(q) {\n    \
+    \    this->P = 1;\n        for (long long i = 0; i < q; ++i) {\n          this->P\
+    \ *= p;\n        }\n\n        this->fact.resize(this->P + 1);\n        this->ifact.resize(this->P\
+    \ + 1);\n\n        this->fact[0] = 1 % this->P;\n        for (long long i = 1;\
+    \ i <= this->P; ++i) {\n          this->fact[i] = this->fact[i - 1] * (i % p ==\
+    \ 0 ? 1 : i) % this->P;\n        }\n        for (long long i = 0; i <= this->P;\
+    \ ++i) {\n          long long ret = 1 % this->P;\n          long long mul = this->fact[i];\n\
     \          for (long long n = this->P / p * (p - 1) - 1; n > 0; n /= 2) {\n  \
     \          if ((n & 1) == 1) {\n              ret = (ret * mul) % P;\n       \
     \     }\n            mul = (mul * mul) % P;\n          }\n          this->ifact[i]\
@@ -329,7 +329,7 @@ data:
   isVerificationFile: false
   path: tools/extended_lucas.hpp
   requiredBy: []
-  timestamp: '2022-11-23 11:49:11+09:00'
+  timestamp: '2023-05-02 20:12:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp

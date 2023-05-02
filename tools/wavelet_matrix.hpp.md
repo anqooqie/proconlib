@@ -46,8 +46,8 @@ data:
     \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
     \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
     \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 12 \"tools/wavelet_matrix.hpp\"\
-    \n\nnamespace tools {\n\n  // Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html\n\
-    \  // License: Unlicense\n  // Author: ei1333\n\n  struct succinct_indexable_dictionary\
+    \n\n// Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html\n\
+    // License: Unlicense\n// Author: ei1333\n\nnamespace tools {\n  struct succinct_indexable_dictionary\
     \ {\n    ::std::size_t length;\n    ::std::size_t blocks;\n    ::std::vector<unsigned\
     \ int> bit, sum;\n\n    succinct_indexable_dictionary() = default;\n\n    succinct_indexable_dictionary(::std::size_t\
     \ length) : length(length), blocks((length + 31) >> 5) {\n      bit.assign(blocks,\
@@ -124,8 +124,8 @@ data:
   code: "#ifndef TOOLS_WAVELET_MATRIX_HPP\n#define TOOLS_WAVELET_MATRIX_HPP\n\n#include\
     \ <cstddef>\n#include <vector>\n#include <utility>\n#include <tuple>\n#include\
     \ <cassert>\n#include <algorithm>\n#include <iterator>\n#include \"tools/popcount.hpp\"\
-    \n\nnamespace tools {\n\n  // Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html\n\
-    \  // License: Unlicense\n  // Author: ei1333\n\n  struct succinct_indexable_dictionary\
+    \n\n// Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html\n\
+    // License: Unlicense\n// Author: ei1333\n\nnamespace tools {\n  struct succinct_indexable_dictionary\
     \ {\n    ::std::size_t length;\n    ::std::size_t blocks;\n    ::std::vector<unsigned\
     \ int> bit, sum;\n\n    succinct_indexable_dictionary() = default;\n\n    succinct_indexable_dictionary(::std::size_t\
     \ length) : length(length), blocks((length + 31) >> 5) {\n      bit.assign(blocks,\
@@ -204,7 +204,7 @@ data:
   isVerificationFile: false
   path: tools/wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2023-05-02 20:12:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/wavelet_matrix.test.cpp
