@@ -381,6 +381,9 @@ data:
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
+      path: tools/preset_segtree_beats.hpp
+      title: tools/preset_segtree_beats.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
@@ -447,6 +450,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
+    - icon: ':heavy_check_mark:'
+      path: tools/segtree_beats.hpp
+      title: tools/segtree_beats.hpp
     - icon: ':heavy_check_mark:'
       path: tools/set.hpp
       title: Alias for __gnu_pbds::tree
@@ -757,6 +763,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/preset_segtree_beats.test.cpp
+      title: tests/preset_segtree_beats.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
