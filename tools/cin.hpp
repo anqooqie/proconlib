@@ -1,10 +1,6 @@
 #ifndef TOOLS_CIN_HPP
 #define TOOLS_CIN_HPP
 
-// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html
-// License: CC0 1.0 Universal
-// Author: Nyaan
-
 #include <cstring>
 #include <cstdio>
 #include <string>
@@ -12,6 +8,10 @@
 #include <type_traits>
 #include <iostream>
 #include <utility>
+
+// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html
+// License: CC0 1.0 Universal
+// Author: Nyaan
 
 namespace tools {
   namespace detail {

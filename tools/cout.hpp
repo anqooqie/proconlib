@@ -1,10 +1,6 @@
 #ifndef TOOLS_COUT_HPP
 #define TOOLS_COUT_HPP
 
-// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html
-// License: CC0 1.0 Universal
-// Author: Nyaan
-
 #include <cstdio>
 #include <string>
 #include <algorithm>
@@ -14,6 +10,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <utility>
+
+// Source: https://nyaannyaan.github.io/library/misc/fastio.hpp.html
+// License: CC0 1.0 Universal
+// Author: Nyaan
 
 namespace tools {
   namespace detail {

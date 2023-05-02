@@ -10,12 +10,11 @@
 #include <iterator>
 #include "tools/popcount.hpp"
 
+// Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html
+// License: Unlicense
+// Author: ei1333
+
 namespace tools {
-
-  // Source: https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.cpp.html
-  // License: Unlicense
-  // Author: ei1333
-
   struct succinct_indexable_dictionary {
     ::std::size_t length;
     ::std::size_t blocks;

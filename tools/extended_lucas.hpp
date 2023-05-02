@@ -9,12 +9,11 @@
 #include "tools/run_length.hpp"
 #include "tools/garner.hpp"
 
+// Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709
+// License: unknown
+// Author: uwi
+
 namespace tools {
-
-  // Source: https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709
-  // License: unknown
-  // Author: uwi
-
   template <class M>
   class extended_lucas {
   private:
