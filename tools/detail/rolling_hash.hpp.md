@@ -375,8 +375,8 @@ data:
   timestamp: '2023-01-08 21:04:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rolling_hash.test.cpp
   - tests/has_mod.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/detail/rolling_hash.hpp
 layout: document
 redirect_from:

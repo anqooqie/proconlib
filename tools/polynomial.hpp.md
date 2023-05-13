@@ -1217,9 +1217,9 @@ data:
   timestamp: '2022-12-31 23:40:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bostan_mori.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/bostan_mori.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
 title: Polynomial
