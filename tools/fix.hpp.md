@@ -3,9 +3,21 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/avl_tree.hpp
+    title: Lazy reversible self-balancing binary search tree based on AVL tree
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/avl_tree/binary_search.test.cpp
+    title: tests/avl_tree/binary_search.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/avl_tree/main_features.test.cpp
+    title: tests/avl_tree/main_features.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/avl_tree/set.test.cpp
+    title: tests/avl_tree/set.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
@@ -34,12 +46,16 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
+  - tools/avl_tree.hpp
   - tools/persistent_dual_segtree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/persistent_dual_segtree.test.cpp
   - tests/fix.test.cpp
+  - tests/avl_tree/set.test.cpp
+  - tests/avl_tree/binary_search.test.cpp
+  - tests/avl_tree/main_features.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator
