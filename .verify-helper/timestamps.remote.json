@@ -1,6 +1,9 @@
 {
 "tests/alphabetical_order.test.cpp": "2022-06-17 23:50:47 +0900",
 "tests/and_convolution.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/avl_tree/binary_search.test.cpp": "2023-06-18 15:00:55 +0900",
+"tests/avl_tree/main_features.test.cpp": "2023-06-18 15:00:55 +0900",
+"tests/avl_tree/set.test.cpp": "2023-06-18 15:00:55 +0900",
 "tests/bellman_ford.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/berlekamp_massey.test.cpp": "2022-10-08 19:22:04 +0900",
 "tests/bernoulli.test.cpp": "2023-01-01 16:24:26 +0900",
