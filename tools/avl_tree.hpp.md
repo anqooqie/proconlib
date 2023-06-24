@@ -463,8 +463,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/avl_tree/set.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/main_features.test.cpp
+  - tests/avl_tree/binary_search.test.cpp
 documentation_of: tools/avl_tree.hpp
 layout: document
 title: Lazy reversible self-balancing binary search tree based on AVL tree

@@ -306,21 +306,21 @@ data:
   isVerificationFile: false
   path: tools/ccw.hpp
   requiredBy:
+  - tools/greater_by_arg_total.hpp
   - tools/less_by_arg.hpp
   - tools/convex_hull.hpp
-  - tools/greater_by_arg_total.hpp
   - tools/greater_by_arg.hpp
   - tools/less_by_arg_total.hpp
   timestamp: '2023-02-11 13:03:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/convex_hull.test.cpp
   - tests/greater_by_arg.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/less_by_arg.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/ccw.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/greater_by_arg_total.test.cpp
   - tests/less_by_arg_total.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document
 title: Counter clockwise function

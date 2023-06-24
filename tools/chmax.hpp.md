@@ -49,12 +49,12 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rolling_hash.test.cpp
-  - tests/largest_rectangle_in_histogram.test.cpp
   - tests/next_matching.test.cpp
+  - tests/largest_rectangle_in_histogram.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

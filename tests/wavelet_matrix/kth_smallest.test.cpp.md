@@ -10,24 +10,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
+  - icon: ':heavy_check_mark:'
+    path: tools/wavelet_matrix.hpp
+    title: Wavelet matrix
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/kth_smallest.test.cpp
-    title: tests/wavelet_matrix/kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/range_freq.test.cpp
-    title: tests/wavelet_matrix/range_freq.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/range_kth_smallest
     links:
-    - https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html
-  bundledCode: "#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <cstdint>\n#include\
-    \ <vector>\n#include <algorithm>\n#include <iterator>\n#include <array>\n#include\
-    \ <utility>\n#include <cassert>\n#line 1 \"tools/bit_vector.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
+    - https://judge.yosupo.jp/problem/range_kth_smallest
+  bundledCode: "#line 1 \"tests/wavelet_matrix/kth_smallest.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\n#include <iostream>\n\
+    #include <vector>\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <cstdint>\n\
+    #line 6 \"tools/wavelet_matrix.hpp\"\n#include <algorithm>\n#include <iterator>\n\
+    #include <array>\n#include <utility>\n#include <cassert>\n#line 1 \"tools/bit_vector.hpp\"\
+    \n\n\n\n#line 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source:\
+    \ https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
     // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  class\
     \ bit_vector {\n  private:\n    using u32 = ::std::uint32_t;\n    using i64 =\
     \ ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    static constexpr u32\
@@ -137,233 +139,35 @@ data:
     \ r, cnt - 1);\n    }\n\n    // min v[i] s.t. (l <= i < r) && (lower <= v[i])\n\
     \    T next_value(int l, int r, T lower) {\n      assert(l <= r && r <= n);\n\
     \      assert(lower >= 0);\n\n      int cnt = range_freq(l, r, lower);\n     \
-    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_WAVELET_MATRIX_HPP\n#define TOOLS_WAVELET_MATRIX_HPP\n\n#include\
-    \ <cstdint>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n#include\
-    \ <array>\n#include <utility>\n#include <cassert>\n#include \"tools/bit_vector.hpp\"\
-    \n#include \"tools/floor_log2.hpp\"\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
-    // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class wavelet_matrix {\n  private:\n    using u32 = ::std::uint32_t;\n\
-    \    using i64 = ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    int\
-    \ n, lg;\n    ::std::vector<T> a;\n    ::std::vector<::tools::bit_vector> bv;\n\
-    \n  public:\n    wavelet_matrix() = default;\n    explicit wavelet_matrix(u32\
-    \ _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n    wavelet_matrix(const ::std::vector<T>&\
-    \ _a) : n(_a.size()), a(_a) { build(); }\n\n    __attribute__((optimize(\"O3\"\
-    ))) void build() {\n      assert(::std::all_of(::std::begin(a), ::std::end(a),\
-    \ [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
-    \ ::std::end(a)), 1)) + 1;\n      bv.assign(lg, ::tools::bit_vector(n));\n   \
-    \   ::std::vector<T> cur = a, nxt(n);\n      for (int h = lg - 1; h >= 0; --h)\
-    \ {\n        for (int i = 0; i < n; ++i)\n          if ((cur[i] >> h) & 1) bv[h].set(i);\n\
-    \        bv[h].build();\n        ::std::array<decltype(::std::begin(nxt)), 2>\
-    \ it{::std::begin(nxt), ::std::begin(nxt) + bv[h].zeros()};\n        for (int\
-    \ i = 0; i < n; ++i) *it[bv[h].get(i)]++ = cur[i];\n        ::std::swap(cur, nxt);\n\
-    \      }\n      return;\n    }\n\n    void set(u32 i, const T& x) {\n      assert(x\
-    \ >= 0);\n      a[i] = x; \n    }\n\n  private:\n    inline ::std::pair<u32, u32>\
-    \ succ0(int l, int r, int h) const {\n      return ::std::make_pair(bv[h].rank0(l),\
-    \ bv[h].rank0(r));\n    }\n\n    inline ::std::pair<u32, u32> succ1(int l, int\
-    \ r, int h) const {\n      u32 l0 = bv[h].rank0(l);\n      u32 r0 = bv[h].rank0(r);\n\
-    \      u32 zeros = bv[h].zeros();\n      return ::std::make_pair(l + zeros - l0,\
-    \ r + zeros - r0);\n    }\n\n  public:\n    // return a[k]\n    T access(u32 k)\
-    \ const {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h =\
-    \ lg - 1; h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1)\
-    \ << h : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n\
-    \      }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number\
-    \ in a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l\
-    \ <= r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
-    \ (int h = lg - 1; h >= 0; --h) {\n        u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);\n\
-    \        if (k < r0 - l0)\n          l = l0, r = r0;\n        else {\n       \
-    \   k -= r0 - l0;\n          res |= T(1) << h;\n          l += bv[h].zeros() -\
-    \ l0;\n          r += bv[h].zeros() - r0;\n        }\n      }\n      return res;\n\
-    \    }\n\n    // k-th (0-indexed) largest number in a[l, r)\n    T kth_largest(int\
-    \ l, int r, int k) {\n      assert(l <= r && r <= n);\n      assert(k < r - l);\n\
-    \n      return kth_smallest(l, r, r - l - k - 1);\n    }\n\n    // count i s.t.\
-    \ (l <= i < r) && (v[i] < upper)\n    int range_freq(int l, int r, T upper) {\n\
-    \      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      if (upper\
-    \ >= (T(1) << lg)) return r - l;\n      int ret = 0;\n      for (int h = lg -\
-    \ 1; h >= 0; --h) {\n        bool f = (upper >> h) & 1;\n        u32 l0 = bv[h].rank0(l),\
-    \ r0 = bv[h].rank0(r);\n        if (f) {\n          ret += r0 - l0;\n        \
-    \  l += bv[h].zeros() - l0;\n          r += bv[h].zeros() - r0;\n        } else\
-    \ {\n          l = l0;\n          r = r0;\n        }\n      }\n      return ret;\n\
-    \    }\n\n    int range_freq(int l, int r, T lower, T upper) {\n      assert(l\
-    \ <= r && r <= n);\n      assert(0 <= lower && lower <= upper);\n\n      return\
-    \ range_freq(l, r, upper) - range_freq(l, r, lower);\n    }\n\n    // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] < upper)\n    T prev_value(int l, int r, T upper)\
-    \ {\n      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      int cnt\
-    \ = range_freq(l, r, upper);\n      return cnt == 0 ? T(-1) : kth_smallest(l,\
-    \ r, cnt - 1);\n    }\n\n    // min v[i] s.t. (l <= i < r) && (lower <= v[i])\n\
-    \    T next_value(int l, int r, T lower) {\n      assert(l <= r && r <= n);\n\
-    \      assert(lower >= 0);\n\n      int cnt = range_freq(l, r, lower);\n     \
-    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n#endif\n"
+    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n\n\
+    #line 6 \"tests/wavelet_matrix/kth_smallest.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, Q;\n  std::cin >> N >> Q;\n\
+    \  std::vector<int> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  tools::wavelet_matrix<int>\
+    \ wm(a);\n  for (int q = 0; q < Q; ++q) {\n    int l, r, k;\n    std::cin >> l\
+    \ >> r >> k;\n    std::cout << wm.kth_smallest(l, r, k) << \"\\n\";\n  }\n\n \
+    \ return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\n\
+    #include <iostream>\n#include <vector>\n#include \"tools/wavelet_matrix.hpp\"\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<int> a(N);\n  for (auto& a_i\
+    \ : a) std::cin >> a_i;\n\n  tools::wavelet_matrix<int> wm(a);\n  for (int q =\
+    \ 0; q < Q; ++q) {\n    int l, r, k;\n    std::cin >> l >> r >> k;\n    std::cout\
+    \ << wm.kth_smallest(l, r, k) << \"\\n\";\n  }\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/wavelet_matrix.hpp
   - tools/bit_vector.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
-  isVerificationFile: false
-  path: tools/wavelet_matrix.hpp
+  isVerificationFile: true
+  path: tests/wavelet_matrix/kth_smallest.test.cpp
   requiredBy: []
   timestamp: '2023-06-25 00:33:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-documentation_of: tools/wavelet_matrix.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/wavelet_matrix/kth_smallest.test.cpp
 layout: document
-title: Wavelet matrix
+redirect_from:
+- /verify/tests/wavelet_matrix/kth_smallest.test.cpp
+- /verify/tests/wavelet_matrix/kth_smallest.test.cpp.html
+title: tests/wavelet_matrix/kth_smallest.test.cpp
 ---
-
-It is a non-negative integer sequence $(a_0, a_1, \ldots, a_{n - 1})$.
-It processes the following queries in $O(\log \max(a_i))$ time.
-
-- Calculating the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
-- Calculating the $k$-th ($0$-indexed) largest number in `a[l, r)`.
-- Calculating $\|\\{i \in \mathbb{N} \mid l \leq i < r \land b \leq a_i < t \\}\|$.
-- Calculating the maximum $a_i$ such that $l \leq i < r$ and $a_i < t$.
-- Calculating the minimum $a_i$ such that $l \leq i < r$ and $b \leq a_i$.
-
-### License
-- CC0 1.0 Universal
-
-### Author
-- Nyaan
-
-## Constructor
-```cpp
-(1) wavelet_matrix<T> a(std::uint32_t n)
-(2) wavelet_matrix<T> a(std::vector<T> v);
-```
-
-- (1)
-    - It creates a non-negative integer sequence of length $n$ filled with $0$.
-- (2)
-    - It creates a non-negative integer sequence initialized with `v`.
-    - After construction, `a.built()` gets automatically called.
-
-### Constraints
-- (2)
-    - `std::all_of(v.begin(), v.end(), [](T v_i) { return v_i >= 0; })`
-
-### Time Complexity
-- (1)
-    - $O(n)$
-- (2)
-    - $O(n \log \max(a_i))$
-
-## set
-```cpp
-void a.set(std::uint32_t i, T x);
-```
-
-It updates $a_i$ to $x$.
-
-### Constraints
-- $0 \leq i < n$
-- $x \geq 0$
-
-### Time Complexity
-- $O(1)$
-
-## build
-```cpp
-void a.build();
-```
-
-It internally creates the the data structure called as wavelet matrix.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n \log \max(a_i))$
-
-## access
-```cpp
-T a.access(std::uint32_t i);
-```
-
-It returns $a_i$.
-
-### Constraints
-- $0 \leq i < n$
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## kth_smallest
-```cpp
-T a.kth_smallest(std::uint32_t l, std::uint32_t r, std::uint32_t k);
-```
-
-It returns the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $0 \leq k < r - l$
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## kth_largest
-```cpp
-T a.kth_largest(std::uint32_t l, std::uint32_t r, std::uint32_t k);
-```
-
-It returns the $k$-th ($0$-indexed) largest number in `a[l, r)`.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $0 \leq k < r - l$
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## range_freq
-```cpp
-(1) T a.range_freq(int l, int r, T t);
-(2) T a.range_freq(int l, int r, T b, T t);
-```
-
-- (1)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land a_i < t \\}\|$.
-- (2)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land b \leq a_i < t \\}\|$.
-
-### Constraints
-- (1)
-    - $0 \leq l \leq r \leq n$
-    - $t \geq 0$
-- (2)
-    - $0 \leq l \leq r \leq n$
-    - $0 \leq b \leq t$
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## prev_value
-```cpp
-T a.prev_value(int l, int r, T t);
-```
-
-It returns the maximum $a_i$ such that $l \leq i < r$ and $a_i < t$.
-If such the $a_i$ does not exist, it returns $-1$.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $t \geq 0$
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## next_value
-```cpp
-T a.next_value(int l, int r, T b);
-```
-
-It returns the minimum $a_i$ such that $l \leq i < r$ and $b \leq a_i$.
-If such the $a_i$ does not exist, it returns $-1$.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $b \geq 0$
-
-### Time Complexity
-- $O(\log \max(a_i))$

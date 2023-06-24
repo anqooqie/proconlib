@@ -94,8 +94,8 @@ data:
   timestamp: '2022-04-16 10:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lis.test.cpp
   - tests/persistent_stack.test.cpp
+  - tests/lis.test.cpp
 documentation_of: tools/persistent_stack.hpp
 layout: document
 title: Persistent stack

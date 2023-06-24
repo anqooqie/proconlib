@@ -43,6 +43,9 @@ data:
       path: tools/bipartite_matching.hpp
       title: Matching on bipartite graph
     - icon: ':heavy_check_mark:'
+      path: tools/bit_vector.hpp
+      title: Bit vector
+    - icon: ':heavy_check_mark:'
       path: tools/bostan_mori.hpp
       title: Bostan-Mori algorithm
     - icon: ':heavy_check_mark:'
@@ -848,9 +851,6 @@ data:
       path: tests/util.test.cpp
       title: tests/util.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/wavelet_matrix.test.cpp
-      title: tests/wavelet_matrix.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
   - name: tests/avl_tree
@@ -1143,6 +1143,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort/query.test.cpp
       title: tests/tsort/query.test.cpp
+  - name: tests/wavelet_matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix/kth_smallest.test.cpp
+      title: tests/wavelet_matrix/kth_smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix/range_freq.test.cpp
+      title: tests/wavelet_matrix/range_freq.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
     - icon: ':heavy_check_mark:'

@@ -236,79 +236,79 @@ data:
   isVerificationFile: false
   path: tools/abs.hpp
   requiredBy:
-  - tools/vector2.hpp
-  - tools/less_by_arg.hpp
+  - tools/bigdecimal.hpp
+  - tools/vector.hpp
+  - tools/triangle_2d.hpp
   - tools/detail/vector_common.hpp
   - tools/detail/geometry_2d.hpp
-  - tools/rational.hpp
-  - tools/circle_2d.hpp
-  - tools/vector4.hpp
-  - tools/bigdecimal.hpp
-  - tools/ccw.hpp
-  - tools/vector.hpp
-  - tools/polygon_2d.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/convex_hull.hpp
   - tools/greater_by_arg_total.hpp
-  - tools/quaternion.hpp
-  - tools/greater_by_arg.hpp
-  - tools/triangle_2d.hpp
-  - tools/less_by_arg_total.hpp
-  - tools/half_line_2d.hpp
+  - tools/circle_2d.hpp
   - tools/line_2d.hpp
-  - tools/matrix.hpp
-  - tools/vector3.hpp
+  - tools/less_by_arg.hpp
+  - tools/half_line_2d.hpp
+  - tools/quaternion.hpp
+  - tools/convex_hull.hpp
+  - tools/greater_by_arg.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/bigint.hpp
+  - tools/vector2.hpp
+  - tools/rational.hpp
+  - tools/polygon_2d.hpp
+  - tools/vector3.hpp
+  - tools/ccw.hpp
+  - tools/matrix.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/vector4.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/greater_by_arg.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/less_by_arg.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/random.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
+  - tests/fastio/string.test.cpp
   - tests/ccw.test.cpp
-  - tests/less_by_arg_total.test.cpp
   - tests/matrix/determinant.test.cpp
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: std::abs(x) extended for my library
