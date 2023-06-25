@@ -90,11 +90,12 @@ data:
     \ <typename T>\n  class wavelet_matrix {\n  private:\n    using u32 = ::std::uint32_t;\n\
     \    using i64 = ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    int\
     \ n, lg;\n    ::std::vector<T> a;\n    ::std::vector<::tools::bit_vector> bv;\n\
-    \n  public:\n    wavelet_matrix() = default;\n    explicit wavelet_matrix(u32\
-    \ _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n    wavelet_matrix(const ::std::vector<T>&\
-    \ _a) : n(_a.size()), a(_a) { build(); }\n\n    __attribute__((optimize(\"O3\"\
-    ))) void build() {\n      assert(::std::all_of(::std::begin(a), ::std::end(a),\
-    \ [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
+    \n  public:\n    wavelet_matrix() = default;\n    wavelet_matrix(const wavelet_matrix<T>&)\
+    \ = default;\n    wavelet_matrix<T>& operator=(const wavelet_matrix<T>&) = default;\n\
+    \n    explicit wavelet_matrix(u32 _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n \
+    \   wavelet_matrix(const ::std::vector<T>& _a) : n(_a.size()), a(_a) { build();\
+    \ }\n\n    __attribute__((optimize(\"O3\"))) void build() {\n      assert(::std::all_of(::std::begin(a),\
+    \ ::std::end(a), [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
     \ ::std::end(a)), 1)) + 1;\n      bv.assign(lg, ::tools::bit_vector(n));\n   \
     \   ::std::vector<T> cur = a, nxt(n);\n      for (int h = lg - 1; h >= 0; --h)\
     \ {\n        for (int i = 0; i < n; ++i)\n          if ((cur[i] >> h) & 1) bv[h].set(i);\n\
@@ -102,18 +103,13 @@ data:
     \ it{::std::begin(nxt), ::std::begin(nxt) + bv[h].zeros()};\n        for (int\
     \ i = 0; i < n; ++i) *it[bv[h].get(i)]++ = cur[i];\n        ::std::swap(cur, nxt);\n\
     \      }\n      return;\n    }\n\n    void set(u32 i, const T& x) {\n      assert(x\
-    \ >= 0);\n      a[i] = x; \n    }\n\n  private:\n    inline ::std::pair<u32, u32>\
-    \ succ0(int l, int r, int h) const {\n      return ::std::make_pair(bv[h].rank0(l),\
-    \ bv[h].rank0(r));\n    }\n\n    inline ::std::pair<u32, u32> succ1(int l, int\
-    \ r, int h) const {\n      u32 l0 = bv[h].rank0(l);\n      u32 r0 = bv[h].rank0(r);\n\
-    \      u32 zeros = bv[h].zeros();\n      return ::std::make_pair(l + zeros - l0,\
-    \ r + zeros - r0);\n    }\n\n  public:\n    // return a[k]\n    T access(u32 k)\
-    \ const {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h =\
-    \ lg - 1; h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1)\
-    \ << h : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n\
-    \      }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number\
-    \ in a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l\
-    \ <= r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
+    \ >= 0);\n      a[i] = x; \n    }\n\n    // return a[k]\n    T access(u32 k) const\
+    \ {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h = lg - 1;\
+    \ h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1) << h\
+    \ : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n   \
+    \   }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number in\
+    \ a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l <=\
+    \ r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
     \ (int h = lg - 1; h >= 0; --h) {\n        u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);\n\
     \        if (k < r0 - l0)\n          l = l0, r = r0;\n        else {\n       \
     \   k -= r0 - l0;\n          res |= T(1) << h;\n          l += bv[h].zeros() -\
@@ -146,11 +142,12 @@ data:
     \ <typename T>\n  class wavelet_matrix {\n  private:\n    using u32 = ::std::uint32_t;\n\
     \    using i64 = ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    int\
     \ n, lg;\n    ::std::vector<T> a;\n    ::std::vector<::tools::bit_vector> bv;\n\
-    \n  public:\n    wavelet_matrix() = default;\n    explicit wavelet_matrix(u32\
-    \ _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n    wavelet_matrix(const ::std::vector<T>&\
-    \ _a) : n(_a.size()), a(_a) { build(); }\n\n    __attribute__((optimize(\"O3\"\
-    ))) void build() {\n      assert(::std::all_of(::std::begin(a), ::std::end(a),\
-    \ [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
+    \n  public:\n    wavelet_matrix() = default;\n    wavelet_matrix(const wavelet_matrix<T>&)\
+    \ = default;\n    wavelet_matrix<T>& operator=(const wavelet_matrix<T>&) = default;\n\
+    \n    explicit wavelet_matrix(u32 _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n \
+    \   wavelet_matrix(const ::std::vector<T>& _a) : n(_a.size()), a(_a) { build();\
+    \ }\n\n    __attribute__((optimize(\"O3\"))) void build() {\n      assert(::std::all_of(::std::begin(a),\
+    \ ::std::end(a), [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
     \ ::std::end(a)), 1)) + 1;\n      bv.assign(lg, ::tools::bit_vector(n));\n   \
     \   ::std::vector<T> cur = a, nxt(n);\n      for (int h = lg - 1; h >= 0; --h)\
     \ {\n        for (int i = 0; i < n; ++i)\n          if ((cur[i] >> h) & 1) bv[h].set(i);\n\
@@ -158,18 +155,13 @@ data:
     \ it{::std::begin(nxt), ::std::begin(nxt) + bv[h].zeros()};\n        for (int\
     \ i = 0; i < n; ++i) *it[bv[h].get(i)]++ = cur[i];\n        ::std::swap(cur, nxt);\n\
     \      }\n      return;\n    }\n\n    void set(u32 i, const T& x) {\n      assert(x\
-    \ >= 0);\n      a[i] = x; \n    }\n\n  private:\n    inline ::std::pair<u32, u32>\
-    \ succ0(int l, int r, int h) const {\n      return ::std::make_pair(bv[h].rank0(l),\
-    \ bv[h].rank0(r));\n    }\n\n    inline ::std::pair<u32, u32> succ1(int l, int\
-    \ r, int h) const {\n      u32 l0 = bv[h].rank0(l);\n      u32 r0 = bv[h].rank0(r);\n\
-    \      u32 zeros = bv[h].zeros();\n      return ::std::make_pair(l + zeros - l0,\
-    \ r + zeros - r0);\n    }\n\n  public:\n    // return a[k]\n    T access(u32 k)\
-    \ const {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h =\
-    \ lg - 1; h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1)\
-    \ << h : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n\
-    \      }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number\
-    \ in a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l\
-    \ <= r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
+    \ >= 0);\n      a[i] = x; \n    }\n\n    // return a[k]\n    T access(u32 k) const\
+    \ {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h = lg - 1;\
+    \ h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1) << h\
+    \ : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n   \
+    \   }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number in\
+    \ a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l <=\
+    \ r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
     \ (int h = lg - 1; h >= 0; --h) {\n        u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);\n\
     \        if (k < r0 - l0)\n          l = l0, r = r0;\n        else {\n       \
     \   k -= r0 - l0;\n          res |= T(1) << h;\n          l += bv[h].zeros() -\
@@ -201,7 +193,7 @@ data:
   isVerificationFile: false
   path: tools/wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2023-06-25 00:33:03+09:00'
+  timestamp: '2023-06-25 14:36:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/wavelet_matrix/range_freq.test.cpp
@@ -216,9 +208,9 @@ It processes the following queries in $O(\log \max(a_i))$ time.
 
 - Calculating the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
 - Calculating the $k$-th ($0$-indexed) largest number in `a[l, r)`.
-- Calculating $\|\\{i \in \mathbb{N} \mid l \leq i < r \land b \leq a_i < t \\}\|$.
-- Calculating the maximum $a_i$ such that $l \leq i < r$ and $a_i < t$.
-- Calculating the minimum $a_i$ such that $l \leq i < r$ and $b \leq a_i$.
+- Calculating $\|\\{i \in \mathbb{N} \mid l \leq i < r \land d \leq a_i < u \\}\|$.
+- Calculating the maximum $a_i$ such that $l \leq i < r$ and $a_i < u$.
+- Calculating the minimum $a_i$ such that $l \leq i < r$ and $d \leq a_i$.
 
 ### License
 - CC0 1.0 Universal
@@ -228,7 +220,7 @@ It processes the following queries in $O(\log \max(a_i))$ time.
 
 ## Constructor
 ```cpp
-(1) wavelet_matrix<T> a(std::uint32_t n)
+(1) wavelet_matrix<T> a(std::uint32_t n);
 (2) wavelet_matrix<T> a(std::vector<T> v);
 ```
 
@@ -258,6 +250,7 @@ It updates $a_i$ to $x$.
 ### Constraints
 - $0 \leq i < n$
 - $x \geq 0$
+- `a.build()` has not been called ever.
 
 ### Time Complexity
 - $O(1)$
@@ -270,7 +263,7 @@ void a.build();
 It internally creates the the data structure called as wavelet matrix.
 
 ### Constraints
-- None
+- `a.build()` has not been called ever.
 
 ### Time Complexity
 - $O(n \log \max(a_i))$
@@ -284,6 +277,7 @@ It returns $a_i$.
 
 ### Constraints
 - $0 \leq i < n$
+- `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$
@@ -298,6 +292,7 @@ It returns the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
 ### Constraints
 - $0 \leq l \leq r \leq n$
 - $0 \leq k < r - l$
+- `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$
@@ -312,58 +307,63 @@ It returns the $k$-th ($0$-indexed) largest number in `a[l, r)`.
 ### Constraints
 - $0 \leq l \leq r \leq n$
 - $0 \leq k < r - l$
+- `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$
 
 ## range_freq
 ```cpp
-(1) T a.range_freq(int l, int r, T t);
-(2) T a.range_freq(int l, int r, T b, T t);
+(1) T a.range_freq(int l, int r, T u);
+(2) T a.range_freq(int l, int r, T d, T u);
 ```
 
 - (1)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land a_i < t \\}\|$.
+    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land a_i < u \\}\|$.
 - (2)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land b \leq a_i < t \\}\|$.
+    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land d \leq a_i < u \\}\|$.
 
 ### Constraints
 - (1)
     - $0 \leq l \leq r \leq n$
-    - $t \geq 0$
+    - $u \geq 0$
+    - `a.build()` has been called ever.
 - (2)
     - $0 \leq l \leq r \leq n$
-    - $0 \leq b \leq t$
+    - $0 \leq d \leq u$
+    - `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$
 
 ## prev_value
 ```cpp
-T a.prev_value(int l, int r, T t);
+T a.prev_value(int l, int r, T u);
 ```
 
-It returns the maximum $a_i$ such that $l \leq i < r$ and $a_i < t$.
+It returns the maximum $a_i$ such that $l \leq i < r$ and $a_i < u$.
 If such the $a_i$ does not exist, it returns $-1$.
 
 ### Constraints
 - $0 \leq l \leq r \leq n$
-- $t \geq 0$
+- $u \geq 0$
+- `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$
 
 ## next_value
 ```cpp
-T a.next_value(int l, int r, T b);
+T a.next_value(int l, int r, T d);
 ```
 
-It returns the minimum $a_i$ such that $l \leq i < r$ and $b \leq a_i$.
+It returns the minimum $a_i$ such that $l \leq i < r$ and $d \leq a_i$.
 If such the $a_i$ does not exist, it returns $-1$.
 
 ### Constraints
 - $0 \leq l \leq r \leq n$
-- $b \geq 0$
+- $d \geq 0$
+- `a.build()` has been called ever.
 
 ### Time Complexity
 - $O(\log \max(a_i))$

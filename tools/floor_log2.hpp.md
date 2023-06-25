@@ -30,6 +30,9 @@ data:
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':heavy_check_mark:'
+    path: tools/rectangle_sum.hpp
+    title: Rectangle sum
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -75,6 +78,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rectangle_sum.test.cpp
+    title: tests/rectangle_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -152,6 +158,7 @@ data:
   path: tools/floor_log2.hpp
   requiredBy:
   - tools/prime_factorization.hpp
+  - tools/rectangle_sum.hpp
   - tools/divisors.hpp
   - tools/primitive_root.hpp
   - tools/tetration_mod.hpp
@@ -174,6 +181,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/rectangle_sum.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
   - tests/fps/exp_other_mods.test.cpp

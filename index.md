@@ -423,6 +423,9 @@ data:
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
     - icon: ':heavy_check_mark:'
+      path: tools/rectangle_sum.hpp
+      title: Rectangle sum
+    - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
     - icon: ':heavy_check_mark:'
@@ -790,6 +793,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rectangle_sum.test.cpp
+      title: tests/rectangle_sum.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/rerooting_dp.test.cpp
       title: tests/rerooting_dp.test.cpp

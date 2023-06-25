@@ -3,9 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/rectangle_sum.hpp
+    title: Rectangle sum
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/rectangle_sum.test.cpp
+    title: tests/rectangle_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
@@ -60,12 +66,14 @@ data:
   isVerificationFile: false
   path: tools/bit_vector.hpp
   requiredBy:
+  - tools/rectangle_sum.hpp
   - tools/wavelet_matrix.hpp
   timestamp: '2023-06-25 00:33:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/rectangle_sum.test.cpp
 documentation_of: tools/bit_vector.hpp
 layout: document
 title: Bit vector

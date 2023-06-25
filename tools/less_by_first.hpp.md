@@ -22,6 +22,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/rectangle_sum.hpp
+    title: Rectangle sum
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -75,6 +78,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/rectangle_sum.test.cpp
+    title: tests/rectangle_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -101,6 +107,7 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
+  - tools/rectangle_sum.hpp
   - tools/bernoulli.hpp
   - tools/stirling_2nd.hpp
   - tools/sparse_fps_pow.hpp
@@ -119,6 +126,7 @@ data:
   - tests/polynomial/naive_division.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/rectangle_sum.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/bostan_mori.test.cpp

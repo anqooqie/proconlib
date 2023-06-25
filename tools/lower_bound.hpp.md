@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/rectangle_sum.hpp
+    title: Rectangle sum
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
@@ -24,6 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/rectangle_sum.test.cpp
+    title: tests/rectangle_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -49,6 +55,7 @@ data:
   isVerificationFile: false
   path: tools/lower_bound.hpp
   requiredBy:
+  - tools/rectangle_sum.hpp
   - tools/li_chao_segtree.hpp
   - tools/inversion_number.hpp
   - tools/compress.hpp
@@ -59,6 +66,7 @@ data:
   - tests/range_of_digit_products.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/rectangle_sum.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document
 title: std::lower_bound, but returns index
