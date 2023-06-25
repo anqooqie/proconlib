@@ -29,6 +29,9 @@ namespace tools {
 
   public:
     wavelet_matrix() = default;
+    wavelet_matrix(const wavelet_matrix<T>&) = default;
+    wavelet_matrix<T>& operator=(const wavelet_matrix<T>&) = default;
+
     explicit wavelet_matrix(u32 _n) : n(::std::max<u32>(_n, 1)), a(n) {}
     wavelet_matrix(const ::std::vector<T>& _a) : n(_a.size()), a(_a) { build(); }
 
@@ -54,19 +57,6 @@ namespace tools {
       a[i] = x; 
     }
 
-  private:
-    inline ::std::pair<u32, u32> succ0(int l, int r, int h) const {
-      return ::std::make_pair(bv[h].rank0(l), bv[h].rank0(r));
-    }
-
-    inline ::std::pair<u32, u32> succ1(int l, int r, int h) const {
-      u32 l0 = bv[h].rank0(l);
-      u32 r0 = bv[h].rank0(r);
-      u32 zeros = bv[h].zeros();
-      return ::std::make_pair(l + zeros - l0, r + zeros - r0);
-    }
-
-  public:
     // return a[k]
     T access(u32 k) const {
       assert(k <= u32(n));
