@@ -6,12 +6,14 @@ while :; do
   if [ "$STATE" = 'waiting' ]; then
     sleep 10
   elif [ "$STATE" = 'running' ]; then
-    git pull origin main
+    git fetch auto
+    git merge auto/main
     git commit --allow-empty -m 'Rerun verification'
-    git push origin main
+    git push auto main
     sleep 30
   elif [ "$STATE" = 'completed' ]; then
-    git pull origin main
+    git fetch auto
+    git merge auto/main
     break
   fi
 done
