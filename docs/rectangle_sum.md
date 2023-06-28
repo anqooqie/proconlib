@@ -42,7 +42,7 @@ It asserts that $(x, y)$ will be added.
 
 ## build
 ```cpp
-void a.build();
+void rs.build();
 ```
 
 It internally creates the the data structure.
@@ -55,7 +55,7 @@ It internally creates the the data structure.
 
 ## add
 ```cpp
-void a.add(T x, T y, T w);
+void rs.add(T x, T y, T w);
 ```
 
 It adds a new point with weight $w$ at $(x, y)$.
