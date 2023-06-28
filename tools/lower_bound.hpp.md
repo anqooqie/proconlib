@@ -6,6 +6,9 @@ data:
     path: tools/compress.hpp
     title: Compress values
   - icon: ':heavy_check_mark:'
+    path: tools/compressor.hpp
+    title: Compress values (for more complicated cases)
+  - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
   - icon: ':heavy_check_mark:'
@@ -30,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rectangle_sum.test.cpp
     title: tests/rectangle_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/next_value.test.cpp
+    title: tests/wavelet_matrix/next_value.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -57,6 +63,7 @@ data:
   requiredBy:
   - tools/rectangle_sum.hpp
   - tools/li_chao_segtree.hpp
+  - tools/compressor.hpp
   - tools/inversion_number.hpp
   - tools/compress.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
@@ -66,6 +73,7 @@ data:
   - tests/range_of_digit_products.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/wavelet_matrix/next_value.test.cpp
   - tests/rectangle_sum.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document

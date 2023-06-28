@@ -5,32 +5,66 @@ data:
     path: tools/bit_vector.hpp
     title: Bit vector
   - icon: ':heavy_check_mark:'
+    path: tools/compressor.hpp
+    title: Compress values (for more complicated cases)
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
+    path: tools/less_by_get.hpp
+    title: std::less by std::get
+  - icon: ':heavy_check_mark:'
+    path: tools/lower_bound.hpp
+    title: std::lower_bound, but returns index
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
+  - icon: ':heavy_check_mark:'
+    path: tools/wavelet_matrix.hpp
+    title: Wavelet matrix
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/kth_smallest.test.cpp
-    title: tests/wavelet_matrix/kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/next_value.test.cpp
-    title: tests/wavelet_matrix/next_value.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/range_freq.test.cpp
-    title: tests/wavelet_matrix/range_freq.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C
     links:
-    - https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html
-  bundledCode: "#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <cstdint>\n#include\
-    \ <vector>\n#include <algorithm>\n#include <iterator>\n#include <array>\n#include\
-    \ <utility>\n#include <cassert>\n#line 1 \"tools/bit_vector.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
+    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C
+  bundledCode: "#line 1 \"tests/wavelet_matrix/next_value.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <tuple>\n#include <algorithm>\n#line 1 \"tools/compressor.hpp\"\
+    \n\n\n\n#line 6 \"tools/compressor.hpp\"\n#include <cassert>\n#line 1 \"tools/lower_bound.hpp\"\
+    \n\n\n\n#include <iterator>\n#line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <class ForwardIterator, class T>\n  auto lower_bound(ForwardIterator\
+    \ first, ForwardIterator last, const T& value) {\n    return ::std::distance(first,\
+    \ ::std::lower_bound(first, last, value));\n  }\n\n  template <class ForwardIterator,\
+    \ class T, class Compare>\n  auto lower_bound(ForwardIterator first, ForwardIterator\
+    \ last, const T& value, Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 8 \"tools/compressor.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  class compressor {\n  private:\n    ::std::vector<T>\
+    \ m_sorted;\n\n  public:\n    compressor() = default;\n    compressor(const ::tools::compressor<T>&)\
+    \ = default;\n    compressor(::tools::compressor<T>&&) = default;\n    ~compressor()\
+    \ = default;\n    ::tools::compressor<T>& operator=(const ::tools::compressor<T>&)\
+    \ = default;\n    ::tools::compressor<T>& operator=(::tools::compressor<T>&&)\
+    \ = default;\n\n    template <typename InputIterator>\n    compressor(InputIterator\
+    \ begin, InputIterator end) : m_sorted(begin, end) {\n      ::std::sort(this->m_sorted.begin(),\
+    \ this->m_sorted.end());\n      this->m_sorted.erase(::std::unique(this->m_sorted.begin(),\
+    \ this->m_sorted.end()), this->m_sorted.end());\n    }\n    compressor(const ::std::vector<T>&\
+    \ v) : compressor(v.begin(), v.end()) {\n    }\n\n    T size() const {\n     \
+    \ return this->m_sorted.size();\n    }\n    T compress(const T& x) const {\n \
+    \     const T i = ::tools::lower_bound(this->m_sorted.begin(), this->m_sorted.end(),\
+    \ x);\n      assert(i < this->size());\n      assert(this->m_sorted[i] == x);\n\
+    \      return i;\n    }\n    T decompress(const T& i) const {\n      assert(0\
+    \ <= i && i < this->size());\n      return this->m_sorted[i];\n    }\n\n    auto\
+    \ begin() {\n      return this->m_sorted.cbegin();\n    }\n    auto begin() const\
+    \ {\n      return this->m_sorted.cbegin();\n    }\n    auto end() {\n      return\
+    \ this->m_sorted.cend();\n    }\n    auto end() const {\n      return this->m_sorted.cend();\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <cstdint>\n\
+    #line 8 \"tools/wavelet_matrix.hpp\"\n#include <array>\n#include <utility>\n#line\
+    \ 1 \"tools/bit_vector.hpp\"\n\n\n\n#line 6 \"tools/bit_vector.hpp\"\n#include\
+    \ <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
     // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  class\
     \ bit_vector {\n  private:\n    using u32 = ::std::uint32_t;\n    using i64 =\
     \ ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    static constexpr u32\
@@ -136,238 +170,72 @@ data:
     \ r, cnt - 1);\n    }\n\n    // min v[i] s.t. (l <= i < r) && (lower <= v[i])\n\
     \    T next_value(int l, int r, T lower) {\n      assert(l <= r && r <= n);\n\
     \      assert(lower >= 0);\n\n      int cnt = range_freq(l, r, lower);\n     \
-    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_WAVELET_MATRIX_HPP\n#define TOOLS_WAVELET_MATRIX_HPP\n\n#include\
-    \ <cstdint>\n#include <vector>\n#include <algorithm>\n#include <iterator>\n#include\
-    \ <array>\n#include <utility>\n#include <cassert>\n#include \"tools/bit_vector.hpp\"\
-    \n#include \"tools/floor_log2.hpp\"\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
-    // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class wavelet_matrix {\n  private:\n    using u32 = ::std::uint32_t;\n\
-    \    using i64 = ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    int\
-    \ n, lg;\n    ::std::vector<T> a;\n    ::std::vector<::tools::bit_vector> bv;\n\
-    \n  public:\n    wavelet_matrix() = default;\n    wavelet_matrix(const wavelet_matrix<T>&)\
-    \ = default;\n    wavelet_matrix<T>& operator=(const wavelet_matrix<T>&) = default;\n\
-    \n    explicit wavelet_matrix(u32 _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n \
-    \   wavelet_matrix(const ::std::vector<T>& _a) : n(_a.size()), a(_a) { build();\
-    \ }\n\n    __attribute__((optimize(\"O3\"))) void build() {\n      assert(::std::all_of(::std::begin(a),\
-    \ ::std::end(a), [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
-    \ ::std::end(a)), 1)) + 1;\n      bv.assign(lg, ::tools::bit_vector(n));\n   \
-    \   ::std::vector<T> cur = a, nxt(n);\n      for (int h = lg - 1; h >= 0; --h)\
-    \ {\n        for (int i = 0; i < n; ++i)\n          if ((cur[i] >> h) & 1) bv[h].set(i);\n\
-    \        bv[h].build();\n        ::std::array<decltype(::std::begin(nxt)), 2>\
-    \ it{::std::begin(nxt), ::std::begin(nxt) + bv[h].zeros()};\n        for (int\
-    \ i = 0; i < n; ++i) *it[bv[h].get(i)]++ = cur[i];\n        ::std::swap(cur, nxt);\n\
-    \      }\n      return;\n    }\n\n    void set(u32 i, const T& x) {\n      assert(x\
-    \ >= 0);\n      a[i] = x; \n    }\n\n    // return a[k]\n    T access(u32 k) const\
-    \ {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h = lg - 1;\
-    \ h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1) << h\
-    \ : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n   \
-    \   }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number in\
-    \ a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l <=\
-    \ r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
-    \ (int h = lg - 1; h >= 0; --h) {\n        u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);\n\
-    \        if (k < r0 - l0)\n          l = l0, r = r0;\n        else {\n       \
-    \   k -= r0 - l0;\n          res |= T(1) << h;\n          l += bv[h].zeros() -\
-    \ l0;\n          r += bv[h].zeros() - r0;\n        }\n      }\n      return res;\n\
-    \    }\n\n    // k-th (0-indexed) largest number in a[l, r)\n    T kth_largest(int\
-    \ l, int r, int k) {\n      assert(l <= r && r <= n);\n      assert(k < r - l);\n\
-    \n      return kth_smallest(l, r, r - l - k - 1);\n    }\n\n    // count i s.t.\
-    \ (l <= i < r) && (v[i] < upper)\n    int range_freq(int l, int r, T upper) {\n\
-    \      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      if (upper\
-    \ >= (T(1) << lg)) return r - l;\n      int ret = 0;\n      for (int h = lg -\
-    \ 1; h >= 0; --h) {\n        bool f = (upper >> h) & 1;\n        u32 l0 = bv[h].rank0(l),\
-    \ r0 = bv[h].rank0(r);\n        if (f) {\n          ret += r0 - l0;\n        \
-    \  l += bv[h].zeros() - l0;\n          r += bv[h].zeros() - r0;\n        } else\
-    \ {\n          l = l0;\n          r = r0;\n        }\n      }\n      return ret;\n\
-    \    }\n\n    int range_freq(int l, int r, T lower, T upper) {\n      assert(l\
-    \ <= r && r <= n);\n      assert(0 <= lower && lower <= upper);\n\n      return\
-    \ range_freq(l, r, upper) - range_freq(l, r, lower);\n    }\n\n    // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] < upper)\n    T prev_value(int l, int r, T upper)\
-    \ {\n      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      int cnt\
-    \ = range_freq(l, r, upper);\n      return cnt == 0 ? T(-1) : kth_smallest(l,\
-    \ r, cnt - 1);\n    }\n\n    // min v[i] s.t. (l <= i < r) && (lower <= v[i])\n\
-    \    T next_value(int l, int r, T lower) {\n      assert(l <= r && r <= n);\n\
-    \      assert(lower >= 0);\n\n      int cnt = range_freq(l, r, lower);\n     \
-    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n#endif\n"
+    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n\n\
+    #line 1 \"tools/less_by_get.hpp\"\n\n\n\n#include <cstddef>\n#line 6 \"tools/less_by_get.hpp\"\
+    \n\nnamespace tools {\n\n  template <::std::size_t I>\n  struct less_by_get {\n\
+    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
+    \      return ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line\
+    \ 11 \"tests/wavelet_matrix/next_value.test.cpp\"\n\nusing ll = long long;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll n;\n  std::cin >> n;\n  std::vector<ll> xs, ys_raw;\n  std::vector<std::tuple<ll,\
+    \ ll, ll>> ps;\n  for (ll i = 0; i < n; ++i) {\n    ll x, y;\n    std::cin >>\
+    \ x >> y;\n    xs.push_back(x);\n    ys_raw.push_back(y);\n    ps.emplace_back(y,\
+    \ x, i);\n  }\n\n  std::sort(xs.begin(), xs.end());\n  tools::compressor<ll> ys(ys_raw.begin(),\
+    \ ys_raw.end());\n\n  tools::wavelet_matrix<ll> wm(n);\n  std::sort(ps.begin(),\
+    \ ps.end(), tools::less_by_get<1>());\n  for (ll i = 0; i < n; ++i) {\n    wm.set(i,\
+    \ ys.compress(std::get<0>(ps[i])));\n  }\n  wm.build();\n\n  std::sort(ps.begin(),\
+    \ ps.end());\n\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q < Q; ++q) {\n  \
+    \  ll sx, tx, sy, ty;\n    std::cin >> sx >> tx >> sy >> ty;\n    ++tx, ++ty;\n\
+    \n    std::vector<ll> answers;\n    const auto l = tools::lower_bound(xs.begin(),\
+    \ xs.end(), sx);\n    const auto r = tools::lower_bound(xs.begin(), xs.end(),\
+    \ tx);\n    for (ll yc, y = sy; (yc = wm.next_value(l, r, tools::lower_bound(ys.begin(),\
+    \ ys.end(), y))) >= 0 && (y = ys.decompress(yc)) < ty; ++y) {\n      for (auto\
+    \ it = std::lower_bound(ps.begin(), ps.end(), std::make_tuple(y, sx, 0)); it !=\
+    \ ps.end() && std::get<0>(*it) == y && std::get<1>(*it) < tx; ++it) {\n      \
+    \  answers.push_back(std::get<2>(*it));\n      }\n    }\n\n    std::sort(answers.begin(),\
+    \ answers.end());\n    for (const auto answer : answers) {\n      std::cout <<\
+    \ answer << '\\n';\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <tuple>\n#include <algorithm>\n\
+    #include \"tools/compressor.hpp\"\n#include \"tools/wavelet_matrix.hpp\"\n#include\
+    \ \"tools/less_by_get.hpp\"\n#include \"tools/lower_bound.hpp\"\n\nusing ll =\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll n;\n  std::cin >> n;\n  std::vector<ll> xs, ys_raw;\n  std::vector<std::tuple<ll,\
+    \ ll, ll>> ps;\n  for (ll i = 0; i < n; ++i) {\n    ll x, y;\n    std::cin >>\
+    \ x >> y;\n    xs.push_back(x);\n    ys_raw.push_back(y);\n    ps.emplace_back(y,\
+    \ x, i);\n  }\n\n  std::sort(xs.begin(), xs.end());\n  tools::compressor<ll> ys(ys_raw.begin(),\
+    \ ys_raw.end());\n\n  tools::wavelet_matrix<ll> wm(n);\n  std::sort(ps.begin(),\
+    \ ps.end(), tools::less_by_get<1>());\n  for (ll i = 0; i < n; ++i) {\n    wm.set(i,\
+    \ ys.compress(std::get<0>(ps[i])));\n  }\n  wm.build();\n\n  std::sort(ps.begin(),\
+    \ ps.end());\n\n  ll Q;\n  std::cin >> Q;\n  for (ll q = 0; q < Q; ++q) {\n  \
+    \  ll sx, tx, sy, ty;\n    std::cin >> sx >> tx >> sy >> ty;\n    ++tx, ++ty;\n\
+    \n    std::vector<ll> answers;\n    const auto l = tools::lower_bound(xs.begin(),\
+    \ xs.end(), sx);\n    const auto r = tools::lower_bound(xs.begin(), xs.end(),\
+    \ tx);\n    for (ll yc, y = sy; (yc = wm.next_value(l, r, tools::lower_bound(ys.begin(),\
+    \ ys.end(), y))) >= 0 && (y = ys.decompress(yc)) < ty; ++y) {\n      for (auto\
+    \ it = std::lower_bound(ps.begin(), ps.end(), std::make_tuple(y, sx, 0)); it !=\
+    \ ps.end() && std::get<0>(*it) == y && std::get<1>(*it) < tx; ++it) {\n      \
+    \  answers.push_back(std::get<2>(*it));\n      }\n    }\n\n    std::sort(answers.begin(),\
+    \ answers.end());\n    for (const auto answer : answers) {\n      std::cout <<\
+    \ answer << '\\n';\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/compressor.hpp
+  - tools/lower_bound.hpp
+  - tools/wavelet_matrix.hpp
   - tools/bit_vector.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
-  isVerificationFile: false
-  path: tools/wavelet_matrix.hpp
+  - tools/less_by_get.hpp
+  isVerificationFile: true
+  path: tests/wavelet_matrix/next_value.test.cpp
   requiredBy: []
-  timestamp: '2023-06-25 14:36:39+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/next_value.test.cpp
-documentation_of: tools/wavelet_matrix.hpp
+  timestamp: '2023-06-28 13:29:25+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/wavelet_matrix/next_value.test.cpp
 layout: document
-title: Wavelet matrix
+redirect_from:
+- /verify/tests/wavelet_matrix/next_value.test.cpp
+- /verify/tests/wavelet_matrix/next_value.test.cpp.html
+title: tests/wavelet_matrix/next_value.test.cpp
 ---
-
-It is a non-negative integer sequence $(a_0, a_1, \ldots, a_{n - 1})$.
-It processes the following queries in $O(\log \max(a_i))$ time.
-
-- Calculating the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
-- Calculating the $k$-th ($0$-indexed) largest number in `a[l, r)`.
-- Calculating $\|\\{i \in \mathbb{N} \mid l \leq i < r \land d \leq a_i < u \\}\|$.
-- Calculating the maximum $a_i$ such that $l \leq i < r$ and $a_i < u$.
-- Calculating the minimum $a_i$ such that $l \leq i < r$ and $d \leq a_i$.
-
-### License
-- CC0 1.0 Universal
-
-### Author
-- Nyaan
-
-## Constructor
-```cpp
-(1) wavelet_matrix<T> a(std::uint32_t n);
-(2) wavelet_matrix<T> a(std::vector<T> v);
-```
-
-- (1)
-    - It creates a non-negative integer sequence of length $n$ filled with $0$.
-- (2)
-    - It creates a non-negative integer sequence initialized with `v`.
-    - After construction, `a.built()` gets automatically called.
-
-### Constraints
-- (2)
-    - `std::all_of(v.begin(), v.end(), [](T v_i) { return v_i >= 0; })`
-
-### Time Complexity
-- (1)
-    - $O(n)$
-- (2)
-    - $O(n \log \max(a_i))$
-
-## set
-```cpp
-void a.set(std::uint32_t i, T x);
-```
-
-It updates $a_i$ to $x$.
-
-### Constraints
-- $0 \leq i < n$
-- $x \geq 0$
-- `a.build()` has not been called ever.
-
-### Time Complexity
-- $O(1)$
-
-## build
-```cpp
-void a.build();
-```
-
-It internally creates the the data structure called as wavelet matrix.
-
-### Constraints
-- `a.build()` has not been called ever.
-
-### Time Complexity
-- $O(n \log \max(a_i))$
-
-## access
-```cpp
-T a.access(std::uint32_t i);
-```
-
-It returns $a_i$.
-
-### Constraints
-- $0 \leq i < n$
-- `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## kth_smallest
-```cpp
-T a.kth_smallest(std::uint32_t l, std::uint32_t r, std::uint32_t k);
-```
-
-It returns the $k$-th ($0$-indexed) smallest number in `a[l, r)`.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $0 \leq k < r - l$
-- `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## kth_largest
-```cpp
-T a.kth_largest(std::uint32_t l, std::uint32_t r, std::uint32_t k);
-```
-
-It returns the $k$-th ($0$-indexed) largest number in `a[l, r)`.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $0 \leq k < r - l$
-- `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## range_freq
-```cpp
-(1) T a.range_freq(int l, int r, T u);
-(2) T a.range_freq(int l, int r, T d, T u);
-```
-
-- (1)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land a_i < u \\}\|$.
-- (2)
-    - It returns $\|\\{i \in \mathbb{N} \mid l \leq i < r \land d \leq a_i < u \\}\|$.
-
-### Constraints
-- (1)
-    - $0 \leq l \leq r \leq n$
-    - $u \geq 0$
-    - `a.build()` has been called ever.
-- (2)
-    - $0 \leq l \leq r \leq n$
-    - $0 \leq d \leq u$
-    - `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## prev_value
-```cpp
-T a.prev_value(int l, int r, T u);
-```
-
-It returns the maximum $a_i$ such that $l \leq i < r$ and $a_i < u$.
-If such the $a_i$ does not exist, it returns $-1$.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $u \geq 0$
-- `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$
-
-## next_value
-```cpp
-T a.next_value(int l, int r, T d);
-```
-
-It returns the minimum $a_i$ such that $l \leq i < r$ and $d \leq a_i$.
-If such the $a_i$ does not exist, it returns $-1$.
-
-### Constraints
-- $0 \leq l \leq r \leq n$
-- $d \geq 0$
-- `a.build()` has been called ever.
-
-### Time Complexity
-- $O(\log \max(a_i))$

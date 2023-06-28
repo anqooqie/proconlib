@@ -85,6 +85,9 @@ data:
       path: tools/compress.hpp
       title: Compress values
     - icon: ':heavy_check_mark:'
+      path: tools/compressor.hpp
+      title: Compress values (for more complicated cases)
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':heavy_check_mark:'
@@ -1154,6 +1157,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/wavelet_matrix/kth_smallest.test.cpp
       title: tests/wavelet_matrix/kth_smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix/next_value.test.cpp
+      title: tests/wavelet_matrix/next_value.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/wavelet_matrix/range_freq.test.cpp
       title: tests/wavelet_matrix/range_freq.test.cpp

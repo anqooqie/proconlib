@@ -16,6 +16,9 @@ data:
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/next_value.test.cpp
+    title: tests/wavelet_matrix/next_value.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_freq.test.cpp
     title: tests/wavelet_matrix/range_freq.test.cpp
   _isVerificationFailed: false
@@ -73,6 +76,7 @@ data:
   verifiedWith:
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/next_value.test.cpp
   - tests/rectangle_sum.test.cpp
 documentation_of: tools/bit_vector.hpp
 layout: document

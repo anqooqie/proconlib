@@ -115,6 +115,9 @@ data:
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/next_value.test.cpp
+    title: tests/wavelet_matrix/next_value.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_freq.test.cpp
     title: tests/wavelet_matrix/range_freq.test.cpp
   _isVerificationFailed: false
@@ -215,6 +218,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/next_value.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/rectangle_sum.test.cpp
   - tests/tetration_mod.test.cpp
