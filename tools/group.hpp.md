@@ -49,10 +49,10 @@ data:
   timestamp: '2021-11-12 22:35:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cumsum2d.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
   - tests/pdsu.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/cumsum2d.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

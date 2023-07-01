@@ -44,10 +44,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cycle_detection/undirected.test.cpp
+  - tests/tree_diameter.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/lis.test.cpp
-  - tests/tree_diameter.test.cpp
 documentation_of: tools/join.hpp
 layout: document
 title: Join elements with delimiter

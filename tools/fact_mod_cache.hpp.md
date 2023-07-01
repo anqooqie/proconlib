@@ -196,9 +196,9 @@ data:
   isVerificationFile: false
   path: tools/fact_mod_cache.hpp
   requiredBy:
+  - tools/sparse_fps_pow.hpp
   - tools/bernoulli.hpp
   - tools/stirling_2nd.hpp
-  - tools/sparse_fps_pow.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

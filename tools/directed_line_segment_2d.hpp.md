@@ -1008,9 +1008,9 @@ data:
   timestamp: '2022-12-04 17:44:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
 documentation_of: tools/directed_line_segment_2d.hpp
 layout: document
 title: Two-dimensional directed line segment

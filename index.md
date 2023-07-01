@@ -195,6 +195,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
+    - icon: ':x:'
+      path: tools/golden_section_search.hpp
+      title: Golden section search
     - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
@@ -694,6 +697,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/gcd_convolution.test.cpp
       title: tests/gcd_convolution.test.cpp
+    - icon: ':x:'
+      path: tests/golden_section_search.test.cpp
+      title: tests/golden_section_search.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp

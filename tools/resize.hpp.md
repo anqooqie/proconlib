@@ -67,8 +67,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/util.test.cpp
-  - tests/range_of_digit_products.test.cpp
   - tests/resize.test.cpp
+  - tests/range_of_digit_products.test.cpp
 documentation_of: tools/resize.hpp
 layout: document
 title: Resize a multi-dimensional vector
