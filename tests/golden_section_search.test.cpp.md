@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/golden_section_search.hpp
     title: Golden section search
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     ERROR: 1e-9
@@ -25,10 +25,9 @@ data:
     \ T l, const T r, const F& f, const bool search_maximum) -> ::std::pair<T, ::std::decay_t<decltype(f(::std::declval<T>()))>>\
     \ {\n    assert(l <= r);\n\n    using V = ::std::decay_t<decltype(f(::std::declval<T>()))>;\n\
     \    const auto comp = [&](const V x, const V y) { return search_maximum ? x <\
-    \ y : x > y; };\n    constexpr T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n  \
-    \  constexpr T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    constexpr int\
-    \ loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits /\
-    \ ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
+    \ y : x > y; };\n    const T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n    const\
+    \ T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    const int loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits\
+    \ / ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
     \    search[0] = ::std::make_pair(l, f(l));\n    search[3] = ::std::make_pair(r,\
     \ f(r));\n    T resolution = (r - l) * phi_inv;\n    search[2] = ::std::make_pair(l\
     \ + resolution, f(l + resolution));\n    resolution *= phi_inv;\n    search[1]\
@@ -43,27 +42,25 @@ data:
     \ [&](const auto& x, const auto& y) { return comp(x.second, y.second); });\n \
     \ }\n}\n\n\n#line 9 \"tests/golden_section_search.test.cpp\"\n\nint main() {\n\
     \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  double\
-    \ A, B;\n  std::cin >> A >> B;\n\n  constexpr auto pi = std::acos(-1);\n  static\
-    \ const auto f = [&](const auto theta) { return std::min(B / std::cos(theta),\
-    \ A / std::sin(pi / 3 + theta)); };\n\n  std::cout << std::fixed << std::setprecision(10)\
-    \ << tools::golden_section_search(0.0, pi / 6, f, true).second << '\\n';\n  return\
-    \ 0;\n}\n"
+    \ A, B;\n  std::cin >> A >> B;\n\n  const auto pi = std::acos(-1);\n  static const\
+    \ auto f = [&](const auto theta) { return std::min(B / std::cos(theta), A / std::sin(pi\
+    \ / 3 + theta)); };\n\n  std::cout << std::fixed << std::setprecision(10) << tools::golden_section_search(0.0,\
+    \ pi / 6, f, true).second << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc292/tasks/abc292_f\"\n#define\
     \ ERROR 1e-9\n\n#include <iostream>\n#include <cmath>\n#include <algorithm>\n\
     #include <iomanip>\n#include \"tools/golden_section_search.hpp\"\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  double\
-    \ A, B;\n  std::cin >> A >> B;\n\n  constexpr auto pi = std::acos(-1);\n  static\
-    \ const auto f = [&](const auto theta) { return std::min(B / std::cos(theta),\
-    \ A / std::sin(pi / 3 + theta)); };\n\n  std::cout << std::fixed << std::setprecision(10)\
-    \ << tools::golden_section_search(0.0, pi / 6, f, true).second << '\\n';\n  return\
-    \ 0;\n}\n"
+    \ A, B;\n  std::cin >> A >> B;\n\n  const auto pi = std::acos(-1);\n  static const\
+    \ auto f = [&](const auto theta) { return std::min(B / std::cos(theta), A / std::sin(pi\
+    \ / 3 + theta)); };\n\n  std::cout << std::fixed << std::setprecision(10) << tools::golden_section_search(0.0,\
+    \ pi / 6, f, true).second << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/golden_section_search.hpp
   isVerificationFile: true
   path: tests/golden_section_search.test.cpp
   requiredBy: []
   timestamp: '2023-07-01 22:51:03+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/golden_section_search.test.cpp
 layout: document

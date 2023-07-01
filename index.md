@@ -195,7 +195,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/golden_section_search.hpp
       title: Golden section search
     - icon: ':heavy_check_mark:'
@@ -697,7 +697,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/gcd_convolution.test.cpp
       title: tests/gcd_convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/golden_section_search.test.cpp
       title: tests/golden_section_search.test.cpp
     - icon: ':heavy_check_mark:'

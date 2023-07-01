@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/golden_section_search.test.cpp
     title: tests/golden_section_search.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/golden_section_search.hpp\"\n\n\n\n#include <utility>\n\
@@ -18,10 +18,9 @@ data:
     \ f, const bool search_maximum) -> ::std::pair<T, ::std::decay_t<decltype(f(::std::declval<T>()))>>\
     \ {\n    assert(l <= r);\n\n    using V = ::std::decay_t<decltype(f(::std::declval<T>()))>;\n\
     \    const auto comp = [&](const V x, const V y) { return search_maximum ? x <\
-    \ y : x > y; };\n    constexpr T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n  \
-    \  constexpr T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    constexpr int\
-    \ loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits /\
-    \ ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
+    \ y : x > y; };\n    const T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n    const\
+    \ T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    const int loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits\
+    \ / ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
     \    search[0] = ::std::make_pair(l, f(l));\n    search[3] = ::std::make_pair(r,\
     \ f(r));\n    T resolution = (r - l) * phi_inv;\n    search[2] = ::std::make_pair(l\
     \ + resolution, f(l + resolution));\n    resolution *= phi_inv;\n    search[1]\
@@ -42,10 +41,9 @@ data:
     \ const T r, const F& f, const bool search_maximum) -> ::std::pair<T, ::std::decay_t<decltype(f(::std::declval<T>()))>>\
     \ {\n    assert(l <= r);\n\n    using V = ::std::decay_t<decltype(f(::std::declval<T>()))>;\n\
     \    const auto comp = [&](const V x, const V y) { return search_maximum ? x <\
-    \ y : x > y; };\n    constexpr T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n  \
-    \  constexpr T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    constexpr int\
-    \ loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits /\
-    \ ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
+    \ y : x > y; };\n    const T phi = (::std::sqrt(T(5)) + T(1)) / T(2);\n    const\
+    \ T phi_inv = (::std::sqrt(T(5)) - T(1)) / T(2);\n    const int loop_count = static_cast<int>(::std::ceil(::std::numeric_limits<T>::digits\
+    \ / ::std::log2(phi))) - 2;\n\n    ::std::array<::std::pair<T, V>, 4> search;\n\
     \    search[0] = ::std::make_pair(l, f(l));\n    search[3] = ::std::make_pair(r,\
     \ f(r));\n    T resolution = (r - l) * phi_inv;\n    search[2] = ::std::make_pair(l\
     \ + resolution, f(l + resolution));\n    resolution *= phi_inv;\n    search[1]\
@@ -64,7 +62,7 @@ data:
   path: tools/golden_section_search.hpp
   requiredBy: []
   timestamp: '2023-07-01 22:51:03+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/golden_section_search.test.cpp
 documentation_of: tools/golden_section_search.hpp
