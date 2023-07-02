@@ -53,21 +53,21 @@ data:
     \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
     \ ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\
     \n\n\n\n#include <type_traits>\n#line 9 \"tools/safe_int.hpp\"\n#include <optional>\n\
-    \nnamespace tools {\n  template <typename T, typename = void>\n  class safe_int;\n\
-    \n  template <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>>\
-    \ {\n  private:\n    enum class type {\n      finite,\n      pos_inf,\n      neg_inf,\n\
-    \      nan\n    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\
-    \n    constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n \
-    \     m_type(type), m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int()\
-    \ :\n      m_type(::tools::safe_int<T>::type::finite), m_value(T()) {\n    }\n\
-    \    explicit constexpr safe_int(const T value) :\n      m_type(::tools::safe_int<T>::type::finite),\
-    \ m_value(value) {\n    }\n    constexpr safe_int(const ::tools::safe_int<T>&\
-    \ other) :\n      m_type(other.m_type), m_value(other.m_value) {\n    }\n    ~safe_int()\
-    \ = default;\n    constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>&\
-    \ other) {\n      this->m_type = other.m_type;\n      this->m_value = other.m_value;\n\
-    \      return *this;\n    }\n\n    static constexpr ::tools::safe_int<T> infinity()\
-    \ {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n \
-    \   }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
+    #line 11 \"tools/safe_int.hpp\"\n\nnamespace tools {\n  template <typename T,\
+    \ typename = void>\n  class safe_int;\n\n  template <typename T>\n  class safe_int<T,\
+    \ ::std::enable_if_t<::std::is_signed_v<T>>> {\n  private:\n    enum class type\
+    \ {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n    };\n    typename\
+    \ ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n    constexpr safe_int(const\
+    \ typename ::tools::safe_int<T>::type type) :\n      m_type(type), m_value(T())\
+    \ {\n    }\n\n  public:\n    constexpr safe_int() :\n      m_type(::tools::safe_int<T>::type::finite),\
+    \ m_value(T()) {\n    }\n    explicit constexpr safe_int(const T value) :\n  \
+    \    m_type(::tools::safe_int<T>::type::finite), m_value(value) {\n    }\n   \
+    \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
+    \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
+    \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
+    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
+    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
+    \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::neg_inf:\n\
     \        return 0;\n      case ::tools::safe_int<T>::type::finite:\n        return\
@@ -189,8 +189,14 @@ data:
     \    }\n    constexpr ::tools::safe_int<T>& operator%=(const ::tools::safe_int<T>&\
     \ other) {\n      return *this = *this % other;\n    }\n    constexpr ::tools::safe_int<T>&\
     \ operator%=(const T& other) {\n      return *this = *this % ::tools::safe_int<T>(other);\n\
-    \    }\n\n    friend constexpr bool operator<(const ::tools::safe_int<T>& x, const\
-    \ ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
+    \    }\n\n    constexpr ::tools::safe_int<T>& operator++() {\n      return *this\
+    \ += ::tools::safe_int<T>(T(1));\n    }\n    constexpr ::tools::safe_int<T> operator++(int)\
+    \ {\n      const auto r = *this;\n      ++(*this);\n      return r;\n    }\n \
+    \   constexpr ::tools::safe_int<T>& operator--() {\n      return *this -= ::tools::safe_int<T>(T(1));\n\
+    \    }\n    constexpr ::tools::safe_int<T> operator--(int) {\n      const auto\
+    \ r = *this;\n      --(*this);\n      return r;\n    }\n\n    friend constexpr\
+    \ bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y)\
+    \ {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 4>, 4>({{\n        {BF(), BT(), BT(), BF()},\n        {BF(), BQ(), BT(), BF()},\n\
     \        {BF(), BF(), BF(), BF()},\n        {BF(), BF(), BF(), BF()}\n      }});\n\
     \      if (const auto r = table[f1(x)][f1(y)]; r) return *r;\n\n      return x.m_value\
@@ -202,20 +208,28 @@ data:
     \ > y.m_value;\n    }\n    friend constexpr bool operator<=(const ::tools::safe_int<T>&\
     \ x, const ::tools::safe_int<T>& y) {\n      return x < y || x == y;\n    }\n\
     \    friend constexpr bool operator>=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>&\
-    \ y) {\n      return x > y || x == y;\n    }\n  };\n\n  template <typename T>\n\
-    \  class safe_int<T, ::std::enable_if_t<::std::is_unsigned_v<T>>> {\n  private:\n\
-    \    enum class type {\n      finite,\n      pos_inf,\n      nan\n    };\n   \
-    \ typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n    constexpr\
-    \ safe_int(const typename ::tools::safe_int<T>::type type) :\n      m_type(type),\
-    \ m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int() :\n      m_type(::tools::safe_int<T>::type::finite),\
-    \ m_value(T()) {\n    }\n    explicit constexpr safe_int(const T value) :\n  \
-    \    m_type(::tools::safe_int<T>::type::finite), m_value(value) {\n    }\n   \
-    \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
-    \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
-    \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
-    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
-    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
-    \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
+    \ y) {\n      return x > y || x == y;\n    }\n\n    friend ::std::istream& operator>>(::std::istream&\
+    \ is, ::tools::safe_int<T>& self) {\n      self.m_type = ::tools::safe_int<T>::type::finite;\n\
+    \      return is >> self.m_value;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::safe_int<T>& self) {\n      switch (self.m_type) {\n    \
+    \  case ::tools::safe_int<T>::type::neg_inf:\n        return os << \"-inf\";\n\
+    \      case ::tools::safe_int<T>::type::finite:\n        return os << self.m_value;\n\
+    \      case ::tools::safe_int<T>::type::pos_inf:\n        return os << \"inf\"\
+    ;\n      default: // nan\n        return os << \"nan\";\n      }\n    }\n  };\n\
+    \n  template <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_unsigned_v<T>>>\
+    \ {\n  private:\n    enum class type {\n      finite,\n      pos_inf,\n      nan\n\
+    \    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n \
+    \   constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n   \
+    \   m_type(type), m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int()\
+    \ :\n      m_type(::tools::safe_int<T>::type::finite), m_value(T()) {\n    }\n\
+    \    explicit constexpr safe_int(const T value) :\n      m_type(::tools::safe_int<T>::type::finite),\
+    \ m_value(value) {\n    }\n    constexpr safe_int(const ::tools::safe_int<T>&\
+    \ other) :\n      m_type(other.m_type), m_value(other.m_value) {\n    }\n    ~safe_int()\
+    \ = default;\n    constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>&\
+    \ other) {\n      this->m_type = other.m_type;\n      this->m_value = other.m_value;\n\
+    \      return *this;\n    }\n\n    static constexpr ::tools::safe_int<T> infinity()\
+    \ {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n \
+    \   }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::finite:\n\
     \        return 0;\n      case ::tools::safe_int<T>::type::pos_inf:\n        return\
@@ -312,8 +326,14 @@ data:
     \    }\n    constexpr ::tools::safe_int<T>& operator%=(const ::tools::safe_int<T>&\
     \ other) {\n      return *this = *this % other;\n    }\n    constexpr ::tools::safe_int<T>&\
     \ operator%=(const T& other) {\n      return *this = *this % ::tools::safe_int<T>(other);\n\
-    \    }\n\n    friend constexpr bool operator<(const ::tools::safe_int<T>& x, const\
-    \ ::tools::safe_int<T>& y) {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
+    \    }\n\n    constexpr ::tools::safe_int<T>& operator++() {\n      return *this\
+    \ += ::tools::safe_int<T>(T(1));\n    }\n    constexpr ::tools::safe_int<T> operator++(int)\
+    \ {\n      const auto r = *this;\n      ++(*this);\n      return r;\n    }\n \
+    \   constexpr ::tools::safe_int<T>& operator--() {\n      return *this -= ::tools::safe_int<T>(T(1));\n\
+    \    }\n    constexpr ::tools::safe_int<T> operator--(int) {\n      const auto\
+    \ r = *this;\n      --(*this);\n      return r;\n    }\n\n    friend constexpr\
+    \ bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y)\
+    \ {\n      constexpr auto table = ::std::array<::std::array<::std::optional<bool>,\
     \ 3>, 3>({{\n        {BQ(), BT(), BF()},\n        {BF(), BF(), BF()},\n      \
     \  {BF(), BF(), BF()}\n      }});\n      if (const auto r = table[f1(x)][f1(y)];\
     \ r) return *r;\n\n      return x.m_value < y.m_value;\n    }\n    friend constexpr\
@@ -325,15 +345,21 @@ data:
     \ bool operator<=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y)\
     \ {\n      return x < y || x == y;\n    }\n    friend constexpr bool operator>=(const\
     \ ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {\n      return x >\
-    \ y || x == y;\n    }\n  };\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6\
-    \ \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
-    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
-    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\
-    \n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
-    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
-    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
-    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ y || x == y;\n    }\n\n    friend ::std::istream& operator>>(::std::istream&\
+    \ is, ::tools::safe_int<T>& self) {\n      self.m_type = ::tools::safe_int<T>::type::finite;\n\
+    \      return is >> self.m_value;\n    }\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::safe_int<T>& self) {\n      switch (self.m_type) {\n    \
+    \  case ::tools::safe_int<T>::type::finite:\n        return os << self.m_value;\n\
+    \      case ::tools::safe_int<T>::type::pos_inf:\n        return os << \"inf\"\
+    ;\n      default: // nan\n        return os << \"nan\";\n      }\n    }\n  };\n\
+    }\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
+    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
+    }\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 20 \"tools/zero_one_knapsack.hpp\"\
@@ -463,7 +489,7 @@ data:
   isVerificationFile: true
   path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   requiredBy: []
-  timestamp: '2022-10-23 17:30:50+09:00'
+  timestamp: '2023-07-02 15:32:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
