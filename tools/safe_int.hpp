@@ -7,6 +7,7 @@
 #include <limits>
 #include <array>
 #include <optional>
+#include <iostream>
 
 namespace tools {
   template <typename T, typename = void>
@@ -304,6 +305,23 @@ namespace tools {
       return *this = *this % ::tools::safe_int<T>(other);
     }
 
+    constexpr ::tools::safe_int<T>& operator++() {
+      return *this += ::tools::safe_int<T>(T(1));
+    }
+    constexpr ::tools::safe_int<T> operator++(int) {
+      const auto r = *this;
+      ++(*this);
+      return r;
+    }
+    constexpr ::tools::safe_int<T>& operator--() {
+      return *this -= ::tools::safe_int<T>(T(1));
+    }
+    constexpr ::tools::safe_int<T> operator--(int) {
+      const auto r = *this;
+      --(*this);
+      return r;
+    }
+
     friend constexpr bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       constexpr auto table = ::std::array<::std::array<::std::optional<bool>, 4>, 4>({{
         {BF(), BT(), BT(), BF()},
@@ -331,6 +349,23 @@ namespace tools {
     }
     friend constexpr bool operator>=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       return x > y || x == y;
+    }
+
+    friend ::std::istream& operator>>(::std::istream& is, ::tools::safe_int<T>& self) {
+      self.m_type = ::tools::safe_int<T>::type::finite;
+      return is >> self.m_value;
+    }
+    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::safe_int<T>& self) {
+      switch (self.m_type) {
+      case ::tools::safe_int<T>::type::neg_inf:
+        return os << "-inf";
+      case ::tools::safe_int<T>::type::finite:
+        return os << self.m_value;
+      case ::tools::safe_int<T>::type::pos_inf:
+        return os << "inf";
+      default: // nan
+        return os << "nan";
+      }
     }
   };
 
@@ -585,6 +620,23 @@ namespace tools {
       return *this = *this % ::tools::safe_int<T>(other);
     }
 
+    constexpr ::tools::safe_int<T>& operator++() {
+      return *this += ::tools::safe_int<T>(T(1));
+    }
+    constexpr ::tools::safe_int<T> operator++(int) {
+      const auto r = *this;
+      ++(*this);
+      return r;
+    }
+    constexpr ::tools::safe_int<T>& operator--() {
+      return *this -= ::tools::safe_int<T>(T(1));
+    }
+    constexpr ::tools::safe_int<T> operator--(int) {
+      const auto r = *this;
+      --(*this);
+      return r;
+    }
+
     friend constexpr bool operator<(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       constexpr auto table = ::std::array<::std::array<::std::optional<bool>, 3>, 3>({{
         {BQ(), BT(), BF()},
@@ -610,6 +662,21 @@ namespace tools {
     }
     friend constexpr bool operator>=(const ::tools::safe_int<T>& x, const ::tools::safe_int<T>& y) {
       return x > y || x == y;
+    }
+
+    friend ::std::istream& operator>>(::std::istream& is, ::tools::safe_int<T>& self) {
+      self.m_type = ::tools::safe_int<T>::type::finite;
+      return is >> self.m_value;
+    }
+    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::safe_int<T>& self) {
+      switch (self.m_type) {
+      case ::tools::safe_int<T>::type::finite:
+        return os << self.m_value;
+      case ::tools::safe_int<T>::type::pos_inf:
+        return os << "inf";
+      default: // nan
+        return os << "nan";
+      }
     }
   };
 }

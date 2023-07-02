@@ -388,6 +388,58 @@ It runs `x = x % y;` and returns $x$.
 ### Time Complexity
 - $O(1)$
 
+## ++x
+```cpp
+tools::safe_int<T>& ++x;
+```
+
+It runs `x = x + 1;` and returns $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## x++
+```cpp
+tools::safe_int<T> x++;
+```
+
+It runs `x = x + 1;` and returns the previous $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## &#45;&#45;x
+```cpp
+tools::safe_int<T>& --x;
+```
+
+It runs `x = x - 1;` and returns $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## x&#45;&#45;
+```cpp
+tools::safe_int<T> x--;
+```
+
+It runs `x = x - 1;` and returns the previous $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## x == y
 ```cpp
 bool x == y;
@@ -477,6 +529,38 @@ bool x >= y;
 ```
 
 It returns `(x > y) || (x == y)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## operator&gt;&gt;
+```cpp
+std::istream& operator>>(std::istream& is, safe_int<T>& x);
+```
+
+It reads a finite integer from standard input and updates $x$ to it.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## operator&lt;&lt;
+```cpp
+std::ostream& operator<<(std::ostream& os, safe_int<T> x);
+```
+
+It prints the following value to `os`.
+
+|$x$|output value|
+|$-\infty$|`-inf`|
+|$\mathbb{Z}$|$x$|
+|$\infty$|`inf`|
+|$\mathrm{NaN}$|`nan`|
 
 ### Constraints
 - None
