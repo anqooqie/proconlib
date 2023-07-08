@@ -272,24 +272,23 @@ data:
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/sparse_fps_pow.hpp\"\
     \n\n\n\n#include <cstddef>\n#line 8 \"tools/sparse_fps_pow.hpp\"\n#include <algorithm>\n\
-    #include <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 6 \"tools/fps.hpp\"\
-    \n#include <initializer_list>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
-    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
-    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
-    #include <bit>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus\
-    \ >= 202002L\n\nusing std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\n\
-    unsigned int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x\
-    \ < (unsigned int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <=\
-    \ n`\n// @return same with std::bit::countr_zero\nint countr_zero(unsigned int\
-    \ n) {\n#ifdef _MSC_VER\n    unsigned long index;\n    _BitScanForward(&index,\
-    \ n);\n    return index;\n#else\n    return __builtin_ctz(n);\n#endif\n}\n\n//\
-    \ @param n `1 <= n`\n// @return same with std::bit::countr_zero\nconstexpr int\
-    \ countr_zero_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1\
-    \ << x))) x++;\n    return x;\n}\n\n}  // namespace internal\n\n}  // namespace\
-    \ atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\n\nnamespace\
-    \ atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n          int g\
-    \ = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
+    #include <iterator>\n#include <initializer_list>\n#line 1 \"tools/fps.hpp\"\n\n\
+    \n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line\
+    \ 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
+    using std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\nunsigned\
+    \ int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x < (unsigned\
+    \ int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <= n`\n// @return\
+    \ same with std::bit::countr_zero\nint countr_zero(unsigned int n) {\n#ifdef _MSC_VER\n\
+    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
+    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n// @param n `1 <= n`\n// @return\
+    \ same with std::bit::countr_zero\nconstexpr int countr_zero_constexpr(unsigned\
+    \ int n) {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n\
+    }\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
+    \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
     \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = countr_zero_constexpr(mint::mod()\
     \ - 1);\n    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint,\
     \ rank2 + 1> iroot;  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0,\
@@ -978,7 +977,7 @@ data:
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
     \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 15 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 16 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
     \ tools {\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
     \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
     \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -998,7 +997,10 @@ data:
     \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
     \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
     \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
+    \    return res;\n  }\n\n  template <typename M>\n  ::tools::fps<M> sparse_fps_pow(const\
+    \ ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k,\
+    \ ::std::size_t n) {\n    return ::tools::sparse_fps_pow(il.begin(), il.end(),\
+    \ k, n);\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
     \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
     \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
     \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -1024,7 +1026,11 @@ data:
     \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
     \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
     \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow/regular.test.cpp\"\
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n\n  template <typename\
+    \ M>\n  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int,\
+    \ M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned\
+    \ long long k, ::std::size_t n) {\n    return ::tools::sparse_fps_pow(f.begin(),\
+    \ f.end(), g.begin(), g.end(), k, n);\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow/regular.test.cpp\"\
     \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
     \ N, K, M;\n  std::cin >> N >> K >> M;\n  std::vector<std::pair<int, mint>> a;\n\
@@ -1064,7 +1070,7 @@ data:
   isVerificationFile: true
   path: tests/sparse_fps_pow/regular.test.cpp
   requiredBy: []
-  timestamp: '2023-01-03 14:10:58+09:00'
+  timestamp: '2023-07-08 11:04:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sparse_fps_pow/regular.test.cpp

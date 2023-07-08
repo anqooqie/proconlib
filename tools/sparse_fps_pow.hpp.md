@@ -63,16 +63,15 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/sparse_fps_pow.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <type_traits>\n#include <utility>\n#include <cassert>\n#include <algorithm>\n\
-    #include <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#line\
-    \ 6 \"tools/fps.hpp\"\n#include <initializer_list>\n#line 9 \"tools/fps.hpp\"\n\
-    #include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    #include <iterator>\n#include <initializer_list>\n#line 1 \"tools/fps.hpp\"\n\n\
+    \n\n#include <vector>\n#line 9 \"tools/fps.hpp\"\n#include <numeric>\n#line 1\
+    \ \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -977,7 +976,7 @@ data:
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
     \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 15 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 16 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
     \ tools {\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
     \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
     \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -997,7 +996,10 @@ data:
     \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
     \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
     \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
+    \    return res;\n  }\n\n  template <typename M>\n  ::tools::fps<M> sparse_fps_pow(const\
+    \ ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k,\
+    \ ::std::size_t n) {\n    return ::tools::sparse_fps_pow(il.begin(), il.end(),\
+    \ k, n);\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
     \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
     \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
     \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -1023,13 +1025,17 @@ data:
     \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
     \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
     \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n"
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n\n  template <typename\
+    \ M>\n  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int,\
+    \ M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned\
+    \ long long k, ::std::size_t n) {\n    return ::tools::sparse_fps_pow(f.begin(),\
+    \ f.end(), g.begin(), g.end(), k, n);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_SPARSE_FPS_POW_HPP\n#define TOOLS_SPARSE_FPS_POW_HPP\n\n#include\
     \ <cstddef>\n#include <type_traits>\n#include <utility>\n#include <cassert>\n\
-    #include <algorithm>\n#include <iterator>\n#include \"tools/fps.hpp\"\n#include\
-    \ \"tools/is_prime.hpp\"\n#include \"tools/less_by_first.hpp\"\n#include \"tools/ceil.hpp\"\
-    \n#include \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
+    #include <algorithm>\n#include <iterator>\n#include <initializer_list>\n#include\
+    \ \"tools/fps.hpp\"\n#include \"tools/is_prime.hpp\"\n#include \"tools/less_by_first.hpp\"\
+    \n#include \"tools/ceil.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
     \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
     \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
     \    using F = ::tools::fps<M>;\n\n    assert(::tools::is_prime(M::mod()));\n\
@@ -1048,7 +1054,10 @@ data:
     \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
     \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
     \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
+    \    return res;\n  }\n\n  template <typename M>\n  ::tools::fps<M> sparse_fps_pow(const\
+    \ ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k,\
+    \ ::std::size_t n) {\n    return ::tools::sparse_fps_pow(il.begin(), il.end(),\
+    \ k, n);\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
     \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
     \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
     \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -1074,7 +1083,11 @@ data:
     \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
     \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
     \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n#endif\n"
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n\n  template <typename\
+    \ M>\n  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int,\
+    \ M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned\
+    \ long long k, ::std::size_t n) {\n    return ::tools::sparse_fps_pow(f.begin(),\
+    \ f.end(), g.begin(), g.end(), k, n);\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1094,11 +1107,11 @@ data:
   isVerificationFile: false
   path: tools/sparse_fps_pow.hpp
   requiredBy: []
-  timestamp: '2023-01-03 14:10:58+09:00'
+  timestamp: '2023-07-08 11:04:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
 documentation_of: tools/sparse_fps_pow.hpp
 layout: document
 title: Power of a sparse FPS
@@ -1135,6 +1148,15 @@ $f$ is given as the list of degree-coefficient pairs.
 ## (2)
 
 ```cpp
+template <typename M>
+tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> il, unsigned long long k, std::size_t n);
+```
+
+It is identical to `sparse_fps_pow(il.begin(), il.end(), k, n)`.
+
+## (3)
+
+```cpp
 template <typename InputIterator>
 tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator f_begin, InputIterator f_end, InputIterator g_begin, InputIterator g_end, unsigned long long k, std::size_t n);
 ```
@@ -1166,3 +1188,12 @@ Each of $f$ and $g$ is given as the list of degree-coefficient pairs.
 
 ### Author
 - anqooqie
+
+## (4)
+
+```cpp
+template <typename M>
+tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> f, std::initializer_list<std::pair<int, M>> g, unsigned long long k, std::size_t n);
+```
+
+It is identical to `sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n)`.

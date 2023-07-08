@@ -46,15 +46,15 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
-  - tools/persistent_dual_segtree.hpp
   - tools/avl_tree.hpp
+  - tools/persistent_dual_segtree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/avl_tree/main_features.test.cpp
-  - tests/avl_tree/set.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
   - tests/fix.test.cpp
+  - tests/avl_tree/main_features.test.cpp
+  - tests/avl_tree/binary_search.test.cpp
+  - tests/avl_tree/set.test.cpp
   - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/fix.hpp
 layout: document

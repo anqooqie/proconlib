@@ -74,10 +74,10 @@ data:
   timestamp: '2023-06-25 00:33:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rectangle_sum.test.cpp
+  - tests/wavelet_matrix/next_value.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/next_value.test.cpp
+  - tests/rectangle_sum.test.cpp
 documentation_of: tools/bit_vector.hpp
 layout: document
 title: Bit vector

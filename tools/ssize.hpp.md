@@ -190,65 +190,65 @@ data:
   isVerificationFile: false
   path: tools/ssize.hpp
   requiredBy:
-  - tools/mcf_graph.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/pow_mod_cache.hpp
   - tools/weighted_bipartite_matching.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/rational.hpp
-  - tools/bigint.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/bernoulli.hpp
   - tools/rolling_hash.hpp
+  - tools/mcf_graph.hpp
   - tools/fact_mod_cache.hpp
   - tools/stirling_2nd.hpp
   - tools/bigdecimal.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/rational.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/bernoulli.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/bigint.hpp
+  - tools/pow_mod_cache.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rolling_hash.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/ssize.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/permutation.test.cpp
-  - tests/persistent_stack.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/ssize.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/tsp.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/permutation.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp
   - tests/rational/random.test.cpp
-  - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/tsp.test.cpp
   - tests/bernoulli.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/modulus.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/fact_mod_cache.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document
 title: Polyfill of std::ssize

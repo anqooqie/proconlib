@@ -75,8 +75,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/fill.test.cpp
-  - tests/util.test.cpp
   - tests/range_of_digit_products.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/fill.hpp
 layout: document
 title: Fill a multi-dimensional vector

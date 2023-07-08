@@ -969,8 +969,8 @@ data:
   timestamp: '2022-12-31 23:40:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
 documentation_of: tools/partition_function.hpp
 layout: document
 title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j) \pmod{M}$

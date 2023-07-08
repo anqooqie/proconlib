@@ -108,8 +108,8 @@ data:
   timestamp: '2023-02-11 13:12:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tsort/query.test.cpp
   - tests/tsort/count.test.cpp
+  - tests/tsort/query.test.cpp
 documentation_of: tools/tsort.hpp
 layout: document
 title: Topological sorting

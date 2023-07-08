@@ -63,26 +63,26 @@ data:
     - https://atcoder.jp/contests/abc276/tasks/abc276_g
   bundledCode: "#line 1 \"tests/sparse_fps_pow/fraction.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc276/tasks/abc276_g\"\n\n#include <iostream>\n\
-    #include <array>\n#include <utility>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
+    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
+    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
@@ -272,10 +272,11 @@ data:
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/fps.hpp\"\
     \n\n\n\n#include <vector>\n#include <cstddef>\n#include <initializer_list>\n#line\
     \ 10 \"tools/fps.hpp\"\n#include <algorithm>\n#include <iterator>\n#line 1 \"\
-    lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\
-    \nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
+    lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line\
+    \ 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
     using std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\nunsigned\
     \ int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x < (unsigned\
     \ int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <= n`\n// @return\
@@ -976,7 +977,7 @@ data:
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
     \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 15 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 16 \"tools/sparse_fps_pow.hpp\"\n\nnamespace\
     \ tools {\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\
     \ sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned\
     \ long long k, ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -996,7 +997,10 @@ data:
     \        if (i < deg(it)) break;\n        res[i] += (M(k) * M(deg(it)) - M(i -\
     \ deg(it))) * it->second * res[i - deg(it)];\n      }\n      res[i] *= cache.inv(i)\
     \ * ic;\n    }\n\n    res.insert(res.begin(), offset->first * k, M::raw(0));\n\
-    \    return res;\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
+    \    return res;\n  }\n\n  template <typename M>\n  ::tools::fps<M> sparse_fps_pow(const\
+    \ ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k,\
+    \ ::std::size_t n) {\n    return ::tools::sparse_fps_pow(il.begin(), il.end(),\
+    \ k, n);\n  }\n\n  template <typename InputIterator>\n  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>\n\
     \  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const\
     \ InputIterator g_begin, const InputIterator g_end, const unsigned long long k,\
     \ ::std::size_t n) {\n    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;\n\
@@ -1022,29 +1026,30 @@ data:
     \         res[i] += (M(k) * (M(f_deg(f_it)) - M(g_it->first)) - M(i - f_deg(f_it)\
     \ - g_it->first)) * f_it->second * g_it->second * res[i - f_deg(f_it) - g_it->first];\n\
     \        }\n      }\n      res[i] *= cache.inv(i) * ic;\n    }\n\n    res.insert(res.begin(),\
-    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n}\n\n\n#line 9 \"tests/sparse_fps_pow/fraction.test.cpp\"\
+    \ f_offset->first * k, M::raw(0));\n    return res;\n  }\n\n  template <typename\
+    \ M>\n  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int,\
+    \ M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned\
+    \ long long k, ::std::size_t n) {\n    return ::tools::sparse_fps_pow(f.begin(),\
+    \ f.end(), g.begin(), g.end(), k, n);\n  }\n}\n\n\n#line 7 \"tests/sparse_fps_pow/fraction.test.cpp\"\
     \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
     \n  tools::fps<mint> edge{mint(1)};\n  edge.resize(M + 1);\n  edge.divide_inplace(1,\
-    \ mint(-1));\n  edge.divide_inplace(1, mint(-1));\n\n  const std::array<std::pair<int,\
-    \ mint>, 2> fps_0_1_1{{{1, mint(1)}, {2, mint(1)}}};\n  const std::array<std::pair<int,\
-    \ mint>, 2> fps_1_0_0_m1{{{0, mint(1)}, {3, mint(-1)}}};\n  const auto center\
-    \ = tools::sparse_fps_pow(fps_0_1_1.begin(), fps_0_1_1.end(), fps_1_0_0_m1.begin(),\
-    \ fps_1_0_0_m1.end(), N - 1, M + 1);\n\n  mint answer(0);\n  for (int i = 0; i\
-    \ <= M; ++i) {\n    answer += center[i] * edge[M - i];\n  }\n\n  std::cout <<\
-    \ answer.val() << '\\n';\n  return 0;\n}\n"
+    \ mint(-1));\n  edge.divide_inplace(1, mint(-1));\n\n  using p = std::pair<int,\
+    \ mint>;\n  const auto center = tools::sparse_fps_pow({p(1, mint(1)), p(2, mint(1))},\
+    \ {p(0, mint(1)), p(3, mint(-1))}, N - 1, M + 1);\n\n  mint answer(0);\n  for\
+    \ (int i = 0; i <= M; ++i) {\n    answer += center[i] * edge[M - i];\n  }\n\n\
+    \  std::cout << answer.val() << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc276/tasks/abc276_g\"\n\n\
-    #include <iostream>\n#include <array>\n#include <utility>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/fps.hpp\"\n#include \"tools/sparse_fps_pow.hpp\"\n\nusing mint\
-    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/fps.hpp\"\
+    \n#include \"tools/sparse_fps_pow.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, M;\n  std::cin >> N >> M;\n\n  tools::fps<mint> edge{mint(1)};\n  edge.resize(M\
     \ + 1);\n  edge.divide_inplace(1, mint(-1));\n  edge.divide_inplace(1, mint(-1));\n\
-    \n  const std::array<std::pair<int, mint>, 2> fps_0_1_1{{{1, mint(1)}, {2, mint(1)}}};\n\
-    \  const std::array<std::pair<int, mint>, 2> fps_1_0_0_m1{{{0, mint(1)}, {3, mint(-1)}}};\n\
-    \  const auto center = tools::sparse_fps_pow(fps_0_1_1.begin(), fps_0_1_1.end(),\
-    \ fps_1_0_0_m1.begin(), fps_1_0_0_m1.end(), N - 1, M + 1);\n\n  mint answer(0);\n\
-    \  for (int i = 0; i <= M; ++i) {\n    answer += center[i] * edge[M - i];\n  }\n\
-    \n  std::cout << answer.val() << '\\n';\n  return 0;\n}\n"
+    \n  using p = std::pair<int, mint>;\n  const auto center = tools::sparse_fps_pow({p(1,\
+    \ mint(1)), p(2, mint(1))}, {p(0, mint(1)), p(3, mint(-1))}, N - 1, M + 1);\n\n\
+    \  mint answer(0);\n  for (int i = 0; i <= M; ++i) {\n    answer += center[i]\
+    \ * edge[M - i];\n  }\n\n  std::cout << answer.val() << '\\n';\n  return 0;\n\
+    }\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1065,7 +1070,7 @@ data:
   isVerificationFile: true
   path: tests/sparse_fps_pow/fraction.test.cpp
   requiredBy: []
-  timestamp: '2023-01-03 14:10:58+09:00'
+  timestamp: '2023-07-08 11:04:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sparse_fps_pow/fraction.test.cpp
