@@ -7,6 +7,7 @@
 #include <cassert>
 #include <algorithm>
 #include <iterator>
+#include <initializer_list>
 #include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/less_by_first.hpp"
@@ -59,6 +60,11 @@ namespace tools {
 
     res.insert(res.begin(), offset->first * k, M::raw(0));
     return res;
+  }
+
+  template <typename M>
+  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k, ::std::size_t n) {
+    return ::tools::sparse_fps_pow(il.begin(), il.end(), k, n);
   }
 
   template <typename InputIterator>
@@ -115,6 +121,11 @@ namespace tools {
 
     res.insert(res.begin(), f_offset->first * k, M::raw(0));
     return res;
+  }
+
+  template <typename M>
+  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int, M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned long long k, ::std::size_t n) {
+    return ::tools::sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n);
   }
 }
 

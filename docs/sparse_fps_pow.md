@@ -34,6 +34,15 @@ $f$ is given as the list of degree-coefficient pairs.
 ## (2)
 
 ```cpp
+template <typename M>
+tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> il, unsigned long long k, std::size_t n);
+```
+
+It is identical to `sparse_fps_pow(il.begin(), il.end(), k, n)`.
+
+## (3)
+
+```cpp
 template <typename InputIterator>
 tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator f_begin, InputIterator f_end, InputIterator g_begin, InputIterator g_end, unsigned long long k, std::size_t n);
 ```
@@ -65,3 +74,12 @@ Each of $f$ and $g$ is given as the list of degree-coefficient pairs.
 
 ### Author
 - anqooqie
+
+## (4)
+
+```cpp
+template <typename M>
+tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> f, std::initializer_list<std::pair<int, M>> g, unsigned long long k, std::size_t n);
+```
+
+It is identical to `sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n)`.
