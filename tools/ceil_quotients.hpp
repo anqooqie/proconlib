@@ -1,5 +1,5 @@
-#ifndef TOOLS_FLOOR_QUOTIENTS_HPP
-#define TOOLS_FLOOR_QUOTIENTS_HPP
+#ifndef TOOLS_CEIL_QUOTIENTS_HPP
+#define TOOLS_CEIL_QUOTIENTS_HPP
 
 #include <vector>
 #include <tuple>
