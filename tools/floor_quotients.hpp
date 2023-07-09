@@ -13,7 +13,7 @@ namespace tools {
 
     ::std::vector<::std::tuple<T, T, T>> res;
     T x;
-    for (x = 1; x * x < A; ++x) {
+    for (x = 1; x * x <= A; ++x) {
       res.emplace_back(x, x + 1, A / x);
     }
     for (T q = A / x; q > 0; --q) {

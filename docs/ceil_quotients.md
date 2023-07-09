@@ -16,7 +16,7 @@ The last tuple would be $(A, \infty, 1)$ mathematically, but it actually returns
 - $A \geq 0$
 
 ## Time Complexity
-- $O(\sqrt{x})$
+- $O(\sqrt{A})$
 
 ## License
 - CC0
