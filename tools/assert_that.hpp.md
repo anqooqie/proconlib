@@ -25,6 +25,9 @@ data:
     path: tests/ceil_log2.test.cpp
     title: tests/ceil_log2.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ceil_quotients.test.cpp
+    title: tests/ceil_quotients.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
   - icon: ':heavy_check_mark:'
@@ -63,6 +66,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_quotients.test.cpp
+    title: tests/floor_quotients.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
@@ -202,6 +208,7 @@ data:
   - tests/ceil.test.cpp
   - tests/ceil_log.test.cpp
   - tests/uint128_t.test.cpp
+  - tests/ceil_quotients.test.cpp
   - tests/rational/random.test.cpp
   - tests/fill.test.cpp
   - tests/digit_sum.test.cpp
@@ -213,6 +220,7 @@ data:
   - tests/rotate_left.test.cpp
   - tests/tuple_hash.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/floor_quotients.test.cpp
   - tests/floor_log2.test.cpp
   - tests/convolution/double.test.cpp
   - tests/find_cycle.test.cpp

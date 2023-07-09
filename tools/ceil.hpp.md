@@ -15,6 +15,9 @@ data:
     path: tools/ceil_log.hpp
     title: $\left\lceil \log_b(x) \right\rceil$
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_quotients.hpp
+    title: Enumerate the range of $\left\lceil \frac{A}{x} \right\rceil$
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -108,6 +111,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_log.test.cpp
     title: tests/ceil_log.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_quotients.test.cpp
+    title: tests/ceil_quotients.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
@@ -219,6 +225,7 @@ data:
   - tools/rational.hpp
   - tools/detail/rolling_hash.hpp
   - tools/mo.hpp
+  - tools/ceil_quotients.hpp
   - tools/ceil_sqrt.hpp
   - tools/ceil_kth_root.hpp
   - tools/modint_for_rolling_hash.hpp
@@ -252,6 +259,7 @@ data:
   - tests/ceil_kth_root.test.cpp
   - tests/ceil.test.cpp
   - tests/ceil_log.test.cpp
+  - tests/ceil_quotients.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
   - tests/rational/plus.test.cpp

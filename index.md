@@ -64,6 +64,9 @@ data:
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
+      path: tools/ceil_quotients.hpp
+      title: Enumerate the range of $\left\lceil \frac{A}{x} \right\rceil$
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -172,6 +175,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
+    - icon: ':heavy_check_mark:'
+      path: tools/floor_quotients.hpp
+      title: Enumerate the range of $\left\lfloor \frac{A}{x} \right\rfloor$
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
@@ -623,6 +629,9 @@ data:
       path: tests/ceil_log2.test.cpp
       title: tests/ceil_log2.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/ceil_quotients.test.cpp
+      title: tests/ceil_quotients.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/ceil_sqrt.test.cpp
       title: tests/ceil_sqrt.test.cpp
     - icon: ':heavy_check_mark:'
@@ -691,6 +700,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_log2.test.cpp
       title: tests/floor_log2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/floor_quotients.test.cpp
+      title: tests/floor_quotients.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/floor_sqrt.test.cpp
       title: tests/floor_sqrt.test.cpp
