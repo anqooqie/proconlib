@@ -15,7 +15,7 @@ data:
     \ <tuple>\n#include <cassert>\n#include <limits>\n\nnamespace tools {\n  template\
     \ <typename T>\n  ::std::vector<::std::tuple<T, T, T>> floor_quotients(const T\
     \ A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T, T, T>> res;\n\
-    \    T x;\n    for (x = 1; x * x < A; ++x) {\n      res.emplace_back(x, x + 1,\
+    \    T x;\n    for (x = 1; x * x <= A; ++x) {\n      res.emplace_back(x, x + 1,\
     \ A / x);\n    }\n    for (T q = A / x; q > 0; --q) {\n      res.emplace_back(A\
     \ / (q + 1) + 1, A / q + 1, q);\n    }\n    res.emplace_back(A + 1, ::std::numeric_limits<T>::max(),\
     \ 0);\n\n    return res;\n  }\n}\n\n\n"
@@ -23,7 +23,7 @@ data:
     #include <vector>\n#include <tuple>\n#include <cassert>\n#include <limits>\n\n\
     namespace tools {\n  template <typename T>\n  ::std::vector<::std::tuple<T, T,\
     \ T>> floor_quotients(const T A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T,\
-    \ T, T>> res;\n    T x;\n    for (x = 1; x * x < A; ++x) {\n      res.emplace_back(x,\
+    \ T, T>> res;\n    T x;\n    for (x = 1; x * x <= A; ++x) {\n      res.emplace_back(x,\
     \ x + 1, A / x);\n    }\n    for (T q = A / x; q > 0; --q) {\n      res.emplace_back(A\
     \ / (q + 1) + 1, A / q + 1, q);\n    }\n    res.emplace_back(A + 1, ::std::numeric_limits<T>::max(),\
     \ 0);\n\n    return res;\n  }\n}\n\n#endif\n"
@@ -31,7 +31,7 @@ data:
   isVerificationFile: false
   path: tools/floor_quotients.hpp
   requiredBy: []
-  timestamp: '2023-07-09 15:03:33+09:00'
+  timestamp: '2023-07-09 15:30:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/floor_quotients.test.cpp
@@ -53,7 +53,7 @@ The last tuple would be $(A + 1, \infty, 0)$ mathematically, but it actually ret
 - $A \geq 0$
 
 ## Time Complexity
-- $O(\sqrt{x})$
+- $O(\sqrt{A})$
 
 ## License
 - CC0

@@ -27,7 +27,7 @@ data:
     \n\n\n\n#line 8 \"tools/floor_quotients.hpp\"\n\nnamespace tools {\n  template\
     \ <typename T>\n  ::std::vector<::std::tuple<T, T, T>> floor_quotients(const T\
     \ A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T, T, T>> res;\n\
-    \    T x;\n    for (x = 1; x * x < A; ++x) {\n      res.emplace_back(x, x + 1,\
+    \    T x;\n    for (x = 1; x * x <= A; ++x) {\n      res.emplace_back(x, x + 1,\
     \ A / x);\n    }\n    for (T q = A / x; q > 0; --q) {\n      res.emplace_back(A\
     \ / (q + 1) + 1, A / q + 1, q);\n    }\n    res.emplace_back(A + 1, ::std::numeric_limits<T>::max(),\
     \ 0);\n\n    return res;\n  }\n}\n\n\n#line 12 \"tests/floor_quotients.test.cpp\"\
@@ -65,7 +65,7 @@ data:
   isVerificationFile: true
   path: tests/floor_quotients.test.cpp
   requiredBy: []
-  timestamp: '2023-07-09 15:03:33+09:00'
+  timestamp: '2023-07-09 15:30:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/floor_quotients.test.cpp
