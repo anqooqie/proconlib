@@ -74,7 +74,7 @@ data:
   isVerificationFile: true
   path: tests/ceil_quotients.test.cpp
   requiredBy: []
-  timestamp: '2023-07-09 15:03:33+09:00'
+  timestamp: '2023-07-09 15:33:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ceil_quotients.test.cpp
