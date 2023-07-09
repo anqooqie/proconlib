@@ -22,26 +22,29 @@ data:
     \ + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\
     \n#line 9 \"tools/ceil_quotients.hpp\"\n\nnamespace tools {\n  template <typename\
     \ T>\n  ::std::vector<::std::tuple<T, T, T>> ceil_quotients(const T A) {\n   \
-    \ assert(A >= 0);\n\n    ::std::vector<::std::tuple<T, T, T>> res;\n    T x;\n\
-    \    for (x = 1; x * x < A; ++x) {\n      res.emplace_back(x, x + 1, ::tools::ceil(A,\
-    \ x));\n    }\n    for (T q = ::tools::ceil(A, x); q > 1; --q) {\n      res.emplace_back((A\
-    \ - 1) / q + 1, (A - 1) / (q - 1) + 1, q);\n    }\n    res.emplace_back(A, ::std::numeric_limits<T>::max(),\
-    \ 1);\n\n    return res;\n  }\n}\n\n\n"
+    \ assert(A >= 0);\n\n    ::std::vector<::std::tuple<T, T, T>> res;\n    if (A\
+    \ == 0) {\n      res.emplace_back(1, ::std::numeric_limits<T>::max(), 0);\n  \
+    \    return res;\n    }\n\n    T x;\n    for (x = 1; x * x < A; ++x) {\n     \
+    \ res.emplace_back(x, x + 1, ::tools::ceil(A, x));\n    }\n    for (T q = ::tools::ceil(A,\
+    \ x); q > 1; --q) {\n      res.emplace_back((A - 1) / q + 1, (A - 1) / (q - 1)\
+    \ + 1, q);\n    }\n    res.emplace_back(A, ::std::numeric_limits<T>::max(), 1);\n\
+    \n    return res;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_CEIL_QUOTIENTS_HPP\n#define TOOLS_CEIL_QUOTIENTS_HPP\n\n#include\
     \ <vector>\n#include <tuple>\n#include <cassert>\n#include <limits>\n#include\
     \ \"tools/ceil.hpp\"\n\nnamespace tools {\n  template <typename T>\n  ::std::vector<::std::tuple<T,\
     \ T, T>> ceil_quotients(const T A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T,\
-    \ T, T>> res;\n    T x;\n    for (x = 1; x * x < A; ++x) {\n      res.emplace_back(x,\
-    \ x + 1, ::tools::ceil(A, x));\n    }\n    for (T q = ::tools::ceil(A, x); q >\
-    \ 1; --q) {\n      res.emplace_back((A - 1) / q + 1, (A - 1) / (q - 1) + 1, q);\n\
-    \    }\n    res.emplace_back(A, ::std::numeric_limits<T>::max(), 1);\n\n    return\
-    \ res;\n  }\n}\n\n#endif\n"
+    \ T, T>> res;\n    if (A == 0) {\n      res.emplace_back(1, ::std::numeric_limits<T>::max(),\
+    \ 0);\n      return res;\n    }\n\n    T x;\n    for (x = 1; x * x < A; ++x) {\n\
+    \      res.emplace_back(x, x + 1, ::tools::ceil(A, x));\n    }\n    for (T q =\
+    \ ::tools::ceil(A, x); q > 1; --q) {\n      res.emplace_back((A - 1) / q + 1,\
+    \ (A - 1) / (q - 1) + 1, q);\n    }\n    res.emplace_back(A, ::std::numeric_limits<T>::max(),\
+    \ 1);\n\n    return res;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/ceil_quotients.hpp
   requiredBy: []
-  timestamp: '2023-07-09 15:33:44+09:00'
+  timestamp: '2023-07-09 15:41:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_quotients.test.cpp
