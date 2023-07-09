@@ -13,6 +13,11 @@ namespace tools {
     assert(A >= 0);
 
     ::std::vector<::std::tuple<T, T, T>> res;
+    if (A == 0) {
+      res.emplace_back(1, ::std::numeric_limits<T>::max(), 0);
+      return res;
+    }
+
     T x;
     for (x = 1; x * x < A; ++x) {
       res.emplace_back(x, x + 1, ::tools::ceil(A, x));
