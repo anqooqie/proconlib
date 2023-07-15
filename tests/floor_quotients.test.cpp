@@ -15,7 +15,7 @@ std::vector<std::tuple<T, T, T>> naive(const T A) {
   assert(A >= 0);
 
   std::vector<std::tuple<T, T, T>> res;
-  for (T x = 1; x <= A; ++x) {
+  for (T x = 1; x <= A + 3; ++x) {
     res.emplace_back(x, x + 1, A / x);
   }
 
@@ -28,7 +28,7 @@ std::vector<std::tuple<T, T, T>> naive(const T A) {
   }
   res.erase(res.begin() + vl, res.end());
 
-  res.emplace_back(A + 1, std::numeric_limits<T>::max(), 0);
+  std::get<1>(res.back()) = std::numeric_limits<T>::max();
   return res;
 }
 
