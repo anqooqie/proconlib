@@ -87,7 +87,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
     - icon: ':heavy_check_mark:'
@@ -434,9 +434,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
-    - icon: ':heavy_check_mark:'
-      path: tools/rectangle_sum.hpp
-      title: Rectangle sum
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
@@ -815,9 +812,6 @@ data:
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/rectangle_sum.test.cpp
-      title: tests/rectangle_sum.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/rerooting_dp.test.cpp
       title: tests/rerooting_dp.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1176,11 +1170,17 @@ data:
       path: tests/wavelet_matrix/kth_smallest.test.cpp
       title: tests/wavelet_matrix/kth_smallest.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/wavelet_matrix/next_value.test.cpp
-      title: tests/wavelet_matrix/next_value.test.cpp
+      path: tests/wavelet_matrix/next_points.test.cpp
+      title: tests/wavelet_matrix/next_points.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix/prev_points.test.cpp
+      title: tests/wavelet_matrix/prev_points.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/wavelet_matrix/range_freq.test.cpp
       title: tests/wavelet_matrix/range_freq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/wavelet_matrix/range_prod.test.cpp
+      title: tests/wavelet_matrix/range_prod.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
     - icon: ':heavy_check_mark:'

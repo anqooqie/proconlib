@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: tools/compressor.hpp
     title: Compress values (for more complicated cases)
   - icon: ':heavy_check_mark:'
@@ -15,8 +15,8 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
-    path: tools/rectangle_sum.hpp
-    title: Rectangle sum
+    path: tools/wavelet_matrix.hpp
+    title: Wavelet matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
@@ -31,11 +31,20 @@ data:
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/rectangle_sum.test.cpp
-    title: tests/rectangle_sum.test.cpp
+    path: tests/wavelet_matrix/kth_smallest.test.cpp
+    title: tests/wavelet_matrix/kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/next_value.test.cpp
-    title: tests/wavelet_matrix/next_value.test.cpp
+    path: tests/wavelet_matrix/next_points.test.cpp
+    title: tests/wavelet_matrix/next_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/prev_points.test.cpp
+    title: tests/wavelet_matrix/prev_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_freq.test.cpp
+    title: tests/wavelet_matrix/range_freq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_prod.test.cpp
+    title: tests/wavelet_matrix/range_prod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -65,15 +74,18 @@ data:
   - tools/compressor.hpp
   - tools/inversion_number.hpp
   - tools/li_chao_segtree.hpp
-  - tools/rectangle_sum.hpp
+  - tools/wavelet_matrix.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/wavelet_matrix/next_value.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/inversion_number.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
-  - tests/rectangle_sum.test.cpp
   - tests/range_of_digit_products.test.cpp
 documentation_of: tools/lower_bound.hpp
 layout: document

@@ -17,6 +17,9 @@ data:
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':heavy_check_mark:'
+    path: tools/ssize.hpp
+    title: Polyfill of std::ssize
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedRequiredBy: []
@@ -26,16 +29,73 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2674
+    PROBLEM: https://judge.yosupo.jp/problem/point_add_rectangle_sum
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/2674
-  bundledCode: "#line 1 \"tests/wavelet_matrix/range_freq.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/2674\"\n\n#include <iostream>\n\
-    #include <algorithm>\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <vector>\n\
-    #include <utility>\n#include <cstddef>\n#include <cassert>\n#line 9 \"tools/wavelet_matrix.hpp\"\
-    \n#include <iterator>\n#include <array>\n#include <tuple>\n#include <optional>\n\
-    #line 1 \"tools/bit_vector.hpp\"\n\n\n\n#include <cstdint>\n#line 6 \"tools/bit_vector.hpp\"\
-    \n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
+    - https://judge.yosupo.jp/problem/point_add_rectangle_sum
+  bundledCode: "#line 1 \"tests/wavelet_matrix/range_prod.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <queue>\n#include <tuple>\n#line 1 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\n\n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\n\n\n#line 5\
+    \ \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n#include <numeric>\n#include\
+    \ <type_traits>\n\nnamespace atcoder {\n\nnamespace internal {\n\n#ifndef _MSC_VER\n\
+    template <class T>\nusing is_signed_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __int128_t>::value ||\n                                  std::is_same<T, __int128>::value,\n\
+    \                              std::true_type,\n                             \
+    \ std::false_type>::type;\n\ntemplate <class T>\nusing is_unsigned_int128 =\n\
+    \    typename std::conditional<std::is_same<T, __uint128_t>::value ||\n      \
+    \                            std::is_same<T, unsigned __int128>::value,\n    \
+    \                          std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing make_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __int128_t>::value,\n                              __uint128_t,\n          \
+    \                    unsigned __int128>;\n\ntemplate <class T>\nusing is_integral\
+    \ = typename std::conditional<std::is_integral<T>::value ||\n                \
+    \                                  is_signed_int128<T>::value ||\n           \
+    \                                       is_unsigned_int128<T>::value,\n      \
+    \                                        std::true_type,\n                   \
+    \                           std::false_type>::type;\n\ntemplate <class T>\nusing\
+    \ is_signed_int = typename std::conditional<(is_integral<T>::value &&\n      \
+    \                                           std::is_signed<T>::value) ||\n   \
+    \                                                 is_signed_int128<T>::value,\n\
+    \                                                std::true_type,\n           \
+    \                                     std::false_type>::type;\n\ntemplate <class\
+    \ T>\nusing is_unsigned_int =\n    typename std::conditional<(is_integral<T>::value\
+    \ &&\n                               std::is_unsigned<T>::value) ||\n        \
+    \                          is_unsigned_int128<T>::value,\n                   \
+    \           std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing to_unsigned = typename std::conditional<\n    is_signed_int128<T>::value,\n\
+    \    make_unsigned_int128<T>,\n    typename std::conditional<std::is_signed<T>::value,\n\
+    \                              std::make_unsigned<T>,\n                      \
+    \        std::common_type<T>>::type>::type;\n\n#else\n\ntemplate <class T> using\
+    \ is_integral = typename std::is_integral<T>;\n\ntemplate <class T>\nusing is_signed_int\
+    \ =\n    typename std::conditional<is_integral<T>::value && std::is_signed<T>::value,\n\
+    \                              std::true_type,\n                             \
+    \ std::false_type>::type;\n\ntemplate <class T>\nusing is_unsigned_int =\n   \
+    \ typename std::conditional<is_integral<T>::value &&\n                       \
+    \           std::is_unsigned<T>::value,\n                              std::true_type,\n\
+    \                              std::false_type>::type;\n\ntemplate <class T>\n\
+    using to_unsigned = typename std::conditional<is_signed_int<T>::value,\n     \
+    \                                         std::make_unsigned<T>,\n           \
+    \                                   std::common_type<T>>::type;\n\n#endif\n\n\
+    template <class T>\nusing is_signed_int_t = std::enable_if_t<is_signed_int<T>::value>;\n\
+    \ntemplate <class T>\nusing is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;\n\
+    \ntemplate <class T> using to_unsigned_t = typename to_unsigned<T>::type;\n\n\
+    }  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 8 \"lib/ac-library/atcoder/fenwicktree.hpp\"\
+    \n\nnamespace atcoder {\n\n// Reference: https://en.wikipedia.org/wiki/Fenwick_tree\n\
+    template <class T> struct fenwick_tree {\n    using U = internal::to_unsigned_t<T>;\n\
+    \n  public:\n    fenwick_tree() : _n(0) {}\n    explicit fenwick_tree(int n) :\
+    \ _n(n), data(n) {}\n\n    void add(int p, T x) {\n        assert(0 <= p && p\
+    \ < _n);\n        p++;\n        while (p <= _n) {\n            data[p - 1] +=\
+    \ U(x);\n            p += p & -p;\n        }\n    }\n\n    T sum(int l, int r)\
+    \ {\n        assert(0 <= l && l <= r && r <= _n);\n        return sum(r) - sum(l);\n\
+    \    }\n\n  private:\n    int _n;\n    std::vector<U> data;\n\n    U sum(int r)\
+    \ {\n        U s = 0;\n        while (r > 0) {\n            s += data[r - 1];\n\
+    \            r -= r & -r;\n        }\n        return s;\n    }\n};\n\n}  // namespace\
+    \ atcoder\n\n\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#line 5 \"tools/wavelet_matrix.hpp\"\
+    \n#include <utility>\n#include <cstddef>\n#line 8 \"tools/wavelet_matrix.hpp\"\
+    \n#include <algorithm>\n#include <iterator>\n#include <array>\n#line 12 \"tools/wavelet_matrix.hpp\"\
+    \n#include <optional>\n#line 1 \"tools/bit_vector.hpp\"\n\n\n\n#include <cstdint>\n\
+    #line 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
     // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  class\
     \ bit_vector {\n  private:\n    using u32 = ::std::uint32_t;\n    using i64 =\
     \ ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    static constexpr u32\
@@ -63,14 +123,14 @@ data:
     #line 5 \"tools/less_by_first.hpp\"\n\nnamespace tools {\n\n  class less_by_first\
     \ {\n  public:\n    template <class T1, class T2>\n    bool operator()(const ::std::pair<T1,\
     \ T2>& x, const ::std::pair<T1, T2>& y) const {\n      return x.first < y.first;\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <type_traits>\n\
-    #line 6 \"tools/floor_log2.hpp\"\n#include <limits>\n#line 1 \"tools/popcount.hpp\"\
-    \n\n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
-    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
-    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
-    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
-    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line 6 \"tools/floor_log2.hpp\"\
+    \n#include <limits>\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
     \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
     \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
     \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
@@ -219,25 +279,54 @@ data:
     \  } else {\n          k -= r0 - l0;\n          lid += this->m_bvs[h].zeros()\
     \ - l0;\n          rid += this->m_bvs[h].zeros() - r0;\n        }\n      }\n\n\
     \      return ::std::make_pair(this->m_is.cbegin() + lid, this->m_is.cbegin()\
-    \ + rid);\n    }\n  };\n}\n\n\n#line 6 \"tests/wavelet_matrix/range_freq.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int D;\n  std::cin >> D;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
-    \ 0; i < D; ++i) {\n    int x_i;\n    std::cin >> x_i;\n    wm.add_point(i, x_i);\n\
-    \  }\n  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q < Q; ++q)\
-    \ {\n    int l, r, e;\n    std::cin >> l >> r >> e;\n    --l;\n    const auto\
-    \ [a, b] = std::minmax({wm.get_point(l).second, wm.get_point(r - 1).second});\n\
-    \    std::cout << (r - l) - wm.range_freq(l, r, a - e, b + e + 1) << \"\\n\";\n\
-    \  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2674\"\n\n#include\
-    \ <iostream>\n#include <algorithm>\n#include \"tools/wavelet_matrix.hpp\"\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int D;\n  std::cin >> D;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
-    \ 0; i < D; ++i) {\n    int x_i;\n    std::cin >> x_i;\n    wm.add_point(i, x_i);\n\
-    \  }\n  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q < Q; ++q)\
-    \ {\n    int l, r, e;\n    std::cin >> l >> r >> e;\n    --l;\n    const auto\
-    \ [a, b] = std::minmax({wm.get_point(l).second, wm.get_point(r - 1).second});\n\
-    \    std::cout << (r - l) - wm.range_freq(l, r, a - e, b + e + 1) << \"\\n\";\n\
-    \  }\n\n  return 0;\n}\n"
+    \ + rid);\n    }\n  };\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
+    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
+    \ {\n    return c.size();\n  }\n}\n\n\n#line 10 \"tests/wavelet_matrix/range_prod.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n\n  tools::wavelet_matrix<int> wm;\n  std::vector<int>\
+    \ ws;\n  std::queue<int> qts;\n  std::queue<std::tuple<int, int, int, int>> q2s;\n\
+    \  for (int i = 0; i < N; ++i) {\n    int x, y, w;\n    std::cin >> x >> y >>\
+    \ w;\n    wm.add_point(x, y);\n    ws.push_back(w);\n  }\n  for (int q = 0; q\
+    \ < Q; ++q) {\n    int qt;\n    std::cin >> qt;\n    if (qt == 0) {\n      int\
+    \ x, y, w;\n      std::cin >> x >> y >> w;\n      wm.add_point(x, y);\n      ws.push_back(w);\n\
+    \      qts.push(0);\n    } else {\n      int l, d, r, u;\n      std::cin >> l\
+    \ >> d >> r >> u;\n      qts.push(1);\n      q2s.emplace(l, d, r, u);\n    }\n\
+    \  }\n\n  std::vector<atcoder::fenwick_tree<ll>> fws;\n  for (const auto& v :\
+    \ wm.build()) {\n    fws.emplace_back(v.size());\n    for (int i = 0; i < tools::ssize(v);\
+    \ ++i) {\n      if (int(v[i]) < N) {\n        fws.back().add(i, ws[v[i]]);\n \
+    \     }\n    }\n  }\n\n  int p = N;\n  for (int q = 0; q < Q; ++q) {\n    const\
+    \ auto qt = qts.front();\n    qts.pop();\n    if (qt == 0) {\n      for (const\
+    \ auto& [h, i] : wm.apply(p)) {\n        fws[h].add(i, ws[p]);\n      }\n    \
+    \  ++p;\n    } else {\n      const auto [l, d, r, u] = q2s.front();\n      q2s.pop();\n\
+    \      ll answer = 0;\n      for (const auto& [h, il, ir] : wm.range_prod(l, r,\
+    \ u)) {\n        answer += fws[h].sum(il, ir);\n      }\n      for (const auto&\
+    \ [h, il, ir] : wm.range_prod(l, r, d)) {\n        answer -= fws[h].sum(il, ir);\n\
+    \      }\n      std::cout << answer << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\
+    \n\n#include <iostream>\n#include <vector>\n#include <queue>\n#include <tuple>\n\
+    #include \"atcoder/fenwicktree.hpp\"\n#include \"tools/wavelet_matrix.hpp\"\n\
+    #include \"tools/ssize.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, Q;\n  std::cin >> N >> Q;\n\
+    \n  tools::wavelet_matrix<int> wm;\n  std::vector<int> ws;\n  std::queue<int>\
+    \ qts;\n  std::queue<std::tuple<int, int, int, int>> q2s;\n  for (int i = 0; i\
+    \ < N; ++i) {\n    int x, y, w;\n    std::cin >> x >> y >> w;\n    wm.add_point(x,\
+    \ y);\n    ws.push_back(w);\n  }\n  for (int q = 0; q < Q; ++q) {\n    int qt;\n\
+    \    std::cin >> qt;\n    if (qt == 0) {\n      int x, y, w;\n      std::cin >>\
+    \ x >> y >> w;\n      wm.add_point(x, y);\n      ws.push_back(w);\n      qts.push(0);\n\
+    \    } else {\n      int l, d, r, u;\n      std::cin >> l >> d >> r >> u;\n  \
+    \    qts.push(1);\n      q2s.emplace(l, d, r, u);\n    }\n  }\n\n  std::vector<atcoder::fenwick_tree<ll>>\
+    \ fws;\n  for (const auto& v : wm.build()) {\n    fws.emplace_back(v.size());\n\
+    \    for (int i = 0; i < tools::ssize(v); ++i) {\n      if (int(v[i]) < N) {\n\
+    \        fws.back().add(i, ws[v[i]]);\n      }\n    }\n  }\n\n  int p = N;\n \
+    \ for (int q = 0; q < Q; ++q) {\n    const auto qt = qts.front();\n    qts.pop();\n\
+    \    if (qt == 0) {\n      for (const auto& [h, i] : wm.apply(p)) {\n        fws[h].add(i,\
+    \ ws[p]);\n      }\n      ++p;\n    } else {\n      const auto [l, d, r, u] =\
+    \ q2s.front();\n      q2s.pop();\n      ll answer = 0;\n      for (const auto&\
+    \ [h, il, ir] : wm.range_prod(l, r, u)) {\n        answer += fws[h].sum(il, ir);\n\
+    \      }\n      for (const auto& [h, il, ir] : wm.range_prod(l, r, d)) {\n   \
+    \     answer -= fws[h].sum(il, ir);\n      }\n      std::cout << answer << '\\\
+    n';\n    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/wavelet_matrix.hpp
   - tools/bit_vector.hpp
@@ -245,16 +334,17 @@ data:
   - tools/less_by_first.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
+  - tools/ssize.hpp
   isVerificationFile: true
-  path: tests/wavelet_matrix/range_freq.test.cpp
+  path: tests/wavelet_matrix/range_prod.test.cpp
   requiredBy: []
   timestamp: '2023-07-22 12:30:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/wavelet_matrix/range_freq.test.cpp
+documentation_of: tests/wavelet_matrix/range_prod.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/wavelet_matrix/range_freq.test.cpp
-- /verify/tests/wavelet_matrix/range_freq.test.cpp.html
-title: tests/wavelet_matrix/range_freq.test.cpp
+- /verify/tests/wavelet_matrix/range_prod.test.cpp
+- /verify/tests/wavelet_matrix/range_prod.test.cpp.html
+title: tests/wavelet_matrix/range_prod.test.cpp
 ---

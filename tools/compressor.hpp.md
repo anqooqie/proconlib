@@ -5,13 +5,10 @@ data:
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/next_value.test.cpp
-    title: tests/wavelet_matrix/next_value.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/compressor.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -69,9 +66,8 @@ data:
   path: tools/compressor.hpp
   requiredBy: []
   timestamp: '2023-06-28 13:29:25+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/wavelet_matrix/next_value.test.cpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: tools/compressor.hpp
 layout: document
 title: Compress values (for more complicated cases)

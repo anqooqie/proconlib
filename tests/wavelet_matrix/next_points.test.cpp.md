@@ -26,16 +26,17 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2674
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/2674
-  bundledCode: "#line 1 \"tests/wavelet_matrix/range_freq.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/2674\"\n\n#include <iostream>\n\
-    #include <algorithm>\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <vector>\n\
-    #include <utility>\n#include <cstddef>\n#include <cassert>\n#line 9 \"tools/wavelet_matrix.hpp\"\
-    \n#include <iterator>\n#include <array>\n#include <tuple>\n#include <optional>\n\
-    #line 1 \"tools/bit_vector.hpp\"\n\n\n\n#include <cstdint>\n#line 6 \"tools/bit_vector.hpp\"\
-    \n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
+    - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C
+  bundledCode: "#line 1 \"tests/wavelet_matrix/next_points.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <cstddef>\n#include <algorithm>\n#include <iterator>\n\
+    #line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#line 5 \"tools/wavelet_matrix.hpp\"\
+    \n#include <utility>\n#line 7 \"tools/wavelet_matrix.hpp\"\n#include <cassert>\n\
+    #line 10 \"tools/wavelet_matrix.hpp\"\n#include <array>\n#include <tuple>\n#include\
+    \ <optional>\n#line 1 \"tools/bit_vector.hpp\"\n\n\n\n#include <cstdint>\n#line\
+    \ 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
     // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  class\
     \ bit_vector {\n  private:\n    using u32 = ::std::uint32_t;\n    using i64 =\
     \ ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    static constexpr u32\
@@ -219,25 +220,35 @@ data:
     \  } else {\n          k -= r0 - l0;\n          lid += this->m_bvs[h].zeros()\
     \ - l0;\n          rid += this->m_bvs[h].zeros() - r0;\n        }\n      }\n\n\
     \      return ::std::make_pair(this->m_is.cbegin() + lid, this->m_is.cbegin()\
-    \ + rid);\n    }\n  };\n}\n\n\n#line 6 \"tests/wavelet_matrix/range_freq.test.cpp\"\
+    \ + rid);\n    }\n  };\n}\n\n\n#line 9 \"tests/wavelet_matrix/next_points.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int D;\n  std::cin >> D;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
-    \ 0; i < D; ++i) {\n    int x_i;\n    std::cin >> x_i;\n    wm.add_point(i, x_i);\n\
-    \  }\n  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q < Q; ++q)\
-    \ {\n    int l, r, e;\n    std::cin >> l >> r >> e;\n    --l;\n    const auto\
-    \ [a, b] = std::minmax({wm.get_point(l).second, wm.get_point(r - 1).second});\n\
-    \    std::cout << (r - l) - wm.range_freq(l, r, a - e, b + e + 1) << \"\\n\";\n\
-    \  }\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/2674\"\n\n#include\
-    \ <iostream>\n#include <algorithm>\n#include \"tools/wavelet_matrix.hpp\"\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int D;\n  std::cin >> D;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
-    \ 0; i < D; ++i) {\n    int x_i;\n    std::cin >> x_i;\n    wm.add_point(i, x_i);\n\
-    \  }\n  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q < Q; ++q)\
-    \ {\n    int l, r, e;\n    std::cin >> l >> r >> e;\n    --l;\n    const auto\
-    \ [a, b] = std::minmax({wm.get_point(l).second, wm.get_point(r - 1).second});\n\
-    \    std::cout << (r - l) - wm.range_freq(l, r, a - e, b + e + 1) << \"\\n\";\n\
-    \  }\n\n  return 0;\n}\n"
+    \n  int n;\n  std::cin >> n;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
+    \ 0; i < n; ++i) {\n    int x, y;\n    std::cin >> x >> y;\n    wm.add_point(x,\
+    \ y);\n  }\n  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q <\
+    \ Q; ++q) {\n    int sx, tx, sy, ty;\n    std::cin >> sx >> tx >> sy >> ty;\n\
+    \    ++tx, ++ty;\n\n    std::vector<std::size_t> answers;\n    decltype(wm.next_points(0,\
+    \ 0, 0)) partial_answers;\n    for (int y = sy; [&]() {\n      partial_answers\
+    \ = wm.next_points(sx, tx, y);\n      return partial_answers.first < partial_answers.second\
+    \ && wm.get_point(*partial_answers.first).second < ty;\n    }(); y = wm.get_point(answers.back()).second\
+    \ + 1) {\n      std::copy(partial_answers.first, partial_answers.second, std::back_inserter(answers));\n\
+    \    }\n\n    std::sort(answers.begin(), answers.end());\n    for (const auto\
+    \ answer : answers) {\n      std::cout << answer << '\\n';\n    }\n    std::cout\
+    \ << '\\n';\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <cstddef>\n#include <algorithm>\n\
+    #include <iterator>\n#include \"tools/wavelet_matrix.hpp\"\n\nint main() {\n \
+    \ std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int n;\n\
+    \  std::cin >> n;\n  tools::wavelet_matrix<int> wm;\n  for (int i = 0; i < n;\
+    \ ++i) {\n    int x, y;\n    std::cin >> x >> y;\n    wm.add_point(x, y);\n  }\n\
+    \  wm.build();\n\n  int Q;\n  std::cin >> Q;\n  for (int q = 0; q < Q; ++q) {\n\
+    \    int sx, tx, sy, ty;\n    std::cin >> sx >> tx >> sy >> ty;\n    ++tx, ++ty;\n\
+    \n    std::vector<std::size_t> answers;\n    decltype(wm.next_points(0, 0, 0))\
+    \ partial_answers;\n    for (int y = sy; [&]() {\n      partial_answers = wm.next_points(sx,\
+    \ tx, y);\n      return partial_answers.first < partial_answers.second && wm.get_point(*partial_answers.first).second\
+    \ < ty;\n    }(); y = wm.get_point(answers.back()).second + 1) {\n      std::copy(partial_answers.first,\
+    \ partial_answers.second, std::back_inserter(answers));\n    }\n\n    std::sort(answers.begin(),\
+    \ answers.end());\n    for (const auto answer : answers) {\n      std::cout <<\
+    \ answer << '\\n';\n    }\n    std::cout << '\\n';\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/wavelet_matrix.hpp
   - tools/bit_vector.hpp
@@ -246,15 +257,15 @@ data:
   - tools/floor_log2.hpp
   - tools/popcount.hpp
   isVerificationFile: true
-  path: tests/wavelet_matrix/range_freq.test.cpp
+  path: tests/wavelet_matrix/next_points.test.cpp
   requiredBy: []
   timestamp: '2023-07-22 12:30:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/wavelet_matrix/range_freq.test.cpp
+documentation_of: tests/wavelet_matrix/next_points.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/wavelet_matrix/range_freq.test.cpp
-- /verify/tests/wavelet_matrix/range_freq.test.cpp.html
-title: tests/wavelet_matrix/range_freq.test.cpp
+- /verify/tests/wavelet_matrix/next_points.test.cpp
+- /verify/tests/wavelet_matrix/next_points.test.cpp.html
+title: tests/wavelet_matrix/next_points.test.cpp
 ---

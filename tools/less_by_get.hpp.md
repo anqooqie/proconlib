@@ -16,9 +16,6 @@ data:
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/next_value.test.cpp
-    title: tests/wavelet_matrix/next_value.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - icon: ':heavy_check_mark:'
@@ -51,7 +48,6 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/mo.test.cpp
-  - tests/wavelet_matrix/next_value.test.cpp
   - tests/avl_tree/binary_search.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp

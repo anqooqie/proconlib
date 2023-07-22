@@ -39,9 +39,6 @@ data:
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':heavy_check_mark:'
-    path: tools/rectangle_sum.hpp
-    title: Rectangle sum
-  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -94,9 +91,6 @@ data:
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/rectangle_sum.test.cpp
-    title: tests/rectangle_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
   - icon: ':heavy_check_mark:'
@@ -115,11 +109,17 @@ data:
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/wavelet_matrix/next_value.test.cpp
-    title: tests/wavelet_matrix/next_value.test.cpp
+    path: tests/wavelet_matrix/next_points.test.cpp
+    title: tests/wavelet_matrix/next_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/prev_points.test.cpp
+    title: tests/wavelet_matrix/prev_points.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_freq.test.cpp
     title: tests/wavelet_matrix/range_freq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_prod.test.cpp
+    title: tests/wavelet_matrix/range_prod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -201,15 +201,16 @@ data:
   - tools/disjoint_sparse_table.hpp
   - tools/extended_lucas.hpp
   - tools/lca.hpp
-  - tools/rectangle_sum.hpp
   - tools/prime_factorization.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/totient.test.cpp
-  - tests/wavelet_matrix/next_value.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/divisors.test.cpp
   - tests/primitive_root.test.cpp
@@ -228,7 +229,6 @@ data:
   - tests/rotate_right.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/floor_log2.test.cpp
-  - tests/rectangle_sum.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

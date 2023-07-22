@@ -22,15 +22,15 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
-    path: tools/rectangle_sum.hpp
-    title: Rectangle sum
-  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
+  - icon: ':heavy_check_mark:'
+    path: tools/wavelet_matrix.hpp
+    title: Wavelet matrix
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
@@ -78,9 +78,6 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/rectangle_sum.test.cpp
-    title: tests/rectangle_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -89,6 +86,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/kth_smallest.test.cpp
+    title: tests/wavelet_matrix/kth_smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/next_points.test.cpp
+    title: tests/wavelet_matrix/next_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/prev_points.test.cpp
+    title: tests/wavelet_matrix/prev_points.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_freq.test.cpp
+    title: tests/wavelet_matrix/range_freq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_prod.test.cpp
+    title: tests/wavelet_matrix/range_prod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -114,11 +126,16 @@ data:
   - tools/partition_function.hpp
   - tools/sparse_fps_pow.hpp
   - tools/partially_persistent_dsu.hpp
+  - tools/wavelet_matrix.hpp
   - tools/bernoulli.hpp
-  - tools/rectangle_sum.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
@@ -137,7 +154,6 @@ data:
   - tests/partition_function/n_k.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partially_persistent_dsu.test.cpp
-  - tests/rectangle_sum.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

@@ -8,6 +8,12 @@ data:
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
+    path: tools/less_by_first.hpp
+    title: std::less by first
+  - icon: ':heavy_check_mark:'
+    path: tools/lower_bound.hpp
+    title: std::lower_bound, but returns index
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':heavy_check_mark:'
@@ -25,11 +31,11 @@ data:
     - https://judge.yosupo.jp/problem/range_kth_smallest
   bundledCode: "#line 1 \"tests/wavelet_matrix/kth_smallest.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\n#include <iostream>\n\
-    #include <vector>\n#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <cstdint>\n\
-    #line 6 \"tools/wavelet_matrix.hpp\"\n#include <algorithm>\n#include <iterator>\n\
-    #include <array>\n#include <utility>\n#include <cassert>\n#line 1 \"tools/bit_vector.hpp\"\
-    \n\n\n\n#line 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\n// Source:\
-    \ https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
+    #line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <vector>\n#include <utility>\n\
+    #include <cstddef>\n#include <cassert>\n#include <algorithm>\n#include <iterator>\n\
+    #include <array>\n#include <tuple>\n#include <optional>\n#line 1 \"tools/bit_vector.hpp\"\
+    \n\n\n\n#include <cstdint>\n#line 6 \"tools/bit_vector.hpp\"\n#include <immintrin.h>\n\
+    \n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
     // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  class\
     \ bit_vector {\n  private:\n    using u32 = ::std::uint32_t;\n    using i64 =\
     \ ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    static constexpr u32\
@@ -46,15 +52,25 @@ data:
     \ }\n\n    u32 zeros() const { return m_zeros; }\n    inline u32 rank0(u32 i)\
     \ const { return i - rank1(i); }\n    __attribute__((target(\"bmi2,popcnt\")))\
     \ inline u32 rank1(u32 i) const {\n      return m_count[i / w] + _mm_popcnt_u64(_bzhi_u64(m_block[i\
-    \ / w], i % w));\n    }\n  };\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n\
-    #include <type_traits>\n#line 6 \"tools/floor_log2.hpp\"\n#include <limits>\n\
-    #line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
-    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
-    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
-    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
-    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
-    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ / w], i % w));\n    }\n  };\n}\n\n\n#line 1 \"tools/lower_bound.hpp\"\n\n\n\n\
+    #line 6 \"tools/lower_bound.hpp\"\n\nnamespace tools {\n\n  template <class ForwardIterator,\
+    \ class T>\n  auto lower_bound(ForwardIterator first, ForwardIterator last, const\
+    \ T& value) {\n    return ::std::distance(first, ::std::lower_bound(first, last,\
+    \ value));\n  }\n\n  template <class ForwardIterator, class T, class Compare>\n\
+    \  auto lower_bound(ForwardIterator first, ForwardIterator last, const T& value,\
+    \ Compare comp) {\n    return ::std::distance(first, ::std::lower_bound(first,\
+    \ last, value, comp));\n  }\n}\n\n\n#line 1 \"tools/less_by_first.hpp\"\n\n\n\n\
+    #line 5 \"tools/less_by_first.hpp\"\n\nnamespace tools {\n\n  class less_by_first\
+    \ {\n  public:\n    template <class T1, class T2>\n    bool operator()(const ::std::pair<T1,\
+    \ T2>& x, const ::std::pair<T1, T2>& y) const {\n      return x.first < y.first;\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 6 \"tools/floor_log2.hpp\"\n#include <limits>\n#line 1 \"tools/popcount.hpp\"\
+    \n\n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
+    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
     \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
     \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
     \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
@@ -87,77 +103,148 @@ data:
     \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
     \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
-    \ 13 \"tools/wavelet_matrix.hpp\"\n\n// Source: https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html\n\
-    // License: CC0 1.0 Universal\n// Author: Nyaan\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class wavelet_matrix {\n  private:\n    using u32 = ::std::uint32_t;\n\
-    \    using i64 = ::std::int64_t;\n    using u64 = ::std::uint64_t;\n\n    int\
-    \ n, lg;\n    ::std::vector<T> a;\n    ::std::vector<::tools::bit_vector> bv;\n\
-    \n  public:\n    wavelet_matrix() = default;\n    wavelet_matrix(const wavelet_matrix<T>&)\
-    \ = default;\n    wavelet_matrix<T>& operator=(const wavelet_matrix<T>&) = default;\n\
-    \n    explicit wavelet_matrix(u32 _n) : n(::std::max<u32>(_n, 1)), a(n) {}\n \
-    \   wavelet_matrix(const ::std::vector<T>& _a) : n(_a.size()), a(_a) { build();\
-    \ }\n\n    __attribute__((optimize(\"O3\"))) void build() {\n      assert(::std::all_of(::std::begin(a),\
-    \ ::std::end(a), [](const auto a_i) { return a_i >= 0; }));\n\n      lg = ::tools::floor_log2(::std::max<T>(*::std::max_element(::std::begin(a),\
-    \ ::std::end(a)), 1)) + 1;\n      bv.assign(lg, ::tools::bit_vector(n));\n   \
-    \   ::std::vector<T> cur = a, nxt(n);\n      for (int h = lg - 1; h >= 0; --h)\
-    \ {\n        for (int i = 0; i < n; ++i)\n          if ((cur[i] >> h) & 1) bv[h].set(i);\n\
-    \        bv[h].build();\n        ::std::array<decltype(::std::begin(nxt)), 2>\
-    \ it{::std::begin(nxt), ::std::begin(nxt) + bv[h].zeros()};\n        for (int\
-    \ i = 0; i < n; ++i) *it[bv[h].get(i)]++ = cur[i];\n        ::std::swap(cur, nxt);\n\
-    \      }\n      return;\n    }\n\n    void set(u32 i, const T& x) {\n      assert(x\
-    \ >= 0);\n      a[i] = x; \n    }\n\n    // return a[k]\n    T access(u32 k) const\
-    \ {\n      assert(k <= u32(n));\n\n      T ret = 0;\n      for (int h = lg - 1;\
-    \ h >= 0; --h) {\n        u32 f = bv[h].get(k);\n        ret |= f ? T(1) << h\
-    \ : 0;\n        k = f ? bv[h].rank1(k) + bv[h].zeros() : bv[h].rank0(k);\n   \
-    \   }\n      return ret;\n    }\n\n    // k-th (0-indexed) smallest number in\
-    \ a[l, r)\n    T kth_smallest(u32 l, u32 r, u32 k) const {\n      assert(l <=\
-    \ r && r <= u32(n));\n      assert(k < r - l);\n\n      T res = 0;\n      for\
-    \ (int h = lg - 1; h >= 0; --h) {\n        u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);\n\
-    \        if (k < r0 - l0)\n          l = l0, r = r0;\n        else {\n       \
-    \   k -= r0 - l0;\n          res |= T(1) << h;\n          l += bv[h].zeros() -\
-    \ l0;\n          r += bv[h].zeros() - r0;\n        }\n      }\n      return res;\n\
-    \    }\n\n    // k-th (0-indexed) largest number in a[l, r)\n    T kth_largest(int\
-    \ l, int r, int k) {\n      assert(l <= r && r <= n);\n      assert(k < r - l);\n\
-    \n      return kth_smallest(l, r, r - l - k - 1);\n    }\n\n    // count i s.t.\
-    \ (l <= i < r) && (v[i] < upper)\n    int range_freq(int l, int r, T upper) {\n\
-    \      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      if (upper\
-    \ >= (T(1) << lg)) return r - l;\n      int ret = 0;\n      for (int h = lg -\
-    \ 1; h >= 0; --h) {\n        bool f = (upper >> h) & 1;\n        u32 l0 = bv[h].rank0(l),\
-    \ r0 = bv[h].rank0(r);\n        if (f) {\n          ret += r0 - l0;\n        \
-    \  l += bv[h].zeros() - l0;\n          r += bv[h].zeros() - r0;\n        } else\
-    \ {\n          l = l0;\n          r = r0;\n        }\n      }\n      return ret;\n\
-    \    }\n\n    int range_freq(int l, int r, T lower, T upper) {\n      assert(l\
-    \ <= r && r <= n);\n      assert(0 <= lower && lower <= upper);\n\n      return\
-    \ range_freq(l, r, upper) - range_freq(l, r, lower);\n    }\n\n    // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] < upper)\n    T prev_value(int l, int r, T upper)\
-    \ {\n      assert(l <= r && r <= n);\n      assert(upper >= 0);\n\n      int cnt\
-    \ = range_freq(l, r, upper);\n      return cnt == 0 ? T(-1) : kth_smallest(l,\
-    \ r, cnt - 1);\n    }\n\n    // min v[i] s.t. (l <= i < r) && (lower <= v[i])\n\
-    \    T next_value(int l, int r, T lower) {\n      assert(l <= r && r <= n);\n\
-    \      assert(lower >= 0);\n\n      int cnt = range_freq(l, r, lower);\n     \
-    \ return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);\n    }\n  };\n}\n\n\n\
-    #line 6 \"tests/wavelet_matrix/kth_smallest.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  int N, Q;\n  std::cin >> N >> Q;\n\
-    \  std::vector<int> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  tools::wavelet_matrix<int>\
-    \ wm(a);\n  for (int q = 0; q < Q; ++q) {\n    int l, r, k;\n    std::cin >> l\
-    \ >> r >> k;\n    std::cout << wm.kth_smallest(l, r, k) << \"\\n\";\n  }\n\n \
-    \ return 0;\n}\n"
+    \ 17 \"tools/wavelet_matrix.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
+    \  class wavelet_matrix {\n  private:\n    ::std::vector<::std::pair<T, T>> m_ps;\n\
+    \    ::std::vector<::std::pair<T, ::std::size_t>> m_xs;\n    ::std::vector<T>\
+    \ m_ys;\n    ::std::vector<::std::size_t> m_is;\n    ::std::vector<::tools::bit_vector>\
+    \ m_bvs;\n\n    ::std::size_t iid(const ::std::size_t i) const {\n      return\
+    \ ::tools::lower_bound(this->m_xs.begin(), this->m_xs.end(), ::std::make_pair(this->m_ps[i].first,\
+    \ i));\n    }\n    ::std::size_t xid(const T& x) const {\n      return ::tools::lower_bound(this->m_xs.begin(),\
+    \ this->m_xs.end(), ::std::make_pair(x, ::std::size_t{}), ::tools::less_by_first());\n\
+    \    }\n    ::std::size_t yid(const T& y) const {\n      return ::tools::lower_bound(this->m_ys.begin(),\
+    \ this->m_ys.end(), y);\n    }\n    ::std::size_t lg() const {\n      return this->m_bvs.size();\n\
+    \    }\n    bool built() const {\n      return this->lg() > 0;\n    }\n\n  public:\n\
+    \    wavelet_matrix() = default;\n    wavelet_matrix(const ::tools::wavelet_matrix<T>&)\
+    \ = default;\n    wavelet_matrix(::tools::wavelet_matrix<T>&&) = default;\n  \
+    \  ~wavelet_matrix() = default;\n    ::tools::wavelet_matrix<T>& operator=(const\
+    \ ::tools::wavelet_matrix<T>&) = default;\n    ::tools::wavelet_matrix<T>& operator=(::tools::wavelet_matrix<T>&&)\
+    \ = default;\n\n    ::std::size_t size() const {\n      return this->m_ps.size();\n\
+    \    }\n\n    ::std::size_t add_point(const T& x, const T& y) {\n      assert(!this->built());\n\
+    \      this->m_ps.emplace_back(x, y);\n      return this->size() - 1;\n    }\n\
+    \n    ::std::pair<T, T> get_point(const ::std::size_t i) const {\n      assert(i\
+    \ < this->size());\n      return this->m_ps[i];\n    }\n\n    const ::std::vector<::std::pair<T,\
+    \ T>>& points() const {\n      return this->m_ps;\n    }\n\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ build() {\n      assert(!this->built());\n\n      this->m_xs.reserve(this->size());\n\
+    \      for (::std::size_t i = 0; i < this->size(); ++i) {\n        this->m_xs.emplace_back(this->m_ps[i].first,\
+    \ i);\n      }\n      ::std::sort(this->m_xs.begin(), this->m_xs.end());\n\n \
+    \     this->m_ys.reserve(this->size());\n      ::std::transform(this->m_ps.begin(),\
+    \ this->m_ps.end(), ::std::back_inserter(this->m_ys), [](const auto& p) { return\
+    \ p.second; });\n      ::std::sort(this->m_ys.begin(), this->m_ys.end());\n  \
+    \    this->m_ys.erase(::std::unique(this->m_ys.begin(), this->m_ys.end()), this->m_ys.end());\n\
+    \n      const auto n = ::std::max<::std::size_t>(this->size(), 1);\n      this->m_bvs.assign(::tools::floor_log2(::std::max<::std::size_t>(this->m_ys.size(),\
+    \ 1)) + 1, ::tools::bit_vector(n));\n\n      ::std::vector<::std::size_t> cur;\n\
+    \      cur.reserve(n);\n      ::std::transform(this->m_xs.begin(), this->m_xs.end(),\
+    \ ::std::back_inserter(cur), [&](const auto& p) { return this->yid(this->m_ps[p.second].second);\
+    \ });\n      cur.resize(n);\n      ::std::vector<::std::size_t> nxt(n);\n\n  \
+    \    auto res = ::std::vector(this->lg() + 1, ::std::vector<::std::size_t>(n));\n\
+    \      ::std::transform(this->m_xs.begin(), this->m_xs.end(), res.back().begin(),\
+    \ [&](const auto& p) { return p.second; });\n\n      for (::std::size_t h = this->lg();\
+    \ h --> 0;) {\n        for (::std::size_t i = 0; i < n; ++i) {\n          if ((cur[i]\
+    \ >> h) & 1) {\n            this->m_bvs[h].set(i);\n          }\n        }\n \
+    \       this->m_bvs[h].build();\n        ::std::array<::std::size_t, 2> offsets\
+    \ = {0, this->m_bvs[h].zeros()};\n        for (::std::size_t i = 0; i < n; ++i)\
+    \ {\n          auto& offset = offsets[this->m_bvs[h].get(i)];\n          nxt[offset]\
+    \ = cur[i];\n          res[h][offset] = res[h + 1][i];\n          ++offset;\n\
+    \        }\n        ::std::swap(cur, nxt);\n      }\n\n      this->m_is = res.front();\n\
+    \      res.pop_back();\n      return res;\n    }\n\n    ::std::vector<::std::pair<::std::size_t,\
+    \ ::std::size_t>> apply(::std::size_t i) const {\n      assert(this->built());\n\
+    \      assert(i < this->size());\n\n      ::std::vector<::std::pair<::std::size_t,\
+    \ ::std::size_t>> res(this->lg());\n      i = this->iid(i);\n      for (::std::size_t\
+    \ h = this->lg(); h --> 0;) {\n        i = this->m_bvs[h].get(i) ? this->m_bvs[h].zeros()\
+    \ + this->m_bvs[h].rank1(i) : this->m_bvs[h].rank0(i);\n        res[h] = ::std::make_pair(h,\
+    \ i);\n      }\n      return res;\n    }\n\n    ::std::size_t kth_smallest(const\
+    \ T& l, const T& r, ::std::size_t k) const {\n      assert(this->built());\n \
+    \     assert(l <= r);\n\n      auto lid = this->xid(l);\n      auto rid = this->xid(r);\n\
+    \n      assert(k < rid - lid);\n\n      for (::std::size_t h = this->lg(); h -->\
+    \ 0;) {\n        const auto l0 = this->m_bvs[h].rank0(lid);\n        const auto\
+    \ r0 = this->m_bvs[h].rank0(rid);\n        if (k < r0 - l0) {\n          lid =\
+    \ l0;\n          rid = r0;\n        } else {\n          k -= r0 - l0;\n      \
+    \    lid += this->m_bvs[h].zeros() - l0;\n          rid += this->m_bvs[h].zeros()\
+    \ - r0;\n        }\n      }\n\n      return this->m_is[lid + k];\n    }\n\n  \
+    \  ::std::size_t kth_largest(const T& l, const T& r, const ::std::size_t k) const\
+    \ {\n      assert(this->built());\n      assert(l <= r);\n\n      const auto lid\
+    \ = this->xid(l);\n      const auto rid = this->xid(r);\n\n      assert(k < rid\
+    \ - lid);\n\n      return this->kth_smallest(l, r, rid - lid - k - 1);\n    }\n\
+    \n    ::std::vector<::std::tuple<::std::size_t, ::std::size_t, ::std::size_t>>\
+    \ range_prod(const T& l, const T& r, const T& u) const {\n      assert(this->built());\n\
+    \      assert(l <= r);\n\n      auto lid = this->xid(l);\n      auto rid = this->xid(r);\n\
+    \      const auto uid = this->yid(u);\n\n      ::std::vector<::std::tuple<::std::size_t,\
+    \ ::std::size_t, ::std::size_t>> res(this->lg());\n      for (::std::size_t h\
+    \ = this->lg(); h --> 0;) {\n        const auto l0 = this->m_bvs[h].rank0(lid);\n\
+    \        const auto r0 = this->m_bvs[h].rank0(rid);\n        if ((uid >> h) &\
+    \ 1) {\n          res[h] = ::std::make_tuple(h, l0, r0);\n          lid += this->m_bvs[h].zeros()\
+    \ - l0;\n          rid += this->m_bvs[h].zeros() - r0;\n        } else {\n   \
+    \       res[h] = ::std::make_tuple(h, 0, 0);\n          lid = l0;\n          rid\
+    \ = r0;\n        }\n      }\n      return res;\n    }\n\n    ::std::size_t range_freq(const\
+    \ T& l, const T& r) const {\n      assert(this->built());\n      assert(l <= r);\n\
+    \n      return this->xid(r) - this->xid(l);\n    }\n\n    ::std::size_t range_freq(const\
+    \ T& l, const T& r, const T& u) const {\n      assert(this->built());\n      assert(l\
+    \ <= r);\n\n      auto lid = this->xid(l);\n      auto rid = this->xid(r);\n \
+    \     const auto uid = this->yid(u);\n\n      ::std::size_t res = 0;\n      for\
+    \ (::std::size_t h = this->lg(); h --> 0;) {\n        const auto l0 = this->m_bvs[h].rank0(lid);\n\
+    \        const auto r0 = this->m_bvs[h].rank0(rid);\n        if ((uid >> h) &\
+    \ 1) {\n          res += r0 - l0;\n          lid += this->m_bvs[h].zeros() - l0;\n\
+    \          rid += this->m_bvs[h].zeros() - r0;\n        } else {\n          lid\
+    \ = l0;\n          rid = r0;\n        }\n      }\n      return res;\n    }\n\n\
+    \    ::std::size_t range_freq(const T& l, const T& r, const T& d, const T& u)\
+    \ const {\n      assert(this->built());\n      assert(l <= r);\n      assert(d\
+    \ <= u);\n\n      return this->range_freq(l, r, u) - this->range_freq(l, r, d);\n\
+    \    }\n\n    ::std::optional<T> prev_value(const T& l, const T& r, const T& u)\
+    \ const {\n      assert(this->built());\n      assert(l <= r);\n\n      const\
+    \ auto k = this->range_freq(l, r, u);\n      return k == 0 ? ::std::nullopt :\
+    \ ::std::make_optional(this->m_ps[this->kth_smallest(l, r, k - 1)].second);\n\
+    \    }\n\n    ::std::optional<T> next_value(const T& l, const T& r, const T& d)\
+    \ const {\n      assert(this->built());\n      assert(l <= r);\n\n      const\
+    \ auto k = this->range_freq(l, r, d);\n      return k == this->range_freq(l, r)\
+    \ ? ::std::nullopt : ::std::make_optional(this->m_ps[this->kth_smallest(l, r,\
+    \ k)].second);\n    }\n\n    ::std::pair<typename ::std::vector<::std::size_t>::const_iterator,\
+    \ typename ::std::vector<::std::size_t>::const_iterator> prev_points(const T&\
+    \ l, const T& r, const T& u) const {\n      assert(this->built());\n      assert(l\
+    \ <= r);\n\n      auto lid = this->xid(l);\n      auto rid = this->xid(r);\n \
+    \     auto k = this->range_freq(l, r, u);\n      if (k == 0) return ::std::make_pair(this->m_is.cend(),\
+    \ this->m_is.cend());\n      --k;\n\n      for (::std::size_t h = this->lg();\
+    \ h --> 0;) {\n        const auto l0 = this->m_bvs[h].rank0(lid);\n        const\
+    \ auto r0 = this->m_bvs[h].rank0(rid);\n        if (k < r0 - l0) {\n         \
+    \ lid = l0;\n          rid = r0;\n        } else {\n          k -= r0 - l0;\n\
+    \          lid += this->m_bvs[h].zeros() - l0;\n          rid += this->m_bvs[h].zeros()\
+    \ - r0;\n        }\n      }\n\n      return ::std::make_pair(this->m_is.cbegin()\
+    \ + lid, this->m_is.cbegin() + rid);\n    }\n\n    ::std::pair<typename ::std::vector<::std::size_t>::const_iterator,\
+    \ typename ::std::vector<::std::size_t>::const_iterator> next_points(const T&\
+    \ l, const T& r, const T& d) const {\n      assert(this->built());\n      assert(l\
+    \ <= r);\n\n      auto lid = this->xid(l);\n      auto rid = this->xid(r);\n \
+    \     auto k = this->range_freq(l, r, d);\n      if (k == rid - lid) return ::std::make_pair(this->m_is.cend(),\
+    \ this->m_is.cend());\n\n      for (::std::size_t h = this->lg(); h --> 0;) {\n\
+    \        const auto l0 = this->m_bvs[h].rank0(lid);\n        const auto r0 = this->m_bvs[h].rank0(rid);\n\
+    \        if (k < r0 - l0) {\n          lid = l0;\n          rid = r0;\n      \
+    \  } else {\n          k -= r0 - l0;\n          lid += this->m_bvs[h].zeros()\
+    \ - l0;\n          rid += this->m_bvs[h].zeros() - r0;\n        }\n      }\n\n\
+    \      return ::std::make_pair(this->m_is.cbegin() + lid, this->m_is.cbegin()\
+    \ + rid);\n    }\n  };\n}\n\n\n#line 5 \"tests/wavelet_matrix/kth_smallest.test.cpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  tools::wavelet_matrix<int> wm;\n  for\
+    \ (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin >> a_i;\n    wm.add_point(i,\
+    \ a_i);\n  }\n  wm.build();\n\n  for (int q = 0; q < Q; ++q) {\n    int l, r,\
+    \ k;\n    std::cin >> l >> r >> k;\n    std::cout << wm.get_point(wm.kth_smallest(l,\
+    \ r, k)).second << \"\\n\";\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\n\
-    #include <iostream>\n#include <vector>\n#include \"tools/wavelet_matrix.hpp\"\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<int> a(N);\n  for (auto& a_i\
-    \ : a) std::cin >> a_i;\n\n  tools::wavelet_matrix<int> wm(a);\n  for (int q =\
-    \ 0; q < Q; ++q) {\n    int l, r, k;\n    std::cin >> l >> r >> k;\n    std::cout\
-    \ << wm.kth_smallest(l, r, k) << \"\\n\";\n  }\n\n  return 0;\n}\n"
+    #include <iostream>\n#include \"tools/wavelet_matrix.hpp\"\n\nint main() {\n \
+    \ std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int N,\
+    \ Q;\n  std::cin >> N >> Q;\n  tools::wavelet_matrix<int> wm;\n  for (int i =\
+    \ 0; i < N; ++i) {\n    int a_i;\n    std::cin >> a_i;\n    wm.add_point(i, a_i);\n\
+    \  }\n  wm.build();\n\n  for (int q = 0; q < Q; ++q) {\n    int l, r, k;\n   \
+    \ std::cin >> l >> r >> k;\n    std::cout << wm.get_point(wm.kth_smallest(l, r,\
+    \ k)).second << \"\\n\";\n  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/wavelet_matrix.hpp
   - tools/bit_vector.hpp
+  - tools/lower_bound.hpp
+  - tools/less_by_first.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
   isVerificationFile: true
   path: tests/wavelet_matrix/kth_smallest.test.cpp
   requiredBy: []
-  timestamp: '2023-06-25 14:36:39+09:00'
+  timestamp: '2023-07-22 12:30:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/wavelet_matrix/kth_smallest.test.cpp

@@ -165,6 +165,9 @@ data:
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/wavelet_matrix/range_prod.test.cpp
+    title: tests/wavelet_matrix/range_prod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -213,6 +216,7 @@ data:
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/has_mod.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/ssize.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp

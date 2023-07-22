@@ -41,33 +41,30 @@ data:
     \ (A - 1) / (q - 1) + 1, q);\n    }\n    res.emplace_back(A, ::std::numeric_limits<T>::max(),\
     \ 1);\n\n    return res;\n  }\n}\n\n\n#line 13 \"tests/ceil_quotients.test.cpp\"\
     \n\ntemplate <typename T>\nstd::vector<std::tuple<T, T, T>> naive(const T A) {\n\
-    \  assert(A >= 0);\n\n  std::vector<std::tuple<T, T, T>> res;\n  if (A == 0) {\n\
-    \    res.emplace_back(1, ::std::numeric_limits<T>::max(), 0);\n    return res;\n\
-    \  }\n  for (T x = 1; x < A; ++x) {\n    res.emplace_back(x, x + 1, tools::ceil(A,\
-    \ x));\n  }\n\n  std::size_t vl = 0;\n  for (std::size_t vr = 0, al = 0, ar =\
-    \ 0; al < res.size(); vl = vr, al = ar) {\n    for (; ar < res.size() && std::get<2>(res[al])\
-    \ == std::get<2>(res[ar]); ++vr, ++ar);\n    if (vl < al) std::move(res.begin()\
-    \ + al, res.begin() + ar, res.begin() + vl);\n    std::get<1>(res[vl]) = std::get<1>(res[vr\
-    \ - 1]);\n    vr = vl + 1;\n  }\n  res.erase(res.begin() + vl, res.end());\n\n\
-    \  res.emplace_back(A, std::numeric_limits<T>::max(), 1);\n  return res;\n}\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  for (int A = 0; A <= 10000; ++A) {\n    assert_that(tools::ceil_quotients(A)\
-    \ == naive(A));\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n\
-    }\n"
+    \  assert(A >= 0);\n\n  std::vector<std::tuple<T, T, T>> res;\n  for (T x = 1;\
+    \ x <= A + 3; ++x) {\n    res.emplace_back(x, x + 1, tools::ceil(A, x));\n  }\n\
+    \n  std::size_t vl = 0;\n  for (std::size_t vr = 0, al = 0, ar = 0; al < res.size();\
+    \ vl = vr, al = ar) {\n    for (; ar < res.size() && std::get<2>(res[al]) == std::get<2>(res[ar]);\
+    \ ++vr, ++ar);\n    if (vl < al) std::move(res.begin() + al, res.begin() + ar,\
+    \ res.begin() + vl);\n    std::get<1>(res[vl]) = std::get<1>(res[vr - 1]);\n \
+    \   vr = vl + 1;\n  }\n  res.erase(res.begin() + vl, res.end());\n\n  std::get<1>(res.back())\
+    \ = std::numeric_limits<T>::max();\n  return res;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  for (int A = 0; A <= 10000; ++A)\
+    \ {\n    assert_that(tools::ceil_quotients(A) == naive(A));\n  }\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include <vector>\n#include <tuple>\n#include <cassert>\n\
     #include <limits>\n#include <cstddef>\n#include <algorithm>\n#include \"tools/assert_that.hpp\"\
     \n#include \"tools/ceil.hpp\"\n#include \"tools/ceil_quotients.hpp\"\n\ntemplate\
     \ <typename T>\nstd::vector<std::tuple<T, T, T>> naive(const T A) {\n  assert(A\
-    \ >= 0);\n\n  std::vector<std::tuple<T, T, T>> res;\n  if (A == 0) {\n    res.emplace_back(1,\
-    \ ::std::numeric_limits<T>::max(), 0);\n    return res;\n  }\n  for (T x = 1;\
-    \ x < A; ++x) {\n    res.emplace_back(x, x + 1, tools::ceil(A, x));\n  }\n\n \
-    \ std::size_t vl = 0;\n  for (std::size_t vr = 0, al = 0, ar = 0; al < res.size();\
-    \ vl = vr, al = ar) {\n    for (; ar < res.size() && std::get<2>(res[al]) == std::get<2>(res[ar]);\
+    \ >= 0);\n\n  std::vector<std::tuple<T, T, T>> res;\n  for (T x = 1; x <= A +\
+    \ 3; ++x) {\n    res.emplace_back(x, x + 1, tools::ceil(A, x));\n  }\n\n  std::size_t\
+    \ vl = 0;\n  for (std::size_t vr = 0, al = 0, ar = 0; al < res.size(); vl = vr,\
+    \ al = ar) {\n    for (; ar < res.size() && std::get<2>(res[al]) == std::get<2>(res[ar]);\
     \ ++vr, ++ar);\n    if (vl < al) std::move(res.begin() + al, res.begin() + ar,\
     \ res.begin() + vl);\n    std::get<1>(res[vl]) = std::get<1>(res[vr - 1]);\n \
-    \   vr = vl + 1;\n  }\n  res.erase(res.begin() + vl, res.end());\n\n  res.emplace_back(A,\
-    \ std::numeric_limits<T>::max(), 1);\n  return res;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \   vr = vl + 1;\n  }\n  res.erase(res.begin() + vl, res.end());\n\n  std::get<1>(res.back())\
+    \ = std::numeric_limits<T>::max();\n  return res;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  for (int A = 0; A <= 10000; ++A)\
     \ {\n    assert_that(tools::ceil_quotients(A) == naive(A));\n  }\n\n  std::cout\
     \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
@@ -78,7 +75,7 @@ data:
   isVerificationFile: true
   path: tests/ceil_quotients.test.cpp
   requiredBy: []
-  timestamp: '2023-07-09 15:41:38+09:00'
+  timestamp: '2023-07-15 18:52:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ceil_quotients.test.cpp
