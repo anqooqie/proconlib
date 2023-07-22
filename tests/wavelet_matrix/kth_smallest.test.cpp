@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
 
 #include <iostream>
-#include <vector>
 #include "tools/wavelet_matrix.hpp"
 
 int main() {
@@ -10,14 +9,18 @@ int main() {
 
   int N, Q;
   std::cin >> N >> Q;
-  std::vector<int> a(N);
-  for (auto& a_i : a) std::cin >> a_i;
+  tools::wavelet_matrix<int> wm;
+  for (int i = 0; i < N; ++i) {
+    int a_i;
+    std::cin >> a_i;
+    wm.add_point(i, a_i);
+  }
+  wm.build();
 
-  tools::wavelet_matrix<int> wm(a);
   for (int q = 0; q < Q; ++q) {
     int l, r, k;
     std::cin >> l >> r >> k;
-    std::cout << wm.kth_smallest(l, r, k) << "\n";
+    std::cout << wm.get_point(wm.kth_smallest(l, r, k)).second << "\n";
   }
 
   return 0;

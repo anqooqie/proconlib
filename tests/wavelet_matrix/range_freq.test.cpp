@@ -10,14 +10,13 @@ int main() {
 
   int D;
   std::cin >> D;
-  tools::wavelet_matrix<int> x(D);
+  tools::wavelet_matrix<int> wm;
   for (int i = 0; i < D; ++i) {
     int x_i;
     std::cin >> x_i;
-    x_i += 100000000;
-    x.set(i, x_i);
+    wm.add_point(i, x_i);
   }
-  x.build();
+  wm.build();
 
   int Q;
   std::cin >> Q;
@@ -25,8 +24,8 @@ int main() {
     int l, r, e;
     std::cin >> l >> r >> e;
     --l;
-    const auto [a, b] = std::minmax({x.access(l), x.access(r - 1)});
-    std::cout << (r - l) - x.range_freq(l, r, std::max(0, a - e), b + e + 1) << "\n";
+    const auto [a, b] = std::minmax({wm.get_point(l).second, wm.get_point(r - 1).second});
+    std::cout << (r - l) - wm.range_freq(l, r, a - e, b + e + 1) << "\n";
   }
 
   return 0;
