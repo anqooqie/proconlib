@@ -302,7 +302,7 @@ namespace tools {
         return *this;
       }
 
-      const auto [d, c] = *g_begin;
+      auto [d, c] = *g_begin;
       if (d == 0) {
         ++g_begin;
       } else {
@@ -333,7 +333,7 @@ namespace tools {
       if (M::mod() == 1) return *this;
 
       const auto [d, c] = *g_begin;
-      assert(d == 0 && ::std::gcd(c, M::mod()) == 1);
+      assert(d == 0 && ::std::gcd(c.val(), M::mod()) == 1);
       const M ic = c.inv();
       ++g_begin;
       for (int i = 0; i < n; ++i) {
