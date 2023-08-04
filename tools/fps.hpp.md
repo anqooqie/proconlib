@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -49,10 +49,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -102,15 +102,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://opt-cp.com/fps-implementation/
@@ -822,11 +822,11 @@ data:
     \ <class InputIterator>\n    F& multiply_inplace(InputIterator g_begin, const\
     \ InputIterator g_end) {\n      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\
     \n      const int n = this->size();\n      if (g_begin == g_end) {\n        ::std::fill(this->begin(),\
-    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      const auto\
-    \ [d, c] = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n\
-    \        c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n \
-    \       (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n\
-    \          const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
+    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      auto [d, c]\
+    \ = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n     \
+    \   c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n      \
+    \  (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n  \
+    \        const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
     \ += (*this)[i - j] * b;\n        }\n      }\n      return *this;\n    }\n   \
     \ F& multiply_inplace(const ::std::initializer_list<::std::pair<int, M>> il) {\
     \ return this->multiply_inplace(il.begin(), il.end()); }\n    template <class\
@@ -838,11 +838,11 @@ data:
     \   assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\n  \
     \    const int n = this->size();\n      if (n == 0) return *this;\n      if (M::mod()\
     \ == 1) return *this;\n\n      const auto [d, c] = *g_begin;\n      assert(d ==\
-    \ 0 && ::std::gcd(c, M::mod()) == 1);\n      const M ic = c.inv();\n      ++g_begin;\n\
-    \      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin; it != g_end;\
-    \ ++it) {\n          const auto& [j, b] = *it;\n          if (j > i) break;\n\
-    \          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i] *=\
-    \ ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
+    \ 0 && ::std::gcd(c.val(), M::mod()) == 1);\n      const M ic = c.inv();\n   \
+    \   ++g_begin;\n      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin;\
+    \ it != g_end; ++it) {\n          const auto& [j, b] = *it;\n          if (j >\
+    \ i) break;\n          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i]\
+    \ *= ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
     \ M>> il) { return this->divide_inplace(il.begin(), il.end()); }\n    template\
     \ <class InputIterator>\n    F divide(const InputIterator g_begin, const InputIterator\
     \ g_end) const { return F(*this).divide_inplace(g_begin, g_end); }\n    F divide(const\
@@ -1129,11 +1129,11 @@ data:
     \ <class InputIterator>\n    F& multiply_inplace(InputIterator g_begin, const\
     \ InputIterator g_end) {\n      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\
     \n      const int n = this->size();\n      if (g_begin == g_end) {\n        ::std::fill(this->begin(),\
-    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      const auto\
-    \ [d, c] = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n\
-    \        c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n \
-    \       (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n\
-    \          const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
+    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      auto [d, c]\
+    \ = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n     \
+    \   c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n      \
+    \  (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n  \
+    \        const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
     \ += (*this)[i - j] * b;\n        }\n      }\n      return *this;\n    }\n   \
     \ F& multiply_inplace(const ::std::initializer_list<::std::pair<int, M>> il) {\
     \ return this->multiply_inplace(il.begin(), il.end()); }\n    template <class\
@@ -1145,11 +1145,11 @@ data:
     \   assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\n  \
     \    const int n = this->size();\n      if (n == 0) return *this;\n      if (M::mod()\
     \ == 1) return *this;\n\n      const auto [d, c] = *g_begin;\n      assert(d ==\
-    \ 0 && ::std::gcd(c, M::mod()) == 1);\n      const M ic = c.inv();\n      ++g_begin;\n\
-    \      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin; it != g_end;\
-    \ ++it) {\n          const auto& [j, b] = *it;\n          if (j > i) break;\n\
-    \          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i] *=\
-    \ ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
+    \ 0 && ::std::gcd(c.val(), M::mod()) == 1);\n      const M ic = c.inv();\n   \
+    \   ++g_begin;\n      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin;\
+    \ it != g_end; ++it) {\n          const auto& [j, b] = *it;\n          if (j >\
+    \ i) break;\n          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i]\
+    \ *= ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
     \ M>> il) { return this->divide_inplace(il.begin(), il.end()); }\n    template\
     \ <class InputIterator>\n    F divide(const InputIterator g_begin, const InputIterator\
     \ g_end) const { return F(*this).divide_inplace(g_begin, g_end); }\n    F divide(const\
@@ -1304,31 +1304,31 @@ data:
   path: tools/fps.hpp
   requiredBy:
   - tools/polynomial.hpp
-  - tools/bostan_mori.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/stirling_2nd.hpp
   - tools/partition_function.hpp
-  - tools/sparse_fps_pow.hpp
+  - tools/bostan_mori.hpp
   - tools/bernoulli.hpp
-  timestamp: '2022-12-31 23:40:15+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-05 05:40:45+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_2nd.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/bernoulli.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
-  - tests/partition_function/n_k.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
   - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/bostan_mori.test.cpp
 documentation_of: tools/fps.hpp
 layout: document
 title: Formal power series

@@ -51,7 +51,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -60,7 +60,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -93,7 +93,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/convolution.hpp
       title: Convolution
     - icon: ':heavy_check_mark:'
@@ -150,7 +150,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
@@ -181,7 +181,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/fps.hpp
       title: Formal power series
     - icon: ':heavy_check_mark:'
@@ -191,7 +191,7 @@ data:
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -249,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/inversion_number.hpp
       title: The number of inversions
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
     - icon: ':heavy_check_mark:'
@@ -279,7 +279,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/less_by_first.hpp
       title: std::less by first
     - icon: ':heavy_check_mark:'
@@ -325,7 +325,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
@@ -389,10 +389,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow2.hpp
       title: $2^x$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -410,7 +410,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/primitive_root.hpp
       title: Primitive root
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -419,7 +419,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -477,7 +477,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
@@ -486,10 +486,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k
         \leq n$
@@ -520,7 +520,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/uint128_t.hpp
       title: 128 bit unsigned integer
     - icon: ':heavy_check_mark:'
@@ -841,7 +841,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/stirling_2nd.test.cpp
       title: tests/stirling_2nd.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1145,7 +1145,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/fraction.test.cpp
       title: tests/sparse_fps_pow/fraction.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/sparse_fps_pow/regular.test.cpp
       title: tests/sparse_fps_pow/regular.test.cpp
   - name: tests/triangle_2d

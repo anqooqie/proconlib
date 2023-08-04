@@ -50,9 +50,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/pdsu.test.cpp
   - tests/cumsum2d.test.cpp
   - tests/persistent_dual_segtree.test.cpp
-  - tests/pdsu.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

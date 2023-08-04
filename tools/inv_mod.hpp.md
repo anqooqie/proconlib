@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -84,18 +84,18 @@ data:
   isVerificationFile: false
   path: tools/inv_mod.hpp
   requiredBy:
-  - tools/sqrt_mod.hpp
-  - tools/log_mod.hpp
   - tools/garner.hpp
+  - tools/sqrt_mod.hpp
   - tools/extended_garner.hpp
-  - tools/tetration_mod.hpp
+  - tools/log_mod.hpp
   - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2022-05-21 22:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extended_garner.test.cpp
-  - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/extended_garner.test.cpp
   - tests/log_mod.test.cpp
   - tests/sqrt_mod.test.cpp
 documentation_of: tools/inv_mod.hpp

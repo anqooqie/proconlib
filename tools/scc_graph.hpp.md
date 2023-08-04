@@ -193,8 +193,8 @@ data:
   timestamp: '2022-06-05 16:52:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/scc_graph/sccs.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/scc_graph/scc_id.test.cpp
 documentation_of: tools/scc_graph.hpp
 layout: document

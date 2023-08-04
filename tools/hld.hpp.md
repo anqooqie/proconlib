@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
@@ -405,9 +405,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/hld/epath.test.cpp
+  - tests/hld/vsubtree.test.cpp
   - tests/hld/lca.test.cpp
   - tests/hld/vancestor.test.cpp
-  - tests/hld/vsubtree.test.cpp
   - tests/hld/vpath.test.cpp
 documentation_of: tools/hld.hpp
 layout: document

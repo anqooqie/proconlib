@@ -44,8 +44,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/tree_diameter.test.cpp
   - tests/lis.test.cpp
+  - tests/tree_diameter.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/cycle_detection/undirected.test.cpp
 documentation_of: tools/join.hpp

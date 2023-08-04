@@ -61,20 +61,20 @@ data:
   path: tools/has_mod.hpp
   requiredBy:
   - tools/polynomial.hpp
-  - tools/bostan_mori.hpp
   - tools/extend_output.hpp
-  - tools/util.hpp
   - tools/extend_input.hpp
+  - tools/util.hpp
+  - tools/bostan_mori.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/has_mod.test.cpp
   - tests/extend_output.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/extend_input.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/util.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/bostan_mori.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document
 title: Check whether T has the member function mod()

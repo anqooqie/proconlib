@@ -4,28 +4,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -239,20 +239,20 @@ data:
   path: tools/prime_factorization.hpp
   requiredBy:
   - tools/primitive_root.hpp
-  - tools/divisors.hpp
   - tools/totient.hpp
-  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
+  - tools/divisors.hpp
   timestamp: '2022-11-23 11:49:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/totient.test.cpp
   - tests/divisors.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/fps/log_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/tetration_mod.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/primitive_root.test.cpp
   - tests/prime_factorization.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document

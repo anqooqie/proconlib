@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind
@@ -768,11 +768,11 @@ data:
     \ <class InputIterator>\n    F& multiply_inplace(InputIterator g_begin, const\
     \ InputIterator g_end) {\n      assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\
     \n      const int n = this->size();\n      if (g_begin == g_end) {\n        ::std::fill(this->begin(),\
-    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      const auto\
-    \ [d, c] = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n\
-    \        c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n \
-    \       (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n\
-    \          const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
+    \ this->end(), M::raw(0));\n        return *this;\n      }\n\n      auto [d, c]\
+    \ = *g_begin;\n      if (d == 0) {\n        ++g_begin;\n      } else {\n     \
+    \   c = M::raw(0);\n      }\n      for (int i = n - 1; i >= 0; --i) {\n      \
+    \  (*this)[i] *= c;\n        for (auto it = g_begin; it != g_end; ++it) {\n  \
+    \        const auto& [j, b] = *it;\n          if (j > i) break;\n          (*this)[i]\
     \ += (*this)[i - j] * b;\n        }\n      }\n      return *this;\n    }\n   \
     \ F& multiply_inplace(const ::std::initializer_list<::std::pair<int, M>> il) {\
     \ return this->multiply_inplace(il.begin(), il.end()); }\n    template <class\
@@ -784,11 +784,11 @@ data:
     \   assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));\n\n  \
     \    const int n = this->size();\n      if (n == 0) return *this;\n      if (M::mod()\
     \ == 1) return *this;\n\n      const auto [d, c] = *g_begin;\n      assert(d ==\
-    \ 0 && ::std::gcd(c, M::mod()) == 1);\n      const M ic = c.inv();\n      ++g_begin;\n\
-    \      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin; it != g_end;\
-    \ ++it) {\n          const auto& [j, b] = *it;\n          if (j > i) break;\n\
-    \          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i] *=\
-    \ ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
+    \ 0 && ::std::gcd(c.val(), M::mod()) == 1);\n      const M ic = c.inv();\n   \
+    \   ++g_begin;\n      for (int i = 0; i < n; ++i) {\n        for (auto it = g_begin;\
+    \ it != g_end; ++it) {\n          const auto& [j, b] = *it;\n          if (j >\
+    \ i) break;\n          (*this)[i] -= (*this)[i - j] * b;\n        }\n        (*this)[i]\
+    \ *= ic;\n      }\n      return *this;\n    }\n    F& divide_inplace(const ::std::initializer_list<::std::pair<int,\
     \ M>> il) { return this->divide_inplace(il.begin(), il.end()); }\n    template\
     \ <class InputIterator>\n    F divide(const InputIterator g_begin, const InputIterator\
     \ g_end) const { return F(*this).divide_inplace(g_begin, g_end); }\n    F divide(const\
@@ -1008,8 +1008,8 @@ data:
   isVerificationFile: true
   path: tests/stirling_2nd.test.cpp
   requiredBy: []
-  timestamp: '2022-12-31 23:40:15+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-05 05:40:45+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/stirling_2nd.test.cpp
 layout: document

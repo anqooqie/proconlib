@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
   - icon: ':heavy_check_mark:'
@@ -362,10 +362,10 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
 documentation_of: tools/wavelet_matrix.hpp
 layout: document
 title: Wavelet matrix
