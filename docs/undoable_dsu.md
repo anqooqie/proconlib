@@ -1,12 +1,13 @@
 ---
-title: Disjoint set union
-documentation_of: //tools/dsu.hpp
+title: Undoable disjoint set union
+documentation_of: //tools/undoable_dsu.hpp
 ---
 
-Given an undirected graph, it processes the following queries in $O(\alpha(n))$ time (amortized).
+Given an undirected graph, it processes the following queries in $O(\log n)$ time.
 
 - Edge addition
 - Deciding whether given two vertices are in the same connected component
+- Rollback edge addition
 
 Each connected component internally has a representative vertex.
 
@@ -20,7 +21,7 @@ When two connected components are merged by edge addition, the representative of
 
 ## Constructor
 ```cpp
-dsu d(int n);
+undoable_dsu d(int n);
 ```
 
 It creates an undirected graph with $n$ vertices and $0$ edges.
@@ -46,7 +47,7 @@ Otherwise, the representative of the larger (or former when the two have the sam
 - $0 \leq b < n$
 
 ### Time Complexity
-- $O(\alpha(n))$ amortized
+- $O(\log n)$
 
 ## same
 ```cpp
@@ -60,7 +61,7 @@ It returns whether the vertices $a$ and $b$ are in the same connected component.
 - $0 \leq b < n$
 
 ### Time Complexity
-- $O(\alpha(n))$ amortized
+- $O(\log n)$
 
 ## leader
 ```cpp
@@ -73,7 +74,7 @@ It returns the representative of the connected component that contains the verte
 - $0 \leq a < n$
 
 ### Time Complexity
-- $O(\alpha(n))$ amortized
+- $O(\log n)$
 
 ## size
 ```cpp
@@ -86,7 +87,20 @@ It returns the size of the connected component that contains the vertex $a$.
 - $0 \leq a < n$
 
 ### Time Complexity
-- $O(\alpha(n))$ amortized
+- $O(\log n)$
+
+## undo
+```cpp
+void d.undo();
+```
+
+It rollbacks the last edge addition.
+
+### Constraints
+- The graph has at least one edge.
+
+### Time Complexity
+- $O(1)$
 
 ## groups
 ```cpp
