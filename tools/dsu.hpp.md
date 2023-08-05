@@ -13,57 +13,61 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/dsu.hpp\"\n\n\n\n#include <vector>\n#include <cassert>\n\
     #include <utility>\n#include <algorithm>\n\nnamespace tools {\n  class dsu {\n\
-    \  private:\n    ::std::vector<int> m_parents;\n    ::std::vector<int> m_sizes;\n\
-    \n    int size() const {\n      return this->m_parents.size();\n    }\n\n  public:\n\
-    \    dsu() = default;\n    dsu(const ::tools::dsu&) = default;\n    dsu(::tools::dsu&&)\
-    \ = default;\n    ~dsu() = default;\n    ::tools::dsu& operator=(const ::tools::dsu&)\
-    \ = default;\n    ::tools::dsu& operator=(::tools::dsu&&) = default;\n\n    explicit\
-    \ dsu(const int n) :\n      m_parents(n),\n      m_sizes(n, 1) {\n      for (int\
-    \ i = 0; i < n; ++i) {\n        this->m_parents[i] = i;\n      }\n    }\n\n  \
-    \  int leader(const int x) {\n      assert(0 <= x && x < this->size());\n\n  \
-    \    return this->m_parents[x] == x ? x : (this->m_parents[x] = this->leader(this->m_parents[x]));\n\
-    \    }\n\n    bool same(const int x, const int y) {\n      assert(0 <= x && x\
-    \ < this->size());\n      assert(0 <= y && y < this->size());\n\n      return\
-    \ this->leader(x) == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n\
-    \      assert(0 <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\
-    \n      x = this->leader(x);\n      y = this->leader(y);\n      if (x == y) return\
-    \ x;\n\n      if (this->m_sizes[x] < this->m_sizes[y]) ::std::swap(x, y);\n  \
-    \    this->m_parents[y] = x;\n      this->m_sizes[x] += this->m_sizes[y];\n\n\
-    \      return x;\n    }\n\n    int size(const int x) {\n      return this->m_sizes[this->leader(x)];\n\
-    \    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
-    \ res(this->size());\n      for (int i = 0; i < this->size(); ++i) {\n       \
-    \ res[this->leader(i)].push_back(i);\n      }\n      res.erase(::std::remove_if(res.begin(),\
-    \ res.end(), [](const auto& group) { return group.empty(); }), res.end());\n \
-    \     return res;\n    }\n  };\n}\n\n\n"
+    \  private:\n    // if this->m_data[x] < 0:\n    //   x is a root.\n    //   size(x)\
+    \ is -this->m_data[x].\n    // if this->m_data[x] >= 0:\n    //   x is an inner\
+    \ or leaf node.\n    //   parent(x) is this->m_data[x].\n    ::std::vector<int>\
+    \ m_data;\n\n    int size() const {\n      return this->m_data.size();\n    }\n\
+    \n  public:\n    dsu() = default;\n    dsu(const ::tools::dsu&) = default;\n \
+    \   dsu(::tools::dsu&&) = default;\n    ~dsu() = default;\n    ::tools::dsu& operator=(const\
+    \ ::tools::dsu&) = default;\n    ::tools::dsu& operator=(::tools::dsu&&) = default;\n\
+    \n    explicit dsu(const int n) : m_data(n, -1) {\n    }\n\n    int leader(const\
+    \ int x) {\n      assert(0 <= x && x < this->size());\n\n      return this->m_data[x]\
+    \ < 0 ? x : (this->m_data[x] = this->leader(this->m_data[x]));\n    }\n\n    bool\
+    \ same(const int x, const int y) {\n      assert(0 <= x && x < this->size());\n\
+    \      assert(0 <= y && y < this->size());\n\n      return this->leader(x) ==\
+    \ this->leader(y);\n    }\n\n    int merge(int x, int y) {\n      assert(0 <=\
+    \ x && x < this->size());\n      assert(0 <= y && y < this->size());\n\n     \
+    \ x = this->leader(x);\n      y = this->leader(y);\n      if (x == y) return x;\n\
+    \n      if (this->m_data[x] > this->m_data[y]) ::std::swap(x, y);\n      this->m_data[x]\
+    \ += this->m_data[y];\n      this->m_data[y] = x;\n\n      return x;\n    }\n\n\
+    \    int size(const int x) {\n      assert(0 <= x && x < this->size());\n\n  \
+    \    return -this->m_data[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ groups() {\n      ::std::vector<::std::vector<int>> res(this->size());\n   \
+    \   for (int i = 0; i < this->size(); ++i) {\n        res[this->leader(i)].push_back(i);\n\
+    \      }\n      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto&\
+    \ group) { return group.empty(); }), res.end());\n      return res;\n    }\n \
+    \ };\n}\n\n\n"
   code: "#ifndef TOOLS_DSU_HPP\n#define TOOLS_DSU_HPP\n\n#include <vector>\n#include\
     \ <cassert>\n#include <utility>\n#include <algorithm>\n\nnamespace tools {\n \
-    \ class dsu {\n  private:\n    ::std::vector<int> m_parents;\n    ::std::vector<int>\
-    \ m_sizes;\n\n    int size() const {\n      return this->m_parents.size();\n \
-    \   }\n\n  public:\n    dsu() = default;\n    dsu(const ::tools::dsu&) = default;\n\
-    \    dsu(::tools::dsu&&) = default;\n    ~dsu() = default;\n    ::tools::dsu&\
-    \ operator=(const ::tools::dsu&) = default;\n    ::tools::dsu& operator=(::tools::dsu&&)\
-    \ = default;\n\n    explicit dsu(const int n) :\n      m_parents(n),\n      m_sizes(n,\
-    \ 1) {\n      for (int i = 0; i < n; ++i) {\n        this->m_parents[i] = i;\n\
-    \      }\n    }\n\n    int leader(const int x) {\n      assert(0 <= x && x < this->size());\n\
-    \n      return this->m_parents[x] == x ? x : (this->m_parents[x] = this->leader(this->m_parents[x]));\n\
-    \    }\n\n    bool same(const int x, const int y) {\n      assert(0 <= x && x\
-    \ < this->size());\n      assert(0 <= y && y < this->size());\n\n      return\
-    \ this->leader(x) == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n\
-    \      assert(0 <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\
-    \n      x = this->leader(x);\n      y = this->leader(y);\n      if (x == y) return\
-    \ x;\n\n      if (this->m_sizes[x] < this->m_sizes[y]) ::std::swap(x, y);\n  \
-    \    this->m_parents[y] = x;\n      this->m_sizes[x] += this->m_sizes[y];\n\n\
-    \      return x;\n    }\n\n    int size(const int x) {\n      return this->m_sizes[this->leader(x)];\n\
-    \    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
-    \ res(this->size());\n      for (int i = 0; i < this->size(); ++i) {\n       \
-    \ res[this->leader(i)].push_back(i);\n      }\n      res.erase(::std::remove_if(res.begin(),\
-    \ res.end(), [](const auto& group) { return group.empty(); }), res.end());\n \
-    \     return res;\n    }\n  };\n}\n\n#endif\n"
+    \ class dsu {\n  private:\n    // if this->m_data[x] < 0:\n    //   x is a root.\n\
+    \    //   size(x) is -this->m_data[x].\n    // if this->m_data[x] >= 0:\n    //\
+    \   x is an inner or leaf node.\n    //   parent(x) is this->m_data[x].\n    ::std::vector<int>\
+    \ m_data;\n\n    int size() const {\n      return this->m_data.size();\n    }\n\
+    \n  public:\n    dsu() = default;\n    dsu(const ::tools::dsu&) = default;\n \
+    \   dsu(::tools::dsu&&) = default;\n    ~dsu() = default;\n    ::tools::dsu& operator=(const\
+    \ ::tools::dsu&) = default;\n    ::tools::dsu& operator=(::tools::dsu&&) = default;\n\
+    \n    explicit dsu(const int n) : m_data(n, -1) {\n    }\n\n    int leader(const\
+    \ int x) {\n      assert(0 <= x && x < this->size());\n\n      return this->m_data[x]\
+    \ < 0 ? x : (this->m_data[x] = this->leader(this->m_data[x]));\n    }\n\n    bool\
+    \ same(const int x, const int y) {\n      assert(0 <= x && x < this->size());\n\
+    \      assert(0 <= y && y < this->size());\n\n      return this->leader(x) ==\
+    \ this->leader(y);\n    }\n\n    int merge(int x, int y) {\n      assert(0 <=\
+    \ x && x < this->size());\n      assert(0 <= y && y < this->size());\n\n     \
+    \ x = this->leader(x);\n      y = this->leader(y);\n      if (x == y) return x;\n\
+    \n      if (this->m_data[x] > this->m_data[y]) ::std::swap(x, y);\n      this->m_data[x]\
+    \ += this->m_data[y];\n      this->m_data[y] = x;\n\n      return x;\n    }\n\n\
+    \    int size(const int x) {\n      assert(0 <= x && x < this->size());\n\n  \
+    \    return -this->m_data[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ groups() {\n      ::std::vector<::std::vector<int>> res(this->size());\n   \
+    \   for (int i = 0; i < this->size(); ++i) {\n        res[this->leader(i)].push_back(i);\n\
+    \      }\n      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto&\
+    \ group) { return group.empty(); }), res.end());\n      return res;\n    }\n \
+    \ };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/dsu.hpp
   requiredBy: []
-  timestamp: '2022-09-19 16:01:52+09:00'
+  timestamp: '2023-08-05 18:58:35+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dsu.test.cpp
@@ -107,7 +111,7 @@ int d.merge(int a, int b);
 
 It adds an edge $(a, b)$.
 
-If the vertices $a$ and $b$ were in the same connected component, it returns the representative of this connected component.
+If the vertices $a$ and $b$ were in the same connected component, it returns the representative of the connected component.
 Otherwise, the representative of the larger (or former when the two have the same size) connected component becomes the representative of the new connected component, and it returns the new representative.
 
 ### Constraints

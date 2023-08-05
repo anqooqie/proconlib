@@ -524,6 +524,9 @@ data:
       path: tools/uint128_t.hpp
       title: 128 bit unsigned integer
     - icon: ':heavy_check_mark:'
+      path: tools/undoable_dsu.hpp
+      title: Undoable disjoint set union
+    - icon: ':heavy_check_mark:'
       path: tools/unordered_map.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
     - icon: ':warning:'
@@ -868,6 +871,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/uint128_t.test.cpp
       title: tests/uint128_t.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/undoable_dsu.test.cpp
+      title: tests/undoable_dsu.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp

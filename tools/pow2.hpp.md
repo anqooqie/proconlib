@@ -303,6 +303,9 @@ data:
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu.test.cpp
+    title: tests/undoable_dsu.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - icon: ':heavy_check_mark:'
@@ -421,6 +424,7 @@ data:
   - tests/dual_segtree.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/disjoint_sparse_table.test.cpp
+  - tests/undoable_dsu.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/lca.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

@@ -114,6 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu.test.cpp
+    title: tests/undoable_dsu.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -163,6 +166,7 @@ data:
   - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/undoable_dsu.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

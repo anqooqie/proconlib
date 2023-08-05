@@ -24,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu.test.cpp
+    title: tests/undoable_dsu.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -409,6 +412,7 @@ data:
   - tests/hld/lca.test.cpp
   - tests/hld/vancestor.test.cpp
   - tests/hld/vpath.test.cpp
+  - tests/undoable_dsu.test.cpp
 documentation_of: tools/hld.hpp
 layout: document
 title: Heavy-light decomposition

@@ -16,6 +16,9 @@ data:
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu.test.cpp
+    title: tests/undoable_dsu.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
   _isVerificationFailed: false
@@ -47,6 +50,7 @@ data:
   - tests/lis.test.cpp
   - tests/tree_diameter.test.cpp
   - tests/polynomial/naive_division.test.cpp
+  - tests/undoable_dsu.test.cpp
   - tests/cycle_detection/undirected.test.cpp
 documentation_of: tools/join.hpp
 layout: document

@@ -24,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu.test.cpp
+    title: tests/undoable_dsu.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -53,6 +56,7 @@ data:
   verifiedWith:
   - tests/fix.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/undoable_dsu.test.cpp
   - tests/avl_tree/set.test.cpp
   - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/main_features.test.cpp
