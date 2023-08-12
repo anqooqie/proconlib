@@ -6,6 +6,9 @@ data:
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
@@ -92,6 +95,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
     title: tests/and_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
@@ -337,6 +343,7 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/lca.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -433,6 +440,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/integer_interval_set.test.cpp
   - tests/ssize.test.cpp
   - tests/binary_heap.test.cpp

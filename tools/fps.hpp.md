@@ -37,6 +37,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
@@ -57,6 +60,9 @@ data:
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
@@ -1303,6 +1309,7 @@ data:
   isVerificationFile: false
   path: tools/fps.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/polynomial.hpp
   - tools/sparse_fps_pow.hpp
   - tools/stirling_2nd.hpp
@@ -1328,6 +1335,7 @@ data:
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/bostan_mori.test.cpp
 documentation_of: tools/fps.hpp
 layout: document

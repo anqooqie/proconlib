@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
@@ -32,6 +35,9 @@ data:
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
@@ -119,6 +125,7 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
   - tools/sparse_fps_pow.hpp
@@ -152,6 +159,7 @@ data:
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/partially_persistent_dsu.test.cpp
 documentation_of: tools/less_by_first.hpp

@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
@@ -18,6 +21,9 @@ data:
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bostan_mori.test.cpp
     title: tests/bostan_mori.test.cpp
@@ -60,6 +66,7 @@ data:
   isVerificationFile: false
   path: tools/has_mod.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/polynomial.hpp
   - tools/extend_output.hpp
   - tools/extend_input.hpp
@@ -73,6 +80,7 @@ data:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/util.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/extend_input.test.cpp
   - tests/bostan_mori.test.cpp
 documentation_of: tools/has_mod.hpp

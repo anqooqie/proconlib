@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
@@ -119,6 +122,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
@@ -331,6 +337,7 @@ data:
   requiredBy:
   - tools/rolling_hash.hpp
   - tools/round.hpp
+  - tools/berlekamp_massey.hpp
   - tools/detail/rolling_hash.hpp
   - tools/garner.hpp
   - tools/polynomial.hpp
@@ -429,6 +436,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/extgcd.test.cpp
   - tests/line_2d/projection.test.cpp

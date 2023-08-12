@@ -43,9 +43,15 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bostan_mori.test.cpp
     title: tests/bostan_mori.test.cpp
@@ -1213,12 +1219,14 @@ data:
   isVerificationFile: false
   path: tools/polynomial.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/bostan_mori.hpp
   timestamp: '2023-08-05 05:40:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/bostan_mori.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
