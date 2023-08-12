@@ -1,30 +1,28 @@
 #ifndef TOOLS_BERLEKAMP_MASSEY_HPP
 #define TOOLS_BERLEKAMP_MASSEY_HPP
 
-#include <type_traits>
-#include <vector>
 #include <cstddef>
 #include <algorithm>
 #include <utility>
+#include <cassert>
+#include "tools/polynomial.hpp"
 
 namespace tools {
-  template <typename InputIterator, typename OutputIterator>
-  void berlekamp_massey(InputIterator begin, InputIterator end, OutputIterator result) {
-    using M = ::std::decay_t<decltype(*begin)>;
-    ::std::vector<M> A(begin, end);
-    ::std::vector<M> C({M(1)});
-    ::std::vector<M> B({M(1)});
+  template <typename K>
+  ::tools::polynomial<K> berlekamp_massey(const ::tools::polynomial<K>& A) {
+    ::tools::polynomial<K> C{K(1)};
+    ::tools::polynomial<K> B{K(1)};
     ::std::size_t L = 0;
     ::std::size_t m = 1;
-    M b(1);
+    K b(1);
 
     for (::std::size_t n = 0; n < A.size(); ++n) {
-      M d(0);
+      K d(0);
       for (::std::size_t i = 0; i <= L; ++i) {
         d += C[i] * A[n - i];
       }
 
-      if (d == M(0)) {
+      if (d == K(0)) {
         ++m;
       } else {
         const auto update_C = [&]() {
@@ -48,10 +46,19 @@ namespace tools {
       }
     }
 
-    for (const auto& C_i : C) {
-      *result = C_i;
-      ++result;
-    }
+    assert(!C.empty());
+    assert(C[0] == K(1));
+    #ifndef NDEBUG
+      for (::std::size_t n = C.size() - 1; n < A.size(); ++n) {
+        K d(0);
+        for (::std::size_t i = 0; i < C.size(); ++i) {
+          d += C[i] * A[n - i];
+        }
+        assert(d == K(0));
+      }
+    #endif
+
+    return C;
   }
 }
 

@@ -1,10 +1,10 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/find_linear_recurrence"
 
 #include <iostream>
-#include <vector>
-#include <iterator>
 #include <string>
+#include <cstddef>
 #include "atcoder/modint.hpp"
+#include "tools/polynomial.hpp"
 #include "tools/berlekamp_massey.hpp"
 
 using mint = atcoder::modint998244353;
@@ -15,7 +15,7 @@ int main() {
 
   int N;
   std::cin >> N;
-  std::vector<mint> a;
+  tools::polynomial<mint> a;
   a.reserve(N);
   for (int i = 0; i < N; ++i) {
     int a_i;
@@ -23,8 +23,7 @@ int main() {
     a.push_back(mint::raw(a_i));
   }
 
-  std::vector<mint> c;
-  tools::berlekamp_massey(a.begin(), a.end(), std::back_inserter(c));
+  const auto c = tools::berlekamp_massey(a);
 
   std::cout << c.size() - 1 << '\n';
   std::string delimiter = "";
