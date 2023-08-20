@@ -78,7 +78,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chromatic_number.hpp
       title: Chromatic number
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/cin.hpp
       title: Fast input
     - icon: ':heavy_check_mark:'
@@ -96,7 +96,7 @@ data:
     - icon: ':question:'
       path: tools/convolution.hpp
       title: Convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/cout.hpp
       title: Fast output
     - icon: ':heavy_check_mark:'
@@ -111,13 +111,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dijkstra.hpp
       title: Dijkstra's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/directed_line_segment_2d.hpp
       title: Two-dimensional directed line segment
     - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
@@ -141,10 +141,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extend_output.hpp
       title: Extend operator<<
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
     - icon: ':question:'
@@ -169,7 +169,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_kth_root.hpp
       title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
     - icon: ':question:'
@@ -184,7 +184,7 @@ data:
     - icon: ':question:'
       path: tools/fps.hpp
       title: Formal power series
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/garner.hpp
       title: Garner's algorithm
     - icon: ':question:'
@@ -243,7 +243,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -404,7 +404,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
     - icon: ':x:'
@@ -649,7 +649,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table.test.cpp
       title: tests/disjoint_sparse_table.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
@@ -667,16 +667,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/extend_output.test.cpp
       title: tests/extend_output.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extended_garner.test.cpp
       title: tests/extended_garner.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extended_lucas.test.cpp
       title: tests/extended_lucas.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extgcd.test.cpp
       title: tests/extgcd.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fact_mod_cache.test.cpp
       title: tests/fact_mod_cache.test.cpp
     - icon: ':heavy_check_mark:'
@@ -688,13 +688,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fix.test.cpp
       title: tests/fix.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/floor.test.cpp
       title: tests/floor.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/floor_kth_root.test.cpp
       title: tests/floor_kth_root.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/floor_log.test.cpp
       title: tests/floor_log.test.cpp
     - icon: ':heavy_check_mark:'
@@ -988,7 +988,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/intersection.test.cpp
       title: tests/directed_line_segment_2d/intersection.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/directed_line_segment_2d/squared_distance.test.cpp
       title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - name: tests/fastio
@@ -996,33 +996,33 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fastio/integer.test.cpp
       title: tests/fastio/integer.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fastio/string.test.cpp
       title: tests/fastio/string.test.cpp
   - name: tests/fps
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/exp_mod998244353.test.cpp
       title: tests/fps/exp_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/exp_other_mods.test.cpp
       title: tests/fps/exp_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod998244353.test.cpp
       title: tests/fps/inv_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_other_mods.test.cpp
       title: tests/fps/inv_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod998244353.test.cpp
       title: tests/fps/log_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_other_mods.test.cpp
       title: tests/fps/log_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_mod998244353.test.cpp
       title: tests/fps/pow_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_other_mods.test.cpp
       title: tests/fps/pow_other_mods.test.cpp
   - name: tests/hld
