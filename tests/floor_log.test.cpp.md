@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/floor_log.hpp
     title: $\left\lfloor \log_b(x) \right\rfloor$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -29,11 +29,12 @@ data:
     \n\n\n\n#include <type_traits>\n#include <cassert>\n#line 1 \"tools/floor.hpp\"\
     \n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M lhs, const\
-    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs - (((lhs > 0 && rhs <\
-    \ 0) || (lhs < 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 7 \"tools/floor_log.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  ::std::common_type_t<M,\
-    \ N> floor_log(const M& base, const N& antilogarithm) {\n    assert(2 <= base\
-    \ && base <= 1000000000000000000);\n    assert(1 <= antilogarithm && antilogarithm\
+    \ N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n\
+    \    return lhs / rhs - T(((lhs > M(0) && rhs < N(0)) || (lhs < M(0) && rhs >\
+    \ N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 7 \"tools/floor_log.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  ::std::common_type_t<M, N>\
+    \ floor_log(const M& base, const N& antilogarithm) {\n    assert(2 <= base &&\
+    \ base <= 1000000000000000000);\n    assert(1 <= antilogarithm && antilogarithm\
     \ <= 1000000000000000000);\n\n    const ::std::common_type_t<M, N> threshold =\
     \ ::tools::floor(antilogarithm, base);\n    ::std::common_type_t<M, N> logarithm\
     \ = 0;\n    for (::std::common_type_t<M, N> pow = 1; pow <= antilogarithm; pow\
@@ -94,8 +95,8 @@ data:
   isVerificationFile: true
   path: tests/floor_log.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/floor_log.test.cpp
 layout: document

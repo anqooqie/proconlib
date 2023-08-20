@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/range_of_digit_products.hpp\"\n\n\n\n#include <vector>\n\
     #include <cassert>\n#include <limits>\n#include <array>\n#include <algorithm>\n\
     #line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
-    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 10 \"tools/range_of_digit_products.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  ::std::vector<T> range_of_digit_products(const T n)\
-    \ {\n    assert(0 <= n && n <= ::std::numeric_limits<T>::digits10);\n\n    ::std::vector<T>\
-    \ range;\n    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\n\
-    \    ::std::array<T, 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1; a\
-    \ <= left[0]; ++a, pow6 *= 6) {\n      left[1] = left[0] - a;\n      for (T b\
-    \ = 0, pow2 = 1; b <= 3 * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1]\
+    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
+    \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 10 \"tools/range_of_digit_products.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::vector<T> range_of_digit_products(const\
+    \ T n) {\n    assert(0 <= n && n <= ::std::numeric_limits<T>::digits10);\n\n \
+    \   ::std::vector<T> range;\n    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\
+    \n    ::std::array<T, 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1;\
+    \ a <= left[0]; ++a, pow6 *= 6) {\n      left[1] = left[0] - a;\n      for (T\
+    \ b = 0, pow2 = 1; b <= 3 * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1]\
     \ - ::tools::ceil(b, 3);\n        for (T c = 0, pow3 = 1; c <= 2 * left[2]; ++c,\
     \ pow3 *= 3) {\n          left[3] = left[2] - ::tools::ceil(c, 2);\n         \
     \ for (T d = 0, pow5 = 1; d <= left[3]; ++d, pow5 *= 5) {\n            left[4]\
@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: tools/range_of_digit_products.hpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/range_of_digit_products.test.cpp
 documentation_of: tools/range_of_digit_products.hpp

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -29,12 +29,13 @@ data:
     \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/ceil.hpp\"\
     \n\n\n\n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
-    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 1 \"tools/ceil_quotients.hpp\"\n\n\n\n#line 9 \"tools/ceil_quotients.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  ::std::vector<::std::tuple<T,\
-    \ T, T>> ceil_quotients(const T A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T,\
-    \ T, T>> res;\n    if (A == 0) {\n      res.emplace_back(1, ::std::numeric_limits<T>::max(),\
+    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
+    \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ceil_quotients.hpp\"\
+    \n\n\n\n#line 9 \"tools/ceil_quotients.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  ::std::vector<::std::tuple<T, T, T>> ceil_quotients(const T\
+    \ A) {\n    assert(A >= 0);\n\n    ::std::vector<::std::tuple<T, T, T>> res;\n\
+    \    if (A == 0) {\n      res.emplace_back(1, ::std::numeric_limits<T>::max(),\
     \ 0);\n      return res;\n    }\n\n    T x;\n    for (x = 1; x * x < A; ++x) {\n\
     \      res.emplace_back(x, x + 1, ::tools::ceil(A, x));\n    }\n    for (T q =\
     \ ::tools::ceil(A, x); q > 1; --q) {\n      res.emplace_back((A - 1) / q + 1,\
@@ -75,7 +76,7 @@ data:
   isVerificationFile: true
   path: tests/ceil_quotients.test.cpp
   requiredBy: []
-  timestamp: '2023-07-15 18:52:42+09:00'
+  timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ceil_quotients.test.cpp

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -29,17 +29,17 @@ data:
     \n\n\n\n#include <type_traits>\n#include <cassert>\n#line 1 \"tools/ceil.hpp\"\
     \n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const\
-    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs >\
-    \ 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 7 \"tools/ceil_log.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  ::std::common_type_t<M,\
-    \ N> ceil_log(const M& base, const N& antilogarithm) {\n    assert(2 <= base &&\
-    \ base <= 1000000000000000000);\n    assert(1 <= antilogarithm && antilogarithm\
-    \ <= 1000000000000000000);\n\n    const ::std::common_type_t<M, N> threshold =\
-    \ tools::ceil(antilogarithm, base);\n    ::std::common_type_t<M, N> logarithm\
-    \ = 0;\n    for (::std::common_type_t<M, N> pow = 1; pow < antilogarithm; pow\
-    \ = (pow < threshold ? pow * base : antilogarithm)) {\n      ++logarithm;\n  \
-    \  }\n\n    return logarithm;\n  }\n}\n\n\n#line 7 \"tests/ceil_log.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n\
+    \    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0) && rhs <\
+    \ N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 7 \"tools/ceil_log.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  ::std::common_type_t<M, N>\
+    \ ceil_log(const M& base, const N& antilogarithm) {\n    assert(2 <= base && base\
+    \ <= 1000000000000000000);\n    assert(1 <= antilogarithm && antilogarithm <=\
+    \ 1000000000000000000);\n\n    const ::std::common_type_t<M, N> threshold = tools::ceil(antilogarithm,\
+    \ base);\n    ::std::common_type_t<M, N> logarithm = 0;\n    for (::std::common_type_t<M,\
+    \ N> pow = 1; pow < antilogarithm; pow = (pow < threshold ? pow * base : antilogarithm))\
+    \ {\n      ++logarithm;\n    }\n\n    return logarithm;\n  }\n}\n\n\n#line 7 \"\
+    tests/ceil_log.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  assert_that(tools::ceil_log(2, 1) == 0);\n  assert_that(tools::ceil_log(2,\
     \ 2) == 1);\n  assert_that(tools::ceil_log(2, 3) == 2);\n  assert_that(tools::ceil_log(2,\
     \ 4) == 2);\n  assert_that(tools::ceil_log(2, 5) == 3);\n  assert_that(tools::ceil_log(2,\
@@ -94,7 +94,7 @@ data:
   isVerificationFile: true
   path: tests/ceil_log.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
+  timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ceil_log.test.cpp

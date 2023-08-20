@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_get.hpp
     title: std::greater by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mo.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
@@ -33,11 +33,12 @@ data:
     \ ok;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n\
     #line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
     \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
-    \    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs > 0) || (lhs\
-    \ < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/less_by_get.hpp\"\
-    \n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace tools {\n\n  template <::std::size_t\
-    \ I>\n  struct less_by_get {\n    template <class T>\n    bool operator()(const\
-    \ T& x, const T& y) const {\n      return ::std::get<I>(x) < ::std::get<I>(y);\n\
+    \    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n    return\
+    \ lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0) && rhs < N(0))) &&\
+    \ lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"\
+    tools/less_by_get.hpp\"\n\nnamespace tools {\n\n  template <::std::size_t I>\n\
+    \  struct less_by_get {\n    template <class T>\n    bool operator()(const T&\
+    \ x, const T& y) const {\n      return ::std::get<I>(x) < ::std::get<I>(y);\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/greater_by_get.hpp\"\n\n\n\n#line 6 \"tools/greater_by_get.hpp\"\
     \n\nnamespace tools {\n\n  template <::std::size_t I>\n  struct greater_by_get\
     \ {\n    template <class T>\n    bool operator()(const T& x, const T& y) const\
@@ -100,8 +101,8 @@ data:
   isVerificationFile: false
   path: tools/mo.hpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/mo.test.cpp
 documentation_of: tools/mo.hpp

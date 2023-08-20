@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []
@@ -238,40 +238,42 @@ data:
     \n\n\n\n#include <optional>\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\
     \n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const\
-    \ N rhs) {\n    if (lhs >= 0) {\n      return lhs / rhs;\n    } else {\n     \
-    \ if (rhs >= 0) {\n        return -((-lhs - 1 + rhs) / rhs);\n      } else {\n\
-    \        return (-lhs - 1 + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 7\
-    \ \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  ::std::tuple<T,\
-    \ T, T> extgcd(T prev_r, T r) {\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n\
-    \    T t(1);\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r, r);\n\
-    \      ::std::tie(prev_r, r) = ::std::make_pair(r, prev_r - q * r);\n      ::std::tie(prev_s,\
-    \ s) = ::std::make_pair(s, prev_s - q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t,\
-    \ prev_t - q * t);\n    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return\
-    \ ::std::make_tuple(prev_s, prev_t, prev_r);\n  }\n}\n\n\n#line 7 \"tools/bezout.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  ::std::optional<::std::tuple<T,\
-    \ T, T, T>> bezout(const T a, const T b, const T c) {\n    assert(a != 0);\n \
-    \   assert(b != 0);\n    const auto [x0, y0, gcd] = ::tools::extgcd(a, b);\n \
-    \   return c % gcd == 0 ? ::std::make_optional(::std::make_tuple(-b / gcd, c /\
-    \ gcd * x0, a / gcd, c / gcd * y0)) : ::std::nullopt;\n  }\n}\n\n\n#line 1 \"\
-    tools/floor.hpp\"\n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> floor(const\
-    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs - (((lhs\
-    \ > 0 && rhs < 0) || (lhs < 0 && rhs > 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1\
-    \ \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
-    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
-    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 11\
-    \ \"tests/bezout.test.cpp\"\n\nusing mint = atcoder::modint1000000007;\nusing\
-    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll T;\n  std::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    ll N, K, H, Y;\n\
-    \    std::cin >> N >> K >> H >> Y;\n\n    {\n      std::array<ll, 3> arr = {N,\
-    \ K, H};\n      std::sort(arr.begin(), arr.end());\n      std::tie(N, K, H) =\
-    \ std::make_tuple(arr[0], arr[1], arr[2]);\n    }\n\n    mint answer = 0;\n  \
-    \  for (ll z = 0; z <= Y / H; ++z) {\n      const auto solution = tools::bezout(N,\
-    \ K, Y - H * z);\n      if (!solution) continue;\n      const auto [p, q, r, s]\
-    \ = *solution;\n      answer += mint(std::max<ll>(0, tools::floor(-q, p) - tools::ceil(-s,\
-    \ r) + 1));\n    }\n\n    std::cout << answer.val() << '\\n';\n  }\n\n  return\
-    \ 0;\n}\n"
+    \ N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    if (lhs >= M(0)) {\n\
+    \      return lhs / rhs;\n    } else {\n      if (rhs >= N(0)) {\n        return\
+    \ -((-lhs - T(1) + rhs) / rhs);\n      } else {\n        return (-lhs - T(1) +\
+    \ -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 7 \"tools/extgcd.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
+    \ prev_r, T r) {\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n    T t(1);\n\
+    \    while (r != T(0)) {\n      const T q = ::tools::quo(prev_r, r);\n      ::std::tie(prev_r,\
+    \ r) = ::std::make_pair(r, prev_r - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s,\
+    \ prev_s - q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t -\
+    \ q * t);\n    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return ::std::make_tuple(prev_s,\
+    \ prev_t, prev_r);\n  }\n}\n\n\n#line 7 \"tools/bezout.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  ::std::optional<::std::tuple<T, T, T, T>> bezout(const\
+    \ T a, const T b, const T c) {\n    assert(a != T(0));\n    assert(b != T(0));\n\
+    \    const auto [x0, y0, gcd] = ::tools::extgcd(a, b);\n    return c % gcd ==\
+    \ T(0) ? ::std::make_optional(::std::make_tuple(-b / gcd, c / gcd * x0, a / gcd,\
+    \ c / gcd * y0)) : ::std::nullopt;\n  }\n}\n\n\n#line 1 \"tools/floor.hpp\"\n\n\
+    \n\n#line 6 \"tools/floor.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
+    \ typename N>\n  constexpr ::std::common_type_t<M, N> floor(const M lhs, const\
+    \ N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n\
+    \    return lhs / rhs - T(((lhs > M(0) && rhs < N(0)) || (lhs < M(0) && rhs >\
+    \ N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6\
+    \ \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
+    \    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n    return\
+    \ lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0) && rhs < N(0))) &&\
+    \ lhs % rhs);\n  }\n}\n\n\n#line 11 \"tests/bezout.test.cpp\"\n\nusing mint =\
+    \ atcoder::modint1000000007;\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll T;\n  std::cin >> T;\n  for\
+    \ (ll t = 0; t < T; ++t) {\n    ll N, K, H, Y;\n    std::cin >> N >> K >> H >>\
+    \ Y;\n\n    {\n      std::array<ll, 3> arr = {N, K, H};\n      std::sort(arr.begin(),\
+    \ arr.end());\n      std::tie(N, K, H) = std::make_tuple(arr[0], arr[1], arr[2]);\n\
+    \    }\n\n    mint answer = 0;\n    for (ll z = 0; z <= Y / H; ++z) {\n      const\
+    \ auto solution = tools::bezout(N, K, Y - H * z);\n      if (!solution) continue;\n\
+    \      const auto [p, q, r, s] = *solution;\n      answer += mint(std::max<ll>(0,\
+    \ tools::floor(-q, p) - tools::ceil(-s, r) + 1));\n    }\n\n    std::cout << answer.val()\
+    \ << '\\n';\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/1358\"\n\n#include <iostream>\n\
     #include <array>\n#include <algorithm>\n#include <tuple>\n#include \"atcoder/modint.hpp\"\
     \n#include \"tools/bezout.hpp\"\n#include \"tools/floor.hpp\"\n#include \"tools/ceil.hpp\"\
@@ -295,7 +297,7 @@ data:
   isVerificationFile: true
   path: tests/bezout.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bezout.test.cpp

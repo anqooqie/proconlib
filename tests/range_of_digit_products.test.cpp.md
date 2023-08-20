@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/range_of_digit_products.hpp
     title: Range of digit products
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/upper_bound.hpp
     title: std::upper_bound, but returns index
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc208/tasks/abc208_e
@@ -42,15 +42,15 @@ data:
     \n#include <cassert>\n#include <limits>\n#include <array>\n#line 1 \"tools/ceil.hpp\"\
     \n\n\n\n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
-    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 10 \"tools/range_of_digit_products.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename T>\n  ::std::vector<T> range_of_digit_products(const T n)\
-    \ {\n    assert(0 <= n && n <= ::std::numeric_limits<T>::digits10);\n\n    ::std::vector<T>\
-    \ range;\n    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\n\
-    \    ::std::array<T, 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1; a\
-    \ <= left[0]; ++a, pow6 *= 6) {\n      left[1] = left[0] - a;\n      for (T b\
-    \ = 0, pow2 = 1; b <= 3 * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1]\
+    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
+    \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 10 \"tools/range_of_digit_products.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::vector<T> range_of_digit_products(const\
+    \ T n) {\n    assert(0 <= n && n <= ::std::numeric_limits<T>::digits10);\n\n \
+    \   ::std::vector<T> range;\n    if (n == 0) return range;\n    if (n > 1) range.push_back(0);\n\
+    \n    ::std::array<T, 5> left;\n    left[0] = n;\n    for (T a = 0, pow6 = 1;\
+    \ a <= left[0]; ++a, pow6 *= 6) {\n      left[1] = left[0] - a;\n      for (T\
+    \ b = 0, pow2 = 1; b <= 3 * left[1]; ++b, pow2 *= 2) {\n        left[2] = left[1]\
     \ - ::tools::ceil(b, 3);\n        for (T c = 0, pow3 = 1; c <= 2 * left[2]; ++c,\
     \ pow3 *= 3) {\n          left[3] = left[2] - ::tools::ceil(c, 2);\n         \
     \ for (T d = 0, pow5 = 1; d <= left[3]; ++d, pow5 *= 5) {\n            left[4]\
@@ -174,8 +174,8 @@ data:
   isVerificationFile: true
   path: tests/range_of_digit_products.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/range_of_digit_products.test.cpp
 layout: document

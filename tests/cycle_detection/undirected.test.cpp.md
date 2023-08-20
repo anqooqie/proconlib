@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cycle_detection.hpp
     title: Cycle detection on a graph
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/join.hpp
     title: Join elements with delimiter
   _extendedRequiredBy: []

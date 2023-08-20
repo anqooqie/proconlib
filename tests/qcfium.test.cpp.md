@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/qcfium.hpp
     title: QCFium's method
   _extendedRequiredBy: []

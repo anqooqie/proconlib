@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
   _extendedRequiredBy: []

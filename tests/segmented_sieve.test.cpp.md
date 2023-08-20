@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc227/tasks/abc227_g
@@ -244,12 +244,12 @@ data:
     \ = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
     #line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs /\
-    \ rhs + (((lhs > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n\
-    }\n\n\n#line 15 \"tools/segmented_sieve.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename T>\n  class segmented_sieve {\n  private:\n    ::std::vector<T> m_lpf;\n\
-    \    ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T> m_aux;\n    T\
-    \ m_l;\n\n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const\
+    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
+    \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 15 \"tools/segmented_sieve.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class segmented_sieve {\n  private:\n\
+    \    ::std::vector<T> m_lpf;\n    ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T>\
+    \ m_aux;\n    T m_l;\n\n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const\
     \ ::tools::segmented_sieve<T>&) = default;\n    segmented_sieve(::tools::segmented_sieve<T>&&)\
     \ = default;\n    ~segmented_sieve() = default;\n    ::tools::segmented_sieve<T>&\
     \ operator=(const ::tools::segmented_sieve<T>&) = default;\n    ::tools::segmented_sieve<T>&\
@@ -415,8 +415,8 @@ data:
   isVerificationFile: true
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp
 layout: document

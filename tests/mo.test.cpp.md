@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_get.hpp
     title: std::greater by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mo.hpp
     title: Mo's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/qcfium.hpp
     title: QCFium's method
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/unordered_map.hpp
     title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -47,18 +47,18 @@ data:
     \     }\n    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\
     \n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
     \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
-    \ M lhs, const N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs\
-    \ > 0 && rhs > 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 1\
-    \ \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <::std::size_t I>\n  struct less_by_get {\n    template\
-    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/greater_by_get.hpp\"\
-    \n\n\n\n#line 6 \"tools/greater_by_get.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <::std::size_t I>\n  struct greater_by_get {\n    template <class T>\n    bool\
-    \ operator()(const T& x, const T& y) const {\n      return ::std::get<I>(x) >\
-    \ ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 13 \"tools/mo.hpp\"\n\nnamespace\
-    \ tools {\n  class mo {\n  private:\n    ::std::size_t m_query_count;\n    ::std::size_t\
-    \ m_bucket_size;\n    ::std::vector<::std::vector<::std::tuple<::std::size_t,\
+    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
+    \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
+    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/less_by_get.hpp\"\
+    \n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace tools {\n\n  template <::std::size_t\
+    \ I>\n  struct less_by_get {\n    template <class T>\n    bool operator()(const\
+    \ T& x, const T& y) const {\n      return ::std::get<I>(x) < ::std::get<I>(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/greater_by_get.hpp\"\n\n\n\n#line 6 \"tools/greater_by_get.hpp\"\
+    \n\nnamespace tools {\n\n  template <::std::size_t I>\n  struct greater_by_get\
+    \ {\n    template <class T>\n    bool operator()(const T& x, const T& y) const\
+    \ {\n      return ::std::get<I>(x) > ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line\
+    \ 13 \"tools/mo.hpp\"\n\nnamespace tools {\n  class mo {\n  private:\n    ::std::size_t\
+    \ m_query_count;\n    ::std::size_t m_bucket_size;\n    ::std::vector<::std::vector<::std::tuple<::std::size_t,\
     \ ::std::size_t, ::std::size_t>>> m_buckets;\n\n  public:\n    mo() = default;\n\
     \    mo(const ::tools::mo&) = default;\n    mo(::tools::mo&&) = default;\n   \
     \ ~mo() = default;\n    ::tools::mo& operator=(const ::tools::mo&) = default;\n\
@@ -126,8 +126,8 @@ data:
   isVerificationFile: true
   path: tests/mo.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/mo.test.cpp
 layout: document

@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/187
@@ -242,26 +242,27 @@ data:
     #line 8 \"tools/extended_garner.hpp\"\n#include <cstddef>\n#line 1 \"tools/mod.hpp\"\
     \n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
-    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 1\
-    \ \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n\
-    #line 7 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
-    \  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s(1);\n    T prev_t(0);\n\
-    \    T s(0);\n    T t(1);\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r,\
-    \ r);\n      ::std::tie(prev_r, r) = ::std::make_pair(r, prev_r - q * r);\n  \
-    \    ::std::tie(prev_s, s) = ::std::make_pair(s, prev_s - q * s);\n      ::std::tie(prev_t,\
-    \ t) = ::std::make_pair(t, prev_t - q * t);\n    }\n\n    if (prev_r < T(0)) prev_r\
-    \ = -prev_r;\n    return ::std::make_tuple(prev_s, prev_t, prev_r);\n  }\n}\n\n\
-    \n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1,\
-    \ typename T2>\n  constexpr T2 inv_mod(const T1 x, const T2 m) {\n    const auto\
-    \ [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd == 1);\n    return ::tools::mod(x0,\
-    \ m);\n  }\n}\n\n\n#line 9 \"tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
+    \ N> quo(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    if (lhs >= M(0)) {\n      return lhs / rhs;\n    } else {\n      if (rhs\
+    \ >= N(0)) {\n        return -((-lhs - T(1) + rhs) / rhs);\n      } else {\n \
+    \       return (-lhs - T(1) + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line\
+    \ 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
+    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
+    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
+    \ * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/garner.hpp\"\n\n\n\n#line 1 \"tools/inv_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#line 7 \"tools/extgcd.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
+    \ prev_r, T r) {\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n    T t(1);\n\
+    \    while (r != T(0)) {\n      const T q = ::tools::quo(prev_r, r);\n      ::std::tie(prev_r,\
+    \ r) = ::std::make_pair(r, prev_r - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s,\
+    \ prev_s - q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t -\
+    \ q * t);\n    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return ::std::make_tuple(prev_s,\
+    \ prev_t, prev_r);\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1\
+    \ x, const T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n  \
+    \  assert(gcd == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 9 \"\
+    tools/garner.hpp\"\n\n// Source: https://qiita.com/drken/items/ae02240cd1f8edfc86fd\n\
     // License: unknown\n// Author: drken\n\nnamespace tools {\n\n  template <typename\
     \ Iterator, typename ModType>\n  ::std::pair<long long, long long> garner(const\
     \ Iterator& begin, const Iterator& end, const ModType& mod) {\n    ::std::vector<long\
@@ -328,8 +329,8 @@ data:
   isVerificationFile: true
   path: tests/extended_garner.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/extended_garner.test.cpp
 layout: document

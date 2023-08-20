@@ -1,64 +1,65 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/log_mod.hpp\"\n\n\n\n#include <optional>\n#include\
     \ <cassert>\n#include <numeric>\n#include <unordered_map>\n#line 1 \"tools/mod.hpp\"\
     \n\n\n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
     \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    if (lhs >= 0) {\n      return lhs /\
-    \ rhs;\n    } else {\n      if (rhs >= 0) {\n        return -((-lhs - 1 + rhs)\
-    \ / rhs);\n      } else {\n        return (-lhs - 1 + -rhs) / -rhs;\n      }\n\
-    \    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const M\
-    \ lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/floor_log2.hpp\"\n#include <limits>\n#line 1 \"tools/popcount.hpp\"\
-    \n\n\n\n#line 7 \"tools/popcount.hpp\"\n#include <cstdint>\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \ N> quo(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    if (lhs >= M(0)) {\n      return lhs / rhs;\n    } else {\n      if (rhs\
+    \ >= N(0)) {\n        return -((-lhs - T(1) + rhs) / rhs);\n      } else {\n \
+    \       return (-lhs - T(1) + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line\
+    \ 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
+    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
+    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
+    \ * rhs;\n    }\n  }\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line 6 \"\
+    tools/floor_log2.hpp\"\n#include <limits>\n#line 1 \"tools/popcount.hpp\"\n\n\n\
+    \n#line 7 \"tools/popcount.hpp\"\n#include <cstdint>\n\nnamespace tools {\n\n\
+    \  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
     \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
     \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
@@ -114,7 +115,7 @@ data:
     \n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#include <utility>\n\
     #line 7 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
     \  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n    T prev_s(1);\n    T prev_t(0);\n\
-    \    T s(0);\n    T t(1);\n    while (r != 0) {\n      const T q = ::tools::quo(prev_r,\
+    \    T s(0);\n    T t(1);\n    while (r != T(0)) {\n      const T q = ::tools::quo(prev_r,\
     \ r);\n      ::std::tie(prev_r, r) = ::std::make_pair(r, prev_r - q * r);\n  \
     \    ::std::tie(prev_s, s) = ::std::make_pair(s, prev_s - q * s);\n      ::std::tie(prev_t,\
     \ t) = ::std::make_pair(t, prev_t - q * t);\n    }\n\n    if (prev_r < T(0)) prev_r\
@@ -125,14 +126,15 @@ data:
     \ m);\n  }\n}\n\n\n#line 1 \"tools/ceil_sqrt.hpp\"\n\n\n\n#line 1 \"tools/ceil.hpp\"\
     \n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const\
-    \ N rhs) {\n    assert(rhs != 0);\n    return lhs / rhs + (((lhs > 0 && rhs >\
-    \ 0) || (lhs < 0 && rhs < 0)) && lhs % rhs);\n  }\n}\n\n\n#line 6 \"tools/ceil_sqrt.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T>\n  T ceil_sqrt(const T n) {\n\
-    \    assert(n >= 0);\n\n    if (n == 0) return 0;\n\n    T ok = 1;\n    T ng;\n\
-    \    for (ng = 2; ng - 1 < tools::ceil(n, ng - 1); ng *= 2);\n\n    while (ng\
-    \ - ok > 1) {\n      const T mid = ok + (ng - ok) / 2;\n      if (mid - 1 < tools::ceil(n,\
-    \ mid - 1)) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n\
-    \    }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line\
+    \ N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n\
+    \    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0) && rhs <\
+    \ N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 6 \"tools/ceil_sqrt.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T>\n  T ceil_sqrt(const T n) {\n    assert(n\
+    \ >= 0);\n\n    if (n == 0) return 0;\n\n    T ok = 1;\n    T ng;\n    for (ng\
+    \ = 2; ng - 1 < tools::ceil(n, ng - 1); ng *= 2);\n\n    while (ng - ok > 1) {\n\
+    \      const T mid = ok + (ng - ok) / 2;\n      if (mid - 1 < tools::ceil(n, mid\
+    \ - 1)) {\n        ok = mid;\n      } else {\n        ng = mid;\n      }\n   \
+    \ }\n\n    return ok;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line\
     \ 6 \"tools/pow_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
     \ T2, typename T3>\n  constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {\n \
     \   if (m == 1) return 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x, m);\n   \
@@ -191,8 +193,8 @@ data:
   isVerificationFile: false
   path: tools/log_mod.hpp
   requiredBy: []
-  timestamp: '2022-11-23 11:49:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-20 17:29:18+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/log_mod.test.cpp
 documentation_of: tools/log_mod.hpp
