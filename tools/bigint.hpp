@@ -574,6 +574,10 @@ namespace tools {
       return result;
     }
 
+    explicit operator bool() const {
+      return !this->m_digits.empty();
+    }
+
     explicit operator double() const {
       long double result = 0.0;
       const ::std::size_t precision = this->size();

@@ -13,7 +13,7 @@ namespace tools {
     T prev_t(0);
     T s(0);
     T t(1);
-    while (r != 0) {
+    while (r != T(0)) {
       const T q = ::tools::quo(prev_r, r);
       ::std::tie(prev_r, r) = ::std::make_pair(r, prev_r - q * r);
       ::std::tie(prev_s, s) = ::std::make_pair(s, prev_s - q * s);
