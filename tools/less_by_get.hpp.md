@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
   - icon: ':x:'
@@ -12,7 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/binary_search.test.cpp
     title: tests/avl_tree/binary_search.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
   - icon: ':x:'

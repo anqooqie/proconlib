@@ -3,15 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/qcfium.test.cpp
     title: tests/qcfium.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: '#line 1 "tools/qcfium.hpp"
@@ -48,7 +48,7 @@ data:
   path: tools/qcfium.hpp
   requiredBy: []
   timestamp: '2021-07-24 04:45:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/qcfium.test.cpp
   - tests/mo.test.cpp

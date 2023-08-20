@@ -48,7 +48,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bostan_mori.hpp
       title: Bostan-Mori algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':question:'
@@ -66,7 +66,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_quotients.hpp
       title: Enumerate the range of $\left\lceil \frac{A}{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
     - icon: ':question:'
@@ -90,7 +90,7 @@ data:
     - icon: ':warning:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':question:'
@@ -154,10 +154,10 @@ data:
       path: tools/fact_mod_cache.hpp
       title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r
         \pmod{P}, {}_n P_r \pmod{P}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
@@ -216,7 +216,7 @@ data:
     - icon: ':warning:'
       path: tools/greater_by_first.hpp
       title: std::greater by first
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
     - icon: ':heavy_check_mark:'
@@ -228,7 +228,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
     - icon: ':question:'
@@ -252,13 +252,13 @@ data:
     - icon: ':question:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
     - icon: ':question:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -291,7 +291,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/line_2d.hpp
       title: Two-dimensional line
     - icon: ':heavy_check_mark:'
@@ -300,14 +300,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/log.hpp
       title: std::log(x) extended for my library
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/log_mod.hpp
       title: $\log_x y \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/logn_integer_partition.hpp
       title: Multiset $S$ such that $\{\sum_{x \in S'} x | S' \subseteq S\} = \{0,
         1, \ldots, N\}$ and $|S| = O(\log N)$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -322,13 +322,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mex.hpp
       title: Minimum excluded value
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
     - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
     - icon: ':question:'
@@ -358,7 +358,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/partially_persistent_dsu.hpp
       title: Partially persistent disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
       title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
         j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -377,10 +377,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/polynomial.hpp
       title: Polynomial
     - icon: ':question:'
@@ -395,7 +395,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -407,13 +407,13 @@ data:
     - icon: ':question:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/primitive_root.hpp
       title: Primitive root
     - icon: ':question:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
     - icon: ':heavy_check_mark:'
@@ -425,7 +425,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/random_tree.hpp
       title: Random tree generator
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/range_of_digit_products.hpp
       title: Range of digit products
     - icon: ':question:'
@@ -437,10 +437,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
     - icon: ':x:'
@@ -526,14 +526,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/undoable_dsu.hpp
       title: Undoable disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/unordered_map.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
     - icon: ':warning:'
       path: tools/unordered_set.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type,
         Hash&amp;gt;
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -574,7 +574,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
     - icon: ':question:'
@@ -718,7 +718,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg_total.test.cpp
       title: tests/greater_by_arg_total.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/has_mod.test.cpp
       title: tests/has_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -730,7 +730,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
     - icon: ':heavy_check_mark:'
@@ -751,7 +751,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/log_mod.test.cpp
       title: tests/log_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -763,7 +763,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/mex.test.cpp
       title: tests/mex.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/mo.test.cpp
       title: tests/mo.test.cpp
     - icon: ':heavy_check_mark:'
@@ -796,10 +796,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/preset_segtree_beats.test.cpp
       title: tests/preset_segtree_beats.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/primitive_root.test.cpp
       title: tests/primitive_root.test.cpp
     - icon: ':heavy_check_mark:'
@@ -808,7 +808,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/random_tree.test.cpp
       title: tests/random_tree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/range_of_digit_products.test.cpp
       title: tests/range_of_digit_products.test.cpp
     - icon: ':heavy_check_mark:'
@@ -820,7 +820,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
     - icon: ':x:'
@@ -1055,7 +1055,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/line_2d/is_parallel_to.test.cpp
       title: tests/line_2d/is_parallel_to.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
   - name: tests/matrix
@@ -1074,18 +1074,18 @@ data:
       title: tests/matrix/solve.test.cpp
   - name: tests/partition_function
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n.test.cpp
       title: tests/partition_function/n.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n_k.test.cpp
       title: tests/partition_function/n_k.test.cpp
   - name: tests/polygon_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/area.test.cpp
       title: tests/polygon_2d/area.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/minimum_bounding_circle.test.cpp
       title: tests/polygon_2d/minimum_bounding_circle.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1093,10 +1093,10 @@ data:
       title: tests/polygon_2d/where.test.cpp
   - name: tests/polynomial
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/naive_division.test.cpp
       title: tests/polynomial/naive_division.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/ntt_division.test.cpp
       title: tests/polynomial/ntt_division.test.cpp
   - name: tests/prim
@@ -1123,16 +1123,16 @@ data:
       title: tests/quaternion/slerp.test.cpp
   - name: tests/rational
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/minus.test.cpp
       title: tests/rational/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/multiplies.test.cpp
       title: tests/rational/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/plus.test.cpp
       title: tests/rational/plus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph

@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
   - icon: ':x:'
@@ -18,7 +18,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
   - icon: ':x:'

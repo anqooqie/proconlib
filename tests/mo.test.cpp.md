@@ -7,26 +7,26 @@ data:
   - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_get.hpp
     title: std::greater by std::get
   - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/qcfium.hpp
     title: QCFium's method
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/unordered_map.hpp
     title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -127,7 +127,7 @@ data:
   path: tests/mo.test.cpp
   requiredBy: []
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mo.test.cpp
 layout: document
