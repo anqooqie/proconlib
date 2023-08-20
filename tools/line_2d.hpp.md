@@ -1,43 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -1008,9 +1008,9 @@ data:
   timestamp: '2022-12-04 17:44:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/circle_2d/intersection_to_line.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
 documentation_of: tools/line_2d.hpp
 layout: document
 title: Two-dimensional line

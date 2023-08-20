@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -56,7 +56,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -114,7 +114,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -123,9 +123,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <array>\n#include <functional>\n\
@@ -386,43 +386,43 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
-  - tools/detail/geometry_2d.hpp
-  - tools/convex_hull.hpp
-  - tools/greater_by_arg_total.hpp
-  - tools/half_line_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/triangle_2d.hpp
-  - tools/less_by_arg_total.hpp
   - tools/less_by_arg.hpp
   - tools/line_2d.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/polygon_2d.hpp
+  - tools/greater_by_arg_total.hpp
+  - tools/half_line_2d.hpp
+  - tools/convex_hull.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/triangle_2d.hpp
   - tools/ccw.hpp
-  - tools/greater_by_arg.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/greater_by_arg.hpp
   - tools/circle_2d.hpp
   timestamp: '2022-12-04 17:44:19+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+  - tests/convex_hull.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/ccw.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/less_by_arg_total.test.cpp
-  - tests/ccw.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/less_by_arg.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/greater_by_arg.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: Two dimensional vector

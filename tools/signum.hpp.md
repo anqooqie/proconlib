@@ -2,13 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -23,10 +23,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -102,15 +102,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/signum.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
@@ -126,44 +126,44 @@ data:
   isVerificationFile: false
   path: tools/signum.hpp
   requiredBy:
-  - tools/detail/geometry_2d.hpp
-  - tools/half_line_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/triangle_2d.hpp
-  - tools/line_2d.hpp
   - tools/bigdecimal.hpp
+  - tools/line_2d.hpp
   - tools/rational.hpp
+  - tools/polygon_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/triangle_2d.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/circle_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
 documentation_of: tools/signum.hpp
 layout: document
 title: Sign function

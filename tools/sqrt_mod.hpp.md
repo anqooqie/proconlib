@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/sqrt_mod.hpp\"\n\n\n\n#include <optional>\n#include\
@@ -136,7 +136,7 @@ data:
   path: tools/sqrt_mod.hpp
   requiredBy: []
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/sqrt_mod.test.cpp
 documentation_of: tools/sqrt_mod.hpp

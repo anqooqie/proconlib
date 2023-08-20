@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy:
@@ -180,8 +180,8 @@ data:
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/disjoint_sparse_table.test.cpp
   - tests/lca.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/disjoint_sparse_table.hpp
 layout: document
 title: Disjoint sparse table

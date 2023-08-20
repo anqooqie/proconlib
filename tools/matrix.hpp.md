@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
@@ -372,9 +372,9 @@ data:
   timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/determinant.test.cpp
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp
+  - tests/matrix/determinant.test.cpp
   - tests/matrix/solve.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document

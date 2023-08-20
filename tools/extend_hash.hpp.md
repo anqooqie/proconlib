@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
@@ -93,8 +93,8 @@ data:
   timestamp: '2022-11-20 17:00:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extend_hash.test.cpp
   - tests/util.test.cpp
+  - tests/extend_hash.test.cpp
 documentation_of: tools/extend_hash.hpp
 layout: document
 title: Extend std::hash

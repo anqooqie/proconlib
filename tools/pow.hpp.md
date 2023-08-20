@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy:
@@ -26,10 +26,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -69,15 +69,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -131,31 +131,31 @@ data:
   isVerificationFile: false
   path: tools/pow.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
-  - tools/floor_kth_root.hpp
-  - tools/detail/rolling_hash.hpp
   - tools/quaternion.hpp
+  - tools/totient.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/ceil_kth_root.hpp
-  - tools/totient.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/tetration_mod.hpp
+  - tools/floor_kth_root.hpp
+  - tools/rolling_hash.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_kth_root.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
   - tests/ceil_kth_root.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/totient.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/permutation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/permutation.test.cpp
+  - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
 title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library

@@ -4,20 +4,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy: []

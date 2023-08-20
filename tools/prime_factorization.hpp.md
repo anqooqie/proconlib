@@ -1,31 +1,31 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -38,10 +38,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -63,15 +63,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <vector>\n\
@@ -239,22 +239,22 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
-  - tools/primitive_root.hpp
-  - tools/totient.hpp
   - tools/extended_lucas.hpp
-  - tools/tetration_mod.hpp
+  - tools/primitive_root.hpp
   - tools/divisors.hpp
+  - tools/totient.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisors.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/totient.test.cpp
-  - tests/primitive_root.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/divisors.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document
 title: Pollard's rho algorithm

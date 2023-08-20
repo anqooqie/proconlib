@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
@@ -108,8 +108,8 @@ data:
   timestamp: '2022-10-01 12:56:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/dijkstra/directed.test.cpp
   - tests/dijkstra/undirected.test.cpp
+  - tests/dijkstra/directed.test.cpp
 documentation_of: tools/dijkstra.hpp
 layout: document
 title: Dijkstra's algorithm

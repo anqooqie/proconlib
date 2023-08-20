@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
@@ -78,18 +78,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -104,37 +104,37 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/bellman_ford.hpp
-  - tools/segmented_sieve.hpp
-  - tools/weighted_bipartite_matching.hpp
-  - tools/zero_one_knapsack.hpp
-  - tools/xor_basis.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/tsp.hpp
   - tools/dijkstra.hpp
   - tools/mcf_graph.hpp
-  - tools/zero_one_bfs.hpp
+  - tools/weighted_bipartite_matching.hpp
   - tools/tree_diameter.hpp
-  - tools/tsp.hpp
+  - tools/segmented_sieve.hpp
+  - tools/zero_one_knapsack.hpp
+  - tools/xor_basis.hpp
+  - tools/bellman_ford.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/zero_one_bfs/directed.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/bellman_ford.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/dijkstra/undirected.test.cpp
+  - tests/dijkstra/directed.test.cpp
+  - tests/suffix_array_remove_if.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/tsp.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/tree_diameter.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
-  - tests/persistent_stack.test.cpp
-  - tests/suffix_array_remove_if.test.cpp
-  - tests/bellman_ford.test.cpp
-  - tests/tsp.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/xor_basis.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

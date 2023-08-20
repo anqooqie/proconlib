@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -17,16 +17,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/sqrt_mod.hpp
     title: $\sqrt{x} \pmod{P}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
@@ -39,15 +39,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#include <cassert>\n#line 1 \"\
@@ -84,20 +84,20 @@ data:
   isVerificationFile: false
   path: tools/inv_mod.hpp
   requiredBy:
-  - tools/garner.hpp
-  - tools/sqrt_mod.hpp
-  - tools/extended_garner.hpp
-  - tools/log_mod.hpp
   - tools/extended_lucas.hpp
+  - tools/sqrt_mod.hpp
   - tools/tetration_mod.hpp
+  - tools/log_mod.hpp
+  - tools/garner.hpp
+  - tools/extended_garner.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/log_mod.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/sqrt_mod.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_garner.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/sqrt_mod.test.cpp
 documentation_of: tools/inv_mod.hpp
 layout: document
 title: $x^{-1} \pmod{M}$
