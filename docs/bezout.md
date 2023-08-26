@@ -15,6 +15,8 @@ They mean that $x$ can be denoted as $pm + q$ and $y$ can be denoted as $rm + s$
 ## Constraints
 - $a \neq 0$
 - $b \neq 0$
+- $ac$ is in `<T>`.
+- $bc$ is in `<T>`.
 
 ## Time Complexity
 - $O(\log(\min(\|a\|, \|b\|)))$

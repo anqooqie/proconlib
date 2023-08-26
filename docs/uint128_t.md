@@ -8,13 +8,7 @@ using uint128_t = unsigned __int128;
 
 std::istream& operator>>(std::istream& is, uint128_t& x);
 std::ostream& operator<<(std::ostream& is, uint128_t x);
-
-namespace std {
-  template <>
-  struct hash<uint128_t> {
-    std::size_t operator()(uint128_t key) const;
-  };
-}
+uint128_t tools::abs(uint128_t x);
 ```
 
 It is an alias for `unsigned __int128`.

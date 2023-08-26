@@ -10,9 +10,12 @@ constexpr long double abs(long double x);
 constexpr int abs(int x);
 constexpr long abs(long x);
 constexpr long long abs(long long x);
+constexpr unsigned int abs(unsigned int x);
+constexpr unsigned long abs(unsigned long x);
+constexpr unsigned long long abs(unsigned long long x);
 ```
 
-If `std::abs(x)` is available, it returns `std::abs(x)`.
+It returns $\|x\|$.
 
 `tools::abs(x)` will be extended by other header files in my library.
 For example, `tools::abs(tools::bigint)` gets available if you include `tools/bigint.hpp`.

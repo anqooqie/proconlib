@@ -6,9 +6,14 @@
 #include <cassert>
 #include <cstddef>
 #include <algorithm>
+#include "tools/abs.hpp"
 
 namespace tools {
   using uint128_t = unsigned __int128;
+
+  constexpr ::tools::uint128_t abs(const ::tools::uint128_t& x) {
+    return x;
+  }
 }
 
 ::std::istream& operator>>(::std::istream& is, ::tools::uint128_t& x) {

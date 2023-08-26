@@ -8,13 +8,7 @@ using int128_t = __int128;
 
 std::istream& operator>>(std::istream& is, int128_t& x);
 std::ostream& operator<<(std::ostream& is, int128_t x);
-
-namespace std {
-  template <>
-  struct hash<int128_t> {
-    std::size_t operator()(int128_t key) const;
-  };
-}
+int128_t tools::abs(int128_t x);
 ```
 
 It is an alias for `__int128`.
