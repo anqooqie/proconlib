@@ -101,8 +101,8 @@ data:
   timestamp: '2022-09-02 09:37:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cycle_detection/directed.test.cpp
   - tests/cycle_detection/undirected.test.cpp
+  - tests/cycle_detection/directed.test.cpp
 documentation_of: tools/cycle_detection.hpp
 layout: document
 title: Cycle detection on a graph

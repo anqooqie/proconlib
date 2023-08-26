@@ -299,9 +299,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
 documentation_of: tools/vector3.hpp
 layout: document
 title: Three dimensional vector

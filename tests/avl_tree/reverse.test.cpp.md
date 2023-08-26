@@ -2,33 +2,43 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/avl_tree.hpp
+    title: Reversible self-balancing binary search tree based on AVL tree
+  - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
   - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
+  - icon: ':heavy_check_mark:'
+    path: tools/group.hpp
+    title: Typical groups
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/binary_search.test.cpp
-    title: tests/avl_tree/binary_search.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/reverse.test.cpp
-    title: tests/avl_tree/reverse.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/set.test.cpp
-    title: tests/avl_tree/set.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/avl_tree.hpp\"\n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\
-    \n\n\n\n#include <variant>\n#include <type_traits>\n#include <functional>\n#include\
-    \ <vector>\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include\
-    \ <cmath>\n#line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename F>\n  struct fix : F {\n    template <typename\
-    \ G>\n    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename...\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/range_reverse_range_sum
+    links:
+    - https://judge.yosupo.jp/problem/range_reverse_range_sum
+  bundledCode: "#line 1 \"tests/avl_tree/reverse.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/range_reverse_range_sum\"\
+    \n\n#include <iostream>\n#include <vector>\n#line 1 \"tools/group.hpp\"\n\n\n\n\
+    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
+    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
+    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
+    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
+    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
+    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/avl_tree.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n\
+    #include <type_traits>\n#include <functional>\n#line 8 \"tools/detail/avl_tree_impl.hpp\"\
+    \n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include <cmath>\n\
+    #line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename F>\n  struct fix : F {\n    template <typename G>\n\
+    \    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename...\
     \ Args>\n    decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
     \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
     \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 13 \"tools/detail/avl_tree_impl.hpp\"\
@@ -332,299 +342,41 @@ data:
     \ min_left(const int r, const G& g) {\n          return this->min_left(this->m_root_id,\
     \ r, g, SM::e()).first;\n        }\n      };\n    }\n  }\n}\n\n\n#line 5 \"tools/avl_tree.hpp\"\
     \n\nnamespace tools {\n  template <typename SM, bool Reversible = false>\n  using\
-    \ avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;\n}\n\n\n"
-  code: "#ifndef TOOLS_AVL_TREE_HPP\n#define TOOLS_AVL_TREE_HPP\n\n#include \"tools/detail/avl_tree_impl.hpp\"\
-    \n\nnamespace tools {\n  template <typename SM, bool Reversible = false>\n  using\
-    \ avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;\n}\n\n\
-    #endif\n"
+    \ avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;\n}\n\n\n\
+    #line 7 \"tests/avl_tree/reverse.test.cpp\"\n\nusing ll = long long;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int\
+    \ N, Q;\n  std::cin >> N >> Q;\n  std::vector<ll> a(N);\n  for (auto& a_i : a)\
+    \ std::cin >> a_i;\n\n  tools::avl_tree<tools::group::plus<ll>, true>::buffer\
+    \ buffer;\n  tools::avl_tree<tools::group::plus<ll>, true> avl_tree(buffer, a);\n\
+    \  for (int q = 0; q < Q; ++q) {\n    int t, l, r;\n    std::cin >> t >> l >>\
+    \ r;\n    if (t == 0) {\n      avl_tree.reverse(l, r);\n    } else if (t == 1)\
+    \ {\n      std::cout << avl_tree.prod(l, r) << '\\n';\n    }\n  }\n\n  return\
+    \ 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_reverse_range_sum\"\
+    \n\n#include <iostream>\n#include <vector>\n#include \"tools/group.hpp\"\n#include\
+    \ \"tools/avl_tree.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, Q;\n  std::cin >> N >> Q;\n\
+    \  std::vector<ll> a(N);\n  for (auto& a_i : a) std::cin >> a_i;\n\n  tools::avl_tree<tools::group::plus<ll>,\
+    \ true>::buffer buffer;\n  tools::avl_tree<tools::group::plus<ll>, true> avl_tree(buffer,\
+    \ a);\n  for (int q = 0; q < Q; ++q) {\n    int t, l, r;\n    std::cin >> t >>\
+    \ l >> r;\n    if (t == 0) {\n      avl_tree.reverse(l, r);\n    } else if (t\
+    \ == 1) {\n      std::cout << avl_tree.prod(l, r) << '\\n';\n    }\n  }\n\n  return\
+    \ 0;\n}\n"
   dependsOn:
+  - tools/group.hpp
+  - tools/avl_tree.hpp
   - tools/detail/avl_tree_impl.hpp
   - tools/fix.hpp
-  isVerificationFile: false
-  path: tools/avl_tree.hpp
+  isVerificationFile: true
+  path: tests/avl_tree/reverse.test.cpp
   requiredBy: []
   timestamp: '2023-08-26 10:00:28+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/avl_tree/reverse.test.cpp
-  - tests/avl_tree/set.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
-documentation_of: tools/avl_tree.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/avl_tree/reverse.test.cpp
 layout: document
-title: Reversible self-balancing binary search tree based on AVL tree
+redirect_from:
+- /verify/tests/avl_tree/reverse.test.cpp
+- /verify/tests/avl_tree/reverse.test.cpp.html
+title: tests/avl_tree/reverse.test.cpp
 ---
-
-It is the data structure for [monoids](https://en.wikipedia.org/wiki/Monoid) $(S, \cdot: S \times S \to S, e \in S)$, i.e., the algebraic structure that satisfies the following properties.
-
-- associativity: $(a \cdot b) \cdot c$ = $a \cdot (b \cdot c)$ for all $a, b, c \in S$
-- existence of the identity element: $a \cdot e$ = $e \cdot a$ = $a$ for all $a \in S$
-
-Given an array $S$ of length $N$, it processes the following queries in $O(\log N)$ time.
-
-- Updating an element
-- Calculating the product of the elements of an interval
-- Inserting an element $x \in S$ to the array
-- Removing an element from the array
-- Spliting the array into two subarrays
-- Merging the two arrays into one array
-- Reversing the elements of an interval
-
-For simplicity, in this document, we assume that the oracles `op` and `e` work in constant time. If these oracles work in $O(T)$ time, each time complexity appear in this document is multipled by $O(T)$.
-
-### References
-- [AVL木(split/merge) - Qiita](https://qiita.com/QCFium/items/3cf26a6dc2d49ef490d7)
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## Constructor of buffer
-```cpp
-(1) avl_tree<M>::buffer buffer();
-(2) avl_tree<M, Reversible>::buffer buffer();
-```
-
-- (1)
-    - It is identical to `avl_tree<M, false>::buffer buffer()`.
-- (2)
-    - It creates an empty buffer for `tools::avl_tree<M, Reversible>`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## Constructor
-```cpp
-(1) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer);
-(2) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, int n);
-(3) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, std::vector<S> v);
-(4) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer);
-(5) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, int n);
-(6) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, std::vector<S> v);
-```
-
-It defines $S$ by `typename M::T`, $\mathrm{op}$ by `S M::op(S x, S y)` and $\mathrm{e}$ by `S M::e()`.
-If `Reversible` is `true`, it enables `reverse` member function.
-
-- (1)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer);`.
-- (2)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, n);`.
-- (3)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, v);`.
-- (4)
-    - It creates an empty array `a`.
-- (5)
-    - It creates an array `a` of length `n`. All the elements are initialized to `e()`.
-- (6)
-    - It creates an array `a` of length `n = v.size()`, initialized to `v`.
-
-### Constraints
-- $\forall x \in S. \forall y \in S. \forall z \in S. \mathrm{op}(\mathrm{op}(x, y), z) = \mathrm{op}(x, \mathrm{op}(y, z))$
-- $\forall x \in S. \mathrm{op}(\mathrm{e}(), x) = \mathrm{op}(x, \mathrm{e}()) = x$
-- $n \geq 0$
-
-### Time Complexity
-- $O(n)$
-
-## empty
-```cpp
-bool avl_tree.empty();
-```
-
-It returns whether $\|a\| = 0$ or not.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## size
-```cpp
-int avl_tree.size();
-```
-
-It returns $\|a\|$.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## set
-```cpp
-void avl_tree.set(int p, S x);
-```
-
-`a[p] = x`
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## get
-```cpp
-S avl_tree.get(int p);
-```
-
-It returns `a[p]`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## prod
-```cpp
-S avl_tree.prod(int l, int r);
-```
-
-It returns `op(a[l], ..., a[r - 1])`, assuming the properties of the monoid.
-It returns `e()` if $l = r$.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq l \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## all_prod
-```cpp
-S avl_tree.all_prod();
-```
-
-It returns `op(a[0], ..., a[a.size() - 1])`, assuming the properties of the monoid.
-It returns `e()` if $\|a\| = 0$.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## insert
-```cpp
-void avl_tree.insert(int p, S x);
-```
-
-If $p < \|a\|$, it inserts $x$ immediately before `a[i]`.
-If $p = \|a\|$, it inserts $x$ to the end of `a`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## erase
-```cpp
-void avl_tree.erase(int p);
-```
-
-It removes `a[i]`. (remaining elements will be concatenated)
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## merge
-```cpp
-void avl_tree.merge(avl_tree<M, Reversible> other);
-```
-
-It appends the sequence represented by `other` to the end of `a`.
-`other` gets empty after call of this function.
-
-### Constraints
-- `buffer` is in its lifetime.
-- `avl_tree` and `other` shares the same buffer.
-
-### Time Complexity
-- $O(\log \|a\| + \log \|b\|)$ where $\|b\|$ is `other.size()`
-
-## split
-```cpp
-std::pair<avl_tree<M, Reversible>, avl_tree<M, Reversible>> avl_tree.split(int i);
-```
-
-It splits `a` into the two sequences `a[0], a[1], ..., a[i - 1]` and `a[i], a[i + 1], ..., a[a.size() - 1]`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq i \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## reverse
-```cpp
-void avl_tree.reverse(int l, int r);
-```
-
-It reverses `a[l], a[l + 1], ..., a[r - 1]`.
-
-### Constraints
-- `<Reversible>` is `true`.
-- `buffer` is in its lifetime.
-- $0 \leq l \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## max_right
-```cpp
-int avl_tree.max_right<G>(int l, G g)
-```
-It returns an index `r` that satisfies both of the followings.
-
-- `r = l` or `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`
-- `r = a.size()` or `g(op(a[l], a[l + 1], ..., a[r])) = false`
-
-If `g` is monotone, this is the maximum `r` that satisfies `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- The function object that takes `S` as the argument and returns `bool` should be defined.
-- if `g` is called with the same argument, it returns the same value, i.e., `g` has no side effect.
-- `g(e()) = true`
-- $0 \leq l \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## min_left
-```cpp
-int avl_tree.min_left<G>(int l, G g)
-```
-It returns an index `l` that satisfies both of the followings.
-
-- `l = r` or `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`
-- `l = 0` or `g(op(a[l - 1], a[l], ..., a[r - 1])) = false`
-
-If `g` is monotone, this is the minimum `l` that satisfies `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- The function object that takes `S` as the argument and returns `bool` should be defined.
-- if `g` is called with the same argument, it returns the same value, i.e., `g` has no side effect.
-- `g(e()) = true`
-- $0 \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$

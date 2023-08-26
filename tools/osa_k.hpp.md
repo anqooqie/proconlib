@@ -250,8 +250,8 @@ data:
   timestamp: '2022-09-11 13:33:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/osa_k.test.cpp
   - tests/lcm_convolution.test.cpp
+  - tests/osa_k.test.cpp
   - tests/gcd_convolution.test.cpp
 documentation_of: tools/osa_k.hpp
 layout: document

@@ -17,7 +17,7 @@ data:
       title: Assertion macro
     - icon: ':heavy_check_mark:'
       path: tools/avl_tree.hpp
-      title: Lazy reversible self-balancing binary search tree based on AVL tree
+      title: Reversible self-balancing binary search tree based on AVL tree
     - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
@@ -264,6 +264,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/largest_rectangle_in_histogram.hpp
       title: Largest rectangle in histogram
+    - icon: ':heavy_check_mark:'
+      path: tools/lazy_avl_tree.hpp
+      title: Lazy reversible self-balancing binary search tree based on AVL tree
     - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
@@ -569,6 +572,9 @@ data:
   - name: tools/detail
     pages:
     - icon: ':heavy_check_mark:'
+      path: tools/detail/avl_tree_impl.hpp
+      title: tools/detail/avl_tree_impl.hpp
+    - icon: ':heavy_check_mark:'
       path: tools/detail/geometry_2d.hpp
       title: tools/detail/geometry_2d.hpp
     - icon: ':heavy_check_mark:'
@@ -737,6 +743,9 @@ data:
       path: tests/largest_rectangle_in_histogram.test.cpp
       title: tests/largest_rectangle_in_histogram.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/lazy_avl_tree.test.cpp
+      title: tests/lazy_avl_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
     - icon: ':heavy_check_mark:'
@@ -886,8 +895,8 @@ data:
       path: tests/avl_tree/binary_search.test.cpp
       title: tests/avl_tree/binary_search.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/avl_tree/main_features.test.cpp
-      title: tests/avl_tree/main_features.test.cpp
+      path: tests/avl_tree/reverse.test.cpp
+      title: tests/avl_tree/reverse.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/avl_tree/set.test.cpp
       title: tests/avl_tree/set.test.cpp

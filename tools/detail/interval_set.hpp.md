@@ -127,8 +127,8 @@ data:
   timestamp: '2021-10-23 20:26:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/real_interval_set.test.cpp
   - tests/integer_interval_set.test.cpp
+  - tests/real_interval_set.test.cpp
 documentation_of: tools/detail/interval_set.hpp
 layout: document
 redirect_from:

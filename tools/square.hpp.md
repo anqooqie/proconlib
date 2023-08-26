@@ -175,53 +175,53 @@ data:
   isVerificationFile: false
   path: tools/square.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
-  - tools/floor_kth_root.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/detail/geometry_2d.hpp
-  - tools/half_line_2d.hpp
-  - tools/polygon_2d.hpp
   - tools/quaternion.hpp
-  - tools/triangle_2d.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/pow.hpp
-  - tools/ceil_kth_root.hpp
-  - tools/line_2d.hpp
   - tools/totient.hpp
+  - tools/line_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/half_line_2d.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/tetration_mod.hpp
+  - tools/triangle_2d.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/floor_kth_root.hpp
+  - tools/rolling_hash.hpp
   - tools/circle_2d.hpp
+  - tools/pow.hpp
   timestamp: '2021-06-27 14:42:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/floor_kth_root.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
   - tests/ceil_kth_root.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/totient.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/permutation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/permutation.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/square.hpp
 layout: document
 title: $x^2$ under a given monoid

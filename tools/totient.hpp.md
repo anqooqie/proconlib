@@ -264,8 +264,8 @@ data:
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tetration_mod.test.cpp
   - tests/totient.test.cpp
+  - tests/tetration_mod.test.cpp
 documentation_of: tools/totient.hpp
 layout: document
 title: Euler's totient function

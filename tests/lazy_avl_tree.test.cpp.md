@@ -7,40 +7,245 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
+  - icon: ':heavy_check_mark:'
+    path: tools/lazy_avl_tree.hpp
+    title: Lazy reversible self-balancing binary search tree based on AVL tree
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/binary_search.test.cpp
-    title: tests/avl_tree/binary_search.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/reverse.test.cpp
-    title: tests/avl_tree/reverse.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/set.test.cpp
-    title: tests/avl_tree/set.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/avl_tree.hpp\"\n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\
-    \n\n\n\n#include <variant>\n#include <type_traits>\n#include <functional>\n#include\
-    \ <vector>\n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include\
-    \ <cmath>\n#line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename F>\n  struct fix : F {\n    template <typename\
-    \ G>\n    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename...\
-    \ Args>\n    decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
-    \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
-    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 13 \"tools/detail/avl_tree_impl.hpp\"\
-    \n\nnamespace tools {\n  namespace detail {\n    namespace avl_tree {\n      struct\
-    \ nop_monoid {\n        using T = ::std::monostate;\n        static constexpr\
-    \ T op(T, T) {\n          return T{};\n        }\n        static constexpr T e()\
-    \ {\n          return T{};\n        }\n      };\n      template <typename SM>\n\
-    \      typename SM::T nop(typename nop_monoid::T, const typename SM::T& x) {\n\
-    \        return x;\n      }\n\n      template <bool Reversible, typename SM, typename\
-    \ FM = nop_monoid, auto mapping = nop<SM>>\n      class avl_tree_impl {\n    \
-    \  private:\n        using S = typename SM::T;\n        using F = typename FM::T;\n\
-    \        static_assert(\n          ::std::is_convertible_v<decltype(mapping),\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
+    links:
+    - https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
+  bundledCode: "#line 1 \"tests/lazy_avl_tree.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum\"\
+    \n\n#include <utility>\n#include <iostream>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
+    \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
+    #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
+    \ - y + (z < y ? _m : 0));\n    }\n};\n\n// @param n `0 <= n`\n// @param m `1\
+    \ <= m`\n// @return `(x ** n) % m`\nconstexpr long long pow_mod_constexpr(long\
+    \ long x, long long n, int m) {\n    if (m == 1) return 0;\n    unsigned int _m\
+    \ = (unsigned int)(m);\n    unsigned long long r = 1;\n    unsigned long long\
+    \ y = safe_mod(x, m);\n    while (n) {\n        if (n & 1) r = (r * y) % _m;\n\
+    \        y = (y * y) % _m;\n        n >>= 1;\n    }\n    return r;\n}\n\n// Reference:\n\
+    // M. Forisek and J. Jancina,\n// Fast Primality Testing for Integers That Fit\
+    \ into a Machine Word\n// @param n `0 <= n`\nconstexpr bool is_prime_constexpr(int\
+    \ n) {\n    if (n <= 1) return false;\n    if (n == 2 || n == 7 || n == 61) return\
+    \ true;\n    if (n % 2 == 0) return false;\n    long long d = n - 1;\n    while\
+    \ (d % 2 == 0) d /= 2;\n    constexpr long long bases[3] = {2, 7, 61};\n    for\
+    \ (long long a : bases) {\n        long long t = d;\n        long long y = pow_mod_constexpr(a,\
+    \ t, n);\n        while (t != n - 1 && y != 1 && y != n - 1) {\n            y\
+    \ = y * y % n;\n            t <<= 1;\n        }\n        if (y != n - 1 && t %\
+    \ 2 == 0) {\n            return false;\n        }\n    }\n    return true;\n}\n\
+    template <int n> constexpr bool is_prime = is_prime_constexpr(n);\n\n// @param\
+    \ b `1 <= b`\n// @return pair(g, x) s.t. g = gcd(a, b), xa = g (mod b), 0 <= x\
+    \ < b/g\nconstexpr std::pair<long long, long long> inv_gcd(long long a, long long\
+    \ b) {\n    a = safe_mod(a, b);\n    if (a == 0) return {b, 0};\n\n    // Contracts:\n\
+    \    // [1] s - m0 * a = 0 (mod b)\n    // [2] t - m1 * a = 0 (mod b)\n    //\
+    \ [3] s * |m1| + t * |m0| <= b\n    long long s = b, t = a;\n    long long m0\
+    \ = 0, m1 = 1;\n\n    while (t) {\n        long long u = s / t;\n        s -=\
+    \ t * u;\n        m0 -= m1 * u;  // |m1 * u| <= |m1| * s <= b\n\n        // [3]:\n\
+    \        // (s - t * u) * |m1| + t * |m0 - m1 * u|\n        // <= s * |m1| - t\
+    \ * u * |m1| + t * (|m0| + |m1| * u)\n        // = s * |m1| + t * |m0| <= b\n\n\
+    \        auto tmp = s;\n        s = t;\n        t = tmp;\n        tmp = m0;\n\
+    \        m0 = m1;\n        m1 = tmp;\n    }\n    // by [3]: |m0| <= b/g\n    //\
+    \ by g != b: |m0| < b/g\n    if (m0 < 0) m0 += b / s;\n    return {s, m0};\n}\n\
+    \n// Compile time primitive root\n// @param m must be prime\n// @return primitive\
+    \ root (and minimum in now)\nconstexpr int primitive_root_constexpr(int m) {\n\
+    \    if (m == 2) return 1;\n    if (m == 167772161) return 3;\n    if (m == 469762049)\
+    \ return 3;\n    if (m == 754974721) return 11;\n    if (m == 998244353) return\
+    \ 3;\n    int divs[20] = {};\n    divs[0] = 2;\n    int cnt = 1;\n    int x =\
+    \ (m - 1) / 2;\n    while (x % 2 == 0) x /= 2;\n    for (int i = 3; (long long)(i)*i\
+    \ <= x; i += 2) {\n        if (x % i == 0) {\n            divs[cnt++] = i;\n \
+    \           while (x % i == 0) {\n                x /= i;\n            }\n   \
+    \     }\n    }\n    if (x > 1) {\n        divs[cnt++] = x;\n    }\n    for (int\
+    \ g = 2;; g++) {\n        bool ok = true;\n        for (int i = 0; i < cnt; i++)\
+    \ {\n            if (pow_mod_constexpr(g, (m - 1) / divs[i], m) == 1) {\n    \
+    \            ok = false;\n                break;\n            }\n        }\n \
+    \       if (ok) return g;\n    }\n}\ntemplate <int m> constexpr int primitive_root\
+    \ = primitive_root_constexpr(m);\n\n// @param n `n < 2^32`\n// @param m `1 <=\
+    \ m < 2^32`\n// @return sum_{i=0}^{n-1} floor((ai + b) / m) (mod 2^64)\nunsigned\
+    \ long long floor_sum_unsigned(unsigned long long n,\n                       \
+    \               unsigned long long m,\n                                      unsigned\
+    \ long long a,\n                                      unsigned long long b) {\n\
+    \    unsigned long long ans = 0;\n    while (true) {\n        if (a >= m) {\n\
+    \            ans += n * (n - 1) / 2 * (a / m);\n            a %= m;\n        }\n\
+    \        if (b >= m) {\n            ans += n * (b / m);\n            b %= m;\n\
+    \        }\n\n        unsigned long long y_max = a * n + b;\n        if (y_max\
+    \ < m) break;\n        // y_max < m * (n + 1)\n        // floor(y_max / m) <=\
+    \ n\n        n = (unsigned long long)(y_max / m);\n        b = (unsigned long\
+    \ long)(y_max % m);\n        std::swap(m, a);\n    }\n    return ans;\n}\n\n}\
+    \  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\
+    \n\n\n\n#line 7 \"lib/ac-library/atcoder/internal_type_traits.hpp\"\n\nnamespace\
+    \ atcoder {\n\nnamespace internal {\n\n#ifndef _MSC_VER\ntemplate <class T>\n\
+    using is_signed_int128 =\n    typename std::conditional<std::is_same<T, __int128_t>::value\
+    \ ||\n                                  std::is_same<T, __int128>::value,\n  \
+    \                            std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing is_unsigned_int128 =\n    typename std::conditional<std::is_same<T,\
+    \ __uint128_t>::value ||\n                                  std::is_same<T, unsigned\
+    \ __int128>::value,\n                              std::true_type,\n         \
+    \                     std::false_type>::type;\n\ntemplate <class T>\nusing make_unsigned_int128\
+    \ =\n    typename std::conditional<std::is_same<T, __int128_t>::value,\n     \
+    \                         __uint128_t,\n                              unsigned\
+    \ __int128>;\n\ntemplate <class T>\nusing is_integral = typename std::conditional<std::is_integral<T>::value\
+    \ ||\n                                                  is_signed_int128<T>::value\
+    \ ||\n                                                  is_unsigned_int128<T>::value,\n\
+    \                                              std::true_type,\n             \
+    \                                 std::false_type>::type;\n\ntemplate <class T>\n\
+    using is_signed_int = typename std::conditional<(is_integral<T>::value &&\n  \
+    \                                               std::is_signed<T>::value) ||\n\
+    \                                                    is_signed_int128<T>::value,\n\
+    \                                                std::true_type,\n           \
+    \                                     std::false_type>::type;\n\ntemplate <class\
+    \ T>\nusing is_unsigned_int =\n    typename std::conditional<(is_integral<T>::value\
+    \ &&\n                               std::is_unsigned<T>::value) ||\n        \
+    \                          is_unsigned_int128<T>::value,\n                   \
+    \           std::true_type,\n                              std::false_type>::type;\n\
+    \ntemplate <class T>\nusing to_unsigned = typename std::conditional<\n    is_signed_int128<T>::value,\n\
+    \    make_unsigned_int128<T>,\n    typename std::conditional<std::is_signed<T>::value,\n\
+    \                              std::make_unsigned<T>,\n                      \
+    \        std::common_type<T>>::type>::type;\n\n#else\n\ntemplate <class T> using\
+    \ is_integral = typename std::is_integral<T>;\n\ntemplate <class T>\nusing is_signed_int\
+    \ =\n    typename std::conditional<is_integral<T>::value && std::is_signed<T>::value,\n\
+    \                              std::true_type,\n                             \
+    \ std::false_type>::type;\n\ntemplate <class T>\nusing is_unsigned_int =\n   \
+    \ typename std::conditional<is_integral<T>::value &&\n                       \
+    \           std::is_unsigned<T>::value,\n                              std::true_type,\n\
+    \                              std::false_type>::type;\n\ntemplate <class T>\n\
+    using to_unsigned = typename std::conditional<is_signed_int<T>::value,\n     \
+    \                                         std::make_unsigned<T>,\n           \
+    \                                   std::common_type<T>>::type;\n\n#endif\n\n\
+    template <class T>\nusing is_signed_int_t = std::enable_if_t<is_signed_int<T>::value>;\n\
+    \ntemplate <class T>\nusing is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;\n\
+    \ntemplate <class T> using to_unsigned_t = typename to_unsigned<T>::type;\n\n\
+    }  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 14 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\nnamespace atcoder {\n\nnamespace internal {\n\nstruct modint_base {};\nstruct\
+    \ static_modint_base : modint_base {};\n\ntemplate <class T> using is_modint =\
+    \ std::is_base_of<modint_base, T>;\ntemplate <class T> using is_modint_t = std::enable_if_t<is_modint<T>::value>;\n\
+    \n}  // namespace internal\n\ntemplate <int m, std::enable_if_t<(1 <= m)>* = nullptr>\n\
+    struct static_modint : internal::static_modint_base {\n    using mint = static_modint;\n\
+    \n  public:\n    static constexpr int mod() { return m; }\n    static mint raw(int\
+    \ v) {\n        mint x;\n        x._v = v;\n        return x;\n    }\n\n    static_modint()\
+    \ : _v(0) {}\n    template <class T, internal::is_signed_int_t<T>* = nullptr>\n\
+    \    static_modint(T v) {\n        long long x = (long long)(v % (long long)(umod()));\n\
+    \        if (x < 0) x += umod();\n        _v = (unsigned int)(x);\n    }\n   \
+    \ template <class T, internal::is_unsigned_int_t<T>* = nullptr>\n    static_modint(T\
+    \ v) {\n        _v = (unsigned int)(v % umod());\n    }\n\n    unsigned int val()\
+    \ const { return _v; }\n\n    mint& operator++() {\n        _v++;\n        if\
+    \ (_v == umod()) _v = 0;\n        return *this;\n    }\n    mint& operator--()\
+    \ {\n        if (_v == 0) _v = umod();\n        _v--;\n        return *this;\n\
+    \    }\n    mint operator++(int) {\n        mint result = *this;\n        ++*this;\n\
+    \        return result;\n    }\n    mint operator--(int) {\n        mint result\
+    \ = *this;\n        --*this;\n        return result;\n    }\n\n    mint& operator+=(const\
+    \ mint& rhs) {\n        _v += rhs._v;\n        if (_v >= umod()) _v -= umod();\n\
+    \        return *this;\n    }\n    mint& operator-=(const mint& rhs) {\n     \
+    \   _v -= rhs._v;\n        if (_v >= umod()) _v += umod();\n        return *this;\n\
+    \    }\n    mint& operator*=(const mint& rhs) {\n        unsigned long long z\
+    \ = _v;\n        z *= rhs._v;\n        _v = (unsigned int)(z % umod());\n    \
+    \    return *this;\n    }\n    mint& operator/=(const mint& rhs) { return *this\
+    \ = *this * rhs.inv(); }\n\n    mint operator+() const { return *this; }\n   \
+    \ mint operator-() const { return mint() - *this; }\n\n    mint pow(long long\
+    \ n) const {\n        assert(0 <= n);\n        mint x = *this, r = 1;\n      \
+    \  while (n) {\n            if (n & 1) r *= x;\n            x *= x;\n        \
+    \    n >>= 1;\n        }\n        return r;\n    }\n    mint inv() const {\n \
+    \       if (prime) {\n            assert(_v);\n            return pow(umod() -\
+    \ 2);\n        } else {\n            auto eg = internal::inv_gcd(_v, m);\n   \
+    \         assert(eg.first == 1);\n            return eg.second;\n        }\n \
+    \   }\n\n    friend mint operator+(const mint& lhs, const mint& rhs) {\n     \
+    \   return mint(lhs) += rhs;\n    }\n    friend mint operator-(const mint& lhs,\
+    \ const mint& rhs) {\n        return mint(lhs) -= rhs;\n    }\n    friend mint\
+    \ operator*(const mint& lhs, const mint& rhs) {\n        return mint(lhs) *= rhs;\n\
+    \    }\n    friend mint operator/(const mint& lhs, const mint& rhs) {\n      \
+    \  return mint(lhs) /= rhs;\n    }\n    friend bool operator==(const mint& lhs,\
+    \ const mint& rhs) {\n        return lhs._v == rhs._v;\n    }\n    friend bool\
+    \ operator!=(const mint& lhs, const mint& rhs) {\n        return lhs._v != rhs._v;\n\
+    \    }\n\n  private:\n    unsigned int _v;\n    static constexpr unsigned int\
+    \ umod() { return m; }\n    static constexpr bool prime = internal::is_prime<m>;\n\
+    };\n\ntemplate <int id> struct dynamic_modint : internal::modint_base {\n    using\
+    \ mint = dynamic_modint;\n\n  public:\n    static int mod() { return (int)(bt.umod());\
+    \ }\n    static void set_mod(int m) {\n        assert(1 <= m);\n        bt = internal::barrett(m);\n\
+    \    }\n    static mint raw(int v) {\n        mint x;\n        x._v = v;\n   \
+    \     return x;\n    }\n\n    dynamic_modint() : _v(0) {}\n    template <class\
+    \ T, internal::is_signed_int_t<T>* = nullptr>\n    dynamic_modint(T v) {\n   \
+    \     long long x = (long long)(v % (long long)(mod()));\n        if (x < 0) x\
+    \ += mod();\n        _v = (unsigned int)(x);\n    }\n    template <class T, internal::is_unsigned_int_t<T>*\
+    \ = nullptr>\n    dynamic_modint(T v) {\n        _v = (unsigned int)(v % mod());\n\
+    \    }\n\n    unsigned int val() const { return _v; }\n\n    mint& operator++()\
+    \ {\n        _v++;\n        if (_v == umod()) _v = 0;\n        return *this;\n\
+    \    }\n    mint& operator--() {\n        if (_v == 0) _v = umod();\n        _v--;\n\
+    \        return *this;\n    }\n    mint operator++(int) {\n        mint result\
+    \ = *this;\n        ++*this;\n        return result;\n    }\n    mint operator--(int)\
+    \ {\n        mint result = *this;\n        --*this;\n        return result;\n\
+    \    }\n\n    mint& operator+=(const mint& rhs) {\n        _v += rhs._v;\n   \
+    \     if (_v >= umod()) _v -= umod();\n        return *this;\n    }\n    mint&\
+    \ operator-=(const mint& rhs) {\n        _v += mod() - rhs._v;\n        if (_v\
+    \ >= umod()) _v -= umod();\n        return *this;\n    }\n    mint& operator*=(const\
+    \ mint& rhs) {\n        _v = bt.mul(_v, rhs._v);\n        return *this;\n    }\n\
+    \    mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }\n\
+    \n    mint operator+() const { return *this; }\n    mint operator-() const { return\
+    \ mint() - *this; }\n\n    mint pow(long long n) const {\n        assert(0 <=\
+    \ n);\n        mint x = *this, r = 1;\n        while (n) {\n            if (n\
+    \ & 1) r *= x;\n            x *= x;\n            n >>= 1;\n        }\n       \
+    \ return r;\n    }\n    mint inv() const {\n        auto eg = internal::inv_gcd(_v,\
+    \ mod());\n        assert(eg.first == 1);\n        return eg.second;\n    }\n\n\
+    \    friend mint operator+(const mint& lhs, const mint& rhs) {\n        return\
+    \ mint(lhs) += rhs;\n    }\n    friend mint operator-(const mint& lhs, const mint&\
+    \ rhs) {\n        return mint(lhs) -= rhs;\n    }\n    friend mint operator*(const\
+    \ mint& lhs, const mint& rhs) {\n        return mint(lhs) *= rhs;\n    }\n   \
+    \ friend mint operator/(const mint& lhs, const mint& rhs) {\n        return mint(lhs)\
+    \ /= rhs;\n    }\n    friend bool operator==(const mint& lhs, const mint& rhs)\
+    \ {\n        return lhs._v == rhs._v;\n    }\n    friend bool operator!=(const\
+    \ mint& lhs, const mint& rhs) {\n        return lhs._v != rhs._v;\n    }\n\n \
+    \ private:\n    unsigned int _v;\n    static internal::barrett bt;\n    static\
+    \ unsigned int umod() { return bt.umod(); }\n};\ntemplate <int id> internal::barrett\
+    \ dynamic_modint<id>::bt(998244353);\n\nusing modint998244353 = static_modint<998244353>;\n\
+    using modint1000000007 = static_modint<1000000007>;\nusing modint = dynamic_modint<-1>;\n\
+    \nnamespace internal {\n\ntemplate <class T>\nusing is_static_modint = std::is_base_of<internal::static_modint_base,\
+    \ T>;\n\ntemplate <class T>\nusing is_static_modint_t = std::enable_if_t<is_static_modint<T>::value>;\n\
+    \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
+    \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
+    \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/lazy_avl_tree.hpp\"\
+    \n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n\
+    #line 6 \"tools/detail/avl_tree_impl.hpp\"\n#include <functional>\n#line 8 \"\
+    tools/detail/avl_tree_impl.hpp\"\n#include <algorithm>\n#line 11 \"tools/detail/avl_tree_impl.hpp\"\
+    \n#include <cmath>\n#line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\
+    \n\nnamespace tools {\n  template <typename F>\n  struct fix : F {\n    template\
+    \ <typename G>\n    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template\
+    \ <typename... Args>\n    decltype(auto) operator()(Args&&... args) const {\n\
+    \      return F::operator()(*this, ::std::forward<Args>(args)...);\n    }\n  };\n\
+    \n  template <typename F>\n  fix(F&&) -> fix<::std::decay_t<F>>;\n}\n\n\n#line\
+    \ 13 \"tools/detail/avl_tree_impl.hpp\"\n\nnamespace tools {\n  namespace detail\
+    \ {\n    namespace avl_tree {\n      struct nop_monoid {\n        using T = ::std::monostate;\n\
+    \        static constexpr T op(T, T) {\n          return T{};\n        }\n   \
+    \     static constexpr T e() {\n          return T{};\n        }\n      };\n \
+    \     template <typename SM>\n      typename SM::T nop(typename nop_monoid::T,\
+    \ const typename SM::T& x) {\n        return x;\n      }\n\n      template <bool\
+    \ Reversible, typename SM, typename FM = nop_monoid, auto mapping = nop<SM>>\n\
+    \      class avl_tree_impl {\n      private:\n        using S = typename SM::T;\n\
+    \        using F = typename FM::T;\n        static_assert(\n          ::std::is_convertible_v<decltype(mapping),\
     \ ::std::function<S(F, S)>>,\n          \"mapping must work as S(F, S)\");\n \
     \       constexpr static bool is_lazy = !::std::is_same_v<FM, nop_monoid>;\n\n\
     \        struct node {\n          int id;\n          int l_id;\n          int\
@@ -330,301 +535,69 @@ data:
     \ G>\n        int max_right(const int l, const G& g) {\n          return this->max_right(this->m_root_id,\
     \ l, g, SM::e()).first;\n        }\n        template <typename G>\n        int\
     \ min_left(const int r, const G& g) {\n          return this->min_left(this->m_root_id,\
-    \ r, g, SM::e()).first;\n        }\n      };\n    }\n  }\n}\n\n\n#line 5 \"tools/avl_tree.hpp\"\
-    \n\nnamespace tools {\n  template <typename SM, bool Reversible = false>\n  using\
-    \ avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;\n}\n\n\n"
-  code: "#ifndef TOOLS_AVL_TREE_HPP\n#define TOOLS_AVL_TREE_HPP\n\n#include \"tools/detail/avl_tree_impl.hpp\"\
-    \n\nnamespace tools {\n  template <typename SM, bool Reversible = false>\n  using\
-    \ avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;\n}\n\n\
-    #endif\n"
+    \ r, g, SM::e()).first;\n        }\n      };\n    }\n  }\n}\n\n\n#line 5 \"tools/lazy_avl_tree.hpp\"\
+    \n\nnamespace tools {\n  template <typename SM, typename FM, auto mapping, bool\
+    \ Reversible = false>\n  using lazy_avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible,\
+    \ SM, FM, mapping>;\n}\n\n\n#line 8 \"tests/lazy_avl_tree.test.cpp\"\n\nusing\
+    \ mint = atcoder::modint998244353;\n\nusing S = std::pair<int, mint>;\nstruct\
+    \ SM {\n  using T = S;\n  static T op(const T& x, const T& y) {\n    return T(x.first\
+    \ + y.first, x.second + y.second);\n  }\n  static T e() {\n    return T(0, mint::raw(0));\n\
+    \  }\n};\nusing F = std::pair<mint, mint>;\nstruct FM {\n  using T = F;\n  static\
+    \ T op(const T& f, const T& g) {\n    return F(f.first * g.first, f.first * g.second\
+    \ + f.second);\n  }\n  static T e() {\n    return F(mint::raw(1), mint::raw(0));\n\
+    \  }\n};\nS mapping(const F& f, const S& x) {\n  return S(x.first, f.first * x.second\
+    \ + f.second * x.first);\n}\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<S> a;\n  a.reserve(N);\n \
+    \ for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin >> a_i;\n    a.emplace_back(1,\
+    \ mint::raw(a_i));\n  }\n\n  tools::lazy_avl_tree<SM, FM, mapping, true>::buffer\
+    \ buffer;\n  tools::lazy_avl_tree<SM, FM, mapping, true> avl_tree(buffer, a);\n\
+    \  for (int q = 0; q < Q; ++q) {\n    int t;\n    std::cin >> t;\n    if (t ==\
+    \ 0) {\n      int i, x;\n      std::cin >> i >> x;\n      avl_tree.insert(i, S(1,\
+    \ mint::raw(x)));\n    } else if (t == 1) {\n      int i;\n      std::cin >> i;\n\
+    \      avl_tree.erase(i);\n    } else if (t == 2) {\n      int l, r;\n      std::cin\
+    \ >> l >> r;\n      avl_tree.reverse(l, r);\n    } else if (t == 3) {\n      int\
+    \ l, r, b, c;\n      std::cin >> l >> r >> b >> c;\n      avl_tree.apply(l, r,\
+    \ F(mint::raw(b), mint::raw(c)));\n    } else {\n      int l, r;\n      std::cin\
+    \ >> l >> r;\n      std::cout << avl_tree.prod(l, r).second.val() << '\\n';\n\
+    \    }\n  }\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum\"\
+    \n\n#include <utility>\n#include <iostream>\n#include <vector>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/lazy_avl_tree.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nusing S = std::pair<int, mint>;\nstruct SM {\n  using T = S;\n  static T op(const\
+    \ T& x, const T& y) {\n    return T(x.first + y.first, x.second + y.second);\n\
+    \  }\n  static T e() {\n    return T(0, mint::raw(0));\n  }\n};\nusing F = std::pair<mint,\
+    \ mint>;\nstruct FM {\n  using T = F;\n  static T op(const T& f, const T& g) {\n\
+    \    return F(f.first * g.first, f.first * g.second + f.second);\n  }\n  static\
+    \ T e() {\n    return F(mint::raw(1), mint::raw(0));\n  }\n};\nS mapping(const\
+    \ F& f, const S& x) {\n  return S(x.first, f.first * x.second + f.second * x.first);\n\
+    }\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  std::vector<S> a;\n  a.reserve(N);\n \
+    \ for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin >> a_i;\n    a.emplace_back(1,\
+    \ mint::raw(a_i));\n  }\n\n  tools::lazy_avl_tree<SM, FM, mapping, true>::buffer\
+    \ buffer;\n  tools::lazy_avl_tree<SM, FM, mapping, true> avl_tree(buffer, a);\n\
+    \  for (int q = 0; q < Q; ++q) {\n    int t;\n    std::cin >> t;\n    if (t ==\
+    \ 0) {\n      int i, x;\n      std::cin >> i >> x;\n      avl_tree.insert(i, S(1,\
+    \ mint::raw(x)));\n    } else if (t == 1) {\n      int i;\n      std::cin >> i;\n\
+    \      avl_tree.erase(i);\n    } else if (t == 2) {\n      int l, r;\n      std::cin\
+    \ >> l >> r;\n      avl_tree.reverse(l, r);\n    } else if (t == 3) {\n      int\
+    \ l, r, b, c;\n      std::cin >> l >> r >> b >> c;\n      avl_tree.apply(l, r,\
+    \ F(mint::raw(b), mint::raw(c)));\n    } else {\n      int l, r;\n      std::cin\
+    \ >> l >> r;\n      std::cout << avl_tree.prod(l, r).second.val() << '\\n';\n\
+    \    }\n  }\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/lazy_avl_tree.hpp
   - tools/detail/avl_tree_impl.hpp
   - tools/fix.hpp
-  isVerificationFile: false
-  path: tools/avl_tree.hpp
+  isVerificationFile: true
+  path: tests/lazy_avl_tree.test.cpp
   requiredBy: []
   timestamp: '2023-08-26 10:00:28+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/avl_tree/reverse.test.cpp
-  - tests/avl_tree/set.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
-documentation_of: tools/avl_tree.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/lazy_avl_tree.test.cpp
 layout: document
-title: Reversible self-balancing binary search tree based on AVL tree
+redirect_from:
+- /verify/tests/lazy_avl_tree.test.cpp
+- /verify/tests/lazy_avl_tree.test.cpp.html
+title: tests/lazy_avl_tree.test.cpp
 ---
-
-It is the data structure for [monoids](https://en.wikipedia.org/wiki/Monoid) $(S, \cdot: S \times S \to S, e \in S)$, i.e., the algebraic structure that satisfies the following properties.
-
-- associativity: $(a \cdot b) \cdot c$ = $a \cdot (b \cdot c)$ for all $a, b, c \in S$
-- existence of the identity element: $a \cdot e$ = $e \cdot a$ = $a$ for all $a \in S$
-
-Given an array $S$ of length $N$, it processes the following queries in $O(\log N)$ time.
-
-- Updating an element
-- Calculating the product of the elements of an interval
-- Inserting an element $x \in S$ to the array
-- Removing an element from the array
-- Spliting the array into two subarrays
-- Merging the two arrays into one array
-- Reversing the elements of an interval
-
-For simplicity, in this document, we assume that the oracles `op` and `e` work in constant time. If these oracles work in $O(T)$ time, each time complexity appear in this document is multipled by $O(T)$.
-
-### References
-- [AVL木(split/merge) - Qiita](https://qiita.com/QCFium/items/3cf26a6dc2d49ef490d7)
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## Constructor of buffer
-```cpp
-(1) avl_tree<M>::buffer buffer();
-(2) avl_tree<M, Reversible>::buffer buffer();
-```
-
-- (1)
-    - It is identical to `avl_tree<M, false>::buffer buffer()`.
-- (2)
-    - It creates an empty buffer for `tools::avl_tree<M, Reversible>`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## Constructor
-```cpp
-(1) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer);
-(2) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, int n);
-(3) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, std::vector<S> v);
-(4) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer);
-(5) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, int n);
-(6) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, std::vector<S> v);
-```
-
-It defines $S$ by `typename M::T`, $\mathrm{op}$ by `S M::op(S x, S y)` and $\mathrm{e}$ by `S M::e()`.
-If `Reversible` is `true`, it enables `reverse` member function.
-
-- (1)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer);`.
-- (2)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, n);`.
-- (3)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, v);`.
-- (4)
-    - It creates an empty array `a`.
-- (5)
-    - It creates an array `a` of length `n`. All the elements are initialized to `e()`.
-- (6)
-    - It creates an array `a` of length `n = v.size()`, initialized to `v`.
-
-### Constraints
-- $\forall x \in S. \forall y \in S. \forall z \in S. \mathrm{op}(\mathrm{op}(x, y), z) = \mathrm{op}(x, \mathrm{op}(y, z))$
-- $\forall x \in S. \mathrm{op}(\mathrm{e}(), x) = \mathrm{op}(x, \mathrm{e}()) = x$
-- $n \geq 0$
-
-### Time Complexity
-- $O(n)$
-
-## empty
-```cpp
-bool avl_tree.empty();
-```
-
-It returns whether $\|a\| = 0$ or not.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## size
-```cpp
-int avl_tree.size();
-```
-
-It returns $\|a\|$.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## set
-```cpp
-void avl_tree.set(int p, S x);
-```
-
-`a[p] = x`
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## get
-```cpp
-S avl_tree.get(int p);
-```
-
-It returns `a[p]`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## prod
-```cpp
-S avl_tree.prod(int l, int r);
-```
-
-It returns `op(a[l], ..., a[r - 1])`, assuming the properties of the monoid.
-It returns `e()` if $l = r$.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq l \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## all_prod
-```cpp
-S avl_tree.all_prod();
-```
-
-It returns `op(a[0], ..., a[a.size() - 1])`, assuming the properties of the monoid.
-It returns `e()` if $\|a\| = 0$.
-
-### Constraints
-- `buffer` is in its lifetime.
-
-### Time Complexity
-- $O(1)$
-
-## insert
-```cpp
-void avl_tree.insert(int p, S x);
-```
-
-If $p < \|a\|$, it inserts $x$ immediately before `a[i]`.
-If $p = \|a\|$, it inserts $x$ to the end of `a`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## erase
-```cpp
-void avl_tree.erase(int p);
-```
-
-It removes `a[i]`. (remaining elements will be concatenated)
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq p < \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## merge
-```cpp
-void avl_tree.merge(avl_tree<M, Reversible> other);
-```
-
-It appends the sequence represented by `other` to the end of `a`.
-`other` gets empty after call of this function.
-
-### Constraints
-- `buffer` is in its lifetime.
-- `avl_tree` and `other` shares the same buffer.
-
-### Time Complexity
-- $O(\log \|a\| + \log \|b\|)$ where $\|b\|$ is `other.size()`
-
-## split
-```cpp
-std::pair<avl_tree<M, Reversible>, avl_tree<M, Reversible>> avl_tree.split(int i);
-```
-
-It splits `a` into the two sequences `a[0], a[1], ..., a[i - 1]` and `a[i], a[i + 1], ..., a[a.size() - 1]`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- $0 \leq i \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## reverse
-```cpp
-void avl_tree.reverse(int l, int r);
-```
-
-It reverses `a[l], a[l + 1], ..., a[r - 1]`.
-
-### Constraints
-- `<Reversible>` is `true`.
-- `buffer` is in its lifetime.
-- $0 \leq l \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## max_right
-```cpp
-int avl_tree.max_right<G>(int l, G g)
-```
-It returns an index `r` that satisfies both of the followings.
-
-- `r = l` or `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`
-- `r = a.size()` or `g(op(a[l], a[l + 1], ..., a[r])) = false`
-
-If `g` is monotone, this is the maximum `r` that satisfies `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- The function object that takes `S` as the argument and returns `bool` should be defined.
-- if `g` is called with the same argument, it returns the same value, i.e., `g` has no side effect.
-- `g(e()) = true`
-- $0 \leq l \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$
-
-## min_left
-```cpp
-int avl_tree.min_left<G>(int l, G g)
-```
-It returns an index `l` that satisfies both of the followings.
-
-- `l = r` or `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`
-- `l = 0` or `g(op(a[l - 1], a[l], ..., a[r - 1])) = false`
-
-If `g` is monotone, this is the minimum `l` that satisfies `g(op(a[l], a[l + 1], ..., a[r - 1])) = true`.
-
-### Constraints
-- `buffer` is in its lifetime.
-- The function object that takes `S` as the argument and returns `bool` should be defined.
-- if `g` is called with the same argument, it returns the same value, i.e., `g` has no side effect.
-- `g(e()) = true`
-- $0 \leq r \leq \|a\|$
-
-### Time Complexity
-- $O(\log \|a\|)$

@@ -125,43 +125,43 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
+  - tools/wavelet_matrix.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/bernoulli.hpp
   - tools/berlekamp_massey.hpp
+  - tools/partition_function.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
-  - tools/sparse_fps_pow.hpp
   - tools/stirling_2nd.hpp
-  - tools/partially_persistent_dsu.hpp
-  - tools/partition_function.hpp
   - tools/bostan_mori.hpp
-  - tools/bernoulli.hpp
-  - tools/wavelet_matrix.hpp
+  - tools/partially_persistent_dsu.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_2nd.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
-  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/partially_persistent_dsu.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/partially_persistent_dsu.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

@@ -4,6 +4,12 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/avl_tree.hpp
+    title: Reversible self-balancing binary search tree based on AVL tree
+  - icon: ':heavy_check_mark:'
+    path: tools/detail/avl_tree_impl.hpp
+    title: tools/detail/avl_tree_impl.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
@@ -13,14 +19,17 @@ data:
     path: tests/avl_tree/binary_search.test.cpp
     title: tests/avl_tree/binary_search.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/avl_tree/main_features.test.cpp
-    title: tests/avl_tree/main_features.test.cpp
+    path: tests/avl_tree/reverse.test.cpp
+    title: tests/avl_tree/reverse.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/set.test.cpp
     title: tests/avl_tree/set.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lazy_avl_tree.test.cpp
+    title: tests/lazy_avl_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
@@ -49,17 +58,20 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
-  - tools/persistent_dual_segtree.hpp
   - tools/avl_tree.hpp
+  - tools/persistent_dual_segtree.hpp
+  - tools/lazy_avl_tree.hpp
+  - tools/detail/avl_tree_impl.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fix.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
-  - tests/undoable_dsu.test.cpp
+  - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/set.test.cpp
   - tests/avl_tree/binary_search.test.cpp
-  - tests/avl_tree/main_features.test.cpp
+  - tests/fix.test.cpp
+  - tests/undoable_dsu.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
+  - tests/lazy_avl_tree.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator

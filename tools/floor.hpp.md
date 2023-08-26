@@ -141,48 +141,48 @@ data:
   isVerificationFile: false
   path: tools/floor.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
+  - tools/bigdecimal.hpp
+  - tools/floor_log.hpp
   - tools/round.hpp
-  - tools/detail/rolling_hash.hpp
+  - tools/rational.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/bigint.hpp
-  - tools/bigdecimal.hpp
-  - tools/rational.hpp
-  - tools/floor_log.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
+  - tools/rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/floor.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/bezout.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/line_2d/projection.test.cpp
+  - tests/floor.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/bezout.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
 title: $\left\lfloor \frac{x}{y} \right\rfloor$

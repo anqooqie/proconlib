@@ -7,6 +7,9 @@ data:
     title: Potentialized disjoint set union
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/avl_tree/reverse.test.cpp
+    title: tests/avl_tree/reverse.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
   - icon: ':heavy_check_mark:'
@@ -49,10 +52,11 @@ data:
   timestamp: '2021-11-12 22:35:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/pdsu.test.cpp
+  - tests/avl_tree/reverse.test.cpp
   - tests/cumsum2d.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/pdsu.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups
