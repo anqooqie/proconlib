@@ -11,16 +11,16 @@ data:
   - icon: ':x:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':x:'
@@ -42,13 +42,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
   - icon: ':x:'

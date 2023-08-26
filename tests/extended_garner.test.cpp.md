@@ -4,16 +4,16 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
   - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
@@ -24,9 +24,9 @@ data:
     title: Quotient as integer division
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/187
@@ -350,7 +350,7 @@ data:
   path: tests/extended_garner.test.cpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extended_garner.test.cpp
 layout: document

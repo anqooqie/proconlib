@@ -75,31 +75,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/dynamic_mod.test.cpp
     title: tests/convolution/dynamic_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod1000000007.test.cpp
     title: tests/convolution/mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_other_mods.test.cpp
     title: tests/fps/inv_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':x:'

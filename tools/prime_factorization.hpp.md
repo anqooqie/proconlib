@@ -32,10 +32,10 @@ data:
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
@@ -48,16 +48,16 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
   - icon: ':x:'
@@ -74,7 +74,7 @@ data:
     title: tests/totient.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <vector>\n\
@@ -259,7 +259,7 @@ data:
   - tools/totient.hpp
   - tools/tetration_mod.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/prime_factorization.test.cpp
   - tests/extended_lucas.test.cpp

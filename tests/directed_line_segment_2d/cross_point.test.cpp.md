@@ -22,7 +22,7 @@ data:
   - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
   - icon: ':question:'
@@ -68,7 +68,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':question:'
@@ -94,9 +94,9 @@ data:
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C
@@ -2007,7 +2007,7 @@ data:
   path: tests/directed_line_segment_2d/cross_point.test.cpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/cross_point.test.cpp
 layout: document

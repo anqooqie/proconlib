@@ -51,7 +51,7 @@ data:
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -79,13 +79,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/rounding.test.cpp
     title: tests/bigdecimal/rounding.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':x:'

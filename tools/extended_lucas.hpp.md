@@ -10,10 +10,10 @@ data:
   - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
@@ -31,7 +31,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':question:'
@@ -48,12 +48,12 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709
@@ -351,7 +351,7 @@ data:
   path: tools/extended_lucas.hpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
 documentation_of: tools/extended_lucas.hpp

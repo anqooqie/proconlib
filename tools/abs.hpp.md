@@ -41,16 +41,16 @@ data:
   - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':question:'
@@ -63,7 +63,7 @@ data:
   - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':question:'
@@ -86,7 +86,7 @@ data:
   - icon: ':x:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
@@ -123,7 +123,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':x:'
@@ -135,7 +135,7 @@ data:
   - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':x:'
@@ -251,58 +251,58 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/dynamic_mod.test.cpp
     title: tests/convolution/dynamic_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod1000000007.test.cpp
     title: tests/convolution/mod1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/inv_other_mods.test.cpp
     title: tests/fps/inv_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
   - icon: ':x:'

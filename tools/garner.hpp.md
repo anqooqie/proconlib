@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
@@ -17,20 +17,20 @@ data:
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':x:'
@@ -38,7 +38,7 @@ data:
     title: tests/tetration_mod.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://qiita.com/drken/items/ae02240cd1f8edfc86fd
@@ -131,7 +131,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/extended_garner.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/extended_lucas.test.cpp
   - tests/tetration_mod.test.cpp

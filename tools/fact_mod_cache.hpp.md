@@ -40,7 +40,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':x:'

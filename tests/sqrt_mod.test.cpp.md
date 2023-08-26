@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'

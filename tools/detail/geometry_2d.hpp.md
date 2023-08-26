@@ -41,7 +41,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
   - icon: ':warning:'
@@ -69,13 +69,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/circle_2d/where/without_radius.test.cpp
     title: tests/circle_2d/where/without_radius.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':x:'

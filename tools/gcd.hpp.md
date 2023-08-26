@@ -8,7 +8,7 @@ data:
   - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -51,16 +51,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
   - icon: ':x:'
