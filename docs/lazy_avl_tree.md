@@ -1,16 +1,17 @@
 ---
-title: Reversible self-balancing binary search tree based on AVL tree
-documentation_of: //tools/avl_tree.hpp
+title: Lazy reversible self-balancing binary search tree based on AVL tree
+documentation_of: //tools/lazy_avl_tree.hpp
 ---
 
-It is the data structure for [monoids](https://en.wikipedia.org/wiki/Monoid) $(S, \cdot: S \times S \to S, e \in S)$, i.e., the algebraic structure that satisfies the following properties.
+It is the data structure for the pair of a [monoid](https://en.wikipedia.org/wiki/Monoid) $(S, \cdot: S \times S \to S, e \in S)$ and a set $F$ of $S \to S$ mappings that satisfies the following properties.
 
-- associativity: $(a \cdot b) \cdot c$ = $a \cdot (b \cdot c)$ for all $a, b, c \in S$
-- existence of the identity element: $a \cdot e$ = $e \cdot a$ = $a$ for all $a \in S$
+- $F$ contains the identity map $\mathrm{id}$, where the identity map is the map that satisfies $\mathrm{id}(x) = x$ for all $x \in S$.
+- $F$ is closed under composition, i.e., $f \circ g \in F$ holds for all $f, g \in F$.
+- $f(x \cdot y) = f(x) \cdot f(y)$ holds for all $f \in F$ and $x, y \in S$.
 
 Given an array $S$ of length $N$, it processes the following queries in $O(\log N)$ time.
 
-- Updating an element
+- Acting the map $f\in F$ (cf. $x = f(x)$) on all the elements of an interval
 - Calculating the product of the elements of an interval
 - Inserting an element $x \in S$ to the array
 - Removing an element from the array
@@ -18,7 +19,7 @@ Given an array $S$ of length $N$, it processes the following queries in $O(\log 
 - Merging the two arrays into one array
 - Reversing the elements of an interval
 
-For simplicity, in this document, we assume that the oracles `op` and `e` work in constant time. If these oracles work in $O(T)$ time, each time complexity appear in this document is multipled by $O(T)$.
+For simplicity, in this document, we assume that the oracles `op`, `e`, `mapping`, `composition`, and `id` work in constant time. If these oracles work in $O(T)$ time, each time complexity appear in this document is multipled by $O(T)$.
 
 ### References
 - [AVL木(split/merge) - Qiita](https://qiita.com/QCFium/items/3cf26a6dc2d49ef490d7)
@@ -31,14 +32,14 @@ For simplicity, in this document, we assume that the oracles `op` and `e` work i
 
 ## Constructor of buffer
 ```cpp
-(1) avl_tree<M>::buffer buffer();
-(2) avl_tree<M, Reversible>::buffer buffer();
+(1) lazy_avl_tree<SM, FM, mapping>::buffer buffer();
+(2) lazy_avl_tree<SM, FM, mapping, Reversible>::buffer buffer();
 ```
 
 - (1)
-    - It is identical to `avl_tree<M, false>::buffer buffer()`.
+    - It is identical to `lazy_avl_tree<SM, FM, mapping, false>::buffer buffer()`.
 - (2)
-    - It creates an empty buffer for `tools::avl_tree<M, Reversible>`.
+    - It creates an empty buffer for `tools::lazy_avl_tree<SM, FM, mapping, Reversible>`.
 
 ### Constraints
 - None
@@ -48,23 +49,22 @@ For simplicity, in this document, we assume that the oracles `op` and `e` work i
 
 ## Constructor
 ```cpp
-(1) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer);
-(2) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, int n);
-(3) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, std::vector<S> v);
-(4) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer);
-(5) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, int n);
-(6) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, std::vector<S> v);
+(1) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer);
+(2) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer, int n);
+(3) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer, std::vector<S> v);
+(4) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer);
+(5) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer, int n);
+(6) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer, std::vector<S> v);
 ```
 
-It defines $S$ by `typename M::T`, $\mathrm{op}$ by `S M::op(S x, S y)` and $\mathrm{e}$ by `S M::e()`.
-If `Reversible` is `true`, it enables `reverse` member function.
+It defines $S$ by `typename SM::T`, $\mathrm{op}$ by `S SM::op(S x, S y)`, $\mathrm{e}$ by `S SM::e()`, $F$ by `typename FM::T`, $\mathrm{composition}$ by `F FM::op(F f, F g)`, $\mathrm{id}$ by `F FM::e()` and $\mathrm{mapping}$ by `S mapping(F f, S x)`.
 
 - (1)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer);`.
+    - It is identical to `lazy_avl_tree<SM, FM, mapping, false> avl_tree(buffer)`.
 - (2)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, n);`.
+    - It is identical to `lazy_avl_tree<SM, FM, mapping, false> avl_tree(buffer, n)`.
 - (3)
-    - It is identical to `avl_tree<M, false> avl_tree(buffer, v);`.
+    - It is identical to `lazy_avl_tree<SM, FM, mapping, false> avl_tree(buffer, v)`.
 - (4)
     - It creates an empty array `a`.
 - (5)
@@ -75,6 +75,9 @@ If `Reversible` is `true`, it enables `reverse` member function.
 ### Constraints
 - $\forall x \in S. \forall y \in S. \forall z \in S. \mathrm{op}(\mathrm{op}(x, y), z) = \mathrm{op}(x, \mathrm{op}(y, z))$
 - $\forall x \in S. \mathrm{op}(\mathrm{e}(), x) = \mathrm{op}(x, \mathrm{e}()) = x$
+- $\forall f \in F. \forall g \in F. \forall h \in F. \mathrm{composition}(\mathrm{composition}(f, g), h) = \mathrm{composition}(f, \mathrm{composition}(g, h))$
+- $\forall f \in F. \mathrm{composition}(\mathrm{id}(), f) = \mathrm{composition}(f, \mathrm{id}()) = f$
+- $\forall f \in F. \forall x \in S. \forall y \in S. \mathrm{mapping}(f, \mathrm{op}(x, y)) = \mathrm{op}(f(x), f(y))$
 - $n \geq 0$
 
 ### Time Complexity
@@ -163,6 +166,28 @@ It returns `e()` if $\|a\| = 0$.
 ### Time Complexity
 - $O(1)$
 
+## apply
+```cpp
+(1) void avl_tree.apply(int p, F f);
+(2) void avl_tree.apply(int l, int r, F f);
+```
+
+- (1)
+    - It applies `a[p] = f(a[p])`.
+- (2)
+    - It applies `a[i] = f(a[i])` for all `i = l..r-1`.
+
+### Constraints
+- (1)
+    - `buffer` is in its lifetime.
+    - $0 \leq p < \|a\|$
+- (2)
+    - `buffer` is in its lifetime.
+    - $0 \leq l \leq r \leq \|a\|$
+
+### Time Complexity
+- $O(\log \|a\|)$
+
 ## insert
 ```cpp
 void avl_tree.insert(int p, S x);
@@ -194,7 +219,7 @@ It removes `a[i]`. (remaining elements will be concatenated)
 
 ## merge
 ```cpp
-void avl_tree.merge(avl_tree<M, Reversible> other);
+void avl_tree.merge(lazy_avl_tree<SM, FM, mapping, Reversible> other);
 ```
 
 It appends the sequence represented by `other` to the end of `a`.
@@ -209,7 +234,7 @@ It appends the sequence represented by `other` to the end of `a`.
 
 ## split
 ```cpp
-std::pair<avl_tree<M, Reversible>, avl_tree<M, Reversible>> avl_tree.split(int i);
+std::pair<lazy_avl_tree<SM, FM, mapping, Reversible>, avl_tree<SM, FM, mapping, Reversible>> avl_tree.split(int i);
 ```
 
 It splits `a` into the two sequences `a[0], a[1], ..., a[i - 1]` and `a[i], a[i + 1], ..., a[a.size() - 1]`.

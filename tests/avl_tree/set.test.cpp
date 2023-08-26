@@ -19,19 +19,6 @@ struct SM {
     return T(mint::raw(1), mint::raw(0));
   }
 };
-using F = std::monostate;
-struct FM {
-  using T = F;
-  static T op(const T& f, const T&) {
-    return f;
-  }
-  static T e() {
-    return std::monostate{};
-  }
-};
-S mapping(const F&, const S& x) {
-  return x;
-}
 
 int main() {
   std::cin.tie(nullptr);
@@ -47,7 +34,8 @@ int main() {
     init.emplace_back(mint::raw(a), mint::raw(b));
   }
 
-  tools::avl_tree<SM, FM, mapping> avl_tree(init);
+  tools::avl_tree<SM>::buffer buffer;
+  tools::avl_tree<SM> avl_tree(buffer, init);
   for (int q = 0; q < Q; ++q) {
     int t;
     std::cin >> t;

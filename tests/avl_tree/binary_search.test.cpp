@@ -21,19 +21,6 @@ struct SM {
     return T(std::numeric_limits<ll>::min(), std::numeric_limits<ll>::max(), 0LL);
   }
 };
-using F = std::monostate;
-struct FM {
-  using T = F;
-  static T op(const T& f, const T&) {
-    return f;
-  }
-  static T e() {
-    return std::monostate{};
-  }
-};
-S mapping(const F&, const S& x) {
-  return x;
-}
 
 int main() {
   std::cin.tie(nullptr);
@@ -51,7 +38,8 @@ int main() {
   }
   std::sort(init.begin(), init.end(), tools::less_by_get<0>());
 
-  tools::avl_tree<SM, FM, mapping> avl_tree(init);
+  tools::avl_tree<SM>::buffer buffer;
+  tools::avl_tree<SM> avl_tree(buffer, init);
   std::cout << std::get<2>(avl_tree.prod(0, K));
   for (int i = 1; i + M <= N; ++i) {
     avl_tree.insert(avl_tree.max_right(0, [&](const S& x) { return std::get<0>(x) < A[i + M - 1]; }), S(A[i + M - 1], A[i + M - 1], A[i + M - 1]));
