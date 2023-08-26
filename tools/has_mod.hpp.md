@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -33,21 +33,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/has_mod.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -73,7 +73,7 @@ data:
   - tools/extend_output.hpp
   - tools/bostan_mori.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/extend_output.test.cpp
   - tests/polynomial/naive_division.test.cpp

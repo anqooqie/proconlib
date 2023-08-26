@@ -1,59 +1,62 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/abs.hpp
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind
@@ -470,9 +473,20 @@ data:
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
     \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
-    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 9 \"tools/uint128_t.hpp\"\n\nnamespace\
-    \ tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream&\
-    \ is, ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace\
+    \ tools {\n  constexpr float abs(const float x) {\n    return x < 0 ? -x : x;\n\
+    \  }\n  constexpr double abs(const double x) {\n    return x < 0 ? -x : x;\n \
+    \ }\n  constexpr long double abs(const long double x) {\n    return x < 0 ? -x\
+    \ : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ? -x : x;\n\
+    \  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x : x;\n  }\n\
+    \  constexpr long long abs(const long long x) {\n    return x < 0 ? -x : x;\n\
+    \  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return x;\n  }\n\
+    \  constexpr unsigned long abs(const unsigned long x) {\n    return x;\n  }\n\
+    \  constexpr unsigned long long abs(const unsigned long long x) {\n    return\
+    \ x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using\
+    \ uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t abs(const ::tools::uint128_t&\
+    \ x) {\n    return x;\n  }\n}\n\n::std::istream& operator>>(::std::istream& is,\
+    \ ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
     \n  x = 0;\n  for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0'\
     \ <= s[i] && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n\
     }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n\
@@ -999,6 +1013,7 @@ data:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
+  - tools/abs.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
@@ -1009,8 +1024,8 @@ data:
   isVerificationFile: true
   path: tests/stirling_2nd.test.cpp
   requiredBy: []
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/stirling_2nd.test.cpp
 layout: document

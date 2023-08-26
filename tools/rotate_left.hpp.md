@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy: []

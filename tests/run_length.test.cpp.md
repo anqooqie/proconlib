@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
   _extendedRequiredBy: []

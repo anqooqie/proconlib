@@ -1,32 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/abs.hpp
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -69,52 +72,63 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/garner2.hpp\"\n\n\n\n#include <cassert>\n#line 1 \"\
     tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\
     \n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
-    #line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n\n\
-    namespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream&\
+    #line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n#line\
+    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
+    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
     \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
@@ -177,6 +191,7 @@ data:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
+  - tools/abs.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
@@ -186,8 +201,8 @@ data:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
   - tools/bigint.hpp
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/line_2d/projection.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

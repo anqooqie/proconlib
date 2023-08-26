@@ -1,21 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -24,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -448,7 +448,7 @@ data:
   requiredBy:
   - tools/weighted_bipartite_matching.hpp
   timestamp: '2022-11-26 16:53:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp

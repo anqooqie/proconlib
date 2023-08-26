@@ -1,47 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/abs.hpp
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/discrete_logarithm_mod
@@ -103,34 +106,51 @@ data:
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
     \ 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line\
     \ 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\
-    \n#include <cstddef>\n#include <algorithm>\n\nnamespace tools {\n  using uint128_t\
-    \ = unsigned __int128;\n}\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
-    \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
-    \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
-    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
-    ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
-    \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
-    \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
-    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
-    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
-    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
-    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
-    \n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include\
-    \ <tuple>\n#include <utility>\n#line 7 \"tools/extgcd.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r)\
-    \ {\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n    T t(1);\n    while (r\
-    \ != T(0)) {\n      const T q = ::tools::quo(prev_r, r);\n      ::std::tie(prev_r,\
+    \n#include <cstddef>\n#include <algorithm>\n#line 1 \"tools/abs.hpp\"\n\n\n\n\
+    namespace tools {\n  constexpr float abs(const float x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x < 0 ? -x\
+    \ : x;\n  }\n  constexpr long double abs(const long double x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ? -x\
+    \ : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x : x;\n\
+    \  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ? -x :\
+    \ x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return x;\n\
+    \  }\n  constexpr unsigned long abs(const unsigned long x) {\n    return x;\n\
+    \  }\n  constexpr unsigned long long abs(const unsigned long long x) {\n    return\
+    \ x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using\
+    \ uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t abs(const ::tools::uint128_t&\
+    \ x) {\n    return x;\n  }\n}\n\n::std::istream& operator>>(::std::istream& is,\
+    \ ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
+    \n  x = 0;\n  for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0'\
+    \ <= s[i] && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n\
+    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n\
+    \  if (x == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n  \
+    \  s.push_back('0' + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(),\
+    \ s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
+    \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n\
+    \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
+    \    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
+    \  }\n}\n\n\n#line 1 \"tools/inv_mod.hpp\"\n\n\n\n#line 1 \"tools/extgcd.hpp\"\
+    \n\n\n\n#include <tuple>\n#include <utility>\n#line 9 \"tools/extgcd.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
+    \ prev_r, T r) {\n    const bool prev_r_is_neg = prev_r < T(0);\n    const bool\
+    \ r_is_neg = r < T(0);\n\n    if (prev_r_is_neg) prev_r = -prev_r;\n    if (r_is_neg)\
+    \ r = -r;\n\n    #ifndef NDEBUG\n    const T a = prev_r;\n    const T b = r;\n\
+    \    #endif\n\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n    T t(1);\n\
+    \    while (r != T(0)) {\n      const T q = prev_r / r;\n      ::std::tie(prev_r,\
     \ r) = ::std::make_pair(r, prev_r - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s,\
     \ prev_s - q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t -\
-    \ q * t);\n    }\n\n    if (prev_r < T(0)) prev_r = -prev_r;\n    return ::std::make_tuple(prev_s,\
-    \ prev_t, prev_r);\n  }\n}\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T1, typename T2>\n  constexpr T2 inv_mod(const T1\
-    \ x, const T2 m) {\n    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n  \
-    \  assert(gcd == 1);\n    return ::tools::mod(x0, m);\n  }\n}\n\n\n#line 1 \"\
-    tools/ceil_sqrt.hpp\"\n\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \ q * t);\n    }\n\n    if (prev_r_is_neg) prev_s = -prev_s;\n    if (r_is_neg)\
+    \ prev_t = -prev_t;\n\n    assert(::tools::abs(prev_s) <= ::std::max(b / prev_r\
+    \ / T(2), T(1)));\n    assert(::tools::abs(prev_t) <= ::std::max(a / prev_r /\
+    \ T(2), T(1)));\n    return ::std::make_tuple(prev_s, prev_t, prev_r);\n  }\n\
+    }\n\n\n#line 7 \"tools/inv_mod.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T1, typename T2>\n  constexpr T2 inv_mod(const T1 x, const T2 m) {\n    const\
+    \ auto [x0, y0, gcd] = ::tools::extgcd(x, m);\n    assert(gcd == 1);\n    return\
+    \ ::tools::mod(x0, m);\n  }\n}\n\n\n#line 1 \"tools/ceil_sqrt.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N>\
+    \ ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
     \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
     \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 6 \"tools/ceil_sqrt.hpp\"\
     \n\nnamespace tools {\n\n  template <typename T>\n  T ceil_sqrt(const T n) {\n\
@@ -181,6 +201,7 @@ data:
   - tools/popcount.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
+  - tools/abs.hpp
   - tools/inv_mod.hpp
   - tools/extgcd.hpp
   - tools/ceil_sqrt.hpp
@@ -189,8 +210,8 @@ data:
   isVerificationFile: true
   path: tests/log_mod.test.cpp
   requiredBy: []
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/log_mod.test.cpp
 layout: document

@@ -1,102 +1,102 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_C
@@ -226,7 +226,10 @@ data:
     \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
     \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
     \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
-    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -1425,8 +1428,9 @@ data:
     \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
     \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"tools/garner2.hpp\"\
     \n\n\n\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\
-    \n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 9 \"tools/uint128_t.hpp\"\n\
-    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream&\
+    \n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
+    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
     \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
@@ -2002,8 +2006,8 @@ data:
   isVerificationFile: true
   path: tests/directed_line_segment_2d/cross_point.test.cpp
   requiredBy: []
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/directed_line_segment_2d/cross_point.test.cpp
 layout: document

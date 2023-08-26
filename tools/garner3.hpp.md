@@ -1,22 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/abs.hpp
+    title: std::abs(x) extended for my library
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -29,23 +32,23 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -65,67 +68,78 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/dynamic_mod.test.cpp
     title: tests/convolution/dynamic_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/convolution/mod1000000007.test.cpp
     title: tests/convolution/mod1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_other_mods.test.cpp
     title: tests/fps/inv_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/garner3.hpp\"\n\n\n\n#include <cassert>\n#line 1 \"\
     tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\
     \n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
-    #line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n\n\
-    namespace tools {\n  using uint128_t = unsigned __int128;\n}\n\n::std::istream&\
+    #line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n#line\
+    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
+    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
     \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
@@ -204,6 +218,7 @@ data:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
+  - tools/abs.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
@@ -219,8 +234,8 @@ data:
   - tools/stirling_2nd.hpp
   - tools/bostan_mori.hpp
   - tools/convolution.hpp
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/partition_function/n_k.test.cpp
   - tests/partition_function/n.test.cpp

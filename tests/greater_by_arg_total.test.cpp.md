@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/sort_points_by_argument
@@ -165,7 +165,10 @@ data:
     \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
     \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
     \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
-    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -333,8 +336,8 @@ data:
   isVerificationFile: true
   path: tests/greater_by_arg_total.test.cpp
   requiredBy: []
-  timestamp: '2023-02-11 13:03:03+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/greater_by_arg_total.test.cpp
 layout: document

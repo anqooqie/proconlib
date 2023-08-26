@@ -1,46 +1,46 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -177,7 +177,10 @@ data:
     \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
     \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
     \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
-    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -1007,7 +1010,7 @@ data:
   isVerificationFile: true
   path: tests/circle_2d/where/without_radius.test.cpp
   requiredBy: []
-  timestamp: '2022-12-04 17:44:19+09:00'
+  timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/circle_2d/where/without_radius.test.cpp

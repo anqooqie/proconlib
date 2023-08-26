@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/matrix.hpp
     title: Matrix
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/determinant.test.cpp
     title: tests/matrix/determinant.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/inv.test.cpp
     title: tests/matrix/inv.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -39,7 +39,10 @@ data:
     \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
     \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
     \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
+    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
+    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -153,8 +156,8 @@ data:
   path: tools/vector.hpp
   requiredBy:
   - tools/matrix.hpp
-  timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/inv.test.cpp

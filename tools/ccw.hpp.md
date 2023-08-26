@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
   _extendedVerifiedWith:
@@ -45,24 +45,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convex_hull.test.cpp
     title: tests/convex_hull.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/greater_by_arg.test.cpp
     title: tests/greater_by_arg.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/greater_by_arg_total.test.cpp
     title: tests/greater_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/less_by_arg.test.cpp
     title: tests/less_by_arg.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\
@@ -187,7 +187,10 @@ data:
     \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
     \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
     \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
+    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
+    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
     \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
     \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
     \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
@@ -311,8 +314,8 @@ data:
   - tools/greater_by_arg_total.hpp
   - tools/convex_hull.hpp
   - tools/greater_by_arg.hpp
-  timestamp: '2023-02-11 13:03:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-08-26 14:07:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/less_by_arg.test.cpp

@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy: []
