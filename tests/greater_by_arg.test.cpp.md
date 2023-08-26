@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':question:'
@@ -13,13 +13,13 @@ data:
   - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg.hpp
     title: std::greater by the argument
   - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_arg.hpp
     title: std::less by the argument
   - icon: ':question:'
@@ -33,9 +33,9 @@ data:
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc225/tasks/abc225_e
@@ -330,7 +330,7 @@ data:
   path: tests/greater_by_arg.test.cpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/greater_by_arg.test.cpp
 layout: document

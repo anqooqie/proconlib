@@ -58,7 +58,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bostan_mori.test.cpp
     title: tests/bostan_mori.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':x:'

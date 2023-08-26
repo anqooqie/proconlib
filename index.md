@@ -48,7 +48,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bostan_mori.hpp
       title: Bostan-Mori algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':question:'
@@ -66,7 +66,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_quotients.hpp
       title: Enumerate the range of $\left\lceil \frac{A}{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
     - icon: ':question:'
@@ -90,7 +90,7 @@ data:
     - icon: ':warning:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':question:'
@@ -207,10 +207,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_arg.hpp
       title: std::greater by the argument
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_arg_total.hpp
       title: std::greater by the argument (total order)
     - icon: ':warning:'
@@ -237,7 +237,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/hld.hpp
       title: Heavy-light decomposition
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/int128_t.hpp
       title: 128 bit signed integer
     - icon: ':heavy_check_mark:'
@@ -258,7 +258,7 @@ data:
     - icon: ':question:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -276,10 +276,10 @@ data:
     - icon: ':question:'
       path: tools/less_by.hpp
       title: std::less by key
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_arg.hpp
       title: std::less by the argument
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
     - icon: ':question:'
@@ -294,7 +294,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/line_2d.hpp
       title: Two-dimensional line
     - icon: ':heavy_check_mark:'
@@ -303,7 +303,7 @@ data:
     - icon: ':x:'
       path: tools/log.hpp
       title: std::log(x) extended for my library
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/log_mod.hpp
       title: $\log_x y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -313,7 +313,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
     - icon: ':question:'
@@ -331,7 +331,7 @@ data:
     - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
     - icon: ':question:'
@@ -361,7 +361,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/partially_persistent_dsu.hpp
       title: Partially persistent disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
       title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
         j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -380,7 +380,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
     - icon: ':question:'
@@ -398,7 +398,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -542,7 +542,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: Vector
     - icon: ':question:'
@@ -580,7 +580,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
     - icon: ':question:'
@@ -718,16 +718,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/golden_section_search.test.cpp
       title: tests/golden_section_search.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg.test.cpp
       title: tests/greater_by_arg.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg_total.test.cpp
       title: tests/greater_by_arg_total.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/has_mod.test.cpp
       title: tests/has_mod.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/int128_t.test.cpp
       title: tests/int128_t.test.cpp
     - icon: ':heavy_check_mark:'
@@ -736,7 +736,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
     - icon: ':heavy_check_mark:'
@@ -751,16 +751,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lcm_convolution.test.cpp
       title: tests/lcm_convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/less_by_arg_total.test.cpp
       title: tests/less_by_arg_total.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/log_mod.test.cpp
       title: tests/log_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1031,7 +1031,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fps/pow_mod998244353.test.cpp
       title: tests/fps/pow_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_other_mods.test.cpp
       title: tests/fps/pow_other_mods.test.cpp
   - name: tests/hld
@@ -1061,48 +1061,48 @@ data:
       title: tests/li_chao_segtree/segment.test.cpp
   - name: tests/line_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/is_parallel_to.test.cpp
       title: tests/line_2d/is_parallel_to.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
   - name: tests/matrix
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/determinant.test.cpp
       title: tests/matrix/determinant.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/inv.test.cpp
       title: tests/matrix/inv.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/multiplies.test.cpp
       title: tests/matrix/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/matrix/solve.test.cpp
       title: tests/matrix/solve.test.cpp
   - name: tests/partition_function
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n.test.cpp
       title: tests/partition_function/n.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n_k.test.cpp
       title: tests/partition_function/n_k.test.cpp
   - name: tests/polygon_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/area.test.cpp
       title: tests/polygon_2d/area.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/minimum_bounding_circle.test.cpp
       title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp
   - name: tests/polynomial
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/naive_division.test.cpp
       title: tests/polynomial/naive_division.test.cpp
     - icon: ':x:'

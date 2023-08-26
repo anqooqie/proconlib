@@ -33,10 +33,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':x:'

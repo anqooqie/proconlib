@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
   - icon: ':question:'
