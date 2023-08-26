@@ -87,13 +87,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
   - icon: ':heavy_check_mark:'

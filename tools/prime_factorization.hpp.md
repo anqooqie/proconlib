@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':x:'
@@ -60,10 +60,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
   - icon: ':x:'

@@ -47,7 +47,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
   - icon: ':x:'
@@ -59,10 +59,10 @@ data:
   - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedVerifiedWith:
@@ -123,16 +123,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
   - icon: ':x:'

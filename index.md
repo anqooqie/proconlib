@@ -69,7 +69,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
     - icon: ':question:'
@@ -129,7 +129,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/exp.hpp
       title: std::exp(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -157,7 +157,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
@@ -228,7 +228,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
     - icon: ':question:'
@@ -300,7 +300,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/log.hpp
       title: std::log(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -383,7 +383,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/polynomial.hpp
       title: Polynomial
     - icon: ':question:'
@@ -398,7 +398,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -410,7 +410,7 @@ data:
     - icon: ':question:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/primitive_root.hpp
       title: Primitive root
     - icon: ':question:'
@@ -419,7 +419,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/qcfium.hpp
       title: QCFium's method
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
     - icon: ':question:'
@@ -443,7 +443,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
     - icon: ':heavy_check_mark:'
@@ -480,7 +480,7 @@ data:
     - icon: ':question:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':x:'
@@ -548,10 +548,10 @@ data:
     - icon: ':question:'
       path: tools/vector2.hpp
       title: Two dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector3.hpp
       title: Three dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector4.hpp
       title: Four dimensional vector
     - icon: ':heavy_check_mark:'
@@ -580,7 +580,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
     - icon: ':question:'
@@ -805,10 +805,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/preset_segtree_beats.test.cpp
       title: tests/preset_segtree_beats.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prime_factorization.test.cpp
       title: tests/prime_factorization.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/primitive_root.test.cpp
       title: tests/primitive_root.test.cpp
     - icon: ':heavy_check_mark:'
@@ -829,7 +829,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1105,7 +1105,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polynomial/naive_division.test.cpp
       title: tests/polynomial/naive_division.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/ntt_division.test.cpp
       title: tests/polynomial/ntt_division.test.cpp
   - name: tests/prim
@@ -1118,30 +1118,30 @@ data:
       title: tests/prim/unconnected.test.cpp
   - name: tests/quaternion
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/angle_axis.test.cpp
       title: tests/quaternion/angle_axis.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/dice_rotations.test.cpp
       title: tests/quaternion/dice_rotations.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/look_rotation.test.cpp
       title: tests/quaternion/look_rotation.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/quaternion/slerp.test.cpp
       title: tests/quaternion/slerp.test.cpp
   - name: tests/rational
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/minus.test.cpp
       title: tests/rational/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/multiplies.test.cpp
       title: tests/rational/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/plus.test.cpp
       title: tests/rational/plus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph
@@ -1157,7 +1157,7 @@ data:
       title: tests/scc_graph/sccs.test.cpp
   - name: tests/sparse_fps_pow
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/fraction.test.cpp
       title: tests/sparse_fps_pow/fraction.test.cpp
     - icon: ':x:'

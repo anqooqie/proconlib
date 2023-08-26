@@ -36,12 +36,12 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/primitive_root.hpp\"\n\n\n\n#include <cassert>\n#include\
@@ -208,7 +208,7 @@ data:
   path: tools/primitive_root.hpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/primitive_root.test.cpp
 documentation_of: tools/primitive_root.hpp

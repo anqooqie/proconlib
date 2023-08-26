@@ -53,7 +53,7 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':x:'
@@ -61,7 +61,7 @@ data:
     title: tests/sparse_fps_pow/regular.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/sparse_fps_pow.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -1123,7 +1123,7 @@ data:
   path: tools/sparse_fps_pow.hpp
   requiredBy: []
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp

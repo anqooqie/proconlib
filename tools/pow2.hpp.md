@@ -57,19 +57,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
   - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':x:'
@@ -257,28 +257,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':x:'

@@ -45,7 +45,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':question:'
