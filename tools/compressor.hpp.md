@@ -4,11 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/rectangle_union_area.hpp
+    title: Area of union of rectangles
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/rectangle_union_area.test.cpp
+    title: tests/rectangle_union_area.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/compressor.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -64,10 +70,12 @@ data:
   - tools/lower_bound.hpp
   isVerificationFile: false
   path: tools/compressor.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/rectangle_union_area.hpp
   timestamp: '2023-06-28 13:29:25+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/rectangle_union_area.test.cpp
 documentation_of: tools/compressor.hpp
 layout: document
 title: Compress values (for more complicated cases)

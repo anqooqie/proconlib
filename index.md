@@ -87,7 +87,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
     - icon: ':heavy_check_mark:'
@@ -437,6 +437,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
+    - icon: ':heavy_check_mark:'
+      path: tools/rectangle_union_area.hpp
+      title: Area of union of rectangles
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
@@ -823,6 +826,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/rectangle_union_area.test.cpp
+      title: tests/rectangle_union_area.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/rerooting_dp.test.cpp
       title: tests/rerooting_dp.test.cpp
