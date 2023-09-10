@@ -16,6 +16,9 @@ data:
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table_2d.test.cpp
+    title: tests/disjoint_sparse_table_2d.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
   - icon: ':heavy_check_mark:'
@@ -56,6 +59,7 @@ data:
   - tests/cumsum2d.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
   - tests/pdsu.test.cpp
 documentation_of: tools/group.hpp
 layout: document

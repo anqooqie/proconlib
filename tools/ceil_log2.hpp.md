@@ -21,6 +21,9 @@ data:
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table_2d.hpp
+    title: 2D disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   - icon: ':heavy_check_mark:'
@@ -80,6 +83,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table_2d.test.cpp
+    title: tests/disjoint_sparse_table_2d.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
@@ -210,6 +216,7 @@ data:
   - tools/bernoulli.hpp
   - tools/binary_heap.hpp
   - tools/berlekamp_massey.hpp
+  - tools/disjoint_sparse_table_2d.hpp
   - tools/partition_function.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -235,6 +242,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/ceil_log2.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/double.test.cpp

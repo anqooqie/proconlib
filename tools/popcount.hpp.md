@@ -9,6 +9,9 @@ data:
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
   - icon: ':heavy_check_mark:'
+    path: tools/disjoint_sparse_table_2d.hpp
+    title: 2D disjoint sparse table
+  - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/disjoint_sparse_table_2d.test.cpp
+    title: tests/disjoint_sparse_table_2d.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
@@ -193,6 +199,7 @@ data:
   - tools/ntz.hpp
   - tools/lca.hpp
   - tools/li_chao_segtree.hpp
+  - tools/disjoint_sparse_table_2d.hpp
   - tools/divisors.hpp
   - tools/totient.hpp
   - tools/chromatic_number.hpp
@@ -214,6 +221,7 @@ data:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
   - tests/primitive_root.test.cpp
   - tests/chromatic_number.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
