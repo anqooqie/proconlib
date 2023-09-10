@@ -51,6 +51,7 @@
 "tests/directed_line_segment_2d/intersection.test.cpp": "2023-08-26 14:07:16 +0900",
 "tests/directed_line_segment_2d/squared_distance.test.cpp": "2023-08-26 14:07:16 +0900",
 "tests/disjoint_sparse_table.test.cpp": "2022-10-08 19:22:04 +0900",
+"tests/disjoint_sparse_table_2d.test.cpp": "2023-09-10 23:02:27 +0900",
 "tests/divisors.test.cpp": "2023-08-26 14:07:16 +0900",
 "tests/dsu.test.cpp": "2023-08-05 18:58:35 +0900",
 "tests/dual_segtree.test.cpp": "2022-10-08 19:22:04 +0900",
