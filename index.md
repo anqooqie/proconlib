@@ -49,6 +49,9 @@ data:
       path: tools/bostan_mori.hpp
       title: Bostan-Mori algorithm
     - icon: ':heavy_check_mark:'
+      path: tools/cartesian_tree.hpp
+      title: Cartesian tree
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':heavy_check_mark:'
@@ -955,6 +958,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bigint/plus.test.cpp
       title: tests/bigint/plus.test.cpp
+  - name: tests/cartesian_tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/cartesian_tree/interval.test.cpp
+      title: tests/cartesian_tree/interval.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cartesian_tree/parent.test.cpp
+      title: tests/cartesian_tree/parent.test.cpp
   - name: tests/circle_2d
     pages:
     - icon: ':heavy_check_mark:'

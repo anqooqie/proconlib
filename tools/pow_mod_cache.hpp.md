@@ -212,8 +212,8 @@ data:
   path: tools/pow_mod_cache.hpp
   requiredBy:
   - tools/modint_for_rolling_hash.hpp
-  - tools/detail/rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/detail/rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

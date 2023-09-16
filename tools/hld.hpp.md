@@ -407,12 +407,12 @@ data:
   timestamp: '2022-07-31 14:57:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/undoable_dsu.test.cpp
-  - tests/hld/lca.test.cpp
-  - tests/hld/vsubtree.test.cpp
-  - tests/hld/vpath.test.cpp
   - tests/hld/vancestor.test.cpp
+  - tests/hld/lca.test.cpp
+  - tests/hld/vpath.test.cpp
+  - tests/hld/vsubtree.test.cpp
   - tests/hld/epath.test.cpp
+  - tests/undoable_dsu.test.cpp
 documentation_of: tools/hld.hpp
 layout: document
 title: Heavy-light decomposition

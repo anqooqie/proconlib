@@ -1008,8 +1008,8 @@ data:
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
   - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
 documentation_of: tools/triangle_2d.hpp
 layout: document
 title: Two-dimensional triangle

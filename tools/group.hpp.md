@@ -13,6 +13,9 @@ data:
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/cartesian_tree/interval.test.cpp
+    title: tests/cartesian_tree/interval.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
   - icon: ':heavy_check_mark:'
@@ -56,11 +59,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/avl_tree/reverse.test.cpp
-  - tests/cumsum2d.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
+  - tests/pdsu.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/pdsu.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
+  - tests/cumsum2d.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

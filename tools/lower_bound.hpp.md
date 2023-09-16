@@ -76,23 +76,23 @@ data:
   isVerificationFile: false
   path: tools/lower_bound.hpp
   requiredBy:
-  - tools/wavelet_matrix.hpp
-  - tools/compress.hpp
-  - tools/li_chao_segtree.hpp
   - tools/inversion_number.hpp
-  - tools/rectangle_union_area.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/compress.hpp
   - tools/compressor.hpp
+  - tools/rectangle_union_area.hpp
+  - tools/wavelet_matrix.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/range_of_digit_products.test.cpp
+  - tests/inversion_number.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/inversion_number.test.cpp
   - tests/rectangle_union_area.test.cpp
+  - tests/range_of_digit_products.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
 documentation_of: tools/lower_bound.hpp

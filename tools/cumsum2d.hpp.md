@@ -7,6 +7,9 @@ data:
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/cartesian_tree/interval.test.cpp
+    title: tests/cartesian_tree/interval.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
   _isVerificationFailed: false
@@ -75,8 +78,9 @@ data:
   timestamp: '2021-12-18 13:17:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cumsum2d.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
   - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/cumsum2d.test.cpp
 documentation_of: tools/cumsum2d.hpp
 layout: document
 title: 2D cumulative sum
