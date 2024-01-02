@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cartesian_tree.hpp
     title: Cartesian tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmax.hpp
     title: chmax function
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []
