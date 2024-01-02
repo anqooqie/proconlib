@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -32,10 +32,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mo.hpp
     title: Mo's algorithm
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -129,10 +129,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
@@ -141,10 +141,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/mo.test.cpp
     title: tests/mo.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'

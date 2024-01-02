@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':question:'
@@ -31,7 +31,7 @@ data:
   - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':question:'
@@ -45,12 +45,12 @@ data:
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/modint_for_rolling_hash.hpp\"\n\n\n\n#line 1 \"tools/detail/rolling_hash.hpp\"\
@@ -315,7 +315,7 @@ data:
   path: tools/modint_for_rolling_hash.hpp
   requiredBy: []
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/has_mod.test.cpp
 documentation_of: tools/modint_for_rolling_hash.hpp

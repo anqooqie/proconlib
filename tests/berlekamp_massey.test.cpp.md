@@ -23,7 +23,7 @@ data:
   - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':question:'
@@ -38,7 +38,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':question:'

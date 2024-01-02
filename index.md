@@ -51,7 +51,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/cartesian_tree.hpp
       title: Cartesian tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
     - icon: ':question:'
@@ -93,7 +93,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
     - icon: ':question:'
@@ -166,7 +166,7 @@ data:
     - icon: ':question:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
     - icon: ':question:'
@@ -234,7 +234,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
     - icon: ':question:'
@@ -264,7 +264,7 @@ data:
     - icon: ':question:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -300,7 +300,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/line_2d.hpp
       title: Two-dimensional line
     - icon: ':heavy_check_mark:'
@@ -337,7 +337,7 @@ data:
     - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
     - icon: ':question:'
@@ -367,17 +367,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/partially_persistent_dsu.hpp
       title: Partially persistent disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
       title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
         j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/permutation.hpp
       title: Permutation
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_dual_segtree.hpp
       title: Persistent dual segment tree
     - icon: ':heavy_check_mark:'
@@ -386,10 +386,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/polynomial.hpp
       title: Polynomial
     - icon: ':question:'
@@ -404,7 +404,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -589,7 +589,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':x:'
+    - icon: ':question:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
     - icon: ':question:'
@@ -736,7 +736,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/greater_by_arg_total.test.cpp
       title: tests/greater_by_arg_total.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/has_mod.test.cpp
       title: tests/has_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -799,13 +799,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/partially_persistent_dsu.test.cpp
       title: tests/partially_persistent_dsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/permutation.test.cpp
       title: tests/permutation.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/persistent_dual_segtree.test.cpp
       title: tests/persistent_dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1036,25 +1036,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fps/exp_mod998244353.test.cpp
       title: tests/fps/exp_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/exp_other_mods.test.cpp
       title: tests/fps/exp_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_mod998244353.test.cpp
       title: tests/fps/inv_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/inv_other_mods.test.cpp
       title: tests/fps/inv_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_mod998244353.test.cpp
       title: tests/fps/log_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/log_other_mods.test.cpp
       title: tests/fps/log_other_mods.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_mod998244353.test.cpp
       title: tests/fps/pow_mod998244353.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/fps/pow_other_mods.test.cpp
       title: tests/fps/pow_other_mods.test.cpp
   - name: tests/hld
@@ -1084,10 +1084,10 @@ data:
       title: tests/li_chao_segtree/segment.test.cpp
   - name: tests/line_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/is_parallel_to.test.cpp
       title: tests/line_2d/is_parallel_to.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
   - name: tests/matrix
@@ -1106,32 +1106,32 @@ data:
       title: tests/matrix/solve.test.cpp
   - name: tests/partition_function
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n.test.cpp
       title: tests/partition_function/n.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/partition_function/n_k.test.cpp
       title: tests/partition_function/n_k.test.cpp
   - name: tests/polygon_2d
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/area.test.cpp
       title: tests/polygon_2d/area.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/minimum_bounding_circle.test.cpp
       title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polygon_2d/where.test.cpp
       title: tests/polygon_2d/where.test.cpp
   - name: tests/polynomial
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/multidimensional.test.cpp
       title: tests/polynomial/multidimensional.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/naive_division.test.cpp
       title: tests/polynomial/naive_division.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/ntt_division.test.cpp
       title: tests/polynomial/ntt_division.test.cpp
   - name: tests/prim

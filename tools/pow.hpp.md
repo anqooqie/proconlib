@@ -11,13 +11,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':x:'
@@ -39,19 +39,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':x:'

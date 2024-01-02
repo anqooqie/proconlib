@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/permutation.hpp
     title: Permutation
   - icon: ':question:'
@@ -21,9 +21,9 @@ data:
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -197,7 +197,7 @@ data:
   path: tests/permutation.test.cpp
   requiredBy: []
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/permutation.test.cpp
 layout: document

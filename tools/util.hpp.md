@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':question:'

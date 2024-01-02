@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/permutation.hpp
     title: Permutation
   - icon: ':question:'

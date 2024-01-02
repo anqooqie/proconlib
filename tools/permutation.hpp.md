@@ -3,15 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tsort/query.test.cpp
     title: tests/tsort/query.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/permutation.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -158,7 +158,7 @@ data:
   path: tools/permutation.hpp
   requiredBy: []
   timestamp: '2023-02-11 13:12:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tsort/query.test.cpp
   - tests/permutation.test.cpp

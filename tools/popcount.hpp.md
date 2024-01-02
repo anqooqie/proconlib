@@ -69,10 +69,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
