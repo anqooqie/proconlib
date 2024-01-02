@@ -107,38 +107,38 @@ data:
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
-  - tools/weighted_bipartite_matching.hpp
-  - tools/tsp.hpp
-  - tools/dijkstra.hpp
-  - tools/zero_one_bfs.hpp
-  - tools/zero_one_knapsack.hpp
-  - tools/segmented_sieve.hpp
-  - tools/xor_basis.hpp
-  - tools/tree_diameter.hpp
   - tools/bellman_ford.hpp
+  - tools/tsp.hpp
+  - tools/segmented_sieve.hpp
+  - tools/zero_one_knapsack.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
+  - tools/xor_basis.hpp
+  - tools/dijkstra.hpp
+  - tools/tree_diameter.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/segmented_sieve.test.cpp
+  - tests/suffix_array_remove_if.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/bellman_ford.test.cpp
+  - tests/tsp.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/persistent_stack.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/cartesian_tree/interval.test.cpp
-  - tests/zero_one_bfs/undirected.test.cpp
-  - tests/zero_one_bfs/directed.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
-  - tests/tsp.test.cpp
-  - tests/bellman_ford.test.cpp
-  - tests/suffix_array_remove_if.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_bfs/undirected.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/segmented_sieve.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

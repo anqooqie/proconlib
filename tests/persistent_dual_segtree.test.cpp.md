@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc253/tasks/abc253_f
@@ -127,15 +127,19 @@ data:
     \ new_lazy);\n        } else {\n          return dfs(node.right, mid, r, new_lazy);\n\
     \        }\n      })(this->m_root, 0, this->m_size, M::e());\n    }\n  };\n}\n\
     \n\n#line 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n\
-    \    template <typename Type>\n    struct plus {\n      using T = Type;\n    \
-    \  static T op(const T lhs, const T rhs) {\n        return lhs + rhs;\n      }\n\
-    \      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return -v;\n      }\n    };\n\n    template <typename Type>\n\
-    \    struct bit_xor {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n       \
-    \ return T(0);\n      }\n      static T inv(const T v) {\n        return v;\n\
-    \      }\n    };\n  }\n}\n\n\n#line 8 \"tests/persistent_dual_segtree.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \    template <typename G>\n    struct plus {\n      using T = G;\n      static\
+    \ T op(const T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n   \
+    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
+    \ v) {\n        return -v;\n      }\n    };\n\n    template <typename G>\n   \
+    \ struct multiplies {\n      using T = G;\n      static T op(const T& lhs, const\
+    \ T& rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n      \
+    \  return T(1);\n      }\n      static T inv(const T& v) {\n        return e()\
+    \ / v;\n      }\n    };\n\n    template <typename G>\n    struct bit_xor {\n \
+    \     using T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return\
+    \ lhs ^ rhs;\n      }\n      static T e() {\n        return T(0);\n      }\n \
+    \     static T inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\
+    \n\n#line 8 \"tests/persistent_dual_segtree.test.cpp\"\n\nusing ll = long long;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N, M, Q;\n  std::cin >> N >> M >> Q;\n\n  std::vector<std::pair<ll, ll>>\
     \ updated(N, std::make_pair(0, 0));\n  tools::persistent_dual_segtree<tools::group::plus<ll>>::buffer\
     \ buffer;\n  std::vector<tools::persistent_dual_segtree<tools::group::plus<ll>>>\
@@ -172,8 +176,8 @@ data:
   isVerificationFile: true
   path: tests/persistent_dual_segtree.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-01-03 03:48:54+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/persistent_dual_segtree.test.cpp
 layout: document

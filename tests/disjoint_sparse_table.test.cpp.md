@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
@@ -33,26 +33,26 @@ data:
     \ \"https://judge.yosupo.jp/problem/staticrmq\"\n\n#include <iostream>\n#line\
     \ 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include <limits>\n#include\
     \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
-    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/disjoint_sparse_table.hpp\"\
-    \n\n\n\n#include <vector>\n#include <cstddef>\n#line 7 \"tools/disjoint_sparse_table.hpp\"\
-    \n#include <iterator>\n#include <cassert>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\
-    \n\n#include <type_traits>\n#line 7 \"tools/ceil_log2.hpp\"\n#include <tuple>\n\
-    #include <array>\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \ M, M E = ::std::numeric_limits<M>::lowest()>\n    struct max {\n      using\
+    \ T = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::max(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename M, M E = ::std::numeric_limits<M>::max()>\n    struct\
+    \ min {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n\
+    \        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n       \
+    \ return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
+    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
+    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
+    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 1 \"tools/disjoint_sparse_table.hpp\"\n\n\n\n#include <vector>\n\
+    #include <cstddef>\n#line 7 \"tools/disjoint_sparse_table.hpp\"\n#include <iterator>\n\
+    #include <cassert>\n#line 1 \"tools/ceil_log2.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 7 \"tools/ceil_log2.hpp\"\n#include <tuple>\n#include <array>\n#include\
+    \ <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
     \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
@@ -176,7 +176,7 @@ data:
   isVerificationFile: true
   path: tests/disjoint_sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/disjoint_sparse_table.test.cpp

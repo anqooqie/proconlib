@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -35,16 +35,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ntz.hpp
     title: Number of trailing zeros
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
@@ -69,10 +69,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
@@ -105,10 +105,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,9 +126,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -193,50 +193,50 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/ntz.hpp
+  - tools/wavelet_matrix.hpp
   - tools/disjoint_sparse_table.hpp
+  - tools/prime_factorization.hpp
+  - tools/floor_log2.hpp
+  - tools/li_chao_segtree.hpp
   - tools/extended_lucas.hpp
+  - tools/log_mod.hpp
   - tools/lca.hpp
   - tools/totient.hpp
-  - tools/floor_log2.hpp
-  - tools/ntz.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/log_mod.hpp
+  - tools/divisors.hpp
+  - tools/chromatic_number.hpp
   - tools/dynamic_bitset.hpp
   - tools/tetration_mod.hpp
   - tools/primitive_root.hpp
-  - tools/chromatic_number.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/prime_factorization.hpp
-  - tools/divisors.hpp
-  - tools/wavelet_matrix.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/floor_log2.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/totient.test.cpp
-  - tests/rotate_left.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/primitive_root.test.cpp
   - tests/divisors.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/totient.test.cpp
   - tests/li_chao_segtree/line.test.cpp
-  - tests/lca.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/chromatic_number.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/chromatic_number.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/lca.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/primitive_root.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table_2d.hpp
     title: 2D disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
@@ -172,14 +172,18 @@ data:
     \ this->m_value[hoffset + d][woffset + (r - 1)]),\n          M::op(this->m_value[hoffset\
     \ + (u - 1)][woffset + l], this->m_value[hoffset + (u - 1)][woffset + (r - 1)])\n\
     \        );\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
-    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
     \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/disjoint_sparse_table_2d.test.cpp\"\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/disjoint_sparse_table_2d.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string> map;\n\
     \  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
@@ -223,7 +227,7 @@ data:
   isVerificationFile: true
   path: tests/disjoint_sparse_table_2d.test.cpp
   requiredBy: []
-  timestamp: '2023-09-10 23:02:27+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/disjoint_sparse_table_2d.test.cpp

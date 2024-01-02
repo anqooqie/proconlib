@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_A
@@ -293,25 +293,24 @@ data:
     \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
     #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
     \ 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
-    \ monoid {\n    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>\n\
-    \    struct max {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type, Type E\
-    \ = ::std::numeric_limits<Type>::max()>\n    struct min {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return ::std::min(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename Type>\n    struct multiplies {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs * rhs;\n  \
-    \    }\n      static T e() {\n        return T(1);\n      }\n    };\n\n    template\
-    \ <typename Type>\n    struct gcd {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return ::std::gcd(lhs, rhs);\n      }\n     \
-    \ static T e() {\n        return T(0);\n      }\n    };\n\n    template <typename\
-    \ Type, Type E>\n    struct update {\n      using T = Type;\n      static T op(const\
-    \ T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n      }\n     \
-    \ static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line 5 \"tools/square.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
-    \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
-    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
+    \ monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
+    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
+    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
+    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
+    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
+    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
+    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
     \  }\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
     \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
     \n  template <typename T>\n  class directed_line_segment_2d;\n\n  template <typename\
@@ -1017,8 +1016,8 @@ data:
   isVerificationFile: true
   path: tests/line_2d/is_parallel_to.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-01-03 03:48:54+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/line_2d/is_parallel_to.test.cpp
 layout: document

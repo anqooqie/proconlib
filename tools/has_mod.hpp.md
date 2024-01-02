@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -33,21 +33,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/polynomial/multidimensional.test.cpp
+    title: tests/polynomial/multidimensional.test.cpp
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/has_mod.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -66,20 +69,21 @@ data:
   isVerificationFile: false
   path: tools/has_mod.hpp
   requiredBy:
-  - tools/extend_input.hpp
-  - tools/polynomial.hpp
-  - tools/extend_output.hpp
-  - tools/util.hpp
   - tools/berlekamp_massey.hpp
+  - tools/extend_input.hpp
   - tools/bostan_mori.hpp
+  - tools/extend_output.hpp
+  - tools/polynomial.hpp
+  - tools/util.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/extend_input.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/has_mod.test.cpp
   - tests/berlekamp_massey.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/extend_output.test.cpp
   - tests/util.test.cpp
   - tests/bostan_mori.test.cpp

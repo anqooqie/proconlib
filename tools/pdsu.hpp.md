@@ -1,36 +1,40 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pdsu.hpp\"\n\n\n\n#include <vector>\n#include <cassert>\n\
     #include <numeric>\n#include <utility>\n#line 1 \"tools/group.hpp\"\n\n\n\nnamespace\
-    \ tools {\n  namespace group {\n    template <typename Type>\n    struct plus\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 9 \"tools/pdsu.hpp\"\
-    \n\nnamespace tools {\n  enum class pdsu_diff {\n    known,\n    unknown,\n  \
-    \  inconsistent\n  };\n\n  template <typename G = ::tools::group::plus<long long>>\n\
-    \  class pdsu {\n  private:\n    using T = typename G::T;\n\n    ::std::vector<int>\
-    \ m_parents;\n    ::std::vector<int> m_sizes;\n    ::std::vector<T> m_diffs;\n\
-    \    ::std::vector<bool> m_consistent;\n\n  public:\n    pdsu(const int n) :\n\
-    \      m_parents(n),\n      m_sizes(n, 1),\n      m_diffs(n, G::e()),\n      m_consistent(n,\
-    \ true) {\n      assert(n >= 0);\n      ::std::iota(this->m_parents.begin(), this->m_parents.end(),\
+    \ tools {\n  namespace group {\n    template <typename G>\n    struct plus {\n\
+    \      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n       \
+    \ return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n   \
+    \   }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 9 \"tools/pdsu.hpp\"\n\nnamespace tools\
+    \ {\n  enum class pdsu_diff {\n    known,\n    unknown,\n    inconsistent\n  };\n\
+    \n  template <typename G = ::tools::group::plus<long long>>\n  class pdsu {\n\
+    \  private:\n    using T = typename G::T;\n\n    ::std::vector<int> m_parents;\n\
+    \    ::std::vector<int> m_sizes;\n    ::std::vector<T> m_diffs;\n    ::std::vector<bool>\
+    \ m_consistent;\n\n  public:\n    pdsu(const int n) :\n      m_parents(n),\n \
+    \     m_sizes(n, 1),\n      m_diffs(n, G::e()),\n      m_consistent(n, true) {\n\
+    \      assert(n >= 0);\n      ::std::iota(this->m_parents.begin(), this->m_parents.end(),\
     \ 0);\n    }\n\n    int size() const {\n      return this->m_parents.size();\n\
     \    }\n\n    int leader(const int x) {\n      assert(0 <= x && x < this->size());\n\
     \      if (this->m_parents[x] == x) {\n        return x;\n      }\n      const\
@@ -115,8 +119,8 @@ data:
   isVerificationFile: false
   path: tools/pdsu.hpp
   requiredBy: []
-  timestamp: '2023-01-03 17:18:39+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-01-03 03:48:54+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/pdsu.test.cpp
 documentation_of: tools/pdsu.hpp

@@ -1,62 +1,62 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -961,14 +961,18 @@ data:
     \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
     \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
     \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
-    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
     \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::cin >> N;\n  std::vector<std::string> A(N);\n  for (auto& A_i\
     \ : A) std::cin >> A_i;\n\n  std::array<std::array<ll, 19>, 19> matrix({{}});\n\
@@ -1017,7 +1021,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/cast_to_long_long.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/cast_to_long_long.test.cpp

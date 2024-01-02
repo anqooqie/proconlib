@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []
@@ -46,15 +46,19 @@ data:
     \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
     \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
     \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
-    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
     \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/cumsum2d.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/cumsum2d.test.cpp\"\n\nusing\
+    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll M, N, K;\n  std::cin >> M >> N >> K;\n  std::vector<std::string> map;\n\
     \  map.reserve(M);\n  std::copy_n(std::istream_iterator<std::string>(std::cin),\
     \ M, std::back_inserter(map));\n\n  std::vector<std::vector<ll>> J(M, std::vector<ll>(N,\
@@ -91,7 +95,7 @@ data:
   isVerificationFile: true
   path: tests/cumsum2d.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cumsum2d.test.cpp

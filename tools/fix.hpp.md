@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   _extendedVerifiedWith:
@@ -30,15 +30,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/undoable_dsu.test.cpp
     title: tests/undoable_dsu.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fix.hpp\"\n\n\n\n#include <utility>\n#include <type_traits>\n\
@@ -58,20 +58,20 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
-  - tools/avl_tree.hpp
-  - tools/lazy_avl_tree.hpp
-  - tools/persistent_dual_segtree.hpp
   - tools/detail/avl_tree_impl.hpp
+  - tools/avl_tree.hpp
+  - tools/persistent_dual_segtree.hpp
+  - tools/lazy_avl_tree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/lazy_avl_tree.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
-  - tests/avl_tree/reverse.test.cpp
-  - tests/avl_tree/set.test.cpp
-  - tests/undoable_dsu.test.cpp
-  - tests/fix.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/fix.test.cpp
+  - tests/avl_tree/set.test.cpp
+  - tests/avl_tree/reverse.test.cpp
+  - tests/avl_tree/binary_search.test.cpp
+  - tests/lazy_avl_tree.test.cpp
+  - tests/undoable_dsu.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator

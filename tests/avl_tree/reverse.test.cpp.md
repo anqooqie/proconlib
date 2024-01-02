@@ -7,10 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []
@@ -25,45 +25,48 @@ data:
     - https://judge.yosupo.jp/problem/range_reverse_range_sum
   bundledCode: "#line 1 \"tests/avl_tree/reverse.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/range_reverse_range_sum\"\
     \n\n#include <iostream>\n#include <vector>\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
-    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
     \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/avl_tree.hpp\"\
-    \n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n\
-    #include <type_traits>\n#include <functional>\n#line 8 \"tools/detail/avl_tree_impl.hpp\"\
-    \n#include <algorithm>\n#include <cassert>\n#include <utility>\n#include <cmath>\n\
-    #line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename F>\n  struct fix : F {\n    template <typename G>\n\
-    \    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename...\
-    \ Args>\n    decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
-    \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
-    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 13 \"tools/detail/avl_tree_impl.hpp\"\
-    \n\nnamespace tools {\n  namespace detail {\n    namespace avl_tree {\n      struct\
-    \ nop_monoid {\n        using T = ::std::monostate;\n        static constexpr\
-    \ T op(T, T) {\n          return T{};\n        }\n        static constexpr T e()\
-    \ {\n          return T{};\n        }\n      };\n      template <typename SM>\n\
-    \      typename SM::T nop(typename nop_monoid::T, const typename SM::T& x) {\n\
-    \        return x;\n      }\n\n      template <bool Reversible, typename SM, typename\
-    \ FM = nop_monoid, auto mapping = nop<SM>>\n      class avl_tree_impl {\n    \
-    \  private:\n        using S = typename SM::T;\n        using F = typename FM::T;\n\
-    \        static_assert(\n          ::std::is_convertible_v<decltype(mapping),\
-    \ ::std::function<S(F, S)>>,\n          \"mapping must work as S(F, S)\");\n \
-    \       constexpr static bool is_lazy = !::std::is_same_v<FM, nop_monoid>;\n\n\
-    \        struct node {\n          int id;\n          int l_id;\n          int\
-    \ r_id;\n          int height;\n          int size;\n          S prod;\n     \
-    \     ::std::conditional_t<Reversible, S, ::std::monostate> rprod;\n         \
-    \ bool rev;\n          F lazy;\n        };\n\n      public:\n        class buffer\
-    \ {\n        private:\n          ::std::vector<node> m_nodes;\n\n        public:\n\
-    \          buffer() {\n            if constexpr (Reversible) {\n             \
-    \ this->m_nodes.push_back(node{0, 0, 0, 0, 0, SM::e(), SM::e(), false, FM::e()});\n\
-    \            } else {\n              this->m_nodes.push_back(node{0, 0, 0, 0,\
-    \ 0, SM::e(), ::std::monostate{}, false, FM::e()});\n            }\n         \
-    \ }\n          buffer(const buffer&) = default;\n          buffer(buffer&&) =\
-    \ default;\n          ~buffer() = default;\n          buffer& operator=(const\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/avl_tree.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n#include <type_traits>\n\
+    #include <functional>\n#line 8 \"tools/detail/avl_tree_impl.hpp\"\n#include <algorithm>\n\
+    #include <cassert>\n#include <utility>\n#include <cmath>\n#line 1 \"tools/fix.hpp\"\
+    \n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace tools {\n  template <typename F>\n\
+    \  struct fix : F {\n    template <typename G>\n    fix(G&& g) : F({::std::forward<G>(g)})\
+    \ {\n    }\n\n    template <typename... Args>\n    decltype(auto) operator()(Args&&...\
+    \ args) const {\n      return F::operator()(*this, ::std::forward<Args>(args)...);\n\
+    \    }\n  };\n\n  template <typename F>\n  fix(F&&) -> fix<::std::decay_t<F>>;\n\
+    }\n\n\n#line 13 \"tools/detail/avl_tree_impl.hpp\"\n\nnamespace tools {\n  namespace\
+    \ detail {\n    namespace avl_tree {\n      struct nop_monoid {\n        using\
+    \ T = ::std::monostate;\n        static constexpr T op(T, T) {\n          return\
+    \ T{};\n        }\n        static constexpr T e() {\n          return T{};\n \
+    \       }\n      };\n      template <typename SM>\n      typename SM::T nop(typename\
+    \ nop_monoid::T, const typename SM::T& x) {\n        return x;\n      }\n\n  \
+    \    template <bool Reversible, typename SM, typename FM = nop_monoid, auto mapping\
+    \ = nop<SM>>\n      class avl_tree_impl {\n      private:\n        using S = typename\
+    \ SM::T;\n        using F = typename FM::T;\n        static_assert(\n        \
+    \  ::std::is_convertible_v<decltype(mapping), ::std::function<S(F, S)>>,\n   \
+    \       \"mapping must work as S(F, S)\");\n        constexpr static bool is_lazy\
+    \ = !::std::is_same_v<FM, nop_monoid>;\n\n        struct node {\n          int\
+    \ id;\n          int l_id;\n          int r_id;\n          int height;\n     \
+    \     int size;\n          S prod;\n          ::std::conditional_t<Reversible,\
+    \ S, ::std::monostate> rprod;\n          bool rev;\n          F lazy;\n      \
+    \  };\n\n      public:\n        class buffer {\n        private:\n          ::std::vector<node>\
+    \ m_nodes;\n\n        public:\n          buffer() {\n            if constexpr\
+    \ (Reversible) {\n              this->m_nodes.push_back(node{0, 0, 0, 0, 0, SM::e(),\
+    \ SM::e(), false, FM::e()});\n            } else {\n              this->m_nodes.push_back(node{0,\
+    \ 0, 0, 0, 0, SM::e(), ::std::monostate{}, false, FM::e()});\n            }\n\
+    \          }\n          buffer(const buffer&) = default;\n          buffer(buffer&&)\
+    \ = default;\n          ~buffer() = default;\n          buffer& operator=(const\
     \ buffer&) = default;\n          buffer& operator=(buffer&&) = default;\n\n  \
     \        friend ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM, FM, mapping>;\n\
     \        };\n\n      private:\n        buffer *m_buffer;\n        int m_root_id;\n\
@@ -370,7 +373,7 @@ data:
   isVerificationFile: true
   path: tests/avl_tree/reverse.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 10:00:28+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/avl_tree/reverse.test.cpp

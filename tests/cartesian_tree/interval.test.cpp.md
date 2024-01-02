@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cartesian_tree.hpp
     title: Cartesian tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []
@@ -56,27 +56,30 @@ data:
     \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
     \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
     \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename Type>\n    struct\
-    \ plus {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
     \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename Type>\n    struct bit_xor {\n      using T = Type;\n\
-    \      static T op(const T lhs, const T rhs) {\n        return lhs ^ rhs;\n  \
-    \    }\n      static T e() {\n        return T(0);\n      }\n      static T inv(const\
-    \ T v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\
-    \n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\
-    \n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\n#include <stack>\n\
-    #line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T, typename Compare = ::std::less<T>>\n  class cartesian_tree {\n  public:\n\
-    \    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t left;\n\
-    \      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t> interval;\n\
-    \    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex> m_vertices;\n\
-    \n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const ::tools::cartesian_tree<T,\
-    \ Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T, Compare>&&)\
-    \ = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5\
+    \ \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\
+    \n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\
+    \n#include <stack>\n#line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, typename Compare = ::std::less<T>>\n  class cartesian_tree\
+    \ {\n  public:\n    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t\
+    \ left;\n      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t>\
+    \ interval;\n    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex>\
+    \ m_vertices;\n\n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const\
+    \ ::tools::cartesian_tree<T, Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T,\
+    \ Compare>&&) = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
     \ Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;\n\
     \    ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T,\
     \ Compare>&&) = default;\n\n    cartesian_tree(const ::std::vector<T>& a, const\
@@ -153,7 +156,7 @@ data:
   isVerificationFile: true
   path: tests/cartesian_tree/interval.test.cpp
   requiredBy: []
-  timestamp: '2023-09-16 14:35:07+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cartesian_tree/interval.test.cpp

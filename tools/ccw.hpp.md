@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
   - icon: ':heavy_check_mark:'
@@ -57,12 +57,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\
@@ -309,21 +309,21 @@ data:
   isVerificationFile: false
   path: tools/ccw.hpp
   requiredBy:
-  - tools/convex_hull.hpp
+  - tools/less_by_arg_total.hpp
   - tools/less_by_arg.hpp
   - tools/greater_by_arg.hpp
-  - tools/less_by_arg_total.hpp
   - tools/greater_by_arg_total.hpp
+  - tools/convex_hull.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/less_by_arg.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/less_by_arg_total.test.cpp
+  - tests/greater_by_arg.test.cpp
   - tests/greater_by_arg_total.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/ccw.test.cpp
-  - tests/less_by_arg.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/greater_by_arg.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document
 title: Counter clockwise function

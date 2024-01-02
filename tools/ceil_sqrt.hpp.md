@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   _extendedRequiredBy:
@@ -56,8 +56,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
-  - tests/ceil_sqrt.test.cpp
   - tests/log_mod.test.cpp
+  - tests/ceil_sqrt.test.cpp
 documentation_of: tools/ceil_sqrt.hpp
 layout: document
 title: $\left\lceil \sqrt{x} \right\rceil$

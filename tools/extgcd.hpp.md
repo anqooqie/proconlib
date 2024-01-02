@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -17,25 +17,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/sqrt_mod.hpp
     title: $\sqrt{x} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   _extendedVerifiedWith:
@@ -51,24 +51,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extgcd.test.cpp
     title: tests/extgcd.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extgcd.hpp\"\n\n\n\n#include <tuple>\n#include <utility>\n\
@@ -115,29 +115,29 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
-  - tools/modint_for_rolling_hash.hpp
-  - tools/extended_lucas.hpp
   - tools/garner.hpp
-  - tools/sqrt_mod.hpp
-  - tools/log_mod.hpp
-  - tools/tetration_mod.hpp
-  - tools/bezout.hpp
-  - tools/rolling_hash.hpp
   - tools/extended_garner.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/extended_lucas.hpp
+  - tools/sqrt_mod.hpp
+  - tools/log_mod.hpp
+  - tools/rolling_hash.hpp
   - tools/inv_mod.hpp
+  - tools/bezout.hpp
+  - tools/tetration_mod.hpp
+  - tools/modint_for_rolling_hash.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/has_mod.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/sqrt_mod.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/extended_garner.test.cpp
   - tests/bezout.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/has_mod.test.cpp
   - tests/log_mod.test.cpp
+  - tests/sqrt_mod.test.cpp
+  - tests/rolling_hash.test.cpp
   - tests/extgcd.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/extgcd.hpp
 layout: document
 title: Extended Euclidean algorithm

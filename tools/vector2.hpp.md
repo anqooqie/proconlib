@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_static_common.hpp
     title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ccw.hpp
     title: Counter clockwise function
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -50,13 +50,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -99,33 +99,33 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/less_by_arg_total.test.cpp
     title: tests/less_by_arg_total.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/vector2.hpp\"\n\n\n\n#include <array>\n#include <functional>\n\
@@ -389,43 +389,43 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
-  - tools/convex_hull.hpp
-  - tools/polygon_2d.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/less_by_arg_total.hpp
   - tools/less_by_arg.hpp
-  - tools/line_2d.hpp
+  - tools/ccw.hpp
   - tools/greater_by_arg.hpp
-  - tools/directed_line_segment_2d.hpp
+  - tools/polygon_2d.hpp
+  - tools/circle_2d.hpp
   - tools/half_line_2d.hpp
   - tools/triangle_2d.hpp
-  - tools/ccw.hpp
-  - tools/less_by_arg_total.hpp
-  - tools/circle_2d.hpp
   - tools/greater_by_arg_total.hpp
-  - tools/detail/geometry_2d.hpp
+  - tools/line_2d.hpp
+  - tools/convex_hull.hpp
+  - tools/directed_line_segment_2d.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/ccw.test.cpp
   - tests/less_by_arg.test.cpp
   - tests/convex_hull.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/greater_by_arg.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/ccw.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: Two dimensional vector

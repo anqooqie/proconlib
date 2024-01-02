@@ -7,17 +7,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy: []
@@ -41,26 +41,26 @@ data:
     \n\n\n\n#include <type_traits>\n#line 6 \"tools/pow.hpp\"\n#include <cmath>\n\
     #line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include <limits>\n\
     #include <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ Type, Type E = ::std::numeric_limits<Type>::min()>\n    struct max {\n     \
-    \ using T = Type;\n      static T op(const T lhs, const T rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>\n\
-    \    struct min {\n      using T = Type;\n      static T op(const T lhs, const\
-    \ T rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e()\
-    \ {\n        return E;\n      }\n    };\n\n    template <typename Type>\n    struct\
-    \ multiplies {\n      using T = Type;\n      static T op(const T lhs, const T\
-    \ rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n        return\
-    \ T(1);\n      }\n    };\n\n    template <typename Type>\n    struct gcd {\n \
-    \     using T = Type;\n      static T op(const T lhs, const T rhs) {\n       \
-    \ return ::std::gcd(lhs, rhs);\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n    };\n\n    template <typename Type, Type E>\n    struct update\
-    \ {\n      using T = Type;\n      static T op(const T lhs, const T rhs) {\n  \
-    \      return lhs == E ? rhs : lhs;\n      }\n      static T e() {\n        return\
-    \ E;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5\
-    \ \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename M>\n  typename\
-    \ M::T square(const typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template\
-    \ <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, M E = ::std::numeric_limits<M>::lowest()>\n    struct max {\n      using\
+    \ T = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::max(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
+    \    template <typename M, M E = ::std::numeric_limits<M>::max()>\n    struct\
+    \ min {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n\
+    \        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n       \
+    \ return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
+    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
+    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
+    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5 \"tools/square.hpp\"\n\
+    \nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const typename\
+    \ M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
+    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
+    }\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
     \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
     \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
@@ -405,7 +405,7 @@ data:
   isVerificationFile: true
   path: tests/floor_kth_root.test.cpp
   requiredBy: []
-  timestamp: '2023-07-02 15:32:40+09:00'
+  timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/floor_kth_root.test.cpp

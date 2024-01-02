@@ -8,10 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
@@ -24,15 +24,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/run_length.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -72,16 +72,16 @@ data:
   requiredBy:
   - tools/extended_lucas.hpp
   - tools/totient.hpp
-  - tools/tetration_mod.hpp
   - tools/divisors.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/totient.test.cpp
   - tests/divisors.test.cpp
+  - tests/totient.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/extended_lucas.test.cpp
   - tests/run_length.test.cpp
+  - tests/extended_lucas.test.cpp
 documentation_of: tools/run_length.hpp
 layout: document
 title: Run-length encoding
