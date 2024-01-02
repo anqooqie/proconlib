@@ -3,30 +3,44 @@
 
 namespace tools {
   namespace group {
-    template <typename Type>
+    template <typename G>
     struct plus {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = G;
+      static T op(const T& lhs, const T& rhs) {
         return lhs + rhs;
       }
       static T e() {
         return T(0);
       }
-      static T inv(const T v) {
+      static T inv(const T& v) {
         return -v;
       }
     };
 
-    template <typename Type>
+    template <typename G>
+    struct multiplies {
+      using T = G;
+      static T op(const T& lhs, const T& rhs) {
+        return lhs * rhs;
+      }
+      static T e() {
+        return T(1);
+      }
+      static T inv(const T& v) {
+        return e() / v;
+      }
+    };
+
+    template <typename G>
     struct bit_xor {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = G;
+      static T op(const T& lhs, const T& rhs) {
         return lhs ^ rhs;
       }
       static T e() {
         return T(0);
       }
-      static T inv(const T v) {
+      static T inv(const T& v) {
         return v;
       }
     };

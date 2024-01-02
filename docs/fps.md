@@ -203,10 +203,12 @@ $$\begin{align*}
 
 $$\begin{align*}
 \text{For any $i$ such that $0 \leq i < n$, } g_i &= \left\{\begin{array}{ll}
-f_{i + d} & \text{(if $0 \leq i + d < n$)}\\
+f_{i - d} & \text{(if $0 \leq i - d < n$)}\\
 0 & \text{(otherwise)}
 \end{array}\right.
 \end{align*}$$
+
+$d \geq 0$ならば、$f x^d$と同じです。
 
 ### Constraints
 - None
@@ -224,12 +226,12 @@ f_{i + d} & \text{(if $0 \leq i + d < n$)}\\
 
 $$\begin{align*}
 \text{For any $i$ such that $0 \leq i < n$, } g_i &= \left\{\begin{array}{ll}
-f_{i - d} & \text{(if $0 \leq i - d < n$)}\\
+f_{i + d} & \text{(if $0 \leq i + d < n$)}\\
 0 & \text{(otherwise)}
 \end{array}\right.
 \end{align*}$$
 
-$d \geq 0$ならば、$f x^d$と同じです。
+$\forall i. 0 \leq i < d \Rightarrow f_i = 0$ならば、$\frac{f}{x^d}$と同じです。
 
 ### Constraints
 - None

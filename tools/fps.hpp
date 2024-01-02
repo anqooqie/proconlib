@@ -167,16 +167,16 @@ namespace tools {
       if (d < 0) *this >>= -d;
 
       const int n = this->size();
-      this->erase(this->begin(), this->begin() + ::std::min(n, d));
-      this->resize(n);
+      this->resize(::std::max(0, n - d));
+      this->insert(this->begin(), ::std::min(n, d), M::raw(0));
       return *this;
     }
     F& operator>>=(const int d) {
       if (d < 0) *this <<= -d;
 
       const int n = this->size();
-      this->resize(::std::max(0, n - d));
-      this->insert(this->begin(), ::std::min(n, d), M::raw(0));
+      this->erase(this->begin(), this->begin() + ::std::min(n, d));
+      this->resize(n);
       return *this;
     }
     F& multiply_inplace(const F& g, const int d) {

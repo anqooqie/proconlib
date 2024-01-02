@@ -3,8 +3,8 @@
 
 #include <cassert>
 #include <vector>
-#include <cstddef>
 #include <type_traits>
+#include <cstddef>
 #include <complex>
 #include <cmath>
 #include <algorithm>
@@ -16,6 +16,8 @@
 #include "tools/ceil_log2.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/garner3.hpp"
+#include "tools/group.hpp"
+#include "tools/monoid.hpp"
 
 namespace tools {
   namespace detail {
@@ -26,14 +28,17 @@ namespace tools {
         return (x - 1) & -(x - 1);
       }
 
-      template <typename T>
-      ::std::vector<T> naive(const ::std::vector<T>& a, const ::std::vector<T>& b) {
+      template <typename AG, typename MM>
+      ::std::vector<typename AG::T> naive(const ::std::vector<typename AG::T>& a, const ::std::vector<typename AG::T>& b) {
+        static_assert(::std::is_same_v<typename AG::T, typename MM::T>);
         assert(!a.empty() && !b.empty());
 
-        ::std::vector<T> c(a.size() + b.size() - 1);
+        using T = typename AG::T;
+
+        ::std::vector<T> c(a.size() + b.size() - 1, AG::e());
         for (::std::size_t i = 0; i < a.size(); ++i) {
           for (::std::size_t j = 0; j < b.size(); ++j) {
-            c[i + j] += a[i] * b[j];
+            c[i + j] = AG::op(c[i + j], MM::op(a[i], b[j]));
           }
         }
 
@@ -176,15 +181,20 @@ namespace tools {
 
       template <typename Z>
       ::std::vector<Z> ntt_and_garner_for_ll(const ::std::vector<Z>& a, const ::std::vector<Z>& b) {
+        static_assert(::std::is_integral_v<Z>);
         assert(a.size() + b.size() <= ::tools::pow2(24) + 1);
 
-        const auto c = ::atcoder::convolution_ll(::std::vector<long long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));
-        return ::std::vector<Z>(c.begin(), c.end());
+        if constexpr (::std::is_same_v<Z, long long>) {
+          return ::atcoder::convolution_ll(a, b);
+        } else {
+          const auto c = ::atcoder::convolution_ll(::std::vector<long long>(a.begin(), a.end()), ::std::vector<long long>(b.begin(), b.end()));
+          return ::std::vector<Z>(c.begin(), c.end());
+        }
       }
     }
   }
 
-  template <typename InputIterator, typename OutputIterator>
+  template <typename AG, typename MM, typename InputIterator, typename OutputIterator>
   void convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
     using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
 
@@ -194,27 +204,37 @@ namespace tools {
     ::std::vector<T> b(b_begin, b_end);
 
     auto c = [&]() {
-      if constexpr (::std::is_same_v<T, ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>) {
-        return ::tools::detail::convolution::fft(a, b);
-      } else if constexpr (::std::is_floating_point_v<T>) {
-        return ::tools::detail::convolution::fft_real(a, b);
-      } else if constexpr (::std::is_integral_v<T>) {
-        return ::tools::detail::convolution::ntt_and_garner_for_ll(a, b);
-      } else if constexpr (::atcoder::internal::is_static_modint<T>::value || ::atcoder::internal::is_dynamic_modint<T>::value) {
-        if constexpr (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 && ::tools::is_prime(T::mod())) {
-          if (a.size() + b.size() <= ::tools::detail::convolution::pow2_k(T::mod()) + 1) {
-            return ::tools::detail::convolution::ntt(a, b);
+      if constexpr (::std::is_same_v<AG, ::tools::group::plus<T>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<T>> || ::std::is_same_v<MM, ::tools::group::multiplies<T>>)) {
+        if constexpr (::std::is_same_v<T, ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>) {
+          return ::tools::detail::convolution::fft(a, b);
+        } else if constexpr (::std::is_floating_point_v<T>) {
+          return ::tools::detail::convolution::fft_real(a, b);
+        } else if constexpr (::std::is_integral_v<T>) {
+          return ::tools::detail::convolution::ntt_and_garner_for_ll(a, b);
+        } else if constexpr (::atcoder::internal::is_static_modint<T>::value || ::atcoder::internal::is_dynamic_modint<T>::value) {
+          if constexpr (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 && ::tools::is_prime(T::mod())) {
+            if (a.size() + b.size() <= ::tools::detail::convolution::pow2_k(T::mod()) + 1) {
+              return ::tools::detail::convolution::ntt(a, b);
+            } else {
+              return ::tools::detail::convolution::ntt_and_garner(a, b);
+            }
           } else {
             return ::tools::detail::convolution::ntt_and_garner(a, b);
           }
         } else {
-          return ::tools::detail::convolution::ntt_and_garner(a, b);
+          return ::tools::detail::convolution::naive<AG, MM>(a, b);
         }
       } else {
-        return ::tools::detail::convolution::naive(a, b);
+        return ::tools::detail::convolution::naive<AG, MM>(a, b);
       }
     }();
     ::std::move(c.begin(), c.end(), result);
+  }
+
+  template <typename InputIterator, typename OutputIterator>
+  void convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
+    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+    ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin, a_end, b_begin, b_end, result);
   }
 }
 

@@ -7,10 +7,10 @@
 
 namespace tools {
   namespace monoid {
-    template <typename Type, Type E = ::std::numeric_limits<Type>::min()>
+    template <typename M, M E = ::std::numeric_limits<M>::lowest()>
     struct max {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = M;
+      static T op(const T& lhs, const T& rhs) {
         return ::std::max(lhs, rhs);
       }
       static T e() {
@@ -18,10 +18,10 @@ namespace tools {
       }
     };
 
-    template <typename Type, Type E = ::std::numeric_limits<Type>::max()>
+    template <typename M, M E = ::std::numeric_limits<M>::max()>
     struct min {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = M;
+      static T op(const T& lhs, const T& rhs) {
         return ::std::min(lhs, rhs);
       }
       static T e() {
@@ -29,10 +29,10 @@ namespace tools {
       }
     };
 
-    template <typename Type>
+    template <typename M>
     struct multiplies {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = M;
+      static T op(const T& lhs, const T& rhs) {
         return lhs * rhs;
       }
       static T e() {
@@ -40,10 +40,10 @@ namespace tools {
       }
     };
 
-    template <typename Type>
+    template <typename M>
     struct gcd {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = M;
+      static T op(const T& lhs, const T& rhs) {
         return ::std::gcd(lhs, rhs);
       }
       static T e() {
@@ -51,10 +51,10 @@ namespace tools {
       }
     };
 
-    template <typename Type, Type E>
+    template <typename M, M E>
     struct update {
-      using T = Type;
-      static T op(const T lhs, const T rhs) {
+      using T = M;
+      static T op(const T& lhs, const T& rhs) {
         return lhs == E ? rhs : lhs;
       }
       static T e() {
