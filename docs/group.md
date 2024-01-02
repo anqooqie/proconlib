@@ -36,7 +36,7 @@ It is a group $(G, +, 0)$.
 - `decltype(std::declval<G>() + std::declval<G>())` is `G`.
 - For all $x$ in $G$, $y$ in $G$ and $z$ in $G$, $(x + y) + z = x + (y + z)$.
 - For all $x$ in $G$, `G(0)` $+ x = x +$ `G(0)` $= x$.
-- For all $x$ in $G$, `(-x) + x = x + (-x) =$ `G(0)`.
+- For all $x$ in $G$, $(-x) + x = x + (-x) =$ `G(0)`.
 
 ### Time Complexity
 - Not applicable
@@ -66,7 +66,7 @@ It is a group $(G, \cdot, 1)$.
 - `decltype(std::declval<G>() * std::declval<G>())` is `G`.
 - For all $x$ in $G$, $y$ in $G$ and $z$ in $G$, $(x \cdot y) \cdot z = x \cdot (y \cdot z)$.
 - For all $x$ in $G$, `G(1)` $\cdot x = x \cdot$ `G(1)` $= x$.
-- For all $x$ in $G$, `x^{-1} \cdot x = x \cdot x^{-1} =$ `G(1)` where $x^{-1}$ is `G(1) / x`.
+- For all $x$ in $G$, $x^{-1} \cdot x = x \cdot x^{-1} =$ `G(1)` where $x^{-1}$ is `G(1) / x`.
 
 ### Time Complexity
 - Not applicable
