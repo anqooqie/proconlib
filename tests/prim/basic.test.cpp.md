@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/join.hpp
+    title: Join elements with delimiter
+  - icon: ':question:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
+    PROBLEM: https://judge.yosupo.jp/problem/minimum_spanning_tree
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A
-  bundledCode: "#line 1 \"tests/prim/basic.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A\"\
+    - https://judge.yosupo.jp/problem/minimum_spanning_tree
+  bundledCode: "#line 1 \"tests/prim/basic.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/minimum_spanning_tree\"\
     \n\n#include <iostream>\n#line 1 \"tools/prim.hpp\"\n\n\n\n#include <cstddef>\n\
     #include <vector>\n#include <cassert>\n#include <utility>\n#include <algorithm>\n\
     #include <limits>\n#include <queue>\n#line 1 \"tools/greater_by.hpp\"\n\n\n\n\
@@ -65,27 +68,35 @@ data:
     \ next = this->m_edges[e].from ^ this->m_edges[e].to ^ here;\n            if (belongs_to[next]\
     \ < ::std::numeric_limits<::std::size_t>::max()) continue;\n\n            pq.emplace(e,\
     \ next);\n          }\n        }\n      }\n\n      return res;\n    }\n  };\n\
-    }\n\n\n#line 5 \"tests/prim/basic.test.cpp\"\n\nusing ll = long long;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ V, E;\n  std::cin >> V >> E;\n  tools::prim<ll> prim(V);\n  for (ll i = 0; i\
-    \ < E; ++i) {\n    ll s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
-    \ t, w);\n  }\n\n  std::cout << prim.query().first[0].first << '\\n';\n  return\
-    \ 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A\"\n\n\
-    #include <iostream>\n#include \"tools/prim.hpp\"\n\nusing ll = long long;\n\n\
-    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll V, E;\n  std::cin >> V >> E;\n  tools::prim<ll> prim(V);\n  for (ll i =\
-    \ 0; i < E; ++i) {\n    ll s, t, w;\n    std::cin >> s >> t >> w;\n    prim.add_edge(s,\
-    \ t, w);\n  }\n\n  std::cout << prim.query().first[0].first << '\\n';\n  return\
-    \ 0;\n}\n"
+    }\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
+    \nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string join(const\
+    \ Iterator begin, const Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream\
+    \ ss;\n    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin;\
+    \ it != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
+    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 6 \"tests/prim/basic.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, M;\n  std::cin >> N >> M;\n  tools::prim<ll> graph(N);\n  for (int\
+    \ i = 0; i < M; ++i) {\n    int a, b, c;\n    std::cin >> a >> b >> c;\n    graph.add_edge(a,\
+    \ b, c);\n  }\n\n  const auto [X, e] = graph.query().first[0];\n  std::cout <<\
+    \ X << '\\n';\n  std::cout << tools::join(e.begin(), e.end(), \" \") << '\\n';\n\
+    \n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/minimum_spanning_tree\"\
+    \n\n#include <iostream>\n#include \"tools/prim.hpp\"\n#include \"tools/join.hpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, M;\n  std::cin >> N >> M;\n  tools::prim<ll> graph(N);\n  for (int\
+    \ i = 0; i < M; ++i) {\n    int a, b, c;\n    std::cin >> a >> b >> c;\n    graph.add_edge(a,\
+    \ b, c);\n  }\n\n  const auto [X, e] = graph.query().first[0];\n  std::cout <<\
+    \ X << '\\n';\n  std::cout << tools::join(e.begin(), e.end(), \" \") << '\\n';\n\
+    \n  return 0;\n}\n"
   dependsOn:
   - tools/prim.hpp
   - tools/greater_by.hpp
+  - tools/join.hpp
   isVerificationFile: true
   path: tests/prim/basic.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-01-06 23:16:10+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/prim/basic.test.cpp
 layout: document

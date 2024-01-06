@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
@@ -32,13 +32,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
+  - icon: ':x:'
+    path: tools/range_count_distinct.hpp
+    title: Range count distinct
   - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
@@ -81,6 +84,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
+  - icon: ':x:'
+    path: tests/range_count_distinct.test.cpp
+    title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -102,9 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -173,13 +179,14 @@ data:
   - tools/li_chao_segtree.hpp
   - tools/extended_lucas.hpp
   - tools/log_mod.hpp
+  - tools/range_count_distinct.hpp
   - tools/lca.hpp
   - tools/totient.hpp
   - tools/divisors.hpp
   - tools/tetration_mod.hpp
   - tools/primitive_root.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
@@ -191,6 +198,7 @@ data:
   - tests/log_mod.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/range_count_distinct.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/lca.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp

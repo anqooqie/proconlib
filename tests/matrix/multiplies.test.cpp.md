@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
@@ -439,7 +439,11 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 7 \"tests/matrix/multiplies.test.cpp\"\
+    \        }\n      }\n      return B;\n    }\n\n    ::tools::matrix<T> transposed()\
+    \ const {\n      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          A_T[c][r] = (*this)[r][c];\n      \
+    \  }\n      }\n      return A_T;\n    }\n  };\n}\n\n\n#line 7 \"tests/matrix/multiplies.test.cpp\"\
     \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
     \ N, M, K;\n  std::cin >> N >> M >> K;\n  tools::matrix<mint> A(N, M);\n  for\
@@ -472,7 +476,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
+  timestamp: '2024-01-06 23:54:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/multiplies.test.cpp

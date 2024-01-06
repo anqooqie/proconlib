@@ -2,10 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/range_count_distinct.hpp
+    title: Range count distinct
+  - icon: ':question:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: tests/range_count_distinct.test.cpp
+    title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
@@ -21,9 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html
@@ -70,9 +76,11 @@ data:
   path: tools/bit_vector.hpp
   requiredBy:
   - tools/wavelet_matrix.hpp
+  - tools/range_count_distinct.hpp
   timestamp: '2023-06-25 00:33:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/range_count_distinct.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp

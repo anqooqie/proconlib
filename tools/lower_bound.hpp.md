@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/compress.hpp
     title: Compress values
   - icon: ':heavy_check_mark:'
@@ -14,10 +14,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
+  - icon: ':x:'
+    path: tools/range_count_distinct.hpp
+    title: Range count distinct
   - icon: ':heavy_check_mark:'
     path: tools/rectangle_union_area.hpp
     title: Area of union of rectangles
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
@@ -30,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
+  - icon: ':x:'
+    path: tests/range_count_distinct.test.cpp
+    title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
@@ -51,9 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -79,17 +85,19 @@ data:
   - tools/compressor.hpp
   - tools/wavelet_matrix.hpp
   - tools/li_chao_segtree.hpp
+  - tools/range_count_distinct.hpp
   - tools/inversion_number.hpp
   - tools/compress.hpp
   - tools/rectangle_union_area.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/inversion_number.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/range_of_digit_products.test.cpp
   - tests/rectangle_union_area.test.cpp
+  - tests/range_count_distinct.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp

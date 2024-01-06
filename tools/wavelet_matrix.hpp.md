@@ -1,23 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bit_vector.hpp
     title: Bit vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':x:'
+    path: tools/range_count_distinct.hpp
+    title: Range count distinct
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: tests/range_count_distinct.test.cpp
+    title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
@@ -33,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/wavelet_matrix.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -357,10 +363,12 @@ data:
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/wavelet_matrix.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/range_count_distinct.hpp
   timestamp: '2023-07-22 12:30:26+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/range_count_distinct.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp

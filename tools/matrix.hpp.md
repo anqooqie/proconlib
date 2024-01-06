@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -238,7 +238,11 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n"
+    \        }\n      }\n      return B;\n    }\n\n    ::tools::matrix<T> transposed()\
+    \ const {\n      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          A_T[c][r] = (*this)[r][c];\n      \
+    \  }\n      }\n      return A_T;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_MATRIX_HPP\n#define TOOLS_MATRIX_HPP\n\n#include <vector>\n\
     #include <cstddef>\n#include <cassert>\n#include <iostream>\n#include <string>\n\
     #include <optional>\n#include \"tools/vector.hpp\"\n\nnamespace tools {\n  template\
@@ -364,7 +368,11 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n#endif\n"
+    \        }\n      }\n      return B;\n    }\n\n    ::tools::matrix<T> transposed()\
+    \ const {\n      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          A_T[c][r] = (*this)[r][c];\n      \
+    \  }\n      }\n      return A_T;\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/vector.hpp
   - tools/detail/vector_common.hpp
@@ -372,8 +380,8 @@ data:
   isVerificationFile: false
   path: tools/matrix.hpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-01-06 23:54:38+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/determinant.test.cpp
@@ -401,7 +409,7 @@ It is a $n \times m$-dimensional matrix.
 - (1)
     - It creates a $n \times m$-dimensional matrix.
 - (2)
-    - It creates a $n \times m$-dimensional matrix, of which all the elements $x$.
+    - It creates a $n \times m$-dimensional matrix filled with $x$.
 
 The type parameter `<T>` represents the type of the elements.
 
@@ -558,3 +566,16 @@ Otherwise, it returns `std::nullopt`.
 
 ### Time Complexity
 - $O(n^3)$
+
+## transposed
+```cpp
+matrix<T> A.transposed();
+```
+
+It returns $A^\top$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$

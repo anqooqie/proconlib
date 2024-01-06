@@ -1,57 +1,57 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -976,17 +976,39 @@ data:
     \      }\n    }\n    F& pow_inplace(const long long k) { return this->pow_inplace(k,\
     \ this->size()); }\n    F pow(const long long k, const int d) const { return F(*this).pow_inplace(k,\
     \ d); }\n    F pow(const long long k) const { return this->pow(k, this->size());\
-    \ }\n\n    friend F operator*(const F& f, const M& g) { return F(f) *= g; }\n\
-    \    friend F operator*(const M& f, const F& g) { return F(g) *= f; }\n    friend\
-    \ F operator/(const F& f, const M& g) { return F(f) /= g; }\n    friend F operator+(const\
-    \ F& f, const F& g) { return F(f) += g; }\n    friend F operator-(const F& f,\
-    \ const F& g) { return F(f) -= g; }\n    friend F operator*(const F& f, const\
-    \ F& g) { return F(f) *= g; }\n    friend F operator/(const F& f, const F& g)\
-    \ { return F(f) /= g; }\n    friend F operator<<(const F& f, const int d) { return\
-    \ F(f) <<= d; }\n    friend F operator>>(const F& f, const int d) { return F(f)\
-    \ >>= d; }\n  };\n}\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#line 1 \"\
-    tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ }\n\n    F operator()(const F& g) const {\n      assert(g.empty() || g[0] ==\
+    \ M::raw(0));\n\n      const int n = this->size();\n      F h(n);\n      if (n\
+    \ == 0) return h;\n\n      const int m = g.size();\n      int l;\n      for (l\
+    \ = 0; l < ::std::min(m, n) && g[l] == M::raw(0); ++l);\n      h[0] = (*this)[0];\n\
+    \      if (l == ::std::min(m, n)) return h;\n\n      const F g_1(g.begin() + l,\
+    \ g.begin() + ::std::min(m, n));\n      for (int i = l; i < ::std::min(m, n);\
+    \ ++i) {\n        h[i] += (*this)[1] * g[i];\n      }\n\n      auto g_k = g_1;\n\
+    \      for (int k = 2, d; (d = ::std::min(k * (m - l - 1) + 1, n - l * k)) > 0;\
+    \ ++k) {\n        g_k.multiply_inplace(g_1, d);\n        for (int i = l * k; i\
+    \ < l * k + d; ++i) {\n          h[i] += (*this)[k] * g_k[i - l * k];\n      \
+    \  }\n      }\n\n      return h;\n    }\n    F compositional_inverse() const {\n\
+    \      assert(this->size() >= 2);\n      assert((*this)[0] == M::raw(0));\n  \
+    \    assert(::std::gcd((*this)[1].val(), M::mod()) == 1);\n\n      const int n\
+    \ = this->size();\n      ::std::vector<F> f;\n      f.reserve(::std::max(2, n\
+    \ - 1));\n      f.emplace_back(n);\n      f[0][0] = M::raw(1);\n      f.push_back(*this);\n\
+    \      for (int i = 2; i < n - 1; ++i) {\n        f.push_back(f.back() * f[1]);\n\
+    \      }\n\n      ::std::vector<M> invpow_f11;\n      invpow_f11.reserve(n);\n\
+    \      invpow_f11.push_back(M::raw(1));\n      invpow_f11.push_back(f[1][1].inv());\n\
+    \      for (int i = 2; i < n; ++i) {\n        invpow_f11.push_back(invpow_f11.back()\
+    \ * invpow_f11[1]);\n      }\n\n      F g(n);\n      g[1] = invpow_f11[1];\n \
+    \     for (int i = 2; i < n; ++i) {\n        for (int j = 1; j < i; ++j) {\n \
+    \         g[i] -= f[j][i] * g[j];\n        }\n        g[i] *= invpow_f11[i];\n\
+    \      }\n\n      return g;\n    }\n\n    friend F operator*(const F& f, const\
+    \ M& g) { return F(f) *= g; }\n    friend F operator*(const M& f, const F& g)\
+    \ { return F(g) *= f; }\n    friend F operator/(const F& f, const M& g) { return\
+    \ F(f) /= g; }\n    friend F operator+(const F& f, const F& g) { return F(f) +=\
+    \ g; }\n    friend F operator-(const F& f, const F& g) { return F(f) -= g; }\n\
+    \    friend F operator*(const F& f, const F& g) { return F(f) *= g; }\n    friend\
+    \ F operator/(const F& f, const F& g) { return F(f) /= g; }\n    friend F operator<<(const\
+    \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
+    \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\
+    \n\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
     \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
     \ M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
@@ -1064,7 +1086,7 @@ data:
   isVerificationFile: false
   path: tools/bernoulli.hpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
+  timestamp: '2024-01-06 13:04:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bernoulli.test.cpp

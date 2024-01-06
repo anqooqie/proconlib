@@ -9,9 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
+  - icon: ':x:'
+    path: tests/prim/basic.test.cpp
+    title: tests/prim/basic.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
@@ -21,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
@@ -44,13 +47,14 @@ data:
   path: tools/join.hpp
   requiredBy: []
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/cycle_detection/undirected.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/tree_diameter.test.cpp
   - tests/lis.test.cpp
   - tests/polynomial/naive_division.test.cpp
+  - tests/prim/basic.test.cpp
   - tests/undoable_dsu.test.cpp
 documentation_of: tools/join.hpp
 layout: document

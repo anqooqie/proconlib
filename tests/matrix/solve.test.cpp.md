@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/system_of_linear_equations
@@ -439,7 +439,11 @@ data:
     \      }\n\n      ::tools::matrix<T> B(this->m_rows, this->m_cols);\n      for\
     \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
     \ = 0; c < this->m_cols; ++c) {\n          B[r][c] = AI[r][this->m_cols + c];\n\
-    \        }\n      }\n      return B;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/solve.test.cpp\"\
+    \        }\n      }\n      return B;\n    }\n\n    ::tools::matrix<T> transposed()\
+    \ const {\n      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);\n      for\
+    \ (::std::size_t r = 0; r < this->m_rows; ++r) {\n        for (::std::size_t c\
+    \ = 0; c < this->m_cols; ++c) {\n          A_T[c][r] = (*this)[r][c];\n      \
+    \  }\n      }\n      return A_T;\n    }\n  };\n}\n\n\n#line 8 \"tests/matrix/solve.test.cpp\"\
     \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
     \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
     \ N, M;\n  std::cin >> N >> M;\n  tools::matrix<mint> A(N, M);\n  for (ll r =\
@@ -480,8 +484,8 @@ data:
   isVerificationFile: true
   path: tests/matrix/solve.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-01-06 23:54:38+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/matrix/solve.test.cpp
 layout: document
