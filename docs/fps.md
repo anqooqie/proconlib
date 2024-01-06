@@ -548,3 +548,31 @@ g_{n - 1} &= 0
 - (2), (4)
     - ($M$ is a prime and $n \leq M$): $O(n \log n + \log k + \log M)$
     - (otherwise): $O(n \log n \log k + \log M)$
+
+## operator()
+```cpp
+fps<M> f(fps<M> g);
+```
+
+$(\mathbb{Z}/M\mathbb{Z})[x]/(x^n)$の元$f(g^{(n)}(x))$を返します。
+
+### Constraints
+- $n > 0 \Rightarrow g_0^{(n)} = 0$
+
+### Time Complexity
+- $O(n^2 \log n)$
+
+## compositional_inverse
+```cpp
+fps<M> f.compositional_inverse();
+```
+
+$f(g(x)) \equiv g(f(x)) \equiv x \pmod{x^n}$なる$(\mathbb{Z}/M\mathbb{Z})[x]/(x^n)$の元$g$を返します。
+
+### Constraints
+- $n \geq 2$
+- $f_0 = 0$
+- $\gcd(f_1, M) = 1$
+
+### Time Complexity
+- $O(n^2 \log n)$

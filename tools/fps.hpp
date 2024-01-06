@@ -682,6 +682,69 @@ namespace tools {
     F pow(const long long k, const int d) const { return F(*this).pow_inplace(k, d); }
     F pow(const long long k) const { return this->pow(k, this->size()); }
 
+    F operator()(const F& g) const {
+      assert(g.empty() || g[0] == M::raw(0));
+
+      const int n = this->size();
+      F h(n);
+      if (n == 0) return h;
+
+      const int m = g.size();
+      int l;
+      for (l = 0; l < ::std::min(m, n) && g[l] == M::raw(0); ++l);
+      h[0] = (*this)[0];
+      if (l == ::std::min(m, n)) return h;
+
+      const F g_1(g.begin() + l, g.begin() + ::std::min(m, n));
+      for (int i = l; i < ::std::min(m, n); ++i) {
+        h[i] += (*this)[1] * g[i];
+      }
+
+      auto g_k = g_1;
+      for (int k = 2, d; (d = ::std::min(k * (m - l - 1) + 1, n - l * k)) > 0; ++k) {
+        g_k.multiply_inplace(g_1, d);
+        for (int i = l * k; i < l * k + d; ++i) {
+          h[i] += (*this)[k] * g_k[i - l * k];
+        }
+      }
+
+      return h;
+    }
+    F compositional_inverse() const {
+      assert(this->size() >= 2);
+      assert((*this)[0] == M::raw(0));
+      assert(::std::gcd((*this)[1].val(), M::mod()) == 1);
+
+      const int n = this->size();
+      ::std::vector<F> f;
+      f.reserve(::std::max(2, n - 1));
+      f.emplace_back(n);
+      f[0][0] = M::raw(1);
+      f.push_back(*this);
+      for (int i = 2; i < n - 1; ++i) {
+        f.push_back(f.back() * f[1]);
+      }
+
+      ::std::vector<M> invpow_f11;
+      invpow_f11.reserve(n);
+      invpow_f11.push_back(M::raw(1));
+      invpow_f11.push_back(f[1][1].inv());
+      for (int i = 2; i < n; ++i) {
+        invpow_f11.push_back(invpow_f11.back() * invpow_f11[1]);
+      }
+
+      F g(n);
+      g[1] = invpow_f11[1];
+      for (int i = 2; i < n; ++i) {
+        for (int j = 1; j < i; ++j) {
+          g[i] -= f[j][i] * g[j];
+        }
+        g[i] *= invpow_f11[i];
+      }
+
+      return g;
+    }
+
     friend F operator*(const F& f, const M& g) { return F(f) *= g; }
     friend F operator*(const M& f, const F& g) { return F(g) *= f; }
     friend F operator/(const F& f, const M& g) { return F(f) /= g; }
