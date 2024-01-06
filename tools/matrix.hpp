@@ -294,6 +294,16 @@ namespace tools {
       }
       return B;
     }
+
+    ::tools::matrix<T> transposed() const {
+      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);
+      for (::std::size_t r = 0; r < this->m_rows; ++r) {
+        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+          A_T[c][r] = (*this)[r][c];
+        }
+      }
+      return A_T;
+    }
   };
 }
 

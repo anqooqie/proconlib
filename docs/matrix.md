@@ -20,7 +20,7 @@ It is a $n \times m$-dimensional matrix.
 - (1)
     - It creates a $n \times m$-dimensional matrix.
 - (2)
-    - It creates a $n \times m$-dimensional matrix, of which all the elements $x$.
+    - It creates a $n \times m$-dimensional matrix filled with $x$.
 
 The type parameter `<T>` represents the type of the elements.
 
@@ -177,3 +177,16 @@ Otherwise, it returns `std::nullopt`.
 
 ### Time Complexity
 - $O(n^3)$
+
+## transposed
+```cpp
+matrix<T> A.transposed();
+```
+
+It returns $A^\top$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
