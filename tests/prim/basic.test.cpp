@@ -1,7 +1,8 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_2_A"
+#define PROBLEM "https://judge.yosupo.jp/problem/minimum_spanning_tree"
 
 #include <iostream>
 #include "tools/prim.hpp"
+#include "tools/join.hpp"
 
 using ll = long long;
 
@@ -9,15 +10,18 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll V, E;
-  std::cin >> V >> E;
-  tools::prim<ll> prim(V);
-  for (ll i = 0; i < E; ++i) {
-    ll s, t, w;
-    std::cin >> s >> t >> w;
-    prim.add_edge(s, t, w);
+  int N, M;
+  std::cin >> N >> M;
+  tools::prim<ll> graph(N);
+  for (int i = 0; i < M; ++i) {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+    graph.add_edge(a, b, c);
   }
 
-  std::cout << prim.query().first[0].first << '\n';
+  const auto [X, e] = graph.query().first[0];
+  std::cout << X << '\n';
+  std::cout << tools::join(e.begin(), e.end(), " ") << '\n';
+
   return 0;
 }

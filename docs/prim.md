@@ -3,7 +3,7 @@ title: Prim's algorithm
 documentation_of: //tools/prim.hpp
 ---
 
-It constructs a minimum spanning forest on a given undirected graph which is not necessarily simple based on Prim's algorithm.
+It constructs minimum spanning trees for each connected components of a given undirected graph which is not necessarily simple based on Prim's algorithm.
 
 ### License
 - CC0
@@ -40,11 +40,11 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-void graph.add_edge(std::size_t u, std::size_t v, T w);
+std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
 ```
 
 It adds an undirected edge between $u$ and $v$ with cost `w`.
-It returns an integer $k$ such that this is the $k$-th edge that is added.
+It returns an integer $k$ such that this is the $k$-th ($0$ indexed) edge that is added.
 
 ### Constraints
 - $0 \leq u < n$
@@ -64,7 +64,7 @@ struct edge {
 const edge& graph.get_edge(std::size_t k);
 ```
 
-It returns the $k$-th edge.
+It returns the $k$-th ($0$ indexed) edge.
 
 ### Constraints
 - $0 \leq k < \|E\|$ where $\|E\|$ is the number of edges
@@ -91,7 +91,8 @@ The edges are ordered in the same order as added by `add_edge`.
 std::pair<std::vector<std::pair<T, std::vector<std::size_t>>>, std::vector<std::size_t>> graph.query();
 ```
 
-It constructs a minimum spanning forest on the graph, and returns the information about the minimum spanning forest in the following layout.
+It constructs minimum spanning trees for each connected components of the graph, and returns the information about the minimum spanning trees in the following layout.
+The order of minimum spanning trees is undefined.
 
 ```
 (
