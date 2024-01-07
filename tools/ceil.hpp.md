@@ -3,11 +3,17 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
+  - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
@@ -36,6 +42,9 @@ data:
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: Polynomial
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -60,6 +69,9 @@ data:
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bezout.test.cpp
     title: tests/bezout.test.cpp
@@ -102,6 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ceil.test.cpp
     title: tests/ceil.test.cpp
@@ -147,6 +162,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multidimensional.test.cpp
+    title: tests/polynomial/multidimensional.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
@@ -215,12 +242,14 @@ data:
   isVerificationFile: false
   path: tools/ceil.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/pow_mod_cache.hpp
   - tools/ceil_log.hpp
   - tools/detail/rolling_hash.hpp
   - tools/bigdecimal.hpp
   - tools/ceil_quotients.hpp
   - tools/log_mod.hpp
+  - tools/bostan_mori.hpp
   - tools/sparse_fps_pow.hpp
   - tools/ceil_sqrt.hpp
   - tools/ceil_kth_root.hpp
@@ -232,6 +261,7 @@ data:
   - tools/zero_one_knapsack.hpp
   - tools/dynamic_bitset.hpp
   - tools/mo.hpp
+  - tools/polynomial.hpp
   - tools/range_of_digit_products.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
@@ -245,6 +275,7 @@ data:
   - tests/bigint/minus.test.cpp
   - tests/bigint/divides.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/ceil.test.cpp
@@ -272,6 +303,10 @@ data:
   - tests/ceil_sqrt.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil_quotients.test.cpp
   - tests/rotate_right.test.cpp
@@ -280,6 +315,7 @@ data:
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/fastio/string.test.cpp
   - tests/segmented_sieve.test.cpp
 documentation_of: tools/ceil.hpp

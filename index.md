@@ -1152,6 +1152,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/polynomial/ntt_division.test.cpp
       title: tests/polynomial/ntt_division.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polynomial/taylor_shift.test.cpp
+      title: tests/polynomial/taylor_shift.test.cpp
   - name: tests/prim
     pages:
     - icon: ':heavy_check_mark:'

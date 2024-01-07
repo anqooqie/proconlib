@@ -8,11 +8,24 @@ data:
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
+    path: tools/ceil.hpp
+    title: $\left\lceil \frac{x}{y} \right\rceil$
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/fact_mod_cache.hpp
+    title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
+      {}_n P_r \pmod{P}$
+  - icon: ':heavy_check_mark:'
+    path: tools/find_cycle.hpp
+    title: Floyd's cycle-finding algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/floor.hpp
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
@@ -48,11 +61,17 @@ data:
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
+    path: tools/pow_mod_cache.hpp
+    title: Cache of $b^n \pmod{M}$
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
+  - icon: ':heavy_check_mark:'
+    path: tools/ssize.hpp
+    title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
@@ -1020,9 +1039,133 @@ data:
     \ T, typename = ::std::void_t<>>\n  struct has_mod : ::std::false_type {};\n\n\
     \  template <typename T>\n  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>>\
     \ : ::std::true_type {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v\
-    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 19 \"tools/polynomial.hpp\"\n\n\
-    namespace tools {\n  namespace detail {\n    namespace polynomial {\n      template\
-    \ <typename T, typename = ::std::void_t<>>\n      struct can_divide : ::std::false_type\
+    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\
+    \n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
+    \ M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
+    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
+    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
+    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const\
+    \ ::tools::fact_mod_cache<M>&) = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&)\
+    \ = default;\n    ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>&\
+    \ operator=(const ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>&\
+    \ operator=(::tools::fact_mod_cache<M>&&) = default;\n\n    M inv(const long long\
+    \ n) {\n      assert(n % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
+    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
+    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
+    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
+    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
+    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
+    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
+    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
+    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
+    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
+    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
+    \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
+    \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
+    \    }\n\n    explicit fact_mod_cache(const long long max) : fact_mod_cache()\
+    \ {\n      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
+    \ long>(max, M::mod() - 1));\n    }\n\n    M combination(long long n, long long\
+    \ r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\n      this->fact(::std::min<long\
+    \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
+    \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
+    \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
+    \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
+    \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
+    \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
+    \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
+    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n\
+    #line 5 \"tools/pow_mod_cache.hpp\"\n#include <optional>\n#line 1 \"tools/find_cycle.hpp\"\
+    \n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename F>\n  ::std::pair<long long, long long> find_cycle(const T& seed,\
+    \ const F& f) {\n    auto i = 1LL;\n    auto j = 2LL;\n    T x = f(seed);\n  \
+    \  T y = f(f(seed));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\
+    \n    i = 0;\n    x = seed;\n    for (; x != y; ++i, ++j, x = f(x), y = f(y));\n\
+    \n    const auto head = i;\n\n    ++i;\n    j = i + 1;\n    x = f(x);\n    y =\
+    \ f(f(y));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const\
+    \ auto cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\
+    \n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> floor(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M,\
+    \ N>;\n    assert(rhs != N(0));\n    return lhs / rhs - T(((lhs > M(0) && rhs\
+    \ < N(0)) || (lhs < M(0) && rhs > N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"\
+    tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
+    \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
+    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 14 \"tools/pow_mod_cache.hpp\"\
+    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n  private:\n\
+    \    ::std::vector<M> m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M>\
+    \ m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long\
+    \ long, long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n \
+    \   pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
+    \ = default;\n    ~pow_mod_cache() = default;\n    ::tools::pow_mod_cache<M>&\
+    \ operator=(const ::tools::pow_mod_cache<M>&) = default;\n    ::tools::pow_mod_cache<M>&\
+    \ operator=(::tools::pow_mod_cache<M>&&) = default;\n\n    M operator[](const\
+    \ long long n) {\n      if (!this->m_period) {\n        if (::std::max<long long>(::tools::ssize(this->m_pow)\
+    \ - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) +\
+    \ 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const long long size\
+    \ = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
+    \ n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_pow);\
+    \ ++i) {\n              this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n\
+    \            }\n            return this->m_pow[n];\n          } else {\n     \
+    \       if (this->m_inv_pow.size() == 1) {\n              this->m_inv_pow.push_back(this->m_pow[1].inv());\n\
+    \            }\n            const long long size = ::tools::ssize(this->m_inv_pow);\n\
+    \            this->m_inv_pow.resize(::std::max(size, -n + 1));\n            for\
+    \ (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {\n         \
+    \     this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n    \
+    \        }\n            return this->m_inv_pow[-n];\n          }\n        }\n\n\
+    \        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0],\
+    \ [&](const M& prev) { return prev * this->m_pow[1]; }));\n        const long\
+    \ long size = ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
+    \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
+    \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
+    \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
+    \      }\n\n      if (this->m_period->first == 0) {\n        return this->m_pow[::tools::mod(n,\
+    \ this->m_period->second)];\n      } else {\n        assert(n >= 0);\n       \
+    \ if (n < this->m_period->first + this->m_period->second) {\n          return\
+    \ this->m_pow[n];\n        } else {\n          return this->m_pow[(n - this->m_period->first)\
+    \ % this->m_period->second + this->m_period->first];\n        }\n      }\n   \
+    \ }\n\n    M sum(const long long l, const long long r) {\n      if (l >= r) return\
+    \ M::raw(0);\n\n      (*this)[r - 1];\n      (*this)[l];\n\n      {\n        const\
+    \ long long size = ::tools::ssize(this->m_cumsum);\n        this->m_cumsum.resize(this->m_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_cumsum);\
+    \ ++i) {\n          this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n      }\n\n      if (!this->m_period) {\n        const long\
+    \ long size = ::tools::ssize(this->m_inv_cumsum);\n        this->m_inv_cumsum.resize(this->m_inv_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum);\
+    \ ++i) {\n          this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n\n        if (l >= 0) {\n          return this->m_cumsum[r]\
+    \ - this->m_cumsum[l];\n        } else if (r <= 0) {\n          return this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[-r];\n        } else {\n          return (this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[1]) + (this->m_cumsum[r] - this->m_cumsum[0]);\n      \
+    \  }\n      }\n\n      static const auto cumsum = [&](const long long ll, const\
+    \ long long rr) {\n        return this->m_cumsum[rr] - this->m_cumsum[ll];\n \
+    \     };\n\n      if (l >= 0) {\n        static const auto f = [&](const long\
+    \ long x) {\n          if (x <= this->m_period->first + this->m_period->second)\
+    \ {\n            return cumsum(0, x);\n          } else {\n            return\
+    \ cumsum(0, this->m_period->first) +\n              cumsum(this->m_period->first,\
+    \ this->m_period->first + this->m_period->second) * ((x - this->m_period->first)\
+    \ / this->m_period->second) +\n              cumsum(this->m_period->first, (x\
+    \ - this->m_period->first) % this->m_period->second + this->m_period->first);\n\
+    \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
+    \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
+    \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
+    \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
+    \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
+    \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
+    \ {\n    }\n  };\n}\n\n\n#line 21 \"tools/polynomial.hpp\"\n\nnamespace tools\
+    \ {\n  namespace detail {\n    namespace polynomial {\n      template <typename\
+    \ T, typename = ::std::void_t<>>\n      struct can_divide : ::std::false_type\
     \ {};\n\n      template <typename T>\n      struct can_divide<T, ::std::void_t<decltype(::std::declval<T>()\
     \ / ::std::declval<T>())>> : ::std::true_type {};\n\n      template <typename\
     \ T>\n      inline constexpr bool can_divide_v = can_divide<T>::value;\n\n   \
@@ -1169,16 +1312,31 @@ data:
     \ + 1);\n      return *this;\n    }\n\n    R operator()(const R& a) const {\n\
     \      auto x = MM::e();\n      auto res = AG::e();\n      for (const auto e :\
     \ *this) {\n        res = AG::op(res, MM::op(e, x));\n        x = MM::op(x, a);\n\
-    \      }\n      return res;\n    }\n\n    friend P operator*(const P& f, const\
-    \ R& c) { return P(f) *= c; }\n    friend P operator*(const R& c, const P& f)\
-    \ { return P(f) *= c; }\n    friend P operator/(const P& f, const R& c) { return\
-    \ P(f) /= c; }\n    friend P operator+(const P& f, const P& g) { return P(f) +=\
-    \ g; }\n    friend P operator-(const P& f, const P& g) { return P(f) -= g; }\n\
-    \    friend P operator*(const P& f, const P& g) { return P(f) *= g; }\n    friend\
-    \ P operator/(const P& f, const P& g) { return P(f) /= g; }\n    friend P operator%(const\
-    \ P& f, const P& g) { return P(f) %= g; }\n    friend P operator<<(const P& f,\
-    \ const int d) { return P(f) <<= d; }\n    friend P operator>>(const P& f, const\
-    \ int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 6 \"tests/polynomial/multidimensional.test.cpp\"\
+    \      }\n      return res;\n    }\n    P operator()(const P& g) const {\n   \
+    \   const int n = this->size();\n      if (n == 0) return *this;\n\n      const\
+    \ auto naive = [&]() {\n        auto g_i = P{MM::e()};\n        auto res = g_i;\n\
+    \        for (int i = 1; i < n; ++i) {\n          g_i *= g;\n          res +=\
+    \ g_i;\n        }\n        return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R>\
+    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
+    \ {\n        if (::tools::is_prime(R::mod()) && n < R::mod() && g.size() == 2\
+    \ && g[1] == R(1)) {\n          ::tools::fact_mod_cache<R> cache;\n          ::tools::pow_mod_cache<R>\
+    \ pow_g0(g[0]);\n\n          P a(n);\n          for (int i = 0; i < n; ++i) {\n\
+    \            a[i] = (*this)[i] * cache.fact(i);\n          }\n\n          P b(n);\n\
+    \          for (int i = 0; i < n; ++i) {\n            b[i] = pow_g0[i] * cache.fact_inv(i);\n\
+    \          }\n          ::std::reverse(b.begin(), b.end());\n\n          auto\
+    \ c = a * b;\n\n          P res(n);\n          for (int i = 0; i < n; ++i) {\n\
+    \            res[i] = c[n - 1 + i] * cache.fact_inv(i);\n          }\n       \
+    \   return res;\n        } else {\n          return naive();\n        }\n    \
+    \  } else {\n        return naive();\n      }\n    }\n\n    friend P operator*(const\
+    \ P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const R& c,\
+    \ const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f, const\
+    \ R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const P& g)\
+    \ { return P(f) += g; }\n    friend P operator-(const P& f, const P& g) { return\
+    \ P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return P(f) *=\
+    \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
+    \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
+    \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
+    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 6 \"tests/polynomial/multidimensional.test.cpp\"\
     \n\nusing ll = long long;\nstruct AG {\n  using T = tools::polynomial<ll>;\n \
     \ static T op(const T& x, const T& y) {\n    return x + y;\n  }\n  static T e()\
     \ {\n    return T{};\n  }\n  static T inv(const T& x) {\n    return -x;\n  }\n\
@@ -1220,10 +1378,16 @@ data:
   - tools/garner3.hpp
   - tools/less_by_first.hpp
   - tools/has_mod.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/ssize.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/find_cycle.hpp
+  - tools/floor.hpp
+  - tools/ceil.hpp
   isVerificationFile: true
   path: tests/polynomial/multidimensional.test.cpp
   requiredBy: []
-  timestamp: '2024-01-06 13:04:58+09:00'
+  timestamp: '2024-01-07 19:51:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polynomial/multidimensional.test.cpp

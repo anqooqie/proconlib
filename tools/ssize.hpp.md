@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
   - icon: ':heavy_check_mark:'
@@ -11,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
+  - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
@@ -27,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
+  - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
@@ -47,6 +56,9 @@ data:
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
@@ -90,6 +102,9 @@ data:
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
   - icon: ':heavy_check_mark:'
@@ -128,6 +143,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multidimensional.test.cpp
+    title: tests/polynomial/multidimensional.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
@@ -193,10 +220,12 @@ data:
   isVerificationFile: false
   path: tools/ssize.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/pow_mod_cache.hpp
   - tools/detail/rolling_hash.hpp
   - tools/bigdecimal.hpp
   - tools/li_chao_segtree.hpp
+  - tools/bostan_mori.hpp
   - tools/sparse_fps_pow.hpp
   - tools/fact_mod_cache.hpp
   - tools/bernoulli.hpp
@@ -205,6 +234,7 @@ data:
   - tools/bigint.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
+  - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
@@ -215,6 +245,7 @@ data:
   - tests/bigint/plus.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bigint/divides.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/persistent_stack.test.cpp
@@ -244,6 +275,10 @@ data:
   - tests/line_2d/projection.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/permutation.test.cpp
   - tests/polygon_2d/area.test.cpp
@@ -251,6 +286,7 @@ data:
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/fastio/string.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
 documentation_of: tools/ssize.hpp

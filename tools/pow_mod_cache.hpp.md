@@ -21,18 +21,45 @@ data:
     title: Polyfill of std::ssize
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: Polynomial
+  - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multidimensional.test.cpp
+    title: tests/polynomial/multidimensional.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
@@ -211,14 +238,23 @@ data:
   isVerificationFile: false
   path: tools/pow_mod_cache.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/bostan_mori.hpp
   - tools/rolling_hash.hpp
+  - tools/polynomial.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/berlekamp_massey.test.cpp
   - tests/has_mod.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/bostan_mori.test.cpp
 documentation_of: tools/pow_mod_cache.hpp
 layout: document
 title: Cache of $b^n \pmod{M}$

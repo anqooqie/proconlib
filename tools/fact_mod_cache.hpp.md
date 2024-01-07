@@ -27,8 +27,17 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/berlekamp_massey.hpp
+    title: Berlekamp-Massey algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
+  - icon: ':heavy_check_mark:'
+    path: tools/bostan_mori.hpp
+    title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
@@ -38,11 +47,29 @@ data:
       n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/berlekamp_massey.test.cpp
+    title: tests/berlekamp_massey.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bernoulli.test.cpp
     title: tests/bernoulli.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bostan_mori.test.cpp
+    title: tests/bostan_mori.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multidimensional.test.cpp
+    title: tests/polynomial/multidimensional.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/naive_division.test.cpp
+    title: tests/polynomial/naive_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/ntt_division.test.cpp
+    title: tests/polynomial/ntt_division.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
@@ -211,17 +238,26 @@ data:
   isVerificationFile: false
   path: tools/fact_mod_cache.hpp
   requiredBy:
+  - tools/berlekamp_massey.hpp
+  - tools/bostan_mori.hpp
   - tools/sparse_fps_pow.hpp
   - tools/bernoulli.hpp
+  - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/berlekamp_massey.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/fact_mod_cache.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/stirling_2nd.test.cpp
+  - tests/bostan_mori.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
 title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},

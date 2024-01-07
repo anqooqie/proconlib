@@ -124,6 +124,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -1454,6 +1457,7 @@ data:
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp

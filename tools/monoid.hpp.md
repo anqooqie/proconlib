@@ -201,6 +201,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
@@ -340,6 +343,7 @@ data:
   - tests/line_2d/projection.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp

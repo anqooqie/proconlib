@@ -46,6 +46,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
   _isVerificationFailed: false
@@ -81,6 +84,7 @@ data:
   - tests/berlekamp_massey.test.cpp
   - tests/extend_input.test.cpp
   - tests/has_mod.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp

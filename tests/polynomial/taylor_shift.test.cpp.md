@@ -49,6 +49,9 @@ data:
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial.hpp
+    title: Polynomial
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
@@ -69,60 +72,38 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/berlekamp_massey.hpp
-    title: Berlekamp-Massey algorithm
-  - icon: ':heavy_check_mark:'
-    path: tools/bostan_mori.hpp
-    title: Bostan-Mori algorithm
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/berlekamp_massey.test.cpp
-    title: tests/berlekamp_massey.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/bostan_mori.test.cpp
-    title: tests/bostan_mori.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polynomial/multidimensional.test.cpp
-    title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polynomial/naive_division.test.cpp
-    title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polynomial/ntt_division.test.cpp
-    title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polynomial/taylor_shift.test.cpp
-    title: tests/polynomial/taylor_shift.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/polynomial.hpp\"\n\n\n\n#include <type_traits>\n#include\
-    \ <utility>\n#include <complex>\n#include <vector>\n#include <cstddef>\n#include\
-    \ <initializer_list>\n#include <algorithm>\n#include <cassert>\n#include <iterator>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/polynomial_taylor_shift
+    links:
+    - https://judge.yosupo.jp/problem/polynomial_taylor_shift
+  bundledCode: "#line 1 \"tests/polynomial/taylor_shift.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/polynomial_taylor_shift\"\n\n#include <iostream>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
+    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
+    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
@@ -309,20 +290,23 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/is_prime.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
+    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#include <vector>\n\
+    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line 12\
+    \ \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
     \n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
-    \n\n\n\n#include <iostream>\n#include <string>\n#line 1 \"tools/abs.hpp\"\n\n\n\
-    \nnamespace tools {\n  constexpr float abs(const float x) {\n    return x < 0\
-    \ ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr long double abs(const long double x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x :\
-    \ x;\n  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return\
-    \ x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n    return\
-    \ x;\n  }\n  constexpr unsigned long long abs(const unsigned long long x) {\n\
-    \    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools\
-    \ {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
+    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
+    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
+    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
@@ -1345,188 +1329,25 @@ data:
     \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
     \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
     \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
-    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_POLYNOMIAL_HPP\n#define TOOLS_POLYNOMIAL_HPP\n\n#include <type_traits>\n\
-    #include <utility>\n#include <complex>\n#include <vector>\n#include <cstddef>\n\
-    #include <initializer_list>\n#include <algorithm>\n#include <cassert>\n#include\
-    \ <iterator>\n#include \"atcoder/modint.hpp\"\n#include \"tools/is_prime.hpp\"\
-    \n#include \"tools/group.hpp\"\n#include \"tools/monoid.hpp\"\n#include \"tools/fps.hpp\"\
-    \n#include \"tools/has_mod.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\n#include\
-    \ \"tools/pow_mod_cache.hpp\"\n\nnamespace tools {\n  namespace detail {\n   \
-    \ namespace polynomial {\n      template <typename T, typename = ::std::void_t<>>\n\
-    \      struct can_divide : ::std::false_type {};\n\n      template <typename T>\n\
-    \      struct can_divide<T, ::std::void_t<decltype(::std::declval<T>() / ::std::declval<T>())>>\
-    \ : ::std::true_type {};\n\n      template <typename T>\n      inline constexpr\
-    \ bool can_divide_v = can_divide<T>::value;\n\n      template <typename T, typename\
-    \ = ::std::void_t<>>\n      struct is_prime_modint : ::std::false_type {};\n\n\
-    \      template <typename T>\n      struct is_prime_modint<T, ::std::enable_if_t<::atcoder::internal::is_static_modint<T>::value\
-    \ && ::tools::is_prime(T::mod()), void>> : ::std::true_type {};\n\n      template\
-    \ <typename T>\n      inline constexpr bool is_prime_modint_v = is_prime_modint<T>::value;\n\
-    \    }\n  }\n\n  template <typename T1, typename T2 = void>\n  class polynomial\
-    \ {\n  private:\n    using AG = ::std::conditional_t<::std::is_same_v<T2, void>,\
-    \ ::tools::group::plus<T1>, T1>;\n    using MM = ::std::conditional_t<\n     \
-    \ ::std::is_same_v<T2, void>,\n        ::std::conditional_t<\n          ::std::is_same_v<T1,\
-    \ ::std::complex<float>> ||\n          ::std::is_same_v<T1, ::std::complex<double>>\
-    \ ||\n          ::std::is_same_v<T1, ::std::complex<long double>> ||\n       \
-    \   ::std::is_floating_point_v<T1> ||\n          ::tools::detail::polynomial::is_prime_modint_v<T1>\
-    \ ||\n          ::atcoder::internal::is_dynamic_modint<T1>::value,\n         \
-    \   ::tools::group::multiplies<T1>,\n            ::std::conditional_t<\n     \
-    \         ::std::is_integral_v<T1> ||\n              ::atcoder::internal::is_static_modint<T1>::value,\n\
-    \                ::tools::monoid::multiplies<T1>,\n                ::std::conditional_t<\n\
-    \                  ::tools::detail::polynomial::can_divide_v<T1>,\n          \
-    \          ::tools::group::multiplies<T1>,\n                    ::tools::monoid::multiplies<T1>\n\
-    \                >\n            >\n        >,\n        T2\n    >;\n\n    static_assert(::std::is_same_v<typename\
-    \ AG::T, typename MM::T>);\n    using R = typename AG::T;\n    using P = ::tools::polynomial<T1,\
-    \ T2>;\n    ::std::vector<R> m_vector;\n\n  public:\n    using reference = R&;\n\
-    \    using const_reference = const R&;\n    using iterator = typename ::std::vector<R>::iterator;\n\
-    \    using const_iterator = typename ::std::vector<R>::const_iterator;\n    using\
-    \ size_type = ::std::size_t;\n    using difference_type = ::std::ptrdiff_t;\n\
-    \    using value_type = R;\n    using allocator_type = typename ::std::vector<R>::allocator_type;\n\
-    \    using pointer = R*;\n    using const_pointer = const R*;\n    using reverse_iterator\
-    \ = typename ::std::vector<R>::reverse_iterator;\n    using const_reverse_iterator\
-    \ = typename ::std::vector<R>::const_reverse_iterator;\n\n    polynomial() = default;\n\
-    \    polynomial(const P&) = default;\n    polynomial(P&&) = default;\n    ~polynomial()\
-    \ = default;\n    P& operator=(const P&) = default;\n    P& operator=(P&&) = default;\n\
-    \n    explicit polynomial(const size_type n) : m_vector(n) {}\n    polynomial(const\
-    \ size_type n, const_reference value) : m_vector(n, value) {}\n    template <class\
-    \ InputIter> polynomial(const InputIter first, const InputIter last) : m_vector(first,\
-    \ last) {}\n    polynomial(const ::std::initializer_list<R> il) : m_vector(il)\
-    \ {}\n\n    iterator begin() noexcept { return this->m_vector.begin(); }\n   \
-    \ const_iterator begin() const noexcept { return this->m_vector.begin(); }\n \
-    \   iterator end() noexcept { return this->m_vector.end(); }\n    const_iterator\
-    \ end() const noexcept { return this->m_vector.end(); }\n    const_iterator cbegin()\
-    \ const noexcept { return this->m_vector.cbegin(); }\n    const_iterator cend()\
-    \ const noexcept { return this->m_vector.cend(); }\n    reverse_iterator rbegin()\
-    \ noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator rbegin()\
-    \ const noexcept { return this->m_vector.rbegin(); }\n    const_reverse_iterator\
-    \ crbegin() const noexcept { return this->m_vector.crbegin(); }\n    reverse_iterator\
-    \ rend() noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
-    \ rend() const noexcept { return this->m_vector.rend(); }\n    const_reverse_iterator\
-    \ crend() const noexcept { return this->m_vector.crend(); }\n\n    size_type size()\
-    \ const noexcept { return this->m_vector.size(); }\n    size_type max_size() const\
-    \ noexcept { return this->m_vector.max_size(); }\n    void resize(const size_type\
-    \ sz) { this->m_vector.resize(sz); }\n    void resize(const size_type sz, const\
-    \ R& c) { this->m_vector.resize(sz, c); }\n    size_type capacity() const noexcept\
-    \ { return this->m_vector.capacity(); }\n    bool empty() const noexcept { return\
-    \ this->m_vector.empty(); }\n    void reserve(const size_type n) { this->m_vector.reserve(n);\
-    \ }\n    void shrink_to_fit() { this->m_vector.shrink_to_fit(); }\n\n    reference\
-    \ operator[](const size_type n) { return this->m_vector[n]; }\n    const_reference\
-    \ operator[](const size_type n) const { return this->m_vector[n]; }\n    reference\
-    \ at(const size_type n) { return this->m_vector.at(n); }\n    const_reference\
-    \ at(const size_type n) const { return this->m_vector.at(n); }\n    pointer data()\
-    \ noexcept { return this->m_vector.data(); }\n    const_pointer data() const noexcept\
-    \ { return this->m_vector.data(); }\n    reference front() { return this->m_vector.front();\
-    \ }\n    const_reference front() const { return this->m_vector.front(); }\n  \
-    \  reference back() { return this->m_vector.back(); }\n    const_reference back()\
-    \ const { return this->m_vector.back(); }\n\n    template <class InputIterator>\
-    \ void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first,\
-    \ last); }\n    void assign(const size_type n, const R& u) { this->m_vector.assign(n,\
-    \ u); }\n    void assign(const ::std::initializer_list<R> il) { this->m_vector.assign(il);\
-    \ }\n    void push_back(const R& x) { this->m_vector.push_back(x); }\n    void\
-    \ push_back(R&& x) { this->m_vector.push_back(::std::forward<R>(x)); }\n    template\
-    \ <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...);\
-    \ }\n    void pop_back() { this->m_vector.pop_back(); }\n    iterator insert(const\
-    \ const_iterator position, const R& x) { return this->m_vector.insert(position,\
-    \ x); }\n    iterator insert(const const_iterator position, R&& x) { return this->m_vector.insert(position,\
-    \ ::std::forward<R>(x)); }\n    iterator insert(const const_iterator position,\
-    \ const size_type n, const R& x) { return this->m_vector.insert(position, n, x);\
-    \ }\n    template <class InputIterator> iterator insert(const const_iterator position,\
-    \ const InputIterator first, const InputIterator last) { return this->m_vector.insert(position,\
-    \ first, last); }\n    iterator insert(const const_iterator position, const ::std::initializer_list<R>\
-    \ il) { return this->m_vector.insert(position, il); }\n    template <class...\
-    \ Args> iterator emplace(const const_iterator position, Args&&... args) { return\
-    \ this->m_vector.emplace(position, ::std::forward<Args>(args)...); }\n    iterator\
-    \ erase(const const_iterator position) { return this->m_vector.erase(position);\
-    \ }\n    iterator erase(const const_iterator first, const const_iterator last)\
-    \ { return this->m_vector.erase(first, last); }\n    void swap(P& x) noexcept\
-    \ { this->m_vector.swap(x.m_vector); }\n    void clear() { this->m_vector.clear();\
-    \ }\n\n    allocator_type get_allocator() const noexcept { return this->m_vector.get_allocator();\
-    \ }\n\n    friend bool operator==(const P& x, const P& y) {\n      const auto\
-    \ n = ::std::min(x.size(), y.size());\n      static const auto is_zero = [](const\
-    \ R& e) { return e == AG::e(); };\n      return ::std::equal(x.begin(), x.begin()\
-    \ + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero)\
-    \ && ::std::all_of(y.begin() + n, y.end(), is_zero);\n    }\n    friend bool operator!=(const\
-    \ P& x, const P& y) { return !(x == y); }\n\n    friend void swap(P& x, P& y)\
-    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    int deg() const {\n      for\
-    \ (size_type i = this->size(); i --> 0;) {\n        if ((*this)[i] != AG::e())\
-    \ return i;\n      }\n      return -1;\n    }\n\n    P operator+() const {\n \
-    \     return *this;\n    }\n    P operator-() const {\n      P res(*this);\n \
-    \     for (auto& e : res) {\n        e = AG::inv(e);\n      }\n      return res;\n\
-    \    }\n    P& operator*=(const R& g) {\n      for (auto& e : *this) {\n     \
-    \   e = MM::op(e, g);\n      }\n      return *this;\n    }\n    P& operator/=(const\
-    \ R& g) {\n      assert(AG::e() == MM::e() || g != AG::e());\n      *this *= MM::inv(g);\n\
-    \      return *this;\n    }\n    P& operator+=(const P& g) {\n      const int\
-    \ n = this->size();\n      const int m = g.size();\n      this->resize(::std::max(n,\
-    \ m));\n      for (int i = 0; i < m; ++i) {\n        (*this)[i] = AG::op((*this)[i],\
-    \ g[i]);\n      }\n      return *this;\n    }\n    P& operator-=(const P& g) {\n\
-    \      const int n = this->size();\n      const int m = g.size();\n      this->resize(::std::max(n,\
-    \ m));\n      for (int i = 0; i < m; ++i) {\n        (*this)[i] = AG::op((*this)[i],\
-    \ AG::inv(g[i]));\n      }\n      return *this;\n    }\n    P& operator<<=(const\
-    \ int d) {\n      if (d < 0) *this >>= -d;\n\n      this->insert(this->begin(),\
-    \ d, R(0));\n      return *this;\n    }\n    P& operator>>=(const int d) {\n \
-    \     if (d < 0) *this <<= -d;\n\n      const int n = this->size();\n      this->erase(this->begin(),\
-    \ this->begin() + ::std::min(n, d));\n      return *this;\n    }\n\n    P& operator*=(const\
-    \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\n\
-    \      if (n == 0 && m == 0) {\n        this->clear();\n        return *this;\n\
-    \      }\n      if (n == 0 || m == 0) {\n        ::std::fill(this->begin(), this->end(),\
-    \ AG::e());\n        this->resize(n + m - 1, AG::e());\n        return *this;\n\
-    \      }\n\n      P res;\n      ::tools::convolution<AG, MM>(this->cbegin(), this->cend(),\
-    \ g.cbegin(), g.cend(), ::std::back_inserter(res));\n      return *this = ::std::move(res);\n\
-    \    }\n\n  private:\n    P& divide_inplace_regular(const P& g) {\n      const\
-    \ int n = this->size();\n      const int m = g.size();\n\n      assert(0 < m &&\
-    \ m <= n);\n      assert(AG::e() != MM::e());\n      assert(this->back() != AG::e());\n\
-    \      assert(g.back() != AG::e());\n\n      const auto ic = MM::inv(g.back());\n\
-    \      P q(n - m + 1);\n      for (int i = n - m; i >= 0; --i) {\n        q[i]\
-    \ = MM::op((*this)[m - 1 + i], ic);\n        for (int j = 0; j < m; ++j) {\n \
-    \         (*this)[j + i] = AG::op((*this)[j + i], AG::inv(MM::op(g[j], q[i])));\n\
-    \        }\n      }\n      return *this = ::std::move(q);\n    }\n    P& divide_inplace_faster(const\
-    \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\n\
-    \      static_assert(::tools::has_mod_v<R>);\n      static_assert(::std::is_same_v<AG,\
-    \ ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n\
-    \      assert(::tools::is_prime(R::mod()));\n      assert(0 < m && m <= n);\n\
-    \      assert(AG::e() != MM::e());\n      assert(this->back() != AG::e());\n \
-    \     assert(g.back() != AG::e());\n\n      ::tools::fps<R> q(this->rbegin(),\
-    \ this->rend());\n      q.divide_inplace(::tools::fps<R>(g.rbegin(), g.rend()),\
-    \ n - m + 1);\n      this->assign(q.rbegin(), q.rend());\n      return *this;\n\
-    \    }\n\n  public:\n    P& operator/=(P g) {\n      if (AG::e() == MM::e()) {\n\
-    \        this->clear();\n        return *this;\n      }\n\n      this->resize(this->deg()\
-    \ + 1);\n      g.resize(g.deg() + 1);\n\n      const int n = this->size();\n \
-    \     const int m = g.size();\n\n      assert(m > 0);\n      if (n < m) {\n  \
-    \      this->clear();\n        return *this;\n      }\n\n      if constexpr (::tools::has_mod_v<R>\
-    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
-    \ {\n        assert(::tools::is_prime(R::mod()));\n        return this->divide_inplace_faster(g);\n\
-    \      } else {\n        return this->divide_inplace_regular(g);\n      }\n  \
-    \  }\n    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *=\
-    \ g;\n      q *= AG::inv(MM::e());\n      *this += q;\n      this->resize(this->deg()\
-    \ + 1);\n      return *this;\n    }\n\n    R operator()(const R& a) const {\n\
-    \      auto x = MM::e();\n      auto res = AG::e();\n      for (const auto e :\
-    \ *this) {\n        res = AG::op(res, MM::op(e, x));\n        x = MM::op(x, a);\n\
-    \      }\n      return res;\n    }\n    P operator()(const P& g) const {\n   \
-    \   const int n = this->size();\n      if (n == 0) return *this;\n\n      const\
-    \ auto naive = [&]() {\n        auto g_i = P{MM::e()};\n        auto res = g_i;\n\
-    \        for (int i = 1; i < n; ++i) {\n          g_i *= g;\n          res +=\
-    \ g_i;\n        }\n        return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R>\
-    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
-    \ {\n        if (::tools::is_prime(R::mod()) && n < R::mod() && g.size() == 2\
-    \ && g[1] == R(1)) {\n          ::tools::fact_mod_cache<R> cache;\n          ::tools::pow_mod_cache<R>\
-    \ pow_g0(g[0]);\n\n          P a(n);\n          for (int i = 0; i < n; ++i) {\n\
-    \            a[i] = (*this)[i] * cache.fact(i);\n          }\n\n          P b(n);\n\
-    \          for (int i = 0; i < n; ++i) {\n            b[i] = pow_g0[i] * cache.fact_inv(i);\n\
-    \          }\n          ::std::reverse(b.begin(), b.end());\n\n          auto\
-    \ c = a * b;\n\n          P res(n);\n          for (int i = 0; i < n; ++i) {\n\
-    \            res[i] = c[n - 1 + i] * cache.fact_inv(i);\n          }\n       \
-    \   return res;\n        } else {\n          return naive();\n        }\n    \
-    \  } else {\n        return naive();\n      }\n    }\n\n    friend P operator*(const\
-    \ P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const R& c,\
-    \ const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f, const\
-    \ R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const P& g)\
-    \ { return P(f) += g; }\n    friend P operator-(const P& f, const P& g) { return\
-    \ P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return P(f) *=\
-    \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
-    \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
-    \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
-    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n#endif\n"
+    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 6 \"tests/polynomial/taylor_shift.test.cpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, c;\n  std::cin >> N >> c;\n\
+    \  tools::polynomial<mint> a;\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n\
+    \    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  const auto b\
+    \ = a(tools::polynomial<mint>{mint::raw(c), mint::raw(1)});\n  std::cout << b[0].val();\n\
+    \  for (int i = 1; i < N; ++i) {\n    std::cout << ' ' << b[i].val();\n  }\n \
+    \ std::cout << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/polynomial_taylor_shift\"\
+    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/polynomial.hpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, c;\n  std::cin >> N >> c;\n\
+    \  tools::polynomial<mint> a;\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n\
+    \    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  const auto b\
+    \ = a(tools::polynomial<mint>{mint::raw(c), mint::raw(1)});\n  std::cout << b[0].val();\n\
+    \  for (int i = 1; i < N; ++i) {\n    std::cout << ' ' << b[i].val();\n  }\n \
+    \ std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
+  - tools/polynomial.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
@@ -1549,350 +1370,16 @@ data:
   - tools/find_cycle.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
-  isVerificationFile: false
-  path: tools/polynomial.hpp
-  requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/bostan_mori.hpp
+  isVerificationFile: true
+  path: tests/polynomial/taylor_shift.test.cpp
+  requiredBy: []
   timestamp: '2024-01-07 19:51:44+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/berlekamp_massey.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/bostan_mori.test.cpp
-documentation_of: tools/polynomial.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/polynomial/taylor_shift.test.cpp
 layout: document
-title: Polynomial
+redirect_from:
+- /verify/tests/polynomial/taylor_shift.test.cpp
+- /verify/tests/polynomial/taylor_shift.test.cpp.html
+title: tests/polynomial/taylor_shift.test.cpp
 ---
-
-可換環$R$を係数とする多項式環$R[x]$です。
-
-このクラスは`std::vector<R>`と同様のインタフェースを備えており、$i$番目の要素が$i$次の係数を表しているものとして設計されています。
-
-高次の係数$0$を明示的に持つかどうかによって、ある一つの多項式が複数の表現を持ちます。
-たとえば、`polynomial<R>{3, 2}`、`polynomial<R>{3, 2, 0}`、`polynomial<R>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
-
-### Note
-このページでは、$R[x]$の元$f$の$i$次の係数を$f_i$と表記します。
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## Constructor
-```cpp
-(1) polynomial<R> f();
-(2) polynomial<R> f(std::size_t n);
-(3) polynomial<R> f(std::size_t n, R c);
-(4) template <class InputIterator> polynomial<R> f(InputIterator begin, InputIterator end);
-(5) polynomial<R> f(std::initializer_list<R> il);
-(6) polynomial<AG, MM> f();
-(7) polynomial<AG, MM> f(std::size_t n);
-(8) polynomial<AG, MM> f(std::size_t n, R c);
-(9) template <class InputIterator> polynomial<AG, MM> f(InputIterator begin, InputIterator end);
-(10) polynomial<AG, MM> f(std::initializer_list<R> il);
-```
-
-`std::vector<R>`のコンストラクタとほぼ同様です。
-
-- (1)
-    - $0$を作ります。係数は明示的に持ちません。
-- (2)
-    - $0$を作ります。$n$次未満の係数を明示的に持ちます。
-- (3)
-    - $\sum_{i = 0}^{n - 1} c x^i$を作ります。$n$次未満の係数を明示的に持ちます。
-- (4)
-    - $n$を`end` $-$ `begin`として、$i$次の係数が`begin[i]`である多項式を作ります。$n$次未満の係数を明示的に持ちます。
-- (5)
-    - $n$を`il.size()`として、$i$次の係数が`il.begin()[i]`である多項式を作ります。$n$次未満の係数を明示的に持ちます。
-- (6)$\sim$(10)
-    - 可換環$(R, +, \cdot)$を`AG`と`MM`を使って定義する以外は、それぞれ(1)$\sim$(5)と同じです。
-    - 加法群$(R, +, 0)$は$($ `typename AG::T` $, $ `AG::op` $, $ `AG::e()` $)$によって定義します。
-    - 乗法単位的半群$(R, \cdot, 1)$は$($ `typename MM::T` $, $ `MM::op` $, $ `MM::e()` $)$によって定義します。
-    - これはオプションですが、乗法単位的半群に逆元の定義を追加して$R$を体とすることができます。その場合$x$の乗法逆元$x^{-1}$は`MM::inv(x)`で定義します。
-
-### Constraints
-- (1)$\sim$(5)
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x + y) + z = x + (y + z)$.
-    - For all $x$ in $R$, $0 + x = x + 0 = x$.
-    - For all $x$ in $R$, $(-x) + x = x + (-x) = 0$.
-    - For all $x$ in $R$ and $y$ in $R$, $x + y = y + x$.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x \cdot y) \cdot z = x \cdot (y \cdot z)$.
-    - For all $x$ in $R$, $1 \cdot x = x \cdot 1 = x$.
-    - For all $x$ in $R$ and $y$ in $R$, $x \cdot y = y \cdot x$.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $x \cdot (y + z) = (x \cdot y) + (x \cdot z)$.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x + y) \cdot z = (x \cdot z) + (y \cdot z)$.
-- (6)$\sim$(10)
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
-    - For all $x$ in $R$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
-    - For all $x$ in $R$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
-    - For all $x$ in $R$ and $y$ in $R$, `AG::op(x, y)` $=$ `AG::op(y, x)`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(MM::op(x, y), z)` $=$ `MM::op(x, MM::op(y, z))`.
-    - For all $x$ in $R$, `MM::op(MM::e(), x)` $=$ `MM::op(x, MM::e())` $= x$.
-    - If `MM::inv` is defined, for all $x$ in $R$, `MM::op(MM::inv(x), x)` $=$ `MM::op(x, MM::inv(x))` $=$ `MM::e()`.
-    - For all $x$ in $R$ and $y$ in $R$, `MM::op(x, y)` $=$ `MM::op(y, x)`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(x, AG::op(y, z))` $=$ `AG::op(MM::op(x, y), MM::op(x, z))`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(AG::op(x, y), z)` $=$ `AG::op(MM::op(x, z), MM::op(y, z))`.
-- (4), (9)
-    - `begin` $\leq$ `end`
-
-### Time Complexity
-- (1), (6)
-    - $O(1)$
-- (2), (3), (4), (5), (7), (8), (9), (10)
-    - $O(n)$
-
-## Comparison operators
-```cpp
-bool operator==(polynomial<R> f, polynomial<R> g);
-bool operator!=(polynomial<R> f, polynomial<R> g);
-```
-
-$f$と$g$が多項式として等しいかどうかを返します。
-たとえば`polynomial<R>{3, 2} == polynomial<R>{3, 2, 0}`は`true`です。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n + m)$ where $n$ is `f.size()` and $m$ is `g.size()`
-
-## `std::vector<R>`と同様のメンバ関数
-その他、`std::vector<R>`と同様のメンバ関数を持ちます。
-
-### Constraints
-- Same as ones of `std::vector<R>`.
-
-### Time Complexity
-- Same as ones of `std::vector<R>`.
-
-## deg
-```cpp
-int f.deg();
-```
-
-$\mathrm{deg}(f)$を返します。
-ただし$\mathrm{deg}(0) = -1$とします。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n)$ where $n$ is `f.size()`
-
-## Unary plus operator
-```cpp
-polynomial<R> f.operator+();
-```
-
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$f$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n)$
-
-## Unary minus operator
-```cpp
-polynomial<R> f.operator-();
-```
-
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$-f$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n)$
-
-## Addition operators
-```cpp
-(1) polynomial<R> operator+(polynomial<R> f, polynomial<R> g);
-(2) polynomial<R>& f.operator+=(polynomial<R> g);
-```
-
-$n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を明示的に持つ多項式$f + g$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n + m)$
-
-## Subtraction operators
-```cpp
-(1) polynomial<R> operator-(polynomial<R> f, polynomial<R> g);
-(2) polynomial<R>& f.operator-=(polynomial<R> g);
-```
-
-$n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を明示的に持つ多項式$f - g$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n + m)$
-
-## Scalar multiplication operators
-```cpp
-(1) polynomial<R> operator*(polynomial<R> f, R c);
-(2) polynomial<R> operator*(R c, polynomial<R> f);
-(3) polynomial<R>& f.operator*=(R c);
-```
-
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$cf$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(n)$
-
-## Scalar division operators
-```cpp
-(1) polynomial<R> operator/(polynomial<R> f, R c);
-(2) polynomial<R>& f.operator/=(R c);
-```
-
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$c^{-1} f$を返します。
-
-### Constraints
-- $R$ is a trivial ring or a field.
-- If $R$ is not a trivial ring, $c \neq 0$
-
-### Time Complexity
-- $O(n)$
-
-## Left shift operators
-```cpp
-(1) polynomial<R> operator<<(polynomial<R> f, int d);
-(2) polynomial<R>& f.operator<<=(int d);
-```
-
-$n$を`f.size()`として、$\max(0, n + d)$次未満の係数を明示的に持ち、かつ以下の条件を満たす多項式$g$を返します。
-
-$$\begin{align*}
-\text{For any $i$ such that $0 \leq i < \max(0, n + d)$, } g_i &= \left\{\begin{array}{ll}
-f_{i - d} & \text{(if $0 \leq i - d < n$)}\\
-0 & \text{(otherwise)}
-\end{array}\right.
-\end{align*}$$
-
-$d \geq 0$ならば、$f x^d$と同じです。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\max(n, n + d))$
-
-## Right shift operators
-```cpp
-(1) polynomial<R> operator>>(polynomial<R> f, int d);
-(2) polynomial<R>& f.operator>>=(int d);
-```
-
-$n$を`f.size()`として、$\max(0, n - d)$次未満の係数を明示的に持ち、かつ以下の条件を満たす多項式$g$を返します。
-
-$$\begin{align*}
-\text{For any $i$ such that $0 \leq i < \max(0, n - d)$, } g_i &= \left\{\begin{array}{ll}
-f_{i + d} & \text{(if $0 \leq i + d < n$)}\\
-0 & \text{(otherwise)}
-\end{array}\right.
-\end{align*}$$
-
-$\forall i. 0 \leq i < d \Rightarrow f_i = 0$ならば、$\frac{f}{x^d}$と同じです。
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(\max(n, n - d))$
-
-## Multiplication by polynomial
-```cpp
-(1) polynomial<R> operator*(polynomial<R> f, polynomial<R> g);
-(2) polynomial<R>& f.operator*=(polynomial<R> g);
-```
-
-$n$を`f.size()`、$m$を`g.size()`として、$\max(0, n + m - 1)$次未満の係数を明示的に持つ多項式$fg$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- ($R$ is `atcoder::static_modint`): $O((n + m) \log (n + m))$
-- ($R$ is `atcoder::dynamic_modint`): $O((n + m) \log (n + m))$
-- ($R$ is `float`): $O((n + m) \log (n + m))$
-- ($R$ is `double`): $O((n + m) \log (n + m))$
-- ($R$ is `long double`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<float>`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<double>`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<lond double>`): $O((n + m) \log (n + m))$
-- ($R$ is a built-in integer type): $O((n + m) \log (n + m))$
-- (otherwise): $O(nm)$
-
-## Division by polynomial
-```cpp
-(1) polynomial<R> operator/(polynomial<R> f, polynomial<R> g);
-(2) polynomial<R>& f.operator/=(polynomial<R> g);
-```
-
-$n$を$\mathrm{deg}(f) + 1$、$m$を$\mathrm{deg}(g) + 1$として、$\max(0, n - m + 1)$次未満の係数を明示的に持ち以下の条件を満たす多項式$q$を返します。
-
-$$\begin{align*}
-\mathrm{deg}(q) &= \max(-1, n - m)\\
-\exists r. f(x) &= g(x) q(x) + r(x)
-\end{align*}$$
-
-### Constraints
-- $R$ is a trivial ring or a field.
-- If $R$ is not a trivial ring, $g \neq 0$
-
-### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + \max(1, n - m) \log(\max(1, n - m)))$
-- (otherwise): $O(nm)$
-
-## Modulus operators
-```cpp
-(1) polynomial<R> operator%(polynomial<R> f, polynomial<R> g);
-(2) polynomial<R>& f.operator%=(polynomial<R> g);
-```
-
-$\mathrm{deg}(r) + 1$次未満の係数を明示的に持つ多項式$r = f - gq$を返します。
-$q$は`f / g`で得られる多項式です。
-
-### Constraints
-- $R$ is a trivial ring or a field.
-- If $R$ is not a trivial ring, $g \neq 0$
-
-### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n \log n)$
-- (otherwise): $O(nm)$
-
-## operator()
-```cpp
-(1) R f(R a);
-(2) polynomial<R> f(polynomial<R> g);
-```
-
-- (1)
-    - $f(a)$を返します。
-- (2)
-    - $f(g(x))$を返します。
-
-### Constraints
-- None
-
-### Time Complexity
-- (1)
-    - $O(n)$
-- (2)
-    - ($R$ is $\mathbb{Z}/p\mathbb{Z}$, $n < p$ and $g(x) = x + g(0)$): $O(n \log n)$
-    - (otherwise): $O(n^2 \log n)$

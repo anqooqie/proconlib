@@ -231,6 +231,9 @@ data:
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/taylor_shift.test.cpp
+    title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -423,6 +426,7 @@ data:
   - tests/is_prime.test.cpp
   - tests/prime_factorization.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
