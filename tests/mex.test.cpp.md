@@ -23,16 +23,18 @@ data:
     \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
     \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
     \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/mex.hpp\"\
-    \n\n\n\n#include <iterator>\n#line 6 \"tools/mex.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
-    \ mex(InputIterator begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    const ::std::vector<T> orig(begin, end);\n    const T n = orig.size();\n\
-    \    ::std::vector<bool> exists(n, false);\n    for (const auto& o : orig) {\n\
-    \      if (0 <= o && o < n) {\n        exists[o] = true;\n      }\n    }\n   \
-    \ for (T i = 0; i < n; ++i) {\n      if (!exists[i]) {\n        return i;\n  \
-    \    }\n    }\n    return n;\n  }\n}\n\n\n#line 8 \"tests/mex.test.cpp\"\n\nusing\
-    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  std::vector<ll> v({1000000000000000000, 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(),\
+    \n\n\n\n#include <type_traits>\n#include <utility>\n#line 7 \"tools/mex.hpp\"\n\
+    #include <cstddef>\n#include <cassert>\n#include <algorithm>\n\nnamespace tools\
+    \ {\n\n  template <typename InputIterator>\n  ::std::decay_t<decltype(*::std::declval<InputIterator>())>\
+    \ mex(InputIterator begin, InputIterator end) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \    const ::std::vector<T> orig(begin, end);\n    const ::std::size_t n = orig.size();\n\
+    \n    assert(::std::all_of(orig.begin(), orig.end(), [](const auto& o) { return\
+    \ o >= 0; }));\n\n    ::std::vector<bool> exists(n, false);\n    for (const ::std::size_t\
+    \ o : orig) {\n      if (o < n) {\n        exists[o] = true;\n      }\n    }\n\
+    \    for (::std::size_t i = 0; i < n; ++i) {\n      if (!exists[i]) {\n      \
+    \  return i;\n      }\n    }\n    return n;\n  }\n}\n\n\n#line 8 \"tests/mex.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  std::vector<ll> v({1000000000000000000, 2, 1, 0});\n  assert_that(tools::mex(v.begin(),\
     \ v.end()) == 3);\n  v = std::vector<ll>({3, 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(),\
     \ v.end()) == 4);\n  v = std::vector<ll>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(),\
     \ v.end()) == 5);\n  v = std::vector<ll>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
@@ -41,7 +43,7 @@ data:
     #include <cstdlib>\n#include <iostream>\n#include <vector>\n#include \"tools/assert_that.hpp\"\
     \n#include \"tools/mex.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  std::vector<ll> v({1000000000000000000,\
-    \ 2, 1, 0, -1});\n  assert_that(tools::mex(v.begin(), v.end()) == 3);\n  v = std::vector<ll>({3,\
+    \ 2, 1, 0});\n  assert_that(tools::mex(v.begin(), v.end()) == 3);\n  v = std::vector<ll>({3,\
     \ 3, 2, 2, 1, 1, 0});\n  assert_that(tools::mex(v.begin(), v.end()) == 4);\n \
     \ v = std::vector<ll>({3, 2, 0, 4, 1});\n  assert_that(tools::mex(v.begin(), v.end())\
     \ == 5);\n  v = std::vector<ll>({3, 2, 4, 1});\n  assert_that(tools::mex(v.begin(),\
@@ -52,7 +54,7 @@ data:
   isVerificationFile: true
   path: tests/mex.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2024-01-07 15:56:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/mex.test.cpp

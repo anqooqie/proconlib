@@ -239,14 +239,15 @@ data:
     \    ::std::sort(sorted.begin(), sorted.end());\n    sorted.erase(::std::unique(sorted.begin(),\
     \ sorted.end()), sorted.end());\n    for (auto it = orig.begin(); it != orig.end();\
     \ ++it, ++result) {\n      *result = ::tools::lower_bound(sorted.begin(), sorted.end(),\
-    \ *it);\n    }\n  }\n}\n\n\n#line 1 \"tools/mex.hpp\"\n\n\n\n#line 6 \"tools/mex.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
-    \ mex(InputIterator begin, InputIterator end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    const ::std::vector<T> orig(begin, end);\n    const T n = orig.size();\n\
-    \    ::std::vector<bool> exists(n, false);\n    for (const auto& o : orig) {\n\
-    \      if (0 <= o && o < n) {\n        exists[o] = true;\n      }\n    }\n   \
-    \ for (T i = 0; i < n; ++i) {\n      if (!exists[i]) {\n        return i;\n  \
-    \    }\n    }\n    return n;\n  }\n}\n\n\n#line 12 \"tools/range_count_distinct.hpp\"\
+    \ *it);\n    }\n  }\n}\n\n\n#line 1 \"tools/mex.hpp\"\n\n\n\n#line 10 \"tools/mex.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename InputIterator>\n  ::std::decay_t<decltype(*::std::declval<InputIterator>())>\
+    \ mex(InputIterator begin, InputIterator end) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \    const ::std::vector<T> orig(begin, end);\n    const ::std::size_t n = orig.size();\n\
+    \n    assert(::std::all_of(orig.begin(), orig.end(), [](const auto& o) { return\
+    \ o >= 0; }));\n\n    ::std::vector<bool> exists(n, false);\n    for (const ::std::size_t\
+    \ o : orig) {\n      if (o < n) {\n        exists[o] = true;\n      }\n    }\n\
+    \    for (::std::size_t i = 0; i < n; ++i) {\n      if (!exists[i]) {\n      \
+    \  return i;\n      }\n    }\n    return n;\n  }\n}\n\n\n#line 12 \"tools/range_count_distinct.hpp\"\
     \n\nnamespace tools {\n  class range_count_distinct {\n  private:\n    ::std::size_t\
     \ m_size;\n    ::tools::wavelet_matrix<::std::size_t> m_wm;\n\n  public:\n   \
     \ range_count_distinct() = default;\n    range_count_distinct(const ::tools::range_count_distinct&)\
@@ -291,7 +292,7 @@ data:
   isVerificationFile: true
   path: tests/range_count_distinct.test.cpp
   requiredBy: []
-  timestamp: '2024-01-07 05:26:34+09:00'
+  timestamp: '2024-01-07 15:56:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/range_count_distinct.test.cpp

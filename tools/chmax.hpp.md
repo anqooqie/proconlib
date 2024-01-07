@@ -6,6 +6,9 @@ data:
     path: tools/largest_rectangle_in_histogram.hpp
     title: Largest rectangle in histogram
   - icon: ':heavy_check_mark:'
+    path: tools/longest_common_substring.hpp
+    title: Longest common substring
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -15,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/longest_common_substring.test.cpp
+    title: tests/longest_common_substring.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
@@ -47,6 +53,7 @@ data:
   isVerificationFile: false
   path: tools/chmax.hpp
   requiredBy:
+  - tools/longest_common_substring.hpp
   - tools/largest_rectangle_in_histogram.hpp
   - tools/zero_one_knapsack.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -59,6 +66,7 @@ data:
   - tests/cartesian_tree/interval.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/largest_rectangle_in_histogram.test.cpp
+  - tests/longest_common_substring.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

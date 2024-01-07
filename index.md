@@ -317,6 +317,9 @@ data:
       title: Multiset $S$ such that $\{\sum_{x \in S'} x | S' \subseteq S\} = \{0,
         1, \ldots, N\}$ and $|S| = O(\log N)$
     - icon: ':heavy_check_mark:'
+      path: tools/longest_common_substring.hpp
+      title: Longest common substring
+    - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -781,6 +784,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/logn_integer_partition.test.cpp
       title: tests/logn_integer_partition.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/longest_common_substring.test.cpp
+      title: tests/longest_common_substring.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/median_heap.test.cpp
       title: tests/median_heap.test.cpp
