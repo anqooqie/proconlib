@@ -12,7 +12,7 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  std::vector<ll> v({1000000000000000000, 2, 1, 0, -1});
+  std::vector<ll> v({1000000000000000000, 2, 1, 0});
   assert_that(tools::mex(v.begin(), v.end()) == 3);
   v = std::vector<ll>({3, 3, 2, 2, 1, 1, 0});
   assert_that(tools::mex(v.begin(), v.end()) == 4);

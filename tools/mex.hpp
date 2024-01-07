@@ -1,23 +1,30 @@
 #ifndef TOOLS_MEX_HPP
 #define TOOLS_MEX_HPP
 
-#include <iterator>
+#include <type_traits>
+#include <utility>
 #include <vector>
+#include <cstddef>
+#include <cassert>
+#include <algorithm>
 
 namespace tools {
 
   template <typename InputIterator>
-  typename ::std::iterator_traits<InputIterator>::value_type mex(InputIterator begin, InputIterator end) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
+  ::std::decay_t<decltype(*::std::declval<InputIterator>())> mex(InputIterator begin, InputIterator end) {
+    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
     const ::std::vector<T> orig(begin, end);
-    const T n = orig.size();
+    const ::std::size_t n = orig.size();
+
+    assert(::std::all_of(orig.begin(), orig.end(), [](const auto& o) { return o >= 0; }));
+
     ::std::vector<bool> exists(n, false);
-    for (const auto& o : orig) {
-      if (0 <= o && o < n) {
+    for (const ::std::size_t o : orig) {
+      if (o < n) {
         exists[o] = true;
       }
     }
-    for (T i = 0; i < n; ++i) {
+    for (::std::size_t i = 0; i < n; ++i) {
       if (!exists[i]) {
         return i;
       }
