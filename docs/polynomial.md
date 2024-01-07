@@ -313,13 +313,21 @@ $q$は`f / g`で得られる多項式です。
 
 ## operator()
 ```cpp
-R f(R a);
+(1) R f(R a);
+(2) polynomial<R> f(polynomial<R> g);
 ```
 
-$f(a)$を返します。
+- (1)
+    - $f(a)$を返します。
+- (2)
+    - $f(g(x))$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n)$
+- (1)
+    - $O(n)$
+- (2)
+    - ($R$ is $\mathbb{Z}/p\mathbb{Z}$, $n < p$ and $g(x) = x + g(0)$): $O(n \log n)$
+    - (otherwise): $O(n^2 \log n)$

@@ -16,6 +16,8 @@
 #include "tools/monoid.hpp"
 #include "tools/fps.hpp"
 #include "tools/has_mod.hpp"
+#include "tools/fact_mod_cache.hpp"
+#include "tools/pow_mod_cache.hpp"
 
 namespace tools {
   namespace detail {
@@ -322,6 +324,50 @@ namespace tools {
         x = MM::op(x, a);
       }
       return res;
+    }
+    P operator()(const P& g) const {
+      const int n = this->size();
+      if (n == 0) return *this;
+
+      const auto naive = [&]() {
+        auto g_i = P{MM::e()};
+        auto res = g_i;
+        for (int i = 1; i < n; ++i) {
+          g_i *= g;
+          res += g_i;
+        }
+        return res;
+      };
+
+      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
+        if (::tools::is_prime(R::mod()) && n < R::mod() && g.size() == 2 && g[1] == R(1)) {
+          ::tools::fact_mod_cache<R> cache;
+          ::tools::pow_mod_cache<R> pow_g0(g[0]);
+
+          P a(n);
+          for (int i = 0; i < n; ++i) {
+            a[i] = (*this)[i] * cache.fact(i);
+          }
+
+          P b(n);
+          for (int i = 0; i < n; ++i) {
+            b[i] = pow_g0[i] * cache.fact_inv(i);
+          }
+          ::std::reverse(b.begin(), b.end());
+
+          auto c = a * b;
+
+          P res(n);
+          for (int i = 0; i < n; ++i) {
+            res[i] = c[n - 1 + i] * cache.fact_inv(i);
+          }
+          return res;
+        } else {
+          return naive();
+        }
+      } else {
+        return naive();
+      }
     }
 
     friend P operator*(const P& f, const R& c) { return P(f) *= c; }
