@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/compressor.hpp
     title: Compress values (for more complicated cases)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy: []

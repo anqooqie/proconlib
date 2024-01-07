@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/minimum_spanning_tree
@@ -96,7 +96,7 @@ data:
   path: tests/prim/basic.test.cpp
   requiredBy: []
   timestamp: '2024-01-06 23:16:10+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/prim/basic.test.cpp
 layout: document

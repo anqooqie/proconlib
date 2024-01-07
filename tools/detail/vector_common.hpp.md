@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   _extendedRequiredBy:
@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
   - icon: ':heavy_check_mark:'
@@ -50,7 +50,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
   - icon: ':heavy_check_mark:'
@@ -117,7 +117,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
   - icon: ':heavy_check_mark:'
@@ -150,9 +150,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/vector_common.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -272,7 +272,7 @@ data:
   - tools/directed_line_segment_2d.hpp
   - tools/matrix.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/determinant.test.cpp

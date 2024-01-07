@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
   - icon: ':heavy_check_mark:'

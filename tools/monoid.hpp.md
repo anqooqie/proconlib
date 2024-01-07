@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':warning:'
@@ -44,14 +44,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -63,13 +63,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -173,10 +173,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -191,13 +191,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -215,13 +215,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -236,9 +236,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include\
@@ -308,7 +308,7 @@ data:
   - tools/directed_line_segment_2d.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/ceil_kth_root.test.cpp
   - tests/berlekamp_massey.test.cpp

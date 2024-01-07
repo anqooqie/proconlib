@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'

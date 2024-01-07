@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []

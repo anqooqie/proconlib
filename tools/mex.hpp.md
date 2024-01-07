@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mex.hpp\"\n\n\n\n#include <iterator>\n#include <vector>\n\
@@ -40,7 +40,7 @@ data:
   requiredBy:
   - tools/range_count_distinct.hpp
   timestamp: '2021-09-25 15:53:45+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/mex.test.cpp
   - tests/range_count_distinct.test.cpp

@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/matrix/multiplies.test.cpp
     title: tests/matrix/multiplies.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/matrix/solve.test.cpp
     title: tests/matrix/solve.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -381,7 +381,7 @@ data:
   path: tools/matrix.hpp
   requiredBy: []
   timestamp: '2024-01-06 23:54:38+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
   - tests/matrix/determinant.test.cpp

@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
   - icon: ':heavy_check_mark:'
@@ -25,7 +25,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'

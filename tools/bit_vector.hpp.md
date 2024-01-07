@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
@@ -27,9 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://nyaannyaan.github.io/library/data-structure-2d/wavelet-matrix.hpp.html
@@ -78,7 +78,7 @@ data:
   - tools/wavelet_matrix.hpp
   - tools/range_count_distinct.hpp
   timestamp: '2023-06-25 00:33:03+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/range_count_distinct.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp

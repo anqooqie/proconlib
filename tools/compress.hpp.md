@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/inversion_number.hpp
     title: The number of inversions
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/inversion_number.test.cpp
     title: tests/inversion_number.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/compress.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -58,7 +58,7 @@ data:
   - tools/range_count_distinct.hpp
   - tools/inversion_number.hpp
   timestamp: '2023-06-28 13:29:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/inversion_number.test.cpp
   - tests/range_count_distinct.test.cpp

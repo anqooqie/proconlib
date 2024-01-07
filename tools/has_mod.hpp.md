@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -36,21 +36,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/has_mod.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -76,7 +76,7 @@ data:
   - tools/polynomial.hpp
   - tools/util.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/berlekamp_massey.test.cpp
   - tests/extend_input.test.cpp

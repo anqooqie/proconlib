@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -35,20 +35,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -128,39 +128,39 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
@@ -235,7 +235,7 @@ data:
   - tools/stirling_2nd.hpp
   - tools/persistent_dual_segtree.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dual_segtree.test.cpp
   - tests/berlekamp_massey.test.cpp

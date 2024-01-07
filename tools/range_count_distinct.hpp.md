@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bit_vector.hpp
     title: Bit vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mex.hpp
     title: Minimum excluded value
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/range_count_distinct.hpp\"\n\n\n\n#include <cstddef>\n\
@@ -295,7 +295,7 @@ data:
   path: tools/range_count_distinct.hpp
   requiredBy: []
   timestamp: '2024-01-07 05:26:34+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/range_count_distinct.test.cpp
 documentation_of: tools/range_count_distinct.hpp

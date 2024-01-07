@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bit_vector.hpp
     title: Bit vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mex.hpp
     title: Minimum excluded value
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/static_range_count_distinct
@@ -292,7 +292,7 @@ data:
   path: tests/range_count_distinct.test.cpp
   requiredBy: []
   timestamp: '2024-01-07 05:26:34+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/range_count_distinct.test.cpp
 layout: document

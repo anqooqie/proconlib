@@ -53,7 +53,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -177,10 +177,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
@@ -195,9 +195,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -235,7 +235,7 @@ data:
   - tools/range_of_digit_products.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bezout.test.cpp
   - tests/mo.test.cpp

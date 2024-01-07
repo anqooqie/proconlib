@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/vector_common.hpp
     title: tools/detail/vector_common.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
