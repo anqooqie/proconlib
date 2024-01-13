@@ -189,6 +189,9 @@ namespace tools {
         static const R e = AG::e();
         return this->m_offset < this->m_vector->size() ? (*this->m_vector)[this->m_offset] : e;
       }
+      const R* operator->() const {
+        return &(*(*this));
+      }
 
       coefficient_iterator& operator++() {
         ++this->m_offset;
