@@ -1161,7 +1161,7 @@ data:
     \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
     \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
     \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
-    \ {\n    }\n  };\n}\n\n\n#line 21 \"tools/polynomial.hpp\"\n\nnamespace tools\
+    \ {\n    }\n  };\n}\n\n\n#line 23 \"tools/polynomial.hpp\"\n\nnamespace tools\
     \ {\n  namespace detail {\n    namespace polynomial {\n      template <typename\
     \ T, typename = ::std::void_t<>>\n      struct can_divide : ::std::false_type\
     \ {};\n\n      template <typename T>\n      struct can_divide<T, ::std::void_t<decltype(::std::declval<T>()\
@@ -1280,37 +1280,40 @@ data:
     \ n) {\n        this->m_offset -= n;\n        return *this;\n      }\n      friend\
     \ coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t\
     \ n) {\n        return coefficient_iterator(self.m_vector, self.m_offset + n);\n\
-    \      }\n      friend ::std::ptrdiff_t operator-(const coefficient_iterator&\
-    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
-    \        return lhs.m_offset - rhs.m_offset;\n      }\n      const R& operator[](const\
-    \ ::std::ptrdiff_t n) const {\n        return *(*this + n);\n      }\n\n     \
-    \ friend bool operator==(const coefficient_iterator& lhs, const coefficient_iterator&\
-    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
-    \ == rhs.m_offset;\n      }\n      friend bool operator!=(const coefficient_iterator&\
-    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
-    \        return lhs.m_offset != rhs.m_offset;\n      }\n      friend bool operator<(const\
+    \      }\n      friend coefficient_iterator operator-(const coefficient_iterator&\
+    \ self, const ::std::ptrdiff_t n) {\n        return coefficient_iterator(self.m_vector,\
+    \ self.m_offset - n);\n      }\n      friend ::std::ptrdiff_t operator-(const\
     \ coefficient_iterator& lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector\
-    \ == rhs.m_vector);\n        return lhs.m_offset < rhs.m_offset;\n      }\n  \
-    \    friend bool operator<=(const coefficient_iterator& lhs, const coefficient_iterator&\
-    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
-    \ <= rhs.m_offset;\n      }\n      friend bool operator>(const coefficient_iterator&\
-    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
-    \        return lhs.m_offset > rhs.m_offset;\n      }\n      friend bool operator>=(const\
+    \ == rhs.m_vector);\n        return lhs.m_offset - rhs.m_offset;\n      }\n  \
+    \    const R& operator[](const ::std::ptrdiff_t n) const {\n        return *(*this\
+    \ + n);\n      }\n\n      friend bool operator==(const coefficient_iterator& lhs,\
+    \ const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
+    \        return lhs.m_offset == rhs.m_offset;\n      }\n      friend bool operator!=(const\
     \ coefficient_iterator& lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector\
-    \ == rhs.m_vector);\n        return lhs.m_offset >= rhs.m_offset;\n      }\n \
-    \   };\n    coefficient_iterator pbegin() const {\n      return coefficient_iterator(&this->m_vector,\
-    \ 0);\n    }\n\n    int deg() const {\n      for (size_type i = this->size();\
-    \ i --> 0;) {\n        if ((*this)[i] != AG::e()) return i;\n      }\n      return\
-    \ -1;\n    }\n    P& regularize() {\n      this->resize(this->deg() + 1);\n  \
-    \    return *this;\n    }\n\n    P operator+() const {\n      return P(this->begin(),\
-    \ ::std::next(this->begin(), this->deg() + 1));\n    }\n    P operator-() const\
-    \ {\n      P res;\n      for (auto it = this->begin(), end = ::std::next(this->begin(),\
-    \ this->deg() + 1); it != end; ++it) {\n        res.push_back(AG::inv(*it));\n\
-    \      }\n      return res;\n    }\n    P& operator++() {\n      if (this->empty())\
-    \ {\n        this->push_back(MM::e());\n      } else {\n        (*this)[0] = AG::op((*this)[0],\
-    \ MM::e());\n      }\n      return this->regularize();\n    }\n    P operator++(int)\
-    \ {\n      const auto self = *this;\n      ++*this;\n      return self;\n    }\n\
-    \    P& operator--() {\n      if (this->empty()) {\n        this->push_back(AG::inv(MM::e()));\n\
+    \ == rhs.m_vector);\n        return lhs.m_offset != rhs.m_offset;\n      }\n \
+    \     friend bool operator<(const coefficient_iterator& lhs, const coefficient_iterator&\
+    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
+    \ < rhs.m_offset;\n      }\n      friend bool operator<=(const coefficient_iterator&\
+    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
+    \        return lhs.m_offset <= rhs.m_offset;\n      }\n      friend bool operator>(const\
+    \ coefficient_iterator& lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector\
+    \ == rhs.m_vector);\n        return lhs.m_offset > rhs.m_offset;\n      }\n  \
+    \    friend bool operator>=(const coefficient_iterator& lhs, const coefficient_iterator&\
+    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
+    \ >= rhs.m_offset;\n      }\n    };\n    coefficient_iterator pbegin() const {\n\
+    \      return coefficient_iterator(&this->m_vector, 0);\n    }\n\n    int deg()\
+    \ const {\n      for (size_type i = this->size(); i --> 0;) {\n        if ((*this)[i]\
+    \ != AG::e()) return i;\n      }\n      return -1;\n    }\n    P& regularize()\
+    \ {\n      this->resize(this->deg() + 1);\n      return *this;\n    }\n\n    P\
+    \ operator+() const {\n      return P(this->begin(), ::std::next(this->begin(),\
+    \ this->deg() + 1));\n    }\n    P operator-() const {\n      P res;\n      for\
+    \ (auto it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1);\
+    \ it != end; ++it) {\n        res.push_back(AG::inv(*it));\n      }\n      return\
+    \ res;\n    }\n    P& operator++() {\n      if (this->empty()) {\n        this->push_back(MM::e());\n\
+    \      } else {\n        (*this)[0] = AG::op((*this)[0], MM::e());\n      }\n\
+    \      return this->regularize();\n    }\n    P operator++(int) {\n      const\
+    \ auto self = *this;\n      ++*this;\n      return self;\n    }\n    P& operator--()\
+    \ {\n      if (this->empty()) {\n        this->push_back(AG::inv(MM::e()));\n\
     \      } else {\n        (*this)[0] = AG::op((*this)[0], AG::inv(MM::e()));\n\
     \      }\n      return this->regularize();\n    }\n    P operator--(int) {\n \
     \     const auto self = *this;\n      --*this;\n      return self;\n    }\n  \
@@ -1405,35 +1408,56 @@ data:
     \ 1);\n          } else if (m == 3) {\n            return P(this->begin(), this->begin()\
     \ + n).taylor_shift(g[0] - g[1] * g[1] / (R(4) * g[2])).composition_ax_d(g[2],\
     \ 2).taylor_shift(g[1] / (R(2) * g[2]));\n          }\n        }\n        return\
-    \ naive();\n      } else {\n        return naive();\n      }\n    }\n\n    friend\
-    \ P operator*(const P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const\
-    \ R& c, const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f,\
-    \ const R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const\
-    \ P& g) { return P(f) += g; }\n    friend P operator-(const P& f, const P& g)\
-    \ { return P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return\
-    \ P(f) *= g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /=\
-    \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
-    \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
-    \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
-    }\n\n\n#line 1 \"tools/berlekamp_massey.hpp\"\n\n\n\n#line 9 \"tools/berlekamp_massey.hpp\"\
-    \n\nnamespace tools {\n  template <typename K>\n  ::tools::polynomial<K> berlekamp_massey(const\
-    \ ::tools::polynomial<K>& A) {\n    ::tools::polynomial<K> C{K(1)};\n    ::tools::polynomial<K>\
-    \ B{K(1)};\n    ::std::size_t L = 0;\n    ::std::size_t m = 1;\n    K b(1);\n\n\
-    \    for (::std::size_t n = 0; n < A.size(); ++n) {\n      K d(0);\n      for\
-    \ (::std::size_t i = 0; i <= L; ++i) {\n        d += C[i] * A[n - i];\n      }\n\
-    \n      if (d == K(0)) {\n        ++m;\n      } else {\n        const auto update_C\
-    \ = [&]() {\n          C.resize(::std::max(C.size(), B.size() + m));\n       \
-    \   const auto coeff = d / b;\n          for (::std::size_t i = 0; i < B.size();\
-    \ ++i) {\n            C[i + m] -= coeff * B[i];\n          }\n        };\n   \
-    \     if (2 * L <= n) {\n          const auto T = C;\n          update_C();\n\
-    \          L = n + 1 - L;\n          B = ::std::move(T);\n          b = d;\n \
-    \         m = 1;\n        } else {\n          update_C();\n          ++m;\n  \
-    \      }\n      }\n    }\n\n    assert(!C.empty());\n    assert(C[0] == K(1));\n\
-    \    #ifndef NDEBUG\n      for (::std::size_t n = C.size() - 1; n < A.size();\
-    \ ++n) {\n        K d(0);\n        for (::std::size_t i = 0; i < C.size(); ++i)\
-    \ {\n          d += C[i] * A[n - i];\n        }\n        assert(d == K(0));\n\
-    \      }\n    #endif\n\n    return C;\n  }\n}\n\n\n#line 9 \"tests/berlekamp_massey.test.cpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \ naive();\n      } else {\n        return naive();\n      }\n    }\n\n    template\
+    \ <typename InputIterator>\n    ::std::vector<R> multipoint_evaluation(const InputIterator\
+    \ begin, const InputIterator end) const {\n      ::std::vector<R> p(begin, end);\n\
+    \      const int M = p.size();\n      if (M == 0) return ::std::vector<R>{};\n\
+    \n      const auto naive = [&]() {\n        ::std::vector<R> res;\n        for\
+    \ (const auto& p_i : p) {\n          res.push_back((*this)(p_i));\n        }\n\
+    \        return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R> &&\
+    \ ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
+    \ {\n        if (::tools::is_prime(R::mod())) {\n\n          const auto h = ::tools::ceil_log2(M);\n\
+    \          ::std::vector<P> prods(::tools::pow2(h) * 2);\n          for (int i\
+    \ = 0; i < M; ++i) {\n            prods[::tools::pow2(h) + i] = P{-p[i], R(1)};\n\
+    \          }\n          for (int i = M; i < ::tools::pow2(h); ++i) {\n       \
+    \     prods[::tools::pow2(h) + i] = P{R(1)};\n          }\n          for (int\
+    \ i = ::tools::pow2(h) - 1; i > 0; --i) {\n            prods[i] = prods[i * 2]\
+    \ * prods[i * 2 + 1];\n          }\n\n          ::std::vector<P> mods(::tools::pow2(h)\
+    \ * 2);\n          mods[1] = *this % prods[1];\n          for (int i = 2; i <\
+    \ ::tools::pow2(h) + M; ++i) {\n            mods[i] = mods[i / 2] % prods[i];\n\
+    \          }\n\n          ::std::vector<R> res;\n          res.reserve(M);\n \
+    \         for (int i = 0; i < M; ++i) {\n            res.push_back(*mods[::tools::pow2(h)\
+    \ + i].pbegin());\n          }\n          return res;\n\n        } else {\n  \
+    \        return naive();\n        }\n      } else {\n        return naive();\n\
+    \      }\n    }\n\n    friend P operator*(const P& f, const R& c) { return P(f)\
+    \ *= c; }\n    friend P operator*(const R& c, const P& f) { return P(f) *= c;\
+    \ }\n    friend P operator/(const P& f, const R& c) { return P(f) /= c; }\n  \
+    \  friend P operator+(const P& f, const P& g) { return P(f) += g; }\n    friend\
+    \ P operator-(const P& f, const P& g) { return P(f) -= g; }\n    friend P operator*(const\
+    \ P& f, const P& g) { return P(f) *= g; }\n    friend P operator/(const P& f,\
+    \ const P& g) { return P(f) /= g; }\n    friend P operator%(const P& f, const\
+    \ P& g) { return P(f) %= g; }\n    friend P operator<<(const P& f, const int d)\
+    \ { return P(f) <<= d; }\n    friend P operator>>(const P& f, const int d) { return\
+    \ P(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/berlekamp_massey.hpp\"\n\n\n\n#line\
+    \ 9 \"tools/berlekamp_massey.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ K>\n  ::tools::polynomial<K> berlekamp_massey(const ::tools::polynomial<K>&\
+    \ A) {\n    ::tools::polynomial<K> C{K(1)};\n    ::tools::polynomial<K> B{K(1)};\n\
+    \    ::std::size_t L = 0;\n    ::std::size_t m = 1;\n    K b(1);\n\n    for (::std::size_t\
+    \ n = 0; n < A.size(); ++n) {\n      K d(0);\n      for (::std::size_t i = 0;\
+    \ i <= L; ++i) {\n        d += C[i] * A[n - i];\n      }\n\n      if (d == K(0))\
+    \ {\n        ++m;\n      } else {\n        const auto update_C = [&]() {\n   \
+    \       C.resize(::std::max(C.size(), B.size() + m));\n          const auto coeff\
+    \ = d / b;\n          for (::std::size_t i = 0; i < B.size(); ++i) {\n       \
+    \     C[i + m] -= coeff * B[i];\n          }\n        };\n        if (2 * L <=\
+    \ n) {\n          const auto T = C;\n          update_C();\n          L = n +\
+    \ 1 - L;\n          B = ::std::move(T);\n          b = d;\n          m = 1;\n\
+    \        } else {\n          update_C();\n          ++m;\n        }\n      }\n\
+    \    }\n\n    assert(!C.empty());\n    assert(C[0] == K(1));\n    #ifndef NDEBUG\n\
+    \      for (::std::size_t n = C.size() - 1; n < A.size(); ++n) {\n        K d(0);\n\
+    \        for (::std::size_t i = 0; i < C.size(); ++i) {\n          d += C[i] *\
+    \ A[n - i];\n        }\n        assert(d == K(0));\n      }\n    #endif\n\n  \
+    \  return C;\n  }\n}\n\n\n#line 9 \"tests/berlekamp_massey.test.cpp\"\n\nusing\
+    \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n  tools::polynomial<mint>\
     \ a;\n  a.reserve(N);\n  for (int i = 0; i < N; ++i) {\n    int a_i;\n    std::cin\
     \ >> a_i;\n    a.push_back(mint::raw(a_i));\n  }\n\n  const auto c = tools::berlekamp_massey(a);\n\
@@ -1478,7 +1502,7 @@ data:
   isVerificationFile: true
   path: tests/berlekamp_massey.test.cpp
   requiredBy: []
-  timestamp: '2024-01-13 20:00:12+09:00'
+  timestamp: '2024-01-14 00:15:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/berlekamp_massey.test.cpp

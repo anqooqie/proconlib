@@ -5,9 +5,6 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
-    path: tools/bostan_mori.hpp
-    title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -82,13 +79,14 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
+    PROBLEM: https://judge.yosupo.jp/problem/multipoint_evaluation
     links:
-    - https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-  bundledCode: "#line 1 \"tests/bostan_mori.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
-    \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
-    #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://judge.yosupo.jp/problem/multipoint_evaluation
+  bundledCode: "#line 1 \"tests/polynomial/multipoint_evaluation.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/multipoint_evaluation\"\n\n#include\
+    \ <iostream>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -293,9 +291,9 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
-    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#include <vector>\n\
-    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line 12\
-    \ \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
+    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#line 8 \"tools/polynomial.hpp\"\
+    \n#include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line\
+    \ 12 \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
     \n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
     \n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 1 \"tools/abs.hpp\"\
     \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
@@ -1439,36 +1437,27 @@ data:
     \ const P& g) { return P(f) /= g; }\n    friend P operator%(const P& f, const\
     \ P& g) { return P(f) %= g; }\n    friend P operator<<(const P& f, const int d)\
     \ { return P(f) <<= d; }\n    friend P operator>>(const P& f, const int d) { return\
-    \ P(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/bostan_mori.hpp\"\n\n\n\n#line 9\
-    \ \"tools/bostan_mori.hpp\"\n\nnamespace tools {\n  template <typename M>\n  M\
-    \ bostan_mori(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long\
-    \ long n) {\n    static_assert(::tools::has_mod_v<M>);\n    assert(::std::gcd(Q.empty()\
-    \ ? 0 : Q[0].val(), M::mod()) == 1);\n\n    P.regularize();\n    Q.regularize();\n\
-    \n    while (n > 0) {\n      // Q1(x) = Q(-x)\n      auto Q1 = Q;\n      for (::std::size_t\
-    \ i = 1; i < Q1.size(); i += 2) {\n        Q1[i] = -Q1[i];\n      }\n\n      const\
-    \ auto PQ = P * Q1;\n      const auto QQ = Q * Q1;\n\n      P.clear();\n     \
-    \ for (::std::size_t i = n & 1; i < PQ.size(); i += 2) {\n        P.push_back(PQ[i]);\n\
-    \      }\n      Q.clear();\n      for (::std::size_t i = 0; i < QQ.size(); i +=\
-    \ 2) {\n        Q.push_back(QQ[i]);\n      }\n\n      n /= 2;\n    }\n\n    return\
-    \ P.pbegin()[0] / Q[0];\n  }\n}\n\n\n#line 7 \"tests/bostan_mori.test.cpp\"\n\n\
-    using ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n\
-    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll d,\
-    \ k;\n  std::cin >> d >> k;\n  tools::polynomial<mint> a;\n  a.reserve(d);\n \
-    \ for (ll i = 0; i < d; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n\
-    \  }\n  tools::polynomial<mint> c({mint::raw(1)});\n  c.reserve(d + 1);\n  for\
-    \ (ll i = 1; i <= d; ++i) {\n    ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n\
-    \  }\n\n  a *= c;\n  a.resize(d);\n\n  std::cout << tools::bostan_mori(a, c, k).val()\
-    \ << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
-    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/polynomial.hpp\"\
-    \n#include \"tools/bostan_mori.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll d, k;\n  std::cin >> d >> k;\n  tools::polynomial<mint> a;\n  a.reserve(d);\n\
-    \  for (ll i = 0; i < d; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n\
-    \  }\n  tools::polynomial<mint> c({mint::raw(1)});\n  c.reserve(d + 1);\n  for\
-    \ (ll i = 1; i <= d; ++i) {\n    ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n\
-    \  }\n\n  a *= c;\n  a.resize(d);\n\n  std::cout << tools::bostan_mori(a, c, k).val()\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ P(f) >>= d; }\n  };\n}\n\n\n#line 7 \"tests/polynomial/multipoint_evaluation.test.cpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
+    \  tools::polynomial<mint> f(N);\n  for (int i = 0; i < N; ++i) {\n    int c_i;\n\
+    \    std::cin >> c_i;\n    f[i] = mint::raw(c_i);\n  }\n  std::vector<mint> p(M);\n\
+    \  for (int i = 0; i < M; ++i) {\n    int p_i;\n    std::cin >> p_i;\n    p[i]\
+    \ = mint::raw(p_i);\n  }\n\n  const auto v = f.multipoint_evaluation(p.begin(),\
+    \ p.end());\n\n  std::cout << v[0].val();\n  for (int i = 1; i < M; ++i) {\n \
+    \   std::cout << ' ' << v[i].val();\n  }\n  std::cout << '\\n';\n\n  return 0;\n\
+    }\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/multipoint_evaluation\"\
+    \n\n#include <iostream>\n#include <vector>\n#include \"atcoder/modint.hpp\"\n\
+    #include \"tools/polynomial.hpp\"\n\nusing mint = atcoder::modint998244353;\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, M;\n  std::cin >> N >> M;\n  tools::polynomial<mint> f(N);\n  for (int\
+    \ i = 0; i < N; ++i) {\n    int c_i;\n    std::cin >> c_i;\n    f[i] = mint::raw(c_i);\n\
+    \  }\n  std::vector<mint> p(M);\n  for (int i = 0; i < M; ++i) {\n    int p_i;\n\
+    \    std::cin >> p_i;\n    p[i] = mint::raw(p_i);\n  }\n\n  const auto v = f.multipoint_evaluation(p.begin(),\
+    \ p.end());\n\n  std::cout << v[0].val();\n  for (int i = 1; i < M; ++i) {\n \
+    \   std::cout << ' ' << v[i].val();\n  }\n  std::cout << '\\n';\n\n  return 0;\n\
+    }\n"
   dependsOn:
   - tools/polynomial.hpp
   - tools/is_prime.hpp
@@ -1493,17 +1482,16 @@ data:
   - tools/find_cycle.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
-  - tools/bostan_mori.hpp
   isVerificationFile: true
-  path: tests/bostan_mori.test.cpp
+  path: tests/polynomial/multipoint_evaluation.test.cpp
   requiredBy: []
   timestamp: '2024-01-14 00:15:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bostan_mori.test.cpp
+documentation_of: tests/polynomial/multipoint_evaluation.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bostan_mori.test.cpp
-- /verify/tests/bostan_mori.test.cpp.html
-title: tests/bostan_mori.test.cpp
+- /verify/tests/polynomial/multipoint_evaluation.test.cpp
+- /verify/tests/polynomial/multipoint_evaluation.test.cpp.html
+title: tests/polynomial/multipoint_evaluation.test.cpp
 ---

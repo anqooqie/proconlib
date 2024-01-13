@@ -1154,6 +1154,9 @@ data:
       path: tests/polynomial/multidimensional.test.cpp
       title: tests/polynomial/multidimensional.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/polynomial/multipoint_evaluation.test.cpp
+      title: tests/polynomial/multipoint_evaluation.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/polynomial/naive_division.test.cpp
       title: tests/polynomial/naive_division.test.cpp
     - icon: ':heavy_check_mark:'

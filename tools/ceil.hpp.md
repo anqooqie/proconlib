@@ -170,6 +170,9 @@ data:
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multipoint_evaluation.test.cpp
+    title: tests/polynomial/multipoint_evaluation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -315,6 +318,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil_quotients.test.cpp
