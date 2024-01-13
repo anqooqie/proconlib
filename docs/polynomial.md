@@ -390,3 +390,18 @@ $$\begin{align*}
     - ($R$ is $\mathbb{Z}/p\mathbb{Z}$, $n < p$ and $\mathrm{deg}(g) \leq 2$): $O(n + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()`
     - (the above condition does not hold and $R$ is `atcoder::static_modint`, `atcoder::dynamic_modint`, `float`, `double`, `long double`, `std::complex<float>`, `std::complex<double>`, `std::complex<long double>` or an integral type): $O(n + m + \mathrm{deg}(f)^2 \mathrm{deg}(g) (\log \mathrm{deg}(f) + \log \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
     - (otherwise): $O(n + m + \mathrm{deg}(f)^2 \mathrm{deg}(g)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
+
+## multipoint_evaluation
+```cpp
+template <typename InputIterator>
+std::vector<R> f.multipoint_evaluation(InputIterator begin, InputIterator end);
+```
+
+$p_0, p_1, \ldots$に対して$f(p_0), f(p_1), \ldots$を求めて返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O\left( n + \mathrm{deg}(f) \log\left(\mathrm{deg}(f)\right) + m (\log m)^2 \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
+- (otherwise): $O\left( n + \mathrm{deg}(f) \cdot m \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`

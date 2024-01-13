@@ -18,6 +18,8 @@
 #include "tools/has_mod.hpp"
 #include "tools/fact_mod_cache.hpp"
 #include "tools/pow_mod_cache.hpp"
+#include "tools/ceil_log2.hpp"
+#include "tools/pow2.hpp"
 
 namespace tools {
   namespace detail {
@@ -221,6 +223,9 @@ namespace tools {
       }
       friend coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
         return coefficient_iterator(self.m_vector, self.m_offset + n);
+      }
+      friend coefficient_iterator operator-(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
+        return coefficient_iterator(self.m_vector, self.m_offset - n);
       }
       friend ::std::ptrdiff_t operator-(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
         assert(lhs.m_vector == rhs.m_vector);
@@ -558,6 +563,56 @@ namespace tools {
           }
         }
         return naive();
+      } else {
+        return naive();
+      }
+    }
+
+    template <typename InputIterator>
+    ::std::vector<R> multipoint_evaluation(const InputIterator begin, const InputIterator end) const {
+      ::std::vector<R> p(begin, end);
+      const int M = p.size();
+      if (M == 0) return ::std::vector<R>{};
+
+      const auto naive = [&]() {
+        ::std::vector<R> res;
+        for (const auto& p_i : p) {
+          res.push_back((*this)(p_i));
+        }
+        return res;
+      };
+
+      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
+        if (::tools::is_prime(R::mod())) {
+
+          const auto h = ::tools::ceil_log2(M);
+          ::std::vector<P> prods(::tools::pow2(h) * 2);
+          for (int i = 0; i < M; ++i) {
+            prods[::tools::pow2(h) + i] = P{-p[i], R(1)};
+          }
+          for (int i = M; i < ::tools::pow2(h); ++i) {
+            prods[::tools::pow2(h) + i] = P{R(1)};
+          }
+          for (int i = ::tools::pow2(h) - 1; i > 0; --i) {
+            prods[i] = prods[i * 2] * prods[i * 2 + 1];
+          }
+
+          ::std::vector<P> mods(::tools::pow2(h) * 2);
+          mods[1] = *this % prods[1];
+          for (int i = 2; i < ::tools::pow2(h) + M; ++i) {
+            mods[i] = mods[i / 2] % prods[i];
+          }
+
+          ::std::vector<R> res;
+          res.reserve(M);
+          for (int i = 0; i < M; ++i) {
+            res.push_back(*mods[::tools::pow2(h) + i].pbegin());
+          }
+          return res;
+
+        } else {
+          return naive();
+        }
       } else {
         return naive();
       }
