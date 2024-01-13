@@ -1,54 +1,54 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -757,32 +757,36 @@ data:
     \ x.m_vector != y.m_vector; }\n\n    friend void swap(F& x, F& y) noexcept { x.m_vector.swap(y.m_vector);\
     \ }\n\n    F operator+() const {\n      return *this;\n    }\n    F operator-()\
     \ const {\n      F res(*this);\n      for (auto& e : res) {\n        e = -e;\n\
-    \      }\n      return res;\n    }\n    F& operator*=(const M& g) {\n      for\
-    \ (auto& e : *this) {\n        e *= g;\n      }\n      return *this;\n    }\n\
-    \    F& operator/=(const M& g) {\n      assert(::std::gcd(g.val(), M::mod()) ==\
-    \ 1);\n      *this *= g.inv();\n      return *this;\n    }\n    F& operator+=(const\
-    \ F& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
-    \      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n\
-    \      }\n      return *this;\n    }\n    F& operator-=(const F& g) {\n      const\
-    \ int n = this->size();\n      const int m = g.size();\n      for (int i = 0;\
-    \ i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n      }\n      return\
-    \ *this;\n    }\n    F& operator<<=(const int d) {\n      if (d < 0) *this >>=\
-    \ -d;\n\n      const int n = this->size();\n      this->resize(::std::max(0, n\
-    \ - d));\n      this->insert(this->begin(), ::std::min(n, d), M::raw(0));\n  \
-    \    return *this;\n    }\n    F& operator>>=(const int d) {\n      if (d < 0)\
-    \ *this <<= -d;\n\n      const int n = this->size();\n      this->erase(this->begin(),\
-    \ this->begin() + ::std::min(n, d));\n      this->resize(n);\n      return *this;\n\
-    \    }\n    F& multiply_inplace(const F& g, const int d) {\n      assert(d >=\
-    \ 0);\n      const int n = this->size();\n      F res;\n      ::tools::convolution(this->cbegin(),\
-    \ this->cbegin() + ::std::min(d, n), g.cbegin(), g.cbegin() + ::std::min<int>(d,\
-    \ g.size()), ::std::back_inserter(res));\n      res.resize(d);\n      *this =\
-    \ ::std::move(res);\n      return *this;\n    }\n    F& multiply_inplace(const\
-    \ F& g) { return this->multiply_inplace(g, this->size()); }\n    F& operator*=(const\
-    \ F& g) { return this->multiply_inplace(g); }\n    F multiply(const F& g, const\
-    \ int d) const { return F(*this).multiply_inplace(g, d); }\n    F multiply(const\
-    \ F& g) const { return this->multiply(g, this->size()); }\n\n  private:\n    F\
-    \ inv_regular(const int d) const {\n      assert(d > 0);\n      assert(M::mod()\
-    \ > 1);\n      assert(!this->empty());\n      assert(::std::gcd((*this)[0].val(),\
+    \      }\n      return res;\n    }\n    F& operator++() {\n      if (!this->empty())\
+    \ ++(*this)[0];\n      return *this;\n    }\n    F operator++(int) {\n      const\
+    \ auto self = *this;\n      ++*this;\n      return self;\n    }\n    F& operator--()\
+    \ {\n      if (!this->empty()) --(*this)[0];\n      return *this;\n    }\n   \
+    \ F operator--(int) {\n      const auto self = *this;\n      --*this;\n      return\
+    \ self;\n    }\n    F& operator*=(const M& g) {\n      for (auto& e : *this) {\n\
+    \        e *= g;\n      }\n      return *this;\n    }\n    F& operator/=(const\
+    \ M& g) {\n      assert(::std::gcd(g.val(), M::mod()) == 1);\n      *this *= g.inv();\n\
+    \      return *this;\n    }\n    F& operator+=(const F& g) {\n      const int\
+    \ n = this->size();\n      const int m = g.size();\n      for (int i = 0; i <\
+    \ ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n      }\n      return\
+    \ *this;\n    }\n    F& operator-=(const F& g) {\n      const int n = this->size();\n\
+    \      const int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i)\
+    \ {\n        (*this)[i] -= g[i];\n      }\n      return *this;\n    }\n    F&\
+    \ operator<<=(const int d) {\n      if (d < 0) *this >>= -d;\n\n      const int\
+    \ n = this->size();\n      this->resize(::std::max(0, n - d));\n      this->insert(this->begin(),\
+    \ ::std::min(n, d), M::raw(0));\n      return *this;\n    }\n    F& operator>>=(const\
+    \ int d) {\n      if (d < 0) *this <<= -d;\n\n      const int n = this->size();\n\
+    \      this->erase(this->begin(), this->begin() + ::std::min(n, d));\n      this->resize(n);\n\
+    \      return *this;\n    }\n    F& multiply_inplace(const F& g, const int d)\
+    \ {\n      assert(d >= 0);\n      const int n = this->size();\n      F res;\n\
+    \      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n),\
+    \ g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));\n\
+    \      res.resize(d);\n      *this = ::std::move(res);\n      return *this;\n\
+    \    }\n    F& multiply_inplace(const F& g) { return this->multiply_inplace(g,\
+    \ this->size()); }\n    F& operator*=(const F& g) { return this->multiply_inplace(g);\
+    \ }\n    F multiply(const F& g, const int d) const { return F(*this).multiply_inplace(g,\
+    \ d); }\n    F multiply(const F& g) const { return this->multiply(g, this->size());\
+    \ }\n\n  private:\n    F inv_regular(const int d) const {\n      assert(d > 0);\n\
+    \      assert(M::mod() > 1);\n      assert(!this->empty());\n      assert(::std::gcd((*this)[0].val(),\
     \ M::mod()) == 1);\n\n      const int n = this->size();\n      F res{(*this)[0].inv()};\n\
     \      for (int m = 1; m < d; m *= 2) {\n        F f(this->begin(), this->begin()\
     \ + ::std::min(n, 2 * m));\n        f *= -1;\n        F r(res);\n        r.multiply_inplace(r,\
@@ -1053,7 +1057,7 @@ data:
   isVerificationFile: true
   path: tests/partition_function/n.test.cpp
   requiredBy: []
-  timestamp: '2024-01-06 13:04:58+09:00'
+  timestamp: '2024-01-13 18:29:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/partition_function/n.test.cpp

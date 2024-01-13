@@ -1,82 +1,82 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/division_of_polynomials
@@ -777,32 +777,36 @@ data:
     \ x.m_vector != y.m_vector; }\n\n    friend void swap(F& x, F& y) noexcept { x.m_vector.swap(y.m_vector);\
     \ }\n\n    F operator+() const {\n      return *this;\n    }\n    F operator-()\
     \ const {\n      F res(*this);\n      for (auto& e : res) {\n        e = -e;\n\
-    \      }\n      return res;\n    }\n    F& operator*=(const M& g) {\n      for\
-    \ (auto& e : *this) {\n        e *= g;\n      }\n      return *this;\n    }\n\
-    \    F& operator/=(const M& g) {\n      assert(::std::gcd(g.val(), M::mod()) ==\
-    \ 1);\n      *this *= g.inv();\n      return *this;\n    }\n    F& operator+=(const\
-    \ F& g) {\n      const int n = this->size();\n      const int m = g.size();\n\
-    \      for (int i = 0; i < ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n\
-    \      }\n      return *this;\n    }\n    F& operator-=(const F& g) {\n      const\
-    \ int n = this->size();\n      const int m = g.size();\n      for (int i = 0;\
-    \ i < ::std::min(n, m); ++i) {\n        (*this)[i] -= g[i];\n      }\n      return\
-    \ *this;\n    }\n    F& operator<<=(const int d) {\n      if (d < 0) *this >>=\
-    \ -d;\n\n      const int n = this->size();\n      this->resize(::std::max(0, n\
-    \ - d));\n      this->insert(this->begin(), ::std::min(n, d), M::raw(0));\n  \
-    \    return *this;\n    }\n    F& operator>>=(const int d) {\n      if (d < 0)\
-    \ *this <<= -d;\n\n      const int n = this->size();\n      this->erase(this->begin(),\
-    \ this->begin() + ::std::min(n, d));\n      this->resize(n);\n      return *this;\n\
-    \    }\n    F& multiply_inplace(const F& g, const int d) {\n      assert(d >=\
-    \ 0);\n      const int n = this->size();\n      F res;\n      ::tools::convolution(this->cbegin(),\
-    \ this->cbegin() + ::std::min(d, n), g.cbegin(), g.cbegin() + ::std::min<int>(d,\
-    \ g.size()), ::std::back_inserter(res));\n      res.resize(d);\n      *this =\
-    \ ::std::move(res);\n      return *this;\n    }\n    F& multiply_inplace(const\
-    \ F& g) { return this->multiply_inplace(g, this->size()); }\n    F& operator*=(const\
-    \ F& g) { return this->multiply_inplace(g); }\n    F multiply(const F& g, const\
-    \ int d) const { return F(*this).multiply_inplace(g, d); }\n    F multiply(const\
-    \ F& g) const { return this->multiply(g, this->size()); }\n\n  private:\n    F\
-    \ inv_regular(const int d) const {\n      assert(d > 0);\n      assert(M::mod()\
-    \ > 1);\n      assert(!this->empty());\n      assert(::std::gcd((*this)[0].val(),\
+    \      }\n      return res;\n    }\n    F& operator++() {\n      if (!this->empty())\
+    \ ++(*this)[0];\n      return *this;\n    }\n    F operator++(int) {\n      const\
+    \ auto self = *this;\n      ++*this;\n      return self;\n    }\n    F& operator--()\
+    \ {\n      if (!this->empty()) --(*this)[0];\n      return *this;\n    }\n   \
+    \ F operator--(int) {\n      const auto self = *this;\n      --*this;\n      return\
+    \ self;\n    }\n    F& operator*=(const M& g) {\n      for (auto& e : *this) {\n\
+    \        e *= g;\n      }\n      return *this;\n    }\n    F& operator/=(const\
+    \ M& g) {\n      assert(::std::gcd(g.val(), M::mod()) == 1);\n      *this *= g.inv();\n\
+    \      return *this;\n    }\n    F& operator+=(const F& g) {\n      const int\
+    \ n = this->size();\n      const int m = g.size();\n      for (int i = 0; i <\
+    \ ::std::min(n, m); ++i) {\n        (*this)[i] += g[i];\n      }\n      return\
+    \ *this;\n    }\n    F& operator-=(const F& g) {\n      const int n = this->size();\n\
+    \      const int m = g.size();\n      for (int i = 0; i < ::std::min(n, m); ++i)\
+    \ {\n        (*this)[i] -= g[i];\n      }\n      return *this;\n    }\n    F&\
+    \ operator<<=(const int d) {\n      if (d < 0) *this >>= -d;\n\n      const int\
+    \ n = this->size();\n      this->resize(::std::max(0, n - d));\n      this->insert(this->begin(),\
+    \ ::std::min(n, d), M::raw(0));\n      return *this;\n    }\n    F& operator>>=(const\
+    \ int d) {\n      if (d < 0) *this <<= -d;\n\n      const int n = this->size();\n\
+    \      this->erase(this->begin(), this->begin() + ::std::min(n, d));\n      this->resize(n);\n\
+    \      return *this;\n    }\n    F& multiply_inplace(const F& g, const int d)\
+    \ {\n      assert(d >= 0);\n      const int n = this->size();\n      F res;\n\
+    \      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n),\
+    \ g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));\n\
+    \      res.resize(d);\n      *this = ::std::move(res);\n      return *this;\n\
+    \    }\n    F& multiply_inplace(const F& g) { return this->multiply_inplace(g,\
+    \ this->size()); }\n    F& operator*=(const F& g) { return this->multiply_inplace(g);\
+    \ }\n    F multiply(const F& g, const int d) const { return F(*this).multiply_inplace(g,\
+    \ d); }\n    F multiply(const F& g) const { return this->multiply(g, this->size());\
+    \ }\n\n  private:\n    F inv_regular(const int d) const {\n      assert(d > 0);\n\
+    \      assert(M::mod() > 1);\n      assert(!this->empty());\n      assert(::std::gcd((*this)[0].val(),\
     \ M::mod()) == 1);\n\n      const int n = this->size();\n      F res{(*this)[0].inv()};\n\
     \      for (int m = 1; m < d; m *= 2) {\n        F f(this->begin(), this->begin()\
     \ + ::std::min(n, 2 * m));\n        f *= -1;\n        F r(res);\n        r.multiply_inplace(r,\
@@ -1249,39 +1253,91 @@ data:
     \ + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero)\
     \ && ::std::all_of(y.begin() + n, y.end(), is_zero);\n    }\n    friend bool operator!=(const\
     \ P& x, const P& y) { return !(x == y); }\n\n    friend void swap(P& x, P& y)\
-    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    int deg() const {\n      for\
-    \ (size_type i = this->size(); i --> 0;) {\n        if ((*this)[i] != AG::e())\
-    \ return i;\n      }\n      return -1;\n    }\n\n    P operator+() const {\n \
-    \     return *this;\n    }\n    P operator-() const {\n      P res(*this);\n \
-    \     for (auto& e : res) {\n        e = AG::inv(e);\n      }\n      return res;\n\
-    \    }\n    P& operator*=(const R& g) {\n      for (auto& e : *this) {\n     \
-    \   e = MM::op(e, g);\n      }\n      return *this;\n    }\n    P& operator/=(const\
-    \ R& g) {\n      assert(AG::e() == MM::e() || g != AG::e());\n      *this *= MM::inv(g);\n\
-    \      return *this;\n    }\n    P& operator+=(const P& g) {\n      const int\
-    \ n = this->size();\n      const int m = g.size();\n      this->resize(::std::max(n,\
-    \ m));\n      for (int i = 0; i < m; ++i) {\n        (*this)[i] = AG::op((*this)[i],\
-    \ g[i]);\n      }\n      return *this;\n    }\n    P& operator-=(const P& g) {\n\
-    \      const int n = this->size();\n      const int m = g.size();\n      this->resize(::std::max(n,\
-    \ m));\n      for (int i = 0; i < m; ++i) {\n        (*this)[i] = AG::op((*this)[i],\
-    \ AG::inv(g[i]));\n      }\n      return *this;\n    }\n    P& operator<<=(const\
-    \ int d) {\n      if (d < 0) *this >>= -d;\n\n      this->insert(this->begin(),\
-    \ d, R(0));\n      return *this;\n    }\n    P& operator>>=(const int d) {\n \
-    \     if (d < 0) *this <<= -d;\n\n      const int n = this->size();\n      this->erase(this->begin(),\
-    \ this->begin() + ::std::min(n, d));\n      return *this;\n    }\n\n    P& operator*=(const\
-    \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\n\
-    \      if (n == 0 && m == 0) {\n        this->clear();\n        return *this;\n\
-    \      }\n      if (n == 0 || m == 0) {\n        ::std::fill(this->begin(), this->end(),\
-    \ AG::e());\n        this->resize(n + m - 1, AG::e());\n        return *this;\n\
-    \      }\n\n      P res;\n      ::tools::convolution<AG, MM>(this->cbegin(), this->cend(),\
-    \ g.cbegin(), g.cend(), ::std::back_inserter(res));\n      return *this = ::std::move(res);\n\
-    \    }\n\n  private:\n    P& divide_inplace_regular(const P& g) {\n      const\
-    \ int n = this->size();\n      const int m = g.size();\n\n      assert(0 < m &&\
-    \ m <= n);\n      assert(AG::e() != MM::e());\n      assert(this->back() != AG::e());\n\
-    \      assert(g.back() != AG::e());\n\n      const auto ic = MM::inv(g.back());\n\
-    \      P q(n - m + 1);\n      for (int i = n - m; i >= 0; --i) {\n        q[i]\
-    \ = MM::op((*this)[m - 1 + i], ic);\n        for (int j = 0; j < m; ++j) {\n \
-    \         (*this)[j + i] = AG::op((*this)[j + i], AG::inv(MM::op(g[j], q[i])));\n\
-    \        }\n      }\n      return *this = ::std::move(q);\n    }\n    P& divide_inplace_faster(const\
+    \ noexcept { x.m_vector.swap(y.m_vector); }\n\n    class coefficient_iterator\
+    \ {\n    private:\n      const ::std::vector<R> *m_vector;\n      ::std::size_t\
+    \ m_offset;\n\n    public:\n      using difference_type = ::std::ptrdiff_t;\n\
+    \      using value_type = R;\n      using reference = const R&;\n      using pointer\
+    \ = const R*;\n      using iterator_category = ::std::random_access_iterator_tag;\n\
+    \n      coefficient_iterator() = default;\n      coefficient_iterator(const coefficient_iterator&\
+    \ other) = default;\n      ~coefficient_iterator() = default;\n      coefficient_iterator&\
+    \ operator=(const coefficient_iterator& other) = default;\n\n      coefficient_iterator(const\
+    \ ::std::vector<R> * const vector, const ::std::size_t offset) :\n        m_vector(vector),\n\
+    \        m_offset(offset) {\n      }\n\n      const R& operator*() const {\n \
+    \       static const R e = AG::e();\n        return this->m_offset < this->m_vector->size()\
+    \ ? (*this->m_vector)[this->m_offset] : e;\n      }\n\n      coefficient_iterator&\
+    \ operator++() {\n        ++this->m_offset;\n        return *this;\n      }\n\
+    \      coefficient_iterator operator++(int) {\n        const auto self = *this;\n\
+    \        ++*this;\n        return self;\n      }\n      coefficient_iterator&\
+    \ operator--() {\n        --this->m_offset;\n        return *this;\n      }\n\
+    \      coefficient_iterator operator--(int) {\n        const auto self = *this;\n\
+    \        --*this;\n        return self;\n      }\n      coefficient_iterator&\
+    \ operator+=(const ::std::ptrdiff_t n) {\n        this->m_offset += n;\n     \
+    \   return *this;\n      }\n      coefficient_iterator& operator-=(const ::std::ptrdiff_t\
+    \ n) {\n        this->m_offset -= n;\n        return *this;\n      }\n      friend\
+    \ coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t\
+    \ n) {\n        return coefficient_iterator(self.m_vector, self.m_offset + n);\n\
+    \      }\n      friend ::std::ptrdiff_t operator-(const coefficient_iterator&\
+    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
+    \        return lhs.m_offset - rhs.m_offset;\n      }\n      const R& operator[](const\
+    \ ::std::ptrdiff_t n) const {\n        return *(*this + n);\n      }\n\n     \
+    \ friend bool operator==(const coefficient_iterator& lhs, const coefficient_iterator&\
+    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
+    \ == rhs.m_offset;\n      }\n      friend bool operator!=(const coefficient_iterator&\
+    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
+    \        return lhs.m_offset != rhs.m_offset;\n      }\n      friend bool operator<(const\
+    \ coefficient_iterator& lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector\
+    \ == rhs.m_vector);\n        return lhs.m_offset < rhs.m_offset;\n      }\n  \
+    \    friend bool operator<=(const coefficient_iterator& lhs, const coefficient_iterator&\
+    \ rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n        return lhs.m_offset\
+    \ <= rhs.m_offset;\n      }\n      friend bool operator>(const coefficient_iterator&\
+    \ lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector == rhs.m_vector);\n\
+    \        return lhs.m_offset > rhs.m_offset;\n      }\n      friend bool operator>=(const\
+    \ coefficient_iterator& lhs, const coefficient_iterator& rhs) {\n        assert(lhs.m_vector\
+    \ == rhs.m_vector);\n        return lhs.m_offset >= rhs.m_offset;\n      }\n \
+    \   };\n    coefficient_iterator pbegin() const {\n      return coefficient_iterator(&this->m_vector,\
+    \ 0);\n    }\n\n    int deg() const {\n      for (size_type i = this->size();\
+    \ i --> 0;) {\n        if ((*this)[i] != AG::e()) return i;\n      }\n      return\
+    \ -1;\n    }\n    P& regularize() {\n      this->resize(this->deg() + 1);\n  \
+    \    return *this;\n    }\n\n    P operator+() const {\n      return P(this->begin(),\
+    \ ::std::next(this->begin(), this->deg() + 1));\n    }\n    P operator-() const\
+    \ {\n      P res;\n      for (auto it = this->begin(), end = ::std::next(this->begin(),\
+    \ this->deg() + 1); it != end; ++it) {\n        res.push_back(AG::inv(*it));\n\
+    \      }\n      return res;\n    }\n    P& operator++() {\n      if (this->empty())\
+    \ {\n        this->push_back(MM::e());\n      } else {\n        (*this)[0] = AG::op((*this)[0],\
+    \ MM::e());\n      }\n      return this->regularize();\n    }\n    P operator++(int)\
+    \ {\n      const auto self = *this;\n      ++*this;\n      return self;\n    }\n\
+    \    P& operator--() {\n      if (this->empty()) {\n        this->push_back(AG::inv(MM::e()));\n\
+    \      } else {\n        (*this)[0] = AG::op((*this)[0], AG::inv(MM::e()));\n\
+    \      }\n      return this->regularize();\n    }\n    P operator--(int) {\n \
+    \     const auto self = *this;\n      --*this;\n      return self;\n    }\n  \
+    \  P& operator*=(const R& g) {\n      this->regularize();\n      for (auto& e\
+    \ : *this) {\n        e = MM::op(e, g);\n      }\n      return this->regularize();\n\
+    \    }\n    P& operator/=(const R& g) {\n      assert(AG::e() == MM::e() || g\
+    \ != AG::e());\n      return *this *= MM::inv(g);\n    }\n    P& operator+=(const\
+    \ P& g) {\n      const int n = this->deg() + 1;\n      const int m = g.deg() +\
+    \ 1;\n      this->resize(::std::max(n, m), AG::e());\n      for (int i = 0; i\
+    \ < m; ++i) {\n        (*this)[i] = AG::op((*this)[i], g[i]);\n      }\n     \
+    \ return this->regularize();\n    }\n    P& operator-=(const P& g) {\n      const\
+    \ int n = this->deg() + 1;\n      const int m = g.deg() + 1;\n      this->resize(::std::max(n,\
+    \ m), AG::e());\n      for (int i = 0; i < m; ++i) {\n        (*this)[i] = AG::op((*this)[i],\
+    \ AG::inv(g[i]));\n      }\n      return this->regularize();\n    }\n    P& operator<<=(const\
+    \ int d) {\n      if (d < 0) *this >>= -d;\n\n      this->regularize();\n    \
+    \  if (!this->empty()) {\n        this->insert(this->begin(), d, AG::e());\n \
+    \     }\n      return *this;\n    }\n    P& operator>>=(const int d) {\n     \
+    \ if (d < 0) *this <<= -d;\n\n      this->regularize();\n      const int n = this->size();\n\
+    \      this->erase(this->begin(), this->begin() + ::std::min(n, d));\n      return\
+    \ *this;\n    }\n\n    P& operator*=(const P& g) {\n      const int n = this->deg()\
+    \ + 1;\n      const int m = g.deg() + 1;\n\n      P res;\n      ::tools::convolution<AG,\
+    \ MM>(this->cbegin(), this->cbegin() + n, g.cbegin(), g.cbegin() + m, ::std::back_inserter(res));\n\
+    \      res.regularize();\n      return *this = ::std::move(res);\n    }\n\n  private:\n\
+    \    P& divide_inplace_naive(const P& g) {\n      const int n = this->size();\n\
+    \      const int m = g.size();\n\n      assert(0 < m && m <= n);\n      assert(AG::e()\
+    \ != MM::e());\n      assert(this->back() != AG::e());\n      assert(g.back()\
+    \ != AG::e());\n\n      const auto ic = MM::inv(g.back());\n      P q(n - m +\
+    \ 1);\n      for (int i = n - m; i >= 0; --i) {\n        q[i] = MM::op((*this)[m\
+    \ - 1 + i], ic);\n        for (int j = 0; j < m; ++j) {\n          (*this)[j +\
+    \ i] = AG::op((*this)[j + i], AG::inv(MM::op(g[j], q[i])));\n        }\n     \
+    \ }\n      return *this = ::std::move(q);\n    }\n    P& divide_inplace_faster(const\
     \ P& g) {\n      const int n = this->size();\n      const int m = g.size();\n\n\
     \      static_assert(::tools::has_mod_v<R>);\n      static_assert(::std::is_same_v<AG,\
     \ ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n\
@@ -1291,48 +1347,75 @@ data:
     \ this->rend());\n      q.divide_inplace(::tools::fps<R>(g.rbegin(), g.rend()),\
     \ n - m + 1);\n      this->assign(q.rbegin(), q.rend());\n      return *this;\n\
     \    }\n\n  public:\n    P& operator/=(P g) {\n      if (AG::e() == MM::e()) {\n\
-    \        this->clear();\n        return *this;\n      }\n\n      this->resize(this->deg()\
-    \ + 1);\n      g.resize(g.deg() + 1);\n\n      const int n = this->size();\n \
-    \     const int m = g.size();\n\n      assert(m > 0);\n      if (n < m) {\n  \
-    \      this->clear();\n        return *this;\n      }\n\n      if constexpr (::tools::has_mod_v<R>\
-    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
+    \        this->clear();\n        return *this;\n      }\n\n      this->regularize();\n\
+    \      g.regularize();\n\n      const int n = this->size();\n      const int m\
+    \ = g.size();\n\n      assert(m > 0);\n      if (n < m) {\n        this->clear();\n\
+    \        return *this;\n      }\n\n      if constexpr (::tools::has_mod_v<R> &&\
+    \ ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
     \ {\n        assert(::tools::is_prime(R::mod()));\n        return this->divide_inplace_faster(g);\n\
-    \      } else {\n        return this->divide_inplace_regular(g);\n      }\n  \
-    \  }\n    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *=\
-    \ g;\n      q *= AG::inv(MM::e());\n      *this += q;\n      this->resize(this->deg()\
-    \ + 1);\n      return *this;\n    }\n\n    R operator()(const R& a) const {\n\
-    \      auto x = MM::e();\n      auto res = AG::e();\n      for (const auto e :\
-    \ *this) {\n        res = AG::op(res, MM::op(e, x));\n        x = MM::op(x, a);\n\
-    \      }\n      return res;\n    }\n    P operator()(const P& g) const {\n   \
-    \   const int n = this->size();\n      if (n == 0) return *this;\n\n      const\
-    \ auto naive = [&]() {\n        auto g_i = P{MM::e()};\n        auto res = g_i;\n\
-    \        for (int i = 1; i < n; ++i) {\n          g_i *= g;\n          res +=\
-    \ g_i;\n        }\n        return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R>\
-    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
-    \ {\n        if (::tools::is_prime(R::mod()) && n < R::mod() && g.size() == 2\
-    \ && g[1] == R(1)) {\n          ::tools::fact_mod_cache<R> cache;\n          ::tools::pow_mod_cache<R>\
-    \ pow_g0(g[0]);\n\n          P a(n);\n          for (int i = 0; i < n; ++i) {\n\
-    \            a[i] = (*this)[i] * cache.fact(i);\n          }\n\n          P b(n);\n\
-    \          for (int i = 0; i < n; ++i) {\n            b[i] = pow_g0[i] * cache.fact_inv(i);\n\
-    \          }\n          ::std::reverse(b.begin(), b.end());\n\n          auto\
-    \ c = a * b;\n\n          P res(n);\n          for (int i = 0; i < n; ++i) {\n\
-    \            res[i] = c[n - 1 + i] * cache.fact_inv(i);\n          }\n       \
-    \   return res;\n        } else {\n          return naive();\n        }\n    \
-    \  } else {\n        return naive();\n      }\n    }\n\n    friend P operator*(const\
-    \ P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const R& c,\
-    \ const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f, const\
-    \ R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const P& g)\
-    \ { return P(f) += g; }\n    friend P operator-(const P& f, const P& g) { return\
-    \ P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return P(f) *=\
-    \ g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /= g; }\n\
-    \    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n    friend\
-    \ P operator<<(const P& f, const int d) { return P(f) <<= d; }\n    friend P operator>>(const\
-    \ P& f, const int d) { return P(f) >>= d; }\n  };\n}\n\n\n#line 8 \"tests/polynomial/ntt_division.test.cpp\"\
-    \n\nusing mint = atcoder::modint998244353;\nusing ll = long long;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ N, M;\n  std::cin >> N >> M;\n  tools::polynomial<mint> f(N), g(M);\n  for (auto&\
-    \ f_i : f) {\n    ll x;\n    std::cin >> x;\n    f_i = mint::raw(x);\n  }\n  for\
-    \ (auto& g_i : g) {\n    ll x;\n    std::cin >> x;\n    g_i = mint::raw(x);\n\
+    \      } else {\n        return this->divide_inplace_naive(g);\n      }\n    }\n\
+    \    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *= g;\n\
+    \      q *= AG::inv(MM::e());\n      *this += q;\n      return this->regularize();\n\
+    \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(::tools::has_mod_v<R>);\n\
+    \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
+    \ ::tools::group::multiplies<R>>);\n      assert(::tools::is_prime(R::mod()));\n\
+    \n      this->regularize();\n      const int n = this->size();\n      assert(n\
+    \ < R::mod());\n\n      ::tools::fact_mod_cache<R> cache;\n      ::tools::pow_mod_cache<R>\
+    \ pow_c(c);\n\n      P a;\n      a.reserve(n);\n      for (int i = 0; i < n; ++i)\
+    \ {\n        a.push_back((*this)[i] * cache.fact(i));\n      }\n\n      P b;\n\
+    \      b.reserve(n);\n      for (int i = 0; i < n; ++i) {\n        b.push_back(pow_c[n\
+    \ - 1 - i] * cache.fact_inv(n - 1 - i));\n      }\n\n      a *= b;\n\n      this->clear();\n\
+    \      this->reserve(n);\n      for (int i = 0; i < ::std::min(n, int(a.size())\
+    \ - (n - 1)); ++i) {\n        this->push_back(a[n - 1 + i] * cache.fact_inv(i));\n\
+    \      }\n      return *this;\n    }\n    P& composition_ax_d(const R& a, const\
+    \ int d) {\n      assert(d >= 0);\n\n      this->regularize();\n      if (this->empty())\
+    \ return *this;\n\n      if (a == AG::e()) {\n        this->resize(1);\n     \
+    \   return *this;\n      }\n\n      if (d == 0) {\n        const auto f_a = (*this)(a);\n\
+    \        if (f_a == AG::e()) {\n          this->clear();\n        } else {\n \
+    \         this->resize(1);\n          (*this)[0] = f_a;\n        }\n        return\
+    \ *this;\n      }\n\n      if (d == 1) {\n        if (a == MM::e()) return *this;\n\
+    \n        auto a_i = MM::e();\n        for (auto it = this->begin(); it != this->end();\
+    \ ++it) {\n          *it = MM::op(*it, a_i);\n          a_i = MM::op(a_i, a);\n\
+    \        }\n        return this->regularize();\n      }\n\n      P res;\n    \
+    \  res.reserve((this->size() - 1) * d + 1);\n      auto a_i = MM::e();\n     \
+    \ res.push_back(this->front());\n      for (auto it = ::std::next(this->begin());\
+    \ it != this->end(); ++it) {\n        for (int i = 1; i < d; ++i) {\n        \
+    \  res.push_back(AG::e());\n        }\n        res.push_back(MM::op(*it, a_i));\n\
+    \        a_i = MM::op(a_i, a);\n      }\n      res.regularize();\n      return\
+    \ *this = ::std::move(res);\n    }\n\n  public:\n    R operator()(const R& a)\
+    \ const {\n      auto x = MM::e();\n      auto res = AG::e();\n      for (auto\
+    \ it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1); it !=\
+    \ end; ++it) {\n        res = AG::op(res, MM::op(*it, x));\n        x = MM::op(x,\
+    \ a);\n      }\n      return res;\n    }\n    P operator()(const P& g) const {\n\
+    \      const int n = this->deg() + 1;\n      if (n == 0) return P{};\n      const\
+    \ int m = g.deg() + 1;\n      if (m == 0) return P{(*this)[0]};\n      if (::std::all_of(g.begin(),\
+    \ ::std::next(g.begin(), m - 1), [](const auto& g_i) { return g_i == AG::e();\
+    \ })) {\n        return P(this->begin(), this->begin() + n).composition_ax_d(g.back(),\
+    \ m - 1);\n      }\n\n      const auto naive = [&]() {\n        assert(n > 0);\n\
+    \        auto g_i = P{MM::e()};\n        auto res = g_i;\n        for (int i =\
+    \ 1; i < n; ++i) {\n          g_i *= g;\n          res += g_i;\n        }\n  \
+    \      return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG,\
+    \ ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
+    \ {\n        if (::tools::is_prime(R::mod()) && n < R::mod()) {\n          if\
+    \ (m == 2) {\n            return P(this->begin(), this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1],\
+    \ 1);\n          } else if (m == 3) {\n            return P(this->begin(), this->begin()\
+    \ + n).taylor_shift(g[0] - g[1] * g[1] / (R(4) * g[2])).composition_ax_d(g[2],\
+    \ 2).taylor_shift(g[1] / (R(2) * g[2]));\n          }\n        }\n        return\
+    \ naive();\n      } else {\n        return naive();\n      }\n    }\n\n    friend\
+    \ P operator*(const P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const\
+    \ R& c, const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f,\
+    \ const R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const\
+    \ P& g) { return P(f) += g; }\n    friend P operator-(const P& f, const P& g)\
+    \ { return P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return\
+    \ P(f) *= g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /=\
+    \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
+    \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
+    \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
+    }\n\n\n#line 8 \"tests/polynomial/ntt_division.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    using ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  tools::polynomial<mint> f(N), g(M);\n \
+    \ for (auto& f_i : f) {\n    ll x;\n    std::cin >> x;\n    f_i = mint::raw(x);\n\
+    \  }\n  for (auto& g_i : g) {\n    ll x;\n    std::cin >> x;\n    g_i = mint::raw(x);\n\
     \  }\n\n  const auto q = f / g;\n  const auto r = f % g;\n\n  std::cout << q.size()\
     \ << ' ' << r.size() << '\\n';\n  std::string delimiter = \"\";\n  for (const\
     \ auto& q_i : q) {\n    std::cout << delimiter << q_i.val();\n    delimiter =\
@@ -1379,8 +1462,8 @@ data:
   isVerificationFile: true
   path: tests/polynomial/ntt_division.test.cpp
   requiredBy: []
-  timestamp: '2024-01-07 19:51:44+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-01-13 18:29:43+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/polynomial/ntt_division.test.cpp
 layout: document
