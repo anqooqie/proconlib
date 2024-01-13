@@ -136,6 +136,24 @@ namespace tools {
       }
       return res;
     }
+    F& operator++() {
+      if (!this->empty()) ++(*this)[0];
+      return *this;
+    }
+    F operator++(int) {
+      const auto self = *this;
+      ++*this;
+      return self;
+    }
+    F& operator--() {
+      if (!this->empty()) --(*this)[0];
+      return *this;
+    }
+    F operator--(int) {
+      const auto self = *this;
+      --*this;
+      return self;
+    }
     F& operator*=(const M& g) {
       for (auto& e : *this) {
         e *= g;

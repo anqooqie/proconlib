@@ -1,6 +1,7 @@
 #define PROBLEM "https://atcoder.jp/contests/abc245/tasks/abc245_d"
 
 #include <iostream>
+#include <iterator>
 #include <cmath>
 #include "tools/polynomial.hpp"
 #include "tools/join.hpp"
@@ -19,8 +20,8 @@ int main() {
 
   const auto B = C / A;
   ::std::vector<ll> answers;
-  for (const auto& B_i : B) {
-    answers.push_back(::std::round(B_i));
+  for (auto it = B.pbegin(), end = std::next(B.pbegin(), M + 1); it != end; ++it) {
+    answers.push_back(std::round(*it));
   }
 
   std::cout << tools::join(answers.begin(), answers.end(), " ") << '\n';

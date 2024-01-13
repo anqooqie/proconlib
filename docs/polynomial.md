@@ -10,6 +10,8 @@ documentation_of: //tools/polynomial.hpp
 高次の係数$0$を明示的に持つかどうかによって、ある一つの多項式が複数の表現を持ちます。
 たとえば、`polynomial<R>{3, 2}`、`polynomial<R>{3, 2, 0}`、`polynomial<R>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
 
+`std::vector<R>`に存在しない`polynomial<R>`固有のメンバ関数は、`polynomial<R>`を変更したり新規に生成したりする際、末尾の連続する$0$を取り除いて正規化します。
+
 ### Note
 このページでは、$R[x]$の元$f$の$i$次の係数を$f_i$と表記します。
 
@@ -63,6 +65,7 @@ documentation_of: //tools/polynomial.hpp
     - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $x \cdot (y + z) = (x \cdot y) + (x \cdot z)$.
     - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x + y) \cdot z = (x \cdot z) + (y \cdot z)$.
 - (6)$\sim$(10)
+    - `typename AG::T` is same as `typename MM::T`.
     - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
     - For all $x$ in $R$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
     - For all $x$ in $R$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
@@ -106,6 +109,21 @@ $f$と$g$が多項式として等しいかどうかを返します。
 ### Time Complexity
 - Same as ones of `std::vector<R>`.
 
+## pbegin
+```cpp
+polynomial<R>::coefficient_iterator f.pbegin();
+```
+
+$f_0$を指す読み取り専用ランダムアクセスイテレータ`coefficient_iterator`を返します。
+`coefficient_iterator`が`const_iterator`と異なる点は、`vector`として明示的に保持していない範囲の高次の係数も指せることです。
+`vector`の範囲外の位置を指す`coefficient_iterator`をデリファレンスすると$0$が返ります。
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## deg
 ```cpp
 int f.deg();
@@ -118,33 +136,86 @@ $\mathrm{deg}(f)$を返します。
 - None
 
 ### Time Complexity
-- $O(n)$ where $n$ is `f.size()`
+- $O(n - \mathrm{deg}(f))$ where $n$ is `f.size()`
+
+## regularize
+```cpp
+polynomial<R>& f.regularize()
+```
+
+`f`末尾の連続する$0$を取り除き、取り除いた後の`f`自身を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n - \mathrm{deg}(f))$ where $n$ is `f.size()`
 
 ## Unary plus operator
 ```cpp
 polynomial<R> f.operator+();
 ```
 
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$f$を返します。
+$\mathrm{deg}(f)$次以下の係数を明示的に持つ多項式$f$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n)$
+- $O(n)$ where $n$ is `f.size()`
 
 ## Unary minus operator
 ```cpp
 polynomial<R> f.operator-();
 ```
 
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$-f$を返します。
+$\mathrm{deg}(f)$次以下の係数を明示的に持つ多項式$-f$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n)$
+- $O(n)$ where $n$ is `f.size()`
+
+## Increment operators
+```cpp
+(1) polynomial<R>& f.operator++();
+(2) polynomial<R> f.operator++(int);
+```
+
+- (1)
+    - $f$の定数項を$1$加算し、$\mathrm{deg}(\text{加算後の}f)$次以下の係数を明示的に持つ加算後の$f$を返します。
+- (2)
+    - $f$の定数項を$1$加算し、$(\text{加算前の}$`f.size()`$)$次未満の係数を明示的に持つ加算前の$f$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- (1)
+    - $O(n - \mathrm{deg}(f))$ where $n$ is `f.size()`
+- (2)
+    - $O(n)$ where $n$ is `f.size()`
+
+## Decrement operators
+```cpp
+(1) polynomial<R>& f.operator--();
+(2) polynomial<R> f.operator--(int);
+```
+
+- (1)
+    - $f$の定数項を$1$減算し、$\mathrm{deg}(\text{減算後の}f)$次以下の係数を明示的に持つ減算後の$f$を返します。
+- (2)
+    - $f$の定数項を$1$減算し、$(\text{減算前の}$`f.size()`$)$次未満の係数を明示的に持つ減算前の$f$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- (1)
+    - $O(n - \mathrm{deg}(f))$ where $n$ is `f.size()`
+- (2)
+    - $O(n)$ where $n$ is `f.size()`
 
 ## Addition operators
 ```cpp
@@ -152,13 +223,13 @@ $n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$
 (2) polynomial<R>& f.operator+=(polynomial<R> g);
 ```
 
-$n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を明示的に持つ多項式$f + g$を返します。
+$\mathrm{deg}(f + g)$次以下の係数を明示的に持つ多項式$f + g$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n + m)$
+- $O(n + m)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## Subtraction operators
 ```cpp
@@ -166,13 +237,13 @@ $n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を
 (2) polynomial<R>& f.operator-=(polynomial<R> g);
 ```
 
-$n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を明示的に持つ多項式$f - g$を返します。
+$\mathrm{deg}(f - g)$次以下の係数を明示的に持つ多項式$f - g$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n + m)$
+- $O(n + m)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## Scalar multiplication operators
 ```cpp
@@ -181,13 +252,13 @@ $n$を`f.size()`、$m$を`g.size()`として、$\max(n, m)$次未満の係数を
 (3) polynomial<R>& f.operator*=(R c);
 ```
 
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$cf$を返します。
+$\mathrm{deg}(cf)$次以下の係数を明示的に持つ多項式$cf$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(n)$
+- $O(n)$ where $n$ is `f.size()`
 
 ## Scalar division operators
 ```cpp
@@ -195,14 +266,14 @@ $n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$
 (2) polynomial<R>& f.operator/=(R c);
 ```
 
-$n$を`f.size()`として、$n$次未満の係数を明示的に持つ多項式$c^{-1} f$を返します。
+$\mathrm{deg}(c^{-1} f)$次以下の係数を明示的に持つ多項式$c^{-1} f$を返します。
 
 ### Constraints
 - $R$ is a trivial ring or a field.
 - If $R$ is not a trivial ring, $c \neq 0$
 
 ### Time Complexity
-- $O(n)$
+- $O(n)$ where $n$ is `f.size()`
 
 ## Left shift operators
 ```cpp
@@ -219,13 +290,11 @@ f_{i - d} & \text{(if $0 \leq i - d < n$)}\\
 \end{array}\right.
 \end{align*}$$
 
-$d \geq 0$ならば、$f x^d$と同じです。
-
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\max(n, n + d))$
+- $O(\max(n, n + d))$ where $n$ is `f.size()`
 
 ## Right shift operators
 ```cpp
@@ -242,13 +311,11 @@ f_{i + d} & \text{(if $0 \leq i + d < n$)}\\
 \end{array}\right.
 \end{align*}$$
 
-$\forall i. 0 \leq i < d \Rightarrow f_i = 0$ならば、$\frac{f}{x^d}$と同じです。
-
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\max(n, n - d))$
+- $O(\max(n, n - d))$ where $n$ is `f.size()`
 
 ## Multiplication by polynomial
 ```cpp
@@ -256,22 +323,14 @@ $\forall i. 0 \leq i < d \Rightarrow f_i = 0$ならば、$\frac{f}{x^d}$と同�
 (2) polynomial<R>& f.operator*=(polynomial<R> g);
 ```
 
-$n$を`f.size()`、$m$を`g.size()`として、$\max(0, n + m - 1)$次未満の係数を明示的に持つ多項式$fg$を返します。
+$\mathrm{deg}(fg)$次以下の係数を明示的に持つ多項式$fg$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
-- ($R$ is `atcoder::static_modint`): $O((n + m) \log (n + m))$
-- ($R$ is `atcoder::dynamic_modint`): $O((n + m) \log (n + m))$
-- ($R$ is `float`): $O((n + m) \log (n + m))$
-- ($R$ is `double`): $O((n + m) \log (n + m))$
-- ($R$ is `long double`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<float>`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<double>`): $O((n + m) \log (n + m))$
-- ($R$ is `std::complex<lond double>`): $O((n + m) \log (n + m))$
-- ($R$ is a built-in integer type): $O((n + m) \log (n + m))$
-- (otherwise): $O(nm)$
+- ($R$ is `atcoder::static_modint`, `atcoder::dynamic_modint`, `float`, `double`, `long double`, `std::complex<float>`, `std::complex<double>`, `std::complex<long double>` or an integral type): $O(n + m + (\mathrm{deg}(f) + \mathrm{deg}(g)) \log (\mathrm{deg}(f) + \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
+- (otherwise): $O(n + m + \mathrm{deg}(f)\mathrm{deg}(g))$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## Division by polynomial
 ```cpp
@@ -279,7 +338,7 @@ $n$を`f.size()`、$m$を`g.size()`として、$\max(0, n + m - 1)$次未満の�
 (2) polynomial<R>& f.operator/=(polynomial<R> g);
 ```
 
-$n$を$\mathrm{deg}(f) + 1$、$m$を$\mathrm{deg}(g) + 1$として、$\max(0, n - m + 1)$次未満の係数を明示的に持ち以下の条件を満たす多項式$q$を返します。
+以下の条件を満たす多項式を$q$として、$\mathrm{deg}(q)$次以下の係数を明示的に持つ多項式$q$を返します。
 
 $$\begin{align*}
 \mathrm{deg}(q) &= \max(-1, n - m)\\
@@ -291,8 +350,8 @@ $$\begin{align*}
 - If $R$ is not a trivial ring, $g \neq 0$
 
 ### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + \max(1, n - m) \log(\max(1, n - m)))$
-- (otherwise): $O(nm)$
+- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + (\mathrm{deg}(f) - \mathrm{deg}(g)) \log (\mathrm{deg}(f) - \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
+- (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## Modulus operators
 ```cpp
@@ -300,16 +359,15 @@ $$\begin{align*}
 (2) polynomial<R>& f.operator%=(polynomial<R> g);
 ```
 
-$\mathrm{deg}(r) + 1$次未満の係数を明示的に持つ多項式$r = f - gq$を返します。
-$q$は`f / g`で得られる多項式です。
+`f / g`で得られる多項式を$q$とし、また$r = f - gq$として、$\mathrm{deg}(r)$次以下の係数を明示的に持つ多項式$r$を返します。
 
 ### Constraints
 - $R$ is a trivial ring or a field.
 - If $R$ is not a trivial ring, $g \neq 0$
 
 ### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n \log n)$
-- (otherwise): $O(nm)$
+- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()` and $m$ is `g.size()`
+- (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## operator()
 ```cpp
@@ -320,14 +378,15 @@ $q$は`f / g`で得られる多項式です。
 - (1)
     - $f(a)$を返します。
 - (2)
-    - $f(g(x))$を返します。
+    - $\mathrm{deg}(f(g(x)))$次以下の係数を明示的に持つ多項式$f(g(x))$を返します。
 
 ### Constraints
 - None
 
 ### Time Complexity
 - (1)
-    - $O(n)$
+    - $O(n)$ where $n$ is `f.size()`
 - (2)
-    - ($R$ is $\mathbb{Z}/p\mathbb{Z}$, $n < p$ and $g(x) = x + g(0)$): $O(n \log n)$
-    - (otherwise): $O(n^2 \log n)$
+    - ($R$ is $\mathbb{Z}/p\mathbb{Z}$, $n < p$ and $\mathrm{deg}(g) \leq 2$): $O(n + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()`
+    - (the above condition does not hold and $R$ is `atcoder::static_modint`, `atcoder::dynamic_modint`, `float`, `double`, `long double`, `std::complex<float>`, `std::complex<double>`, `std::complex<long double>` or an integral type): $O(n + m + \mathrm{deg}(f)^2 \mathrm{deg}(g) (\log \mathrm{deg}(f) + \log \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
+    - (otherwise): $O(n + m + \mathrm{deg}(f)^2 \mathrm{deg}(g)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`

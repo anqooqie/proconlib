@@ -163,87 +163,205 @@ namespace tools {
 
     friend void swap(P& x, P& y) noexcept { x.m_vector.swap(y.m_vector); }
 
+    class coefficient_iterator {
+    private:
+      const ::std::vector<R> *m_vector;
+      ::std::size_t m_offset;
+
+    public:
+      using difference_type = ::std::ptrdiff_t;
+      using value_type = R;
+      using reference = const R&;
+      using pointer = const R*;
+      using iterator_category = ::std::random_access_iterator_tag;
+
+      coefficient_iterator() = default;
+      coefficient_iterator(const coefficient_iterator& other) = default;
+      ~coefficient_iterator() = default;
+      coefficient_iterator& operator=(const coefficient_iterator& other) = default;
+
+      coefficient_iterator(const ::std::vector<R> * const vector, const ::std::size_t offset) :
+        m_vector(vector),
+        m_offset(offset) {
+      }
+
+      const R& operator*() const {
+        static const R e = AG::e();
+        return this->m_offset < this->m_vector->size() ? (*this->m_vector)[this->m_offset] : e;
+      }
+
+      coefficient_iterator& operator++() {
+        ++this->m_offset;
+        return *this;
+      }
+      coefficient_iterator operator++(int) {
+        const auto self = *this;
+        ++*this;
+        return self;
+      }
+      coefficient_iterator& operator--() {
+        --this->m_offset;
+        return *this;
+      }
+      coefficient_iterator operator--(int) {
+        const auto self = *this;
+        --*this;
+        return self;
+      }
+      coefficient_iterator& operator+=(const ::std::ptrdiff_t n) {
+        this->m_offset += n;
+        return *this;
+      }
+      coefficient_iterator& operator-=(const ::std::ptrdiff_t n) {
+        this->m_offset -= n;
+        return *this;
+      }
+      friend coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
+        return coefficient_iterator(self.m_vector, self.m_offset + n);
+      }
+      friend ::std::ptrdiff_t operator-(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset - rhs.m_offset;
+      }
+      const R& operator[](const ::std::ptrdiff_t n) const {
+        return *(*this + n);
+      }
+
+      friend bool operator==(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset == rhs.m_offset;
+      }
+      friend bool operator!=(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset != rhs.m_offset;
+      }
+      friend bool operator<(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset < rhs.m_offset;
+      }
+      friend bool operator<=(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset <= rhs.m_offset;
+      }
+      friend bool operator>(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset > rhs.m_offset;
+      }
+      friend bool operator>=(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+        assert(lhs.m_vector == rhs.m_vector);
+        return lhs.m_offset >= rhs.m_offset;
+      }
+    };
+    coefficient_iterator pbegin() const {
+      return coefficient_iterator(&this->m_vector, 0);
+    }
+
     int deg() const {
       for (size_type i = this->size(); i --> 0;) {
         if ((*this)[i] != AG::e()) return i;
       }
       return -1;
     }
-
-    P operator+() const {
+    P& regularize() {
+      this->resize(this->deg() + 1);
       return *this;
     }
+
+    P operator+() const {
+      return P(this->begin(), ::std::next(this->begin(), this->deg() + 1));
+    }
     P operator-() const {
-      P res(*this);
-      for (auto& e : res) {
-        e = AG::inv(e);
+      P res;
+      for (auto it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1); it != end; ++it) {
+        res.push_back(AG::inv(*it));
       }
       return res;
     }
+    P& operator++() {
+      if (this->empty()) {
+        this->push_back(MM::e());
+      } else {
+        (*this)[0] = AG::op((*this)[0], MM::e());
+      }
+      return this->regularize();
+    }
+    P operator++(int) {
+      const auto self = *this;
+      ++*this;
+      return self;
+    }
+    P& operator--() {
+      if (this->empty()) {
+        this->push_back(AG::inv(MM::e()));
+      } else {
+        (*this)[0] = AG::op((*this)[0], AG::inv(MM::e()));
+      }
+      return this->regularize();
+    }
+    P operator--(int) {
+      const auto self = *this;
+      --*this;
+      return self;
+    }
     P& operator*=(const R& g) {
+      this->regularize();
       for (auto& e : *this) {
         e = MM::op(e, g);
       }
-      return *this;
+      return this->regularize();
     }
     P& operator/=(const R& g) {
       assert(AG::e() == MM::e() || g != AG::e());
-      *this *= MM::inv(g);
-      return *this;
+      return *this *= MM::inv(g);
     }
     P& operator+=(const P& g) {
-      const int n = this->size();
-      const int m = g.size();
-      this->resize(::std::max(n, m));
+      const int n = this->deg() + 1;
+      const int m = g.deg() + 1;
+      this->resize(::std::max(n, m), AG::e());
       for (int i = 0; i < m; ++i) {
         (*this)[i] = AG::op((*this)[i], g[i]);
       }
-      return *this;
+      return this->regularize();
     }
     P& operator-=(const P& g) {
-      const int n = this->size();
-      const int m = g.size();
-      this->resize(::std::max(n, m));
+      const int n = this->deg() + 1;
+      const int m = g.deg() + 1;
+      this->resize(::std::max(n, m), AG::e());
       for (int i = 0; i < m; ++i) {
         (*this)[i] = AG::op((*this)[i], AG::inv(g[i]));
       }
-      return *this;
+      return this->regularize();
     }
     P& operator<<=(const int d) {
       if (d < 0) *this >>= -d;
 
-      this->insert(this->begin(), d, R(0));
+      this->regularize();
+      if (!this->empty()) {
+        this->insert(this->begin(), d, AG::e());
+      }
       return *this;
     }
     P& operator>>=(const int d) {
       if (d < 0) *this <<= -d;
 
+      this->regularize();
       const int n = this->size();
       this->erase(this->begin(), this->begin() + ::std::min(n, d));
       return *this;
     }
 
     P& operator*=(const P& g) {
-      const int n = this->size();
-      const int m = g.size();
-
-      if (n == 0 && m == 0) {
-        this->clear();
-        return *this;
-      }
-      if (n == 0 || m == 0) {
-        ::std::fill(this->begin(), this->end(), AG::e());
-        this->resize(n + m - 1, AG::e());
-        return *this;
-      }
+      const int n = this->deg() + 1;
+      const int m = g.deg() + 1;
 
       P res;
-      ::tools::convolution<AG, MM>(this->cbegin(), this->cend(), g.cbegin(), g.cend(), ::std::back_inserter(res));
+      ::tools::convolution<AG, MM>(this->cbegin(), this->cbegin() + n, g.cbegin(), g.cbegin() + m, ::std::back_inserter(res));
+      res.regularize();
       return *this = ::std::move(res);
     }
 
   private:
-    P& divide_inplace_regular(const P& g) {
+    P& divide_inplace_naive(const P& g) {
       const int n = this->size();
       const int m = g.size();
 
@@ -288,8 +406,8 @@ namespace tools {
         return *this;
       }
 
-      this->resize(this->deg() + 1);
-      g.resize(g.deg() + 1);
+      this->regularize();
+      g.regularize();
 
       const int n = this->size();
       const int m = g.size();
@@ -304,7 +422,7 @@ namespace tools {
         assert(::tools::is_prime(R::mod()));
         return this->divide_inplace_faster(g);
       } else {
-        return this->divide_inplace_regular(g);
+        return this->divide_inplace_naive(g);
       }
     }
     P& operator%=(const P& g) {
@@ -312,24 +430,113 @@ namespace tools {
       q *= g;
       q *= AG::inv(MM::e());
       *this += q;
-      this->resize(this->deg() + 1);
-      return *this;
+      return this->regularize();
     }
 
+  private:
+    P& taylor_shift(const R& c) {
+      static_assert(::tools::has_mod_v<R>);
+      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
+      static_assert(::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      assert(::tools::is_prime(R::mod()));
+
+      this->regularize();
+      const int n = this->size();
+      assert(n < R::mod());
+
+      ::tools::fact_mod_cache<R> cache;
+      ::tools::pow_mod_cache<R> pow_c(c);
+
+      P a;
+      a.reserve(n);
+      for (int i = 0; i < n; ++i) {
+        a.push_back((*this)[i] * cache.fact(i));
+      }
+
+      P b;
+      b.reserve(n);
+      for (int i = 0; i < n; ++i) {
+        b.push_back(pow_c[n - 1 - i] * cache.fact_inv(n - 1 - i));
+      }
+
+      a *= b;
+
+      this->clear();
+      this->reserve(n);
+      for (int i = 0; i < ::std::min(n, int(a.size()) - (n - 1)); ++i) {
+        this->push_back(a[n - 1 + i] * cache.fact_inv(i));
+      }
+      return *this;
+    }
+    P& composition_ax_d(const R& a, const int d) {
+      assert(d >= 0);
+
+      this->regularize();
+      if (this->empty()) return *this;
+
+      if (a == AG::e()) {
+        this->resize(1);
+        return *this;
+      }
+
+      if (d == 0) {
+        const auto f_a = (*this)(a);
+        if (f_a == AG::e()) {
+          this->clear();
+        } else {
+          this->resize(1);
+          (*this)[0] = f_a;
+        }
+        return *this;
+      }
+
+      if (d == 1) {
+        if (a == MM::e()) return *this;
+
+        auto a_i = MM::e();
+        for (auto it = this->begin(); it != this->end(); ++it) {
+          *it = MM::op(*it, a_i);
+          a_i = MM::op(a_i, a);
+        }
+        return this->regularize();
+      }
+
+      P res;
+      res.reserve((this->size() - 1) * d + 1);
+      auto a_i = MM::e();
+      res.push_back(this->front());
+      for (auto it = ::std::next(this->begin()); it != this->end(); ++it) {
+        for (int i = 1; i < d; ++i) {
+          res.push_back(AG::e());
+        }
+        res.push_back(MM::op(*it, a_i));
+        a_i = MM::op(a_i, a);
+      }
+      res.regularize();
+      return *this = ::std::move(res);
+    }
+
+  public:
     R operator()(const R& a) const {
       auto x = MM::e();
       auto res = AG::e();
-      for (const auto e : *this) {
-        res = AG::op(res, MM::op(e, x));
+      for (auto it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1); it != end; ++it) {
+        res = AG::op(res, MM::op(*it, x));
         x = MM::op(x, a);
       }
       return res;
     }
     P operator()(const P& g) const {
-      const int n = this->size();
-      if (n == 0) return *this;
+      const int n = this->deg() + 1;
+      if (n == 0) return P{};
+      const int m = g.deg() + 1;
+      if (m == 0) return P{(*this)[0]};
+      if (::std::all_of(g.begin(), ::std::next(g.begin(), m - 1), [](const auto& g_i) { return g_i == AG::e(); })) {
+        return P(this->begin(), this->begin() + n).composition_ax_d(g.back(), m - 1);
+      }
 
       const auto naive = [&]() {
+        assert(n > 0);
         auto g_i = P{MM::e()};
         auto res = g_i;
         for (int i = 1; i < n; ++i) {
@@ -340,31 +547,14 @@ namespace tools {
       };
 
       if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
-        if (::tools::is_prime(R::mod()) && n < R::mod() && g.size() == 2 && g[1] == R(1)) {
-          ::tools::fact_mod_cache<R> cache;
-          ::tools::pow_mod_cache<R> pow_g0(g[0]);
-
-          P a(n);
-          for (int i = 0; i < n; ++i) {
-            a[i] = (*this)[i] * cache.fact(i);
+        if (::tools::is_prime(R::mod()) && n < R::mod()) {
+          if (m == 2) {
+            return P(this->begin(), this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1], 1);
+          } else if (m == 3) {
+            return P(this->begin(), this->begin() + n).taylor_shift(g[0] - g[1] * g[1] / (R(4) * g[2])).composition_ax_d(g[2], 2).taylor_shift(g[1] / (R(2) * g[2]));
           }
-
-          P b(n);
-          for (int i = 0; i < n; ++i) {
-            b[i] = pow_g0[i] * cache.fact_inv(i);
-          }
-          ::std::reverse(b.begin(), b.end());
-
-          auto c = a * b;
-
-          P res(n);
-          for (int i = 0; i < n; ++i) {
-            res[i] = c[n - 1 + i] * cache.fact_inv(i);
-          }
-          return res;
-        } else {
-          return naive();
         }
+        return naive();
       } else {
         return naive();
       }

@@ -110,6 +110,46 @@ $$\begin{align*}
 ### Time Complexity
 - $O(n)$
 
+## Increment operators
+```cpp
+(1) fps<M>& f.operator++();
+(2) fps<M> f.operator++(int);
+```
+
+- (1)
+    - $n > 0$のとき$f_0$を$1$加算し、加算後の$f$を返します。
+- (2)
+    - $n > 0$のとき$f_0$を$1$加算し、加算前の$f$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- (1)
+    - $O(1)$
+- (2)
+    - $O(n)$
+
+## Decrement operators
+```cpp
+(1) fps<M>& f.operator--();
+(2) fps<M> f.operator--(int);
+```
+
+- (1)
+    - $n > 0$のとき$f_0$を$1$減算し、減算後の$f$を返します。
+- (2)
+    - $n > 0$のとき$f_0$を$1$減算し、減算前の$f$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- (1)
+    - $O(1)$
+- (2)
+    - $O(n)$
+
 ## Addition operators
 ```cpp
 (1) fps<M> operator+(fps<M> f, fps<M> g);

@@ -13,8 +13,8 @@ namespace tools {
     static_assert(::tools::has_mod_v<M>);
     assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
 
-    P.resize(P.deg() + 1);
-    Q.resize(Q.deg() + 1);
+    P.regularize();
+    Q.regularize();
 
     while (n > 0) {
       // Q1(x) = Q(-x)
@@ -38,7 +38,7 @@ namespace tools {
       n /= 2;
     }
 
-    return (P.empty() ? M::raw(0) : P[0]) / (Q.empty() ? M::raw(0) : Q[0]);
+    return P.pbegin()[0] / Q[0];
   }
 }
 

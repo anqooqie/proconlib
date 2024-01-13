@@ -20,9 +20,9 @@ int main() {
   }
 
   const auto b = a(tools::polynomial<mint>{mint::raw(c), mint::raw(1)});
-  std::cout << b[0].val();
+  std::cout << b.pbegin()[0].val();
   for (int i = 1; i < N; ++i) {
-    std::cout << ' ' << b[i].val();
+    std::cout << ' ' << b.pbegin()[i].val();
   }
   std::cout << '\n';
 
