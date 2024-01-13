@@ -49,6 +49,10 @@ data:
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -159,6 +163,9 @@ data:
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   _isVerificationFailed: false
@@ -227,6 +234,7 @@ data:
   - tools/fps.hpp
   - tools/dual_segtree.hpp
   - tools/disjoint_sparse_table.hpp
+  - tools/stirling_1st.hpp
   - tools/li_chao_segtree.hpp
   - tools/bostan_mori.hpp
   - tools/sparse_fps_pow.hpp
@@ -272,6 +280,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/lca.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp

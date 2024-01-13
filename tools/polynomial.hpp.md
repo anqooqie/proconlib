@@ -76,6 +76,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -95,6 +99,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -1282,7 +1289,8 @@ data:
     \ ::std::vector<R> * const vector, const ::std::size_t offset) :\n        m_vector(vector),\n\
     \        m_offset(offset) {\n      }\n\n      const R& operator*() const {\n \
     \       static const R e = AG::e();\n        return this->m_offset < this->m_vector->size()\
-    \ ? (*this->m_vector)[this->m_offset] : e;\n      }\n\n      coefficient_iterator&\
+    \ ? (*this->m_vector)[this->m_offset] : e;\n      }\n      const R* operator->()\
+    \ const {\n        return &(*(*this));\n      }\n\n      coefficient_iterator&\
     \ operator++() {\n        ++this->m_offset;\n        return *this;\n      }\n\
     \      coefficient_iterator operator++(int) {\n        const auto self = *this;\n\
     \        ++*this;\n        return self;\n      }\n      coefficient_iterator&\
@@ -1542,7 +1550,8 @@ data:
     \ ::std::vector<R> * const vector, const ::std::size_t offset) :\n        m_vector(vector),\n\
     \        m_offset(offset) {\n      }\n\n      const R& operator*() const {\n \
     \       static const R e = AG::e();\n        return this->m_offset < this->m_vector->size()\
-    \ ? (*this->m_vector)[this->m_offset] : e;\n      }\n\n      coefficient_iterator&\
+    \ ? (*this->m_vector)[this->m_offset] : e;\n      }\n      const R* operator->()\
+    \ const {\n        return &(*(*this));\n      }\n\n      coefficient_iterator&\
     \ operator++() {\n        ++this->m_offset;\n        return *this;\n      }\n\
     \      coefficient_iterator operator++(int) {\n        const auto self = *this;\n\
     \        ++*this;\n        return self;\n      }\n      coefficient_iterator&\
@@ -1717,8 +1726,9 @@ data:
   path: tools/polynomial.hpp
   requiredBy:
   - tools/berlekamp_massey.hpp
+  - tools/stirling_1st.hpp
   - tools/bostan_mori.hpp
-  timestamp: '2024-01-13 18:29:43+09:00'
+  timestamp: '2024-01-13 20:00:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/berlekamp_massey.test.cpp
@@ -1726,6 +1736,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document

@@ -36,6 +36,10 @@ data:
     path: tools/range_count_distinct.hpp
     title: Range count distinct
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -87,6 +91,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
@@ -175,6 +182,7 @@ data:
   - tools/disjoint_sparse_table_2d.hpp
   - tools/wavelet_matrix.hpp
   - tools/disjoint_sparse_table.hpp
+  - tools/stirling_1st.hpp
   - tools/prime_factorization.hpp
   - tools/li_chao_segtree.hpp
   - tools/extended_lucas.hpp
@@ -198,6 +206,7 @@ data:
   - tests/log_mod.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/prime_factorization.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/range_count_distinct.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/lca.test.cpp

@@ -14,6 +14,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/binary_search.test.cpp
@@ -33,6 +37,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/undoable_dsu.test.cpp
     title: tests/undoable_dsu.test.cpp
@@ -58,6 +65,7 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
+  - tools/stirling_1st.hpp
   - tools/detail/avl_tree_impl.hpp
   - tools/avl_tree.hpp
   - tools/persistent_dual_segtree.hpp
@@ -67,6 +75,7 @@ data:
   verifiedWith:
   - tests/persistent_dual_segtree.test.cpp
   - tests/fix.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/avl_tree/set.test.cpp
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/binary_search.test.cpp

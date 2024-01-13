@@ -106,6 +106,10 @@ data:
     path: tools/sqrt_mod.hpp
     title: $\sqrt{x} \pmod{P}$
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -303,6 +307,9 @@ data:
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -340,6 +347,7 @@ data:
   - tools/garner.hpp
   - tools/pow_mod_cache.hpp
   - tools/fps.hpp
+  - tools/stirling_1st.hpp
   - tools/prime_factorization.hpp
   - tools/extended_garner.hpp
   - tools/detail/rolling_hash.hpp
@@ -428,6 +436,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/rotate_left.test.cpp
   - tests/rotate_right.test.cpp
   - tests/stirling_2nd.test.cpp

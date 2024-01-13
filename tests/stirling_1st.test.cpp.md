@@ -5,9 +5,6 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
-    path: tools/bostan_mori.hpp
-    title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -24,8 +21,14 @@ data:
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/fix.hpp
+    title: Fixed point combinator
+  - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
+  - icon: ':heavy_check_mark:'
+    path: tools/floor_log2.hpp
+    title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
@@ -55,6 +58,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/popcount.hpp
+    title: Popcount
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
@@ -73,6 +79,10 @@ data:
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -82,10 +92,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
+    PROBLEM: https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind
     links:
-    - https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-  bundledCode: "#line 1 \"tests/bostan_mori.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
+    - https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind
+  bundledCode: "#line 1 \"tests/stirling_1st.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind\"\
     \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
     #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
@@ -292,23 +302,22 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
-    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#include <vector>\n\
-    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line 12\
-    \ \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
-    \n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
-    \n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 1 \"tools/abs.hpp\"\
-    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
-    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
-    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
-    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
-    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/stirling_1st.hpp\"\
+    \n\n\n\n#line 5 \"tools/stirling_1st.hpp\"\n#include <vector>\n#include <iterator>\n\
+    #line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\
+    \n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include\
+    \ <algorithm>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr\
+    \ float abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double\
+    \ abs(const double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double\
+    \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
+    \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
+    \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
+    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
@@ -349,6 +358,8 @@ data:
     \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
     \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
     \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 1 \"tools/polynomial.hpp\"\n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include\
+    \ <complex>\n#line 9 \"tools/polynomial.hpp\"\n#include <initializer_list>\n#line\
     \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
     \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
     \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
@@ -1416,37 +1427,77 @@ data:
     \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
     \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
     \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
-    }\n\n\n#line 1 \"tools/bostan_mori.hpp\"\n\n\n\n#line 9 \"tools/bostan_mori.hpp\"\
-    \n\nnamespace tools {\n  template <typename M>\n  M bostan_mori(::tools::polynomial<M>\
-    \ P, ::tools::polynomial<M> Q, unsigned long long n) {\n    static_assert(::tools::has_mod_v<M>);\n\
-    \    assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);\n\n    P.regularize();\n\
-    \    Q.regularize();\n\n    while (n > 0) {\n      // Q1(x) = Q(-x)\n      auto\
-    \ Q1 = Q;\n      for (::std::size_t i = 1; i < Q1.size(); i += 2) {\n        Q1[i]\
-    \ = -Q1[i];\n      }\n\n      const auto PQ = P * Q1;\n      const auto QQ = Q\
-    \ * Q1;\n\n      P.clear();\n      for (::std::size_t i = n & 1; i < PQ.size();\
-    \ i += 2) {\n        P.push_back(PQ[i]);\n      }\n      Q.clear();\n      for\
-    \ (::std::size_t i = 0; i < QQ.size(); i += 2) {\n        Q.push_back(QQ[i]);\n\
-    \      }\n\n      n /= 2;\n    }\n\n    return P.pbegin()[0] / Q[0];\n  }\n}\n\
-    \n\n#line 7 \"tests/bostan_mori.test.cpp\"\n\nusing ll = long long;\nusing mint\
-    \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll d, k;\n  std::cin >> d >> k;\n  tools::polynomial<mint> a;\n  a.reserve(d);\n\
-    \  for (ll i = 0; i < d; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n\
-    \  }\n  tools::polynomial<mint> c({mint::raw(1)});\n  c.reserve(d + 1);\n  for\
-    \ (ll i = 1; i <= d; ++i) {\n    ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n\
-    \  }\n\n  a *= c;\n  a.resize(d);\n\n  std::cout << tools::bostan_mori(a, c, k).val()\
-    \ << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence\"\
-    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/polynomial.hpp\"\
-    \n#include \"tools/bostan_mori.hpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\
+    }\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line 1 \"tools/popcount.hpp\"\n\
+    \n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
+    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
+    \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
+    \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
+    \      } else if constexpr (::std::numeric_limits<T>::digits == 16) {\n      \
+    \  x = (x & UINT16_C(0x5555)) + (x >> 1 & UINT16_C(0x5555));\n        x = (x &\
+    \ UINT16_C(0x3333)) + (x >> 2 & UINT16_C(0x3333));\n        x = (x & UINT16_C(0x0f0f))\
+    \ + (x >> 4 & UINT16_C(0x0f0f));\n        x = (x & UINT16_C(0x00ff)) + (x >> 8\
+    \ & UINT16_C(0x00ff));\n      } else if constexpr (::std::numeric_limits<T>::digits\
+    \ == 32) {\n        x = (x & UINT32_C(0x55555555)) + (x >> 1 & UINT32_C(0x55555555));\n\
+    \        x = (x & UINT32_C(0x33333333)) + (x >> 2 & UINT32_C(0x33333333));\n \
+    \       x = (x & UINT32_C(0x0f0f0f0f)) + (x >> 4 & UINT32_C(0x0f0f0f0f));\n  \
+    \      x = (x & UINT32_C(0x00ff00ff)) + (x >> 8 & UINT32_C(0x00ff00ff));\n   \
+    \     x = (x & UINT32_C(0x0000ffff)) + (x >> 16 & UINT32_C(0x0000ffff));\n   \
+    \   } else if constexpr (::std::numeric_limits<T>::digits == 64) {\n        x\
+    \ = (x & UINT64_C(0x5555555555555555)) + (x >> 1 & UINT64_C(0x5555555555555555));\n\
+    \        x = (x & UINT64_C(0x3333333333333333)) + (x >> 2 & UINT64_C(0x3333333333333333));\n\
+    \        x = (x & UINT64_C(0x0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT64_C(0x0f0f0f0f0f0f0f0f));\n\
+    \        x = (x & UINT64_C(0x00ff00ff00ff00ff)) + (x >> 8 & UINT64_C(0x00ff00ff00ff00ff));\n\
+    \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
+    \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
+    \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 8 \"tools/floor_log2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  T floor_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
+    \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
+    \ static_cast<T>(::tools::floor_log2<::std::make_unsigned_t<T>>(x));\n    } else\
+    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
+    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
+    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ >= 0);\n\n      x |= (x >> 1);\n      x |= (x >> 2);\n      x |= (x >> 4);\n\
+    \      if constexpr (::std::numeric_limits<T>::digits > 8) x |= (x >> 8);\n  \
+    \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
+    \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
+    \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
+    \ 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\n\nnamespace tools {\n\
+    \  template <typename F>\n  struct fix : F {\n    template <typename G>\n    fix(G&&\
+    \ g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename... Args>\n\
+    \    decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
+    \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
+    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 14 \"tools/stirling_1st.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename M>\n  ::tools::fps<M> stirling_1st(const int n)\
+    \ {\n    assert(::tools::is_prime(M::mod()));\n    assert(0 <= n && n < M::mod());\n\
+    \n    ::std::vector<::tools::polynomial<M>> bases;\n    if (n > 0) {\n      bases.resize(::tools::floor_log2(n)\
+    \ + 1);\n      bases[0] = ::tools::polynomial<M>{M(0), M(1)};\n      for (int\
+    \ i = 1; i < ::tools::ssize(bases); ++i) {\n        bases[i] = bases[i - 1] *\
+    \ bases[i - 1](::tools::polynomial<M>{M(-::tools::pow2(i - 1)), M(1)});\n    \
+    \  }\n    }\n\n    const auto s = ::tools::fix([&](auto&& dfs, const int l, const\
+    \ int r) -> ::tools::polynomial<M> {\n      if (l == r) return ::tools::polynomial<M>{M(1)};\n\
+    \      const auto block = ::tools::pow2(::tools::floor_log2(r - l));\n      return\
+    \ block == r - l ? bases[::tools::floor_log2(r - l)](::tools::polynomial<M>{M(-l),\
+    \ M(1)}) : dfs(l, l + block) * dfs(l + block, r);\n    })(0, n);\n\n    return\
+    \ ::tools::fps<M>(s.pbegin(), ::std::next(s.pbegin(), n + 1));\n  }\n}\n\n\n#line\
+    \ 6 \"tests/stirling_1st.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll d, k;\n  std::cin >> d >> k;\n  tools::polynomial<mint> a;\n  a.reserve(d);\n\
-    \  for (ll i = 0; i < d; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a.push_back(mint::raw(a_i));\n\
-    \  }\n  tools::polynomial<mint> c({mint::raw(1)});\n  c.reserve(d + 1);\n  for\
-    \ (ll i = 1; i <= d; ++i) {\n    ll c_i;\n    std::cin >> c_i;\n    c.emplace_back(-c_i);\n\
-    \  }\n\n  a *= c;\n  a.resize(d);\n\n  std::cout << tools::bostan_mori(a, c, k).val()\
-    \ << '\\n';\n  return 0;\n}\n"
+    \n  int N;\n  std::cin >> N;\n\n  const auto s = tools::stirling_1st<mint>(N);\n\
+    \n  std::cout << s[0].val();\n  for (int i = 1; i <= N; ++i) {\n    std::cout\
+    \ << ' ' << s[i].val();\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind\"\
+    \n\n#include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/stirling_1st.hpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N;\n  std::cin >> N;\n\n  const\
+    \ auto s = tools::stirling_1st<mint>(N);\n\n  std::cout << s[0].val();\n  for\
+    \ (int i = 1; i <= N; ++i) {\n    std::cout << ' ' << s[i].val();\n  }\n  std::cout\
+    \ << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/polynomial.hpp
+  - tools/stirling_1st.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
@@ -1454,6 +1505,7 @@ data:
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
+  - tools/polynomial.hpp
   - tools/group.hpp
   - tools/monoid.hpp
   - tools/fps.hpp
@@ -1469,17 +1521,19 @@ data:
   - tools/find_cycle.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
-  - tools/bostan_mori.hpp
+  - tools/floor_log2.hpp
+  - tools/popcount.hpp
+  - tools/fix.hpp
   isVerificationFile: true
-  path: tests/bostan_mori.test.cpp
+  path: tests/stirling_1st.test.cpp
   requiredBy: []
   timestamp: '2024-01-13 20:00:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bostan_mori.test.cpp
+documentation_of: tests/stirling_1st.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bostan_mori.test.cpp
-- /verify/tests/bostan_mori.test.cpp.html
-title: tests/bostan_mori.test.cpp
+- /verify/tests/stirling_1st.test.cpp
+- /verify/tests/stirling_1st.test.cpp.html
+title: tests/stirling_1st.test.cpp
 ---

@@ -23,6 +23,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -51,6 +55,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -80,6 +87,7 @@ data:
   requiredBy:
   - tools/berlekamp_massey.hpp
   - tools/pow_mod_cache.hpp
+  - tools/stirling_1st.hpp
   - tools/detail/rolling_hash.hpp
   - tools/bostan_mori.hpp
   - tools/rolling_hash.hpp
@@ -96,6 +104,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
 documentation_of: tools/find_cycle.hpp
 layout: document

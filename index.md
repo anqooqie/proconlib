@@ -508,6 +508,10 @@ data:
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
+      path: tools/stirling_1st.hpp
+      title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+        n$
+    - icon: ':heavy_check_mark:'
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k
         \leq n$
@@ -880,6 +884,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/stirling_1st.test.cpp
+      title: tests/stirling_1st.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/stirling_2nd.test.cpp
       title: tests/stirling_2nd.test.cpp

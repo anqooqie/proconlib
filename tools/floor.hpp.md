@@ -38,6 +38,10 @@ data:
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
+  - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -145,6 +149,9 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   _isVerificationFailed: false
@@ -170,6 +177,7 @@ data:
   requiredBy:
   - tools/berlekamp_massey.hpp
   - tools/pow_mod_cache.hpp
+  - tools/stirling_1st.hpp
   - tools/detail/rolling_hash.hpp
   - tools/bigdecimal.hpp
   - tools/bostan_mori.hpp
@@ -212,6 +220,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

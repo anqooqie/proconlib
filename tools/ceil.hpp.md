@@ -66,6 +66,10 @@ data:
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -211,6 +215,9 @@ data:
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -245,6 +252,7 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/pow_mod_cache.hpp
   - tools/ceil_log.hpp
+  - tools/stirling_1st.hpp
   - tools/detail/rolling_hash.hpp
   - tools/bigdecimal.hpp
   - tools/ceil_quotients.hpp
@@ -307,6 +315,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil_quotients.test.cpp
   - tests/rotate_right.test.cpp

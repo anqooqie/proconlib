@@ -70,6 +70,10 @@ data:
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
+    path: tools/stirling_1st.hpp
+    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
+      n$
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -225,6 +229,9 @@ data:
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st.test.cpp
+    title: tests/stirling_1st.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -288,6 +295,7 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/square.hpp
   - tools/fps.hpp
+  - tools/stirling_1st.hpp
   - tools/detail/geometry_2d.hpp
   - tools/detail/rolling_hash.hpp
   - tools/pow.hpp
@@ -347,6 +355,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/stirling_1st.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/permutation.test.cpp
