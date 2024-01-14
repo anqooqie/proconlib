@@ -8,7 +8,7 @@ documentation_of: //tools/polynomial.hpp
 このクラスは`std::vector<R>`と同様のインタフェースを備えており、$i$番目の要素が$i$次の係数を表しているものとして設計されています。
 
 高次の係数$0$を明示的に持つかどうかによって、ある一つの多項式が複数の表現を持ちます。
-たとえば、`polynomial<R>{3, 2}`、`polynomial<R>{3, 2, 0}`、`polynomial<R>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
+たとえば、`polynomial<int>{3, 2}`、`polynomial<int>{3, 2, 0}`、`polynomial<int>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
 
 `std::vector<R>`に存在しない`polynomial<R>`固有のメンバ関数は、`polynomial<R>`を変更したり新規に生成したりする際、末尾の連続する$0$を取り除いて正規化します。
 
@@ -92,7 +92,7 @@ bool operator!=(polynomial<R> f, polynomial<R> g);
 ```
 
 $f$と$g$が多項式として等しいかどうかを返します。
-たとえば`polynomial<R>{3, 2} == polynomial<R>{3, 2, 0}`は`true`です。
+たとえば`polynomial<int>{3, 2} == polynomial<int>{3, 2, 0}`は`true`です。
 
 ### Constraints
 - None
@@ -368,6 +368,20 @@ $$\begin{align*}
 ### Time Complexity
 - ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()` and $m$ is `g.size()`
 - (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
+
+## derivative
+```cpp
+(1) polynomial<R> f.derivative();
+(2) polynomial<R>& f.derivative_inplace();
+```
+
+$\mathrm{deg}(f')$次以下の係数を明示的に持つ多項式$f'$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$ where $n$ is `f.size()`
 
 ## operator()
 ```cpp

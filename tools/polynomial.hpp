@@ -441,6 +441,20 @@ namespace tools {
       return this->regularize();
     }
 
+    P& derivative_inplace() {
+      this->regularize();
+      const int n = this->size();
+      if (n == 0) return *this;
+      for (int i = 2; i < n; ++i) {
+        (*this)[i] *= i;
+      }
+      this->erase(this->begin());
+      return this->regularize();
+    }
+    P derivative() const {
+      return P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();
+    }
+
   private:
     P& taylor_shift(const R& c) {
       static_assert(::tools::has_mod_v<R>);
