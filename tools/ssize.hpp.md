@@ -37,6 +37,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -163,6 +166,9 @@ data:
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
   - icon: ':heavy_check_mark:'
@@ -247,6 +253,7 @@ data:
   - tools/mcf_graph.hpp
   - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -302,6 +309,7 @@ data:
   - tests/bostan_mori.test.cpp
   - tests/fastio/string.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document
 title: Polyfill of std::ssize

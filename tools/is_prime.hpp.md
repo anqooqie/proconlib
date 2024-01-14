@@ -67,6 +67,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -241,6 +244,9 @@ data:
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -386,6 +392,7 @@ data:
   - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
   - tools/tetration_mod.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/primitive_root.hpp
   - tools/garner3.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
@@ -452,6 +459,7 @@ data:
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/fastio/string.test.cpp
+  - tests/polynomial_interpolation.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/is_prime.hpp
 layout: document

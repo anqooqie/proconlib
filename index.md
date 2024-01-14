@@ -396,6 +396,9 @@ data:
       path: tools/polynomial.hpp
       title: Polynomial
     - icon: ':heavy_check_mark:'
+      path: tools/polynomial_interpolation.hpp
+      title: Polynomial interpolation
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -827,6 +830,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/polynomial_interpolation.test.cpp
+      title: tests/polynomial_interpolation.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/preset_segtree_beats.test.cpp
       title: tests/preset_segtree_beats.test.cpp

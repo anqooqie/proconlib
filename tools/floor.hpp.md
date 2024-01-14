@@ -27,6 +27,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -137,6 +140,9 @@ data:
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -190,6 +196,7 @@ data:
   - tools/round.hpp
   - tools/polynomial.hpp
   - tools/floor_log.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -232,6 +239,7 @@ data:
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/fastio/string.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
 title: $\left\lfloor \frac{x}{y} \right\rfloor$

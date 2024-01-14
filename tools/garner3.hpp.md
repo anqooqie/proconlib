@@ -46,6 +46,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -129,6 +132,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
@@ -257,6 +263,7 @@ data:
   - tools/convolution.hpp
   - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
+  - tools/polynomial_interpolation.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -288,6 +295,7 @@ data:
   - tests/stirling_1st.test.cpp
   - tests/stirling_2nd.test.cpp
   - tests/bostan_mori.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/garner3.hpp
 layout: document
 title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2 \mathbb{Z}$

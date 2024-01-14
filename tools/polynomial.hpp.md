@@ -77,6 +77,9 @@ data:
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -102,6 +105,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
@@ -1388,6 +1394,11 @@ data:
     \      } else {\n        return this->divide_inplace_naive(g);\n      }\n    }\n\
     \    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *= g;\n\
     \      q *= AG::inv(MM::e());\n      *this += q;\n      return this->regularize();\n\
+    \    }\n\n    P& derivative_inplace() {\n      this->regularize();\n      const\
+    \ int n = this->size();\n      if (n == 0) return *this;\n      for (int i = 2;\
+    \ i < n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
+    \      return this->regularize();\n    }\n    P derivative() const {\n      return\
+    \ P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();\n\
     \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(::tools::has_mod_v<R>);\n\
     \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
     \ ::tools::group::multiplies<R>>);\n      assert(::tools::is_prime(R::mod()));\n\
@@ -1673,6 +1684,11 @@ data:
     \      } else {\n        return this->divide_inplace_naive(g);\n      }\n    }\n\
     \    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *= g;\n\
     \      q *= AG::inv(MM::e());\n      *this += q;\n      return this->regularize();\n\
+    \    }\n\n    P& derivative_inplace() {\n      this->regularize();\n      const\
+    \ int n = this->size();\n      if (n == 0) return *this;\n      for (int i = 2;\
+    \ i < n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
+    \      return this->regularize();\n    }\n    P derivative() const {\n      return\
+    \ P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();\n\
     \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(::tools::has_mod_v<R>);\n\
     \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
     \ ::tools::group::multiplies<R>>);\n      assert(::tools::is_prime(R::mod()));\n\
@@ -1778,7 +1794,8 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/stirling_1st.hpp
   - tools/bostan_mori.hpp
-  timestamp: '2024-01-14 00:15:27+09:00'
+  - tools/polynomial_interpolation.hpp
+  timestamp: '2024-01-14 21:51:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/berlekamp_massey.test.cpp
@@ -1789,6 +1806,7 @@ data:
   - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
 title: Polynomial
@@ -1799,7 +1817,7 @@ title: Polynomial
 このクラスは`std::vector<R>`と同様のインタフェースを備えており、$i$番目の要素が$i$次の係数を表しているものとして設計されています。
 
 高次の係数$0$を明示的に持つかどうかによって、ある一つの多項式が複数の表現を持ちます。
-たとえば、`polynomial<R>{3, 2}`、`polynomial<R>{3, 2, 0}`、`polynomial<R>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
+たとえば、`polynomial<int>{3, 2}`、`polynomial<int>{3, 2, 0}`、`polynomial<int>{3, 2, 0, 0}`…はいずれも多項式$3 + 2x$を表します。
 
 `std::vector<R>`に存在しない`polynomial<R>`固有のメンバ関数は、`polynomial<R>`を変更したり新規に生成したりする際、末尾の連続する$0$を取り除いて正規化します。
 
@@ -1883,7 +1901,7 @@ bool operator!=(polynomial<R> f, polynomial<R> g);
 ```
 
 $f$と$g$が多項式として等しいかどうかを返します。
-たとえば`polynomial<R>{3, 2} == polynomial<R>{3, 2, 0}`は`true`です。
+たとえば`polynomial<int>{3, 2} == polynomial<int>{3, 2, 0}`は`true`です。
 
 ### Constraints
 - None
@@ -2159,6 +2177,20 @@ $$\begin{align*}
 ### Time Complexity
 - ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()` and $m$ is `g.size()`
 - (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
+
+## derivative
+```cpp
+(1) polynomial<R> f.derivative();
+(2) polynomial<R>& f.derivative_inplace();
+```
+
+$\mathrm{deg}(f')$次以下の係数を明示的に持つ多項式$f'$を返します。
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$ where $n$ is `f.size()`
 
 ## operator()
 ```cpp

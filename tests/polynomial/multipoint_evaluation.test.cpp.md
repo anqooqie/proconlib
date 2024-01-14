@@ -1362,6 +1362,11 @@ data:
     \      } else {\n        return this->divide_inplace_naive(g);\n      }\n    }\n\
     \    P& operator%=(const P& g) {\n      auto q = (*this) / g;\n      q *= g;\n\
     \      q *= AG::inv(MM::e());\n      *this += q;\n      return this->regularize();\n\
+    \    }\n\n    P& derivative_inplace() {\n      this->regularize();\n      const\
+    \ int n = this->size();\n      if (n == 0) return *this;\n      for (int i = 2;\
+    \ i < n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
+    \      return this->regularize();\n    }\n    P derivative() const {\n      return\
+    \ P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();\n\
     \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(::tools::has_mod_v<R>);\n\
     \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
     \ ::tools::group::multiplies<R>>);\n      assert(::tools::is_prime(R::mod()));\n\
@@ -1485,7 +1490,7 @@ data:
   isVerificationFile: true
   path: tests/polynomial/multipoint_evaluation.test.cpp
   requiredBy: []
-  timestamp: '2024-01-14 00:15:27+09:00'
+  timestamp: '2024-01-14 21:51:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/polynomial/multipoint_evaluation.test.cpp

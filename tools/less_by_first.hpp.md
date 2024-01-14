@@ -25,6 +25,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
   - icon: ':heavy_check_mark:'
@@ -106,6 +109,9 @@ data:
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
@@ -165,6 +171,7 @@ data:
   - tools/partially_persistent_dsu.hpp
   - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
+  - tools/polynomial_interpolation.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -199,6 +206,7 @@ data:
   - tests/wavelet_matrix/prev_points.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

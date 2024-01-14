@@ -55,6 +55,9 @@ data:
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_interpolation.hpp
+    title: Polynomial interpolation
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
@@ -211,6 +214,9 @@ data:
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_interpolation.test.cpp
+    title: tests/polynomial_interpolation.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
   - icon: ':heavy_check_mark:'
@@ -320,6 +326,7 @@ data:
   - tools/line_2d.hpp
   - tools/tetration_mod.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/modint_for_rolling_hash.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -374,6 +381,7 @@ data:
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/bostan_mori.test.cpp
+  - tests/polynomial_interpolation.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
