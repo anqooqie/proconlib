@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
       {}_n P_r \pmod{P}$
@@ -33,13 +33,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -48,14 +48,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -150,22 +150,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -186,19 +186,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -219,9 +219,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ssize.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -256,7 +256,7 @@ data:
   - tools/sparse_fps_pow.hpp
   - tools/rational.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
