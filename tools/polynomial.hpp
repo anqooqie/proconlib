@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <numeric>
 #include "atcoder/modint.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/group.hpp"
@@ -224,12 +225,15 @@ namespace tools {
       friend coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
         return coefficient_iterator(self.m_vector, self.m_offset + n);
       }
+      friend coefficient_iterator operator+(const ::std::ptrdiff_t n, const coefficient_iterator& self) {
+        return self + n;
+      }
       friend coefficient_iterator operator-(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
         return coefficient_iterator(self.m_vector, self.m_offset - n);
       }
       friend ::std::ptrdiff_t operator-(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
         assert(lhs.m_vector == rhs.m_vector);
-        return lhs.m_offset - rhs.m_offset;
+        return static_cast<::std::ptrdiff_t>(lhs.m_offset) - static_cast<::std::ptrdiff_t>(rhs.m_offset);
       }
       const R& operator[](const ::std::ptrdiff_t n) const {
         return *(*this + n);
@@ -369,56 +373,55 @@ namespace tools {
     }
 
   private:
-    P& divide_inplace_naive(const P& g) {
+    P& divide_inplace_naive(const const_iterator g_begin, const const_iterator g_end) {
       const int n = this->size();
-      const int m = g.size();
+      const int m = ::std::distance(g_begin, g_end);
 
       assert(0 < m && m <= n);
       assert(AG::e() != MM::e());
       assert(this->back() != AG::e());
-      assert(g.back() != AG::e());
+      assert(*::std::prev(g_end) != AG::e());
 
-      const auto ic = MM::inv(g.back());
+      const auto ic = MM::inv(*::std::prev(g_end));
       P q(n - m + 1);
       for (int i = n - m; i >= 0; --i) {
         q[i] = MM::op((*this)[m - 1 + i], ic);
-        for (int j = 0; j < m; ++j) {
-          (*this)[j + i] = AG::op((*this)[j + i], AG::inv(MM::op(g[j], q[i])));
+        auto f_it = this->begin() + i;
+        for (auto g_it = g_begin; g_it != g_end; ++g_it, ++f_it) {
+          *f_it = AG::op(*f_it, AG::inv(MM::op(*g_it, q[i])));
         }
       }
       return *this = ::std::move(q);
     }
-    P& divide_inplace_faster(const P& g) {
+    P& divide_inplace_faster(const const_iterator g_begin, const const_iterator g_end) {
       const int n = this->size();
-      const int m = g.size();
+      const int m = ::std::distance(g_begin, g_end);
 
       static_assert(::tools::has_mod_v<R>);
       static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
-      static_assert(::std::is_same_v<MM, ::tools::group::multiplies<R>>);
-      assert(::tools::is_prime(R::mod()));
+      static_assert(::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
       assert(0 < m && m <= n);
       assert(AG::e() != MM::e());
       assert(this->back() != AG::e());
-      assert(g.back() != AG::e());
+      assert(::std::gcd(::std::prev(g_end)->val(), R::mod()) == 1);
 
-      ::tools::fps<R> q(this->rbegin(), this->rend());
-      q.divide_inplace(::tools::fps<R>(g.rbegin(), g.rend()), n - m + 1);
+      ::tools::fps<R> q(this->rbegin(), ::std::next(this->rbegin(), n - m + 1));
+      q.divide_inplace(::tools::fps<R>(::std::make_reverse_iterator(g_end), ::std::next(::std::make_reverse_iterator(g_end), ::std::min(m, n - m + 1))));
       this->assign(q.rbegin(), q.rend());
       return *this;
     }
 
   public:
-    P& operator/=(P g) {
+    P& operator/=(const P& g) {
       if (AG::e() == MM::e()) {
         this->clear();
         return *this;
       }
 
       this->regularize();
-      g.regularize();
 
       const int n = this->size();
-      const int m = g.size();
+      const int m = g.deg() + 1;
 
       assert(m > 0);
       if (n < m) {
@@ -426,19 +429,103 @@ namespace tools {
         return *this;
       }
 
-      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
-        assert(::tools::is_prime(R::mod()));
-        return this->divide_inplace_faster(g);
+      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>)) {
+        assert(::std::gcd(g[m - 1].val(), R::mod()) == 1);
+        return this->divide_inplace_faster(g.begin(), g.begin() + m);
       } else {
-        return this->divide_inplace_naive(g);
+        return this->divide_inplace_naive(g.begin(), g.begin() + m);
       }
     }
-    P& operator%=(const P& g) {
+
+  private:
+    P& modulo_inplace_naive(const P& g) {
       auto q = (*this) / g;
       q *= g;
       q *= AG::inv(MM::e());
       *this += q;
       return this->regularize();
+    }
+    P& modulo_inplace_faster(P g) {
+      static_assert(::tools::detail::polynomial::is_prime_modint_v<R>);
+      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
+      static_assert(::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+
+      g.regularize();
+      const auto n = this->size();
+      const auto m = g.size();
+      assert(m > 1);
+
+      const auto z = ::tools::pow2(::tools::ceil_log2(m - 1));
+      assert((R::mod() - 1) % z == 0);
+
+      auto q = (*this) / g;
+      for (::std::size_t i = z; i < q.size(); ++i) {
+        q[i & (z - 1)] += q[i];
+      }
+      q.resize(z);
+      ::atcoder::internal::butterfly(q.m_vector);
+
+      if (z < m) {
+        g[0] += g[m - 1];
+      }
+      g.resize(z);
+      ::atcoder::internal::butterfly(g.m_vector);
+
+      for (::std::size_t i = 0; i < z; ++i) {
+        q[i] *= g[i];
+      }
+
+      ::atcoder::internal::butterfly_inv(q.m_vector);
+      const auto iz = R(z).inv();
+
+      q.resize(m - 1);
+      for (::std::size_t i = 0; i < q.size(); ++i) {
+        q[i] = -(q[i] * iz);
+      }
+
+      for (::std::size_t offset = 0; offset < n; offset += z) {
+        for (::std::size_t i = offset; i < ::std::min(offset + m - 1, n); ++i) {
+          q[i & (z - 1)] += (*this)[i];
+        }
+      }
+
+      q.regularize();
+      return *this = ::std::move(q);
+    }
+
+  public:
+    P& operator%=(const P& g) {
+      if (AG::e() == MM::e()) {
+        this->clear();
+        return *this;
+      }
+
+      this->regularize();
+
+      const auto n = this->size();
+      const ::std::size_t m = g.deg() + 1;
+
+      assert(m > 0);
+      if (n < m) {
+        return *this;
+      }
+
+      if (m == 1) {
+        this->clear();
+        return *this;
+      }
+
+      if constexpr (::tools::detail::polynomial::is_prime_modint_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>)) {
+        const auto lz = ::tools::ceil_log2(m - 1);
+        const auto z = ::tools::pow2(lz);
+        if (!((R::mod() - 1) & (z - 1)) && lz + m < n) {
+          return this->modulo_inplace_faster(g);
+        } else {
+          return this->modulo_inplace_naive(g);
+        }
+      } else {
+        return this->modulo_inplace_naive(g);
+      }
     }
 
     P& derivative_inplace() {

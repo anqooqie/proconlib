@@ -346,11 +346,13 @@ $$\begin{align*}
 \end{align*}$$
 
 ### Constraints
-- $R$ is a trivial ring or a field.
-- If $R$ is not a trivial ring, $g \neq 0$
+- At least one of the following conditions hold.
+    - $R$ is a trivial ring.
+    - $R$ is a field and $g \neq 0$.
+    - $R$ is $\mathbb{Z}/M\mathbb{Z}$, $g \neq 0$ and $\gcd(g_{\mathrm{deg}(g)}, M) = 1$.
 
 ### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + (\mathrm{deg}(f) - \mathrm{deg}(g)) \log (\mathrm{deg}(f) - \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
+- ($R$ is $\mathbb{Z}/M\mathbb{Z}$): $O(n + m + (\mathrm{deg}(f) - \mathrm{deg}(g)) \log (\mathrm{deg}(f) - \mathrm{deg}(g)))$ where $n$ is `f.size()` and $m$ is `g.size()`
 - (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## Modulus operators
