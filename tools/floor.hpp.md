@@ -131,6 +131,9 @@ data:
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+    title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -213,6 +216,7 @@ data:
   - tests/rolling_hash.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/polynomial/ntt_division.test.cpp

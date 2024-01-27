@@ -5,6 +5,9 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
+    path: tools/assert_that.hpp
+    title: Assertion macro
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -79,14 +82,14 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/division_of_polynomials
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://judge.yosupo.jp/problem/division_of_polynomials
-  bundledCode: "#line 1 \"tests/polynomial/ntt_division.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/division_of_polynomials\"\n\n#include <iostream>\n\
-    #include <cmath>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/polynomial/multipoint_evaluation_other_mods.test.cpp\"\
+    \n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include\
+    \ <iostream>\n#include <vector>\n#include <type_traits>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
     namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
     \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
@@ -290,22 +293,27 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
-    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#include <vector>\n\
-    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line 12\
-    \ \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/assert_that.hpp\"\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
+    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
+    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/polynomial.hpp\"\
+    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#line 8 \"tools/polynomial.hpp\"\
+    \n#include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line\
+    \ 12 \"tools/polynomial.hpp\"\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\
     \n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
-    \n\n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
-    \ abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const\
-    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const\
-    \ long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const\
-    \ int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
-    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
-    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
-    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
-    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
+    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
+    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
+    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
@@ -543,10 +551,11 @@ data:
     \ static constexpr unsigned long long offset[5] = {\n            0, 0, M1M2M3,\
     \ 2 * M1M2M3, 3 * M1M2M3};\n        x -= offset[diff % 5];\n        c[i] = x;\n\
     \    }\n\n    return c;\n}\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\
-    \n\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \n\n\n\n#line 12 \"tools/convolution.hpp\"\n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\
+    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
+    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
@@ -1519,31 +1528,72 @@ data:
     \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
     \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
     \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
-    }\n\n\n#line 8 \"tests/polynomial/ntt_division.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    using ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N, M;\n  std::cin >> N >> M;\n  tools::polynomial<mint> f(N), g(M);\n \
-    \ for (auto& f_i : f) {\n    ll x;\n    std::cin >> x;\n    f_i = mint::raw(x);\n\
-    \  }\n  for (auto& g_i : g) {\n    ll x;\n    std::cin >> x;\n    g_i = mint::raw(x);\n\
-    \  }\n\n  const auto q = f / g;\n  const auto r = f % g;\n\n  std::cout << q.size()\
-    \ << ' ' << r.size() << '\\n';\n  std::string delimiter = \"\";\n  for (const\
-    \ auto& q_i : q) {\n    std::cout << delimiter << q_i.val();\n    delimiter =\
-    \ \" \";\n  }\n  std::cout << '\\n';\n  delimiter = \"\";\n  for (const auto&\
-    \ r_i : r) {\n    std::cout << delimiter << r_i.val();\n    delimiter = \" \"\
-    ;\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_polynomials\"\
-    \n\n#include <iostream>\n#include <cmath>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/polynomial.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    using ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N, M;\n  std::cin >> N >> M;\n  tools::polynomial<mint> f(N), g(M);\n \
-    \ for (auto& f_i : f) {\n    ll x;\n    std::cin >> x;\n    f_i = mint::raw(x);\n\
-    \  }\n  for (auto& g_i : g) {\n    ll x;\n    std::cin >> x;\n    g_i = mint::raw(x);\n\
-    \  }\n\n  const auto q = f / g;\n  const auto r = f % g;\n\n  std::cout << q.size()\
-    \ << ' ' << r.size() << '\\n';\n  std::string delimiter = \"\";\n  for (const\
-    \ auto& q_i : q) {\n    std::cout << delimiter << q_i.val();\n    delimiter =\
-    \ \" \";\n  }\n  std::cout << '\\n';\n  delimiter = \"\";\n  for (const auto&\
-    \ r_i : r) {\n    std::cout << delimiter << r_i.val();\n    delimiter = \" \"\
-    ;\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
+    }\n\n\n#line 9 \"tests/polynomial/multipoint_evaluation_other_mods.test.cpp\"\n\
+    \ntemplate <typename M>\nstd::vector<M> naive(const tools::polynomial<M>& f, const\
+    \ std::vector<M>& p) {\n  std::vector<M> res;\n  for (const auto& p_i : p) {\n\
+    \    res.push_back(f(p_i));\n  }\n  return res;\n}\n\ntemplate <typename M = void>\n\
+    void verify_not_wa(const std::vector<int>& oc, const ::std::vector<int>& op) {\n\
+    \  if constexpr (std::is_same_v<M, void>) {\n\n    verify_not_wa<atcoder::static_modint<1>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::static_modint<2>>(oc, op);\n    verify_not_wa<atcoder::static_modint<735134400>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::static_modint<999634589>>(oc, op);\n    verify_not_wa<atcoder::static_modint<1000000007>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<0>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<1>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<2>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<3>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<4>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<5>>(oc,\
+    \ op);\n\n  } else {\n    tools::polynomial<M> f(oc.begin(), oc.end());\n    std::vector<M>\
+    \ p(op.begin(), op.end());\n\n    assert_that(f.multipoint_evaluation(p.begin(),\
+    \ p.end()) == naive(f, p));\n  }\n}\n\ntemplate <typename M = void>\nvoid verify_not_tle(const\
+    \ int n, const int m) {\n  if constexpr (std::is_same_v<M, void>) {\n\n    verify_not_tle<atcoder::static_modint<1>>(n,\
+    \ m);\n    verify_not_tle<atcoder::static_modint<2>>(n, m);\n    verify_not_tle<atcoder::static_modint<735134400>>(n,\
+    \ m);\n    verify_not_tle<atcoder::static_modint<999634589>>(n, m);\n    verify_not_tle<atcoder::static_modint<1000000007>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<0>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<1>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<2>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<3>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<4>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<5>>(n,\
+    \ m);\n\n  } else {\n    tools::polynomial<M> f(n);\n    ++f.back();\n    std::vector<M>\
+    \ p(m);\n    for (int i = 0; i < m; ++i) p[i] = M(i);\n\n    std::vector<M> expected(m);\n\
+    \    for (int i = 0; i < m; ++i) expected[i] = M(i).pow(n - 1);\n\n    assert_that(f.multipoint_evaluation(p.begin(),\
+    \ p.end()) == expected);\n  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n \
+    \ std::ios_base::sync_with_stdio(false);\n\n  atcoder::dynamic_modint<0>::set_mod(1);\n\
+    \  atcoder::dynamic_modint<1>::set_mod(2);\n  atcoder::dynamic_modint<2>::set_mod(735134400);\n\
+    \  atcoder::dynamic_modint<3>::set_mod(999634589);\n  atcoder::dynamic_modint<4>::set_mod(1000000007);\n\
+    \  atcoder::dynamic_modint<5>::set_mod(998244353);\n\n  verify_not_wa(std::vector<int>{1,\
+    \ 2, 3, 4}, std::vector<int>{5, 6, 7, 8, 9});\n  verify_not_wa(std::vector<int>{1000000},\
+    \ std::vector<int>{1000000});\n\n  verify_not_tle(131072, 131072);\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include <vector>\n#include <type_traits>\n#include \"atcoder/modint.hpp\"\
+    \n#include \"tools/assert_that.hpp\"\n#include \"tools/polynomial.hpp\"\n\ntemplate\
+    \ <typename M>\nstd::vector<M> naive(const tools::polynomial<M>& f, const std::vector<M>&\
+    \ p) {\n  std::vector<M> res;\n  for (const auto& p_i : p) {\n    res.push_back(f(p_i));\n\
+    \  }\n  return res;\n}\n\ntemplate <typename M = void>\nvoid verify_not_wa(const\
+    \ std::vector<int>& oc, const ::std::vector<int>& op) {\n  if constexpr (std::is_same_v<M,\
+    \ void>) {\n\n    verify_not_wa<atcoder::static_modint<1>>(oc, op);\n    verify_not_wa<atcoder::static_modint<2>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::static_modint<735134400>>(oc, op);\n    verify_not_wa<atcoder::static_modint<999634589>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::static_modint<1000000007>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<0>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<1>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<2>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<3>>(oc, op);\n    verify_not_wa<atcoder::dynamic_modint<4>>(oc,\
+    \ op);\n    verify_not_wa<atcoder::dynamic_modint<5>>(oc, op);\n\n  } else {\n\
+    \    tools::polynomial<M> f(oc.begin(), oc.end());\n    std::vector<M> p(op.begin(),\
+    \ op.end());\n\n    assert_that(f.multipoint_evaluation(p.begin(), p.end()) ==\
+    \ naive(f, p));\n  }\n}\n\ntemplate <typename M = void>\nvoid verify_not_tle(const\
+    \ int n, const int m) {\n  if constexpr (std::is_same_v<M, void>) {\n\n    verify_not_tle<atcoder::static_modint<1>>(n,\
+    \ m);\n    verify_not_tle<atcoder::static_modint<2>>(n, m);\n    verify_not_tle<atcoder::static_modint<735134400>>(n,\
+    \ m);\n    verify_not_tle<atcoder::static_modint<999634589>>(n, m);\n    verify_not_tle<atcoder::static_modint<1000000007>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<0>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<1>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<2>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<3>>(n,\
+    \ m);\n    verify_not_tle<atcoder::dynamic_modint<4>>(n, m);\n    verify_not_tle<atcoder::dynamic_modint<5>>(n,\
+    \ m);\n\n  } else {\n    tools::polynomial<M> f(n);\n    ++f.back();\n    std::vector<M>\
+    \ p(m);\n    for (int i = 0; i < m; ++i) p[i] = M(i);\n\n    std::vector<M> expected(m);\n\
+    \    for (int i = 0; i < m; ++i) expected[i] = M(i).pow(n - 1);\n\n    assert_that(f.multipoint_evaluation(p.begin(),\
+    \ p.end()) == expected);\n  }\n}\n\nint main() {\n  std::cin.tie(nullptr);\n \
+    \ std::ios_base::sync_with_stdio(false);\n\n  atcoder::dynamic_modint<0>::set_mod(1);\n\
+    \  atcoder::dynamic_modint<1>::set_mod(2);\n  atcoder::dynamic_modint<2>::set_mod(735134400);\n\
+    \  atcoder::dynamic_modint<3>::set_mod(999634589);\n  atcoder::dynamic_modint<4>::set_mod(1000000007);\n\
+    \  atcoder::dynamic_modint<5>::set_mod(998244353);\n\n  verify_not_wa(std::vector<int>{1,\
+    \ 2, 3, 4}, std::vector<int>{5, 6, 7, 8, 9});\n  verify_not_wa(std::vector<int>{1000000},\
+    \ std::vector<int>{1000000});\n\n  verify_not_tle(131072, 131072);\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/assert_that.hpp
   - tools/polynomial.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -1568,15 +1618,15 @@ data:
   - tools/floor.hpp
   - tools/ceil.hpp
   isVerificationFile: true
-  path: tests/polynomial/ntt_division.test.cpp
+  path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   requiredBy: []
   timestamp: '2024-01-28 02:40:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/polynomial/ntt_division.test.cpp
+documentation_of: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/polynomial/ntt_division.test.cpp
-- /verify/tests/polynomial/ntt_division.test.cpp.html
-title: tests/polynomial/ntt_division.test.cpp
+- /verify/tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+- /verify/tests/polynomial/multipoint_evaluation_other_mods.test.cpp.html
+title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
 ---

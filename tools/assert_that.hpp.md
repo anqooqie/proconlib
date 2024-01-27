@@ -106,6 +106,9 @@ data:
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+    title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
   - icon: ':heavy_check_mark:'
@@ -203,6 +206,7 @@ data:
   - tests/rotate_right.test.cpp
   - tests/extend_output.test.cpp
   - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/fill.test.cpp
   - tests/ceil.test.cpp
   - tests/ceil_log2.test.cpp

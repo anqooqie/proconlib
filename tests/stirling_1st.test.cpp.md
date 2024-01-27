@@ -1247,9 +1247,15 @@ data:
     \          ::tools::group::multiplies<T1>,\n                    ::tools::monoid::multiplies<T1>\n\
     \                >\n            >\n        >,\n        T2\n    >;\n\n    static_assert(::std::is_same_v<typename\
     \ AG::T, typename MM::T>);\n    using R = typename AG::T;\n    using P = ::tools::polynomial<T1,\
-    \ T2>;\n    ::std::vector<R> m_vector;\n\n  public:\n    using reference = R&;\n\
-    \    using const_reference = const R&;\n    using iterator = typename ::std::vector<R>::iterator;\n\
-    \    using const_iterator = typename ::std::vector<R>::const_iterator;\n    using\
+    \ T2>;\n\n    static constexpr bool IS_MOD_P = ::tools::detail::polynomial::is_prime_modint_v<R>\n\
+    \      && ::std::is_same_v<AG, ::tools::group::plus<R>>\n      && (::std::is_same_v<MM,\
+    \ ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n\
+    \    static constexpr bool IS_MOD_M = ::tools::has_mod_v<R>\n      && ::std::is_same_v<AG,\
+    \ ::tools::group::plus<R>>\n      && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>>\
+    \ || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n\n    ::std::vector<R>\
+    \ m_vector;\n\n  public:\n    using reference = R&;\n    using const_reference\
+    \ = const R&;\n    using iterator = typename ::std::vector<R>::iterator;\n   \
+    \ using const_iterator = typename ::std::vector<R>::const_iterator;\n    using\
     \ size_type = ::std::size_t;\n    using difference_type = ::std::ptrdiff_t;\n\
     \    using value_type = R;\n    using allocator_type = typename ::std::vector<R>::allocator_type;\n\
     \    using pointer = R*;\n    using const_pointer = const R*;\n    using reverse_iterator\
@@ -1411,53 +1417,44 @@ data:
     \ q[i])));\n        }\n      }\n      return *this = ::std::move(q);\n    }\n\
     \    P& divide_inplace_faster(const const_iterator g_begin, const const_iterator\
     \ g_end) {\n      const int n = this->size();\n      const int m = ::std::distance(g_begin,\
-    \ g_end);\n\n      static_assert(::tools::has_mod_v<R>);\n      static_assert(::std::is_same_v<AG,\
-    \ ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM, ::tools::monoid::multiplies<R>>\
-    \ || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n      assert(0 < m\
-    \ && m <= n);\n      assert(AG::e() != MM::e());\n      assert(this->back() !=\
-    \ AG::e());\n      assert(::std::gcd(::std::prev(g_end)->val(), R::mod()) == 1);\n\
-    \n      ::tools::fps<R> q(this->rbegin(), ::std::next(this->rbegin(), n - m +\
-    \ 1));\n      q.divide_inplace(::tools::fps<R>(::std::make_reverse_iterator(g_end),\
+    \ g_end);\n\n      static_assert(IS_MOD_M);\n      assert(0 < m && m <= n);\n\
+    \      assert(AG::e() != MM::e());\n      assert(this->back() != AG::e());\n \
+    \     assert(::std::gcd(::std::prev(g_end)->val(), R::mod()) == 1);\n\n      ::tools::fps<R>\
+    \ q(this->rbegin(), ::std::next(this->rbegin(), n - m + 1));\n      q.divide_inplace(::tools::fps<R>(::std::make_reverse_iterator(g_end),\
     \ ::std::next(::std::make_reverse_iterator(g_end), ::std::min(m, n - m + 1))));\n\
     \      this->assign(q.rbegin(), q.rend());\n      return *this;\n    }\n\n  public:\n\
     \    P& operator/=(const P& g) {\n      if (AG::e() == MM::e()) {\n        this->clear();\n\
     \        return *this;\n      }\n\n      this->regularize();\n\n      const int\
     \ n = this->size();\n      const int m = g.deg() + 1;\n\n      assert(m > 0);\n\
     \      if (n < m) {\n        this->clear();\n        return *this;\n      }\n\n\
-    \      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>>\
-    \ && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM,\
-    \ ::tools::group::multiplies<R>>)) {\n        assert(::std::gcd(g[m - 1].val(),\
-    \ R::mod()) == 1);\n        return this->divide_inplace_faster(g.begin(), g.begin()\
-    \ + m);\n      } else {\n        return this->divide_inplace_naive(g.begin(),\
-    \ g.begin() + m);\n      }\n    }\n\n  private:\n    P& modulo_inplace_naive(const\
-    \ P& g) {\n      auto q = (*this) / g;\n      q *= g;\n      q *= AG::inv(MM::e());\n\
+    \      if constexpr (IS_MOD_M) {\n        assert(::std::gcd(g[m - 1].val(), R::mod())\
+    \ == 1);\n        return this->divide_inplace_faster(g.begin(), g.begin() + m);\n\
+    \      } else {\n        return this->divide_inplace_naive(g.begin(), g.begin()\
+    \ + m);\n      }\n    }\n\n  private:\n    P& modulo_inplace_naive(const P& g)\
+    \ {\n      auto q = (*this) / g;\n      q *= g;\n      q *= AG::inv(MM::e());\n\
     \      *this += q;\n      return this->regularize();\n    }\n    P& modulo_inplace_faster(P\
-    \ g) {\n      static_assert(::tools::detail::polynomial::is_prime_modint_v<R>);\n\
-    \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
-    \ ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);\n\
-    \n      g.regularize();\n      const auto n = this->size();\n      const auto\
-    \ m = g.size();\n      assert(m > 1);\n\n      const auto z = ::tools::pow2(::tools::ceil_log2(m\
-    \ - 1));\n      assert((R::mod() - 1) % z == 0);\n\n      auto q = (*this) / g;\n\
-    \      for (::std::size_t i = z; i < q.size(); ++i) {\n        q[i & (z - 1)]\
-    \ += q[i];\n      }\n      q.resize(z);\n      ::atcoder::internal::butterfly(q.m_vector);\n\
-    \n      if (z < m) {\n        g[0] += g[m - 1];\n      }\n      g.resize(z);\n\
-    \      ::atcoder::internal::butterfly(g.m_vector);\n\n      for (::std::size_t\
-    \ i = 0; i < z; ++i) {\n        q[i] *= g[i];\n      }\n\n      ::atcoder::internal::butterfly_inv(q.m_vector);\n\
-    \      const auto iz = R(z).inv();\n\n      q.resize(m - 1);\n      for (::std::size_t\
-    \ i = 0; i < q.size(); ++i) {\n        q[i] = -(q[i] * iz);\n      }\n\n     \
-    \ for (::std::size_t offset = 0; offset < n; offset += z) {\n        for (::std::size_t\
-    \ i = offset; i < ::std::min(offset + m - 1, n); ++i) {\n          q[i & (z -\
-    \ 1)] += (*this)[i];\n        }\n      }\n\n      q.regularize();\n      return\
-    \ *this = ::std::move(q);\n    }\n\n  public:\n    P& operator%=(const P& g) {\n\
-    \      if (AG::e() == MM::e()) {\n        this->clear();\n        return *this;\n\
-    \      }\n\n      this->regularize();\n\n      const auto n = this->size();\n\
-    \      const ::std::size_t m = g.deg() + 1;\n\n      assert(m > 0);\n      if\
-    \ (n < m) {\n        return *this;\n      }\n\n      if (m == 1) {\n        this->clear();\n\
-    \        return *this;\n      }\n\n      if constexpr (::tools::detail::polynomial::is_prime_modint_v<R>\
-    \ && ::std::is_same_v<AG, ::tools::group::plus<R>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>>\
-    \ || ::std::is_same_v<MM, ::tools::group::multiplies<R>>)) {\n        const auto\
-    \ lz = ::tools::ceil_log2(m - 1);\n        const auto z = ::tools::pow2(lz);\n\
-    \        if (!((R::mod() - 1) & (z - 1)) && lz + m < n) {\n          return this->modulo_inplace_faster(g);\n\
+    \ g) {\n      static_assert(IS_MOD_P);\n\n      g.regularize();\n      const auto\
+    \ n = this->size();\n      const auto m = g.size();\n      assert(m > 1);\n\n\
+    \      const auto z = ::tools::pow2(::tools::ceil_log2(m - 1));\n      assert((R::mod()\
+    \ - 1) % z == 0);\n\n      auto q = (*this) / g;\n      for (::std::size_t i =\
+    \ z; i < q.size(); ++i) {\n        q[i & (z - 1)] += q[i];\n      }\n      q.resize(z);\n\
+    \      ::atcoder::internal::butterfly(q.m_vector);\n\n      if (z < m) {\n   \
+    \     g[0] += g[m - 1];\n      }\n      g.resize(z);\n      ::atcoder::internal::butterfly(g.m_vector);\n\
+    \n      for (::std::size_t i = 0; i < z; ++i) {\n        q[i] *= g[i];\n     \
+    \ }\n\n      ::atcoder::internal::butterfly_inv(q.m_vector);\n      const auto\
+    \ iz = R(z).inv();\n\n      q.resize(m - 1);\n      for (::std::size_t i = 0;\
+    \ i < q.size(); ++i) {\n        q[i] = -(q[i] * iz);\n      }\n\n      for (::std::size_t\
+    \ offset = 0; offset < n; offset += z) {\n        for (::std::size_t i = offset;\
+    \ i < ::std::min(offset + m - 1, n); ++i) {\n          q[i & (z - 1)] += (*this)[i];\n\
+    \        }\n      }\n\n      q.regularize();\n      return *this = ::std::move(q);\n\
+    \    }\n\n  public:\n    P& operator%=(const P& g) {\n      if (AG::e() == MM::e())\
+    \ {\n        this->clear();\n        return *this;\n      }\n\n      this->regularize();\n\
+    \n      const auto n = this->size();\n      const ::std::size_t m = g.deg() +\
+    \ 1;\n\n      assert(m > 0);\n      if (n < m) {\n        return *this;\n    \
+    \  }\n\n      if (m == 1) {\n        this->clear();\n        return *this;\n \
+    \     }\n\n      if constexpr (IS_MOD_P) {\n        const auto lz = ::tools::ceil_log2(m\
+    \ - 1);\n        const auto z = ::tools::pow2(lz);\n        if (!((R::mod() -\
+    \ 1) & (z - 1)) && lz + m < n) {\n          return this->modulo_inplace_faster(g);\n\
     \        } else {\n          return this->modulo_inplace_naive(g);\n        }\n\
     \      } else {\n        return this->modulo_inplace_naive(g);\n      }\n    }\n\
     \n    P& derivative_inplace() {\n      this->regularize();\n      const int n\
@@ -1465,25 +1462,24 @@ data:
     \ n; ++i) {\n        (*this)[i] *= i;\n      }\n      this->erase(this->begin());\n\
     \      return this->regularize();\n    }\n    P derivative() const {\n      return\
     \ P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();\n\
-    \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(::tools::has_mod_v<R>);\n\
-    \      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);\n      static_assert(::std::is_same_v<MM,\
-    \ ::tools::group::multiplies<R>>);\n      assert(::tools::is_prime(R::mod()));\n\
-    \n      this->regularize();\n      const int n = this->size();\n      assert(n\
-    \ < R::mod());\n\n      ::tools::fact_mod_cache<R> cache;\n      ::tools::pow_mod_cache<R>\
-    \ pow_c(c);\n\n      P a;\n      a.reserve(n);\n      for (int i = 0; i < n; ++i)\
-    \ {\n        a.push_back((*this)[i] * cache.fact(i));\n      }\n\n      P b;\n\
-    \      b.reserve(n);\n      for (int i = 0; i < n; ++i) {\n        b.push_back(pow_c[n\
-    \ - 1 - i] * cache.fact_inv(n - 1 - i));\n      }\n\n      a *= b;\n\n      this->clear();\n\
-    \      this->reserve(n);\n      for (int i = 0; i < ::std::min(n, int(a.size())\
-    \ - (n - 1)); ++i) {\n        this->push_back(a[n - 1 + i] * cache.fact_inv(i));\n\
-    \      }\n      return *this;\n    }\n    P& composition_ax_d(const R& a, const\
-    \ int d) {\n      assert(d >= 0);\n\n      this->regularize();\n      if (this->empty())\
-    \ return *this;\n\n      if (a == AG::e()) {\n        this->resize(1);\n     \
-    \   return *this;\n      }\n\n      if (d == 0) {\n        const auto f_a = (*this)(a);\n\
-    \        if (f_a == AG::e()) {\n          this->clear();\n        } else {\n \
-    \         this->resize(1);\n          (*this)[0] = f_a;\n        }\n        return\
-    \ *this;\n      }\n\n      if (d == 1) {\n        if (a == MM::e()) return *this;\n\
-    \n        auto a_i = MM::e();\n        for (auto it = this->begin(); it != this->end();\
+    \    }\n\n  private:\n    P& taylor_shift(const R& c) {\n      static_assert(IS_MOD_M);\n\
+    \      assert(::tools::is_prime(R::mod()));\n\n      this->regularize();\n   \
+    \   const int n = this->size();\n      assert(n < R::mod());\n\n      ::tools::fact_mod_cache<R>\
+    \ cache;\n      ::tools::pow_mod_cache<R> pow_c(c);\n\n      P a;\n      a.reserve(n);\n\
+    \      for (int i = 0; i < n; ++i) {\n        a.push_back((*this)[i] * cache.fact(i));\n\
+    \      }\n\n      P b;\n      b.reserve(n);\n      for (int i = 0; i < n; ++i)\
+    \ {\n        b.push_back(pow_c[n - 1 - i] * cache.fact_inv(n - 1 - i));\n    \
+    \  }\n\n      a *= b;\n\n      this->clear();\n      this->reserve(n);\n     \
+    \ for (int i = 0; i < ::std::min(n, int(a.size()) - (n - 1)); ++i) {\n       \
+    \ this->push_back(a[n - 1 + i] * cache.fact_inv(i));\n      }\n      return *this;\n\
+    \    }\n    P& composition_ax_d(const R& a, const int d) {\n      assert(d >=\
+    \ 0);\n\n      this->regularize();\n      if (this->empty()) return *this;\n\n\
+    \      if (a == AG::e()) {\n        this->resize(1);\n        return *this;\n\
+    \      }\n\n      if (d == 0) {\n        const auto f_a = (*this)(a);\n      \
+    \  if (f_a == AG::e()) {\n          this->clear();\n        } else {\n       \
+    \   this->resize(1);\n          (*this)[0] = f_a;\n        }\n        return *this;\n\
+    \      }\n\n      if (d == 1) {\n        if (a == MM::e()) return *this;\n\n \
+    \       auto a_i = MM::e();\n        for (auto it = this->begin(); it != this->end();\
     \ ++it) {\n          *it = MM::op(*it, a_i);\n          a_i = MM::op(a_i, a);\n\
     \        }\n        return this->regularize();\n      }\n\n      P res;\n    \
     \  res.reserve((this->size() - 1) * d + 1);\n      auto a_i = MM::e();\n     \
@@ -1503,51 +1499,48 @@ data:
     \ m - 1);\n      }\n\n      const auto naive = [&]() {\n        assert(n > 0);\n\
     \        auto g_i = P{MM::e()};\n        auto res = g_i;\n        for (int i =\
     \ 1; i < n; ++i) {\n          g_i *= g;\n          res += g_i;\n        }\n  \
-    \      return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG,\
-    \ ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
-    \ {\n        if (::tools::is_prime(R::mod()) && n < R::mod()) {\n          if\
-    \ (m == 2) {\n            return P(this->begin(), this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1],\
-    \ 1);\n          } else if (m == 3) {\n            return P(this->begin(), this->begin()\
-    \ + n).taylor_shift(g[0] - g[1] * g[1] / (R(4) * g[2])).composition_ax_d(g[2],\
-    \ 2).taylor_shift(g[1] / (R(2) * g[2]));\n          }\n        }\n        return\
-    \ naive();\n      } else {\n        return naive();\n      }\n    }\n\n    template\
+    \      return res;\n      };\n\n      if constexpr (IS_MOD_M) {\n        if (::tools::is_prime(R::mod())\
+    \ && n < R::mod()) {\n          if (m == 2) {\n            return P(this->begin(),\
+    \ this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1], 1);\n         \
+    \ } else if (m == 3) {\n            return P(this->begin(), this->begin() + n).taylor_shift(g[0]\
+    \ - g[1] * g[1] / (R(4) * g[2])).composition_ax_d(g[2], 2).taylor_shift(g[1] /\
+    \ (R(2) * g[2]));\n          }\n        }\n        return naive();\n      } else\
+    \ {\n        return naive();\n      }\n    }\n\n  private:\n    ::std::vector<R>\
+    \ multipoint_evaluation_naive(const ::std::vector<R>& p) const {\n      ::std::vector<R>\
+    \ res;\n      for (const auto& p_i : p) {\n        res.push_back((*this)(p_i));\n\
+    \      }\n      return res;\n    }\n    ::std::vector<R> multipoint_evaluation_faster(const\
+    \ ::std::vector<R>& p) const {\n      const int M = p.size();\n      assert(M\
+    \ > 0);\n\n      const auto h = ::tools::ceil_log2(M);\n      ::std::vector<P>\
+    \ prods(::tools::pow2(h) * 2);\n      for (int i = 0; i < M; ++i) {\n        prods[::tools::pow2(h)\
+    \ + i] = P{-p[i], R(1)};\n      }\n      for (int i = M; i < ::tools::pow2(h);\
+    \ ++i) {\n        prods[::tools::pow2(h) + i] = P{R(1)};\n      }\n      for (int\
+    \ i = ::tools::pow2(h) - 1; i > 0; --i) {\n        prods[i] = prods[i * 2] * prods[i\
+    \ * 2 + 1];\n      }\n\n      ::std::vector<P> mods(::tools::pow2(h) * 2);\n \
+    \     mods[1] = *this % prods[1];\n      for (int i = 2; i < ::tools::pow2(h)\
+    \ + M; ++i) {\n        mods[i] = mods[i / 2] % prods[i];\n      }\n\n      ::std::vector<R>\
+    \ res;\n      res.reserve(M);\n      for (int i = 0; i < M; ++i) {\n        res.push_back(*mods[::tools::pow2(h)\
+    \ + i].pbegin());\n      }\n      return res;\n    }\n\n  public:\n    template\
     \ <typename InputIterator>\n    ::std::vector<R> multipoint_evaluation(const InputIterator\
     \ begin, const InputIterator end) const {\n      ::std::vector<R> p(begin, end);\n\
-    \      const int M = p.size();\n      if (M == 0) return ::std::vector<R>{};\n\
-    \n      const auto naive = [&]() {\n        ::std::vector<R> res;\n        for\
-    \ (const auto& p_i : p) {\n          res.push_back((*this)(p_i));\n        }\n\
-    \        return res;\n      };\n\n      if constexpr (::tools::has_mod_v<R> &&\
-    \ ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>)\
-    \ {\n        if (::tools::is_prime(R::mod())) {\n\n          const auto h = ::tools::ceil_log2(M);\n\
-    \          ::std::vector<P> prods(::tools::pow2(h) * 2);\n          for (int i\
-    \ = 0; i < M; ++i) {\n            prods[::tools::pow2(h) + i] = P{-p[i], R(1)};\n\
-    \          }\n          for (int i = M; i < ::tools::pow2(h); ++i) {\n       \
-    \     prods[::tools::pow2(h) + i] = P{R(1)};\n          }\n          for (int\
-    \ i = ::tools::pow2(h) - 1; i > 0; --i) {\n            prods[i] = prods[i * 2]\
-    \ * prods[i * 2 + 1];\n          }\n\n          ::std::vector<P> mods(::tools::pow2(h)\
-    \ * 2);\n          mods[1] = *this % prods[1];\n          for (int i = 2; i <\
-    \ ::tools::pow2(h) + M; ++i) {\n            mods[i] = mods[i / 2] % prods[i];\n\
-    \          }\n\n          ::std::vector<R> res;\n          res.reserve(M);\n \
-    \         for (int i = 0; i < M; ++i) {\n            res.push_back(*mods[::tools::pow2(h)\
-    \ + i].pbegin());\n          }\n          return res;\n\n        } else {\n  \
-    \        return naive();\n        }\n      } else {\n        return naive();\n\
-    \      }\n    }\n\n    friend P operator*(const P& f, const R& c) { return P(f)\
-    \ *= c; }\n    friend P operator*(const R& c, const P& f) { return P(f) *= c;\
-    \ }\n    friend P operator/(const P& f, const R& c) { return P(f) /= c; }\n  \
-    \  friend P operator+(const P& f, const P& g) { return P(f) += g; }\n    friend\
-    \ P operator-(const P& f, const P& g) { return P(f) -= g; }\n    friend P operator*(const\
-    \ P& f, const P& g) { return P(f) *= g; }\n    friend P operator/(const P& f,\
-    \ const P& g) { return P(f) /= g; }\n    friend P operator%(const P& f, const\
-    \ P& g) { return P(f) %= g; }\n    friend P operator<<(const P& f, const int d)\
-    \ { return P(f) <<= d; }\n    friend P operator>>(const P& f, const int d) { return\
-    \ P(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line 1\
-    \ \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
-    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
-    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
-    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
-    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
-    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \      if (p.empty()) return ::std::vector<R>{};\n\n      if constexpr (IS_MOD_M)\
+    \ {\n        return this->multipoint_evaluation_faster(p);\n      } else {\n \
+    \       return this->multipoint_evaluation_naive(p);\n      }\n    }\n\n    friend\
+    \ P operator*(const P& f, const R& c) { return P(f) *= c; }\n    friend P operator*(const\
+    \ R& c, const P& f) { return P(f) *= c; }\n    friend P operator/(const P& f,\
+    \ const R& c) { return P(f) /= c; }\n    friend P operator+(const P& f, const\
+    \ P& g) { return P(f) += g; }\n    friend P operator-(const P& f, const P& g)\
+    \ { return P(f) -= g; }\n    friend P operator*(const P& f, const P& g) { return\
+    \ P(f) *= g; }\n    friend P operator/(const P& f, const P& g) { return P(f) /=\
+    \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
+    \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
+    \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
+    }\n\n\n#line 1 \"tools/floor_log2.hpp\"\n\n\n\n#line 1 \"tools/popcount.hpp\"\n\
+    \n\n\n#line 8 \"tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x\
+    \ >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
     \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
     \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
     \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
@@ -1641,7 +1634,7 @@ data:
   isVerificationFile: true
   path: tests/stirling_1st.test.cpp
   requiredBy: []
-  timestamp: '2024-01-27 20:06:35+09:00'
+  timestamp: '2024-01-28 02:40:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/stirling_1st.test.cpp
