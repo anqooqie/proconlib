@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -44,7 +44,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -115,7 +115,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
   - icon: ':heavy_check_mark:'
@@ -139,9 +139,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -206,53 +206,53 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/ntz.hpp
-  - tools/wavelet_matrix.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/stirling_1st.hpp
-  - tools/prime_factorization.hpp
-  - tools/floor_log2.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/extended_lucas.hpp
-  - tools/log_mod.hpp
-  - tools/range_count_distinct.hpp
-  - tools/lca.hpp
   - tools/totient.hpp
-  - tools/divisors.hpp
-  - tools/chromatic_number.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/tetration_mod.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/range_count_distinct.hpp
+  - tools/log_mod.hpp
   - tools/primitive_root.hpp
+  - tools/prime_factorization.hpp
+  - tools/divisors.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/chromatic_number.hpp
+  - tools/extended_lucas.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/stirling_1st.hpp
+  - tools/ntz.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/tetration_mod.hpp
+  - tools/lca.hpp
+  - tools/floor_log2.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/rotate_left.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/divisors.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/totient.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
-  - tests/chromatic_number.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/prime_factorization.test.cpp
   - tests/stirling_1st.test.cpp
-  - tests/rotate_left.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/rotate_right.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/range_count_distinct.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/lca.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/range_count_distinct.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/divisors.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/chromatic_number.test.cpp
   - tests/floor_log2.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/lca.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document

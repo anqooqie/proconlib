@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   _extendedRequiredBy:
@@ -115,27 +115,27 @@ data:
   isVerificationFile: false
   path: tools/extgcd.hpp
   requiredBy:
-  - tools/garner.hpp
+  - tools/sqrt_mod.hpp
+  - tools/rolling_hash.hpp
+  - tools/bezout.hpp
+  - tools/log_mod.hpp
   - tools/extended_garner.hpp
   - tools/detail/rolling_hash.hpp
   - tools/extended_lucas.hpp
-  - tools/sqrt_mod.hpp
-  - tools/log_mod.hpp
-  - tools/rolling_hash.hpp
+  - tools/garner.hpp
   - tools/inv_mod.hpp
-  - tools/bezout.hpp
-  - tools/tetration_mod.hpp
   - tools/modint_for_rolling_hash.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bezout.test.cpp
-  - tests/extended_garner.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/log_mod.test.cpp
   - tests/sqrt_mod.test.cpp
-  - tests/rolling_hash.test.cpp
   - tests/extgcd.test.cpp
+  - tests/bezout.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/has_mod.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/extgcd.hpp

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
   _extendedRequiredBy: []
@@ -346,9 +346,9 @@ data:
   timestamp: '2023-08-26 10:00:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/set.test.cpp
   - tests/avl_tree/reverse.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
 documentation_of: tools/avl_tree.hpp
 layout: document
 title: Reversible self-balancing binary search tree based on AVL tree

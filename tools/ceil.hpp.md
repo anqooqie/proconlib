@@ -41,13 +41,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -65,10 +65,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -169,22 +169,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -217,13 +217,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
   - icon: ':heavy_check_mark:'
@@ -238,9 +238,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -258,87 +258,87 @@ data:
   isVerificationFile: false
   path: tools/ceil.hpp
   requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/ceil_log.hpp
-  - tools/stirling_1st.hpp
-  - tools/detail/rolling_hash.hpp
   - tools/bigdecimal.hpp
-  - tools/ceil_quotients.hpp
-  - tools/log_mod.hpp
-  - tools/bostan_mori.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/ceil_sqrt.hpp
-  - tools/ceil_kth_root.hpp
   - tools/rolling_hash.hpp
-  - tools/segmented_sieve.hpp
-  - tools/rational.hpp
-  - tools/bigint.hpp
-  - tools/round.hpp
-  - tools/zero_one_knapsack.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/mo.hpp
   - tools/polynomial.hpp
+  - tools/ceil_log.hpp
+  - tools/log_mod.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/ceil_sqrt.hpp
+  - tools/ceil_quotients.hpp
+  - tools/pow_mod_cache.hpp
   - tools/polynomial_interpolation.hpp
   - tools/range_of_digit_products.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/zero_one_knapsack.hpp
+  - tools/bostan_mori.hpp
+  - tools/bigint.hpp
+  - tools/round.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/stirling_1st.hpp
+  - tools/segmented_sieve.hpp
   - tools/modint_for_rolling_hash.hpp
+  - tools/mo.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/rational.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/bezout.test.cpp
-  - tests/mo.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/ceil.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/range_of_digit_products.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/stirling_1st.test.cpp
   - tests/rotate_left.test.cpp
-  - tests/ceil_quotients.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/bezout.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/range_of_digit_products.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/mo.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/bostan_mori.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/segmented_sieve.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/ceil.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/ceil_quotients.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
 title: $\left\lceil \frac{x}{y} \right\rceil$

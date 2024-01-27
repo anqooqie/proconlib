@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
@@ -160,9 +160,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/matrix/multiplies.test.cpp
-  - tests/matrix/determinant.test.cpp
-  - tests/matrix/inv.test.cpp
   - tests/matrix/solve.test.cpp
+  - tests/matrix/inv.test.cpp
+  - tests/matrix/determinant.test.cpp
 documentation_of: tools/vector.hpp
 layout: document
 title: Vector

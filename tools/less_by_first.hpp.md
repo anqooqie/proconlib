@@ -11,33 +11,33 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/partially_persistent_dsu.hpp
     title: Partially persistent disjoint set union
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
   - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -87,43 +87,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/partially_persistent_dsu.test.cpp
     title: tests/partially_persistent_dsu.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
   - icon: ':heavy_check_mark:'
@@ -141,9 +141,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by_first.hpp\"\n\n\n\n#include <utility>\n\n\
@@ -159,54 +159,54 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
-  - tools/partition_function.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/wavelet_matrix.hpp
-  - tools/fps.hpp
-  - tools/stirling_1st.hpp
-  - tools/bostan_mori.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/range_count_distinct.hpp
   - tools/bernoulli.hpp
-  - tools/partially_persistent_dsu.hpp
+  - tools/range_count_distinct.hpp
   - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
+  - tools/partially_persistent_dsu.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/fps.hpp
+  - tools/bostan_mori.hpp
+  - tools/partition_function.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/stirling_1st.hpp
+  - tools/sparse_fps_pow.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/berlekamp_massey.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/partially_persistent_dsu.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/stirling_1st.test.cpp
-  - tests/range_count_distinct.test.cpp
-  - tests/stirling_2nd.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/partially_persistent_dsu.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/range_count_distinct.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/n.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

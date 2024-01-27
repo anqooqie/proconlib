@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
@@ -315,8 +315,8 @@ data:
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/less_by_arg.test.cpp
   - tests/greater_by_arg.test.cpp
+  - tests/less_by_arg.test.cpp
 documentation_of: tools/less_by_arg.hpp
 layout: document
 title: std::less by the argument
