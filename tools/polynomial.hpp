@@ -76,6 +76,14 @@ namespace tools {
     static_assert(::std::is_same_v<typename AG::T, typename MM::T>);
     using R = typename AG::T;
     using P = ::tools::polynomial<T1, T2>;
+
+    static constexpr bool IS_MOD_P = ::tools::detail::polynomial::is_prime_modint_v<R>
+      && ::std::is_same_v<AG, ::tools::group::plus<R>>
+      && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+    static constexpr bool IS_MOD_M = ::tools::has_mod_v<R>
+      && ::std::is_same_v<AG, ::tools::group::plus<R>>
+      && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+
     ::std::vector<R> m_vector;
 
   public:
@@ -397,9 +405,7 @@ namespace tools {
       const int n = this->size();
       const int m = ::std::distance(g_begin, g_end);
 
-      static_assert(::tools::has_mod_v<R>);
-      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
-      static_assert(::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      static_assert(IS_MOD_M);
       assert(0 < m && m <= n);
       assert(AG::e() != MM::e());
       assert(this->back() != AG::e());
@@ -429,7 +435,7 @@ namespace tools {
         return *this;
       }
 
-      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>)) {
+      if constexpr (IS_MOD_M) {
         assert(::std::gcd(g[m - 1].val(), R::mod()) == 1);
         return this->divide_inplace_faster(g.begin(), g.begin() + m);
       } else {
@@ -446,9 +452,7 @@ namespace tools {
       return this->regularize();
     }
     P& modulo_inplace_faster(P g) {
-      static_assert(::tools::detail::polynomial::is_prime_modint_v<R>);
-      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
-      static_assert(::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      static_assert(IS_MOD_P);
 
       g.regularize();
       const auto n = this->size();
@@ -515,7 +519,7 @@ namespace tools {
         return *this;
       }
 
-      if constexpr (::tools::detail::polynomial::is_prime_modint_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>)) {
+      if constexpr (IS_MOD_P) {
         const auto lz = ::tools::ceil_log2(m - 1);
         const auto z = ::tools::pow2(lz);
         if (!((R::mod() - 1) & (z - 1)) && lz + m < n) {
@@ -544,9 +548,7 @@ namespace tools {
 
   private:
     P& taylor_shift(const R& c) {
-      static_assert(::tools::has_mod_v<R>);
-      static_assert(::std::is_same_v<AG, ::tools::group::plus<R>>);
-      static_assert(::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      static_assert(IS_MOD_M);
       assert(::tools::is_prime(R::mod()));
 
       this->regularize();
@@ -655,7 +657,7 @@ namespace tools {
         return res;
       };
 
-      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
+      if constexpr (IS_MOD_M) {
         if (::tools::is_prime(R::mod()) && n < R::mod()) {
           if (m == 2) {
             return P(this->begin(), this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1], 1);
@@ -669,53 +671,54 @@ namespace tools {
       }
     }
 
+  private:
+    ::std::vector<R> multipoint_evaluation_naive(const ::std::vector<R>& p) const {
+      ::std::vector<R> res;
+      for (const auto& p_i : p) {
+        res.push_back((*this)(p_i));
+      }
+      return res;
+    }
+    ::std::vector<R> multipoint_evaluation_faster(const ::std::vector<R>& p) const {
+      const int M = p.size();
+      assert(M > 0);
+
+      const auto h = ::tools::ceil_log2(M);
+      ::std::vector<P> prods(::tools::pow2(h) * 2);
+      for (int i = 0; i < M; ++i) {
+        prods[::tools::pow2(h) + i] = P{-p[i], R(1)};
+      }
+      for (int i = M; i < ::tools::pow2(h); ++i) {
+        prods[::tools::pow2(h) + i] = P{R(1)};
+      }
+      for (int i = ::tools::pow2(h) - 1; i > 0; --i) {
+        prods[i] = prods[i * 2] * prods[i * 2 + 1];
+      }
+
+      ::std::vector<P> mods(::tools::pow2(h) * 2);
+      mods[1] = *this % prods[1];
+      for (int i = 2; i < ::tools::pow2(h) + M; ++i) {
+        mods[i] = mods[i / 2] % prods[i];
+      }
+
+      ::std::vector<R> res;
+      res.reserve(M);
+      for (int i = 0; i < M; ++i) {
+        res.push_back(*mods[::tools::pow2(h) + i].pbegin());
+      }
+      return res;
+    }
+
+  public:
     template <typename InputIterator>
     ::std::vector<R> multipoint_evaluation(const InputIterator begin, const InputIterator end) const {
       ::std::vector<R> p(begin, end);
-      const int M = p.size();
-      if (M == 0) return ::std::vector<R>{};
+      if (p.empty()) return ::std::vector<R>{};
 
-      const auto naive = [&]() {
-        ::std::vector<R> res;
-        for (const auto& p_i : p) {
-          res.push_back((*this)(p_i));
-        }
-        return res;
-      };
-
-      if constexpr (::tools::has_mod_v<R> && ::std::is_same_v<AG, ::tools::group::plus<R>> && ::std::is_same_v<MM, ::tools::group::multiplies<R>>) {
-        if (::tools::is_prime(R::mod())) {
-
-          const auto h = ::tools::ceil_log2(M);
-          ::std::vector<P> prods(::tools::pow2(h) * 2);
-          for (int i = 0; i < M; ++i) {
-            prods[::tools::pow2(h) + i] = P{-p[i], R(1)};
-          }
-          for (int i = M; i < ::tools::pow2(h); ++i) {
-            prods[::tools::pow2(h) + i] = P{R(1)};
-          }
-          for (int i = ::tools::pow2(h) - 1; i > 0; --i) {
-            prods[i] = prods[i * 2] * prods[i * 2 + 1];
-          }
-
-          ::std::vector<P> mods(::tools::pow2(h) * 2);
-          mods[1] = *this % prods[1];
-          for (int i = 2; i < ::tools::pow2(h) + M; ++i) {
-            mods[i] = mods[i / 2] % prods[i];
-          }
-
-          ::std::vector<R> res;
-          res.reserve(M);
-          for (int i = 0; i < M; ++i) {
-            res.push_back(*mods[::tools::pow2(h) + i].pbegin());
-          }
-          return res;
-
-        } else {
-          return naive();
-        }
+      if constexpr (IS_MOD_M) {
+        return this->multipoint_evaluation_faster(p);
       } else {
-        return naive();
+        return this->multipoint_evaluation_naive(p);
       }
     }
 

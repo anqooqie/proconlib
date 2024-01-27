@@ -421,5 +421,5 @@ $p_0, p_1, \ldots$に対して$f(p_0), f(p_1), \ldots$を求めて返します�
 - None
 
 ### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O\left( n + \mathrm{deg}(f) \log\left(\mathrm{deg}(f)\right) + m (\log m)^2 \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
+- ($R$ is $\mathbb{Z}/M\mathbb{Z}$): $O\left( n + \mathrm{deg}(f) \log\left(\mathrm{deg}(f)\right) + m (\log m)^2 \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
 - (otherwise): $O\left( n + \mathrm{deg}(f) \cdot m \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
