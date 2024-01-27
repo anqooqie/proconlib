@@ -24,6 +24,16 @@ namespace tools {
       y.push_back(it->second);
     }
 
+#ifndef DEBUG
+    {
+      ::std::vector<int> z;
+      for (const auto& x_i : x) z.push_back(x_i.val());
+      ::std::sort(z.begin(), z.end());
+      z.erase(::std::unique(z.begin(), z.end()), z.end());
+      assert(z.size() == x.size());
+    }
+#endif
+
     const int n = x.size();
     assert(n > 0);
 

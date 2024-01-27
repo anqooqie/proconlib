@@ -15,6 +15,7 @@ Given a sequence of integer pairs $(x_0, y_0), (x_1, y_1), \ldots, (x_{N - 1}, y
 - `std::decay_t<decltype(std::declval<InputIterator>()->first)>` is same as `std::decay_t<decltype(std::declval<InputIterator>()->second)>`.
 - $N \geq 1$
 - $P$ is a prime.
+- $x_0, x_1, \ldots, x_{N - 1}$ are distinct.
 
 ### Time Complexity
 - $O\left(n (\log n)^2\right)$
