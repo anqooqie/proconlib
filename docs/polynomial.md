@@ -364,11 +364,13 @@ $$\begin{align*}
 `f / g`で得られる多項式を$q$とし、また$r = f - gq$として、$\mathrm{deg}(r)$次以下の係数を明示的に持つ多項式$r$を返します。
 
 ### Constraints
-- $R$ is a trivial ring or a field.
-- If $R$ is not a trivial ring, $g \neq 0$
+- At least one of the following conditions hold.
+    - $R$ is a trivial ring.
+    - $R$ is a field and $g \neq 0$.
+    - $R$ is $\mathbb{Z}/M\mathbb{Z}$, $g \neq 0$ and $\gcd(g_{\mathrm{deg}(g)}, M) = 1$.
 
 ### Time Complexity
-- ($R$ is $\mathbb{Z}/p\mathbb{Z}$): $O(n + m + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()` and $m$ is `g.size()`
+- ($R$ is $\mathbb{Z}/M\mathbb{Z}$): $O(n + m + \mathrm{deg}(f) \log \mathrm{deg}(f))$ where $n$ is `f.size()` and $m$ is `g.size()`
 - (otherwise): $O(n + m + \mathrm{deg}(f)^2)$ where $n$ is `f.size()` and $m$ is `g.size()`
 
 ## derivative
