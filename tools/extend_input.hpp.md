@@ -78,8 +78,8 @@ data:
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extend_input.test.cpp
   - tests/util.test.cpp
+  - tests/extend_input.test.cpp
 documentation_of: tools/extend_input.hpp
 layout: document
 title: Extend operator>>

@@ -249,19 +249,20 @@ data:
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
     \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static ::std::array<::tools::vector2<T>, 4> four_directions() {\n      return\
-    \ ::std::array<::tools::vector2<T>, 4>({\n        ::tools::vector2<T>(T(1), T(0)),\n\
+    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
+    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
+    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
+    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
+    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
     \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      });\n    }\n\n    static\
-    \ ::std::array<::tools::vector2<T>, 8> eight_directions() {\n      return ::std::array<::tools::vector2<T>,\
-    \ 8>({\n        ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
     \ <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n   \
@@ -373,11 +374,11 @@ data:
   isVerificationFile: false
   path: tools/convex_hull.hpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
+  timestamp: '2024-02-12 02:49:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/convex_hull.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/convex_hull.hpp
 layout: document
 title: Convex hull

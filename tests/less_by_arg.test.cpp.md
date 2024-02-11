@@ -246,19 +246,20 @@ data:
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
     \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static ::std::array<::tools::vector2<T>, 4> four_directions() {\n      return\
-    \ ::std::array<::tools::vector2<T>, 4>({\n        ::tools::vector2<T>(T(1), T(0)),\n\
+    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
+    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
+    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
+    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
+    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
     \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      });\n    }\n\n    static\
-    \ ::std::array<::tools::vector2<T>, 8> eight_directions() {\n      return ::std::array<::tools::vector2<T>,\
-    \ 8>({\n        ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n#line 1 \"tools/less_by_arg.hpp\"\n\n\n\n#line 1 \"tools/ccw.hpp\"\
     \n\n\n\n#line 5 \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
@@ -315,7 +316,7 @@ data:
   isVerificationFile: true
   path: tests/less_by_arg.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
+  timestamp: '2024-02-12 02:49:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/less_by_arg.test.cpp

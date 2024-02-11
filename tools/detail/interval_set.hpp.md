@@ -122,8 +122,8 @@ data:
   isVerificationFile: false
   path: tools/detail/interval_set.hpp
   requiredBy:
-  - tools/integer_interval_set.hpp
   - tools/real_interval_set.hpp
+  - tools/integer_interval_set.hpp
   timestamp: '2021-10-23 20:26:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

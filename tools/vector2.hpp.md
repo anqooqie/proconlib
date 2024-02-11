@@ -335,19 +335,20 @@ data:
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
     \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static ::std::array<::tools::vector2<T>, 4> four_directions() {\n      return\
-    \ ::std::array<::tools::vector2<T>, 4>({\n        ::tools::vector2<T>(T(1), T(0)),\n\
+    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
+    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
+    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
+    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
+    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
     \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      });\n    }\n\n    static\
-    \ ::std::array<::tools::vector2<T>, 8> eight_directions() {\n      return ::std::array<::tools::vector2<T>,\
-    \ 8>({\n        ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n"
   code: "#ifndef TOOLS_VECTOR2_HPP\n#define TOOLS_VECTOR2_HPP\n\n#include <array>\n\
@@ -364,19 +365,20 @@ data:
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
     \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static ::std::array<::tools::vector2<T>, 4> four_directions() {\n      return\
-    \ ::std::array<::tools::vector2<T>, 4>({\n        ::tools::vector2<T>(T(1), T(0)),\n\
+    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
+    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
+    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
+    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
+    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
     \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      });\n    }\n\n    static\
-    \ ::std::array<::tools::vector2<T>, 8> eight_directions() {\n      return ::std::array<::tools::vector2<T>,\
-    \ 8>({\n        ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n#endif\n"
   dependsOn:
@@ -389,43 +391,43 @@ data:
   isVerificationFile: false
   path: tools/vector2.hpp
   requiredBy:
-  - tools/half_line_2d.hpp
-  - tools/circle_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/ccw.hpp
-  - tools/less_by_arg.hpp
-  - tools/line_2d.hpp
   - tools/convex_hull.hpp
   - tools/directed_line_segment_2d.hpp
-  - tools/detail/geometry_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/ccw.hpp
   - tools/greater_by_arg_total.hpp
-  - tools/less_by_arg_total.hpp
+  - tools/less_by_arg.hpp
   - tools/greater_by_arg.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/detail/geometry_2d.hpp
   - tools/triangle_2d.hpp
-  timestamp: '2023-08-26 14:07:16+09:00'
+  - tools/circle_2d.hpp
+  - tools/line_2d.hpp
+  - tools/polygon_2d.hpp
+  timestamp: '2024-02-12 02:49:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/greater_by_arg_total.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/ccw.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/ccw.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/greater_by_arg.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/less_by_arg.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
 documentation_of: tools/vector2.hpp
 layout: document
 title: Two dimensional vector
@@ -661,7 +663,7 @@ It returns `os << '(' << self.x << ", " << self.y << ')'`.
 
 ## four_directions
 ```cpp
-std::array<vector2<T>, 4> vector2<T>::four_directions();
+const std::array<vector2<T>, 4>& vector2<T>::four_directions();
 ```
 
 It returns vectors $\left(\cos\left(\frac{i}{2}\pi\right), \sin\left(\frac{i}{2}\pi\right)\right)$ for $0 \leq i < 4$.
@@ -674,7 +676,7 @@ It returns vectors $\left(\cos\left(\frac{i}{2}\pi\right), \sin\left(\frac{i}{2}
 
 ## eight_directions
 ```cpp
-std::array<vector2<T>, 8> vector2<T>::eight_directions();
+const std::array<vector2<T>, 8>& vector2<T>::eight_directions();
 ```
 
 It returns vectors $\left(\mathrm{RI}\left(\cos\left(\frac{i}{4}\pi\right)\right), \mathrm{RI}\left(\sin\left(\frac{i}{4}\pi\right)\right)\right)$ for $0 \leq i < 8$ where $\mathrm{RI}(x)$ rounds $x$ towards infinity.

@@ -187,63 +187,63 @@ data:
   isVerificationFile: false
   path: tools/floor.hpp
   requiredBy:
-  - tools/bigdecimal.hpp
-  - tools/rolling_hash.hpp
-  - tools/polynomial.hpp
+  - tools/floor_log.hpp
+  - tools/stirling_1st.hpp
   - tools/pow_mod_cache.hpp
   - tools/polynomial_interpolation.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/bostan_mori.hpp
-  - tools/bigint.hpp
+  - tools/bigdecimal.hpp
   - tools/round.hpp
-  - tools/floor_log.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/stirling_1st.hpp
+  - tools/bostan_mori.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
+  - tools/bigint.hpp
   - tools/modint_for_rolling_hash.hpp
+  - tools/berlekamp_massey.hpp
   - tools/rational.hpp
+  - tools/polynomial.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/floor.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/stirling_1st.test.cpp
+  - tests/line_2d/projection.test.cpp
   - tests/bezout.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
   - tests/rational/multiplies.test.cpp
   - tests/rational/minus.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/plus.test.cpp
 documentation_of: tools/floor.hpp
 layout: document
 title: $\left\lfloor \frac{x}{y} \right\rfloor$

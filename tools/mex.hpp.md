@@ -54,8 +54,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/mex.test.cpp
-  - tests/longest_common_substring.test.cpp
   - tests/range_count_distinct.test.cpp
+  - tests/longest_common_substring.test.cpp
 documentation_of: tools/mex.hpp
 layout: document
 title: Minimum excluded value

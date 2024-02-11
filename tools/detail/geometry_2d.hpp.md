@@ -345,19 +345,20 @@ data:
     \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
     \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
     \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static ::std::array<::tools::vector2<T>, 4> four_directions() {\n      return\
-    \ ::std::array<::tools::vector2<T>, 4>({\n        ::tools::vector2<T>(T(1), T(0)),\n\
+    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
+    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
+    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
+    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
+    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
+    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
     \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      });\n    }\n\n    static\
-    \ ::std::array<::tools::vector2<T>, 8> eight_directions() {\n      return ::std::array<::tools::vector2<T>,\
-    \ 8>({\n        ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
     \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
     \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      });\n    }\n  };\n}\n\nnamespace std {\n  template <typename T>\n\
-    \  struct hash<::tools::vector2<T>> {\n    using result_type = ::std::size_t;\n\
-    \    using argument_type = ::tools::vector2<T>;\n    ::std::size_t operator()(const\
-    \ ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
+    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
+    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
+    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
+    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
     \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
     \ };\n}\n\n\n#line 23 \"tools/detail/geometry_2d.hpp\"\n\nnamespace tools {\n\
     \  template <typename T, bool Filled, bool HasRadius = true>\n  class circle_2d;\n\
@@ -1715,27 +1716,27 @@ data:
   isVerificationFile: false
   path: tools/detail/geometry_2d.hpp
   requiredBy:
-  - tools/half_line_2d.hpp
-  - tools/circle_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/line_2d.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/half_line_2d.hpp
   - tools/triangle_2d.hpp
-  timestamp: '2024-01-03 03:48:54+09:00'
+  - tools/circle_2d.hpp
+  - tools/line_2d.hpp
+  - tools/polygon_2d.hpp
+  timestamp: '2024-02-12 02:49:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
 documentation_of: tools/detail/geometry_2d.hpp
