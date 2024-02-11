@@ -41,17 +41,18 @@ namespace tools {
       return ::tools::vector2<T>(this->y, -this->x);
     }
 
-    static ::std::array<::tools::vector2<T>, 4> four_directions() {
-      return ::std::array<::tools::vector2<T>, 4>({
+    static const ::std::array<::tools::vector2<T>, 4>& four_directions() {
+      static const ::std::array<::tools::vector2<T>, 4> res = {
         ::tools::vector2<T>(T(1), T(0)),
         ::tools::vector2<T>(T(0), T(1)),
         ::tools::vector2<T>(T(-1), T(0)),
         ::tools::vector2<T>(T(0), T(-1))
-      });
+      };
+      return res;
     }
 
-    static ::std::array<::tools::vector2<T>, 8> eight_directions() {
-      return ::std::array<::tools::vector2<T>, 8>({
+    static const ::std::array<::tools::vector2<T>, 8>& eight_directions() {
+      static const ::std::array<::tools::vector2<T>, 8> res = {
         ::tools::vector2<T>(T(1), T(0)),
         ::tools::vector2<T>(T(1), T(1)),
         ::tools::vector2<T>(T(0), T(1)),
@@ -60,7 +61,8 @@ namespace tools {
         ::tools::vector2<T>(T(-1), T(-1)),
         ::tools::vector2<T>(T(0), T(-1)),
         ::tools::vector2<T>(T(1), T(-1))
-      });
+      };
+      return res;
     }
   };
 }
