@@ -316,8 +316,8 @@ data:
   timestamp: '2024-02-12 02:49:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/greater_by_arg.test.cpp
   - tests/less_by_arg.test.cpp
+  - tests/greater_by_arg.test.cpp
 documentation_of: tools/less_by_arg.hpp
 layout: document
 title: std::less by the argument

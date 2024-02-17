@@ -6,6 +6,9 @@ data:
     path: tools/chromatic_number.hpp
     title: Chromatic number
   - icon: ':heavy_check_mark:'
+    path: tools/dijkstra.hpp
+    title: Dijkstra's algorithm
+  - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
   - icon: ':heavy_check_mark:'
@@ -33,9 +36,6 @@ data:
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
-    path: tools/ntz.hpp
-    title: Number of trailing zeros
-  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -61,6 +61,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/dijkstra/directed.test.cpp
+    title: tests/dijkstra/directed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/dijkstra/undirected.test.cpp
+    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -206,54 +212,56 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/range_count_distinct.hpp
-  - tools/log_mod.hpp
-  - tools/prime_factorization.hpp
-  - tools/stirling_1st.hpp
-  - tools/extended_lucas.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/divisors.hpp
-  - tools/tetration_mod.hpp
-  - tools/floor_log2.hpp
   - tools/disjoint_sparse_table.hpp
-  - tools/totient.hpp
-  - tools/primitive_root.hpp
   - tools/chromatic_number.hpp
-  - tools/ntz.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/lca.hpp
-  - tools/wavelet_matrix.hpp
   - tools/dynamic_bitset.hpp
+  - tools/prime_factorization.hpp
+  - tools/divisors.hpp
+  - tools/range_count_distinct.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/primitive_root.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/log_mod.hpp
+  - tools/dijkstra.hpp
+  - tools/lca.hpp
+  - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/floor_log2.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/stirling_1st.hpp
+  - tools/totient.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/extended_lucas.test.cpp
+  - tests/primitive_root.test.cpp
   - tests/stirling_1st.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/lca.test.cpp
-  - tests/chromatic_number.test.cpp
+  - tests/prim/unconnected.test.cpp
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
-  - tests/divisors.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/totient.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
   - tests/log_mod.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/range_count_distinct.test.cpp
-  - tests/rotate_right.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/lca.test.cpp
+  - tests/totient.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/divisors.test.cpp
+  - tests/range_count_distinct.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/dijkstra/directed.test.cpp
+  - tests/dijkstra/undirected.test.cpp
+  - tests/chromatic_number.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

@@ -100,6 +100,9 @@ data:
       path: tools/convolution.hpp
       title: Convolution
     - icon: ':heavy_check_mark:'
+      path: tools/countr_zero.hpp
+      title: Number of trailing zeros
+    - icon: ':heavy_check_mark:'
       path: tools/cout.hpp
       title: Fast output
     - icon: ':heavy_check_mark:'
@@ -361,9 +364,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
-    - icon: ':heavy_check_mark:'
-      path: tools/ntz.hpp
-      title: Number of trailing zeros
     - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
@@ -668,6 +668,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/convex_hull.test.cpp
       title: tests/convex_hull.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/countr_zero.test.cpp
+      title: tests/countr_zero.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp

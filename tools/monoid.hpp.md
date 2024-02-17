@@ -303,93 +303,93 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
-  - tools/directed_line_segment_2d.hpp
-  - tools/fps.hpp
+  - tools/bernoulli.hpp
+  - tools/floor_kth_root.hpp
+  - tools/polynomial.hpp
   - tools/half_line_2d.hpp
-  - tools/quaternion.hpp
-  - tools/square.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/stirling_2nd.hpp
+  - tools/partition_function.hpp
   - tools/convolution.hpp
   - tools/ceil_kth_root.hpp
-  - tools/stirling_1st.hpp
-  - tools/pow.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/partition_function.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/tetration_mod.hpp
-  - tools/floor_kth_root.hpp
-  - tools/bostan_mori.hpp
-  - tools/totient.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/detail/geometry_2d.hpp
-  - tools/rolling_hash.hpp
-  - tools/stirling_2nd.hpp
-  - tools/triangle_2d.hpp
   - tools/modint_for_rolling_hash.hpp
-  - tools/bernoulli.hpp
-  - tools/berlekamp_massey.hpp
+  - tools/bostan_mori.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/polygon_2d.hpp
+  - tools/tetration_mod.hpp
   - tools/circle_2d.hpp
   - tools/line_2d.hpp
-  - tools/polynomial.hpp
-  - tools/polygon_2d.hpp
+  - tools/fps.hpp
+  - tools/pow.hpp
+  - tools/quaternion.hpp
+  - tools/stirling_1st.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/square.hpp
+  - tools/triangle_2d.hpp
+  - tools/rolling_hash.hpp
+  - tools/totient.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/stirling_1st.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/bernoulli.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/stirling_2nd.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/floor_kth_root.test.cpp
-  - tests/totient.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/partition_function/n.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/permutation.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/line_2d/projection.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/totient.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/permutation.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/bernoulli.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

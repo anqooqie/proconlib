@@ -111,8 +111,8 @@ data:
   timestamp: '2023-09-16 14:35:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cartesian_tree/parent.test.cpp
   - tests/cartesian_tree/interval.test.cpp
+  - tests/cartesian_tree/parent.test.cpp
 documentation_of: tools/cartesian_tree.hpp
 layout: document
 title: Cartesian tree
