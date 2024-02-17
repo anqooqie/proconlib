@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <cassert>
 #include "atcoder/modint.hpp"
-#include "tools/ntz.hpp"
+#include "tools/countr_zero.hpp"
 #include "tools/popcount.hpp"
 
 // Source: https://drken1215.hatenablog.com/entry/2019/01/16/030000
@@ -52,7 +52,7 @@ namespace tools {
       ::std::vector<::atcoder::modint1000000007> I(pow2(this->node_count()));
       I[0] = ::atcoder::modint1000000007(1);
       for (unsigned long long S = 1; S < pow2(this->node_count()); ++S) {
-        const unsigned long long v = ::tools::ntz(S);
+        const unsigned long long v = ::tools::countr_zero(S);
         I[S] = I[S & ~set(v)] + I[S & ~this->neighbor[v]];
       }
 

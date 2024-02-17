@@ -47,7 +47,7 @@ std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
 
 If `<Directed>` is `true`, it adds a directed edge oriented from $u$ to $v$ with cost `w`.
 If `<Directed>` is `false`, it adds an undirected edge between $u$ and $v$ with cost `w`.
-It returns an integer $k$ such that this is the $k$-th edge that is added.
+It returns an integer $k$ such that this is the $k$-th ($0$ indexed) edge that is added.
 
 ### Constraints
 - $0 \leq u < n$
@@ -68,7 +68,7 @@ struct edge {
 edge graph.get_edge(std::size_t k);
 ```
 
-It returns the $k$-th edge.
+It returns the $k$-th ($0$ indexed) edge.
 
 ### Constraints
 - $0 \leq k < \|E\|$ where $\|E\|$ is the number of edges
@@ -99,7 +99,7 @@ It solves the single source shortest path problem on the graph.
 It returns two vectors `dist` and `prev`.
 `dist[t]` represents the smallest value as the sum of the costs of the edges that make up the path from $s$ to $t$.
 `prev[t]` represents the index of the edge from the parent of $t$ to $t$ in the shortest path tree rooted at $s$.
-Because `s` has no parent, `prev[s]` will be `std::numeric_limits<std::size_t>::max()` instead of a valid value.
+If $t = s$ or $t$ is unrechable from $s$, `prev[t]` is `std::numeric_limits<std::size_t>::max()`.
 
 ### Constraints
 - $0 \leq s < n$
