@@ -35,7 +35,7 @@ namespace tools {
         const auto c = str[str.size() - 1 - i];
         assert(c == '0' || c == '1');
         if (c == '1') {
-          this->m_bits[i / W] |= ::std::uint64_t(1) << (i % W);
+          this->m_bits[i / W] |= UINT64_C(1) << (i % W);
         }
       }
     }
@@ -79,7 +79,7 @@ namespace tools {
           ::std::fill(this->m_bits.begin(), ::std::next(this->m_bits.begin(), diff), 0);
         }
         if (this->m_size % W > 0) {
-          this->m_bits.back() &= (::std::uint64_t(1) << (this->m_size % W)) - 1;
+          this->m_bits.back() &= (UINT64_C(1) << (this->m_size % W)) - 1;
         }
       } else {
         ::std::fill(this->m_bits.begin(), this->m_bits.end(), 0);
@@ -111,13 +111,13 @@ namespace tools {
     ::tools::dynamic_bitset& set() {
       ::std::fill(this->m_bits.begin(), this->m_bits.end(), ::std::numeric_limits<::std::uint64_t>::max());
       if (this->m_size % W > 0) {
-        this->m_bits.back() &= (::std::uint64_t(1) << (this->m_size % W)) - 1;
+        this->m_bits.back() &= (UINT64_C(1) << (this->m_size % W)) - 1;
       }
       return *this;
     }
     ::tools::dynamic_bitset& set(const ::std::size_t pos) {
       assert(pos < this->m_size);
-      this->m_bits[pos / W] |= ::std::uint64_t(1) << (pos % W);
+      this->m_bits[pos / W] |= UINT64_C(1) << (pos % W);
       return *this;
     }
     ::tools::dynamic_bitset& reset() {
@@ -126,7 +126,7 @@ namespace tools {
     }
     ::tools::dynamic_bitset& reset(const ::std::size_t pos) {
       assert(pos < this->m_size);
-      this->m_bits[pos / W] &= ~(::std::uint64_t(1) << (pos % W));
+      this->m_bits[pos / W] &= ~(UINT64_C(1) << (pos % W));
       return *this;
     }
     ::tools::dynamic_bitset& set(const ::std::size_t pos, const bool val) {
@@ -137,13 +137,13 @@ namespace tools {
         this->m_bits[i] = ~this->m_bits[i];
       }
       if (this->m_size % W > 0) {
-        this->m_bits.back() &= (::std::uint64_t(1) << (this->m_size % W)) - 1;
+        this->m_bits.back() &= (UINT64_C(1) << (this->m_size % W)) - 1;
       }
       return *this;
     }
     ::tools::dynamic_bitset& flip(const ::std::size_t pos) {
       assert(pos < this->m_size);
-      this->m_bits[pos / W] ^= ::std::uint64_t(1) << (pos % W);
+      this->m_bits[pos / W] ^= UINT64_C(1) << (pos % W);
       return *this;
     }
     ::tools::dynamic_bitset operator~() const {
@@ -173,7 +173,7 @@ namespace tools {
             return false;
           }
         }
-        return this->m_bits.back() == (::std::uint64_t(1) << (this->m_size % W)) - 1;
+        return this->m_bits.back() == (UINT64_C(1) << (this->m_size % W)) - 1;
       } else {
         for (::std::size_t i = 0; i < this->m_bits.size(); ++i) {
           if (this->m_bits[i] != ::std::numeric_limits<::std::uint64_t>::max()) {
@@ -223,7 +223,7 @@ namespace tools {
     }
     friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::dynamic_bitset& self) {
       for (::std::size_t i = self.m_bits.size(); i --> 0;) {
-        for (::std::size_t j = (self.m_size - 1) % W + 1; j --> 0;) {
+        for (::std::size_t j = i + 1 < self.m_bits.size() ? W : (self.m_size - 1) % W + 1; j --> 0;) {
           os << ((self.m_bits[i] >> j) & 1);
         }
       }
@@ -233,7 +233,7 @@ namespace tools {
       this->m_size = size;
       this->m_bits.resize(::tools::ceil(size, W));
       if (size % W > 0) {
-        this->m_bits.back() &= (::std::uint64_t(1) << (size % W)) - 1;
+        this->m_bits.back() &= (UINT64_C(1) << (size % W)) - 1;
       }
     }
     void shrink_to_fit() {
