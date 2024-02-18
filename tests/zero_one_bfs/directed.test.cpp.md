@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/2945
@@ -100,7 +100,7 @@ data:
   path: tests/zero_one_bfs/directed.test.cpp
   requiredBy: []
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/zero_one_bfs/directed.test.cpp
 layout: document

@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -44,10 +44,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
@@ -65,7 +65,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':heavy_check_mark:'

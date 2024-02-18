@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/countr_zero.hpp
     title: Number of trailing zeros
   _extendedRequiredBy: []

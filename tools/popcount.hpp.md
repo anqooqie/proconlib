@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -103,13 +103,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -136,9 +136,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -221,7 +221,7 @@ data:
   - tools/stirling_1st.hpp
   - tools/totient.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/tetration_mod.test.cpp

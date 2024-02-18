@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rectangle_union_area.hpp
     title: Area of union of rectangles
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rectangle_union_area.test.cpp
     title: tests/rectangle_union_area.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/compressor.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -73,7 +73,7 @@ data:
   requiredBy:
   - tools/rectangle_union_area.hpp
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rectangle_union_area.test.cpp
 documentation_of: tools/compressor.hpp

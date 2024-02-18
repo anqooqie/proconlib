@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -93,10 +93,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rotate_left.hpp
     title: Circular shift to the left
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rotate_right.hpp
     title: Circular shift to the right
   - icon: ':warning:'
@@ -303,10 +303,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
   - icon: ':heavy_check_mark:'
@@ -333,9 +333,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"\
@@ -398,7 +398,7 @@ data:
   - tools/totient.hpp
   - tools/bigdecimal.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/bostan_mori.test.cpp

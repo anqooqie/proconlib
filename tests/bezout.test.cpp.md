@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bezout.hpp
     title: "B\xE9zout's identity"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'

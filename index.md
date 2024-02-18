@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -90,7 +90,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/compressor.hpp
       title: Compress values (for more complicated cases)
     - icon: ':heavy_check_mark:'
@@ -99,7 +99,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/countr_zero.hpp
       title: Number of trailing zeros
     - icon: ':heavy_check_mark:'
@@ -135,7 +135,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
@@ -282,7 +282,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lcm_convolution.hpp
       title: LCM convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':heavy_check_mark:'
@@ -322,7 +322,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/longest_common_substring.hpp
       title: Longest common substring
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -340,7 +340,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
@@ -401,7 +401,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polynomial_interpolation.hpp
       title: Polynomial interpolation
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -437,10 +437,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/random_tree.hpp
       title: Random tree generator
     - icon: ':heavy_check_mark:'
@@ -455,7 +455,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/real_interval_set.hpp
       title: Set of real numbers as closed integer intervals
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rectangle_union_area.hpp
       title: Area of union of rectangles
     - icon: ':heavy_check_mark:'
@@ -467,10 +467,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_right.hpp
       title: Circular shift to the right
     - icon: ':warning:'
@@ -486,7 +486,7 @@ data:
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/scc_graph.hpp
       title: Strongly connected component decomposition
     - icon: ':heavy_check_mark:'
@@ -588,7 +588,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/xor_basis.hpp
       title: Basis of xor
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
     - icon: ':heavy_check_mark:'
@@ -854,7 +854,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/qcfium.test.cpp
       title: tests/qcfium.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/random_tree.test.cpp
       title: tests/random_tree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -866,7 +866,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rectangle_union_area.test.cpp
       title: tests/rectangle_union_area.test.cpp
     - icon: ':heavy_check_mark:'
@@ -878,10 +878,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_left.test.cpp
       title: tests/rotate_left.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_right.test.cpp
       title: tests/rotate_right.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1221,7 +1221,7 @@ data:
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/scc_graph/edges_to_scc.test.cpp
       title: tests/scc_graph/edges_to_scc.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1284,10 +1284,10 @@ data:
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - name: tests/zero_one_bfs
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/directed.test.cpp
       title: tests/zero_one_bfs/directed.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/undirected.test.cpp
       title: tests/zero_one_bfs/undirected.test.cpp
   - name: tests/zero_one_knapsack
