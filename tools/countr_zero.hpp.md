@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chromatic_number.hpp
     title: Chromatic number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   _extendedVerifiedWith:
@@ -15,18 +15,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/countr_zero.test.cpp
     title: tests/countr_zero.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://qiita.com/kazatsuyu/items/38203287c19890a2b7c6
@@ -121,7 +121,7 @@ data:
   - tools/chromatic_number.hpp
   - tools/dynamic_bitset.hpp
   timestamp: '2024-02-17 19:44:56+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/countr_zero.test.cpp

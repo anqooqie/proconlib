@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/disjoint_sparse_table_2d.hpp
     title: 2D disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/0560
@@ -113,8 +113,8 @@ data:
     \ = default;\n    ~disjoint_sparse_table_2d() = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(const ::tools::disjoint_sparse_table_2d<M>&) = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(::tools::disjoint_sparse_table_2d<M>&&) = default;\n\n    template\
-    \ <typename Range>\n    disjoint_sparse_table_2d(const Range& range) {\n     \
-    \ const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
+    \ <typename Range>\n    explicit disjoint_sparse_table_2d(const Range& range)\
+    \ {\n      const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
     \      this->m_height = ::std::distance(begin, end);\n      this->m_width = this->m_height\
     \ == 0 ? 0 : ::std::distance(::std::begin(*begin), ::std::end(*begin));\n    \
     \  assert(::std::all_of(begin, end, [&](const auto& row) { return static_cast<::std::size_t>(::std::distance(::std::begin(row),\
@@ -227,8 +227,8 @@ data:
   isVerificationFile: true
   path: tests/disjoint_sparse_table_2d.test.cpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/disjoint_sparse_table_2d.test.cpp
 layout: document

@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/avl_tree.hpp
     title: Reversible self-balancing binary search tree based on AVL tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   _extendedVerifiedWith:
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/set.test.cpp
     title: tests/avl_tree/set.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n\
@@ -275,7 +275,7 @@ data:
     \              }\n              if (node.size == 1) {\n                v.push_back(node.prod);\n\
     \              } else {\n                dfs(node.l_id);\n                dfs(node.r_id);\n\
     \              }\n            })(this->m_root_id);\n          }\n          return\
-    \ v;\n        }\n\n        avl_tree_impl() = default;\n        avl_tree_impl(buffer&\
+    \ v;\n        }\n\n        avl_tree_impl() = default;\n        explicit avl_tree_impl(buffer&\
     \ buffer) : m_buffer(&buffer), m_root_id(0) {\n        }\n        avl_tree_impl(buffer&\
     \ buffer, const ::std::vector<S>& v) : m_buffer(&buffer) {\n          this->m_root_id\
     \ = v.empty() ? 0 : ::tools::fix([&](auto&& dfs, const int l, const int r) ->\
@@ -577,7 +577,7 @@ data:
     \              }\n              if (node.size == 1) {\n                v.push_back(node.prod);\n\
     \              } else {\n                dfs(node.l_id);\n                dfs(node.r_id);\n\
     \              }\n            })(this->m_root_id);\n          }\n          return\
-    \ v;\n        }\n\n        avl_tree_impl() = default;\n        avl_tree_impl(buffer&\
+    \ v;\n        }\n\n        avl_tree_impl() = default;\n        explicit avl_tree_impl(buffer&\
     \ buffer) : m_buffer(&buffer), m_root_id(0) {\n        }\n        avl_tree_impl(buffer&\
     \ buffer, const ::std::vector<S>& v) : m_buffer(&buffer) {\n          this->m_root_id\
     \ = v.empty() ? 0 : ::tools::fix([&](auto&& dfs, const int l, const int r) ->\
@@ -645,8 +645,8 @@ data:
   requiredBy:
   - tools/lazy_avl_tree.hpp
   - tools/avl_tree.hpp
-  timestamp: '2023-08-26 10:00:28+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/binary_search.test.cpp

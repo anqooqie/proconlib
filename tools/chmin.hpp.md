@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
   - icon: ':heavy_check_mark:'
@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/xor_basis.hpp
     title: Basis of xor
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
   - icon: ':heavy_check_mark:'
@@ -48,13 +48,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
   - icon: ':heavy_check_mark:'
@@ -81,10 +81,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
   - icon: ':heavy_check_mark:'
@@ -96,9 +96,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
@@ -125,7 +125,7 @@ data:
   - tools/naive_dijkstra.hpp
   - tools/mcf_graph.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/zero_one_bfs/directed.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp

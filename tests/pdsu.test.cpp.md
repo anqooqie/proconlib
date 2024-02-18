@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/pdsu.hpp
     title: Potentialized disjoint set union
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DSL_1_B
@@ -37,21 +37,22 @@ data:
     \ ::tools::group::plus<long long>>\n  class pdsu {\n  private:\n    using T =\
     \ typename G::T;\n\n    ::std::vector<int> m_parents;\n    ::std::vector<int>\
     \ m_sizes;\n    ::std::vector<T> m_diffs;\n    ::std::vector<bool> m_consistent;\n\
-    \n  public:\n    pdsu(const int n) :\n      m_parents(n),\n      m_sizes(n, 1),\n\
-    \      m_diffs(n, G::e()),\n      m_consistent(n, true) {\n      assert(n >= 0);\n\
-    \      ::std::iota(this->m_parents.begin(), this->m_parents.end(), 0);\n    }\n\
-    \n    int size() const {\n      return this->m_parents.size();\n    }\n\n    int\
-    \ leader(const int x) {\n      assert(0 <= x && x < this->size());\n      if (this->m_parents[x]\
-    \ == x) {\n        return x;\n      }\n      const auto r = this->leader(this->m_parents[x]);\n\
-    \      if (this->m_consistent[r]) {\n        this->m_diffs[x] = G::op(this->m_diffs[x],\
-    \ this->m_diffs[this->m_parents[x]]);\n      }\n      return this->m_parents[x]\
-    \ = r;\n    }\n\n    ::std::pair<::tools::pdsu_diff, T> diff(const int x, const\
-    \ int y) {\n      assert(0 <= x && x < this->size());\n      assert(0 <= y &&\
-    \ y < this->size());\n      const auto x_r = this->leader(x);\n      const auto\
-    \ y_r = this->leader(y);\n      if (x_r == y_r) {\n        if (this->m_consistent[x_r])\
-    \ {\n          return ::std::make_pair(::tools::pdsu_diff::known, G::op(this->m_diffs[y],\
-    \ G::inv(this->m_diffs[x])));\n        } else {\n          return ::std::make_pair(::tools::pdsu_diff::inconsistent,\
-    \ G::e());\n        }\n      } else {\n        return ::std::make_pair(::tools::pdsu_diff::unknown,\
+    \n  public:\n    explicit pdsu(const int n) :\n      m_parents(n),\n      m_sizes(n,\
+    \ 1),\n      m_diffs(n, G::e()),\n      m_consistent(n, true) {\n      assert(n\
+    \ >= 0);\n      ::std::iota(this->m_parents.begin(), this->m_parents.end(), 0);\n\
+    \    }\n\n    int size() const {\n      return this->m_parents.size();\n    }\n\
+    \n    int leader(const int x) {\n      assert(0 <= x && x < this->size());\n \
+    \     if (this->m_parents[x] == x) {\n        return x;\n      }\n      const\
+    \ auto r = this->leader(this->m_parents[x]);\n      if (this->m_consistent[r])\
+    \ {\n        this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);\n\
+    \      }\n      return this->m_parents[x] = r;\n    }\n\n    ::std::pair<::tools::pdsu_diff,\
+    \ T> diff(const int x, const int y) {\n      assert(0 <= x && x < this->size());\n\
+    \      assert(0 <= y && y < this->size());\n      const auto x_r = this->leader(x);\n\
+    \      const auto y_r = this->leader(y);\n      if (x_r == y_r) {\n        if\
+    \ (this->m_consistent[x_r]) {\n          return ::std::make_pair(::tools::pdsu_diff::known,\
+    \ G::op(this->m_diffs[y], G::inv(this->m_diffs[x])));\n        } else {\n    \
+    \      return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());\n  \
+    \      }\n      } else {\n        return ::std::make_pair(::tools::pdsu_diff::unknown,\
     \ G::e());\n      }\n    }\n\n    bool same(const int x, const int y) {\n    \
     \  assert(0 <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\
     \      return this->leader(x) == this->leader(y);\n    }\n\n    int merge(int\
@@ -100,8 +101,8 @@ data:
   isVerificationFile: true
   path: tests/pdsu.test.cpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/pdsu.test.cpp
 layout: document

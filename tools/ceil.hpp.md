@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -208,13 +208,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -241,9 +241,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -286,7 +286,7 @@ data:
   - tools/rolling_hash.hpp
   - tools/bigdecimal.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/ceil.test.cpp

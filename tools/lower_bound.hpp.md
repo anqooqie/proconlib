@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/compress.hpp
     title: Compress values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/compressor.hpp
     title: Compress values (for more complicated cases)
   - icon: ':heavy_check_mark:'
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rectangle_union_area.hpp
     title: Area of union of rectangles
   - icon: ':heavy_check_mark:'
@@ -39,7 +39,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_of_digit_products.test.cpp
     title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rectangle_union_area.test.cpp
     title: tests/rectangle_union_area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -57,9 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lower_bound.hpp\"\n\n\n\n#include <iterator>\n#include\
@@ -90,7 +90,7 @@ data:
   - tools/compressor.hpp
   - tools/rectangle_union_area.hpp
   timestamp: '2022-05-30 15:17:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/inversion_number.test.cpp
   - tests/rectangle_union_area.test.cpp

@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc170/tasks/abc170_d
@@ -96,7 +96,7 @@ data:
     \ m_l(l), m_r(r) {\n      }\n\n      iterator begin() const {\n        return\
     \ iterator(this->m_min_prime_factors, this->m_l);\n      };\n\n      iterator\
     \ end() const {\n        return iterator(this->m_min_prime_factors, this->m_r);\n\
-    \      }\n    };\n\n    osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
+    \      }\n    };\n\n    explicit osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
     \ 1), ::std::numeric_limits<T>::max()),\n      m_divisor_counts(::std::max<T>(N,\
     \ 1)) {\n      assert(N >= 1);\n\n      for (T i = 2; i < N; ++i) {\n        if\
     \ (this->m_min_prime_factors[i] == ::std::numeric_limits<T>::max()) {\n      \
@@ -150,8 +150,8 @@ data:
   isVerificationFile: true
   path: tests/osa_k.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/osa_k.test.cpp
 layout: document

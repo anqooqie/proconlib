@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/minimum_spanning_tree
@@ -35,19 +35,20 @@ data:
     \    prim() = default;\n    prim(const ::tools::prim<T>&) = default;\n    prim(::tools::prim<T>&&)\
     \ = default;\n    ~prim() = default;\n    ::tools::prim<T>& operator=(const ::tools::prim<T>&)\
     \ = default;\n    ::tools::prim<T>& operator=(::tools::prim<T>&&) = default;\n\
-    \n    prim(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t size()\
-    \ const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t\
-    \ u, ::std::size_t v, const T w) {\n      assert(u < this->size());\n      assert(v\
-    \ < this->size());\n      ::std::tie(u, v) = ::std::minmax({u, v});\n      this->m_edges.push_back(edge({this->m_edges.size(),\
-    \ u, v, w}));\n      this->m_graph[u].push_back(this->m_edges.size() - 1);\n \
-    \     this->m_graph[v].push_back(this->m_edges.size() - 1);\n      return this->m_edges.size()\
-    \ - 1;\n    }\n\n    const edge& get_edge(const ::std::size_t k) const {\n   \
-    \   assert(k < this->m_edges.size());\n      return this->m_edges[k];\n    }\n\
-    \n    const ::std::vector<edge>& edges() const {\n      return this->m_edges;\n\
-    \    }\n\n    ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>,\
-    \ ::std::vector<::std::size_t>> query() const {\n      ::std::pair<::std::vector<::std::pair<T,\
-    \ ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> res;\n      auto&\
-    \ [groups, belongs_to] = res;\n      belongs_to.resize(this->size());\n      ::std::fill(belongs_to.begin(),\
+    \n    explicit prim(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t\
+    \ size() const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t\
+    \ add_edge(::std::size_t u, ::std::size_t v, const T w) {\n      assert(u < this->size());\n\
+    \      assert(v < this->size());\n      ::std::tie(u, v) = ::std::minmax({u, v});\n\
+    \      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));\n     \
+    \ this->m_graph[u].push_back(this->m_edges.size() - 1);\n      this->m_graph[v].push_back(this->m_edges.size()\
+    \ - 1);\n      return this->m_edges.size() - 1;\n    }\n\n    const edge& get_edge(const\
+    \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
+    \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
+    \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<::std::pair<T,\
+    \ ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> query() const\
+    \ {\n      ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>,\
+    \ ::std::vector<::std::size_t>> res;\n      auto& [groups, belongs_to] = res;\n\
+    \      belongs_to.resize(this->size());\n      ::std::fill(belongs_to.begin(),\
     \ belongs_to.end(), ::std::numeric_limits<::std::size_t>::max());\n\n      for\
     \ (::std::size_t root = 0; root < this->size(); ++root) {\n        if (belongs_to[root]\
     \ < ::std::numeric_limits<::std::size_t>::max()) continue;\n\n        const auto\
@@ -95,8 +96,8 @@ data:
   isVerificationFile: true
   path: tests/prim/basic.test.cpp
   requiredBy: []
-  timestamp: '2024-01-06 23:16:10+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/prim/basic.test.cpp
 layout: document

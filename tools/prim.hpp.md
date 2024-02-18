@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by.hpp
     title: std::greater by key
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/basic.test.cpp
     title: tests/prim/basic.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prim.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
@@ -31,19 +31,20 @@ data:
     \    prim() = default;\n    prim(const ::tools::prim<T>&) = default;\n    prim(::tools::prim<T>&&)\
     \ = default;\n    ~prim() = default;\n    ::tools::prim<T>& operator=(const ::tools::prim<T>&)\
     \ = default;\n    ::tools::prim<T>& operator=(::tools::prim<T>&&) = default;\n\
-    \n    prim(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t size()\
-    \ const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t\
-    \ u, ::std::size_t v, const T w) {\n      assert(u < this->size());\n      assert(v\
-    \ < this->size());\n      ::std::tie(u, v) = ::std::minmax({u, v});\n      this->m_edges.push_back(edge({this->m_edges.size(),\
-    \ u, v, w}));\n      this->m_graph[u].push_back(this->m_edges.size() - 1);\n \
-    \     this->m_graph[v].push_back(this->m_edges.size() - 1);\n      return this->m_edges.size()\
-    \ - 1;\n    }\n\n    const edge& get_edge(const ::std::size_t k) const {\n   \
-    \   assert(k < this->m_edges.size());\n      return this->m_edges[k];\n    }\n\
-    \n    const ::std::vector<edge>& edges() const {\n      return this->m_edges;\n\
-    \    }\n\n    ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>,\
-    \ ::std::vector<::std::size_t>> query() const {\n      ::std::pair<::std::vector<::std::pair<T,\
-    \ ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> res;\n      auto&\
-    \ [groups, belongs_to] = res;\n      belongs_to.resize(this->size());\n      ::std::fill(belongs_to.begin(),\
+    \n    explicit prim(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t\
+    \ size() const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t\
+    \ add_edge(::std::size_t u, ::std::size_t v, const T w) {\n      assert(u < this->size());\n\
+    \      assert(v < this->size());\n      ::std::tie(u, v) = ::std::minmax({u, v});\n\
+    \      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));\n     \
+    \ this->m_graph[u].push_back(this->m_edges.size() - 1);\n      this->m_graph[v].push_back(this->m_edges.size()\
+    \ - 1);\n      return this->m_edges.size() - 1;\n    }\n\n    const edge& get_edge(const\
+    \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
+    \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
+    \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<::std::pair<T,\
+    \ ::std::vector<::std::size_t>>>, ::std::vector<::std::size_t>> query() const\
+    \ {\n      ::std::pair<::std::vector<::std::pair<T, ::std::vector<::std::size_t>>>,\
+    \ ::std::vector<::std::size_t>> res;\n      auto& [groups, belongs_to] = res;\n\
+    \      belongs_to.resize(this->size());\n      ::std::fill(belongs_to.begin(),\
     \ belongs_to.end(), ::std::numeric_limits<::std::size_t>::max());\n\n      for\
     \ (::std::size_t root = 0; root < this->size(); ++root) {\n        if (belongs_to[root]\
     \ < ::std::numeric_limits<::std::size_t>::max()) continue;\n\n        const auto\
@@ -74,8 +75,8 @@ data:
     \ m_graph;\n\n  public:\n    prim() = default;\n    prim(const ::tools::prim<T>&)\
     \ = default;\n    prim(::tools::prim<T>&&) = default;\n    ~prim() = default;\n\
     \    ::tools::prim<T>& operator=(const ::tools::prim<T>&) = default;\n    ::tools::prim<T>&\
-    \ operator=(::tools::prim<T>&&) = default;\n\n    prim(const ::std::size_t n)\
-    \ : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
+    \ operator=(::tools::prim<T>&&) = default;\n\n    explicit prim(const ::std::size_t\
+    \ n) : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T\
     \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
     \   ::std::tie(u, v) = ::std::minmax({u, v});\n      this->m_edges.push_back(edge({this->m_edges.size(),\
@@ -114,8 +115,8 @@ data:
   isVerificationFile: false
   path: tools/prim.hpp
   requiredBy: []
-  timestamp: '2022-10-01 12:09:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/prim/unconnected.test.cpp
   - tests/prim/basic.test.cpp

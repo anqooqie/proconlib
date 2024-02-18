@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
@@ -475,7 +475,7 @@ data:
     \              }\n              if (node.size == 1) {\n                v.push_back(node.prod);\n\
     \              } else {\n                dfs(node.l_id);\n                dfs(node.r_id);\n\
     \              }\n            })(this->m_root_id);\n          }\n          return\
-    \ v;\n        }\n\n        avl_tree_impl() = default;\n        avl_tree_impl(buffer&\
+    \ v;\n        }\n\n        avl_tree_impl() = default;\n        explicit avl_tree_impl(buffer&\
     \ buffer) : m_buffer(&buffer), m_root_id(0) {\n        }\n        avl_tree_impl(buffer&\
     \ buffer, const ::std::vector<S>& v) : m_buffer(&buffer) {\n          this->m_root_id\
     \ = v.empty() ? 0 : ::tools::fix([&](auto&& dfs, const int l, const int r) ->\
@@ -591,8 +591,8 @@ data:
   isVerificationFile: true
   path: tests/lazy_avl_tree.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 10:00:28+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/lazy_avl_tree.test.cpp
 layout: document

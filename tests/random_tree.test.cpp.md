@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/random_tree.hpp
     title: Random tree generator
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -57,16 +57,16 @@ data:
     \ = default;\n    random_tree(::tools::random_tree<T>&&) = default;\n    ~random_tree()\
     \ = default;\n    ::tools::random_tree<T>& operator=(const ::tools::random_tree<T>&)\
     \ = default;\n    ::tools::random_tree<T>& operator=(::tools::random_tree<T>&&)\
-    \ = default;\n\n    random_tree(const ::std::size_t n) : m_size(n) {\n      assert(n\
-    \ >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n\
-    \    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T, T>> operator()(R&\
-    \ engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\n      ::std::vector<T>\
-    \ perm(this->size());\n      ::std::iota(perm.begin(), perm.end(), 0);\n     \
-    \ for (::std::size_t i = 0; i + 1 < this->size(); ++i) {\n        const auto x\
-    \ = ::std::uniform_int_distribution<::std::size_t>(0, this->size() - i - 2)(engine);\n\
-    \        const auto y = ::std::uniform_int_distribution<::std::size_t>(0, this->size()\
-    \ - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n        if\
-    \ (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
+    \ = default;\n\n    explicit random_tree(const ::std::size_t n) : m_size(n) {\n\
+    \      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_size;\n    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T,\
+    \ T>> operator()(R& engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\
+    \n      ::std::vector<T> perm(this->size());\n      ::std::iota(perm.begin(),\
+    \ perm.end(), 0);\n      for (::std::size_t i = 0; i + 1 < this->size(); ++i)\
+    \ {\n        const auto x = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - i - 2)(engine);\n        const auto y = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n\
+    \        if (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
     \ perm[i + 1]);\n      }\n\n      return edges;\n    }\n  };\n}\n\n\n#line 8 \"\
     tests/random_tree.test.cpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  std::random_device seed_gen;\n\
@@ -93,8 +93,8 @@ data:
   isVerificationFile: true
   path: tests/random_tree.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/random_tree.test.cpp
 layout: document

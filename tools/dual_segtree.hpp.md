@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/dual_segtree.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -58,9 +58,9 @@ data:
     \n    void thrust(const ::std::size_t node_id) {\n      for (::std::size_t h =\
     \ this->height; h > 0; --h) {\n        this->propagate(node_id >> h);\n      }\n\
     \    }\n\n    ::std::size_t capacity() const {\n      return this->lazy.size()\
-    \ / 2;\n    }\n\n  public:\n    dual_segtree(const ::std::size_t& n) :\n     \
-    \ height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height + 1),\
-    \ M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
+    \ / 2;\n    }\n\n  public:\n    explicit dual_segtree(const ::std::size_t& n)\
+    \ :\n      height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height\
+    \ + 1), M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
     \ b, const T& x) {\n      if(a >= b) return;\n\n      const ::std::size_t a_id\
     \ = a + this->capacity();\n      const ::std::size_t b_id = b + this->capacity()\
     \ - 1;\n\n      this->thrust(a_id);\n      this->thrust(b_id);\n\n      for (::std::size_t\
@@ -82,7 +82,7 @@ data:
     \ ::std::size_t node_id) {\n      for (::std::size_t h = this->height; h > 0;\
     \ --h) {\n        this->propagate(node_id >> h);\n      }\n    }\n\n    ::std::size_t\
     \ capacity() const {\n      return this->lazy.size() / 2;\n    }\n\n  public:\n\
-    \    dual_segtree(const ::std::size_t& n) :\n      height(::tools::ceil_log2(n)),\n\
+    \    explicit dual_segtree(const ::std::size_t& n) :\n      height(::tools::ceil_log2(n)),\n\
     \      lazy(::tools::pow2(this->height + 1), M::e()) {\n    }\n\n    void apply(const\
     \ ::std::size_t a, const ::std::size_t b, const T& x) {\n      if(a >= b) return;\n\
     \n      const ::std::size_t a_id = a + this->capacity();\n      const ::std::size_t\
@@ -99,8 +99,8 @@ data:
   isVerificationFile: false
   path: tools/dual_segtree.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/dual_segtree.test.cpp
 documentation_of: tools/dual_segtree.hpp

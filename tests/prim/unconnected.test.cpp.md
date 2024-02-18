@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc270/tasks/abc270_f
@@ -38,8 +38,8 @@ data:
     \ m_graph;\n\n  public:\n    prim() = default;\n    prim(const ::tools::prim<T>&)\
     \ = default;\n    prim(::tools::prim<T>&&) = default;\n    ~prim() = default;\n\
     \    ::tools::prim<T>& operator=(const ::tools::prim<T>&) = default;\n    ::tools::prim<T>&\
-    \ operator=(::tools::prim<T>&&) = default;\n\n    prim(const ::std::size_t n)\
-    \ : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
+    \ operator=(::tools::prim<T>&&) = default;\n\n    explicit prim(const ::std::size_t\
+    \ n) : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T\
     \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
     \   ::std::tie(u, v) = ::std::minmax({u, v});\n      this->m_edges.push_back(edge({this->m_edges.size(),\
@@ -141,8 +141,8 @@ data:
   isVerificationFile: true
   path: tests/prim/unconnected.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/prim/unconnected.test.cpp
 layout: document

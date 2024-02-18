@@ -17,19 +17,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/disjoint_sparse_table_2d.hpp
     title: 2D disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lca.hpp
     title: Lowest common ancestor
   - icon: ':heavy_check_mark:'
@@ -90,10 +90,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,7 +126,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -180,9 +180,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
@@ -259,7 +259,7 @@ data:
   - tools/polynomial_interpolation.hpp
   - tools/berlekamp_massey.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bostan_mori.test.cpp
   - tests/stirling_2nd.test.cpp

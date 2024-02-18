@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc325/tasks/abc325_e
@@ -40,8 +40,8 @@ data:
     \ ::tools::naive_dijkstra<Directed, T>&) = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed,\
     \ T>&&) = default;\n    ~naive_dijkstra() = default;\n    ::tools::naive_dijkstra<Directed,\
     \ T>& operator=(const ::tools::naive_dijkstra<Directed, T>&) = default;\n    ::tools::naive_dijkstra<Directed,\
-    \ T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;\n\n    naive_dijkstra(const\
-    \ ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max())\
+    \ T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;\n\n    explicit\
+    \ naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max())\
     \ {\n    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n \
     \   }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
     \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
@@ -99,8 +99,8 @@ data:
   isVerificationFile: true
   path: tests/naive_dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 12:06:08+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/naive_dijkstra.test.cpp
 layout: document

@@ -23,13 +23,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/scc_graph.hpp
     title: Strongly connected component decomposition
   - icon: ':heavy_check_mark:'
@@ -81,7 +81,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
@@ -105,7 +105,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/real_interval_set.test.cpp
     title: tests/real_interval_set.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -123,9 +123,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/undoable_dsu.test.cpp
     title: tests/undoable_dsu.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
@@ -154,7 +154,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/naive_dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/convex_hull.test.cpp
   - tests/undoable_dsu.test.cpp

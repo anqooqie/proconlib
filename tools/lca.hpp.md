@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lca.hpp\"\n\n\n\n#include <utility>\n#include <cstddef>\n\
@@ -141,11 +141,11 @@ data:
     \ m_dst;\n\n  public:\n\n    lca() = default;\n    lca(const ::tools::lca&) =\
     \ default;\n    lca(::tools::lca&&) = default;\n    ~lca() = default;\n    ::tools::lca&\
     \ operator=(const ::tools::lca&) = default;\n    ::tools::lca& operator=(::tools::lca&&)\
-    \ = default;\n\n    lca(const ::std::size_t n) : m_edges(n), m_in(n) {\n     \
-    \ assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_edges.size();\n\
-    \    }\n\n    void add_edge(const ::std::size_t u, const ::std::size_t v) {\n\
-    \      assert(u < this->size());\n      assert(v < this->size());\n      assert(u\
-    \ != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
+    \ = default;\n\n    explicit lca(const ::std::size_t n) : m_edges(n), m_in(n)\
+    \ {\n      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_edges.size();\n    }\n\n    void add_edge(const ::std::size_t u, const\
+    \ ::std::size_t v) {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \      assert(u != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
     \    }\n\n    void build(const ::std::size_t root) {\n      assert(::std::accumulate(this->m_edges.begin(),\
     \ this->m_edges.end(), ::std::size_t(0), [](const ::std::size_t sum, const auto&\
     \ edges) { return sum + edges.size(); }) == 2 * (this->size() - 1));\n\n     \
@@ -178,11 +178,11 @@ data:
     \ m_dst;\n\n  public:\n\n    lca() = default;\n    lca(const ::tools::lca&) =\
     \ default;\n    lca(::tools::lca&&) = default;\n    ~lca() = default;\n    ::tools::lca&\
     \ operator=(const ::tools::lca&) = default;\n    ::tools::lca& operator=(::tools::lca&&)\
-    \ = default;\n\n    lca(const ::std::size_t n) : m_edges(n), m_in(n) {\n     \
-    \ assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_edges.size();\n\
-    \    }\n\n    void add_edge(const ::std::size_t u, const ::std::size_t v) {\n\
-    \      assert(u < this->size());\n      assert(v < this->size());\n      assert(u\
-    \ != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
+    \ = default;\n\n    explicit lca(const ::std::size_t n) : m_edges(n), m_in(n)\
+    \ {\n      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_edges.size();\n    }\n\n    void add_edge(const ::std::size_t u, const\
+    \ ::std::size_t v) {\n      assert(u < this->size());\n      assert(v < this->size());\n\
+    \      assert(u != v);\n      this->m_edges[u].push_back(v);\n      this->m_edges[v].push_back(u);\n\
     \    }\n\n    void build(const ::std::size_t root) {\n      assert(::std::accumulate(this->m_edges.begin(),\
     \ this->m_edges.end(), ::std::size_t(0), [](const ::std::size_t sum, const auto&\
     \ edges) { return sum + edges.size(); }) == 2 * (this->size() - 1));\n\n     \
@@ -212,8 +212,8 @@ data:
   isVerificationFile: false
   path: tools/lca.hpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/lca.test.cpp
 documentation_of: tools/lca.hpp

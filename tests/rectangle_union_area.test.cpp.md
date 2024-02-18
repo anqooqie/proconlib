@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/compressor.hpp
     title: Compress values (for more complicated cases)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rectangle_union_area.hpp
     title: Area of union of rectangles
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/area_of_union_of_rectangles
@@ -129,10 +129,10 @@ data:
     \ = default;\n\n    template <typename InputIterator>\n    compressor(InputIterator\
     \ begin, InputIterator end) : m_sorted(begin, end) {\n      ::std::sort(this->m_sorted.begin(),\
     \ this->m_sorted.end());\n      this->m_sorted.erase(::std::unique(this->m_sorted.begin(),\
-    \ this->m_sorted.end()), this->m_sorted.end());\n    }\n    compressor(const ::std::vector<T>&\
-    \ v) : compressor(v.begin(), v.end()) {\n    }\n\n    T size() const {\n     \
-    \ return this->m_sorted.size();\n    }\n    T compress(const T& x) const {\n \
-    \     const T i = ::tools::lower_bound(this->m_sorted.begin(), this->m_sorted.end(),\
+    \ this->m_sorted.end()), this->m_sorted.end());\n    }\n    explicit compressor(const\
+    \ ::std::vector<T>& v) : compressor(v.begin(), v.end()) {\n    }\n\n    T size()\
+    \ const {\n      return this->m_sorted.size();\n    }\n    T compress(const T&\
+    \ x) const {\n      const T i = ::tools::lower_bound(this->m_sorted.begin(), this->m_sorted.end(),\
     \ x);\n      assert(i < this->size());\n      assert(this->m_sorted[i] == x);\n\
     \      return i;\n    }\n    T decompress(const T& i) const {\n      assert(0\
     \ <= i && i < this->size());\n      return this->m_sorted[i];\n    }\n\n    auto\
@@ -200,8 +200,8 @@ data:
   isVerificationFile: true
   path: tests/rectangle_union_area.test.cpp
   requiredBy: []
-  timestamp: '2023-09-09 10:01:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/rectangle_union_area.test.cpp
 layout: document

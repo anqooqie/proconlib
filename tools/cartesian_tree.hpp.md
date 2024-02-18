@@ -26,11 +26,11 @@ data:
     \ = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
     \ Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;\n\
     \    ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T,\
-    \ Compare>&&) = default;\n\n    cartesian_tree(const ::std::vector<T>& a, const\
-    \ Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {\n      const\
-    \ auto NONE = ::std::numeric_limits<::std::size_t>::max();\n\n      for (::std::size_t\
-    \ i = 0; i < a.size(); ++i) {\n        this->m_vertices[i].parent = i ? i - 1\
-    \ : NONE;\n        this->m_vertices[i].left = NONE;\n        this->m_vertices[i].right\
+    \ Compare>&&) = default;\n\n    explicit cartesian_tree(const ::std::vector<T>&\
+    \ a, const Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {\n\
+    \      const auto NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    \
+    \  for (::std::size_t i = 0; i < a.size(); ++i) {\n        this->m_vertices[i].parent\
+    \ = i ? i - 1 : NONE;\n        this->m_vertices[i].left = NONE;\n        this->m_vertices[i].right\
     \ = NONE;\n        auto c = NONE;\n        while (this->m_vertices[i].parent !=\
     \ NONE && this->m_comp(a[i], a[this->m_vertices[i].parent])) {\n          if (c\
     \ != NONE) {\n            this->m_vertices[c].parent = this->m_vertices[i].parent;\n\
@@ -71,11 +71,11 @@ data:
     \ Compare>&&) = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
     \ Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;\n\
     \    ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T,\
-    \ Compare>&&) = default;\n\n    cartesian_tree(const ::std::vector<T>& a, const\
-    \ Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {\n      const\
-    \ auto NONE = ::std::numeric_limits<::std::size_t>::max();\n\n      for (::std::size_t\
-    \ i = 0; i < a.size(); ++i) {\n        this->m_vertices[i].parent = i ? i - 1\
-    \ : NONE;\n        this->m_vertices[i].left = NONE;\n        this->m_vertices[i].right\
+    \ Compare>&&) = default;\n\n    explicit cartesian_tree(const ::std::vector<T>&\
+    \ a, const Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {\n\
+    \      const auto NONE = ::std::numeric_limits<::std::size_t>::max();\n\n    \
+    \  for (::std::size_t i = 0; i < a.size(); ++i) {\n        this->m_vertices[i].parent\
+    \ = i ? i - 1 : NONE;\n        this->m_vertices[i].left = NONE;\n        this->m_vertices[i].right\
     \ = NONE;\n        auto c = NONE;\n        while (this->m_vertices[i].parent !=\
     \ NONE && this->m_comp(a[i], a[this->m_vertices[i].parent])) {\n          if (c\
     \ != NONE) {\n            this->m_vertices[c].parent = this->m_vertices[i].parent;\n\
@@ -108,7 +108,7 @@ data:
   isVerificationFile: false
   path: tools/cartesian_tree.hpp
   requiredBy: []
-  timestamp: '2023-09-16 14:35:07+09:00'
+  timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cartesian_tree/interval.test.cpp

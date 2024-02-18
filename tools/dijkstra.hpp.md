@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
@@ -38,8 +38,8 @@ data:
     \ = default;\n    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n    ~dijkstra()\
     \ = default;\n    ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed,\
     \ T>&) = default;\n    ::tools::dijkstra<Directed, T>& operator=(::tools::dijkstra<Directed,\
-    \ T>&&) = default;\n\n    dijkstra(const ::std::size_t n) : m_graph(n) {\n   \
-    \ }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
+    \ T>&&) = default;\n\n    explicit dijkstra(const ::std::size_t n) : m_graph(n)\
+    \ {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
     \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
     \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
     \   assert(w >= 0);\n      if constexpr (!Directed) {\n        ::std::tie(u, v)\
@@ -74,7 +74,7 @@ data:
     \ T>&) = default;\n    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n\
     \    ~dijkstra() = default;\n    ::tools::dijkstra<Directed, T>& operator=(const\
     \ ::tools::dijkstra<Directed, T>&) = default;\n    ::tools::dijkstra<Directed,\
-    \ T>& operator=(::tools::dijkstra<Directed, T>&&) = default;\n\n    dijkstra(const\
+    \ T>& operator=(::tools::dijkstra<Directed, T>&&) = default;\n\n    explicit dijkstra(const\
     \ ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n\
     \      return this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t\
     \ u, ::std::size_t v, const T& w) {\n      assert(u < this->size());\n      assert(v\
@@ -105,7 +105,7 @@ data:
   isVerificationFile: false
   path: tools/dijkstra.hpp
   requiredBy: []
-  timestamp: '2024-02-18 12:06:08+09:00'
+  timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/dijkstra/directed.test.cpp

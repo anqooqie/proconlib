@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/disjoint_sparse_table_2d.hpp\"\n\n\n\n#include <vector>\n\
@@ -104,8 +104,8 @@ data:
     \ = default;\n    ~disjoint_sparse_table_2d() = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(const ::tools::disjoint_sparse_table_2d<M>&) = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(::tools::disjoint_sparse_table_2d<M>&&) = default;\n\n    template\
-    \ <typename Range>\n    disjoint_sparse_table_2d(const Range& range) {\n     \
-    \ const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
+    \ <typename Range>\n    explicit disjoint_sparse_table_2d(const Range& range)\
+    \ {\n      const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
     \      this->m_height = ::std::distance(begin, end);\n      this->m_width = this->m_height\
     \ == 0 ? 0 : ::std::distance(::std::begin(*begin), ::std::end(*begin));\n    \
     \  assert(::std::all_of(begin, end, [&](const auto& row) { return static_cast<::std::size_t>(::std::distance(::std::begin(row),\
@@ -175,8 +175,8 @@ data:
     \ = default;\n    ~disjoint_sparse_table_2d() = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(const ::tools::disjoint_sparse_table_2d<M>&) = default;\n    ::tools::disjoint_sparse_table_2d<M>&\
     \ operator=(::tools::disjoint_sparse_table_2d<M>&&) = default;\n\n    template\
-    \ <typename Range>\n    disjoint_sparse_table_2d(const Range& range) {\n     \
-    \ const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
+    \ <typename Range>\n    explicit disjoint_sparse_table_2d(const Range& range)\
+    \ {\n      const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
     \      this->m_height = ::std::distance(begin, end);\n      this->m_width = this->m_height\
     \ == 0 ? 0 : ::std::distance(::std::begin(*begin), ::std::end(*begin));\n    \
     \  assert(::std::all_of(begin, end, [&](const auto& row) { return static_cast<::std::size_t>(::std::distance(::std::begin(row),\
@@ -242,8 +242,8 @@ data:
   isVerificationFile: false
   path: tools/disjoint_sparse_table_2d.hpp
   requiredBy: []
-  timestamp: '2023-09-10 23:02:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/disjoint_sparse_table_2d.test.cpp
 documentation_of: tools/disjoint_sparse_table_2d.hpp

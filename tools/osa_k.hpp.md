@@ -2,25 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/gcd_convolution.hpp
     title: GCD convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lcm_convolution.hpp
     title: LCM convolution
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/gcd_convolution.test.cpp
     title: tests/gcd_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lcm_convolution.test.cpp
     title: tests/lcm_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/osa_k.test.cpp
     title: tests/osa_k.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/osa_k.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -103,7 +103,7 @@ data:
     \ m_l(l), m_r(r) {\n      }\n\n      iterator begin() const {\n        return\
     \ iterator(this->m_min_prime_factors, this->m_l);\n      };\n\n      iterator\
     \ end() const {\n        return iterator(this->m_min_prime_factors, this->m_r);\n\
-    \      }\n    };\n\n    osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
+    \      }\n    };\n\n    explicit osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
     \ 1), ::std::numeric_limits<T>::max()),\n      m_divisor_counts(::std::max<T>(N,\
     \ 1)) {\n      assert(N >= 1);\n\n      for (T i = 2; i < N; ++i) {\n        if\
     \ (this->m_min_prime_factors[i] == ::std::numeric_limits<T>::max()) {\n      \
@@ -212,7 +212,7 @@ data:
     \ m_l(l), m_r(r) {\n      }\n\n      iterator begin() const {\n        return\
     \ iterator(this->m_min_prime_factors, this->m_l);\n      };\n\n      iterator\
     \ end() const {\n        return iterator(this->m_min_prime_factors, this->m_r);\n\
-    \      }\n    };\n\n    osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
+    \      }\n    };\n\n    explicit osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
     \ 1), ::std::numeric_limits<T>::max()),\n      m_divisor_counts(::std::max<T>(N,\
     \ 1)) {\n      assert(N >= 1);\n\n      for (T i = 2; i < N; ++i) {\n        if\
     \ (this->m_min_prime_factors[i] == ::std::numeric_limits<T>::max()) {\n      \
@@ -247,8 +247,8 @@ data:
   requiredBy:
   - tools/lcm_convolution.hpp
   - tools/gcd_convolution.hpp
-  timestamp: '2022-09-11 13:33:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/osa_k.test.cpp
   - tests/gcd_convolution.test.cpp

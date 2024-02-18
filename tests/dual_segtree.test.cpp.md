@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/range_affine_point_get
@@ -268,9 +268,9 @@ data:
     \n    void thrust(const ::std::size_t node_id) {\n      for (::std::size_t h =\
     \ this->height; h > 0; --h) {\n        this->propagate(node_id >> h);\n      }\n\
     \    }\n\n    ::std::size_t capacity() const {\n      return this->lazy.size()\
-    \ / 2;\n    }\n\n  public:\n    dual_segtree(const ::std::size_t& n) :\n     \
-    \ height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height + 1),\
-    \ M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
+    \ / 2;\n    }\n\n  public:\n    explicit dual_segtree(const ::std::size_t& n)\
+    \ :\n      height(::tools::ceil_log2(n)),\n      lazy(::tools::pow2(this->height\
+    \ + 1), M::e()) {\n    }\n\n    void apply(const ::std::size_t a, const ::std::size_t\
     \ b, const T& x) {\n      if(a >= b) return;\n\n      const ::std::size_t a_id\
     \ = a + this->capacity();\n      const ::std::size_t b_id = b + this->capacity()\
     \ - 1;\n\n      this->thrust(a_id);\n      this->thrust(b_id);\n\n      for (::std::size_t\
@@ -315,8 +315,8 @@ data:
   isVerificationFile: true
   path: tests/dual_segtree.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/dual_segtree.test.cpp
 layout: document

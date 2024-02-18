@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
   - icon: ':heavy_check_mark:'

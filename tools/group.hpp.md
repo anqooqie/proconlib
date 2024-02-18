@@ -21,7 +21,7 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/pdsu.hpp
     title: Potentialized disjoint set union
   - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/cumsum2d.test.cpp
     title: tests/cumsum2d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
   - icon: ':heavy_check_mark:'
@@ -114,7 +114,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/pdsu.test.cpp
     title: tests/pdsu.test.cpp
   - icon: ':heavy_check_mark:'
@@ -153,9 +153,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace\
@@ -201,7 +201,7 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/pdsu.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/pdsu.test.cpp
   - tests/bostan_mori.test.cpp

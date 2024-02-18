@@ -5,25 +5,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chromatic_number.hpp
     title: Chromatic number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/disjoint_sparse_table_2d.hpp
     title: 2D disjoint sparse table
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/lca.hpp
     title: Lowest common ancestor
   - icon: ':heavy_check_mark:'
@@ -61,7 +61,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
   - icon: ':heavy_check_mark:'
@@ -79,7 +79,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -91,7 +91,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
   - icon: ':heavy_check_mark:'
@@ -103,13 +103,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
@@ -136,9 +136,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -221,7 +221,7 @@ data:
   - tools/stirling_1st.hpp
   - tools/totient.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/tetration_mod.test.cpp

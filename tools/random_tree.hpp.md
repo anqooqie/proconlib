@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links:
     - https://twitter.com/anta_prg/status/869633557362163712
@@ -21,16 +21,16 @@ data:
     \ = default;\n    random_tree(::tools::random_tree<T>&&) = default;\n    ~random_tree()\
     \ = default;\n    ::tools::random_tree<T>& operator=(const ::tools::random_tree<T>&)\
     \ = default;\n    ::tools::random_tree<T>& operator=(::tools::random_tree<T>&&)\
-    \ = default;\n\n    random_tree(const ::std::size_t n) : m_size(n) {\n      assert(n\
-    \ >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n\
-    \    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T, T>> operator()(R&\
-    \ engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\n      ::std::vector<T>\
-    \ perm(this->size());\n      ::std::iota(perm.begin(), perm.end(), 0);\n     \
-    \ for (::std::size_t i = 0; i + 1 < this->size(); ++i) {\n        const auto x\
-    \ = ::std::uniform_int_distribution<::std::size_t>(0, this->size() - i - 2)(engine);\n\
-    \        const auto y = ::std::uniform_int_distribution<::std::size_t>(0, this->size()\
-    \ - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n        if\
-    \ (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
+    \ = default;\n\n    explicit random_tree(const ::std::size_t n) : m_size(n) {\n\
+    \      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_size;\n    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T,\
+    \ T>> operator()(R& engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\
+    \n      ::std::vector<T> perm(this->size());\n      ::std::iota(perm.begin(),\
+    \ perm.end(), 0);\n      for (::std::size_t i = 0; i + 1 < this->size(); ++i)\
+    \ {\n        const auto x = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - i - 2)(engine);\n        const auto y = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n\
+    \        if (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
     \ perm[i + 1]);\n      }\n\n      return edges;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_RANDOM_TREE_HPP\n#define TOOLS_RANDOM_TREE_HPP\n\n#include\
     \ <cstddef>\n#include <cassert>\n#include <vector>\n#include <utility>\n#include\
@@ -41,23 +41,23 @@ data:
     \ = default;\n    random_tree(::tools::random_tree<T>&&) = default;\n    ~random_tree()\
     \ = default;\n    ::tools::random_tree<T>& operator=(const ::tools::random_tree<T>&)\
     \ = default;\n    ::tools::random_tree<T>& operator=(::tools::random_tree<T>&&)\
-    \ = default;\n\n    random_tree(const ::std::size_t n) : m_size(n) {\n      assert(n\
-    \ >= 1);\n    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n\
-    \    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T, T>> operator()(R&\
-    \ engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\n      ::std::vector<T>\
-    \ perm(this->size());\n      ::std::iota(perm.begin(), perm.end(), 0);\n     \
-    \ for (::std::size_t i = 0; i + 1 < this->size(); ++i) {\n        const auto x\
-    \ = ::std::uniform_int_distribution<::std::size_t>(0, this->size() - i - 2)(engine);\n\
-    \        const auto y = ::std::uniform_int_distribution<::std::size_t>(0, this->size()\
-    \ - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n        if\
-    \ (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
+    \ = default;\n\n    explicit random_tree(const ::std::size_t n) : m_size(n) {\n\
+    \      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_size;\n    }\n\n    template <typename R>\n    ::std::vector<::std::pair<T,\
+    \ T>> operator()(R& engine) const {\n      ::std::vector<::std::pair<T, T>> edges;\n\
+    \n      ::std::vector<T> perm(this->size());\n      ::std::iota(perm.begin(),\
+    \ perm.end(), 0);\n      for (::std::size_t i = 0; i + 1 < this->size(); ++i)\
+    \ {\n        const auto x = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - i - 2)(engine);\n        const auto y = ::std::uniform_int_distribution<::std::size_t>(0,\
+    \ this->size() - 1)(engine);\n        ::std::swap(perm[i + 1], perm[i + 1 + x]);\n\
+    \        if (y < i + 1) ::std::swap(perm[i], perm[y]);\n        edges.emplace_back(perm[i],\
     \ perm[i + 1]);\n      }\n\n      return edges;\n    }\n  };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/random_tree.hpp
   requiredBy: []
-  timestamp: '2022-07-09 11:13:10+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/random_tree.test.cpp
 documentation_of: tools/random_tree.hpp

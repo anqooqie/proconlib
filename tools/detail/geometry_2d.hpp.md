@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'

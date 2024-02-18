@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/osa_k.hpp
     title: osa_k's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/gcd_convolution.test.cpp
     title: tests/gcd_convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/gcd_convolution.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -96,7 +96,7 @@ data:
     \ m_l(l), m_r(r) {\n      }\n\n      iterator begin() const {\n        return\
     \ iterator(this->m_min_prime_factors, this->m_l);\n      };\n\n      iterator\
     \ end() const {\n        return iterator(this->m_min_prime_factors, this->m_r);\n\
-    \      }\n    };\n\n    osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
+    \      }\n    };\n\n    explicit osa_k(const T N) :\n      m_min_prime_factors(::std::max<T>(N,\
     \ 1), ::std::numeric_limits<T>::max()),\n      m_divisor_counts(::std::max<T>(N,\
     \ 1)) {\n      assert(N >= 1);\n\n      for (T i = 2; i < N; ++i) {\n        if\
     \ (this->m_min_prime_factors[i] == ::std::numeric_limits<T>::max()) {\n      \
@@ -176,8 +176,8 @@ data:
   isVerificationFile: false
   path: tools/gcd_convolution.hpp
   requiredBy: []
-  timestamp: '2022-09-17 11:30:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-02-18 13:45:51+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/gcd_convolution.test.cpp
 documentation_of: tools/gcd_convolution.hpp
