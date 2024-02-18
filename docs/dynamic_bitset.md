@@ -113,7 +113,7 @@ If such the integer does not exist, it returns $n$.
 - None
 
 ### Time Complexity
-- $O(n)$
+- $O(i)$ where $i$ is the return value of `s.Find_first()`
 
 ## Find_next
 ```cpp
@@ -127,4 +127,4 @@ If such the integer does not exist, it returns $n$.
 - $i < n$
 
 ### Time Complexity
-- $O(n - i)$
+- $O(j - i)$ where $j$ is the return value of `s.Find_next(i)`
