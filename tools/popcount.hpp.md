@@ -6,9 +6,6 @@ data:
     path: tools/chromatic_number.hpp
     title: Chromatic number
   - icon: ':heavy_check_mark:'
-    path: tools/dijkstra.hpp
-    title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
   - icon: ':heavy_check_mark:'
@@ -61,12 +58,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/directed.test.cpp
-    title: tests/dijkstra/directed.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/undirected.test.cpp
-    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -222,7 +213,6 @@ data:
   - tools/primitive_root.hpp
   - tools/li_chao_segtree.hpp
   - tools/log_mod.hpp
-  - tools/dijkstra.hpp
   - tools/lca.hpp
   - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
@@ -259,8 +249,6 @@ data:
   - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
   - tests/disjoint_sparse_table.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
   - tests/chromatic_number.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document

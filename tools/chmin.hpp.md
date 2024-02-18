@@ -12,6 +12,9 @@ data:
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
+    path: tools/naive_dijkstra.hpp
+    title: Dijkstra's algorithm for dense graph
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/naive_dijkstra.test.cpp
+    title: tests/naive_dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
@@ -116,6 +122,7 @@ data:
   - tools/segmented_sieve.hpp
   - tools/weighted_bipartite_matching.hpp
   - tools/zero_one_bfs.hpp
+  - tools/naive_dijkstra.hpp
   - tools/mcf_graph.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -131,6 +138,7 @@ data:
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/cartesian_tree/interval.test.cpp
   - tests/bellman_ford.test.cpp
+  - tests/naive_dijkstra.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp

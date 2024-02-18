@@ -10,17 +10,8 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/dijkstra.hpp
-    title: Dijkstra's algorithm
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/directed.test.cpp
-    title: tests/dijkstra/directed.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/undirected.test.cpp
-    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
@@ -346,16 +337,13 @@ data:
   - tools/countr_zero.hpp
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
-  requiredBy:
-  - tools/dijkstra.hpp
+  requiredBy: []
   timestamp: '2024-02-17 19:44:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/rotate_right.test.cpp
   - tests/rotate_left.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
 title: std::bitset with dynamic size

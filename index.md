@@ -352,6 +352,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/multiset.hpp
       title: __gnu_pbds::tree allowing duplicated values
+    - icon: ':heavy_check_mark:'
+      path: tools/naive_dijkstra.hpp
+      title: Dijkstra's algorithm for dense graph
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
@@ -809,6 +812,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/multiset.test.cpp
       title: tests/multiset.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/naive_dijkstra.test.cpp
+      title: tests/naive_dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp

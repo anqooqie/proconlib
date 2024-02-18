@@ -24,6 +24,9 @@ data:
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
+    path: tools/naive_dijkstra.hpp
+    title: Dijkstra's algorithm for dense graph
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
@@ -78,6 +81,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/naive_dijkstra.test.cpp
+    title: tests/naive_dijkstra.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -146,6 +152,7 @@ data:
   - tools/hld.hpp
   - tools/convex_hull.hpp
   - tools/triangle_2d.hpp
+  - tools/naive_dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -172,6 +179,7 @@ data:
   - tests/scc_graph/scc_id.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
   - tests/scc_graph/sccs.test.cpp
+  - tests/naive_dijkstra.test.cpp
   - tests/real_interval_set.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp

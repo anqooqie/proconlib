@@ -6,9 +6,6 @@ data:
     path: tools/chromatic_number.hpp
     title: Chromatic number
   - icon: ':heavy_check_mark:'
-    path: tools/dijkstra.hpp
-    title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   _extendedVerifiedWith:
@@ -18,12 +15,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/countr_zero.test.cpp
     title: tests/countr_zero.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/directed.test.cpp
-    title: tests/dijkstra/directed.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/undirected.test.cpp
-    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
@@ -129,7 +120,6 @@ data:
   requiredBy:
   - tools/chromatic_number.hpp
   - tools/dynamic_bitset.hpp
-  - tools/dijkstra.hpp
   timestamp: '2024-02-17 19:44:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -137,8 +127,6 @@ data:
   - tests/countr_zero.test.cpp
   - tests/rotate_left.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
   - tests/chromatic_number.test.cpp
 documentation_of: tools/countr_zero.hpp
 layout: document

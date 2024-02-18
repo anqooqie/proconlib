@@ -30,9 +30,6 @@ data:
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/dijkstra.hpp
-    title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
@@ -142,12 +139,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/directed.test.cpp
-    title: tests/dijkstra/directed.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/undirected.test.cpp
-    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
@@ -280,7 +271,6 @@ data:
   - tools/modint_for_rolling_hash.hpp
   - tools/bostan_mori.hpp
   - tools/round.hpp
-  - tools/dijkstra.hpp
   - tools/bigint.hpp
   - tools/ceil_quotients.hpp
   - tools/sparse_fps_pow.hpp
@@ -353,8 +343,6 @@ data:
   - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/bigdecimal/minus.test.cpp
   - tests/bigdecimal/hand.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
 documentation_of: tools/ceil.hpp
 layout: document
 title: $\left\lceil \frac{x}{y} \right\rceil$

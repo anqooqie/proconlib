@@ -18,9 +18,6 @@ data:
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
-    path: tools/dijkstra.hpp
-    title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table.hpp
     title: Disjoint sparse table
   - icon: ':heavy_check_mark:'
@@ -90,12 +87,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/directed.test.cpp
-    title: tests/dijkstra/directed.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/dijkstra/undirected.test.cpp
-    title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -260,7 +251,6 @@ data:
   - tools/binary_heap.hpp
   - tools/li_chao_segtree.hpp
   - tools/bostan_mori.hpp
-  - tools/dijkstra.hpp
   - tools/sparse_fps_pow.hpp
   - tools/lca.hpp
   - tools/dual_segtree.hpp
@@ -310,8 +300,6 @@ data:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/bernoulli.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/dijkstra/undirected.test.cpp
   - tests/ceil_log2.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
