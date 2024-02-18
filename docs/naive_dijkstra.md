@@ -1,6 +1,6 @@
 ---
-title: Dijkstra's algorithm
-documentation_of: //tools/dijkstra.hpp
+title: Dijkstra's algorithm for dense graph
+documentation_of: //tools/naive_dijkstra.hpp
 ---
 
 It solves the single source shortest path problem on a given graph which is not necessarily simple.
@@ -14,7 +14,7 @@ All the edges must have non-nagative costs.
 
 ## Constructor
 ```cpp
-dijkstra<Directed, T> graph(std::size_t n);
+naive_dijkstra<Directed, T> graph(std::size_t n);
 ```
 
 If the type parameter `<Directed>` is `true`, it creates a directed graph with $n$ vertices and $0$ edges.
@@ -25,7 +25,7 @@ The type parameter `<T>` represents the type of the cost.
 - None
 
 ### Time Complexity
-- $O(n)$
+- $O(n^2)$
 
 ## size
 ```cpp
@@ -105,4 +105,4 @@ If $t = s$ or $t$ is unrechable from $s$, `prev[t]` is `std::numeric_limits<std:
 - $0 \leq s < n$
 
 ### Time Complexity
-- $O((n + \|E\|) \log n)$ where $\|E\|$ is the number of edges
+- $O(n^2)$
