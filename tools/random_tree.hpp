@@ -27,7 +27,7 @@ namespace tools {
     ::tools::random_tree<T>& operator=(const ::tools::random_tree<T>&) = default;
     ::tools::random_tree<T>& operator=(::tools::random_tree<T>&&) = default;
 
-    random_tree(const ::std::size_t n) : m_size(n) {
+    explicit random_tree(const ::std::size_t n) : m_size(n) {
       assert(n >= 1);
     }
 

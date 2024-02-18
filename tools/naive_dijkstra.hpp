@@ -37,7 +37,7 @@ namespace tools {
     ::tools::naive_dijkstra<Directed, T>& operator=(const ::tools::naive_dijkstra<Directed, T>&) = default;
     ::tools::naive_dijkstra<Directed, T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;
 
-    naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max()) {
+    explicit naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max()) {
     }
 
     ::std::size_t size() const {

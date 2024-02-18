@@ -33,7 +33,7 @@ namespace tools {
     }
 
   public:
-    dual_segtree(const ::std::size_t& n) :
+    explicit dual_segtree(const ::std::size_t& n) :
       height(::tools::ceil_log2(n)),
       lazy(::tools::pow2(this->height + 1), M::e()) {
     }

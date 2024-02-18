@@ -238,7 +238,7 @@ namespace tools {
       }
     };
 
-    osa_k(const T N) :
+    explicit osa_k(const T N) :
       m_min_prime_factors(::std::max<T>(N, 1), ::std::numeric_limits<T>::max()),
       m_divisor_counts(::std::max<T>(N, 1)) {
       assert(N >= 1);

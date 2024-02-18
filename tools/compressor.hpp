@@ -25,7 +25,7 @@ namespace tools {
       ::std::sort(this->m_sorted.begin(), this->m_sorted.end());
       this->m_sorted.erase(::std::unique(this->m_sorted.begin(), this->m_sorted.end()), this->m_sorted.end());
     }
-    compressor(const ::std::vector<T>& v) : compressor(v.begin(), v.end()) {
+    explicit compressor(const ::std::vector<T>& v) : compressor(v.begin(), v.end()) {
     }
 
     T size() const {

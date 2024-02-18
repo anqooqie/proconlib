@@ -37,7 +37,7 @@ namespace tools {
     ::tools::lca& operator=(const ::tools::lca&) = default;
     ::tools::lca& operator=(::tools::lca&&) = default;
 
-    lca(const ::std::size_t n) : m_edges(n), m_in(n) {
+    explicit lca(const ::std::size_t n) : m_edges(n), m_in(n) {
       assert(n >= 1);
     }
 

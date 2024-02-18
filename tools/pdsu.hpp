@@ -25,7 +25,7 @@ namespace tools {
     ::std::vector<bool> m_consistent;
 
   public:
-    pdsu(const int n) :
+    explicit pdsu(const int n) :
       m_parents(n),
       m_sizes(n, 1),
       m_diffs(n, G::e()),

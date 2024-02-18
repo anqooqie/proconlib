@@ -560,7 +560,7 @@ namespace tools {
         }
 
         avl_tree_impl() = default;
-        avl_tree_impl(buffer& buffer) : m_buffer(&buffer), m_root_id(0) {
+        explicit avl_tree_impl(buffer& buffer) : m_buffer(&buffer), m_root_id(0) {
         }
         avl_tree_impl(buffer& buffer, const ::std::vector<S>& v) : m_buffer(&buffer) {
           this->m_root_id = v.empty() ? 0 : ::tools::fix([&](auto&& dfs, const int l, const int r) -> int {

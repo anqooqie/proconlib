@@ -35,7 +35,7 @@ namespace tools {
     ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed, T>&) = default;
     ::tools::dijkstra<Directed, T>& operator=(::tools::dijkstra<Directed, T>&&) = default;
 
-    dijkstra(const ::std::size_t n) : m_graph(n) {
+    explicit dijkstra(const ::std::size_t n) : m_graph(n) {
     }
 
     ::std::size_t size() const {

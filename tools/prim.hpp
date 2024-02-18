@@ -34,7 +34,7 @@ namespace tools {
     ::tools::prim<T>& operator=(const ::tools::prim<T>&) = default;
     ::tools::prim<T>& operator=(::tools::prim<T>&&) = default;
 
-    prim(const ::std::size_t n) : m_graph(n) {
+    explicit prim(const ::std::size_t n) : m_graph(n) {
     }
 
     ::std::size_t size() const {

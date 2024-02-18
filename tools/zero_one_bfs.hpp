@@ -34,7 +34,7 @@ namespace tools {
     ::tools::zero_one_bfs<Directed, T>& operator=(const ::tools::zero_one_bfs<Directed, T>&) = default;
     ::tools::zero_one_bfs<Directed, T>& operator=(::tools::zero_one_bfs<Directed, T>&&) = default;
 
-    zero_one_bfs(const ::std::size_t n) : m_graph(n) {
+    explicit zero_one_bfs(const ::std::size_t n) : m_graph(n) {
     }
 
     ::std::size_t size() const {

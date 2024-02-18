@@ -32,7 +32,7 @@ namespace tools {
     ::tools::cartesian_tree<T, Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;
     ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T, Compare>&&) = default;
 
-    cartesian_tree(const ::std::vector<T>& a, const Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {
+    explicit cartesian_tree(const ::std::vector<T>& a, const Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {
       const auto NONE = ::std::numeric_limits<::std::size_t>::max();
 
       for (::std::size_t i = 0; i < a.size(); ++i) {

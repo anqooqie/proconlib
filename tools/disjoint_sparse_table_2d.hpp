@@ -30,7 +30,7 @@ namespace tools {
     ::tools::disjoint_sparse_table_2d<M>& operator=(::tools::disjoint_sparse_table_2d<M>&&) = default;
 
     template <typename Range>
-    disjoint_sparse_table_2d(const Range& range) {
+    explicit disjoint_sparse_table_2d(const Range& range) {
       const auto begin = ::std::begin(range);
       const auto end = ::std::end(range);
       this->m_height = ::std::distance(begin, end);

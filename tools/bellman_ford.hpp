@@ -32,7 +32,7 @@ namespace tools {
     ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&) = default;
     ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&) = default;
 
-    bellman_ford(const ::std::size_t n) : m_size(n) {
+    explicit bellman_ford(const ::std::size_t n) : m_size(n) {
     }
 
     ::std::size_t size() const {
