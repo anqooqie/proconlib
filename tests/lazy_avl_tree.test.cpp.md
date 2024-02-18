@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
@@ -592,7 +592,7 @@ data:
   path: tests/lazy_avl_tree.test.cpp
   requiredBy: []
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lazy_avl_tree.test.cpp
 layout: document

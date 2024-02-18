@@ -7,14 +7,14 @@ data:
   - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc325/tasks/abc325_e
@@ -100,7 +100,7 @@ data:
   path: tests/naive_dijkstra.test.cpp
   requiredBy: []
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/naive_dijkstra.test.cpp
 layout: document

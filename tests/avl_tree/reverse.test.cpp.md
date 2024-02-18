@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/avl_tree.hpp
     title: Reversible self-balancing binary search tree based on AVL tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   _extendedRequiredBy: []

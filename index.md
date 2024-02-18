@@ -63,7 +63,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -120,10 +120,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/directed_line_segment_2d.hpp
       title: Two-dimensional directed line segment
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table.hpp
       title: Disjoint sparse table
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/disjoint_sparse_table_2d.hpp
       title: 2D disjoint sparse table
     - icon: ':heavy_check_mark:'
@@ -132,7 +132,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dsu.hpp
       title: Disjoint set union
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
     - icon: ':x:'
@@ -169,7 +169,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
     - icon: ':heavy_check_mark:'
@@ -181,7 +181,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -207,13 +207,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/gcd.hpp
       title: std::gcd(m, n) extended for my library
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/gcd_convolution.hpp
       title: GCD convolution
     - icon: ':heavy_check_mark:'
       path: tools/golden_section_search.hpp
       title: Golden section search
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
     - icon: ':heavy_check_mark:'
@@ -231,7 +231,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
@@ -267,19 +267,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
       path: tools/largest_rectangle_in_histogram.hpp
       title: Largest rectangle in histogram
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lazy_avl_tree.hpp
       title: Lazy reversible self-balancing binary search tree based on AVL tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lca.hpp
       title: Lowest common ancestor
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/lcm_convolution.hpp
       title: LCM convolution
     - icon: ':question:'
@@ -352,7 +352,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/multiset.hpp
       title: __gnu_pbds::tree allowing duplicated values
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/naive_dijkstra.hpp
       title: Dijkstra's algorithm for dense graph
     - icon: ':warning:'
@@ -367,7 +367,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':heavy_check_mark:'
@@ -377,7 +377,7 @@ data:
       path: tools/partition_function.hpp
       title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
         j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
     - icon: ':heavy_check_mark:'
@@ -407,7 +407,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
@@ -419,7 +419,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/preset_segtree_beats.hpp
       title: tools/preset_segtree_beats.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
@@ -596,7 +596,7 @@ data:
       title: 0-1 knapsack problem
   - name: tools/detail
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/avl_tree_impl.hpp
       title: tools/detail/avl_tree_impl.hpp
     - icon: ':heavy_check_mark:'
@@ -683,7 +683,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table.test.cpp
       title: tests/disjoint_sparse_table.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/disjoint_sparse_table_2d.test.cpp
       title: tests/disjoint_sparse_table_2d.test.cpp
     - icon: ':heavy_check_mark:'
@@ -692,7 +692,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/dsu.test.cpp
       title: tests/dsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -743,7 +743,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/floor_sqrt.test.cpp
       title: tests/floor_sqrt.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/gcd_convolution.test.cpp
       title: tests/gcd_convolution.test.cpp
     - icon: ':heavy_check_mark:'
@@ -773,13 +773,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/largest_rectangle_in_histogram.test.cpp
       title: tests/largest_rectangle_in_histogram.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lazy_avl_tree.test.cpp
       title: tests/lazy_avl_tree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/lcm_convolution.test.cpp
       title: tests/lcm_convolution.test.cpp
     - icon: ':heavy_check_mark:'
@@ -812,19 +812,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/multiset.test.cpp
       title: tests/multiset.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/naive_dijkstra.test.cpp
       title: tests/naive_dijkstra.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/partially_persistent_dsu.test.cpp
       title: tests/partially_persistent_dsu.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/pdsu.test.cpp
       title: tests/pdsu.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1185,10 +1185,10 @@ data:
       title: tests/polynomial/taylor_shift.test.cpp
   - name: tests/prim
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prim/basic.test.cpp
       title: tests/prim/basic.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prim/unconnected.test.cpp
       title: tests/prim/unconnected.test.cpp
   - name: tests/quaternion

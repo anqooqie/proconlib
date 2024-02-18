@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/lazy_avl_tree.hpp\"\n\n\n\n#line 1 \"tools/detail/avl_tree_impl.hpp\"\
@@ -340,7 +340,7 @@ data:
   path: tools/lazy_avl_tree.hpp
   requiredBy: []
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lazy_avl_tree.test.cpp
 documentation_of: tools/lazy_avl_tree.hpp

@@ -5,10 +5,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/avl_tree.hpp
     title: Reversible self-balancing binary search tree based on AVL tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   - icon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -43,9 +43,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/undoable_dsu.test.cpp
     title: tests/undoable_dsu.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fix.hpp\"\n\n\n\n#include <utility>\n#include <type_traits>\n\
@@ -71,7 +71,7 @@ data:
   - tools/persistent_dual_segtree.hpp
   - tools/stirling_1st.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/undoable_dsu.test.cpp
   - tests/stirling_1st.test.cpp

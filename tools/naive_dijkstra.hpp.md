@@ -9,12 +9,12 @@ data:
     title: std::less by key
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/naive_dijkstra.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -113,7 +113,7 @@ data:
   path: tools/naive_dijkstra.hpp
   requiredBy: []
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/naive_dijkstra.test.cpp
 documentation_of: tools/naive_dijkstra.hpp

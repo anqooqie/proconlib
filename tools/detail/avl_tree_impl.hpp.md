@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/avl_tree.hpp
     title: Reversible self-balancing binary search tree based on AVL tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   _extendedVerifiedWith:
@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/set.test.cpp
     title: tests/avl_tree/set.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/detail/avl_tree_impl.hpp\"\n\n\n\n#include <variant>\n\
@@ -646,7 +646,7 @@ data:
   - tools/lazy_avl_tree.hpp
   - tools/avl_tree.hpp
   timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/binary_search.test.cpp
