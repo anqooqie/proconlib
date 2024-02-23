@@ -168,7 +168,7 @@ It returns `e()` if $\|a\| = 0$.
 void avl_tree.insert(int p, S x);
 ```
 
-If $p < \|a\|$, it inserts $x$ immediately before `a[i]`.
+If $p < \|a\|$, it inserts $x$ immediately before `a[p]`.
 If $p = \|a\|$, it inserts $x$ to the end of `a`.
 
 ### Constraints
@@ -183,7 +183,7 @@ If $p = \|a\|$, it inserts $x$ to the end of `a`.
 void avl_tree.erase(int p);
 ```
 
-It removes `a[i]`. (remaining elements will be concatenated)
+It removes `a[p]`. (remaining elements will be concatenated)
 
 ### Constraints
 - `buffer` is in its lifetime.
