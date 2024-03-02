@@ -32,8 +32,6 @@ bool v.empty();
 (T& or const T&) v.front();
 (T& or const T&) v.back();
 
-void v.swap(vector3<T>& u);
-
 bool operator==(vector3<T> v, vector3<T> u);
 bool operator!=(vector3<T> v, vector3<T> u);
 ```

@@ -41,8 +41,6 @@ bool v.empty();
 (T& or const T&) v.front();
 (T& or const T&) v.back();
 
-void v.swap(vector<T>& u);
-
 bool operator==(vector<T> v, vector<T> u);
 bool operator!=(vector<T> v, vector<T> u);
 ```
