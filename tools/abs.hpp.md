@@ -39,9 +39,6 @@ data:
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/detail/vector_common.hpp
-    title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
@@ -502,7 +499,6 @@ data:
   - tools/half_line_2d.hpp
   - tools/garner2.hpp
   - tools/detail/geometry_2d.hpp
-  - tools/detail/vector_common.hpp
   - tools/detail/rolling_hash.hpp
   - tools/prime_factorization.hpp
   - tools/prod_mod.hpp

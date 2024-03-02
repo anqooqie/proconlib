@@ -11,12 +11,6 @@ data:
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
-    path: tools/detail/vector_common.hpp
-    title: tools/detail/vector_common.hpp
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/vector_static_common.hpp
-    title: tools/detail/vector_static_common.hpp
-  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
@@ -41,6 +35,9 @@ data:
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
+    path: tools/vector.hpp
+    title: Vector
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -58,172 +55,22 @@ data:
     \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_E\"\n#define ERROR\
     \ 1e-6\n\n#include <iostream>\n#include <vector>\n#include <cstdlib>\n#include\
     \ <utility>\n#include <algorithm>\n#include <variant>\n#include <iomanip>\n#line\
-    \ 1 \"tools/vector2.hpp\"\n\n\n\n#include <array>\n#include <functional>\n#line\
-    \ 7 \"tools/vector2.hpp\"\n#include <cstddef>\n#line 1 \"tools/detail/vector_static_common.hpp\"\
-    \n\n\n\n#line 6 \"tools/detail/vector_static_common.hpp\"\n#include <iterator>\n\
-    \n#define TOOLS_DETAIL_VECTOR_STATIC_COMMON(V) \\\n  using reference = T&;\\\n\
-    \  using const_reference = const T&;\\\n  using size_type = ::std::size_t;\\\n\
-    \  using difference_type = ::std::ptrdiff_t;\\\n  using pointer = T*;\\\n  using\
-    \ const_pointer = const T*;\\\n  using value_type = T;\\\n\\\n  constexpr size_type\
-    \ size() const {\\\n    return this->m_refs.size();\\\n  }\\\n  reference operator[](const\
-    \ size_type n) {\\\n    return this->m_refs[n].get();\\\n  }\\\n  const_reference\
-    \ operator[](const size_type n) const {\\\n    return this->m_refs[n].get();\\\
-    \n  }\\\n\\\n  V& operator=(const V& other) {\\\n    for (size_type i = 0; i <\
-    \ this->size(); ++i) {\\\n      (*this)[i] = other[i];\\\n    }\\\n    return\
-    \ *this;\\\n  }\\\n\\\n  class const_iterator;\\\n\\\n  class iterator {\\\n \
-    \ private:\\\n    V* m_parent;\\\n    size_type m_i;\\\n\\\n  public:\\\n    using\
-    \ difference_type = ::std::ptrdiff_t;\\\n    using value_type = T;\\\n    using\
-    \ reference = T&;\\\n    using pointer = T*;\\\n    using iterator_category =\
-    \ ::std::random_access_iterator_tag;\\\n\\\n    iterator(V * const parent, const\
-    \ size_type i) : m_parent(parent), m_i(i) {}\\\n\\\n    iterator() = default;\\\
-    \n    iterator(const iterator&) = default;\\\n    iterator(iterator&&) = default;\\\
-    \n    ~iterator() = default;\\\n    iterator& operator=(const iterator&) = default;\\\
-    \n    iterator& operator=(iterator&&) = default;\\\n\\\n    iterator& operator++()\
-    \ {\\\n      ++this->m_i;\\\n      return *this;\\\n    }\\\n    iterator operator++(int)\
-    \ {\\\n      const iterator self = *this;\\\n      ++*this;\\\n      return self;\\\
-    \n    }\\\n\\\n    iterator& operator--() {\\\n      --this->m_i;\\\n      return\
-    \ *this;\\\n    }\\\n    iterator operator--(int) {\\\n      const iterator self\
-    \ = *this;\\\n      --*this;\\\n      return self;\\\n    }\\\n\\\n    iterator&\
-    \ operator+=(const difference_type n) {\\\n      this->m_i += n;\\\n      return\
-    \ *this;\\\n    }\\\n    friend iterator operator+(const iterator& self, const\
-    \ difference_type n) {\\\n      return iterator(self) += n;\\\n    }\\\n    friend\
-    \ iterator operator+(const difference_type n, const iterator& self) {\\\n    \
-    \  return iterator(self) += n;\\\n    }\\\n\\\n    iterator& operator-=(const\
-    \ difference_type n) {\\\n      this->m_i -= n;\\\n      return *this;\\\n   \
-    \ }\\\n    friend iterator operator-(const iterator& self, const difference_type\
-    \ n) {\\\n      return iterator(self) -= n;\\\n    }\\\n    friend difference_type\
-    \ operator-(const iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent\
-    \ == rhs.m_parent);\\\n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference\
-    \ operator*() const {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\
-    \n    reference operator[](const difference_type n) const {\\\n      return (*this->m_parent)[this->m_i\
-    \ + n];\\\n    }\\\n\\\n    friend bool operator<(const iterator& lhs, const iterator&\
-    \ rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i\
-    \ < rhs.m_i;\\\n    }\\\n    friend bool operator<=(const iterator& lhs, const\
-    \ iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return\
-    \ lhs.m_i <= rhs.m_i;\\\n    }\\\n    friend bool operator>(const iterator& lhs,\
-    \ const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n  \
-    \    return lhs.m_i > rhs.m_i;\\\n    }\\\n    friend bool operator>=(const iterator&\
-    \ lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i >= rhs.m_i;\\\n    }\\\n    friend bool operator==(const\
-    \ iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i == rhs.m_i;\\\n    }\\\n    friend bool operator!=(const\
-    \ iterator& lhs, const iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i != rhs.m_i;\\\n    }\\\n\\\n    friend const_iterator;\\\
-    \n  };\\\n\\\n  class const_iterator {\\\n  private:\\\n    const V* m_parent;\\\
-    \n    size_type m_i;\\\n\\\n  public:\\\n    using difference_type = ::std::ptrdiff_t;\\\
-    \n    using value_type = const T;\\\n    using reference = const T&;\\\n    using\
-    \ pointer = const T*;\\\n    using iterator_category = ::std::random_access_iterator_tag;\\\
-    \n\\\n    const_iterator(const V * const parent, const size_type i) : m_parent(parent),\
-    \ m_i(i) {}\\\n\\\n    const_iterator() = default;\\\n    const_iterator(const\
-    \ const_iterator&) = default;\\\n    const_iterator(const_iterator&&) = default;\\\
-    \n    ~const_iterator() = default;\\\n    const_iterator& operator=(const const_iterator&)\
-    \ = default;\\\n    const_iterator& operator=(const_iterator&&) = default;\\\n\
-    \\\n    const_iterator(const iterator it) : m_parent(it.m_parent), m_i(it.m_i)\
-    \ {}\\\n\\\n    const_iterator& operator++() {\\\n      ++this->m_i;\\\n     \
-    \ return *this;\\\n    }\\\n    const_iterator operator++(int) {\\\n      const\
-    \ const_iterator self = *this;\\\n      ++*this;\\\n      return self;\\\n   \
-    \ }\\\n\\\n    const_iterator& operator--() {\\\n      --this->m_i;\\\n      return\
-    \ *this;\\\n    }\\\n    const_iterator operator--(int) {\\\n      const const_iterator\
-    \ self = *this;\\\n      --*this;\\\n      return self;\\\n    }\\\n\\\n    const_iterator&\
-    \ operator+=(const difference_type n) {\\\n      this->m_i += n;\\\n      return\
-    \ *this;\\\n    }\\\n    friend const_iterator operator+(const const_iterator&\
-    \ self, const difference_type n) {\\\n      return const_iterator(self) += n;\\\
-    \n    }\\\n    friend const_iterator operator+(const difference_type n, const\
-    \ const_iterator& self) {\\\n      return const_iterator(self) += n;\\\n    }\\\
-    \n\\\n    const_iterator& operator-=(const difference_type n) {\\\n      this->m_i\
-    \ -= n;\\\n      return *this;\\\n    }\\\n    friend const_iterator operator-(const\
-    \ const_iterator& self, const difference_type n) {\\\n      return const_iterator(self)\
-    \ -= n;\\\n    }\\\n    friend difference_type operator-(const const_iterator&\
-    \ lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i - rhs.m_i;\\\n    }\\\n\\\n    reference operator*() const\
-    \ {\\\n      return (*this->m_parent)[this->m_i];\\\n    }\\\n    reference operator[](const\
-    \ difference_type n) const {\\\n      return (*this->m_parent)[this->m_i + n];\\\
-    \n    }\\\n\\\n    friend bool operator<(const const_iterator& lhs, const const_iterator&\
-    \ rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i\
-    \ < rhs.m_i;\\\n    }\\\n    friend bool operator<=(const const_iterator& lhs,\
-    \ const const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i <= rhs.m_i;\\\n    }\\\n    friend bool operator>(const\
-    \ const_iterator& lhs, const const_iterator& rhs) {\\\n      assert(lhs.m_parent\
-    \ == rhs.m_parent);\\\n      return lhs.m_i > rhs.m_i;\\\n    }\\\n    friend\
-    \ bool operator>=(const const_iterator& lhs, const const_iterator& rhs) {\\\n\
-    \      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i >= rhs.m_i;\\\
-    \n    }\\\n    friend bool operator==(const const_iterator& lhs, const const_iterator&\
-    \ rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\n      return lhs.m_i\
-    \ == rhs.m_i;\\\n    }\\\n    friend bool operator!=(const const_iterator& lhs,\
-    \ const const_iterator& rhs) {\\\n      assert(lhs.m_parent == rhs.m_parent);\\\
-    \n      return lhs.m_i != rhs.m_i;\\\n    }\\\n  };\\\n\\\n  using reverse_iterator\
-    \ = ::std::reverse_iterator<iterator>;\\\n  using const_reverse_iterator = ::std::reverse_iterator<const_iterator>;\\\
-    \n\\\n  iterator begin() {\\\n    return iterator(this, 0);\\\n  }\\\n  const_iterator\
-    \ begin() const {\\\n    return const_iterator(this, 0);\\\n  }\\\n  iterator\
-    \ end() {\\\n    return iterator(this, this->size());\\\n  }\\\n  const_iterator\
-    \ end() const {\\\n    return const_iterator(this, this->size());\\\n  }\\\n \
-    \ const_iterator cbegin() const {\\\n    return const_iterator(this, 0);\\\n \
-    \ }\\\n  const_iterator cend() const {\\\n    return const_iterator(this, this->size());\\\
-    \n  }\\\n  reverse_iterator rbegin() {\\\n    return ::std::make_reverse_iterator(this->end());\\\
-    \n  }\\\n  const_reverse_iterator rbegin() const {\\\n    return ::std::make_reverse_iterator(this->end());\\\
-    \n  }\\\n  const_reverse_iterator crbegin() const {\\\n    return ::std::make_reverse_iterator(this->cend());\\\
-    \n  }\\\n  reverse_iterator rend() {\\\n    return ::std::make_reverse_iterator(this->begin());\\\
-    \n  }\\\n  const_reverse_iterator rend() const {\\\n    return ::std::make_reverse_iterator(this->begin());\\\
-    \n  }\\\n  const_reverse_iterator crend() const {\\\n    return ::std::make_reverse_iterator(this->cbegin());\\\
-    \n  }\\\n\\\n  reference front() {\\\n    return *this->begin();\\\n  }\\\n  const_reference\
-    \ front() const {\\\n    return *this->begin();\\\n  }\\\n  reference back() {\\\
-    \n    return *this->rbegin();\\\n  }\\\n  const_reference back() const {\\\n \
-    \   return *this->rbegin();\\\n  }\\\n\\\n  constexpr bool empty() const {\\\n\
-    \    return this->m_refs.empty();\\\n  }\\\n\\\n  void swap(V& other) {\\\n  \
-    \  for (size_type i = 0; i < this->size(); ++i) {\\\n      ::std::swap((*this)[i],\
-    \ other[i]);\\\n    }\\\n  }\n\n\n#line 1 \"tools/detail/vector_common.hpp\"\n\
-    \n\n\n#include <type_traits>\n#include <cassert>\n#line 8 \"tools/detail/vector_common.hpp\"\
-    \n#include <cmath>\n#line 10 \"tools/detail/vector_common.hpp\"\n#include <string>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
-    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
-    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
-    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
-    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
-    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
-    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 12 \"tools/detail/vector_common.hpp\"\
-    \n\n#define TOOLS_DETAIL_VECTOR_COMMON(V) \\\n  private:\\\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
-    \ T, double>;\\\n\\\n  public:\\\n    V operator+() const {\\\n      return *this;\\\
-    \n    }\\\n\\\n    V operator-() const {\\\n      V res = *this;\\\n      for\
-    \ (auto& v : res) {\\\n        v = -v;\\\n      }\\\n      return res;\\\n   \
-    \ }\\\n\\\n    V& operator+=(const V& other) {\\\n      assert(this->size() ==\
-    \ other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\
-    \n        (*this)[i] += other[i];\\\n      }\\\n      return *this;\\\n    }\\\
-    \n    friend V operator+(const V& lhs, const V& rhs) {\\\n      return V(lhs)\
-    \ += rhs;\\\n    }\\\n\\\n    V& operator-=(const V& other) {\\\n      assert(this->size()\
-    \ == other.size());\\\n      for (::std::size_t i = 0; i < this->size(); ++i)\
-    \ {\\\n        (*this)[i] -= other[i];\\\n      }\\\n      return *this;\\\n \
-    \   }\\\n    friend V operator-(const V& lhs, const V& rhs) {\\\n      return\
-    \ V(lhs) -= rhs;\\\n    }\\\n\\\n    V& operator*=(const T& c) {\\\n      for\
-    \ (auto& v : *this) {\\\n        v *= c;\\\n      }\\\n      return *this;\\\n\
-    \    }\\\n    friend V operator*(const T& lhs, const V& rhs) {\\\n      return\
-    \ V(rhs) *= lhs;\\\n    }\\\n    friend V operator*(const V& lhs, const T& rhs)\
-    \ {\\\n      return V(lhs) *= rhs;\\\n    }\\\n\\\n    V& operator/=(const T&\
-    \ c) {\\\n      for (auto& v : *this) {\\\n        v /= c;\\\n      }\\\n    \
-    \  return *this;\\\n    }\\\n    friend V operator/(const V& lhs, const T& rhs)\
-    \ {\\\n      return V(lhs) /= rhs;\\\n    }\\\n\\\n    friend bool operator==(const\
-    \ V& lhs, const V& rhs) {\\\n      return ::std::equal(lhs.begin(), lhs.end(),\
-    \ rhs.begin());\\\n    }\\\n    friend bool operator!=(const V& lhs, const V&\
-    \ rhs) {\\\n      return !(lhs == rhs);\\\n    }\\\n\\\n    T inner_product(const\
-    \ V& other) const {\\\n      assert(this->size() == other.size());\\\n      T\
-    \ res(0);\\\n      for (::std::size_t i = 0; i < this->size(); ++i) {\\\n    \
-    \    res += (*this)[i] * other[i];\\\n      }\\\n      return res;\\\n    }\\\n\
-    \\\n    T l1_norm() const {\\\n      T res(0);\\\n      for (const auto& v : *this)\
-    \ {\\\n        res += ::tools::abs(v);\\\n      }\\\n      return res;\\\n   \
-    \ }\\\n\\\n    T squared_l2_norm() const {\\\n      return this->inner_product(*this);\\\
-    \n    }\\\n\\\n    F l2_norm() const {\\\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\\\
-    \n    }\\\n\\\n    template <typename T_ = T>\\\n    ::std::enable_if_t<::std::is_floating_point_v<T_>,\
-    \ V> normalized() const {\\\n      return *this / this->l2_norm();\\\n    }\\\n\
-    \\\n    friend ::std::ostream& operator<<(::std::ostream& os, const V& self) {\\\
-    \n      os << '(';\\\n      ::std::string delimiter = \"\";\\\n      for (const\
-    \ auto& v : self) {\\\n        os << delimiter << v;\\\n        delimiter = \"\
-    , \";\\\n      }\\\n      return os << ')';\\\n    }\\\n\\\n    friend ::std::istream&\
-    \ operator>>(::std::istream& is, V& self) {\\\n      for (auto& v : self) {\\\n\
-    \        is >> v;\\\n      }\\\n      return is;\\\n    }\n\n\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 5 \"tools/tuple_hash.hpp\"\n#include <tuple>\n#include <limits>\n\
-    #line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline\
+    \ 1 \"tools/vector2.hpp\"\n\n\n\n#line 1 \"tools/vector.hpp\"\n\n\n\n#include\
+    \ <cstddef>\n#include <limits>\n#include <type_traits>\n#include <array>\n#line\
+    \ 9 \"tools/vector.hpp\"\n#include <iterator>\n#include <cassert>\n#line 13 \"\
+    tools/vector.hpp\"\n#include <cmath>\n#line 15 \"tools/vector.hpp\"\n#include\
+    \ <string>\n#include <functional>\n#include <tuple>\n#line 1 \"tools/abs.hpp\"\
+    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
+    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
+    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
+    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
+    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline\
     \ long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
     \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
@@ -253,34 +100,240 @@ data:
     \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
     \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
     \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
-    \      }\n    }\n  };\n}\n\n\n#line 11 \"tools/vector2.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename T>\n  class vector2 {\n  public:\n    T x;\n    T y;\n\
-    \n  private:\n    ::std::array<::std::reference_wrapper<T>, 2> m_refs;\n\n  public:\n\
-    \    vector2(const T& x, const T& y) : x(x), y(y), m_refs({::std::ref(this->x),\
-    \ ::std::ref(this->y)}) {}\n    vector2() : vector2(T(), T()) {}\n    vector2(const\
-    \ ::tools::vector2<T>& other) : vector2(other.x, other.y) {}\n    ~vector2() =\
-    \ default;\n\n    TOOLS_DETAIL_VECTOR_STATIC_COMMON(::tools::vector2<T>)\n   \
-    \ TOOLS_DETAIL_VECTOR_COMMON(::tools::vector2<T>)\n\n  public:\n    T outer_product(const\
-    \ ::tools::vector2<T>& other) const {\n      return this->x * other.y - this->y\
-    \ * other.x;\n    }\n\n    ::tools::vector2<T> turned90() const {\n      return\
-    \ ::tools::vector2<T>(-this->y, this->x);\n    }\n\n    ::tools::vector2<T> turned270()\
-    \ const {\n      return ::tools::vector2<T>(this->y, -this->x);\n    }\n\n   \
-    \ static const ::std::array<::tools::vector2<T>, 4>& four_directions() {\n   \
-    \   static const ::std::array<::tools::vector2<T>, 4> res = {\n        ::tools::vector2<T>(T(1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(0)),\n        ::tools::vector2<T>(T(0), T(-1))\n      };\n      return res;\n\
-    \    }\n\n    static const ::std::array<::tools::vector2<T>, 8>& eight_directions()\
-    \ {\n      static const ::std::array<::tools::vector2<T>, 8> res = {\n       \
-    \ ::tools::vector2<T>(T(1), T(0)),\n        ::tools::vector2<T>(T(1), T(1)),\n\
-    \        ::tools::vector2<T>(T(0), T(1)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(1)),\n        ::tools::vector2<T>(T(-1), T(0)),\n        ::tools::vector2<T>(T(-1),\
-    \ T(-1)),\n        ::tools::vector2<T>(T(0), T(-1)),\n        ::tools::vector2<T>(T(1),\
-    \ T(-1))\n      };\n      return res;\n    }\n  };\n}\n\nnamespace std {\n  template\
-    \ <typename T>\n  struct hash<::tools::vector2<T>> {\n    using result_type =\
-    \ ::std::size_t;\n    using argument_type = ::tools::vector2<T>;\n    ::std::size_t\
-    \ operator()(const ::tools::vector2<T>& key) const {\n      static const ::tools::tuple_hash<T,\
-    \ T> hasher;\n      return hasher(::std::make_tuple(key.x, key.y));\n    }\n \
-    \ };\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
+    \      }\n    }\n  };\n}\n\n\n#line 20 \"tools/vector.hpp\"\n\nnamespace tools\
+    \ {\n  namespace detail {\n    namespace vector {\n      template <typename T,\
+    \ ::std::size_t N>\n      class members {\n      protected:\n        constexpr\
+    \ static bool specialized = false;\n      };\n      template <typename T>\n  \
+    \    class members<T, 2> {\n      protected:\n        constexpr static bool specialized\
+    \ = true;\n      public:\n        T x;\n        T y;\n      };\n      template\
+    \ <typename T>\n      class members<T, 3> : public members<T, 2> {\n      public:\n\
+    \        T z;\n      };\n      template <typename T>\n      class members<T, 4>\
+    \ : public members<T, 3> {\n      public:\n        T w;\n      };\n    }\n  }\n\
+    \n  template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max()>\n\
+    \  class vector : public ::tools::detail::vector::members<T, N> {\n  private:\n\
+    \    constexpr static bool STATIC = N != ::std::numeric_limits<::std::size_t>::max();\n\
+    \    constexpr static bool specialized = ::tools::detail::vector::members<T, N>::specialized;\n\
+    \    ::std::conditional_t<STATIC, ::std::array<::std::conditional_t<specialized,\
+    \ T*, T>, N>, ::std::vector<T>> m_values;\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
+    \ T, double>;\n    using V = ::tools::vector<T, N>;\n\n  public:\n    using reference\
+    \ = T&;\n    using const_reference = const T&;\n    using size_type = ::std::size_t;\n\
+    \    using difference_type = ::std::ptrdiff_t;\n    using pointer = T*;\n    using\
+    \ const_pointer = const T*;\n    using value_type = T;\n    class iterator {\n\
+    \    private:\n      V* m_parent;\n      size_type m_i;\n\n    public:\n     \
+    \ using difference_type = ::std::ptrdiff_t;\n      using value_type = T;\n   \
+    \   using reference = T&;\n      using pointer = T*;\n      using iterator_category\
+    \ = ::std::random_access_iterator_tag;\n\n      iterator() = default;\n      iterator(const\
+    \ iterator&) = default;\n      iterator(iterator&&) = default;\n      ~iterator()\
+    \ = default;\n      iterator& operator=(const iterator&) = default;\n      iterator&\
+    \ operator=(iterator&&) = default;\n\n      iterator(V * const parent, const size_type\
+    \ i) : m_parent(parent), m_i(i) {}\n\n      reference operator*() const {\n  \
+    \      return (*this->m_parent)[this->m_i];\n      }\n      pointer operator->()\
+    \ const {\n        return &(*(*this));\n      }\n\n      iterator& operator++()\
+    \ {\n        ++this->m_i;\n        return *this;\n      }\n      iterator operator++(int)\
+    \ {\n        const auto self = *this;\n        ++*this;\n        return self;\n\
+    \      }\n      iterator& operator--() {\n        --this->m_i;\n        return\
+    \ *this;\n      }\n      iterator operator--(int) {\n        const auto self =\
+    \ *this;\n        --*this;\n        return self;\n      }\n      iterator& operator+=(const\
+    \ difference_type n) {\n        this->m_i += n;\n        return *this;\n     \
+    \ }\n      iterator& operator-=(const difference_type n) {\n        this->m_i\
+    \ -= n;\n        return *this;\n      }\n      friend iterator operator+(const\
+    \ iterator& self, const difference_type n) {\n        return iterator(self) +=\
+    \ n;\n      }\n      friend iterator operator+(const difference_type n, const\
+    \ iterator& self) {\n        return iterator(self) += n;\n      }\n      friend\
+    \ iterator operator-(const iterator& self, const difference_type n) {\n      \
+    \  return iterator(self) -= n;\n      }\n      friend difference_type operator-(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return static_cast<difference_type>(lhs.m_i) - static_cast<difference_type>(rhs.m_i);\n\
+    \      }\n      reference operator[](const difference_type n) const {\n      \
+    \  return *(*this + n);\n      }\n\n      friend bool operator==(const iterator&\
+    \ lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i == rhs.m_i;\n      }\n      friend bool operator!=(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i != rhs.m_i;\n      }\n      friend bool operator<(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i < rhs.m_i;\n      }\n      friend bool operator<=(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i <= rhs.m_i;\n      }\n      friend bool operator>(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i > rhs.m_i;\n      }\n      friend bool operator>=(const\
+    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i >= rhs.m_i;\n      }\n    };\n    class const_iterator\
+    \ {\n    private:\n      const V *m_parent;\n      size_type m_i;\n\n    public:\n\
+    \      using difference_type = ::std::ptrdiff_t;\n      using value_type = T;\n\
+    \      using reference = const T&;\n      using pointer = const T*;\n      using\
+    \ iterator_category = ::std::random_access_iterator_tag;\n\n      const_iterator()\
+    \ = default;\n      const_iterator(const const_iterator&) = default;\n      const_iterator(const_iterator&&)\
+    \ = default;\n      ~const_iterator() = default;\n      const_iterator& operator=(const\
+    \ const_iterator&) = default;\n      const_iterator& operator=(const_iterator&&)\
+    \ = default;\n\n      const_iterator(const V * const parent, const size_type i)\
+    \ : m_parent(parent), m_i(i) {}\n\n      reference operator*() const {\n     \
+    \   return (*this->m_parent)[this->m_i];\n      }\n      pointer operator->()\
+    \ const {\n        return &(*(*this));\n      }\n\n      const_iterator& operator++()\
+    \ {\n        ++this->m_i;\n        return *this;\n      }\n      const_iterator\
+    \ operator++(int) {\n        const auto self = *this;\n        ++*this;\n    \
+    \    return self;\n      }\n      const_iterator& operator--() {\n        --this->m_i;\n\
+    \        return *this;\n      }\n      const_iterator operator--(int) {\n    \
+    \    const auto self = *this;\n        --*this;\n        return self;\n      }\n\
+    \      const_iterator& operator+=(const difference_type n) {\n        this->m_i\
+    \ += n;\n        return *this;\n      }\n      const_iterator& operator-=(const\
+    \ difference_type n) {\n        this->m_i -= n;\n        return *this;\n     \
+    \ }\n      friend const_iterator operator+(const const_iterator& self, const difference_type\
+    \ n) {\n        return const_iterator(self) += n;\n      }\n      friend const_iterator\
+    \ operator+(const difference_type n, const const_iterator& self) {\n        return\
+    \ const_iterator(self) += n;\n      }\n      friend const_iterator operator-(const\
+    \ const_iterator& self, const difference_type n) {\n        return const_iterator(self)\
+    \ -= n;\n      }\n      friend difference_type operator-(const const_iterator&\
+    \ lhs, const const_iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return static_cast<difference_type>(lhs.m_i) - static_cast<difference_type>(rhs.m_i);\n\
+    \      }\n      reference operator[](const difference_type n) const {\n      \
+    \  return *(*this + n);\n      }\n\n      friend bool operator==(const const_iterator&\
+    \ lhs, const const_iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i == rhs.m_i;\n      }\n      friend bool operator!=(const\
+    \ const_iterator& lhs, const const_iterator& rhs) {\n        assert(lhs.m_parent\
+    \ == rhs.m_parent);\n        return lhs.m_i != rhs.m_i;\n      }\n      friend\
+    \ bool operator<(const const_iterator& lhs, const const_iterator& rhs) {\n   \
+    \     assert(lhs.m_parent == rhs.m_parent);\n        return lhs.m_i < rhs.m_i;\n\
+    \      }\n      friend bool operator<=(const const_iterator& lhs, const const_iterator&\
+    \ rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n        return lhs.m_i\
+    \ <= rhs.m_i;\n      }\n      friend bool operator>(const const_iterator& lhs,\
+    \ const const_iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
+    \        return lhs.m_i > rhs.m_i;\n      }\n      friend bool operator>=(const\
+    \ const_iterator& lhs, const const_iterator& rhs) {\n        assert(lhs.m_parent\
+    \ == rhs.m_parent);\n        return lhs.m_i >= rhs.m_i;\n      }\n    };\n   \
+    \ using reverse_iterator = ::std::reverse_iterator<iterator>;\n    using const_reverse_iterator\
+    \ = ::std::reverse_iterator<const_iterator>;\n\n  private:\n    void init() {\n\
+    \      if constexpr (STATIC && specialized) {\n        this->m_values[0] = &this->x;\n\
+    \        this->m_values[1] = &this->y;\n        if constexpr (N > 2) {\n     \
+    \     this->m_values[2] = &this->z;\n        }\n        if constexpr (N > 3) {\n\
+    \          this->m_values[3] = &this->w;\n        }\n      }\n    }\n\n  public:\n\
+    \    vector() {\n      init();\n    }\n    vector(const V& other) {\n      init();\n\
+    \      if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
+    \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
+    \      }\n    }\n    vector(V&& other) noexcept {\n      init();\n      if constexpr\
+    \ (STATIC && specialized) {\n        ::std::copy(other.begin(), other.end(), this->begin());\n\
+    \      } else {\n        this->m_values = ::std::move(other.m_values);\n     \
+    \ }\n    }\n    ~vector() = default;\n    V& operator=(const V& other) {\n   \
+    \   if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
+    \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
+    \      }\n      return *this;\n    }\n    V& operator=(V&& other) noexcept {\n\
+    \      if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
+    \ other.end(), this->begin());\n      } else {\n        this->m_values = ::std::move(other.m_values);\n\
+    \      }\n      return *this;\n    }\n\n    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit vector(size_type n) : m_values(n)\
+    \ {\n    }\n    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    vector(size_type n, const_reference value) : m_values(n, value)\
+    \ {\n    }\n    template <typename InputIter, bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    vector(const InputIter first, const InputIter\
+    \ last) : m_values(first, last) {\n    }\n    template <bool SFINAE = N == 2,\
+    \ ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n    vector(const T&\
+    \ x, const T& y) {\n      init();\n      this->x = x;\n      this->y = y;\n  \
+    \  }\n    template <bool SFINAE = N == 3, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    vector(const T& x, const T& y, const T& z) {\n      init();\n\
+    \      this->x = x;\n      this->y = y;\n      this->z = z;\n    }\n    template\
+    \ <bool SFINAE = N == 4, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n\
+    \    vector(const T& x, const T& y, const T& z, const T& w) {\n      init();\n\
+    \      this->x = x;\n      this->y = y;\n      this->z = z;\n      this->w = w;\n\
+    \    }\n    vector(const ::std::initializer_list<T> il) {\n      init();\n   \
+    \   if constexpr (STATIC) {\n        assert(il.size() == N);\n        ::std::copy(il.begin(),\
+    \ il.end(), this->begin());\n      } else {\n        this->m_values.reserve(il.size());\n\
+    \        ::std::copy(il.begin(), il.end(), ::std::back_inserter(this->m_values));\n\
+    \      }\n    }\n\n    iterator begin() noexcept { return iterator(this, 0); }\n\
+    \    const_iterator begin() const noexcept { return const_iterator(this, 0); }\n\
+    \    const_iterator cbegin() const noexcept { return const_iterator(this, 0);\
+    \ }\n    iterator end() noexcept { return iterator(this, this->size()); }\n  \
+    \  const_iterator end() const noexcept { return const_iterator(this, this->size());\
+    \ }\n    const_iterator cend() const noexcept { return const_iterator(this, this->size());\
+    \ }\n    reverse_iterator rbegin() noexcept { return ::std::make_reverse_iterator(this->end());\
+    \ }\n    const_reverse_iterator rbegin() const noexcept { return ::std::make_reverse_iterator(this->end());\
+    \ }\n    const_reverse_iterator crbegin() const noexcept { return ::std::make_reverse_iterator(this->cend());\
+    \ }\n    reverse_iterator rend() noexcept { return ::std::make_reverse_iterator(this->begin());\
+    \ }\n    const_reverse_iterator rend() const noexcept { return ::std::make_reverse_iterator(this->begin());\
+    \ }\n    const_reverse_iterator crend() const noexcept { return ::std::make_reverse_iterator(this->cbegin());\
+    \ }\n\n    size_type size() const noexcept { return this->m_values.size(); }\n\
+    \    bool empty() const noexcept { return this->m_values.empty(); }\n\n    reference\
+    \ operator[](const size_type n) {\n      if constexpr (STATIC && specialized)\
+    \ {\n        return *this->m_values[n];\n      } else {\n        return this->m_values[n];\n\
+    \      }\n    }\n    const_reference operator[](const size_type n) const {\n \
+    \     if constexpr (STATIC && specialized) {\n        return *this->m_values[n];\n\
+    \      } else {\n        return this->m_values[n];\n      }\n    }\n    reference\
+    \ front() { return *this->begin(); }\n    const_reference front() const { return\
+    \ *this->begin(); }\n    reference back() { return *this->rbegin(); }\n    const_reference\
+    \ back() const { return *this->rbegin(); }\n\n    V operator+() const {\n    \
+    \  return *this;\n    }\n    V operator-() const {\n      V res = *this;\n   \
+    \   for (auto& v : res) v = -v;\n      return res;\n    }\n    V& operator+=(const\
+    \ V& other) {\n      assert(this->size() == other.size());\n      for (::std::size_t\
+    \ i = 0; i < this->size(); ++i) {\n        (*this)[i] += other[i];\n      }\n\
+    \      return *this;\n    }\n    friend V operator+(const V& lhs, const V& rhs)\
+    \ {\n      return V(lhs) += rhs;\n    }\n    V& operator-=(const V& other) {\n\
+    \      assert(this->size() == other.size());\n      for (::std::size_t i = 0;\
+    \ i < this->size(); ++i) {\n        (*this)[i] -= other[i];\n      }\n      return\
+    \ *this;\n    }\n    friend V operator-(const V& lhs, const V& rhs) {\n      return\
+    \ V(lhs) -= rhs;\n    }\n    V& operator*=(const T& c) {\n      for (auto& v :\
+    \ *this) v *= c;\n      return *this;\n    }\n    friend V operator*(const T&\
+    \ lhs, const V& rhs) {\n      return V(rhs) *= lhs;\n    }\n    friend V operator*(const\
+    \ V& lhs, const T& rhs) {\n      return V(lhs) *= rhs;\n    }\n    V& operator/=(const\
+    \ T& c) {\n      for (auto& v : *this) v /= c;\n      return *this;\n    }\n \
+    \   friend V operator/(const V& lhs, const T& rhs) {\n      return V(lhs) /= rhs;\n\
+    \    }\n\n    friend bool operator==(const V& lhs, const V& rhs) {\n      return\
+    \ ::std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());\n    }\n    friend\
+    \ bool operator!=(const V& lhs, const V& rhs) {\n      return !(lhs == rhs);\n\
+    \    }\n\n    T inner_product(const V& other) const {\n      assert(this->size()\
+    \ == other.size());\n      T res{};\n      for (::std::size_t i = 0; i < this->size();\
+    \ ++i) {\n        res += (*this)[i] * other[i];\n      }\n      return res;\n\
+    \    }\n    T l1_norm() const {\n      T res{};\n      for (const auto& v : *this)\
+    \ {\n        res += ::tools::abs(v);\n      }\n      return res;\n    }\n    T\
+    \ squared_l2_norm() const {\n      return this->inner_product(*this);\n    }\n\
+    \    F l2_norm() const {\n      return ::std::sqrt(static_cast<F>(this->squared_l2_norm()));\n\
+    \    }\n    template <bool SFINAE = ::std::is_floating_point_v<T>, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    V normalized() const {\n      return *this\
+    \ / this->l2_norm();\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const V& self) {\n      os << '(';\n      ::std::string delimiter = \"\"\
+    ;\n      for (const auto& v : self) {\n        os << delimiter << v;\n       \
+    \ delimiter = \", \";\n      }\n      return os << ')';\n    }\n    friend ::std::istream&\
+    \ operator>>(::std::istream& is, V& self) {\n      for (auto& v : self) {\n  \
+    \      is >> v;\n      }\n      return is;\n    }\n\n    template <bool SFINAE\
+    \ = N == 2, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n    T outer_product(const\
+    \ V& other) const {\n      return this->x * other.y - this->y * other.x;\n   \
+    \ }\n    template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    V turned90() const {\n      return V{-this->y, this->x};\n \
+    \   }\n    template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    V turned270() const {\n      return V{this->y, -this->x};\n\
+    \    }\n\n    template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    static const ::std::array<V, 4>& four_directions() {\n     \
+    \ static const ::std::array<V, 4> res = {\n        V{T(1), T(0)},\n        V{T(0),\
+    \ T(1)},\n        V{T(-1), T(0)},\n        V{T(0), T(-1)}\n      };\n      return\
+    \ res;\n    }\n    template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    static const ::std::array<V, 8>& eight_directions()\
+    \ {\n      static const ::std::array<V, 8> res = {\n        V{T(1), T(0)},\n \
+    \       V{T(1), T(1)},\n        V{T(0), T(1)},\n        V{T(-1), T(1)},\n    \
+    \    V{T(-1), T(0)},\n        V{T(-1), T(-1)},\n        V{T(0), T(-1)},\n    \
+    \    V{T(1), T(-1)}\n      };\n      return res;\n    }\n\n    template <bool\
+    \ SFINAE = N == 3, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n \
+    \   V outer_product(const V& other) const {\n      return V{this->y * other.z\
+    \ - this->z * other.y, this->z * other.x - this->x * other.z, this->x * other.y\
+    \ - this->y * other.x};\n    }\n    template <bool SFINAE = N == 3 && ::std::is_floating_point_v<T>,\
+    \ ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n    ::std::array<V,\
+    \ 3> orthonormal_basis() const {\n      assert((*this != V{0, 0, 0}));\n\n   \
+    \   ::std::array<V, 3> v;\n      v[0] = *this;\n      v[1] = V{0, this->z, -this->y};\n\
+    \      if (v[1] == V{0, 0, 0}) {\n        v[1] = V{-this->z, 0, this->x};\n  \
+    \    }\n      v[1] -= v[0].inner_product(v[1]) / v[0].inner_product(v[0]) * v[0];\n\
+    \n      v[0] = v[0].normalized();\n      v[1] = v[1].normalized();\n      v[2]\
+    \ = v[0].outer_product(v[1]);\n\n      return v;\n    }\n  };\n}\n\nnamespace\
+    \ std {\n  template <typename T>\n  struct hash<::tools::vector<T, 2>> {\n   \
+    \ using result_type = ::std::size_t;\n    using argument_type = ::tools::vector<T,\
+    \ 2>;\n    result_type operator()(const argument_type& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y));\n    }\n  };\n  template <typename T>\n  struct hash<::tools::vector<T,\
+    \ 3>> {\n    using result_type = ::std::size_t;\n    using argument_type = ::tools::vector<T,\
+    \ 3>;\n    result_type operator()(const argument_type& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z));\n    }\n  };\n  template <typename T>\n  struct hash<::tools::vector<T,\
+    \ 4>> {\n    using result_type = ::std::size_t;\n    using argument_type = ::tools::vector<T,\
+    \ 4>;\n    result_type operator()(const argument_type& key) const {\n      static\
+    \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
+    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 5 \"tools/vector2.hpp\"\n\n\
+    namespace tools {\n  template <typename T>\n  using vector2 = ::tools::vector<T,\
+    \ 2>;\n}\n\n\n#line 1 \"tools/circle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
     \n\n\n\n#line 9 \"tools/detail/geometry_2d.hpp\"\n#include <initializer_list>\n\
     #line 11 \"tools/detail/geometry_2d.hpp\"\n#include <optional>\n#line 1 \"tools/is_rational.hpp\"\
     \n\n\n\n#line 5 \"tools/is_rational.hpp\"\n\nnamespace tools {\n  template <typename\
@@ -1020,8 +1073,7 @@ data:
     \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/vector2.hpp
-  - tools/detail/vector_static_common.hpp
-  - tools/detail/vector_common.hpp
+  - tools/vector.hpp
   - tools/abs.hpp
   - tools/tuple_hash.hpp
   - tools/now.hpp
@@ -1036,7 +1088,7 @@ data:
   isVerificationFile: true
   path: tests/circle_2d/intersection_to_circle.test.cpp
   requiredBy: []
-  timestamp: '2024-02-12 02:49:05+09:00'
+  timestamp: '2024-03-02 22:50:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/circle_2d/intersection_to_circle.test.cpp

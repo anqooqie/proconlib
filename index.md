@@ -608,12 +608,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
-    - icon: ':heavy_check_mark:'
-      path: tools/detail/vector_common.hpp
-      title: tools/detail/vector_common.hpp
-    - icon: ':heavy_check_mark:'
-      path: tools/detail/vector_static_common.hpp
-      title: tools/detail/vector_static_common.hpp
   verificationCategories:
   - name: tests
     pages:

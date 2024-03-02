@@ -45,6 +45,9 @@ data:
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
+    path: tools/matrix.hpp
+    title: Matrix
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
@@ -56,6 +59,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
+  - icon: ':heavy_check_mark:'
+    path: tools/vector.hpp
+    title: Vector
   - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
@@ -114,6 +120,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/determinant.test.cpp
+    title: tests/matrix/determinant.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/inv.test.cpp
+    title: tests/matrix/inv.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/multiplies.test.cpp
+    title: tests/matrix/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/matrix/solve.test.cpp
+    title: tests/matrix/solve.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -204,6 +222,7 @@ data:
   isVerificationFile: false
   path: tools/tuple_hash.hpp
   requiredBy:
+  - tools/matrix.hpp
   - tools/util.hpp
   - tools/ccw.hpp
   - tools/half_line_2d.hpp
@@ -217,6 +236,7 @@ data:
   - tools/greater_by_arg.hpp
   - tools/vector3.hpp
   - tools/vector4.hpp
+  - tools/vector.hpp
   - tools/less_by_arg.hpp
   - tools/convex_hull.hpp
   - tools/quaternion.hpp
@@ -248,6 +268,10 @@ data:
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/greater_by_arg_total.test.cpp
   - tests/greater_by_arg.test.cpp
+  - tests/matrix/inv.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/solve.test.cpp
+  - tests/matrix/determinant.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
