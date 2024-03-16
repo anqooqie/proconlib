@@ -103,8 +103,8 @@ data:
   timestamp: '2023-05-02 20:12:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fastio/integer.test.cpp
   - tests/fastio/string.test.cpp
+  - tests/fastio/integer.test.cpp
 documentation_of: tools/cout.hpp
 layout: document
 title: Fast output

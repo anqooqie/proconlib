@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []
@@ -108,8 +108,8 @@ data:
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/dijkstra/directed.test.cpp
   - tests/dijkstra/undirected.test.cpp
+  - tests/dijkstra/directed.test.cpp
 documentation_of: tools/dijkstra.hpp
 layout: document
 title: Dijkstra's algorithm

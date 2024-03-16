@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
@@ -257,29 +257,29 @@ data:
   isVerificationFile: false
   path: tools/pow_mod_cache.hpp
   requiredBy:
-  - tools/polynomial.hpp
-  - tools/detail/rolling_hash.hpp
+  - tools/rolling_hash.hpp
   - tools/modint_for_rolling_hash.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/bostan_mori.hpp
   - tools/stirling_1st.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/rolling_hash.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/polynomial.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/bostan_mori.test.cpp
-  - tests/berlekamp_massey.test.cpp
   - tests/has_mod.test.cpp
-  - tests/stirling_1st.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial_interpolation.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/rolling_hash.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/polynomial_interpolation.test.cpp
 documentation_of: tools/pow_mod_cache.hpp
 layout: document
 title: Cache of $b^n \pmod{M}$

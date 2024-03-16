@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
   _extendedRequiredBy:
@@ -11,10 +11,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -45,7 +45,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
@@ -56,7 +56,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -87,7 +87,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -330,12 +330,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mod.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"\
@@ -360,116 +360,116 @@ data:
   isVerificationFile: false
   path: tools/mod.hpp
   requiredBy:
-  - tools/bernoulli.hpp
-  - tools/polynomial.hpp
-  - tools/garner2.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/prime_factorization.hpp
-  - tools/rational.hpp
+  - tools/rolling_hash.hpp
   - tools/rotate_left.hpp
-  - tools/divisors.hpp
-  - tools/fact_mod_cache.hpp
-  - tools/stirling_2nd.hpp
-  - tools/garner3.hpp
-  - tools/partition_function.hpp
-  - tools/convolution.hpp
-  - tools/primitive_root.hpp
-  - tools/log_mod.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/bostan_mori.hpp
-  - tools/round.hpp
-  - tools/bigint.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/extended_garner.hpp
-  - tools/tetration_mod.hpp
   - tools/extended_lucas.hpp
-  - tools/is_prime.hpp
+  - tools/bigint.hpp
+  - tools/garner.hpp
+  - tools/partition_function.hpp
+  - tools/rational.hpp
+  - tools/garner2.hpp
+  - tools/bernoulli.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/round.hpp
+  - tools/log_mod.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/pow_mod.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/bigdecimal.hpp
+  - tools/primitive_root.hpp
+  - tools/bostan_mori.hpp
+  - tools/prime_factorization.hpp
   - tools/fps.hpp
+  - tools/tetration_mod.hpp
+  - tools/stirling_1st.hpp
+  - tools/is_prime.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/extended_garner.hpp
+  - tools/totient.hpp
+  - tools/convolution.hpp
+  - tools/stirling_2nd.hpp
   - tools/inv_mod.hpp
   - tools/pow_mod_cache.hpp
-  - tools/stirling_1st.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/garner.hpp
-  - tools/rotate_right.hpp
-  - tools/pow_mod.hpp
+  - tools/divisors.hpp
+  - tools/polynomial.hpp
   - tools/sqrt_mod.hpp
-  - tools/rolling_hash.hpp
-  - tools/totient.hpp
-  - tools/bigdecimal.hpp
+  - tools/garner3.hpp
+  - tools/rotate_right.hpp
+  - tools/fact_mod_cache.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/rotate_right.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/extended_garner.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/berlekamp_massey.test.cpp
   - tests/has_mod.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/stirling_1st.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/rotate_left.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/is_prime.test.cpp
+  - tests/divisors.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/totient.test.cpp
-  - tests/divisors.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/fastio/string.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/totient.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/sqrt_mod.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
 documentation_of: tools/mod.hpp
 layout: document
 title: Minimum non-negative reminder

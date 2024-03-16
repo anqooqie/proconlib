@@ -4,15 +4,12 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
-    path: tools/ccw.hpp
-    title: Counter clockwise function
   - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
-    path: tools/less_by.hpp
-    title: std::less by key
+  - icon: ':heavy_check_mark:'
+    path: tools/matrix.hpp
+    title: Matrix
   - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
@@ -23,37 +20,35 @@ data:
     path: tools/vector.hpp
     title: Vector
   - icon: ':question:'
-    path: tools/vector2.hpp
-    title: Two dimensional vector
+    path: tools/vector3.hpp
+    title: Three dimensional vector
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/convex_hull.test.cpp
-    title: tests/convex_hull.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/convex_hull.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cstddef>\n#include <numeric>\n#include <algorithm>\n\
-    #include <utility>\n#include <iterator>\n#include <stack>\n#line 1 \"tools/vector2.hpp\"\
-    \n\n\n\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 5 \"tools/vector.hpp\"\n#include\
-    \ <array>\n#include <initializer_list>\n#include <cassert>\n#include <limits>\n\
-    #line 14 \"tools/vector.hpp\"\n#include <cmath>\n#include <iostream>\n#include\
-    \ <string>\n#include <functional>\n#include <tuple>\n#line 1 \"tools/abs.hpp\"\
-    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
-    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
-    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc322/tasks/abc322_d
+    links:
+    - https://atcoder.jp/contests/abc322/tasks/abc322_d
+  bundledCode: "#line 1 \"tests/matrix/static.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc322/tasks/abc322_d\"\
+    \n\n#include <iostream>\n#include <array>\n#include <string>\n#line 1 \"tools/matrix.hpp\"\
+    \n\n\n\n#include <cstddef>\n#line 6 \"tools/matrix.hpp\"\n#include <limits>\n\
+    #include <vector>\n#include <type_traits>\n#include <initializer_list>\n#include\
+    \ <cassert>\n#include <algorithm>\n#line 14 \"tools/matrix.hpp\"\n#include <utility>\n\
+    #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 11 \"tools/vector.hpp\"\
+    \n#include <iterator>\n#line 14 \"tools/vector.hpp\"\n#include <cmath>\n#line\
+    \ 17 \"tools/vector.hpp\"\n#include <functional>\n#include <tuple>\n#line 1 \"\
+    tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
     \ x) {\n    return x;\n  }\n}\n\n\n#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#line\
     \ 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline\
     \ long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
@@ -334,150 +329,285 @@ data:
     \ 4>> {\n    using result_type = ::std::size_t;\n    using argument_type = ::tools::vector<T,\
     \ 4>;\n    result_type operator()(const argument_type& key) const {\n      static\
     \ const ::tools::tuple_hash<T, T, T, T> hasher;\n      return hasher(::std::make_tuple(key.x,\
-    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 5 \"tools/vector2.hpp\"\n\n\
-    namespace tools {\n  template <typename T>\n  using vector2 = ::tools::vector<T,\
-    \ 2>;\n}\n\n\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template\
-    \ <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n   \
-    \ less_by(const F& selector) : selector(selector) {\n    }\n\n    template <class\
-    \ T>\n    bool operator()(const T& x, const T& y) const {\n      return selector(x)\
-    \ < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/ccw.hpp\"\n\n\n\n#line 5\
-    \ \"tools/ccw.hpp\"\n\nnamespace tools {\n  template <typename T>\n  int ccw(const\
-    \ ::tools::vector2<T>& a, ::tools::vector2<T> b, ::tools::vector2<T> c) {\n  \
-    \  b -= a;\n    c -= a;\n    if (b.outer_product(c) > T(0)) return +1;\n    if\
-    \ (b.outer_product(c) < T(0)) return -1;\n    if (b.inner_product(c) < T(0)) return\
-    \ +2;\n    if (b.squared_l2_norm() < c.squared_l2_norm()) return -2;\n    return\
-    \ 0;\n  }\n}\n\n\n#line 15 \"tools/convex_hull.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator, typename OutputIterator>\n  void convex_hull(const\
-    \ InputIterator begin, const InputIterator end, bool minimum, OutputIterator result)\
-    \ {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\n    const ::std::vector<::tools::vector2<T>>\
-    \ v(begin, end);\n    ::std::vector<::std::size_t> a(v.size());\n    ::std::iota(a.begin(),\
-    \ a.end(), 0);\n    ::std::sort(a.begin(), a.end(), ::tools::less_by([&](const\
-    \ ::std::size_t i) {\n      return ::std::make_pair(v[i].x, v[i].y);\n    }));\n\
-    \    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\n    if (minimum)\
-    \ {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar\
-    \ = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]].x\
-    \ == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
-    \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
-    \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
-    \ + 1], a[vr - 1]);\n          vr -= vr - vl - 2;\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl]);\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl + 1]);\n        }\n      }\n     \
-    \ a.erase(::std::next(a.begin(), vl), a.end());\n    } else {\n      ::std::size_t\
-    \ vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl\
-    \ = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]] == v[a[ar]]; ++vr,\
-    \ ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(),\
-    \ ar), ::std::next(a.begin(), vl));\n        duplicates.emplace_back();\n    \
-    \    for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
-    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
-    \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
-    \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
-    \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
-    \ >= 2) {\n          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]],\
-    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == 1 || (!minimum &&\
-    \ ccw == -2)) {\n            break;\n          }\n          convex_hull.pop_back();\n\
-    \        }\n        convex_hull.push_back(p3);\n      }\n\n      const ::std::size_t\
-    \ threshold = convex_hull.size() + 1;\n      for (::std::size_t p3 = convex_hull.back();\
-    \ p3 --> 0;) {\n        while (convex_hull.size() >= threshold) {\n          const\
-    \ int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]],\
-    \ v[a[p3]]);\n          if (ccw == 1 || (!minimum && ccw == -2)) {\n         \
-    \   break;\n          }\n          convex_hull.pop_back();\n        }\n      \
-    \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
-    \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
-    \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
-    \ (const ::std::size_t& i : duplicates[c]) {\n        if constexpr (::std::is_assignable_v<OutputIterator,\
-    \ ::std::size_t>) {\n          *result = i;\n        } else {\n          *result\
-    \ = v[i];\n        }\n        ++result;\n      }\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CONVEX_HULL_HPP\n#define TOOLS_CONVEX_HULL_HPP\n\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <numeric>\n#include\
-    \ <algorithm>\n#include <utility>\n#include <iterator>\n#include <stack>\n#include\
-    \ \"tools/vector2.hpp\"\n#include \"tools/less_by.hpp\"\n#include \"tools/ccw.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void convex_hull(const InputIterator begin, const InputIterator end, bool minimum,\
-    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(begin->x)>;\n\
-    \n    const ::std::vector<::tools::vector2<T>> v(begin, end);\n    ::std::vector<::std::size_t>\
-    \ a(v.size());\n    ::std::iota(a.begin(), a.end(), 0);\n    ::std::sort(a.begin(),\
-    \ a.end(), ::tools::less_by([&](const ::std::size_t i) {\n      return ::std::make_pair(v[i].x,\
-    \ v[i].y);\n    }));\n    ::std::vector<::std::vector<::std::size_t>> duplicates;\n\
-    \n    if (minimum) {\n      ::std::size_t vl = 0;\n      for (::std::size_t vr\
-    \ = 0, al = 0, ar = 0; al < a.size(); vl = vr, al = ar) {\n        for (; ar <\
-    \ a.size() && v[a[al]].x == v[a[ar]].x; ++vr, ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(),\
-    \ al), ::std::next(a.begin(), ar), ::std::next(a.begin(), vl));\n        if (v[a[vl]].y\
-    \ == v[a[vr - 1]].y) {\n          vr -= vr - vl - 1;\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl]);\n        } else {\n          ::std::swap(a[vl\
-    \ + 1], a[vr - 1]);\n          vr -= vr - vl - 2;\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl]);\n          duplicates.emplace_back();\n\
-    \          duplicates.back().push_back(a[vl + 1]);\n        }\n      }\n     \
-    \ a.erase(::std::next(a.begin(), vl), a.end());\n    } else {\n      ::std::size_t\
-    \ vl = 0;\n      for (::std::size_t vr = 0, al = 0, ar = 0; al < a.size(); vl\
-    \ = vr, al = ar) {\n        for (; ar < a.size() && v[a[al]] == v[a[ar]]; ++vr,\
-    \ ++ar);\n        if (vl < al) ::std::move(::std::next(a.begin(), al), ::std::next(a.begin(),\
-    \ ar), ::std::next(a.begin(), vl));\n        duplicates.emplace_back();\n    \
-    \    for (::std::size_t i = vl; i < vr; ++i) {\n          duplicates.back().push_back(a[i]);\n\
-    \        }\n        vr -= vr - vl - 1;\n      }\n      a.erase(::std::next(a.begin(),\
-    \ vl), a.end());\n    }\n\n    ::std::vector<::std::size_t> convex_hull;\n   \
-    \ if (a.size() >= 3) {\n\n      convex_hull.push_back(0);\n      convex_hull.push_back(1);\n\
-    \      for (::std::size_t p3 = 2; p3 < a.size(); ++p3) {\n        while (convex_hull.size()\
-    \ >= 2) {\n          const int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]],\
-    \ v[a[convex_hull.back()]], v[a[p3]]);\n          if (ccw == 1 || (!minimum &&\
-    \ ccw == -2)) {\n            break;\n          }\n          convex_hull.pop_back();\n\
-    \        }\n        convex_hull.push_back(p3);\n      }\n\n      const ::std::size_t\
-    \ threshold = convex_hull.size() + 1;\n      for (::std::size_t p3 = convex_hull.back();\
-    \ p3 --> 0;) {\n        while (convex_hull.size() >= threshold) {\n          const\
-    \ int ccw = ::tools::ccw(v[a[convex_hull.rbegin()[1]]], v[a[convex_hull.back()]],\
-    \ v[a[p3]]);\n          if (ccw == 1 || (!minimum && ccw == -2)) {\n         \
-    \   break;\n          }\n          convex_hull.pop_back();\n        }\n      \
-    \  convex_hull.push_back(p3);\n      }\n      convex_hull.pop_back();\n\n    }\
-    \ else {\n      for (::std::size_t i = 0; i < a.size(); ++i) {\n        convex_hull.push_back(i);\n\
-    \      }\n    }\n\n    for (const ::std::size_t& c : convex_hull) {\n      for\
-    \ (const ::std::size_t& i : duplicates[c]) {\n        if constexpr (::std::is_assignable_v<OutputIterator,\
-    \ ::std::size_t>) {\n          *result = i;\n        } else {\n          *result\
-    \ = v[i];\n        }\n        ++result;\n      }\n    }\n  }\n}\n\n#endif\n"
+    \ key.y, key.z, key.w));\n    }\n  };\n}\n\n\n#line 17 \"tools/matrix.hpp\"\n\n\
+    namespace tools {\n  namespace detail {\n    namespace matrix {\n      template\
+    \ <typename T, ::std::size_t N, ::std::size_t M>\n      class members {\n    \
+    \  protected:\n        constexpr static bool variable_sized = false;\n       \
+    \ ::std::array<T, N * M> m_values;\n        members() : m_values() {}\n      };\n\
+    \      template <typename T>\n      class members<T, ::std::numeric_limits<::std::size_t>::max(),\
+    \ ::std::numeric_limits<::std::size_t>::max()> {\n      protected:\n        constexpr\
+    \ static bool variable_sized = true;\n        ::std::vector<T> m_values;\n   \
+    \     ::std::size_t m_rows;\n        ::std::size_t m_cols;\n        members()\
+    \ = default;\n        members(const ::std::size_t rows, const ::std::size_t cols)\
+    \ : m_values(rows * cols), m_rows(rows), m_cols(cols) {}\n        members(const\
+    \ ::std::size_t rows, const ::std::size_t cols, const T& value) : m_values(rows\
+    \ * cols, value), m_rows(rows), m_cols(cols) {}\n      };\n    }\n  }\n\n  template\
+    \ <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max(),\
+    \ ::std::size_t M = ::std::numeric_limits<::std::size_t>::max()>\n  class matrix\
+    \ : ::tools::detail::matrix::members<T, N, M> {\n  private:\n    using Mat = ::tools::matrix<T,\
+    \ N, M>;\n    using Base = ::tools::detail::matrix::members<T, N, M>;\n    constexpr\
+    \ static bool variable_sized = Base::variable_sized;\n\n  public:\n    matrix()\
+    \ = default;\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    matrix(const ::std::size_t rows, const ::std::size_t\
+    \ cols) : Base(rows, cols) {}\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    matrix(const ::std::size_t rows, const ::std::size_t\
+    \ cols, const T& value) : Base(rows, cols, value) {}\n    template <bool SFINAE\
+    \ = !variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n\
+    \    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) {\n\
+    \      assert(il.size() == this->rows());\n      assert(::std::all_of(il.begin(),\
+    \ il.end(), [&](const auto& row) { return row.size() == this->cols(); }));\n \
+    \     for (::std::size_t r = 0; r < this->rows(); ++r) {\n        ::std::copy(il.begin()[r].begin(),\
+    \ il.begin()[r].end(), (*this)[r]);\n      }\n    }\n    template <bool SFINAE\
+    \ = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr, ::std::nullptr_t\
+    \ = nullptr>\n    matrix(const ::std::initializer_list<::std::initializer_list<T>>\
+    \ il) : Base(il.size(), il.empty() ? 0 : il.begin()->size()) {\n      assert(il.empty()\
+    \ || ::std::all_of(il.begin(), il.end(), [&](const auto& row) { return row.size()\
+    \ == this->cols(); }));\n      for (::std::size_t r = 0; r < this->rows(); ++r)\
+    \ {\n        ::std::copy(il.begin()[r].begin(), il.begin()[r].end(), (*this)[r]);\n\
+    \      }\n    }\n    auto operator[](const ::std::size_t r) {\n      assert(r\
+    \ < this->rows());\n      return this->m_values.begin() + r * this->cols();\n\
+    \    }\n    auto operator[](const ::std::size_t r) const {\n      assert(r < this->rows());\n\
+    \      return this->m_values.begin() + r * this->cols();\n    }\n\n    ::std::size_t\
+    \ rows() const {\n      if constexpr (variable_sized) {\n        return this->m_rows;\n\
+    \      } else {\n        return N;\n      }\n    }\n    ::std::size_t cols() const\
+    \ {\n      if constexpr (variable_sized) {\n        return this->m_cols;\n   \
+    \   } else {\n        return M;\n      }\n    }\n\n    Mat operator+() const {\n\
+    \      return *this;\n    }\n    Mat operator-() const {\n      return Mat(*this)\
+    \ *= T(-1);\n    }\n    friend Mat operator+(const Mat& lhs, const Mat& rhs) {\n\
+    \      return Mat(lhs) += rhs;\n    }\n    friend Mat operator-(const Mat& lhs,\
+    \ const Mat& rhs) {\n      return Mat(lhs) -= rhs;\n    }\n    template <::std::size_t\
+    \ K, ::std::enable_if_t<!Mat::variable_sized || K == ::std::numeric_limits<::std::size_t>::max(),\
+    \ ::std::nullptr_t> = nullptr>\n    friend ::tools::matrix<T, N, K> operator*(const\
+    \ Mat& lhs, const ::tools::matrix<T, M, K>& rhs) {\n      assert(lhs.cols() ==\
+    \ rhs.rows());\n      auto result = [&]() {\n        if constexpr (Mat::variable_sized)\
+    \ {\n          return ::tools::matrix<T>(lhs.rows(), rhs.cols());\n        } else\
+    \ {\n          return ::tools::matrix<T, N, K>();\n        }\n      }();\n   \
+    \   for (::std::size_t i = 0; i < lhs.rows(); ++i) {\n        for (::std::size_t\
+    \ k = 0; k < lhs.cols(); ++k) {\n          for (::std::size_t j = 0; j < rhs.cols();\
+    \ ++j) {\n            result[i][j] += lhs[i][k] * rhs[k][j];\n          }\n  \
+    \      }\n      }\n      return result;\n    }\n    friend ::tools::vector<T,\
+    \ N> operator*(const Mat& lhs, const ::tools::vector<T, M>& rhs) {\n      assert(lhs.cols()\
+    \ == rhs.size());\n      auto result = [&]() {\n        if constexpr (Mat::variable_sized)\
+    \ {\n          return ::tools::vector<T>(lhs.rows());\n        } else {\n    \
+    \      return ::tools::vector<T, N>();\n        }\n      }();\n      for (::std::size_t\
+    \ i = 0; i < lhs.rows(); ++i) {\n        for (::std::size_t j = 0; j < lhs.cols();\
+    \ ++j) {\n          result[i] += lhs[i][j] * rhs[j];\n        }\n      }\n   \
+    \   return result;\n    }\n    friend Mat operator*(const Mat& lhs, const T& rhs)\
+    \ {\n      return Mat(lhs) *= rhs;\n    }\n    friend Mat operator/(const Mat&\
+    \ lhs, const ::tools::matrix<T, M, M>& rhs) {\n      const auto inv = rhs.inv();\n\
+    \      assert(inv);\n      return lhs * *inv;\n    }\n    friend Mat operator/(const\
+    \ Mat& lhs, const T& rhs) {\n      return Mat(lhs) /= rhs;\n    }\n    Mat& operator+=(const\
+    \ Mat& other) {\n      assert(this->rows() == other.rows());\n      assert(this->cols()\
+    \ == other.cols());\n      for (::std::size_t i = 0; i < this->m_values.size();\
+    \ ++i) {\n        this->m_values[i] += other.m_values[i];\n      }\n      return\
+    \ *this;\n    }\n    Mat& operator-=(const Mat& other) {\n      assert(this->rows()\
+    \ == other.rows());\n      assert(this->cols() == other.cols());\n      for (::std::size_t\
+    \ i = 0; i < this->m_values.size(); ++i) {\n        this->m_values[i] -= other.m_values[i];\n\
+    \      }\n      return *this;\n    }\n    Mat& operator*=(const ::tools::matrix<T,\
+    \ M, M>& other) {\n      return *this = *this * other;\n    }\n    Mat& operator*=(const\
+    \ T& c) {\n      for (auto& v : this->m_values) v *= c;\n      return *this;\n\
+    \    }\n    Mat& operator/=(const ::tools::matrix<T, M, M>& other) {\n      return\
+    \ *this = *this / other;\n    }\n    Mat& operator/=(const T& c) {\n      return\
+    \ *this *= T(1) / c;\n    }\n    friend bool operator==(const Mat& lhs, const\
+    \ Mat& rhs) {\n      if constexpr (variable_sized) {\n        if (lhs.rows() !=\
+    \ rhs.rows()) return false;\n        if (lhs.cols() != rhs.cols()) return false;\n\
+    \      }\n      return lhs.m_values == rhs.m_values;\n    }\n    friend bool operator!=(const\
+    \ Mat& lhs, const Mat& rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend\
+    \ ::std::istream& operator>>(::std::istream& is, Mat& self) {\n      for (auto&\
+    \ v : self.m_values) is >> v;\n      return is;\n    }\n    friend ::std::ostream&\
+    \ operator<<(::std::ostream& os, const Mat& self) {\n      for (::std::size_t\
+    \ r = 0; r < self.rows(); ++r) {\n        os << '[';\n        ::std::string delimiter\
+    \ = \"\";\n        for (::std::size_t c = 0; c < self.cols(); ++c) {\n       \
+    \   os << delimiter << self[r][c];\n          delimiter = \", \";\n        }\n\
+    \        os << ']' << '\\n';\n      }\n      return os;\n    }\n\n  private:\n\
+    \    ::std::pair<::std::size_t, T> internal_gauss_jordan() {\n      ::std::size_t\
+    \ rank = 0;\n      T coeff(1);\n\n      for (::std::size_t c = 0; c < this->cols();\
+    \ ++c) {\n        ::std::size_t pivot;\n        for (pivot = rank; pivot < this->rows()\
+    \ && (*this)[pivot][c] == T(0); ++pivot);\n        if (pivot == this->rows())\
+    \ continue;\n\n        if (pivot != rank) {\n          for (::std::size_t cc =\
+    \ c; cc < this->cols(); ++cc) {\n            ::std::swap((*this)[rank][cc], (*this)[pivot][cc]);\n\
+    \          }\n          coeff *= T(-1);\n        }\n\n        {\n          const\
+    \ T scale_inv = T(1) / (*this)[rank][c];\n          for (::std::size_t cc = c;\
+    \ cc < this->cols(); ++cc) {\n            (*this)[rank][cc] *= scale_inv;\n  \
+    \        }\n          coeff *= scale_inv;\n        }\n\n        for (::std::size_t\
+    \ r = 0; r < this->rows(); ++r) {\n          if (r == rank) continue;\n      \
+    \    const T scale = (*this)[r][c];\n          if (scale == T(0)) continue;\n\
+    \          for (::std::size_t cc = c; cc < this->cols(); ++cc) {\n           \
+    \ (*this)[r][cc] -= (*this)[rank][cc] * scale;\n          }\n        }\n\n   \
+    \     ++rank;\n      }\n\n      return ::std::make_pair(rank, coeff);\n    }\n\
+    \n  public:\n    ::std::size_t gauss_jordan() {\n      return this->internal_gauss_jordan().first;\n\
+    \    }\n\n    ::std::size_t rank() const {\n      return (this->rows() < this->cols()\
+    \ ? this->transposed() : Mat(*this)).gauss_jordan();\n    }\n\n    ::tools::matrix<T>\
+    \ solve(const ::tools::vector<T, N>& b) const {\n      assert(this->rows() ==\
+    \ b.size());\n      assert(this->cols() >= 1);\n      auto Ab = [&]() {\n    \
+    \    if constexpr (variable_sized) {\n          return Mat(this->rows(), this->cols()\
+    \ + 1);\n        } else {\n          return ::tools::matrix<T, N, M + 1>();\n\
+    \        }\n      }();\n      for (::std::size_t r = 0; r < this->rows(); ++r)\
+    \ {\n        for (::std::size_t c = 0; c < this->cols(); ++c) {\n          Ab[r][c]\
+    \ = (*this)[r][c];\n        }\n        Ab[r][this->cols()] = b[r];\n      }\n\n\
+    \      Ab.internal_gauss_jordan();\n\n      ::std::vector<::std::size_t> ranks(Ab.cols());\n\
+    \      for (::std::size_t r = 0, cl = 0, cr = 0; r <= Ab.rows(); ++r, cl = cr)\
+    \ {\n        for (; cr < Ab.cols() && (r == Ab.rows() || Ab[r][cr] == T(0)); ++cr);\n\
+    \        for (::std::size_t c = cl; c < cr; ++c) {\n          ranks[c] = r;\n\
+    \        }\n      }\n\n      if (ranks[Ab.cols() - 2] < ranks[Ab.cols() - 1])\
+    \ {\n        return ::tools::matrix<T>(this->rows(), 0);\n      }\n\n      ::std::vector<::tools::vector<T>>\
+    \ answers(this->cols());\n      ::std::size_t free = this->cols() - ranks.back()\
+    \ - 1;\n\n      for (::std::size_t l = this->cols(), r = this->cols(); r > 0;\
+    \ r = l) {\n        for (; l > 0 && ranks[l - 1] == ranks[r - 1]; --l);\n    \
+    \    for (::std::size_t c = r - 1; c > l; --c) {\n          answers[c] = ::tools::vector<T>(this->cols()\
+    \ - ranks.back() + 1, T(0));\n          answers[c][free] = T(1);\n          --free;\n\
+    \        }\n        if (ranks[l] > 0) {\n          answers[l] = ::tools::vector<T>(this->cols()\
+    \ - ranks.back() + 1, T(0));\n          answers[l][this->cols() - ranks.back()]\
+    \ = Ab[ranks[l] - 1][Ab.cols() - 1];\n          for (::std::size_t c = l + 1;\
+    \ c < Ab.cols() - 1; ++c) {\n            answers[l] -= Ab[ranks[l] - 1][c] * answers[c];\n\
+    \          }\n        } else {\n          answers[l] = ::tools::vector<T>(this->cols()\
+    \ - ranks.back() + 1, T(0));\n          answers[l][free] = T(1);\n          --free;\n\
+    \        }\n      }\n\n      ::tools::matrix<T> answer(this->cols(), this->cols()\
+    \ - ranks.back() + 1);\n      for (::std::size_t r = 0; r < this->cols(); ++r)\
+    \ {\n        for (::std::size_t c = 0; c < this->cols() - ranks.back() + 1; ++c)\
+    \ {\n          answer[r][c] = answers[r][c];\n        }\n      }\n\n      return\
+    \ answer;\n    }\n\n    T determinant() const {\n      assert(this->rows() ==\
+    \ this->cols());\n\n      auto A = *this;\n      const auto [rank, coeff] = A.internal_gauss_jordan();\n\
+    \n      return rank == A.rows() ? T(1) / coeff : T(0);\n    }\n\n    template\
+    \ <bool SFINAE = !variable_sized && N == M, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    static Mat e() {\n      Mat result{};\n      for (::std::size_t\
+    \ i = 0; i < N; ++i) {\n        result[i][i] = T(1);\n      }\n      return result;\n\
+    \    }\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    static Mat e(const ::std::size_t n) {\n  \
+    \    Mat result(n, n, T(0));\n      for (::std::size_t i = 0; i < n; ++i) {\n\
+    \        result[i][i] = T(1);\n      }\n      return result;\n    }\n\n    template\
+    \ <bool SFINAE = variable_sized || N == M, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    ::std::optional<Mat> inv() const {\n      assert(this->rows()\
+    \ == this->cols());\n\n      auto AI = [&]() {\n        if constexpr (variable_sized)\
+    \ {\n          return Mat(this->rows(), this->cols() * 2);\n        } else {\n\
+    \          return ::tools::matrix<T, N, M * 2>();\n        }\n      }();\n   \
+    \   for (::std::size_t r = 0; r < this->rows(); ++r) {\n        for (::std::size_t\
+    \ c = 0; c < this->cols(); ++c) {\n          AI[r][c] = (*this)[r][c];\n     \
+    \   }\n        for (::std::size_t c = this->cols(); c < AI.cols(); ++c) {\n  \
+    \        AI[r][c] = T(0);\n        }\n        AI[r][this->cols() + r] = T(1);\n\
+    \      }\n\n      AI.internal_gauss_jordan();\n      for (::std::size_t i = 0;\
+    \ i < this->rows(); ++i) {\n        if (AI[i][i] != T(1)) return ::std::nullopt;\n\
+    \      }\n\n      auto B = [&]() {\n        if constexpr (variable_sized) {\n\
+    \          return Mat(this->rows(), this->cols());\n        } else {\n       \
+    \   return Mat();\n        }\n      }();\n      for (::std::size_t r = 0; r <\
+    \ this->rows(); ++r) {\n        for (::std::size_t c = 0; c < this->cols(); ++c)\
+    \ {\n          B[r][c] = AI[r][this->cols() + c];\n        }\n      }\n      return\
+    \ B;\n    }\n\n    ::tools::matrix<T, M, N> transposed() const {\n      auto A_T\
+    \ = [&]() {\n        if constexpr (variable_sized) {\n          return Mat(this->cols(),\
+    \ this->rows());\n        } else {\n          return ::tools::matrix<T, M, N>();\n\
+    \        }\n      }();\n      for (::std::size_t r = 0; r < this->rows(); ++r)\
+    \ {\n        for (::std::size_t c = 0; c < this->cols(); ++c) {\n          A_T[c][r]\
+    \ = (*this)[r][c];\n        }\n      }\n      return A_T;\n    }\n  };\n}\n\n\n\
+    #line 1 \"tools/vector3.hpp\"\n\n\n\n#line 5 \"tools/vector3.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T>\n  using vector3 = ::tools::vector<T, 3>;\n\
+    }\n\n\n#line 8 \"tests/matrix/static.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  std::array<std::array<std::string,\
+    \ 4>, 3> P;\n  for (int i = 0; i < 3; ++i) {\n    for (int r = 0; r < 4; ++r)\
+    \ {\n      std::cin >> P[i][r];\n    }\n  }\n\n  std::array<tools::matrix<int,\
+    \ 3, 3>, 4> matrix;\n  matrix[0] = tools::matrix<int, 3, 3>::e();\n  matrix[1]\
+    \ = {\n    { 0,  1,  0},\n    {-1,  0,  3},\n    { 0,  0,  1},\n  };\n  matrix[2]\
+    \ = matrix[1] * matrix[1];\n  matrix[3] = matrix[2] * matrix[1];\n\n  std::cout\
+    \ << ([&]() {\n    const int d0 = 0;\n    for (int dr0 = -3; dr0 <= 3; ++dr0)\
+    \ {\n      for (int dc0 = -3; dc0 <= 3; ++dc0) {\n        for (int d1 = 0; d1\
+    \ < 4; ++d1) {\n          for (int dr1 = -3; dr1 <= 3; ++dr1) {\n            for\
+    \ (int dc1 = -3; dc1 <= 3; ++dc1) {\n              for (int d2 = 0; d2 < 4; ++d2)\
+    \ {\n                for (int dr2 = -3; dr2 <= 3; ++dr2) {\n                 \
+    \ for (int dc2 = -3; dc2 <= 3; ++dc2) {\n                    if ([&]() {\n   \
+    \                   std::array<std::array<int, 4>, 4> grid;\n                \
+    \      for (auto& row : grid) {\n                        std::fill(row.begin(),\
+    \ row.end(), -1);\n                      }\n                      for (int r =\
+    \ 0; r < 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n  \
+    \                        if (P[0][r][c] == '#') {\n                          \
+    \  const auto v = matrix[d0] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr0,\
+    \ dc0, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 0;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (P[1][r][c] == '#') {\n                            const\
+    \ auto v = matrix[d1] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr1,\
+    \ dc1, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 1;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (P[2][r][c] == '#') {\n                            const\
+    \ auto v = matrix[d2] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr2,\
+    \ dc2, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 2;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (grid[r][c] < 0) return false;\n                        }\n\
+    \                      }\n                      return true;\n               \
+    \     }()) {\n                      return true;\n                    }\n    \
+    \              }\n                }\n              }\n            }\n        \
+    \  }\n        }\n      }\n    }\n    return false;\n  }() ? \"Yes\" : \"No\")\
+    \ << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc322/tasks/abc322_d\"\n\n\
+    #include <iostream>\n#include <array>\n#include <string>\n#include \"tools/matrix.hpp\"\
+    \n#include \"tools/vector3.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n \
+    \ std::ios_base::sync_with_stdio(false);\n\n  std::array<std::array<std::string,\
+    \ 4>, 3> P;\n  for (int i = 0; i < 3; ++i) {\n    for (int r = 0; r < 4; ++r)\
+    \ {\n      std::cin >> P[i][r];\n    }\n  }\n\n  std::array<tools::matrix<int,\
+    \ 3, 3>, 4> matrix;\n  matrix[0] = tools::matrix<int, 3, 3>::e();\n  matrix[1]\
+    \ = {\n    { 0,  1,  0},\n    {-1,  0,  3},\n    { 0,  0,  1},\n  };\n  matrix[2]\
+    \ = matrix[1] * matrix[1];\n  matrix[3] = matrix[2] * matrix[1];\n\n  std::cout\
+    \ << ([&]() {\n    const int d0 = 0;\n    for (int dr0 = -3; dr0 <= 3; ++dr0)\
+    \ {\n      for (int dc0 = -3; dc0 <= 3; ++dc0) {\n        for (int d1 = 0; d1\
+    \ < 4; ++d1) {\n          for (int dr1 = -3; dr1 <= 3; ++dr1) {\n            for\
+    \ (int dc1 = -3; dc1 <= 3; ++dc1) {\n              for (int d2 = 0; d2 < 4; ++d2)\
+    \ {\n                for (int dr2 = -3; dr2 <= 3; ++dr2) {\n                 \
+    \ for (int dc2 = -3; dc2 <= 3; ++dc2) {\n                    if ([&]() {\n   \
+    \                   std::array<std::array<int, 4>, 4> grid;\n                \
+    \      for (auto& row : grid) {\n                        std::fill(row.begin(),\
+    \ row.end(), -1);\n                      }\n                      for (int r =\
+    \ 0; r < 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n  \
+    \                        if (P[0][r][c] == '#') {\n                          \
+    \  const auto v = matrix[d0] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr0,\
+    \ dc0, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 0;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (P[1][r][c] == '#') {\n                            const\
+    \ auto v = matrix[d1] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr1,\
+    \ dc1, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 1;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (P[2][r][c] == '#') {\n                            const\
+    \ auto v = matrix[d2] * tools::vector3<int>(r, c, 1) + tools::vector3<int>(dr2,\
+    \ dc2, 0);\n                            if (!(0 <= v[0] && v[0] < 4 && 0 <= v[1]\
+    \ && v[1] < 4 && grid[v[0]][v[1]] == -1)) return false;\n                    \
+    \        grid[v[0]][v[1]] = 2;\n                          }\n                \
+    \        }\n                      }\n                      for (int r = 0; r <\
+    \ 4; ++r) {\n                        for (int c = 0; c < 4; ++c) {\n         \
+    \                 if (grid[r][c] < 0) return false;\n                        }\n\
+    \                      }\n                      return true;\n               \
+    \     }()) {\n                      return true;\n                    }\n    \
+    \              }\n                }\n              }\n            }\n        \
+    \  }\n        }\n      }\n    }\n    return false;\n  }() ? \"Yes\" : \"No\")\
+    \ << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/vector2.hpp
+  - tools/matrix.hpp
   - tools/vector.hpp
   - tools/abs.hpp
   - tools/tuple_hash.hpp
   - tools/now.hpp
   - tools/hash_combine.hpp
-  - tools/less_by.hpp
-  - tools/ccw.hpp
-  isVerificationFile: false
-  path: tools/convex_hull.hpp
+  - tools/vector3.hpp
+  isVerificationFile: true
+  path: tests/matrix/static.test.cpp
   requiredBy: []
   timestamp: '2024-03-17 00:33:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/convex_hull.test.cpp
-documentation_of: tools/convex_hull.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/matrix/static.test.cpp
 layout: document
-title: Convex hull
+redirect_from:
+- /verify/tests/matrix/static.test.cpp
+- /verify/tests/matrix/static.test.cpp.html
+title: tests/matrix/static.test.cpp
 ---
-
-```cpp
-template <typename InputIterator, typename OutputIterator>
-void convex_hull(InputIterator begin, InputIterator end, bool minimum, OutputIterator result);
-```
-
-It stores the indices of vertices or the vertices themselves which are on the edge of the convex hull of a given polygon to `result`.
-If `minimum` is `true`, only the minimal vertices required for the convex hull will be stored.
-On the other hand, if `minimum` is `false`, all the vertices on the edge of the convex hull will be stored.
-
-The vertices will be stored counterclockwisely.
-The first sroted vertex will be the leftmost vertex.
-If the number of the leftmost vertices is more than one, the first stored vertex will be the lowermost vertex in them.
-
-## Constraints
-- `begin` $\leq$ `end`
-- The type of `*begin` is `tools::vector2<T>`.
-- Either `std::size_t` or `tools::vector2<T>` is assignable to `*result`.
-
-## Time Complexity
-- $O(n \log n)$ where $n$ is `end` - `begin`
-
-## License
-- CC0
-
-## Author
-- anqooqie

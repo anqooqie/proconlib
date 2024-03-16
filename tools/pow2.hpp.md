@@ -11,10 +11,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -72,7 +72,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -333,7 +333,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -357,9 +357,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -380,126 +380,126 @@ data:
   isVerificationFile: false
   path: tools/pow2.hpp
   requiredBy:
-  - tools/bernoulli.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/polynomial.hpp
-  - tools/tsp.hpp
-  - tools/persistent_dual_segtree.hpp
-  - tools/prime_factorization.hpp
-  - tools/rational.hpp
-  - tools/divisors.hpp
-  - tools/stirling_2nd.hpp
-  - tools/partition_function.hpp
   - tools/zero_one_knapsack.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/convolution.hpp
-  - tools/primitive_root.hpp
-  - tools/binary_heap.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/bostan_mori.hpp
-  - tools/bigint.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/lca.hpp
   - tools/dual_segtree.hpp
-  - tools/tetration_mod.hpp
-  - tools/extended_lucas.hpp
-  - tools/fps.hpp
-  - tools/tsort.hpp
   - tools/hld.hpp
-  - tools/stirling_1st.hpp
-  - tools/polynomial_interpolation.hpp
+  - tools/extended_lucas.hpp
+  - tools/bigint.hpp
+  - tools/partition_function.hpp
+  - tools/rational.hpp
+  - tools/lca.hpp
+  - tools/bernoulli.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/berlekamp_massey.hpp
-  - tools/and_convolution.hpp
-  - tools/totient.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/bigdecimal.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/primitive_root.hpp
+  - tools/bostan_mori.hpp
+  - tools/prime_factorization.hpp
+  - tools/fps.hpp
+  - tools/tsp.hpp
+  - tools/tetration_mod.hpp
+  - tools/stirling_1st.hpp
+  - tools/tsort.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/binary_heap.hpp
+  - tools/totient.hpp
+  - tools/persistent_dual_segtree.hpp
+  - tools/convolution.hpp
+  - tools/stirling_2nd.hpp
+  - tools/and_convolution.hpp
+  - tools/divisors.hpp
+  - tools/polynomial.hpp
+  - tools/disjoint_sparse_table_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/tsort/query.test.cpp
-  - tests/tsort/count.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/binary_heap.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/undoable_dsu.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/dual_segtree.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/stirling_1st.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/hld/vancestor.test.cpp
-  - tests/hld/epath.test.cpp
-  - tests/hld/lca.test.cpp
-  - tests/hld/vpath.test.cpp
-  - tests/hld/vsubtree.test.cpp
-  - tests/tsp.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/integer_interval_set.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/and_convolution.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/divisors.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/bigint/divides.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/modulus.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/and_convolution.test.cpp
-  - tests/lca.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/totient.test.cpp
-  - tests/ssize.test.cpp
-  - tests/divisors.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/berlekamp_massey.test.cpp
   - tests/disjoint_sparse_table.test.cpp
-  - tests/logn_integer_partition.test.cpp
-  - tests/fastio/string.test.cpp
   - tests/bernoulli.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
+  - tests/lca.test.cpp
+  - tests/hld/vancestor.test.cpp
+  - tests/hld/lca.test.cpp
+  - tests/hld/epath.test.cpp
+  - tests/hld/vpath.test.cpp
+  - tests/hld/vsubtree.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/tsp.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/dual_segtree.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/totient.test.cpp
+  - tests/logn_integer_partition.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/integer_interval_set.test.cpp
+  - tests/ssize.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/undoable_dsu.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/tsort/count.test.cpp
+  - tests/tsort/query.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$

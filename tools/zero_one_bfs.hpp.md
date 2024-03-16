@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   _extendedRequiredBy: []
@@ -102,8 +102,8 @@ data:
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/zero_one_bfs/directed.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
 documentation_of: tools/zero_one_bfs.hpp
 layout: document
 title: 01-BFS

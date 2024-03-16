@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
@@ -57,10 +57,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
   - icon: ':heavy_check_mark:'
@@ -69,7 +69,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
@@ -86,7 +86,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -195,7 +195,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
@@ -219,16 +219,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
   - icon: ':heavy_check_mark:'
@@ -252,15 +252,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include\
@@ -303,93 +303,93 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
-  - tools/bernoulli.hpp
+  - tools/rolling_hash.hpp
+  - tools/line_2d.hpp
   - tools/floor_kth_root.hpp
-  - tools/polynomial.hpp
-  - tools/half_line_2d.hpp
-  - tools/detail/geometry_2d.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/stirling_2nd.hpp
   - tools/partition_function.hpp
-  - tools/convolution.hpp
-  - tools/ceil_kth_root.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/bostan_mori.hpp
+  - tools/bernoulli.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/pow.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/bostan_mori.hpp
+  - tools/fps.hpp
   - tools/polygon_2d.hpp
   - tools/tetration_mod.hpp
-  - tools/circle_2d.hpp
-  - tools/line_2d.hpp
-  - tools/fps.hpp
-  - tools/pow.hpp
-  - tools/quaternion.hpp
   - tools/stirling_1st.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/berlekamp_massey.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/detail/geometry_2d.hpp
   - tools/square.hpp
-  - tools/triangle_2d.hpp
-  - tools/rolling_hash.hpp
+  - tools/ceil_kth_root.hpp
   - tools/totient.hpp
+  - tools/convolution.hpp
+  - tools/stirling_2nd.hpp
+  - tools/triangle_2d.hpp
+  - tools/half_line_2d.hpp
+  - tools/polynomial.hpp
+  - tools/quaternion.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/circle_2d.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/bostan_mori.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/partition_function/n.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
-  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/berlekamp_massey.test.cpp
   - tests/has_mod.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/stirling_1st.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/totient.test.cpp
-  - tests/floor_kth_root.test.cpp
-  - tests/permutation.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/stirling_1st.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/circle_2d/where/with_radius.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/permutation.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/totient.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

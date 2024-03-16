@@ -55,13 +55,13 @@ data:
   isVerificationFile: false
   path: tools/compress.hpp
   requiredBy:
-  - tools/range_count_distinct.hpp
   - tools/inversion_number.hpp
+  - tools/range_count_distinct.hpp
   timestamp: '2023-06-28 13:29:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/inversion_number.test.cpp
   - tests/range_count_distinct.test.cpp
+  - tests/inversion_number.test.cpp
 documentation_of: tools/compress.hpp
 layout: document
 title: Compress values

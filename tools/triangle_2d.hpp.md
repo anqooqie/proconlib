@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/triangle_2d.hpp\"\n\n\n\n#line 1 \"tools/detail/geometry_2d.hpp\"\
@@ -96,7 +96,7 @@ data:
     \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
     \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
     \  }\n}\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#line 1 \"tools/vector.hpp\"\
-    \n\n\n\n#line 9 \"tools/vector.hpp\"\n#include <iterator>\n#line 14 \"tools/vector.hpp\"\
+    \n\n\n\n#line 11 \"tools/vector.hpp\"\n#include <iterator>\n#line 15 \"tools/vector.hpp\"\
     \n#include <iostream>\n#include <string>\n#include <functional>\n#line 1 \"tools/tuple_hash.hpp\"\
     \n\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools\
     \ {\n  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
@@ -128,50 +128,79 @@ data:
     \ {\n        static const ::std::size_t seed = ::tools::now();\n        return\
     \ seed;\n      } else {\n        ::std::size_t seed = this->operator()<I - 1>(key);\n\
     \        ::tools::hash_combine(seed, ::std::get<I>(key));\n        return seed;\n\
-    \      }\n    }\n  };\n}\n\n\n#line 20 \"tools/vector.hpp\"\n\nnamespace tools\
+    \      }\n    }\n  };\n}\n\n\n#line 21 \"tools/vector.hpp\"\n\nnamespace tools\
     \ {\n  namespace detail {\n    namespace vector {\n      template <typename T,\
     \ ::std::size_t N>\n      class members {\n      protected:\n        constexpr\
-    \ static bool specialized = false;\n      };\n      template <typename T>\n  \
-    \    class members<T, 2> {\n      protected:\n        constexpr static bool specialized\
-    \ = true;\n      public:\n        T x;\n        T y;\n      };\n      template\
-    \ <typename T>\n      class members<T, 3> : public members<T, 2> {\n      public:\n\
-    \        T z;\n      };\n      template <typename T>\n      class members<T, 4>\
-    \ : public members<T, 3> {\n      public:\n        T w;\n      };\n    }\n  }\n\
-    \n  template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max()>\n\
-    \  class vector : public ::tools::detail::vector::members<T, N> {\n  private:\n\
-    \    constexpr static bool STATIC = N != ::std::numeric_limits<::std::size_t>::max();\n\
-    \    constexpr static bool specialized = ::tools::detail::vector::members<T, N>::specialized;\n\
-    \    ::std::conditional_t<STATIC, ::std::array<::std::conditional_t<specialized,\
-    \ T*, T>, N>, ::std::vector<T>> m_values;\n    using F = ::std::conditional_t<::std::is_floating_point_v<T>,\
-    \ T, double>;\n    using V = ::tools::vector<T, N>;\n\n  public:\n    using reference\
-    \ = T&;\n    using const_reference = const T&;\n    using size_type = ::std::size_t;\n\
-    \    using difference_type = ::std::ptrdiff_t;\n    using pointer = T*;\n    using\
-    \ const_pointer = const T*;\n    using value_type = T;\n    class iterator {\n\
-    \    private:\n      V* m_parent;\n      size_type m_i;\n\n    public:\n     \
-    \ using difference_type = ::std::ptrdiff_t;\n      using value_type = T;\n   \
-    \   using reference = T&;\n      using pointer = T*;\n      using iterator_category\
-    \ = ::std::random_access_iterator_tag;\n\n      iterator() = default;\n      iterator(const\
-    \ iterator&) = default;\n      iterator(iterator&&) = default;\n      ~iterator()\
-    \ = default;\n      iterator& operator=(const iterator&) = default;\n      iterator&\
-    \ operator=(iterator&&) = default;\n\n      iterator(V * const parent, const size_type\
-    \ i) : m_parent(parent), m_i(i) {}\n\n      reference operator*() const {\n  \
-    \      return (*this->m_parent)[this->m_i];\n      }\n      pointer operator->()\
-    \ const {\n        return &(*(*this));\n      }\n\n      iterator& operator++()\
-    \ {\n        ++this->m_i;\n        return *this;\n      }\n      iterator operator++(int)\
-    \ {\n        const auto self = *this;\n        ++*this;\n        return self;\n\
-    \      }\n      iterator& operator--() {\n        --this->m_i;\n        return\
-    \ *this;\n      }\n      iterator operator--(int) {\n        const auto self =\
-    \ *this;\n        --*this;\n        return self;\n      }\n      iterator& operator+=(const\
-    \ difference_type n) {\n        this->m_i += n;\n        return *this;\n     \
-    \ }\n      iterator& operator-=(const difference_type n) {\n        this->m_i\
-    \ -= n;\n        return *this;\n      }\n      friend iterator operator+(const\
-    \ iterator& self, const difference_type n) {\n        return iterator(self) +=\
-    \ n;\n      }\n      friend iterator operator+(const difference_type n, const\
-    \ iterator& self) {\n        return iterator(self) += n;\n      }\n      friend\
-    \ iterator operator-(const iterator& self, const difference_type n) {\n      \
-    \  return iterator(self) -= n;\n      }\n      friend difference_type operator-(const\
-    \ iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
-    \        return static_cast<difference_type>(lhs.m_i) - static_cast<difference_type>(rhs.m_i);\n\
+    \ static bool variable_sized = false;\n        constexpr static bool has_aliases\
+    \ = false;\n        ::std::array<T, N> m_values;\n        members() : m_values()\
+    \ {}\n        members(const ::std::initializer_list<T> il) : m_values(il) {\n\
+    \          assert(il.size() == N);\n        }\n      };\n\n      template <typename\
+    \ T>\n      class members<T, 2> {\n      protected:\n        constexpr static\
+    \ bool variable_sized = false;\n        constexpr static bool has_aliases = true;\n\
+    \        ::std::array<T*, 2> m_values;\n        members() : m_values{&this->x,\
+    \ &this->y} {}\n        members(const T& x, const T& y) : m_values{&this->x, &this->y},\
+    \ x(x), y(y) {}\n        members(const ::std::initializer_list<T> il) : m_values{&this->x,\
+    \ &this->y}, x(il.begin()[0]), y(il.begin()[1]) {\n          assert(il.size()\
+    \ == 2);\n        }\n\n      public:\n        T x;\n        T y;\n      };\n\n\
+    \      template <typename T>\n      class members<T, 3> {\n      protected:\n\
+    \        constexpr static bool variable_sized = false;\n        constexpr static\
+    \ bool has_aliases = true;\n        ::std::array<T*, 3> m_values;\n        members()\
+    \ : m_values{&this->x, &this->y, &this->z} {}\n        members(const T& x, const\
+    \ T& y, const T& z) : m_values{&this->x, &this->y, &this->z}, x(x), y(y), z(z)\
+    \ {}\n        members(const ::std::initializer_list<T> il) : m_values{&this->x,\
+    \ &this->y, &this->z}, x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]) {\n\
+    \          assert(il.size() == 3);\n        }\n\n      public:\n        T x;\n\
+    \        T y;\n        T z;\n      };\n\n      template <typename T>\n      class\
+    \ members<T, 4> {\n      protected:\n        constexpr static bool variable_sized\
+    \ = false;\n        constexpr static bool has_aliases = true;\n        ::std::array<T*,\
+    \ 4> m_values;\n        members() : m_values{&this->x, &this->y, &this->z, &this->w}\
+    \ {}\n        members(const T& x, const T& y, const T& z, const T& w) : m_values{&this->x,\
+    \ &this->y, &this->z, &this->w}, x(x), y(y), z(z), w(w) {}\n        members(const\
+    \ ::std::initializer_list<T> il) : m_values{&this->x, &this->y, &this->z, &this->w},\
+    \ x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]), w(il.begin()[3]) {\n \
+    \         assert(il.size() == 4);\n        }\n\n      public:\n        T x;\n\
+    \        T y;\n        T z;\n        T w;\n      };\n\n      template <typename\
+    \ T>\n      class members<T, ::std::numeric_limits<::std::size_t>::max()> {\n\
+    \      protected:\n        constexpr static bool variable_sized = true;\n    \
+    \    constexpr static bool has_aliases = false;\n        ::std::vector<T> m_values;\n\
+    \        members() = default;\n        members(const ::std::size_t n) : m_values(n)\
+    \ {}\n        members(const ::std::size_t n, const T& value) : m_values(n, value)\
+    \ {}\n        template <typename InputIter>\n        members(const InputIter first,\
+    \ const InputIter last) : m_values(first, last) {}\n        members(const ::std::initializer_list<T>\
+    \ il) : m_values(il) {}\n      };\n    }\n  }\n\n  template <typename T, ::std::size_t\
+    \ N = ::std::numeric_limits<::std::size_t>::max()>\n  class vector : public ::tools::detail::vector::members<T,\
+    \ N> {\n  private:\n    using Base = ::tools::detail::vector::members<T, N>;\n\
+    \    using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;\n\
+    \    using V = ::tools::vector<T, N>;\n    constexpr static bool variable_sized\
+    \ = Base::variable_sized;\n    constexpr static bool has_aliases = Base::has_aliases;\n\
+    \n  public:\n    using reference = T&;\n    using const_reference = const T&;\n\
+    \    using size_type = ::std::size_t;\n    using difference_type = ::std::ptrdiff_t;\n\
+    \    using pointer = T*;\n    using const_pointer = const T*;\n    using value_type\
+    \ = T;\n    class iterator {\n    private:\n      V* m_parent;\n      size_type\
+    \ m_i;\n\n    public:\n      using difference_type = ::std::ptrdiff_t;\n     \
+    \ using value_type = T;\n      using reference = T&;\n      using pointer = T*;\n\
+    \      using iterator_category = ::std::random_access_iterator_tag;\n\n      iterator()\
+    \ = default;\n      iterator(const iterator&) = default;\n      iterator(iterator&&)\
+    \ = default;\n      ~iterator() = default;\n      iterator& operator=(const iterator&)\
+    \ = default;\n      iterator& operator=(iterator&&) = default;\n\n      iterator(V\
+    \ * const parent, const size_type i) : m_parent(parent), m_i(i) {}\n\n      reference\
+    \ operator*() const {\n        return (*this->m_parent)[this->m_i];\n      }\n\
+    \      pointer operator->() const {\n        return &(*(*this));\n      }\n\n\
+    \      iterator& operator++() {\n        ++this->m_i;\n        return *this;\n\
+    \      }\n      iterator operator++(int) {\n        const auto self = *this;\n\
+    \        ++*this;\n        return self;\n      }\n      iterator& operator--()\
+    \ {\n        --this->m_i;\n        return *this;\n      }\n      iterator operator--(int)\
+    \ {\n        const auto self = *this;\n        --*this;\n        return self;\n\
+    \      }\n      iterator& operator+=(const difference_type n) {\n        this->m_i\
+    \ += n;\n        return *this;\n      }\n      iterator& operator-=(const difference_type\
+    \ n) {\n        this->m_i -= n;\n        return *this;\n      }\n      friend\
+    \ iterator operator+(const iterator& self, const difference_type n) {\n      \
+    \  return iterator(self) += n;\n      }\n      friend iterator operator+(const\
+    \ difference_type n, const iterator& self) {\n        return iterator(self) +=\
+    \ n;\n      }\n      friend iterator operator-(const iterator& self, const difference_type\
+    \ n) {\n        return iterator(self) -= n;\n      }\n      friend difference_type\
+    \ operator-(const iterator& lhs, const iterator& rhs) {\n        assert(lhs.m_parent\
+    \ == rhs.m_parent);\n        return static_cast<difference_type>(lhs.m_i) - static_cast<difference_type>(rhs.m_i);\n\
     \      }\n      reference operator[](const difference_type n) const {\n      \
     \  return *(*this + n);\n      }\n\n      friend bool operator==(const iterator&\
     \ lhs, const iterator& rhs) {\n        assert(lhs.m_parent == rhs.m_parent);\n\
@@ -229,72 +258,61 @@ data:
     \ const_iterator& lhs, const const_iterator& rhs) {\n        assert(lhs.m_parent\
     \ == rhs.m_parent);\n        return lhs.m_i >= rhs.m_i;\n      }\n    };\n   \
     \ using reverse_iterator = ::std::reverse_iterator<iterator>;\n    using const_reverse_iterator\
-    \ = ::std::reverse_iterator<const_iterator>;\n\n  private:\n    void init() {\n\
-    \      if constexpr (STATIC && specialized) {\n        this->m_values[0] = &this->x;\n\
-    \        this->m_values[1] = &this->y;\n        if constexpr (N > 2) {\n     \
-    \     this->m_values[2] = &this->z;\n        }\n        if constexpr (N > 3) {\n\
-    \          this->m_values[3] = &this->w;\n        }\n      }\n    }\n\n  public:\n\
-    \    vector() {\n      init();\n    }\n    vector(const V& other) {\n      init();\n\
-    \      if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
+    \ = ::std::reverse_iterator<const_iterator>;\n\n    vector() = default;\n    vector(const\
+    \ V& other) {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
     \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
-    \      }\n    }\n    vector(V&& other) noexcept {\n      init();\n      if constexpr\
-    \ (STATIC && specialized) {\n        ::std::copy(other.begin(), other.end(), this->begin());\n\
-    \      } else {\n        this->m_values = ::std::move(other.m_values);\n     \
-    \ }\n    }\n    ~vector() = default;\n    V& operator=(const V& other) {\n   \
-    \   if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
-    \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
-    \      }\n      return *this;\n    }\n    V& operator=(V&& other) noexcept {\n\
-    \      if constexpr (STATIC && specialized) {\n        ::std::copy(other.begin(),\
-    \ other.end(), this->begin());\n      } else {\n        this->m_values = ::std::move(other.m_values);\n\
-    \      }\n      return *this;\n    }\n\n    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE,\
-    \ ::std::nullptr_t> = nullptr>\n    explicit vector(size_type n) : m_values(n)\
-    \ {\n    }\n    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
-    \ = nullptr>\n    vector(size_type n, const_reference value) : m_values(n, value)\
-    \ {\n    }\n    template <typename InputIter, bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE,\
+    \      }\n    }\n    vector(V&& other) noexcept {\n      if constexpr (has_aliases)\
+    \ {\n        ::std::copy(other.begin(), other.end(), this->begin());\n      }\
+    \ else {\n        this->m_values = ::std::move(other.m_values);\n      }\n   \
+    \ }\n    ~vector() = default;\n    V& operator=(const V& other) {\n      if constexpr\
+    \ (has_aliases) {\n        ::std::copy(other.begin(), other.end(), this->begin());\n\
+    \      } else {\n        this->m_values = other.m_values;\n      }\n      return\
+    \ *this;\n    }\n    V& operator=(V&& other) noexcept {\n      if constexpr (has_aliases)\
+    \ {\n        ::std::copy(other.begin(), other.end(), this->begin());\n      }\
+    \ else {\n        this->m_values = ::std::move(other.m_values);\n      }\n   \
+    \   return *this;\n    }\n\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit vector(size_type n) : Base(n) {}\n\
+    \    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    vector(size_type n, const_reference value) : Base(n, value)\
+    \ {}\n    template <typename InputIter, bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
     \ ::std::nullptr_t> = nullptr>\n    vector(const InputIter first, const InputIter\
-    \ last) : m_values(first, last) {\n    }\n    template <bool SFINAE = N == 2,\
-    \ ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n    vector(const T&\
-    \ x, const T& y) {\n      init();\n      this->x = x;\n      this->y = y;\n  \
-    \  }\n    template <bool SFINAE = N == 3, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
-    \ = nullptr>\n    vector(const T& x, const T& y, const T& z) {\n      init();\n\
-    \      this->x = x;\n      this->y = y;\n      this->z = z;\n    }\n    template\
-    \ <bool SFINAE = N == 4, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n\
-    \    vector(const T& x, const T& y, const T& z, const T& w) {\n      init();\n\
-    \      this->x = x;\n      this->y = y;\n      this->z = z;\n      this->w = w;\n\
-    \    }\n    vector(const ::std::initializer_list<T> il) {\n      init();\n   \
-    \   if constexpr (STATIC) {\n        assert(il.size() == N);\n        ::std::copy(il.begin(),\
-    \ il.end(), this->begin());\n      } else {\n        this->m_values.reserve(il.size());\n\
-    \        ::std::copy(il.begin(), il.end(), ::std::back_inserter(this->m_values));\n\
-    \      }\n    }\n\n    iterator begin() noexcept { return iterator(this, 0); }\n\
-    \    const_iterator begin() const noexcept { return const_iterator(this, 0); }\n\
-    \    const_iterator cbegin() const noexcept { return const_iterator(this, 0);\
-    \ }\n    iterator end() noexcept { return iterator(this, this->size()); }\n  \
-    \  const_iterator end() const noexcept { return const_iterator(this, this->size());\
-    \ }\n    const_iterator cend() const noexcept { return const_iterator(this, this->size());\
-    \ }\n    reverse_iterator rbegin() noexcept { return ::std::make_reverse_iterator(this->end());\
-    \ }\n    const_reverse_iterator rbegin() const noexcept { return ::std::make_reverse_iterator(this->end());\
+    \ last) : Base(first, last) {}\n    template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    vector(const T& x, const T& y) : Base(x, y)\
+    \ {}\n    template <bool SFINAE = N == 3, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    vector(const T& x, const T& y, const T& z) : Base(x, y, z) {}\n\
+    \    template <bool SFINAE = N == 4, ::std::enable_if_t<SFINAE, ::std::nullptr_t>\
+    \ = nullptr>\n    vector(const T& x, const T& y, const T& z, const T& w) : Base(x,\
+    \ y, z, w) {}\n    vector(const ::std::initializer_list<T> il) : Base(il) {}\n\
+    \n    iterator begin() noexcept { return iterator(this, 0); }\n    const_iterator\
+    \ begin() const noexcept { return const_iterator(this, 0); }\n    const_iterator\
+    \ cbegin() const noexcept { return const_iterator(this, 0); }\n    iterator end()\
+    \ noexcept { return iterator(this, this->size()); }\n    const_iterator end()\
+    \ const noexcept { return const_iterator(this, this->size()); }\n    const_iterator\
+    \ cend() const noexcept { return const_iterator(this, this->size()); }\n    reverse_iterator\
+    \ rbegin() noexcept { return ::std::make_reverse_iterator(this->end()); }\n  \
+    \  const_reverse_iterator rbegin() const noexcept { return ::std::make_reverse_iterator(this->end());\
     \ }\n    const_reverse_iterator crbegin() const noexcept { return ::std::make_reverse_iterator(this->cend());\
     \ }\n    reverse_iterator rend() noexcept { return ::std::make_reverse_iterator(this->begin());\
     \ }\n    const_reverse_iterator rend() const noexcept { return ::std::make_reverse_iterator(this->begin());\
     \ }\n    const_reverse_iterator crend() const noexcept { return ::std::make_reverse_iterator(this->cbegin());\
     \ }\n\n    size_type size() const noexcept { return this->m_values.size(); }\n\
     \    bool empty() const noexcept { return this->m_values.empty(); }\n\n    reference\
-    \ operator[](const size_type n) {\n      if constexpr (STATIC && specialized)\
-    \ {\n        return *this->m_values[n];\n      } else {\n        return this->m_values[n];\n\
+    \ operator[](const size_type n) {\n      if constexpr (has_aliases) {\n      \
+    \  return *this->m_values[n];\n      } else {\n        return this->m_values[n];\n\
     \      }\n    }\n    const_reference operator[](const size_type n) const {\n \
-    \     if constexpr (STATIC && specialized) {\n        return *this->m_values[n];\n\
-    \      } else {\n        return this->m_values[n];\n      }\n    }\n    reference\
-    \ front() { return *this->begin(); }\n    const_reference front() const { return\
-    \ *this->begin(); }\n    reference back() { return *this->rbegin(); }\n    const_reference\
-    \ back() const { return *this->rbegin(); }\n\n    V operator+() const {\n    \
-    \  return *this;\n    }\n    V operator-() const {\n      V res = *this;\n   \
-    \   for (auto& v : res) v = -v;\n      return res;\n    }\n    V& operator+=(const\
-    \ V& other) {\n      assert(this->size() == other.size());\n      for (::std::size_t\
-    \ i = 0; i < this->size(); ++i) {\n        (*this)[i] += other[i];\n      }\n\
-    \      return *this;\n    }\n    friend V operator+(const V& lhs, const V& rhs)\
-    \ {\n      return V(lhs) += rhs;\n    }\n    V& operator-=(const V& other) {\n\
-    \      assert(this->size() == other.size());\n      for (::std::size_t i = 0;\
-    \ i < this->size(); ++i) {\n        (*this)[i] -= other[i];\n      }\n      return\
+    \     if constexpr (has_aliases) {\n        return *this->m_values[n];\n     \
+    \ } else {\n        return this->m_values[n];\n      }\n    }\n    reference front()\
+    \ { return *this->begin(); }\n    const_reference front() const { return *this->begin();\
+    \ }\n    reference back() { return *this->rbegin(); }\n    const_reference back()\
+    \ const { return *this->rbegin(); }\n\n    V operator+() const {\n      return\
+    \ *this;\n    }\n    V operator-() const {\n      V res = *this;\n      for (auto&\
+    \ v : res) v = -v;\n      return res;\n    }\n    V& operator+=(const V& other)\
+    \ {\n      assert(this->size() == other.size());\n      for (::std::size_t i =\
+    \ 0; i < this->size(); ++i) {\n        (*this)[i] += other[i];\n      }\n    \
+    \  return *this;\n    }\n    friend V operator+(const V& lhs, const V& rhs) {\n\
+    \      return V(lhs) += rhs;\n    }\n    V& operator-=(const V& other) {\n   \
+    \   assert(this->size() == other.size());\n      for (::std::size_t i = 0; i <\
+    \ this->size(); ++i) {\n        (*this)[i] -= other[i];\n      }\n      return\
     \ *this;\n    }\n    friend V operator-(const V& lhs, const V& rhs) {\n      return\
     \ V(lhs) -= rhs;\n    }\n    V& operator*=(const T& c) {\n      for (auto& v :\
     \ *this) v *= c;\n      return *this;\n    }\n    friend V operator*(const T&\
@@ -1056,11 +1074,11 @@ data:
   isVerificationFile: false
   path: tools/triangle_2d.hpp
   requiredBy: []
-  timestamp: '2024-03-02 22:50:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-17 00:33:31+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
   - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
 documentation_of: tools/triangle_2d.hpp
 layout: document
 title: Two-dimensional triangle
