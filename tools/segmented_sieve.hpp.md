@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'

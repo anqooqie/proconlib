@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: std::abs(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -228,7 +228,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -240,7 +240,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/hash_combine.hpp
       title: Combine hash values
     - icon: ':heavy_check_mark:'
@@ -328,7 +328,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
@@ -364,7 +364,7 @@ data:
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
@@ -510,7 +510,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -545,7 +545,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -567,10 +567,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: Vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: Two dimensional vector
     - icon: ':heavy_check_mark:'
@@ -582,7 +582,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/wavelet_matrix.hpp
       title: Wavelet matrix
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
     - icon: ':heavy_check_mark:'
@@ -1273,7 +1273,7 @@ data:
       title: tests/wavelet_matrix/range_prod.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/maximize.test.cpp
       title: tests/weighted_bipartite_matching/maximize.test.cpp
     - icon: ':heavy_check_mark:'

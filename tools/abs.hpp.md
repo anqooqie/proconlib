@@ -167,10 +167,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   - icon: ':heavy_check_mark:'
@@ -465,12 +465,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/uint128_t.test.cpp
     title: tests/uint128_t.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
@@ -555,7 +555,7 @@ data:
   - tools/fact_mod_cache.hpp
   - tools/circle_2d.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp
