@@ -19,7 +19,7 @@ data:
   - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/vector3.hpp
     title: Three dimensional vector
   _extendedRequiredBy: []
