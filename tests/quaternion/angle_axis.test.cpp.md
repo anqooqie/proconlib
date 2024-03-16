@@ -397,44 +397,41 @@ data:
     \ log(const ::tools::quaternion<T>& q);\n  template <typename T>\n  ::tools::quaternion<T>\
     \ pow(const ::tools::quaternion<T>& base, T exponent);\n\n  template <typename\
     \ T>\n  class quaternion {\n    static_assert(::std::is_floating_point_v<T>);\n\
-    \n  private:\n    ::tools::vector4<T> m_vector;\n    static constexpr T eps =\
-    \ 1e-5;\n    static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;\n\
-    \n  public:\n    quaternion() = default;\n    quaternion(const ::tools::quaternion<T>&)\
-    \ = default;\n    quaternion(::tools::quaternion<T>&&) = default;\n    ~quaternion()\
-    \ = default;\n    ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&)\
-    \ = default;\n    ::tools::quaternion<T>& operator=(::tools::quaternion<T>&&)\
-    \ = default;\n\n    quaternion(const T x, const T y, const T z, const T w) : m_vector(x,\
-    \ y, z, w) {}\n\n    T x() const {\n      return this->m_vector.x;\n    }\n  \
-    \  void x(const T val) {\n      return this->m_vector.x = val;\n    }\n    T y()\
-    \ const {\n      return this->m_vector.y;\n    }\n    void y(const T val) {\n\
-    \      return this->m_vector.y = val;\n    }\n    T z() const {\n      return\
-    \ this->m_vector.z;\n    }\n    void z(const T val) {\n      return this->m_vector.z\
-    \ = val;\n    }\n    T w() const {\n      return this->m_vector.w;\n    }\n  \
-    \  void w(const T val) {\n      return this->m_vector.w = val;\n    }\n\n    T\
-    \ real() const {\n      return this->w();\n    }\n    void real(const T val) {\n\
-    \      this->w(val);\n    }\n    ::tools::vector3<T> imag() const {\n      return\
-    \ ::tools::vector3<T>(this->x(), this->y(), this->z());\n    }\n    void imag(const\
-    \ ::tools::vector3<T>& val) {\n      this->x(val.x);\n      this->y(val.y);\n\
-    \      this->z(val.z);\n    }\n\n    T abs() const {\n      return this->m_vector.l2_norm();\n\
-    \    }\n    T norm() const {\n      return this->m_vector.squared_l2_norm();\n\
-    \    }\n    ::tools::quaternion<T> conj() const {\n      return ::tools::quaternion<T>(-this->x(),\
-    \ -this->y(), -this->z(), this->w());\n    }\n\n    T angle() const {\n      assert(::std::abs(this->norm()\
-    \ - 1) <= eps);\n      return ::std::acos(::std::clamp<T>(this->real(), -1, 1))\
-    \ * 2;\n    }\n    ::tools::vector3<T> axis() const {\n      assert(::std::abs(this->norm()\
+    \n  private:\n    static constexpr T eps = 1e-5;\n    static constexpr T pi =\
+    \ 3.14159265358979323846264338327950288419716939937510L;\n\n  public:\n    T x;\n\
+    \    T y;\n    T z;\n    T w;\n\n    quaternion() = default;\n    quaternion(const\
+    \ ::tools::quaternion<T>&) = default;\n    quaternion(::tools::quaternion<T>&&)\
+    \ = default;\n    ~quaternion() = default;\n    ::tools::quaternion<T>& operator=(const\
+    \ ::tools::quaternion<T>&) = default;\n    ::tools::quaternion<T>& operator=(::tools::quaternion<T>&&)\
+    \ = default;\n\n    quaternion(const T x, const T y, const T z, const T w) : x(x),\
+    \ y(y), z(z), w(w) {}\n\n    T real() const {\n      return this->w;\n    }\n\
+    \    void real(const T val) {\n      this->w = val;\n    }\n    ::tools::vector3<T>\
+    \ imag() const {\n      return ::tools::vector3<T>(this->x, this->y, this->z);\n\
+    \    }\n    void imag(const ::tools::vector3<T>& val) {\n      this->x = val.x;\n\
+    \      this->y = val.y;\n      this->z = val.z;\n    }\n\n    T abs() const {\n\
+    \      return ::tools::vector4<T>(this->x, this->y, this->z, this->w).l2_norm();\n\
+    \    }\n    T norm() const {\n      return ::tools::vector4<T>(this->x, this->y,\
+    \ this->z, this->w).squared_l2_norm();\n    }\n    ::tools::quaternion<T> conj()\
+    \ const {\n      return ::tools::quaternion<T>(-this->x, -this->y, -this->z, this->w);\n\
+    \    }\n\n    T angle() const {\n      assert(::std::abs(this->norm() - 1) <=\
+    \ eps);\n      return ::std::acos(::std::clamp<T>(this->real(), -1, 1)) * 2;\n\
+    \    }\n    ::tools::vector3<T> axis() const {\n      assert(::std::abs(this->norm()\
     \ - 1) <= eps);\n      return ::std::abs(this->real()) >= 1.0 ? ::tools::vector3<T>(1,\
     \ 0, 0) : this->imag().normalized();\n    }\n\n    ::tools::quaternion<T> operator+()\
     \ const {\n      return *this;\n    }\n    ::tools::quaternion<T> operator-()\
-    \ const {\n      return ::tools::quaternion<T>(-this->x(), -this->y(), -this->z(),\
-    \ -this->w());\n    }\n\n    ::tools::quaternion<T>& operator+=(const ::tools::quaternion<T>&\
-    \ other) {\n      this->m_vector += other.m_vector;\n      return *this;\n   \
-    \ }\n    friend ::tools::quaternion<T> operator+(const ::tools::quaternion<T>&\
-    \ lhs, const ::tools::quaternion<T>& rhs) {\n      return ::tools::quaternion<T>(lhs)\
-    \ += rhs;\n    }\n\n    ::tools::quaternion<T>& operator-=(const ::tools::quaternion<T>&\
-    \ other) {\n      this->m_vector -= other.m_vector;\n      return *this;\n   \
-    \ }\n    friend ::tools::quaternion<T> operator-(const ::tools::quaternion<T>&\
-    \ lhs, const ::tools::quaternion<T>& rhs) {\n      return ::tools::quaternion<T>(lhs)\
-    \ -= rhs;\n    }\n\n    ::tools::quaternion<T>& operator*=(const T c) {\n    \
-    \  this->m_vector *= c;\n      return *this;\n    }\n    friend ::tools::quaternion<T>\
+    \ const {\n      return ::tools::quaternion<T>(-this->x, -this->y, -this->z, -this->w);\n\
+    \    }\n\n    ::tools::quaternion<T>& operator+=(const ::tools::quaternion<T>&\
+    \ other) {\n      this->x += other.x;\n      this->y += other.y;\n      this->z\
+    \ += other.z;\n      this->w += other.w;\n      return *this;\n    }\n    friend\
+    \ ::tools::quaternion<T> operator+(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>&\
+    \ rhs) {\n      return ::tools::quaternion<T>(lhs) += rhs;\n    }\n\n    ::tools::quaternion<T>&\
+    \ operator-=(const ::tools::quaternion<T>& other) {\n      this->x -= other.x;\n\
+    \      this->y -= other.y;\n      this->z -= other.z;\n      this->w -= other.w;\n\
+    \      return *this;\n    }\n    friend ::tools::quaternion<T> operator-(const\
+    \ ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {\n      return\
+    \ ::tools::quaternion<T>(lhs) -= rhs;\n    }\n\n    ::tools::quaternion<T>& operator*=(const\
+    \ T c) {\n      this->x *= c;\n      this->y *= c;\n      this->z *= c;\n    \
+    \  this->w *= c;\n      return *this;\n    }\n    friend ::tools::quaternion<T>\
     \ operator*(const ::tools::quaternion<T>& self, const T c) {\n      return ::tools::quaternion<T>(self)\
     \ *= c;\n    }\n    friend ::tools::quaternion<T> operator*(const T c, const ::tools::quaternion<T>&\
     \ self) {\n      return ::tools::quaternion<T>(self) *= c;\n    }\n\n    friend\
@@ -447,8 +444,9 @@ data:
     \ ::tools::quaternion<T>& q, const ::tools::vector3<T>& v) {\n      assert(::std::abs(q.norm()\
     \ - 1) <= eps);\n      return (q * ::tools::quaternion<T>(v.x, v.y, v.z, 0) *\
     \ q.conj()).imag();\n    }\n\n    ::tools::quaternion<T>& operator/=(const T c)\
-    \ {\n      this->m_vector /= c;\n      return *this;\n    }\n    friend ::tools::quaternion<T>\
-    \ operator/(const ::tools::quaternion<T>& self, const T c) {\n      return ::tools::quaternion<T>(self)\
+    \ {\n      this->x /= c;\n      this->y /= c;\n      this->z /= c;\n      this->w\
+    \ /= c;\n      return *this;\n    }\n    friend ::tools::quaternion<T> operator/(const\
+    \ ::tools::quaternion<T>& self, const T c) {\n      return ::tools::quaternion<T>(self)\
     \ /= c;\n    }\n\n    ::tools::quaternion<T> inv() const {\n      const auto norm\
     \ = this->norm();\n      assert(norm != 0);\n      return this->conj() / norm;\n\
     \    }\n    friend ::tools::quaternion<T> operator/(const ::tools::quaternion<T>&\
@@ -456,22 +454,23 @@ data:
     \   }\n    ::tools::quaternion<T>& operator/=(const ::tools::quaternion<T>& other)\
     \ {\n      return *this = *this / other;\n    }\n\n    friend bool operator==(const\
     \ ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {\n      return\
-    \ lhs.m_vector == rhs.m_vector;\n    }\n    friend bool operator!=(const ::tools::quaternion<T>&\
-    \ lhs, const ::tools::quaternion<T>& rhs) {\n      return !(lhs == rhs);\n   \
-    \ }\n\n    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::quaternion<T>&\
-    \ self) {\n      ::std::ostringstream s;\n      s.flags(os.flags());\n      s.imbue(os.getloc());\n\
-    \      s.precision(os.precision());\n      s << '(' << self.x() << ',' << self.y()\
-    \ << ',' << self.z() << ',' << self.w() << ')';\n      return os << s.str();\n\
-    \    }\n\n    static ::tools::quaternion<T> angle_axis(const T angle, const ::tools::vector3<T>&\
-    \ axis) {\n      assert(axis != ::tools::vector3<T>(0, 0, 0));\n      const auto\
-    \ real = ::std::cos(angle / 2);\n      const auto imag = ::std::sin(angle / 2)\
-    \ * axis.normalized();\n      return ::tools::quaternion<T>(imag.x, imag.y, imag.z,\
-    \ real);\n    }\n\n    static ::tools::quaternion<T> from_to_rotation(::tools::vector3<T>\
-    \ from_direction, ::tools::vector3<T> to_direction) {\n      assert(from_direction\
-    \ != ::tools::vector3<T>(0, 0, 0));\n      assert(to_direction != ::tools::vector3<T>(0,\
-    \ 0, 0));\n      from_direction = from_direction.normalized();\n      to_direction\
-    \ = to_direction.normalized();\n      if (from_direction.inner_product(to_direction)\
-    \ <= -1 + eps) {\n        return ::tools::quaternion<T>::angle_axis(pi, from_direction.orthonormal_basis()[1]);\n\
+    \ lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;\n    }\n\
+    \    friend bool operator!=(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>&\
+    \ rhs) {\n      return !(lhs == rhs);\n    }\n\n    friend ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::tools::quaternion<T>& self) {\n      ::std::ostringstream s;\n \
+    \     s.flags(os.flags());\n      s.imbue(os.getloc());\n      s.precision(os.precision());\n\
+    \      s << '(' << self.x << ',' << self.y << ',' << self.z << ',' << self.w <<\
+    \ ')';\n      return os << s.str();\n    }\n\n    static ::tools::quaternion<T>\
+    \ angle_axis(const T angle, const ::tools::vector3<T>& axis) {\n      assert(axis\
+    \ != ::tools::vector3<T>(0, 0, 0));\n      const auto real = ::std::cos(angle\
+    \ / 2);\n      const auto imag = ::std::sin(angle / 2) * axis.normalized();\n\
+    \      return ::tools::quaternion<T>(imag.x, imag.y, imag.z, real);\n    }\n\n\
+    \    static ::tools::quaternion<T> from_to_rotation(::tools::vector3<T> from_direction,\
+    \ ::tools::vector3<T> to_direction) {\n      assert(from_direction != ::tools::vector3<T>(0,\
+    \ 0, 0));\n      assert(to_direction != ::tools::vector3<T>(0, 0, 0));\n     \
+    \ from_direction = from_direction.normalized();\n      to_direction = to_direction.normalized();\n\
+    \      if (from_direction.inner_product(to_direction) <= -1 + eps) {\n       \
+    \ return ::tools::quaternion<T>::angle_axis(pi, from_direction.orthonormal_basis()[1]);\n\
     \      }\n      const auto bisect = (from_direction + to_direction).normalized();\n\
     \      const auto real = from_direction.inner_product(bisect);\n      const auto\
     \ imag = from_direction.outer_product(bisect);\n      return ::tools::quaternion<T>(imag.x,\
@@ -599,7 +598,7 @@ data:
   isVerificationFile: true
   path: tests/quaternion/angle_axis.test.cpp
   requiredBy: []
-  timestamp: '2024-03-17 00:33:31+09:00'
+  timestamp: '2024-03-17 01:55:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/quaternion/angle_axis.test.cpp
