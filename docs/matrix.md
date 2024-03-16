@@ -13,19 +13,30 @@ It is a $n \times m$-dimensional matrix.
 
 ## Constructor
 ```cpp
-(1) matrix<T> A(std::size_t n, std::size_t m);
-(2) matrix<T> A(std::size_t n, std::size_t m, T x);
+(1) matrix<T, n, m> A();
+(2) matrix<T, n, m> A(std::initializer_list<std::initializer_list<T>> il);
+(3) matrix<T> A(std::size_t n, std::size_t m);
+(4) matrix<T> A(std::size_t n, std::size_t m, T x);
+(5) matrix<T> A(std::initializer_list<std::initializer_list<T>> il);
 ```
 
-- (1)
+- (1), (3)
     - It creates a $n \times m$-dimensional matrix.
 - (2)
+    - It creates a $n \times m$-dimensional matrix where $A_{r, c}$ is `il.begin()[r].begin()[c]`.
+- (4)
     - It creates a $n \times m$-dimensional matrix filled with $x$.
+- (5)
+    - It creates a $n \times m$-dimensional matrix where $n$ is `il.size()`, $m$ is `il.empty() ? 0 : il.begin()->size()` and $A_{r, c}$ is `il.begin()[r].begin()[c]`.
 
 The type parameter `<T>` represents the type of the elements.
 
 ### Constraints
-- None
+- (2)
+    - `il.size()` is equal to $n$.
+    - For all $0 \leq r < n$, `il.begin()[r].size()` is equal to $m$.
+- (5)
+    - For all $0 \leq r < $`il.size()`, `il.begin()[r].size()` is equal to `il.begin()->size()`.
 
 ### Time Complexity
 - $O(nm)$
@@ -49,7 +60,7 @@ It is the $(i, j)$-th element of the matrix.
 std::size_t A.rows();
 ```
 
-It returns the number of the rows of the matrix.
+It returns $n$, the number of rows of the matrix.
 
 ### Constraints
 - None
@@ -62,7 +73,7 @@ It returns the number of the rows of the matrix.
 std::size_t A.cols();
 ```
 
-It returns the number of the columns of the matrix.
+It returns $m$, the number of columns of the matrix.
 
 ### Constraints
 - None
@@ -75,7 +86,7 @@ It returns the number of the columns of the matrix.
 std::size_t A.gauss_jordan();
 ```
 
-It transforms the matrix to the reduced row echelon form, and returns the rank of the matrix.
+It transforms $A$ to the reduced row echelon form, and returns the rank of $A$.
 
 ### Constraints
 - None
@@ -83,9 +94,23 @@ It transforms the matrix to the reduced row echelon form, and returns the rank o
 ### Time Complexity
 - $O(n m^2)$
 
+## rank
+```cpp
+std::size_t A.rank();
+```
+
+It returns the rank of $A$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm \min(n, m))$
+
 ## solve
 ```cpp
-matrix<T> A.solve(vector<T> b);
+(1) matrix<T> A.solve(vector<T, n> b);
+(2) matrix<T> A.solve(vector<T> b);
 ```
 
 It solves $A\overrightarrow{x} = \overrightarrow{b}$.
@@ -105,7 +130,13 @@ If the answers exist, it returns $B$.
 Otherwise, it returns a $m \times 0$-dimensional matrix.
 
 ### Constraints
-- None
+- (1)
+    - `A` is `matrix<T, n, m>`.
+    - $m \geq 1$
+- (2)
+    - `A` is `matrix<T>`.
+    - $n = \mathrm{dim}(b)$
+    - $m \geq 1$
 
 ### Time Complexity
 - $O(n m^2)$
@@ -123,37 +154,250 @@ It returns $\|A\|$.
 ### Time Complexity
 - $O(n^3)$
 
-## Arithmetic operations
+## Unary plus operator
 ```cpp
-(1) matrix<T> +A;
-(2) matrix<T> -A;
-(3) matrix<T> A + B;
-(4) matrix<T> A - B;
-(5) matrix<T> A * c;
-(6) matrix<T> c * A;
-(7) matrix<T> A / c;
-(8) matrix<T>& A += B;
-(9) matrix<T>& A -= B;
-(10) matrix<T>& A *= c;
-(11) matrix<T>& A /= c;
-(12) bool A == B;
-(13) bool A != B;
+(1) matrix<T, n, m> operator+(matrix<T, n, m> A);
+(2) matrix<T> operator+(matrix<T> A);
 ```
 
-It supports basic arithmetic operations on matrices where $B$ is another $n \times m$-dimensional matrix and $c$ is a scholar value.
+It returns the copy of $A$.
 
 ### Constraints
-- (3), (4), (8), (9), (12), (13)
-    - The dimension of $B$ is equal to the dimension of $A$.
-- (7), (11)
-    - $c \neq 0$
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## Unary negation operator
+```cpp
+(1) matrix<T, n, m> operator-(matrix<T, n, m> A);
+(2) matrix<T> operator-(matrix<T> A);
+```
+
+It returns $-A$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## Addition operators
+```cpp
+(1) matrix<T, n, m> operator+(matrix<T, n, m> A, matrix<T, n, m> B);
+(2) matrix<T, n, m>& operator+=(matrix<T, n, m>& A, matrix<T, n, m> B);
+(3) matrix<T> operator+(matrix<T> A, matrix<T> B);
+(4) matrix<T>& operator+=(matrix<T>& A, matrix<T> B);
+```
+
+- (1), (3)
+    - It returns $A + B$.
+- (2), (4)
+    - It updates $A$ to $A + B$, and returns the new $A$.
+
+### Constraints
+- (3), (4)
+    - The number of rows of $A$ is equal to the number of rows of $B$.
+    - The number of columns of $A$ is equal to the number of columns of $B$.
+
+### Time Complexity
+- $O(nm)$
+
+## Subtraction operators
+```cpp
+(1) matrix<T, n, m> operator-(matrix<T, n, m> A, matrix<T, n, m> B);
+(2) matrix<T, n, m>& operator-=(matrix<T, n, m>& A, matrix<T, n, m> B);
+(3) matrix<T> operator-(matrix<T> A, matrix<T> B);
+(4) matrix<T>& operator-=(matrix<T>& A, matrix<T> B);
+```
+
+- (1), (3)
+    - It returns $A - B$.
+- (2), (4)
+    - It updates $A$ to $A - B$, and returns the new $A$.
+
+### Constraints
+- (3), (4)
+    - The number of rows of $A$ is equal to the number of rows of $B$.
+    - The number of columns of $A$ is equal to the number of columns of $B$.
+
+### Time Complexity
+- $O(nm)$
+
+## Multiplication operators for a matrix
+```cpp
+(1) matrix<T, n, k> operator*(matrix<T, n, m> A, matrix<T, m, k> B);
+(2) matrix<T, n, m>& operator*=(matrix<T, n, m>& A, matrix<T, m, m> B);
+(3) matrix<T> operator*(matrix<T> A, matrix<T> B);
+(4) matrix<T>& operator*=(matrix<T>& A, matrix<T> B);
+```
+
+- (1), (3)
+    - It returns $AB$.
+- (2), (4)
+    - It updates $A$ to $AB$, and returns the new $A$.
+
+### Constraints
+- (3)
+    - The number of columns of $A$ is equal to the number of rows of $B$.
+- (4)
+    - The number of columns of $A$ is equal to the number of rows of $B$.
+    - The number of rows of $B$ is equal to the number of columns of $B$.
+
+### Time Complexity
+- (1), (3)
+    - $O(nmk)$
+- (2), (4)
+    - $O(nm^2)$
+
+## Multiplication operators for a vector
+```cpp
+(1) vector<T, n> operator*(matrix<T, n, m> A, vector<T, m> v);
+(2) vector<T> operator*(matrix<T> A, vector<T> v);
+```
+
+It returns $Av$.
+
+### Constraints
+- (2)
+    - The number of columns of $A$ is equal to $\mathrm{dim}(v)$.
+
+### Time Complexity
+- $O(nm)$
+
+## Multiplication operators for a scholar value
+```cpp
+(1) matrix<T, n, m> operator*(matrix<T, n, m> A, T c);
+(2) matrix<T, n, m>& operator*=(matrix<T, n, m>& A, T c);
+(3) matrix<T> operator*(matrix<T> A, T c);
+(4) matrix<T>& operator*=(matrix<T>& A, T c);
+```
+
+- (1), (3)
+    - It returns $cA$.
+- (2), (4)
+    - It updates $A$ to $cA$, and returns the new $A$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## Division operators for a matrix
+```cpp
+(1) matrix<T, n, m> operator/(matrix<T, n, m> A, matrix<T, m, m> B);
+(2) matrix<T, n, m>& operator/=(matrix<T, n, m>& A, matrix<T, m, m> B);
+(3) matrix<T> operator/(matrix<T> A, matrix<T> B);
+(4) matrix<T>& operator/=(matrix<T>& A, matrix<T> B);
+```
+
+- (1), (3)
+    - It returns $AB^{-1}$.
+- (2), (4)
+    - It updates $A$ to $AB^{-1}$, and returns the new $A$.
+
+### Constraints
+- (1), (2)
+    - $B^{-1}$ exists.
+- (3), (4)
+    - The number of columns of $A$ is equal to the number of rows of $B$.
+    - $B^{-1}$ exists.
+
+### Time Complexity
+- $O((n + m) m^2)$
+
+## Division operators for a scholar value
+```cpp
+(1) matrix<T, n, m> operator/(matrix<T, n, m> A, T c);
+(2) matrix<T, n, m>& operator/=(matrix<T, n, m>& A, T c);
+(3) matrix<T> operator/(matrix<T> A, T c);
+(4) matrix<T>& operator/=(matrix<T>& A, T c);
+```
+
+- (1), (3)
+    - It returns $c^{-1} A$.
+- (2), (4)
+    - It updates $A$ to $c^{-1} A$, and returns the new $A$.
+
+### Constraints
+- $c \neq 0$
+
+### Time Complexity
+- $O(nm)$
+
+## Comparison operations
+```cpp
+(1) bool operator==(matrix<T, n, m> A, matrix<T, n, m> B);
+(2) bool operator!=(matrix<T, n, m> A, matrix<T, n, m> B);
+(3) bool operator==(matrix<T> A, matrix<T> B);
+(4) bool operator!=(matrix<T> A, matrix<T> B);
+```
+
+- (1), (3)
+    - It returns whether $A = B$.
+- (2), (4)
+    - It returns whether $A \neq B$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## operator&gt;&gt;
+```cpp
+(1) std::istream& operator>>(std::istream& is, matrix<T, n, m>& self);
+(2) std::istream& operator>>(std::istream& is, matrix<T>& self);
+```
+
+It is equivalent to the following code.
+
+```cpp
+for (std::size_t r = 0; r < self.rows(); ++r) {
+  for (std::size_t c = 0; c < self.cols(); ++c) {
+    is >> self[r][c];
+  }
+}
+return is;
+```
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(nm)$
+
+## operator&lt;&lt;
+```cpp
+(1) std::ostream& operator<<(std::ostream& os, matrix<T, n, m> self);
+(2) std::ostream& operator<<(std::ostream& os, matrix<T> self);
+```
+
+It is equivalent to the following code.
+
+```cpp
+for (std::size_t r = 0; r < self.rows(); ++r) {
+  os << '[';
+  for (std::size_t c = 0; c < self.cols(); ++c) {
+    if (c > 0) os << ", ";
+    os << self[r][c];
+  }
+  os << ']' << '\n';
+}
+return os;
+```
+
+### Constraints
+- None
 
 ### Time Complexity
 - $O(nm)$
 
 ## e
 ```cpp
-matrix<T> matrix<T>::e(::std::size_t n);
+(1) matrix<T, n, n> matrix<T, n, n>::e();
+(2) matrix<T> matrix<T>::e(std::size_t n);
 ```
 
 It returns $n \times n$-dimensional identity matrix.
@@ -166,27 +410,36 @@ It returns $n \times n$-dimensional identity matrix.
 
 ## inv
 ```cpp
-std::optional<matrix<T>> A.inv();
+(1) std::optional<matrix<T, n, n>> A.inv();
+(2) std::optional<matrix<T>> A.inv();
 ```
 
 If $A^{-1}$ exists, it returns $A^{-1}$.
 Otherwise, it returns `std::nullopt`.
 
 ### Constraints
-- None
+- (1)
+    - $A$ is `matrix<T, n, n>`.
+- (2)
+    - $A$ is `matrix<T>`.
+    - $n = m$
 
 ### Time Complexity
 - $O(n^3)$
 
 ## transposed
 ```cpp
-matrix<T> A.transposed();
+(1) matrix<T, m, n> A.transposed();
+(2) matrix<T> A.transposed();
 ```
 
 It returns $A^\top$.
 
 ### Constraints
-- None
+- (1)
+    - $A$ is `matrix<T, n, m>`.
+- (2)
+    - $A$ is `matrix<T>`.
 
 ### Time Complexity
 - $O(nm)$

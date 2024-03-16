@@ -1,138 +1,203 @@
 #ifndef TOOLS_MATRIX_HPP
 #define TOOLS_MATRIX_HPP
 
-#include <vector>
 #include <cstddef>
+#include <array>
+#include <limits>
+#include <vector>
+#include <type_traits>
+#include <initializer_list>
 #include <cassert>
+#include <algorithm>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <optional>
 #include "tools/vector.hpp"
 
 namespace tools {
-  template <typename T>
-  class matrix {
+  namespace detail {
+    namespace matrix {
+      template <typename T, ::std::size_t N, ::std::size_t M>
+      class members {
+      protected:
+        constexpr static bool variable_sized = false;
+        ::std::array<T, N * M> m_values;
+        members() : m_values() {}
+      };
+      template <typename T>
+      class members<T, ::std::numeric_limits<::std::size_t>::max(), ::std::numeric_limits<::std::size_t>::max()> {
+      protected:
+        constexpr static bool variable_sized = true;
+        ::std::vector<T> m_values;
+        ::std::size_t m_rows;
+        ::std::size_t m_cols;
+        members() = default;
+        members(const ::std::size_t rows, const ::std::size_t cols) : m_values(rows * cols), m_rows(rows), m_cols(cols) {}
+        members(const ::std::size_t rows, const ::std::size_t cols, const T& value) : m_values(rows * cols, value), m_rows(rows), m_cols(cols) {}
+      };
+    }
+  }
+
+  template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max(), ::std::size_t M = ::std::numeric_limits<::std::size_t>::max()>
+  class matrix : ::tools::detail::matrix::members<T, N, M> {
   private:
-    ::std::vector<T> m_values;
-    ::std::size_t m_rows;
-    ::std::size_t m_cols;
+    using Mat = ::tools::matrix<T, N, M>;
+    using Base = ::tools::detail::matrix::members<T, N, M>;
+    constexpr static bool variable_sized = Base::variable_sized;
 
   public:
     matrix() = default;
-    matrix(const ::tools::matrix<T>&) = default;
-    matrix(::tools::matrix<T>&&) = default;
-    ~matrix() = default;
-    ::tools::matrix<T>& operator=(const ::tools::matrix<T>&) = default;
-    ::tools::matrix<T>& operator=(::tools::matrix<T>&&) = default;
-
-    matrix(::std::size_t rows, ::std::size_t cols) :
-      m_values(rows * cols), m_rows(rows), m_cols(cols) {
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    matrix(const ::std::size_t rows, const ::std::size_t cols) : Base(rows, cols) {}
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    matrix(const ::std::size_t rows, const ::std::size_t cols, const T& value) : Base(rows, cols, value) {}
+    template <bool SFINAE = !variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) {
+      assert(il.size() == this->rows());
+      assert(::std::all_of(il.begin(), il.end(), [&](const auto& row) { return row.size() == this->cols(); }));
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        ::std::copy(il.begin()[r].begin(), il.begin()[r].end(), (*this)[r]);
+      }
     }
-    matrix(::std::size_t rows, ::std::size_t cols, const T& value) :
-      m_values(rows * cols, value), m_rows(rows), m_cols(cols) {
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr, ::std::nullptr_t = nullptr>
+    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) : Base(il.size(), il.empty() ? 0 : il.begin()->size()) {
+      assert(il.empty() || ::std::all_of(il.begin(), il.end(), [&](const auto& row) { return row.size() == this->cols(); }));
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        ::std::copy(il.begin()[r].begin(), il.begin()[r].end(), (*this)[r]);
+      }
     }
-
-    typename ::std::vector<T>::iterator operator[](const ::std::size_t r) {
-      return this->m_values.begin() + r * this->m_cols;
+    auto operator[](const ::std::size_t r) {
+      assert(r < this->rows());
+      return this->m_values.begin() + r * this->cols();
     }
-    typename ::std::vector<T>::const_iterator operator[](const ::std::size_t r) const {
-      return this->m_values.begin() + r * this->m_cols;
+    auto operator[](const ::std::size_t r) const {
+      assert(r < this->rows());
+      return this->m_values.begin() + r * this->cols();
     }
 
     ::std::size_t rows() const {
-      return this->m_rows;
+      if constexpr (variable_sized) {
+        return this->m_rows;
+      } else {
+        return N;
+      }
     }
     ::std::size_t cols() const {
-      return this->m_cols;
+      if constexpr (variable_sized) {
+        return this->m_cols;
+      } else {
+        return M;
+      }
     }
 
-    friend ::tools::matrix<T>& operator+(::tools::matrix<T>& self) {
-      return self;
+    Mat operator+() const {
+      return *this;
     }
-    friend const ::tools::matrix<T>& operator+(const ::tools::matrix<T>& self) {
-      return self;
+    Mat operator-() const {
+      return Mat(*this) *= T(-1);
     }
-    friend ::tools::matrix<T> operator+(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
-      return ::tools::matrix<T>(lhs) += rhs;
+    friend Mat operator+(const Mat& lhs, const Mat& rhs) {
+      return Mat(lhs) += rhs;
     }
-    friend ::tools::matrix<T> operator-(const ::tools::matrix<T>& self) {
-      return ::tools::matrix<T>(self) *= T(-1);
+    friend Mat operator-(const Mat& lhs, const Mat& rhs) {
+      return Mat(lhs) -= rhs;
     }
-    friend ::tools::matrix<T> operator-(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
-      return ::tools::matrix<T>(lhs) -= rhs;
-    }
-    friend ::tools::matrix<T> operator*(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
-      assert(lhs.m_cols == rhs.m_rows);
-      ::tools::matrix<T> result(lhs.m_rows, rhs.m_cols, T(0));
-      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {
-        for (::std::size_t k = 0; k < lhs.m_cols; ++k) {
-          for (::std::size_t j = 0; j < rhs.m_cols; ++j) {
+    template <::std::size_t K, ::std::enable_if_t<!Mat::variable_sized || K == ::std::numeric_limits<::std::size_t>::max(), ::std::nullptr_t> = nullptr>
+    friend ::tools::matrix<T, N, K> operator*(const Mat& lhs, const ::tools::matrix<T, M, K>& rhs) {
+      assert(lhs.cols() == rhs.rows());
+      auto result = [&]() {
+        if constexpr (Mat::variable_sized) {
+          return ::tools::matrix<T>(lhs.rows(), rhs.cols());
+        } else {
+          return ::tools::matrix<T, N, K>();
+        }
+      }();
+      for (::std::size_t i = 0; i < lhs.rows(); ++i) {
+        for (::std::size_t k = 0; k < lhs.cols(); ++k) {
+          for (::std::size_t j = 0; j < rhs.cols(); ++j) {
             result[i][j] += lhs[i][k] * rhs[k][j];
           }
         }
       }
       return result;
     }
-    friend ::tools::vector<T> operator*(const ::tools::matrix<T>& lhs, const ::tools::vector<T>& rhs) {
-      assert(lhs.m_cols == rhs.size());
-      ::tools::vector<T> result(lhs.m_rows, T(0));
-      for (::std::size_t i = 0; i < lhs.m_rows; ++i) {
-        for (::std::size_t j = 0; j < lhs.m_cols; ++j) {
+    friend ::tools::vector<T, N> operator*(const Mat& lhs, const ::tools::vector<T, M>& rhs) {
+      assert(lhs.cols() == rhs.size());
+      auto result = [&]() {
+        if constexpr (Mat::variable_sized) {
+          return ::tools::vector<T>(lhs.rows());
+        } else {
+          return ::tools::vector<T, N>();
+        }
+      }();
+      for (::std::size_t i = 0; i < lhs.rows(); ++i) {
+        for (::std::size_t j = 0; j < lhs.cols(); ++j) {
           result[i] += lhs[i][j] * rhs[j];
         }
       }
       return result;
     }
-    friend ::tools::matrix<T> operator*(const ::tools::matrix<T>& lhs, const T& rhs) {
-      return ::tools::matrix<T>(lhs) * rhs;
+    friend Mat operator*(const Mat& lhs, const T& rhs) {
+      return Mat(lhs) *= rhs;
     }
-    friend ::tools::matrix<T> operator/(const ::tools::matrix<T>& lhs, const T& rhs) {
-      return ::tools::matrix<T>(lhs) / rhs;
+    friend Mat operator/(const Mat& lhs, const ::tools::matrix<T, M, M>& rhs) {
+      const auto inv = rhs.inv();
+      assert(inv);
+      return lhs * *inv;
     }
-    ::tools::matrix<T> operator+=(const ::tools::matrix<T>& other) {
-      assert(this->m_rows == other.m_rows);
-      assert(this->m_cols == other.m_cols);
+    friend Mat operator/(const Mat& lhs, const T& rhs) {
+      return Mat(lhs) /= rhs;
+    }
+    Mat& operator+=(const Mat& other) {
+      assert(this->rows() == other.rows());
+      assert(this->cols() == other.cols());
       for (::std::size_t i = 0; i < this->m_values.size(); ++i) {
         this->m_values[i] += other.m_values[i];
       }
       return *this;
     }
-    ::tools::matrix<T> operator-=(const ::tools::matrix<T>& other) {
-      assert(this->m_rows == other.m_rows);
-      assert(this->m_cols == other.m_cols);
+    Mat& operator-=(const Mat& other) {
+      assert(this->rows() == other.rows());
+      assert(this->cols() == other.cols());
       for (::std::size_t i = 0; i < this->m_values.size(); ++i) {
         this->m_values[i] -= other.m_values[i];
       }
       return *this;
     }
-    ::tools::matrix<T> operator*=(const ::tools::matrix<T>& other) {
+    Mat& operator*=(const ::tools::matrix<T, M, M>& other) {
       return *this = *this * other;
     }
-    ::tools::matrix<T> operator*=(const T& c) {
-      for (::std::size_t i = 0; i < this->m_values.size(); ++i) {
-        this->m_values[i] *= c;
-      }
+    Mat& operator*=(const T& c) {
+      for (auto& v : this->m_values) v *= c;
       return *this;
     }
-    ::tools::matrix<T> operator/=(const T& c) {
-      const T c_inv = T(1) / c;
-      for (::std::size_t i = 0; i < this->m_values.size(); ++i) {
-        this->m_values[i] *= c_inv;
+    Mat& operator/=(const ::tools::matrix<T, M, M>& other) {
+      return *this = *this / other;
+    }
+    Mat& operator/=(const T& c) {
+      return *this *= T(1) / c;
+    }
+    friend bool operator==(const Mat& lhs, const Mat& rhs) {
+      if constexpr (variable_sized) {
+        if (lhs.rows() != rhs.rows()) return false;
+        if (lhs.cols() != rhs.cols()) return false;
       }
-      return *this;
+      return lhs.m_values == rhs.m_values;
     }
-    friend bool operator==(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
-      return lhs.m_cols == rhs.m_cols && lhs.m_rows == rhs.m_rows && lhs.m_values == rhs.m_values;
-    }
-    friend bool operator!=(const ::tools::matrix<T>& lhs, const ::tools::matrix<T>& rhs) {
+    friend bool operator!=(const Mat& lhs, const Mat& rhs) {
       return !(lhs == rhs);
     }
 
-    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::matrix<T>& self) {
-      for (::std::size_t r = 0; r < self.m_rows; ++r) {
+    friend ::std::istream& operator>>(::std::istream& is, Mat& self) {
+      for (auto& v : self.m_values) is >> v;
+      return is;
+    }
+    friend ::std::ostream& operator<<(::std::ostream& os, const Mat& self) {
+      for (::std::size_t r = 0; r < self.rows(); ++r) {
         os << '[';
         ::std::string delimiter = "";
-        for (::std::size_t c = 0; c < self.m_cols; ++c) {
+        for (::std::size_t c = 0; c < self.cols(); ++c) {
           os << delimiter << self[r][c];
           delimiter = ", ";
         }
@@ -140,25 +205,19 @@ namespace tools {
       }
       return os;
     }
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::matrix<T>& self) {
-      for (T& value : self.m_values) {
-        is >> value;
-      }
-      return is;
-    }
 
   private:
     ::std::pair<::std::size_t, T> internal_gauss_jordan() {
       ::std::size_t rank = 0;
       T coeff(1);
 
-      for (::std::size_t c = 0; c < this->m_cols; ++c) {
+      for (::std::size_t c = 0; c < this->cols(); ++c) {
         ::std::size_t pivot;
-        for (pivot = rank; pivot < this->m_rows && (*this)[pivot][c] == T(0); ++pivot);
-        if (pivot == this->m_rows) continue;
+        for (pivot = rank; pivot < this->rows() && (*this)[pivot][c] == T(0); ++pivot);
+        if (pivot == this->rows()) continue;
 
         if (pivot != rank) {
-          for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
+          for (::std::size_t cc = c; cc < this->cols(); ++cc) {
             ::std::swap((*this)[rank][cc], (*this)[pivot][cc]);
           }
           coeff *= T(-1);
@@ -166,17 +225,17 @@ namespace tools {
 
         {
           const T scale_inv = T(1) / (*this)[rank][c];
-          for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
+          for (::std::size_t cc = c; cc < this->cols(); ++cc) {
             (*this)[rank][cc] *= scale_inv;
           }
           coeff *= scale_inv;
         }
 
-        for (::std::size_t r = 0; r < this->m_rows; ++r) {
+        for (::std::size_t r = 0; r < this->rows(); ++r) {
           if (r == rank) continue;
           const T scale = (*this)[r][c];
           if (scale == T(0)) continue;
-          for (::std::size_t cc = c; cc < this->m_cols; ++cc) {
+          for (::std::size_t cc = c; cc < this->cols(); ++cc) {
             (*this)[r][cc] -= (*this)[rank][cc] * scale;
           }
         }
@@ -192,15 +251,25 @@ namespace tools {
       return this->internal_gauss_jordan().first;
     }
 
-    ::tools::matrix<T> solve(const ::tools::vector<T>& b) const {
-      assert(this->m_rows == b.size());
-      assert(this->m_cols >= 1);
-      ::tools::matrix<T> Ab(this->m_rows, this->m_cols + 1);
-      for (::std::size_t r = 0; r < this->m_rows; ++r) {
-        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+    ::std::size_t rank() const {
+      return (this->rows() < this->cols() ? this->transposed() : Mat(*this)).gauss_jordan();
+    }
+
+    ::tools::matrix<T> solve(const ::tools::vector<T, N>& b) const {
+      assert(this->rows() == b.size());
+      assert(this->cols() >= 1);
+      auto Ab = [&]() {
+        if constexpr (variable_sized) {
+          return Mat(this->rows(), this->cols() + 1);
+        } else {
+          return ::tools::matrix<T, N, M + 1>();
+        }
+      }();
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        for (::std::size_t c = 0; c < this->cols(); ++c) {
           Ab[r][c] = (*this)[r][c];
         }
-        Ab[r][this->m_cols] = b[r];
+        Ab[r][this->cols()] = b[r];
       }
 
       Ab.internal_gauss_jordan();
@@ -214,35 +283,35 @@ namespace tools {
       }
 
       if (ranks[Ab.cols() - 2] < ranks[Ab.cols() - 1]) {
-        return ::tools::matrix<T>(this->m_rows, 0);
+        return ::tools::matrix<T>(this->rows(), 0);
       }
 
-      ::std::vector<::tools::vector<T>> answers(this->m_cols);
-      ::std::size_t free = this->m_cols - ranks.back() - 1;
+      ::std::vector<::tools::vector<T>> answers(this->cols());
+      ::std::size_t free = this->cols() - ranks.back() - 1;
 
-      for (::std::size_t l = this->m_cols, r = this->m_cols; r > 0; r = l) {
+      for (::std::size_t l = this->cols(), r = this->cols(); r > 0; r = l) {
         for (; l > 0 && ranks[l - 1] == ranks[r - 1]; --l);
         for (::std::size_t c = r - 1; c > l; --c) {
-          answers[c] = tools::vector<T>(this->m_cols - ranks.back() + 1, T(0));
+          answers[c] = ::tools::vector<T>(this->cols() - ranks.back() + 1, T(0));
           answers[c][free] = T(1);
           --free;
         }
         if (ranks[l] > 0) {
-          answers[l] = ::tools::vector<T>(this->m_cols - ranks.back() + 1, T(0));
-          answers[l][this->m_cols - ranks.back()] = Ab[ranks[l] - 1][Ab.cols() - 1];
+          answers[l] = ::tools::vector<T>(this->cols() - ranks.back() + 1, T(0));
+          answers[l][this->cols() - ranks.back()] = Ab[ranks[l] - 1][Ab.cols() - 1];
           for (::std::size_t c = l + 1; c < Ab.cols() - 1; ++c) {
             answers[l] -= Ab[ranks[l] - 1][c] * answers[c];
           }
         } else {
-          answers[l] = ::tools::vector<T>(this->m_cols - ranks.back() + 1, T(0));
+          answers[l] = ::tools::vector<T>(this->cols() - ranks.back() + 1, T(0));
           answers[l][free] = T(1);
           --free;
         }
       }
 
-      ::tools::matrix<T> answer(this->m_cols, this->m_cols - ranks.back() + 1);
-      for (::std::size_t r = 0; r < this->m_cols; ++r) {
-        for (::std::size_t c = 0; c < this->m_cols - ranks.back() + 1; ++c) {
+      ::tools::matrix<T> answer(this->cols(), this->cols() - ranks.back() + 1);
+      for (::std::size_t r = 0; r < this->cols(); ++r) {
+        for (::std::size_t c = 0; c < this->cols() - ranks.back() + 1; ++c) {
           answer[r][c] = answers[r][c];
         }
       }
@@ -251,54 +320,82 @@ namespace tools {
     }
 
     T determinant() const {
-      assert(this->m_rows == this->m_cols);
+      assert(this->rows() == this->cols());
 
-      ::tools::matrix<T> A = *this;
+      auto A = *this;
       const auto [rank, coeff] = A.internal_gauss_jordan();
 
-      return rank == A.m_rows ? T(1) / coeff : T(0);
+      return rank == A.rows() ? T(1) / coeff : T(0);
     }
 
-    static ::tools::matrix<T> e(const ::std::size_t n) {
-      ::tools::matrix<T> result(n, n, T(0));
+    template <bool SFINAE = !variable_sized && N == M, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    static Mat e() {
+      Mat result{};
+      for (::std::size_t i = 0; i < N; ++i) {
+        result[i][i] = T(1);
+      }
+      return result;
+    }
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    static Mat e(const ::std::size_t n) {
+      Mat result(n, n, T(0));
       for (::std::size_t i = 0; i < n; ++i) {
         result[i][i] = T(1);
       }
       return result;
     }
 
-    ::std::optional<::tools::matrix<T>> inv() const {
-      if (this->m_rows != this->m_cols) return ::std::nullopt;
+    template <bool SFINAE = variable_sized || N == M, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    ::std::optional<Mat> inv() const {
+      assert(this->rows() == this->cols());
 
-      ::tools::matrix<T> AI(this->m_rows, this->m_cols * 2);
-      for (::std::size_t r = 0; r < this->m_rows; ++r) {
-        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+      auto AI = [&]() {
+        if constexpr (variable_sized) {
+          return Mat(this->rows(), this->cols() * 2);
+        } else {
+          return ::tools::matrix<T, N, M * 2>();
+        }
+      }();
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        for (::std::size_t c = 0; c < this->cols(); ++c) {
           AI[r][c] = (*this)[r][c];
         }
-        for (::std::size_t c = this->m_cols; c < AI.m_cols; ++c) {
+        for (::std::size_t c = this->cols(); c < AI.cols(); ++c) {
           AI[r][c] = T(0);
         }
-        AI[r][this->m_cols + r] = T(1);
+        AI[r][this->cols() + r] = T(1);
       }
 
       AI.internal_gauss_jordan();
-      for (::std::size_t i = 0; i < this->m_rows; ++i) {
+      for (::std::size_t i = 0; i < this->rows(); ++i) {
         if (AI[i][i] != T(1)) return ::std::nullopt;
       }
 
-      ::tools::matrix<T> B(this->m_rows, this->m_cols);
-      for (::std::size_t r = 0; r < this->m_rows; ++r) {
-        for (::std::size_t c = 0; c < this->m_cols; ++c) {
-          B[r][c] = AI[r][this->m_cols + c];
+      auto B = [&]() {
+        if constexpr (variable_sized) {
+          return Mat(this->rows(), this->cols());
+        } else {
+          return Mat();
+        }
+      }();
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        for (::std::size_t c = 0; c < this->cols(); ++c) {
+          B[r][c] = AI[r][this->cols() + c];
         }
       }
       return B;
     }
 
-    ::tools::matrix<T> transposed() const {
-      ::tools::matrix<T> A_T(this->m_cols, this->m_rows);
-      for (::std::size_t r = 0; r < this->m_rows; ++r) {
-        for (::std::size_t c = 0; c < this->m_cols; ++c) {
+    ::tools::matrix<T, M, N> transposed() const {
+      auto A_T = [&]() {
+        if constexpr (variable_sized) {
+          return Mat(this->cols(), this->rows());
+        } else {
+          return ::tools::matrix<T, M, N>();
+        }
+      }();
+      for (::std::size_t r = 0; r < this->rows(); ++r) {
+        for (::std::size_t c = 0; c < this->cols(); ++c) {
           A_T[c][r] = (*this)[r][c];
         }
       }

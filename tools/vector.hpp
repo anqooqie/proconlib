@@ -2,12 +2,13 @@
 #define TOOLS_VECTOR_HPP
 
 #include <cstddef>
-#include <limits>
-#include <type_traits>
 #include <array>
-#include <vector>
-#include <iterator>
+#include <initializer_list>
 #include <cassert>
+#include <limits>
+#include <vector>
+#include <type_traits>
+#include <iterator>
 #include <algorithm>
 #include <utility>
 #include <cmath>
@@ -24,25 +25,81 @@ namespace tools {
       template <typename T, ::std::size_t N>
       class members {
       protected:
-        constexpr static bool specialized = false;
+        constexpr static bool variable_sized = false;
+        constexpr static bool has_aliases = false;
+        ::std::array<T, N> m_values;
+        members() : m_values() {}
+        members(const ::std::initializer_list<T> il) : m_values(il) {
+          assert(il.size() == N);
+        }
       };
+
       template <typename T>
       class members<T, 2> {
       protected:
-        constexpr static bool specialized = true;
+        constexpr static bool variable_sized = false;
+        constexpr static bool has_aliases = true;
+        ::std::array<T*, 2> m_values;
+        members() : m_values{&this->x, &this->y} {}
+        members(const T& x, const T& y) : m_values{&this->x, &this->y}, x(x), y(y) {}
+        members(const ::std::initializer_list<T> il) : m_values{&this->x, &this->y}, x(il.begin()[0]), y(il.begin()[1]) {
+          assert(il.size() == 2);
+        }
+
       public:
         T x;
         T y;
       };
+
       template <typename T>
-      class members<T, 3> : public members<T, 2> {
+      class members<T, 3> {
+      protected:
+        constexpr static bool variable_sized = false;
+        constexpr static bool has_aliases = true;
+        ::std::array<T*, 3> m_values;
+        members() : m_values{&this->x, &this->y, &this->z} {}
+        members(const T& x, const T& y, const T& z) : m_values{&this->x, &this->y, &this->z}, x(x), y(y), z(z) {}
+        members(const ::std::initializer_list<T> il) : m_values{&this->x, &this->y, &this->z}, x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]) {
+          assert(il.size() == 3);
+        }
+
       public:
+        T x;
+        T y;
         T z;
       };
+
       template <typename T>
-      class members<T, 4> : public members<T, 3> {
+      class members<T, 4> {
+      protected:
+        constexpr static bool variable_sized = false;
+        constexpr static bool has_aliases = true;
+        ::std::array<T*, 4> m_values;
+        members() : m_values{&this->x, &this->y, &this->z, &this->w} {}
+        members(const T& x, const T& y, const T& z, const T& w) : m_values{&this->x, &this->y, &this->z, &this->w}, x(x), y(y), z(z), w(w) {}
+        members(const ::std::initializer_list<T> il) : m_values{&this->x, &this->y, &this->z, &this->w}, x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]), w(il.begin()[3]) {
+          assert(il.size() == 4);
+        }
+
       public:
+        T x;
+        T y;
+        T z;
         T w;
+      };
+
+      template <typename T>
+      class members<T, ::std::numeric_limits<::std::size_t>::max()> {
+      protected:
+        constexpr static bool variable_sized = true;
+        constexpr static bool has_aliases = false;
+        ::std::vector<T> m_values;
+        members() = default;
+        members(const ::std::size_t n) : m_values(n) {}
+        members(const ::std::size_t n, const T& value) : m_values(n, value) {}
+        template <typename InputIter>
+        members(const InputIter first, const InputIter last) : m_values(first, last) {}
+        members(const ::std::initializer_list<T> il) : m_values(il) {}
       };
     }
   }
@@ -50,11 +107,11 @@ namespace tools {
   template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max()>
   class vector : public ::tools::detail::vector::members<T, N> {
   private:
-    constexpr static bool STATIC = N != ::std::numeric_limits<::std::size_t>::max();
-    constexpr static bool specialized = ::tools::detail::vector::members<T, N>::specialized;
-    ::std::conditional_t<STATIC, ::std::array<::std::conditional_t<specialized, T*, T>, N>, ::std::vector<T>> m_values;
+    using Base = ::tools::detail::vector::members<T, N>;
     using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
     using V = ::tools::vector<T, N>;
+    constexpr static bool variable_sized = Base::variable_sized;
+    constexpr static bool has_aliases = Base::has_aliases;
 
   public:
     using reference = T&;
@@ -259,35 +316,16 @@ namespace tools {
     using reverse_iterator = ::std::reverse_iterator<iterator>;
     using const_reverse_iterator = ::std::reverse_iterator<const_iterator>;
 
-  private:
-    void init() {
-      if constexpr (STATIC && specialized) {
-        this->m_values[0] = &this->x;
-        this->m_values[1] = &this->y;
-        if constexpr (N > 2) {
-          this->m_values[2] = &this->z;
-        }
-        if constexpr (N > 3) {
-          this->m_values[3] = &this->w;
-        }
-      }
-    }
-
-  public:
-    vector() {
-      init();
-    }
+    vector() = default;
     vector(const V& other) {
-      init();
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         ::std::copy(other.begin(), other.end(), this->begin());
       } else {
         this->m_values = other.m_values;
       }
     }
     vector(V&& other) noexcept {
-      init();
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         ::std::copy(other.begin(), other.end(), this->begin());
       } else {
         this->m_values = ::std::move(other.m_values);
@@ -295,7 +333,7 @@ namespace tools {
     }
     ~vector() = default;
     V& operator=(const V& other) {
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         ::std::copy(other.begin(), other.end(), this->begin());
       } else {
         this->m_values = other.m_values;
@@ -303,7 +341,7 @@ namespace tools {
       return *this;
     }
     V& operator=(V&& other) noexcept {
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         ::std::copy(other.begin(), other.end(), this->begin());
       } else {
         this->m_values = ::std::move(other.m_values);
@@ -311,46 +349,19 @@ namespace tools {
       return *this;
     }
 
-    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    explicit vector(size_type n) : m_values(n) {
-    }
-    template <bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    vector(size_type n, const_reference value) : m_values(n, value) {
-    }
-    template <typename InputIter, bool SFINAE = !STATIC, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    vector(const InputIter first, const InputIter last) : m_values(first, last) {
-    }
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    explicit vector(size_type n) : Base(n) {}
+    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    vector(size_type n, const_reference value) : Base(n, value) {}
+    template <typename InputIter, bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
+    vector(const InputIter first, const InputIter last) : Base(first, last) {}
     template <bool SFINAE = N == 2, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y) {
-      init();
-      this->x = x;
-      this->y = y;
-    }
+    vector(const T& x, const T& y) : Base(x, y) {}
     template <bool SFINAE = N == 3, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y, const T& z) {
-      init();
-      this->x = x;
-      this->y = y;
-      this->z = z;
-    }
+    vector(const T& x, const T& y, const T& z) : Base(x, y, z) {}
     template <bool SFINAE = N == 4, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y, const T& z, const T& w) {
-      init();
-      this->x = x;
-      this->y = y;
-      this->z = z;
-      this->w = w;
-    }
-    vector(const ::std::initializer_list<T> il) {
-      init();
-      if constexpr (STATIC) {
-        assert(il.size() == N);
-        ::std::copy(il.begin(), il.end(), this->begin());
-      } else {
-        this->m_values.reserve(il.size());
-        ::std::copy(il.begin(), il.end(), ::std::back_inserter(this->m_values));
-      }
-    }
+    vector(const T& x, const T& y, const T& z, const T& w) : Base(x, y, z, w) {}
+    vector(const ::std::initializer_list<T> il) : Base(il) {}
 
     iterator begin() noexcept { return iterator(this, 0); }
     const_iterator begin() const noexcept { return const_iterator(this, 0); }
@@ -369,14 +380,14 @@ namespace tools {
     bool empty() const noexcept { return this->m_values.empty(); }
 
     reference operator[](const size_type n) {
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         return *this->m_values[n];
       } else {
         return this->m_values[n];
       }
     }
     const_reference operator[](const size_type n) const {
-      if constexpr (STATIC && specialized) {
+      if constexpr (has_aliases) {
         return *this->m_values[n];
       } else {
         return this->m_values[n];
