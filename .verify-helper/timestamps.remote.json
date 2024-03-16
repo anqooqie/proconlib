@@ -200,6 +200,7 @@
 "tests/wavelet_matrix/prev_points.test.cpp": "2023-07-22 12:30:26 +0900",
 "tests/wavelet_matrix/range_freq.test.cpp": "2023-07-22 12:30:26 +0900",
 "tests/wavelet_matrix/range_prod.test.cpp": "2023-07-22 12:30:26 +0900",
+"tests/weighted_bipartite_matching/maximize.test.cpp": "2024-03-17 00:33:31 +0900",
 "tests/weighted_bipartite_matching/minimize.test.cpp": "2022-11-26 16:53:52 +0900",
 "tests/weighted_bipartite_matching/multiple_calls.test.cpp": "2022-11-26 16:53:52 +0900",
 "tests/xor_basis.test.cpp": "2022-10-08 19:22:04 +0900",
