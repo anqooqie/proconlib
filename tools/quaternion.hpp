@@ -29,11 +29,15 @@ namespace tools {
     static_assert(::std::is_floating_point_v<T>);
 
   private:
-    ::tools::vector4<T> m_vector;
     static constexpr T eps = 1e-5;
     static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;
 
   public:
+    T x;
+    T y;
+    T z;
+    T w;
+
     quaternion() = default;
     quaternion(const ::tools::quaternion<T>&) = default;
     quaternion(::tools::quaternion<T>&&) = default;
@@ -41,56 +45,31 @@ namespace tools {
     ::tools::quaternion<T>& operator=(const ::tools::quaternion<T>&) = default;
     ::tools::quaternion<T>& operator=(::tools::quaternion<T>&&) = default;
 
-    quaternion(const T x, const T y, const T z, const T w) : m_vector(x, y, z, w) {}
-
-    T x() const {
-      return this->m_vector.x;
-    }
-    void x(const T val) {
-      return this->m_vector.x = val;
-    }
-    T y() const {
-      return this->m_vector.y;
-    }
-    void y(const T val) {
-      return this->m_vector.y = val;
-    }
-    T z() const {
-      return this->m_vector.z;
-    }
-    void z(const T val) {
-      return this->m_vector.z = val;
-    }
-    T w() const {
-      return this->m_vector.w;
-    }
-    void w(const T val) {
-      return this->m_vector.w = val;
-    }
+    quaternion(const T x, const T y, const T z, const T w) : x(x), y(y), z(z), w(w) {}
 
     T real() const {
-      return this->w();
+      return this->w;
     }
     void real(const T val) {
-      this->w(val);
+      this->w = val;
     }
     ::tools::vector3<T> imag() const {
-      return ::tools::vector3<T>(this->x(), this->y(), this->z());
+      return ::tools::vector3<T>(this->x, this->y, this->z);
     }
     void imag(const ::tools::vector3<T>& val) {
-      this->x(val.x);
-      this->y(val.y);
-      this->z(val.z);
+      this->x = val.x;
+      this->y = val.y;
+      this->z = val.z;
     }
 
     T abs() const {
-      return this->m_vector.l2_norm();
+      return ::tools::vector4<T>(this->x, this->y, this->z, this->w).l2_norm();
     }
     T norm() const {
-      return this->m_vector.squared_l2_norm();
+      return ::tools::vector4<T>(this->x, this->y, this->z, this->w).squared_l2_norm();
     }
     ::tools::quaternion<T> conj() const {
-      return ::tools::quaternion<T>(-this->x(), -this->y(), -this->z(), this->w());
+      return ::tools::quaternion<T>(-this->x, -this->y, -this->z, this->w);
     }
 
     T angle() const {
@@ -106,11 +85,14 @@ namespace tools {
       return *this;
     }
     ::tools::quaternion<T> operator-() const {
-      return ::tools::quaternion<T>(-this->x(), -this->y(), -this->z(), -this->w());
+      return ::tools::quaternion<T>(-this->x, -this->y, -this->z, -this->w);
     }
 
     ::tools::quaternion<T>& operator+=(const ::tools::quaternion<T>& other) {
-      this->m_vector += other.m_vector;
+      this->x += other.x;
+      this->y += other.y;
+      this->z += other.z;
+      this->w += other.w;
       return *this;
     }
     friend ::tools::quaternion<T> operator+(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {
@@ -118,7 +100,10 @@ namespace tools {
     }
 
     ::tools::quaternion<T>& operator-=(const ::tools::quaternion<T>& other) {
-      this->m_vector -= other.m_vector;
+      this->x -= other.x;
+      this->y -= other.y;
+      this->z -= other.z;
+      this->w -= other.w;
       return *this;
     }
     friend ::tools::quaternion<T> operator-(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {
@@ -126,7 +111,10 @@ namespace tools {
     }
 
     ::tools::quaternion<T>& operator*=(const T c) {
-      this->m_vector *= c;
+      this->x *= c;
+      this->y *= c;
+      this->z *= c;
+      this->w *= c;
       return *this;
     }
     friend ::tools::quaternion<T> operator*(const ::tools::quaternion<T>& self, const T c) {
@@ -150,7 +138,10 @@ namespace tools {
     }
 
     ::tools::quaternion<T>& operator/=(const T c) {
-      this->m_vector /= c;
+      this->x /= c;
+      this->y /= c;
+      this->z /= c;
+      this->w /= c;
       return *this;
     }
     friend ::tools::quaternion<T> operator/(const ::tools::quaternion<T>& self, const T c) {
@@ -170,7 +161,7 @@ namespace tools {
     }
 
     friend bool operator==(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {
-      return lhs.m_vector == rhs.m_vector;
+      return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
     }
     friend bool operator!=(const ::tools::quaternion<T>& lhs, const ::tools::quaternion<T>& rhs) {
       return !(lhs == rhs);
@@ -181,7 +172,7 @@ namespace tools {
       s.flags(os.flags());
       s.imbue(os.getloc());
       s.precision(os.precision());
-      s << '(' << self.x() << ',' << self.y() << ',' << self.z() << ',' << self.w() << ')';
+      s << '(' << self.x << ',' << self.y << ',' << self.z << ',' << self.w << ')';
       return os << s.str();
     }
 

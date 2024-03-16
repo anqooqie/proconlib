@@ -30,71 +30,31 @@ It is a quaternion.
 
 ## x
 ```cpp
-(1) T q.x();
-(2) void q.x(T val);
+T q.x;
 ```
 
-- (1)
-    - It returns the X component of $q$.
-- (2)
-    - It updates the X component of $q$ to `val`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+It is the X component of $q$.
 
 ## y
 ```cpp
-(1) T q.y();
-(2) void q.y(T val);
+T q.y;
 ```
 
-- (1)
-    - It returns the Y component of $q$.
-- (2)
-    - It updates the Y component of $q$ to `val`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+It is the Y component of $q$.
 
 ## z
 ```cpp
-(1) T q.z();
-(2) void q.z(T val);
+T q.z;
 ```
 
-- (1)
-    - It returns the Z component of $q$.
-- (2)
-    - It updates the Z component of $q$ to `val`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+It is the Z component of $q$.
 
 ## w
 ```cpp
-(1) T q.w();
-(2) void q.w(T val);
+T q.w;
 ```
 
-- (1)
-    - It returns the W component of $q$.
-- (2)
-    - It updates the W component of $q$ to `val`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
+It is the W component of $q$.
 
 ## real
 ```cpp
@@ -359,7 +319,7 @@ std::ostringstream s;
 s.flags(os.flags());
 s.imbue(os.getloc());
 s.precision(os.precision());
-s << '(' << self.x() << ',' << self.y() << ',' << self.z() << ',' << self.w() << ')';
+s << '(' << self.x << ',' << self.y << ',' << self.z << ',' << self.w << ')';
 return os << s.str();
 ```
 
