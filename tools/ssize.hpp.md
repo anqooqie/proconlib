@@ -172,9 +172,6 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/range_of_digit_products.test.cpp
-    title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -284,7 +281,6 @@ data:
   - tests/bigint/plus.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/range_of_digit_products.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/permutation.test.cpp
   - tests/bernoulli.test.cpp

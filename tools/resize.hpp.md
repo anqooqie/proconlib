@@ -3,12 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/digit_product_frequency.hpp
+    title: Frequency table of digit products
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/range_of_digit_products.test.cpp
-    title: tests/range_of_digit_products.test.cpp
+    path: tests/digit_product_frequency.test.cpp
+    title: tests/digit_product_frequency.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
@@ -62,12 +65,13 @@ data:
   isVerificationFile: false
   path: tools/resize.hpp
   requiredBy:
+  - tools/digit_product_frequency.hpp
   - tools/util.hpp
   timestamp: '2022-09-03 15:52:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/util.test.cpp
-  - tests/range_of_digit_products.test.cpp
+  - tests/digit_product_frequency.test.cpp
   - tests/resize.test.cpp
 documentation_of: tools/resize.hpp
 layout: document

@@ -112,6 +112,9 @@ data:
       path: tools/cycle_detection.hpp
       title: Cycle detection on a graph
     - icon: ':heavy_check_mark:'
+      path: tools/digit_product_frequency.hpp
+      title: Frequency table of digit products
+    - icon: ':heavy_check_mark:'
       path: tools/digit_sum.hpp
       title: Sum of digits
     - icon: ':heavy_check_mark:'
@@ -447,9 +450,6 @@ data:
       path: tools/range_count_distinct.hpp
       title: Range count distinct
     - icon: ':heavy_check_mark:'
-      path: tools/range_of_digit_products.hpp
-      title: Range of digit products
-    - icon: ':heavy_check_mark:'
       path: tools/rational.hpp
       title: Rational number
     - icon: ':heavy_check_mark:'
@@ -561,7 +561,7 @@ data:
       path: tools/unordered_set.hpp
       title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type,
         Hash&amp;gt;
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
     - icon: ':heavy_check_mark:'
@@ -671,6 +671,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/cumsum2d.test.cpp
       title: tests/cumsum2d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/digit_product_frequency.test.cpp
+      title: tests/digit_product_frequency.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/digit_sum.test.cpp
       title: tests/digit_sum.test.cpp
@@ -854,9 +857,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/range_count_distinct.test.cpp
       title: tests/range_count_distinct.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/range_of_digit_products.test.cpp
-      title: tests/range_of_digit_products.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/real_interval_set.test.cpp
       title: tests/real_interval_set.test.cpp

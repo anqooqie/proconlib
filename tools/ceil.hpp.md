@@ -51,9 +51,6 @@ data:
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
-    path: tools/range_of_digit_products.hpp
-    title: Range of digit products
-  - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -191,9 +188,6 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/range_of_digit_products.test.cpp
-    title: tests/range_of_digit_products.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -283,7 +277,6 @@ data:
   - tools/ceil_kth_root.hpp
   - tools/ceil_log.hpp
   - tools/pow_mod_cache.hpp
-  - tools/range_of_digit_products.hpp
   - tools/polynomial.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -312,7 +305,6 @@ data:
   - tests/bigint/modulus.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/ceil_kth_root.test.cpp
-  - tests/range_of_digit_products.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/rotate_left.test.cpp
   - tests/polynomial_interpolation.test.cpp

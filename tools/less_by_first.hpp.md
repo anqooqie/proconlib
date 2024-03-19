@@ -12,6 +12,9 @@ data:
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/digit_product_frequency.hpp
+    title: Frequency table of digit products
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bostan_mori.test.cpp
     title: tests/bostan_mori.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/digit_product_frequency.test.cpp
+    title: tests/digit_product_frequency.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/composition.test.cpp
     title: tests/fps/composition.test.cpp
@@ -162,6 +168,7 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
+  - tools/digit_product_frequency.hpp
   - tools/partition_function.hpp
   - tools/bernoulli.hpp
   - tools/partially_persistent_dsu.hpp
@@ -202,6 +209,7 @@ data:
   - tests/fps/log_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/digit_product_frequency.test.cpp
   - tests/range_count_distinct.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
