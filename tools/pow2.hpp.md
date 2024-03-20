@@ -95,7 +95,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tsort.hpp
     title: Topological sorting
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
   - icon: ':x:'
@@ -342,7 +342,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsort/query.test.cpp
     title: tests/tsort/query.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'

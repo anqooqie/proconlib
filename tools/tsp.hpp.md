@@ -12,12 +12,12 @@ data:
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tsp.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
@@ -150,7 +150,7 @@ data:
   path: tools/tsp.hpp
   requiredBy: []
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tsp.test.cpp
 documentation_of: tools/tsp.hpp

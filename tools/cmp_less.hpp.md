@@ -20,25 +20,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/longest_common_substring.hpp
     title: Longest common substring
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   - icon: ':x:'
@@ -84,25 +84,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - icon: ':x:'

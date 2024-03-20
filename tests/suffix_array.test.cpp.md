@@ -7,20 +7,20 @@ data:
   - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_equal.hpp
     title: Polyfill of std::cmp_equal
   - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc272/tasks/abc272_f
@@ -242,7 +242,7 @@ data:
   path: tests/suffix_array.test.cpp
   requiredBy: []
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/suffix_array.test.cpp
 layout: document

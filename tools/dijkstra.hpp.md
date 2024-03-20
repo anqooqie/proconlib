@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []

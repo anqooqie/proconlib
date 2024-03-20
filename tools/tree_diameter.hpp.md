@@ -9,12 +9,12 @@ data:
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tree_diameter.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -116,7 +116,7 @@ data:
   path: tools/tree_diameter.hpp
   requiredBy: []
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tree_diameter.test.cpp
 documentation_of: tools/tree_diameter.hpp
