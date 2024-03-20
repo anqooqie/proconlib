@@ -165,7 +165,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
@@ -175,13 +175,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor.hpp
       title: $\left\lfloor \frac{x}{y} \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -222,7 +222,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/golden_section_search.hpp
       title: Golden section search
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by.hpp
       title: std::greater by key
     - icon: ':heavy_check_mark:'
@@ -349,13 +349,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':heavy_check_mark:'
@@ -367,7 +367,7 @@ data:
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/next_matching.hpp
       title: Enumerate all matchings
     - icon: ':warning:'
@@ -398,7 +398,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/persistent_queue.hpp
       title: Persistent queue
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
     - icon: ':heavy_check_mark:'
@@ -410,10 +410,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polynomial_interpolation.hpp
       title: Polynomial interpolation
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
     - icon: ':question:'
@@ -422,13 +422,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/preset_segtree_beats.hpp
       title: tools/preset_segtree_beats.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
@@ -446,7 +446,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -470,7 +470,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
     - icon: ':heavy_check_mark:'
@@ -513,7 +513,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/sqrt_mod.hpp
       title: $\sqrt{x} \pmod{P}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':question:'
@@ -611,7 +611,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
   verificationCategories:
@@ -818,7 +818,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/naive_dijkstra.test.cpp
       title: tests/naive_dijkstra.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
     - icon: ':heavy_check_mark:'
@@ -839,7 +839,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_queue.test.cpp
       title: tests/persistent_queue.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
     - icon: ':heavy_check_mark:'
@@ -875,7 +875,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1194,7 +1194,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prim/basic.test.cpp
       title: tests/prim/basic.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/prim/unconnected.test.cpp
       title: tests/prim/unconnected.test.cpp
   - name: tests/quaternion
