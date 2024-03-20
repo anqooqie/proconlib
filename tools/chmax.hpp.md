@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy:
@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -36,18 +36,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\
@@ -75,7 +75,7 @@ data:
   - tools/longest_common_substring.hpp
   - tools/suffix_array.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/next_matching.test.cpp
   - tests/rolling_hash.test.cpp

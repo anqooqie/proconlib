@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -72,10 +72,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -90,7 +90,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/cmp_equal.hpp
       title: Polyfill of std::cmp_equal
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/cmp_less.hpp
       title: Polyfill of std::cmp_less
     - icon: ':heavy_check_mark:'
@@ -303,7 +303,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_get.hpp
       title: std::less by std::get
     - icon: ':warning:'
@@ -416,7 +416,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
@@ -488,7 +488,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
@@ -591,13 +591,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/xor_basis.hpp
       title: Basis of xor
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_knapsack.hpp
       title: 0-1 knapsack problem
   - name: tools/detail
@@ -935,7 +935,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
   - name: tests/avl_tree
@@ -1290,21 +1290,21 @@ data:
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - name: tests/zero_one_bfs
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/directed.test.cpp
       title: tests/zero_one_bfs/directed.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/undirected.test.cpp
       title: tests/zero_one_bfs/undirected.test.cpp
   - name: tests/zero_one_knapsack
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
       title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 layout: toppage

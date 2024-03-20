@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_get.hpp
     title: std::greater by std::get
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
   - icon: ':heavy_check_mark:'
