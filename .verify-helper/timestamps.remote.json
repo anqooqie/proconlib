@@ -202,5 +202,11 @@
 "tests/wavelet_matrix/range_prod.test.cpp": "2023-07-22 12:30:26 +0900",
 "tests/weighted_bipartite_matching/maximize.test.cpp": "2024-03-20 23:37:11 +0900",
 "tests/weighted_bipartite_matching/minimize.test.cpp": "2024-03-20 23:37:11 +0900",
-"tests/weighted_bipartite_matching/multiple_calls.test.cpp": "2024-03-20 23:37:11 +0900"
+"tests/weighted_bipartite_matching/multiple_calls.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/xor_basis.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/zero_one_bfs/directed.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/zero_one_bfs/undirected.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp": "2024-03-20 23:37:11 +0900",
+"tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp": "2024-03-20 23:37:11 +0900"
 }
