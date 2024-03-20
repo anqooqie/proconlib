@@ -1,44 +1,47 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/acl1/tasks/acl1_c
@@ -56,9 +59,16 @@ data:
     \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
     \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\
+    \ 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\
     \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
     \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
     \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
@@ -641,6 +651,7 @@ data:
   - tools/mcf_graph.hpp
   - tools/ssize.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   - tools/greater_by_second.hpp
   - tools/vector2.hpp
   - tools/vector.hpp
@@ -651,8 +662,8 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/maximize.test.cpp
   requiredBy: []
-  timestamp: '2024-03-17 00:33:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/maximize.test.cpp
 layout: document

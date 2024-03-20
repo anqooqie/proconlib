@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
@@ -8,31 +11,34 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/suffix_array.hpp
+    title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
+  - icon: ':x:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/xor_basis.hpp
     title: Basis of xor
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_bfs.hpp
     title: 01-BFS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -51,65 +57,73 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/suffix_array_remove_if.test.cpp
-    title: tests/suffix_array_remove_if.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/suffix_array.test.cpp
+    title: tests/suffix_array.test.cpp
+  - icon: ':x:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n \
-    \   return updated;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CHMIN_HPP\n#define TOOLS_CHMIN_HPP\n\n#include <algorithm>\n\
-    \nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
-    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
-    \ rhs;\n    return updated;\n  }\n}\n\n#endif\n"
-  dependsOn: []
+  bundledCode: "#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\
+    \n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
+    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
+    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
+    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_CHMIN_HPP\n#define TOOLS_CHMIN_HPP\n\n#include \"tools/cmp_less.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
+    \ lhs, const N& rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n#endif\n"
+  dependsOn:
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/chmin.hpp
   requiredBy:
@@ -121,17 +135,17 @@ data:
   - tools/xor_basis.hpp
   - tools/naive_dijkstra.hpp
   - tools/tsp.hpp
+  - tools/suffix_array.hpp
   - tools/dijkstra.hpp
   - tools/tree_diameter.hpp
   - tools/weighted_bipartite_matching.hpp
-  timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/tree_diameter.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/bellman_ford.test.cpp
   - tests/cartesian_tree/interval.test.cpp
-  - tests/suffix_array_remove_if.test.cpp
   - tests/tsp.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
@@ -147,6 +161,7 @@ data:
   - tests/persistent_stack.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp
+  - tests/suffix_array.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

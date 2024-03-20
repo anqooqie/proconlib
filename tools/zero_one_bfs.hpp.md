@@ -1,31 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <cassert>\n#include <utility>\n#include <algorithm>\n#include\
-    \ <limits>\n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
+    \ <limits>\n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
+    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
+    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
+    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs {\n  public:\n\
+    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
+    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
     \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
     \    zero_one_bfs() = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<Directed,\
     \ T>&) = default;\n    zero_one_bfs(::tools::zero_one_bfs<Directed, T>&&) = default;\n\
@@ -96,11 +106,12 @@ data:
     \ prev);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/zero_one_bfs.hpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp

@@ -1,13 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []
@@ -28,17 +31,24 @@ data:
     \n\nnamespace tools {\n\n  class greater_by_second {\n  public:\n    template\
     \ <class T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const\
     \ ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n    }\n\
-    \  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
-    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
-    \ rhs;\n    return updated;\n  }\n}\n\n\n#line 13 \"tools/dijkstra.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <bool Directed, typename T>\n  class dijkstra {\n  public:\n\
-    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
-    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
-    \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
-    \    dijkstra() = default;\n    dijkstra(const ::tools::dijkstra<Directed, T>&)\
-    \ = default;\n    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n    ~dijkstra()\
-    \ = default;\n    ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed,\
+    \  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
+    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
+    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
+    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 13 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\
+    \n  template <bool Directed, typename T>\n  class dijkstra {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n\
+    \    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n    dijkstra()\
+    \ = default;\n    dijkstra(const ::tools::dijkstra<Directed, T>&) = default;\n\
+    \    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n    ~dijkstra() =\
+    \ default;\n    ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed,\
     \ T>&) = default;\n    ::tools::dijkstra<Directed, T>& operator=(::tools::dijkstra<Directed,\
     \ T>&&) = default;\n\n    explicit dijkstra(const ::std::size_t n) : m_graph(n)\
     \ {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
@@ -94,10 +104,11 @@ data:
   - tools/dijkstra.hpp
   - tools/greater_by_second.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: true
   path: tests/dijkstra/directed.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
+  timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dijkstra/directed.test.cpp

@@ -4,12 +4,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cartesian_tree.hpp
     title: Cartesian tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
@@ -67,11 +70,18 @@ data:
     \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
     \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
     \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
-    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5\
-    \ \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n\
-    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\
-    \n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1\
+    \ \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools {\n\
+    \  template <typename T, typename U>\n  constexpr bool cmp_less(const T t, const\
+    \ U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n\
+    \    if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"\
+    tools/cartesian_tree.hpp\"\n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\
     \n#include <stack>\n#line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n\
     \  template <typename T, typename Compare = ::std::less<T>>\n  class cartesian_tree\
     \ {\n  public:\n    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t\
@@ -117,9 +127,9 @@ data:
     \ const {\n      return this->m_vertices;\n    }\n  };\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
     \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 12 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll = long long;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ = ::tools::cmp_less(lhs, rhs);\n    if (updated) lhs = rhs;\n    return updated;\n\
+    \  }\n}\n\n\n#line 12 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll =\
+    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, M;\n  std::cin >> N >> M;\n  auto A = std::vector(N, std::vector<int>(M));\n\
     \  for (auto& A_r : A) {\n    for (auto& A_rc: A_r) {\n      std::cin >> A_rc;\n\
     \    }\n  }\n\n  const tools::cumsum2d<tools::group::plus<int>> sum(A);\n\n  ll\
@@ -151,12 +161,13 @@ data:
   - tools/cumsum2d.hpp
   - tools/group.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   - tools/cartesian_tree.hpp
   - tools/chmax.hpp
   isVerificationFile: true
   path: tests/cartesian_tree/interval.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
+  timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cartesian_tree/interval.test.cpp

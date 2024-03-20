@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/segmented_sieve.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -28,15 +31,21 @@ data:
     \ ng;\n    for (ng = 1; ng <= n / ng; ng *= 2);\n\n    while (ng - ok > 1) {\n\
     \      const T mid = ok + (ng - ok) / 2;\n      if (mid <= n / mid) {\n      \
     \  ok = mid;\n      } else {\n        ng = mid;\n      }\n    }\n\n    return\
-    \ ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\
-    \n#include <type_traits>\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
-    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
-    \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
-    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 15 \"tools/segmented_sieve.hpp\"\
+    \ ok;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
+    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
+    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
+    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 1 \"tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> ceil(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    assert(rhs != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0))\
+    \ || (lhs < M(0) && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 15 \"tools/segmented_sieve.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class segmented_sieve {\n  private:\n\
     \    ::std::vector<T> m_lpf;\n    ::std::vector<::std::vector<T>> m_pf;\n    ::std::vector<T>\
     \ m_aux;\n    T m_l;\n\n  public:\n    segmented_sieve() = default;\n    segmented_sieve(const\
@@ -320,12 +329,13 @@ data:
   dependsOn:
   - tools/floor_sqrt.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/segmented_sieve.hpp
   requiredBy: []
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/segmented_sieve.test.cpp
 documentation_of: tools/segmented_sieve.hpp

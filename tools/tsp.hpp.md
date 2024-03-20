@@ -1,20 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tsp.hpp\"\n\n\n\n#include <cstddef>\n#include <vector>\n\
@@ -27,25 +30,31 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\
-    \n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 14 \"tools/tsp.hpp\"\n\nnamespace tools {\n\n  template <bool Directed,\
-    \ typename T>\n  class tsp {\n  public:\n    struct edge {\n      ::std::size_t\
-    \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
-    \ };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
-    \ m_graph;\n\n  public:\n    tsp() = default;\n    tsp(const ::tools::tsp<Directed,\
-    \ T>&) = default;\n    tsp(::tools::tsp<Directed, T>&&) = default;\n    ~tsp()\
-    \ = default;\n    ::tools::tsp<Directed, T>& operator=(const ::tools::tsp<Directed,\
-    \ T>&) = default;\n    ::tools::tsp<Directed, T>& operator=(::tools::tsp<Directed,\
-    \ T>&&) = default;\n\n    explicit tsp(const ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n,\
-    \ ::std::numeric_limits<::std::size_t>::max())) {\n      assert(n >= 2);\n   \
-    \ }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
-    \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
-    \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
-    \   if constexpr (!Directed) {\n        ::std::tie(u, v) = ::std::minmax({u, v});\n\
-    \      }\n      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));\n\
-    \      if (this->m_graph[u][v] == ::std::numeric_limits<::std::size_t>::max()\
+    \n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/tsp.hpp\"\n\n\
+    namespace tools {\n\n  template <bool Directed, typename T>\n  class tsp {\n \
+    \ public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n\
+    \      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
+    \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
+    \    tsp() = default;\n    tsp(const ::tools::tsp<Directed, T>&) = default;\n\
+    \    tsp(::tools::tsp<Directed, T>&&) = default;\n    ~tsp() = default;\n    ::tools::tsp<Directed,\
+    \ T>& operator=(const ::tools::tsp<Directed, T>&) = default;\n    ::tools::tsp<Directed,\
+    \ T>& operator=(::tools::tsp<Directed, T>&&) = default;\n\n    explicit tsp(const\
+    \ ::std::size_t n) : m_graph(n, ::std::vector<::std::size_t>(n, ::std::numeric_limits<::std::size_t>::max()))\
+    \ {\n      assert(n >= 2);\n    }\n\n    ::std::size_t size() const {\n      return\
+    \ this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t u,\
+    \ ::std::size_t v, const T& w) {\n      assert(u < this->size());\n      assert(v\
+    \ < this->size());\n      if constexpr (!Directed) {\n        ::std::tie(u, v)\
+    \ = ::std::minmax({u, v});\n      }\n      this->m_edges.push_back(edge({this->m_edges.size(),\
+    \ u, v, w}));\n      if (this->m_graph[u][v] == ::std::numeric_limits<::std::size_t>::max()\
     \ || w < this->m_edges[this->m_graph[u][v]].cost) {\n        this->m_graph[u][v]\
     \ = this->m_edges.size() - 1;\n      }\n      if constexpr (!Directed) {\n   \
     \     if (this->m_graph[v][u] == ::std::numeric_limits<::std::size_t>::max() ||\
@@ -136,11 +145,12 @@ data:
   dependsOn:
   - tools/pow2.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/tsp.hpp
   requiredBy: []
-  timestamp: '2022-10-15 15:02:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/tsp.test.cpp
 documentation_of: tools/tsp.hpp

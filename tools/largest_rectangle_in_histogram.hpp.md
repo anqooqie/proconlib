@@ -1,9 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -16,11 +19,17 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/largest_rectangle_in_histogram.hpp\"\n\n\n\n#include\
     \ <iterator>\n#include <stack>\n#include <utility>\n#include <tuple>\n#line 1\
-    \ \"tools/chmax.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool\
-    \ updated = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
-    }\n\n\n#line 9 \"tools/largest_rectangle_in_histogram.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
+    \ \"tools/chmax.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(lhs, rhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 9 \"tools/largest_rectangle_in_histogram.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
     \ largest_rectangle_in_histogram(const InputIterator& begin, const InputIterator&\
     \ end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \n    T result = 0;\n    ::std::stack<::std::pair<T, T>> dp;\n    for (auto [i,\
@@ -50,10 +59,11 @@ data:
     \ result;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/chmax.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/largest_rectangle_in_histogram.hpp
   requiredBy: []
-  timestamp: '2021-07-18 21:35:11+09:00'
+  timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/largest_rectangle_in_histogram.test.cpp

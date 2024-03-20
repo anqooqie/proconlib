@@ -1,56 +1,66 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tree_diameter.hpp\"\n\n\n\n#include <vector>\n#include\
     \ <cstddef>\n#include <utility>\n#include <cassert>\n#include <tuple>\n#include\
     \ <limits>\n#include <queue>\n#include <iterator>\n#include <algorithm>\n#line\
-    \ 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs)\
-    \ {\n    const bool updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 14 \"tools/tree_diameter.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename T>\n  class tree_diameter {\n  private:\n    ::std::vector<::std::vector<::std::size_t>>\
-    \ m_graph;\n    ::std::vector<::std::pair<::std::size_t, T>> m_edges;\n\n  public:\n\
-    \    tree_diameter() = default;\n    tree_diameter(const ::tools::tree_diameter<T>&)\
-    \ = default;\n    tree_diameter(::tools::tree_diameter<T>&&) = default;\n    ~tree_diameter()\
-    \ = default;\n    ::tools::tree_diameter<T>& operator=(const ::tools::tree_diameter<T>&)\
-    \ = default;\n    ::tools::tree_diameter<T>& operator=(::tools::tree_diameter<T>&&)\
-    \ = default;\n\n    explicit tree_diameter(const ::std::size_t n) :\n      m_graph(n)\
-    \ {\n      assert(n >= 1);\n    }\n\n    ::std::size_t size() const {\n      return\
-    \ this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(const ::std::size_t\
-    \ u, const ::std::size_t v, const T& w) {\n      assert(u < this->size());\n \
-    \     assert(v < this->size());\n\n      this->m_graph[u].push_back(this->m_edges.size());\n\
-    \      this->m_graph[v].push_back(this->m_edges.size());\n      this->m_edges.emplace_back(u\
-    \ ^ v, w);\n      return this->m_edges.size() - 1;\n    }\n\n    ::std::tuple<T,\
-    \ ::std::vector<::std::size_t>, ::std::vector<::std::size_t>> query() const {\n\
-    \      assert(this->m_edges.size() + 1 == this->size());\n\n      ::std::vector<T>\
-    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[0] = 0;\n \
-    \     ::std::queue<::std::size_t> queue({0});\n      while (!queue.empty()) {\n\
-    \        const auto here = queue.front();\n        queue.pop();\n        for (const\
-    \ auto eid : this->m_graph[here]) {\n          const auto next = this->m_edges[eid].first\
-    \ ^ here;\n          const auto w = this->m_edges[eid].second;\n          if (::tools::chmin(dist[next],\
-    \ dist[here] + w)) {\n            queue.push(next);\n          }\n        }\n\
-    \      }\n\n      queue.push(::std::distance(dist.begin(), ::std::max_element(dist.begin(),\
-    \ dist.end())));\n      ::std::fill(dist.begin(), dist.end(), ::std::numeric_limits<T>::max());\n\
-    \      dist[queue.front()] = 0;\n      ::std::vector<::std::size_t> prev(this->size(),\
-    \ ::std::numeric_limits<::std::size_t>::max());\n      while (!queue.empty())\
-    \ {\n        const auto here = queue.front();\n        queue.pop();\n        for\
-    \ (const auto eid : this->m_graph[here]) {\n          const auto next = this->m_edges[eid].first\
-    \ ^ here;\n          const auto w = this->m_edges[eid].second;\n          if (::tools::chmin(dist[next],\
-    \ dist[here] + w)) {\n            prev[next] = eid;\n            queue.push(next);\n\
-    \          }\n        }\n      }\n\n      ::std::tuple<T, ::std::vector<::std::size_t>,\
+    \ 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include\
+    \ <type_traits>\n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr\
+    \ bool cmp_less(const T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n\
+    \    using UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T>\
+    \ == ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/tree_diameter.hpp\"\
+    \n\nnamespace tools {\n  template <typename T>\n  class tree_diameter {\n  private:\n\
+    \    ::std::vector<::std::vector<::std::size_t>> m_graph;\n    ::std::vector<::std::pair<::std::size_t,\
+    \ T>> m_edges;\n\n  public:\n    tree_diameter() = default;\n    tree_diameter(const\
+    \ ::tools::tree_diameter<T>&) = default;\n    tree_diameter(::tools::tree_diameter<T>&&)\
+    \ = default;\n    ~tree_diameter() = default;\n    ::tools::tree_diameter<T>&\
+    \ operator=(const ::tools::tree_diameter<T>&) = default;\n    ::tools::tree_diameter<T>&\
+    \ operator=(::tools::tree_diameter<T>&&) = default;\n\n    explicit tree_diameter(const\
+    \ ::std::size_t n) :\n      m_graph(n) {\n      assert(n >= 1);\n    }\n\n   \
+    \ ::std::size_t size() const {\n      return this->m_graph.size();\n    }\n\n\
+    \    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const\
+    \ T& w) {\n      assert(u < this->size());\n      assert(v < this->size());\n\n\
+    \      this->m_graph[u].push_back(this->m_edges.size());\n      this->m_graph[v].push_back(this->m_edges.size());\n\
+    \      this->m_edges.emplace_back(u ^ v, w);\n      return this->m_edges.size()\
+    \ - 1;\n    }\n\n    ::std::tuple<T, ::std::vector<::std::size_t>, ::std::vector<::std::size_t>>\
+    \ query() const {\n      assert(this->m_edges.size() + 1 == this->size());\n\n\
+    \      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n\
+    \      dist[0] = 0;\n      ::std::queue<::std::size_t> queue({0});\n      while\
+    \ (!queue.empty()) {\n        const auto here = queue.front();\n        queue.pop();\n\
+    \        for (const auto eid : this->m_graph[here]) {\n          const auto next\
+    \ = this->m_edges[eid].first ^ here;\n          const auto w = this->m_edges[eid].second;\n\
+    \          if (::tools::chmin(dist[next], dist[here] + w)) {\n            queue.push(next);\n\
+    \          }\n        }\n      }\n\n      queue.push(::std::distance(dist.begin(),\
+    \ ::std::max_element(dist.begin(), dist.end())));\n      ::std::fill(dist.begin(),\
+    \ dist.end(), ::std::numeric_limits<T>::max());\n      dist[queue.front()] = 0;\n\
+    \      ::std::vector<::std::size_t> prev(this->size(), ::std::numeric_limits<::std::size_t>::max());\n\
+    \      while (!queue.empty()) {\n        const auto here = queue.front();\n  \
+    \      queue.pop();\n        for (const auto eid : this->m_graph[here]) {\n  \
+    \        const auto next = this->m_edges[eid].first ^ here;\n          const auto\
+    \ w = this->m_edges[eid].second;\n          if (::tools::chmin(dist[next], dist[here]\
+    \ + w)) {\n            prev[next] = eid;\n            queue.push(next);\n    \
+    \      }\n        }\n      }\n\n      ::std::tuple<T, ::std::vector<::std::size_t>,\
     \ ::std::vector<::std::size_t>> result;\n      ::std::get<0>(result) = 0;\n  \
     \    ::std::size_t v;\n      for (v = ::std::distance(dist.begin(), ::std::max_element(dist.begin(),\
     \ dist.end())); prev[v] != ::std::numeric_limits<::std::size_t>::max(); v = this->m_edges[prev[v]].first\
@@ -101,11 +111,12 @@ data:
     \  }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/tree_diameter.hpp
   requiredBy: []
-  timestamp: '2022-04-29 23:42:50+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/tree_diameter.test.cpp
 documentation_of: tools/tree_diameter.hpp

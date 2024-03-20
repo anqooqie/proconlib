@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc270/tasks/abc270_f
@@ -100,13 +103,19 @@ data:
     \        x = (x & UINT64_C(0x0000ffff0000ffff)) + (x >> 16 & UINT64_C(0x0000ffff0000ffff));\n\
     \        x = (x & UINT64_C(0x00000000ffffffff)) + (x >> 32 & UINT64_C(0x00000000ffffffff));\n\
     \      }\n\n      return x;\n    }\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\
-    \n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated =\
-    \ lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line\
-    \ 9 \"tests/prim/unconnected.test.cpp\"\n\nusing ll = long long;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ N, M;\n  std::cin >> N >> M;\n  std::vector<ll> X(N), Y(N);\n  for (auto& X_i\
-    \ : X) std::cin >> X_i;\n  for (auto& Y_i : Y) std::cin >> Y_i;\n  std::vector<ll>\
+    \n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 9 \"tests/prim/unconnected.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N, M;\n  std::cin >> N >> M;\n  std::vector<ll> X(N), Y(N);\n  for (auto&\
+    \ X_i : X) std::cin >> X_i;\n  for (auto& Y_i : Y) std::cin >> Y_i;\n  std::vector<ll>\
     \ A(M), B(M), Z(M);\n  for (ll i = 0; i < M; ++i) {\n    std::cin >> A[i] >> B[i]\
     \ >> Z[i];\n    --A[i], --B[i];\n  }\n\n  ll answer = std::numeric_limits<ll>::max();\n\
     \  for (ll state = 0; state < 4; ++state) {\n    tools::prim<ll> graph(N + tools::popcount(state));\n\
@@ -138,11 +147,12 @@ data:
   - tools/greater_by.hpp
   - tools/popcount.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: true
   path: tests/prim/unconnected.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/prim/unconnected.test.cpp
 layout: document

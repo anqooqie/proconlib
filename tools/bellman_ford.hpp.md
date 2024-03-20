@@ -1,9 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -16,17 +19,23 @@ data:
     links: []
   bundledCode: "#line 1 \"tools/bellman_ford.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <cassert>\n#include <utility>\n#include <limits>\n#line 1\
-    \ \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
-    \ updated = lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
-    }\n\n\n#line 10 \"tools/bellman_ford.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  class bellman_ford {\n  public:\n    struct edge {\n      ::std::size_t\
-    \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
-    \ };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge> m_edges;\n\
-    \n  public:\n    bellman_ford() = default;\n    bellman_ford(const ::tools::bellman_ford<T>&)\
-    \ = default;\n    bellman_ford(::tools::bellman_ford<T>&&) = default;\n    ~bellman_ford()\
-    \ = default;\n    ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&)\
-    \ = default;\n    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&)\
+    \ \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 10 \"tools/bellman_ford.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T>\n  class bellman_ford {\n  public:\n\
+    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
+    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n\
+    \    ::std::vector<edge> m_edges;\n\n  public:\n    bellman_ford() = default;\n\
+    \    bellman_ford(const ::tools::bellman_ford<T>&) = default;\n    bellman_ford(::tools::bellman_ford<T>&&)\
+    \ = default;\n    ~bellman_ford() = default;\n    ::tools::bellman_ford<T>& operator=(const\
+    \ ::tools::bellman_ford<T>&) = default;\n    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&)\
     \ = default;\n\n    explicit bellman_ford(const ::std::size_t n) : m_size(n) {\n\
     \    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n    }\n\
     \n    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const\
@@ -89,10 +98,11 @@ data:
     \   }\n\n      return ::std::make_pair(dist, prev);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
+  timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bellman_ford.test.cpp

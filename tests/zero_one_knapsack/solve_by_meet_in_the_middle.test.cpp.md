@@ -1,36 +1,39 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_H
@@ -41,33 +44,40 @@ data:
     \ <iostream>\n#line 1 \"tools/zero_one_knapsack.hpp\"\n\n\n\n#include <vector>\n\
     #include <utility>\n#include <cassert>\n#include <cstddef>\n#include <limits>\n\
     #include <iterator>\n#include <algorithm>\n#include <tuple>\n#include <array>\n\
-    #include <numeric>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 5 \"tools/chmax.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmax(M&\
-    \ lhs, const N& rhs) {\n    const bool updated = lhs < rhs;\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\
-    \n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool updated =\
-    \ lhs > rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <::std::size_t I>\n  struct less_by_get {\n    template\
-    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
-    \ ::std::get<I>(x) < ::std::get<I>(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\
-    \n\n\n\n#include <type_traits>\n#line 9 \"tools/safe_int.hpp\"\n#include <optional>\n\
-    #line 11 \"tools/safe_int.hpp\"\n\nnamespace tools {\n  template <typename T,\
-    \ typename = void>\n  class safe_int;\n\n  template <typename T>\n  class safe_int<T,\
-    \ ::std::enable_if_t<::std::is_signed_v<T>>> {\n  private:\n    enum class type\
-    \ {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n    };\n    typename\
-    \ ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n    constexpr safe_int(const\
-    \ typename ::tools::safe_int<T>::type type) :\n      m_type(type), m_value(T())\
-    \ {\n    }\n\n  public:\n    constexpr safe_int() :\n      m_type(::tools::safe_int<T>::type::finite),\
-    \ m_value(T()) {\n    }\n    explicit constexpr safe_int(const T value) :\n  \
-    \    m_type(::tools::safe_int<T>::type::finite), m_value(value) {\n    }\n   \
-    \ constexpr safe_int(const ::tools::safe_int<T>& other) :\n      m_type(other.m_type),\
-    \ m_value(other.m_value) {\n    }\n    ~safe_int() = default;\n    constexpr ::tools::safe_int<T>&\
-    \ operator=(const ::tools::safe_int<T>& other) {\n      this->m_type = other.m_type;\n\
-    \      this->m_value = other.m_value;\n      return *this;\n    }\n\n    static\
-    \ constexpr ::tools::safe_int<T> infinity() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n\
-    \    }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
+    #include <numeric>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
+    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
+    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
+    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(lhs, rhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M&\
+    \ lhs, const N& rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n\
+    \    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/less_by_get.hpp\"\
+    \n\n\n\n#line 6 \"tools/less_by_get.hpp\"\n\nnamespace tools {\n\n  template <::std::size_t\
+    \ I>\n  struct less_by_get {\n    template <class T>\n    bool operator()(const\
+    \ T& x, const T& y) const {\n      return ::std::get<I>(x) < ::std::get<I>(y);\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/safe_int.hpp\"\n\n\n\n#line 9 \"tools/safe_int.hpp\"\
+    \n#include <optional>\n#line 11 \"tools/safe_int.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, typename = void>\n  class safe_int;\n\n  template <typename\
+    \ T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>> {\n  private:\n\
+    \    enum class type {\n      finite,\n      pos_inf,\n      neg_inf,\n      nan\n\
+    \    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\n \
+    \   constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n   \
+    \   m_type(type), m_value(T()) {\n    }\n\n  public:\n    constexpr safe_int()\
+    \ :\n      m_type(::tools::safe_int<T>::type::finite), m_value(T()) {\n    }\n\
+    \    explicit constexpr safe_int(const T value) :\n      m_type(::tools::safe_int<T>::type::finite),\
+    \ m_value(value) {\n    }\n    constexpr safe_int(const ::tools::safe_int<T>&\
+    \ other) :\n      m_type(other.m_type), m_value(other.m_value) {\n    }\n    ~safe_int()\
+    \ = default;\n    constexpr ::tools::safe_int<T>& operator=(const ::tools::safe_int<T>&\
+    \ other) {\n      this->m_type = other.m_type;\n      this->m_value = other.m_value;\n\
+    \      return *this;\n    }\n\n    static constexpr ::tools::safe_int<T> infinity()\
+    \ {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::pos_inf);\n \
+    \   }\n    static constexpr ::tools::safe_int<T> nan() {\n      return tools::safe_int<T>(::tools::safe_int<T>::type::nan);\n\
     \    }\n\n  private:\n    static constexpr int f1(const ::tools::safe_int<T>&\
     \ n) {\n      switch (n.m_type) {\n      case ::tools::safe_int<T>::type::neg_inf:\n\
     \        return 0;\n      case ::tools::safe_int<T>::type::finite:\n        return\
@@ -481,6 +491,7 @@ data:
   dependsOn:
   - tools/zero_one_knapsack.hpp
   - tools/chmax.hpp
+  - tools/cmp_less.hpp
   - tools/chmin.hpp
   - tools/less_by_get.hpp
   - tools/safe_int.hpp
@@ -490,8 +501,8 @@ data:
   isVerificationFile: true
   path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   requiredBy: []
-  timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 layout: document

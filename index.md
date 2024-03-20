@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/abs.hpp
       title: std::abs(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -72,10 +72,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -87,6 +87,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/circle_2d.hpp
       title: Two-dimensional circle
+    - icon: ':x:'
+      path: tools/cmp_equal.hpp
+      title: Polyfill of std::cmp_equal
+    - icon: ':question:'
+      path: tools/cmp_less.hpp
+      title: Polyfill of std::cmp_less
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
@@ -159,7 +165,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
     - icon: ':heavy_check_mark:'
@@ -169,13 +175,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/floor.hpp
       title: $\left\lfloor \frac{x}{y} \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -190,7 +196,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_quotients.hpp
       title: Enumerate the range of $\left\lfloor \frac{A}{x} \right\rfloor$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -216,7 +222,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/golden_section_search.hpp
       title: Golden section search
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/greater_by.hpp
       title: std::greater by key
     - icon: ':heavy_check_mark:'
@@ -231,7 +237,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -243,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/hash_combine.hpp
       title: Combine hash values
     - icon: ':heavy_check_mark:'
@@ -270,7 +276,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -297,7 +303,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/less_by_get.hpp
       title: std::less by std::get
     - icon: ':warning:'
@@ -331,7 +337,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
@@ -343,13 +349,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':heavy_check_mark:'
@@ -361,13 +367,13 @@ data:
     - icon: ':warning:'
       path: tools/next_combination.hpp
       title: Next combination in the manner of n-choose-r
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/next_matching.hpp
       title: Enumerate all matchings
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
@@ -392,7 +398,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/persistent_queue.hpp
       title: Persistent queue
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/persistent_stack.hpp
       title: Persistent stack
     - icon: ':heavy_check_mark:'
@@ -404,25 +410,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polynomial_interpolation.hpp
       title: Polynomial interpolation
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/popcount.hpp
       title: Popcount
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/pow_mod_cache.hpp
       title: Cache of $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
       path: tools/preset_segtree_beats.hpp
       title: tools/preset_segtree_beats.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/prim.hpp
       title: Prim's algorithm
     - icon: ':heavy_check_mark:'
@@ -440,7 +446,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -464,7 +470,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
     - icon: ':heavy_check_mark:'
@@ -482,14 +488,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
     - icon: ':heavy_check_mark:'
       path: tools/scc_graph.hpp
       title: Strongly connected component decomposition
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/segmented_sieve.hpp
       title: Segmented sieve
     - icon: ':heavy_check_mark:'
@@ -507,10 +513,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/sqrt_mod.hpp
       title: $\sqrt{x} \pmod{P}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -521,9 +527,9 @@ data:
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k
         \leq n$
-    - icon: ':heavy_check_mark:'
-      path: tools/suffix_array_remove_if.hpp
-      title: std::remove_if for suffix array and LCP array
+    - icon: ':x:'
+      path: tools/suffix_array.hpp
+      title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
     - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
@@ -533,7 +539,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
       title: Euler's totient function
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/tree_diameter.hpp
       title: Diameter of a tree
     - icon: ':heavy_check_mark:'
@@ -542,10 +548,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -567,10 +573,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/vector.hpp
       title: Vector
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/vector2.hpp
       title: Two dimensional vector
     - icon: ':heavy_check_mark:'
@@ -582,16 +588,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/wavelet_matrix.hpp
       title: Wavelet matrix
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/xor_basis.hpp
       title: Basis of xor
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tools/zero_one_knapsack.hpp
       title: 0-1 knapsack problem
   - name: tools/detail
@@ -605,7 +611,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
   verificationCategories:
@@ -812,7 +818,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/naive_dijkstra.test.cpp
       title: tests/naive_dijkstra.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
     - icon: ':heavy_check_mark:'
@@ -833,7 +839,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/persistent_queue.test.cpp
       title: tests/persistent_queue.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/persistent_stack.test.cpp
       title: tests/persistent_stack.test.cpp
     - icon: ':heavy_check_mark:'
@@ -869,7 +875,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
     - icon: ':heavy_check_mark:'
@@ -884,7 +890,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
     - icon: ':heavy_check_mark:'
@@ -899,9 +905,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/stirling_2nd.test.cpp
       title: tests/stirling_2nd.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/suffix_array_remove_if.test.cpp
-      title: tests/suffix_array_remove_if.test.cpp
+    - icon: ':x:'
+      path: tests/suffix_array.test.cpp
+      title: tests/suffix_array.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp
@@ -911,10 +917,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/tree_diameter.test.cpp
       title: tests/tree_diameter.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/tsp.test.cpp
       title: tests/tsp.test.cpp
     - icon: ':heavy_check_mark:'
@@ -929,7 +935,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
   - name: tests/avl_tree
@@ -1188,7 +1194,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/prim/basic.test.cpp
       title: tests/prim/basic.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/prim/unconnected.test.cpp
       title: tests/prim/unconnected.test.cpp
   - name: tests/quaternion
@@ -1273,32 +1279,32 @@ data:
       title: tests/wavelet_matrix/range_prod.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/weighted_bipartite_matching/maximize.test.cpp
       title: tests/weighted_bipartite_matching/maximize.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/weighted_bipartite_matching/minimize.test.cpp
       title: tests/weighted_bipartite_matching/minimize.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - name: tests/zero_one_bfs
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/zero_one_bfs/directed.test.cpp
       title: tests/zero_one_bfs/directed.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/zero_one_bfs/undirected.test.cpp
       title: tests/zero_one_bfs/undirected.test.cpp
   - name: tests/zero_one_knapsack
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
       title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 layout: toppage

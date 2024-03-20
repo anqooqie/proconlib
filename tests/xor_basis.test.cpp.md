@@ -1,20 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':x:'
     path: tools/xor_basis.hpp
     title: Basis of xor
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -26,11 +29,18 @@ data:
     \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/xor_basis.hpp\"\
-    \n\n\n\n#include <type_traits>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <algorithm>\n\
-    \nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs,\
-    \ const N& rhs) {\n    const bool updated = lhs > rhs;\n    if (updated) lhs =\
-    \ rhs;\n    return updated;\n  }\n}\n\n\n#line 7 \"tools/xor_basis.hpp\"\n\n//\
-    \ Source: https://twitter.com/noshi91/status/1200702280128856064\n// License:\
+    \n\n\n\n#include <type_traits>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"\
+    tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const T t,\
+    \ const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 7 \"tools/xor_basis.hpp\"\
+    \n\n// Source: https://twitter.com/noshi91/status/1200702280128856064\n// License:\
     \ unknown\n// Author: noshi91\n\nnamespace tools {\n  template <typename InputIterator,\
     \ typename OutputIterator>\n  void xor_basis(const InputIterator& begin, const\
     \ InputIterator& end, OutputIterator result) {\n    using T = ::std::decay_t<decltype(*begin)>;\n\
@@ -74,11 +84,12 @@ data:
   - tools/assert_that.hpp
   - tools/xor_basis.hpp
   - tools/chmin.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: true
   path: tests/xor_basis.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/xor_basis.test.cpp
 layout: document

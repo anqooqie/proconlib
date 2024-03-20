@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/alphabetical_order.hpp
     title: Alphabetical order of a given character
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   _extendedRequiredBy: []

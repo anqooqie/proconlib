@@ -1,59 +1,62 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc141/tasks/abc141_e
@@ -293,12 +296,19 @@ data:
     \      assert(l <= r && r <= this->m_hash.size());\n      return mint(this->m_hash[r].m_val\
     \ + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, m_pow_base[r - l].m_val));\n\
     \    }\n  };\n}\n\n\n#line 5 \"tools/rolling_hash.hpp\"\n\n\n#line 1 \"tools/chmax.hpp\"\
-    \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 7 \"tests/rolling_hash.test.cpp\"\n\nusing ll = long long;\nusing u64 =\
-    \ std::uint_fast64_t;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N;\n  std::string S;\n  std::cin >> N >> S;\n\n  tools::rolling_hash hash(S.begin(),\
+    \n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(lhs, rhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 7 \"tests/rolling_hash.test.cpp\"\
+    \n\nusing ll = long long;\nusing u64 = std::uint_fast64_t;\n\nint main() {\n \
+    \ std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n\
+    \  std::string S;\n  std::cin >> N >> S;\n\n  tools::rolling_hash hash(S.begin(),\
     \ S.end());\n  ll answer = 0;\n  for (ll n = 1; n <= N; ++n) {\n    std::unordered_map<u64,\
     \ ll> leftmost;\n    for (ll l = 0; l + n <= N; ++l) {\n      const auto h = hash.slice(l,\
     \ l + n).val();\n      if (auto it = leftmost.find(h); it != leftmost.end()) {\n\
@@ -333,11 +343,12 @@ data:
   - tools/ceil.hpp
   - tools/now.hpp
   - tools/chmax.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: true
   path: tests/rolling_hash.test.cpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-20 23:37:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/rolling_hash.test.cpp
 layout: document

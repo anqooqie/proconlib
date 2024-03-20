@@ -1,9 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
+  - icon: ':question:'
+    path: tools/cmp_less.hpp
+    title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
     path: tools/mex.hpp
     title: Minimum excluded value
@@ -127,28 +130,35 @@ data:
     \ o : orig) {\n      if (o < n) {\n        exists[o] = true;\n      }\n    }\n\
     \    for (::std::size_t i = 0; i < n; ++i) {\n      if (!exists[i]) {\n      \
     \  return i;\n      }\n    }\n    return n;\n  }\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
-    \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = lhs < rhs;\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 14 \"tools/longest_common_substring.hpp\"\n\nnamespace tools {\n  template\
-    \ <typename InputIterator>\n  ::std::tuple<::std::size_t, ::std::size_t, ::std::size_t,\
-    \ ::std::size_t> longest_common_substring(const InputIterator S_begin, const InputIterator\
-    \ S_end, const InputIterator T_begin, const InputIterator T_end) {\n    using\
-    \ Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n    using Container\
-    \ = ::std::conditional_t<::std::is_same_v<Z, char>, ::std::string, ::std::vector<Z>>;\n\
-    \n    Container ST(S_begin, S_end);\n    const int N = ST.size();\n    ::std::copy(T_begin,\
-    \ T_end, ::std::back_inserter(ST));\n    const int M = ST.size() - N;\n\n    ST.push_back(::tools::mex(ST.begin(),\
-    \ ST.end()));\n    ::std::rotate(::std::next(ST.begin(), N), ::std::prev(ST.end()),\
-    \ ST.end());\n\n    const auto sa = ::atcoder::suffix_array(ST);\n    const auto\
-    \ lcpa = ::atcoder::lcp_array(ST, sa);\n\n    int a = 0;\n    int c = 0;\n   \
-    \ int l = 0;\n    const auto is_in_S = [&](const int i) { return i < N; };\n \
-    \   const auto is_in_T = [&](const int i) { return N + 1 <= i; };\n\n    for (int\
-    \ i = 1; i < N + M + 1; ++i) {\n      if (is_in_S(sa[i]) && is_in_T(sa[i - 1]))\
-    \ {\n        if (::tools::chmax(l, lcpa[i - 1])) {\n          a = sa[i];\n   \
-    \       c = sa[i - 1] - (N + 1);\n        }\n      } else if (is_in_T(sa[i]) &&\
-    \ is_in_S(sa[i - 1])) {\n        if (::tools::chmax(l, lcpa[i - 1])) {\n     \
-    \     a = sa[i - 1];\n          c = sa[i] - (N + 1);\n        }\n      }\n   \
-    \ }\n\n    return ::std::make_tuple(a, a + l, c, c + l);\n  }\n}\n\n\n"
+    \n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(lhs, rhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/longest_common_substring.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator>\n  ::std::tuple<::std::size_t,\
+    \ ::std::size_t, ::std::size_t, ::std::size_t> longest_common_substring(const\
+    \ InputIterator S_begin, const InputIterator S_end, const InputIterator T_begin,\
+    \ const InputIterator T_end) {\n    using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \    using Container = ::std::conditional_t<::std::is_same_v<Z, char>, ::std::string,\
+    \ ::std::vector<Z>>;\n\n    Container ST(S_begin, S_end);\n    const int N = ST.size();\n\
+    \    ::std::copy(T_begin, T_end, ::std::back_inserter(ST));\n    const int M =\
+    \ ST.size() - N;\n\n    ST.push_back(::tools::mex(ST.begin(), ST.end()));\n  \
+    \  ::std::rotate(::std::next(ST.begin(), N), ::std::prev(ST.end()), ST.end());\n\
+    \n    const auto sa = ::atcoder::suffix_array(ST);\n    const auto lcpa = ::atcoder::lcp_array(ST,\
+    \ sa);\n\n    int a = 0;\n    int c = 0;\n    int l = 0;\n    const auto is_in_S\
+    \ = [&](const int i) { return i < N; };\n    const auto is_in_T = [&](const int\
+    \ i) { return N + 1 <= i; };\n\n    for (int i = 1; i < N + M + 1; ++i) {\n  \
+    \    if (is_in_S(sa[i]) && is_in_T(sa[i - 1])) {\n        if (::tools::chmax(l,\
+    \ lcpa[i - 1])) {\n          a = sa[i];\n          c = sa[i - 1] - (N + 1);\n\
+    \        }\n      } else if (is_in_T(sa[i]) && is_in_S(sa[i - 1])) {\n       \
+    \ if (::tools::chmax(l, lcpa[i - 1])) {\n          a = sa[i - 1];\n          c\
+    \ = sa[i] - (N + 1);\n        }\n      }\n    }\n\n    return ::std::make_tuple(a,\
+    \ a + l, c, c + l);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_LONGEST_COMMON_SUBSTRING_HPP\n#define TOOLS_LONGEST_COMMON_SUBSTRING_HPP\n\
     \n#include <tuple>\n#include <cstddef>\n#include <type_traits>\n#include <string>\n\
     #include <vector>\n#include <algorithm>\n#include <iterator>\n#include \"atcoder/string.hpp\"\
@@ -175,10 +185,11 @@ data:
   dependsOn:
   - tools/mex.hpp
   - tools/chmax.hpp
+  - tools/cmp_less.hpp
   isVerificationFile: false
   path: tools/longest_common_substring.hpp
   requiredBy: []
-  timestamp: '2024-01-07 15:56:46+09:00'
+  timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/longest_common_substring.test.cpp
