@@ -9,6 +9,7 @@
 #include <cassert>
 #include <algorithm>
 #include <iterator>
+#include <sstream>
 #include <iostream>
 #include "tools/ceil.hpp"
 #include "tools/popcount.hpp"
@@ -16,19 +17,42 @@
 
 namespace tools {
   class dynamic_bitset {
-  private:
     constexpr static ::std::size_t W = ::std::numeric_limits<::std::uint64_t>::digits;
     ::std::size_t m_size;
     ::std::vector<::std::uint64_t> m_bits;
 
   public:
-    dynamic_bitset() : m_size(0) {}
-    dynamic_bitset(const ::tools::dynamic_bitset&) = default;
-    dynamic_bitset(::tools::dynamic_bitset&&) = default;
-    ~dynamic_bitset() = default;
-    ::tools::dynamic_bitset& operator=(const ::tools::dynamic_bitset&) = default;
-    ::tools::dynamic_bitset& operator=(::tools::dynamic_bitset&&) = default;
+    class reference {
+      friend class ::tools::dynamic_bitset;
 
+      ::tools::dynamic_bitset *m_parent;
+      ::std::size_t m_pos;
+
+      reference(::tools::dynamic_bitset * const parent, const ::std::size_t pos) : m_parent(parent), m_pos(pos) {
+      }
+
+    public:
+      reference(const reference&) = default;
+      reference& operator=(const bool x) {
+        this->m_parent->set(this->m_pos, x);
+        return *this;
+      }
+      reference& operator=(const reference& other) {
+        return *this = static_cast<bool>(other);
+      }
+      bool operator~() const {
+        return !static_cast<bool>(*this);
+      }
+      operator bool() const {
+        return this->m_parent->test(this->m_pos);
+      }
+      reference& flip() {
+        this->m_parent->flip(this->m_pos);
+        return *this;
+      }
+    };
+
+    dynamic_bitset() : m_size(0) {}
     explicit dynamic_bitset(const ::std::size_t size) : m_size(size), m_bits(::tools::ceil(size, W), 0) {}
     explicit dynamic_bitset(const ::std::string& str) : m_size(str.size()), m_bits(::tools::ceil(str.size(), W), 0) {
       for (::std::size_t i = 0; i < str.size(); ++i) {
@@ -120,6 +144,9 @@ namespace tools {
       this->m_bits[pos / W] |= UINT64_C(1) << (pos % W);
       return *this;
     }
+    ::tools::dynamic_bitset& set(const ::std::size_t pos, const bool val) {
+      return val ? this->set(pos) : this->reset(pos);
+    }
     ::tools::dynamic_bitset& reset() {
       ::std::fill(this->m_bits.begin(), this->m_bits.end(), 0);
       return *this;
@@ -129,8 +156,8 @@ namespace tools {
       this->m_bits[pos / W] &= ~(UINT64_C(1) << (pos % W));
       return *this;
     }
-    ::tools::dynamic_bitset& set(const ::std::size_t pos, const bool val) {
-      return val ? this->set(pos) : this->reset(pos);
+    ::tools::dynamic_bitset operator~() const {
+      return ::tools::dynamic_bitset(*this).flip();
     }
     ::tools::dynamic_bitset& flip() {
       for (::std::size_t i = 0; i < this->m_bits.size(); ++i) {
@@ -146,8 +173,11 @@ namespace tools {
       this->m_bits[pos / W] ^= UINT64_C(1) << (pos % W);
       return *this;
     }
-    ::tools::dynamic_bitset operator~() const {
-      return ::tools::dynamic_bitset(*this).flip();
+    reference operator[](const ::std::size_t pos) {
+      return reference(this, pos);
+    }
+    bool operator[](const ::std::size_t pos) const {
+      return this->test(pos);
     }
     ::std::size_t count() const {
       ::std::size_t result = 0;
@@ -162,9 +192,6 @@ namespace tools {
     bool test(const ::std::size_t pos) const {
       assert(pos < this->m_size);
       return (this->m_bits[pos / W] >> (pos % W)) & 1;
-    }
-    bool operator[](const ::std::size_t pos) const {
-      return this->test(pos);
     }
     bool all() const {
       if (this->m_size % W > 0) {
@@ -193,6 +220,11 @@ namespace tools {
     }
     bool none() const {
       return !this->any();
+    }
+    ::std::string to_string() const {
+      ::std::ostringstream oss;
+      oss << *this;
+      return oss.str();
     }
     friend bool operator==(const ::tools::dynamic_bitset& lhs, const ::tools::dynamic_bitset& rhs) {
       return lhs.m_size == rhs.m_size && lhs.m_bits == rhs.m_bits;

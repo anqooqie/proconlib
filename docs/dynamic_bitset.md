@@ -3,8 +3,8 @@ title: std::bitset with dynamic size
 documentation_of: //tools/dynamic_bitset.hpp
 ---
 
-It represents a sequence of bits with a variable length $n$.
-It is compatible to `std::bitset`.
+It is a sequence of bits of length $n$ determined at runtime.
+Its interface is compatible to that of `std::bitset`.
 
 ### License
 - CC0
@@ -26,41 +26,44 @@ dynamic_bitset s(const std::string& str);
 dynamic_bitset& s.operator&=(const dynamic_bitset& t);
 dynamic_bitset& s.operator|=(const dynamic_bitset& t);
 dynamic_bitset& s.operator^=(const dynamic_bitset& t);
-
 dynamic_bitset& s.operator<<=(std::size_t pos);
 dynamic_bitset& s.operator>>=(std::size_t pos);
-
 dynamic_bitset& s.set();
 dynamic_bitset& s.set(std::size_t pos);
 dynamic_bitset& s.set(std::size_t pos, bool val);
 dynamic_bitset& s.reset();
 dynamic_bitset& s.reset(std::size_t pos);
+dynamic_bitset s.operator~() const;
 dynamic_bitset& s.flip();
 dynamic_bitset& s.flip(std::size_t pos);
-dynamic_bitset s.operator~();
 
-std::size_t s.count();
-std::size_t s.size();
-
-bool s.test(std::size_t pos);
-bool s.operator[](std::size_t pos);
-
-bool s.all();
-bool s.any();
-bool s.none();
-
+typename dynamic_bitset::reference s.operator[](std::size_t pos);
+bool s.operator[](std::size_t pos) const;
+std::size_t s.count() const;
+std::size_t s.size() const;
+bool s.test(std::size_t pos) const;
+bool s.all() const;
+bool s.any() const;
+bool s.none() const;
+std::string s.to_string() const;
 bool operator==(const dynamic_bitset& s, const dynamic_bitset& t);
 bool operator!=(const dynamic_bitset& s, const dynamic_bitset& t);
-
-dynamic_bitset s.operator<<(std::size_t pos);
-dynamic_bitset s.operator>>(std::size_t pos);
+dynamic_bitset s.operator<<(std::size_t pos) const;
+dynamic_bitset s.operator>>(std::size_t pos) const;
 
 dynamic_bitset operator&(const dynamic_bitset& s, const dynamic_bitset& t);
 dynamic_bitset operator|(const dynamic_bitset& s, const dynamic_bitset& t);
 dynamic_bitset operator^(const dynamic_bitset& s, const dynamic_bitset& t);
-
 std::istream& operator>>(std::istream& is, dynamic_bitset& s);
 std::ostream& operator<<(std::ostream& os, const dynamic_bitset& s);
+
+struct reference {
+  reference& operator=(bool x);
+  reference& operator=(const reference& other);
+  bool operator~() const;
+  operator bool() const;
+  reference& flip();
+};
 ```
 
 They are methods based on `std::bitset`.
@@ -84,7 +87,7 @@ If the current size $n$ is less than $m$, additional $0$s are appended to `s`.
 - None
 
 ### Time Complexity
-- $O(\|n - m\|)$
+- $O(n)$
 
 ## shrink_to_fit
 ```cpp
