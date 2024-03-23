@@ -1,40 +1,40 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -253,7 +253,7 @@ data:
     \ == rhs.m_parent);\n        return lhs.m_i >= rhs.m_i;\n      }\n    };\n   \
     \ using reverse_iterator = ::std::reverse_iterator<iterator>;\n    using const_reverse_iterator\
     \ = ::std::reverse_iterator<const_iterator>;\n\n    vector() = default;\n    vector(const\
-    \ V& other) {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
+    \ V& other) : Base() {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
     \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
     \      }\n    }\n    vector(V&& other) noexcept {\n      if constexpr (has_aliases)\
     \ {\n        ::std::copy(other.begin(), other.end(), this->begin());\n      }\
@@ -1068,7 +1068,7 @@ data:
   isVerificationFile: false
   path: tools/half_line_2d.hpp
   requiredBy: []
-  timestamp: '2024-03-17 00:33:31+09:00'
+  timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: tools/half_line_2d.hpp

@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/exp.hpp
     title: std::exp(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/log.hpp
     title: std::log(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/quaternion.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -269,7 +269,7 @@ data:
     \ == rhs.m_parent);\n        return lhs.m_i >= rhs.m_i;\n      }\n    };\n   \
     \ using reverse_iterator = ::std::reverse_iterator<iterator>;\n    using const_reverse_iterator\
     \ = ::std::reverse_iterator<const_iterator>;\n\n    vector() = default;\n    vector(const\
-    \ V& other) {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
+    \ V& other) : Base() {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
     \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
     \      }\n    }\n    vector(V&& other) noexcept {\n      if constexpr (has_aliases)\
     \ {\n        ::std::copy(other.begin(), other.end(), this->begin());\n      }\
@@ -704,8 +704,8 @@ data:
   isVerificationFile: false
   path: tools/quaternion.hpp
   requiredBy: []
-  timestamp: '2024-03-17 01:55:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-23 22:25:26+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []

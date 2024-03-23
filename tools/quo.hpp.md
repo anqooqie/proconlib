@@ -8,10 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -42,7 +42,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
@@ -53,13 +53,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -87,7 +87,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -330,12 +330,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/quo.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
@@ -393,7 +393,7 @@ data:
   - tools/rotate_right.hpp
   - tools/fact_mod_cache.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/has_mod.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp

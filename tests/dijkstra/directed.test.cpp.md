@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []

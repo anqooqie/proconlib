@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
@@ -41,31 +41,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedVerifiedWith:
@@ -144,25 +144,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -171,12 +171,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h
@@ -251,7 +251,7 @@ data:
   - tools/less_by_arg.hpp
   - tools/circle_2d.hpp
   timestamp: '2022-11-12 11:43:14+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp

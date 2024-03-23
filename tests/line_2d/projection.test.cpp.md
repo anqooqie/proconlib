@@ -1,92 +1,92 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -1213,7 +1213,7 @@ data:
     \ == rhs.m_parent);\n        return lhs.m_i >= rhs.m_i;\n      }\n    };\n   \
     \ using reverse_iterator = ::std::reverse_iterator<iterator>;\n    using const_reverse_iterator\
     \ = ::std::reverse_iterator<const_iterator>;\n\n    vector() = default;\n    vector(const\
-    \ V& other) {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
+    \ V& other) : Base() {\n      if constexpr (has_aliases) {\n        ::std::copy(other.begin(),\
     \ other.end(), this->begin());\n      } else {\n        this->m_values = other.m_values;\n\
     \      }\n    }\n    vector(V&& other) noexcept {\n      if constexpr (has_aliases)\
     \ {\n        ::std::copy(other.begin(), other.end(), this->begin());\n      }\
@@ -2076,7 +2076,7 @@ data:
   isVerificationFile: true
   path: tests/line_2d/projection.test.cpp
   requiredBy: []
-  timestamp: '2024-03-17 00:33:31+09:00'
+  timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/line_2d/projection.test.cpp

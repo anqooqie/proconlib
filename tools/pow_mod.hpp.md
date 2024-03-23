@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -23,10 +23,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
@@ -56,7 +56,7 @@ data:
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -78,7 +78,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -294,12 +294,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
@@ -389,7 +389,7 @@ data:
   - tools/garner3.hpp
   - tools/fact_mod_cache.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/polynomial/naive_division.test.cpp
