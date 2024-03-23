@@ -13,14 +13,14 @@ template <typename T>
 inline constexpr bool has_mod_v = has_mod<T>::value;
 ```
 
-`tools::has_mod<T>::value` will be `true` if `T` has the member function `mod()`.
-Otherwise, it will be `false`.
+If an instance of `T` has the member function `mod()`, `tools::has_mod<T>::value` is `true`.
+Otherwise, it is `false`.
 
 ## Constraints
 - None
 
 ## Time Complexity
-- $O(1)$
+- Not applicable
 
 ## License
 - CC0

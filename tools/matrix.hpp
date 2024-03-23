@@ -42,6 +42,8 @@ namespace tools {
   template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max(), ::std::size_t M = ::std::numeric_limits<::std::size_t>::max()>
   class matrix : ::tools::detail::matrix::members<T, N, M> {
   private:
+    template <typename, ::std::size_t, ::std::size_t>
+    friend class ::tools::matrix;
     using Mat = ::tools::matrix<T, N, M>;
     using Base = ::tools::detail::matrix::members<T, N, M>;
     constexpr static bool variable_sized = Base::variable_sized;

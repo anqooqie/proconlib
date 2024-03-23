@@ -41,11 +41,11 @@ suffix_array wrapper(std::initializer_list<Container> il);
 
 ### Time Complexity
 - (1)
-    - $O(S)$ (if `typename InputIterator::value_type` is `std::string`)
-    - $O(S \log S)$ (otherwise)
+    - (`typename InputIterator::value_type` is `std::string`): $O(S)$
+    - (Otherwise): $O(S \log S)$
 - (2)
-    - $O(S)$ (if `Container` is `std::string`)
-    - $O(S \log S)$ (otherwise)
+    - (`Container` is `std::string`): $O(S)$
+    - (Otherwise): $O(S \log S)$
 
 ## sa
 ```cpp

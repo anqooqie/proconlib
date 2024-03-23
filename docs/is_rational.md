@@ -13,14 +13,14 @@ template <typename T>
 inline constexpr bool is_rational_v = is_rational<T>::value;
 ```
 
-`tools::is_rational<T>::value` will be `true` if `T` is `tools::rational`.
-Otherwise, it will be `false`.
+If `<T>` is `tools::rational`, `tools::is_rational<T>::value` is `true`.
+Otherwise, it is `false`.
 
 ## Constraints
 - None
 
 ## Time Complexity
-- $O(1)$
+- Not applicable
 
 ## License
 - CC0
