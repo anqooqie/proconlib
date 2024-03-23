@@ -317,7 +317,7 @@ namespace tools {
     using const_reverse_iterator = ::std::reverse_iterator<const_iterator>;
 
     vector() = default;
-    vector(const V& other) {
+    vector(const V& other) : Base() {
       if constexpr (has_aliases) {
         ::std::copy(other.begin(), other.end(), this->begin());
       } else {

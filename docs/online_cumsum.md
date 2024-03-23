@@ -64,9 +64,12 @@ typename G::T& a.operator[](std::size_t i);
 It returns the reference to $a_i$.
 
 ### Constraints
-- (For reading): $0 \leq i < n$
-- (For writing and `Forward` is `true`): $r^\ast \leq i < n$ where $r^\ast$ is the largest $r$ in `a.sum(l, r)` called so far or $0$ (if you have not called it so far).
-- (For writing and `Forward` is `false`): $0 \leq i < l^\ast$ where $l^\ast$ is the smallest $l$ in `a.sum(l, r)` called so far or $n$ (if you have not called it so far).
+- (Read):
+    - $0 \leq i < n$
+    - $a_i$ is not indeterminate.
+- (Write):
+    - (`Forward` is `true`): $r^\ast \leq i < n$ where $r^\ast$ is the largest $r$ in `a.sum(l, r)` called so far or $0$ (if you have not called it so far).
+    - (`Forward` is `false`): $0 \leq i < l^\ast$ where $l^\ast$ is the smallest $l$ in `a.sum(l, r)` called so far or $n$ (if you have not called it so far).
 
 ### Time Complexity
 - $O(1)$
@@ -76,7 +79,7 @@ It returns the reference to $a_i$.
 typename G::T a.sum(std::size_t l, std::size_t r);
 ```
 
-It returns $\sum_{i = l}^{r - 1} a_i$.
+It returns $a_l + a_{l + 1} + \cdots + a_{r - 1}$.
 Note that the addition is defined by `G`.
 
 ### Constraints
