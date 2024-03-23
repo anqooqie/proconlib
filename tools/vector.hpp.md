@@ -133,6 +133,9 @@ data:
     path: tests/matrix/static.test.cpp
     title: tests/matrix/static.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/online_cumsum.test.cpp
+    title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -767,6 +770,7 @@ data:
   - tests/matrix/static.test.cpp
   - tests/matrix/determinant.test.cpp
   - tests/matrix/solve.test.cpp
+  - tests/online_cumsum.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

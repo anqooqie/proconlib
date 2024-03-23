@@ -18,6 +18,9 @@ data:
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
+    path: tools/online_cumsum.hpp
+    title: Online cumulative sum
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
@@ -109,6 +112,15 @@ data:
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/is_group.test.cpp
+    title: tests/is_group.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/is_monoid.test.cpp
+    title: tests/is_monoid.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/online_cumsum.test.cpp
+    title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -198,6 +210,7 @@ data:
   - tools/stirling_1st.hpp
   - tools/convolution.hpp
   - tools/stirling_2nd.hpp
+  - tools/online_cumsum.hpp
   - tools/polynomial.hpp
   - tools/pdsu.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
@@ -228,16 +241,19 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/log_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/is_group.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/pdsu.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/is_monoid.test.cpp
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
   - tests/avl_tree/reverse.test.cpp
   - tests/stirling_2nd.test.cpp
+  - tests/online_cumsum.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
 documentation_of: tools/group.hpp

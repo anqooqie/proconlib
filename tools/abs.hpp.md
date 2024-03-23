@@ -367,6 +367,9 @@ data:
     path: tests/matrix/static.test.cpp
     title: tests/matrix/static.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/online_cumsum.test.cpp
+    title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -642,6 +645,7 @@ data:
   - tests/matrix/determinant.test.cpp
   - tests/matrix/solve.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/online_cumsum.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/polygon_2d/where.test.cpp

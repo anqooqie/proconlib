@@ -94,6 +94,12 @@ data:
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/is_group.test.cpp
+    title: tests/is_group.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/is_monoid.test.cpp
+    title: tests/is_monoid.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
   - icon: ':heavy_check_mark:'
@@ -102,6 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/online_cumsum.test.cpp
+    title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -205,6 +214,7 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/inv_other_mods.test.cpp
   - tests/tsp.test.cpp
+  - tests/is_group.test.cpp
   - tests/random_tree.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/extend_output.test.cpp
@@ -218,6 +228,7 @@ data:
   - tests/logn_integer_partition.test.cpp
   - tests/uint128_t.test.cpp
   - tests/extend_hash.test.cpp
+  - tests/is_monoid.test.cpp
   - tests/floor_sqrt.test.cpp
   - tests/extend_input.test.cpp
   - tests/multiset.test.cpp
@@ -238,6 +249,7 @@ data:
   - tests/mex.test.cpp
   - tests/tsort/count.test.cpp
   - tests/tsort/query.test.cpp
+  - tests/online_cumsum.test.cpp
   - tests/floor_quotients.test.cpp
   - tests/resize.test.cpp
   - tests/ceil_log.test.cpp

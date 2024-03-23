@@ -548,17 +548,18 @@ data:
     \ * cols, value), m_rows(rows), m_cols(cols) {}\n      };\n    }\n  }\n\n  template\
     \ <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max(),\
     \ ::std::size_t M = ::std::numeric_limits<::std::size_t>::max()>\n  class matrix\
-    \ : ::tools::detail::matrix::members<T, N, M> {\n  private:\n    using Mat = ::tools::matrix<T,\
-    \ N, M>;\n    using Base = ::tools::detail::matrix::members<T, N, M>;\n    constexpr\
-    \ static bool variable_sized = Base::variable_sized;\n\n  public:\n    matrix()\
-    \ = default;\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
-    \ ::std::nullptr_t> = nullptr>\n    matrix(const ::std::size_t rows, const ::std::size_t\
-    \ cols) : Base(rows, cols) {}\n    template <bool SFINAE = variable_sized, ::std::enable_if_t<SFINAE,\
-    \ ::std::nullptr_t> = nullptr>\n    matrix(const ::std::size_t rows, const ::std::size_t\
-    \ cols, const T& value) : Base(rows, cols, value) {}\n    template <bool SFINAE\
-    \ = !variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n\
-    \    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) {\n\
-    \      assert(il.size() == this->rows());\n      assert(::std::all_of(il.begin(),\
+    \ : ::tools::detail::matrix::members<T, N, M> {\n  private:\n    template <typename,\
+    \ ::std::size_t, ::std::size_t>\n    friend class ::tools::matrix;\n    using\
+    \ Mat = ::tools::matrix<T, N, M>;\n    using Base = ::tools::detail::matrix::members<T,\
+    \ N, M>;\n    constexpr static bool variable_sized = Base::variable_sized;\n\n\
+    \  public:\n    matrix() = default;\n    template <bool SFINAE = variable_sized,\
+    \ ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n    matrix(const ::std::size_t\
+    \ rows, const ::std::size_t cols) : Base(rows, cols) {}\n    template <bool SFINAE\
+    \ = variable_sized, ::std::enable_if_t<SFINAE, ::std::nullptr_t> = nullptr>\n\
+    \    matrix(const ::std::size_t rows, const ::std::size_t cols, const T& value)\
+    \ : Base(rows, cols, value) {}\n    template <bool SFINAE = !variable_sized, ::std::enable_if_t<SFINAE,\
+    \ ::std::nullptr_t> = nullptr>\n    matrix(const ::std::initializer_list<::std::initializer_list<T>>\
+    \ il) {\n      assert(il.size() == this->rows());\n      assert(::std::all_of(il.begin(),\
     \ il.end(), [&](const auto& row) { return row.size() == this->cols(); }));\n \
     \     for (::std::size_t r = 0; r < this->rows(); ++r) {\n        ::std::copy(il.begin()[r].begin(),\
     \ il.begin()[r].end(), (*this)[r]);\n      }\n    }\n    template <bool SFINAE\
@@ -726,7 +727,7 @@ data:
   isVerificationFile: true
   path: tests/matrix/determinant.test.cpp
   requiredBy: []
-  timestamp: '2024-03-17 00:33:31+09:00'
+  timestamp: '2024-03-23 15:55:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/matrix/determinant.test.cpp

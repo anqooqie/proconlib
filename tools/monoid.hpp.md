@@ -175,6 +175,12 @@ data:
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/is_group.test.cpp
+    title: tests/is_group.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/is_monoid.test.cpp
+    title: tests/is_monoid.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
   - icon: ':heavy_check_mark:'
@@ -369,12 +375,14 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/log_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/is_group.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/totient.test.cpp
+  - tests/is_monoid.test.cpp
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp

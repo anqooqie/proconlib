@@ -268,6 +268,12 @@ data:
       path: tools/inversion_number.hpp
       title: The number of inversions
     - icon: ':heavy_check_mark:'
+      path: tools/is_group.hpp
+      title: Check whether T is a group
+    - icon: ':heavy_check_mark:'
+      path: tools/is_monoid.hpp
+      title: Check whether T is a monoid
+    - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
     - icon: ':heavy_check_mark:'
@@ -376,6 +382,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
+    - icon: ':heavy_check_mark:'
+      path: tools/online_cumsum.hpp
+      title: Online cumulative sum
     - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
@@ -771,6 +780,12 @@ data:
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/is_group.test.cpp
+      title: tests/is_group.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/is_monoid.test.cpp
+      title: tests/is_monoid.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/is_prime.test.cpp
       title: tests/is_prime.test.cpp
     - icon: ':heavy_check_mark:'
@@ -821,6 +836,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/next_matching.test.cpp
       title: tests/next_matching.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/online_cumsum.test.cpp
+      title: tests/online_cumsum.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp
