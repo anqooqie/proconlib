@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []

@@ -8,7 +8,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/longest_common_substring.hpp
     title: Longest common substring
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   - icon: ':heavy_check_mark:'
@@ -96,7 +96,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -123,9 +123,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
@@ -163,7 +163,7 @@ data:
   - tools/chmin.hpp
   - tools/weighted_bipartite_matching.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tree_diameter.test.cpp
   - tests/prim/unconnected.test.cpp
