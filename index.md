@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: std::abs(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -72,10 +72,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_sqrt.hpp
       title: $\left\lceil \sqrt{x} \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -90,7 +90,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/cmp_equal.hpp
       title: Polyfill of std::cmp_equal
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/cmp_less.hpp
       title: Polyfill of std::cmp_less
     - icon: ':heavy_check_mark:'
@@ -237,7 +237,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_get.hpp
       title: std::greater by std::get
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
@@ -249,7 +249,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/hash_combine.hpp
       title: Combine hash values
     - icon: ':heavy_check_mark:'
@@ -285,7 +285,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
     - icon: ':heavy_check_mark:'
@@ -312,7 +312,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_get.hpp
       title: std::less by std::get
     - icon: ':warning:'
@@ -346,7 +346,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/mcf_graph.hpp
       title: Solver of minimum-cost flow problem
     - icon: ':heavy_check_mark:'
@@ -382,7 +382,7 @@ data:
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation in the manner of n-choose-r
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
@@ -428,7 +428,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
     - icon: ':heavy_check_mark:'
@@ -500,7 +500,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
@@ -528,7 +528,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
@@ -551,7 +551,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/totient.hpp
       title: Euler's totient function
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
       title: Diameter of a tree
     - icon: ':heavy_check_mark:'
@@ -560,10 +560,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsort.hpp
       title: Topological sorting
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -585,10 +585,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector.hpp
       title: Vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/vector2.hpp
       title: Two dimensional vector
     - icon: ':heavy_check_mark:'
@@ -600,16 +600,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/wavelet_matrix.hpp
       title: Wavelet matrix
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/weighted_bipartite_matching.hpp
       title: Matching on weighted bipartite graph
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/xor_basis.hpp
       title: Basis of xor
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_bfs.hpp
       title: 01-BFS
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/zero_one_knapsack.hpp
       title: 0-1 knapsack problem
   - name: tools/detail
@@ -941,10 +941,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/tree_diameter.test.cpp
       title: tests/tree_diameter.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/tsp.test.cpp
       title: tests/tsp.test.cpp
     - icon: ':heavy_check_mark:'
@@ -959,7 +959,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
   - name: tests/avl_tree
@@ -1303,32 +1303,32 @@ data:
       title: tests/wavelet_matrix/range_prod.test.cpp
   - name: tests/weighted_bipartite_matching
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/maximize.test.cpp
       title: tests/weighted_bipartite_matching/maximize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/minimize.test.cpp
       title: tests/weighted_bipartite_matching/minimize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
       title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - name: tests/zero_one_bfs
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/directed.test.cpp
       title: tests/zero_one_bfs/directed.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_bfs/undirected.test.cpp
       title: tests/zero_one_bfs/undirected.test.cpp
   - name: tests/zero_one_knapsack
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
       title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
       title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 layout: toppage
