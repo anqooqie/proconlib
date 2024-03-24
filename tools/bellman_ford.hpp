@@ -55,7 +55,7 @@ namespace tools {
       return this->m_edges;
     }
 
-    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) {
+    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) const {
       assert(s < this->size());
 
       ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());

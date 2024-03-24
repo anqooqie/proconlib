@@ -65,7 +65,7 @@ struct edge {
   std::size_t to;
   T cost;
 };
-edge graph.get_edge(std::size_t k);
+const edge& graph.get_edge(std::size_t k);
 ```
 
 It returns the $k$-th ($0$ indexed) edge.
@@ -78,7 +78,7 @@ It returns the $k$-th ($0$ indexed) edge.
 
 ## edges
 ```cpp
-std::vector<edge> graph.edges();
+const std::vector<edge>& graph.edges();
 ```
 
 It returns all the edges in the graph.
