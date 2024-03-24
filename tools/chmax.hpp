@@ -7,7 +7,12 @@ namespace tools {
 
   template <typename M, typename N>
   bool chmax(M& lhs, const N& rhs) {
-    const bool updated = ::tools::cmp_less(lhs, rhs);
+    bool updated;
+    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {
+      updated = ::tools::cmp_less(lhs, rhs);
+    } else {
+      updated = lhs < rhs;
+    }
     if (updated) lhs = rhs;
     return updated;
   }
