@@ -268,6 +268,9 @@ data:
       path: tools/inversion_number.hpp
       title: The number of inversions
     - icon: ':heavy_check_mark:'
+      path: tools/is_bipartite.hpp
+      title: Check whether a given graph is bipartite
+    - icon: ':heavy_check_mark:'
       path: tools/is_group.hpp
       title: Check whether T is a group
     - icon: ':heavy_check_mark:'
@@ -779,6 +782,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/inversion_number.test.cpp
       title: tests/inversion_number.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/is_bipartite.test.cpp
+      title: tests/is_bipartite.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/is_group.test.cpp
       title: tests/is_group.test.cpp
