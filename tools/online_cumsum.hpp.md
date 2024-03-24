@@ -7,6 +7,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_group.hpp
     title: Check whether T is a group
+  - icon: ':heavy_check_mark:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -18,71 +21,87 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/online_cumsum.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <cstddef>\n#include <cassert>\n#line 1 \"tools/is_group.hpp\"\
-    \n\n\n\n#line 5 \"tools/is_group.hpp\"\n#include <utility>\n\nnamespace tools\
-    \ {\n\n  template <typename G, typename = void>\n  struct is_group : ::std::false_type\
-    \ {};\n\n  template <typename G>\n  struct is_group<G, ::std::enable_if_t<\n \
-    \   ::std::is_same_v<typename G::T, decltype(G::op(::std::declval<typename G::T>(),\
-    \ ::std::declval<typename G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())>\
-    \ &&\n    ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename\
-    \ G::T>()))>\n  , void>> : ::std::true_type {};\n\n  template <typename G>\n \
-    \ inline constexpr bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line\
-    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
-    \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
-    \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
-    \ e() {\n        return T(0);\n      }\n      static T inv(const T& v) {\n   \
-    \     return -v;\n      }\n    };\n\n    template <typename G>\n    struct multiplies\
-    \ {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n      static T inv(const T& v) {\n        return e() / v;\n      }\n\
-    \    };\n\n    template <typename G>\n    struct bit_xor {\n      using T = G;\n\
-    \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
-    \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
-    \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10\
-    \ \"tools/online_cumsum.hpp\"\n\nnamespace tools {\n  template <typename GT, bool\
-    \ Forward = true>\n  class online_cumsum {\n    using G = ::std::conditional_t<::tools::is_group_v<GT>,\
-    \ GT, ::tools::group::plus<GT>>;\n    using T = typename G::T;\n    ::std::vector<T>\
-    \ m_vector;\n    ::std::vector<T> m_cumsum;\n    ::std::size_t m_processed;\n\n\
-    \  public:\n    online_cumsum() : online_cumsum(0) {\n    }\n    online_cumsum(const\
-    \ ::std::size_t n) : m_vector(n, G::e()), m_cumsum(n + 1, G::e()), m_processed(Forward\
-    \ ? 0 : n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_vector.size();\n\
-    \    }\n    T& operator[](const ::std::size_t i) {\n      return this->m_vector[i];\n\
-    \    }\n    T sum(const ::std::size_t l, const ::std::size_t r) {\n      assert(l\
-    \ <= r && r <= this->size());\n      if constexpr (Forward) {\n        for (;\
-    \ this->m_processed < r; ++this->m_processed) {\n          this->m_cumsum[this->m_processed\
-    \ + 1] = G::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);\n\
-    \        }\n        return G::op(G::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n\
-    \      } else {\n        for (; this->m_processed > l; --this->m_processed) {\n\
-    \          this->m_cumsum[this->m_processed - 1] = G::op(this->m_vector[this->m_processed\
-    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        return G::op(this->m_cumsum[l],\
-    \ G::inv(this->m_cumsum[r]));\n      }\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_ONLINE_CUMSUM_HPP\n#define TOOLS_ONLINE_CUMSUM_HPP\n\n#include\
-    \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <cassert>\n#include\
-    \ \"tools/is_group.hpp\"\n#include \"tools/group.hpp\"\n\nnamespace tools {\n\
-    \  template <typename GT, bool Forward = true>\n  class online_cumsum {\n    using\
-    \ G = ::std::conditional_t<::tools::is_group_v<GT>, GT, ::tools::group::plus<GT>>;\n\
-    \    using T = typename G::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
+    #include <vector>\n#include <cstddef>\n#include <cassert>\n#line 1 \"tools/is_monoid.hpp\"\
+    \n\n\n\n#line 5 \"tools/is_monoid.hpp\"\n#include <utility>\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename = void>\n  struct is_monoid : ::std::false_type\
+    \ {};\n\n  template <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n\
+    \    ::std::is_same_v<typename M::T, decltype(M::op(::std::declval<typename M::T>(),\
+    \ ::std::declval<typename M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr\
+    \ bool is_monoid_v = ::tools::is_monoid<M>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\
+    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
+    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
+    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
+    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
+    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
+    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
+    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
+    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
+    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
+    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/is_group.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ G, typename = void>\n  struct is_group : ::std::false_type {};\n\n  template\
+    \ <typename G>\n  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ G::T, decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename\
+    \ G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n  \
+    \  ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename G>\n  inline constexpr\
+    \ bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line 11 \"tools/online_cumsum.hpp\"\
+    \n\nnamespace tools {\n  template <typename X, bool Forward = true>\n  class online_cumsum\
+    \ {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;\n\
+    \    using T = typename M::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
     \ m_cumsum;\n    ::std::size_t m_processed;\n\n  public:\n    online_cumsum()\
     \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
-    \ G::e()), m_cumsum(n + 1, G::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
+    \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
     \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
-    \    T& operator[](const ::std::size_t i) {\n      return this->m_vector[i];\n\
-    \    }\n    T sum(const ::std::size_t l, const ::std::size_t r) {\n      assert(l\
-    \ <= r && r <= this->size());\n      if constexpr (Forward) {\n        for (;\
-    \ this->m_processed < r; ++this->m_processed) {\n          this->m_cumsum[this->m_processed\
-    \ + 1] = G::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);\n\
-    \        }\n        return G::op(G::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n\
-    \      } else {\n        for (; this->m_processed > l; --this->m_processed) {\n\
-    \          this->m_cumsum[this->m_processed - 1] = G::op(this->m_vector[this->m_processed\
-    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        return G::op(this->m_cumsum[l],\
-    \ G::inv(this->m_cumsum[r]));\n      }\n    }\n  };\n}\n\n#endif\n"
+    \    T& operator[](const ::std::size_t i) {\n      assert(0 <= i && i < this->size());\n\
+    \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
+    \ ::std::size_t r) {\n      assert(0 <= l && l <= r && r <= this->size());\n \
+    \     if constexpr (Forward) {\n        for (; this->m_processed < r; ++this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
+    \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
+    \        }\n      } else {\n        for (; this->m_processed > l; --this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed\
+    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
+    \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
+    \        }\n      }\n    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_ONLINE_CUMSUM_HPP\n#define TOOLS_ONLINE_CUMSUM_HPP\n\n#include\
+    \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <cassert>\n#include\
+    \ \"tools/is_monoid.hpp\"\n#include \"tools/group.hpp\"\n#include \"tools/is_group.hpp\"\
+    \n\nnamespace tools {\n  template <typename X, bool Forward = true>\n  class online_cumsum\
+    \ {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;\n\
+    \    using T = typename M::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
+    \ m_cumsum;\n    ::std::size_t m_processed;\n\n  public:\n    online_cumsum()\
+    \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
+    \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
+    \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
+    \    T& operator[](const ::std::size_t i) {\n      assert(0 <= i && i < this->size());\n\
+    \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
+    \ ::std::size_t r) {\n      assert(0 <= l && l <= r && r <= this->size());\n \
+    \     if constexpr (Forward) {\n        for (; this->m_processed < r; ++this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
+    \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
+    \        }\n      } else {\n        for (; this->m_processed > l; --this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed\
+    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
+    \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
+    \        }\n      }\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
-  - tools/is_group.hpp
+  - tools/is_monoid.hpp
   - tools/group.hpp
+  - tools/is_group.hpp
   isVerificationFile: false
   path: tools/online_cumsum.hpp
   requiredBy: []
-  timestamp: '2024-03-23 15:55:12+09:00'
+  timestamp: '2024-03-24 15:56:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
@@ -101,28 +120,32 @@ It is a cumulative sum, but allows you to construct it by online.
 
 ## Constructor
 ```cpp
-(1) online_cumsum<T, Forward = true> a();
-(2) online_cumsum<T, Forward = true> a(std::size_t n);
-(3) online_cumsum<G, Forward = true> a();
-(4) online_cumsum<G, Forward = true> a(std::size_t n);
+(1) online_cumsum<T, Forward = true> a(std::size_t n = 0);
+(2) online_cumsum<M, Forward = true> a(std::size_t n = 0);
+(3) online_cumsum<G, Forward = true> a(std::size_t n = 0);
 ```
 
 - (1)
-    - It is identical to `online_cumsum<tools::group::plus<T>, Forward> a(0);`.
-- (2)
     - It is identical to `online_cumsum<tools::group::plus<T>, Forward> a(n);`
+- (2)
+    - Given a monoid `M`, it creates an array of type `typename M::T` and length $n$ filled with indeterminate values.
+    - In $a$, multiplication is defined by `M`. In other words, $x \cdot y$ is defined by `M::op(x, y)` and the identity is defined by `M::e()`.
+    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
+    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
 - (3)
-    - It is identical to `online_cumsum<G, Forward> a(0);`.
-- (4)
-    - It creates an array of type `typename G::T` and length $n$ filled with indeterminate values.
-    - In $a$, addition is defined by `G`. In other words, $x + y$ is defined by `G::op(x, y)`, the additive identity is defined by `G::e()` and $-x$ is defined by `G::inv(x)`.
+    - Given a group `G`, it creates an array of type `typename G::T` and length $n$ filled with indeterminate values.
+    - In $a$, multiplication is defined by `G`. In other words, $x \cdot y$ is defined by `G::op(x, y)`, the identity is defined by `G::e()` and $x^{-1}$ is defined by `G::inv(x)`.
     - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
     - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
 
 ### Constraints
-- (1), (2)
-    - `tools::is_group_v<T>` does not hold.
-- (3), (4)
+- (1)
+    - `tools::is_monoid_v<T>` does not hold.
+- (2)
+    - `tools::is_monoid_v<M>` holds, but `tools::is_group_v<M>` does not hold.
+    - For all $x$ in `typename M::T`, $y$ in `typename M::T` and $z$ in `typename M::T`, `M::op(M::op(x, y), z)` $=$ `M::op(x, M::op(y, z))`.
+    - For all $x$ in `typename M::T`, `M::op(M::e(), x)` $=$ `M::op(x, M::e())` $= x$.
+- (3)
     - `tools::is_group_v<G>` holds.
     - For all $x$ in `typename G::T`, $y$ in `typename G::T` and $z$ in `typename G::T`, `G::op(G::op(x, y), z)` $=$ `G::op(x, G::op(y, z))`.
     - For all $x$ in `typename G::T`, `G::op(G::e(), x)` $=$ `G::op(x, G::e())` $= x$.
@@ -146,10 +169,16 @@ It returns $n$.
 
 ## operator[]
 ```cpp
-typename G::T& a.operator[](std::size_t i);
+(see below) a.operator[](std::size_t i);
 ```
 
 It returns the reference to $a_i$.
+
+The return type is as follows.
+
+- (`a` is constructed by the constructor (1)): `T&`
+- (`a` is constructed by the constructor (2)): `typename M::T&`
+- (`a` is constructed by the constructor (3)): `typename G::T&`
 
 ### Constraints
 - (Read):
@@ -162,18 +191,26 @@ It returns the reference to $a_i$.
 ### Time Complexity
 - $O(1)$
 
-## sum
+## prod
 ```cpp
-typename G::T a.sum(std::size_t l, std::size_t r);
+(see below) a.prod(std::size_t l, std::size_t r);
 ```
 
-It returns $a_l + a_{l + 1} + \cdots + a_{r - 1}$.
-Note that the addition is defined by `G`.
+It returns $a_l \cdot a_{l + 1} \cdot \cdots \cdot a_{r - 1}$.
+Note that the multiplication is defined by the template parameter.
+
+The return type is as follows.
+
+- (`a` is constructed by the constructor (1)): `T`
+- (`a` is constructed by the constructor (2)): `typename M::T`
+- (`a` is constructed by the constructor (3)): `typename G::T`
 
 ### Constraints
 - $0 \leq l \leq r \leq n$
 - (`Forward` is `true`): For all $0 \leq i < r$, $a_i$ is not indeterminate.
 - (`Forward` is `false`): For all $l \leq i < n$, $a_i$ is not indeterminate.
+- (`a` is constructed by the constructor (2) and `Forward` is `true`): $l = 0$
+- (`a` is constructed by the constructor (2) and `Forward` is `false`): $r = n$
 
 ### Time Complexity
 - $O(1)$ amortized

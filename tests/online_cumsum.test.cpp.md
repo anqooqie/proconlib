@@ -17,6 +17,9 @@ data:
     path: tools/is_group.hpp
     title: Check whether T is a group
   - icon: ':heavy_check_mark:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
   - icon: ':heavy_check_mark:'
@@ -254,45 +257,56 @@ data:
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
     \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/online_cumsum.hpp\"\
     \n\n\n\n#line 5 \"tools/online_cumsum.hpp\"\n#include <vector>\n#include <cstddef>\n\
-    #line 1 \"tools/is_group.hpp\"\n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename G, typename = void>\n  struct is_group : ::std::false_type\
-    \ {};\n\n  template <typename G>\n  struct is_group<G, ::std::enable_if_t<\n \
-    \   ::std::is_same_v<typename G::T, decltype(G::op(::std::declval<typename G::T>(),\
-    \ ::std::declval<typename G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())>\
-    \ &&\n    ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename\
-    \ G::T>()))>\n  , void>> : ::std::true_type {};\n\n  template <typename G>\n \
-    \ inline constexpr bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line\
-    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
-    \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
-    \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
-    \ e() {\n        return T(0);\n      }\n      static T inv(const T& v) {\n   \
-    \     return -v;\n      }\n    };\n\n    template <typename G>\n    struct multiplies\
-    \ {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n      static T inv(const T& v) {\n        return e() / v;\n      }\n\
-    \    };\n\n    template <typename G>\n    struct bit_xor {\n      using T = G;\n\
-    \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
-    \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
-    \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 10\
-    \ \"tools/online_cumsum.hpp\"\n\nnamespace tools {\n  template <typename GT, bool\
-    \ Forward = true>\n  class online_cumsum {\n    using G = ::std::conditional_t<::tools::is_group_v<GT>,\
-    \ GT, ::tools::group::plus<GT>>;\n    using T = typename G::T;\n    ::std::vector<T>\
-    \ m_vector;\n    ::std::vector<T> m_cumsum;\n    ::std::size_t m_processed;\n\n\
-    \  public:\n    online_cumsum() : online_cumsum(0) {\n    }\n    online_cumsum(const\
-    \ ::std::size_t n) : m_vector(n, G::e()), m_cumsum(n + 1, G::e()), m_processed(Forward\
-    \ ? 0 : n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_vector.size();\n\
-    \    }\n    T& operator[](const ::std::size_t i) {\n      return this->m_vector[i];\n\
-    \    }\n    T sum(const ::std::size_t l, const ::std::size_t r) {\n      assert(l\
-    \ <= r && r <= this->size());\n      if constexpr (Forward) {\n        for (;\
-    \ this->m_processed < r; ++this->m_processed) {\n          this->m_cumsum[this->m_processed\
-    \ + 1] = G::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);\n\
-    \        }\n        return G::op(G::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n\
-    \      } else {\n        for (; this->m_processed > l; --this->m_processed) {\n\
-    \          this->m_cumsum[this->m_processed - 1] = G::op(this->m_vector[this->m_processed\
-    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        return G::op(this->m_cumsum[l],\
-    \ G::inv(this->m_cumsum[r]));\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/matrix.hpp\"\
-    \n\n\n\n#line 5 \"tools/matrix.hpp\"\n#include <array>\n#include <limits>\n#line\
-    \ 9 \"tools/matrix.hpp\"\n#include <initializer_list>\n#line 11 \"tools/matrix.hpp\"\
+    #line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename = void>\n  struct is_monoid : ::std::false_type\
+    \ {};\n\n  template <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n\
+    \    ::std::is_same_v<typename M::T, decltype(M::op(::std::declval<typename M::T>(),\
+    \ ::std::declval<typename M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr\
+    \ bool is_monoid_v = ::tools::is_monoid<M>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\
+    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
+    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
+    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
+    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
+    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
+    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
+    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
+    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
+    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
+    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/is_group.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ G, typename = void>\n  struct is_group : ::std::false_type {};\n\n  template\
+    \ <typename G>\n  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ G::T, decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename\
+    \ G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n  \
+    \  ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename G>\n  inline constexpr\
+    \ bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line 11 \"tools/online_cumsum.hpp\"\
+    \n\nnamespace tools {\n  template <typename X, bool Forward = true>\n  class online_cumsum\
+    \ {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;\n\
+    \    using T = typename M::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
+    \ m_cumsum;\n    ::std::size_t m_processed;\n\n  public:\n    online_cumsum()\
+    \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
+    \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
+    \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
+    \    T& operator[](const ::std::size_t i) {\n      assert(0 <= i && i < this->size());\n\
+    \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
+    \ ::std::size_t r) {\n      assert(0 <= l && l <= r && r <= this->size());\n \
+    \     if constexpr (Forward) {\n        for (; this->m_processed < r; ++this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
+    \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
+    \        }\n      } else {\n        for (; this->m_processed > l; --this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed\
+    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
+    \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
+    \        }\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/matrix.hpp\"\n\n\n\n\
+    #line 5 \"tools/matrix.hpp\"\n#include <array>\n#include <limits>\n#line 9 \"\
+    tools/matrix.hpp\"\n#include <initializer_list>\n#line 11 \"tools/matrix.hpp\"\
     \n#include <algorithm>\n#line 13 \"tools/matrix.hpp\"\n#include <string>\n#line\
     \ 15 \"tools/matrix.hpp\"\n#include <optional>\n#line 1 \"tools/vector.hpp\"\n\
     \n\n\n#line 11 \"tools/vector.hpp\"\n#include <iterator>\n#line 14 \"tools/vector.hpp\"\
@@ -757,124 +771,172 @@ data:
     \ {\n        for (::std::size_t c = 0; c < this->cols(); ++c) {\n          A_T[c][r]\
     \ = (*this)[r][c];\n        }\n      }\n      return A_T;\n    }\n  };\n}\n\n\n\
     #line 8 \"tests/online_cumsum.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    using matrix2x2 = tools::matrix<mint, 2, 2>;\nstruct G {\n  using T = matrix2x2;\n\
+    using matrix2x2 = tools::matrix<mint, 2, 2>;\nstruct M {\n  using T = matrix2x2;\n\
     \  static T op(const T& x, const T& y) {\n    return x * y;\n  }\n  static T e()\
-    \ {\n    return T::e();\n  }\n  static T inv(const T& x) {\n    return *x.inv();\n\
+    \ {\n    return T::e();\n  }\n};\nstruct G {\n  using T = matrix2x2;\n  static\
+    \ T op(const T& x, const T& y) {\n    return x * y;\n  }\n  static T e() {\n \
+    \   return T::e();\n  }\n  static T inv(const T& x) {\n    return *x.inv();\n\
     \  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  {\n    tools::online_cumsum<int> a;\n    assert_that(a.size() == 0);\n   \
-    \ assert_that(a.sum(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int> a(1);\n\
-    \    assert_that(a.size() == 1);\n    assert_that(a.sum(0, 0) == 0);\n    a[0]\
-    \ = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(1,\
-    \ 1) == 0);\n    assert_that(a.sum(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int>\
-    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.sum(0, 0) == 0);\n\
-    \    a[0] = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.sum(0, 0) == 0);\n\
-    \    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(0, 1) == 1);\n    a[1]\
-    \ = 2;\n    assert_that(a[0] == 1);\n    assert_that(a[1] == 2);\n    assert_that(a.sum(0,\
-    \ 0) == 0);\n    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(2, 2) ==\
-    \ 0);\n    assert_that(a.sum(0, 1) == 1);\n    assert_that(a.sum(1, 2) == 2);\n\
-    \    assert_that(a.sum(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<int, false>\
-    \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n\
-    \  {\n    tools::online_cumsum<int, false> a(1);\n    assert_that(a.size() ==\
-    \ 1);\n    assert_that(a.sum(1, 1) == 0);\n    a[0] = 1;\n    assert_that(a[0]\
-    \ == 1);\n    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(0, 0) == 0);\n\
-    \    assert_that(a.sum(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int, false>\
-    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.sum(2, 2) == 0);\n\
-    \    a[1] = 1;\n    assert_that(a[1] == 1);\n    assert_that(a.sum(2, 2) == 0);\n\
-    \    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(1, 2) == 1);\n    a[0]\
-    \ = 2;\n    assert_that(a[1] == 1);\n    assert_that(a[0] == 2);\n    assert_that(a.sum(2,\
-    \ 2) == 0);\n    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(0, 0) ==\
-    \ 0);\n    assert_that(a.sum(1, 2) == 1);\n    assert_that(a.sum(0, 1) == 2);\n\
-    \    assert_that(a.sum(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<G> a;\n\
-    \    assert_that(a.size() == 0);\n    assert_that(a.sum(0, 0) == G::e());\n  }\n\
-    \  {\n    tools::online_cumsum<G> a(1);\n    assert_that(a.size() == 1);\n   \
-    \ assert_that(a.sum(0, 0) == G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n\
-    \      {3, 4},\n    };\n    assert_that(a.sum(0, 0) == G::e());\n    assert_that(a.sum(1,\
-    \ 1) == G::e());\n    assert_that(a.sum(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G>\
-    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.sum(0, 0) == G::e());\n\
-    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.sum(0,\
-    \ 0) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(0,\
+    \ assert_that(a.prod(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int> a(1);\n\
+    \    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == 0);\n    a[0]\
+    \ = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(0, 0) == 0);\n   \
+    \ assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 1) == 1);\n  }\n\
+    \  {\n    tools::online_cumsum<int> a(2);\n    assert_that(a.size() == 2);\n \
+    \   assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n  \
+    \  assert_that(a.prod(0, 1) == 1);\n    a[1] = 2;\n    assert_that(a[0] == 1);\n\
+    \    assert_that(a[1] == 2);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1,\
+    \ 1) == 0);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(0, 1)\
+    \ == 1);\n    assert_that(a.prod(1, 2) == 2);\n    assert_that(a.prod(0, 2) ==\
+    \ 3);\n  }\n  {\n    tools::online_cumsum<int, false> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(1,\
+    \ 1) == 0);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(0, 1)\
+    \ == 1);\n  }\n  {\n    tools::online_cumsum<int, false> a(2);\n    assert_that(a.size()\
+    \ == 2);\n    assert_that(a.prod(2, 2) == 0);\n    a[1] = 1;\n    assert_that(a[1]\
+    \ == 1);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(1, 1) ==\
+    \ 0);\n    assert_that(a.prod(1, 2) == 1);\n    a[0] = 2;\n    assert_that(a[1]\
+    \ == 1);\n    assert_that(a[0] == 2);\n    assert_that(a.prod(2, 2) == 0);\n \
+    \   assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 0) == 0);\n   \
+    \ assert_that(a.prod(1, 2) == 1);\n    assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0,\
+    \ 2) == 3);\n  }\n  {\n    tools::online_cumsum<M> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M>\
+    \ a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<M>\
+    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n    a[1] = matrix2x2\
+    \ {\n      {5, 6},\n      {7, 8},\n    };\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    assert_that(a.prod(0, 1) == a[0]);\n    assert_that(a.prod(0, 2) == a[0]\
+    \ * a[1]);\n  }\n  {\n    tools::online_cumsum<M, false> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == M::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(1, 1) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n\
+    \  }\n  {\n    tools::online_cumsum<M, false> a(2);\n    assert_that(a.size()\
+    \ == 2);\n    assert_that(a.prod(2, 2) == M::e());\n    a[1] = matrix2x2 {\n \
+    \     {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(2, 2) == M::e());\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    a[0] = matrix2x2 {\n      {5, 6},\n\
+    \      {7, 8},\n    };\n    assert_that(a.prod(2, 2) == M::e());\n    assert_that(a.prod(1,\
+    \ 2) == a[1]);\n    assert_that(a.prod(0, 2) == a[0] * a[1]);\n  }\n  {\n    tools::online_cumsum<G>\
+    \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \  }\n  {\n    tools::online_cumsum<G> a(1);\n    assert_that(a.size() == 1);\n\
+    \    assert_that(a.prod(0, 0) == G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n\
+    \      {3, 4},\n    };\n    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1,\
+    \ 1) == G::e());\n    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G>\
+    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n    assert_that(a.prod(0,\
     \ 1) == a[0]);\n    a[1] = matrix2x2 {\n      {5, 6},\n      {7, 8},\n    };\n\
-    \    assert_that(a.sum(0, 0) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n\
-    \    assert_that(a.sum(2, 2) == G::e());\n    assert_that(a.sum(0, 1) == a[0]);\n\
-    \    assert_that(a.sum(1, 2) == a[1]);\n    assert_that(a.sum(0, 2) == a[0] *\
-    \ a[1]);\n  }\n  {\n    tools::online_cumsum<G, false> a;\n    assert_that(a.size()\
-    \ == 0);\n    assert_that(a.sum(0, 0) == G::e());\n  }\n  {\n    tools::online_cumsum<G,\
-    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.sum(1, 1) ==\
-    \ G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n   \
-    \ assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(0, 0) == G::e());\n\
-    \    assert_that(a.sum(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G,\
-    \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.sum(2, 2) ==\
-    \ G::e());\n    a[1] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n   \
-    \ assert_that(a.sum(2, 2) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n\
-    \    assert_that(a.sum(1, 2) == a[1]);\n    a[0] = matrix2x2 {\n      {5, 6},\n\
-    \      {7, 8},\n    };\n    assert_that(a.sum(2, 2) == G::e());\n    assert_that(a.sum(1,\
-    \ 1) == G::e());\n    assert_that(a.sum(0, 0) == G::e());\n    assert_that(a.sum(1,\
-    \ 2) == a[1]);\n    assert_that(a.sum(0, 1) == a[0]);\n    assert_that(a.sum(0,\
+    \    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n\
+    \    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(0, 1) == a[0]);\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    assert_that(a.prod(0, 2) == a[0]\
+    \ * a[1]);\n  }\n  {\n    tools::online_cumsum<G, false> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == G::e());\n  }\n  {\n    tools::online_cumsum<G,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(1, 1) == G::e());\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G,\
+    \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(2, 2)\
+    \ == G::e());\n    a[1] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    a[0] = matrix2x2 {\n      {5, 6},\n\
+    \      {7, 8},\n    };\n    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(1,\
+    \ 1) == G::e());\n    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1,\
+    \ 2) == a[1]);\n    assert_that(a.prod(0, 1) == a[0]);\n    assert_that(a.prod(0,\
     \ 2) == a[0] * a[1]);\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\
     \n#include \"tools/online_cumsum.hpp\"\n#include \"tools/matrix.hpp\"\n\nusing\
     \ mint = atcoder::modint998244353;\nusing matrix2x2 = tools::matrix<mint, 2, 2>;\n\
-    struct G {\n  using T = matrix2x2;\n  static T op(const T& x, const T& y) {\n\
-    \    return x * y;\n  }\n  static T e() {\n    return T::e();\n  }\n  static T\
-    \ inv(const T& x) {\n    return *x.inv();\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    struct M {\n  using T = matrix2x2;\n  static T op(const T& x, const T& y) {\n\
+    \    return x * y;\n  }\n  static T e() {\n    return T::e();\n  }\n};\nstruct\
+    \ G {\n  using T = matrix2x2;\n  static T op(const T& x, const T& y) {\n    return\
+    \ x * y;\n  }\n  static T e() {\n    return T::e();\n  }\n  static T inv(const\
+    \ T& x) {\n    return *x.inv();\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  {\n    tools::online_cumsum<int>\
-    \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n\
-    \  {\n    tools::online_cumsum<int> a(1);\n    assert_that(a.size() == 1);\n \
-    \   assert_that(a.sum(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
-    \    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(1, 1) == 0);\n    assert_that(a.sum(0,\
-    \ 1) == 1);\n  }\n  {\n    tools::online_cumsum<int> a(2);\n    assert_that(a.size()\
-    \ == 2);\n    assert_that(a.sum(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0]\
-    \ == 1);\n    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(1, 1) == 0);\n\
-    \    assert_that(a.sum(0, 1) == 1);\n    a[1] = 2;\n    assert_that(a[0] == 1);\n\
-    \    assert_that(a[1] == 2);\n    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(1,\
-    \ 1) == 0);\n    assert_that(a.sum(2, 2) == 0);\n    assert_that(a.sum(0, 1) ==\
-    \ 1);\n    assert_that(a.sum(1, 2) == 2);\n    assert_that(a.sum(0, 2) == 3);\n\
-    \  }\n  {\n    tools::online_cumsum<int, false> a;\n    assert_that(a.size() ==\
-    \ 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int,\
-    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.sum(1, 1) ==\
-    \ 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.sum(1, 1)\
-    \ == 0);\n    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(0, 1) == 1);\n\
-    \  }\n  {\n    tools::online_cumsum<int, false> a(2);\n    assert_that(a.size()\
-    \ == 2);\n    assert_that(a.sum(2, 2) == 0);\n    a[1] = 1;\n    assert_that(a[1]\
-    \ == 1);\n    assert_that(a.sum(2, 2) == 0);\n    assert_that(a.sum(1, 1) == 0);\n\
-    \    assert_that(a.sum(1, 2) == 1);\n    a[0] = 2;\n    assert_that(a[1] == 1);\n\
-    \    assert_that(a[0] == 2);\n    assert_that(a.sum(2, 2) == 0);\n    assert_that(a.sum(1,\
-    \ 1) == 0);\n    assert_that(a.sum(0, 0) == 0);\n    assert_that(a.sum(1, 2) ==\
-    \ 1);\n    assert_that(a.sum(0, 1) == 2);\n    assert_that(a.sum(0, 2) == 3);\n\
-    \  }\n  {\n    tools::online_cumsum<G> a;\n    assert_that(a.size() == 0);\n \
-    \   assert_that(a.sum(0, 0) == G::e());\n  }\n  {\n    tools::online_cumsum<G>\
-    \ a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.sum(0, 0) == G::e());\n\
-    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.sum(0,\
-    \ 0) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(0,\
-    \ 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G> a(2);\n    assert_that(a.size()\
-    \ == 2);\n    assert_that(a.sum(0, 0) == G::e());\n    a[0] = matrix2x2 {\n  \
-    \    {1, 2},\n      {3, 4},\n    };\n    assert_that(a.sum(0, 0) == G::e());\n\
-    \    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(0, 1) == a[0]);\n\
-    \    a[1] = matrix2x2 {\n      {5, 6},\n      {7, 8},\n    };\n    assert_that(a.sum(0,\
-    \ 0) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(2,\
-    \ 2) == G::e());\n    assert_that(a.sum(0, 1) == a[0]);\n    assert_that(a.sum(1,\
-    \ 2) == a[1]);\n    assert_that(a.sum(0, 2) == a[0] * a[1]);\n  }\n  {\n    tools::online_cumsum<G,\
-    \ false> a;\n    assert_that(a.size() == 0);\n    assert_that(a.sum(0, 0) == G::e());\n\
-    \  }\n  {\n    tools::online_cumsum<G, false> a(1);\n    assert_that(a.size()\
-    \ == 1);\n    assert_that(a.sum(1, 1) == G::e());\n    a[0] = matrix2x2 {\n  \
-    \    {1, 2},\n      {3, 4},\n    };\n    assert_that(a.sum(1, 1) == G::e());\n\
-    \    assert_that(a.sum(0, 0) == G::e());\n    assert_that(a.sum(0, 1) == a[0]);\n\
-    \  }\n  {\n    tools::online_cumsum<G, false> a(2);\n    assert_that(a.size()\
-    \ == 2);\n    assert_that(a.sum(2, 2) == G::e());\n    a[1] = matrix2x2 {\n  \
-    \    {1, 2},\n      {3, 4},\n    };\n    assert_that(a.sum(2, 2) == G::e());\n\
-    \    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(1, 2) == a[1]);\n\
-    \    a[0] = matrix2x2 {\n      {5, 6},\n      {7, 8},\n    };\n    assert_that(a.sum(2,\
-    \ 2) == G::e());\n    assert_that(a.sum(1, 1) == G::e());\n    assert_that(a.sum(0,\
-    \ 0) == G::e());\n    assert_that(a.sum(1, 2) == a[1]);\n    assert_that(a.sum(0,\
-    \ 1) == a[0]);\n    assert_that(a.sum(0, 2) == a[0] * a[1]);\n  }\n\n  std::cout\
-    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) == 0);\n \
+    \ }\n  {\n    tools::online_cumsum<int> a(1);\n    assert_that(a.size() == 1);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n  \
+    \  assert_that(a.prod(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int> a(2);\n\
+    \    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == 0);\n    a[0]\
+    \ = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(0, 0) == 0);\n   \
+    \ assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 1) == 1);\n    a[1]\
+    \ = 2;\n    assert_that(a[0] == 1);\n    assert_that(a[1] == 2);\n    assert_that(a.prod(0,\
+    \ 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(2, 2)\
+    \ == 0);\n    assert_that(a.prod(0, 1) == 1);\n    assert_that(a.prod(1, 2) ==\
+    \ 2);\n    assert_that(a.prod(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) ==\
+    \ 0);\n  }\n  {\n    tools::online_cumsum<int, false> a(1);\n    assert_that(a.size()\
+    \ == 1);\n    assert_that(a.prod(1, 1) == 0);\n    a[0] = 1;\n    assert_that(a[0]\
+    \ == 1);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 0) ==\
+    \ 0);\n    assert_that(a.prod(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(2, 2)\
+    \ == 0);\n    a[1] = 1;\n    assert_that(a[1] == 1);\n    assert_that(a.prod(2,\
+    \ 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(1, 2)\
+    \ == 1);\n    a[0] = 2;\n    assert_that(a[1] == 1);\n    assert_that(a[0] ==\
+    \ 2);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 2) == 1);\n  \
+    \  assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0, 2) == 3);\n  }\n\
+    \  {\n    tools::online_cumsum<M> a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0,\
+    \ 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M> a(1);\n    assert_that(a.size()\
+    \ == 1);\n    assert_that(a.prod(0, 0) == M::e());\n    a[0] = matrix2x2 {\n \
+    \     {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<M>\
+    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n    a[1] = matrix2x2\
+    \ {\n      {5, 6},\n      {7, 8},\n    };\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    assert_that(a.prod(0, 1) == a[0]);\n    assert_that(a.prod(0, 2) == a[0]\
+    \ * a[1]);\n  }\n  {\n    tools::online_cumsum<M, false> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == M::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(1, 1) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n\
+    \  }\n  {\n    tools::online_cumsum<M, false> a(2);\n    assert_that(a.size()\
+    \ == 2);\n    assert_that(a.prod(2, 2) == M::e());\n    a[1] = matrix2x2 {\n \
+    \     {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(2, 2) == M::e());\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    a[0] = matrix2x2 {\n      {5, 6},\n\
+    \      {7, 8},\n    };\n    assert_that(a.prod(2, 2) == M::e());\n    assert_that(a.prod(1,\
+    \ 2) == a[1]);\n    assert_that(a.prod(0, 2) == a[0] * a[1]);\n  }\n  {\n    tools::online_cumsum<G>\
+    \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \  }\n  {\n    tools::online_cumsum<G> a(1);\n    assert_that(a.size() == 1);\n\
+    \    assert_that(a.prod(0, 0) == G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n\
+    \      {3, 4},\n    };\n    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1,\
+    \ 1) == G::e());\n    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G>\
+    \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n    assert_that(a.prod(0,\
+    \ 1) == a[0]);\n    a[1] = matrix2x2 {\n      {5, 6},\n      {7, 8},\n    };\n\
+    \    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n\
+    \    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(0, 1) == a[0]);\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    assert_that(a.prod(0, 2) == a[0]\
+    \ * a[1]);\n  }\n  {\n    tools::online_cumsum<G, false> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == G::e());\n  }\n  {\n    tools::online_cumsum<G,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == G::e());\n    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(1, 1) == G::e());\n    assert_that(a.prod(0, 0) == G::e());\n\
+    \    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<G,\
+    \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(2, 2)\
+    \ == G::e());\n    a[1] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n\
+    \    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(1, 1) == G::e());\n\
+    \    assert_that(a.prod(1, 2) == a[1]);\n    a[0] = matrix2x2 {\n      {5, 6},\n\
+    \      {7, 8},\n    };\n    assert_that(a.prod(2, 2) == G::e());\n    assert_that(a.prod(1,\
+    \ 1) == G::e());\n    assert_that(a.prod(0, 0) == G::e());\n    assert_that(a.prod(1,\
+    \ 2) == a[1]);\n    assert_that(a.prod(0, 1) == a[0]);\n    assert_that(a.prod(0,\
+    \ 2) == a[0] * a[1]);\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
   - tools/online_cumsum.hpp
-  - tools/is_group.hpp
+  - tools/is_monoid.hpp
   - tools/group.hpp
+  - tools/is_group.hpp
   - tools/matrix.hpp
   - tools/vector.hpp
   - tools/abs.hpp
@@ -884,7 +946,7 @@ data:
   isVerificationFile: true
   path: tests/online_cumsum.test.cpp
   requiredBy: []
-  timestamp: '2024-03-23 22:25:26+09:00'
+  timestamp: '2024-03-24 15:56:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/online_cumsum.test.cpp
