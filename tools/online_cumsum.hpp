@@ -28,11 +28,11 @@ namespace tools {
       return this->m_vector.size();
     }
     T& operator[](const ::std::size_t i) {
-      assert(0 <= i && i < this->size());
+      assert(i < this->size());
       return this->m_vector[i];
     }
     T prod(const ::std::size_t l, const ::std::size_t r) {
-      assert(0 <= l && l <= r && r <= this->size());
+      assert(l <= r && r <= this->size());
       if constexpr (Forward) {
         for (; this->m_processed < r; ++this->m_processed) {
           this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);
