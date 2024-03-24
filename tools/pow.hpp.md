@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
@@ -66,7 +66,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -75,9 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -140,7 +140,7 @@ data:
   - tools/totient.hpp
   - tools/quaternion.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp

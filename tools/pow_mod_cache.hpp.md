@@ -4,16 +4,16 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
   - icon: ':question:'
@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
@@ -76,15 +76,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -266,7 +266,7 @@ data:
   - tools/detail/rolling_hash.hpp
   - tools/polynomial.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/has_mod.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp

@@ -11,7 +11,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/longest_common_substring.hpp
     title: Longest common substring
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   - icon: ':x:'
@@ -27,13 +27,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/longest_common_substring.test.cpp
     title: tests/longest_common_substring.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
   - icon: ':x:'

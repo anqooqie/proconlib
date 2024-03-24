@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_equal.hpp
     title: Polyfill of std::cmp_equal
   - icon: ':question:'
@@ -15,12 +15,12 @@ data:
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/suffix_array.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -283,7 +283,7 @@ data:
   path: tools/suffix_array.hpp
   requiredBy: []
   timestamp: '2024-03-24 19:16:21+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/suffix_array.test.cpp
 documentation_of: tools/suffix_array.hpp

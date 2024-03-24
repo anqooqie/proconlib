@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/lis.hpp
     title: Longest increasing subsequence
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_stack.hpp
     title: Persistent stack
   _extendedRequiredBy: []

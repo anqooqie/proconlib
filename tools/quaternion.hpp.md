@@ -13,16 +13,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/log.hpp
     title: std::log(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':question:'

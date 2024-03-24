@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -47,19 +47,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
@@ -199,7 +199,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -211,7 +211,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'

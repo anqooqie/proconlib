@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':question:'
@@ -28,7 +28,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':question:'

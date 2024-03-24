@@ -17,10 +17,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   - icon: ':x:'
@@ -57,16 +57,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
   - icon: ':x:'

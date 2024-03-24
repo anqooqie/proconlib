@@ -10,17 +10,17 @@ data:
   - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc227/tasks/abc227_g
@@ -428,7 +428,7 @@ data:
   path: tests/segmented_sieve.test.cpp
   requiredBy: []
   timestamp: '2024-03-24 19:16:21+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/segmented_sieve.test.cpp
 layout: document

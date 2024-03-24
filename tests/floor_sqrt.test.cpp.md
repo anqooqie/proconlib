@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
   _extendedRequiredBy: []

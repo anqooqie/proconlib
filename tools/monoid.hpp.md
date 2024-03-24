@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -57,19 +57,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':heavy_check_mark:'
@@ -237,7 +237,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -264,9 +264,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include\
@@ -338,7 +338,7 @@ data:
   - tools/directed_line_segment_2d.hpp
   - tools/circle_2d.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp

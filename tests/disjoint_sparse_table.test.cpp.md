@@ -10,10 +10,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':question:'
