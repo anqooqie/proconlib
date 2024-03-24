@@ -27,12 +27,12 @@ data:
     https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n#include <iostream>\n#include\
     \ <string>\n#include <limits>\n#include <cstddef>\n#line 1 \"tools/dijkstra.hpp\"\
     \n\n\n\n#line 5 \"tools/dijkstra.hpp\"\n#include <vector>\n#include <cassert>\n\
-    #include <utility>\n#include <algorithm>\n#line 10 \"tools/dijkstra.hpp\"\n#include\
-    \ <queue>\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\
-    \n\nnamespace tools {\n\n  class greater_by_second {\n  public:\n    template\
-    \ <class T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const\
-    \ ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n    }\n\
-    \  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    #include <tuple>\n#include <algorithm>\n#include <utility>\n#line 11 \"tools/dijkstra.hpp\"\
+    \n#include <queue>\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#line 5 \"\
+    tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class greater_by_second\
+    \ {\n  public:\n    template <class T1, class T2>\n    bool operator()(const ::std::pair<T1,\
+    \ T2>& x, const ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
     \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
     \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
     \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
@@ -42,7 +42,7 @@ data:
     \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
     \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
     \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 13 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\
+    \ updated;\n  }\n}\n\n\n#line 14 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\
     \n  template <bool Directed, typename T>\n  class dijkstra {\n  public:\n    struct\
     \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
     \ to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n\
@@ -63,7 +63,7 @@ data:
     \ get_edge(const ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n\
     \      return this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges()\
     \ const {\n      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>,\
-    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) {\n      assert(s\
+    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) const {\n      assert(s\
     \ < this->size());\n\n      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n\
     \      dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n\
     \      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\n      ::std::priority_queue<::std::pair<::std::size_t,\
@@ -104,7 +104,7 @@ data:
   isVerificationFile: true
   path: tests/dijkstra/undirected.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dijkstra/undirected.test.cpp

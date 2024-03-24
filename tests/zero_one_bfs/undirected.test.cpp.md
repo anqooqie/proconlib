@@ -24,8 +24,8 @@ data:
     \ \"https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n#include <iostream>\n\
     #include <string>\n#include <limits>\n#include <cstddef>\n#line 1 \"tools/zero_one_bfs.hpp\"\
     \n\n\n\n#line 5 \"tools/zero_one_bfs.hpp\"\n#include <vector>\n#include <cassert>\n\
-    #include <utility>\n#include <algorithm>\n#line 10 \"tools/zero_one_bfs.hpp\"\n\
-    #include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
+    #include <tuple>\n#include <algorithm>\n#include <utility>\n#line 11 \"tools/zero_one_bfs.hpp\"\
+    \n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
     \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
     \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
     \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
@@ -35,7 +35,7 @@ data:
     \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
     \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
     \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools\
+    \ updated;\n  }\n}\n\n\n#line 13 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools\
     \ {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs {\n  public:\n\
     \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
     \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
@@ -57,18 +57,19 @@ data:
     \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
     \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
     \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
-    \ query(const ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
-    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
-    \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
-    \      ::std::deque<::std::pair<::std::size_t, T>> deque;\n      deque.emplace_front(s,\
-    \ 0);\n\n      while (!deque.empty()) {\n        const auto [here, d] = deque.front();\n\
-    \        deque.pop_front();\n        if (dist[here] < d) continue;\n        for\
-    \ (const auto edge_id : this->m_graph[here]) {\n          const auto& edge = this->m_edges[edge_id];\n\
-    \          const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);\n  \
-    \        if (::tools::chmin(dist[next], dist[here] + edge.cost)) {\n         \
-    \   prev[next] = edge.id;\n            if (edge.cost == 0) {\n              deque.emplace_front(next,\
-    \ dist[next]);\n            } else {\n              deque.emplace_back(next, dist[next]);\n\
-    \            }\n          }\n        }\n      }\n\n      return ::std::make_pair(dist,\
+    \ query(const ::std::size_t s) const {\n      assert(s < this->size());\n\n  \
+    \    ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n \
+    \     dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n \
+    \     prev[s] = ::std::numeric_limits<::std::size_t>::max();\n      ::std::deque<::std::pair<::std::size_t,\
+    \ T>> deque;\n      deque.emplace_front(s, 0);\n\n      while (!deque.empty())\
+    \ {\n        const auto [here, d] = deque.front();\n        deque.pop_front();\n\
+    \        if (dist[here] < d) continue;\n        for (const auto edge_id : this->m_graph[here])\
+    \ {\n          const auto& edge = this->m_edges[edge_id];\n          const auto\
+    \ next = edge.to ^ (Directed ? 0 : edge.from ^ here);\n          if (::tools::chmin(dist[next],\
+    \ dist[here] + edge.cost)) {\n            prev[next] = edge.id;\n            if\
+    \ (edge.cost == 0) {\n              deque.emplace_front(next, dist[next]);\n \
+    \           } else {\n              deque.emplace_back(next, dist[next]);\n  \
+    \          }\n          }\n        }\n      }\n\n      return ::std::make_pair(dist,\
     \ prev);\n    }\n  };\n}\n\n\n#line 8 \"tests/zero_one_bfs/undirected.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, X, Y;\n  std::cin >> N >> X >> Y;\n  --X, --Y;\n  tools::zero_one_bfs<false,\
@@ -98,7 +99,7 @@ data:
   isVerificationFile: true
   path: tests/zero_one_bfs/undirected.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/zero_one_bfs/undirected.test.cpp

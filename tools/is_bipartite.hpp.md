@@ -12,7 +12,7 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_bipartite.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#include <cassert>\n#include <utility>\n#include <algorithm>\n#include\
+    \ <vector>\n#include <cassert>\n#include <tuple>\n#include <algorithm>\n#include\
     \ <string>\n#include <queue>\n\nnamespace tools {\n\n  class is_bipartite {\n\
     \  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n\
     \      ::std::size_t to;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n\
@@ -41,7 +41,7 @@ data:
     \     }\n          }\n        }\n      }\n\n      return true;\n    }\n  };\n\
     }\n\n\n"
   code: "#ifndef TOOLS_IS_BIPARTITE_HPP\n#define TOOLS_IS_BIPARTITE_HPP\n\n#include\
-    \ <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n#include\
+    \ <cstddef>\n#include <vector>\n#include <cassert>\n#include <tuple>\n#include\
     \ <algorithm>\n#include <string>\n#include <queue>\n\nnamespace tools {\n\n  class\
     \ is_bipartite {\n  public:\n    struct edge {\n      ::std::size_t id;\n    \
     \  ::std::size_t from;\n      ::std::size_t to;\n    };\n\n  private:\n    ::std::vector<edge>\
@@ -73,7 +73,7 @@ data:
   isVerificationFile: false
   path: tools/is_bipartite.hpp
   requiredBy: []
-  timestamp: '2024-03-24 16:42:04+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/is_bipartite.test.cpp

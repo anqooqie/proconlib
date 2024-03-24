@@ -49,7 +49,7 @@ data:
     \ k) const {\n      assert(k < this->m_edges.size());\n      return this->m_edges[k];\n\
     \    }\n\n    const ::std::vector<edge>& edges() const {\n      return this->m_edges;\n\
     \    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const\
-    \ ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
+    \ ::std::size_t s) const {\n      assert(s < this->size());\n\n      ::std::vector<T>\
     \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
     \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
     \n      for (::std::size_t i = 0; i + 1 < this->size(); ++i) {\n        for (const\
@@ -89,7 +89,7 @@ data:
   isVerificationFile: true
   path: tests/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bellman_ford.test.cpp

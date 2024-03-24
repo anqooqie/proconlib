@@ -24,20 +24,21 @@ data:
     \ \"https://onlinejudge.u-aizu.ac.jp/problems/2945\"\n\n#include <iostream>\n\
     #include <array>\n#include <utility>\n#include <tuple>\n#line 1 \"tools/zero_one_bfs.hpp\"\
     \n\n\n\n#include <cstddef>\n#include <vector>\n#include <cassert>\n#line 8 \"\
-    tools/zero_one_bfs.hpp\"\n#include <algorithm>\n#include <limits>\n#include <deque>\n\
-    #line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr\
-    \ bool cmp_less(const T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n\
-    \    using UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T>\
-    \ == ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
-    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 12 \"tools/zero_one_bfs.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
+    tools/zero_one_bfs.hpp\"\n#include <algorithm>\n#line 10 \"tools/zero_one_bfs.hpp\"\
+    \n#include <limits>\n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools {\n\
+    \  template <typename T, typename U>\n  constexpr bool cmp_less(const T t, const\
+    \ U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n\
+    \    if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
+    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
+    \ updated;\n  }\n}\n\n\n#line 13 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs {\n  public:\n\
+    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
+    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
     \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
     \    zero_one_bfs() = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<Directed,\
     \ T>&) = default;\n    zero_one_bfs(::tools::zero_one_bfs<Directed, T>&&) = default;\n\
@@ -56,18 +57,19 @@ data:
     \ ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n      return\
     \ this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges() const {\n\
     \      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>>\
-    \ query(const ::std::size_t s) {\n      assert(s < this->size());\n\n      ::std::vector<T>\
-    \ dist(this->size(), ::std::numeric_limits<T>::max());\n      dist[s] = 0;\n \
-    \     ::std::vector<::std::size_t> prev(this->size());\n      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\
-    \      ::std::deque<::std::pair<::std::size_t, T>> deque;\n      deque.emplace_front(s,\
-    \ 0);\n\n      while (!deque.empty()) {\n        const auto [here, d] = deque.front();\n\
-    \        deque.pop_front();\n        if (dist[here] < d) continue;\n        for\
-    \ (const auto edge_id : this->m_graph[here]) {\n          const auto& edge = this->m_edges[edge_id];\n\
-    \          const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);\n  \
-    \        if (::tools::chmin(dist[next], dist[here] + edge.cost)) {\n         \
-    \   prev[next] = edge.id;\n            if (edge.cost == 0) {\n              deque.emplace_front(next,\
-    \ dist[next]);\n            } else {\n              deque.emplace_back(next, dist[next]);\n\
-    \            }\n          }\n        }\n      }\n\n      return ::std::make_pair(dist,\
+    \ query(const ::std::size_t s) const {\n      assert(s < this->size());\n\n  \
+    \    ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n \
+    \     dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n \
+    \     prev[s] = ::std::numeric_limits<::std::size_t>::max();\n      ::std::deque<::std::pair<::std::size_t,\
+    \ T>> deque;\n      deque.emplace_front(s, 0);\n\n      while (!deque.empty())\
+    \ {\n        const auto [here, d] = deque.front();\n        deque.pop_front();\n\
+    \        if (dist[here] < d) continue;\n        for (const auto edge_id : this->m_graph[here])\
+    \ {\n          const auto& edge = this->m_edges[edge_id];\n          const auto\
+    \ next = edge.to ^ (Directed ? 0 : edge.from ^ here);\n          if (::tools::chmin(dist[next],\
+    \ dist[here] + edge.cost)) {\n            prev[next] = edge.id;\n            if\
+    \ (edge.cost == 0) {\n              deque.emplace_front(next, dist[next]);\n \
+    \           } else {\n              deque.emplace_back(next, dist[next]);\n  \
+    \          }\n          }\n        }\n      }\n\n      return ::std::make_pair(dist,\
     \ prev);\n    }\n  };\n}\n\n\n#line 8 \"tests/zero_one_bfs/directed.test.cpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  const auto P = [](const ll x, const ll y) {\n    return 100 * y + x;\n  };\n\
@@ -109,7 +111,7 @@ data:
   isVerificationFile: true
   path: tests/zero_one_bfs/directed.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/zero_one_bfs/directed.test.cpp

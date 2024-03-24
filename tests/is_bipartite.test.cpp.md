@@ -17,10 +17,10 @@ data:
   bundledCode: "#line 1 \"tests/is_bipartite.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc327/tasks/abc327_d\"\
     \n\n#include <iostream>\n#include <vector>\n#line 1 \"tools/is_bipartite.hpp\"\
     \n\n\n\n#include <cstddef>\n#line 6 \"tools/is_bipartite.hpp\"\n#include <cassert>\n\
-    #include <utility>\n#include <algorithm>\n#include <string>\n#include <queue>\n\
-    \nnamespace tools {\n\n  class is_bipartite {\n  public:\n    struct edge {\n\
-    \      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t to;\n\
-    \    };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
+    #include <tuple>\n#include <algorithm>\n#include <string>\n#include <queue>\n\n\
+    namespace tools {\n\n  class is_bipartite {\n  public:\n    struct edge {\n  \
+    \    ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t to;\n \
+    \   };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
     \ m_graph;\n\n  public:\n    is_bipartite() = default;\n    explicit is_bipartite(const\
     \ ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n\
     \      return this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t\
@@ -63,7 +63,7 @@ data:
   isVerificationFile: true
   path: tests/is_bipartite.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 16:42:04+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/is_bipartite.test.cpp

@@ -26,29 +26,29 @@ data:
   bundledCode: "#line 1 \"tests/naive_dijkstra.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc325/tasks/abc325_e\"\
     \n\n#include <iostream>\n#include <vector>\n#include <limits>\n#line 1 \"tools/naive_dijkstra.hpp\"\
     \n\n\n\n#include <cstddef>\n#line 7 \"tools/naive_dijkstra.hpp\"\n#include <cassert>\n\
-    #include <utility>\n#include <algorithm>\n#include <numeric>\n#include <iterator>\n\
-    #line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n  template <class F>\n\
-    \  class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
-    \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
-    \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
-    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
-    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
-    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
-    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
-    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
-    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 14 \"tools/naive_dijkstra.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <bool Directed, typename T>\n  class naive_dijkstra {\n  public:\n\
-    \    struct edge {\n      ::std::size_t id;\n      ::std::size_t from;\n     \
-    \ ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n\
-    \    ::std::vector<edge> m_edges;\n    ::std::vector<::std::size_t> m_graph;\n\
-    \n  public:\n    naive_dijkstra() = default;\n    naive_dijkstra(const ::tools::naive_dijkstra<Directed,\
-    \ T>&) = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed, T>&&)\
-    \ = default;\n    ~naive_dijkstra() = default;\n    ::tools::naive_dijkstra<Directed,\
+    #include <tuple>\n#include <algorithm>\n#include <utility>\n#include <numeric>\n\
+    #include <iterator>\n#line 1 \"tools/less_by.hpp\"\n\n\n\nnamespace tools {\n\n\
+    \  template <class F>\n  class less_by {\n  private:\n    F selector;\n\n  public:\n\
+    \    less_by(const F& selector) : selector(selector) {\n    }\n\n    template\
+    \ <class T>\n    bool operator()(const T& x, const T& y) const {\n      return\
+    \ selector(x) < selector(y);\n    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\
+    \n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
+    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 15 \"tools/naive_dijkstra.hpp\"\
+    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class naive_dijkstra\
+    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
+    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t\
+    \ m_size;\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::size_t>\
+    \ m_graph;\n\n  public:\n    naive_dijkstra() = default;\n    naive_dijkstra(const\
+    \ ::tools::naive_dijkstra<Directed, T>&) = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed,\
+    \ T>&&) = default;\n    ~naive_dijkstra() = default;\n    ::tools::naive_dijkstra<Directed,\
     \ T>& operator=(const ::tools::naive_dijkstra<Directed, T>&) = default;\n    ::tools::naive_dijkstra<Directed,\
     \ T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;\n\n    explicit\
     \ naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max())\
@@ -65,7 +65,7 @@ data:
     \  const edge& get_edge(const ::std::size_t k) const {\n      assert(k < this->m_edges.size());\n\
     \      return this->m_edges[k];\n    }\n\n    const ::std::vector<edge>& edges()\
     \ const {\n      return this->m_edges;\n    }\n\n    ::std::pair<::std::vector<T>,\
-    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) {\n      assert(s\
+    \ ::std::vector<::std::size_t>> query(const ::std::size_t s) const {\n      assert(s\
     \ < this->size());\n\n      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());\n\
     \      dist[s] = 0;\n      ::std::vector<::std::size_t> prev(this->size());\n\
     \      prev[s] = ::std::numeric_limits<::std::size_t>::max();\n\n      ::std::vector<::std::size_t>\
@@ -110,7 +110,7 @@ data:
   isVerificationFile: true
   path: tests/naive_dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 16:56:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/naive_dijkstra.test.cpp
