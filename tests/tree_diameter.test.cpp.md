@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tree_diameter
@@ -108,7 +108,7 @@ data:
   path: tests/tree_diameter.test.cpp
   requiredBy: []
   timestamp: '2024-03-24 19:16:21+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tree_diameter.test.cpp
 layout: document

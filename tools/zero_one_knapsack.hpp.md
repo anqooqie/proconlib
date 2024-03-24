@@ -1,42 +1,42 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_knapsack.hpp\"\n\n\n\n#include <vector>\n\
@@ -581,7 +581,7 @@ data:
   path: tools/zero_one_knapsack.hpp
   requiredBy: []
   timestamp: '2024-03-24 19:16:21+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp

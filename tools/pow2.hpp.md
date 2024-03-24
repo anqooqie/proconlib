@@ -95,10 +95,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tsort.hpp
     title: Topological sorting
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -342,24 +342,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsort/query.test.cpp
     title: tests/tsort/query.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/undoable_dsu.test.cpp
     title: tests/undoable_dsu.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -413,7 +413,7 @@ data:
   - tools/polynomial.hpp
   - tools/disjoint_sparse_table_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/polynomial/naive_division.test.cpp
