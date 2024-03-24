@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -143,12 +143,14 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(lhs, rhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/longest_common_substring.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator>\n  ::std::tuple<::std::size_t,\
-    \ ::std::size_t, ::std::size_t, ::std::size_t> longest_common_substring(const\
-    \ InputIterator S_begin, const InputIterator S_end, const InputIterator T_begin,\
-    \ const InputIterator T_end) {\n    using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
+    \ = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 14 \"tools/longest_common_substring.hpp\"\n\nnamespace tools {\n\
+    \  template <typename InputIterator>\n  ::std::tuple<::std::size_t, ::std::size_t,\
+    \ ::std::size_t, ::std::size_t> longest_common_substring(const InputIterator S_begin,\
+    \ const InputIterator S_end, const InputIterator T_begin, const InputIterator\
+    \ T_end) {\n    using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \    using Container = ::std::conditional_t<::std::is_same_v<Z, char>, ::std::string,\
     \ ::std::vector<Z>>;\n\n    Container ST(S_begin, S_end);\n    const int N = ST.size();\n\
     \    ::std::copy(T_begin, T_end, ::std::back_inserter(ST));\n    const int M =\
@@ -182,7 +184,7 @@ data:
   isVerificationFile: true
   path: tests/longest_common_substring.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 18:38:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/longest_common_substring.test.cpp

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
@@ -27,9 +27,11 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(lhs, rhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 9 \"tools/largest_rectangle_in_histogram.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
+    \ = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 9 \"tools/largest_rectangle_in_histogram.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename InputIterator>\n  typename ::std::iterator_traits<InputIterator>::value_type\
     \ largest_rectangle_in_histogram(const InputIterator& begin, const InputIterator&\
     \ end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \n    T result = 0;\n    ::std::stack<::std::pair<T, T>> dp;\n    for (auto [i,\
@@ -63,7 +65,7 @@ data:
   isVerificationFile: false
   path: tools/largest_rectangle_in_histogram.hpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 18:38:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/largest_rectangle_in_histogram.test.cpp

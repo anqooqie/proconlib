@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/persistent_stack.hpp
     title: Persistent stack
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/shortest_path
@@ -74,13 +74,15 @@ data:
     \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
     \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
     \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
-    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
-    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
-    \ {\n    return c.size();\n  }\n}\n\n\n#line 13 \"tests/persistent_stack.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
+    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
+    \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
+    \ < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 13 \"tests/persistent_stack.test.cpp\"\n\nusing ll = long long;\n\nint\
+    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N, M, s, t;\n  std::cin >> N >> M >> s >> t;\n  std::vector<std::vector<std::pair<ll,\
     \ ll>>> graph(N);\n  for (ll i = 0; i < M; ++i) {\n    ll a, b, c;\n    std::cin\
     \ >> a >> b >> c;\n    graph[a].emplace_back(b, c);\n  }\n\n  std::vector<ll>\
@@ -129,8 +131,8 @@ data:
   isVerificationFile: true
   path: tests/persistent_stack.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-24 18:38:48+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/persistent_stack.test.cpp
 layout: document

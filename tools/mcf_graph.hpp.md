@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/weighted_bipartite_matching.hpp
     title: Matching on weighted bipartite graph
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/weighted_bipartite_matching/multiple_calls.test.cpp
     title: tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/mcf_graph.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -47,32 +47,33 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/greater_by_second.hpp\"\
-    \n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\n\nnamespace tools {\n\n  class\
-    \ greater_by_second {\n  public:\n    template <class T1, class T2>\n    bool\
-    \ operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const\
-    \ {\n      return x.second > y.second;\n    }\n  };\n}\n\n\n#line 17 \"tools/mcf_graph.hpp\"\
-    \n\nnamespace tools {\n  template <typename Cap, typename Cost>\n  class mcf_graph\
-    \ {\n  public:\n    struct edge {\n      int from, to;\n      Cap cap, flow;\n\
-    \      Cost cost;\n    };\n\n  private:\n    ::std::vector<::std::vector<int>>\
-    \ m_graph;\n    ::std::vector<::tools::mcf_graph<Cap, Cost>::edge> m_edges;\n\
-    \    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n    ::std::vector<Cost> m_potentials;\n\
-    \    bool m_filled_negative_cycles;\n    ::std::optional<bool> m_is_dag;\n   \
-    \ bool m_calculated_potentials;\n\n    int size() const {\n      return this->m_graph.size();\n\
-    \    }\n\n  public:\n    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap,\
-    \ Cost>&) = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n\
-    \    ~mcf_graph() = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const\
-    \ ::tools::mcf_graph<Cap, Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>&\
-    \ operator=(::tools::mcf_graph<Cap, Cost>&&) = default;\n\n    explicit mcf_graph(const\
-    \ int n) : m_graph(n), m_slope({::std::pair<Cap, Cost>(0, 0)}), m_potentials(n,\
-    \ 0), m_filled_negative_cycles(false), m_calculated_potentials(false) {\n    }\n\
-    \n    int add_edge(const int from, const int to, const Cap cap, const Cost cost)\
-    \ {\n      assert(0 <= from && from < this->size());\n      assert(0 <= to &&\
-    \ to < this->size());\n      assert(0 <= cap);\n      assert(cost != ::std::numeric_limits<Cost>::min());\n\
-    \      assert(cost != ::std::numeric_limits<Cost>::max());\n\n      this->m_graph[from].push_back(this->m_edges.size());\n\
-    \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({from, to,\
-    \ cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 1 \"tools/greater_by_second.hpp\"\n\n\n\n#line 5 \"tools/greater_by_second.hpp\"\
+    \n\nnamespace tools {\n\n  class greater_by_second {\n  public:\n    template\
+    \ <class T1, class T2>\n    bool operator()(const ::std::pair<T1, T2>& x, const\
+    \ ::std::pair<T1, T2>& y) const {\n      return x.second > y.second;\n    }\n\
+    \  };\n}\n\n\n#line 17 \"tools/mcf_graph.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename Cap, typename Cost>\n  class mcf_graph {\n  public:\n    struct edge\
+    \ {\n      int from, to;\n      Cap cap, flow;\n      Cost cost;\n    };\n\n \
+    \ private:\n    ::std::vector<::std::vector<int>> m_graph;\n    ::std::vector<::tools::mcf_graph<Cap,\
+    \ Cost>::edge> m_edges;\n    ::std::vector<::std::pair<Cap, Cost>> m_slope;\n\
+    \    ::std::vector<Cost> m_potentials;\n    bool m_filled_negative_cycles;\n \
+    \   ::std::optional<bool> m_is_dag;\n    bool m_calculated_potentials;\n\n   \
+    \ int size() const {\n      return this->m_graph.size();\n    }\n\n  public:\n\
+    \    mcf_graph() = default;\n    mcf_graph(const ::tools::mcf_graph<Cap, Cost>&)\
+    \ = default;\n    mcf_graph(::tools::mcf_graph<Cap, Cost>&&) = default;\n    ~mcf_graph()\
+    \ = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(const ::tools::mcf_graph<Cap,\
+    \ Cost>&) = default;\n    ::tools::mcf_graph<Cap, Cost>& operator=(::tools::mcf_graph<Cap,\
+    \ Cost>&&) = default;\n\n    explicit mcf_graph(const int n) : m_graph(n), m_slope({::std::pair<Cap,\
+    \ Cost>(0, 0)}), m_potentials(n, 0), m_filled_negative_cycles(false), m_calculated_potentials(false)\
+    \ {\n    }\n\n    int add_edge(const int from, const int to, const Cap cap, const\
+    \ Cost cost) {\n      assert(0 <= from && from < this->size());\n      assert(0\
+    \ <= to && to < this->size());\n      assert(0 <= cap);\n      assert(cost !=\
+    \ ::std::numeric_limits<Cost>::min());\n      assert(cost != ::std::numeric_limits<Cost>::max());\n\
+    \n      this->m_graph[from].push_back(this->m_edges.size());\n      this->m_edges.push_back(::tools::mcf_graph<Cap,\
+    \ Cost>::edge({from, to, cap, 0, cost}));\n      this->m_graph[to].push_back(this->m_edges.size());\n\
     \      this->m_edges.push_back(::tools::mcf_graph<Cap, Cost>::edge({to, from,\
     \ cap, cap, -cost}));\n      return this->m_edges.size() / 2 - 1;\n    }\n\n \
     \ private:\n    void fill_negative_cycles() {\n      ::std::vector<::std::pair<::std::vector<int>,\
@@ -458,8 +459,8 @@ data:
   path: tools/mcf_graph.hpp
   requiredBy:
   - tools/weighted_bipartite_matching.hpp
-  timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 18:38:48+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp

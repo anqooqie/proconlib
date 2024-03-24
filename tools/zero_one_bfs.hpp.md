@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -31,16 +31,17 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 13 \"tools/zero_one_bfs.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class zero_one_bfs\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
-    \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
-    \    zero_one_bfs() = default;\n    zero_one_bfs(const ::tools::zero_one_bfs<Directed,\
-    \ T>&) = default;\n    zero_one_bfs(::tools::zero_one_bfs<Directed, T>&&) = default;\n\
-    \    ~zero_one_bfs() = default;\n    ::tools::zero_one_bfs<Directed, T>& operator=(const\
-    \ ::tools::zero_one_bfs<Directed, T>&) = default;\n    ::tools::zero_one_bfs<Directed,\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 13 \"tools/zero_one_bfs.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <bool Directed, typename T>\n  class zero_one_bfs {\n  public:\n    struct edge\
+    \ {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t to;\n\
+    \      T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_graph;\n\n  public:\n    zero_one_bfs() = default;\n    zero_one_bfs(const\
+    \ ::tools::zero_one_bfs<Directed, T>&) = default;\n    zero_one_bfs(::tools::zero_one_bfs<Directed,\
+    \ T>&&) = default;\n    ~zero_one_bfs() = default;\n    ::tools::zero_one_bfs<Directed,\
+    \ T>& operator=(const ::tools::zero_one_bfs<Directed, T>&) = default;\n    ::tools::zero_one_bfs<Directed,\
     \ T>& operator=(::tools::zero_one_bfs<Directed, T>&&) = default;\n\n    explicit\
     \ zero_one_bfs(const ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t\
     \ size() const {\n      return this->m_graph.size();\n    }\n\n    ::std::size_t\
@@ -112,8 +113,8 @@ data:
   isVerificationFile: false
   path: tools/zero_one_bfs.hpp
   requiredBy: []
-  timestamp: '2024-03-24 16:56:26+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 18:38:48+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp

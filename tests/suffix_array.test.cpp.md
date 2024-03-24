@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/cmp_equal.hpp
     title: Polyfill of std::cmp_equal
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc272/tasks/abc272_f
@@ -137,13 +137,16 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 1 \"tools/chmax.hpp\"\n\n\
-    \n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
-    \ typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated =\
-    \ ::tools::cmp_less(lhs, rhs);\n    if (updated) lhs = rhs;\n    return updated;\n\
-    \  }\n}\n\n\n#line 1 \"tools/cmp_equal.hpp\"\n\n\n\n#line 5 \"tools/cmp_equal.hpp\"\
-    \n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_equal(const\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
+    \ = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 1 \"tools/cmp_equal.hpp\"\n\n\n\n#line 5 \"tools/cmp_equal.hpp\"\n\
+    \nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_equal(const\
     \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
     \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
     \ ::std::is_signed_v<U>) {\n      return t == u;\n    } else if constexpr (::std::is_signed_v<T>)\
@@ -241,8 +244,8 @@ data:
   isVerificationFile: true
   path: tests/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-24 18:38:48+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/suffix_array.test.cpp
 layout: document

@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
   _extendedRequiredBy: []
@@ -40,22 +40,23 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 14 \"tools/dijkstra.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class dijkstra\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::vector<edge>\
-    \ m_edges;\n    ::std::vector<::std::vector<::std::size_t>> m_graph;\n\n  public:\n\
-    \    dijkstra() = default;\n    dijkstra(const ::tools::dijkstra<Directed, T>&)\
-    \ = default;\n    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n    ~dijkstra()\
-    \ = default;\n    ::tools::dijkstra<Directed, T>& operator=(const ::tools::dijkstra<Directed,\
-    \ T>&) = default;\n    ::tools::dijkstra<Directed, T>& operator=(::tools::dijkstra<Directed,\
-    \ T>&&) = default;\n\n    explicit dijkstra(const ::std::size_t n) : m_graph(n)\
-    \ {\n    }\n\n    ::std::size_t size() const {\n      return this->m_graph.size();\n\
-    \    }\n\n    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T&\
-    \ w) {\n      assert(u < this->size());\n      assert(v < this->size());\n   \
-    \   assert(w >= 0);\n      if constexpr (!Directed) {\n        ::std::tie(u, v)\
-    \ = ::std::minmax({u, v});\n      }\n      this->m_edges.push_back(edge{this->m_edges.size(),\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 14 \"tools/dijkstra.hpp\"\n\nnamespace tools {\n\n  template <bool\
+    \ Directed, typename T>\n  class dijkstra {\n  public:\n    struct edge {\n  \
+    \    ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t to;\n \
+    \     T cost;\n    };\n\n  private:\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::vector<::std::size_t>>\
+    \ m_graph;\n\n  public:\n    dijkstra() = default;\n    dijkstra(const ::tools::dijkstra<Directed,\
+    \ T>&) = default;\n    dijkstra(::tools::dijkstra<Directed, T>&&) = default;\n\
+    \    ~dijkstra() = default;\n    ::tools::dijkstra<Directed, T>& operator=(const\
+    \ ::tools::dijkstra<Directed, T>&) = default;\n    ::tools::dijkstra<Directed,\
+    \ T>& operator=(::tools::dijkstra<Directed, T>&&) = default;\n\n    explicit dijkstra(const\
+    \ ::std::size_t n) : m_graph(n) {\n    }\n\n    ::std::size_t size() const {\n\
+    \      return this->m_graph.size();\n    }\n\n    ::std::size_t add_edge(::std::size_t\
+    \ u, ::std::size_t v, const T& w) {\n      assert(u < this->size());\n      assert(v\
+    \ < this->size());\n      assert(w >= 0);\n      if constexpr (!Directed) {\n\
+    \        ::std::tie(u, v) = ::std::minmax({u, v});\n      }\n      this->m_edges.push_back(edge{this->m_edges.size(),\
     \ u, v, w});\n      this->m_graph[u].push_back(this->m_edges.size() - 1);\n  \
     \    if constexpr (!Directed) {\n        this->m_graph[v].push_back(this->m_edges.size()\
     \ - 1);\n      }\n      return this->m_edges.size() - 1;\n    }\n\n    const edge&\
@@ -108,7 +109,7 @@ data:
   isVerificationFile: true
   path: tests/dijkstra/directed.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 16:56:26+09:00'
+  timestamp: '2024-03-24 18:38:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/dijkstra/directed.test.cpp

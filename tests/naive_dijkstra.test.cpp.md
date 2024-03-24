@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -40,16 +40,18 @@ data:
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
     \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    const bool updated = ::tools::cmp_less(rhs, lhs);\n    if (updated)\
-    \ lhs = rhs;\n    return updated;\n  }\n}\n\n\n#line 15 \"tools/naive_dijkstra.hpp\"\
-    \n\nnamespace tools {\n\n  template <bool Directed, typename T>\n  class naive_dijkstra\
-    \ {\n  public:\n    struct edge {\n      ::std::size_t id;\n      ::std::size_t\
-    \ from;\n      ::std::size_t to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t\
-    \ m_size;\n    ::std::vector<edge> m_edges;\n    ::std::vector<::std::size_t>\
-    \ m_graph;\n\n  public:\n    naive_dijkstra() = default;\n    naive_dijkstra(const\
-    \ ::tools::naive_dijkstra<Directed, T>&) = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed,\
-    \ T>&&) = default;\n    ~naive_dijkstra() = default;\n    ::tools::naive_dijkstra<Directed,\
-    \ T>& operator=(const ::tools::naive_dijkstra<Directed, T>&) = default;\n    ::tools::naive_dijkstra<Directed,\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 15 \"tools/naive_dijkstra.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <bool Directed, typename T>\n  class naive_dijkstra {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge>\
+    \ m_edges;\n    ::std::vector<::std::size_t> m_graph;\n\n  public:\n    naive_dijkstra()\
+    \ = default;\n    naive_dijkstra(const ::tools::naive_dijkstra<Directed, T>&)\
+    \ = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed, T>&&) = default;\n\
+    \    ~naive_dijkstra() = default;\n    ::tools::naive_dijkstra<Directed, T>& operator=(const\
+    \ ::tools::naive_dijkstra<Directed, T>&) = default;\n    ::tools::naive_dijkstra<Directed,\
     \ T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;\n\n    explicit\
     \ naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max())\
     \ {\n    }\n\n    ::std::size_t size() const {\n      return this->m_size;\n \
@@ -110,7 +112,7 @@ data:
   isVerificationFile: true
   path: tests/naive_dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 16:56:26+09:00'
+  timestamp: '2024-03-24 18:38:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/naive_dijkstra.test.cpp

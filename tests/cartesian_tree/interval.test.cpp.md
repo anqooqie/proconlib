@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cartesian_tree.hpp
     title: Cartesian tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -78,18 +78,20 @@ data:
     \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
     \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
     \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    const bool\
-    \ updated = ::tools::cmp_less(rhs, lhs);\n    if (updated) lhs = rhs;\n    return\
-    \ updated;\n  }\n}\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"\
-    tools/cartesian_tree.hpp\"\n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\
-    \n#include <stack>\n#line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n\
-    \  template <typename T, typename Compare = ::std::less<T>>\n  class cartesian_tree\
-    \ {\n  public:\n    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t\
-    \ left;\n      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t>\
-    \ interval;\n    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex>\
-    \ m_vertices;\n\n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const\
-    \ ::tools::cartesian_tree<T, Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T,\
-    \ Compare>&&) = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
+    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
+    \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
+    \ < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\
+    \n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\n#include <stack>\n\
+    #line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ T, typename Compare = ::std::less<T>>\n  class cartesian_tree {\n  public:\n\
+    \    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t left;\n\
+    \      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t> interval;\n\
+    \    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex> m_vertices;\n\
+    \n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const ::tools::cartesian_tree<T,\
+    \ Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T, Compare>&&)\
+    \ = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
     \ Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;\n\
     \    ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T,\
     \ Compare>&&) = default;\n\n    explicit cartesian_tree(const ::std::vector<T>&\
@@ -126,10 +128,12 @@ data:
     \ return this->m_vertices[i];\n    }\n    const ::std::vector<vertex>& vertices()\
     \ const {\n      return this->m_vertices;\n    }\n  };\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
     \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    const bool updated\
-    \ = ::tools::cmp_less(lhs, rhs);\n    if (updated) lhs = rhs;\n    return updated;\n\
-    \  }\n}\n\n\n#line 12 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll =\
-    \ long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    bool updated;\n  \
+    \  if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n     \
+    \ updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs <\
+    \ rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 12 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll = long long;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, M;\n  std::cin >> N >> M;\n  auto A = std::vector(N, std::vector<int>(M));\n\
     \  for (auto& A_r : A) {\n    for (auto& A_rc: A_r) {\n      std::cin >> A_rc;\n\
     \    }\n  }\n\n  const tools::cumsum2d<tools::group::plus<int>> sum(A);\n\n  ll\
@@ -167,7 +171,7 @@ data:
   isVerificationFile: true
   path: tests/cartesian_tree/interval.test.cpp
   requiredBy: []
-  timestamp: '2024-03-20 23:37:11+09:00'
+  timestamp: '2024-03-24 18:38:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cartesian_tree/interval.test.cpp
