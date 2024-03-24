@@ -1,6 +1,7 @@
 #ifndef TOOLS_CHMAX_HPP
 #define TOOLS_CHMAX_HPP
 
+#include <type_traits>
 #include "tools/cmp_less.hpp"
 
 namespace tools {

@@ -1,6 +1,7 @@
 #ifndef TOOLS_CHMIN_HPP
 #define TOOLS_CHMIN_HPP
 
+#include <type_traits>
 #include "tools/cmp_less.hpp"
 
 namespace tools {
