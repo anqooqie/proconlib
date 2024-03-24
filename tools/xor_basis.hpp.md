@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links:
     - https://twitter.com/noshi91/status/1200702280128856064
@@ -26,7 +26,7 @@ data:
     \    if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
     \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
     \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
     \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
     \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
     \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
@@ -56,8 +56,8 @@ data:
   isVerificationFile: false
   path: tools/xor_basis.hpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 19:16:21+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/xor_basis.test.cpp
 documentation_of: tools/xor_basis.hpp

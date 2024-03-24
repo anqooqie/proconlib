@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/directed.test.cpp
     title: tests/zero_one_bfs/directed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_bfs/undirected.test.cpp
     title: tests/zero_one_bfs/undirected.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_bfs.hpp\"\n\n\n\n#include <cstddef>\n#include\
     \ <vector>\n#include <cassert>\n#include <tuple>\n#include <algorithm>\n#include\
     \ <utility>\n#include <limits>\n#include <deque>\n#line 1 \"tools/chmin.hpp\"\n\
-    \n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
-    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
-    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
-    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
-    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \n\n\n#include <type_traits>\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"\
+    tools/cmp_less.hpp\"\n\nnamespace tools {\n  template <typename T, typename U>\n\
+    \  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n\
+    \    using UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T>\
+    \ == ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
-    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
     \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
     \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
@@ -113,8 +113,8 @@ data:
   isVerificationFile: false
   path: tools/zero_one_bfs.hpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 19:16:21+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp

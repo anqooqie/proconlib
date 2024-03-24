@@ -1,62 +1,62 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/zero_one_knapsack.hpp\"\n\n\n\n#include <vector>\n\
     #include <utility>\n#include <cassert>\n#include <cstddef>\n#include <limits>\n\
     #include <iterator>\n#include <algorithm>\n#include <tuple>\n#include <array>\n\
-    #include <numeric>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
-    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
-    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
-    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
-    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
-    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    bool updated;\n\
-    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
-    \   updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs\
-    \ < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 1 \"tools/chmin.hpp\"\n\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs)\
-    \ {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    #include <numeric>\n#line 1 \"tools/chmax.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
+    \ = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
     \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
     \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
     }\n\n\n#line 1 \"tools/less_by_get.hpp\"\n\n\n\n#line 6 \"tools/less_by_get.hpp\"\
@@ -580,8 +580,8 @@ data:
   isVerificationFile: false
   path: tools/zero_one_knapsack.hpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 19:16:21+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp

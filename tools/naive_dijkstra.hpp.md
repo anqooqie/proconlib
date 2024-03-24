@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -27,22 +27,22 @@ data:
     \ class less_by {\n  private:\n    F selector;\n\n  public:\n    less_by(const\
     \ F& selector) : selector(selector) {\n    }\n\n    template <class T>\n    bool\
     \ operator()(const T& x, const T& y) const {\n      return selector(x) < selector(y);\n\
-    \    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\
-    \n\n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
-    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
-    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
-    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
-    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
-    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
-    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
-    \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
-    \ < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 15 \"tools/naive_dijkstra.hpp\"\n\nnamespace tools {\n\n  template <bool\
-    \ Directed, typename T>\n  class naive_dijkstra {\n  public:\n    struct edge\
-    \ {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t to;\n\
-    \      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge>\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 15 \"tools/naive_dijkstra.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <bool Directed, typename T>\n  class naive_dijkstra {\n  public:\n    struct\
+    \ edge {\n      ::std::size_t id;\n      ::std::size_t from;\n      ::std::size_t\
+    \ to;\n      T cost;\n    };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge>\
     \ m_edges;\n    ::std::vector<::std::size_t> m_graph;\n\n  public:\n    naive_dijkstra()\
     \ = default;\n    naive_dijkstra(const ::tools::naive_dijkstra<Directed, T>&)\
     \ = default;\n    naive_dijkstra(::tools::naive_dijkstra<Directed, T>&&) = default;\n\
@@ -125,7 +125,7 @@ data:
   isVerificationFile: false
   path: tools/naive_dijkstra.hpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
+  timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/naive_dijkstra.test.cpp

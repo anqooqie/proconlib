@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -141,7 +141,7 @@ data:
     \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
     \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
-    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmax.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
     \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
     \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
@@ -184,7 +184,7 @@ data:
   isVerificationFile: true
   path: tests/longest_common_substring.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
+  timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/longest_common_substring.test.cpp

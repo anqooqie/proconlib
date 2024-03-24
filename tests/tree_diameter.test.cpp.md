@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tree_diameter.hpp
     title: Diameter of a tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tree_diameter
@@ -28,13 +28,13 @@ data:
     \n\n\n\n#line 5 \"tools/tree_diameter.hpp\"\n#include <cstddef>\n#line 7 \"tools/tree_diameter.hpp\"\
     \n#include <cassert>\n#include <tuple>\n#include <limits>\n#include <queue>\n\
     #include <iterator>\n#include <algorithm>\n#line 1 \"tools/chmin.hpp\"\n\n\n\n\
-    #line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools\
-    \ {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const T t,\
-    \ const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    #include <type_traits>\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\
+    \n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
     \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
     \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
     \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
-    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace\
     \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
     \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
     \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
@@ -107,8 +107,8 @@ data:
   isVerificationFile: true
   path: tests/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-03-24 19:16:21+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/tree_diameter.test.cpp
 layout: document

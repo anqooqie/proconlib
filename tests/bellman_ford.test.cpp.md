@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
@@ -23,19 +23,20 @@ data:
   bundledCode: "#line 1 \"tests/bellman_ford.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc137/tasks/abc137_e\"\
     \n\n#include <iostream>\n#include <limits>\n#include <algorithm>\n#line 1 \"tools/bellman_ford.hpp\"\
     \n\n\n\n#include <cstddef>\n#include <vector>\n#include <cassert>\n#include <utility>\n\
-    #line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr\
-    \ bool cmp_less(const T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n\
-    \    using UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T>\
-    \ == ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
-    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
-    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
-    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
-    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
-    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
-    }\n\n\n#line 10 \"tools/bellman_ford.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename T>\n  class bellman_ford {\n  public:\n    struct edge {\n      ::std::size_t\
+    #line 1 \"tools/chmin.hpp\"\n\n\n\n#include <type_traits>\n#line 1 \"tools/cmp_less.hpp\"\
+    \n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ T, typename U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n\
+    \    using UT = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n\
+    \    if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
+    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
+    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
+    \    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
+    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
+    \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
+    \ < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
+    #line 10 \"tools/bellman_ford.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T>\n  class bellman_ford {\n  public:\n    struct edge {\n      ::std::size_t\
     \ id;\n      ::std::size_t from;\n      ::std::size_t to;\n      T cost;\n   \
     \ };\n\n  private:\n    ::std::size_t m_size;\n    ::std::vector<edge> m_edges;\n\
     \n  public:\n    bellman_ford() = default;\n    bellman_ford(const ::tools::bellman_ford<T>&)\
@@ -91,7 +92,7 @@ data:
   isVerificationFile: true
   path: tests/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
+  timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bellman_ford.test.cpp

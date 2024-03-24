@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy:
@@ -11,10 +11,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/longest_common_substring.hpp
     title: Longest common substring
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
@@ -27,47 +27,48 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/longest_common_substring.test.cpp
     title: tests/longest_common_substring.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/chmax.hpp\"\n\n\n\n#line 1 \"tools/cmp_less.hpp\"\n\
-    \n\n\n#include <type_traits>\n\nnamespace tools {\n  template <typename T, typename\
-    \ U>\n  constexpr bool cmp_less(const T t, const U u) noexcept {\n    using UT\
-    \ = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n  \
-    \  if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
-    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
-    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    bool updated;\n\
-    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
-    \   updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs\
-    \ < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_CHMAX_HPP\n#define TOOLS_CHMAX_HPP\n\n#include \"tools/cmp_less.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  bool chmax(M&\
-    \ lhs, const N& rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M>\
-    \ && ::std::is_integral_v<N>) {\n      updated = ::tools::cmp_less(lhs, rhs);\n\
-    \    } else {\n      updated = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n\
-    \    return updated;\n  }\n}\n\n#endif\n"
+  bundledCode: "#line 1 \"tools/chmax.hpp\"\n\n\n\n#include <type_traits>\n#line 1\
+    \ \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const T t,\
+    \ const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmax.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmax(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated\
+    \ = lhs < rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n"
+  code: "#ifndef TOOLS_CHMAX_HPP\n#define TOOLS_CHMAX_HPP\n\n#include <type_traits>\n\
+    #include \"tools/cmp_less.hpp\"\n\nnamespace tools {\n\n  template <typename M,\
+    \ typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    bool updated;\n    if\
+    \ constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n      updated\
+    \ = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs < rhs;\n \
+    \   }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/cmp_less.hpp
   isVerificationFile: false
@@ -77,8 +78,8 @@ data:
   - tools/largest_rectangle_in_histogram.hpp
   - tools/longest_common_substring.hpp
   - tools/suffix_array.hpp
-  timestamp: '2024-03-24 18:38:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-03-24 19:16:21+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/next_matching.test.cpp
   - tests/rolling_hash.test.cpp

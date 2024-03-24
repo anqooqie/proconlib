@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cartesian_tree.hpp
     title: Cartesian tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   - icon: ':heavy_check_mark:'
@@ -70,19 +70,19 @@ data:
     \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
     \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
     \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
-    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#line 1\
-    \ \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace tools {\n\
-    \  template <typename T, typename U>\n  constexpr bool cmp_less(const T t, const\
-    \ U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using UU = ::std::make_unsigned_t<U>;\n\
-    \    if constexpr (::std::is_signed_v<T> == ::std::is_signed_v<U>) {\n      return\
-    \ t < u;\n    } else if constexpr (::std::is_signed_v<T>) {\n      return t <\
-    \ 0 ? true : UT(t) < u;\n    } else {\n      return u < 0 ? false : t < UU(u);\n\
-    \    }\n  }\n}\n\n\n#line 5 \"tools/chmin.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  bool chmin(M& lhs, const N& rhs) {\n    bool updated;\n\
-    \    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n   \
-    \   updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated = rhs\
-    \ < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#include\
+    \ <type_traits>\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\
+    \n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
+    \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
+    \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return t < 0 ? true : UT(t) < u;\n    } else {\n      return u < 0\
+    \ ? false : t < UU(u);\n    }\n  }\n}\n\n\n#line 6 \"tools/chmin.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  bool chmin(M& lhs, const N&\
+    \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
+    \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
+    \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
+    }\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\
     \n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\n#include <stack>\n\
     #line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n  template <typename\
     \ T, typename Compare = ::std::less<T>>\n  class cartesian_tree {\n  public:\n\
@@ -127,7 +127,7 @@ data:
     \ get_vertex(::std::size_t i) const {\n      assert(i < this->size());\n     \
     \ return this->m_vertices[i];\n    }\n    const ::std::vector<vertex>& vertices()\
     \ const {\n      return this->m_vertices;\n    }\n  };\n}\n\n\n#line 1 \"tools/chmax.hpp\"\
-    \n\n\n\n#line 5 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \n\n\n\n#line 6 \"tools/chmax.hpp\"\n\nnamespace tools {\n\n  template <typename\
     \ M, typename N>\n  bool chmax(M& lhs, const N& rhs) {\n    bool updated;\n  \
     \  if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n     \
     \ updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs <\
@@ -171,7 +171,7 @@ data:
   isVerificationFile: true
   path: tests/cartesian_tree/interval.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 18:38:48+09:00'
+  timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cartesian_tree/interval.test.cpp
