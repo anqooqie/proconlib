@@ -291,11 +291,11 @@ data:
     \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
     \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
     \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
-    \    T& operator[](const ::std::size_t i) {\n      assert(0 <= i && i < this->size());\n\
+    \    T& operator[](const ::std::size_t i) {\n      assert(i < this->size());\n\
     \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
-    \ ::std::size_t r) {\n      assert(0 <= l && l <= r && r <= this->size());\n \
-    \     if constexpr (Forward) {\n        for (; this->m_processed < r; ++this->m_processed)\
-    \ {\n          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \ ::std::size_t r) {\n      assert(l <= r && r <= this->size());\n      if constexpr\
+    \ (Forward) {\n        for (; this->m_processed < r; ++this->m_processed) {\n\
+    \          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
     \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
     \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
@@ -946,7 +946,7 @@ data:
   isVerificationFile: true
   path: tests/online_cumsum.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 15:56:12+09:00'
+  timestamp: '2024-03-24 22:45:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/online_cumsum.test.cpp
