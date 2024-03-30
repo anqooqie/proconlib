@@ -200,8 +200,8 @@ data:
     \    }\n  };\n}\n\n\n#line 23 \"tools/util.hpp\"\n\nusing ll = long long;\nusing\
     \ ull = unsigned long long;\nusing i32 = ::std::int32_t;\nusing u32 = ::std::uint32_t;\n\
     using i64 = ::std::int64_t;\nusing u64 = ::std::uint64_t;\n\n#define ALL(x) ::std::begin(x),\
-    \ ::std::end(x)\n#define REP(i, n) for (long long i = 0; i < static_cast<long\
-    \ long>(n); ++i)\n\n\n"
+    \ ::std::end(x)\n#define REP(i, n) for (long long i = 0, i##_len = static_cast<long\
+    \ long>(n); i < i##_len; ++i)\n\n\n"
   code: "#ifndef TOOLS_UTIL_HPP\n#define TOOLS_UTIL_HPP\n\n// To see the details of\
     \ my library, visit my GitHub Pages.\n// https://anqooqie.github.io/proconlib/\n\
     \n#ifdef LOCAL\n  #ifndef _GLIBCXX_DEBUG\n    #define _GLIBCXX_DEBUG\n  #endif\n\
@@ -211,7 +211,7 @@ data:
     using ll = long long;\nusing ull = unsigned long long;\nusing i32 = ::std::int32_t;\n\
     using u32 = ::std::uint32_t;\nusing i64 = ::std::int64_t;\nusing u64 = ::std::uint64_t;\n\
     \n#define ALL(x) ::std::begin(x), ::std::end(x)\n#define REP(i, n) for (long long\
-    \ i = 0; i < static_cast<long long>(n); ++i)\n\n#endif\n"
+    \ i = 0, i##_len = static_cast<long long>(n); i < i##_len; ++i)\n\n#endif\n"
   dependsOn:
   - tools/resize.hpp
   - tools/fill.hpp
@@ -226,7 +226,7 @@ data:
   isVerificationFile: false
   path: tools/util.hpp
   requiredBy: []
-  timestamp: '2022-11-23 11:35:29+09:00'
+  timestamp: '2024-03-30 17:59:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/util.test.cpp

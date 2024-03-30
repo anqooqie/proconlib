@@ -204,10 +204,10 @@ data:
     \    }\n  };\n}\n\n\n#line 23 \"tools/util.hpp\"\n\nusing ll = long long;\nusing\
     \ ull = unsigned long long;\nusing i32 = ::std::int32_t;\nusing u32 = ::std::uint32_t;\n\
     using i64 = ::std::int64_t;\nusing u64 = ::std::uint64_t;\n\n#define ALL(x) ::std::begin(x),\
-    \ ::std::end(x)\n#define REP(i, n) for (long long i = 0; i < static_cast<long\
-    \ long>(n); ++i)\n\n\n#line 7 \"tests/util.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  std::cout << \"Hello World\" <<\
-    \ '\\n';\n  return 0;\n}\n"
+    \ ::std::end(x)\n#define REP(i, n) for (long long i = 0, i##_len = static_cast<long\
+    \ long>(n); i < i##_len; ++i)\n\n\n#line 7 \"tests/util.test.cpp\"\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  std::cout\
+    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\
     #ifdef __clang__\n  #define IGNORE\n#endif\n\n#include \"tools/util.hpp\"\n\n\
     int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
@@ -227,7 +227,7 @@ data:
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:35:29+09:00'
+  timestamp: '2024-03-30 17:59:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/util.test.cpp
