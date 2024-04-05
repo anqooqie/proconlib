@@ -132,40 +132,40 @@ data:
   path: tools/chmin.hpp
   requiredBy:
   - tools/zero_one_knapsack.hpp
-  - tools/segmented_sieve.hpp
-  - tools/zero_one_bfs.hpp
   - tools/mcf_graph.hpp
-  - tools/bellman_ford.hpp
-  - tools/xor_basis.hpp
-  - tools/naive_dijkstra.hpp
-  - tools/tsp.hpp
-  - tools/suffix_array.hpp
-  - tools/dijkstra.hpp
   - tools/tree_diameter.hpp
   - tools/weighted_bipartite_matching.hpp
+  - tools/xor_basis.hpp
+  - tools/segmented_sieve.hpp
+  - tools/bellman_ford.hpp
+  - tools/tsp.hpp
+  - tools/suffix_array.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/dijkstra.hpp
+  - tools/naive_dijkstra.hpp
   timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tree_diameter.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/bellman_ford.test.cpp
-  - tests/cartesian_tree/interval.test.cpp
   - tests/tsp.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
-  - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/dijkstra/undirected.test.cpp
-  - tests/dijkstra/directed.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/naive_dijkstra.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/persistent_stack.test.cpp
   - tests/zero_one_bfs/undirected.test.cpp
   - tests/zero_one_bfs/directed.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/dijkstra/undirected.test.cpp
+  - tests/dijkstra/directed.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/naive_dijkstra.test.cpp
+  - tests/tree_diameter.test.cpp
   - tests/suffix_array.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/bellman_ford.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/segmented_sieve.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
+  - tests/persistent_stack.test.cpp
 documentation_of: tools/chmin.hpp
 layout: document
 title: chmin function

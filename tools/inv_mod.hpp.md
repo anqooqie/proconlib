@@ -104,20 +104,20 @@ data:
   isVerificationFile: false
   path: tools/inv_mod.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
-  - tools/garner.hpp
   - tools/log_mod.hpp
-  - tools/tetration_mod.hpp
+  - tools/garner.hpp
   - tools/extended_garner.hpp
+  - tools/tetration_mod.hpp
+  - tools/extended_lucas.hpp
   - tools/sqrt_mod.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/extended_lucas.test.cpp
   - tests/log_mod.test.cpp
-  - tests/extended_garner.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/sqrt_mod.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/extended_garner.test.cpp
 documentation_of: tools/inv_mod.hpp
 layout: document
 title: $x^{-1} \pmod{M}$

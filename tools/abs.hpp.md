@@ -406,6 +406,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
   - icon: ':heavy_check_mark:'
@@ -500,163 +503,164 @@ data:
   isVerificationFile: false
   path: tools/abs.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
-  - tools/greater_by_arg.hpp
-  - tools/vector3.hpp
-  - tools/greater_by_arg_total.hpp
-  - tools/uint128_t.hpp
-  - tools/extended_lucas.hpp
-  - tools/line_2d.hpp
-  - tools/bigint.hpp
-  - tools/garner.hpp
-  - tools/vector2.hpp
-  - tools/partition_function.hpp
-  - tools/rational.hpp
-  - tools/garner2.hpp
-  - tools/bernoulli.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/log_mod.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/pow_mod.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/less_by_arg_total.hpp
-  - tools/convex_hull.hpp
-  - tools/bigdecimal.hpp
-  - tools/primitive_root.hpp
   - tools/bostan_mori.hpp
-  - tools/prime_factorization.hpp
-  - tools/int128_t.hpp
-  - tools/fps.hpp
-  - tools/polygon_2d.hpp
-  - tools/vector4.hpp
-  - tools/tetration_mod.hpp
-  - tools/stirling_1st.hpp
-  - tools/is_prime.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/detail/geometry_2d.hpp
-  - tools/prod_mod.hpp
-  - tools/extended_garner.hpp
-  - tools/totient.hpp
-  - tools/convolution.hpp
-  - tools/vector.hpp
+  - tools/convex_hull.hpp
+  - tools/greater_by_arg.hpp
+  - tools/log_mod.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/bigint.hpp
+  - tools/garner2.hpp
+  - tools/bezout.hpp
+  - tools/garner3.hpp
   - tools/stirling_2nd.hpp
   - tools/inv_mod.hpp
-  - tools/triangle_2d.hpp
+  - tools/vector2.hpp
+  - tools/garner.hpp
+  - tools/partition_function.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/bigdecimal.hpp
+  - tools/extended_garner.hpp
+  - tools/pow_mod.hpp
+  - tools/primitive_root.hpp
+  - tools/rational.hpp
   - tools/half_line_2d.hpp
-  - tools/divisors.hpp
-  - tools/polynomial.hpp
-  - tools/quaternion.hpp
-  - tools/matrix.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/bernoulli.hpp
+  - tools/prod_mod.hpp
   - tools/directed_line_segment_2d.hpp
+  - tools/quaternion.hpp
+  - tools/triangle_2d.hpp
+  - tools/uint128_t.hpp
+  - tools/convolution.hpp
+  - tools/prime_factorization.hpp
+  - tools/tetration_mod.hpp
+  - tools/is_prime.hpp
+  - tools/matrix.hpp
+  - tools/line_2d.hpp
+  - tools/divisors.hpp
+  - tools/rolling_hash.hpp
+  - tools/stirling_1st.hpp
+  - tools/circle_2d.hpp
+  - tools/extended_lucas.hpp
+  - tools/less_by_arg.hpp
+  - tools/vector3.hpp
   - tools/sqrt_mod.hpp
+  - tools/greater_by_arg_total.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/fps.hpp
   - tools/extgcd.hpp
   - tools/ccw.hpp
-  - tools/garner3.hpp
-  - tools/less_by_arg.hpp
-  - tools/bezout.hpp
-  - tools/fact_mod_cache.hpp
-  - tools/circle_2d.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/vector4.hpp
+  - tools/polynomial.hpp
+  - tools/int128_t.hpp
+  - tools/vector.hpp
+  - tools/totient.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/quaternion/slerp.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/angle_axis.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/matrix/solve.test.cpp
+  - tests/matrix/inv.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/determinant.test.cpp
+  - tests/matrix/static.test.cpp
+  - tests/matrix/rank.test.cpp
   - tests/stirling_1st.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/divisors.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/random.test.cpp
-  - tests/ccw.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/extgcd.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/less_by_arg.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/bezout.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/totient.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/is_prime.test.cpp
   - tests/uint128_t.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/log_mod.test.cpp
   - tests/convolution/double.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
-  - tests/extended_garner.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/greater_by_arg.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/int128_t.test.cpp
-  - tests/matrix/multiplies.test.cpp
-  - tests/matrix/rank.test.cpp
-  - tests/matrix/inv.test.cpp
-  - tests/matrix/static.test.cpp
-  - tests/matrix/determinant.test.cpp
-  - tests/matrix/solve.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/polynomial_product.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/online_cumsum.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/partition_function/n.test.cpp
+  - tests/partition_function/n_k.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/extgcd.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial_interpolation.test.cpp
   - tests/sqrt_mod.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/bezout.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
   - tests/greater_by_arg_total.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/ccw.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/less_by_arg.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/divisors.test.cpp
+  - tests/int128_t.test.cpp
 documentation_of: tools/abs.hpp
 layout: document
 title: std::abs(x) extended for my library

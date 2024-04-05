@@ -652,9 +652,9 @@ data:
   - tests/safe_int.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/floor_kth_root.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
 documentation_of: tools/safe_int.hpp
 layout: document
 title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq 0}

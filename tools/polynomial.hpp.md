@@ -112,6 +112,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
   _isVerificationFailed: false
@@ -1903,23 +1906,24 @@ data:
   isVerificationFile: false
   path: tools/polynomial.hpp
   requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/polynomial_interpolation.hpp
   - tools/bostan_mori.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/stirling_1st.hpp
+  - tools/berlekamp_massey.hpp
   timestamp: '2024-01-28 02:40:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
-  - tests/berlekamp_massey.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/berlekamp_massey.test.cpp
 documentation_of: tools/polynomial.hpp
 layout: document
 title: Polynomial

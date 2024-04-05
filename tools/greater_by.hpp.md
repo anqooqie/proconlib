@@ -3,9 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/polynomial_product.hpp
+    title: Product of polynomials
+  - icon: ':heavy_check_mark:'
     path: tools/prim.hpp
     title: Prim's algorithm
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prim/basic.test.cpp
     title: tests/prim/basic.test.cpp
@@ -32,11 +38,13 @@ data:
   path: tools/greater_by.hpp
   requiredBy:
   - tools/prim.hpp
+  - tools/polynomial_product.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/prim/unconnected.test.cpp
   - tests/prim/basic.test.cpp
+  - tests/polynomial_product.test.cpp
 documentation_of: tools/greater_by.hpp
 layout: document
 title: std::greater by key

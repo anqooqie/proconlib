@@ -297,13 +297,18 @@ data:
     \ + this->m_size2 + i).flow == 1) {\n          edges.push_back(i);\n        }\n\
     \      }\n\n      return ::std::make_pair(this->m_maximize ? -cost : cost, edges);\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include\
-    \ <sstream>\n\nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string\
-    \ join(const Iterator begin, const Iterator end, const ::std::string delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    ::std::string current_delimiter = \"\"\
-    ;\n    for (Iterator it = begin; it != end; ++it) {\n      ss << current_delimiter\
-    \ << *it;\n      current_delimiter = delimiter;\n    }\n    return ss.str();\n\
-    \  }\n}\n\n\n#line 8 \"tests/weighted_bipartite_matching/minimize.test.cpp\"\n\
-    \nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ <sstream>\n#include <iterator>\n\nnamespace tools {\n\n  template <typename\
+    \ Iterator>\n  ::std::string join(const Iterator begin, const Iterator end, const\
+    \ ::std::string& delimiter) {\n    ::std::ostringstream ss;\n    if (begin !=\
+    \ end) {\n      ss << *begin;\n      for (auto it = ::std::next(begin); it !=\
+    \ end; ++it) {\n        ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n\
+    \  }\n\n  template <typename Iterator, typename F>\n  ::std::string join(const\
+    \ Iterator begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
+    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 8 \"\
+    tests/weighted_bipartite_matching/minimize.test.cpp\"\n\nusing ll = long long;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::cin >> N;\n\n  tools::weighted_bipartite_matching<ll> graph(N,\
     \ N, false);\n  for (ll i = 0; i < N; ++i) {\n    for (ll j = 0; j < N; ++j) {\n\
     \      ll a_ij;\n      std::cin >> a_ij;\n      graph.add_edge(i, j, a_ij);\n\
@@ -332,7 +337,7 @@ data:
   isVerificationFile: true
   path: tests/weighted_bipartite_matching/minimize.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 19:16:21+09:00'
+  timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/weighted_bipartite_matching/minimize.test.cpp

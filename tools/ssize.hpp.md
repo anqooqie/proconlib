@@ -172,6 +172,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
   - icon: ':heavy_check_mark:'
@@ -236,80 +239,81 @@ data:
   isVerificationFile: false
   path: tools/ssize.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
-  - tools/mcf_graph.hpp
-  - tools/bigint.hpp
-  - tools/rational.hpp
-  - tools/bernoulli.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/bigdecimal.hpp
-  - tools/li_chao_segtree.hpp
   - tools/bostan_mori.hpp
-  - tools/stirling_1st.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/stirling_2nd.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/polynomial.hpp
-  - tools/fact_mod_cache.hpp
+  - tools/mcf_graph.hpp
   - tools/weighted_bipartite_matching.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/bigint.hpp
+  - tools/stirling_2nd.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/bigdecimal.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/rational.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/bernoulli.hpp
+  - tools/rolling_hash.hpp
+  - tools/stirling_1st.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/polynomial.hpp
   timestamp: '2021-11-27 17:23:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/has_mod.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/tsp.test.cpp
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/random.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/bigint/multiplies.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bigint/divides.test.cpp
-  - tests/bigint/plus.test.cpp
-  - tests/bigint/modulus.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/permutation.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/tsp.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/minus.test.cpp
   - tests/fastio/string.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/polynomial_product.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/ssize.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/persistent_stack.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/polygon_2d/area.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/ssize.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/stirling_2nd.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/permutation.test.cpp
 documentation_of: tools/ssize.hpp
 layout: document
 title: Polyfill of std::ssize

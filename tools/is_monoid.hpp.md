@@ -41,8 +41,8 @@ data:
   timestamp: '2024-03-23 15:55:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/is_monoid.test.cpp
   - tests/online_cumsum.test.cpp
+  - tests/is_monoid.test.cpp
 documentation_of: tools/is_monoid.hpp
 layout: document
 title: Check whether T is a monoid

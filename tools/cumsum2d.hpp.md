@@ -79,8 +79,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/cartesian_tree/interval.test.cpp
   - tests/cumsum2d.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
 documentation_of: tools/cumsum2d.hpp
 layout: document
 title: 2D cumulative sum

@@ -121,6 +121,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/range_count_distinct.test.cpp
     title: tests/range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
@@ -168,57 +171,58 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
-  - tools/digit_product_frequency.hpp
+  - tools/bostan_mori.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/stirling_2nd.hpp
+  - tools/range_count_distinct.hpp
   - tools/partition_function.hpp
   - tools/bernoulli.hpp
-  - tools/partially_persistent_dsu.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/range_count_distinct.hpp
-  - tools/bostan_mori.hpp
-  - tools/fps.hpp
-  - tools/stirling_1st.hpp
-  - tools/stirling_2nd.hpp
-  - tools/polynomial.hpp
   - tools/wavelet_matrix.hpp
+  - tools/partially_persistent_dsu.hpp
+  - tools/stirling_1st.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/fps.hpp
+  - tools/digit_product_frequency.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/polynomial.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
+  - tests/range_count_distinct.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
   - tests/bostan_mori.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
-  - tests/partially_persistent_dsu.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
-  - tests/digit_product_frequency.test.cpp
-  - tests/range_count_distinct.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/partially_persistent_dsu.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/digit_product_frequency.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/stirling_2nd.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

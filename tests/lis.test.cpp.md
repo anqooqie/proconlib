@@ -74,17 +74,23 @@ data:
     \ stack = stack.pop()) {\n      indices.push_back(stack.top());\n    }\n    ::std::reverse(indices.begin(),\
     \ indices.end());\n    ::std::transform(indices.begin(), indices.end(), ::std::back_inserter(lis),\
     \ [&](const ::std::size_t i) { return a[i]; });\n\n    return res;\n  }\n}\n\n\
-    \n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\n\
-    namespace tools {\n\n  template <typename Iterator>\n  ::std::string join(const\
-    \ Iterator begin, const Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream\
-    \ ss;\n    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin;\
-    \ it != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
-    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 7 \"tests/lis.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N;\n  std::cin >> N;\n  std::vector<ll> A(N);\n  for (auto& A_i : A) std::cin\
-    \ >> A_i;\n\n  const auto lis_indices = tools::lis(A.begin(), A.end(), true).second;\n\
-    \  std::cout << lis_indices.size() << '\\n';\n  std::cout << tools::join(lis_indices.begin(),\
-    \ lis_indices.end(), \" \") << '\\n';\n\n  return 0;\n}\n"
+    \n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n#line\
+    \ 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename Iterator>\n\
+    \  ::std::string join(const Iterator begin, const Iterator end, const ::std::string&\
+    \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
+    \ << *begin;\n      for (auto it = ::std::next(begin); it != end; ++it) {\n  \
+    \      ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n  }\n\n\
+    \  template <typename Iterator, typename F>\n  ::std::string join(const Iterator\
+    \ begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
+    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 7 \"\
+    tests/lis.test.cpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<ll>\
+    \ A(N);\n  for (auto& A_i : A) std::cin >> A_i;\n\n  const auto lis_indices =\
+    \ tools::lis(A.begin(), A.end(), true).second;\n  std::cout << lis_indices.size()\
+    \ << '\\n';\n  std::cout << tools::join(lis_indices.begin(), lis_indices.end(),\
+    \ \" \") << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/longest_increasing_subsequence\"\
     \n\n#include <iostream>\n#include <vector>\n#include \"tools/lis.hpp\"\n#include\
     \ \"tools/join.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
@@ -100,7 +106,7 @@ data:
   isVerificationFile: true
   path: tests/lis.test.cpp
   requiredBy: []
-  timestamp: '2022-11-06 09:37:24+09:00'
+  timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lis.test.cpp

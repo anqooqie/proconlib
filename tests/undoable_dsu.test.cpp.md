@@ -264,12 +264,17 @@ data:
     \ args) const {\n      return F::operator()(*this, ::std::forward<Args>(args)...);\n\
     \    }\n  };\n\n  template <typename F>\n  fix(F&&) -> fix<::std::decay_t<F>>;\n\
     }\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
-    \nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string join(const\
-    \ Iterator begin, const Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream\
-    \ ss;\n    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin;\
-    \ it != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
-    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 9 \"tests/undoable_dsu.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename Iterator>\n\
+    \  ::std::string join(const Iterator begin, const Iterator end, const ::std::string&\
+    \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
+    \ << *begin;\n      for (auto it = ::std::next(begin); it != end; ++it) {\n  \
+    \      ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n  }\n\n\
+    \  template <typename Iterator, typename F>\n  ::std::string join(const Iterator\
+    \ begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
+    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 9 \"\
+    tests/undoable_dsu.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N;\n  std::cin >> N;\n  std::vector<int> A(N), B(N);\n  for (int i = 0;\
     \ i < N; ++i) {\n    std::cin >> A[i] >> B[i];\n    --A[i], --B[i];\n  }\n\n \
     \ tools::hld graph(N);\n  for (int i = 0; i < N - 1; ++i) {\n    int U, V;\n \
@@ -314,7 +319,7 @@ data:
   isVerificationFile: true
   path: tests/undoable_dsu.test.cpp
   requiredBy: []
-  timestamp: '2023-08-05 18:58:35+09:00'
+  timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/undoable_dsu.test.cpp

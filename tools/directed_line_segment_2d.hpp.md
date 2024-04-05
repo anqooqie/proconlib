@@ -1080,8 +1080,8 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
 documentation_of: tools/directed_line_segment_2d.hpp
 layout: document

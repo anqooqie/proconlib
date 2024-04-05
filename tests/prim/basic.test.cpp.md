@@ -70,17 +70,22 @@ data:
     \ < ::std::numeric_limits<::std::size_t>::max()) continue;\n\n            pq.emplace(e,\
     \ next);\n          }\n        }\n      }\n\n      return res;\n    }\n  };\n\
     }\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
-    \nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string join(const\
-    \ Iterator begin, const Iterator end, const ::std::string delimiter) {\n    ::std::ostringstream\
-    \ ss;\n    ::std::string current_delimiter = \"\";\n    for (Iterator it = begin;\
-    \ it != end; ++it) {\n      ss << current_delimiter << *it;\n      current_delimiter\
-    \ = delimiter;\n    }\n    return ss.str();\n  }\n}\n\n\n#line 6 \"tests/prim/basic.test.cpp\"\
-    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N, M;\n  std::cin >> N >> M;\n  tools::prim<ll> graph(N);\n  for (int\
-    \ i = 0; i < M; ++i) {\n    int a, b, c;\n    std::cin >> a >> b >> c;\n    graph.add_edge(a,\
-    \ b, c);\n  }\n\n  const auto [X, e] = graph.query().first[0];\n  std::cout <<\
-    \ X << '\\n';\n  std::cout << tools::join(e.begin(), e.end(), \" \") << '\\n';\n\
-    \n  return 0;\n}\n"
+    #include <iterator>\n\nnamespace tools {\n\n  template <typename Iterator>\n \
+    \ ::std::string join(const Iterator begin, const Iterator end, const ::std::string&\
+    \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
+    \ << *begin;\n      for (auto it = ::std::next(begin); it != end; ++it) {\n  \
+    \      ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n  }\n\n\
+    \  template <typename Iterator, typename F>\n  ::std::string join(const Iterator\
+    \ begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
+    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 6 \"\
+    tests/prim/basic.test.cpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
+    \  tools::prim<ll> graph(N);\n  for (int i = 0; i < M; ++i) {\n    int a, b, c;\n\
+    \    std::cin >> a >> b >> c;\n    graph.add_edge(a, b, c);\n  }\n\n  const auto\
+    \ [X, e] = graph.query().first[0];\n  std::cout << X << '\\n';\n  std::cout <<\
+    \ tools::join(e.begin(), e.end(), \" \") << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/minimum_spanning_tree\"\
     \n\n#include <iostream>\n#include \"tools/prim.hpp\"\n#include \"tools/join.hpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
@@ -96,7 +101,7 @@ data:
   isVerificationFile: true
   path: tests/prim/basic.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
+  timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/prim/basic.test.cpp

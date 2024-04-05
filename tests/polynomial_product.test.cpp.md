@@ -31,6 +31,9 @@ data:
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/greater_by.hpp
+    title: std::greater by key
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
+  - icon: ':heavy_check_mark:'
+    path: tools/polynomial_product.hpp
+    title: Product of polynomials
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
@@ -82,22 +88,19 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc245/tasks/abc245_d
+    PROBLEM: https://judge.yosupo.jp/problem/product_of_polynomial_sequence
     links:
-    - https://atcoder.jp/contests/abc245/tasks/abc245_d
-  bundledCode: "#line 1 \"tests/polynomial/naive_division.test.cpp\"\n#define PROBLEM\
-    \ \"https://atcoder.jp/contests/abc245/tasks/abc245_d\"\n\n#include <iostream>\n\
-    #include <iterator>\n#include <cmath>\n#line 1 \"tools/polynomial.hpp\"\n\n\n\n\
-    #include <type_traits>\n#include <utility>\n#include <complex>\n#include <vector>\n\
-    #include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#include\
-    \ <cassert>\n#line 13 \"tools/polynomial.hpp\"\n#include <numeric>\n#line 1 \"\
-    lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
-    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
-    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
-    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    - https://judge.yosupo.jp/problem/product_of_polynomial_sequence
+  bundledCode: "#line 1 \"tests/polynomial_product.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/product_of_polynomial_sequence\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <string>\n#include <iterator>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -296,20 +299,22 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/is_prime.hpp\"\
-    \n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
-    \n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 1 \"tools/abs.hpp\"\
-    \n\n\n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n   \
-    \ return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0\
-    \ ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n \
-    \   return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
-    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
-    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/polynomial.hpp\"\
+    \n\n\n\n#line 6 \"tools/polynomial.hpp\"\n#include <complex>\n#line 8 \"tools/polynomial.hpp\"\
+    \n#include <cstddef>\n#include <initializer_list>\n#include <algorithm>\n#line\
+    \ 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"tools/prod_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\
+    \nnamespace tools {\n  constexpr float abs(const float x) {\n    return x < 0\
+    \ ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n  constexpr long double abs(const long double x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x :\
+    \ x;\n  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ?\
+    \ -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return\
+    \ x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n    return\
+    \ x;\n  }\n  constexpr unsigned long long abs(const unsigned long long x) {\n\
+    \    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools\
+    \ {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
@@ -547,10 +552,11 @@ data:
     \ static constexpr unsigned long long offset[5] = {\n            0, 0, M1M2M3,\
     \ 2 * M1M2M3, 3 * M1M2M3};\n        x -= offset[diff % 5];\n        c[i] = x;\n\
     \    }\n\n    return c;\n}\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\
-    \n\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \n\n\n\n#line 12 \"tools/convolution.hpp\"\n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\
+    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
+    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
@@ -1523,35 +1529,69 @@ data:
     \ g; }\n    friend P operator%(const P& f, const P& g) { return P(f) %= g; }\n\
     \    friend P operator<<(const P& f, const int d) { return P(f) <<= d; }\n   \
     \ friend P operator>>(const P& f, const int d) { return P(f) >>= d; }\n  };\n\
-    }\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\n#include\
-    \ <sstream>\n#line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ Iterator>\n  ::std::string join(const Iterator begin, const Iterator end, const\
-    \ ::std::string& delimiter) {\n    ::std::ostringstream ss;\n    if (begin !=\
-    \ end) {\n      ss << *begin;\n      for (auto it = ::std::next(begin); it !=\
-    \ end; ++it) {\n        ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n\
-    \  }\n\n  template <typename Iterator, typename F>\n  ::std::string join(const\
-    \ Iterator begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
-    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
-    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 8 \"\
-    tests/polynomial/naive_division.test.cpp\"\n\nusing ll = long long;\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
-    \ N, M;\n  std::cin >> N >> M;\n  tools::polynomial<double> A(N + 1), C(N + M\
-    \ + 1);\n  for (auto& A_i : A) std::cin >> A_i;\n  for (auto& C_i : C) std::cin\
-    \ >> C_i;\n\n  const auto B = C / A;\n  ::std::vector<ll> answers;\n  for (auto\
-    \ it = B.pbegin(), end = std::next(B.pbegin(), M + 1); it != end; ++it) {\n  \
-    \  answers.push_back(std::round(*it));\n  }\n\n  std::cout << tools::join(answers.begin(),\
-    \ answers.end(), \" \") << '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc245/tasks/abc245_d\"\n\n\
-    #include <iostream>\n#include <iterator>\n#include <cmath>\n#include \"tools/polynomial.hpp\"\
-    \n#include \"tools/join.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll N, M;\n  std::cin >> N >> M;\n\
-    \  tools::polynomial<double> A(N + 1), C(N + M + 1);\n  for (auto& A_i : A) std::cin\
-    \ >> A_i;\n  for (auto& C_i : C) std::cin >> C_i;\n\n  const auto B = C / A;\n\
-    \  ::std::vector<ll> answers;\n  for (auto it = B.pbegin(), end = std::next(B.pbegin(),\
-    \ M + 1); it != end; ++it) {\n    answers.push_back(std::round(*it));\n  }\n\n\
-    \  std::cout << tools::join(answers.begin(), answers.end(), \" \") << '\\n';\n\
-    \  return 0;\n}\n"
+    }\n\n\n#line 1 \"tools/polynomial_product.hpp\"\n\n\n\n#line 7 \"tools/polynomial_product.hpp\"\
+    \n#include <queue>\n#line 1 \"tools/greater_by.hpp\"\n\n\n\nnamespace tools {\n\
+    \n  template <class F>\n  class greater_by {\n  private:\n    F selector;\n\n\
+    \  public:\n    greater_by(const F& selector) : selector(selector) {\n    }\n\n\
+    \    template <class T>\n    bool operator()(const T& x, const T& y) const {\n\
+    \      return selector(x) > selector(y);\n    }\n  };\n}\n\n\n#line 12 \"tools/polynomial_product.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  ::std::enable_if_t<\n\
+    \    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
+    \  typename ::std::iterator_traits<RandomAccessIterator>::value_type\n  > polynomial_product(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    using P =\
+    \ typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\n    if\
+    \ (begin == end) return ++P{};\n\n    ::std::vector<P> cache;\n    const auto\
+    \ get_polynomial = [&](const bool is_cache, const ::std::size_t i) -> const P&\
+    \ { return is_cache ? cache[i] : begin[i]; };\n    const auto greater_by_size\
+    \ = ::tools::greater_by([&](const auto& pair) { return get_polynomial(pair.first,\
+    \ pair.second).size(); });\n    ::std::priority_queue<::std::pair<bool, ::std::size_t>,\
+    \ ::std::vector<::std::pair<bool, ::std::size_t>>, decltype(greater_by_size)>\
+    \ pq(greater_by_size);\n    for (auto it = begin; it != end; ++it) {\n      pq.emplace(false,\
+    \ ::std::distance(begin, it));\n    }\n\n    while (pq.size() > 1) {\n      const\
+    \ auto [p, i] = pq.top();\n      pq.pop();\n      const auto [q, j] = pq.top();\n\
+    \      pq.pop();\n      cache.push_back(get_polynomial(p, i) * get_polynomial(q,\
+    \ j));\n      pq.emplace(true, cache.size() - 1);\n    }\n\n    return get_polynomial(pq.top().first,\
+    \ pq.top().second);\n  }\n\n  template <typename InputIterator>\n  ::std::enable_if_t<\n\
+    \    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    typename\
+    \ ::std::iterator_traits<InputIterator>::value_type\n  > polynomial_product(const\
+    \ InputIterator begin, const InputIterator end) {\n    using P = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    const ::std::vector<P> polynomials(begin, end);\n    return polynomial_product(polynomials.begin(),\
+    \ polynomials.end());\n  }\n\n  template <typename P>\n  P polynomial_product(const\
+    \ ::std::initializer_list<P> il) {\n    return polynomial_product(il.begin(),\
+    \ il.end());\n  }\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\
+    \n#include <sstream>\n#line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename Iterator>\n  ::std::string join(const Iterator begin, const Iterator\
+    \ end, const ::std::string& delimiter) {\n    ::std::ostringstream ss;\n    if\
+    \ (begin != end) {\n      ss << *begin;\n      for (auto it = ::std::next(begin);\
+    \ it != end; ++it) {\n        ss << delimiter << *it;\n      }\n    }\n    return\
+    \ ss.str();\n  }\n\n  template <typename Iterator, typename F>\n  ::std::string\
+    \ join(const Iterator begin, const Iterator end, const F& mapper, const ::std::string&\
+    \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
+    \ << mapper(*begin);\n      for (auto it = ::std::next(begin); it != end; ++it)\
+    \ {\n        ss << delimiter << mapper(*it);\n      }\n    }\n    return ss.str();\n\
+    \  }\n}\n\n\n#line 11 \"tests/polynomial_product.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N;\n  std::cin >> N;\n\n  std::vector<tools::polynomial<mint>> f(N);\n\
+    \  int D = 0;\n  for (int i = 0; i < N; ++i) {\n    int d;\n    std::cin >> d;\n\
+    \    f[i].reserve(d + 1);\n    for (int j = 0; j <= d; ++j) {\n      int a;\n\
+    \      std::cin >> a;\n      f[i].push_back(mint::raw(a));\n    }\n    D += d;\n\
+    \  }\n\n  const auto answer = tools::polynomial_product(f.begin(), f.end());\n\
+    \  std::cout << tools::join(answer.pbegin(), std::next(answer.pbegin(), D + 1),\
+    \ [](const auto k) { return k.val(); }, \" \") << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/product_of_polynomial_sequence\"\
+    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#include <iterator>\n\
+    #include \"atcoder/modint.hpp\"\n#include \"tools/polynomial.hpp\"\n#include \"\
+    tools/polynomial_product.hpp\"\n#include \"tools/join.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N;\n  std::cin >> N;\n\n  std::vector<tools::polynomial<mint>> f(N);\n\
+    \  int D = 0;\n  for (int i = 0; i < N; ++i) {\n    int d;\n    std::cin >> d;\n\
+    \    f[i].reserve(d + 1);\n    for (int j = 0; j <= d; ++j) {\n      int a;\n\
+    \      std::cin >> a;\n      f[i].push_back(mint::raw(a));\n    }\n    D += d;\n\
+    \  }\n\n  const auto answer = tools::polynomial_product(f.begin(), f.end());\n\
+    \  std::cout << tools::join(answer.pbegin(), std::next(answer.pbegin(), D + 1),\
+    \ [](const auto k) { return k.val(); }, \" \") << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/polynomial.hpp
   - tools/is_prime.hpp
@@ -1576,17 +1616,19 @@ data:
   - tools/find_cycle.hpp
   - tools/floor.hpp
   - tools/ceil.hpp
+  - tools/polynomial_product.hpp
+  - tools/greater_by.hpp
   - tools/join.hpp
   isVerificationFile: true
-  path: tests/polynomial/naive_division.test.cpp
+  path: tests/polynomial_product.test.cpp
   requiredBy: []
   timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/polynomial/naive_division.test.cpp
+documentation_of: tests/polynomial_product.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/polynomial/naive_division.test.cpp
-- /verify/tests/polynomial/naive_division.test.cpp.html
-title: tests/polynomial/naive_division.test.cpp
+- /verify/tests/polynomial_product.test.cpp
+- /verify/tests/polynomial_product.test.cpp.html
+title: tests/polynomial_product.test.cpp
 ---

@@ -1080,9 +1080,9 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
 documentation_of: tools/polygon_2d.hpp
 layout: document
 title: Two-dimensional polygon

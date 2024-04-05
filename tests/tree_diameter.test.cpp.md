@@ -77,19 +77,23 @@ data:
     \      ::std::get<1>(result).push_back(v);\n        ::std::get<2>(result).push_back(prev[v]);\n\
     \      }\n      ::std::get<1>(result).push_back(v);\n      return result;\n  \
     \  }\n  };\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include\
-    \ <sstream>\n\nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string\
-    \ join(const Iterator begin, const Iterator end, const ::std::string delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    ::std::string current_delimiter = \"\"\
-    ;\n    for (Iterator it = begin; it != end; ++it) {\n      ss << current_delimiter\
-    \ << *it;\n      current_delimiter = delimiter;\n    }\n    return ss.str();\n\
-    \  }\n}\n\n\n#line 8 \"tests/tree_diameter.test.cpp\"\n\nusing ll = long long;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N;\n  std::cin >> N;\n  tools::tree_diameter<ll> tree(N);\n  std::vector<std::pair<ll,\
-    \ ll>> edges;\n  for (ll i = 0; i < N - 1; ++i) {\n    ll a, b, c;\n    std::cin\
-    \ >> a >> b >> c;\n    tree.add_edge(a, b, c);\n    edges.emplace_back(a, b);\n\
-    \  }\n\n  const auto [X, u, unused] = tree.query();\n  std::cout << X << ' ' <<\
-    \ u.size() << '\\n';\n  std::cout << ::tools::join(u.begin(), u.end(), \" \")\
-    \ << '\\n';\n  return 0;\n}\n"
+    \ <sstream>\n#line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ Iterator>\n  ::std::string join(const Iterator begin, const Iterator end, const\
+    \ ::std::string& delimiter) {\n    ::std::ostringstream ss;\n    if (begin !=\
+    \ end) {\n      ss << *begin;\n      for (auto it = ::std::next(begin); it !=\
+    \ end; ++it) {\n        ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n\
+    \  }\n\n  template <typename Iterator, typename F>\n  ::std::string join(const\
+    \ Iterator begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
+    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 8 \"\
+    tests/tree_diameter.test.cpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  tools::tree_diameter<ll>\
+    \ tree(N);\n  std::vector<std::pair<ll, ll>> edges;\n  for (ll i = 0; i < N -\
+    \ 1; ++i) {\n    ll a, b, c;\n    std::cin >> a >> b >> c;\n    tree.add_edge(a,\
+    \ b, c);\n    edges.emplace_back(a, b);\n  }\n\n  const auto [X, u, unused] =\
+    \ tree.query();\n  std::cout << X << ' ' << u.size() << '\\n';\n  std::cout <<\
+    \ ::tools::join(u.begin(), u.end(), \" \") << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/tree_diameter\"\n\n#include\
     \ <iostream>\n#include <vector>\n#include <utility>\n#include \"tools/tree_diameter.hpp\"\
     \n#include \"tools/join.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
@@ -107,7 +111,7 @@ data:
   isVerificationFile: true
   path: tests/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 19:16:21+09:00'
+  timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tree_diameter.test.cpp

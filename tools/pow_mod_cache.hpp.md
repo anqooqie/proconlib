@@ -77,6 +77,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -257,29 +260,30 @@ data:
   isVerificationFile: false
   path: tools/pow_mod_cache.hpp
   requiredBy:
-  - tools/rolling_hash.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/polynomial_interpolation.hpp
   - tools/bostan_mori.hpp
-  - tools/stirling_1st.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/detail/rolling_hash.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/rolling_hash.hpp
+  - tools/stirling_1st.hpp
+  - tools/berlekamp_massey.hpp
   - tools/polynomial.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/has_mod.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
+  - tests/polynomial_product.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/berlekamp_massey.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/berlekamp_massey.test.cpp
 documentation_of: tools/pow_mod_cache.hpp
 layout: document
 title: Cache of $b^n \pmod{M}$

@@ -346,9 +346,9 @@ data:
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/set.test.cpp
-  - tests/avl_tree/binary_search.test.cpp
 documentation_of: tools/avl_tree.hpp
 layout: document
 title: Reversible self-balancing binary search tree based on AVL tree

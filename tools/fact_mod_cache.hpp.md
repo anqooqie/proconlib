@@ -87,6 +87,9 @@ data:
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polynomial_product.test.cpp
+    title: tests/polynomial_product.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -257,32 +260,33 @@ data:
   isVerificationFile: false
   path: tools/fact_mod_cache.hpp
   requiredBy:
-  - tools/bernoulli.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/polynomial_interpolation.hpp
   - tools/bostan_mori.hpp
-  - tools/stirling_1st.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
+  - tools/stirling_1st.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/polynomial.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/bernoulli.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/bernoulli.test.cpp
   - tests/fact_mod_cache.test.cpp
-  - tests/stirling_2nd.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/stirling_2nd.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
 title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
