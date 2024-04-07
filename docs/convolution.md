@@ -5,8 +5,8 @@ documentation_of: //tools/convolution.hpp
 
 ## (1)
 ```cpp
-template <typename AG, typename MM, typename InputIterator, typename OutputIterator>
-void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
+template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
+void convolution(InputIterator1 a_begin, InputIterator1 a_end, InputIterator2 b_begin, InputIterator2 b_end, OutputIterator result);
 ```
 
 It is convolution on a commutative ring $(R, +, \cdot)$.
@@ -22,7 +22,7 @@ c_i = \sum_{j = 0}^i a_j \cdot b_{i - j}
 It returns an empty sequence if at least one of $a$ and $b$ are empty.
 
 ### Constraints
-- `std::decay_t<decltype(*std::declval<InputIterator>())>`, `typename AG::T` and `typename MM::T` are the same type $R$.
+- `std::decay_t<decltype(*std::declval<InputIterator1>())>`, `std::decay_t<decltype(*std::declval<InputIterator2>())>`, `typename AG::T` and `typename MM::T` are the same type $R$.
 - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
 - For all $x$ in $R$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
 - For all $x$ in $R$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
@@ -56,13 +56,14 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 
 ## (2)
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
+template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+void convolution(InputIterator1 a_begin, InputIterator1 a_end, InputIterator2 b_begin, InputIterator2 b_end, OutputIterator result);
 ```
 
-It is equivalent to `convolution<tools::group::plus<R>, tools::monoid::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator>())>`.
+It is equivalent to `convolution<tools::group::plus<R>, tools::monoid::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator1>())>`.
 
 ### Constraints
+- `std::decay_t<decltype(*std::declval<InputIterator1>())>` and `std::decay_t<decltype(*std::declval<InputIterator2>())>` are the same type $R$.
 - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x + y) + z = x + (y + z)$.
 - For all $x$ in $R$, $0 + x = x + 0 = x$.
 - For all $x$ in $R$, $(-x) + x = x + (-x) = 0$.

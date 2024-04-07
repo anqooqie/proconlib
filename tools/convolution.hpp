@@ -36,8 +36,8 @@ namespace tools {
       template <typename T>
       using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;
 
-      template <typename AG, typename MM, typename InputIterator, typename OutputIterator>
-      void naive(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
+      template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
+      void naive(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
         static_assert(::std::is_same_v<typename AG::T, typename MM::T>);
         assert(a_begin != a_end);
         assert(b_begin != b_end);
@@ -69,9 +69,10 @@ namespace tools {
         ::std::move(c.begin(), c.end(), result);
       }
 
-      template <typename InputIterator, typename OutputIterator>
-      void fft(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-        using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+      void fft(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
+        using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+        static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
         using C = ::tools::detail::convolution::make_complex_t<T>;
         static_assert(::std::is_same_v<C, ::std::complex<float>> || ::std::is_same_v<C, ::std::complex<double>> || ::std::is_same_v<C, ::std::complex<long double>>);
         using R = typename C::value_type;
@@ -139,9 +140,10 @@ namespace tools {
         }
       }
 
-      template <typename InputIterator, typename OutputIterator>
-      void ntt(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+      void ntt(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
+        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
 
         static_assert(::atcoder::internal::is_static_modint<M>::value);
         static_assert(2 <= M::mod() && M::mod() <= 2000000000);
@@ -206,9 +208,10 @@ namespace tools {
         }
       }
 
-      template <typename InputIterator, typename OutputIterator>
-      void ntt_and_garner(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+      void ntt_and_garner(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
+        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
         using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1
         using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1
         using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1
@@ -288,9 +291,10 @@ namespace tools {
         }
       }
 
-      template <typename InputIterator, typename OutputIterator>
-      void ntt_and_garner_for_ll(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+      void ntt_and_garner_for_ll(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
+        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+        static_assert(::std::is_same_v<Z, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
         using ll = long long;
 
         static_assert(::std::is_integral_v<Z>);
@@ -315,9 +319,10 @@ namespace tools {
     }
   }
 
-  template <typename AG, typename MM, typename InputIterator, typename OutputIterator>
-  void convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator result) {
-    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+  template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
+  void convolution(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
+    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
 
     if (a_begin == a_end || b_begin == b_end) return;
 
@@ -351,9 +356,10 @@ namespace tools {
     }
   }
 
-  template <typename InputIterator, typename OutputIterator>
-  void convolution(const InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator b_end, const OutputIterator result) {
-    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;
+  template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+  void convolution(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, const OutputIterator result) {
+    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
+    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
     ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin, a_end, b_begin, b_end, result);
   }
 }
