@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -48,27 +48,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tools/sample_point_shift.hpp
+    title: Shift of sampling points of polynomial
+  - icon: ':x:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
@@ -124,51 +127,54 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/n_k.test.cpp
     title: tests/partition_function/n_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/sample_point_shift.test.cpp
+    title: tests/sample_point_shift.test.cpp
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/convolution.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -683,12 +689,12 @@ data:
     \      template <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ void>> {\n        using type = ::std::complex<T>;\n      };\n\n      template\
     \ <typename T>\n      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;\n\
-    \n      template <typename AG, typename MM, typename InputIterator, typename OutputIterator>\n\
-    \      void naive(const InputIterator a_begin, const InputIterator a_end, const\
-    \ InputIterator b_begin, const InputIterator b_end, OutputIterator result) {\n\
-    \        static_assert(::std::is_same_v<typename AG::T, typename MM::T>);\n  \
-    \      assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n      \
-    \  using T = typename AG::T;\n\n        const auto n = ::std::distance(a_begin,\
+    \n      template <typename AG, typename MM, typename InputIterator1, typename\
+    \ InputIterator2, typename OutputIterator>\n      void naive(const InputIterator1\
+    \ a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        static_assert(::std::is_same_v<typename\
+    \ AG::T, typename MM::T>);\n        assert(a_begin != a_end);\n        assert(b_begin\
+    \ != b_end);\n\n        using T = typename AG::T;\n\n        const auto n = ::std::distance(a_begin,\
     \ a_end);\n        const auto m = ::std::distance(b_begin, b_end);\n\n       \
     \ ::std::vector<T> c(n + m - 1, AG::e());\n        if (n < m) {\n          auto\
     \ c_begin = c.begin();\n          for (auto b_it = b_begin; b_it != b_end; ++b_it,\
@@ -699,10 +705,11 @@ data:
     \ ++a_it, ++c_begin) {\n            auto c_it = c_begin;\n            for (auto\
     \ b_it = b_begin; b_it != b_end; ++b_it, ++c_it) {\n              *c_it = AG::op(*c_it,\
     \ MM::op(*a_it, *b_it));\n            }\n          }\n        }\n\n        ::std::move(c.begin(),\
-    \ c.end(), result);\n      }\n\n      template <typename InputIterator, typename\
-    \ OutputIterator>\n      void fft(const InputIterator a_begin, const InputIterator\
-    \ a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator\
-    \ result) {\n        using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ c.end(), result);\n      }\n\n      template <typename InputIterator1, typename\
+    \ InputIterator2, typename OutputIterator>\n      void fft(const InputIterator1\
+    \ a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using C = ::tools::detail::convolution::make_complex_t<T>;\n        static_assert(::std::is_same_v<C,\
     \ ::std::complex<float>> || ::std::is_same_v<C, ::std::complex<double>> || ::std::is_same_v<C,\
     \ ::std::complex<long double>>);\n        using R = typename C::value_type;\n\n\
@@ -731,10 +738,11 @@ data:
     \        butterfly(a);\n\n        for (::std::size_t i = 0; i < n; ++i) {\n  \
     \        if constexpr (::std::is_same_v<T, R>) {\n            *result = a[i].real()\
     \ / z;\n          } else {\n            *result = a[i] / z;\n          }\n   \
-    \       ++result;\n        }\n      }\n\n      template <typename InputIterator,\
-    \ typename OutputIterator>\n      void ntt(const InputIterator a_begin, const\
-    \ InputIterator a_end, const InputIterator b_begin, const InputIterator b_end,\
-    \ OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \       ++result;\n        }\n      }\n\n      template <typename InputIterator1,\
+    \ typename InputIterator2, typename OutputIterator>\n      void ntt(const InputIterator1\
+    \ a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \n        static_assert(::atcoder::internal::is_static_modint<M>::value);\n  \
     \      static_assert(2 <= M::mod() && M::mod() <= 2000000000);\n        static_assert(::tools::is_prime(M::mod()));\n\
     \        assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n    \
@@ -756,10 +764,11 @@ data:
     \          }\n\n          ::atcoder::internal::butterfly_inv(a);\n          const\
     \ auto iz = M(z).inv();\n\n          for (::std::size_t i = 0; i < n + m - 1;\
     \ ++i) {\n            *result = a[i] * iz;\n            ++result;\n          }\n\
-    \n        }\n      }\n\n      template <typename InputIterator, typename OutputIterator>\n\
-    \      void ntt_and_garner(const InputIterator a_begin, const InputIterator a_end,\
-    \ const InputIterator b_begin, const InputIterator b_end, OutputIterator result)\
-    \ {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \n        }\n      }\n\n      template <typename InputIterator1, typename InputIterator2,\
+    \ typename OutputIterator>\n      void ntt_and_garner(const InputIterator1 a_begin,\
+    \ const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1\n \
     \       using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1\n  \
     \      using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1\n\n \
@@ -793,9 +802,11 @@ data:
     \ b3.begin(), b3.end(), ::std::back_inserter(c3));\n        }\n\n        for (::std::size_t\
     \ i = 0; i < c1.size(); ++i) {\n          *result = M::raw(::tools::garner3(c1[i],\
     \ c2[i], c3[i], M::mod()));\n          ++result;\n        }\n      }\n\n     \
-    \ template <typename InputIterator, typename OutputIterator>\n      void ntt_and_garner_for_ll(const\
-    \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
-    \ const InputIterator b_end, OutputIterator result) {\n        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ template <typename InputIterator1, typename InputIterator2, typename OutputIterator>\n\
+    \      void ntt_and_garner_for_ll(const InputIterator1 a_begin, const InputIterator1\
+    \ a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator\
+    \ result) {\n        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<Z, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using ll = long long;\n\n        static_assert(::std::is_integral_v<Z>);\n\
     \        assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n    \
     \    const auto n = ::std::distance(a_begin, a_end);\n        const auto m = ::std::distance(b_begin,\
@@ -804,22 +815,23 @@ data:
     \ a_end, ::std::back_inserter(a));\n        ::std::copy(b_begin, b_end, ::std::back_inserter(b));\n\
     \n        for (const auto c_i : ::atcoder::convolution_ll(a, b)) {\n         \
     \ *result = c_i;\n          ++result;\n        }\n      }\n    }\n  }\n\n  template\
-    \ <typename AG, typename MM, typename InputIterator, typename OutputIterator>\n\
-    \  void convolution(const InputIterator a_begin, const InputIterator a_end, const\
-    \ InputIterator b_begin, const InputIterator b_end, OutputIterator result) {\n\
-    \    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\n\
-    \    if (a_begin == a_end || b_begin == b_end) return;\n\n    const auto n = ::std::distance(a_begin,\
-    \ a_end);\n    const auto m = ::std::distance(b_begin, b_end);\n    if (::std::min(n,\
-    \ m) <= 60) {\n      ::tools::detail::convolution::naive<AG, MM>(a_begin, a_end,\
-    \ b_begin, b_end, result);\n      return;\n    }\n\n    if constexpr (::std::is_same_v<AG,\
-    \ ::tools::group::plus<T>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<T>>\
-    \ || ::std::is_same_v<MM, ::tools::group::multiplies<T>>)) {\n      if constexpr\
-    \ (::std::is_floating_point_v<T> || ::std::is_same_v<T, ::std::complex<float>>\
-    \ || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long\
-    \ double>>) {\n        ::tools::detail::convolution::fft(a_begin, a_end, b_begin,\
-    \ b_end, result);\n      } else if constexpr (::std::is_integral_v<T>) {\n   \
-    \     ::tools::detail::convolution::ntt_and_garner_for_ll(a_begin, a_end, b_begin,\
-    \ b_end, result);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
+    \ <typename AG, typename MM, typename InputIterator1, typename InputIterator2,\
+    \ typename OutputIterator>\n  void convolution(const InputIterator1 a_begin, const\
+    \ InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end,\
+    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
+    \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    const auto n =\
+    \ ::std::distance(a_begin, a_end);\n    const auto m = ::std::distance(b_begin,\
+    \ b_end);\n    if (::std::min(n, m) <= 60) {\n      ::tools::detail::convolution::naive<AG,\
+    \ MM>(a_begin, a_end, b_begin, b_end, result);\n      return;\n    }\n\n    if\
+    \ constexpr (::std::is_same_v<AG, ::tools::group::plus<T>> && (::std::is_same_v<MM,\
+    \ ::tools::monoid::multiplies<T>> || ::std::is_same_v<MM, ::tools::group::multiplies<T>>))\
+    \ {\n      if constexpr (::std::is_floating_point_v<T> || ::std::is_same_v<T,\
+    \ ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T,\
+    \ ::std::complex<long double>>) {\n        ::tools::detail::convolution::fft(a_begin,\
+    \ a_end, b_begin, b_end, result);\n      } else if constexpr (::std::is_integral_v<T>)\
+    \ {\n        ::tools::detail::convolution::ntt_and_garner_for_ll(a_begin, a_end,\
+    \ b_begin, b_end, result);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
     \ ::tools::is_prime(T::mod())) {\n          if ((T::mod() - 1) % ::tools::pow2(::tools::ceil_log2(n\
@@ -829,9 +841,10 @@ data:
     \ a_end, b_begin, b_end, result);\n        }\n      } else {\n        ::tools::detail::convolution::naive<AG,\
     \ MM>(a_begin, a_end, b_begin, b_end, result);\n      }\n    } else {\n      ::tools::detail::convolution::naive<AG,\
     \ MM>(a_begin, a_end, b_begin, b_end, result);\n    }\n  }\n\n  template <typename\
-    \ InputIterator, typename OutputIterator>\n  void convolution(const InputIterator\
-    \ a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator\
-    \ b_end, const OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ InputIterator1, typename InputIterator2, typename OutputIterator>\n  void convolution(const\
+    \ InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin,\
+    \ const InputIterator2 b_end, const OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \    ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin,\
     \ a_end, b_begin, b_end, result);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_CONVOLUTION_HPP\n#define TOOLS_CONVOLUTION_HPP\n\n#include\
@@ -846,12 +859,12 @@ data:
     \ ::std::enable_if_t<::std::is_floating_point_v<T>, void>> {\n        using type\
     \ = ::std::complex<T>;\n      };\n\n      template <typename T>\n      using make_complex_t\
     \ = typename ::tools::detail::convolution::make_complex<T>::type;\n\n      template\
-    \ <typename AG, typename MM, typename InputIterator, typename OutputIterator>\n\
-    \      void naive(const InputIterator a_begin, const InputIterator a_end, const\
-    \ InputIterator b_begin, const InputIterator b_end, OutputIterator result) {\n\
-    \        static_assert(::std::is_same_v<typename AG::T, typename MM::T>);\n  \
-    \      assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n      \
-    \  using T = typename AG::T;\n\n        const auto n = ::std::distance(a_begin,\
+    \ <typename AG, typename MM, typename InputIterator1, typename InputIterator2,\
+    \ typename OutputIterator>\n      void naive(const InputIterator1 a_begin, const\
+    \ InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end,\
+    \ OutputIterator result) {\n        static_assert(::std::is_same_v<typename AG::T,\
+    \ typename MM::T>);\n        assert(a_begin != a_end);\n        assert(b_begin\
+    \ != b_end);\n\n        using T = typename AG::T;\n\n        const auto n = ::std::distance(a_begin,\
     \ a_end);\n        const auto m = ::std::distance(b_begin, b_end);\n\n       \
     \ ::std::vector<T> c(n + m - 1, AG::e());\n        if (n < m) {\n          auto\
     \ c_begin = c.begin();\n          for (auto b_it = b_begin; b_it != b_end; ++b_it,\
@@ -862,10 +875,11 @@ data:
     \ ++a_it, ++c_begin) {\n            auto c_it = c_begin;\n            for (auto\
     \ b_it = b_begin; b_it != b_end; ++b_it, ++c_it) {\n              *c_it = AG::op(*c_it,\
     \ MM::op(*a_it, *b_it));\n            }\n          }\n        }\n\n        ::std::move(c.begin(),\
-    \ c.end(), result);\n      }\n\n      template <typename InputIterator, typename\
-    \ OutputIterator>\n      void fft(const InputIterator a_begin, const InputIterator\
-    \ a_end, const InputIterator b_begin, const InputIterator b_end, OutputIterator\
-    \ result) {\n        using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ c.end(), result);\n      }\n\n      template <typename InputIterator1, typename\
+    \ InputIterator2, typename OutputIterator>\n      void fft(const InputIterator1\
+    \ a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using C = ::tools::detail::convolution::make_complex_t<T>;\n        static_assert(::std::is_same_v<C,\
     \ ::std::complex<float>> || ::std::is_same_v<C, ::std::complex<double>> || ::std::is_same_v<C,\
     \ ::std::complex<long double>>);\n        using R = typename C::value_type;\n\n\
@@ -894,10 +908,11 @@ data:
     \        butterfly(a);\n\n        for (::std::size_t i = 0; i < n; ++i) {\n  \
     \        if constexpr (::std::is_same_v<T, R>) {\n            *result = a[i].real()\
     \ / z;\n          } else {\n            *result = a[i] / z;\n          }\n   \
-    \       ++result;\n        }\n      }\n\n      template <typename InputIterator,\
-    \ typename OutputIterator>\n      void ntt(const InputIterator a_begin, const\
-    \ InputIterator a_end, const InputIterator b_begin, const InputIterator b_end,\
-    \ OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \       ++result;\n        }\n      }\n\n      template <typename InputIterator1,\
+    \ typename InputIterator2, typename OutputIterator>\n      void ntt(const InputIterator1\
+    \ a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \n        static_assert(::atcoder::internal::is_static_modint<M>::value);\n  \
     \      static_assert(2 <= M::mod() && M::mod() <= 2000000000);\n        static_assert(::tools::is_prime(M::mod()));\n\
     \        assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n    \
@@ -919,10 +934,11 @@ data:
     \          }\n\n          ::atcoder::internal::butterfly_inv(a);\n          const\
     \ auto iz = M(z).inv();\n\n          for (::std::size_t i = 0; i < n + m - 1;\
     \ ++i) {\n            *result = a[i] * iz;\n            ++result;\n          }\n\
-    \n        }\n      }\n\n      template <typename InputIterator, typename OutputIterator>\n\
-    \      void ntt_and_garner(const InputIterator a_begin, const InputIterator a_end,\
-    \ const InputIterator b_begin, const InputIterator b_end, OutputIterator result)\
-    \ {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \n        }\n      }\n\n      template <typename InputIterator1, typename InputIterator2,\
+    \ typename OutputIterator>\n      void ntt_and_garner(const InputIterator1 a_begin,\
+    \ const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2\
+    \ b_end, OutputIterator result) {\n        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1\n \
     \       using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1\n  \
     \      using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1\n\n \
@@ -956,9 +972,11 @@ data:
     \ b3.begin(), b3.end(), ::std::back_inserter(c3));\n        }\n\n        for (::std::size_t\
     \ i = 0; i < c1.size(); ++i) {\n          *result = M::raw(::tools::garner3(c1[i],\
     \ c2[i], c3[i], M::mod()));\n          ++result;\n        }\n      }\n\n     \
-    \ template <typename InputIterator, typename OutputIterator>\n      void ntt_and_garner_for_ll(const\
-    \ InputIterator a_begin, const InputIterator a_end, const InputIterator b_begin,\
-    \ const InputIterator b_end, OutputIterator result) {\n        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ template <typename InputIterator1, typename InputIterator2, typename OutputIterator>\n\
+    \      void ntt_and_garner_for_ll(const InputIterator1 a_begin, const InputIterator1\
+    \ a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator\
+    \ result) {\n        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \        static_assert(::std::is_same_v<Z, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \        using ll = long long;\n\n        static_assert(::std::is_integral_v<Z>);\n\
     \        assert(a_begin != a_end);\n        assert(b_begin != b_end);\n\n    \
     \    const auto n = ::std::distance(a_begin, a_end);\n        const auto m = ::std::distance(b_begin,\
@@ -967,22 +985,23 @@ data:
     \ a_end, ::std::back_inserter(a));\n        ::std::copy(b_begin, b_end, ::std::back_inserter(b));\n\
     \n        for (const auto c_i : ::atcoder::convolution_ll(a, b)) {\n         \
     \ *result = c_i;\n          ++result;\n        }\n      }\n    }\n  }\n\n  template\
-    \ <typename AG, typename MM, typename InputIterator, typename OutputIterator>\n\
-    \  void convolution(const InputIterator a_begin, const InputIterator a_end, const\
-    \ InputIterator b_begin, const InputIterator b_end, OutputIterator result) {\n\
-    \    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\n\
-    \    if (a_begin == a_end || b_begin == b_end) return;\n\n    const auto n = ::std::distance(a_begin,\
-    \ a_end);\n    const auto m = ::std::distance(b_begin, b_end);\n    if (::std::min(n,\
-    \ m) <= 60) {\n      ::tools::detail::convolution::naive<AG, MM>(a_begin, a_end,\
-    \ b_begin, b_end, result);\n      return;\n    }\n\n    if constexpr (::std::is_same_v<AG,\
-    \ ::tools::group::plus<T>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<T>>\
-    \ || ::std::is_same_v<MM, ::tools::group::multiplies<T>>)) {\n      if constexpr\
-    \ (::std::is_floating_point_v<T> || ::std::is_same_v<T, ::std::complex<float>>\
-    \ || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long\
-    \ double>>) {\n        ::tools::detail::convolution::fft(a_begin, a_end, b_begin,\
-    \ b_end, result);\n      } else if constexpr (::std::is_integral_v<T>) {\n   \
-    \     ::tools::detail::convolution::ntt_and_garner_for_ll(a_begin, a_end, b_begin,\
-    \ b_end, result);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
+    \ <typename AG, typename MM, typename InputIterator1, typename InputIterator2,\
+    \ typename OutputIterator>\n  void convolution(const InputIterator1 a_begin, const\
+    \ InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end,\
+    \ OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
+    \n    if (a_begin == a_end || b_begin == b_end) return;\n\n    const auto n =\
+    \ ::std::distance(a_begin, a_end);\n    const auto m = ::std::distance(b_begin,\
+    \ b_end);\n    if (::std::min(n, m) <= 60) {\n      ::tools::detail::convolution::naive<AG,\
+    \ MM>(a_begin, a_end, b_begin, b_end, result);\n      return;\n    }\n\n    if\
+    \ constexpr (::std::is_same_v<AG, ::tools::group::plus<T>> && (::std::is_same_v<MM,\
+    \ ::tools::monoid::multiplies<T>> || ::std::is_same_v<MM, ::tools::group::multiplies<T>>))\
+    \ {\n      if constexpr (::std::is_floating_point_v<T> || ::std::is_same_v<T,\
+    \ ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T,\
+    \ ::std::complex<long double>>) {\n        ::tools::detail::convolution::fft(a_begin,\
+    \ a_end, b_begin, b_end, result);\n      } else if constexpr (::std::is_integral_v<T>)\
+    \ {\n        ::tools::detail::convolution::ntt_and_garner_for_ll(a_begin, a_end,\
+    \ b_begin, b_end, result);\n      } else if constexpr (::atcoder::internal::is_static_modint<T>::value\
     \ || ::atcoder::internal::is_dynamic_modint<T>::value) {\n        if constexpr\
     \ (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 &&\
     \ ::tools::is_prime(T::mod())) {\n          if ((T::mod() - 1) % ::tools::pow2(::tools::ceil_log2(n\
@@ -992,9 +1011,10 @@ data:
     \ a_end, b_begin, b_end, result);\n        }\n      } else {\n        ::tools::detail::convolution::naive<AG,\
     \ MM>(a_begin, a_end, b_begin, b_end, result);\n      }\n    } else {\n      ::tools::detail::convolution::naive<AG,\
     \ MM>(a_begin, a_end, b_begin, b_end, result);\n    }\n  }\n\n  template <typename\
-    \ InputIterator, typename OutputIterator>\n  void convolution(const InputIterator\
-    \ a_begin, const InputIterator a_end, const InputIterator b_begin, const InputIterator\
-    \ b_end, const OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
+    \ InputIterator1, typename InputIterator2, typename OutputIterator>\n  void convolution(const\
+    \ InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin,\
+    \ const InputIterator2 b_end, const OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
+    \    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \    ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin,\
     \ a_end, b_begin, b_end, result);\n  }\n}\n\n#endif\n"
   dependsOn:
@@ -1016,6 +1036,7 @@ data:
   - tools/bostan_mori.hpp
   - tools/polynomial_interpolation.hpp
   - tools/stirling_2nd.hpp
+  - tools/sample_point_shift.hpp
   - tools/partition_function.hpp
   - tools/bernoulli.hpp
   - tools/stirling_1st.hpp
@@ -1023,8 +1044,8 @@ data:
   - tools/fps.hpp
   - tools/sparse_fps_pow.hpp
   - tools/polynomial.hpp
-  timestamp: '2024-01-27 20:06:35+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-07 19:33:32+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
@@ -1053,6 +1074,7 @@ data:
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/sample_point_shift.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/berlekamp_massey.test.cpp
@@ -1064,8 +1086,8 @@ title: Convolution
 
 ## (1)
 ```cpp
-template <typename AG, typename MM, typename InputIterator, typename OutputIterator>
-void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
+template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
+void convolution(InputIterator1 a_begin, InputIterator1 a_end, InputIterator2 b_begin, InputIterator2 b_end, OutputIterator result);
 ```
 
 It is convolution on a commutative ring $(R, +, \cdot)$.
@@ -1081,7 +1103,7 @@ c_i = \sum_{j = 0}^i a_j \cdot b_{i - j}
 It returns an empty sequence if at least one of $a$ and $b$ are empty.
 
 ### Constraints
-- `std::decay_t<decltype(*std::declval<InputIterator>())>`, `typename AG::T` and `typename MM::T` are the same type $R$.
+- `std::decay_t<decltype(*std::declval<InputIterator1>())>`, `std::decay_t<decltype(*std::declval<InputIterator2>())>`, `typename AG::T` and `typename MM::T` are the same type $R$.
 - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
 - For all $x$ in $R$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
 - For all $x$ in $R$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
@@ -1115,13 +1137,14 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 
 ## (2)
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator result);
+template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
+void convolution(InputIterator1 a_begin, InputIterator1 a_end, InputIterator2 b_begin, InputIterator2 b_end, OutputIterator result);
 ```
 
-It is equivalent to `convolution<tools::group::plus<R>, tools::monoid::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator>())>`.
+It is equivalent to `convolution<tools::group::plus<R>, tools::monoid::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator1>())>`.
 
 ### Constraints
+- `std::decay_t<decltype(*std::declval<InputIterator1>())>` and `std::decay_t<decltype(*std::declval<InputIterator2>())>` are the same type $R$.
 - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, $(x + y) + z = x + (y + z)$.
 - For all $x$ in $R$, $0 + x = x + 0 = x$.
 - For all $x$ in $R$, $(-x) + x = x + (-x) = 0$.

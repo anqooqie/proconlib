@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/join.hpp
     title: Join elements with delimiter
   - icon: ':heavy_check_mark:'
