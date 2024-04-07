@@ -17,6 +17,9 @@ data:
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/int128_t.hpp
+    title: 128 bit signed integer
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -268,46 +271,62 @@ data:
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/extended_lucas.hpp\"\
     \n\n\n\n#include <vector>\n#line 7 \"tools/extended_lucas.hpp\"\n#include <iterator>\n\
-    #line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\
-    \n#include <queue>\n#line 8 \"tools/prime_factorization.hpp\"\n#include <algorithm>\n\
-    #include <cmath>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line\
-    \ 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\
-    \n#include <cstddef>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr\
-    \ float abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double\
-    \ abs(const double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double\
-    \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
-    \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
-    \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
-    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
-    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
-    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
-    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
-    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
-    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
-    \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
-    \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
-    \ = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream&\
-    \ os, ::tools::uint128_t x) {\n  if (x == 0) return os << '0';\n\n  ::std::string\
-    \ s;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n \
-    \ ::std::reverse(s.begin(), s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"\
-    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
-    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
-    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
-    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
-    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
-    \    using T = ::std::common_type_t<M, N>;\n    if (lhs >= M(0)) {\n      return\
-    \ lhs / rhs;\n    } else {\n      if (rhs >= N(0)) {\n        return -((-lhs -\
-    \ T(1) + rhs) / rhs);\n      } else {\n        return (-lhs - T(1) + -rhs) / -rhs;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const\
-    \ M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    #line 1 \"tools/int128_t.hpp\"\n\n\n\n#line 5 \"tools/int128_t.hpp\"\n#include\
+    \ <string>\n#line 7 \"tools/int128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
+    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
+    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\
+    \n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using uint128_t\
+    \ = unsigned __int128;\n\n  constexpr ::tools::uint128_t abs(const ::tools::uint128_t&\
+    \ x) {\n    return x;\n  }\n}\n\n::std::istream& operator>>(::std::istream& is,\
+    \ ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
+    \n  x = 0;\n  for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0'\
+    \ <= s[i] && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n\
+    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n\
+    \  if (x == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n  \
+    \  s.push_back('0' + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(),\
+    \ s.end());\n\n  return os << s;\n}\n\n\n#line 11 \"tools/int128_t.hpp\"\n\nnamespace\
+    \ tools {\n  using int128_t = __int128;\n\n  constexpr ::tools::int128_t abs(const\
+    \ ::tools::int128_t& x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::int128_t& x) {\n  ::std::string s;\n\
+    \  is >> s;\n  assert(!s.empty());\n\n  if (s == \"-170141183460469231731687303715884105728\"\
+    ) {\n    x = -::tools::int128_t((::tools::uint128_t(1) << 127) - 1) - 1;\n   \
+    \ return is;\n  }\n\n  x = 0;\n  for (::std::size_t i = s[0] == '+' || s[0] ==\
+    \ '-'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x =\
+    \ 10 * x + (s[i] - '0');\n  }\n\n  if (s[0] == '-') x = -x;\n\n  return is;\n\
+    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {\n \
+    \ if (x == 0) return os << '0';\n  if (x == -::tools::int128_t((::tools::uint128_t(1)\
+    \ << 127) - 1) - 1) return os << \"-170141183460469231731687303715884105728\"\
+    ;\n\n  ::std::string s;\n  const bool negative = x < 0;\n\n  if (negative) x =\
+    \ -x;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n\n\
+    \  if (negative) s.push_back('-');\n  ::std::reverse(s.begin(), s.end());\n  return\
+    \ os << s;\n}\n\n\n#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"\
+    tools/prime_factorization.hpp\"\n#include <queue>\n#line 9 \"tools/prime_factorization.hpp\"\
+    \n#include <cmath>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line\
+    \ 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
+    \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n\
+    \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
+    \    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
+    \  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
+    \n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> quo(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
+    \    if (lhs >= M(0)) {\n      return lhs / rhs;\n    } else {\n      if (rhs\
+    \ >= N(0)) {\n        return -((-lhs - T(1) + rhs) / rhs);\n      } else {\n \
+    \       return (-lhs - T(1) + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line\
+    \ 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
+    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
+    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
+    \ * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
     \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
     \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
     \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
@@ -446,53 +465,61 @@ data:
     \ lcm);\n  }\n\n  template <typename M, typename Iterator>\n  ::std::pair<M, M>\
     \ garner(const Iterator& begin, const Iterator& end) {\n    const auto [y, z]\
     \ = ::tools::garner(begin, end, M::mod());\n    return ::std::make_pair(M::raw(y),\
-    \ M::raw(z));\n  }\n}\n\n\n#line 11 \"tools/extended_lucas.hpp\"\n\n// Source:\
-    \ https://w.atwiki.jp/uwicoder/pages/2118.html#id_6779f709\n// License: unknown\n\
-    // Author: uwi\n\nnamespace tools {\n  template <class M>\n  class extended_lucas\
-    \ {\n  private:\n    class prime_power {\n    private:\n      ::std::vector<long\
-    \ long> fact;\n      ::std::vector<long long> ifact;\n\n    public:\n      long\
-    \ long p;\n      long long q;\n      long long P;\n\n      prime_power(const long\
-    \ long p, const long long q) : p(p), q(q) {\n        this->P = 1;\n        for\
-    \ (long long i = 0; i < q; ++i) {\n          this->P *= p;\n        }\n\n    \
-    \    this->fact.resize(this->P + 1);\n        this->ifact.resize(this->P + 1);\n\
-    \n        this->fact[0] = 1 % this->P;\n        for (long long i = 1; i <= this->P;\
-    \ ++i) {\n          this->fact[i] = this->fact[i - 1] * (i % p == 0 ? 1 : i) %\
-    \ this->P;\n        }\n        for (long long i = 0; i <= this->P; ++i) {\n  \
-    \        long long ret = 1 % this->P;\n          long long mul = this->fact[i];\n\
-    \          for (long long n = this->P / p * (p - 1) - 1; n > 0; n /= 2) {\n  \
-    \          if ((n & 1) == 1) {\n              ret = (ret * mul) % P;\n       \
-    \     }\n            mul = (mul * mul) % P;\n          }\n          this->ifact[i]\
-    \ = ret;\n        }\n      }\n\n      long long combination(long long n, long\
-    \ long r) const {\n        assert(0 <= r && r <= n);\n\n        long long z =\
-    \ n - r;\n        long long e0 = 0;\n        for (long long u = n / this->p; u\
-    \ > 0; u /= this->p) e0 += u;\n        for (long long u = r / this->p; u > 0;\
-    \ u /= this->p) e0 -= u;\n        for (long long u = z / this->p; u > 0; u /=\
-    \ this->p) e0 -= u;\n \n        long long em = 0;\n        for (long long u =\
-    \ n / this->P; u > 0; u /= this->p) em += u;\n        for (long long u = r / this->P;\
-    \ u > 0; u /= this->p) em -= u;\n        for (long long u = z / this->P; u > 0;\
-    \ u /= this->p) em -= u;\n \n        long long ret = 1 % this->P;\n        while\
-    \ (n > 0) {\n          ret = ret * this->fact[n % this->P] % this->P * this->ifact[r\
-    \ % this->P] % this->P * this->ifact[z % this->P] % this->P;\n          n /= this->p;\n\
-    \          r /= this->p;\n          z /= this->p;\n        }\n        for (long\
-    \ long i = 0; i < e0; ++i) {\n          ret = ret * this->p % this->P;\n     \
-    \   }\n        if (!(this->p == 2 && this->q >= 3) && (em & 1) == 1) {\n     \
-    \     ret = (this->P - ret) % this->P;\n        }\n        return ret;\n     \
-    \ }\n    };\n\n    ::std::vector<::tools::extended_lucas<M>::prime_power> prime_powers;\n\
-    \n  public:\n    extended_lucas() {\n      const auto prime_factors = ::tools::prime_factorization(M::mod());\n\
-    \      ::std::vector<::std::pair<long long, long long>> distinct_prime_factors;\n\
-    \      ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n\
-    \      for (const auto& [p, q] : distinct_prime_factors) {\n        this->prime_powers.emplace_back(p,\
-    \ q);\n      }\n    }\n    extended_lucas(const ::tools::extended_lucas<M>&) =\
-    \ default;\n    extended_lucas(::tools::extended_lucas<M>&&) = default;\n    ~extended_lucas()\
-    \ = default;\n    ::tools::extended_lucas<M>& operator=(const ::tools::extended_lucas<M>&)\
-    \ = default;\n    ::tools::extended_lucas<M>& operator=(::tools::extended_lucas<M>&&)\
-    \ = default;\n\n    M combination(const long long n, const long long r) const\
-    \ {\n      if (n < 0 || r < 0 || r > n) return M::raw(0);\n\n      ::std::vector<std::pair<long\
-    \ long, long long>> answers;\n      answers.reserve(this->prime_powers.size());\n\
-    \      for (const auto& prime_power : this->prime_powers) {\n        answers.emplace_back(prime_power.combination(n,\
-    \ r), prime_power.P);\n      }\n\n      return ::tools::garner<M>(answers.begin(),\
-    \ answers.end()).first;\n    }\n  };\n}\n\n\n#line 6 \"tests/extended_lucas.test.cpp\"\
-    \n\nusing mint = atcoder::modint;\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \ M::raw(z));\n  }\n}\n\n\n#line 12 \"tools/extended_lucas.hpp\"\n\n// Source:\
+    \ https://hitonanode.github.io/cplib-cpp/number/combination.hpp.html\n// License:\
+    \ MIT\n// Author: hitonanode\n\n// MIT License\n// \n// Copyright (c) 2019 Ryotaro\
+    \ Sato\n// \n// Permission is hereby granted, free of charge, to any person obtaining\
+    \ a copy\n// of this software and associated documentation files (the \"Software\"\
+    ), to deal\n// in the Software without restriction, including without limitation\
+    \ the rights\n// to use, copy, modify, merge, publish, distribute, sublicense,\
+    \ and/or sell\n// copies of the Software, and to permit persons to whom the Software\
+    \ is\n// furnished to do so, subject to the following conditions:\n// \n// The\
+    \ above copyright notice and this permission notice shall be included in all\n\
+    // copies or substantial portions of the Software.\n// \n// THE SOFTWARE IS PROVIDED\
+    \ \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n// IMPLIED, INCLUDING BUT\
+    \ NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n// FITNESS FOR A PARTICULAR\
+    \ PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n// AUTHORS OR COPYRIGHT\
+    \ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n// LIABILITY, WHETHER IN\
+    \ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n// OUT OF OR IN CONNECTION\
+    \ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n// SOFTWARE.\n\nnamespace\
+    \ tools {\n\n  template <class M>\n  class extended_lucas {\n    struct combination_prime_pow\
+    \ {\n      int p, q, m;\n      ::std::vector<int> fac, invfac, ppow;\n\n     \
+    \ long long ej(long long n) const {\n        long long ret = 0;\n        while\
+    \ (n) ret += n, n /= this->p;\n        return ret;\n      }\n\n      combination_prime_pow(const\
+    \ int p_, const int q_) : p(p_), q(q_), m(1), ppow{1} {\n        for (int t =\
+    \ 0; t < this->q; ++t) this->m *= this->p, this->ppow.push_back(this->m);\n  \
+    \      this->fac.assign(this->m, 1);\n        this->invfac.assign(this->m, 1);\n\
+    \        for (int i = 1; i < this->m; ++i) this->fac[i] = static_cast<long long>(this->fac[i\
+    \ - 1]) * (i % this->p ? i : 1) % this->m;\n        this->invfac[this->m - 1]\
+    \ = this->fac[this->m - 1]; // Same as Wilson's theorem\n        assert(1LL *\
+    \ this->fac.back() * this->invfac.back() % this->m == 1);\n        for (int i\
+    \ = this->m - 1; i; --i) this->invfac[i - 1] = static_cast<long long>(this->invfac[i])\
+    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int nCr(long long n, long\
+    \ long r) const {\n        assert(0 <= r && r <= n);\n        if (this->p == 2\
+    \ && this->q == 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n\
+    \        const long long e0 = this->ej(n / this->p) - this->ej(r / this->p) -\
+    \ this->ej(k / this->p);\n        if (e0 >= q) return 0;\n\n        long long\
+    \ ret = this->ppow[e0];\n        if (this->q == 1) { // Lucas\n          while\
+    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r\
+    \ % this->p] * this->invfac[k % this->p] % this->p;\n            n /= this->p,\
+    \ r /= this->p, k /= this->p;\n          }\n          return static_cast<int>(ret);\n\
+    \        } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) -\
+    \ this->ej(r / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n \
+    \         while (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n\
+    \ % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;\n\
+    \            n /= this->p, r /= this->p, k /= this->p;\n          }\n        \
+    \  return static_cast<int>(ret);\n        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow>\
+    \ cpps;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors =\
+    \ ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<int,\
+    \ int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->cpps.emplace_back(p,\
+    \ q);\n      }\n    }\n\n    M combination(const long long n, const long long\
+    \ r) const {\n      if (n < 0 || r < 0 || n < r) return M::raw(0);\n      ::std::vector<::std::pair<int,\
+    \ int>> rs;\n      for (const auto& cpp : this->cpps) rs.emplace_back(cpp.nCr(n,\
+    \ r), cpp.m);\n      return ::tools::garner<M>(rs.begin(), rs.end()).first;\n\
+    \    }\n  };\n}\n\n\n#line 6 \"tests/extended_lucas.test.cpp\"\n\nusing mint =\
+    \ atcoder::modint;\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  ll T, m;\n  std::cin >> T >> m;\n\
     \  mint::set_mod(m);\n  tools::extended_lucas<mint> cache;\n\n  for (ll i = 0;\
     \ i < T; ++i) {\n    ll n, k;\n    std::cin >> n >> k;\n    std::cout << cache.combination(n,\
@@ -506,11 +533,12 @@ data:
     \ k).val() << '\\n';\n  }\n  return 0;\n}\n"
   dependsOn:
   - tools/extended_lucas.hpp
+  - tools/int128_t.hpp
+  - tools/abs.hpp
+  - tools/uint128_t.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
-  - tools/uint128_t.hpp
-  - tools/abs.hpp
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
@@ -524,7 +552,7 @@ data:
   isVerificationFile: true
   path: tests/extended_lucas.test.cpp
   requiredBy: []
-  timestamp: '2023-08-26 14:07:16+09:00'
+  timestamp: '2024-04-07 15:54:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extended_lucas.test.cpp

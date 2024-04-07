@@ -7,8 +7,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/extended_lucas.hpp
+    title: Extended Lucas' theorem
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/extended_lucas.test.cpp
+    title: tests/extended_lucas.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
@@ -75,10 +81,12 @@ data:
   - tools/uint128_t.hpp
   isVerificationFile: false
   path: tools/int128_t.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/extended_lucas.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/extended_lucas.test.cpp
   - tests/int128_t.test.cpp
 documentation_of: tools/int128_t.hpp
 layout: document
