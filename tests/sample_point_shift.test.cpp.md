@@ -786,69 +786,70 @@ data:
     \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
     \  ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>\n\
     \  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator\
-    \ end, const long long L, const long long R) {\n    assert(begin < end);\n   \
-    \ using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
-    \    assert(L <= R && R <= L + T::mod());\n    assert(::tools::is_prime(T::mod()));\n\
-    \    const int N = ::std::distance(begin, end) - 1;\n    assert(N < T::mod());\n\
-    \    if (L == R) return ::std::vector<T>{};\n    const int M = R - L - 1;\n  \
-    \  ::tools::fact_mod_cache<T> cache;\n    const ::std::array<T, 2> minus_1_pow\
-    \ = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n    {\n      ::std::vector<T>\
-    \ a1(N + 1);\n      for (int i = 0; i <= N; ++i) {\n        a1[i] = begin[i] *\
-    \ cache.fact_inv(i);\n      }\n\n      ::std::vector<T> b1(N + 1);\n      for\
-    \ (int i = 0; i <= N; ++i) {\n        b1[i] = minus_1_pow[i & 1] * cache.fact_inv(i);\n\
-    \      }\n\n      ::tools::convolution(a1.begin(), a1.end(), b1.begin(), b1.end(),\
-    \ ::std::back_inserter(c1));\n      c1.resize(N + 1);\n    }\n\n    ::std::vector<T>\
-    \ c2;\n    {\n      ::std::vector<T> a2(N + 1);\n      for (int i = 0; i <= N;\
-    \ ++i) {\n        a2[i] = c1[N - i] * cache.fact(N - i);\n      }\n\n      ::std::vector<T>\
-    \ b2(N + 1);\n      b2[0] = T(1);\n      T b(L);\n      for (int i = 1; i <= N;\
-    \ ++i, --b) {\n        b2[i] = b2[i - 1] * b;\n      }\n      for (int i = 0;\
-    \ i <= N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a2.begin(),\
-    \ a2.end(), b2.begin(), b2.end(), ::std::back_inserter(c2));\n      c2.resize(N\
-    \ + 1);\n      ::std::reverse(c2.begin(), c2.end());\n      for (int i = 0; i\
-    \ <= N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n      }\n    }\n\n    ::std::vector<T>\
-    \ c3;\n    {\n      const auto& a3 = c2;\n\n      ::std::vector<T> b3(M + 1);\n\
-    \      for (int i = 0; i <= M; ++i) {\n        b3[i] = cache.fact_inv(i);\n  \
-    \    }\n\n      ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(),\
-    \ ::std::back_inserter(c3));\n      c3.resize(M + 1);\n      for (int i = 0; i\
-    \ <= M; ++i) {\n        c3[i] *= cache.fact(i);\n      }\n    }\n\n    return\
-    \ c3;\n  }\n\n  template <typename InputIterator>\n  ::std::enable_if_t<\n   \
-    \ !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
-    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    ::std::vector<typename\
-    \ ::std::iterator_traits<InputIterator>::value_type>\n  > sample_point_shift(const\
-    \ InputIterator begin, const InputIterator end, const long long L, const long\
-    \ long R) {\n    using M = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    const ::std::vector<M> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
-    \ samples.end(), L, R);\n  }\n\n  template <typename M>\n  ::std::vector<M> sample_point_shift(const\
-    \ ::std::initializer_list<M> il, const long long L, const long long R) {\n   \
-    \ return ::tools::sample_point_shift(il.begin(), il.end(), L, R);\n  }\n}\n\n\n\
-    #line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\n#include <sstream>\n\
-    #line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename Iterator>\n\
-    \  ::std::string join(const Iterator begin, const Iterator end, const ::std::string&\
+    \ end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
+    \ c, const int M) {\n    assert(begin < end);\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
+    \    assert(::tools::is_prime(T::mod()));\n    const int N = ::std::distance(begin,\
+    \ end) - 1;\n    assert(N < T::mod());\n    assert(0 <= M);\n    if (M == 0) return\
+    \ ::std::vector<T>{};\n    const int m = ::std::min(M, T::mod()) - 1;\n    ::tools::fact_mod_cache<T>\
+    \ cache;\n    const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T>\
+    \ c1;\n    {\n      ::std::vector<T> a1(N + 1);\n      for (int i = 0; i <= N;\
+    \ ++i) {\n        a1[i] = begin[i] * cache.fact_inv(i);\n      }\n\n      ::std::vector<T>\
+    \ b1(N + 1);\n      for (int i = 0; i <= N; ++i) {\n        b1[i] = minus_1_pow[i\
+    \ & 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(),\
+    \ a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N\
+    \ + 1);\n    }\n\n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N\
+    \ + 1);\n      for (int i = 0; i <= N; ++i) {\n        a2[i] = c1[N - i] * cache.fact(N\
+    \ - i);\n      }\n\n      ::std::vector<T> b2(N + 1);\n      b2[0] = T(1);\n \
+    \     T b = c;\n      for (int i = 1; i <= N; ++i, --b) {\n        b2[i] = b2[i\
+    \ - 1] * b;\n      }\n      for (int i = 0; i <= N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
+    \      }\n\n      ::tools::convolution(a2.begin(), a2.end(), b2.begin(), b2.end(),\
+    \ ::std::back_inserter(c2));\n      c2.resize(N + 1);\n      ::std::reverse(c2.begin(),\
+    \ c2.end());\n      for (int i = 0; i <= N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n\
+    \      }\n    }\n\n    ::std::vector<T> c3;\n    {\n      const auto& a3 = c2;\n\
+    \n      ::std::vector<T> b3(m + 1);\n      for (int i = 0; i <= m; ++i) {\n  \
+    \      b3[i] = cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a3.begin(),\
+    \ a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n      c3.resize(m\
+    \ + 1);\n      for (int i = 0; i <= m; ++i) {\n        c3[i] *= cache.fact(i);\n\
+    \      }\n    }\n\n    for (int i = ::tools::ssize(c3); i < M; ++i) {\n      c3[i]\
+    \ = c3[T(i).val()];\n    }\n\n    return c3;\n  }\n\n  template <typename InputIterator>\n\
+    \  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
+    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
+    \ >,\n    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  > sample_point_shift(const InputIterator begin, const InputIterator end, const\
+    \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
+    \ samples.end(), c, M);\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
+    \ ::std::initializer_list<T> il, const T c, const int M) {\n    return ::tools::sample_point_shift(il.begin(),\
+    \ il.end(), c, M);\n  }\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\
+    \n#include <sstream>\n#line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename Iterator>\n  ::std::string join(const Iterator begin, const Iterator\
+    \ end, const ::std::string& delimiter) {\n    ::std::ostringstream ss;\n    if\
+    \ (begin != end) {\n      ss << *begin;\n      for (auto it = ::std::next(begin);\
+    \ it != end; ++it) {\n        ss << delimiter << *it;\n      }\n    }\n    return\
+    \ ss.str();\n  }\n\n  template <typename Iterator, typename F>\n  ::std::string\
+    \ join(const Iterator begin, const Iterator end, const F& mapper, const ::std::string&\
     \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
-    \ << *begin;\n      for (auto it = ::std::next(begin); it != end; ++it) {\n  \
-    \      ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n  }\n\n\
-    \  template <typename Iterator, typename F>\n  ::std::string join(const Iterator\
-    \ begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
-    \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
-    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 8 \"\
-    tests/sample_point_shift.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \ << mapper(*begin);\n      for (auto it = ::std::next(begin); it != end; ++it)\
+    \ {\n        ss << delimiter << mapper(*it);\n      }\n    }\n    return ss.str();\n\
+    \  }\n}\n\n\n#line 8 \"tests/sample_point_shift.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N, M, c;\n  std::cin >> N >> M >> c;\n  std::vector<mint> f(N);\n  for\
+    \n  int N, M;\n  std::cin >> N >> M;\n  mint c;\n  {\n    int c_int;\n    std::cin\
+    \ >> c_int;\n    c = mint::raw(c_int);\n  }\n  std::vector<mint> f(N);\n  for\
     \ (int i = 0; i < N; ++i) {\n    int f_i;\n    std::cin >> f_i;\n    f[i] = mint::raw(f_i);\n\
-    \  }\n\n  const auto g = tools::sample_point_shift(f.begin(), f.end(), c, c +\
-    \ M);\n  std::cout << tools::join(g.begin(), g.end(), [](const auto g_i) { return\
-    \ g_i.val(); }, \" \") << '\\n';\n\n  return 0;\n}\n"
+    \  }\n\n  const auto g = tools::sample_point_shift(f.begin(), f.end(), c, M);\n\
+    \  std::cout << tools::join(g.begin(), g.end(), [](const auto g_i) { return g_i.val();\
+    \ }, \" \") << '\\n';\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial\"\
     \n\n#include <iostream>\n#include <vector>\n#include \"atcoder/modint.hpp\"\n\
     #include \"tools/sample_point_shift.hpp\"\n#include \"tools/join.hpp\"\n\nusing\
     \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M, c;\n  std::cin >> N >>\
-    \ M >> c;\n  std::vector<mint> f(N);\n  for (int i = 0; i < N; ++i) {\n    int\
-    \ f_i;\n    std::cin >> f_i;\n    f[i] = mint::raw(f_i);\n  }\n\n  const auto\
-    \ g = tools::sample_point_shift(f.begin(), f.end(), c, c + M);\n  std::cout <<\
-    \ tools::join(g.begin(), g.end(), [](const auto g_i) { return g_i.val(); }, \"\
-    \ \") << '\\n';\n\n  return 0;\n}\n"
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
+    \  mint c;\n  {\n    int c_int;\n    std::cin >> c_int;\n    c = mint::raw(c_int);\n\
+    \  }\n  std::vector<mint> f(N);\n  for (int i = 0; i < N; ++i) {\n    int f_i;\n\
+    \    std::cin >> f_i;\n    f[i] = mint::raw(f_i);\n  }\n\n  const auto g = tools::sample_point_shift(f.begin(),\
+    \ f.end(), c, M);\n  std::cout << tools::join(g.begin(), g.end(), [](const auto\
+    \ g_i) { return g_i.val(); }, \" \") << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/sample_point_shift.hpp
   - tools/is_prime.hpp
@@ -870,7 +871,7 @@ data:
   isVerificationFile: true
   path: tests/sample_point_shift.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 19:33:32+09:00'
+  timestamp: '2024-04-08 21:37:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sample_point_shift.test.cpp
