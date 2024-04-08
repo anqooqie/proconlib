@@ -20,15 +20,15 @@ namespace tools {
       typename ::std::iterator_traits<RandomAccessIterator>::iterator_category
     >,
     ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>
-  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const long long L, const long long R) {
+  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type c, const int M) {
     assert(begin < end);
     using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;
-    assert(L <= R && R <= L + T::mod());
     assert(::tools::is_prime(T::mod()));
     const int N = ::std::distance(begin, end) - 1;
     assert(N < T::mod());
-    if (L == R) return ::std::vector<T>{};
-    const int M = R - L - 1;
+    assert(0 <= M);
+    if (M == 0) return ::std::vector<T>{};
+    const int m = ::std::min(M, T::mod()) - 1;
     ::tools::fact_mod_cache<T> cache;
     const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
 
@@ -57,7 +57,7 @@ namespace tools {
 
       ::std::vector<T> b2(N + 1);
       b2[0] = T(1);
-      T b(L);
+      T b = c;
       for (int i = 1; i <= N; ++i, --b) {
         b2[i] = b2[i - 1] * b;
       }
@@ -77,16 +77,20 @@ namespace tools {
     {
       const auto& a3 = c2;
 
-      ::std::vector<T> b3(M + 1);
-      for (int i = 0; i <= M; ++i) {
+      ::std::vector<T> b3(m + 1);
+      for (int i = 0; i <= m; ++i) {
         b3[i] = cache.fact_inv(i);
       }
 
       ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));
-      c3.resize(M + 1);
-      for (int i = 0; i <= M; ++i) {
+      c3.resize(m + 1);
+      for (int i = 0; i <= m; ++i) {
         c3[i] *= cache.fact(i);
       }
+    }
+
+    for (int i = ::tools::ssize(c3); i < M; ++i) {
+      c3[i] = c3[T(i).val()];
     }
 
     return c3;
@@ -99,15 +103,15 @@ namespace tools {
       typename ::std::iterator_traits<InputIterator>::iterator_category
     >,
     ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>
-  > sample_point_shift(const InputIterator begin, const InputIterator end, const long long L, const long long R) {
-    using M = typename ::std::iterator_traits<InputIterator>::value_type;
-    const ::std::vector<M> samples(begin, end);
-    return ::tools::sample_point_shift(samples.begin(), samples.end(), L, R);
+  > sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {
+    using T = typename ::std::iterator_traits<InputIterator>::value_type;
+    const ::std::vector<T> samples(begin, end);
+    return ::tools::sample_point_shift(samples.begin(), samples.end(), c, M);
   }
 
-  template <typename M>
-  ::std::vector<M> sample_point_shift(const ::std::initializer_list<M> il, const long long L, const long long R) {
-    return ::tools::sample_point_shift(il.begin(), il.end(), L, R);
+  template <typename T>
+  ::std::vector<T> sample_point_shift(const ::std::initializer_list<T> il, const T c, const int M) {
+    return ::tools::sample_point_shift(il.begin(), il.end(), c, M);
   }
 }
 
