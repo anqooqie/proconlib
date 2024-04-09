@@ -22,6 +22,12 @@ data:
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
+    path: tools/is_group.hpp
+    title: Check whether T is a group
+  - icon: ':heavy_check_mark:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -33,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
+  - icon: ':heavy_check_mark:'
+    path: tools/online_cumsum.hpp
+    title: Online cumulative sum
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
@@ -273,22 +282,22 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/sample_point_shift.hpp\"\
-    \n\n\n\n#line 5 \"tools/sample_point_shift.hpp\"\n#include <iterator>\n#line 8\
-    \ \"tools/sample_point_shift.hpp\"\n#include <array>\n#include <initializer_list>\n\
-    #line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line\
-    \ 1 \"tools/uint128_t.hpp\"\n\n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n\
-    #line 7 \"tools/uint128_t.hpp\"\n#include <cstddef>\n#include <algorithm>\n#line\
-    \ 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
-    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n\
-    \    return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n\
-    \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
-    \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
-    \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \n\n\n\n#line 5 \"tools/sample_point_shift.hpp\"\n#include <iterator>\n#line 7\
+    \ \"tools/sample_point_shift.hpp\"\n#include <array>\n#line 9 \"tools/sample_point_shift.hpp\"\
+    \n#include <initializer_list>\n#include <algorithm>\n#line 1 \"tools/is_prime.hpp\"\
+    \n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\
+    \n\n\n#line 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\
+    \n#include <cstddef>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr\
+    \ float abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double\
+    \ abs(const double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double\
+    \ abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int\
+    \ abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
+    \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
+    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
     \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
     \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
@@ -373,9 +382,74 @@ data:
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
     \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/convolution.hpp\"\n#include <complex>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/online_cumsum.hpp\"\n\n\n\n\
+    #line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename = void>\n  struct is_monoid : ::std::false_type\
+    \ {};\n\n  template <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n\
+    \    ::std::is_same_v<typename M::T, decltype(M::op(::std::declval<typename M::T>(),\
+    \ ::std::declval<typename M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr\
+    \ bool is_monoid_v = ::tools::is_monoid<M>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\
+    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
+    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
+    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
+    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
+    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
+    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
+    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
+    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
+    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
+    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/is_group.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ G, typename = void>\n  struct is_group : ::std::false_type {};\n\n  template\
+    \ <typename G>\n  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ G::T, decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename\
+    \ G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n  \
+    \  ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename G>\n  inline constexpr\
+    \ bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line 11 \"tools/online_cumsum.hpp\"\
+    \n\nnamespace tools {\n  template <typename X, bool Forward = true>\n  class online_cumsum\
+    \ {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;\n\
+    \    using T = typename M::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
+    \ m_cumsum;\n    ::std::size_t m_processed;\n\n  public:\n    online_cumsum()\
+    \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
+    \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
+    \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
+    \    T& operator[](const ::std::size_t i) {\n      assert(i < this->size());\n\
+    \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
+    \ ::std::size_t r) {\n      assert(l <= r && r <= this->size());\n      if constexpr\
+    \ (Forward) {\n        for (; this->m_processed < r; ++this->m_processed) {\n\
+    \          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
+    \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
+    \        }\n      } else {\n        for (; this->m_processed > l; --this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed\
+    \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
+    \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
+    \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
+    \        }\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n\
+    #line 5 \"tools/monoid.hpp\"\n#include <limits>\n#line 7 \"tools/monoid.hpp\"\n\
+    \nnamespace tools {\n  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
+    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
+    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
+    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
+    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
+    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 5 \"tools/convolution.hpp\"\
+    \n#include <complex>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\
+    \n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
     #include <bit>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus\
     \ >= 202002L\n\nusing std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\n\
@@ -549,8 +623,8 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 6 \"tools/ceil_log2.hpp\"\n#include <limits>\n#include <tuple>\n\
-    #line 9 \"tools/ceil_log2.hpp\"\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \n\n\n\n#line 7 \"tools/ceil_log2.hpp\"\n#include <tuple>\n#line 9 \"tools/ceil_log2.hpp\"\
+    \n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
     \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
@@ -589,38 +663,10 @@ data:
     \ ull(M1::mod()) * ull(M2::mod()), m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
     \ ull(t1.val()) * ull(M1::mod()) % m, m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
     \ a.val() % m, m);\n    assert(r < ull(m));\n    return r;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
-    \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
-    \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
-    \ e() {\n        return T(0);\n      }\n      static T inv(const T& v) {\n   \
-    \     return -v;\n      }\n    };\n\n    template <typename G>\n    struct multiplies\
-    \ {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n      static T inv(const T& v) {\n        return e() / v;\n      }\n\
-    \    };\n\n    template <typename G>\n    struct bit_xor {\n      using T = G;\n\
-    \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
-    \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
-    \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"\
-    tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n\
-    \  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace\
-    \ detail {\n    namespace convolution {\n      template <typename T, typename\
-    \ = void>\n      struct make_complex {\n        using type = T;\n      };\n\n\
-    \      template <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace detail {\n  \
+    \  namespace convolution {\n      template <typename T, typename = void>\n   \
+    \   struct make_complex {\n        using type = T;\n      };\n\n      template\
+    \ <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ void>> {\n        using type = ::std::complex<T>;\n      };\n\n      template\
     \ <typename T>\n      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;\n\
     \n      template <typename AG, typename MM, typename InputIterator1, typename\
@@ -780,45 +826,67 @@ data:
     \ const InputIterator2 b_end, const OutputIterator result) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;\n\
     \    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);\n\
     \    ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin,\
-    \ a_end, b_begin, b_end, result);\n  }\n}\n\n\n#line 13 \"tools/sample_point_shift.hpp\"\
+    \ a_end, b_begin, b_end, result);\n  }\n}\n\n\n#line 16 \"tools/sample_point_shift.hpp\"\
     \n\nnamespace tools {\n\n  template <typename RandomAccessIterator>\n  ::std::enable_if_t<\n\
+    \    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
+    \  typename ::std::iterator_traits<RandomAccessIterator>::value_type\n  > sample_point_shift(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
+    \ c) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
+    \    assert(::tools::is_prime(T::mod()));\n    const int N = ::std::distance(begin,\
+    \ end);\n    assert(1 <= N && N <= T::mod());\n    ::tools::fact_mod_cache<T>\
+    \ cache;\n    const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};\n\n    ::tools::online_cumsum<::tools::monoid::multiplies<T>,\
+    \ true> nl(N);\n    ::tools::online_cumsum<::tools::monoid::multiplies<T>, false>\
+    \ nr(N);\n    {\n      T last = c;\n      for (int i = 0; i < N; ++i, --last)\
+    \ {\n        nl[i] = nr[i] = last;\n      }\n    }\n\n    T answer(0);\n    for\
+    \ (int i = 0; i < N; ++i) {\n      answer += nl.prod(0, i) * nr.prod(i + 1, N)\
+    \ * minus_1_pow[(N - 1 - i) & 1] * cache.fact_inv(N - 1 - i) * cache.fact_inv(i)\
+    \ * begin[i];\n    }\n\n    return answer;\n  }\n\n  template <typename InputIterator>\n\
+    \  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
+    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
+    \ >,\n    typename ::std::iterator_traits<InputIterator>::value_type\n  > sample_point_shift(const\
+    \ InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type\
+    \ c) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
+    \ samples.end(), c);\n  }\n\n  template <typename T>\n  T sample_point_shift(const\
+    \ ::std::initializer_list<T> il, const T c) {\n    return ::tools::sample_point_shift(il.begin(),\
+    \ il.end(), c);\n  }\n\n  template <typename RandomAccessIterator>\n  ::std::enable_if_t<\n\
     \    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
     \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
     \  ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>\n\
     \  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator\
     \ end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
-    \ c, const int M) {\n    assert(begin < end);\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
+    \ c, const int M) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
     \    assert(::tools::is_prime(T::mod()));\n    const int N = ::std::distance(begin,\
-    \ end) - 1;\n    assert(N < T::mod());\n    assert(0 <= M);\n    if (M == 0) return\
-    \ ::std::vector<T>{};\n    const int m = ::std::min(M, T::mod()) - 1;\n    ::tools::fact_mod_cache<T>\
-    \ cache;\n    const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T>\
-    \ c1;\n    {\n      ::std::vector<T> a1(N + 1);\n      for (int i = 0; i <= N;\
-    \ ++i) {\n        a1[i] = begin[i] * cache.fact_inv(i);\n      }\n\n      ::std::vector<T>\
-    \ b1(N + 1);\n      for (int i = 0; i <= N; ++i) {\n        b1[i] = minus_1_pow[i\
-    \ & 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(),\
-    \ a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N\
-    \ + 1);\n    }\n\n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N\
-    \ + 1);\n      for (int i = 0; i <= N; ++i) {\n        a2[i] = c1[N - i] * cache.fact(N\
-    \ - i);\n      }\n\n      ::std::vector<T> b2(N + 1);\n      b2[0] = T(1);\n \
-    \     T b = c;\n      for (int i = 1; i <= N; ++i, --b) {\n        b2[i] = b2[i\
-    \ - 1] * b;\n      }\n      for (int i = 0; i <= N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
+    \ end);\n    assert(1 <= N && N <= T::mod());\n    assert(0 <= M);\n    if (M\
+    \ == 0) return ::std::vector<T>{};\n    if (M == 1) return ::std::vector<T>{::tools::sample_point_shift(begin,\
+    \ end, c)};\n    ::tools::fact_mod_cache<T> cache;\n    const ::std::array<T,\
+    \ 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n    {\n      ::std::vector<T>\
+    \ a1(N);\n      for (int i = 0; i < N; ++i) {\n        a1[i] = begin[i] * cache.fact_inv(i);\n\
+    \      }\n\n      ::std::vector<T> b1(N);\n      for (int i = 0; i < N; ++i) {\n\
+    \        b1[i] = minus_1_pow[i & 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(),\
+    \ a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N);\n\
+    \    }\n\n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N);\n   \
+    \   for (int i = 0; i < N; ++i) {\n        a2[i] = c1[N - 1 - i] * cache.fact(N\
+    \ - 1 - i);\n      }\n\n      ::std::vector<T> b2(N);\n      b2[0] = T(1);\n \
+    \     T b = c;\n      for (int i = 1; i < N; ++i, --b) {\n        b2[i] = b2[i\
+    \ - 1] * b;\n      }\n      for (int i = 0; i < N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
     \      }\n\n      ::tools::convolution(a2.begin(), a2.end(), b2.begin(), b2.end(),\
-    \ ::std::back_inserter(c2));\n      c2.resize(N + 1);\n      ::std::reverse(c2.begin(),\
-    \ c2.end());\n      for (int i = 0; i <= N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n\
-    \      }\n    }\n\n    ::std::vector<T> c3;\n    {\n      const auto& a3 = c2;\n\
-    \n      ::std::vector<T> b3(m + 1);\n      for (int i = 0; i <= m; ++i) {\n  \
-    \      b3[i] = cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a3.begin(),\
-    \ a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n      c3.resize(m\
-    \ + 1);\n      for (int i = 0; i <= m; ++i) {\n        c3[i] *= cache.fact(i);\n\
-    \      }\n    }\n\n    for (int i = ::tools::ssize(c3); i < M; ++i) {\n      c3[i]\
-    \ = c3[T(i).val()];\n    }\n\n    return c3;\n  }\n\n  template <typename InputIterator>\n\
-    \  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
-    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
-    \ >,\n    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
-    \  > sample_point_shift(const InputIterator begin, const InputIterator end, const\
-    \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {\n\
-    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
-    \   const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
+    \ ::std::back_inserter(c2));\n      c2.resize(N);\n      ::std::reverse(c2.begin(),\
+    \ c2.end());\n      for (int i = 0; i < N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n\
+    \      }\n    }\n\n    ::std::vector<T> c3;\n    const int m = ::std::min(M, T::mod());\n\
+    \    {\n      const auto& a3 = c2;\n\n      ::std::vector<T> b3(m);\n      for\
+    \ (int i = 0; i < m; ++i) {\n        b3[i] = cache.fact_inv(i);\n      }\n\n \
+    \     ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n\
+    \      c3.resize(m);\n      for (int i = 0; i < m; ++i) {\n        c3[i] *= cache.fact(i);\n\
+    \      }\n    }\n\n    for (int i = m; i < M; ++i) {\n      c3[i] = c3[i % T::mod()];\n\
+    \    }\n\n    return c3;\n  }\n\n  template <typename InputIterator>\n  ::std::enable_if_t<\n\
+    \    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    ::std::vector<typename\
+    \ ::std::iterator_traits<InputIterator>::value_type>\n  > sample_point_shift(const\
+    \ InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type\
+    \ c, const int M) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
     \ samples.end(), c, M);\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    return ::tools::sample_point_shift(il.begin(),\
     \ il.end(), c, M);\n  }\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\
@@ -861,17 +929,20 @@ data:
   - tools/quo.hpp
   - tools/fact_mod_cache.hpp
   - tools/ssize.hpp
+  - tools/online_cumsum.hpp
+  - tools/is_monoid.hpp
+  - tools/group.hpp
+  - tools/is_group.hpp
+  - tools/monoid.hpp
   - tools/convolution.hpp
   - tools/pow2.hpp
   - tools/ceil_log2.hpp
   - tools/garner3.hpp
-  - tools/group.hpp
-  - tools/monoid.hpp
   - tools/join.hpp
   isVerificationFile: true
   path: tests/sample_point_shift.test.cpp
   requiredBy: []
-  timestamp: '2024-04-08 21:37:14+09:00'
+  timestamp: '2024-04-09 22:29:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sample_point_shift.test.cpp

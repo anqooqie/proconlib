@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
+  - icon: ':heavy_check_mark:'
+    path: tools/sample_point_shift.hpp
+    title: Shift of sampling points of polynomial
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/is_group.test.cpp
@@ -12,6 +15,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/sample_point_shift.test.cpp
+    title: tests/sample_point_shift.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -38,12 +44,14 @@ data:
   isVerificationFile: false
   path: tools/is_group.hpp
   requiredBy:
+  - tools/sample_point_shift.hpp
   - tools/online_cumsum.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
   - tests/is_group.test.cpp
+  - tests/sample_point_shift.test.cpp
 documentation_of: tools/is_group.hpp
 layout: document
 title: Check whether T is a group

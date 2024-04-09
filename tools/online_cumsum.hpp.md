@@ -10,11 +10,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/sample_point_shift.hpp
+    title: Shift of sampling points of polynomial
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/sample_point_shift.test.cpp
+    title: tests/sample_point_shift.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -100,11 +106,13 @@ data:
   - tools/is_group.hpp
   isVerificationFile: false
   path: tools/online_cumsum.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/sample_point_shift.hpp
   timestamp: '2024-03-24 22:45:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
+  - tests/sample_point_shift.test.cpp
 documentation_of: tools/online_cumsum.hpp
 layout: document
 title: Online cumulative sum
