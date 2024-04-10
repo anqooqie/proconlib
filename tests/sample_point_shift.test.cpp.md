@@ -879,14 +879,15 @@ data:
     \ (int i = 0; i < m; ++i) {\n        b3[i] = cache.fact_inv(i);\n      }\n\n \
     \     ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n\
     \      c3.resize(m);\n      for (int i = 0; i < m; ++i) {\n        c3[i] *= cache.fact(i);\n\
-    \      }\n    }\n\n    for (int i = m; i < M; ++i) {\n      c3[i] = c3[i % T::mod()];\n\
-    \    }\n\n    return c3;\n  }\n\n  template <typename InputIterator>\n  ::std::enable_if_t<\n\
-    \    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
-    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    ::std::vector<typename\
-    \ ::std::iterator_traits<InputIterator>::value_type>\n  > sample_point_shift(const\
-    \ InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type\
-    \ c, const int M) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
+    \      }\n    }\n\n    c3.resize(M);\n    for (int i = m; i < M; ++i) {\n    \
+    \  c3[i] = c3[i % T::mod()];\n    }\n\n    return c3;\n  }\n\n  template <typename\
+    \ InputIterator>\n  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
+    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
+    \ >,\n    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  > sample_point_shift(const InputIterator begin, const InputIterator end, const\
+    \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
     \ samples.end(), c, M);\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    return ::tools::sample_point_shift(il.begin(),\
     \ il.end(), c, M);\n  }\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\
@@ -942,7 +943,7 @@ data:
   isVerificationFile: true
   path: tests/sample_point_shift.test.cpp
   requiredBy: []
-  timestamp: '2024-04-09 22:29:44+09:00'
+  timestamp: '2024-04-10 21:59:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sample_point_shift.test.cpp
