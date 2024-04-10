@@ -142,6 +142,7 @@ namespace tools {
       }
     }
 
+    c3.resize(M);
     for (int i = m; i < M; ++i) {
       c3[i] = c3[i % T::mod()];
     }
