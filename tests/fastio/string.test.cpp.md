@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cout.hpp
     title: Fast output
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':heavy_check_mark:'
