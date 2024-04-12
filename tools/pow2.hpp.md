@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -41,12 +41,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
+  - icon: ':heavy_check_mark:'
+    path: tools/large_fact_mod_cache.hpp
+    title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/lca.hpp
     title: Lowest common ancestor
@@ -60,7 +63,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -78,7 +81,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -247,6 +250,12 @@ data:
     path: tests/integer_interval_set.test.cpp
     title: tests/integer_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/fact.test.cpp
+    title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
@@ -285,7 +294,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -321,7 +330,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -366,9 +375,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -410,6 +419,7 @@ data:
   - tools/convolution.hpp
   - tools/prime_factorization.hpp
   - tools/tetration_mod.hpp
+  - tools/large_fact_mod_cache.hpp
   - tools/dual_segtree.hpp
   - tools/divisors.hpp
   - tools/stirling_1st.hpp
@@ -423,7 +433,7 @@ data:
   - tools/polynomial.hpp
   - tools/totient.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
   - tests/tsp.test.cpp
@@ -498,6 +508,8 @@ data:
   - tests/ssize.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/and_convolution.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp

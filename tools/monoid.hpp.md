@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -32,12 +32,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
+  - icon: ':heavy_check_mark:'
+    path: tools/large_fact_mod_cache.hpp
+    title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
@@ -51,7 +54,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -69,7 +72,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -184,6 +187,12 @@ data:
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/fact.test.cpp
+    title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
   - icon: ':heavy_check_mark:'
@@ -216,7 +225,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -249,7 +258,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -273,9 +282,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include\
@@ -337,6 +346,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/convolution.hpp
   - tools/tetration_mod.hpp
+  - tools/large_fact_mod_cache.hpp
   - tools/line_2d.hpp
   - tools/rolling_hash.hpp
   - tools/stirling_1st.hpp
@@ -348,7 +358,7 @@ data:
   - tools/polynomial.hpp
   - tools/totient.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
@@ -402,6 +412,8 @@ data:
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/berlekamp_massey.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp

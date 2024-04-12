@@ -33,6 +33,9 @@ data:
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
   - icon: ':heavy_check_mark:'
+    path: tools/large_fact_mod_cache.hpp
+    title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -41,13 +44,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache of $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -62,7 +65,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -152,6 +155,12 @@ data:
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/fact.test.cpp
+    title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
@@ -175,7 +184,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -217,7 +226,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -238,9 +247,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -273,6 +282,7 @@ data:
   - tools/ceil_kth_root.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/round.hpp
+  - tools/large_fact_mod_cache.hpp
   - tools/rolling_hash.hpp
   - tools/stirling_1st.hpp
   - tools/dynamic_bitset.hpp
@@ -282,7 +292,7 @@ data:
   - tools/polynomial.hpp
   - tools/mo.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
   - tests/bigdecimal/rounding.test.cpp
@@ -328,6 +338,8 @@ data:
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/ceil_log.test.cpp
   - tests/berlekamp_massey.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp

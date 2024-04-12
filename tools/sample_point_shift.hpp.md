@@ -1,24 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
-      {}_n P_r \pmod{P}$
-  - icon: ':heavy_check_mark:'
+    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
@@ -27,38 +26,47 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/large_fact_mod_cache.hpp
+    title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/fact.test.cpp
+    title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
@@ -128,46 +136,45 @@ data:
     \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
     \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 10 \"tools/fact_mod_cache.hpp\"\n\
-    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n\
-    \    ::std::vector<M> m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M>\
-    \ m_fact_inv;\n\n  public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}),\
-    \ m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n     \
-    \ assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const ::tools::fact_mod_cache<M>&)\
-    \ = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;\n  \
-    \  ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>& operator=(const\
-    \ ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&)\
-    \ = default;\n\n    M inv(const long long n) {\n      assert(n % M::mod() != 0);\n\
-    \      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
-    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
-    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
-    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
-    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
-    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
-    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
-    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
-    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
-    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
-    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
-    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n    ::std::vector<M>\
+    \ m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M> m_fact_inv;\n\n \
+    \ public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1),\
+    \ M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n\
+    \    }\n    explicit fact_mod_cache(const long long max) : fact_mod_cache() {\n\
+    \      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
+    \ long>(max, M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n\
+    \ % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
+    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
+    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
+    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
+    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
+    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
+    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
+    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
+    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
+    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
+    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
     \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
     \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
     \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
-    \    }\n\n    explicit fact_mod_cache(const long long max) : fact_mod_cache()\
-    \ {\n      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
-    \ long>(max, M::mod() - 1));\n    }\n\n    M combination(long long n, long long\
-    \ r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\n      this->fact(::std::min<long\
+    \    }\n\n    M binomial(long long n, long long r) {\n      if (r < 0) return\
+    \ M::raw(0);\n      if (0 <= n && n < r) return M::raw(0);\n      if (n < 0) return\
+    \ M(1 - ((r & 1) << 1)) * this->binomial(-n + r - 1, r);\n\n      this->fact(::std::min<long\
     \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
     \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
     \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
     \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
     \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
-    \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
-    \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
+    \    }\n    M combination(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r);\n   \
+    \ }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n\
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
-    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
-    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/online_cumsum.hpp\"\n\n\n\n\
+    \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
+    \ + r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/online_cumsum.hpp\"\n\n\n\n\
     #line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 5 \"tools/is_monoid.hpp\"\n#include\
     \ <utility>\n\nnamespace tools {\n\n  template <typename M, typename = void>\n\
     \  struct is_monoid : ::std::false_type {};\n\n  template <typename M>\n  struct\
@@ -841,27 +848,27 @@ data:
     \    const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
     \ samples.end(), c);\n  }\n\n  template <typename T>\n  T sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c) {\n    return ::tools::sample_point_shift(il.begin(),\
-    \ il.end(), c);\n  }\n\n  template <typename RandomAccessIterator>\n  ::std::enable_if_t<\n\
-    \    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
-    \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
-    \  ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>\n\
-    \  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator\
-    \ end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
-    \ c, const int M) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
+    \ il.end(), c);\n  }\n\n  template <typename RandomAccessIterator, typename OutputIterator>\n\
+    \  ::std::enable_if_t<\n    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
+    \      typename ::std::iterator_traits<RandomAccessIterator>::iterator_category\n\
+    \    >,\n    void\n  > sample_point_shift(const RandomAccessIterator begin, const\
+    \ RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
+    \ c, const int M, OutputIterator result) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
     \    assert(::tools::is_prime(T::mod()));\n    const int N = ::std::distance(begin,\
     \ end);\n    assert(1 <= N && N <= T::mod());\n    assert(0 <= M);\n    if (M\
-    \ == 0) return ::std::vector<T>{};\n    if (M == 1) return ::std::vector<T>{::tools::sample_point_shift(begin,\
-    \ end, c)};\n    ::tools::fact_mod_cache<T> cache;\n    const ::std::array<T,\
-    \ 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n    {\n      ::std::vector<T>\
-    \ a1(N);\n      for (int i = 0; i < N; ++i) {\n        a1[i] = begin[i] * cache.fact_inv(i);\n\
-    \      }\n\n      ::std::vector<T> b1(N);\n      for (int i = 0; i < N; ++i) {\n\
-    \        b1[i] = minus_1_pow[i & 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(),\
-    \ a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N);\n\
-    \    }\n\n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N);\n   \
-    \   for (int i = 0; i < N; ++i) {\n        a2[i] = c1[N - 1 - i] * cache.fact(N\
-    \ - 1 - i);\n      }\n\n      ::std::vector<T> b2(N);\n      b2[0] = T(1);\n \
-    \     T b = c;\n      for (int i = 1; i < N; ++i, --b) {\n        b2[i] = b2[i\
-    \ - 1] * b;\n      }\n      for (int i = 0; i < N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
+    \ == 1) {\n      result = ::tools::sample_point_shift(begin, end, c);\n      ++result;\n\
+    \    }\n    if (M <= 1) return;\n    ::tools::fact_mod_cache<T> cache;\n    const\
+    \ ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n\
+    \    {\n      ::std::vector<T> a1(N);\n      for (int i = 0; i < N; ++i) {\n \
+    \       a1[i] = begin[i] * cache.fact_inv(i);\n      }\n\n      ::std::vector<T>\
+    \ b1(N);\n      for (int i = 0; i < N; ++i) {\n        b1[i] = minus_1_pow[i &\
+    \ 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(), a1.end(),\
+    \ b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N);\n    }\n\
+    \n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N);\n      for (int\
+    \ i = 0; i < N; ++i) {\n        a2[i] = c1[N - 1 - i] * cache.fact(N - 1 - i);\n\
+    \      }\n\n      ::std::vector<T> b2(N);\n      b2[0] = T(1);\n      T b = c;\n\
+    \      for (int i = 1; i < N; ++i, --b) {\n        b2[i] = b2[i - 1] * b;\n  \
+    \    }\n      for (int i = 0; i < N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
     \      }\n\n      ::tools::convolution(a2.begin(), a2.end(), b2.begin(), b2.end(),\
     \ ::std::back_inserter(c2));\n      c2.resize(N);\n      ::std::reverse(c2.begin(),\
     \ c2.end());\n      for (int i = 0; i < N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n\
@@ -871,17 +878,24 @@ data:
     \     ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n\
     \      c3.resize(m);\n      for (int i = 0; i < m; ++i) {\n        c3[i] *= cache.fact(i);\n\
     \      }\n    }\n\n    c3.resize(M);\n    for (int i = m; i < M; ++i) {\n    \
-    \  c3[i] = c3[i % T::mod()];\n    }\n\n    return c3;\n  }\n\n  template <typename\
-    \ InputIterator>\n  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
-    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
-    \ >,\n    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  c3[i] = c3[i % T::mod()];\n    }\n\n    ::std::copy(c3.begin(), c3.end(), result);\n\
+    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  ::std::enable_if_t<\n\
+    \    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    void\n\
     \  > sample_point_shift(const InputIterator begin, const InputIterator end, const\
+    \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    const ::std::vector<T> samples(begin, end);\n    ::tools::sample_point_shift(samples.begin(),\
+    \ samples.end(), c, M, result);\n  }\n\n  template <typename InputIterator>\n\
+    \  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  sample_point_shift(const InputIterator begin, const InputIterator end, const\
     \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {\n\
     \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
-    \   const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
-    \ samples.end(), c, M);\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
-    \ ::std::initializer_list<T> il, const T c, const int M) {\n    return ::tools::sample_point_shift(il.begin(),\
-    \ il.end(), c, M);\n  }\n}\n\n\n"
+    \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
+    \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
+    \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
+    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \    return res;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_SAMPLE_POINT_SHIFT_HPP\n#define TOOLS_SAMPLE_POINT_SHIFT_HPP\n\
     \n#include <type_traits>\n#include <iterator>\n#include <cassert>\n#include <array>\n\
     #include <vector>\n#include <initializer_list>\n#include <algorithm>\n#include\
@@ -910,27 +924,27 @@ data:
     \    const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
     \ samples.end(), c);\n  }\n\n  template <typename T>\n  T sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c) {\n    return ::tools::sample_point_shift(il.begin(),\
-    \ il.end(), c);\n  }\n\n  template <typename RandomAccessIterator>\n  ::std::enable_if_t<\n\
-    \    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
-    \ ::std::iterator_traits<RandomAccessIterator>::iterator_category\n    >,\n  \
-    \  ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>\n\
-    \  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator\
-    \ end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
-    \ c, const int M) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
+    \ il.end(), c);\n  }\n\n  template <typename RandomAccessIterator, typename OutputIterator>\n\
+    \  ::std::enable_if_t<\n    ::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
+    \      typename ::std::iterator_traits<RandomAccessIterator>::iterator_category\n\
+    \    >,\n    void\n  > sample_point_shift(const RandomAccessIterator begin, const\
+    \ RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type\
+    \ c, const int M, OutputIterator result) {\n    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;\n\
     \    assert(::tools::is_prime(T::mod()));\n    const int N = ::std::distance(begin,\
     \ end);\n    assert(1 <= N && N <= T::mod());\n    assert(0 <= M);\n    if (M\
-    \ == 0) return ::std::vector<T>{};\n    if (M == 1) return ::std::vector<T>{::tools::sample_point_shift(begin,\
-    \ end, c)};\n    ::tools::fact_mod_cache<T> cache;\n    const ::std::array<T,\
-    \ 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n    {\n      ::std::vector<T>\
-    \ a1(N);\n      for (int i = 0; i < N; ++i) {\n        a1[i] = begin[i] * cache.fact_inv(i);\n\
-    \      }\n\n      ::std::vector<T> b1(N);\n      for (int i = 0; i < N; ++i) {\n\
-    \        b1[i] = minus_1_pow[i & 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(),\
-    \ a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N);\n\
-    \    }\n\n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N);\n   \
-    \   for (int i = 0; i < N; ++i) {\n        a2[i] = c1[N - 1 - i] * cache.fact(N\
-    \ - 1 - i);\n      }\n\n      ::std::vector<T> b2(N);\n      b2[0] = T(1);\n \
-    \     T b = c;\n      for (int i = 1; i < N; ++i, --b) {\n        b2[i] = b2[i\
-    \ - 1] * b;\n      }\n      for (int i = 0; i < N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
+    \ == 1) {\n      result = ::tools::sample_point_shift(begin, end, c);\n      ++result;\n\
+    \    }\n    if (M <= 1) return;\n    ::tools::fact_mod_cache<T> cache;\n    const\
+    \ ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};\n\n    ::std::vector<T> c1;\n\
+    \    {\n      ::std::vector<T> a1(N);\n      for (int i = 0; i < N; ++i) {\n \
+    \       a1[i] = begin[i] * cache.fact_inv(i);\n      }\n\n      ::std::vector<T>\
+    \ b1(N);\n      for (int i = 0; i < N; ++i) {\n        b1[i] = minus_1_pow[i &\
+    \ 1] * cache.fact_inv(i);\n      }\n\n      ::tools::convolution(a1.begin(), a1.end(),\
+    \ b1.begin(), b1.end(), ::std::back_inserter(c1));\n      c1.resize(N);\n    }\n\
+    \n    ::std::vector<T> c2;\n    {\n      ::std::vector<T> a2(N);\n      for (int\
+    \ i = 0; i < N; ++i) {\n        a2[i] = c1[N - 1 - i] * cache.fact(N - 1 - i);\n\
+    \      }\n\n      ::std::vector<T> b2(N);\n      b2[0] = T(1);\n      T b = c;\n\
+    \      for (int i = 1; i < N; ++i, --b) {\n        b2[i] = b2[i - 1] * b;\n  \
+    \    }\n      for (int i = 0; i < N; ++i) {\n        b2[i] *= cache.fact_inv(i);\n\
     \      }\n\n      ::tools::convolution(a2.begin(), a2.end(), b2.begin(), b2.end(),\
     \ ::std::back_inserter(c2));\n      c2.resize(N);\n      ::std::reverse(c2.begin(),\
     \ c2.end());\n      for (int i = 0; i < N; ++i) {\n        c2[i] *= cache.fact_inv(i);\n\
@@ -940,17 +954,24 @@ data:
     \     ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));\n\
     \      c3.resize(m);\n      for (int i = 0; i < m; ++i) {\n        c3[i] *= cache.fact(i);\n\
     \      }\n    }\n\n    c3.resize(M);\n    for (int i = m; i < M; ++i) {\n    \
-    \  c3[i] = c3[i % T::mod()];\n    }\n\n    return c3;\n  }\n\n  template <typename\
-    \ InputIterator>\n  ::std::enable_if_t<\n    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n\
-    \      typename ::std::iterator_traits<InputIterator>::iterator_category\n   \
-    \ >,\n    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  c3[i] = c3[i % T::mod()];\n    }\n\n    ::std::copy(c3.begin(), c3.end(), result);\n\
+    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  ::std::enable_if_t<\n\
+    \    !::std::is_base_of_v<\n      ::std::random_access_iterator_tag,\n      typename\
+    \ ::std::iterator_traits<InputIterator>::iterator_category\n    >,\n    void\n\
     \  > sample_point_shift(const InputIterator begin, const InputIterator end, const\
+    \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    const ::std::vector<T> samples(begin, end);\n    ::tools::sample_point_shift(samples.begin(),\
+    \ samples.end(), c, M, result);\n  }\n\n  template <typename InputIterator>\n\
+    \  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>\n\
+    \  sample_point_shift(const InputIterator begin, const InputIterator end, const\
     \ typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {\n\
     \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
-    \   const ::std::vector<T> samples(begin, end);\n    return ::tools::sample_point_shift(samples.begin(),\
-    \ samples.end(), c, M);\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
-    \ ::std::initializer_list<T> il, const T c, const int M) {\n    return ::tools::sample_point_shift(il.begin(),\
-    \ il.end(), c, M);\n  }\n}\n\n#endif\n"
+    \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
+    \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
+    \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
+    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \    return res;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -972,11 +993,14 @@ data:
   - tools/garner3.hpp
   isVerificationFile: false
   path: tools/sample_point_shift.hpp
-  requiredBy: []
-  timestamp: '2024-04-10 21:59:36+09:00'
+  requiredBy:
+  - tools/large_fact_mod_cache.hpp
+  timestamp: '2024-04-13 07:19:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/sample_point_shift.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
 documentation_of: tools/sample_point_shift.hpp
 layout: document
 title: Shift of sampling points of polynomial
@@ -1028,11 +1052,12 @@ It is equivalent to `sample_point_shift(il.begin(), il.end(), c)`.
 
 ## (3)
 ```cpp
-template <typename InputIterator>
-std::vector<typename std::iterator_traits<InputIterator>::value_type> sample_point_shift(InputIterator begin, InputIterator end, typename std::iterator_traits<InputIterator>::value_type c, int M);
+template <typename InputIterator, typename OutputIterator>
+void sample_point_shift(InputIterator begin, InputIterator end, typename std::iterator_traits<InputIterator>::value_type c, int M, OutputIterator result);
 ```
 
-Given sampling points $f(0), f(1), \ldots, f(N - 1) \pmod{P}$ of polynomial $f(x)$ of degree less than $N$, it returns $f(c), f(c + 1), \ldots, f(c + M - 1) \pmod{P}$ where $P$ is `std::iterator_traits<InputIterator>::value_type::mod()`.
+Given sampling points $f(0), f(1), \ldots, f(N - 1) \pmod{P}$ of polynomial $f(x)$ of degree less than $N$, it stores $f(c), f(c + 1), \ldots, f(c + M - 1) \pmod{P}$ to `result` where $P$ is `std::iterator_traits<InputIterator>::value_type::mod()`.
+Note that `sample_point_shift(a.begin(), a.end(), c, M, std::back_inserter(a))` is well-formed. (However, `a.begin()` and `a.end()` may become invalid.)
 
 ### References
 - [Shift of Sampling Points of Polynomialの実装 \| Mathlog](https://mathlog.info/articles/3351)
@@ -1053,6 +1078,34 @@ Given sampling points $f(0), f(1), \ldots, f(N - 1) \pmod{P}$ of polynomial $f(x
 - anqooqie
 
 ## (4)
+```cpp
+template <typename InputIterator>
+std::vector<typename std::iterator_traits<InputIterator>::value_type> sample_point_shift(InputIterator begin, InputIterator end, typename std::iterator_traits<InputIterator>::value_type c, int M);
+```
+
+It is equivalent to
+```cpp
+std::vector<typename std::iterator_traits<InputIterator>::value_type> res;
+sample_point_shift(begin, end, c, M, std::back_inserter(res));
+return res;
+```
+
+### Constraints
+- `typename std::iterator_traits<InputIterator>::value_type` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $P$ is a prime.
+- $1 \leq N \leq P$
+- $M \geq 0$
+
+### Time Complexity
+- $O\left( (N + M) \log(N + M) \right)$
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## (5)
 ```cpp
 template <typename T>
 std::vector<T> sample_point_shift(std::initializer_list<T> il, T c, int M);

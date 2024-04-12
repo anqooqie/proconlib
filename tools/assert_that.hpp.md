@@ -100,6 +100,9 @@ data:
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
   - icon: ':heavy_check_mark:'
@@ -239,6 +242,7 @@ data:
   - tests/ceil_log.test.cpp
   - tests/ssize.test.cpp
   - tests/digit_sum.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/fix.test.cpp

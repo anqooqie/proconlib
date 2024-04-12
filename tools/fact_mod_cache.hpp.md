@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -36,6 +36,9 @@ data:
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/large_fact_mod_cache.hpp
+    title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -44,7 +47,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -69,6 +72,12 @@ data:
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/binomial.test.cpp
+    title: tests/large_fact_mod_cache/binomial.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/large_fact_mod_cache/fact.test.cpp
+    title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
   - icon: ':heavy_check_mark:'
@@ -77,7 +86,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -95,7 +104,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -107,9 +116,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd.test.cpp
     title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -171,89 +180,87 @@ data:
     \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
     \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
     \ {\n    return c.size();\n  }\n}\n\n\n#line 10 \"tools/fact_mod_cache.hpp\"\n\
-    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n  private:\n\
-    \    ::std::vector<M> m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M>\
-    \ m_fact_inv;\n\n  public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}),\
-    \ m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n     \
-    \ assert(::tools::is_prime(M::mod()));\n    }\n    fact_mod_cache(const ::tools::fact_mod_cache<M>&)\
-    \ = default;\n    fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;\n  \
-    \  ~fact_mod_cache() = default;\n    ::tools::fact_mod_cache<M>& operator=(const\
-    \ ::tools::fact_mod_cache<M>&) = default;\n    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&)\
-    \ = default;\n\n    M inv(const long long n) {\n      assert(n % M::mod() != 0);\n\
-    \      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
-    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
-    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
-    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
-    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
-    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
-    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
-    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
-    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
-    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
-    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
-    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
-    \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
-    \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
-    \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
-    \    }\n\n    explicit fact_mod_cache(const long long max) : fact_mod_cache()\
-    \ {\n      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
-    \ long>(max, M::mod() - 1));\n    }\n\n    M combination(long long n, long long\
-    \ r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\n      this->fact(::std::min<long\
-    \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
-    \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
-    \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
-    \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
-    \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
-    \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
-    \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
-    \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
-    \    }\n    M combination_with_repetition(const long long n, const long long r)\
-    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
-    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n\n"
-  code: "#ifndef TOOLS_FACT_MOD_CACHE_HPP\n#define TOOLS_FACT_MOD_CACHE_HPP\n\n#include\
-    \ <vector>\n#include <cassert>\n#include <algorithm>\n#include <cmath>\n#include\
-    \ \"tools/is_prime.hpp\"\n#include \"tools/ssize.hpp\"\n\nnamespace tools {\n\n\
-    \  template <class M>\n  class fact_mod_cache {\n  private:\n    ::std::vector<M>\
+    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n    ::std::vector<M>\
     \ m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M> m_fact_inv;\n\n \
     \ public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1),\
     \ M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n\
-    \    }\n    fact_mod_cache(const ::tools::fact_mod_cache<M>&) = default;\n   \
-    \ fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;\n    ~fact_mod_cache()\
-    \ = default;\n    ::tools::fact_mod_cache<M>& operator=(const ::tools::fact_mod_cache<M>&)\
-    \ = default;\n    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&)\
-    \ = default;\n\n    M inv(const long long n) {\n      assert(n % M::mod() != 0);\n\
-    \      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
-    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
-    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
-    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
-    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
-    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
-    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
-    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
-    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
-    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
-    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
-    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \    }\n    explicit fact_mod_cache(const long long max) : fact_mod_cache() {\n\
+    \      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
+    \ long>(max, M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n\
+    \ % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
+    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
+    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
+    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
+    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
+    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
+    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
+    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
+    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
+    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
+    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
     \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
     \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
     \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
-    \    }\n\n    explicit fact_mod_cache(const long long max) : fact_mod_cache()\
-    \ {\n      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
-    \ long>(max, M::mod() - 1));\n    }\n\n    M combination(long long n, long long\
-    \ r) {\n      if (!(0 <= r && r <= n)) return M::raw(0);\n\n      this->fact(::std::min<long\
+    \    }\n\n    M binomial(long long n, long long r) {\n      if (r < 0) return\
+    \ M::raw(0);\n      if (0 <= n && n < r) return M::raw(0);\n      if (n < 0) return\
+    \ M(1 - ((r & 1) << 1)) * this->binomial(-n + r - 1, r);\n\n      this->fact(::std::min<long\
     \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
     \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
     \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
     \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
     \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
     \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
-    \    }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
-    \ <= r && r <= n)) return M::raw(0);\n      return this->combination(n, r) * this->fact(r);\n\
+    \    }\n    M combination(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r);\n   \
+    \ }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n\
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
-    \ {\n      if (n < 0) return M::raw(0);\n      if (r < 0) return M::raw(0);\n\
-    \      if (n == 0 && r == 0) return M(1);\n      return this->combination(n +\
-    \ r - 1, r);\n    }\n  };\n}\n\n#endif\n"
+    \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
+    \ + r - 1, r);\n    }\n  };\n}\n\n\n"
+  code: "#ifndef TOOLS_FACT_MOD_CACHE_HPP\n#define TOOLS_FACT_MOD_CACHE_HPP\n\n#include\
+    \ <vector>\n#include <cassert>\n#include <algorithm>\n#include <cmath>\n#include\
+    \ \"tools/is_prime.hpp\"\n#include \"tools/ssize.hpp\"\n\nnamespace tools {\n\n\
+    \  template <class M>\n  class fact_mod_cache {\n    ::std::vector<M> m_inv;\n\
+    \    ::std::vector<M> m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n\
+    \    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}),\
+    \ m_fact_inv({M::raw(1), M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n\
+    \    }\n    explicit fact_mod_cache(const long long max) : fact_mod_cache() {\n\
+    \      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
+    \ long>(max, M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n\
+    \ % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
+    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
+    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
+    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
+    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
+    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
+    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
+    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
+    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
+    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
+    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
+    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
+    \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
+    \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
+    \    }\n\n    M binomial(long long n, long long r) {\n      if (r < 0) return\
+    \ M::raw(0);\n      if (0 <= n && n < r) return M::raw(0);\n      if (n < 0) return\
+    \ M(1 - ((r & 1) << 1)) * this->binomial(-n + r - 1, r);\n\n      this->fact(::std::min<long\
+    \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
+    \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
+    \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
+    \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
+    \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
+    \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
+    \    }\n    M combination(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r);\n   \
+    \ }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
+    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n\
+    \    }\n    M combination_with_repetition(const long long n, const long long r)\
+    \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
+    \ + r - 1, r);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -271,12 +278,13 @@ data:
   - tools/stirling_2nd.hpp
   - tools/sample_point_shift.hpp
   - tools/bernoulli.hpp
+  - tools/large_fact_mod_cache.hpp
   - tools/stirling_1st.hpp
   - tools/berlekamp_massey.hpp
   - tools/sparse_fps_pow.hpp
   - tools/polynomial.hpp
-  timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-13 07:19:11+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
   - tests/bostan_mori.test.cpp
@@ -294,14 +302,16 @@ data:
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/berlekamp_massey.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
   - tests/stirling_2nd.test.cpp
 documentation_of: tools/fact_mod_cache.hpp
 layout: document
-title: Precompute $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P},
-  {}_n P_r \pmod{P}$
+title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
 ---
 
-It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {}_n P_r \pmod{P}$.
+It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ and returns them in $O(1)$ amortized time.
+It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P}$ in logarithmic amortized time.
 
 ### License
 - CC0
@@ -316,9 +326,9 @@ It returns $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}, {}_n C_r \pmod{P}, {
 ```
 
 - (1)
-    - It creates an empty cache to store $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}$ where $P$ is `M::mod()`.
+    - It creates an empty cache to store $n^{-1}, n!, n!^{-1} \pmod{P}$ where $P$ is `M::mod()`.
 - (2)
-    - It precomputes $n^{-1} \pmod{P}, n! \pmod{P}, n!^{-1} \pmod{P}$ for $0 \leq n \leq N$, where $P$ is `M::mod()`.
+    - It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ for any $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
 
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
@@ -372,6 +382,25 @@ It returns $n!^{-1} \pmod{P}$.
 - $O(n)$ worst
 - $O(1)$ amortized
 
+## binomial
+```cpp
+M cache.binomial(long long n, long long r);
+```
+
+It returns $\dbinom{n}{r} \pmod{P}$.
+Note that $\dbinom{-n}{r} = (-1)^r \dbinom{n + r - 1}{r}$.
+
+### Constraints
+- None
+
+### Time Complexity
+- ($n \geq 0$):
+    - $O(\min(n, P) + \log_P(n))$ worst
+    - $O(\log_P(n))$ amortized
+- ($n < 0$):
+    - $O(\min(\|n\| + r, P) + \log_P(\|n\| + r))$ worst
+    - $O(\log_P(\|n\| + r))$ amortized
+
 ## combination
 ```cpp
 M cache.combination(long long n, long long r);
@@ -381,7 +410,7 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-{}_n C_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
+{}_n \mathrm{C}_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
 0 \pmod{P} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
@@ -402,7 +431,7 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-{}_n P_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
+{}_n \mathrm{P}_r \pmod{P} & \text{(if $0 \leq r \leq n$)}\\
 0 \pmod{P} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
@@ -423,7 +452,7 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-{}_n H_r \pmod{P} & \text{(if $n \geq 0$ and $r \geq 0$)}\\
+{}_n \mathrm{H}_r \pmod{P} & \text{(if $n \geq 0$ and $r \geq 0$)}\\
 0 \pmod{P} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
