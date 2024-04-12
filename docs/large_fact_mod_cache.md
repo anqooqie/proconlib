@@ -1,10 +1,14 @@
 ---
-title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
-documentation_of: //tools/fact_mod_cache.hpp
+title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
+documentation_of: //tools/large_fact_mod_cache.hpp
 ---
 
-It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ and returns them in $O(1)$ amortized time.
-It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P}$ in logarithmic amortized time.
+It returns $n! \pmod{P}$ in $\left\langle O\left(\sqrt{P \log P}\right), O\left(\sqrt{P \log P}\right) \right\rangle$ time.
+It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P}$ in $O\left( \sqrt{\frac{P}{\log P}} \log n \right)$ time.
+Their constant factor is drastically low.
+
+### References
+- [階乗 mod 素数 - suisen のブログ](https://suisen-kyopro.hatenablog.com/entry/2023/11/22/201600)
 
 ### License
 - CC0
@@ -14,38 +18,17 @@ It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P
 
 ## Constructor
 ```cpp
-(1) fact_mod_cache<M> cache();
-(2) fact_mod_cache<M> cache(long long N);
+large_fact_mod_cache<M> cache();
 ```
 
-- (1)
-    - It creates an empty cache to store $n^{-1}, n!, n!^{-1} \pmod{P}$ where $P$ is `M::mod()`.
-- (2)
-    - It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ for any $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
+It precomputes $n! \pmod{P}$ where $P$ is `M::mod()`.
 
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-- `M::mod()` is a prime
+- `M::mod()` is a prime.
 
 ### Time Complexity
-- (1)
-    - $O(1)$
-- (2)
-    - $O(\min(N, P))$
-
-## inv
-```cpp
-M cache.inv(long long n);
-```
-
-It returns $n^{-1} \pmod{P}$.
-
-### Constraints
-- $n \not\equiv 0 \pmod{P}$
-
-### Time Complexity
-- $O(\min(\|n\|, P))$ worst
-- $O(1)$ amortized
+- $O\left(\sqrt{P \log P}\right)$
 
 ## fact
 ```cpp
@@ -58,22 +41,7 @@ It returns $n! \pmod{P}$.
 - $n \geq 0$
 
 ### Time Complexity
-- $O(\min(n, P))$ worst
-- $O(1)$ amortized
-
-## fact_inv
-```cpp
-M cache.fact_inv(long long n);
-```
-
-It returns $n!^{-1} \pmod{P}$.
-
-### Constraints
-- $0 < n < P$
-
-### Time Complexity
-- $O(n)$ worst
-- $O(1)$ amortized
+- $O\left(\sqrt{P \log P}\right)$
 
 ## binomial
 ```cpp
@@ -88,11 +56,9 @@ Note that $\dbinom{-n}{r} = (-1)^r \dbinom{n + r - 1}{r}$.
 
 ### Time Complexity
 - ($n \geq 0$):
-    - $O(\min(n, P) + \log_P(n))$ worst
-    - $O(\log_P(n))$ amortized
+    - $O\left( \sqrt{\frac{P}{\log P}} \log n \right)$
 - ($n < 0$):
-    - $O(\min(\|n\| + r, P) + \log_P(\|n\| + r))$ worst
-    - $O(\log_P(\|n\| + r))$ amortized
+    - $O\left( \sqrt{\frac{P}{\log P}} \log (\|n\| + r) \right)$
 
 ## combination
 ```cpp
@@ -112,8 +78,7 @@ $$\begin{align*}
 - None
 
 ### Time Complexity
-- $O(\min(n, P) + \log_P(n))$ worst
-- $O(\log_P(n))$ amortized
+- $O\left( \sqrt{\frac{P}{\log P}} \log n \right)$
 
 ## permutation
 ```cpp
@@ -133,8 +98,7 @@ $$\begin{align*}
 - None
 
 ### Time Complexity
-- $O(\min(n, P) + \log_P(n))$ worst
-- $O(\log_P(n))$ amortized
+- $O\left( \sqrt{\frac{P}{\log P}} \log n \right)$
 
 ## combination_with_repetition
 ```cpp
@@ -154,5 +118,4 @@ $$\begin{align*}
 - None
 
 ### Time Complexity
-- $O(\min(n + r, P) + \log_P(n + r))$ worst
-- $O(\log_P(n + r))$ amortized
+- $O\left( \sqrt{\frac{P}{\log P}} \log (n + r) \right)$

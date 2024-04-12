@@ -12,7 +12,6 @@ namespace tools {
 
   template <class M>
   class fact_mod_cache {
-  private:
     ::std::vector<M> m_inv;
     ::std::vector<M> m_fact;
     ::std::vector<M> m_fact_inv;
@@ -21,11 +20,10 @@ namespace tools {
     fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {
       assert(::tools::is_prime(M::mod()));
     }
-    fact_mod_cache(const ::tools::fact_mod_cache<M>&) = default;
-    fact_mod_cache(::tools::fact_mod_cache<M>&&) = default;
-    ~fact_mod_cache() = default;
-    ::tools::fact_mod_cache<M>& operator=(const ::tools::fact_mod_cache<M>&) = default;
-    ::tools::fact_mod_cache<M>& operator=(::tools::fact_mod_cache<M>&&) = default;
+    explicit fact_mod_cache(const long long max) : fact_mod_cache() {
+      this->fact(::std::min<long long>(max, M::mod() - 1));
+      this->fact_inv(::std::min<long long>(max, M::mod() - 1));
+    }
 
     M inv(const long long n) {
       assert(n % M::mod() != 0);
@@ -58,13 +56,10 @@ namespace tools {
       return this->m_fact_inv[n];
     }
 
-    explicit fact_mod_cache(const long long max) : fact_mod_cache() {
-      this->fact(::std::min<long long>(max, M::mod() - 1));
-      this->fact_inv(::std::min<long long>(max, M::mod() - 1));
-    }
-
-    M combination(long long n, long long r) {
-      if (!(0 <= r && r <= n)) return M::raw(0);
+    M binomial(long long n, long long r) {
+      if (r < 0) return M::raw(0);
+      if (0 <= n && n < r) return M::raw(0);
+      if (n < 0) return M(1 - ((r & 1) << 1)) * this->binomial(-n + r - 1, r);
 
       this->fact(::std::min<long long>(n, M::mod() - 1));
       this->fact_inv(::std::min<long long>(n, M::mod() - 1));
@@ -81,15 +76,17 @@ namespace tools {
 
       return result;
     }
+    M combination(const long long n, const long long r) {
+      if (!(0 <= r && r <= n)) return M::raw(0);
+      return this->binomial(n, r);
+    }
     M permutation(const long long n, const long long r) {
       if (!(0 <= r && r <= n)) return M::raw(0);
-      return this->combination(n, r) * this->fact(r);
+      return this->binomial(n, r) * this->fact(r);
     }
     M combination_with_repetition(const long long n, const long long r) {
-      if (n < 0) return M::raw(0);
-      if (r < 0) return M::raw(0);
-      if (n == 0 && r == 0) return M(1);
-      return this->combination(n + r - 1, r);
+      if (n < 0 || r < 0) return M::raw(0);
+      return this->binomial(n + r - 1, r);
     }
   };
 }

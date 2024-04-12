@@ -66,21 +66,24 @@ namespace tools {
     return ::tools::sample_point_shift(il.begin(), il.end(), c);
   }
 
-  template <typename RandomAccessIterator>
+  template <typename RandomAccessIterator, typename OutputIterator>
   ::std::enable_if_t<
     ::std::is_base_of_v<
       ::std::random_access_iterator_tag,
       typename ::std::iterator_traits<RandomAccessIterator>::iterator_category
     >,
-    ::std::vector<typename ::std::iterator_traits<RandomAccessIterator>::value_type>
-  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type c, const int M) {
+    void
+  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type c, const int M, OutputIterator result) {
     using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;
     assert(::tools::is_prime(T::mod()));
     const int N = ::std::distance(begin, end);
     assert(1 <= N && N <= T::mod());
     assert(0 <= M);
-    if (M == 0) return ::std::vector<T>{};
-    if (M == 1) return ::std::vector<T>{::tools::sample_point_shift(begin, end, c)};
+    if (M == 1) {
+      result = ::tools::sample_point_shift(begin, end, c);
+      ++result;
+    }
+    if (M <= 1) return;
     ::tools::fact_mod_cache<T> cache;
     const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
 
@@ -147,25 +150,36 @@ namespace tools {
       c3[i] = c3[i % T::mod()];
     }
 
-    return c3;
+    ::std::copy(c3.begin(), c3.end(), result);
   }
 
-  template <typename InputIterator>
+  template <typename InputIterator, typename OutputIterator>
   ::std::enable_if_t<
     !::std::is_base_of_v<
       ::std::random_access_iterator_tag,
       typename ::std::iterator_traits<InputIterator>::iterator_category
     >,
-    ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>
-  > sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {
+    void
+  > sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M, const OutputIterator result) {
     using T = typename ::std::iterator_traits<InputIterator>::value_type;
     const ::std::vector<T> samples(begin, end);
-    return ::tools::sample_point_shift(samples.begin(), samples.end(), c, M);
+    ::tools::sample_point_shift(samples.begin(), samples.end(), c, M, result);
+  }
+
+  template <typename InputIterator>
+  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>
+  sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {
+    using T = typename ::std::iterator_traits<InputIterator>::value_type;
+    ::std::vector<T> res;
+    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));
+    return res;
   }
 
   template <typename T>
   ::std::vector<T> sample_point_shift(const ::std::initializer_list<T> il, const T c, const int M) {
-    return ::tools::sample_point_shift(il.begin(), il.end(), c, M);
+    ::std::vector<T> res;
+    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));
+    return res;
   }
 }
 
