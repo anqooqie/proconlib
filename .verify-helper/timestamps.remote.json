@@ -148,6 +148,7 @@
 "tests/polynomial/multidimensional.test.cpp": "2024-04-13 07:19:11 +0900",
 "tests/polynomial/multipoint_evaluation.test.cpp": "2024-04-13 07:19:11 +0900",
 "tests/polynomial/multipoint_evaluation_other_mods.test.cpp": "2024-04-13 07:19:11 +0900",
+"tests/polynomial/naive_division.test.cpp": "2024-04-13 07:19:11 +0900",
 "tests/polynomial/ntt_division.test.cpp": "2024-04-13 07:19:11 +0900",
 "tests/polynomial/taylor_shift.test.cpp": "2024-04-13 07:19:11 +0900",
 "tests/polynomial_interpolation.test.cpp": "2024-04-13 07:19:11 +0900",
