@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
@@ -10,13 +10,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
@@ -46,8 +46,7 @@ data:
     title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
-    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
@@ -95,8 +94,11 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
@@ -296,10 +298,11 @@ data:
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/rolling_hash.test.cpp

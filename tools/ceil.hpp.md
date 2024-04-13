@@ -65,13 +65,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
-    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
@@ -229,15 +228,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
@@ -259,9 +261,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ceil.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -305,9 +307,8 @@ data:
   - tools/polynomial.hpp
   - tools/mo.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
@@ -321,6 +322,8 @@ data:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp

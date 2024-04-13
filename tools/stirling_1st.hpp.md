@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
   - icon: ':heavy_check_mark:'
@@ -28,29 +28,29 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
@@ -59,99 +59,47 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/stirling_1st.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <vector>\n#include <iterator>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include\
-    \ <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
-    \n\n\n\n#include <iostream>\n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\
-    \n#include <cstddef>\n#include <algorithm>\n#line 1 \"tools/abs.hpp\"\n\n\n\n\
-    namespace tools {\n  constexpr float abs(const float x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x < 0 ? -x\
-    \ : x;\n  }\n  constexpr long double abs(const long double x) {\n    return x\
-    \ < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ? -x\
-    \ : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x : x;\n\
-    \  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ? -x :\
-    \ x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return x;\n\
-    \  }\n  constexpr unsigned long abs(const unsigned long x) {\n    return x;\n\
-    \  }\n  constexpr unsigned long long abs(const unsigned long long x) {\n    return\
-    \ x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace tools {\n  using\
-    \ uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t abs(const ::tools::uint128_t&\
-    \ x) {\n    return x;\n  }\n}\n\n::std::istream& operator>>(::std::istream& is,\
-    \ ::tools::uint128_t& x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\
-    \n  x = 0;\n  for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0'\
-    \ <= s[i] && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n\
-    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n\
-    \  if (x == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n  \
-    \  s.push_back('0' + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(),\
-    \ s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3\
-    \ prod_mod(const T1 x, const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n\
-    \    u128 prod_mod = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n\
-    \    if ((x >= 0) ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n\
-    \  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\
-    \n\n#include <type_traits>\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> quo(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n\
-    \    if (lhs >= M(0)) {\n      return lhs / rhs;\n    } else {\n      if (rhs\
-    \ >= N(0)) {\n        return -((-lhs - T(1) + rhs) / rhs);\n      } else {\n \
-    \       return (-lhs - T(1) + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line\
-    \ 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> mod(const M lhs, const N rhs) {\n\
-    \    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>) {\n   \
-    \   return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs, rhs)\
-    \ * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
-    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
-    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
-    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
-    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
-    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
-    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
-    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
-    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
-    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
-    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
-    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
-    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
-    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/polynomial.hpp\"\n\n\n\n#line 5 \"tools/polynomial.hpp\"\n#include\
-    \ <utility>\n#include <complex>\n#line 9 \"tools/polynomial.hpp\"\n#include <initializer_list>\n\
-    #line 13 \"tools/polynomial.hpp\"\n#include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
-    \n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    \ <vector>\n#include <iterator>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\
+    \n#include <cstddef>\n#include <initializer_list>\n#include <utility>\n#line 9\
+    \ \"tools/fps.hpp\"\n#include <numeric>\n#include <algorithm>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\
+    \n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
     \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
@@ -354,37 +302,9 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/group.hpp\"\
-    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
-    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
-    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
-    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
-    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
-    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
-    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
-    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
-    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
-    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/monoid.hpp\"\
-    \n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include <limits>\n#line 7 \"tools/monoid.hpp\"\
-    \n\nnamespace tools {\n  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
     #include <bit>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus\
     \ >= 202002L\n\nusing std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\n\
@@ -551,16 +471,16 @@ data:
     \ static constexpr unsigned long long offset[5] = {\n            0, 0, M1M2M3,\
     \ 2 * M1M2M3, 3 * M1M2M3};\n        x -= offset[diff % 5];\n        c[i] = x;\n\
     \    }\n\n    return c;\n}\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/convolution.hpp\"\
-    \n\n\n\n#line 12 \"tools/convolution.hpp\"\n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\
-    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
-    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
-    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \n\n\n\n#line 5 \"tools/convolution.hpp\"\n#include <complex>\n#line 12 \"tools/convolution.hpp\"\
+    \n#include <cmath>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
+    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#line 7 \"tools/ceil_log2.hpp\"\n#include <tuple>\n#line 9 \"tools/ceil_log2.hpp\"\
-    \n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \n\n\n\n#line 6 \"tools/ceil_log2.hpp\"\n#include <limits>\n#include <tuple>\n\
+    #line 9 \"tools/ceil_log2.hpp\"\n#include <cstdint>\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
     \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
@@ -582,11 +502,64 @@ data:
     \ j = ::std::numeric_limits<T>::digits / 2;\n\n      for (const auto t_i : ::std::get<log2(::std::numeric_limits<T>::digits)\
     \ - 3>(t)) {\n        T k = (((x & t_i) == 0) ? 0 : j);\n        y += k;\n   \
     \     x >>= k;\n        j >>= 1;\n      }\n\n      return y;\n    }\n  }\n}\n\n\
-    \n#line 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename M1, typename M2, typename M3>\n\
-    \  M garner3(const M1& a, const M2& b, const M3& c, const M m) {\n    using ull\
-    \ = unsigned long long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n\
-    \    static const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
+    \n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n\
+    #line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include <iostream>\n#include <string>\n\
+    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
+    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
+    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
+    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
+    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
+    \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
+    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
+    \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
+    \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
+    \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
+    \ = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream&\
+    \ os, ::tools::uint128_t x) {\n  if (x == 0) return os << '0';\n\n  ::std::string\
+    \ s;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n \
+    \ ::std::reverse(s.begin(), s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"\
+    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
+    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
+    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
+    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
+    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
+    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
+    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
+    \    using T = ::std::common_type_t<M, N>;\n    if (lhs >= M(0)) {\n      return\
+    \ lhs / rhs;\n    } else {\n      if (rhs >= N(0)) {\n        return -((-lhs -\
+    \ T(1) + rhs) / rhs);\n      } else {\n        return (-lhs - T(1) + -rhs) / -rhs;\n\
+    \      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const\
+    \ M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
+    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
+    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
+    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
+    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
+    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
+    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
+    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
+    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
+    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
+    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
+    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
+    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
+    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
+    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
+    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
+    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
+    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
+    \ 1 \"tools/garner3.hpp\"\n\n\n\n#line 7 \"tools/garner3.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename M, typename M1, typename M2, typename M3>\n  M garner3(const\
+    \ M1& a, const M2& b, const M3& c, const M m) {\n    using ull = unsigned long\
+    \ long;\n    static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();\n    static\
+    \ const M3 m1_m2_inv_mod_m3 = (M3::raw(M1::mod()) * M3::raw(M2::mod())).inv();\n\
     \n    static const auto plus_mod = [](ull x, const ull y, const ull mod) {\n \
     \     assert(x < mod);\n      assert(y < mod);\n\n      x += y;\n      if (x >=\
     \ mod) x -= mod;\n      return x; \n    };\n\n    assert(m >= 1);\n    assert(M1::mod()\
@@ -599,10 +572,38 @@ data:
     \ ull(M1::mod()) * ull(M2::mod()), m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
     \ ull(t1.val()) * ull(M1::mod()) % m, m);\n    assert(r < ull(m));\n    r = plus_mod(r,\
     \ a.val() % m, m);\n    assert(r < ull(m));\n    return r;\n  }\n}\n\n\n#line\
-    \ 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace detail {\n  \
-    \  namespace convolution {\n      template <typename T, typename = void>\n   \
-    \   struct make_complex {\n        using type = T;\n      };\n\n      template\
-    \ <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
+    \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
+    \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
+    \ e() {\n        return T(0);\n      }\n      static T inv(const T& v) {\n   \
+    \     return -v;\n      }\n    };\n\n    template <typename G>\n    struct multiplies\
+    \ {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n      static T inv(const T& v) {\n        return e() / v;\n      }\n\
+    \    };\n\n    template <typename G>\n    struct bit_xor {\n      using T = G;\n\
+    \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
+    \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
+    \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"\
+    tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n\
+    \  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
+    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
+    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
+    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
+    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
+    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
+    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
+    \  }\n}\n\n\n#line 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace\
+    \ detail {\n    namespace convolution {\n      template <typename T, typename\
+    \ = void>\n      struct make_complex {\n        using type = T;\n      };\n\n\
+    \      template <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ void>> {\n        using type = ::std::complex<T>;\n      };\n\n      template\
     \ <typename T>\n      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;\n\
     \n      template <typename AG, typename MM, typename InputIterator1, typename\
@@ -1094,14 +1095,15 @@ data:
     \    friend F operator*(const F& f, const F& g) { return F(f) *= g; }\n    friend\
     \ F operator/(const F& f, const F& g) { return F(f) /= g; }\n    friend F operator<<(const\
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
-    \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/has_mod.hpp\"\
-    \n\n\n\n#line 6 \"tools/has_mod.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T, typename = ::std::void_t<>>\n  struct has_mod : ::std::false_type {};\n\n\
-    \  template <typename T>\n  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>>\
-    \ : ::std::true_type {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v\
-    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\
-    \n\n\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/polynomial.hpp\"\
+    \n\n\n\n#line 1 \"tools/has_mod.hpp\"\n\n\n\n#line 6 \"tools/has_mod.hpp\"\n\n\
+    namespace tools {\n  template <typename T, typename = ::std::void_t<>>\n  struct\
+    \ has_mod : ::std::false_type {};\n\n  template <typename T>\n  struct has_mod<T,\
+    \ ::std::void_t<decltype(::std::declval<T>().mod())>> : ::std::true_type {};\n\
+    \n  template <typename T>\n  inline constexpr bool has_mod_v = ::tools::has_mod<T>::value;\n\
+    }\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#line 1 \"tools/ssize.hpp\"\
+    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
     \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
     \ M>\n  class fact_mod_cache {\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
@@ -1578,37 +1580,65 @@ data:
     \ g) : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename... Args>\n\
     \    decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
     \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
-    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 14 \"tools/stirling_1st.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename M>\n  ::tools::fps<M> stirling_1st(const int n)\
-    \ {\n    assert(::tools::is_prime(M::mod()));\n    assert(0 <= n && n < M::mod());\n\
-    \n    ::std::vector<::tools::polynomial<M>> bases;\n    if (n > 0) {\n      bases.resize(::tools::floor_log2(n)\
-    \ + 1);\n      bases[0] = ::tools::polynomial<M>{M(0), M(1)};\n      for (int\
-    \ i = 1; i < ::tools::ssize(bases); ++i) {\n        bases[i] = bases[i - 1] *\
-    \ bases[i - 1](::tools::polynomial<M>{M(-::tools::pow2(i - 1)), M(1)});\n    \
-    \  }\n    }\n\n    const auto s = ::tools::fix([&](auto&& dfs, const int l, const\
-    \ int r) -> ::tools::polynomial<M> {\n      if (l == r) return ::tools::polynomial<M>{M(1)};\n\
-    \      const auto block = ::tools::pow2(::tools::floor_log2(r - l));\n      return\
-    \ block == r - l ? bases[::tools::floor_log2(r - l)](::tools::polynomial<M>{M(-l),\
-    \ M(1)}) : dfs(l, l + block) * dfs(l + block, r);\n    })(0, n);\n\n    return\
-    \ ::tools::fps<M>(s.pbegin(), ::std::next(s.pbegin(), n + 1));\n  }\n}\n\n\n"
+    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 16 \"tools/stirling_1st.hpp\"\n\nnamespace\
+    \ tools {\n\n  namespace stirling_1st {\n\n    template <typename M>\n    ::tools::fps<M>\
+    \ fixed_n(const int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n\
+    \      assert(0 <= N && N < M::mod());\n\n      ::std::vector<::tools::polynomial<M>>\
+    \ bases;\n      if (N > 0) {\n        bases.resize(::tools::floor_log2(N) + 1);\n\
+    \        bases[0] = ::tools::polynomial<M>{M(0), M(1)};\n        for (int i =\
+    \ 1; i < ::tools::ssize(bases); ++i) {\n          bases[i] = bases[i - 1] * bases[i\
+    \ - 1](::tools::polynomial<M>{M(-::tools::pow2(i - 1)), M(1)});\n        }\n \
+    \     }\n\n      const auto s = ::tools::fix([&](auto&& dfs, const int l, const\
+    \ int r) -> ::tools::polynomial<M> {\n        if (l == r) return ::tools::polynomial<M>{M(1)};\n\
+    \        const auto block = ::tools::pow2(::tools::floor_log2(r - l));\n     \
+    \   return block == r - l ? bases[::tools::floor_log2(r - l)](::tools::polynomial<M>{M(-l),\
+    \ M(1)}) : dfs(l, l + block) * dfs(l + block, r);\n      })(0, N);\n\n      return\
+    \ ::tools::fps<M>(s.pbegin(), ::std::next(s.pbegin(), K + 1));\n    }\n\n    template\
+    \ <typename M>\n    ::tools::fps<M> fixed_k(const int N, const int K) {\n    \
+    \  assert(::tools::is_prime(M::mod()));\n      assert(0 <= K && K < M::mod());\n\
+    \      assert(0 <= N && N < M::mod() + K - 1);\n      if (N < K) return ::tools::fps<M>(N\
+    \ + 1, M::raw(0));\n\n      ::tools::fact_mod_cache<M> cache;\n      ::tools::pow_mod_cache<M>\
+    \ pow_m1(-1);\n      ::tools::fps<M> f(N - K + 1);\n      for (int i = 0; i <=\
+    \ N - K; ++i) {\n        f[i] = cache.inv(i + 1);\n      }\n      f.pow_inplace(K);\n\
+    \      f *= cache.fact_inv(K);\n      for (int n = K; n <= N; ++n) {\n       \
+    \ f[n - K] *= cache.fact(n) * pow_m1[n + K];\n      }\n      f.insert(f.begin(),\
+    \ K, M::raw(0));\n      return f;\n    }\n\n    template <typename M>\n    ::tools::fps<M>\
+    \ diagonal(const int N) {\n      assert(N >= 0);\n      return ::tools::fps<M>(N\
+    \ + 1, M(1));\n    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_STIRLING_1ST_HPP\n#define TOOLS_STIRLING_1ST_HPP\n\n#include\
-    \ <cassert>\n#include <vector>\n#include <iterator>\n#include \"tools/is_prime.hpp\"\
-    \n#include \"tools/polynomial.hpp\"\n#include \"tools/floor_log2.hpp\"\n#include\
-    \ \"tools/ssize.hpp\"\n#include \"tools/pow2.hpp\"\n#include \"tools/fix.hpp\"\
-    \n#include \"tools/fps.hpp\"\n\nnamespace tools {\n  template <typename M>\n \
-    \ ::tools::fps<M> stirling_1st(const int n) {\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(0 <= n && n < M::mod());\n\n    ::std::vector<::tools::polynomial<M>>\
-    \ bases;\n    if (n > 0) {\n      bases.resize(::tools::floor_log2(n) + 1);\n\
-    \      bases[0] = ::tools::polynomial<M>{M(0), M(1)};\n      for (int i = 1; i\
-    \ < ::tools::ssize(bases); ++i) {\n        bases[i] = bases[i - 1] * bases[i -\
-    \ 1](::tools::polynomial<M>{M(-::tools::pow2(i - 1)), M(1)});\n      }\n    }\n\
-    \n    const auto s = ::tools::fix([&](auto&& dfs, const int l, const int r) ->\
-    \ ::tools::polynomial<M> {\n      if (l == r) return ::tools::polynomial<M>{M(1)};\n\
-    \      const auto block = ::tools::pow2(::tools::floor_log2(r - l));\n      return\
-    \ block == r - l ? bases[::tools::floor_log2(r - l)](::tools::polynomial<M>{M(-l),\
-    \ M(1)}) : dfs(l, l + block) * dfs(l + block, r);\n    })(0, n);\n\n    return\
-    \ ::tools::fps<M>(s.pbegin(), ::std::next(s.pbegin(), n + 1));\n  }\n}\n\n#endif\n"
+    \ <cassert>\n#include <vector>\n#include <iterator>\n#include \"tools/fps.hpp\"\
+    \n#include \"tools/is_prime.hpp\"\n#include \"tools/polynomial.hpp\"\n#include\
+    \ \"tools/floor_log2.hpp\"\n#include \"tools/ssize.hpp\"\n#include \"tools/pow2.hpp\"\
+    \n#include \"tools/fix.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\n#include\
+    \ \"tools/pow_mod_cache.hpp\"\n\nnamespace tools {\n\n  namespace stirling_1st\
+    \ {\n\n    template <typename M>\n    ::tools::fps<M> fixed_n(const int N, const\
+    \ int K) {\n      assert(::tools::is_prime(M::mod()));\n      assert(0 <= N &&\
+    \ N < M::mod());\n\n      ::std::vector<::tools::polynomial<M>> bases;\n     \
+    \ if (N > 0) {\n        bases.resize(::tools::floor_log2(N) + 1);\n        bases[0]\
+    \ = ::tools::polynomial<M>{M(0), M(1)};\n        for (int i = 1; i < ::tools::ssize(bases);\
+    \ ++i) {\n          bases[i] = bases[i - 1] * bases[i - 1](::tools::polynomial<M>{M(-::tools::pow2(i\
+    \ - 1)), M(1)});\n        }\n      }\n\n      const auto s = ::tools::fix([&](auto&&\
+    \ dfs, const int l, const int r) -> ::tools::polynomial<M> {\n        if (l ==\
+    \ r) return ::tools::polynomial<M>{M(1)};\n        const auto block = ::tools::pow2(::tools::floor_log2(r\
+    \ - l));\n        return block == r - l ? bases[::tools::floor_log2(r - l)](::tools::polynomial<M>{M(-l),\
+    \ M(1)}) : dfs(l, l + block) * dfs(l + block, r);\n      })(0, N);\n\n      return\
+    \ ::tools::fps<M>(s.pbegin(), ::std::next(s.pbegin(), K + 1));\n    }\n\n    template\
+    \ <typename M>\n    ::tools::fps<M> fixed_k(const int N, const int K) {\n    \
+    \  assert(::tools::is_prime(M::mod()));\n      assert(0 <= K && K < M::mod());\n\
+    \      assert(0 <= N && N < M::mod() + K - 1);\n      if (N < K) return ::tools::fps<M>(N\
+    \ + 1, M::raw(0));\n\n      ::tools::fact_mod_cache<M> cache;\n      ::tools::pow_mod_cache<M>\
+    \ pow_m1(-1);\n      ::tools::fps<M> f(N - K + 1);\n      for (int i = 0; i <=\
+    \ N - K; ++i) {\n        f[i] = cache.inv(i + 1);\n      }\n      f.pow_inplace(K);\n\
+    \      f *= cache.fact_inv(K);\n      for (int n = K; n <= N; ++n) {\n       \
+    \ f[n - K] *= cache.fact(n) * pow_m1[n + K];\n      }\n      f.insert(f.begin(),\
+    \ K, M::raw(0));\n      return f;\n    }\n\n    template <typename M>\n    ::tools::fps<M>\
+    \ diagonal(const int N) {\n      assert(N >= 0);\n      return ::tools::fps<M>(N\
+    \ + 1, M(1));\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
+  - tools/fps.hpp
+  - tools/convolution.hpp
+  - tools/pow2.hpp
+  - tools/ceil_log2.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
   - tools/uint128_t.hpp
@@ -1616,15 +1646,11 @@ data:
   - tools/pow_mod.hpp
   - tools/mod.hpp
   - tools/quo.hpp
-  - tools/polynomial.hpp
+  - tools/garner3.hpp
   - tools/group.hpp
   - tools/monoid.hpp
-  - tools/fps.hpp
-  - tools/convolution.hpp
-  - tools/pow2.hpp
-  - tools/ceil_log2.hpp
-  - tools/garner3.hpp
   - tools/less_by_first.hpp
+  - tools/polynomial.hpp
   - tools/has_mod.hpp
   - tools/fact_mod_cache.hpp
   - tools/ssize.hpp
@@ -1638,34 +1664,98 @@ data:
   isVerificationFile: false
   path: tools/stirling_1st.hpp
   requiredBy: []
-  timestamp: '2024-04-13 13:54:52+09:00'
+  timestamp: '2024-04-13 17:08:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
 documentation_of: tools/stirling_1st.hpp
 layout: document
-title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq n$
+title: Signed Stirling numbers of the first kind
 ---
 
+It calculates the signed Stirling numbers of the first kind $s(n, k) = [x^k] (x)_n$.
+
+### List of $s(n, k)$
+
+|$n \backslash k$|$0$|                   $1$|                     $2$|                    $3$|                     $4$|                    $5$|                    $6$|                   $7$|                   $8$|              $9$|              $10$|          $11$|        $12$|     $13$|  $14$|$15$|
+|             $0$|$1$|                   $0$|                     $0$|                    $0$|                     $0$|                    $0$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $1$|$0$|                   $1$|                     $0$|                    $0$|                     $0$|                    $0$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $2$|$0$|                  $-1$|                     $1$|                    $0$|                     $0$|                    $0$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $3$|$0$|                   $2$|                    $-3$|                    $1$|                     $0$|                    $0$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $4$|$0$|                  $-6$|                    $11$|                   $-6$|                     $1$|                    $0$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $5$|$0$|                  $24$|                   $-50$|                   $35$|                   $-10$|                    $1$|                    $0$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $6$|$0$|                $-120$|                   $274$|                 $-225$|                    $85$|                  $-15$|                    $1$|                   $0$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $7$|$0$|                 $720$|              $-1{,}764$|              $1{,}624$|                  $-735$|                  $175$|                  $-21$|                   $1$|                   $0$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $8$|$0$|            $-5{,}040$|              $13{,}068$|            $-13{,}132$|               $6{,}769$|             $-1{,}960$|                  $322$|                 $-28$|                   $1$|              $0$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|             $9$|$0$|            $40{,}320$|            $-109{,}584$|            $118{,}124$|             $-67{,}284$|             $22{,}449$|             $-4{,}536$|                 $546$|                 $-36$|              $1$|               $0$|           $0$|         $0$|      $0$|   $0$| $0$|
+|            $10$|$0$|          $-362{,}880$|         $1{,}026{,}576$|       $-1{,}172{,}700$|             $723{,}680$|           $-269{,}325$|             $63{,}273$|            $-9{,}450$|                 $870$|            $-45$|               $1$|           $0$|         $0$|      $0$|   $0$| $0$|
+|            $11$|$0$|       $3{,}628{,}800$|       $-10{,}628{,}640$|       $12{,}753{,}576$|        $-8{,}409{,}500$|        $3{,}416{,}930$|           $-902{,}055$|           $157{,}773$|           $-18{,}150$|        $1{,}320$|            $-55$|            $1$|         $0$|      $0$|   $0$| $0$|
+|            $12$|$0$|     $-39{,}916{,}800$|       $120{,}543{,}840$|     $-150{,}917{,}976$|       $105{,}258{,}076$|      $-45{,}995{,}730$|       $13{,}339{,}535$|      $-2{,}637{,}558$|           $357{,}423$|      $-32{,}670$|        $1{,}925$|          $-66$|         $1$|      $0$|   $0$| $0$|
+|            $13$|$0$|     $479{,}001{,}600$|  $-1{,}486{,}442{,}880$|  $1{,}931{,}559{,}552$|  $-1{,}414{,}014{,}888$|      $657{,}206{,}836$|     $-206{,}070{,}150$|      $44{,}990{,}231$|      $-6{,}926{,}634$|      $749{,}463$|      $-55{,}770$|      $2{,}717$|       $-78$|      $1$|   $0$| $0$|
+|            $14$|$0$|$-6{,}227{,}020{,}800$|  $19{,}802{,}759{,}040$|$-26{,}596{,}717{,}056$|  $20{,}313{,}753{,}096$| $-9{,}957{,}703{,}756$|  $3{,}336{,}118{,}786$|    $-790{,}943{,}153$|     $135{,}036{,}473$|$-16{,}669{,}653$|  $1{,}474{,}473$|    $-91{,}091$|   $3{,}731$|    $-91$|   $1$| $0$|
+|            $15$|$0$|$87{,}178{,}291{,}200$|$-283{,}465{,}647{,}360$|$392{,}156{,}797{,}824$|$-310{,}989{,}260{,}400$|$159{,}721{,}605{,}680$|$-56{,}663{,}366{,}760$|$14{,}409{,}322{,}928$|$-2{,}681{,}453{,}775$|$368{,}411{,}615$|$-37{,}312{,}275$|$2{,}749{,}747$|$-143{,}325$|$5{,}005$|$-105$| $1$|
+
+## stirling_1st::fixed_n
 ```cpp
 template <typename M>
-tools::fps<M> stirling_1st(int n);
+tools::fps<M> stirling_1st::fixed_n(int N, int K);
 ```
 
-It returns $s(n, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq n$, where $P$ is `M::mod()`.
-$s(n, k)$ are defined as the coefficients in the identity.
-
-$$\begin{align*}
-x (x - 1) \cdots (x - (n - 1)) &= \sum_{k = 0}^n s(n, k) x^k
-\end{align*}$$
+It returns $s(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
 
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
-- $0 \leq n < P$
+- $0 \leq N < P$
 
 ### Time Complexity
-- $O(n \log n)$
+- $O(N \log N + K)$
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## stirling_1st::fixed_k
+```cpp
+template <typename M>
+tools::fps<M> stirling_1st::fixed_k(int N, int K);
+```
+
+It returns $s(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $P$ is a prime.
+- $0 \leq K < P$
+- $0 \leq N < P + K - 1$
+
+### Time Complexity
+- $O((N - K) \log (N - K) + N)$
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## stirling_1st::diagonal
+```cpp
+template <typename M>
+tools::fps<M> stirling_1st::diagonal(int N);
+```
+
+It returns $s(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
+Note that $s(n, n) = 1$.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $N \geq 0$
+
+### Time Complexity
+- $O(N)$
 
 ### License
 - CC0

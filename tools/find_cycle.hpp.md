@@ -31,8 +31,7 @@ data:
     title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
-    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
@@ -83,8 +82,11 @@ data:
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
@@ -135,10 +137,11 @@ data:
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/rolling_hash.test.cpp

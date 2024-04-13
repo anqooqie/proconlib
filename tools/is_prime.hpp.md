@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
@@ -35,7 +35,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -44,17 +44,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -63,8 +63,7 @@ data:
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
-    title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
-      \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
+    title: Partition function
   - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
@@ -83,7 +82,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
   - icon: ':heavy_check_mark:'
@@ -91,8 +90,7 @@ data:
     title: $\sqrt{x} \pmod{P}$
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
-    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
@@ -227,11 +225,11 @@ data:
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n.test.cpp
-    title: tests/partition_function/n.test.cpp
+    path: tests/partition_function/all.test.cpp
+    title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n_k.test.cpp
-    title: tests/partition_function/n_k.test.cpp
+    path: tests/partition_function/diagonal.test.cpp
+    title: tests/partition_function/diagonal.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -283,7 +281,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
   - icon: ':heavy_check_mark:'
@@ -293,8 +291,11 @@ data:
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
@@ -313,9 +314,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line 1 \"\
@@ -423,9 +424,8 @@ data:
   - tools/polynomial.hpp
   - tools/totient.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
@@ -453,6 +453,8 @@ data:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
@@ -461,8 +463,8 @@ data:
   - tests/tetration_mod.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/partition_function/all.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp

@@ -1,60 +1,60 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n.test.cpp
-    title: tests/partition_function/n.test.cpp
+    path: tests/partition_function/all.test.cpp
+    title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/partition_function/n_k.test.cpp
-    title: tests/partition_function/n_k.test.cpp
+    path: tests/partition_function/diagonal.test.cpp
+    title: tests/partition_function/diagonal.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -1064,36 +1064,36 @@ data:
     \ F operator/(const F& f, const F& g) { return F(f) /= g; }\n    friend F operator<<(const\
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
     \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
-    \n\nnamespace tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
-    \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
-    \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
-    \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
-    \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
-    \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
-    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n\n\
-    \  template <typename M>\n  ::std::vector<::std::vector<M>> partition_function(const\
-    \ int n, const int k) {\n    assert(n >= 0);\n    assert(k >= 0);\n\n    auto\
-    \ dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));\n\n    dp[0][0] = M(1);\n\
-    \    for (int i = 0; i <= n; ++i) {\n      for (int j = !i; j <= k; ++j) {\n \
-    \       dp[i][j] = M(0);\n        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];\n\
-    \        if (i - j >= 0) dp[i][j] += dp[i - j][j];\n      }\n    }\n\n    return\
-    \ dp;\n  }\n}\n\n\n"
+    \n\nnamespace tools {\n\n  namespace partition_function {\n    template <typename\
+    \ M>\n    ::tools::fps<M> diagonal(const int N) {\n      assert(N >= 0);\n\n \
+    \     ::tools::fps<M> p(N + 1);\n      if (M::mod() == 1) return p;\n\n      ++p[0];\n\
+    \      for (int k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) /\
+    \ 2];\n      for (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k\
+    \ + 1) / 2];\n      for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k *\
+    \ (3 * k - 1) / 2];\n      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k\
+    \ * (3 * k - 1) / 2];\n      return p.inv();\n    }\n\n    template <typename\
+    \ M>\n    ::std::vector<::std::vector<M>> all(const int N, const int K) {\n  \
+    \    assert(N >= 0);\n      assert(K >= 0);\n\n      auto dp = ::std::vector(N\
+    \ + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0] = M(1);\n      for\
+    \ (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <= K; ++j) {\n      \
+    \    if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >= j) dp[i][j] += dp[i\
+    \ - j][j];\n        }\n      }\n\n      return dp;\n    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_PARTITION_FUNCTION_HPP\n#define TOOLS_PARTITION_FUNCTION_HPP\n\
     \n#include <cassert>\n#include <vector>\n#include \"tools/fps.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename M>\n  ::tools::fps<M> partition_function(const\
-    \ int n) {\n    assert(n >= 0);\n\n    ::tools::fps<M> p(n + 1);\n    if (M::mod()\
-    \ == 1) return p;\n\n    ++p[0];\n    for (int k = 1; k * (3 * k + 1) / 2 <= n;\
-    \ k += 2) --p[k * (3 * k + 1) / 2];\n    for (int k = 2; k * (3 * k + 1) / 2 <=\
-    \ n; k += 2) ++p[k * (3 * k + 1) / 2];\n    for (int k = 1; k * (3 * k - 1) /\
-    \ 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];\n    for (int k = 2; k * (3 * k -\
-    \ 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];\n    return p.inv();\n  }\n\n\
-    \  template <typename M>\n  ::std::vector<::std::vector<M>> partition_function(const\
-    \ int n, const int k) {\n    assert(n >= 0);\n    assert(k >= 0);\n\n    auto\
-    \ dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));\n\n    dp[0][0] = M(1);\n\
-    \    for (int i = 0; i <= n; ++i) {\n      for (int j = !i; j <= k; ++j) {\n \
-    \       dp[i][j] = M(0);\n        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];\n\
-    \        if (i - j >= 0) dp[i][j] += dp[i - j][j];\n      }\n    }\n\n    return\
-    \ dp;\n  }\n}\n\n#endif\n"
+    \ tools {\n\n  namespace partition_function {\n    template <typename M>\n   \
+    \ ::tools::fps<M> diagonal(const int N) {\n      assert(N >= 0);\n\n      ::tools::fps<M>\
+    \ p(N + 1);\n      if (M::mod() == 1) return p;\n\n      ++p[0];\n      for (int\
+    \ k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];\n      for\
+    \ (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n  \
+    \    for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n\
+    \      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) /\
+    \ 2];\n      return p.inv();\n    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>>\
+    \ all(const int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n\
+    \n      auto dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n\
+    \      dp[0][0] = M(1);\n      for (int i = 0; i <= N; ++i) {\n        for (int\
+    \ j = !i; j <= K; ++j) {\n          if (j > 0) dp[i][j] += dp[i][j - 1];\n   \
+    \       if (i >= j) dp[i][j] += dp[i - j][j];\n        }\n      }\n\n      return\
+    \ dp;\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1113,32 +1113,52 @@ data:
   isVerificationFile: false
   path: tools/partition_function.hpp
   requiredBy: []
-  timestamp: '2024-04-07 19:33:32+09:00'
+  timestamp: '2024-04-13 17:08:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/partition_function/n.test.cpp
-  - tests/partition_function/n_k.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/partition_function/all.test.cpp
 documentation_of: tools/partition_function.hpp
 layout: document
-title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j) \pmod{M}$
-  for $0 \leq i \leq n, 0 \leq j \leq k$
+title: Partition function
 ---
 
-## (1)
+It calculates the partition function $P(n, k)$, which is the number of partitions of a nonnegative integer $n$ into $k$ nonnegative integers.
 
+### List of $P(n, k)$
+
+|$n \backslash k$|$0$|$1$|$2$| $3$| $4$| $5$|  $6$|  $7$|  $8$|  $9$| $10$| $11$| $12$| $13$| $14$| $15$|
+|             $0$|$1$|$1$|$1$| $1$| $1$| $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|
+|             $1$|$0$|$1$|$1$| $1$| $1$| $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|  $1$|
+|             $2$|$0$|$1$|$2$| $2$| $2$| $2$|  $2$|  $2$|  $2$|  $2$|  $2$|  $2$|  $2$|  $2$|  $2$|  $2$|
+|             $3$|$0$|$1$|$2$| $3$| $3$| $3$|  $3$|  $3$|  $3$|  $3$|  $3$|  $3$|  $3$|  $3$|  $3$|  $3$|
+|             $4$|$0$|$1$|$3$| $4$| $5$| $5$|  $5$|  $5$|  $5$|  $5$|  $5$|  $5$|  $5$|  $5$|  $5$|  $5$|
+|             $5$|$0$|$1$|$3$| $5$| $6$| $7$|  $7$|  $7$|  $7$|  $7$|  $7$|  $7$|  $7$|  $7$|  $7$|  $7$|
+|             $6$|$0$|$1$|$4$| $7$| $9$|$10$| $11$| $11$| $11$| $11$| $11$| $11$| $11$| $11$| $11$| $11$|
+|             $7$|$0$|$1$|$4$| $8$|$11$|$13$| $14$| $15$| $15$| $15$| $15$| $15$| $15$| $15$| $15$| $15$|
+|             $8$|$0$|$1$|$5$|$10$|$15$|$18$| $20$| $21$| $22$| $22$| $22$| $22$| $22$| $22$| $22$| $22$|
+|             $9$|$0$|$1$|$5$|$12$|$18$|$23$| $26$| $28$| $29$| $30$| $30$| $30$| $30$| $30$| $30$| $30$|
+|            $10$|$0$|$1$|$6$|$14$|$23$|$30$| $35$| $38$| $40$| $41$| $42$| $42$| $42$| $42$| $42$| $42$|
+|            $11$|$0$|$1$|$6$|$16$|$27$|$37$| $44$| $49$| $52$| $54$| $55$| $56$| $56$| $56$| $56$| $56$|
+|            $12$|$0$|$1$|$7$|$19$|$34$|$47$| $58$| $65$| $70$| $73$| $75$| $76$| $77$| $77$| $77$| $77$|
+|            $13$|$0$|$1$|$7$|$21$|$39$|$57$| $71$| $82$| $89$| $94$| $97$| $99$|$100$|$101$|$101$|$101$|
+|            $14$|$0$|$1$|$8$|$24$|$47$|$70$| $90$|$105$|$116$|$123$|$128$|$131$|$133$|$134$|$135$|$135$|
+|            $15$|$0$|$1$|$8$|$27$|$54$|$84$|$110$|$131$|$146$|$157$|$164$|$169$|$172$|$174$|$175$|$176$|
+
+## partition_function::diagonal
 ```cpp
 template <typename M>
-tools::fps<M> partition_function(int n);
+tools::fps<M> partition_function::diagonal(int N);
 ```
 
-It returns values of the partition function $P(i, i)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $i$ such that $0 \leq i \leq n$.
+It returns $P(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
 
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- $n \geq 0$
+- $N \geq 0$
 
 ### Time Complexity
-- $O(n \log n)$
+- $O(N \log N)$
 
 ### Algorithm
 The following equation holds.
@@ -1158,22 +1178,21 @@ Therefore, $P(n, n)$ can be calculated by inversion of the formal power series.
 ### Author
 - anqooqie
 
-## (2)
-
+## partition_function::all
 ```cpp
 template <typename M>
-std::vector<std::vector<M>> partition_function(int n, int k);
+std::vector<std::vector<M>> partition_function::all(int N, int K);
 ```
 
-It returns values of the partition function $P(i, j)$ on $\mathbb{Z} / M \mathbb{Z}$ for all $i$ such that $0 \leq i \leq n$ and all $j$ such that $0 \leq j \leq k$.
+It returns $P(n, k) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$ and all $k$ such that $0 \leq k \leq K$, where $M$ is `M::mod()`.
 
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- $n \geq 0$
-- $k \geq 0$
+- $N \geq 0$
+- $K \geq 0$
 
 ### Time Complexity
-- $O(nk)$
+- $O(NK)$
 
 ### Algorithm
 The following equation holds.

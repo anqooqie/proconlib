@@ -22,8 +22,7 @@ data:
     title: Polynomial interpolation
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
-    title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
@@ -68,8 +67,11 @@ data:
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/stirling_1st.test.cpp
-    title: tests/stirling_1st.test.cpp
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
@@ -105,9 +107,10 @@ data:
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st.test.cpp
   - tests/util.test.cpp
   - tests/extend_input.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/extend_output.test.cpp

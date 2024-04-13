@@ -10,6 +10,9 @@ data:
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/partition_function/diagonal.test.cpp
+    title: tests/partition_function/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
   - icon: ':heavy_check_mark:'
@@ -21,6 +24,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_k.test.cpp
+    title: tests/stirling_1st/fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/fixed_n.test.cpp
+    title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
@@ -73,9 +82,12 @@ data:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/prim/basic.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/cycle_detection/undirected.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/partition_function/diagonal.test.cpp
   - tests/tree_diameter.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/sample_point_shift.test.cpp

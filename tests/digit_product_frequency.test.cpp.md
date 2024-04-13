@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/digit_product_frequency.hpp
     title: Frequency table of digit products
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
   - icon: ':heavy_check_mark:'

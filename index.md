@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: tools
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/abs.hpp
       title: std::abs(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ccw.hpp
       title: Counter clockwise function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil.hpp
       title: $\left\lceil \frac{x}{y} \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -63,7 +63,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -102,7 +102,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Convolution
     - icon: ':heavy_check_mark:'
@@ -168,7 +168,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
     - icon: ':heavy_check_mark:'
@@ -198,7 +198,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fps.hpp
       title: Formal power series
     - icon: ':heavy_check_mark:'
@@ -208,7 +208,7 @@ data:
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -239,7 +239,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
@@ -275,7 +275,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_monoid.hpp
       title: Check whether T is a monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
     - icon: ':heavy_check_mark:'
@@ -311,7 +311,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
     - icon: ':heavy_check_mark:'
@@ -360,13 +360,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/mo.hpp
       title: Mo's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/mod.hpp
       title: Minimum non-negative reminder
     - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':heavy_check_mark:'
@@ -398,8 +398,7 @@ data:
       title: Partially persistent disjoint set union
     - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
-      title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i,
-        j) \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
+      title: Partition function
     - icon: ':heavy_check_mark:'
       path: tools/pdsu.hpp
       title: Potentialized disjoint set union
@@ -433,10 +432,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/pow.hpp
       title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow2.hpp
       title: $2^x$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -454,7 +453,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/primitive_root.hpp
       title: Primitive root
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/prod_mod.hpp
       title: $x \cdot y \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -463,7 +462,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/quaternion.hpp
       title: Quaternion
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/quo.hpp
       title: Quotient as integer division
     - icon: ':heavy_check_mark:'
@@ -527,7 +526,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
@@ -536,13 +535,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
     - icon: ':heavy_check_mark:'
       path: tools/stirling_1st.hpp
-      title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
-        n$
+      title: Signed Stirling numbers of the first kind
     - icon: ':heavy_check_mark:'
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind
@@ -573,7 +571,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/uint128_t.hpp
       title: 128 bit unsigned integer
     - icon: ':heavy_check_mark:'
@@ -937,9 +935,6 @@ data:
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/stirling_1st.test.cpp
-      title: tests/stirling_1st.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/suffix_array.test.cpp
       title: tests/suffix_array.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1195,11 +1190,11 @@ data:
   - name: tests/partition_function
     pages:
     - icon: ':heavy_check_mark:'
-      path: tests/partition_function/n.test.cpp
-      title: tests/partition_function/n.test.cpp
+      path: tests/partition_function/all.test.cpp
+      title: tests/partition_function/all.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/partition_function/n_k.test.cpp
-      title: tests/partition_function/n_k.test.cpp
+      path: tests/partition_function/diagonal.test.cpp
+      title: tests/partition_function/diagonal.test.cpp
   - name: tests/polygon_2d
     pages:
     - icon: ':heavy_check_mark:'
@@ -1280,12 +1275,20 @@ data:
       title: tests/scc_graph/sccs.test.cpp
   - name: tests/sparse_fps_pow
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/fraction.test.cpp
       title: tests/sparse_fps_pow/fraction.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/regular.test.cpp
       title: tests/sparse_fps_pow/regular.test.cpp
+  - name: tests/stirling_1st
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/stirling_1st/fixed_k.test.cpp
+      title: tests/stirling_1st/fixed_k.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/stirling_1st/fixed_n.test.cpp
+      title: tests/stirling_1st/fixed_n.test.cpp
   - name: tests/stirling_2nd
     pages:
     - icon: ':heavy_check_mark:'
