@@ -6,38 +6,40 @@
 #include "tools/fps.hpp"
 
 namespace tools {
-  template <typename M>
-  ::tools::fps<M> partition_function(const int n) {
-    assert(n >= 0);
 
-    ::tools::fps<M> p(n + 1);
-    if (M::mod() == 1) return p;
+  namespace partition_function {
+    template <typename M>
+    ::tools::fps<M> diagonal(const int N) {
+      assert(N >= 0);
 
-    ++p[0];
-    for (int k = 1; k * (3 * k + 1) / 2 <= n; k += 2) --p[k * (3 * k + 1) / 2];
-    for (int k = 2; k * (3 * k + 1) / 2 <= n; k += 2) ++p[k * (3 * k + 1) / 2];
-    for (int k = 1; k * (3 * k - 1) / 2 <= n; k += 2) --p[k * (3 * k - 1) / 2];
-    for (int k = 2; k * (3 * k - 1) / 2 <= n; k += 2) ++p[k * (3 * k - 1) / 2];
-    return p.inv();
-  }
+      ::tools::fps<M> p(N + 1);
+      if (M::mod() == 1) return p;
 
-  template <typename M>
-  ::std::vector<::std::vector<M>> partition_function(const int n, const int k) {
-    assert(n >= 0);
-    assert(k >= 0);
-
-    auto dp = ::std::vector(n + 1, ::std::vector<M>(k + 1));
-
-    dp[0][0] = M(1);
-    for (int i = 0; i <= n; ++i) {
-      for (int j = !i; j <= k; ++j) {
-        dp[i][j] = M(0);
-        if (j - 1 >= 0) dp[i][j] += dp[i][j - 1];
-        if (i - j >= 0) dp[i][j] += dp[i - j][j];
-      }
+      ++p[0];
+      for (int k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];
+      for (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];
+      for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];
+      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];
+      return p.inv();
     }
 
-    return dp;
+    template <typename M>
+    ::std::vector<::std::vector<M>> all(const int N, const int K) {
+      assert(N >= 0);
+      assert(K >= 0);
+
+      auto dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));
+
+      dp[0][0] = M(1);
+      for (int i = 0; i <= N; ++i) {
+        for (int j = !i; j <= K; ++j) {
+          if (j > 0) dp[i][j] += dp[i][j - 1];
+          if (i >= j) dp[i][j] += dp[i - j][j];
+        }
+      }
+
+      return dp;
+    }
   }
 }
 

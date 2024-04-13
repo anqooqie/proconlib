@@ -12,6 +12,6 @@ int main() {
 
   int n, k;
   std::cin >> n >> k;
-  std::cout << tools::partition_function<mint>(n, k)[n][k].val() << '\n';
+  std::cout << tools::partition_function::all<mint>(n, k)[n][k].val() << '\n';
   return 0;
 }

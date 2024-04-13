@@ -3,6 +3,7 @@
 #include <iostream>
 #include "atcoder/modint.hpp"
 #include "tools/stirling_1st.hpp"
+#include "tools/join.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -13,13 +14,8 @@ int main() {
   int N;
   std::cin >> N;
 
-  const auto s = tools::stirling_1st<mint>(N);
-
-  std::cout << s[0].val();
-  for (int i = 1; i <= N; ++i) {
-    std::cout << ' ' << s[i].val();
-  }
-  std::cout << '\n';
+  const auto answers = tools::stirling_1st::fixed_n<mint>(N, N);
+  std::cout << tools::join(answers.begin(), answers.end(), [](const auto x) { return x.val(); }, " ") << '\n';
 
   return 0;
 }

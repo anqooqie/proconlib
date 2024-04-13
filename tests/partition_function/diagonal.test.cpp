@@ -1,9 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/partition_function"
 
 #include <iostream>
-#include <string>
 #include "atcoder/modint.hpp"
 #include "tools/partition_function.hpp"
+#include "tools/join.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -14,12 +14,8 @@ int main() {
   int N;
   std::cin >> N;
 
-  std::string delimiter = "";
-  for (const auto s : tools::partition_function<mint>(N)) {
-    std::cout << delimiter << s.val();
-    delimiter = " ";
-  }
-  std::cout << '\n';
+  const auto answers = tools::partition_function::diagonal<mint>(N);
+  std::cout << tools::join(answers.begin(), answers.end(), [](const auto x) { return x.val(); }, " ") << '\n';
 
   return 0;
 }
