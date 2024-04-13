@@ -88,14 +88,14 @@ If `<G>` satisfies the following conditions, `tools::is_group<G>::value` is `tru
 
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

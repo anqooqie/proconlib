@@ -63,17 +63,17 @@ title: QCFium's method
 
 It enables some compile options to speed up.
 
-## Constraints
+### Constraints
 - It requires GCC.
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## References
+### References
 - [Speeding Up for Naive Algorithm - Codeforces](https://codeforces.com/blog/entry/66279)
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

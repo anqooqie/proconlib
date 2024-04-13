@@ -45,7 +45,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -57,14 +57,13 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Stirling numbers of the second kind
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -177,7 +176,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
@@ -192,12 +191,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
@@ -296,6 +301,9 @@ data:
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
@@ -324,7 +332,6 @@ data:
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
   - tests/dual_segtree.test.cpp
-  - tests/stirling_2nd.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$
@@ -337,18 +344,18 @@ T ceil_log2(T x);
 
 It returns $\left\lceil \log_2(x) \right\rceil$.
 
-## Constraints
+### Constraints
 - $x > 0$
 - `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
-## Time Complexity
+### Time Complexity
 - $O(\log\log x)$
 
-## References
+### References
 - [Stack Overflow](https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567)
 
-## License
+### License
 - CC BY-SA 3.0
 
-## Author
+### Author
 - [dgobbi](https://stackoverflow.com/users/2154690/dgobbi)

@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':question:'
@@ -24,6 +24,9 @@ data:
     path: tools/group.hpp
     title: Typical groups
   - icon: ':question:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':question:'
@@ -35,7 +38,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':question:'
@@ -50,7 +53,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':question:'
@@ -1075,37 +1078,44 @@ data:
     \ F operator/(const F& f, const F& g) { return F(f) /= g; }\n    friend F operator<<(const\
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
     \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/pow.hpp\"\
-    \n\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M>\n  typename M::T square(const typename M::T&\
-    \ x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
-    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
-    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
-    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
-    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
-    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
-    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
-    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
-    \  }\n}\n\n\n#line 11 \"tests/fps/pow_other_mods.test.cpp\"\n\ntemplate <typename\
-    \ F>\nclass monoid {\nprivate:\n  using M = typename F::value_type;\n\npublic:\n\
-    \  using T = F;\n  inline static std::size_t N;\n  static T op(const T& f, const\
-    \ T& g) {\n    return f * g;\n  }\n  static T e() {\n    T f(N);\n    f[0] = M(1);\n\
-    \    return f;\n  }\n};\n\nvoid solve(const std::initializer_list<int> il, const\
-    \ long long k) {\n  const auto specific = [&](const auto& a) {\n    using F =\
-    \ std::decay_t<decltype(a)>;\n    monoid<F>::N = a.size();\n\n    assert_that(a.pow(k)\
-    \ == tools::pow<monoid<F>>(a, k));\n  };\n\n  specific(tools::fps<atcoder::static_modint<1>>(il.begin(),\
-    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<2>>(il.begin(), il.end()));\n\
-    \  specific(tools::fps<atcoder::static_modint<735134400>>(il.begin(), il.end()));\n\
-    \  specific(tools::fps<atcoder::static_modint<999634589>>(il.begin(), il.end()));\n\
-    \  specific(tools::fps<atcoder::static_modint<1000000007>>(il.begin(), il.end()));\n\
-    \  specific(tools::fps<atcoder::dynamic_modint<0>>(il.begin(), il.end()));\n \
-    \ specific(tools::fps<atcoder::dynamic_modint<1>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<2>>(il.begin(),\
-    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<3>>(il.begin(), il.end()));\n\
-    \  specific(tools::fps<atcoder::dynamic_modint<4>>(il.begin(), il.end()));\n \
-    \ specific(tools::fps<atcoder::dynamic_modint<5>>(il.begin(), il.end()));\n}\n\
+    \n\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\n\n\
+    \n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename = void>\n  struct is_monoid : ::std::false_type {};\n\n  template\
+    \ <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
+    \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
+    \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
+    \ = ::tools::is_monoid<M>::value;\n}\n\n\n#line 6 \"tools/square.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>,\
+    \ typename M::T> square(const typename M::T& x) {\n    return M::op(x, x);\n \
+    \ }\n\n  template <typename T>\n  ::std::enable_if_t<!::tools::is_monoid_v<T>,\
+    \ T> square(const T& x) {\n    return x * x;\n  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ typename M::T> pow(const typename M::T& base, const E exponent) {\n    assert(exponent\
+    \ >= 0);\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n\
+    \        ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        :\
+    \ M::op(::tools::pow<M>(base, exponent - 1), base);\n  }\n\n  template <typename\
+    \ T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, T> pow(const T&\
+    \ base, const E exponent) {\n    assert(exponent >= 0);\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
+    \ exponent);\n  }\n\n  template <typename T, typename E>\n  auto pow(const T base,\
+    \ const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>, decltype(::std::pow(base,\
+    \ exponent))> {\n    return ::std::pow(base, exponent);\n  }\n}\n\n\n#line 11\
+    \ \"tests/fps/pow_other_mods.test.cpp\"\n\ntemplate <typename F>\nclass monoid\
+    \ {\nprivate:\n  using M = typename F::value_type;\n\npublic:\n  using T = F;\n\
+    \  inline static std::size_t N;\n  static T op(const T& f, const T& g) {\n   \
+    \ return f * g;\n  }\n  static T e() {\n    T f(N);\n    f[0] = M(1);\n    return\
+    \ f;\n  }\n};\n\nvoid solve(const std::initializer_list<int> il, const long long\
+    \ k) {\n  const auto specific = [&](const auto& a) {\n    using F = std::decay_t<decltype(a)>;\n\
+    \    monoid<F>::N = a.size();\n\n    assert_that(a.pow(k) == tools::pow<monoid<F>>(a,\
+    \ k));\n  };\n\n  specific(tools::fps<atcoder::static_modint<1>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::static_modint<2>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::static_modint<735134400>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<999634589>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::static_modint<1000000007>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<0>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<1>>(il.begin(), il.end()));\n \
+    \ specific(tools::fps<atcoder::dynamic_modint<2>>(il.begin(), il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<3>>(il.begin(),\
+    \ il.end()));\n  specific(tools::fps<atcoder::dynamic_modint<4>>(il.begin(), il.end()));\n\
+    \  specific(tools::fps<atcoder::dynamic_modint<5>>(il.begin(), il.end()));\n}\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  atcoder::dynamic_modint<0>::set_mod(1);\n  atcoder::dynamic_modint<1>::set_mod(2);\n\
     \  atcoder::dynamic_modint<2>::set_mod(735134400);\n  atcoder::dynamic_modint<3>::set_mod(999634589);\n\
@@ -1161,10 +1171,11 @@ data:
   - tools/less_by_first.hpp
   - tools/pow.hpp
   - tools/square.hpp
+  - tools/is_monoid.hpp
   isVerificationFile: true
   path: tests/fps/pow_other_mods.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 19:33:32+09:00'
+  timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fps/pow_other_mods.test.cpp

@@ -7,22 +7,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -411,14 +411,14 @@ title: std::greater by the argument (total order)
 
 `tools::greater_by_arg_total(o, d)(a, b)` is equivalent to `tools::less_by_arg_total(o, d)(b, a)`.
 
-## Constraints
+### Constraints
 - See `tools::less_by_arg_total`.
 
-## Time Complexity
+### Time Complexity
 - See `tools::less_by_arg_total`.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

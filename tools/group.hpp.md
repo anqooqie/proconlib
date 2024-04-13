@@ -30,7 +30,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pdsu.hpp
     title: Potentialized disjoint set union
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -42,14 +42,13 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Stirling numbers of the second kind
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/reverse.test.cpp
@@ -165,7 +164,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
@@ -177,12 +176,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
@@ -252,6 +257,9 @@ data:
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/online_cumsum.test.cpp
@@ -279,7 +287,6 @@ data:
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
   - tests/cartesian_tree/interval.test.cpp
-  - tests/stirling_2nd.test.cpp
 documentation_of: tools/group.hpp
 layout: document
 title: Typical groups

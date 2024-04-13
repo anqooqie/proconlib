@@ -110,10 +110,10 @@ title: Cycle detection on a graph
 
 It reports one of the cycles in a given graph if it exists.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
 
 ## Constructor

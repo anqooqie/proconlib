@@ -58,7 +58,7 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -67,14 +67,13 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Stirling numbers of the second kind
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -142,7 +141,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':x:'
@@ -151,12 +150,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
@@ -1540,6 +1545,9 @@ data:
   - tests/fps/composition.test.cpp
   - tests/fps/compositional_inverse.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/partition_function/n.test.cpp
@@ -1555,7 +1563,6 @@ data:
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/berlekamp_massey.test.cpp
-  - tests/stirling_2nd.test.cpp
 documentation_of: tools/fps.hpp
 layout: document
 title: Formal power series

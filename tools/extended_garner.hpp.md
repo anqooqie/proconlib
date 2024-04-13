@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
@@ -167,18 +167,18 @@ Otherwise, all the solutions can be written as the form $x \equiv y \pmod{z}$, u
 It returns this $(y \pmod{m}, z \pmod{m})$ as a pair.
 If $n = 0$, it returns $(0, 1)$.
 
-## References
-- [中国剰余定理 (CRT) の解説と、それを用いる問題のまとめ - Qiita](https://qiita.com/drken/items/ae02240cd1f8edfc86fd)
-
-## Constraints
+### Constraints
 - $m_i \geq 1$
 - $M \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(n^2 \log(\min(m_i)))$
 
-## License
+### References
+- [中国剰余定理 (CRT) の解説と、それを用いる問題のまとめ - Qiita](https://qiita.com/drken/items/ae02240cd1f8edfc86fd)
+
+### License
 - unknown
 
-## Author
+### Author
 - drken

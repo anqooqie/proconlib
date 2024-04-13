@@ -11,10 +11,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -63,19 +63,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
@@ -84,18 +84,17 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
-  - icon: ':heavy_check_mark:'
+    title: Stirling numbers of the second kind
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
@@ -306,7 +305,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
@@ -339,19 +338,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -461,6 +466,9 @@ data:
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
   - tests/logn_integer_partition.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
@@ -521,7 +529,6 @@ data:
   - tests/rational/multiplies.test.cpp
   - tests/rational/plus.test.cpp
   - tests/rational/minus.test.cpp
-  - tests/stirling_2nd.test.cpp
   - tests/divisors.test.cpp
   - tests/integer_interval_set.test.cpp
 documentation_of: tools/pow2.hpp
@@ -536,14 +543,14 @@ constexpr T pow2(T x);
 
 It returns $2^x$.
 
-## Constraints
+### Constraints
 - $0 \leq x < $ `std::numeric_limits<T>::digits`
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

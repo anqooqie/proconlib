@@ -4,27 +4,30 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
+  - icon: ':question:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
   - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
@@ -34,19 +37,19 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
-    title: Cache of $b^n \pmod{M}$
+    title: Cache for $b^n \pmod{M}$
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':question:'
@@ -299,46 +302,54 @@ data:
     \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
     \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
     \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5 \"tools/square.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const typename\
-    \ M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
-    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
-    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
-    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
-    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
-    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
-    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
-    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
-    \  }\n}\n\n\n#line 1 \"tools/extgcd.hpp\"\n\n\n\n#line 1 \"tools/abs.hpp\"\n\n\
-    \n\nnamespace tools {\n  constexpr float abs(const float x) {\n    return x <\
-    \ 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n    return x < 0\
-    \ ? -x : x;\n  }\n  constexpr long double abs(const long double x) {\n    return\
-    \ x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr long abs(const long x) {\n    return x < 0 ? -x :\
-    \ x;\n  }\n  constexpr long long abs(const long long x) {\n    return x < 0 ?\
-    \ -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n    return\
-    \ x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n    return\
-    \ x;\n  }\n  constexpr unsigned long long abs(const unsigned long long x) {\n\
-    \    return x;\n  }\n}\n\n\n#line 9 \"tools/extgcd.hpp\"\n\nnamespace tools {\n\
-    \n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T prev_r, T r) {\n \
-    \   const bool prev_r_is_neg = prev_r < T(0);\n    const bool r_is_neg = r < T(0);\n\
-    \n    if (prev_r_is_neg) prev_r = -prev_r;\n    if (r_is_neg) r = -r;\n\n    #ifndef\
-    \ NDEBUG\n    const T a = prev_r;\n    const T b = r;\n    #endif\n\n    T prev_s(1);\n\
-    \    T prev_t(0);\n    T s(0);\n    T t(1);\n    while (r != T(0)) {\n      const\
-    \ T q = prev_r / r;\n      ::std::tie(prev_r, r) = ::std::make_pair(r, prev_r\
-    \ - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s, prev_s - q * s);\n\
-    \      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t - q * t);\n    }\n\n\
-    \    if (prev_r_is_neg) prev_s = -prev_s;\n    if (r_is_neg) prev_t = -prev_t;\n\
-    \n    assert(::tools::abs(prev_s) <= ::std::max(b / prev_r / T(2), T(1)));\n \
-    \   assert(::tools::abs(prev_t) <= ::std::max(a / prev_r / T(2), T(1)));\n   \
-    \ return ::std::make_tuple(prev_s, prev_t, prev_r);\n  }\n}\n\n\n#line 1 \"tools/pow_mod_cache.hpp\"\
-    \n\n\n\n#line 5 \"tools/pow_mod_cache.hpp\"\n#include <optional>\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 5 \"tools/ssize.hpp\"\n#include <cstddef>\n\nnamespace tools {\n\
-    \n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename = void>\n  struct is_monoid : ::std::false_type {};\n\n  template\
+    \ <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
+    \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
+    \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
+    \ = ::tools::is_monoid<M>::value;\n}\n\n\n#line 6 \"tools/square.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>,\
+    \ typename M::T> square(const typename M::T& x) {\n    return M::op(x, x);\n \
+    \ }\n\n  template <typename T>\n  ::std::enable_if_t<!::tools::is_monoid_v<T>,\
+    \ T> square(const T& x) {\n    return x * x;\n  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ typename M::T> pow(const typename M::T& base, const E exponent) {\n    assert(exponent\
+    \ >= 0);\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n\
+    \        ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        :\
+    \ M::op(::tools::pow<M>(base, exponent - 1), base);\n  }\n\n  template <typename\
+    \ T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, T> pow(const T&\
+    \ base, const E exponent) {\n    assert(exponent >= 0);\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
+    \ exponent);\n  }\n\n  template <typename T, typename E>\n  auto pow(const T base,\
+    \ const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>, decltype(::std::pow(base,\
+    \ exponent))> {\n    return ::std::pow(base, exponent);\n  }\n}\n\n\n#line 1 \"\
+    tools/extgcd.hpp\"\n\n\n\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n\
+    \  constexpr float abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr\
+    \ double abs(const double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long\
+    \ double abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr\
+    \ int abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
+    \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 9 \"tools/extgcd.hpp\"\n\n\
+    namespace tools {\n\n  template <typename T>\n  ::std::tuple<T, T, T> extgcd(T\
+    \ prev_r, T r) {\n    const bool prev_r_is_neg = prev_r < T(0);\n    const bool\
+    \ r_is_neg = r < T(0);\n\n    if (prev_r_is_neg) prev_r = -prev_r;\n    if (r_is_neg)\
+    \ r = -r;\n\n    #ifndef NDEBUG\n    const T a = prev_r;\n    const T b = r;\n\
+    \    #endif\n\n    T prev_s(1);\n    T prev_t(0);\n    T s(0);\n    T t(1);\n\
+    \    while (r != T(0)) {\n      const T q = prev_r / r;\n      ::std::tie(prev_r,\
+    \ r) = ::std::make_pair(r, prev_r - q * r);\n      ::std::tie(prev_s, s) = ::std::make_pair(s,\
+    \ prev_s - q * s);\n      ::std::tie(prev_t, t) = ::std::make_pair(t, prev_t -\
+    \ q * t);\n    }\n\n    if (prev_r_is_neg) prev_s = -prev_s;\n    if (r_is_neg)\
+    \ prev_t = -prev_t;\n\n    assert(::tools::abs(prev_s) <= ::std::max(b / prev_r\
+    \ / T(2), T(1)));\n    assert(::tools::abs(prev_t) <= ::std::max(a / prev_r /\
+    \ T(2), T(1)));\n    return ::std::make_tuple(prev_s, prev_t, prev_r);\n  }\n\
+    }\n\n\n#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n#line 5 \"tools/pow_mod_cache.hpp\"\
+    \n#include <optional>\n#line 8 \"tools/pow_mod_cache.hpp\"\n#include <cstddef>\n\
+    #line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
     \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
     \n#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\n\
     namespace tools {\n\n  template <typename T, typename F>\n  ::std::pair<long long,\
@@ -368,31 +379,34 @@ data:
     \ N>\n  constexpr ::std::common_type_t<M, N> ceil(const M lhs, const N rhs) {\n\
     \    using T = ::std::common_type_t<M, N>;\n    assert(rhs != N(0));\n    return\
     \ lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0) && rhs < N(0))) &&\
-    \ lhs % rhs);\n  }\n}\n\n\n#line 14 \"tools/pow_mod_cache.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <class M>\n  class pow_mod_cache {\n  private:\n    ::std::vector<M>\
-    \ m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M> m_inv_pow;\n  \
-    \  ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long long,\
-    \ long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n    pow_mod_cache(const\
-    \ ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
-    \ = default;\n    ~pow_mod_cache() = default;\n    ::tools::pow_mod_cache<M>&\
-    \ operator=(const ::tools::pow_mod_cache<M>&) = default;\n    ::tools::pow_mod_cache<M>&\
-    \ operator=(::tools::pow_mod_cache<M>&&) = default;\n\n    M operator[](const\
-    \ long long n) {\n      if (!this->m_period) {\n        if (::std::max<long long>(::tools::ssize(this->m_pow)\
-    \ - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) +\
-    \ 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const long long size\
-    \ = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
-    \ n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_pow);\
-    \ ++i) {\n              this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n\
-    \            }\n            return this->m_pow[n];\n          } else {\n     \
-    \       if (this->m_inv_pow.size() == 1) {\n              this->m_inv_pow.push_back(this->m_pow[1].inv());\n\
-    \            }\n            const long long size = ::tools::ssize(this->m_inv_pow);\n\
-    \            this->m_inv_pow.resize(::std::max(size, -n + 1));\n            for\
-    \ (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {\n         \
-    \     this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n    \
-    \        }\n            return this->m_inv_pow[-n];\n          }\n        }\n\n\
-    \        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0],\
-    \ [&](const M& prev) { return prev * this->m_pow[1]; }));\n        const long\
-    \ long size = ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
+    \ lhs % rhs);\n  }\n}\n\n\n#line 16 \"tools/pow_mod_cache.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <class M>\n  class pow_mod_cache {\n    ::std::vector<M> m_pow;\n\
+    \    ::std::vector<M> m_cumsum;\n    ::std::vector<M> m_inv_pow;\n    ::std::vector<M>\
+    \ m_inv_cumsum;\n    ::std::optional<::std::pair<long long, long long>> m_period;\n\
+    \n  public:\n    pow_mod_cache() = default;\n    explicit pow_mod_cache(const\
+    \ M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M::raw(0)})\
+    \ {\n      if (base == M(-1)) {\n        if (M::mod() > 2) {\n          this->m_period\
+    \ = ::std::make_pair(0LL, 2LL);\n        } else {\n          this->m_period =\
+    \ ::std::make_pair(0LL, 1LL);\n          this->m_pow.resize(1);\n        }\n \
+    \       this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n      }\n\
+    \    }\n    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base))\
+    \ {\n    }\n\n    M operator[](const long long n) {\n      if (!this->m_period)\
+    \ {\n        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long\
+    \ long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {\n   \
+    \       if (n >= 0) {\n            const long long size = ::tools::ssize(this->m_pow);\n\
+    \            this->m_pow.resize(::std::max(size, n + 1));\n            for (long\
+    \ long i = size; i < ::tools::ssize(this->m_pow); ++i) {\n              this->m_pow[i]\
+    \ = this->m_pow[i - 1] * this->m_pow[1];\n            }\n            return this->m_pow[n];\n\
+    \          } else {\n            if (this->m_inv_pow.size() == 1) {\n        \
+    \      this->m_inv_pow.push_back(this->m_pow[1].inv());\n            }\n     \
+    \       const long long size = ::tools::ssize(this->m_inv_pow);\n            this->m_inv_pow.resize(::std::max(size,\
+    \ -n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_inv_pow);\
+    \ ++i) {\n              this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n\
+    \            }\n            return this->m_inv_pow[-n];\n          }\n       \
+    \ }\n\n        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const\
+    \ M& prev) { return prev * this->m_pow[1]; });\n        const long long size =\
+    \ ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
     \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
     \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
     \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
@@ -426,11 +440,9 @@ data:
     \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
     \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
     \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
-    \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
-    \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
-    \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
-    \ {\n    }\n  };\n}\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\n\
-    namespace tools {\n  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \ n) - ::tools::ceil(l, n));\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/now.hpp\"\
+    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline long long now() {\n \
+    \   return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 12 \"tools/detail/rolling_hash.hpp\"\n\nnamespace tools {\n\
     \  class rolling_hash;\n\n  class modint_for_rolling_hash {\n  private:\n    static\
     \ constexpr ::std::uint64_t MASK30 = (::std::uint64_t(1) << 30) - 1;\n    static\
@@ -534,6 +546,7 @@ data:
   - tools/pow.hpp
   - tools/monoid.hpp
   - tools/square.hpp
+  - tools/is_monoid.hpp
   - tools/extgcd.hpp
   - tools/abs.hpp
   - tools/pow_mod_cache.hpp
@@ -547,7 +560,7 @@ data:
   isVerificationFile: true
   path: tests/has_mod.test.cpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
+  timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/has_mod.test.cpp

@@ -24,7 +24,7 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
@@ -36,14 +36,13 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
+    title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
@@ -120,7 +119,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
@@ -132,12 +131,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
@@ -200,6 +205,9 @@ data:
   - tests/fps/composition.test.cpp
   - tests/fps/compositional_inverse.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/wavelet_matrix/range_freq.test.cpp
@@ -222,7 +230,6 @@ data:
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/digit_product_frequency.test.cpp
   - tests/berlekamp_massey.test.cpp
-  - tests/stirling_2nd.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

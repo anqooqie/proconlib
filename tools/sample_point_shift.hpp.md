@@ -12,7 +12,7 @@ data:
     title: Convolution
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
   - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   - icon: ':question:'

@@ -15,11 +15,11 @@ data:
     title: Convolution
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':question:'
@@ -29,19 +29,19 @@ data:
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by.hpp
     title: std::greater by key
   - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/join.hpp
     title: Join elements with delimiter
   - icon: ':question:'
@@ -53,10 +53,10 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_product.hpp
     title: Product of polynomials
   - icon: ':question:'
@@ -65,9 +65,9 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
-    title: Cache of $b^n \pmod{M}$
+    title: Cache for $b^n \pmod{M}$
   - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
@@ -82,9 +82,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/product_of_polynomial_sequence
@@ -1160,31 +1160,34 @@ data:
     \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
     \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
     \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
-    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 14 \"tools/pow_mod_cache.hpp\"\
-    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n  private:\n\
-    \    ::std::vector<M> m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M>\
-    \ m_inv_pow;\n    ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long\
-    \ long, long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n \
-    \   pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;\n    pow_mod_cache(::tools::pow_mod_cache<M>&&)\
-    \ = default;\n    ~pow_mod_cache() = default;\n    ::tools::pow_mod_cache<M>&\
-    \ operator=(const ::tools::pow_mod_cache<M>&) = default;\n    ::tools::pow_mod_cache<M>&\
-    \ operator=(::tools::pow_mod_cache<M>&&) = default;\n\n    M operator[](const\
-    \ long long n) {\n      if (!this->m_period) {\n        if (::std::max<long long>(::tools::ssize(this->m_pow)\
-    \ - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) +\
-    \ 1 < M::mod() - 1) {\n          if (n >= 0) {\n            const long long size\
-    \ = ::tools::ssize(this->m_pow);\n            this->m_pow.resize(::std::max(size,\
-    \ n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_pow);\
-    \ ++i) {\n              this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n\
-    \            }\n            return this->m_pow[n];\n          } else {\n     \
-    \       if (this->m_inv_pow.size() == 1) {\n              this->m_inv_pow.push_back(this->m_pow[1].inv());\n\
-    \            }\n            const long long size = ::tools::ssize(this->m_inv_pow);\n\
-    \            this->m_inv_pow.resize(::std::max(size, -n + 1));\n            for\
-    \ (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {\n         \
-    \     this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n    \
-    \        }\n            return this->m_inv_pow[-n];\n          }\n        }\n\n\
-    \        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0],\
-    \ [&](const M& prev) { return prev * this->m_pow[1]; }));\n        const long\
-    \ long size = ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
+    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 16 \"tools/pow_mod_cache.hpp\"\
+    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n    ::std::vector<M>\
+    \ m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M> m_inv_pow;\n  \
+    \  ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long long,\
+    \ long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n    explicit\
+    \ pow_mod_cache(const M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}),\
+    \ m_inv_cumsum({M::raw(0)}) {\n      if (base == M(-1)) {\n        if (M::mod()\
+    \ > 2) {\n          this->m_period = ::std::make_pair(0LL, 2LL);\n        } else\
+    \ {\n          this->m_period = ::std::make_pair(0LL, 1LL);\n          this->m_pow.resize(1);\n\
+    \        }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
+    \      }\n    }\n    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base))\
+    \ {\n    }\n\n    M operator[](const long long n) {\n      if (!this->m_period)\
+    \ {\n        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long\
+    \ long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {\n   \
+    \       if (n >= 0) {\n            const long long size = ::tools::ssize(this->m_pow);\n\
+    \            this->m_pow.resize(::std::max(size, n + 1));\n            for (long\
+    \ long i = size; i < ::tools::ssize(this->m_pow); ++i) {\n              this->m_pow[i]\
+    \ = this->m_pow[i - 1] * this->m_pow[1];\n            }\n            return this->m_pow[n];\n\
+    \          } else {\n            if (this->m_inv_pow.size() == 1) {\n        \
+    \      this->m_inv_pow.push_back(this->m_pow[1].inv());\n            }\n     \
+    \       const long long size = ::tools::ssize(this->m_inv_pow);\n            this->m_inv_pow.resize(::std::max(size,\
+    \ -n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_inv_pow);\
+    \ ++i) {\n              this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n\
+    \            }\n            return this->m_inv_pow[-n];\n          }\n       \
+    \ }\n\n        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const\
+    \ M& prev) { return prev * this->m_pow[1]; });\n        const long long size =\
+    \ ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
     \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
     \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
     \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
@@ -1218,29 +1221,27 @@ data:
     \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
     \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
     \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
-    \ n) - ::tools::ceil(l, n));\n      }\n    }\n\n    explicit pow_mod_cache(const\
-    \ M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)})\
-    \ {\n    }\n    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base))\
-    \ {\n    }\n  };\n}\n\n\n#line 24 \"tools/polynomial.hpp\"\n\nnamespace tools\
-    \ {\n  namespace detail {\n    namespace polynomial {\n      template <typename\
-    \ T, typename = ::std::void_t<>>\n      struct can_divide : ::std::false_type\
-    \ {};\n\n      template <typename T>\n      struct can_divide<T, ::std::void_t<decltype(::std::declval<T>()\
-    \ / ::std::declval<T>())>> : ::std::true_type {};\n\n      template <typename\
-    \ T>\n      inline constexpr bool can_divide_v = can_divide<T>::value;\n\n   \
-    \   template <typename T, typename = ::std::void_t<>>\n      struct is_prime_modint\
-    \ : ::std::false_type {};\n\n      template <typename T>\n      struct is_prime_modint<T,\
-    \ ::std::enable_if_t<::atcoder::internal::is_static_modint<T>::value && ::tools::is_prime(T::mod()),\
-    \ void>> : ::std::true_type {};\n\n      template <typename T>\n      inline constexpr\
-    \ bool is_prime_modint_v = is_prime_modint<T>::value;\n    }\n  }\n\n  template\
-    \ <typename T1, typename T2 = void>\n  class polynomial {\n  private:\n    using\
-    \ AG = ::std::conditional_t<::std::is_same_v<T2, void>, ::tools::group::plus<T1>,\
-    \ T1>;\n    using MM = ::std::conditional_t<\n      ::std::is_same_v<T2, void>,\n\
-    \        ::std::conditional_t<\n          ::std::is_same_v<T1, ::std::complex<float>>\
-    \ ||\n          ::std::is_same_v<T1, ::std::complex<double>> ||\n          ::std::is_same_v<T1,\
-    \ ::std::complex<long double>> ||\n          ::std::is_floating_point_v<T1> ||\n\
-    \          ::tools::detail::polynomial::is_prime_modint_v<T1> ||\n          ::atcoder::internal::is_dynamic_modint<T1>::value,\n\
-    \            ::tools::group::multiplies<T1>,\n            ::std::conditional_t<\n\
-    \              ::std::is_integral_v<T1> ||\n              ::atcoder::internal::is_static_modint<T1>::value,\n\
+    \ n) - ::tools::ceil(l, n));\n      }\n    }\n  };\n}\n\n\n#line 24 \"tools/polynomial.hpp\"\
+    \n\nnamespace tools {\n  namespace detail {\n    namespace polynomial {\n    \
+    \  template <typename T, typename = ::std::void_t<>>\n      struct can_divide\
+    \ : ::std::false_type {};\n\n      template <typename T>\n      struct can_divide<T,\
+    \ ::std::void_t<decltype(::std::declval<T>() / ::std::declval<T>())>> : ::std::true_type\
+    \ {};\n\n      template <typename T>\n      inline constexpr bool can_divide_v\
+    \ = can_divide<T>::value;\n\n      template <typename T, typename = ::std::void_t<>>\n\
+    \      struct is_prime_modint : ::std::false_type {};\n\n      template <typename\
+    \ T>\n      struct is_prime_modint<T, ::std::enable_if_t<::atcoder::internal::is_static_modint<T>::value\
+    \ && ::tools::is_prime(T::mod()), void>> : ::std::true_type {};\n\n      template\
+    \ <typename T>\n      inline constexpr bool is_prime_modint_v = is_prime_modint<T>::value;\n\
+    \    }\n  }\n\n  template <typename T1, typename T2 = void>\n  class polynomial\
+    \ {\n  private:\n    using AG = ::std::conditional_t<::std::is_same_v<T2, void>,\
+    \ ::tools::group::plus<T1>, T1>;\n    using MM = ::std::conditional_t<\n     \
+    \ ::std::is_same_v<T2, void>,\n        ::std::conditional_t<\n          ::std::is_same_v<T1,\
+    \ ::std::complex<float>> ||\n          ::std::is_same_v<T1, ::std::complex<double>>\
+    \ ||\n          ::std::is_same_v<T1, ::std::complex<long double>> ||\n       \
+    \   ::std::is_floating_point_v<T1> ||\n          ::tools::detail::polynomial::is_prime_modint_v<T1>\
+    \ ||\n          ::atcoder::internal::is_dynamic_modint<T1>::value,\n         \
+    \   ::tools::group::multiplies<T1>,\n            ::std::conditional_t<\n     \
+    \         ::std::is_integral_v<T1> ||\n              ::atcoder::internal::is_static_modint<T1>::value,\n\
     \                ::tools::monoid::multiplies<T1>,\n                ::std::conditional_t<\n\
     \                  ::tools::detail::polynomial::can_divide_v<T1>,\n          \
     \          ::tools::group::multiplies<T1>,\n                    ::tools::monoid::multiplies<T1>\n\
@@ -1626,8 +1627,8 @@ data:
   isVerificationFile: true
   path: tests/polynomial_product.test.cpp
   requiredBy: []
-  timestamp: '2024-04-13 07:19:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-04-13 13:54:52+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/polynomial_product.test.cpp
 layout: document

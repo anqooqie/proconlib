@@ -4,37 +4,37 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
+  - icon: ':question:'
     path: tools/is_rational.hpp
     title: Check whether T is tools::rational
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
   - icon: ':question:'
-    path: tools/monoid.hpp
-    title: Typical monoids
-  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy: []
@@ -78,31 +78,23 @@ data:
     \n\nnamespace tools {\n\n  template <typename T>\n  constexpr int signum(const\
     \ T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n      return (T(0)\
     \ < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n    }\n  }\n}\n\n\n\
-    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/monoid.hpp\"\n#include <numeric>\n\nnamespace tools {\n  namespace\
-    \ monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
-    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n#line 1 \"tools/vector2.hpp\"\n\n\n\n#line 1 \"tools/vector.hpp\"\
-    \n\n\n\n#line 11 \"tools/vector.hpp\"\n#include <iterator>\n#line 15 \"tools/vector.hpp\"\
-    \n#include <iostream>\n#include <string>\n#include <functional>\n#line 1 \"tools/tuple_hash.hpp\"\
-    \n\n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools\
-    \ {\n  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    #line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ = void>\n  struct is_monoid : ::std::false_type {};\n\n  template <typename\
+    \ M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
+    \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
+    \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
+    \ = ::tools::is_monoid<M>::value;\n}\n\n\n#line 6 \"tools/square.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>,\
+    \ typename M::T> square(const typename M::T& x) {\n    return M::op(x, x);\n \
+    \ }\n\n  template <typename T>\n  ::std::enable_if_t<!::tools::is_monoid_v<T>,\
+    \ T> square(const T& x) {\n    return x * x;\n  }\n}\n\n\n#line 1 \"tools/vector2.hpp\"\
+    \n\n\n\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 11 \"tools/vector.hpp\"\n#include\
+    \ <iterator>\n#line 15 \"tools/vector.hpp\"\n#include <iostream>\n#include <string>\n\
+    #include <functional>\n#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#line 1 \"tools/now.hpp\"\
+    \n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline long long now() {\n \
+    \   return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
     \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
@@ -1068,7 +1060,7 @@ data:
   - tools/less_by.hpp
   - tools/signum.hpp
   - tools/square.hpp
-  - tools/monoid.hpp
+  - tools/is_monoid.hpp
   - tools/vector2.hpp
   - tools/vector.hpp
   - tools/tuple_hash.hpp
@@ -1077,7 +1069,7 @@ data:
   isVerificationFile: false
   path: tools/line_2d.hpp
   requiredBy: []
-  timestamp: '2024-03-23 22:25:26+09:00'
+  timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/circle_2d/intersection_to_line.test.cpp

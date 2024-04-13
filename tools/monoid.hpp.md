@@ -14,36 +14,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
-  - icon: ':heavy_check_mark:'
-    path: tools/circle_2d.hpp
-    title: Two-dimensional circle
   - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
-    path: tools/detail/geometry_2d.hpp
-    title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
-    path: tools/directed_line_segment_2d.hpp
-    title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':warning:'
-    path: tools/half_line_2d.hpp
-    title: Two-dimensional half line
   - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
-  - icon: ':heavy_check_mark:'
-    path: tools/line_2d.hpp
-    title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
@@ -51,22 +36,19 @@ data:
     path: tools/partition_function.hpp
     title: Partition function $P(i, i) \pmod{M}$ for $0 \leq i \leq n$ and $P(i, j)
       \pmod{M}$ for $0 \leq i \leq n, 0 \leq j \leq k$
-  - icon: ':heavy_check_mark:'
-    path: tools/polygon_2d.hpp
-    title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
   - icon: ':heavy_check_mark:'
@@ -75,26 +57,19 @@ data:
   - icon: ':question:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
-    path: tools/square.hpp
-    title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq
-      n$
-  - icon: ':heavy_check_mark:'
+    title: Stirling numbers of the second kind
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
-    path: tools/triangle_2d.hpp
-    title: Two-dimensional triangle
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -109,18 +84,6 @@ data:
     path: tests/ceil_kth_root.test.cpp
     title: tests/ceil_kth_root.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/circle_2d/intersection_to_circle.test.cpp
-    title: tests/circle_2d/intersection_to_circle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/circle_2d/intersection_to_line.test.cpp
-    title: tests/circle_2d/intersection_to_line.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/circle_2d/where/with_radius.test.cpp
-    title: tests/circle_2d/where/with_radius.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/circle_2d/where/without_radius.test.cpp
-    title: tests/circle_2d/where/without_radius.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/convolution/double.test.cpp
     title: tests/convolution/double.test.cpp
   - icon: ':heavy_check_mark:'
@@ -132,15 +95,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/cross_point.test.cpp
-    title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/intersection.test.cpp
-    title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/directed_line_segment_2d/squared_distance.test.cpp
-    title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
@@ -193,12 +147,6 @@ data:
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/line_2d/is_parallel_to.test.cpp
-    title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/line_2d/projection.test.cpp
-    title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/partition_function/n.test.cpp
     title: tests/partition_function/n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -207,15 +155,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/area.test.cpp
-    title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
-    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/polygon_2d/where.test.cpp
-    title: tests/polygon_2d/where.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
@@ -237,22 +176,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -264,24 +203,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/circumcircle.test.cpp
-    title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/triangle_2d/incircle.test.cpp
-    title: tests/triangle_2d/incircle.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
@@ -328,29 +267,21 @@ data:
   path: tools/monoid.hpp
   requiredBy:
   - tools/bostan_mori.hpp
-  - tools/square.hpp
   - tools/polynomial_interpolation.hpp
   - tools/floor_kth_root.hpp
   - tools/stirling_2nd.hpp
   - tools/sample_point_shift.hpp
   - tools/partition_function.hpp
-  - tools/polygon_2d.hpp
-  - tools/detail/geometry_2d.hpp
   - tools/detail/rolling_hash.hpp
-  - tools/half_line_2d.hpp
   - tools/ceil_kth_root.hpp
   - tools/modint_for_rolling_hash.hpp
   - tools/bernoulli.hpp
-  - tools/directed_line_segment_2d.hpp
   - tools/quaternion.hpp
-  - tools/triangle_2d.hpp
   - tools/convolution.hpp
   - tools/tetration_mod.hpp
   - tools/large_fact_mod_cache.hpp
-  - tools/line_2d.hpp
   - tools/rolling_hash.hpp
   - tools/stirling_1st.hpp
-  - tools/circle_2d.hpp
   - tools/berlekamp_massey.hpp
   - tools/fps.hpp
   - tools/pow.hpp
@@ -375,26 +306,17 @@ data:
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/bostan_mori.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/is_group.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
   - tests/partition_function/n.test.cpp
   - tests/partition_function/n_k.test.cpp
   - tests/is_monoid.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
   - tests/rolling_hash.test.cpp
   - tests/polynomial/multidimensional.test.cpp
   - tests/polynomial/multipoint_evaluation.test.cpp
@@ -418,9 +340,6 @@ data:
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/stirling_2nd.test.cpp
   - tests/permutation.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document

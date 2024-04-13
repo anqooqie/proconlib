@@ -15,7 +15,7 @@ data:
     title: Convolution
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
   - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series

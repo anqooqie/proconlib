@@ -4,12 +4,12 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test

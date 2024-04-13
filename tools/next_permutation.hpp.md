@@ -26,7 +26,7 @@ data:
   verifiedWith: []
 documentation_of: tools/next_permutation.hpp
 layout: document
-title: Next permutation in the manner of n-choose-r
+title: Next permutation as n-choose-r
 ---
 
 ```cpp
@@ -34,10 +34,10 @@ template <typename Iterator>
 bool next_permutation(Iterator first, Iterator k, Iterator last);
 ```
 
-It generates the next permutation in the manner of n-choose-r.
+It generates the next permutation as n-choose-r.
 It returns `true` if the next permutation exists, `false` otherwise.
 
-## Usage
+### Usage
 ```cpp
 // 9-choose-3
 int k = 3;
@@ -46,14 +46,14 @@ do {
 } while (tools::next_permutation(s.begin(), std::next(s.begin(), k), s.end()));
 ```
 
-## Constraints
+### Constraints
 - `first` $\leq$ `k` $\leq$ `last`
 
-## Time Complexity
+### Time Complexity
 - $O(\text{last} - \text{first})$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

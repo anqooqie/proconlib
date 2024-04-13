@@ -4,18 +4,21 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
+  - icon: ':question:'
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
@@ -25,10 +28,10 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':question:'
@@ -37,7 +40,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':question:'
@@ -46,16 +49,16 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':question:'
@@ -63,9 +66,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/tetration_mod
@@ -92,21 +95,29 @@ data:
     \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
     \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
     \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 5 \"tools/square.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const typename\
-    \ M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n  T square(const\
-    \ T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n  }\n\
-    }\n\n\n#line 9 \"tools/pow.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, typename M::T>\
-    \ pow(const typename M::T& base, const E exponent) {\n    assert(exponent >= 0);\n\
-    \    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n       \
-    \ ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        : M::op(::tools::pow<M>(base,\
-    \ exponent - 1), base);\n  }\n\n  template <typename T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
-    \ T> pow(const T& base, const E exponent) {\n    assert(exponent >= 0);\n    return\
-    \ ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);\n  }\n\n  template\
-    \ <typename T, typename E>\n  auto pow(const T base, const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>,\
-    \ decltype(::std::pow(base, exponent))> {\n    return ::std::pow(base, exponent);\n\
-    \  }\n}\n\n\n#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\
+    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M, typename = void>\n  struct is_monoid : ::std::false_type {};\n\n  template\
+    \ <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
+    \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
+    \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
+    \ = ::tools::is_monoid<M>::value;\n}\n\n\n#line 6 \"tools/square.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>,\
+    \ typename M::T> square(const typename M::T& x) {\n    return M::op(x, x);\n \
+    \ }\n\n  template <typename T>\n  ::std::enable_if_t<!::tools::is_monoid_v<T>,\
+    \ T> square(const T& x) {\n    return x * x;\n  }\n}\n\n\n#line 9 \"tools/pow.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>,\
+    \ typename M::T> pow(const typename M::T& base, const E exponent) {\n    assert(exponent\
+    \ >= 0);\n    return exponent == 0\n      ? M::e()\n      : exponent % 2 == 0\n\
+    \        ? ::tools::square<M>(::tools::pow<M>(base, exponent / 2))\n        :\
+    \ M::op(::tools::pow<M>(base, exponent - 1), base);\n  }\n\n  template <typename\
+    \ T, typename E>\n  ::std::enable_if_t<::std::is_integral_v<E>, T> pow(const T&\
+    \ base, const E exponent) {\n    assert(exponent >= 0);\n    return ::tools::pow<::tools::monoid::multiplies<T>>(base,\
+    \ exponent);\n  }\n\n  template <typename T, typename E>\n  auto pow(const T base,\
+    \ const E exponent) -> ::std::enable_if_t<!::std::is_integral_v<E>, decltype(::std::pow(base,\
+    \ exponent))> {\n    return ::std::pow(base, exponent);\n  }\n}\n\n\n#line 1 \"\
+    tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\
     \n#include <queue>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line\
     \ 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#line\
     \ 5 \"tools/uint128_t.hpp\"\n#include <string>\n#line 7 \"tools/uint128_t.hpp\"\
@@ -327,6 +338,7 @@ data:
   - tools/pow.hpp
   - tools/monoid.hpp
   - tools/square.hpp
+  - tools/is_monoid.hpp
   - tools/prime_factorization.hpp
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -346,8 +358,8 @@ data:
   isVerificationFile: true
   path: tests/tetration_mod.test.cpp
   requiredBy: []
-  timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-04-13 13:54:52+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/tetration_mod.test.cpp
 layout: document

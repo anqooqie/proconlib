@@ -48,14 +48,14 @@ title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, T, Hash&amp;gt;
 
 `tools::unordered_map<Key, T, Hash = std::hash<Key>>` is an alias for `__gnu_pbds::gp_hash_table<Key, T, Hash>`.
 
-## Constraints
+### Constraints
 - It requires GCC.
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

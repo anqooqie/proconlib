@@ -5,6 +5,9 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':question:'
+    path: tools/ceil.hpp
+    title: $\left\lceil \frac{x}{y} \right\rceil$
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   - icon: ':question:'
@@ -12,7 +15,13 @@ data:
     title: Convolution
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
+  - icon: ':question:'
+    path: tools/find_cycle.hpp
+    title: Floyd's cycle-finding algorithm
+  - icon: ':question:'
+    path: tools/floor.hpp
+    title: $\left\lfloor \frac{x}{y} \right\rfloor$
   - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
@@ -42,6 +51,9 @@ data:
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
   - icon: ':question:'
+    path: tools/pow_mod_cache.hpp
+    title: Cache for $b^n \pmod{M}$
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   - icon: ':question:'
@@ -55,19 +67,26 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/stirling_2nd.test.cpp
-    title: tests/stirling_2nd.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/stirling_2nd.hpp\"\n\n\n\n#include <cassert>\n#line\
-    \ 1 \"tools/fps.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n#include <initializer_list>\n\
-    #include <utility>\n#line 9 \"tools/fps.hpp\"\n#include <numeric>\n#include <algorithm>\n\
-    #include <iterator>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
+  bundledCode: "#line 1 \"tools/stirling_2nd.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <algorithm>\n#include <vector>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 5 \"\
+    tools/fps.hpp\"\n#include <cstddef>\n#include <initializer_list>\n#include <utility>\n\
+    #line 9 \"tools/fps.hpp\"\n#include <numeric>\n#line 11 \"tools/fps.hpp\"\n#include\
+    \ <iterator>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 6 \"\
+    lib/ac-library/atcoder/modint.hpp\"\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
@@ -1107,21 +1126,139 @@ data:
     \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n\
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
-    \ + r - 1, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/stirling_2nd.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename M>\n  ::tools::fps<M> stirling_2nd(const int n)\
-    \ {\n    assert(::tools::is_prime(M::mod()));\n    assert(0 <= n && n < M::mod());\n\
-    \    ::tools::fact_mod_cache<M> cache;\n    ::tools::fps<M> a, b;\n    for (int\
-    \ i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n) * cache.fact_inv(i));\n\
-    \      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n    }\n    return\
-    \ a.multiply_inplace(b);\n  }\n}\n\n\n"
+    \ + r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n\
+    #line 5 \"tools/pow_mod_cache.hpp\"\n#include <optional>\n#line 1 \"tools/find_cycle.hpp\"\
+    \n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename F>\n  ::std::pair<long long, long long> find_cycle(const T& seed,\
+    \ const F& f) {\n    auto i = 1LL;\n    auto j = 2LL;\n    T x = f(seed);\n  \
+    \  T y = f(f(seed));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\
+    \n    i = 0;\n    x = seed;\n    for (; x != y; ++i, ++j, x = f(x), y = f(y));\n\
+    \n    const auto head = i;\n\n    ++i;\n    j = i + 1;\n    x = f(x);\n    y =\
+    \ f(f(y));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const\
+    \ auto cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\
+    \n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace\
+    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> floor(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M,\
+    \ N>;\n    assert(rhs != N(0));\n    return lhs / rhs - T(((lhs > M(0) && rhs\
+    \ < N(0)) || (lhs < M(0) && rhs > N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"\
+    tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
+    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
+    \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
+    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 16 \"tools/pow_mod_cache.hpp\"\
+    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n    ::std::vector<M>\
+    \ m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M> m_inv_pow;\n  \
+    \  ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long long,\
+    \ long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n    explicit\
+    \ pow_mod_cache(const M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}),\
+    \ m_inv_cumsum({M::raw(0)}) {\n      if (base == M(-1)) {\n        if (M::mod()\
+    \ > 2) {\n          this->m_period = ::std::make_pair(0LL, 2LL);\n        } else\
+    \ {\n          this->m_period = ::std::make_pair(0LL, 1LL);\n          this->m_pow.resize(1);\n\
+    \        }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
+    \      }\n    }\n    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>,\
+    \ ::std::nullptr_t> = nullptr>\n    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base))\
+    \ {\n    }\n\n    M operator[](const long long n) {\n      if (!this->m_period)\
+    \ {\n        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long\
+    \ long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {\n   \
+    \       if (n >= 0) {\n            const long long size = ::tools::ssize(this->m_pow);\n\
+    \            this->m_pow.resize(::std::max(size, n + 1));\n            for (long\
+    \ long i = size; i < ::tools::ssize(this->m_pow); ++i) {\n              this->m_pow[i]\
+    \ = this->m_pow[i - 1] * this->m_pow[1];\n            }\n            return this->m_pow[n];\n\
+    \          } else {\n            if (this->m_inv_pow.size() == 1) {\n        \
+    \      this->m_inv_pow.push_back(this->m_pow[1].inv());\n            }\n     \
+    \       const long long size = ::tools::ssize(this->m_inv_pow);\n            this->m_inv_pow.resize(::std::max(size,\
+    \ -n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_inv_pow);\
+    \ ++i) {\n              this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n\
+    \            }\n            return this->m_inv_pow[-n];\n          }\n       \
+    \ }\n\n        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const\
+    \ M& prev) { return prev * this->m_pow[1]; });\n        const long long size =\
+    \ ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
+    \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
+    \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
+    \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
+    \      }\n\n      if (this->m_period->first == 0) {\n        return this->m_pow[::tools::mod(n,\
+    \ this->m_period->second)];\n      } else {\n        assert(n >= 0);\n       \
+    \ if (n < this->m_period->first + this->m_period->second) {\n          return\
+    \ this->m_pow[n];\n        } else {\n          return this->m_pow[(n - this->m_period->first)\
+    \ % this->m_period->second + this->m_period->first];\n        }\n      }\n   \
+    \ }\n\n    M sum(const long long l, const long long r) {\n      if (l >= r) return\
+    \ M::raw(0);\n\n      (*this)[r - 1];\n      (*this)[l];\n\n      {\n        const\
+    \ long long size = ::tools::ssize(this->m_cumsum);\n        this->m_cumsum.resize(this->m_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_cumsum);\
+    \ ++i) {\n          this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n      }\n\n      if (!this->m_period) {\n        const long\
+    \ long size = ::tools::ssize(this->m_inv_cumsum);\n        this->m_inv_cumsum.resize(this->m_inv_pow.size()\
+    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum);\
+    \ ++i) {\n          this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i\
+    \ - 1];\n        }\n\n        if (l >= 0) {\n          return this->m_cumsum[r]\
+    \ - this->m_cumsum[l];\n        } else if (r <= 0) {\n          return this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[-r];\n        } else {\n          return (this->m_inv_cumsum[-l]\
+    \ - this->m_inv_cumsum[1]) + (this->m_cumsum[r] - this->m_cumsum[0]);\n      \
+    \  }\n      }\n\n      static const auto cumsum = [&](const long long ll, const\
+    \ long long rr) {\n        return this->m_cumsum[rr] - this->m_cumsum[ll];\n \
+    \     };\n\n      if (l >= 0) {\n        static const auto f = [&](const long\
+    \ long x) {\n          if (x <= this->m_period->first + this->m_period->second)\
+    \ {\n            return cumsum(0, x);\n          } else {\n            return\
+    \ cumsum(0, this->m_period->first) +\n              cumsum(this->m_period->first,\
+    \ this->m_period->first + this->m_period->second) * ((x - this->m_period->first)\
+    \ / this->m_period->second) +\n              cumsum(this->m_period->first, (x\
+    \ - this->m_period->first) % this->m_period->second + this->m_period->first);\n\
+    \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
+    \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
+    \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
+    \ n) - ::tools::ceil(l, n));\n      }\n    }\n  };\n}\n\n\n#line 11 \"tools/stirling_2nd.hpp\"\
+    \n\nnamespace tools {\n\n  namespace stirling_2nd {\n\n    template <typename\
+    \ M>\n    ::tools::fps<M> fixed_n(const int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n\
+    \      assert(0 <= ::std::min(K, N) && ::std::min(K, N) < M::mod());\n      ::tools::fact_mod_cache<M>\
+    \ cache;\n      ::tools::pow_mod_cache<M> pow_m1(-1);\n      ::tools::fps<M> a,\
+    \ b;\n      for (int i = 0; i <= ::std::min(K, N); ++i) {\n        a.push_back(M(i).pow(N)\
+    \ * cache.fact_inv(i));\n        b.push_back(pow_m1[i] * cache.fact_inv(i));\n\
+    \      }\n      a.multiply_inplace(b);\n      a.resize(K + 1, M::raw(0));\n  \
+    \    return a;\n    }\n\n    template <typename M>\n    ::tools::fps<M> fixed_k(const\
+    \ int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n      assert(0\
+    \ <= K && K < M::mod());\n      assert(0 <= N && N < M::mod() + K - 1);\n    \
+    \  if (N < K) return ::tools::fps<M>(N + 1, M::raw(0));\n\n      ::tools::fact_mod_cache<M>\
+    \ cache;\n      ::tools::fps<M> f(N - K + 1);\n      for (int i = 0; i <= N -\
+    \ K; ++i) {\n        f[i] = cache.fact_inv(i + 1);\n      }\n      f.pow_inplace(K);\n\
+    \      f *= cache.fact_inv(K);\n      for (int n = K; n <= N; ++n) {\n       \
+    \ f[n - K] *= cache.fact(n);\n      }\n      f.insert(f.begin(), K, M::raw(0));\n\
+    \      return f;\n    }\n\n    template <typename M>\n    ::tools::fps<M> diagonal(const\
+    \ int N) {\n      assert(N >= 0);\n      return ::tools::fps<M>(N + 1, M(1));\n\
+    \    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const\
+    \ int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n      ::std::vector<::std::vector<M>>\
+    \ S(N + 1);\n      S[0].emplace_back(1);\n      S[0].insert(S[0].end(), K, M::raw(0));\n\
+    \      for (int n = 1; n <= N; ++n) {\n        S[n].resize(K + 1, M::raw(0));\n\
+    \        for (int k = 0; k <= ::std::min(n, K); ++k) {\n          if (k > 0) S[n][k]\
+    \ += S[n - 1][k - 1];\n          S[n][k] += M(k) * S[n - 1][k];\n        }\n \
+    \     }\n      return S;\n    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_STIRLING_2ND_HPP\n#define TOOLS_STIRLING_2ND_HPP\n\n#include\
-    \ <cassert>\n#include \"tools/fps.hpp\"\n#include \"tools/is_prime.hpp\"\n#include\
-    \ \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n  template <typename M>\n\
-    \  ::tools::fps<M> stirling_2nd(const int n) {\n    assert(::tools::is_prime(M::mod()));\n\
-    \    assert(0 <= n && n < M::mod());\n    ::tools::fact_mod_cache<M> cache;\n\
-    \    ::tools::fps<M> a, b;\n    for (int i = 0; i <= n; ++i) {\n      a.push_back(M(i).pow(n)\
-    \ * cache.fact_inv(i));\n      b.push_back(M(i % 2 == 0 ? 1 : -1) * cache.fact_inv(i));\n\
-    \    }\n    return a.multiply_inplace(b);\n  }\n}\n\n#endif\n"
+    \ <cassert>\n#include <algorithm>\n#include <vector>\n#include \"tools/fps.hpp\"\
+    \n#include \"tools/is_prime.hpp\"\n#include \"tools/fact_mod_cache.hpp\"\n#include\
+    \ \"tools/pow_mod_cache.hpp\"\n\nnamespace tools {\n\n  namespace stirling_2nd\
+    \ {\n\n    template <typename M>\n    ::tools::fps<M> fixed_n(const int N, const\
+    \ int K) {\n      assert(::tools::is_prime(M::mod()));\n      assert(0 <= ::std::min(K,\
+    \ N) && ::std::min(K, N) < M::mod());\n      ::tools::fact_mod_cache<M> cache;\n\
+    \      ::tools::pow_mod_cache<M> pow_m1(-1);\n      ::tools::fps<M> a, b;\n  \
+    \    for (int i = 0; i <= ::std::min(K, N); ++i) {\n        a.push_back(M(i).pow(N)\
+    \ * cache.fact_inv(i));\n        b.push_back(pow_m1[i] * cache.fact_inv(i));\n\
+    \      }\n      a.multiply_inplace(b);\n      a.resize(K + 1, M::raw(0));\n  \
+    \    return a;\n    }\n\n    template <typename M>\n    ::tools::fps<M> fixed_k(const\
+    \ int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n      assert(0\
+    \ <= K && K < M::mod());\n      assert(0 <= N && N < M::mod() + K - 1);\n    \
+    \  if (N < K) return ::tools::fps<M>(N + 1, M::raw(0));\n\n      ::tools::fact_mod_cache<M>\
+    \ cache;\n      ::tools::fps<M> f(N - K + 1);\n      for (int i = 0; i <= N -\
+    \ K; ++i) {\n        f[i] = cache.fact_inv(i + 1);\n      }\n      f.pow_inplace(K);\n\
+    \      f *= cache.fact_inv(K);\n      for (int n = K; n <= N; ++n) {\n       \
+    \ f[n - K] *= cache.fact(n);\n      }\n      f.insert(f.begin(), K, M::raw(0));\n\
+    \      return f;\n    }\n\n    template <typename M>\n    ::tools::fps<M> diagonal(const\
+    \ int N) {\n      assert(N >= 0);\n      return ::tools::fps<M>(N + 1, M(1));\n\
+    \    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const\
+    \ int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n      ::std::vector<::std::vector<M>>\
+    \ S(N + 1);\n      S[0].emplace_back(1);\n      S[0].insert(S[0].end(), K, M::raw(0));\n\
+    \      for (int n = 1; n <= N; ++n) {\n        S[n].resize(K + 1, M::raw(0));\n\
+    \        for (int k = 0; k <= ::std::min(n, K); ++k) {\n          if (k > 0) S[n][k]\
+    \ += S[n - 1][k - 1];\n          S[n][k] += M(k) * S[n - 1][k];\n        }\n \
+    \     }\n      return S;\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1140,38 +1277,67 @@ data:
   - tools/less_by_first.hpp
   - tools/fact_mod_cache.hpp
   - tools/ssize.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/find_cycle.hpp
+  - tools/floor.hpp
+  - tools/ceil.hpp
   isVerificationFile: false
   path: tools/stirling_2nd.hpp
   requiredBy: []
-  timestamp: '2024-04-13 07:19:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-13 13:54:52+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - tests/stirling_2nd.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
 documentation_of: tools/stirling_2nd.hpp
 layout: document
-title: Stirling numbers of the second kind $S(n, k) \pmod{P}$ for $0 \leq k \leq n$
+title: Stirling numbers of the second kind
 ---
 
+It calculates the Stirling numbers of the second kind $S(n, k) = \frac{1}{k!} \sum_{i = 0}^k (-1)^{k - i} {}_k \mathrm{C}_i i^n$.
+
+### List of $S(n, k)$
+
+|$n \backslash k$|$0$|$1$|       $2$|            $3$|             $4$|              $5$|              $6$|              $7$|              $8$|             $9$|            $10$|           $11$|       $12$|     $13$| $14$|$15$|
+|             $0$|$1$|$0$|       $0$|            $0$|             $0$|              $0$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $1$|$0$|$1$|       $0$|            $0$|             $0$|              $0$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $2$|$0$|$1$|       $1$|            $0$|             $0$|              $0$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $3$|$0$|$1$|       $3$|            $1$|             $0$|              $0$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $4$|$0$|$1$|       $7$|            $6$|             $1$|              $0$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $5$|$0$|$1$|      $15$|           $25$|            $10$|              $1$|              $0$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $6$|$0$|$1$|      $31$|           $90$|            $65$|             $15$|              $1$|              $0$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $7$|$0$|$1$|      $63$|          $301$|           $350$|            $140$|             $21$|              $1$|              $0$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $8$|$0$|$1$|     $127$|          $966$|       $1{,}701$|        $1{,}050$|            $266$|             $28$|              $1$|             $0$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|             $9$|$0$|$1$|     $255$|      $3{,}025$|       $7{,}770$|        $6{,}951$|        $2{,}646$|            $462$|             $36$|             $1$|             $0$|            $0$|        $0$|      $0$|  $0$| $0$|
+|            $10$|$0$|$1$|     $511$|      $9{,}330$|      $34{,}105$|       $42{,}525$|       $22{,}827$|        $5{,}880$|            $750$|            $45$|             $1$|            $0$|        $0$|      $0$|  $0$| $0$|
+|            $11$|$0$|$1$| $1{,}023$|     $28{,}501$|     $145{,}750$|      $246{,}730$|      $179{,}487$|       $63{,}987$|       $11{,}880$|       $1{,}155$|            $55$|            $1$|        $0$|      $0$|  $0$| $0$|
+|            $12$|$0$|$1$| $2{,}047$|     $86{,}526$|     $611{,}501$|  $1{,}379{,}400$|  $1{,}323{,}652$|      $627{,}396$|      $159{,}027$|      $22{,}275$|       $1{,}705$|           $66$|        $1$|      $0$|  $0$| $0$|
+|            $13$|$0$|$1$| $4{,}095$|    $261{,}625$| $2{,}532{,}530$|  $7{,}508{,}501$|  $9{,}321{,}312$|  $5{,}715{,}424$|  $1{,}899{,}612$|     $359{,}502$|      $39{,}325$|      $2{,}431$|       $78$|      $1$|  $0$| $0$|
+|            $14$|$0$|$1$| $8{,}191$|    $788{,}970$|$10{,}391{,}745$| $40{,}075{,}035$| $63{,}436{,}373$| $49{,}329{,}280$| $20{,}912{,}320$| $5{,}135{,}130$|     $752{,}752$|     $66{,}066$|  $3{,}367$|     $91$|  $1$| $0$|
+|            $15$|$0$|$1$|$16{,}383$|$2{,}375{,}101$|$42{,}355{,}950$|$210{,}766{,}920$|$420{,}693{,}273$|$408{,}741{,}333$|$216{,}627{,}840$|$67{,}128{,}490$|$12{,}662{,}650$|$1{,}479{,}478$|$106{,}470$|$4{,}550$|$105$| $1$|
+
+## stirling_2nd::fixed_n
 ```cpp
 template <typename M>
-tools::fps<M> stirling_2nd(int n);
+tools::fps<M> stirling_2nd::fixed_n(int N, int K);
 ```
 
-It returns $S(n, k) = \frac{1}{k!} \sum_{i = 0}^k (-1)^{k - i} {}_k C_i i^n$ on $\mathbb{F}_P$ for all $k$ such that $0 \leq k \leq n$, where $P$ is `M::mod()`.
+It returns $S(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
 
-## Constraints
+### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
-- $0 \leq n < P$
+- $0 \leq \min(N, K) < P$
 
-## Time Complexity
-- $O(n \log n)$
+### Time Complexity
+- $O(\min(N, K) \log(\min(N, K)) + K)$
 
-## Algorithm
+### Algorithm
 The following equation holds.
 
 $$\begin{align*}
-S(n, k) &= \frac{1}{k!} \sum_{i = 0}^k (-1)^{k - i} {}_k C_i i^n\\
+S(n, k) &= \frac{1}{k!} \sum_{i = 0}^k (-1)^{k - i} {}_k \mathrm{C}_i i^n\\
 &= \frac{1}{k!} \sum_{i = 0}^k (-1)^{k - i} \frac{k!}{i! (k - i)!} i^n\\
 &= \sum_{i = 0}^k (-1)^{k - i} \frac{1}{i! (k - i)!} i^n\\
 &= \sum_{i = 0}^k \frac{i^n}{i!} \frac{(-1)^{k - i}}{(k - i)!}\\
@@ -1182,8 +1348,79 @@ S(n, k) &= \sum_{i = 0}^k a_i b_{k - i}
 
 Therefore, $S(n, k)$ can be calculated by convolution.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
+- anqooqie
+
+## stirling_2nd::fixed_k
+```cpp
+template <typename M>
+tools::fps<M> stirling_2nd::fixed_k(int N, int K);
+```
+
+It returns $S(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $P$ is a prime.
+- $0 \leq K < P$
+- $0 \leq N < P + K - 1$
+
+### Time Complexity
+- $O((N - K) \log (N - K) + N)$
+
+### Algorithm
+$S(n, k) = n! [x^n] \frac{(e^x - 1)^k}{k!}$ holds.
+Therefore, $S(n, k)$ can be calculated by FPS.
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## stirling_2nd::diagonal
+```cpp
+template <typename M>
+tools::fps<M> stirling_2nd::diagonal(int N);
+```
+
+It returns $S(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
+Note that $S(n, n) = 1$.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $N \geq 0$
+
+### Time Complexity
+- $O(N)$
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## stirling_2nd::all
+```cpp
+template <typename M>
+std::vector<std::vector<M>> stirling_2nd::all(int N, int K);
+```
+
+It returns $S(n, k) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$ and all $k$ such that $0 \leq k \leq K$, where $M$ is `M::mod()`.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $N \geq 0$
+- $K \geq 0$
+
+### Time Complexity
+- $O(NK)$
+
+### License
+- CC0
+
+### Author
 - anqooqie

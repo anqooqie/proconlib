@@ -8,7 +8,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -17,22 +17,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
-    title: Cache of $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+    title: Cache for $b^n \pmod{M}$
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Stirling numbers of the first kind $s(n, k) \pmod{P}$ for $0 \leq k \leq
       n$
+  - icon: ':x:'
+    path: tools/stirling_2nd.hpp
+    title: Stirling numbers of the second kind
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
@@ -73,18 +76,27 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st.test.cpp
     title: tests/stirling_1st.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/stirling_2nd/all.test.cpp
+    title: tests/stirling_2nd/all.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_k.test.cpp
+    title: tests/stirling_2nd/fixed_k.test.cpp
+  - icon: ':x:'
+    path: tests/stirling_2nd/fixed_n.test.cpp
+    title: tests/stirling_2nd/fixed_n.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#include <utility>\n\nnamespace\
@@ -111,6 +123,7 @@ data:
   requiredBy:
   - tools/bostan_mori.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/stirling_2nd.hpp
   - tools/detail/rolling_hash.hpp
   - tools/pow_mod_cache.hpp
   - tools/modint_for_rolling_hash.hpp
@@ -120,9 +133,12 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/polynomial.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/stirling_1st.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/all.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/rolling_hash.test.cpp
@@ -145,19 +161,19 @@ title: Floyd's cycle-finding algorithm
 
 ```cpp
 template <typename T, typename F>
-std::pair<long long, long long> find_cycle(T seed, F f);
+std::pair<long long, long long> find_cycle(T x0, F f);
 ```
 
-It returns the length of head and the length of cycle.
+It returns the minimum $(a, b)$ in lexicographical order such that $a \geq 0$, $b \geq 1$ and $f^a(x_0) = f^{a + b}(x_0)$.
 
-## Parameters
-- `seed`
-    - the initial state
-- `f`
-    - the function which generates the next state
+### Constraints
+- $(a, b)$ such that $a \geq 0$, $b \geq 1$ and $f^a(x_0) = f^{a + b}(x_0)$ exists.
 
-## License
+### Time Complexity
+- $O(a + b)$
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

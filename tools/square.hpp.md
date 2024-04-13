@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
-    path: tools/monoid.hpp
-    title: Typical monoids
+    path: tools/is_monoid.hpp
+    title: Check whether T is a monoid
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
@@ -11,10 +11,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
@@ -35,22 +35,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
@@ -111,66 +111,58 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/where.test.cpp
     title: tests/polygon_2d/where.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/angle_axis.test.cpp
     title: tests/quaternion/angle_axis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/dice_rotations.test.cpp
     title: tests/quaternion/dice_rotations.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/look_rotation.test.cpp
     title: tests/quaternion/look_rotation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/monoid.hpp\"\n\
-    \n\n\n#include <algorithm>\n#include <limits>\n#include <numeric>\n\nnamespace\
-    \ tools {\n  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 5 \"tools/square.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M>\n  typename M::T square(const typename M::T& x) {\n    return M::op(x, x);\n\
-    \  }\n\n  template <typename T>\n  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n\n"
-  code: "#ifndef TOOLS_SQUARE_HPP\n#define TOOLS_SQUARE_HPP\n\n#include \"tools/monoid.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename M>\n  typename M::T square(const\
+  bundledCode: "#line 1 \"tools/square.hpp\"\n\n\n\n#include <type_traits>\n#line\
+    \ 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 5 \"tools/is_monoid.hpp\"\n#include <utility>\n\
+    \nnamespace tools {\n\n  template <typename M, typename = void>\n  struct is_monoid\
+    \ : ::std::false_type {};\n\n  template <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n\
+    \    ::std::is_same_v<typename M::T, decltype(M::op(::std::declval<typename M::T>(),\
+    \ ::std::declval<typename M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr\
+    \ bool is_monoid_v = ::tools::is_monoid<M>::value;\n}\n\n\n#line 6 \"tools/square.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>,\
+    \ typename M::T> square(const typename M::T& x) {\n    return M::op(x, x);\n \
+    \ }\n\n  template <typename T>\n  ::std::enable_if_t<!::tools::is_monoid_v<T>,\
+    \ T> square(const T& x) {\n    return x * x;\n  }\n}\n\n\n"
+  code: "#ifndef TOOLS_SQUARE_HPP\n#define TOOLS_SQUARE_HPP\n\n#include <type_traits>\n\
+    #include \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ M>\n  ::std::enable_if_t<::tools::is_monoid_v<M>, typename M::T> square(const\
     \ typename M::T& x) {\n    return M::op(x, x);\n  }\n\n  template <typename T>\n\
-    \  T square(const T& x) {\n    return ::tools::square<::tools::monoid::multiplies<T>>(x);\n\
-    \  }\n}\n\n#endif\n"
+    \  ::std::enable_if_t<!::tools::is_monoid_v<T>, T> square(const T& x) {\n    return\
+    \ x * x;\n  }\n}\n\n#endif\n"
   dependsOn:
-  - tools/monoid.hpp
+  - tools/is_monoid.hpp
   isVerificationFile: false
   path: tools/square.hpp
   requiredBy:
@@ -190,8 +182,8 @@ data:
   - tools/circle_2d.hpp
   - tools/pow.hpp
   - tools/totient.hpp
-  timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-13 13:54:52+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
@@ -227,9 +219,11 @@ title: $x^2$ under a given monoid
 ---
 
 ```cpp
+(1)
 template <typename M>
 typename M::T square(typename M::T x);
 
+(2)
 template <typename T>
 T square(T x);
 ```
@@ -237,8 +231,20 @@ T square(T x);
 It returns $x^2$ under a given monoid.
 The default monoid is $(\mathbb{Z}, \times)$.
 
-## License
+### Constraints
+- (1)
+    - None
+- (2)
+    - `x * x` is defined.
+
+### Time Complexity
+- (1)
+    - Same as that of `M::op(x, x)`
+- (2)
+    - Same as that of `x * x`
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

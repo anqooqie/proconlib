@@ -32,14 +32,14 @@ title: Alias for __gnu_pbds::gp_hash_table&amp;lt;Key, __gnu_pbds::null_type, Ha
 
 `tools::unordered_set<Key, Hash = std::hash<Key>>` is an alias for `__gnu_pbds::gp_hash_table<Key, __gnu_pbds::null_type, Hash>`.
 
-## Constraints
+### Constraints
 - It requires GCC.
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

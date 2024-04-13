@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
   _extendedRequiredBy: []
@@ -59,15 +59,15 @@ std::common_type_t<M, N> floor_log(M b, N x);
 
 It returns $\left\lfloor \log_b(x) \right\rfloor$.
 
-## Constraints
+### Constraints
 - $2 \leq b \leq 10^{18}$
 - $1 \leq x \leq 10^{18}$
 
-## Time Complexity
+### Time Complexity
 - $O(\log x)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

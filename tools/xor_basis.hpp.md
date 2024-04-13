@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
@@ -72,17 +72,17 @@ void xor_basis(InputIterator begin, InputIterator end, OutputIterator result);
 
 It stores the basis of $\[\mathrm{begin}, \mathrm{end})$ to `result`.
 
-## References
-- [@noshi91 - Twitter](https://twitter.com/noshi91/status/1200702280128856064)
-
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O(N^2)$ where $N$ is `end` - `begin`
 
-## License
+### References
+- [@noshi91 - Twitter](https://twitter.com/noshi91/status/1200702280128856064)
+
+### License
 - Unknown
 
-## Author
+### Author
 - noshi91

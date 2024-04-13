@@ -12,7 +12,7 @@ data:
     title: Convolution
   - icon: ':question:'
     path: tools/fact_mod_cache.hpp
-    title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
   - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
@@ -1164,16 +1164,16 @@ $$\begin{align*}
 \frac{x}{e^x - 1} &= \sum_{k = 0}^\infty \frac{B_k}{k!} x^k
 \end{align*}$$
 
-## Constraints
+### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
 - $0 \leq n < P$
 
-## Time Complexity
+### Time Complexity
 - $O(n \log n)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

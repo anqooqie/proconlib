@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
@@ -117,19 +117,19 @@ namespace std {
 It adds some specializations of `std::hash`.
 Hereby, it gets possible to compile `std::hash<std::pair<T1, T2>>` and `std::hash<std::tuple<Args...>>`.
 
-## Warning
+### Warning
 This file adds partial specializations for classes in std namespace, for convenience.
 Strictly speaking, it is not allowed in C++.
 It makes the program ill-formed to include this file, and may cause undefined behavior.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

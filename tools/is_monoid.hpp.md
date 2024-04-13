@@ -3,15 +3,105 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/ceil_kth_root.hpp
+    title: $\left\lceil x^\frac{1}{k} \right\rceil$
+  - icon: ':heavy_check_mark:'
+    path: tools/circle_2d.hpp
+    title: Two-dimensional circle
+  - icon: ':question:'
+    path: tools/detail/geometry_2d.hpp
+    title: tools/detail/geometry_2d.hpp
+  - icon: ':question:'
+    path: tools/detail/rolling_hash.hpp
+    title: tools/detail/rolling_hash.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/directed_line_segment_2d.hpp
+    title: Two-dimensional directed line segment
+  - icon: ':heavy_check_mark:'
+    path: tools/floor_kth_root.hpp
+    title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
+  - icon: ':warning:'
+    path: tools/half_line_2d.hpp
+    title: Two-dimensional half line
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
+  - icon: ':heavy_check_mark:'
+    path: tools/line_2d.hpp
+    title: Two-dimensional line
+  - icon: ':heavy_check_mark:'
+    path: tools/modint_for_rolling_hash.hpp
+    title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':heavy_check_mark:'
+    path: tools/polygon_2d.hpp
+    title: Two-dimensional polygon
+  - icon: ':question:'
+    path: tools/pow.hpp
+    title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
+  - icon: ':x:'
+    path: tools/quaternion.hpp
+    title: Quaternion
+  - icon: ':x:'
+    path: tools/rolling_hash.hpp
+    title: Rolling hash
+  - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
+  - icon: ':question:'
+    path: tools/square.hpp
+    title: $x^2$ under a given monoid
+  - icon: ':x:'
+    path: tools/tetration_mod.hpp
+    title: $x \uparrow\uparrow y \pmod{M}$
+  - icon: ':x:'
+    path: tools/totient.hpp
+    title: Euler's totient function
+  - icon: ':x:'
+    path: tools/triangle_2d.hpp
+    title: Two-dimensional triangle
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/ceil_kth_root.test.cpp
+    title: tests/ceil_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_circle.test.cpp
+    title: tests/circle_2d/intersection_to_circle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/intersection_to_line.test.cpp
+    title: tests/circle_2d/intersection_to_line.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/with_radius.test.cpp
+    title: tests/circle_2d/where/with_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/circle_2d/where/without_radius.test.cpp
+    title: tests/circle_2d/where/without_radius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/floor_kth_root.test.cpp
+    title: tests/floor_kth_root.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/exp_other_mods.test.cpp
+    title: tests/fps/exp_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/log_other_mods.test.cpp
+    title: tests/fps/log_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/fps/pow_other_mods.test.cpp
+    title: tests/fps/pow_other_mods.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/has_mod.test.cpp
+    title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
@@ -22,14 +112,59 @@ data:
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/line_2d/is_parallel_to.test.cpp
+    title: tests/line_2d/is_parallel_to.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/permutation.test.cpp
+    title: tests/permutation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/where.test.cpp
+    title: tests/polygon_2d/where.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/angle_axis.test.cpp
+    title: tests/quaternion/angle_axis.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/dice_rotations.test.cpp
+    title: tests/quaternion/dice_rotations.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/look_rotation.test.cpp
+    title: tests/quaternion/look_rotation.test.cpp
+  - icon: ':x:'
+    path: tests/quaternion/slerp.test.cpp
+    title: tests/quaternion/slerp.test.cpp
+  - icon: ':x:'
+    path: tests/rolling_hash.test.cpp
+    title: tests/rolling_hash.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: tests/tetration_mod.test.cpp
+    title: tests/tetration_mod.test.cpp
+  - icon: ':x:'
+    path: tests/totient.test.cpp
+    title: tests/totient.test.cpp
+  - icon: ':x:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
+  - icon: ':x:'
+    path: tests/triangle_2d/incircle.test.cpp
+    title: tests/triangle_2d/incircle.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_monoid.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -52,17 +187,62 @@ data:
   isVerificationFile: false
   path: tools/is_monoid.hpp
   requiredBy:
+  - tools/square.hpp
+  - tools/floor_kth_root.hpp
   - tools/sample_point_shift.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/geometry_2d.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/half_line_2d.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/quaternion.hpp
+  - tools/triangle_2d.hpp
   - tools/online_cumsum.hpp
+  - tools/tetration_mod.hpp
   - tools/large_fact_mod_cache.hpp
+  - tools/line_2d.hpp
+  - tools/rolling_hash.hpp
+  - tools/circle_2d.hpp
+  - tools/pow.hpp
+  - tools/totient.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/online_cumsum.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
   - tests/is_monoid.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/totient.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/floor_kth_root.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/permutation.test.cpp
 documentation_of: tools/is_monoid.hpp
 layout: document
 title: Check whether T is a monoid
@@ -86,14 +266,14 @@ If `<M>` satisfies the following conditions, `tools::is_monoid<M>::value` is `tr
 
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

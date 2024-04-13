@@ -2,13 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -84,12 +84,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/gcd.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -108,7 +108,7 @@ data:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
   timestamp: '2022-11-03 23:21:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/random.test.cpp
@@ -150,14 +150,14 @@ If `std::gcd(m, n)` is available, it returns `std::gcd(m, n)`.
 `tools::gcd(m, n)` will be extended by other header files in my library.
 For example, `tools::gcd(tools::bigint, tools::bigint)` gets available if you include `tools/bigint.hpp`.
 
-## Constraints
+### Constraints
 - See the standard or the explanation of the corresponding header file.
 
-## Time Complexity
+### Time Complexity
 - See the standard or the explanation of the corresponding header file.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

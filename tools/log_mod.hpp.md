@@ -10,19 +10,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_sqrt.hpp
     title: $\left\lceil \sqrt{x} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
   - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':question:'
@@ -231,17 +231,17 @@ If $k$ does not exist, it returns `std::nullopt`.
 
 Note that we define $0^0 = 1$ in this function.
 
-## Constraints
+### Constraints
 - $M \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(\sqrt{M})$
 
-## References
+### References
 - [離散対数問題 (Discrete Logarithm Problem) を任意 mod で解く - Qiita](https://qiita.com/suisen_cp/items/d597c8ec576ae32ee2d7)
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

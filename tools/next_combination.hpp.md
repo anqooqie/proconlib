@@ -46,7 +46,7 @@ data:
   verifiedWith: []
 documentation_of: tools/next_combination.hpp
 layout: document
-title: Next combination in the manner of n-choose-r
+title: Next combination as n-choose-r
 ---
 
 ```cpp
@@ -54,7 +54,7 @@ template <typename Iterator>
 bool next_combination(Iterator first, Iterator k, Iterator last);
 ```
 
-It generates the next combination in the manner of n-choose-r.
+It generates the next combination as n-choose-r.
 It returns `true` if the next combination exists, `false` otherwise.
 
 ## Usage
@@ -66,17 +66,17 @@ do {
 } while (tools::next_combination(s.begin(), std::next(s.begin(), k), s.end()));
 ```
 
-## Constraints
+### Constraints
 - `first` $\leq$ `k` $\leq$ `last`
 
-## Time Complexity
+### Time Complexity
 - Not analyzed yet
 
-## References
+### References
 - [Stack Overflow](https://stackoverflow.com/questions/5095407/all-combinations-of-k-elements-out-of-n/5097100#5097100)
 
-## License
+### License
 - CC BY-SA 3.0
 
-## Author
+### Author
 - Thomas Draper

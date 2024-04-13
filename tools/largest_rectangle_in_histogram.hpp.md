@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
   _extendedRequiredBy: []
@@ -82,14 +82,14 @@ typename ::std::iterator_traits<Iterator>::value_type largest_rectangle_in_histo
 
 It returns the area of the largest rectangle in a given histogram.
 
-## Constraints
+### Constraints
 - `begin` $\leq$ `end`
 
-## Time Complexity
+### Time Complexity
 - $O(n)$ where $n$ is `end` - `begin`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
