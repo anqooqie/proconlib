@@ -21,6 +21,9 @@ data:
     title: Polyfill of std::ssize
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bell.hpp
+    title: Bell numbers
+  - icon: ':heavy_check_mark:'
     path: tools/berlekamp_massey.hpp
     title: Berlekamp-Massey algorithm
   - icon: ':heavy_check_mark:'
@@ -51,6 +54,15 @@ data:
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/all.test.cpp
+    title: tests/bell/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/fixed_n.test.cpp
+    title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
     title: tests/berlekamp_massey.test.cpp
@@ -294,6 +306,7 @@ data:
   - tools/rolling_hash.hpp
   - tools/stirling_1st.hpp
   - tools/berlekamp_massey.hpp
+  - tools/bell.hpp
   - tools/polynomial.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -313,6 +326,9 @@ data:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/bell/all.test.cpp
   - tests/has_mod.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp

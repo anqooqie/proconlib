@@ -40,6 +40,9 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bell.hpp
+    title: Bell numbers
+  - icon: ':heavy_check_mark:'
     path: tools/berlekamp_massey.hpp
     title: Berlekamp-Massey algorithm
   - icon: ':heavy_check_mark:'
@@ -76,6 +79,15 @@ data:
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/all.test.cpp
+    title: tests/bell/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/fixed_n.test.cpp
+    title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
     title: tests/berlekamp_massey.test.cpp
@@ -1059,6 +1071,7 @@ data:
   - tools/berlekamp_massey.hpp
   - tools/fps.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/bell.hpp
   - tools/polynomial.hpp
   timestamp: '2024-04-07 19:33:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -1093,6 +1106,9 @@ data:
   - tests/polynomial/ntt_division.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/bell/all.test.cpp
   - tests/bernoulli.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp

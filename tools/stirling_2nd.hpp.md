@@ -65,8 +65,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/bell.hpp
+    title: Bell numbers
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/all.test.cpp
+    title: tests/bell/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/fixed_n.test.cpp
+    title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
@@ -1283,13 +1295,17 @@ data:
   - tools/ceil.hpp
   isVerificationFile: false
   path: tools/stirling_2nd.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/bell.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/bell/all.test.cpp
 documentation_of: tools/stirling_2nd.hpp
 layout: document
 title: Stirling numbers of the second kind

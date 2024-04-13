@@ -19,6 +19,9 @@ data:
       path: tools/avl_tree.hpp
       title: Reversible self-balancing binary search tree based on AVL tree
     - icon: ':heavy_check_mark:'
+      path: tools/bell.hpp
+      title: Bell numbers
+    - icon: ':heavy_check_mark:'
       path: tools/bellman_ford.hpp
       title: Bellman-Ford algorithm
     - icon: ':heavy_check_mark:'
@@ -978,6 +981,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/avl_tree/set.test.cpp
       title: tests/avl_tree/set.test.cpp
+  - name: tests/bell
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/bell/all.test.cpp
+      title: tests/bell/all.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bell/diagonal.test.cpp
+      title: tests/bell/diagonal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bell/fixed_n.test.cpp
+      title: tests/bell/fixed_n.test.cpp
   - name: tests/bigdecimal
     pages:
     - icon: ':heavy_check_mark:'

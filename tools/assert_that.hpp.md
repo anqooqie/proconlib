@@ -7,6 +7,9 @@ data:
     path: tests/alphabetical_order.test.cpp
     title: tests/alphabetical_order.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/hand.test.cpp
     title: tests/bigdecimal/hand.test.cpp
   - icon: ':heavy_check_mark:'
@@ -233,6 +236,7 @@ data:
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/resize.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/bell/diagonal.test.cpp
   - tests/has_mod.test.cpp
   - tests/ceil_sqrt.test.cpp
   - tests/fact_mod_cache.test.cpp

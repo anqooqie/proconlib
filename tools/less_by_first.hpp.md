@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bell.hpp
+    title: Bell numbers
+  - icon: ':heavy_check_mark:'
     path: tools/berlekamp_massey.hpp
     title: Berlekamp-Massey algorithm
   - icon: ':heavy_check_mark:'
@@ -45,6 +48,15 @@ data:
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/all.test.cpp
+    title: tests/bell/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/fixed_n.test.cpp
+    title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
     title: tests/berlekamp_massey.test.cpp
@@ -190,6 +202,7 @@ data:
   - tools/fps.hpp
   - tools/digit_product_frequency.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/bell.hpp
   - tools/polynomial.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -227,6 +240,9 @@ data:
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/partially_persistent_dsu.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/bell/all.test.cpp
   - tests/bernoulli.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp

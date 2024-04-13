@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/bell.hpp
+    title: Bell numbers
+  - icon: ':heavy_check_mark:'
     path: tools/berlekamp_massey.hpp
     title: Berlekamp-Massey algorithm
   - icon: ':heavy_check_mark:'
@@ -69,6 +72,15 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/all.test.cpp
+    title: tests/bell/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bell/fixed_n.test.cpp
+    title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/berlekamp_massey.test.cpp
     title: tests/berlekamp_massey.test.cpp
@@ -287,6 +299,7 @@ data:
   - tools/fps.hpp
   - tools/pow.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/bell.hpp
   - tools/polynomial.hpp
   - tools/totient.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
@@ -328,6 +341,9 @@ data:
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/bell/all.test.cpp
   - tests/has_mod.test.cpp
   - tests/totient.test.cpp
   - tests/bernoulli.test.cpp
