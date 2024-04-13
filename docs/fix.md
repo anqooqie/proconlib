@@ -11,25 +11,25 @@ template <typename G>
 It returns a fixed point of its argument function.
 When `f(args...)` is invocable and `g(f, args...)` is invocable, `tools::fix(g)(args...)` returns `f(args...)`.
 
-## Usage
+### Usage
 ```cpp
 tools::fix([&](auto&& fib, const int n) -> int {
   return n >= 2 ? fib(n - 2) + fib(n - 1) : n;
 })(10);
 ```
 
-## References
-- [C++のラムダで再帰する - koturnの日記](https://koturn.hatenablog.com/entry/2018/06/10/060000)
-
 ## Constraints
 - `g(f, args...)` is invocable.
 - `f(args...)` is invocable.
 
-## Time Complexity
+### Time Complexity
 - It depends on `g`.
 
-## License
+### References
+- [C++のラムダで再帰する - koturnの日記](https://koturn.hatenablog.com/entry/2018/06/10/060000)
+
+### License
 - According to the source, "ブログ上のコードはコピペ自由です．"
 
-## Author
+### Author
 - koturn

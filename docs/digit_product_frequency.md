@@ -18,14 +18,14 @@ v > 0
 \end{array}\right.&
 \end{align*}$$
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O\left(\left(\log n\right)^5\right)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

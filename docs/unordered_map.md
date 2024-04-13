@@ -5,14 +5,14 @@ documentation_of: //tools/unordered_map.hpp
 
 `tools::unordered_map<Key, T, Hash = std::hash<Key>>` is an alias for `__gnu_pbds::gp_hash_table<Key, T, Hash>`.
 
-## Constraints
+### Constraints
 - It requires GCC.
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

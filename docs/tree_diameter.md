@@ -5,10 +5,10 @@ documentation_of: //tools/tree_diameter.hpp
 
 It returns the diameter of the given tree.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
 
 ## Constructor

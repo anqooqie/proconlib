@@ -13,14 +13,14 @@ If `std::exp(x)` is available, it returns `std::exp(x)`.
 `tools::exp(x)` will be extended by other header files in my library.
 For example, `tools::exp(tools::quaternion<T>)` gets available if you include `tools/quaternion.hpp`.
 
-## Constraints
+### Constraints
 - See the standard or the explanation of the corresponding header file.
 
-## Time Complexity
+### Time Complexity
 - See the standard or the explanation of the corresponding header file.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

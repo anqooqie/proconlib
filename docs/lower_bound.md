@@ -8,10 +8,16 @@ template <class ForwardIterator, class T>
 typename ::std::iterator_traits<ForwardIterator>::difference_type lower_bound(ForwardIterator first, ForwardIterator last, T value);
 ```
 
-It returns `std::distance(first, std::lower_bound(first, last, value))`;
+It is identical to `std::distance(first, std::lower_bound(first, last, value))`.
 
-## License
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `std::distance(first, std::lower_bound(first, last, value))`.
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

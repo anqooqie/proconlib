@@ -16,15 +16,15 @@ Assume the following situation.
 
 In this situation, Mo's algorithm can answer $Q$ queries in $O(\alpha N \sqrt{Q} + \beta Q)$ time.
 
+### References
+- [Mo's algorithm とその上位互換の話 - あなたは嘘つきですかと聞かれたら「YES」と答えるブログ](https://snuke.hatenablog.com/entry/2016/07/01/000000)
+- [Mo’s algorithm \| Nyaan’s Library](https://nyaannyaan.github.io/library/misc/mo.hpp.html)
+
 ### License
 - CC0
 
 ### Author
 - anqooqie
-
-### References
-- [Mo's algorithm とその上位互換の話 - あなたは嘘つきですかと聞かれたら「YES」と答えるブログ](https://snuke.hatenablog.com/entry/2016/07/01/000000)
-- [Mo’s algorithm \| Nyaan’s Library](https://nyaannyaan.github.io/library/misc/mo.hpp.html)
 
 ## Constructor
 ```cpp

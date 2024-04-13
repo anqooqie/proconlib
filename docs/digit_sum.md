@@ -10,14 +10,14 @@ T digit_sum(T n);
 
 It returns sum of the digits of $n$.
 
-## Constraints
+### Constraints
 - $n \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O\left(\log n\right)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

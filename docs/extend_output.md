@@ -33,26 +33,26 @@ namespace std {
   std::ostream& operator<<(std::ostream& os, const std::vector<T, Allocator>& vector);
   
   template <typename T>
-  std::enable_if_t<::tools::has_mod_v<T>, std::ostream&> operator<<(std::ostream& os, const T& x);
+  std::enable_if_t<tools::has_mod_v<T>, std::ostream&> operator<<(std::ostream& os, const T& x);
 }
 ```
 
 It adds some overloads of `operator<<`.
 Hereby, it gets possible to print a container directly.
 
-## Warning
+### Warning
 This file adds functions to std namespace for convenience.
 Strictly speaking, it is not allowed in C++.
 It makes the program ill-formed to include this file, and may cause undefined behavior.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

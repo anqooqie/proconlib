@@ -12,16 +12,16 @@ It solves $ax + by = c$ for $x$ and $y$ over the integers.
 It returns four integers $p, q, r, s$ if the solutions of the equation exist.
 They mean that $x$ can be denoted as $pm + q$ and $y$ can be denoted as $rm + s$ for any integer $m$.
 
-## Constraints
+### Constraints
 - $a \neq 0$
 - $b \neq 0$
 - $ac$ is in `<T>`.
 - $bc$ is in `<T>`.
 
-## Time Complexity
+### Time Complexity
 - $O(\log(\min(\|a\|, \|b\|)))$
 
-## Note
+### Note
 The solutions of the equation exist if and only if $c \equiv 0 \pmod{\gcd(a, b)}$.
 If the solutions exist, the following equations hold when we denote a particular solution of $a x' + b y' = \gcd(a, b)$ as $(x'_0, y'_0)$.
 
@@ -34,8 +34,8 @@ s &= \frac{c}{\gcd(a, b)} y'_0
 
 If $a, b, c, x, y \geq 0$, $\left\lceil -\frac{c y'_0}{a} \right\rceil \leq m \leq \left\lfloor \frac{c x'_0}{b} \right\rfloor$ holds.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

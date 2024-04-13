@@ -21,16 +21,16 @@ do {
 
 It returns `true` if the next way exists, `false` otherwise.
 
-## Constraints
+### Constraints
 - The given sequence is a permutation of $(0, 1, \ldots, N - 1)$.
 
-## Time Complexity
+### Time Complexity
 - $O(N \log N)$ worst
 - $O(1)$ amortized
-- Note: Since the number of ways is $\left(2 \left\lfloor \frac{N - 1}{2} \right\rfloor + 1\right)!!$, it takes $O\left(\left(2 \left\lfloor \frac{N - 1}{2} \right\rfloor + 1\right)!!\right)$ time totally if you enumerate all the ways.
+- Note: Since the number of ways is $\left(2 \left\lfloor \frac{N - 1}{2} \right\rfloor + 1\right)!!$, it takes $O(N!!)$ time totally if you enumerate all the ways.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -5,7 +5,7 @@ documentation_of: //tools/large_fact_mod_cache.hpp
 
 It returns $n! \pmod{P}$ in $\left\langle O\left(\sqrt{P \log P}\right), O\left(\sqrt{P \log P}\right) \right\rangle$ time.
 It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P}$ in $O\left( \sqrt{\frac{P}{\log P}} \log n \right)$ time.
-Their constant factor is drastically low.
+Their constant factors are drastically low.
 
 ### References
 - [階乗 mod 素数 - suisen のブログ](https://suisen-kyopro.hatenablog.com/entry/2023/11/22/201600)

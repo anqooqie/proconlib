@@ -21,14 +21,14 @@ If `<M>` satisfies the following conditions, `tools::is_monoid<M>::value` is `tr
 
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

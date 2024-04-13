@@ -10,14 +10,14 @@ T ceil_sqrt(T x);
 
 It returns $\left\lceil \sqrt{x} \right\rceil$.
 
-## Constraints
+### Constraints
 - $x \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(\log x)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

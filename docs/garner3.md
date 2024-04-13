@@ -20,7 +20,7 @@ x \equiv c &\pmod{M_3}
 
 It is useful to reconstruct $x$ less than $M_1 M_2 M_3$ from $x \bmod M_1$, $x \bmod M_2$ and $x \bmod M_3$.
 
-## Constraints
+### Constraints
 - `M1` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - `M2` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - `M3` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
@@ -31,11 +31,11 @@ It is useful to reconstruct $x$ less than $M_1 M_2 M_3$ from $x \bmod M_1$, $x \
 - $M_1 < M_2 < M_3$
 - $m \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -17,16 +17,16 @@ K &= \mathrm{c\_end} - \mathrm{c\_begin}\\
 c_k &= \sum_{(i \& j) = k} a_i b_j
 \end{align*}$$
 
-## Constraints
+### Constraints
 - `a_begin` $\leq$ `a_end`
 - `b_begin` $\leq$ `b_end`
 - `c_begin` $\leq$ `c_end`
 
-## Time Complexity
+### Time Complexity
 - $O(N \log N + M \log M + K \log K)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

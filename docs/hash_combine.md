@@ -9,7 +9,7 @@ void hash_combine(std::size_t& seed, T key);
 
 It is a utility function for combining hash values.
 
-## Example
+### Example
 
 ```cpp
 std::size_t hash_value(const std::pair<int, int>& pair) {
@@ -21,11 +21,11 @@ std::size_t hash_value(const std::pair<int, int>& pair) {
 }
 ```
 
-## References
+### References
 - [c++ - How to create a good hash_combine with 64 bit output (inspired by boost::hash_combine) - Stack Overflow](https://stackoverflow.com/questions/8513911/how-to-create-a-good-hash-combine-with-64-bit-output-inspired-by-boosthash-co/8980550#8980550)
 
-## License
+### License
 - MIT
 
-## Author
+### Author
 - Google Inc.

@@ -8,10 +8,16 @@ template <typename Iterator>
 typename std::iterator_traits<Iterator>::value_type inversion_number(Iterator begin, Iterator end);
 ```
 
-It returns the number of inversions.
+It returns the number of inversions of a given integer sequence $(a_0, a_1, \ldots, a_{N - 1})$.
 
-## License
+### Constraints
+- None
+
+### Time Complexity
+- $O(N \log N)$
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -19,16 +19,16 @@ c_k &= \sum_{\mathrm{lcm}(i, j) = k} a_i b_j
 
 Note that we define $\mathrm{lcm}(x, 0) = \mathrm{lcm}(0, y) = \mathrm{lcm}(0, 0) = 0$ in this function.
 
-## Constraints
+### Constraints
 - `a_begin` $\leq$ `a_end`
 - `b_begin` $\leq$ `b_end`
 - `c_begin` $\leq$ `c_end`
 
-## Time Complexity
+### Time Complexity
 - $O(N + M + K \log\log K)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

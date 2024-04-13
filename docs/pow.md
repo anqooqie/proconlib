@@ -15,17 +15,17 @@ T pow(T b, E n);
 It returns $b^n$ under a given monoid $M$.
 If $M$ is not given, `tools::monoid::multiplies<T>` will be used.
 
-## Constraints
+### Constraints
 - `std::is_integral_v<E>` is `true`.
 - $n \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(\log n)$ if `M::op(b, b)` takes $O(1)$ time
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
 
 ## (2)
@@ -39,15 +39,15 @@ If `std::pow(b, n)` is available, it returns `std::pow(b, n)`.
 `tools::pow(b, n)` will be extended by other header files in my library.
 For example, `tools::pow(tools::quaternion<T>, T)` gets available if you include `tools/quaternion.hpp`.
 
-## Constraints
+### Constraints
 - `std::is_integral_v<E>` is `false`.
 - See the standard or the explanation of the corresponding header file.
 
-## Time Complexity
+### Time Complexity
 - See the standard or the explanation of the corresponding header file.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

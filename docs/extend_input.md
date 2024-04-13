@@ -25,19 +25,19 @@ namespace std {
 It adds some overloads of `operator>>`.
 Hereby, it gets possible to store values to a container directly.
 
-## Warning
+### Warning
 This file adds functions to std namespace for convenience.
 Strictly speaking, it is not allowed in C++.
 It makes the program ill-formed to include this file, and may cause undefined behavior.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

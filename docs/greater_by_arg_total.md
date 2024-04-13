@@ -5,14 +5,14 @@ documentation_of: //tools/greater_by_arg_total.hpp
 
 `tools::greater_by_arg_total(o, d)(a, b)` is equivalent to `tools::less_by_arg_total(o, d)(b, a)`.
 
-## Constraints
+### Constraints
 - See `tools::less_by_arg_total`.
 
-## Time Complexity
+### Time Complexity
 - See `tools::less_by_arg_total`.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

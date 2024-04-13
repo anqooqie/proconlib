@@ -18,14 +18,14 @@ $$\begin{align*}
 \end{array}\right.&
 \end{align*}$$
 
-## Constraints
+### Constraints
 - `c` is any one of `[A-Za-z]`.
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

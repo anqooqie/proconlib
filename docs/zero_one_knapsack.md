@@ -5,10 +5,10 @@ documentation_of: //tools/zero_one_knapsack.hpp
 
 It solves the 0-1 knapsack problem.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
 
 ## Constructor

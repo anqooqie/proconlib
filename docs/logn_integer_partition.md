@@ -10,14 +10,14 @@ std::vector<T> logn_integer_partition(T n);
 
 It returns a multiset $S$ such that $\\{\sum_{x \in S'} x \| S' \subseteq S\\} = \\{0, 1, \ldots, N\\}$ and $\|S\| = O(\log N)$.
 
-## Constraints
+### Constraints
 - $n \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(\log n)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

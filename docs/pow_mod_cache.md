@@ -1,9 +1,9 @@
 ---
-title: Cache of $b^n \pmod{M}$
+title: Cache for $b^n \pmod{M}$
 documentation_of: //tools/pow_mod_cache.hpp
 ---
 
-It returns $b^n \pmod{M}$.
+It caches $b^n \pmod{M}$ and returns them in $O(1)$ amortized time.
 
 ### License
 - CC0
@@ -13,14 +13,21 @@ It returns $b^n \pmod{M}$.
 
 ## Constructor
 ```cpp
-pow_mod_cache<M> cache(long long b);
+(1)
 pow_mod_cache<M> cache(M b);
+
+(2)
+template <typename Z>
+pow_mod_cache<M> cache(Z b);
 ```
 
 It creates an empty cache to store $b^n \pmod{M}$.
 
 ### Constraints
-- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
+- (1)
+    - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
+- (2)
+    - `<Z>` is an integral type.
 
 ### Time Complexity
 - $O(1)$

@@ -16,16 +16,16 @@ The vertices will be stored counterclockwisely.
 The first sroted vertex will be the leftmost vertex.
 If the number of the leftmost vertices is more than one, the first stored vertex will be the lowermost vertex in them.
 
-## Constraints
+### Constraints
 - `begin` $\leq$ `end`
 - The type of `*begin` is `tools::vector2<T>`.
 - Either `std::size_t` or `tools::vector2<T>` is assignable to `*result`.
 
-## Time Complexity
+### Time Complexity
 - $O(n \log n)$ where $n$ is `end` - `begin`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

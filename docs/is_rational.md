@@ -16,14 +16,14 @@ inline constexpr bool is_rational_v = is_rational<T>::value;
 If `<T>` is `tools::rational`, `tools::is_rational<T>::value` is `true`.
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

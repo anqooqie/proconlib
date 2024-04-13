@@ -20,14 +20,14 @@ a x_0 + b y_0 = \gcd(a, b)\\
 
 In this function, we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O(\log(\min(\|a\|, \|b\|)))$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -10,15 +10,15 @@ constexpr bool cmp_less(T t, U u) noexcept;
 
 It is identical to `std::cmp_less` in C++20.
 
-## Constraints
+### Constraints
 - `<T>` is an integral type.
 - `<U>` is an integral type.
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

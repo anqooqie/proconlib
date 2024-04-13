@@ -19,16 +19,16 @@ c_k &= \sum_{\gcd(i, j) = k} a_i b_j
 
 Note that we define $\gcd(x, 0) = x$, $\gcd(0, y) = y$ and $\gcd(0, 0) = 0$ in this function.
 
-## Constraints
+### Constraints
 - `a_begin` $\leq$ `a_end`
 - `b_begin` $\leq$ `b_end`
 - `c_begin` $\leq$ `c_end`
 
-## Time Complexity
+### Time Complexity
 - $O(\max(N, M, K) \log\log(\max(N, M, K)))$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

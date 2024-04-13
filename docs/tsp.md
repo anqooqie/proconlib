@@ -5,10 +5,10 @@ documentation_of: //tools/tsp.hpp
 
 It solves the traveling salesman problem.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie
 
 ## Constructor

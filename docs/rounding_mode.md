@@ -32,14 +32,14 @@ It is a rounding mode for `tools::bigdecimal`.
 - `up`
     - It is a rounding mode to round away from zero.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not available
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

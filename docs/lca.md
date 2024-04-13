@@ -13,7 +13,7 @@ It is a data structure which can return the lowest common ancestor of two vertic
 
 ## Constructor
 ```cpp
-lca lca(::std::size_t n);
+lca lca(std::size_t n);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.

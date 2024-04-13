@@ -16,14 +16,14 @@ inline constexpr bool is_range_v = is_range<T>::value;
 If an instance of `T` can be passed to `std::begin` and `std::end`, `tools::is_range<T>::value` is `true`.
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -4,6 +4,8 @@
 #include <vector>
 #include <optional>
 #include <utility>
+#include <type_traits>
+#include <cstddef>
 #include <algorithm>
 #include <cassert>
 #include "tools/ssize.hpp"
@@ -16,7 +18,6 @@ namespace tools {
 
   template <class M>
   class pow_mod_cache {
-  private:
     ::std::vector<M> m_pow;
     ::std::vector<M> m_cumsum;
     ::std::vector<M> m_inv_pow;
@@ -25,11 +26,21 @@ namespace tools {
 
   public:
     pow_mod_cache() = default;
-    pow_mod_cache(const ::tools::pow_mod_cache<M>&) = default;
-    pow_mod_cache(::tools::pow_mod_cache<M>&&) = default;
-    ~pow_mod_cache() = default;
-    ::tools::pow_mod_cache<M>& operator=(const ::tools::pow_mod_cache<M>&) = default;
-    ::tools::pow_mod_cache<M>& operator=(::tools::pow_mod_cache<M>&&) = default;
+    explicit pow_mod_cache(const M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M::raw(0)}) {
+      if (base == M(-1)) {
+        if (M::mod() > 2) {
+          this->m_period = ::std::make_pair(0LL, 2LL);
+        } else {
+          this->m_period = ::std::make_pair(0LL, 1LL);
+          this->m_pow.resize(1);
+        }
+        this->m_inv_pow.clear();
+        this->m_inv_cumsum.clear();
+      }
+    }
+    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>, ::std::nullptr_t> = nullptr>
+    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base)) {
+    }
 
     M operator[](const long long n) {
       if (!this->m_period) {
@@ -54,7 +65,7 @@ namespace tools {
           }
         }
 
-        this->m_period = ::std::make_optional(::tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; }));
+        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; });
         const long long size = ::tools::ssize(this->m_pow);
         this->m_pow.resize(this->m_period->first + this->m_period->second);
         for (long long i = size; i < ::tools::ssize(this->m_pow); ++i) {
@@ -125,11 +136,6 @@ namespace tools {
         const auto& n = this->m_period->second;
         return cumsum(::tools::mod(l, n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r, n) - ::tools::ceil(l, n));
       }
-    }
-
-    explicit pow_mod_cache(const M& base) : m_pow({M(1), base}), m_cumsum({M(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M(0)}) {
-    }
-    explicit pow_mod_cache(const long long base) : pow_mod_cache(M(base)) {
     }
   };
 }

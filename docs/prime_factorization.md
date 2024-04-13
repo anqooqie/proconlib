@@ -10,14 +10,14 @@ std::vector<T> prime_factorization(T n);
 
 It returns the prime factors of $n$ in ascending order.
 
-## Constraints
+### Constraints
 - $1 \leq n \leq 10^{18}$
 
-## Time Complexity
+### Time Complexity
 - Supposed to be $O\left(n^\frac{1}{4}\right)$ expected
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

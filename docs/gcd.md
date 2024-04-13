@@ -13,14 +13,14 @@ If `std::gcd(m, n)` is available, it returns `std::gcd(m, n)`.
 `tools::gcd(m, n)` will be extended by other header files in my library.
 For example, `tools::gcd(tools::bigint, tools::bigint)` gets available if you include `tools/bigint.hpp`.
 
-## Constraints
+### Constraints
 - See the standard or the explanation of the corresponding header file.
 
-## Time Complexity
+### Time Complexity
 - See the standard or the explanation of the corresponding header file.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

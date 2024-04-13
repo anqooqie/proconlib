@@ -16,14 +16,14 @@ inline constexpr bool has_mod_v = has_mod<T>::value;
 If an instance of `T` has the member function `mod()`, `tools::has_mod<T>::value` is `true`.
 Otherwise, it is `false`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

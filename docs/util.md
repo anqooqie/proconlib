@@ -5,18 +5,18 @@ documentation_of: //tools/util.hpp
 
 They are miscellaneous code snippets for competitive programming.
 
-## Warning
+### Warning
 This file contains code snippets convenient to competitive programming but not allowed in C++ standard.
 Therefore, it makes the program ill-formed to include this file, and may cause undefined behavior.
 
-## Constraints
+### Constraints
 - It requires GCC.
 
-## Time Complexity
+### Time Complexity
 - Not applicable
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

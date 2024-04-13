@@ -1,9 +1,9 @@
 ---
-title: Precompute $n^{-1}, n!, n!^{-1} \pmod{P}$
+title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
 documentation_of: //tools/fact_mod_cache.hpp
 ---
 
-It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ and returns them in $O(1)$ amortized time.
+It caches $n^{-1}, n!, n!^{-1} \pmod{P}$ and returns them in $O(1)$ amortized time.
 It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P}$ in logarithmic amortized time.
 
 ### License

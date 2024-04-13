@@ -20,17 +20,17 @@ $$\begin{align*}
 \end{array}\right.&
 \end{align*}$$
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## References
+### References
 - [Spaghetti Source (ccw) - 点の進行方向](http://www.prefield.com/algorithm/geometry/ccw.html)
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

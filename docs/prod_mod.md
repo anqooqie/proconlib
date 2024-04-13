@@ -10,14 +10,14 @@ constexpr T3 prod_mod(T1 x, T2 y, T3 M);
 
 It returns $x \cdot y \pmod{M}$.
 
-## Constraints
+### Constraints
 - $M \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

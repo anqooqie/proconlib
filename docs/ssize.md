@@ -10,14 +10,14 @@ constexpr auto ssize(const C& c) -> std::common_type_t<std::ptrdiff_t, std::make
 
 It is a compatible alternative of `std::ssize` in C++20.
 
-## Constraints
+### Constraints
 - `c.size()` is defined.
 
-## Time Complexity
-- Same as the time complexity of `c.size()`.
+### Time Complexity
+- Same as that of `c.size()`.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

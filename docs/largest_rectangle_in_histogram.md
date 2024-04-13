@@ -10,14 +10,14 @@ typename ::std::iterator_traits<Iterator>::value_type largest_rectangle_in_histo
 
 It returns the area of the largest rectangle in a given histogram.
 
-## Constraints
+### Constraints
 - `begin` $\leq$ `end`
 
-## Time Complexity
+### Time Complexity
 - $O(n)$ where $n$ is `end` - `begin`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

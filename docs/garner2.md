@@ -19,18 +19,18 @@ x \equiv b &\pmod{M_2}
 
 It is useful to reconstruct $x$ less than $M_1 M_2$ from $x \bmod M_1$ and $x \bmod M_2$.
 
-## Constraints
+### Constraints
 - `M1` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - `M2` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $M_1$ is a prime.
 - $M_2$ is a prime.
 - $M_1 < M_2$
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

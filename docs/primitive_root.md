@@ -10,14 +10,14 @@ T primitive_root(T p);
 
 It returns the minimal primitive root of $p$.
 
-## Constraints
+### Constraints
 - $p$ is a prime.
 
-## Time Complexity
+### Time Complexity
 - Supposed to be $O\left(p^\frac{1}{4}\right)$ expected
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

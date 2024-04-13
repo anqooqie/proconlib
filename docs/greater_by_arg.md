@@ -5,14 +5,14 @@ documentation_of: //tools/greater_by_arg.hpp
 
 `tools::greater_by_arg(o, d)(a, b)` is equivalent to `tools::less_by_arg(o, d)(b, a)`.
 
-## Constraints
+### Constraints
 - See `tools::less_by_arg`.
 
-## Time Complexity
+### Time Complexity
 - See `tools::less_by_arg`.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

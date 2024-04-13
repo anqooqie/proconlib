@@ -10,14 +10,14 @@ T round(T x, T y);
 
 It returns a rounded value of $\frac{x}{y}$ in the manner of banker's rounding.
 
-## Constraints
+### Constraints
 - $y \neq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

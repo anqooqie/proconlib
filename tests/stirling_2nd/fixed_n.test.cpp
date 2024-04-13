@@ -1,9 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind"
 
 #include <iostream>
-#include <string>
 #include "atcoder/modint.hpp"
 #include "tools/stirling_2nd.hpp"
+#include "tools/join.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -14,12 +14,8 @@ int main() {
   int N;
   std::cin >> N;
 
-  std::string delimiter = "";
-  for (const auto s : tools::stirling_2nd<mint>(N)) {
-    std::cout << delimiter << s.val();
-    delimiter = " ";
-  }
-  std::cout << '\n';
+  const auto answer = tools::stirling_2nd::fixed_n<mint>(N, N);
+  std::cout << tools::join(answer.begin(), answer.end(), [](const auto x) { return x.val(); }, " ") << '\n';
 
   return 0;
 }

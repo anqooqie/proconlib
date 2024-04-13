@@ -15,16 +15,16 @@ $$\begin{align*}
 x (x - 1) \cdots (x - (n - 1)) &= \sum_{k = 0}^n s(n, k) x^k
 \end{align*}$$
 
-## Constraints
+### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
 - $0 \leq n < P$
 
-## Time Complexity
+### Time Complexity
 - $O(n \log n)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

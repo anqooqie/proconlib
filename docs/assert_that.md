@@ -17,14 +17,14 @@ If `cond` is `false`, it outputs the debug information to `std::cerr` and termin
 
 The macro is always enabled regardless of `NDEBUG` unlike `assert`.
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - Same as `cond`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

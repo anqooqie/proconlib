@@ -12,17 +12,17 @@ If $k$ does not exist, it returns `std::nullopt`.
 
 Note that we define $0^0 = 1$ in this function.
 
-## Constraints
+### Constraints
 - $M \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(\sqrt{M})$
 
-## References
+### References
 - [離散対数問題 (Discrete Logarithm Problem) を任意 mod で解く - Qiita](https://qiita.com/suisen_cp/items/d597c8ec576ae32ee2d7)
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

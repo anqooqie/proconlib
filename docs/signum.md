@@ -8,10 +8,24 @@ template <typename T>
 constexpr int signum(T x) noexcept;
 ```
 
-It returns $-1$ if $x$ is negative, $1$ if $x$ is positive, $0$ if $x$ is zero.
+It returns
 
-## License
+$$\begin{align*}
+\left\{\begin{array}{ll}
+-1 & \text{(if $x < 0$)}\\
+0 & \text{(if $x = 0$)}\\
+1 & \text{(if $x > 0$)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

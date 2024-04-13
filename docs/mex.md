@@ -10,16 +10,16 @@ std::decay_t<decltype(*std::declval<InputIterator>())> mex(InputIterator begin, 
 
 It returns the minimum non-negative integer which is not in a given sequence.
 
-## Constraints
+### Constraints
 - `begin` $\leq$ `end`
 - `std::decay_t<decltype(*std::declval<InputIterator>())>` is an integral type.
 - All the integers in the sequence are non-negative.
 
-## Time Complexity
+### Time Complexity
 - $O(n)$ where $n$ is `end` - `begin`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

@@ -10,15 +10,15 @@ T ceil_kth_root(T x, U k);
 
 It returns $\left\lceil x^\frac{1}{k} \right\rceil$.
 
-## Constraints
+### Constraints
 - $x \geq 0$
 - $k \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O\left(\frac{\log x \log k}{k}\right)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

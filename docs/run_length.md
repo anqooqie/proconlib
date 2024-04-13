@@ -10,14 +10,14 @@ void run_length(InputIterator begin, InputIterator end, OutputIterator result);
 
 It replaces consecutive elements to a pair of the element and the number of occurrences, and stores the pairs with such a format to `result`. 
 
-## Constraints
+### Constraints
 - None
 
-## Time Complexity
+### Time Complexity
 - $O(N)$ where $N$ is `end` - `begin`.
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

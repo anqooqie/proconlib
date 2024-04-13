@@ -10,15 +10,15 @@ std::common_type_t<M, N> ceil(M x, N y);
 
 It returns $\left\lceil \frac{x}{y} \right\rceil$.
 
-## Constraints
+### Constraints
 - $y \neq 0$
 - $\lnot (x =$ `std::numeric_limits<std::common_type_t<M, N>>::min()` $\land\,y = -1)$
 
-## Time Complexity
+### Time Complexity
 - $O(1)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

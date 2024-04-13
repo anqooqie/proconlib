@@ -12,15 +12,15 @@ It returns $x^y \pmod{M}$.
 
 Note: In this function, $0^0$ is $1$.
 
-## Constraints
+### Constraints
 - $y \geq 0$
 - $M \geq 1$
 
-## Time Complexity
+### Time Complexity
 - $O(\log y)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

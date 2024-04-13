@@ -21,12 +21,6 @@ tools::ostream cout;
 
 It is an interface to the output functions.
 
-### Constraints
-- None
-
-### Time Complexity
-- Not applicable
-
 ## tools::ostream::operator&lt;&lt;
 ```cpp
 (1) tools::ostream& cout.operator<<(char c);

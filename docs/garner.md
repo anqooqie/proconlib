@@ -22,19 +22,19 @@ Under the condition, all the solutions can be written as the form $x \equiv y \p
 It returns this $(y \pmod{m}, z \pmod{m})$ as a pair.
 If $n = 0$, it returns $(0, 1)$.
 
-## References
-- [中国剰余定理 (CRT) の解説と、それを用いる問題のまとめ - Qiita](https://qiita.com/drken/items/ae02240cd1f8edfc86fd)
-
-## Constraints
+### Constraints
 - $m_i \geq 1$
 - $M \geq 1$
 - $\forall i \in \\{0, 1, \ldots, n - 1\\}. \forall j \in \\{0, 1, \ldots, i - 1\\}. \gcd(m_i, m_j) = 1$
 
-## Time Complexity
+### Time Complexity
 - $O(n (n + \log(\min(m_i))))$
 
-## License
+### References
+- [中国剰余定理 (CRT) の解説と、それを用いる問題のまとめ - Qiita](https://qiita.com/drken/items/ae02240cd1f8edfc86fd)
+
+### License
 - unknown
 
-## Author
+### Author
 - drken

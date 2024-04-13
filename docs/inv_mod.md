@@ -10,15 +10,15 @@ constexpr T2 inv_mod(T1 x, T2 M);
 
 It returns $x^{-1} \pmod{M}$.
 
-## Constraints
+### Constraints
 - $M \geq 1$
 - $\gcd(x, M) = 1$
 
-## Time Complexity
+### Time Complexity
 - $O(\log(\min(\|x\|, M)))$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

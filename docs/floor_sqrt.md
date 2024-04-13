@@ -10,14 +10,14 @@ T floor_sqrt(T x);
 
 It returns $\left\lfloor \sqrt{x} \right\rfloor$.
 
-## Constraints
+### Constraints
 - $x \geq 0$
 
-## Time Complexity
+### Time Complexity
 - $O(\log x)$
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

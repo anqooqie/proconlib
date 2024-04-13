@@ -14,14 +14,14 @@ If `strict` is false, it returns one of the longest non-decreasing subsequence.
 The first element is the subsequence itself.
 The second element is the indices of the subsequence.
 
-## Constraints
+### Constraints
 - `begin` $\leq$ `end`
 
-## Time Complexity
+### Time Complexity
 - $O(n \log n)$ where $n$ is `end` - `begin`
 
-## License
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

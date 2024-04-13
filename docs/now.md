@@ -9,8 +9,14 @@ long long now();
 
 It returns the number of nanoseconds that have elapsed since epoch.
 
-## License
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+### License
 - CC0
 
-## Author
+### Author
 - anqooqie

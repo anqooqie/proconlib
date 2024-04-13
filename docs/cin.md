@@ -21,12 +21,6 @@ tools::istream cin;
 
 It is an interface to the input functions.
 
-### Constraints
-- None
-
-### Time Complexity
-- Not applicable
-
 ## tools::istream::operator&gt;&gt;
 ```cpp
 (1) tools::istream& cin.operator>>(char& c);
