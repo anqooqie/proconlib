@@ -51,6 +51,9 @@ data:
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
+  - icon: ':heavy_check_mark:'
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
@@ -123,6 +126,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/kth_smallest.test.cpp
     title: tests/wavelet_matrix/kth_smallest.test.cpp
@@ -209,6 +248,7 @@ data:
   - tools/lca.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/chromatic_number.hpp
+  - tools/twelvefold_way.hpp
   - tools/range_count_distinct.hpp
   - tools/primitive_root.hpp
   - tools/wavelet_matrix.hpp
@@ -229,6 +269,18 @@ data:
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
   - tests/log_mod.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp

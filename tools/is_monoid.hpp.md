@@ -62,6 +62,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
+  - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/ceil_kth_root.test.cpp
@@ -162,6 +165,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -190,6 +229,7 @@ data:
   - tools/square.hpp
   - tools/floor_kth_root.hpp
   - tools/sample_point_shift.hpp
+  - tools/twelvefold_way.hpp
   - tools/polygon_2d.hpp
   - tools/detail/geometry_2d.hpp
   - tools/detail/rolling_hash.hpp
@@ -213,6 +253,18 @@ data:
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp

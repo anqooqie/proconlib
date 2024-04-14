@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
+  - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
@@ -18,6 +21,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -82,10 +121,23 @@ data:
   isVerificationFile: false
   path: tools/int128_t.hpp
   requiredBy:
+  - tools/twelvefold_way.hpp
   - tools/extended_lucas.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/int128_t.test.cpp
 documentation_of: tools/int128_t.hpp

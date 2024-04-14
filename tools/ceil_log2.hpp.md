@@ -65,6 +65,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
+  - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
@@ -216,6 +219,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -283,6 +322,7 @@ data:
   - tools/persistent_dual_segtree.hpp
   - tools/stirling_2nd.hpp
   - tools/sample_point_shift.hpp
+  - tools/twelvefold_way.hpp
   - tools/partition_function.hpp
   - tools/bernoulli.hpp
   - tools/disjoint_sparse_table_2d.hpp
@@ -317,6 +357,18 @@ data:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
   - tests/disjoint_sparse_table.test.cpp

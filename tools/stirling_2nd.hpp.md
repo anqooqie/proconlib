@@ -69,6 +69,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
+  - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
@@ -88,6 +91,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -1296,6 +1335,7 @@ data:
   isVerificationFile: false
   path: tools/stirling_2nd.hpp
   requiredBy:
+  - tools/twelvefold_way.hpp
   - tools/bell.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -1303,6 +1343,18 @@ data:
   - tests/stirling_2nd/fixed_n.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/bell/diagonal.test.cpp
   - tests/bell/fixed_n.test.cpp
   - tests/bell/all.test.cpp

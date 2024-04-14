@@ -494,32 +494,45 @@ data:
     \ = this->fac[this->m - 1]; // Same as Wilson's theorem\n        assert(1LL *\
     \ this->fac.back() * this->invfac.back() % this->m == 1);\n        for (int i\
     \ = this->m - 1; i; --i) this->invfac[i - 1] = static_cast<long long>(this->invfac[i])\
-    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int nCr(long long n, long\
-    \ long r) const {\n        assert(0 <= r && r <= n);\n        if (this->p == 2\
-    \ && this->q == 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n\
-    \        const long long e0 = this->ej(n / this->p) - this->ej(r / this->p) -\
-    \ this->ej(k / this->p);\n        if (e0 >= q) return 0;\n\n        long long\
-    \ ret = this->ppow[e0];\n        if (this->q == 1) { // Lucas\n          while\
-    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r\
-    \ % this->p] * this->invfac[k % this->p] % this->p;\n            n /= this->p,\
+    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int fact(const long long\
+    \ n) const {\n        assert(n >= 0);\n        const auto q0 = this->ej(n / this->p);\n\
+    \        return q0 < this->q ? static_cast<long long>(this->fac[n]) * this->ppow[q0]\
+    \ % this->m : 0;\n      }\n\n      int combination(long long n, long long r) const\
+    \ {\n        assert(0 <= r && r <= n);\n        if (this->p == 2 && this->q ==\
+    \ 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n        const\
+    \ long long e0 = this->ej(n / this->p) - this->ej(r / this->p) - this->ej(k /\
+    \ this->p);\n        if (e0 >= q) return 0;\n\n        long long ret = this->ppow[e0];\n\
+    \        if (this->q == 1) { // Lucas\n          while (n) {\n            ret\
+    \ = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r % this->p]\
+    \ * this->invfac[k % this->p] % this->p;\n            n /= this->p, r /= this->p,\
+    \ k /= this->p;\n          }\n          return static_cast<int>(ret);\n      \
+    \  } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) - this->ej(r\
+    \ / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n          while\
+    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->m] * this->invfac[r\
+    \ % this->m] * this->invfac[k % this->m] % this->m;\n            n /= this->p,\
     \ r /= this->p, k /= this->p;\n          }\n          return static_cast<int>(ret);\n\
-    \        } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) -\
-    \ this->ej(r / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n \
-    \         while (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n\
-    \ % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;\n\
-    \            n /= this->p, r /= this->p, k /= this->p;\n          }\n        \
-    \  return static_cast<int>(ret);\n        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow>\
-    \ cpps;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors =\
-    \ ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<int,\
-    \ int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow> m_cpps;\n\
+    \n  public:\n    extended_lucas() {\n      const auto prime_factors = ::tools::prime_factorization(M::mod());\n\
+    \      ::std::vector<::std::pair<int, int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
     \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
-    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->cpps.emplace_back(p,\
-    \ q);\n      }\n    }\n\n    M combination(const long long n, const long long\
-    \ r) const {\n      if (n < 0 || r < 0 || n < r) return M::raw(0);\n      ::std::vector<::std::pair<int,\
-    \ int>> rs;\n      for (const auto& cpp : this->cpps) rs.emplace_back(cpp.nCr(n,\
-    \ r), cpp.m);\n      return ::tools::garner<M>(rs.begin(), rs.end()).first;\n\
-    \    }\n  };\n}\n\n\n#line 6 \"tests/extended_lucas.test.cpp\"\n\nusing mint =\
-    \ atcoder::modint;\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->m_cpps.emplace_back(p,\
+    \ q);\n      }\n    }\n\n    M fact(const long long n) const {\n      assert(n\
+    \ >= 0);\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const auto&\
+    \ cpp : this->m_cpps) rs.emplace_back(cpp.fact(n), cpp.m);\n      return ::tools::garner<M>(rs.begin(),\
+    \ rs.end()).first;\n    }\n    M binomial(const long long n, const long long r)\
+    \ const {\n      if (r < 0) return M::raw(0);\n      if (0 <= n && n < r) return\
+    \ M::raw(0);\n      if (n < 0) return M((r & 1) ? -1 : 1) * this->binomial(-n\
+    \ + r - 1, r);\n\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const\
+    \ auto& cpp : this->m_cpps) rs.emplace_back(cpp.combination(n, r), cpp.m);\n \
+    \     return ::tools::garner<M>(rs.begin(), rs.end()).first;\n    }\n    M combination(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r);\n    }\n    M permutation(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n    }\n    M\
+    \ combination_with_repetition(const long long n, const long long r) const {\n\
+    \      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n#line 6 \"tests/extended_lucas.test.cpp\"\n\n\
+    using mint = atcoder::modint;\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  ll T, m;\n  std::cin >> T >> m;\n\
     \  mint::set_mod(m);\n  tools::extended_lucas<mint> cache;\n\n  for (ll i = 0;\
     \ i < T; ++i) {\n    ll n, k;\n    std::cin >> n >> k;\n    std::cout << cache.combination(n,\
@@ -552,7 +565,7 @@ data:
   isVerificationFile: true
   path: tests/extended_lucas.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 15:54:48+09:00'
+  timestamp: '2024-04-14 14:59:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extended_lucas.test.cpp

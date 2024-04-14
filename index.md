@@ -575,6 +575,9 @@ data:
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
+      path: tools/twelvefold_way.hpp
+      title: Twelvefold way
+    - icon: ':heavy_check_mark:'
       path: tools/uint128_t.hpp
       title: 128 bit unsigned integer
     - icon: ':heavy_check_mark:'
@@ -1330,6 +1333,44 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tsort/query.test.cpp
       title: tests/tsort/query.test.cpp
+  - name: tests/twelvefold_way
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+      title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+      title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+      title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+      title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+      title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+      title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+      title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - name: tests/wavelet_matrix
     pages:
     - icon: ':heavy_check_mark:'

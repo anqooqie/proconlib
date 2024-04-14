@@ -49,11 +49,50 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/twelvefold_way.hpp
+    title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+    title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -284,31 +323,44 @@ data:
     \ = this->fac[this->m - 1]; // Same as Wilson's theorem\n        assert(1LL *\
     \ this->fac.back() * this->invfac.back() % this->m == 1);\n        for (int i\
     \ = this->m - 1; i; --i) this->invfac[i - 1] = static_cast<long long>(this->invfac[i])\
-    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int nCr(long long n, long\
-    \ long r) const {\n        assert(0 <= r && r <= n);\n        if (this->p == 2\
-    \ && this->q == 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n\
-    \        const long long e0 = this->ej(n / this->p) - this->ej(r / this->p) -\
-    \ this->ej(k / this->p);\n        if (e0 >= q) return 0;\n\n        long long\
-    \ ret = this->ppow[e0];\n        if (this->q == 1) { // Lucas\n          while\
-    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r\
-    \ % this->p] * this->invfac[k % this->p] % this->p;\n            n /= this->p,\
+    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int fact(const long long\
+    \ n) const {\n        assert(n >= 0);\n        const auto q0 = this->ej(n / this->p);\n\
+    \        return q0 < this->q ? static_cast<long long>(this->fac[n]) * this->ppow[q0]\
+    \ % this->m : 0;\n      }\n\n      int combination(long long n, long long r) const\
+    \ {\n        assert(0 <= r && r <= n);\n        if (this->p == 2 && this->q ==\
+    \ 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n        const\
+    \ long long e0 = this->ej(n / this->p) - this->ej(r / this->p) - this->ej(k /\
+    \ this->p);\n        if (e0 >= q) return 0;\n\n        long long ret = this->ppow[e0];\n\
+    \        if (this->q == 1) { // Lucas\n          while (n) {\n            ret\
+    \ = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r % this->p]\
+    \ * this->invfac[k % this->p] % this->p;\n            n /= this->p, r /= this->p,\
+    \ k /= this->p;\n          }\n          return static_cast<int>(ret);\n      \
+    \  } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) - this->ej(r\
+    \ / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n          while\
+    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->m] * this->invfac[r\
+    \ % this->m] * this->invfac[k % this->m] % this->m;\n            n /= this->p,\
     \ r /= this->p, k /= this->p;\n          }\n          return static_cast<int>(ret);\n\
-    \        } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) -\
-    \ this->ej(r / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n \
-    \         while (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n\
-    \ % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;\n\
-    \            n /= this->p, r /= this->p, k /= this->p;\n          }\n        \
-    \  return static_cast<int>(ret);\n        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow>\
-    \ cpps;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors =\
-    \ ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<int,\
-    \ int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow> m_cpps;\n\
+    \n  public:\n    extended_lucas() {\n      const auto prime_factors = ::tools::prime_factorization(M::mod());\n\
+    \      ::std::vector<::std::pair<int, int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
     \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
-    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->cpps.emplace_back(p,\
-    \ q);\n      }\n    }\n\n    M combination(const long long n, const long long\
-    \ r) const {\n      if (n < 0 || r < 0 || n < r) return M::raw(0);\n      ::std::vector<::std::pair<int,\
-    \ int>> rs;\n      for (const auto& cpp : this->cpps) rs.emplace_back(cpp.nCr(n,\
-    \ r), cpp.m);\n      return ::tools::garner<M>(rs.begin(), rs.end()).first;\n\
-    \    }\n  };\n}\n\n\n"
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->m_cpps.emplace_back(p,\
+    \ q);\n      }\n    }\n\n    M fact(const long long n) const {\n      assert(n\
+    \ >= 0);\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const auto&\
+    \ cpp : this->m_cpps) rs.emplace_back(cpp.fact(n), cpp.m);\n      return ::tools::garner<M>(rs.begin(),\
+    \ rs.end()).first;\n    }\n    M binomial(const long long n, const long long r)\
+    \ const {\n      if (r < 0) return M::raw(0);\n      if (0 <= n && n < r) return\
+    \ M::raw(0);\n      if (n < 0) return M((r & 1) ? -1 : 1) * this->binomial(-n\
+    \ + r - 1, r);\n\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const\
+    \ auto& cpp : this->m_cpps) rs.emplace_back(cpp.combination(n, r), cpp.m);\n \
+    \     return ::tools::garner<M>(rs.begin(), rs.end()).first;\n    }\n    M combination(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r);\n    }\n    M permutation(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n    }\n    M\
+    \ combination_with_repetition(const long long n, const long long r) const {\n\
+    \      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_EXTENDED_LUCAS_HPP\n#define TOOLS_EXTENDED_LUCAS_HPP\n\n#include\
     \ <vector>\n#include <cassert>\n#include <utility>\n#include <iterator>\n#include\
     \ \"tools/int128_t.hpp\"\n#include \"tools/prime_factorization.hpp\"\n#include\
@@ -340,31 +392,44 @@ data:
     \ = this->fac[this->m - 1]; // Same as Wilson's theorem\n        assert(1LL *\
     \ this->fac.back() * this->invfac.back() % this->m == 1);\n        for (int i\
     \ = this->m - 1; i; --i) this->invfac[i - 1] = static_cast<long long>(this->invfac[i])\
-    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int nCr(long long n, long\
-    \ long r) const {\n        assert(0 <= r && r <= n);\n        if (this->p == 2\
-    \ && this->q == 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n\
-    \        const long long e0 = this->ej(n / this->p) - this->ej(r / this->p) -\
-    \ this->ej(k / this->p);\n        if (e0 >= q) return 0;\n\n        long long\
-    \ ret = this->ppow[e0];\n        if (this->q == 1) { // Lucas\n          while\
-    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r\
-    \ % this->p] * this->invfac[k % this->p] % this->p;\n            n /= this->p,\
+    \ * (i % this->p ? i : 1) % this->m;\n      }\n\n      int fact(const long long\
+    \ n) const {\n        assert(n >= 0);\n        const auto q0 = this->ej(n / this->p);\n\
+    \        return q0 < this->q ? static_cast<long long>(this->fac[n]) * this->ppow[q0]\
+    \ % this->m : 0;\n      }\n\n      int combination(long long n, long long r) const\
+    \ {\n        assert(0 <= r && r <= n);\n        if (this->p == 2 && this->q ==\
+    \ 1) return !((~n) & r); // Lucas\n        long long k = n - r;\n        const\
+    \ long long e0 = this->ej(n / this->p) - this->ej(r / this->p) - this->ej(k /\
+    \ this->p);\n        if (e0 >= q) return 0;\n\n        long long ret = this->ppow[e0];\n\
+    \        if (this->q == 1) { // Lucas\n          while (n) {\n            ret\
+    \ = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r % this->p]\
+    \ * this->invfac[k % this->p] % this->p;\n            n /= this->p, r /= this->p,\
+    \ k /= this->p;\n          }\n          return static_cast<int>(ret);\n      \
+    \  } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) - this->ej(r\
+    \ / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n          while\
+    \ (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n % this->m] * this->invfac[r\
+    \ % this->m] * this->invfac[k % this->m] % this->m;\n            n /= this->p,\
     \ r /= this->p, k /= this->p;\n          }\n          return static_cast<int>(ret);\n\
-    \        } else {\n          if ((p > 2 || q < 3) && (this->ej(n / this->m) -\
-    \ this->ej(r / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;\n \
-    \         while (n) {\n            ret = ::tools::int128_t(ret) * this->fac[n\
-    \ % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;\n\
-    \            n /= this->p, r /= this->p, k /= this->p;\n          }\n        \
-    \  return static_cast<int>(ret);\n        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow>\
-    \ cpps;\n\n  public:\n    extended_lucas() {\n      const auto prime_factors =\
-    \ ::tools::prime_factorization(M::mod());\n      ::std::vector<::std::pair<int,\
-    \ int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
+    \        }\n      }\n    };\n\n    ::std::vector<combination_prime_pow> m_cpps;\n\
+    \n  public:\n    extended_lucas() {\n      const auto prime_factors = ::tools::prime_factorization(M::mod());\n\
+    \      ::std::vector<::std::pair<int, int>> distinct_prime_factors;\n      ::tools::run_length(prime_factors.begin(),\
     \ prime_factors.end(), ::std::back_inserter(distinct_prime_factors));\n      for\
-    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->cpps.emplace_back(p,\
-    \ q);\n      }\n    }\n\n    M combination(const long long n, const long long\
-    \ r) const {\n      if (n < 0 || r < 0 || n < r) return M::raw(0);\n      ::std::vector<::std::pair<int,\
-    \ int>> rs;\n      for (const auto& cpp : this->cpps) rs.emplace_back(cpp.nCr(n,\
-    \ r), cpp.m);\n      return ::tools::garner<M>(rs.begin(), rs.end()).first;\n\
-    \    }\n  };\n}\n\n#endif\n"
+    \ (const auto& [p, q] : distinct_prime_factors) {\n        this->m_cpps.emplace_back(p,\
+    \ q);\n      }\n    }\n\n    M fact(const long long n) const {\n      assert(n\
+    \ >= 0);\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const auto&\
+    \ cpp : this->m_cpps) rs.emplace_back(cpp.fact(n), cpp.m);\n      return ::tools::garner<M>(rs.begin(),\
+    \ rs.end()).first;\n    }\n    M binomial(const long long n, const long long r)\
+    \ const {\n      if (r < 0) return M::raw(0);\n      if (0 <= n && n < r) return\
+    \ M::raw(0);\n      if (n < 0) return M((r & 1) ? -1 : 1) * this->binomial(-n\
+    \ + r - 1, r);\n\n      ::std::vector<::std::pair<int, int>> rs;\n      for (const\
+    \ auto& cpp : this->m_cpps) rs.emplace_back(cpp.combination(n, r), cpp.m);\n \
+    \     return ::tools::garner<M>(rs.begin(), rs.end()).first;\n    }\n    M combination(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r);\n    }\n    M permutation(const\
+    \ long long n, const long long r) const {\n      if (!(0 <= r && r <= n)) return\
+    \ M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n    }\n    M\
+    \ combination_with_repetition(const long long n, const long long r) const {\n\
+    \      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n +\
+    \ r - 1, r);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/int128_t.hpp
   - tools/abs.hpp
@@ -384,17 +449,30 @@ data:
   - tools/extgcd.hpp
   isVerificationFile: false
   path: tools/extended_lucas.hpp
-  requiredBy: []
-  timestamp: '2024-04-07 15:54:48+09:00'
+  requiredBy:
+  - tools/twelvefold_way.hpp
+  timestamp: '2024-04-14 14:59:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/extended_lucas.test.cpp
 documentation_of: tools/extended_lucas.hpp
 layout: document
 title: Extended Lucas' theorem
 ---
 
-It precomputes ${}_n C_r \pmod{M}$ for any $n$ and $r$.
+It precomputes ${}_n C_r \pmod{M}$ for any $n$, any $r$ and a small fixed $M$.
 
 ### References
 - [Combination （${}_n \mathrm{C}_r \bmod{m}$，Lucas の定理の拡張） \| cplib-cp](https://hitonanode.github.io/cplib-cpp/number/combination.hpp.html)
@@ -414,21 +492,102 @@ It precomputes ${}_n \mathrm{C}_r \pmod{M}$ for any $n$ and $r$ where $M$ is `T:
 
 ### Constraints
 - `<T>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-- $1 \leq M \leq 10^7$
+- $\sum_{i = 1}^k p_i^{q_i} \leq 10^7$ where $M = p_1^{q_1} p_2^{q_2} \cdots p_k^{q_k}$
 
 ### Time Complexity
-- $O(M)$
+- $O\left( M^\frac{1}{4} + \sum_{i = 1}^k p_i^{q_i} \right)$
 
-## combination
+## fact
 ```cpp
-T cache.combination(long long n, long long r);
+M cache.fact(long long n);
 ```
 
-If $0 \leq r \leq n$, it returns ${}_n \mathrm{C}_r \pmod{M}$.
-Otherwise, it returns $0$.
+It returns $n! \pmod{M}$.
+
+### Constraints
+- $n \geq 0$
+
+### Time Complexity
+- $O( k \log n + k^2)$
+- Note: $k \in O\left( \frac{\log M}{\log \log M} \right)$
+
+## binomial
+```cpp
+M cache.binomial(long long n, long long r);
+```
+
+It returns $\dbinom{n}{r} \pmod{M}$.
+Note that $\dbinom{-n}{r} = (-1)^r \dbinom{n + r - 1}{r}$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\frac{\log M}{\log \log M} \log n)$
+- ($n \geq 0$):
+    - $O(k \log n + k^2)$
+- ($n < 0$):
+    - $O(k \log (\|n\| + r) + k^2)$
+- Note: $k \in O\left( \frac{\log M}{\log \log M} \right)$
+
+## combination
+```cpp
+M cache.combination(long long n, long long r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n \mathrm{C}_r \pmod{M} & \text{(if $0 \leq r \leq n$)}\\
+0 \pmod{M} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(k \log n + k^2)$
+- Note: $k \in O\left( \frac{\log M}{\log \log M} \right)$
+
+## permutation
+```cpp
+M cache.permutation(long long n, long long r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n \mathrm{P}_r \pmod{M} & \text{(if $0 \leq r \leq n$)}\\
+0 \pmod{M} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(k \log n + k^2)$
+- Note: $k \in O\left( \frac{\log M}{\log \log M} \right)$
+
+## combination_with_repetition
+```cpp
+M cache.combination_with_repetition(long long n, long long r);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+{}_n \mathrm{H}_r \pmod{M} & \text{(if $n \geq 0$ and $r \geq 0$)}\\
+0 \pmod{M} & \text{(otherwise)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(k \log (n + r) + k^2)$
+- Note: $k \in O\left( \frac{\log M}{\log \log M} \right)$
