@@ -60,7 +60,13 @@ namespace tools {
         for (int i = this->m - 1; i; --i) this->invfac[i - 1] = static_cast<long long>(this->invfac[i]) * (i % this->p ? i : 1) % this->m;
       }
 
-      int nCr(long long n, long long r) const {
+      int fact(const long long n) const {
+        assert(n >= 0);
+        const auto q0 = this->ej(n / this->p);
+        return q0 < this->q ? static_cast<long long>(this->fac[n]) * this->ppow[q0] % this->m : 0;
+      }
+
+      int combination(long long n, long long r) const {
         assert(0 <= r && r <= n);
         if (this->p == 2 && this->q == 1) return !((~n) & r); // Lucas
         long long k = n - r;
@@ -85,7 +91,7 @@ namespace tools {
       }
     };
 
-    ::std::vector<combination_prime_pow> cpps;
+    ::std::vector<combination_prime_pow> m_cpps;
 
   public:
     extended_lucas() {
@@ -93,15 +99,36 @@ namespace tools {
       ::std::vector<::std::pair<int, int>> distinct_prime_factors;
       ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));
       for (const auto& [p, q] : distinct_prime_factors) {
-        this->cpps.emplace_back(p, q);
+        this->m_cpps.emplace_back(p, q);
       }
     }
 
-    M combination(const long long n, const long long r) const {
-      if (n < 0 || r < 0 || n < r) return M::raw(0);
+    M fact(const long long n) const {
+      assert(n >= 0);
       ::std::vector<::std::pair<int, int>> rs;
-      for (const auto& cpp : this->cpps) rs.emplace_back(cpp.nCr(n, r), cpp.m);
+      for (const auto& cpp : this->m_cpps) rs.emplace_back(cpp.fact(n), cpp.m);
       return ::tools::garner<M>(rs.begin(), rs.end()).first;
+    }
+    M binomial(const long long n, const long long r) const {
+      if (r < 0) return M::raw(0);
+      if (0 <= n && n < r) return M::raw(0);
+      if (n < 0) return M((r & 1) ? -1 : 1) * this->binomial(-n + r - 1, r);
+
+      ::std::vector<::std::pair<int, int>> rs;
+      for (const auto& cpp : this->m_cpps) rs.emplace_back(cpp.combination(n, r), cpp.m);
+      return ::tools::garner<M>(rs.begin(), rs.end()).first;
+    }
+    M combination(const long long n, const long long r) const {
+      if (!(0 <= r && r <= n)) return M::raw(0);
+      return this->binomial(n, r);
+    }
+    M permutation(const long long n, const long long r) const {
+      if (!(0 <= r && r <= n)) return M::raw(0);
+      return this->binomial(n, r) * this->fact(r);
+    }
+    M combination_with_repetition(const long long n, const long long r) const {
+      if (n < 0 || r < 0) return M::raw(0);
+      return this->binomial(n + r - 1, r);
     }
   };
 }
