@@ -1,6 +1,9 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
 #include <iostream>
+#include <array>
+#include <cstddef>
+#include <vector>
 #include "tools/assert_that.hpp"
 #include "tools/virtual_vector.hpp"
 
