@@ -71,7 +71,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []

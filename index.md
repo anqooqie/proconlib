@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -608,7 +608,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector4.hpp
       title: Four dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/virtual_vector.hpp
       title: Lazy evaluation read-only std::vector
     - icon: ':heavy_check_mark:'
@@ -973,7 +973,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/virtual_vector.test.cpp
       title: tests/virtual_vector.test.cpp
     - icon: ':heavy_check_mark:'

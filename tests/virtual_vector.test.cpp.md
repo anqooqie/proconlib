@@ -1,33 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/virtual_vector.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/virtual_vector.hpp\"\n\n\n\n#include\
-    \ <cstddef>\n#include <type_traits>\n#include <memory>\n#include <iterator>\n\
-    #include <cassert>\n#include <algorithm>\n\nnamespace tools {\n  template <typename\
-    \ F>\n  class virtual_vector {\n  public:\n    using size_type = ::std::size_t;\n\
-    \n    class iterator {\n      const virtual_vector<F> *m_parent;\n      size_type\
-    \ m_i;\n\n    public:\n      using reference = decltype(::std::declval<F>()(::std::declval<size_type>()));\n\
+    \n\n#include <iostream>\n#include <array>\n#include <cstddef>\n#include <vector>\n\
+    #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include\
+    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
+    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
+    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
+    } while (false)\n\n\n#line 1 \"tools/virtual_vector.hpp\"\n\n\n\n#line 5 \"tools/virtual_vector.hpp\"\
+    \n#include <type_traits>\n#include <memory>\n#include <iterator>\n#include <cassert>\n\
+    #include <algorithm>\n\nnamespace tools {\n  template <typename F>\n  class virtual_vector\
+    \ {\n  public:\n    using size_type = ::std::size_t;\n\n    class iterator {\n\
+    \      const virtual_vector<F> *m_parent;\n      size_type m_i;\n\n    public:\n\
+    \      using reference = decltype(::std::declval<F>()(::std::declval<size_type>()));\n\
     \      using value_type = ::std::remove_const_t<::std::remove_reference_t<reference>>;\n\
     \      using difference_type = ::std::ptrdiff_t;\n      using pointer = const\
     \ value_type*;\n      using iterator_category = ::std::random_access_iterator_tag;\n\
@@ -101,7 +102,7 @@ data:
     \ !(x > y); }\n    template <typename G>\n    friend bool operator>(const virtual_vector<F>&\
     \ x, const virtual_vector<G>& y) { return y < x; }\n    template <typename G>\n\
     \    friend bool operator>=(const virtual_vector<F>& x, const virtual_vector<G>&\
-    \ y) { return !(x < y); }\n  };\n}\n\n\n#line 6 \"tests/virtual_vector.test.cpp\"\
+    \ y) { return !(x < y); }\n  };\n}\n\n\n#line 9 \"tests/virtual_vector.test.cpp\"\
     \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  std::array<int, 5> a{1, 2, 3, 4, 5};\n  const tools::virtual_vector v(5, [a](const\
     \ std::size_t i) -> const int& { return a[i]; });\n  assert_that(std::equal(v.begin(),\
@@ -110,8 +111,9 @@ data:
     \ });\n  assert_that(v == u);\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"tools/virtual_vector.hpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    #include <iostream>\n#include <array>\n#include <cstddef>\n#include <vector>\n\
+    #include \"tools/assert_that.hpp\"\n#include \"tools/virtual_vector.hpp\"\n\n\
+    int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  std::array<int, 5> a{1, 2, 3, 4, 5};\n  const tools::virtual_vector v(5, [a](const\
     \ std::size_t i) -> const int& { return a[i]; });\n  assert_that(std::equal(v.begin(),\
     \ v.end(), a.begin(), a.end()));\n\n  std::vector<int> b{1, 2, 3, 4, 5};\n  const\
@@ -124,8 +126,8 @@ data:
   isVerificationFile: true
   path: tests/virtual_vector.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 12:05:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-04-20 13:12:44+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/virtual_vector.test.cpp
 layout: document
