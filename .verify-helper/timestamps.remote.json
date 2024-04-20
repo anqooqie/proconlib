@@ -224,6 +224,7 @@
 "tests/uint128_t.test.cpp": "2023-08-26 14:07:16 +0900",
 "tests/undoable_dsu.test.cpp": "2024-04-06 03:06:24 +0900",
 "tests/util.test.cpp": "2024-03-30 17:59:25 +0900",
+"tests/virtual_vector.test.cpp": "2024-04-20 13:12:44 +0900",
 "tests/wavelet_matrix/kth_smallest.test.cpp": "2023-07-22 12:30:26 +0900",
 "tests/wavelet_matrix/next_points.test.cpp": "2023-07-22 12:30:26 +0900",
 "tests/wavelet_matrix/prev_points.test.cpp": "2023-07-22 12:30:26 +0900",
