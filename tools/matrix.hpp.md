@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
@@ -695,13 +695,13 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/solve.test.cpp
-  - tests/matrix/inv.test.cpp
-  - tests/matrix/multiplies.test.cpp
-  - tests/matrix/determinant.test.cpp
-  - tests/matrix/static.test.cpp
-  - tests/matrix/rank.test.cpp
   - tests/online_cumsum.test.cpp
+  - tests/matrix/static.test.cpp
+  - tests/matrix/inv.test.cpp
+  - tests/matrix/determinant.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/rank.test.cpp
+  - tests/matrix/solve.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -29,10 +29,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
@@ -41,7 +41,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -53,7 +53,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':heavy_check_mark:'
@@ -62,10 +62,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -73,8 +73,8 @@ data:
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/bell/diagonal.test.cpp
-    title: tests/bell/diagonal.test.cpp
+    path: tests/bell/consistent.test.cpp
+    title: tests/bell/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/fixed_n.test.cpp
     title: tests/bell/fixed_n.test.cpp
@@ -163,6 +163,9 @@ data:
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/partition_function/consistent.test.cpp
+    title: tests/partition_function/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
   - icon: ':heavy_check_mark:'
@@ -205,6 +208,9 @@ data:
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/consistent.test.cpp
+    title: tests/stirling_1st/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -213,6 +219,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd/consistent.test.cpp
+    title: tests/stirling_2nd/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
@@ -246,18 +255,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567
@@ -315,93 +324,96 @@ data:
   isVerificationFile: false
   path: tools/ceil_log2.hpp
   requiredBy:
-  - tools/bostan_mori.hpp
-  - tools/lca.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/persistent_dual_segtree.hpp
-  - tools/stirling_2nd.hpp
-  - tools/sample_point_shift.hpp
-  - tools/twelvefold_way.hpp
   - tools/partition_function.hpp
-  - tools/bernoulli.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/convolution.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/dual_segtree.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/polynomial.hpp
   - tools/stirling_1st.hpp
-  - tools/binary_heap.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/fps.hpp
+  - tools/large_fact_mod_cache.hpp
+  - tools/bostan_mori.hpp
   - tools/li_chao_segtree.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/stirling_2nd.hpp
+  - tools/convolution.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/binary_heap.hpp
+  - tools/persistent_dual_segtree.hpp
+  - tools/lca.hpp
+  - tools/bernoulli.hpp
+  - tools/twelvefold_way.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/sample_point_shift.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/bell.hpp
-  - tools/polynomial.hpp
+  - tools/dual_segtree.hpp
+  - tools/fps.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/convolution/double.test.cpp
+  - tests/lca.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/sample_point_shift.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/convolution/double.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/bell/diagonal.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
-  - tests/binary_heap.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
-  - tests/lca.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/ssize.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/berlekamp_massey.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/large_fact_mod_cache/fact.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
   - tests/dual_segtree.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

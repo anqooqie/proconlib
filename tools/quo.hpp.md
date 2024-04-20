@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -32,45 +32,45 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -79,13 +79,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -106,7 +106,7 @@ data:
   - icon: ':warning:'
     path: tools/round.hpp
     title: Apply banker's rounding to $\frac{x}{y}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':heavy_check_mark:'
@@ -118,7 +118,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
@@ -127,7 +127,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -135,8 +135,8 @@ data:
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/bell/diagonal.test.cpp
-    title: tests/bell/diagonal.test.cpp
+    path: tests/bell/consistent.test.cpp
+    title: tests/bell/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/fixed_n.test.cpp
     title: tests/bell/fixed_n.test.cpp
@@ -276,6 +276,9 @@ data:
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/partition_function/consistent.test.cpp
+    title: tests/partition_function/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
   - icon: ':heavy_check_mark:'
@@ -348,6 +351,9 @@ data:
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/consistent.test.cpp
+    title: tests/stirling_1st/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -356,6 +362,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd/consistent.test.cpp
+    title: tests/stirling_2nd/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
@@ -398,18 +407,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/quo.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
@@ -428,143 +437,146 @@ data:
   isVerificationFile: false
   path: tools/quo.hpp
   requiredBy:
-  - tools/bostan_mori.hpp
-  - tools/log_mod.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/bigint.hpp
-  - tools/garner2.hpp
-  - tools/garner3.hpp
-  - tools/stirling_2nd.hpp
-  - tools/sample_point_shift.hpp
-  - tools/inv_mod.hpp
-  - tools/twelvefold_way.hpp
-  - tools/garner.hpp
-  - tools/partition_function.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/bigdecimal.hpp
-  - tools/extended_garner.hpp
-  - tools/pow_mod.hpp
   - tools/primitive_root.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/rational.hpp
+  - tools/partition_function.hpp
+  - tools/garner.hpp
   - tools/modint_for_rolling_hash.hpp
-  - tools/bernoulli.hpp
-  - tools/round.hpp
-  - tools/rotate_left.hpp
-  - tools/convolution.hpp
-  - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
-  - tools/is_prime.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/rotate_right.hpp
-  - tools/divisors.hpp
   - tools/rolling_hash.hpp
-  - tools/stirling_1st.hpp
-  - tools/extended_lucas.hpp
-  - tools/sqrt_mod.hpp
-  - tools/mod.hpp
-  - tools/berlekamp_massey.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/fact_mod_cache.hpp
-  - tools/fps.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/bell.hpp
+  - tools/inv_mod.hpp
   - tools/polynomial.hpp
+  - tools/extended_garner.hpp
+  - tools/rational.hpp
+  - tools/rotate_left.hpp
   - tools/totient.hpp
+  - tools/stirling_1st.hpp
+  - tools/rotate_right.hpp
+  - tools/large_fact_mod_cache.hpp
+  - tools/divisors.hpp
+  - tools/bostan_mori.hpp
+  - tools/is_prime.hpp
+  - tools/prime_factorization.hpp
+  - tools/bigdecimal.hpp
+  - tools/round.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/garner3.hpp
+  - tools/bigint.hpp
+  - tools/pow_mod_cache.hpp
+  - tools/log_mod.hpp
+  - tools/stirling_2nd.hpp
+  - tools/convolution.hpp
+  - tools/garner2.hpp
+  - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/mod.hpp
+  - tools/pow_mod.hpp
+  - tools/sqrt_mod.hpp
+  - tools/bernoulli.hpp
+  - tools/twelvefold_way.hpp
+  - tools/sample_point_shift.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/bell.hpp
+  - tools/fps.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/sqrt_mod.test.cpp
+  - tests/rotate_left.test.cpp
   - tests/log_mod.test.cpp
-  - tests/convolution/double.test.cpp
   - tests/convolution/mod998244353.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/dynamic_mod.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/sqrt_mod.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/bigint/modulus.test.cpp
+  - tests/convolution/double.test.cpp
   - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/divides.test.cpp
-  - tests/bigint/minus.test.cpp
-  - tests/bell/diagonal.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/totient.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/extended_garner.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/prime_factorization.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/is_prime.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/large_fact_mod_cache/fact.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/totient.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/divisors.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/extended_garner.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
 documentation_of: tools/quo.hpp
 layout: document
 title: Quotient as integer division

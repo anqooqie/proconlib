@@ -43,8 +43,8 @@ data:
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/util.test.cpp
   - tests/fill.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/is_range.hpp
 layout: document
 title: Check whether T is a range type

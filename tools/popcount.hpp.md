@@ -17,10 +17,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/dynamic_bitset.hpp
     title: std::bitset with dynamic size
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -50,7 +50,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   - icon: ':heavy_check_mark:'
@@ -115,6 +115,9 @@ data:
     path: tests/scc_graph/edges_to_scc.test.cpp
     title: tests/scc_graph/edges_to_scc.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/consistent.test.cpp
+    title: tests/stirling_1st/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -153,13 +156,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
@@ -177,9 +180,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/wavelet_matrix/range_prod.test.cpp
     title: tests/wavelet_matrix/range_prod.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/popcount.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -244,67 +247,68 @@ data:
   isVerificationFile: false
   path: tools/popcount.hpp
   requiredBy:
-  - tools/log_mod.hpp
-  - tools/lca.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/chromatic_number.hpp
-  - tools/twelvefold_way.hpp
-  - tools/range_count_distinct.hpp
   - tools/primitive_root.hpp
   - tools/wavelet_matrix.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/prime_factorization.hpp
-  - tools/tetration_mod.hpp
-  - tools/divisors.hpp
-  - tools/floor_log2.hpp
-  - tools/stirling_1st.hpp
-  - tools/extended_lucas.hpp
-  - tools/dynamic_bitset.hpp
-  - tools/li_chao_segtree.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/chromatic_number.hpp
   - tools/totient.hpp
+  - tools/stirling_1st.hpp
+  - tools/dynamic_bitset.hpp
+  - tools/divisors.hpp
+  - tools/prime_factorization.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/log_mod.hpp
+  - tools/extended_lucas.hpp
+  - tools/tetration_mod.hpp
+  - tools/lca.hpp
+  - tools/floor_log2.hpp
+  - tools/twelvefold_way.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/range_count_distinct.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/range_count_distinct.test.cpp
+  - tests/lca.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
+  - tests/wavelet_matrix/range_prod.test.cpp
+  - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/totient.test.cpp
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/prim/unconnected.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/chromatic_number.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/range_prod.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/lca.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
+  - tests/range_count_distinct.test.cpp
   - tests/divisors.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/chromatic_number.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
 documentation_of: tools/popcount.hpp
 layout: document
 title: Popcount

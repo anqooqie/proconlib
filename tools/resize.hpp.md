@@ -70,8 +70,8 @@ data:
   timestamp: '2022-09-03 15:52:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/util.test.cpp
   - tests/resize.test.cpp
+  - tests/util.test.cpp
   - tests/digit_product_frequency.test.cpp
 documentation_of: tools/resize.hpp
 layout: document

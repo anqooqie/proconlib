@@ -1,60 +1,63 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/partition_function/consistent.test.cpp
+    title: tests/partition_function/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
@@ -85,18 +88,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/partition_function.hpp\"\n\n\n\n#include <cassert>\n\
@@ -1104,35 +1107,36 @@ data:
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
     \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
     \n\nnamespace tools {\n\n  namespace partition_function {\n    template <typename\
-    \ M>\n    ::tools::fps<M> diagonal(const int N) {\n      assert(N >= 0);\n\n \
-    \     ::tools::fps<M> p(N + 1);\n      if (M::mod() == 1) return p;\n\n      ++p[0];\n\
-    \      for (int k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) /\
-    \ 2];\n      for (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k\
-    \ + 1) / 2];\n      for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k *\
-    \ (3 * k - 1) / 2];\n      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k\
-    \ * (3 * k - 1) / 2];\n      return p.inv();\n    }\n\n    template <typename\
+    \ M>\n    ::std::vector<M> diagonal(const int N) {\n      assert(N >= 0);\n\n\
+    \      ::tools::fps<M> p(N + 1);\n\n      ++p[0];\n      for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];\n      for (int k = 2;\
+    \ k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n      for (int\
+    \ k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n      for\
+    \ (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];\n  \
+    \    p = p.inv();\n\n      return ::std::vector<M>(p.begin(), p.end());\n    }\n\
+    \n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const int\
+    \ N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n\n      auto\
+    \ dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0]\
+    \ = M(1);\n      for (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <=\
+    \ K; ++j) {\n          if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >=\
+    \ j) dp[i][j] += dp[i - j][j];\n        }\n      }\n\n      return dp;\n    }\n\
+    \  }\n}\n\n\n"
+  code: "#ifndef TOOLS_PARTITION_FUNCTION_HPP\n#define TOOLS_PARTITION_FUNCTION_HPP\n\
+    \n#include <cassert>\n#include <vector>\n#include \"tools/fps.hpp\"\n\nnamespace\
+    \ tools {\n\n  namespace partition_function {\n    template <typename M>\n   \
+    \ ::std::vector<M> diagonal(const int N) {\n      assert(N >= 0);\n\n      ::tools::fps<M>\
+    \ p(N + 1);\n\n      ++p[0];\n      for (int k = 1; k * (3 * k + 1) / 2 <= N;\
+    \ k += 2) --p[k * (3 * k + 1) / 2];\n      for (int k = 2; k * (3 * k + 1) / 2\
+    \ <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n      for (int k = 1; k * (3 * k -\
+    \ 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n      for (int k = 2; k * (3\
+    \ * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];\n      p = p.inv();\n\n\
+    \      return ::std::vector<M>(p.begin(), p.end());\n    }\n\n    template <typename\
     \ M>\n    ::std::vector<::std::vector<M>> all(const int N, const int K) {\n  \
     \    assert(N >= 0);\n      assert(K >= 0);\n\n      auto dp = ::std::vector(N\
     \ + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0] = M(1);\n      for\
     \ (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <= K; ++j) {\n      \
     \    if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >= j) dp[i][j] += dp[i\
-    \ - j][j];\n        }\n      }\n\n      return dp;\n    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_PARTITION_FUNCTION_HPP\n#define TOOLS_PARTITION_FUNCTION_HPP\n\
-    \n#include <cassert>\n#include <vector>\n#include \"tools/fps.hpp\"\n\nnamespace\
-    \ tools {\n\n  namespace partition_function {\n    template <typename M>\n   \
-    \ ::tools::fps<M> diagonal(const int N) {\n      assert(N >= 0);\n\n      ::tools::fps<M>\
-    \ p(N + 1);\n      if (M::mod() == 1) return p;\n\n      ++p[0];\n      for (int\
-    \ k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];\n      for\
-    \ (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n  \
-    \    for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n\
-    \      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) /\
-    \ 2];\n      return p.inv();\n    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>>\
-    \ all(const int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n\
-    \n      auto dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n\
-    \      dp[0][0] = M(1);\n      for (int i = 0; i <= N; ++i) {\n        for (int\
-    \ j = !i; j <= K; ++j) {\n          if (j > 0) dp[i][j] += dp[i][j - 1];\n   \
-    \       if (i >= j) dp[i][j] += dp[i - j][j];\n        }\n      }\n\n      return\
-    \ dp;\n    }\n  }\n}\n\n#endif\n"
+    \ - j][j];\n        }\n      }\n\n      return dp;\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/fps.hpp
   - tools/convolution.hpp
@@ -1153,23 +1157,24 @@ data:
   path: tools/partition_function.hpp
   requiredBy:
   - tools/twelvefold_way.hpp
-  timestamp: '2024-04-13 17:08:32+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-20 12:05:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/partition_function/diagonal.test.cpp
   - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
 documentation_of: tools/partition_function.hpp
 layout: document
 title: Partition function
@@ -1197,10 +1202,16 @@ It calculates the partition function $P(n, k)$, which is the number of partition
 |            $14$|$0$|$1$|$8$|$24$|$47$|$70$| $90$|$105$|$116$|$123$|$128$|$131$|$133$|$134$|$135$|$135$|
 |            $15$|$0$|$1$|$8$|$27$|$54$|$84$|$110$|$131$|$146$|$157$|$164$|$169$|$172$|$174$|$175$|$176$|
 
-## partition_function::diagonal
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## diagonal
 ```cpp
 template <typename M>
-tools::fps<M> partition_function::diagonal(int N);
+std::vector<M> partition_function::diagonal(int N);
 ```
 
 It returns $P(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
@@ -1224,13 +1235,7 @@ P(n, n) &= [x^n] \prod_{i = 0}^\infty \sum_{j = 0}^\infty x^{ij}\\
 
 Therefore, $P(n, n)$ can be calculated by inversion of the formal power series.
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## partition_function::all
+## all
 ```cpp
 template <typename M>
 std::vector<std::vector<M>> partition_function::all(int N, int K);
@@ -1258,9 +1263,3 @@ P(n, k - 1) + P(n - k, k) & \text{(otherwise)}
 \end{align*}$$
 
 Therefore, $P(n, k)$ can be calculated by dynamic programming.
-
-### License
-- CC0
-
-### Author
-- anqooqie

@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   - icon: ':heavy_check_mark:'
     path: tools/countr_zero.hpp
     title: Number of trailing zeros
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy: []
@@ -360,9 +360,9 @@ data:
   timestamp: '2024-03-22 23:44:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/scc_graph/edges_to_scc.test.cpp
   - tests/rotate_right.test.cpp
   - tests/rotate_left.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
 title: std::bitset with dynamic size

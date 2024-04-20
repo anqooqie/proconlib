@@ -79,20 +79,20 @@ data:
   timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/prim/basic.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
   - tests/polynomial_product.test.cpp
-  - tests/cycle_detection/undirected.test.cpp
+  - tests/prim/basic.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/partition_function/diagonal.test.cpp
-  - tests/tree_diameter.test.cpp
   - tests/polynomial/naive_division.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/undoable_dsu.test.cpp
   - tests/lis.test.cpp
+  - tests/cycle_detection/undirected.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/undoable_dsu.test.cpp
 documentation_of: tools/join.hpp
 layout: document
 title: Join elements with delimiter

@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/partition_function.hpp
     title: Partition function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -1066,21 +1066,21 @@ data:
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
     \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
     \n\nnamespace tools {\n\n  namespace partition_function {\n    template <typename\
-    \ M>\n    ::tools::fps<M> diagonal(const int N) {\n      assert(N >= 0);\n\n \
-    \     ::tools::fps<M> p(N + 1);\n      if (M::mod() == 1) return p;\n\n      ++p[0];\n\
-    \      for (int k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) /\
-    \ 2];\n      for (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k\
-    \ + 1) / 2];\n      for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k *\
-    \ (3 * k - 1) / 2];\n      for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k\
-    \ * (3 * k - 1) / 2];\n      return p.inv();\n    }\n\n    template <typename\
-    \ M>\n    ::std::vector<::std::vector<M>> all(const int N, const int K) {\n  \
-    \    assert(N >= 0);\n      assert(K >= 0);\n\n      auto dp = ::std::vector(N\
-    \ + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0] = M(1);\n      for\
-    \ (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <= K; ++j) {\n      \
-    \    if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >= j) dp[i][j] += dp[i\
-    \ - j][j];\n        }\n      }\n\n      return dp;\n    }\n  }\n}\n\n\n#line 6\
-    \ \"tests/partition_function/all.test.cpp\"\n\nusing mint = atcoder::modint1000000007;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ M>\n    ::std::vector<M> diagonal(const int N) {\n      assert(N >= 0);\n\n\
+    \      ::tools::fps<M> p(N + 1);\n\n      ++p[0];\n      for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];\n      for (int k = 2;\
+    \ k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n      for (int\
+    \ k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n      for\
+    \ (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];\n  \
+    \    p = p.inv();\n\n      return ::std::vector<M>(p.begin(), p.end());\n    }\n\
+    \n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const int\
+    \ N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n\n      auto\
+    \ dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0]\
+    \ = M(1);\n      for (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <=\
+    \ K; ++j) {\n          if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >=\
+    \ j) dp[i][j] += dp[i - j][j];\n        }\n      }\n\n      return dp;\n    }\n\
+    \  }\n}\n\n\n#line 6 \"tests/partition_function/all.test.cpp\"\n\nusing mint =\
+    \ atcoder::modint1000000007;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int n, k;\n  std::cin >> n >> k;\n  std::cout << tools::partition_function::all<mint>(n,\
     \ k)[n][k].val() << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_J\"\n\n\
@@ -1109,7 +1109,7 @@ data:
   isVerificationFile: true
   path: tests/partition_function/all.test.cpp
   requiredBy: []
-  timestamp: '2024-04-13 17:08:32+09:00'
+  timestamp: '2024-04-20 12:05:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/partition_function/all.test.cpp

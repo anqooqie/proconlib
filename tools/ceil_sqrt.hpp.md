@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
   _extendedRequiredBy:
@@ -50,8 +50,8 @@ data:
   isVerificationFile: false
   path: tools/ceil_sqrt.hpp
   requiredBy:
-  - tools/log_mod.hpp
   - tools/ceil_kth_root.hpp
+  - tools/log_mod.hpp
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

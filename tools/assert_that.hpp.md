@@ -7,8 +7,8 @@ data:
     path: tests/alphabetical_order.test.cpp
     title: tests/alphabetical_order.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/bell/diagonal.test.cpp
-    title: tests/bell/diagonal.test.cpp
+    path: tests/bell/consistent.test.cpp
+    title: tests/bell/consistent.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/hand.test.cpp
     title: tests/bigdecimal/hand.test.cpp
@@ -118,6 +118,9 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/partition_function/consistent.test.cpp
+    title: tests/partition_function/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -154,6 +157,12 @@ data:
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/consistent.test.cpp
+    title: tests/stirling_1st/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/stirling_2nd/consistent.test.cpp
+    title: tests/stirling_2nd/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsort/count.test.cpp
     title: tests/tsort/count.test.cpp
   - icon: ':heavy_check_mark:'
@@ -168,6 +177,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/uint128_t.test.cpp
     title: tests/uint128_t.test.cpp
+  - icon: ':x:'
+    path: tests/virtual_vector.test.cpp
+    title: tests/virtual_vector.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
@@ -180,9 +192,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
@@ -200,67 +212,71 @@ data:
   path: tools/assert_that.hpp
   requiredBy: []
   timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/tsp.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/extend_hash.test.cpp
-  - tests/uint128_t.test.cpp
-  - tests/tuple_hash.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/extend_input.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/random_tree.test.cpp
-  - tests/logn_integer_partition.test.cpp
-  - tests/mex.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/floor.test.cpp
-  - tests/multiset.test.cpp
-  - tests/ceil_quotients.test.cpp
-  - tests/online_cumsum.test.cpp
-  - tests/safe_int.test.cpp
-  - tests/is_group.test.cpp
-  - tests/is_monoid.test.cpp
-  - tests/floor_log2.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/virtual_vector.test.cpp
   - tests/rotate_right.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/tsort/count.test.cpp
-  - tests/tsort/query.test.cpp
-  - tests/run_length.test.cpp
-  - tests/extend_output.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/resize.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/bell/diagonal.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/countr_zero.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/fill.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/ssize.test.cpp
-  - tests/digit_sum.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/random_tree.test.cpp
   - tests/rotate_left.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/fix.test.cpp
-  - tests/ceil.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/fill.test.cpp
+  - tests/extend_output.test.cpp
+  - tests/ceil_quotients.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/countr_zero.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/online_cumsum.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/multiset.test.cpp
+  - tests/digit_sum.test.cpp
+  - tests/is_monoid.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/logn_integer_partition.test.cpp
+  - tests/ssize.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/floor_quotients.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/find_cycle.test.cpp
-  - tests/rational/random.test.cpp
+  - tests/tsort/count.test.cpp
+  - tests/tsort/query.test.cpp
   - tests/floor_sqrt.test.cpp
+  - tests/tuple_hash.test.cpp
+  - tests/uint128_t.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/floor_quotients.test.cpp
+  - tests/fix.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/int128_t.test.cpp
+  - tests/extend_hash.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/ceil.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/floor_log.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
   - tests/permutation.test.cpp
+  - tests/run_length.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/mex.test.cpp
+  - tests/find_cycle.test.cpp
+  - tests/is_group.test.cpp
+  - tests/floor.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/tsp.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/random.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro

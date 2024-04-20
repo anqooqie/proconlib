@@ -1,77 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
-    path: tools/bell.hpp
-    title: Bell numbers
-  - icon: ':heavy_check_mark:'
-    path: tools/ceil.hpp
-    title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
-    path: tools/fact_mod_cache.hpp
-    title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
-    path: tools/find_cycle.hpp
-    title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
-    path: tools/floor.hpp
-    title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/partition_function.hpp
+    title: Partition function
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
-    path: tools/pow_mod_cache.hpp
-    title: Cache for $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
-    path: tools/ssize.hpp
-    title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
-    path: tools/stirling_2nd.hpp
-    title: Stirling numbers of the second kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -84,27 +63,28 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/bell/diagonal.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n\
-    #include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
-    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
-    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
-    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
-    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
-    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
-    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
-    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
-    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
-    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
-    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
-    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
-    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
-    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
-    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+  bundledCode: "#line 1 \"tests/partition_function/consistent.test.cpp\"\n#define\
+    \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <iostream>\n\
+    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
+    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
+    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
+    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
+    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
+    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
+    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
+    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
+    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
+    \ im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
+    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
+    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
+    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
+    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
+    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
+    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
+    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
+    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
+    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
@@ -295,15 +275,15 @@ data:
     \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
     \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
     \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/bell.hpp\"\
-    \n\n\n\n#line 5 \"tools/bell.hpp\"\n#include <algorithm>\n#include <vector>\n\
-    #line 1 \"tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\n#include <cstddef>\n\
-    #include <initializer_list>\n#line 11 \"tools/fps.hpp\"\n#include <iterator>\n\
-    #line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line\
-    \ 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n#include\
-    \ <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\n\
-    namespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/partition_function.hpp\"\
+    \n\n\n\n#line 5 \"tools/partition_function.hpp\"\n#include <vector>\n#line 1 \"\
+    tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\n#include <cstddef>\n#include\
+    \ <initializer_list>\n#line 10 \"tools/fps.hpp\"\n#include <algorithm>\n#include\
+    \ <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line\
+    \ 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\
+    \nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
     using std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\nunsigned\
     \ int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x < (unsigned\
     \ int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <= n`\n// @return\
@@ -1091,184 +1071,42 @@ data:
     \    friend F operator*(const F& f, const F& g) { return F(f) *= g; }\n    friend\
     \ F operator/(const F& f, const F& g) { return F(f) /= g; }\n    friend F operator<<(const\
     \ F& f, const int d) { return F(f) <<= d; }\n    friend F operator>>(const F&\
-    \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 1 \"tools/stirling_2nd.hpp\"\
-    \n\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#line 1 \"tools/ssize.hpp\"\
-    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
-    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
-    \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
-    \ M>\n  class fact_mod_cache {\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
-    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
-    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
-    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    explicit\
-    \ fact_mod_cache(const long long max) : fact_mod_cache() {\n      this->fact(::std::min<long\
-    \ long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(max,\
-    \ M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n % M::mod()\
-    \ != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
-    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
-    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
-    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
-    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
-    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
-    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
-    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
-    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
-    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
-    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
-    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
-    \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
-    \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
-    \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
-    \    }\n\n    M binomial(long long n, long long r) {\n      if (r < 0) return\
-    \ M::raw(0);\n      if (0 <= n && n < r) return M::raw(0);\n      if (n < 0) return\
-    \ M(1 - ((r & 1) << 1)) * this->binomial(-n + r - 1, r);\n\n      this->fact(::std::min<long\
-    \ long>(n, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(n, M::mod()\
-    \ - 1));\n      const auto c = [&](const long long nn, const long long rr) {\n\
-    \        return 0 <= rr && rr <= nn ? this->m_fact[nn] * this->m_fact_inv[nn -\
-    \ rr] * this->m_fact_inv[rr] : M::raw(0);\n      };\n\n      M result(1);\n  \
-    \    while (n > 0 || r > 0) {\n        result *= c(n % M::mod(), r % M::mod());\n\
-    \        n /= M::mod();\n        r /= M::mod();\n      }\n\n      return result;\n\
-    \    }\n    M combination(const long long n, const long long r) {\n      if (!(0\
-    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r);\n   \
-    \ }\n    M permutation(const long long n, const long long r) {\n      if (!(0\
-    \ <= r && r <= n)) return M::raw(0);\n      return this->binomial(n, r) * this->fact(r);\n\
-    \    }\n    M combination_with_repetition(const long long n, const long long r)\
-    \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
-    \ + r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n\
-    #line 5 \"tools/pow_mod_cache.hpp\"\n#include <optional>\n#line 1 \"tools/find_cycle.hpp\"\
-    \n\n\n\n#line 5 \"tools/find_cycle.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename F>\n  ::std::pair<long long, long long> find_cycle(const T& seed,\
-    \ const F& f) {\n    auto i = 1LL;\n    auto j = 2LL;\n    T x = f(seed);\n  \
-    \  T y = f(f(seed));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\
-    \n    i = 0;\n    x = seed;\n    for (; x != y; ++i, ++j, x = f(x), y = f(y));\n\
-    \n    const auto head = i;\n\n    ++i;\n    j = i + 1;\n    x = f(x);\n    y =\
-    \ f(f(y));\n    for (; x != y; ++i, j += 2, x = f(x), y = f(f(y)));\n\n    const\
-    \ auto cycle = j - i;\n\n    return ::std::make_pair(head, cycle);\n  }\n}\n\n\
-    \n#line 1 \"tools/floor.hpp\"\n\n\n\n#line 6 \"tools/floor.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
-    \ N> floor(const M lhs, const N rhs) {\n    using T = ::std::common_type_t<M,\
-    \ N>;\n    assert(rhs != N(0));\n    return lhs / rhs - T(((lhs > M(0) && rhs\
-    \ < N(0)) || (lhs < M(0) && rhs > N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 1 \"\
-    tools/ceil.hpp\"\n\n\n\n#line 6 \"tools/ceil.hpp\"\n\nnamespace tools {\n\n  template\
-    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> ceil(const\
-    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    assert(rhs\
-    \ != N(0));\n    return lhs / rhs + T(((lhs > M(0) && rhs > N(0)) || (lhs < M(0)\
-    \ && rhs < N(0))) && lhs % rhs);\n  }\n}\n\n\n#line 16 \"tools/pow_mod_cache.hpp\"\
-    \n\nnamespace tools {\n\n  template <class M>\n  class pow_mod_cache {\n    ::std::vector<M>\
-    \ m_pow;\n    ::std::vector<M> m_cumsum;\n    ::std::vector<M> m_inv_pow;\n  \
-    \  ::std::vector<M> m_inv_cumsum;\n    ::std::optional<::std::pair<long long,\
-    \ long long>> m_period;\n\n  public:\n    pow_mod_cache() = default;\n    explicit\
-    \ pow_mod_cache(const M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}),\
-    \ m_inv_cumsum({M::raw(0)}) {\n      if (base == M(-1)) {\n        if (M::mod()\
-    \ > 2) {\n          this->m_period = ::std::make_pair(0LL, 2LL);\n        } else\
-    \ {\n          this->m_period = ::std::make_pair(0LL, 1LL);\n          this->m_pow.resize(1);\n\
-    \        }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
-    \      }\n    }\n    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>,\
-    \ ::std::nullptr_t> = nullptr>\n    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base))\
-    \ {\n    }\n\n    M operator[](const long long n) {\n      if (!this->m_period)\
-    \ {\n        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long\
-    \ long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {\n   \
-    \       if (n >= 0) {\n            const long long size = ::tools::ssize(this->m_pow);\n\
-    \            this->m_pow.resize(::std::max(size, n + 1));\n            for (long\
-    \ long i = size; i < ::tools::ssize(this->m_pow); ++i) {\n              this->m_pow[i]\
-    \ = this->m_pow[i - 1] * this->m_pow[1];\n            }\n            return this->m_pow[n];\n\
-    \          } else {\n            if (this->m_inv_pow.size() == 1) {\n        \
-    \      this->m_inv_pow.push_back(this->m_pow[1].inv());\n            }\n     \
-    \       const long long size = ::tools::ssize(this->m_inv_pow);\n            this->m_inv_pow.resize(::std::max(size,\
-    \ -n + 1));\n            for (long long i = size; i < ::tools::ssize(this->m_inv_pow);\
-    \ ++i) {\n              this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];\n\
-    \            }\n            return this->m_inv_pow[-n];\n          }\n       \
-    \ }\n\n        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const\
-    \ M& prev) { return prev * this->m_pow[1]; });\n        const long long size =\
-    \ ::tools::ssize(this->m_pow);\n        this->m_pow.resize(this->m_period->first\
-    \ + this->m_period->second);\n        for (long long i = size; i < ::tools::ssize(this->m_pow);\
-    \ ++i) {\n          this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];\n  \
-    \      }\n        this->m_inv_pow.clear();\n        this->m_inv_cumsum.clear();\n\
-    \      }\n\n      if (this->m_period->first == 0) {\n        return this->m_pow[::tools::mod(n,\
-    \ this->m_period->second)];\n      } else {\n        assert(n >= 0);\n       \
-    \ if (n < this->m_period->first + this->m_period->second) {\n          return\
-    \ this->m_pow[n];\n        } else {\n          return this->m_pow[(n - this->m_period->first)\
-    \ % this->m_period->second + this->m_period->first];\n        }\n      }\n   \
-    \ }\n\n    M sum(const long long l, const long long r) {\n      if (l >= r) return\
-    \ M::raw(0);\n\n      (*this)[r - 1];\n      (*this)[l];\n\n      {\n        const\
-    \ long long size = ::tools::ssize(this->m_cumsum);\n        this->m_cumsum.resize(this->m_pow.size()\
-    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_cumsum);\
-    \ ++i) {\n          this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i\
-    \ - 1];\n        }\n      }\n\n      if (!this->m_period) {\n        const long\
-    \ long size = ::tools::ssize(this->m_inv_cumsum);\n        this->m_inv_cumsum.resize(this->m_inv_pow.size()\
-    \ + 1);\n        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum);\
-    \ ++i) {\n          this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i\
-    \ - 1];\n        }\n\n        if (l >= 0) {\n          return this->m_cumsum[r]\
-    \ - this->m_cumsum[l];\n        } else if (r <= 0) {\n          return this->m_inv_cumsum[-l]\
-    \ - this->m_inv_cumsum[-r];\n        } else {\n          return (this->m_inv_cumsum[-l]\
-    \ - this->m_inv_cumsum[1]) + (this->m_cumsum[r] - this->m_cumsum[0]);\n      \
-    \  }\n      }\n\n      static const auto cumsum = [&](const long long ll, const\
-    \ long long rr) {\n        return this->m_cumsum[rr] - this->m_cumsum[ll];\n \
-    \     };\n\n      if (l >= 0) {\n        static const auto f = [&](const long\
-    \ long x) {\n          if (x <= this->m_period->first + this->m_period->second)\
-    \ {\n            return cumsum(0, x);\n          } else {\n            return\
-    \ cumsum(0, this->m_period->first) +\n              cumsum(this->m_period->first,\
-    \ this->m_period->first + this->m_period->second) * ((x - this->m_period->first)\
-    \ / this->m_period->second) +\n              cumsum(this->m_period->first, (x\
-    \ - this->m_period->first) % this->m_period->second + this->m_period->first);\n\
-    \          }\n        };\n        return f(r) - f(l);\n      } else {\n      \
-    \  const auto& n = this->m_period->second;\n        return cumsum(::tools::mod(l,\
-    \ n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r,\
-    \ n) - ::tools::ceil(l, n));\n      }\n    }\n  };\n}\n\n\n#line 11 \"tools/stirling_2nd.hpp\"\
-    \n\nnamespace tools {\n\n  namespace stirling_2nd {\n\n    template <typename\
-    \ M>\n    ::tools::fps<M> fixed_n(const int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n\
-    \      assert(0 <= ::std::min(K, N) && ::std::min(K, N) < M::mod());\n      ::tools::fact_mod_cache<M>\
-    \ cache;\n      ::tools::pow_mod_cache<M> pow_m1(-1);\n      ::tools::fps<M> a,\
-    \ b;\n      for (int i = 0; i <= ::std::min(K, N); ++i) {\n        a.push_back(M(i).pow(N)\
-    \ * cache.fact_inv(i));\n        b.push_back(pow_m1[i] * cache.fact_inv(i));\n\
-    \      }\n      a.multiply_inplace(b);\n      a.resize(K + 1, M::raw(0));\n  \
-    \    return a;\n    }\n\n    template <typename M>\n    ::tools::fps<M> fixed_k(const\
-    \ int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n      assert(0\
-    \ <= K && K < M::mod());\n      assert(0 <= N && N < M::mod() + K - 1);\n    \
-    \  if (N < K) return ::tools::fps<M>(N + 1, M::raw(0));\n\n      ::tools::fact_mod_cache<M>\
-    \ cache;\n      ::tools::fps<M> f(N - K + 1);\n      for (int i = 0; i <= N -\
-    \ K; ++i) {\n        f[i] = cache.fact_inv(i + 1);\n      }\n      f.pow_inplace(K);\n\
-    \      f *= cache.fact_inv(K);\n      for (int n = K; n <= N; ++n) {\n       \
-    \ f[n - K] *= cache.fact(n);\n      }\n      f.insert(f.begin(), K, M::raw(0));\n\
-    \      return f;\n    }\n\n    template <typename M>\n    ::tools::fps<M> diagonal(const\
-    \ int N) {\n      assert(N >= 0);\n      return ::tools::fps<M>(N + 1, M(1));\n\
-    \    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const\
-    \ int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n      ::std::vector<::std::vector<M>>\
-    \ S(N + 1);\n      S[0].emplace_back(1);\n      S[0].insert(S[0].end(), K, M::raw(0));\n\
-    \      for (int n = 1; n <= N; ++n) {\n        S[n].resize(K + 1, M::raw(0));\n\
-    \        for (int k = 0; k <= ::std::min(n, K); ++k) {\n          if (k > 0) S[n][k]\
-    \ += S[n - 1][k - 1];\n          S[n][k] += M(k) * S[n - 1][k];\n        }\n \
-    \     }\n      return S;\n    }\n  }\n}\n\n\n#line 11 \"tools/bell.hpp\"\n\nnamespace\
-    \ tools {\n\n  namespace bell {\n\n    template <typename M>\n    ::tools::fps<M>\
-    \ fixed_n(const int N, const int K) {\n      assert(::tools::is_prime(M::mod()));\n\
-    \      assert(0 <= ::std::min(N, K) && ::std::min(N, K) < M::mod());\n      return\
-    \ ::tools::stirling_2nd::fixed_n<M>(N, K).divide_inplace(1, M(-1));\n    }\n\n\
-    \    template <typename M>\n    ::tools::fps<M> diagonal(const int N) {\n    \
-    \  assert(::tools::is_prime(M::mod()));\n      assert(0 <= N && N < M::mod());\n\
-    \      ::tools::fact_mod_cache<M> cache;\n      ::tools::fps<M> f(N + 1);\n  \
-    \    for (int i = 1; i <= N; ++i) f[i] = cache.fact_inv(i);\n      f.exp_inplace();\n\
-    \      for (int n = 0; n <= N; ++n) f[n] *= cache.fact(n);\n      return f;\n\
-    \    }\n\n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const\
-    \ int N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n      auto\
-    \ res = ::tools::stirling_2nd::all<M>(N, K);\n      for (int n = 0; n <= N; ++n)\
-    \ {\n        for (int k = 1; k <= K; ++k) {\n          res[n][k] += res[n][k -\
-    \ 1];\n        }\n      }\n      return res;\n    }\n  }\n}\n\n\n#line 7 \"tests/bell/diagonal.test.cpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  const int N = 100;\n  const auto\
-    \ actual = tools::bell::diagonal<mint>(100);\n  const auto expected = tools::bell::all<mint>(100,\
-    \ 100);\n  for (int n = 0; n <= N; ++n) {\n    assert_that(actual[n] == expected[n][n]);\n\
-    \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \ f, const int d) { return F(f) >>= d; }\n  };\n}\n\n\n#line 7 \"tools/partition_function.hpp\"\
+    \n\nnamespace tools {\n\n  namespace partition_function {\n    template <typename\
+    \ M>\n    ::std::vector<M> diagonal(const int N) {\n      assert(N >= 0);\n\n\
+    \      ::tools::fps<M> p(N + 1);\n\n      ++p[0];\n      for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];\n      for (int k = 2;\
+    \ k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];\n      for (int\
+    \ k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];\n      for\
+    \ (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];\n  \
+    \    p = p.inv();\n\n      return ::std::vector<M>(p.begin(), p.end());\n    }\n\
+    \n    template <typename M>\n    ::std::vector<::std::vector<M>> all(const int\
+    \ N, const int K) {\n      assert(N >= 0);\n      assert(K >= 0);\n\n      auto\
+    \ dp = ::std::vector(N + 1, ::std::vector<M>(K + 1, M::raw(0)));\n\n      dp[0][0]\
+    \ = M(1);\n      for (int i = 0; i <= N; ++i) {\n        for (int j = !i; j <=\
+    \ K; ++j) {\n          if (j > 0) dp[i][j] += dp[i][j - 1];\n          if (i >=\
+    \ j) dp[i][j] += dp[i - j][j];\n        }\n      }\n\n      return dp;\n    }\n\
+    \  }\n}\n\n\n#line 7 \"tests/partition_function/consistent.test.cpp\"\n\nusing\
+    \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  for (int N = 0; N < 50; ++N) {\n\
+    \    for (int K = 0; K < 50; ++K) {\n      const auto all = tools::partition_function::all<mint>(N,\
+    \ K);\n\n      if (N == K) {\n        const auto diagonal = tools::partition_function::diagonal<mint>(N);\n\
+    \        for (int n = 0; n <= N; ++n) {\n          assert_that(all[n][n] == diagonal[n]);\n\
+    \        }\n      }\n    }\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n\
+    \  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\
-    \n#include \"tools/bell.hpp\"\n\nusing mint = atcoder::modint998244353;\n\nint\
-    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  const int N = 100;\n  const auto actual = tools::bell::diagonal<mint>(100);\n\
-    \  const auto expected = tools::bell::all<mint>(100, 100);\n  for (int n = 0;\
-    \ n <= N; ++n) {\n    assert_that(actual[n] == expected[n][n]);\n  }\n\n  std::cout\
-    \ << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \n#include \"tools/partition_function.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  for (int N = 0; N < 50; ++N) {\n    for (int K = 0; K < 50; ++K) {\n     \
+    \ const auto all = tools::partition_function::all<mint>(N, K);\n\n      if (N\
+    \ == K) {\n        const auto diagonal = tools::partition_function::diagonal<mint>(N);\n\
+    \        for (int n = 0; n <= N; ++n) {\n          assert_that(all[n][n] == diagonal[n]);\n\
+    \        }\n      }\n    }\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n\
+    \  return 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
-  - tools/bell.hpp
+  - tools/partition_function.hpp
   - tools/fps.hpp
   - tools/convolution.hpp
   - tools/pow2.hpp
@@ -1284,23 +1122,16 @@ data:
   - tools/group.hpp
   - tools/monoid.hpp
   - tools/less_by_first.hpp
-  - tools/stirling_2nd.hpp
-  - tools/fact_mod_cache.hpp
-  - tools/ssize.hpp
-  - tools/pow_mod_cache.hpp
-  - tools/find_cycle.hpp
-  - tools/floor.hpp
-  - tools/ceil.hpp
   isVerificationFile: true
-  path: tests/bell/diagonal.test.cpp
+  path: tests/partition_function/consistent.test.cpp
   requiredBy: []
-  timestamp: '2024-04-13 18:33:43+09:00'
+  timestamp: '2024-04-20 12:05:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/bell/diagonal.test.cpp
+documentation_of: tests/partition_function/consistent.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bell/diagonal.test.cpp
-- /verify/tests/bell/diagonal.test.cpp.html
-title: tests/bell/diagonal.test.cpp
+- /verify/tests/partition_function/consistent.test.cpp
+- /verify/tests/partition_function/consistent.test.cpp.html
+title: tests/partition_function/consistent.test.cpp
 ---

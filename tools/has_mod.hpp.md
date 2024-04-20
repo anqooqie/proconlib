@@ -67,6 +67,9 @@ data:
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/stirling_1st/consistent.test.cpp
+    title: tests/stirling_1st/consistent.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
@@ -96,33 +99,34 @@ data:
   isVerificationFile: false
   path: tools/has_mod.hpp
   requiredBy:
-  - tools/bostan_mori.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/util.hpp
-  - tools/extend_input.hpp
-  - tools/stirling_1st.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/extend_output.hpp
   - tools/polynomial.hpp
+  - tools/stirling_1st.hpp
+  - tools/util.hpp
+  - tools/bostan_mori.hpp
+  - tools/extend_output.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/extend_input.hpp
+  - tools/polynomial_interpolation.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/util.test.cpp
-  - tests/extend_input.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/extend_output.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/polynomial_interpolation.test.cpp
-  - tests/has_mod.test.cpp
   - tests/berlekamp_massey.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/util.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/has_mod.test.cpp
 documentation_of: tools/has_mod.hpp
 layout: document
 title: Check whether T has the member function mod()

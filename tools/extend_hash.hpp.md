@@ -93,8 +93,8 @@ data:
   timestamp: '2022-11-20 17:00:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/util.test.cpp
   - tests/extend_hash.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/extend_hash.hpp
 layout: document
 title: Extend std::hash

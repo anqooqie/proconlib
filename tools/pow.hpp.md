@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
@@ -142,31 +142,31 @@ data:
   isVerificationFile: false
   path: tools/pow.hpp
   requiredBy:
-  - tools/floor_kth_root.hpp
-  - tools/detail/rolling_hash.hpp
-  - tools/ceil_kth_root.hpp
   - tools/modint_for_rolling_hash.hpp
-  - tools/quaternion.hpp
-  - tools/tetration_mod.hpp
   - tools/rolling_hash.hpp
+  - tools/detail/rolling_hash.hpp
   - tools/totient.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/floor_kth_root.hpp
+  - tools/tetration_mod.hpp
+  - tools/quaternion.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/totient.test.cpp
   - tests/floor_kth_root.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/totient.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/permutation.test.cpp
+  - tests/has_mod.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
 title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
