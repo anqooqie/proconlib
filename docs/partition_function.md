@@ -25,10 +25,16 @@ It calculates the partition function $P(n, k)$, which is the number of partition
 |            $14$|$0$|$1$|$8$|$24$|$47$|$70$| $90$|$105$|$116$|$123$|$128$|$131$|$133$|$134$|$135$|$135$|
 |            $15$|$0$|$1$|$8$|$27$|$54$|$84$|$110$|$131$|$146$|$157$|$164$|$169$|$172$|$174$|$175$|$176$|
 
-## partition_function::diagonal
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## diagonal
 ```cpp
 template <typename M>
-tools::fps<M> partition_function::diagonal(int N);
+std::vector<M> partition_function::diagonal(int N);
 ```
 
 It returns $P(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
@@ -52,13 +58,7 @@ P(n, n) &= [x^n] \prod_{i = 0}^\infty \sum_{j = 0}^\infty x^{ij}\\
 
 Therefore, $P(n, n)$ can be calculated by inversion of the formal power series.
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## partition_function::all
+## all
 ```cpp
 template <typename M>
 std::vector<std::vector<M>> partition_function::all(int N, int K);
@@ -86,9 +86,3 @@ P(n, k - 1) + P(n - k, k) & \text{(otherwise)}
 \end{align*}$$
 
 Therefore, $P(n, k)$ can be calculated by dynamic programming.
-
-### License
-- CC0
-
-### Author
-- anqooqie

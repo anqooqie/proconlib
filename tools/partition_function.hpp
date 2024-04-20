@@ -9,18 +9,19 @@ namespace tools {
 
   namespace partition_function {
     template <typename M>
-    ::tools::fps<M> diagonal(const int N) {
+    ::std::vector<M> diagonal(const int N) {
       assert(N >= 0);
 
       ::tools::fps<M> p(N + 1);
-      if (M::mod() == 1) return p;
 
       ++p[0];
       for (int k = 1; k * (3 * k + 1) / 2 <= N; k += 2) --p[k * (3 * k + 1) / 2];
       for (int k = 2; k * (3 * k + 1) / 2 <= N; k += 2) ++p[k * (3 * k + 1) / 2];
       for (int k = 1; k * (3 * k - 1) / 2 <= N; k += 2) --p[k * (3 * k - 1) / 2];
       for (int k = 2; k * (3 * k - 1) / 2 <= N; k += 2) ++p[k * (3 * k - 1) / 2];
-      return p.inv();
+      p = p.inv();
+
+      return ::std::vector<M>(p.begin(), p.end());
     }
 
     template <typename M>

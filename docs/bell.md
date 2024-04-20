@@ -25,10 +25,16 @@ It calculates the Bell numbers $B(n, k) = \sum_{i = 0}^k S(n, i)$ where $S(n, i)
 |            $14$|$0$|$1$| $8{,}192$|    $797{,}162$|$11{,}188{,}907$| $51{,}263{,}942$|$114{,}700{,}315$|    $164{,}029{,}595$|    $184{,}941{,}915$|    $190{,}077{,}045$|    $190{,}829{,}797$|    $190{,}895{,}863$|    $190{,}899{,}230$|    $190{,}899{,}321$|    $190{,}899{,}322$|    $190{,}899{,}322$|
 |            $15$|$0$|$1$|$16{,}384$|$2{,}391{,}485$|$44{,}747{,}435$|$255{,}514{,}355$|$676{,}207{,}628$|$1{,}084{,}948{,}961$|$1{,}301{,}576{,}801$|$1{,}368{,}705{,}291$|$1{,}381{,}367{,}941$|$1{,}382{,}847{,}419$|$1{,}382{,}953{,}889$|$1{,}382{,}958{,}439$|$1{,}382{,}958{,}544$|$1{,}382{,}958{,}545$|
 
-## bell::fixed_n
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## fixed_n
 ```cpp
 template <typename M>
-tools::fps<M> bell::fixed_n(int N, int K);
+tools::virtual_vector<(anonymous type)> bell::fixed_n(int N, int K);
 ```
 
 It returns $B(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
@@ -39,18 +45,12 @@ It returns $B(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$
 - $0 \leq \min(N, K) < P$
 
 ### Time Complexity
-- $O(\min(N, K) \log(\min(N, K)) + K)$
+- $O(\min(N, K) \log N)$
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## bell::diagonal
+## diagonal
 ```cpp
 template <typename M>
-tools::fps<M> bell::diagonal(int N);
+std::vector<M> bell::diagonal(int N);
 ```
 
 It returns $B(n, n) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
@@ -63,13 +63,7 @@ It returns $B(n, n) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$
 ### Time Complexity
 - $O(N \log N)$
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## bell::all
+## all
 ```cpp
 template <typename M>
 std::vector<std::vector<M>> bell::all(int N, int K);
@@ -84,9 +78,3 @@ It returns $B(n, k) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$ and all $k
 
 ### Time Complexity
 - $O(NK)$
-
-### License
-- CC0
-
-### Author
-- anqooqie

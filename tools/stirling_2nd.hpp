@@ -4,56 +4,70 @@
 #include <cassert>
 #include <algorithm>
 #include <vector>
-#include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/fact_mod_cache.hpp"
 #include "tools/pow_mod_cache.hpp"
+#include "tools/fps.hpp"
+#include "tools/virtual_vector.hpp"
 
 namespace tools {
 
   namespace stirling_2nd {
 
     template <typename M>
-    ::tools::fps<M> fixed_n(const int N, const int K) {
+    auto fixed_n(const int N, const int K) {
       assert(::tools::is_prime(M::mod()));
-      assert(0 <= ::std::min(K, N) && ::std::min(K, N) < M::mod());
+      assert(0 <= ::std::min(N, K) && ::std::min(N, K) < M::mod());
+
       ::tools::fact_mod_cache<M> cache;
       ::tools::pow_mod_cache<M> pow_m1(-1);
       ::tools::fps<M> a, b;
-      for (int i = 0; i <= ::std::min(K, N); ++i) {
+      for (int i = 0; i <= ::std::min(N, K); ++i) {
         a.push_back(M(i).pow(N) * cache.fact_inv(i));
         b.push_back(pow_m1[i] * cache.fact_inv(i));
       }
       a.multiply_inplace(b);
-      a.resize(K + 1, M::raw(0));
-      return a;
+
+      return ::tools::virtual_vector(K + 1, [N, a](const int k) -> const M& {
+        static const auto zero = M::raw(0);
+        return k <= N ? a[k] : zero;
+      });
     }
 
     template <typename M>
-    ::tools::fps<M> fixed_k(const int N, const int K) {
+    auto fixed_k(const int N, const int K) {
       assert(::tools::is_prime(M::mod()));
+      assert(N >= 0);
       assert(0 <= K && K < M::mod());
-      assert(0 <= N && N < M::mod() + K - 1);
-      if (N < K) return ::tools::fps<M>(N + 1, M::raw(0));
+      assert(N - K + 1 < M::mod());
 
-      ::tools::fact_mod_cache<M> cache;
-      ::tools::fps<M> f(N - K + 1);
-      for (int i = 0; i <= N - K; ++i) {
-        f[i] = cache.fact_inv(i + 1);
+      ::tools::fps<M> f(::std::max(0, N - K + 1));
+      if (!f.empty()) {
+        ::tools::fact_mod_cache<M> cache;
+        for (int i = 0; i <= N - K; ++i) {
+          f[i] = cache.fact_inv(i + 1);
+        }
+        f.pow_inplace(K);
+        f *= cache.fact_inv(K);
+        for (int n = K; n <= N; ++n) {
+          f[n - K] *= cache.fact(n);
+        }
       }
-      f.pow_inplace(K);
-      f *= cache.fact_inv(K);
-      for (int n = K; n <= N; ++n) {
-        f[n - K] *= cache.fact(n);
-      }
-      f.insert(f.begin(), K, M::raw(0));
-      return f;
+
+      return ::tools::virtual_vector(N + 1, [K, f](const int n) -> const M& {
+        static const auto zero = M::raw(0);
+        return n < K ? zero : f[n - K];
+      });
     }
 
     template <typename M>
-    ::tools::fps<M> diagonal(const int N) {
+    auto diagonal(const int N) {
       assert(N >= 0);
-      return ::tools::fps<M>(N + 1, M(1));
+
+      return ::tools::virtual_vector(N + 1, [](const int n) -> const M& {
+        static const M one(1);
+        return one;
+      });
     }
 
     template <typename M>

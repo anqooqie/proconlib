@@ -25,10 +25,16 @@ It calculates the Stirling numbers of the second kind $S(n, k) = \frac{1}{k!} \s
 |            $14$|$0$|$1$| $8{,}191$|    $788{,}970$|$10{,}391{,}745$| $40{,}075{,}035$| $63{,}436{,}373$| $49{,}329{,}280$| $20{,}912{,}320$| $5{,}135{,}130$|     $752{,}752$|     $66{,}066$|  $3{,}367$|     $91$|  $1$| $0$|
 |            $15$|$0$|$1$|$16{,}383$|$2{,}375{,}101$|$42{,}355{,}950$|$210{,}766{,}920$|$420{,}693{,}273$|$408{,}741{,}333$|$216{,}627{,}840$|$67{,}128{,}490$|$12{,}662{,}650$|$1{,}479{,}478$|$106{,}470$|$4{,}550$|$105$| $1$|
 
-## stirling_2nd::fixed_n
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## fixed_n
 ```cpp
 template <typename M>
-tools::fps<M> stirling_2nd::fixed_n(int N, int K);
+tools::virtual_vector<(anonymous type)> stirling_2nd::fixed_n(int N, int K);
 ```
 
 It returns $S(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
@@ -39,7 +45,7 @@ It returns $S(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$
 - $0 \leq \min(N, K) < P$
 
 ### Time Complexity
-- $O(\min(N, K) \log(\min(N, K)) + K)$
+- $O(\min(N, K) \log N)$
 
 ### Algorithm
 The following equation holds.
@@ -56,16 +62,10 @@ S(n, k) &= \sum_{i = 0}^k a_i b_{k - i}
 
 Therefore, $S(n, k)$ can be calculated by convolution.
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## stirling_2nd::fixed_k
+## fixed_k
 ```cpp
 template <typename M>
-tools::fps<M> stirling_2nd::fixed_k(int N, int K);
+tools::virtual_vector<(anonymous type)> stirling_2nd::fixed_k(int N, int K);
 ```
 
 It returns $S(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
@@ -73,26 +73,21 @@ It returns $S(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
+- $N \geq 0$
 - $0 \leq K < P$
-- $0 \leq N < P + K - 1$
+- $N - K + 1 < P$
 
 ### Time Complexity
-- $O((N - K) \log (N - K) + N)$
+- $O((N - K) \log (N - K) + K)$
 
 ### Algorithm
 $S(n, k) = n! [x^n] \frac{(e^x - 1)^k}{k!}$ holds.
 Therefore, $S(n, k)$ can be calculated by FPS.
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## stirling_2nd::diagonal
+## diagonal
 ```cpp
 template <typename M>
-tools::fps<M> stirling_2nd::diagonal(int N);
+tools::virtual_vector<(anonymous type)> stirling_2nd::diagonal(int N);
 ```
 
 It returns $S(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
@@ -103,15 +98,9 @@ Note that $S(n, n) = 1$.
 - $N \geq 0$
 
 ### Time Complexity
-- $O(N)$
+- $O(1)$
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## stirling_2nd::all
+## all
 ```cpp
 template <typename M>
 std::vector<std::vector<M>> stirling_2nd::all(int N, int K);
@@ -126,9 +115,3 @@ It returns $S(n, k) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$ and all $k
 
 ### Time Complexity
 - $O(NK)$
-
-### License
-- CC0
-
-### Author
-- anqooqie

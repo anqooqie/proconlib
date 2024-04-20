@@ -25,10 +25,16 @@ It calculates the signed Stirling numbers of the first kind $s(n, k) = [x^k] (x)
 |            $14$|$0$|$-6{,}227{,}020{,}800$|  $19{,}802{,}759{,}040$|$-26{,}596{,}717{,}056$|  $20{,}313{,}753{,}096$| $-9{,}957{,}703{,}756$|  $3{,}336{,}118{,}786$|    $-790{,}943{,}153$|     $135{,}036{,}473$|$-16{,}669{,}653$|  $1{,}474{,}473$|    $-91{,}091$|   $3{,}731$|    $-91$|   $1$| $0$|
 |            $15$|$0$|$87{,}178{,}291{,}200$|$-283{,}465{,}647{,}360$|$392{,}156{,}797{,}824$|$-310{,}989{,}260{,}400$|$159{,}721{,}605{,}680$|$-56{,}663{,}366{,}760$|$14{,}409{,}322{,}928$|$-2{,}681{,}453{,}775$|$368{,}411{,}615$|$-37{,}312{,}275$|$2{,}749{,}747$|$-143{,}325$|$5{,}005$|$-105$| $1$|
 
-## stirling_1st::fixed_n
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## fixed_n
 ```cpp
 template <typename M>
-tools::fps<M> stirling_1st::fixed_n(int N, int K);
+tools::virtual_vector<(anonymous type)> stirling_1st::fixed_n(int N, int K);
 ```
 
 It returns $s(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
@@ -39,18 +45,12 @@ It returns $s(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$
 - $0 \leq N < P$
 
 ### Time Complexity
-- $O(N \log N + K)$
+- $O(N \log N)$
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## stirling_1st::fixed_k
+## fixed_k
 ```cpp
 template <typename M>
-tools::fps<M> stirling_1st::fixed_k(int N, int K);
+tools::virtual_vector<(anonymous type)> stirling_1st::fixed_k(int N, int K);
 ```
 
 It returns $s(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
@@ -58,22 +58,17 @@ It returns $s(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$
 ### Constraints
 - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $P$ is a prime.
+- $N \geq 0$
 - $0 \leq K < P$
-- $0 \leq N < P + K - 1$
+- $N - K + 1 < P$
 
 ### Time Complexity
-- $O((N - K) \log (N - K) + N)$
+- $O((N - K) \log (N - K) + K)$
 
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## stirling_1st::diagonal
+## diagonal
 ```cpp
 template <typename M>
-tools::fps<M> stirling_1st::diagonal(int N);
+tools::virtual_vector<(anonymous type)> stirling_1st::diagonal(int N);
 ```
 
 It returns $s(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.
@@ -84,10 +79,20 @@ Note that $s(n, n) = 1$.
 - $N \geq 0$
 
 ### Time Complexity
-- $O(N)$
+- $O(1)$
 
-### License
-- CC0
+## all
+```cpp
+template <typename M>
+std::vector<std::vector<M>> stirling_1st::all(int N, int K);
+```
 
-### Author
-- anqooqie
+It returns $s(n, k) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$ and all $k$ such that $0 \leq k \leq K$, where $M$ is `M::mod()`.
+
+### Constraints
+- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- $N \geq 0$
+- $K \geq 0$
+
+### Time Complexity
+- $O(NK)$
