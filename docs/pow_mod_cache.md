@@ -25,7 +25,7 @@ It creates an empty cache to store $b^n \pmod{M}$.
 
 ### Constraints
 - (1)
-    - `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
+    - `<M>` is `atcoder::static_modint`, `atcoder::dynamic_modint` or `tools::modint_for_rolling_hash`
 - (2)
     - `<Z>` is an integral type.
 
