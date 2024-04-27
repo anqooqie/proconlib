@@ -1,56 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -84,18 +84,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://hitonanode.github.io/cplib-cpp/number/combination.hpp.html
@@ -452,7 +452,7 @@ data:
   requiredBy:
   - tools/twelvefold_way.hpp
   timestamp: '2024-04-14 14:59:53+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp

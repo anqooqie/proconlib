@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/convex_hull.hpp
     title: Convex hull
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -50,26 +50,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner.hpp
     title: Garner's algorithm
   - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -82,16 +82,16 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
@@ -112,7 +112,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -124,16 +124,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -145,7 +145,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':heavy_check_mark:'
@@ -157,7 +157,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
@@ -169,10 +169,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   - icon: ':heavy_check_mark:'
@@ -539,13 +539,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
@@ -554,9 +554,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
@@ -645,7 +645,7 @@ data:
   - tools/bezout.hpp
   - tools/fps.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial_product.test.cpp
   - tests/less_by_arg_total.test.cpp

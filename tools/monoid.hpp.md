@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ceil_kth_root.hpp
     title: $\left\lceil x^\frac{1}{k} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -26,16 +26,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -53,7 +53,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':heavy_check_mark:'
@@ -62,7 +62,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
@@ -71,7 +71,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -273,18 +273,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/monoid.hpp\"\n\n\n\n#include <algorithm>\n#include\
@@ -352,7 +352,7 @@ data:
   - tools/pow.hpp
   - tools/fps.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial_product.test.cpp
   - tests/stirling_2nd/all.test.cpp

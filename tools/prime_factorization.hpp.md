@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
@@ -47,7 +47,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -102,18 +102,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#include <vector>\n\
@@ -299,7 +299,7 @@ data:
   - tools/tetration_mod.hpp
   - tools/twelvefold_way.hpp
   timestamp: '2023-08-26 14:07:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extended_lucas.test.cpp
   - tests/primitive_root.test.cpp
