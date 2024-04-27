@@ -23,13 +23,13 @@ It is a cumulative sum, but allows you to construct it by online.
 - (2)
     - Given a monoid `M`, it creates an array of type `typename M::T` and length $n$ filled with indeterminate values.
     - In $a$, multiplication is defined by `M`. In other words, $x \cdot y$ is defined by `M::op(x, y)` and the identity is defined by `M::e()`.
-    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
-    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
+    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \ldots, {n - 1}$.
+    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \ldots, 0$.
 - (3)
     - Given a group `G`, it creates an array of type `typename G::T` and length $n$ filled with indeterminate values.
     - In $a$, multiplication is defined by `G`. In other words, $x \cdot y$ is defined by `G::op(x, y)`, the identity is defined by `G::e()` and $x^{-1}$ is defined by `G::inv(x)`.
-    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
-    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
+    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \ldots, {n - 1}$.
+    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \ldots, 0$.
 
 ### Constraints
 - (1)
@@ -89,7 +89,7 @@ The return type is as follows.
 (see below) a.prod(std::size_t l, std::size_t r);
 ```
 
-It returns $a_l \cdot a_{l + 1} \cdot \cdots \cdot a_{r - 1}$.
+It returns $a_l \cdot a_{l + 1} \cdot \ldots \cdot a_{r - 1}$.
 Note that the multiplication is defined by the template parameter.
 
 The return type is as follows.
@@ -104,6 +104,22 @@ The return type is as follows.
 - (`Forward` is `false`): For all $l \leq i < n$, $a_i$ is not indeterminate.
 - (`a` is constructed by the constructor (2) and `Forward` is `true`): $l = 0$
 - (`a` is constructed by the constructor (2) and `Forward` is `false`): $r = n$
+
+### Time Complexity
+- $O(1)$ amortized
+
+## sum
+```cpp
+T a.sum(std::size_t l, std::size_t r);
+```
+
+It is an alias for `a.prod(l, r)`.
+
+### Constraints
+- `a` is constructed by the constructor (1).
+- $0 \leq l \leq r \leq n$
+- (`Forward` is `true`): For all $0 \leq i < r$, $a_i$ is not indeterminate.
+- (`Forward` is `false`): For all $l \leq i < n$, $a_i$ is not indeterminate.
 
 ### Time Complexity
 - $O(1)$ amortized

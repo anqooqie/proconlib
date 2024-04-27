@@ -38,6 +38,7 @@ int main() {
     tools::online_cumsum<int> a;
     assert_that(a.size() == 0);
     assert_that(a.prod(0, 0) == 0);
+    assert_that(a.sum(0, 0) == 0);
   }
   {
     tools::online_cumsum<int> a(1);
@@ -48,6 +49,7 @@ int main() {
     assert_that(a.prod(0, 0) == 0);
     assert_that(a.prod(1, 1) == 0);
     assert_that(a.prod(0, 1) == 1);
+    assert_that(a.sum(0, 1) == 1);
   }
   {
     tools::online_cumsum<int> a(2);
@@ -67,11 +69,13 @@ int main() {
     assert_that(a.prod(0, 1) == 1);
     assert_that(a.prod(1, 2) == 2);
     assert_that(a.prod(0, 2) == 3);
+    assert_that(a.sum(0, 2) == 3);
   }
   {
     tools::online_cumsum<int, false> a;
     assert_that(a.size() == 0);
     assert_that(a.prod(0, 0) == 0);
+    assert_that(a.sum(0, 0) == 0);
   }
   {
     tools::online_cumsum<int, false> a(1);
@@ -82,6 +86,7 @@ int main() {
     assert_that(a.prod(1, 1) == 0);
     assert_that(a.prod(0, 0) == 0);
     assert_that(a.prod(0, 1) == 1);
+    assert_that(a.sum(0, 1) == 1);
   }
   {
     tools::online_cumsum<int, false> a(2);
@@ -101,6 +106,7 @@ int main() {
     assert_that(a.prod(1, 2) == 1);
     assert_that(a.prod(0, 1) == 2);
     assert_that(a.prod(0, 2) == 3);
+    assert_that(a.sum(0, 2) == 3);
   }
   {
     tools::online_cumsum<M> a;

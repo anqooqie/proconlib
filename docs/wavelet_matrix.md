@@ -98,24 +98,20 @@ for (int i = 0; i < n; ++i) {
   wm.add_point(x[i], y[i]);
 }
 
-std::vector<std::vector<ll>> partial_sums;
+std::vector<tools::online_cumsum<int>> cumsums;
 for (const auto& A_h : wm.build()) {
-  std::vector<ll> v;
-  for (const auto i : A_h) {
-    v.push_back(w[i]);
+  cumsums.emplace_back(n);
+  for (int j = 0; j < n; ++j) {
+    cumsums.back()[j] = w[A_h[j]];
   }
-
-  partial_sums.emplace_back();
-  partial_sums.back().push_back(0);
-  std::partial_sum(v.begin(), v.end(), std::back_inserter(partial_sums.back()));
 }
 
 ll answer = 0;
 for (const auto& [h, jl, jr] : wm.range_prod(l, r, u)) {
-  answer += partial_sums[h][jr] - partial_sums[h][jl];
+  answer += cumsums[h].sum(jl, jr);
 }
 for (const auto& [h, jl, jr] : wm.range_prod(l, r, d)) {
-  answer -= partial_sums[h][jr] - partial_sums[h][jl];
+  answer -= cumsums[h].sum(jl, jr);
 }
 std::cout << answer << '\n';
 ```

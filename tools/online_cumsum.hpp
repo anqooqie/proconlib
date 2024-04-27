@@ -55,6 +55,10 @@ namespace tools {
         }
       }
     }
+    template <typename Y = X>
+    ::std::enable_if_t<!::tools::is_monoid_v<Y>, T> sum(const ::std::size_t l, const ::std::size_t r) {
+      return this->prod(l, r);
+    }
   };
 }
 
