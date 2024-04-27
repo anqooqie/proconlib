@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   _extendedRequiredBy:

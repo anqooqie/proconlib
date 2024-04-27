@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -60,18 +60,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/online_cumsum.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -123,7 +123,9 @@ data:
     \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
     \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
-    \        }\n      }\n    }\n  };\n}\n\n\n"
+    \        }\n      }\n    }\n    template <typename Y = X>\n    ::std::enable_if_t<!::tools::is_monoid_v<Y>,\
+    \ T> sum(const ::std::size_t l, const ::std::size_t r) {\n      return this->prod(l,\
+    \ r);\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_ONLINE_CUMSUM_HPP\n#define TOOLS_ONLINE_CUMSUM_HPP\n\n#include\
     \ <type_traits>\n#include <vector>\n#include <cstddef>\n#include <cassert>\n#include\
     \ \"tools/is_monoid.hpp\"\n#include \"tools/group.hpp\"\n#include \"tools/is_group.hpp\"\
@@ -147,7 +149,9 @@ data:
     \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
     \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
-    \        }\n      }\n    }\n  };\n}\n\n#endif\n"
+    \        }\n      }\n    }\n    template <typename Y = X>\n    ::std::enable_if_t<!::tools::is_monoid_v<Y>,\
+    \ T> sum(const ::std::size_t l, const ::std::size_t r) {\n      return this->prod(l,\
+    \ r);\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/is_monoid.hpp
   - tools/group.hpp
@@ -158,8 +162,8 @@ data:
   - tools/large_fact_mod_cache.hpp
   - tools/twelvefold_way.hpp
   - tools/sample_point_shift.hpp
-  timestamp: '2024-03-24 22:45:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-27 09:47:19+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/sample_point_shift.test.cpp
   - tests/online_cumsum.test.cpp
@@ -202,13 +206,13 @@ It is a cumulative sum, but allows you to construct it by online.
 - (2)
     - Given a monoid `M`, it creates an array of type `typename M::T` and length $n$ filled with indeterminate values.
     - In $a$, multiplication is defined by `M`. In other words, $x \cdot y$ is defined by `M::op(x, y)` and the identity is defined by `M::e()`.
-    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
-    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
+    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \ldots, {n - 1}$.
+    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \ldots, 0$.
 - (3)
     - Given a group `G`, it creates an array of type `typename G::T` and length $n$ filled with indeterminate values.
     - In $a$, multiplication is defined by `G`. In other words, $x \cdot y$ is defined by `G::op(x, y)`, the identity is defined by `G::e()` and $x^{-1}$ is defined by `G::inv(x)`.
-    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \cdots, {n - 1}$.
-    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \cdots, 0$.
+    - If `Forward` is `true`, you can set $a_i$ in the order $i = 0, 1, \ldots, {n - 1}$.
+    - If `Forward` is `false`, you can set $a_i$ in the order $i = n - 1, n - 2, \ldots, 0$.
 
 ### Constraints
 - (1)
@@ -268,7 +272,7 @@ The return type is as follows.
 (see below) a.prod(std::size_t l, std::size_t r);
 ```
 
-It returns $a_l \cdot a_{l + 1} \cdot \cdots \cdot a_{r - 1}$.
+It returns $a_l \cdot a_{l + 1} \cdot \ldots \cdot a_{r - 1}$.
 Note that the multiplication is defined by the template parameter.
 
 The return type is as follows.
@@ -283,6 +287,22 @@ The return type is as follows.
 - (`Forward` is `false`): For all $l \leq i < n$, $a_i$ is not indeterminate.
 - (`a` is constructed by the constructor (2) and `Forward` is `true`): $l = 0$
 - (`a` is constructed by the constructor (2) and `Forward` is `false`): $r = n$
+
+### Time Complexity
+- $O(1)$ amortized
+
+## sum
+```cpp
+T a.sum(std::size_t l, std::size_t r);
+```
+
+It is an alias for `a.prod(l, r)`.
+
+### Constraints
+- `a` is constructed by the constructor (1).
+- $0 \leq l \leq r \leq n$
+- (`Forward` is `true`): For all $0 \leq i < r$, $a_i$ is not indeterminate.
+- (`Forward` is `false`): For all $l \leq i < n$, $a_i$ is not indeterminate.
 
 ### Time Complexity
 - $O(1)$ amortized

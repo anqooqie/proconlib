@@ -1,77 +1,77 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -551,12 +551,13 @@ data:
     \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
     \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
-    \        }\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n\
-    #line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
-    \ <typename M, M E = ::std::numeric_limits<M>::lowest()>\n    struct max {\n \
-    \     using T = M;\n      static T op(const T& lhs, const T& rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
+    \        }\n      }\n    }\n    template <typename Y = X>\n    ::std::enable_if_t<!::tools::is_monoid_v<Y>,\
+    \ T> sum(const ::std::size_t l, const ::std::size_t r) {\n      return this->prod(l,\
+    \ r);\n    }\n  };\n}\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\
+    \n\nnamespace tools {\n  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
+    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
     \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
     \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
     \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
@@ -1072,7 +1073,7 @@ data:
   isVerificationFile: true
   path: tests/large_fact_mod_cache/fact.test.cpp
   requiredBy: []
-  timestamp: '2024-04-13 13:54:52+09:00'
+  timestamp: '2024-04-27 09:47:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/large_fact_mod_cache/fact.test.cpp

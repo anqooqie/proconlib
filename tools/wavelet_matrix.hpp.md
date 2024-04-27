@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bit_vector.hpp
     title: Bit vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
   - icon: ':heavy_check_mark:'
     path: tools/lower_bound.hpp
     title: std::lower_bound, but returns index
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   _extendedRequiredBy:
@@ -474,24 +474,20 @@ for (int i = 0; i < n; ++i) {
   wm.add_point(x[i], y[i]);
 }
 
-std::vector<std::vector<ll>> partial_sums;
+std::vector<tools::online_cumsum<int>> cumsums;
 for (const auto& A_h : wm.build()) {
-  std::vector<ll> v;
-  for (const auto i : A_h) {
-    v.push_back(w[i]);
+  cumsums.emplace_back(n);
+  for (int j = 0; j < n; ++j) {
+    cumsums.back()[j] = w[A_h[j]];
   }
-
-  partial_sums.emplace_back();
-  partial_sums.back().push_back(0);
-  std::partial_sum(v.begin(), v.end(), std::back_inserter(partial_sums.back()));
 }
 
 ll answer = 0;
 for (const auto& [h, jl, jr] : wm.range_prod(l, r, u)) {
-  answer += partial_sums[h][jr] - partial_sums[h][jl];
+  answer += cumsums[h].sum(jl, jr);
 }
 for (const auto& [h, jl, jr] : wm.range_prod(l, r, d)) {
-  answer -= partial_sums[h][jr] - partial_sums[h][jl];
+  answer -= cumsums[h].sum(jl, jr);
 }
 std::cout << answer << '\n';
 ```

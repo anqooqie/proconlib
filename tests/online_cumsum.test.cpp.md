@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   - icon: ':heavy_check_mark:'
@@ -25,7 +25,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':heavy_check_mark:'
@@ -304,25 +304,27 @@ data:
     \ - 1], this->m_cumsum[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));\n \
     \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
-    \        }\n      }\n    }\n  };\n}\n\n\n#line 1 \"tools/matrix.hpp\"\n\n\n\n\
-    #line 5 \"tools/matrix.hpp\"\n#include <array>\n#include <limits>\n#line 9 \"\
-    tools/matrix.hpp\"\n#include <initializer_list>\n#line 11 \"tools/matrix.hpp\"\
-    \n#include <algorithm>\n#line 13 \"tools/matrix.hpp\"\n#include <string>\n#line\
-    \ 15 \"tools/matrix.hpp\"\n#include <optional>\n#line 1 \"tools/vector.hpp\"\n\
-    \n\n\n#line 11 \"tools/vector.hpp\"\n#include <iterator>\n#line 14 \"tools/vector.hpp\"\
-    \n#include <cmath>\n#line 17 \"tools/vector.hpp\"\n#include <functional>\n#include\
-    \ <tuple>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float\
-    \ abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const\
-    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const\
-    \ long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const\
-    \ int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
-    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
-    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
-    \ long long x) {\n    return x;\n  }\n}\n\n\n#line 1 \"tools/tuple_hash.hpp\"\n\
-    \n\n\n#line 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n\
-    \  inline long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
+    \        }\n      }\n    }\n    template <typename Y = X>\n    ::std::enable_if_t<!::tools::is_monoid_v<Y>,\
+    \ T> sum(const ::std::size_t l, const ::std::size_t r) {\n      return this->prod(l,\
+    \ r);\n    }\n  };\n}\n\n\n#line 1 \"tools/matrix.hpp\"\n\n\n\n#line 5 \"tools/matrix.hpp\"\
+    \n#include <array>\n#include <limits>\n#line 9 \"tools/matrix.hpp\"\n#include\
+    \ <initializer_list>\n#line 11 \"tools/matrix.hpp\"\n#include <algorithm>\n#line\
+    \ 13 \"tools/matrix.hpp\"\n#include <string>\n#line 15 \"tools/matrix.hpp\"\n\
+    #include <optional>\n#line 1 \"tools/vector.hpp\"\n\n\n\n#line 11 \"tools/vector.hpp\"\
+    \n#include <iterator>\n#line 14 \"tools/vector.hpp\"\n#include <cmath>\n#line\
+    \ 17 \"tools/vector.hpp\"\n#include <functional>\n#include <tuple>\n#line 1 \"\
+    tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const float x)\
+    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long double\
+    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int x) {\n\
+    \    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x) {\n    return\
+    \ x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned int x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long abs(const unsigned long x) {\n\
+    \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
+    \ x) {\n    return x;\n  }\n}\n\n\n#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/now.hpp\"\n\n\n\n#include <chrono>\n\nnamespace tools {\n  inline\
+    \ long long now() {\n    return ::std::chrono::duration_cast<::std::chrono::nanoseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();\n\
     \  }\n}\n\n\n#line 1 \"tools/hash_combine.hpp\"\n\n\n\n#line 6 \"tools/hash_combine.hpp\"\
     \n\n// Source: https://github.com/google/cityhash/blob/f5dc54147fcce12cefd16548c8e760d68ac04226/src/city.h\n\
     // License: MIT\n// Author: Google Inc.\n\n// Copyright (c) 2011 Google, Inc.\n\
@@ -778,10 +780,11 @@ data:
     \   return T::e();\n  }\n  static T inv(const T& x) {\n    return *x.inv();\n\
     \  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  {\n    tools::online_cumsum<int> a;\n    assert_that(a.size() == 0);\n   \
-    \ assert_that(a.prod(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int> a(1);\n\
-    \    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == 0);\n    a[0]\
-    \ = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(0, 0) == 0);\n   \
-    \ assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 1) == 1);\n  }\n\
+    \ assert_that(a.prod(0, 0) == 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n \
+    \ {\n    tools::online_cumsum<int> a(1);\n    assert_that(a.size() == 1);\n  \
+    \  assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n  \
+    \  assert_that(a.prod(0, 1) == 1);\n    assert_that(a.sum(0, 1) == 1);\n  }\n\
     \  {\n    tools::online_cumsum<int> a(2);\n    assert_that(a.size() == 2);\n \
     \   assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
     \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n  \
@@ -789,18 +792,20 @@ data:
     \    assert_that(a[1] == 2);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1,\
     \ 1) == 0);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(0, 1)\
     \ == 1);\n    assert_that(a.prod(1, 2) == 2);\n    assert_that(a.prod(0, 2) ==\
-    \ 3);\n  }\n  {\n    tools::online_cumsum<int, false> a;\n    assert_that(a.size()\
-    \ == 0);\n    assert_that(a.prod(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ 3);\n    assert_that(a.sum(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) ==\
+    \ 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int,\
     \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
     \ == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(1,\
     \ 1) == 0);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(0, 1)\
-    \ == 1);\n  }\n  {\n    tools::online_cumsum<int, false> a(2);\n    assert_that(a.size()\
-    \ == 2);\n    assert_that(a.prod(2, 2) == 0);\n    a[1] = 1;\n    assert_that(a[1]\
-    \ == 1);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(1, 1) ==\
-    \ 0);\n    assert_that(a.prod(1, 2) == 1);\n    a[0] = 2;\n    assert_that(a[1]\
-    \ == 1);\n    assert_that(a[0] == 2);\n    assert_that(a.prod(2, 2) == 0);\n \
-    \   assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 0) == 0);\n   \
-    \ assert_that(a.prod(1, 2) == 1);\n    assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0,\
+    \ == 1);\n    assert_that(a.sum(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(2, 2)\
+    \ == 0);\n    a[1] = 1;\n    assert_that(a[1] == 1);\n    assert_that(a.prod(2,\
+    \ 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(1, 2)\
+    \ == 1);\n    a[0] = 2;\n    assert_that(a[1] == 1);\n    assert_that(a[0] ==\
+    \ 2);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n\
+    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 2) == 1);\n  \
+    \  assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0, 2) == 3);\n    assert_that(a.sum(0,\
     \ 2) == 3);\n  }\n  {\n    tools::online_cumsum<M> a;\n    assert_that(a.size()\
     \ == 0);\n    assert_that(a.prod(0, 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M>\
     \ a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == M::e());\n\
@@ -860,34 +865,36 @@ data:
     \ T& x) {\n    return *x.inv();\n  }\n};\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  {\n    tools::online_cumsum<int>\
     \ a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) == 0);\n \
-    \ }\n  {\n    tools::online_cumsum<int> a(1);\n    assert_that(a.size() == 1);\n\
-    \    assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n\
-    \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n  \
-    \  assert_that(a.prod(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int> a(2);\n\
-    \    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == 0);\n    a[0]\
+    \   assert_that(a.sum(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int> a(1);\n\
+    \    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == 0);\n    a[0]\
     \ = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(0, 0) == 0);\n   \
-    \ assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 1) == 1);\n    a[1]\
-    \ = 2;\n    assert_that(a[0] == 1);\n    assert_that(a[1] == 2);\n    assert_that(a.prod(0,\
-    \ 0) == 0);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(2, 2)\
-    \ == 0);\n    assert_that(a.prod(0, 1) == 1);\n    assert_that(a.prod(1, 2) ==\
-    \ 2);\n    assert_that(a.prod(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 1) == 1);\n    assert_that(a.sum(0,\
+    \ 1) == 1);\n  }\n  {\n    tools::online_cumsum<int> a(2);\n    assert_that(a.size()\
+    \ == 2);\n    assert_that(a.prod(0, 0) == 0);\n    a[0] = 1;\n    assert_that(a[0]\
+    \ == 1);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 1) ==\
+    \ 0);\n    assert_that(a.prod(0, 1) == 1);\n    a[1] = 2;\n    assert_that(a[0]\
+    \ == 1);\n    assert_that(a[1] == 2);\n    assert_that(a.prod(0, 0) == 0);\n \
+    \   assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(2, 2) == 0);\n   \
+    \ assert_that(a.prod(0, 1) == 1);\n    assert_that(a.prod(1, 2) == 2);\n    assert_that(a.prod(0,\
+    \ 2) == 3);\n    assert_that(a.sum(0, 2) == 3);\n  }\n  {\n    tools::online_cumsum<int,\
     \ false> a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0, 0) ==\
-    \ 0);\n  }\n  {\n    tools::online_cumsum<int, false> a(1);\n    assert_that(a.size()\
-    \ == 1);\n    assert_that(a.prod(1, 1) == 0);\n    a[0] = 1;\n    assert_that(a[0]\
-    \ == 1);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(0, 0) ==\
-    \ 0);\n    assert_that(a.prod(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ 0);\n    assert_that(a.sum(0, 0) == 0);\n  }\n  {\n    tools::online_cumsum<int,\
+    \ false> a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(1, 1)\
+    \ == 0);\n    a[0] = 1;\n    assert_that(a[0] == 1);\n    assert_that(a.prod(1,\
+    \ 1) == 0);\n    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(0, 1)\
+    \ == 1);\n    assert_that(a.sum(0, 1) == 1);\n  }\n  {\n    tools::online_cumsum<int,\
     \ false> a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(2, 2)\
     \ == 0);\n    a[1] = 1;\n    assert_that(a[1] == 1);\n    assert_that(a.prod(2,\
     \ 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n    assert_that(a.prod(1, 2)\
     \ == 1);\n    a[0] = 2;\n    assert_that(a[1] == 1);\n    assert_that(a[0] ==\
     \ 2);\n    assert_that(a.prod(2, 2) == 0);\n    assert_that(a.prod(1, 1) == 0);\n\
     \    assert_that(a.prod(0, 0) == 0);\n    assert_that(a.prod(1, 2) == 1);\n  \
-    \  assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0, 2) == 3);\n  }\n\
-    \  {\n    tools::online_cumsum<M> a;\n    assert_that(a.size() == 0);\n    assert_that(a.prod(0,\
-    \ 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M> a(1);\n    assert_that(a.size()\
-    \ == 1);\n    assert_that(a.prod(0, 0) == M::e());\n    a[0] = matrix2x2 {\n \
-    \     {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0, 0) == M::e());\n\
-    \    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<M>\
+    \  assert_that(a.prod(0, 1) == 2);\n    assert_that(a.prod(0, 2) == 3);\n    assert_that(a.sum(0,\
+    \ 2) == 3);\n  }\n  {\n    tools::online_cumsum<M> a;\n    assert_that(a.size()\
+    \ == 0);\n    assert_that(a.prod(0, 0) == M::e());\n  }\n  {\n    tools::online_cumsum<M>\
+    \ a(1);\n    assert_that(a.size() == 1);\n    assert_that(a.prod(0, 0) == M::e());\n\
+    \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
+    \ 0) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n  }\n  {\n    tools::online_cumsum<M>\
     \ a(2);\n    assert_that(a.size() == 2);\n    assert_that(a.prod(0, 0) == M::e());\n\
     \    a[0] = matrix2x2 {\n      {1, 2},\n      {3, 4},\n    };\n    assert_that(a.prod(0,\
     \ 0) == M::e());\n    assert_that(a.prod(0, 1) == a[0]);\n    a[1] = matrix2x2\
@@ -946,7 +953,7 @@ data:
   isVerificationFile: true
   path: tests/online_cumsum.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 22:45:11+09:00'
+  timestamp: '2024-04-27 09:47:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/online_cumsum.test.cpp
