@@ -16,7 +16,7 @@ data:
   - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':question:'
@@ -92,7 +92,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':question:'

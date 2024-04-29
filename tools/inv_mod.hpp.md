@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/extended_garner.hpp
     title: Extended Garner's algorithm
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':question:'
@@ -39,7 +39,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/extended_garner.test.cpp
     title: tests/extended_garner.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':x:'

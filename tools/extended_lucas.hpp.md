@@ -34,7 +34,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':question:'
@@ -54,7 +54,7 @@ data:
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
   - icon: ':x:'
@@ -95,7 +95,7 @@ data:
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://hitonanode.github.io/cplib-cpp/number/combination.hpp.html
@@ -455,7 +455,7 @@ data:
   requiredBy:
   - tools/twelvefold_way.hpp
   timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/extended_lucas.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
