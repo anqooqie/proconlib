@@ -1,132 +1,132 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bell.hpp
     title: Bell numbers
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extgcd.hpp
     title: Extended Euclidean algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner.hpp
     title: Garner's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_I
@@ -356,71 +356,72 @@ data:
     \    return x;\n  }\n  constexpr unsigned long long abs(const unsigned long long\
     \ x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\nnamespace\
     \ tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
-    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\n::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::uint128_t& x) {\n  ::std::string s;\n\
-    \  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for (::std::size_t i = s[0]\
-    \ == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x\
-    \ = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream&\
-    \ os, ::tools::uint128_t x) {\n  if (x == 0) return os << '0';\n\n  ::std::string\
-    \ s;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n \
-    \ ::std::reverse(s.begin(), s.end());\n\n  return os << s;\n}\n\n\n#line 5 \"\
-    tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template <typename T1, typename\
-    \ T2, typename T3>\n  constexpr T3 prod_mod(const T1 x, const T2 y, const T3 m)\
-    \ {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod = u128(x >= 0 ? x\
-    \ : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0) ^ (y >= 0)) prod_mod\
-    \ = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\n#line 1 \"tools/pow_mod.hpp\"\
-    \n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line 1 \"tools/quo.hpp\"\n\n\n\n#line\
-    \ 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
-    \ N>\n  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {\n\
-    \    using T = ::std::common_type_t<M, N>;\n    if (lhs >= M(0)) {\n      return\
-    \ lhs / rhs;\n    } else {\n      if (rhs >= N(0)) {\n        return -((-lhs -\
-    \ T(1) + rhs) / rhs);\n      } else {\n        return (-lhs - T(1) + -rhs) / -rhs;\n\
-    \      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\n\nnamespace tools {\n\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> mod(const\
-    \ M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M> && ::std::is_unsigned_v<N>)\
-    \ {\n      return lhs % rhs;\n    } else {\n      return lhs - ::tools::quo(lhs,\
-    \ rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\n\nnamespace tools\
-    \ {\n\n  template <typename T1, typename T2, typename T3>\n  constexpr T3 pow_mod(const\
-    \ T1 x, T2 n, const T3 m) {\n    if (m == 1) return 0;\n    T3 r = 1;\n    T3\
-    \ y = ::tools::mod(x, m);\n    while (n > 0) {\n      if ((n & 1) > 0) {\n   \
-    \     r = ::tools::prod_mod(r, y, m);\n      }\n      y = ::tools::prod_mod(y,\
-    \ y, m);\n      n /= 2;\n    }\n    return r;\n  }\n}\n\n\n#line 7 \"tools/is_prime.hpp\"\
-    \n\nnamespace tools {\n\n  constexpr bool is_prime(const unsigned long long n)\
-    \ {\n    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375,\
-    \ 28178, 450775, 9780504, 1795265022};\n\n    if (n <= 1) return false;\n    if\
-    \ (n == 2) return true;\n    if (n % 2 == 0) return false;\n\n    auto d = n -\
-    \ 1;\n    for (; d % 2 == 0; d /= 2);\n\n    for (const auto a : bases) {\n  \
-    \    if (a % n == 0) return true;\n\n      auto power = d;\n      auto target\
-    \ = ::tools::pow_mod(a, power, n);\n\n      bool is_composite = true;\n      if\
-    \ (target == 1) is_composite = false;\n      for (; is_composite && power != n\
-    \ - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {\n        if\
-    \ (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
-    \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#include <vector>\n#line 7 \"tools/fact_mod_cache.hpp\"\
-    \n#include <cmath>\n#line 1 \"tools/ssize.hpp\"\n\n\n\n#line 6 \"tools/ssize.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename C>\n  constexpr auto ssize(const\
-    \ C& c) -> ::std::common_type_t<::std::ptrdiff_t, ::std::make_signed_t<decltype(c.size())>>\
-    \ {\n    return c.size();\n  }\n}\n\n\n#line 10 \"tools/fact_mod_cache.hpp\"\n\
-    \nnamespace tools {\n\n  template <class M>\n  class fact_mod_cache {\n    ::std::vector<M>\
-    \ m_inv;\n    ::std::vector<M> m_fact;\n    ::std::vector<M> m_fact_inv;\n\n \
-    \ public:\n    fact_mod_cache() : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1),\
-    \ M::raw(1)}), m_fact_inv({M::raw(1), M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n\
-    \    }\n    explicit fact_mod_cache(const long long max) : fact_mod_cache() {\n\
-    \      this->fact(::std::min<long long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long\
-    \ long>(max, M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n\
-    \ % M::mod() != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n\
-    \      this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));\n\
-    \      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {\n    \
-    \    this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);\n   \
-    \   }\n      M result = this->m_inv[::std::abs(n) % M::mod()];\n      if (n <\
-    \ 0) result = -result;\n      return result;\n    }\n    M fact(const long long\
-    \ n) {\n      assert(n >= 0);\n      const long long size = ::tools::ssize(this->m_fact);\n\
-    \      this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));\n\
-    \      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {\n   \
-    \     this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n      return\
-    \ n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const long\
-    \ long n) {\n      assert(0 <= n && n < M::mod());\n      const long long size\
-    \ = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
+    \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\nconstexpr inline\
+    \ ::tools::uint128_t UINT128_MAX = (::tools::uint128_t(1) << 127) | ((::tools::uint128_t(1)\
+    \ << 127) - 1);\n\n::std::istream& operator>>(::std::istream& is, ::tools::uint128_t&\
+    \ x) {\n  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  x = 0;\n  for\
+    \ (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
+    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  return is;\n}\n\n\
+    ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {\n  if (x\
+    \ == 0) return os << '0';\n\n  ::std::string s;\n  while (x > 0) {\n    s.push_back('0'\
+    \ + x % 10);\n    x /= 10;\n  }\n  ::std::reverse(s.begin(), s.end());\n\n  return\
+    \ os << s;\n}\n\n\n#line 5 \"tools/prod_mod.hpp\"\n\nnamespace tools {\n\n  template\
+    \ <typename T1, typename T2, typename T3>\n  constexpr T3 prod_mod(const T1 x,\
+    \ const T2 y, const T3 m) {\n    using u128 = ::tools::uint128_t;\n    u128 prod_mod\
+    \ = u128(x >= 0 ? x : -x) * u128(y >= 0 ? y : -y) % u128(m);\n    if ((x >= 0)\
+    \ ^ (y >= 0)) prod_mod = u128(m) - prod_mod;\n    return prod_mod;\n  }\n}\n\n\
+    \n#line 1 \"tools/pow_mod.hpp\"\n\n\n\n#line 1 \"tools/mod.hpp\"\n\n\n\n#line\
+    \ 1 \"tools/quo.hpp\"\n\n\n\n#line 5 \"tools/quo.hpp\"\n\nnamespace tools {\n\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> quo(const\
+    \ M lhs, const N rhs) {\n    using T = ::std::common_type_t<M, N>;\n    if (lhs\
+    \ >= M(0)) {\n      return lhs / rhs;\n    } else {\n      if (rhs >= N(0)) {\n\
+    \        return -((-lhs - T(1) + rhs) / rhs);\n      } else {\n        return\
+    \ (-lhs - T(1) + -rhs) / -rhs;\n      }\n    }\n  }\n}\n\n\n#line 6 \"tools/mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> mod(const M lhs, const N rhs) {\n    if constexpr (::std::is_unsigned_v<M>\
+    \ && ::std::is_unsigned_v<N>) {\n      return lhs % rhs;\n    } else {\n     \
+    \ return lhs - ::tools::quo(lhs, rhs) * rhs;\n    }\n  }\n}\n\n\n#line 6 \"tools/pow_mod.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename T1, typename T2, typename T3>\n\
+    \  constexpr T3 pow_mod(const T1 x, T2 n, const T3 m) {\n    if (m == 1) return\
+    \ 0;\n    T3 r = 1;\n    T3 y = ::tools::mod(x, m);\n    while (n > 0) {\n   \
+    \   if ((n & 1) > 0) {\n        r = ::tools::prod_mod(r, y, m);\n      }\n   \
+    \   y = ::tools::prod_mod(y, y, m);\n      n /= 2;\n    }\n    return r;\n  }\n\
+    }\n\n\n#line 7 \"tools/is_prime.hpp\"\n\nnamespace tools {\n\n  constexpr bool\
+    \ is_prime(const unsigned long long n) {\n    constexpr ::std::array<unsigned\
+    \ long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};\n\n\
+    \    if (n <= 1) return false;\n    if (n == 2) return true;\n    if (n % 2 ==\
+    \ 0) return false;\n\n    auto d = n - 1;\n    for (; d % 2 == 0; d /= 2);\n\n\
+    \    for (const auto a : bases) {\n      if (a % n == 0) return true;\n\n    \
+    \  auto power = d;\n      auto target = ::tools::pow_mod(a, power, n);\n\n   \
+    \   bool is_composite = true;\n      if (target == 1) is_composite = false;\n\
+    \      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target,\
+    \ target, n)) {\n        if (target == n - 1) is_composite = false;\n      }\n\
+    \n      if (is_composite) {\n        return false;\n      }\n    }\n\n    return\
+    \ true;\n  }\n}\n\n\n#line 1 \"tools/fact_mod_cache.hpp\"\n\n\n\n#include <vector>\n\
+    #line 7 \"tools/fact_mod_cache.hpp\"\n#include <cmath>\n#line 1 \"tools/ssize.hpp\"\
+    \n\n\n\n#line 6 \"tools/ssize.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ C>\n  constexpr auto ssize(const C& c) -> ::std::common_type_t<::std::ptrdiff_t,\
+    \ ::std::make_signed_t<decltype(c.size())>> {\n    return c.size();\n  }\n}\n\n\
+    \n#line 10 \"tools/fact_mod_cache.hpp\"\n\nnamespace tools {\n\n  template <class\
+    \ M>\n  class fact_mod_cache {\n    ::std::vector<M> m_inv;\n    ::std::vector<M>\
+    \ m_fact;\n    ::std::vector<M> m_fact_inv;\n\n  public:\n    fact_mod_cache()\
+    \ : m_inv({M::raw(0), M::raw(1)}), m_fact({M::raw(1), M::raw(1)}), m_fact_inv({M::raw(1),\
+    \ M::raw(1)}) {\n      assert(::tools::is_prime(M::mod()));\n    }\n    explicit\
+    \ fact_mod_cache(const long long max) : fact_mod_cache() {\n      this->fact(::std::min<long\
+    \ long>(max, M::mod() - 1));\n      this->fact_inv(::std::min<long long>(max,\
+    \ M::mod() - 1));\n    }\n\n    M inv(const long long n) {\n      assert(n % M::mod()\
+    \ != 0);\n      const long long size = ::tools::ssize(this->m_inv);\n      this->m_inv.resize(::std::clamp<long\
+    \ long>(::std::abs(n) + 1, size, M::mod()));\n      for (long long i = size; i\
+    \ < ::tools::ssize(this->m_inv); ++i) {\n        this->m_inv[i] = -this->m_inv[M::mod()\
+    \ % i] * M::raw(M::mod() / i);\n      }\n      M result = this->m_inv[::std::abs(n)\
+    \ % M::mod()];\n      if (n < 0) result = -result;\n      return result;\n   \
+    \ }\n    M fact(const long long n) {\n      assert(n >= 0);\n      const long\
+    \ long size = ::tools::ssize(this->m_fact);\n      this->m_fact.resize(::std::clamp<long\
+    \ long>(n + 1, size, M::mod()));\n      for (long long i = size; i < ::tools::ssize(this->m_fact);\
+    \ ++i) {\n        this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);\n      }\n\
+    \      return n < M::mod() ? this->m_fact[n] : M::raw(0);\n    }\n    M fact_inv(const\
+    \ long long n) {\n      assert(0 <= n && n < M::mod());\n      const long long\
+    \ size = ::tools::ssize(this->m_fact_inv);\n      this->m_fact_inv.resize(::std::max<long\
     \ long>(size, n + 1));\n      this->inv(this->m_fact_inv.size() - 1);\n      for\
     \ (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {\n        this->m_fact_inv[i]\
     \ = this->m_fact_inv[i - 1] * this->m_inv[i];\n      }\n      return this->m_fact_inv[n];\n\
@@ -1086,28 +1087,28 @@ data:
     \      return this->binomial(n + r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/extended_lucas.hpp\"\
     \n\n\n\n#line 1 \"tools/int128_t.hpp\"\n\n\n\n#line 11 \"tools/int128_t.hpp\"\n\
     \nnamespace tools {\n  using int128_t = __int128;\n\n  constexpr ::tools::int128_t\
-    \ abs(const ::tools::int128_t& x) {\n    return x < 0 ? -x : x;\n  }\n}\n\n::std::istream&\
-    \ operator>>(::std::istream& is, ::tools::int128_t& x) {\n  ::std::string s;\n\
-    \  is >> s;\n  assert(!s.empty());\n\n  if (s == \"-170141183460469231731687303715884105728\"\
-    ) {\n    x = -::tools::int128_t((::tools::uint128_t(1) << 127) - 1) - 1;\n   \
-    \ return is;\n  }\n\n  x = 0;\n  for (::std::size_t i = s[0] == '+' || s[0] ==\
-    \ '-'; i < s.size(); ++i) {\n    assert('0' <= s[i] && s[i] <= '9');\n    x =\
-    \ 10 * x + (s[i] - '0');\n  }\n\n  if (s[0] == '-') x = -x;\n\n  return is;\n\
-    }\n\n::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {\n \
-    \ if (x == 0) return os << '0';\n  if (x == -::tools::int128_t((::tools::uint128_t(1)\
-    \ << 127) - 1) - 1) return os << \"-170141183460469231731687303715884105728\"\
-    ;\n\n  ::std::string s;\n  const bool negative = x < 0;\n\n  if (negative) x =\
-    \ -x;\n  while (x > 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n\n\
-    \  if (negative) s.push_back('-');\n  ::std::reverse(s.begin(), s.end());\n  return\
-    \ os << s;\n}\n\n\n#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"\
-    tools/prime_factorization.hpp\"\n#include <queue>\n#line 1 \"tools/floor_log2.hpp\"\
-    \n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"tools/popcount.hpp\"\n\
-    \nnamespace tools {\n\n  template <typename T>\n  T popcount(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
-    \    assert(x >= 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
-    \ static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n    } else\
-    \ {\n      const auto log2 = [](const int w) {\n        if (w == 8) return 3;\n\
-    \        if (w == 16) return 4;\n        if (w == 32) return 5;\n        if (w\
-    \ == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
+    \ abs(const ::tools::int128_t& x) {\n    return x < 0 ? -x : x;\n  }\n}\n\nconstexpr\
+    \ inline ::tools::int128_t INT128_MAX = (::tools::int128_t(1) << 126) | ((::tools::int128_t(1)\
+    \ << 126) - 1);\nconstexpr inline ::tools::int128_t INT128_MIN = -INT128_MAX -\
+    \ 1;\n\n::std::istream& operator>>(::std::istream& is, ::tools::int128_t& x) {\n\
+    \  ::std::string s;\n  is >> s;\n  assert(!s.empty());\n\n  if (s == \"-170141183460469231731687303715884105728\"\
+    ) {\n    x = INT128_MIN;\n    return is;\n  }\n\n  x = 0;\n  for (::std::size_t\
+    \ i = s[0] == '+' || s[0] == '-'; i < s.size(); ++i) {\n    assert('0' <= s[i]\
+    \ && s[i] <= '9');\n    x = 10 * x + (s[i] - '0');\n  }\n\n  if (s[0] == '-')\
+    \ x = -x;\n\n  return is;\n}\n\n::std::ostream& operator<<(::std::ostream& os,\
+    \ ::tools::int128_t x) {\n  if (x == 0) return os << '0';\n  if (x == INT128_MIN)\
+    \ return os << \"-170141183460469231731687303715884105728\";\n\n  ::std::string\
+    \ s;\n  const bool negative = x < 0;\n\n  if (negative) x = -x;\n  while (x >\
+    \ 0) {\n    s.push_back('0' + x % 10);\n    x /= 10;\n  }\n\n  if (negative) s.push_back('-');\n\
+    \  ::std::reverse(s.begin(), s.end());\n  return os << s;\n}\n\n\n#line 1 \"tools/prime_factorization.hpp\"\
+    \n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\n#include <queue>\n#line 1 \"\
+    tools/floor_log2.hpp\"\n\n\n\n#line 1 \"tools/popcount.hpp\"\n\n\n\n#line 8 \"\
+    tools/popcount.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  T popcount(T\
+    \ x) {\n    static_assert(::std::is_integral_v<T>);\n    assert(x >= 0);\n   \
+    \ if constexpr (::std::is_signed_v<T>) {\n      return static_cast<T>(::tools::popcount<::std::make_unsigned_t<T>>(x));\n\
+    \    } else {\n      const auto log2 = [](const int w) {\n        if (w == 8)\
+    \ return 3;\n        if (w == 16) return 4;\n        if (w == 32) return 5;\n\
+    \        if (w == 64) return 6;\n        return -1;\n      };\n      static_assert(log2(::std::numeric_limits<T>::digits)\
     \ >= 0);\n\n      if constexpr (::std::numeric_limits<T>::digits == 8) {\n   \
     \     x = (x & UINT8_C(0x55)) + (x >> 1 & UINT8_C(0x55));\n        x = (x & UINT8_C(0x33))\
     \ + (x >> 2 & UINT8_C(0x33));\n        x = (x & UINT8_C(0x0f)) + (x >> 4 & UINT8_C(0x0f));\n\
@@ -1903,8 +1904,8 @@ data:
   isVerificationFile: true
   path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 09:47:19+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-04-29 15:33:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
 layout: document

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -14,31 +14,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -63,99 +63,99 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/consistent.test.cpp
     title: tests/stirling_1st/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_n.test.cpp
     title: tests/stirling_1st/fixed_n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/consistent.test.cpp
     title: tests/stirling_2nd/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/find_cycle.hpp\"\n\n\n\n#include <utility>\n\nnamespace\
@@ -194,7 +194,7 @@ data:
   - tools/polynomial_interpolation.hpp
   - tools/bell.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polynomial_product.test.cpp
   - tests/stirling_2nd/all.test.cpp

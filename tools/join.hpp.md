@@ -9,31 +9,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prim/basic.test.cpp
     title: tests/prim/basic.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_n.test.cpp
     title: tests/stirling_1st/fixed_n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -45,9 +45,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
@@ -77,7 +77,7 @@ data:
   path: tools/join.hpp
   requiredBy: []
   timestamp: '2024-04-06 03:06:24+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/polynomial_product.test.cpp
   - tests/prim/basic.test.cpp

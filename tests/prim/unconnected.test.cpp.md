@@ -7,10 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':heavy_check_mark:'

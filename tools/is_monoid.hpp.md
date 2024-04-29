@@ -8,13 +8,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
   - icon: ':heavy_check_mark:'
@@ -23,22 +23,22 @@ data:
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
   - icon: ':heavy_check_mark:'
@@ -47,22 +47,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rolling_hash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -81,25 +81,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/circle_2d/where/without_radius.test.cpp
     title: tests/circle_2d/where/without_radius.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/floor_kth_root.test.cpp
     title: tests/floor_kth_root.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
@@ -108,16 +108,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,10 +126,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -150,60 +150,60 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/is_monoid.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -248,7 +248,7 @@ data:
   - tools/sample_point_shift.hpp
   - tools/pow.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/floor_kth_root.test.cpp
   - tests/sample_point_shift.test.cpp

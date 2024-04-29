@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/avl_tree_impl.hpp
     title: tools/detail/avl_tree_impl.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fix.hpp
     title: Fixed point combinator
   _extendedRequiredBy: []

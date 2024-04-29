@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -14,10 +14,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bernoulli.hpp
     title: Bernoulli numbers $B_k \pmod{P}$ for $0 \leq k \leq n$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
@@ -35,22 +35,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/disjoint_sparse_table_2d.hpp
     title: 2D disjoint sparse table
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
     path: tools/dual_segtree.hpp
     title: Dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
     path: tools/hld.hpp
     title: Heavy-light decomposition
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
@@ -59,43 +59,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/polynomial_interpolation.hpp
     title: Polynomial interpolation
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/primitive_root.hpp
     title: Primitive root
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sparse_fps_pow.hpp
     title: Power of a sparse FPS
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/totient.hpp
     title: Euler's totient function
   - icon: ':heavy_check_mark:'
@@ -104,7 +104,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/tsp.hpp
     title: Traveling salesman problem
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   - icon: ':heavy_check_mark:'
@@ -186,13 +186,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/mod998244353.test.cpp
     title: tests/convolution/mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
   - icon: ':heavy_check_mark:'
@@ -201,46 +201,46 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/dual_segtree.test.cpp
     title: tests/dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/composition.test.cpp
     title: tests/fps/composition.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/compositional_inverse.test.cpp
     title: tests/fps/compositional_inverse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_mod998244353.test.cpp
     title: tests/fps/exp_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_mod998244353.test.cpp
     title: tests/fps/inv_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_other_mods.test.cpp
     title: tests/fps/inv_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_mod998244353.test.cpp
     title: tests/fps/log_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_mod998244353.test.cpp
     title: tests/fps/pow_mod998244353.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
@@ -261,10 +261,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/integer_interval_set.test.cpp
     title: tests/integer_interval_set.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':heavy_check_mark:'
@@ -276,112 +276,112 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/li_chao_segtree/segment.test.cpp
     title: tests/li_chao_segtree/segment.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/consistent.test.cpp
     title: tests/partition_function/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation.test.cpp
     title: tests/polynomial/multipoint_evaluation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/ntt_division.test.cpp
     title: tests/polynomial/ntt_division.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/taylor_shift.test.cpp
     title: tests/polynomial/taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_interpolation.test.cpp
     title: tests/polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/primitive_root.test.cpp
     title: tests/primitive_root.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sample_point_shift.test.cpp
     title: tests/sample_point_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/fraction.test.cpp
     title: tests/sparse_fps_pow/fraction.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/sparse_fps_pow/regular.test.cpp
     title: tests/sparse_fps_pow/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/consistent.test.cpp
     title: tests/stirling_1st/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_k.test.cpp
     title: tests/stirling_1st/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/fixed_n.test.cpp
     title: tests/stirling_1st/fixed_n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/all.test.cpp
     title: tests/stirling_2nd/all.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/consistent.test.cpp
     title: tests/stirling_2nd/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_k.test.cpp
     title: tests/stirling_2nd/fixed_k.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/totient.test.cpp
     title: tests/totient.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
@@ -393,40 +393,40 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
@@ -441,9 +441,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#include\
@@ -501,7 +501,7 @@ data:
   - tools/dual_segtree.hpp
   - tools/fps.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/lca.test.cpp
   - tests/polynomial_product.test.cpp
