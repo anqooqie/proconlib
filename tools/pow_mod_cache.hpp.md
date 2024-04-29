@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
   - icon: ':question:'
@@ -20,7 +20,7 @@ data:
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
@@ -50,10 +50,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -162,12 +162,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/pow_mod_cache.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -355,7 +355,7 @@ data:
   - tools/polynomial_interpolation.hpp
   - tools/bell.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial_product.test.cpp
   - tests/stirling_2nd/all.test.cpp

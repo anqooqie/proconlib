@@ -4,26 +4,26 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   - icon: ':question:'
@@ -35,10 +35,10 @@ data:
   - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':question:'
@@ -53,7 +53,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':question:'

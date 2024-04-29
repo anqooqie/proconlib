@@ -7,16 +7,16 @@ data:
   - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
   - icon: ':heavy_check_mark:'
@@ -25,17 +25,17 @@ data:
   - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':heavy_check_mark:'
@@ -47,19 +47,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/join.hpp
     title: Join elements with delimiter
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
   - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/polynomial.hpp
     title: Polynomial
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':question:'
@@ -68,7 +68,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
   - icon: ':question:'
@@ -86,7 +86,7 @@ data:
   - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []

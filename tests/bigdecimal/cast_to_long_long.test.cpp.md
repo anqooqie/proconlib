@@ -26,7 +26,7 @@ data:
   - icon: ':question:'
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
   - icon: ':question:'

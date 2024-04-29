@@ -12,13 +12,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
       path: tools/avl_tree.hpp
       title: Reversible self-balancing binary search tree based on AVL tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/bell.hpp
       title: Bell numbers
     - icon: ':heavy_check_mark:'
@@ -66,7 +66,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ceil_log.hpp
       title: $\left\lceil \log_b(x) \right\rceil$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/ceil_log2.hpp
       title: $\left\lceil \log_2(x) \right\rceil$
     - icon: ':heavy_check_mark:'
@@ -105,7 +105,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/convex_hull.hpp
       title: Convex hull
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/convolution.hpp
       title: Convolution
     - icon: ':heavy_check_mark:'
@@ -165,19 +165,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/extended_garner.hpp
       title: Extended Garner's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extended_lucas.hpp
       title: Extended Lucas' theorem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extgcd.hpp
       title: Extended Euclidean algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
     - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
     - icon: ':heavy_check_mark:'
@@ -192,7 +192,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -201,17 +201,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_sqrt.hpp
       title: $\left\lfloor \sqrt{x} \right\rfloor$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fps.hpp
       title: Formal power series
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner.hpp
       title: Garner's algorithm
     - icon: ':question:'
       path: tools/garner2.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z}
         / M_2 \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/garner3.hpp
       title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
         \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -242,7 +242,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/greater_by_second.hpp
       title: std::greater by second
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
@@ -263,7 +263,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/integer_interval_set.hpp
       title: Set of integers as closed integer intervals
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/inv_mod.hpp
       title: $x^{-1} \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -272,10 +272,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_bipartite.hpp
       title: Check whether a given graph is bipartite
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_group.hpp
       title: Check whether T is a group
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_monoid.hpp
       title: Check whether T is a monoid
     - icon: ':question:'
@@ -290,7 +290,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/join.hpp
       title: Join elements with delimiter
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/large_fact_mod_cache.hpp
       title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
     - icon: ':heavy_check_mark:'
@@ -314,7 +314,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/less_by_arg_total.hpp
       title: std::less by the argument (total order)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/less_by_first.hpp
       title: std::less by first
     - icon: ':heavy_check_mark:'
@@ -369,7 +369,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/modint_for_rolling_hash.hpp
       title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
     - icon: ':heavy_check_mark:'
@@ -390,7 +390,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/online_cumsum.hpp
       title: Online cumulative sum
     - icon: ':heavy_check_mark:'
@@ -399,7 +399,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/partially_persistent_dsu.hpp
       title: Partially persistent disjoint set union
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/partition_function.hpp
       title: Partition function
     - icon: ':heavy_check_mark:'
@@ -429,7 +429,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polynomial_product.hpp
       title: Product of polynomials
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -441,7 +441,7 @@ data:
     - icon: ':question:'
       path: tools/pow_mod.hpp
       title: $x^y \pmod{M}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/pow_mod_cache.hpp
       title: Cache for $b^n \pmod{M}$
     - icon: ':heavy_check_mark:'
@@ -450,7 +450,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/prim.hpp
       title: Prim's algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/prime_factorization.hpp
       title: Pollard's rho algorithm
     - icon: ':heavy_check_mark:'
@@ -507,14 +507,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rounding_mode.hpp
       title: Rounding mode
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/run_length.hpp
       title: Run-length encoding
     - icon: ':heavy_check_mark:'
       path: tools/safe_int.hpp
       title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
         0} \cup \{\infty, \mathrm{NaN}\}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/sample_point_shift.hpp
       title: Shift of sampling points of polynomial
     - icon: ':heavy_check_mark:'
@@ -547,7 +547,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/stirling_1st.hpp
       title: Signed Stirling numbers of the first kind
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind
     - icon: ':heavy_check_mark:'
@@ -577,7 +577,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/twelvefold_way.hpp
       title: Twelvefold way
     - icon: ':question:'
@@ -611,7 +611,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/vector4.hpp
       title: Four dimensional vector
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/virtual_vector.hpp
       title: Lazy evaluation read-only std::vector
     - icon: ':heavy_check_mark:'
@@ -970,7 +970,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/tuple_hash.test.cpp
       title: tests/tuple_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/uint128_t.test.cpp
       title: tests/uint128_t.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1389,7 +1389,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
       title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
       title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - name: tests/wavelet_matrix

@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -78,15 +78,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/virtual_vector.test.cpp
     title: tests/virtual_vector.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/virtual_vector.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -258,7 +258,7 @@ data:
   - tools/twelvefold_way.hpp
   - tools/bell.hpp
   timestamp: '2024-04-20 12:05:28+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/stirling_2nd/all.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp

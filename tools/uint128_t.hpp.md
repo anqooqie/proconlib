@@ -5,7 +5,7 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -23,26 +23,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
     path: tools/divisors.hpp
     title: List all divisors
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
@@ -52,13 +52,13 @@ data:
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -70,7 +70,7 @@ data:
   - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -82,7 +82,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/rational.hpp
     title: Rational number
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':heavy_check_mark:'
@@ -94,7 +94,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
@@ -103,7 +103,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/totient.hpp
     title: Euler's totient function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
@@ -377,10 +377,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/uint128_t.test.cpp
     title: tests/uint128_t.test.cpp
   _isVerificationFailed: true

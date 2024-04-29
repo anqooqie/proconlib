@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []

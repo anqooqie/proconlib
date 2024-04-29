@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by.hpp
     title: std::greater by key
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':heavy_check_mark:'

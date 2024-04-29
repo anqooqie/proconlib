@@ -32,7 +32,7 @@ data:
   - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   - icon: ':question:'
