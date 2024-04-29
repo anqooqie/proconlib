@@ -135,7 +135,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
@@ -156,10 +156,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_1st/consistent.test.cpp
     title: tests/stirling_1st/consistent.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/stirling_2nd/consistent.test.cpp
     title: tests/stirling_2nd/consistent.test.cpp
   - icon: ':heavy_check_mark:'

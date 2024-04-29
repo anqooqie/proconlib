@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fix.hpp
     title: Fixed point combinator
   - icon: ':question:'

@@ -30,12 +30,12 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/sqrt_mod.test.cpp
     title: tests/sqrt_mod.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/sqrt_mod.hpp\"\n\n\n\n#include <optional>\n#include\
@@ -158,7 +158,7 @@ data:
   path: tools/sqrt_mod.hpp
   requiredBy: []
   timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/sqrt_mod.test.cpp
 documentation_of: tools/sqrt_mod.hpp

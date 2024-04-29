@@ -113,7 +113,7 @@ data:
   - icon: ':question:'
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   - icon: ':question:'
