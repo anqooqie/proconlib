@@ -16,6 +16,8 @@ namespace tools {
   }
 }
 
+constexpr inline ::tools::uint128_t UINT128_MAX = (::tools::uint128_t(1) << 127) | ((::tools::uint128_t(1) << 127) - 1);
+
 ::std::istream& operator>>(::std::istream& is, ::tools::uint128_t& x) {
   ::std::string s;
   is >> s;

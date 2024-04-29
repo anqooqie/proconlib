@@ -9,6 +9,9 @@ using int128_t = __int128;
 std::istream& operator>>(std::istream& is, int128_t& x);
 std::ostream& operator<<(std::ostream& is, int128_t x);
 int128_t tools::abs(int128_t x);
+
+constexpr inline int128_t INT128_MAX;
+constexpr inline int128_t INT128_MIN;
 ```
 
 It is an alias for `__int128`.

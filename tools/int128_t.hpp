@@ -17,13 +17,16 @@ namespace tools {
   }
 }
 
+constexpr inline ::tools::int128_t INT128_MAX = (::tools::int128_t(1) << 126) | ((::tools::int128_t(1) << 126) - 1);
+constexpr inline ::tools::int128_t INT128_MIN = -INT128_MAX - 1;
+
 ::std::istream& operator>>(::std::istream& is, ::tools::int128_t& x) {
   ::std::string s;
   is >> s;
   assert(!s.empty());
 
   if (s == "-170141183460469231731687303715884105728") {
-    x = -::tools::int128_t((::tools::uint128_t(1) << 127) - 1) - 1;
+    x = INT128_MIN;
     return is;
   }
 
@@ -40,7 +43,7 @@ namespace tools {
 
 ::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {
   if (x == 0) return os << '0';
-  if (x == -::tools::int128_t((::tools::uint128_t(1) << 127) - 1) - 1) return os << "-170141183460469231731687303715884105728";
+  if (x == INT128_MIN) return os << "-170141183460469231731687303715884105728";
 
   ::std::string s;
   const bool negative = x < 0;

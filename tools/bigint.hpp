@@ -21,10 +21,11 @@
 #include "tools/mod.hpp"
 #include "tools/floor.hpp"
 #include "tools/ssize.hpp"
+#include "tools/int128_t.hpp"
+#include "tools/uint128_t.hpp"
 #include "tools/ceil.hpp"
 #include "tools/garner2.hpp"
 #include "tools/pow2.hpp"
-#include "tools/uint128_t.hpp"
 #include "tools/abs.hpp"
 #include "tools/gcd.hpp"
 
@@ -199,7 +200,7 @@ namespace tools {
     ::tools::bigint& operator=(const ::tools::bigint&) = default;
     ::tools::bigint& operator=(::tools::bigint&&) = default;
 
-    template <typename T, typename ::std::enable_if<::std::is_integral_v<T>, ::std::nullptr_t>::type = nullptr>
+    template <typename T, typename ::std::enable_if<::std::is_integral_v<T> || ::std::is_same_v<T, ::tools::int128_t> || ::std::is_same_v<T, ::tools::uint128_t>, ::std::nullptr_t>::type = nullptr>
     explicit bigint(T n) : m_positive(n >= 0) {
       while (n != 0) {
         this->m_digits.push_back(n % BASE);
@@ -576,6 +577,24 @@ namespace tools {
 
     explicit operator bool() const {
       return !this->m_digits.empty();
+    }
+
+    explicit operator ::tools::int128_t() const {
+      assert(::tools::bigint(INT128_MIN) <= *this && *this <= ::tools::bigint(INT128_MAX));
+      ::tools::int128_t result = 0;
+      for (::std::size_t i = this->m_digits.size(); i --> 0;) {
+        result = result * BASE + this->m_digits[i] * (this->m_positive ? 1 : -1);
+      }
+      return result;
+    }
+
+    explicit operator ::tools::uint128_t() const {
+      assert(::tools::bigint(0) <= *this && *this <= ::tools::bigint(UINT128_MAX));
+      ::tools::uint128_t result = 0;
+      for (::std::size_t i = this->m_digits.size(); i --> 0;) {
+        result = result * BASE + this->m_digits[i];
+      }
+      return result;
     }
 
     explicit operator double() const {

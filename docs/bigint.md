@@ -13,8 +13,8 @@ It is an arbitrary precision integer.
 
 ## Constructor
 ```cpp
-(1) bigint x;
-(2) bigint x(std::int_fast64_t n);
+(1) bigint x();
+(2) template <typename Z> bigint x(Z n);
 (3) bigint x(const std::string& s);
 ```
 
@@ -26,6 +26,8 @@ It is an arbitrary precision integer.
     - It parses $s$ as a signed integer and creates an arbitrary precision integer whose value is parsed $s$.
 
 ### Constraints
+- (2)
+    - `std::is_integral_v<Z>` holds, `<Z>` is `tools::int128_t` or `<Z>` is `tools::uint128_t`.
 - (3)
     - $s$ is expressed as `[+-]?[0-9]+` in regular expressions
 
@@ -280,8 +282,8 @@ T explicit operator T(bigint& x);
 It casts $x$ to the type `T`.
 
 ### Constraints
-- `T` is a built-in integral type or `double`.
-- `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
+- `T` is a built-in integral type, `double`, `tools::int128_t` or `tools::uint128_t`.
+- the minimum value of `<T>` $\leq x \leq$ the maximum value of `<T>`
 
 ### Time Complexity
 - $O(\log \|x\|)$
