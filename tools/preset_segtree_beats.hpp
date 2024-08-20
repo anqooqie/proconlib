@@ -7,7 +7,7 @@
 #include <vector>
 #include "tools/segtree_beats.hpp"
 
-// Source: https://github.com/hitonanode/cplib-cpp/blob/94a544f88242fec39b4dd434ed379c23aa4dd99b/segmenttree/acl_beats.hpp
+// Source: https://github.com/hitonanode/cplib-cpp/blob/5dc514109dcc62c00c9b96b044b0e57d76ac7e9b/segmenttree/acl_beats.hpp
 // License: MIT
 // Author: hitonanode
 
@@ -38,15 +38,15 @@ namespace tools {
     namespace preset_segtree_beats {
       template <typename T>
       T second_lowest(const T a, const T a2, const T c, const T c2) {
-        assert(a < a2);
-        assert(c < c2);
+        assert(a <= a2); // a < a2 or a == a2 == INF
+        assert(c <= c2); // c < c2 or c == c2 == -INF
         return a == c ? ::std::min(a2, c2) : a2 <= c ? a2 : c2 <= a ? c2 : ::std::max(a, c);
       }
 
       template <typename T>
       T second_highest(const T a, const T a2, const T b, const T b2) {
-        assert(a > a2);
-        assert(b > b2);
+        assert(a >= a2); // a > a2 or a == a2 == -INF
+        assert(b >= b2); // b > b2 or b == b2 == INF
         return a == b ? ::std::max(a2, b2) : a2 >= b ? a2 : b2 >= a ? b2 : ::std::min(a, b);
       }
 
@@ -65,7 +65,7 @@ namespace tools {
           nhi(0),
           fail(false) {
         }
-        S(const T x, const T sz_ = 1):
+        S(const T x, const T sz_):
           lo(x),
           hi(x),
           lo2(::std::numeric_limits<T>::max()),
@@ -126,15 +126,21 @@ namespace tools {
       template <typename T>
       S<T> mapping(const F<T>& f, S<T> x) {
         if (x.sz == 0) return e<T>();
-        if (x.lo == x.hi || f.lb == f.ub || f.lb >= x.hi || f.ub < x.lo) {
+
+        // f の作用後 x の要素が 1 種類だけになるケース
+        if (x.lo == x.hi || f.lb == f.ub || f.lb >= x.hi || f.ub <= x.lo) {
           return S<T>(::std::clamp(x.lo, f.lb, f.ub) + f.bias, x.sz);
         }
+
+        // 2 種類 -> 1 種類
         if (x.lo2 == x.hi) {
           x.lo = x.hi2 = ::std::max(x.lo, f.lb) + f.bias;
           x.hi = x.lo2 = ::std::min(x.hi, f.ub) + f.bias;
           x.sum = x.lo * x.nlo + x.hi * x.nhi;
           return x;
         }
+
+        // lo と lo2, hi と hi2 が潰れないケース
         if (f.lb < x.lo2 && f.ub > x.hi2) {
           T nxt_lo = std::max(x.lo, f.lb);
           T nxt_hi = std::min(x.hi, f.ub);
@@ -145,6 +151,7 @@ namespace tools {
           x.hi2 += f.bias;
           return x;
         }
+
         x.fail = true;
         return x;
       }
@@ -198,7 +205,7 @@ namespace tools {
     preset_segtree_beats(const InputIterator begin, const InputIterator end) : m_base([&]() {
       ::std::vector<S> v;
       for (auto it = begin; it != end; ++it) {
-        v.emplace_back(*it);
+        v.emplace_back(*it, 1);
       }
       return v;
     }()) {
@@ -207,7 +214,7 @@ namespace tools {
     }
 
     void set(const int p, const T x) {
-      this->m_base.set(p, S(x));
+      this->m_base.set(p, S(x, 1));
     }
     T get(const int p) {
       return this->m_base.get(p).sum;
