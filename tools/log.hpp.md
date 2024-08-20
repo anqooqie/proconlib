@@ -37,10 +37,10 @@ data:
   timestamp: '2022-11-03 23:21:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/quaternion/slerp.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
 documentation_of: tools/log.hpp
 layout: document
 title: std::log(x) extended for my library

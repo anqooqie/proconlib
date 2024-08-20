@@ -16,7 +16,7 @@ data:
   - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
   - icon: ':question:'
@@ -25,7 +25,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
@@ -37,7 +37,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
   - icon: ':question:'
@@ -404,13 +404,13 @@ data:
   isVerificationFile: false
   path: tools/detail/rolling_hash.hpp
   requiredBy:
-  - tools/modint_for_rolling_hash.hpp
   - tools/rolling_hash.hpp
+  - tools/modint_for_rolling_hash.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rolling_hash.test.cpp
   - tests/has_mod.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/detail/rolling_hash.hpp
 layout: document
 redirect_from:

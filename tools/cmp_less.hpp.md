@@ -5,10 +5,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bellman_ford.hpp
     title: Bellman-Ford algorithm
+  - icon: ':question:'
+    path: tools/bigdecimal.hpp
+    title: Arbitrary precision floating-point number
+  - icon: ':question:'
+    path: tools/bigint.hpp
+    title: Arbitrary precision integer
   - icon: ':heavy_check_mark:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
@@ -26,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
+  - icon: ':question:'
+    path: tools/rational.hpp
+    title: Rational number
   - icon: ':heavy_check_mark:'
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
@@ -55,6 +64,45 @@ data:
     path: tests/bellman_ford.test.cpp
     title: tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/divides.test.cpp
+    title: tests/bigdecimal/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/hand.test.cpp
+    title: tests/bigdecimal/hand.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/minus.test.cpp
+    title: tests/bigdecimal/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/multiplies.test.cpp
+    title: tests/bigdecimal/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/plus.test.cpp
+    title: tests/bigdecimal/plus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/random.test.cpp
+    title: tests/bigdecimal/random.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/rounding.test.cpp
+    title: tests/bigdecimal/rounding.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/divides.test.cpp
+    title: tests/bigint/divides.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/minus.test.cpp
+    title: tests/bigint/minus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/modulus.test.cpp
+    title: tests/bigint/modulus.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/multiplies.test.cpp
+    title: tests/bigint/multiplies.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/bigint/plus.test.cpp
+    title: tests/bigint/plus.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/cartesian_tree/interval.test.cpp
     title: tests/cartesian_tree/interval.test.cpp
   - icon: ':heavy_check_mark:'
@@ -64,8 +112,23 @@ data:
     path: tests/dijkstra/undirected.test.cpp
     title: tests/dijkstra/undirected.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/cross_point.test.cpp
+    title: tests/directed_line_segment_2d/cross_point.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/intersection.test.cpp
+    title: tests/directed_line_segment_2d/intersection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/directed_line_segment_2d/squared_distance.test.cpp
+    title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':x:'
+    path: tests/fastio/string.test.cpp
+    title: tests/fastio/string.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/line_2d/projection.test.cpp
+    title: tests/line_2d/projection.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/longest_common_substring.test.cpp
     title: tests/longest_common_substring.test.cpp
@@ -79,8 +142,26 @@ data:
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/area.test.cpp
+    title: tests/polygon_2d/area.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/polygon_2d/minimum_bounding_circle.test.cpp
+    title: tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/prim/unconnected.test.cpp
     title: tests/prim/unconnected.test.cpp
+  - icon: ':x:'
+    path: tests/rational/minus.test.cpp
+    title: tests/rational/minus.test.cpp
+  - icon: ':x:'
+    path: tests/rational/multiplies.test.cpp
+    title: tests/rational/multiplies.test.cpp
+  - icon: ':x:'
+    path: tests/rational/plus.test.cpp
+    title: tests/rational/plus.test.cpp
+  - icon: ':x:'
+    path: tests/rational/random.test.cpp
+    title: tests/rational/random.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
@@ -93,6 +174,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
+  - icon: ':x:'
+    path: tests/triangle_2d/circumcircle.test.cpp
+    title: tests/triangle_2d/circumcircle.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
@@ -123,9 +207,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#include <type_traits>\n\nnamespace\
@@ -146,49 +230,77 @@ data:
   isVerificationFile: false
   path: tools/cmp_less.hpp
   requiredBy:
-  - tools/tree_diameter.hpp
-  - tools/mcf_graph.hpp
   - tools/largest_rectangle_in_histogram.hpp
-  - tools/suffix_array.hpp
-  - tools/longest_common_substring.hpp
-  - tools/dijkstra.hpp
-  - tools/chmax.hpp
-  - tools/bellman_ford.hpp
-  - tools/chmin.hpp
-  - tools/weighted_bipartite_matching.hpp
   - tools/naive_dijkstra.hpp
-  - tools/zero_one_bfs.hpp
-  - tools/xor_basis.hpp
-  - tools/tsp.hpp
+  - tools/bellman_ford.hpp
   - tools/segmented_sieve.hpp
+  - tools/chmin.hpp
+  - tools/zero_one_bfs.hpp
+  - tools/bigdecimal.hpp
+  - tools/tree_diameter.hpp
+  - tools/dijkstra.hpp
+  - tools/suffix_array.hpp
+  - tools/weighted_bipartite_matching.hpp
+  - tools/mcf_graph.hpp
+  - tools/longest_common_substring.hpp
+  - tools/chmax.hpp
+  - tools/bigint.hpp
+  - tools/rational.hpp
+  - tools/tsp.hpp
+  - tools/xor_basis.hpp
   - tools/zero_one_knapsack.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/largest_rectangle_in_histogram.test.cpp
-  - tests/prim/unconnected.test.cpp
   - tests/cartesian_tree/interval.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/naive_dijkstra.test.cpp
+  - tests/next_matching.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/zero_one_bfs/undirected.test.cpp
+  - tests/zero_one_bfs/directed.test.cpp
+  - tests/longest_common_substring.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/bellman_ford.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/segmented_sieve.test.cpp
-  - tests/persistent_stack.test.cpp
-  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/tsp.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/prim/unconnected.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/persistent_stack.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/plus.test.cpp
+  - tests/bigint/modulus.test.cpp
+  - tests/bigint/divides.test.cpp
+  - tests/bigint/minus.test.cpp
   - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
-  - tests/zero_one_bfs/undirected.test.cpp
-  - tests/zero_one_bfs/directed.test.cpp
+  - tests/largest_rectangle_in_histogram.test.cpp
   - tests/suffix_array.test.cpp
-  - tests/naive_dijkstra.test.cpp
-  - tests/rolling_hash.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/segmented_sieve.test.cpp
   - tests/xor_basis.test.cpp
-  - tests/tree_diameter.test.cpp
-  - tests/longest_common_substring.test.cpp
-  - tests/tsp.test.cpp
-  - tests/next_matching.test.cpp
-  - tests/bellman_ford.test.cpp
+  - tests/rolling_hash.test.cpp
 documentation_of: tools/cmp_less.hpp
 layout: document
 title: Polyfill of std::cmp_less

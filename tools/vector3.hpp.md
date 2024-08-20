@@ -4,16 +4,16 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy:
@@ -354,10 +354,10 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/quaternion/slerp.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/matrix/static.test.cpp
 documentation_of: tools/vector3.hpp
 layout: document

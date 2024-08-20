@@ -56,8 +56,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/log_mod.test.cpp
-  - tests/ceil_kth_root.test.cpp
   - tests/ceil_sqrt.test.cpp
+  - tests/ceil_kth_root.test.cpp
 documentation_of: tools/ceil_sqrt.hpp
 layout: document
 title: $\left\lceil \sqrt{x} \right\rceil$

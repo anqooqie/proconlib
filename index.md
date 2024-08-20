@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -33,7 +33,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/bezout.hpp
       title: "B\xE9zout's identity"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/bigdecimal.hpp
       title: Arbitrary precision floating-point number
     - icon: ':question:'
@@ -78,7 +78,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/chmax.hpp
       title: chmax function
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/chmin.hpp
       title: chmin function
     - icon: ':heavy_check_mark:'
@@ -93,7 +93,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/cmp_equal.hpp
       title: Polyfill of std::cmp_equal
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/cmp_less.hpp
       title: Polyfill of std::cmp_less
     - icon: ':heavy_check_mark:'
@@ -192,7 +192,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/floor_log.hpp
       title: $\left\lfloor \log_b(x) \right\rfloor$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/floor_log2.hpp
       title: $\left\lfloor \log_2(x) \right\rfloor$
     - icon: ':heavy_check_mark:'
@@ -251,7 +251,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/hash_combine.hpp
       title: Combine hash values
     - icon: ':heavy_check_mark:'
@@ -275,7 +275,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_group.hpp
       title: Check whether T is a group
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/is_monoid.hpp
       title: Check whether T is a monoid
     - icon: ':question:'
@@ -284,7 +284,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/is_rational.hpp
       title: Check whether T is tools::rational
     - icon: ':heavy_check_mark:'
@@ -305,7 +305,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/lcm_convolution.hpp
       title: LCM convolution
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/less_by.hpp
       title: std::less by key
     - icon: ':heavy_check_mark:'
@@ -387,7 +387,7 @@ data:
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation as n-choose-r
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
@@ -429,7 +429,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polynomial_product.hpp
       title: Product of polynomials
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/popcount.hpp
       title: Popcount
     - icon: ':heavy_check_mark:'
@@ -474,7 +474,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/range_count_distinct.hpp
       title: Range count distinct
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/rational.hpp
       title: Rational number
     - icon: ':heavy_check_mark:'
@@ -504,7 +504,7 @@ data:
     - icon: ':warning:'
       path: tools/round.hpp
       title: Apply banker's rounding to $\frac{x}{y}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/rounding_mode.hpp
       title: Rounding mode
     - icon: ':heavy_check_mark:'
@@ -529,7 +529,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/set.hpp
       title: Alias for __gnu_pbds::tree
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/signum.hpp
       title: Sign function
     - icon: ':heavy_check_mark:'
@@ -538,7 +538,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/sqrt_mod.hpp
       title: $\sqrt{x} \pmod{P}$
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/square.hpp
       title: $x^2$ under a given monoid
     - icon: ':question:'
@@ -565,7 +565,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
       title: Diameter of a tree
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/triangle_2d.hpp
       title: Two-dimensional triangle
     - icon: ':heavy_check_mark:'
@@ -574,7 +574,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -599,10 +599,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/vector.hpp
       title: Vector
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/vector2.hpp
       title: Two dimensional vector
     - icon: ':heavy_check_mark:'
@@ -634,7 +634,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/avl_tree_impl.hpp
       title: tools/detail/avl_tree_impl.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: tools/detail/geometry_2d.hpp
       title: tools/detail/geometry_2d.hpp
     - icon: ':heavy_check_mark:'
@@ -1282,16 +1282,16 @@ data:
       title: tests/quaternion/slerp.test.cpp
   - name: tests/rational
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/rational/minus.test.cpp
       title: tests/rational/minus.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/rational/multiplies.test.cpp
       title: tests/rational/multiplies.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/rational/plus.test.cpp
       title: tests/rational/plus.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph
@@ -1340,7 +1340,7 @@ data:
       title: tests/stirling_2nd/fixed_n.test.cpp
   - name: tests/triangle_2d
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tests/triangle_2d/circumcircle.test.cpp
       title: tests/triangle_2d/circumcircle.test.cpp
     - icon: ':heavy_check_mark:'

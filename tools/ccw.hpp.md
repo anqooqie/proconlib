@@ -4,19 +4,19 @@ data:
   - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector2.hpp
     title: Two dimensional vector
   _extendedRequiredBy:
@@ -380,21 +380,21 @@ data:
   isVerificationFile: false
   path: tools/ccw.hpp
   requiredBy:
-  - tools/convex_hull.hpp
   - tools/less_by_arg.hpp
-  - tools/greater_by_arg_total.hpp
-  - tools/less_by_arg_total.hpp
   - tools/greater_by_arg.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/convex_hull.hpp
+  - tools/greater_by_arg_total.hpp
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/less_by_arg_total.test.cpp
   - tests/ccw.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/greater_by_arg_total.test.cpp
-  - tests/less_by_arg.test.cpp
   - tests/greater_by_arg.test.cpp
+  - tests/convex_hull.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/less_by_arg.test.cpp
 documentation_of: tools/ccw.hpp
 layout: document
 title: Counter clockwise function

@@ -70,24 +70,24 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
-  - tools/detail/avl_tree_impl.hpp
-  - tools/stirling_1st.hpp
   - tools/persistent_dual_segtree.hpp
+  - tools/detail/avl_tree_impl.hpp
   - tools/avl_tree.hpp
+  - tools/stirling_1st.hpp
   - tools/lazy_avl_tree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lazy_avl_tree.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
-  - tests/fix.test.cpp
   - tests/avl_tree/binary_search.test.cpp
-  - tests/avl_tree/set.test.cpp
   - tests/avl_tree/reverse.test.cpp
-  - tests/persistent_dual_segtree.test.cpp
+  - tests/avl_tree/set.test.cpp
   - tests/undoable_dsu.test.cpp
+  - tests/fix.test.cpp
+  - tests/lazy_avl_tree.test.cpp
+  - tests/persistent_dual_segtree.test.cpp
 documentation_of: tools/fix.hpp
 layout: document
 title: Fixed point combinator

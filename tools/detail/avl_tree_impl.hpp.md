@@ -648,10 +648,10 @@ data:
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lazy_avl_tree.test.cpp
   - tests/avl_tree/binary_search.test.cpp
-  - tests/avl_tree/set.test.cpp
   - tests/avl_tree/reverse.test.cpp
+  - tests/avl_tree/set.test.cpp
+  - tests/lazy_avl_tree.test.cpp
 documentation_of: tools/detail/avl_tree_impl.hpp
 layout: document
 redirect_from:
