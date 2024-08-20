@@ -26,14 +26,14 @@ int main() {
       tools::cin >> s;
       return tools::bigint(s);
     }();
-    const auto [q, r] = A.divmod(B);
+    const auto qr = A.divmod(B);
     tools::cout << [&]() {
       std::ostringstream oss;
-      oss << q;
+      oss << qr.first;
       return oss.str();
     }() << ' ' << [&]() {
       std::ostringstream oss;
-      oss << r;
+      oss << qr.second;
       return oss.str();
     }() << '\n';
   }
