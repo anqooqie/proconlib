@@ -180,10 +180,9 @@ It compares $x$ and $y$, and returns the result.
     - It returns $x + y$.
 
 ### Constraints
-- $\left\lceil \log_{10000} \|n_x\| \right\rceil + \left\lceil \log_{10000} \|d_y\| \right\rceil - 1 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x\| \right\rceil - 1 \leq 2^{25}$
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y + n_y d_x\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
+- $\| d_x d_y \| < 10^{2^{27}} = 10^{134217728}$
+- $\| n_x d_y \| < 10^{2^{27} + 4} = 10^{134217732}$
+- $\| n_y d_x \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|))^2 \log(\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|)))$
@@ -200,10 +199,9 @@ It compares $x$ and $y$, and returns the result.
     - It returns $x - y$.
 
 ### Constraints
-- $\left\lceil \log_{10000} \|n_x\| \right\rceil + \left\lceil \log_{10000} \|d_y\| \right\rceil - 1 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x\| \right\rceil - 1 \leq 2^{25}$
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y - n_y d_x\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
+- $\| d_x d_y \| < 10^{2^{27}} = 10^{134217728}$
+- $\| n_x d_y \| < 10^{2^{27} + 4} = 10^{134217732}$
+- $\| n_y d_x \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|))^2 \log(\log \|d_x d_y\| + \log(\|n_x d_y\| + \|n_y d_x\|)))$
@@ -220,8 +218,8 @@ It compares $x$ and $y$, and returns the result.
     - It returns $xy$.
 
 ### Constraints
-- $3 \left\lceil \log_{10000} \|d_x d_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x n_y\| \right\rceil + \left\lceil \log_{10000} \|d_x d_y\| \right\rceil \leq 2^{25}$
+- $\| d_x d_y \| < 10^{2^{27}} = 10^{134217728}$
+- $\| n_x n_y \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|d_x d_y\| + \log \|n_x n_y\|)^2 \log(\log \|d_x d_y\| + \log \|n_x n_y\|))$
@@ -238,8 +236,8 @@ It compares $x$ and $y$, and returns the result.
     - It returns $\frac{x}{y}$.
 
 ### Constraints
-- $3 \left\lceil \log_{10000} \|d_x n_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|n_x d_y\| \right\rceil + \left\lceil \log_{10000} \|d_x n_y\| \right\rceil \leq 2^{25}$
+- $\| d_x n_y \| < 10^{2^{27}} = 10^{134217728}$
+- $\| n_x d_y \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|d_x n_y\| + \log \|n_x d_y\|)^2 \log(\log \|d_x n_y\| + \log \|n_x d_y\|))$

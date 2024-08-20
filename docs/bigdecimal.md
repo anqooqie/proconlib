@@ -62,7 +62,14 @@ It returns $u_x$.
 std::size_t x.precision();
 ```
 
-It returns $\left\lceil \log_{10} \|u_x\| \right\rceil$.
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+\left\lfloor \log_{10} |u_x| \right\rfloor + 1 & \text{(if $x \neq 0$)}\\
+0 & \text{(if $x = 0$)}
+\end{array}\right.&
+\end{align*}$$
 
 ### Constraints
 - None
@@ -261,7 +268,7 @@ It compares $x$ and $y$, and returns the result.
     - It returns the arbitrary precision floating-point number whose unscaled value is $u_x u_y$ and scale is $s_x + s_y$.
 
 ### Constraints
-- $\left\lceil \log_{10000} \|u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil - 1 \leq 2^{25}$
+- $\| u_x u_y \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|u_x\| + \log \|u_y\|) \log (\log \|u_x\| + \log \|u_y\|))$
@@ -278,9 +285,7 @@ It compares $x$ and $y$, and returns the result.
     - It returns the arbitrary precision floating-point number whose unscaled value is $\frac{u_x}{u_y}$ rounded by banker's rounding and scale is $s_x - s_y$.
 
 ### Constraints
-- $y \neq 0$
-- $3 \left\lceil \log_{10000} \|u_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
+- $0 < \|u_y\| < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
 - $O((\log \|u_x\| + \log \|u_y\|) \log (\log \|u_x\| + \log \|u_y\|))$
@@ -297,9 +302,7 @@ It compares $x$ and $y$, and returns the result.
     - It updates $u_x$ to $10^{s - (s_x - s_y)}\frac{u_x}{u_y}$ rounded by banker's rounding mode and $s_x$ to $s$, and returns the updated $x$.
 
 ### Constraints
-- $y \neq 0$
-- $3 \left\lceil \log_{10000} \|u_y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|10^{s - (s_x - s_y)} u_x\| \right\rceil + \left\lceil \log_{10000} \|u_y\| \right\rceil \leq 2^{25}$
+- $0 < \|u_y\| < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
 - $O((\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|) \log (\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|))$

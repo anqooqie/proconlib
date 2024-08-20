@@ -125,7 +125,14 @@ $$\begin{align*}
 std::size_t x.size();
 ```
 
-It returns $\left\lceil \log_{10} \|x\| \right\rceil$.
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+\left\lfloor \log_{10} |x| \right\rfloor + 1 & \text{(if $x \neq 0$)}\\
+0 & \text{(if $x = 0$)}
+\end{array}\right.&
+\end{align*}$$
 
 ### Constraints
 - None
@@ -231,7 +238,7 @@ It compares $x$ and $y$, and returns the result.
     - It returns $xy$.
 
 ### Constraints
-- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil - 1 \leq 2^{25}$
+- $\|xy\| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
@@ -248,9 +255,7 @@ It compares $x$ and $y$, and returns the result.
     - It returns $\frac{x}{y}$ rounded towards zero.
 
 ### Constraints
-- $y \neq 0$
-- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+- $0 < \|y\| < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
@@ -267,9 +272,20 @@ It compares $x$ and $y$, and returns the result.
     - It returns $x - qy$ where $q$ is $\frac{x}{y}$ rounded towards zero.
 
 ### Constraints
-- $y \neq 0$
-- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+- $0 < \|y\| < 10^{2^{27}} = 10^{134217728}$
+
+### Time Complexity
+- $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
+
+## divmod
+```cpp
+std::pair<bigint, bigint> x.divmod(const bigint& y);
+```
+
+It returns `x / y` and `x % y`.
+
+### Constraints
+- $0 < \|y\| < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
@@ -335,8 +351,7 @@ bigint tools::gcd(bigint x, bigint y);
 It returns $\gcd(x, y)$.
 
 ### Constraints
-- $3 \left\lceil \log_{10000} \|y\| \right\rceil + 2 \leq 2^{25}$
-- $\left\lceil \log_{10000} \|x\| \right\rceil + \left\lceil \log_{10000} \|y\| \right\rceil \leq 2^{25}$
+- $\min\left(\|x\|, \|y\|\right) < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$

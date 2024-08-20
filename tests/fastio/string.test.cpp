@@ -26,8 +26,7 @@ int main() {
       tools::cin >> s;
       return tools::bigint(s);
     }();
-    const auto q = A / B;
-    const auto r = A - q * B;
+    const auto [q, r] = A.divmod(B);
     tools::cout << [&]() {
       std::ostringstream oss;
       oss << q;
