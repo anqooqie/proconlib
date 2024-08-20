@@ -132,7 +132,7 @@ data:
     \ all_apply(int k, F f) override {\n      Base::d[k] = mapping(f, Base::d[k]);\n\
     \      if (k < Base::size) {\n        Base::lz[k] = composition(f, Base::lz[k]);\n\
     \        if (Base::d[k].fail) Base::push(k), Base::update(k);\n      }\n    }\n\
-    \  };\n}\n\n\n#line 9 \"tools/preset_segtree_beats.hpp\"\n\n// Source: https://github.com/hitonanode/cplib-cpp/blob/94a544f88242fec39b4dd434ed379c23aa4dd99b/segmenttree/acl_beats.hpp\n\
+    \  };\n}\n\n\n#line 9 \"tools/preset_segtree_beats.hpp\"\n\n// Source: https://github.com/hitonanode/cplib-cpp/blob/5dc514109dcc62c00c9b96b044b0e57d76ac7e9b/segmenttree/acl_beats.hpp\n\
     // License: MIT\n// Author: hitonanode\n\n// MIT License\n// \n// Copyright (c)\
     \ 2019 Ryotaro Sato\n// \n// Permission is hereby granted, free of charge, to\
     \ any person obtaining a copy\n// of this software and associated documentation\
@@ -150,57 +150,63 @@ data:
     \ OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n// SOFTWARE.\n\
     \nnamespace tools {\n  namespace detail {\n    namespace preset_segtree_beats\
     \ {\n      template <typename T>\n      T second_lowest(const T a, const T a2,\
-    \ const T c, const T c2) {\n        assert(a < a2);\n        assert(c < c2);\n\
-    \        return a == c ? ::std::min(a2, c2) : a2 <= c ? a2 : c2 <= a ? c2 : ::std::max(a,\
-    \ c);\n      }\n\n      template <typename T>\n      T second_highest(const T\
-    \ a, const T a2, const T b, const T b2) {\n        assert(a > a2);\n        assert(b\
-    \ > b2);\n        return a == b ? ::std::max(a2, b2) : a2 >= b ? a2 : b2 >= a\
-    \ ? b2 : ::std::min(a, b);\n      }\n\n      template <typename T>\n      struct\
-    \ S {\n        T lo, hi, lo2, hi2, sum, sz, nlo, nhi;\n        bool fail;\n  \
-    \      S():\n          lo(::std::numeric_limits<T>::max()),\n          hi(::std::numeric_limits<T>::min()),\n\
+    \ const T c, const T c2) {\n        assert(a <= a2); // a < a2 or a == a2 == INF\n\
+    \        assert(c <= c2); // c < c2 or c == c2 == -INF\n        return a == c\
+    \ ? ::std::min(a2, c2) : a2 <= c ? a2 : c2 <= a ? c2 : ::std::max(a, c);\n   \
+    \   }\n\n      template <typename T>\n      T second_highest(const T a, const\
+    \ T a2, const T b, const T b2) {\n        assert(a >= a2); // a > a2 or a == a2\
+    \ == -INF\n        assert(b >= b2); // b > b2 or b == b2 == INF\n        return\
+    \ a == b ? ::std::max(a2, b2) : a2 >= b ? a2 : b2 >= a ? b2 : ::std::min(a, b);\n\
+    \      }\n\n      template <typename T>\n      struct S {\n        T lo, hi, lo2,\
+    \ hi2, sum, sz, nlo, nhi;\n        bool fail;\n        S():\n          lo(::std::numeric_limits<T>::max()),\n\
+    \          hi(::std::numeric_limits<T>::min()),\n          lo2(::std::numeric_limits<T>::max()),\n\
+    \          hi2(::std::numeric_limits<T>::min()),\n          sum(0),\n        \
+    \  sz(0),\n          nlo(0),\n          nhi(0),\n          fail(false) {\n   \
+    \     }\n        S(const T x, const T sz_):\n          lo(x),\n          hi(x),\n\
     \          lo2(::std::numeric_limits<T>::max()),\n          hi2(::std::numeric_limits<T>::min()),\n\
-    \          sum(0),\n          sz(0),\n          nlo(0),\n          nhi(0),\n \
-    \         fail(false) {\n        }\n        S(const T x, const T sz_ = 1):\n \
-    \         lo(x),\n          hi(x),\n          lo2(::std::numeric_limits<T>::max()),\n\
-    \          hi2(::std::numeric_limits<T>::min()),\n          sum(x * sz_),\n  \
-    \        sz(sz_),\n          nlo(sz_),\n          nhi(sz_),\n          fail(false)\
-    \ {\n        }\n      };\n\n      template <typename T>\n      S<T> op(const S<T>&\
-    \ l, const S<T>& r) {\n        if (l.lo > l.hi) return r;\n        if (r.lo >\
-    \ r.hi) return l;\n        S<T> ret;\n        ret.lo = ::std::min(l.lo, r.lo);\n\
-    \        ret.hi = ::std::max(l.hi, r.hi);\n        ret.lo2 = second_lowest(l.lo,\
-    \ l.lo2, r.lo, r.lo2);\n        ret.hi2 = second_highest(l.hi, l.hi2, r.hi, r.hi2);\n\
-    \        ret.sum = l.sum + r.sum;\n        ret.sz = l.sz + r.sz;\n        ret.nlo\
-    \ = l.nlo * (l.lo <= r.lo) + r.nlo * (r.lo <= l.lo);\n        ret.nhi = l.nhi\
-    \ * (l.hi >= r.hi) + r.nhi * (r.hi >= l.hi);\n        return ret;\n      }\n\n\
-    \      template <typename T>\n      S<T> e() {\n        return S<T>();\n     \
-    \ }\n\n      template <typename T>\n      struct F {\n        T lb, ub, bias;\n\
-    \        F():\n          lb(::std::numeric_limits<T>::min()),\n          ub(::std::numeric_limits<T>::max()),\n\
-    \          bias(0) {\n        }\n        F(const T chmax_, const T chmin_, const\
-    \ T add):\n          lb(chmax_),\n          ub(chmin_),\n          bias(add) {\n\
-    \        }\n        static F<T> chmin(const T x) {\n          return F<T>(::std::numeric_limits<T>::min(),\
-    \ x, 0);\n        }\n        static F<T> chmax(const T x) {\n          return\
-    \ F<T>(x, ::std::numeric_limits<T>::max(), 0);\n        }\n        static F<T>\
-    \ add(const T x) {\n          return F<T>(::std::numeric_limits<T>::min(), ::std::numeric_limits<T>::max(),\
+    \          sum(x * sz_),\n          sz(sz_),\n          nlo(sz_),\n          nhi(sz_),\n\
+    \          fail(false) {\n        }\n      };\n\n      template <typename T>\n\
+    \      S<T> op(const S<T>& l, const S<T>& r) {\n        if (l.lo > l.hi) return\
+    \ r;\n        if (r.lo > r.hi) return l;\n        S<T> ret;\n        ret.lo =\
+    \ ::std::min(l.lo, r.lo);\n        ret.hi = ::std::max(l.hi, r.hi);\n        ret.lo2\
+    \ = second_lowest(l.lo, l.lo2, r.lo, r.lo2);\n        ret.hi2 = second_highest(l.hi,\
+    \ l.hi2, r.hi, r.hi2);\n        ret.sum = l.sum + r.sum;\n        ret.sz = l.sz\
+    \ + r.sz;\n        ret.nlo = l.nlo * (l.lo <= r.lo) + r.nlo * (r.lo <= l.lo);\n\
+    \        ret.nhi = l.nhi * (l.hi >= r.hi) + r.nhi * (r.hi >= l.hi);\n        return\
+    \ ret;\n      }\n\n      template <typename T>\n      S<T> e() {\n        return\
+    \ S<T>();\n      }\n\n      template <typename T>\n      struct F {\n        T\
+    \ lb, ub, bias;\n        F():\n          lb(::std::numeric_limits<T>::min()),\n\
+    \          ub(::std::numeric_limits<T>::max()),\n          bias(0) {\n       \
+    \ }\n        F(const T chmax_, const T chmin_, const T add):\n          lb(chmax_),\n\
+    \          ub(chmin_),\n          bias(add) {\n        }\n        static F<T>\
+    \ chmin(const T x) {\n          return F<T>(::std::numeric_limits<T>::min(), x,\
+    \ 0);\n        }\n        static F<T> chmax(const T x) {\n          return F<T>(x,\
+    \ ::std::numeric_limits<T>::max(), 0);\n        }\n        static F<T> add(const\
+    \ T x) {\n          return F<T>(::std::numeric_limits<T>::min(), ::std::numeric_limits<T>::max(),\
     \ x);\n        }\n      };\n\n      template <typename T>\n      S<T> mapping(const\
-    \ F<T>& f, S<T> x) {\n        if (x.sz == 0) return e<T>();\n        if (x.lo\
-    \ == x.hi || f.lb == f.ub || f.lb >= x.hi || f.ub < x.lo) {\n          return\
-    \ S<T>(::std::clamp(x.lo, f.lb, f.ub) + f.bias, x.sz);\n        }\n        if\
-    \ (x.lo2 == x.hi) {\n          x.lo = x.hi2 = ::std::max(x.lo, f.lb) + f.bias;\n\
-    \          x.hi = x.lo2 = ::std::min(x.hi, f.ub) + f.bias;\n          x.sum =\
-    \ x.lo * x.nlo + x.hi * x.nhi;\n          return x;\n        }\n        if (f.lb\
-    \ < x.lo2 && f.ub > x.hi2) {\n          T nxt_lo = std::max(x.lo, f.lb);\n   \
-    \       T nxt_hi = std::min(x.hi, f.ub);\n          x.sum += (nxt_lo - x.lo) *\
-    \ x.nlo - (x.hi - nxt_hi) * x.nhi + f.bias * x.sz;\n          x.lo = nxt_lo +\
-    \ f.bias;\n          x.hi = nxt_hi + f.bias;\n          x.lo2 += f.bias;\n   \
-    \       x.hi2 += f.bias;\n          return x;\n        }\n        x.fail = true;\n\
-    \        return x;\n      }\n\n      template <typename T>\n      F<T> composition(const\
-    \ F<T>& fnew, const F<T>& fold) {\n        F<T> ret;\n\n        ret.lb = fold.lb;\n\
-    \        if (::std::numeric_limits<T>::min() < ret.lb && ret.lb < ::std::numeric_limits<T>::max())\
-    \ ret.lb += fold.bias;\n        ret.lb = ::std::clamp(ret.lb, fnew.lb, fnew.ub);\n\
-    \        if (::std::numeric_limits<T>::min() < ret.lb && ret.lb < ::std::numeric_limits<T>::max())\
-    \ ret.lb -= fold.bias;\n\n        ret.ub = fold.ub;\n        if (::std::numeric_limits<T>::min()\
-    \ < ret.ub && ret.ub < ::std::numeric_limits<T>::max()) ret.ub += fold.bias;\n\
-    \        ret.ub = ::std::clamp(ret.ub, fnew.lb, fnew.ub);\n        if (::std::numeric_limits<T>::min()\
+    \ F<T>& f, S<T> x) {\n        if (x.sz == 0) return e<T>();\n\n        // f \u306E\
+    \u4F5C\u7528\u5F8C x \u306E\u8981\u7D20\u304C 1 \u7A2E\u985E\u3060\u3051\u306B\
+    \u306A\u308B\u30B1\u30FC\u30B9\n        if (x.lo == x.hi || f.lb == f.ub || f.lb\
+    \ >= x.hi || f.ub <= x.lo) {\n          return S<T>(::std::clamp(x.lo, f.lb, f.ub)\
+    \ + f.bias, x.sz);\n        }\n\n        // 2 \u7A2E\u985E -> 1 \u7A2E\u985E\n\
+    \        if (x.lo2 == x.hi) {\n          x.lo = x.hi2 = ::std::max(x.lo, f.lb)\
+    \ + f.bias;\n          x.hi = x.lo2 = ::std::min(x.hi, f.ub) + f.bias;\n     \
+    \     x.sum = x.lo * x.nlo + x.hi * x.nhi;\n          return x;\n        }\n\n\
+    \        // lo \u3068 lo2, hi \u3068 hi2 \u304C\u6F70\u308C\u306A\u3044\u30B1\u30FC\
+    \u30B9\n        if (f.lb < x.lo2 && f.ub > x.hi2) {\n          T nxt_lo = std::max(x.lo,\
+    \ f.lb);\n          T nxt_hi = std::min(x.hi, f.ub);\n          x.sum += (nxt_lo\
+    \ - x.lo) * x.nlo - (x.hi - nxt_hi) * x.nhi + f.bias * x.sz;\n          x.lo =\
+    \ nxt_lo + f.bias;\n          x.hi = nxt_hi + f.bias;\n          x.lo2 += f.bias;\n\
+    \          x.hi2 += f.bias;\n          return x;\n        }\n\n        x.fail\
+    \ = true;\n        return x;\n      }\n\n      template <typename T>\n      F<T>\
+    \ composition(const F<T>& fnew, const F<T>& fold) {\n        F<T> ret;\n\n   \
+    \     ret.lb = fold.lb;\n        if (::std::numeric_limits<T>::min() < ret.lb\
+    \ && ret.lb < ::std::numeric_limits<T>::max()) ret.lb += fold.bias;\n        ret.lb\
+    \ = ::std::clamp(ret.lb, fnew.lb, fnew.ub);\n        if (::std::numeric_limits<T>::min()\
+    \ < ret.lb && ret.lb < ::std::numeric_limits<T>::max()) ret.lb -= fold.bias;\n\
+    \n        ret.ub = fold.ub;\n        if (::std::numeric_limits<T>::min() < ret.ub\
+    \ && ret.ub < ::std::numeric_limits<T>::max()) ret.ub += fold.bias;\n        ret.ub\
+    \ = ::std::clamp(ret.ub, fnew.lb, fnew.ub);\n        if (::std::numeric_limits<T>::min()\
     \ < ret.ub && ret.ub < ::std::numeric_limits<T>::max()) ret.ub -= fold.bias;\n\
     \n        ret.bias = fold.bias + fnew.bias;\n\n        return ret;\n      }\n\n\
     \      template <typename T>\n      F<T> id() {\n        return F<T>();\n    \
@@ -215,11 +221,11 @@ data:
     \ operator=(::tools::preset_segtree_beats<T>&&) = default;\n\n    explicit preset_segtree_beats(const\
     \ int n) : m_base(n) {\n    }\n    template <typename InputIterator>\n    preset_segtree_beats(const\
     \ InputIterator begin, const InputIterator end) : m_base([&]() {\n      ::std::vector<S>\
-    \ v;\n      for (auto it = begin; it != end; ++it) {\n        v.emplace_back(*it);\n\
-    \      }\n      return v;\n    }()) {\n    }\n    explicit preset_segtree_beats(const\
+    \ v;\n      for (auto it = begin; it != end; ++it) {\n        v.emplace_back(*it,\
+    \ 1);\n      }\n      return v;\n    }()) {\n    }\n    explicit preset_segtree_beats(const\
     \ ::std::vector<T>& v) : preset_segtree_beats(v.begin(), v.end()) {\n    }\n\n\
-    \    void set(const int p, const T x) {\n      this->m_base.set(p, S(x));\n  \
-    \  }\n    T get(const int p) {\n      return this->m_base.get(p).sum;\n    }\n\
+    \    void set(const int p, const T x) {\n      this->m_base.set(p, S(x, 1));\n\
+    \    }\n    T get(const int p) {\n      return this->m_base.get(p).sum;\n    }\n\
     \    T min(const int l, const int r) {\n      return this->m_base.prod(l, r).lo;\n\
     \    }\n    T max(const int l, const int r) {\n      return this->m_base.prod(l,\
     \ r).hi;\n    }\n    T sum(const int l, const int r) {\n      return this->m_base.prod(l,\
@@ -265,7 +271,7 @@ data:
   isVerificationFile: true
   path: tests/preset_segtree_beats.test.cpp
   requiredBy: []
-  timestamp: '2023-05-02 20:01:52+09:00'
+  timestamp: '2024-08-20 21:27:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/preset_segtree_beats.test.cpp
