@@ -1,72 +1,72 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cin.hpp
     title: Fast input
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cout.hpp
     title: Fast output
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/division_of_big_integers
@@ -984,11 +984,11 @@ data:
     \n  ll T;\n  tools::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    const auto\
     \ A = [&]() {\n      std::string s;\n      tools::cin >> s;\n      return tools::bigint(s);\n\
     \    }();\n    const auto B = [&]() {\n      std::string s;\n      tools::cin\
-    \ >> s;\n      return tools::bigint(s);\n    }();\n    const auto [q, r] = A.divmod(B);\n\
-    \    tools::cout << [&]() {\n      std::ostringstream oss;\n      oss << q;\n\
+    \ >> s;\n      return tools::bigint(s);\n    }();\n    const auto qr = A.divmod(B);\n\
+    \    tools::cout << [&]() {\n      std::ostringstream oss;\n      oss << qr.first;\n\
     \      return oss.str();\n    }() << ' ' << [&]() {\n      std::ostringstream\
-    \ oss;\n      oss << r;\n      return oss.str();\n    }() << '\\n';\n  }\n\n \
-    \ return 0;\n}\n"
+    \ oss;\n      oss << qr.second;\n      return oss.str();\n    }() << '\\n';\n\
+    \  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_big_integers\"\
     \n\n#include <iostream>\n#include <string>\n#include <sstream>\n#include \"tools/cin.hpp\"\
     \n#include \"tools/cout.hpp\"\n#include \"tools/bigint.hpp\"\n\nusing ll = long\
@@ -996,11 +996,11 @@ data:
     \n  ll T;\n  tools::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    const auto\
     \ A = [&]() {\n      std::string s;\n      tools::cin >> s;\n      return tools::bigint(s);\n\
     \    }();\n    const auto B = [&]() {\n      std::string s;\n      tools::cin\
-    \ >> s;\n      return tools::bigint(s);\n    }();\n    const auto [q, r] = A.divmod(B);\n\
-    \    tools::cout << [&]() {\n      std::ostringstream oss;\n      oss << q;\n\
+    \ >> s;\n      return tools::bigint(s);\n    }();\n    const auto qr = A.divmod(B);\n\
+    \    tools::cout << [&]() {\n      std::ostringstream oss;\n      oss << qr.first;\n\
     \      return oss.str();\n    }() << ' ' << [&]() {\n      std::ostringstream\
-    \ oss;\n      oss << r;\n      return oss.str();\n    }() << '\\n';\n  }\n\n \
-    \ return 0;\n}\n"
+    \ oss;\n      oss << qr.second;\n      return oss.str();\n    }() << '\\n';\n\
+    \  }\n\n  return 0;\n}\n"
   dependsOn:
   - tools/cin.hpp
   - tools/cout.hpp
@@ -1025,8 +1025,8 @@ data:
   isVerificationFile: true
   path: tests/fastio/string.test.cpp
   requiredBy: []
-  timestamp: '2024-08-20 19:56:51+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-08-20 20:49:30+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/fastio/string.test.cpp
 layout: document
