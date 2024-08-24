@@ -1,68 +1,68 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -620,13 +620,14 @@ data:
     \ (::std::size_t i = lhs.m_digits.size(); i --> 0;) {\n        if (const auto\
     \ comp = ::tools::bigint::compare_3way(lhs.m_digits[i], rhs.m_digits[i]); comp\
     \ != 0) {\n          return comp;\n        }\n      }\n      return 0;\n    }\n\
-    \n    ::tools::bigint& regularize(const int level) {\n      if (level > 0) {\n\
-    \        if (level == 2) {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size();\
-    \ ++i) {\n            this->m_digits[i + 1] += ::tools::quo(this->m_digits[i],\
-    \ BASE);\n            this->m_digits[i] = ::tools::mod(this->m_digits[i], BASE);\n\
-    \          }\n        } else {\n          for (::std::size_t i = 0; i + 1 < this->m_digits.size();\
-    \ ++i) {\n            if (this->m_digits[i] < 0) {\n              this->m_digits[i]\
-    \ += BASE;\n              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
+    \n    template <int LEVEL>\n    ::tools::bigint& regularize() {\n      if constexpr\
+    \ (LEVEL > 0) {\n        if constexpr (LEVEL == 2) {\n          for (::std::size_t\
+    \ i = 0; i + 1 < this->m_digits.size(); ++i) {\n            this->m_digits[i +\
+    \ 1] += ::tools::quo(this->m_digits[i], BASE);\n            this->m_digits[i]\
+    \ = ::tools::mod(this->m_digits[i], BASE);\n          }\n        } else {\n  \
+    \        for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {\n   \
+    \         if (this->m_digits[i] < 0) {\n              this->m_digits[i] += BASE;\n\
+    \              --this->m_digits[i + 1];\n            } else if (this->m_digits[i]\
     \ >= BASE) {\n              this->m_digits[i] -= BASE;\n              ++this->m_digits[i\
     \ + 1];\n            }\n          }\n        }\n        if (!this->m_digits.empty()\
     \ && this->m_digits.back() < 0) {\n          this->m_positive = !this->m_positive;\n\
@@ -635,10 +636,10 @@ data:
     \ i = 0; i + 1 < this->m_digits.size(); ++i) {\n            if (this->m_digits[i]\
     \ < 0) {\n              this->m_digits[i] = BASE + this->m_digits[i];\n      \
     \        --this->m_digits[i + 1];\n            }\n          }\n        }\n   \
-    \     if (level == 2) {\n          while (!this->m_digits.empty() && this->m_digits.back()\
-    \ >= BASE) {\n            this->m_digits.push_back(this->m_digits.back() / BASE);\n\
-    \            this->m_digits[this->m_digits.size() - 2] %= BASE;\n          }\n\
-    \        } else {\n          if (!this->m_digits.empty() && this->m_digits.back()\
+    \     if constexpr (LEVEL == 2) {\n          while (!this->m_digits.empty() &&\
+    \ this->m_digits.back() >= BASE) {\n            this->m_digits.push_back(this->m_digits.back()\
+    \ / BASE);\n            this->m_digits[this->m_digits.size() - 2] %= BASE;\n \
+    \         }\n        } else {\n          if (!this->m_digits.empty() && this->m_digits.back()\
     \ >= BASE) {\n            this->m_digits.back() -= BASE;\n            this->m_digits.push_back(1);\n\
     \          }\n        }\n      }\n      while (!this->m_digits.empty() && this->m_digits.back()\
     \ == 0) {\n        this->m_digits.pop_back();\n      }\n      if (this->m_digits.empty()\
@@ -660,8 +661,8 @@ data:
     \ d : this->m_digits) {\n            d *= coefficient;\n          }\n        \
     \  if (mod > 0) {\n            if (this->m_digits.empty()) {\n              this->m_digits.push_back(0);\n\
     \            }\n            this->m_digits[0] += mod;\n          }\n         \
-    \ this->regularize(2);\n        } else {\n          this->regularize(0);\n   \
-    \     }\n      }\n      return *this;\n    }\n    ::tools::bigint& divide_by_pow10(const\
+    \ this->regularize<2>();\n        } else {\n          this->regularize<0>();\n\
+    \        }\n      }\n      return *this;\n    }\n    ::tools::bigint& divide_by_pow10(const\
     \ ::std::ptrdiff_t exponent) {\n      this->multiply_by_pow10(-exponent);\n  \
     \    return *this;\n    }\n    static int compare_3way(const ::tools::bigint&\
     \ lhs, const ::tools::bigint& rhs) {\n      if (!lhs.m_positive && rhs.m_positive)\
@@ -674,36 +675,40 @@ data:
     \ POW10.end(), this->m_digits[this->m_digits.size() - 1]));\n    }\n    ::std::int_fast32_t\
     \ operator[](const ::std::size_t i) const {\n      return i < LOG10_BASE * this->m_digits.size()\
     \ ? this->m_digits[i / LOG10_BASE] / POW10[i % LOG10_BASE] % 10 : 0;\n    }\n\n\
-    \  private:\n    ::tools::bigint& internal_add(const ::tools::bigint& other, const\
-    \ bool plus) {\n      const bool this_positive = this->m_positive;\n      if (!this_positive)\
-    \ {\n        this->negate();\n      }\n      this->m_digits.resize(::std::max(this->m_digits.size(),\
-    \ other.m_digits.size()));\n      if (this_positive == (other.m_positive == plus))\
-    \ {\n        for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n   \
-    \       this->m_digits[i] += other.m_digits[i];\n        }\n      } else {\n \
-    \       for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {\n        \
-    \  this->m_digits[i] -= other.m_digits[i];\n        }\n      }\n      this->regularize(1);\n\
-    \      if (!this_positive) {\n        this->negate();\n      }\n      return *this;\n\
-    \    }\n\n  public:\n    bigint() : m_positive(true) {\n    }\n    bigint(const\
-    \ ::tools::bigint&) = default;\n    bigint(::tools::bigint&&) = default;\n   \
-    \ ~bigint() = default;\n    ::tools::bigint& operator=(const ::tools::bigint&)\
-    \ = default;\n    ::tools::bigint& operator=(::tools::bigint&&) = default;\n\n\
-    \    template <typename T, typename ::std::enable_if<::std::is_integral_v<T> ||\
-    \ ::std::is_same_v<T, ::tools::int128_t> || ::std::is_same_v<T, ::tools::uint128_t>,\
-    \ ::std::nullptr_t>::type = nullptr>\n    explicit bigint(T n) : m_positive(n\
-    \ >= 0) {\n      while (n != 0) {\n        this->m_digits.push_back(n % BASE);\n\
-    \        n /= BASE;\n      }\n      if (!this->m_positive) {\n        for (auto&\
-    \ d : this->m_digits) {\n          d = -d;\n        }\n      }\n    }\n    explicit\
-    \ bigint(const ::std::string& s) {\n      assert(!s.empty());\n\n      ::std::size_t\
-    \ offset;\n      if (s[0] == '+') {\n        this->m_positive = true;\n      \
-    \  offset = 1;\n      } else if (s[0] == '-') {\n        this->m_positive = false;\n\
-    \        offset = 1;\n      } else {\n        this->m_positive = true;\n     \
-    \   offset = 0;\n      }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size()\
-    \ - offset, LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset;\
-    \ i += LOG10_BASE) {\n        this->m_digits.push_back(0);\n        for (::std::size_t\
-    \ j = ::std::min(i + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0'\
-    \ <= s[s.size() - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back()\
-    \ = this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n   \
-    \   }\n\n      this->regularize(0);\n    }\n\n    friend bool operator==(const\
+    \  private:\n    template <bool PLUS>\n    ::tools::bigint& internal_add(const\
+    \ ::tools::bigint& other) {\n      if (this == &other) {\n        if constexpr\
+    \ (PLUS) {\n          for (auto& d : this->m_digits) d <<= 1;\n          this->regularize<1>();\n\
+    \        } else {\n          this->m_digits.clear();\n          this->m_positive\
+    \ = true;\n        }\n      } else {\n        const bool this_positive = this->m_positive;\n\
+    \        if (!this_positive) {\n          this->negate();\n        }\n       \
+    \ this->m_digits.resize(::std::max(this->m_digits.size(), other.m_digits.size()));\n\
+    \        if (this_positive == (other.m_positive == PLUS)) {\n          for (::std::size_t\
+    \ i = 0; i < other.m_digits.size(); ++i) {\n            this->m_digits[i] += other.m_digits[i];\n\
+    \          }\n        } else {\n          for (::std::size_t i = 0; i < other.m_digits.size();\
+    \ ++i) {\n            this->m_digits[i] -= other.m_digits[i];\n          }\n \
+    \       }\n        this->regularize<1>();\n        if (!this_positive) {\n   \
+    \       this->negate();\n        }\n      }\n      return *this;\n    }\n\n  public:\n\
+    \    bigint() : m_positive(true) {\n    }\n    bigint(const ::tools::bigint&)\
+    \ = default;\n    bigint(::tools::bigint&&) = default;\n    ~bigint() = default;\n\
+    \    ::tools::bigint& operator=(const ::tools::bigint&) = default;\n    ::tools::bigint&\
+    \ operator=(::tools::bigint&&) = default;\n\n    template <typename T, typename\
+    \ ::std::enable_if<::std::is_integral_v<T> || ::std::is_same_v<T, ::tools::int128_t>\
+    \ || ::std::is_same_v<T, ::tools::uint128_t>, ::std::nullptr_t>::type = nullptr>\n\
+    \    explicit bigint(T n) : m_positive(n >= 0) {\n      while (n != 0) {\n   \
+    \     this->m_digits.push_back(n % BASE);\n        n /= BASE;\n      }\n     \
+    \ if (!this->m_positive) {\n        for (auto& d : this->m_digits) {\n       \
+    \   d = -d;\n        }\n      }\n    }\n    explicit bigint(const ::std::string&\
+    \ s) {\n      assert(!s.empty());\n\n      ::std::size_t offset;\n      if (s[0]\
+    \ == '+') {\n        this->m_positive = true;\n        offset = 1;\n      } else\
+    \ if (s[0] == '-') {\n        this->m_positive = false;\n        offset = 1;\n\
+    \      } else {\n        this->m_positive = true;\n        offset = 0;\n     \
+    \ }\n\n      this->m_digits.reserve(::tools::ceil<::std::size_t>(s.size() - offset,\
+    \ LOG10_BASE));\n      for (::std::size_t i = 0; i < s.size() - offset; i += LOG10_BASE)\
+    \ {\n        this->m_digits.push_back(0);\n        for (::std::size_t j = ::std::min(i\
+    \ + LOG10_BASE, s.size() - offset); j --> i;) {\n          assert('0' <= s[s.size()\
+    \ - 1 - j] && s[s.size() - 1 - j] <= '9');\n          this->m_digits.back() =\
+    \ this->m_digits.back() * 10 + (s[s.size() - 1 - j] - '0');\n        }\n     \
+    \ }\n\n      this->regularize<0>();\n    }\n\n    friend bool operator==(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return lhs.m_positive\
     \ == rhs.m_positive && lhs.m_digits == rhs.m_digits;\n    }\n    friend bool operator!=(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return !(lhs == rhs);\n\
@@ -717,13 +722,13 @@ data:
     \      return ::tools::bigint::compare_3way(lhs, rhs) >= 0;\n    }\n\n    ::tools::bigint\
     \ operator+() const {\n      return *this;\n    }\n    ::tools::bigint operator-()\
     \ const {\n      return ::tools::bigint(*this).negate();\n    }\n\n    ::tools::bigint&\
-    \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add(other,\
-    \ true);\n    }\n    ::tools::bigint& operator-=(const ::tools::bigint& other)\
-    \ {\n      return this->internal_add(other, false);\n    }\n    ::tools::bigint&\
-    \ operator*=(const ::tools::bigint& other) {\n      // Constraint derived from\
-    \ atcoder::convolution\n      assert(this->m_digits.size() + other.m_digits.size()\
-    \ <= ::tools::pow2(25) + 1);\n\n      ::std::vector<mint1> a1, b1;\n      ::std::vector<mint2>\
-    \ a2, b2;\n      a1.reserve(this->m_digits.size());\n      a2.reserve(this->m_digits.size());\n\
+    \ operator+=(const ::tools::bigint& other) {\n      return this->internal_add<true>(other);\n\
+    \    }\n    ::tools::bigint& operator-=(const ::tools::bigint& other) {\n    \
+    \  return this->internal_add<false>(other);\n    }\n    ::tools::bigint& operator*=(const\
+    \ ::tools::bigint& other) {\n      // Constraint derived from atcoder::convolution\n\
+    \      assert(this->m_digits.size() + other.m_digits.size() <= ::tools::pow2(25)\
+    \ + 1);\n\n      ::std::vector<mint1> a1, b1;\n      ::std::vector<mint2> a2,\
+    \ b2;\n      a1.reserve(this->m_digits.size());\n      a2.reserve(this->m_digits.size());\n\
     \      b1.reserve(other.m_digits.size());\n      b2.reserve(other.m_digits.size());\n\
     \      for (const auto a_i : this->m_digits) {\n        a1.push_back(mint1::raw(a_i));\n\
     \        a2.push_back(mint2::raw(a_i));\n      }\n      for (const auto b_i :\
@@ -741,7 +746,7 @@ data:
     \ c_i += carry;\n        carry = c_i / BASE;\n        c_i %= BASE;\n        this->m_digits.push_back(c_i);\n\
     \      }\n      if (carry > 0) {\n        this->m_digits.push_back(carry);\n \
     \     }\n\n      this->m_positive = this->m_positive == other.m_positive;\n  \
-    \    this->regularize(0);\n      return *this;\n    }\n\n    friend ::tools::bigint\
+    \    this->regularize<0>();\n      return *this;\n    }\n\n    friend ::tools::bigint\
     \ operator+(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return\
     \ ::tools::bigint(lhs) += rhs;\n    }\n    friend ::tools::bigint operator-(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return ::tools::bigint(lhs)\
@@ -752,43 +757,43 @@ data:
     \      ++(*this);\n      return old;\n    }\n    ::tools::bigint& operator--()\
     \ {\n      return *this -= ::tools::bigint(1);\n    }\n    ::tools::bigint operator--(int)\
     \ {\n      ::tools::bigint old(*this);\n      --(*this);\n      return old;\n\
-    \    }\n\n  private:\n    static ::tools::bigint divmod_naive_u64_threshold()\
+    \    }\n\n  private:\n    static const ::tools::bigint& divmod_naive_u64_threshold()\
     \ {\n      static const ::tools::bigint threshold((::std::numeric_limits<::std::uint_fast64_t>::max()\
     \ - (BASE - 1)) / BASE);\n      return threshold;\n    }\n\n    ::std::pair<::tools::bigint,\
     \ ::tools::bigint> divmod_naive_u64(const ::tools::bigint& other) const {\n  \
-    \    assert(other.signum() != 0);\n      assert(::tools::bigint::compare_3way_abs(other,\
+    \    assert(!other.m_digits.empty());\n      assert(::tools::bigint::compare_3way_abs(other,\
     \ divmod_naive_u64_threshold()) <= 0);\n\n      ::std::uint_fast64_t b = 0;\n\
     \      for (::std::size_t i = other.m_digits.size(); i --> 0;) {\n        b *=\
     \ BASE;\n        b += other.m_digits[i];\n      }\n\n      ::tools::bigint Q(*this);\n\
     \      ::std::uint_fast64_t r = 0;\n      for (::std::size_t i = Q.m_digits.size();\
     \ i--> 0;) {\n        r *= BASE;\n        r += Q.m_digits[i];\n        Q.m_digits[i]\
     \ = r / b;\n        r %= b;\n      }\n\n      Q.m_positive = (this->m_positive\
-    \ == other.m_positive);\n      Q.regularize(0);\n      ::tools::bigint R(r);\n\
-    \      R.m_positive = (R.signum() == 0 || this->m_positive);\n\n      return ::std::make_pair(Q,\
-    \ R);\n    }\n\n    static ::tools::bigint divmod_naive_u128_threshold() {\n \
-    \     static const ::tools::bigint threshold(\"34028236692093846346337460743176820\"\
+    \ == other.m_positive);\n      Q.regularize<0>();\n      ::tools::bigint R(r);\n\
+    \      R.m_positive = (r == 0 || this->m_positive);\n\n      return ::std::make_pair(Q,\
+    \ R);\n    }\n\n    static const ::tools::bigint& divmod_naive_u128_threshold()\
+    \ {\n      static const ::tools::bigint threshold(\"34028236692093846346337460743176820\"\
     );\n      return threshold;\n    }\n\n    ::std::pair<::tools::bigint, ::tools::bigint>\
-    \ divmod_naive_u128(const ::tools::bigint& other) const {\n      assert(other.signum()\
-    \ != 0);\n      assert(::tools::bigint::compare_3way_abs(other, divmod_naive_u128_threshold())\
+    \ divmod_naive_u128(const ::tools::bigint& other) const {\n      assert(!other.m_digits.empty());\n\
+    \      assert(::tools::bigint::compare_3way_abs(other, divmod_naive_u128_threshold())\
     \ <= 0);\n\n      ::tools::uint128_t b = 0;\n      for (::std::size_t i = other.m_digits.size();\
     \ i --> 0;) {\n        b *= BASE;\n        b += other.m_digits[i];\n      }\n\n\
     \      ::tools::bigint Q(*this);\n      ::tools::uint128_t r = 0;\n      for (::std::size_t\
     \ i = Q.m_digits.size(); i--> 0;) {\n        r *= BASE;\n        r += Q.m_digits[i];\n\
     \        Q.m_digits[i] = r / b;\n        r %= b;\n      }\n\n      Q.m_positive\
-    \ = (this->m_positive == other.m_positive);\n      Q.regularize(0);\n      ::tools::bigint\
-    \ R(r);\n      R.m_positive = (R.signum() == 0 || this->m_positive);\n\n     \
-    \ return ::std::make_pair(Q, R);\n    }\n\n    // S1\u306E[l1, r1)\u6841\u76EE\
-    \ * (BASE ** n1) <=> S2\u306E[l2, r2)\u6841\u76EE * (BASE ** n2)\n    static int\
-    \ compare_3way_abs(const ::tools::bigint& S1, ::std::size_t l1, ::std::size_t\
-    \ r1, ::std::size_t n1, const ::tools::bigint& S2, ::std::size_t l2, ::std::size_t\
-    \ r2, ::std::size_t n2) {\n      assert(l1 <= r1);\n      assert(l2 <= r2);\n\n\
-    \      ::tools::chmin(l1, S1.m_digits.size());\n      ::tools::chmin(r1, S1.m_digits.size());\n\
-    \      ::tools::chmin(l2, S2.m_digits.size());\n      ::tools::chmin(r2, S2.m_digits.size());\n\
-    \      const auto n_min = ::std::min(n1, n2);\n      n1 -= n_min;\n      n2 -=\
-    \ n_min;\n\n      if (const auto comp = ::tools::bigint::compare_3way(r1 - l1\
-    \ + n1, r2 - l2 + n2); comp != 0) {\n        return comp;\n      }\n      if (n1\
-    \ > 0) {\n        const auto m2 = r2 - (r1 - l1);\n        for (::std::size_t\
-    \ i1 = r1, i2 = r2; --i1, i2 --> m2;) {\n          if (const auto comp = ::tools::bigint::compare_3way(S1.m_digits[i1],\
+    \ = (this->m_positive == other.m_positive);\n      Q.regularize<0>();\n      ::tools::bigint\
+    \ R(r);\n      R.m_positive = (r == 0 || this->m_positive);\n\n      return ::std::make_pair(Q,\
+    \ R);\n    }\n\n    // S1\u306E[l1, r1)\u6841\u76EE * (BASE ** n1) <=> S2\u306E\
+    [l2, r2)\u6841\u76EE * (BASE ** n2)\n    static int compare_3way_abs(const ::tools::bigint&\
+    \ S1, ::std::size_t l1, ::std::size_t r1, ::std::size_t n1, const ::tools::bigint&\
+    \ S2, ::std::size_t l2, ::std::size_t r2, ::std::size_t n2) {\n      assert(l1\
+    \ <= r1);\n      assert(l2 <= r2);\n\n      ::tools::chmin(l1, S1.m_digits.size());\n\
+    \      ::tools::chmin(r1, S1.m_digits.size());\n      ::tools::chmin(l2, S2.m_digits.size());\n\
+    \      ::tools::chmin(r2, S2.m_digits.size());\n      const auto n_min = ::std::min(n1,\
+    \ n2);\n      n1 -= n_min;\n      n2 -= n_min;\n\n      if (const auto comp =\
+    \ ::tools::bigint::compare_3way(r1 - l1 + n1, r2 - l2 + n2); comp != 0) {\n  \
+    \      return comp;\n      }\n      if (n1 > 0) {\n        const auto m2 = r2\
+    \ - (r1 - l1);\n        for (::std::size_t i1 = r1, i2 = r2; --i1, i2 --> m2;)\
+    \ {\n          if (const auto comp = ::tools::bigint::compare_3way(S1.m_digits[i1],\
     \ S2.m_digits[i2]); comp != 0) {\n            return comp;\n          }\n    \
     \    }\n        for (::std::size_t i2 = m2; i2 --> l2;) {\n          if (0 < S2.m_digits[i2])\
     \ {\n            return -1;\n          }\n        }\n      } else if (n2 > 0)\
@@ -800,43 +805,53 @@ data:
     \    for (::std::size_t i1 = r1, i2 = r2; --i1, i2 --> l2;) {\n          if (const\
     \ auto comp = ::tools::bigint::compare_3way(S1.m_digits[i1], S2.m_digits[i2]);\
     \ comp != 0) {\n            return comp;\n          }\n        }\n      }\n  \
-    \    return 0;\n    }\n    ::tools::bigint slice(::std::size_t l, ::std::size_t\
-    \ r) const {\n      assert(this->m_positive);\n      assert(l <= r);\n\n     \
-    \ ::tools::chmin(l, this->m_digits.size());\n      ::tools::chmin(r, this->m_digits.size());\n\
-    \n      ::tools::bigint S;\n      S.m_digits.reserve(r - l);\n      ::std::copy(this->m_digits.begin()\
-    \ + l, this->m_digits.begin() + r, ::std::back_inserter(S.m_digits));\n      return\
-    \ S.regularize(0);\n    }\n    ::tools::bigint lshift(const int n) const {\n \
-    \     assert(this->m_positive);\n\n      if (n == 0) return *this;\n      if (this->signum()\
-    \ == 0) return *this;\n\n      ::tools::bigint S;\n      S.m_digits.reserve(n\
-    \ + this->m_digits.size());\n      ::std::fill_n(::std::back_inserter(S.m_digits),\
+    \    return 0;\n    }\n    // *this\u306E[l, r)\u6841\u76EE\n    ::tools::bigint\
+    \ slice(::std::size_t l, ::std::size_t r) const {\n      assert(this->m_positive);\n\
+    \      assert(l <= r);\n\n      ::tools::chmin(l, this->m_digits.size());\n  \
+    \    ::tools::chmin(r, this->m_digits.size());\n\n      ::tools::bigint S;\n \
+    \     S.m_digits.reserve(r - l);\n      ::std::copy(this->m_digits.begin() + l,\
+    \ this->m_digits.begin() + r, ::std::back_inserter(S.m_digits));\n      return\
+    \ S.regularize<0>();\n    }\n    // *this * (BASE ** n)\n    ::tools::bigint lshift(const\
+    \ int n) const {\n      assert(this->m_positive);\n\n      if (n == 0) return\
+    \ *this;\n      if (this->m_digits.empty()) return *this;\n\n      ::tools::bigint\
+    \ S;\n      S.m_digits.reserve(n + this->m_digits.size());\n      ::std::fill_n(::std::back_inserter(S.m_digits),\
     \ n, 0);\n      ::std::copy(this->m_digits.begin(), this->m_digits.end(), ::std::back_inserter(S.m_digits));\n\
-    \      return S;\n    }\n    ::tools::bigint rshift(const ::std::size_t n) const\
-    \ {\n      assert(this->m_positive);\n\n      if (this->m_digits.size() <= n)\
-    \ return ::tools::bigint{};\n\n      ::tools::bigint S;\n      S.m_digits.reserve(this->m_digits.size()\
+    \      return S;\n    }\n    // *this / (BASE ** n)\n    ::tools::bigint rshift(const\
+    \ ::std::size_t n) const {\n      assert(this->m_positive);\n\n      if (this->m_digits.size()\
+    \ <= n) return ::tools::bigint{};\n\n      ::tools::bigint S;\n      S.m_digits.reserve(this->m_digits.size()\
     \ - n);\n      ::std::copy(this->m_digits.begin() + n, this->m_digits.end(), ::std::back_inserter(S.m_digits));\n\
-    \      return S;\n    }\n\n    ::std::pair<::tools::bigint, ::tools::bigint> divmod_3n_2n(const\
-    \ ::tools::bigint& other, const ::std::size_t n) const {\n      assert(this->m_positive);\n\
-    \      assert(this->m_digits.size() <= n * 3);\n      assert(other.m_positive);\n\
-    \      assert(other.m_digits.size() == n * 2);\n      assert(BASE <= other.m_digits.back()\
-    \ * 2);\n      assert(compare_3way_abs(*this, 0, n * 3, 0, other, 0, n * 2, n)\
-    \ < 0);\n\n      ::tools::bigint Q_hat, S, D;\n      if (compare_3way_abs(*this,\
-    \ n * 2, n * 3, 0, other, n, n * 2, 0) < 0) {\n        ::std::tie(Q_hat, S) =\
-    \ this->slice(n, n * 3).divmod_2n_n(other.slice(n, n * 2), n);\n        D = other.slice(0,\
-    \ n);\n        D *= Q_hat;\n      } else {\n        Q_hat.m_digits.assign(n, BASE\
-    \ - 1);\n        S = this->slice(n, n * 3);\n        S += other.slice(n, n * 2);\n\
-    \        S -= other.slice(n, n * 2).lshift(n);\n        D = other.slice(0, n).lshift(n)\
-    \ - other.slice(0, n);\n      }\n\n      auto R_hat = S.lshift(n);\n      R_hat\
-    \ += this->slice(0, n);\n      while (::tools::bigint::compare_3way_abs(R_hat,\
-    \ D) < 0) {\n        R_hat += other;\n        --Q_hat;\n      }\n      R_hat -=\
-    \ D;\n\n      return ::std::make_pair(Q_hat, R_hat);\n    }\n\n    ::std::pair<::tools::bigint,\
+    \      return S;\n    }\n    // *this * (BASE ** (r - l)) + other\u306E[l, r)\u6841\
+    \u76EE\n    ::tools::bigint concat(const ::tools::bigint& other, ::std::size_t\
+    \ l, ::std::size_t r) const {\n      assert(this->m_positive);\n      assert(other.m_positive);\n\
+    \      assert(l < r);\n\n      if (this->m_digits.empty()) return other.slice(l,\
+    \ r);\n\n      const auto n = r - l;\n      ::tools::chmin(l, other.m_digits.size());\n\
+    \      ::tools::chmin(r, other.m_digits.size());\n\n      ::tools::bigint S;\n\
+    \      S.m_digits.reserve(this->m_digits.size() + n);\n      ::std::copy(other.m_digits.begin()\
+    \ + l, other.m_digits.begin() + r, ::std::back_inserter(S.m_digits));\n      ::std::fill_n(::std::back_inserter(S.m_digits),\
+    \ n - (r - l), 0);\n      ::std::copy(this->m_digits.begin(), this->m_digits.end(),\
+    \ ::std::back_inserter(S.m_digits));\n      return S;\n    }\n\n    ::std::pair<::tools::bigint,\
+    \ ::tools::bigint> divmod_3n_2n(const ::tools::bigint& other, const ::std::size_t\
+    \ n) const {\n      assert(this->m_positive);\n      assert(this->m_digits.size()\
+    \ <= n * 3);\n      assert(other.m_positive);\n      assert(other.m_digits.size()\
+    \ == n * 2);\n      assert(BASE <= other.m_digits.back() * 2);\n      assert(compare_3way_abs(*this,\
+    \ 0, n * 3, 0, other, 0, n * 2, n) < 0);\n\n      ::tools::bigint Q_hat, S, D;\n\
+    \      if (compare_3way_abs(*this, n * 2, n * 3, 0, other, n, n * 2, 0) < 0) {\n\
+    \        ::std::tie(Q_hat, S) = this->slice(n, n * 3).divmod_2n_n(other.slice(n,\
+    \ n * 2), n);\n        D = other.slice(0, n);\n        D *= Q_hat;\n      } else\
+    \ {\n        Q_hat.m_digits.assign(n, BASE - 1);\n        S = this->slice(n, n\
+    \ * 3);\n        S += other.slice(n, n * 2);\n        S -= other.slice(n, n *\
+    \ 2).lshift(n);\n        D = other.slice(0, n).lshift(n);\n        D -= other.slice(0,\
+    \ n);\n      }\n\n      auto R_hat = S.concat(*this, 0, n);\n      R_hat -= D;\n\
+    \      while (!R_hat.m_positive) {\n        R_hat += other;\n        --Q_hat;\n\
+    \      }\n\n      return ::std::make_pair(Q_hat, R_hat);\n    }\n\n    ::std::pair<::tools::bigint,\
     \ ::tools::bigint> divmod_4n_2n(const ::tools::bigint& other, const ::std::size_t\
     \ n) const {\n      assert(this->m_positive);\n      assert(this->m_digits.size()\
     \ <= n * 4);\n      assert(other.m_positive);\n      assert(other.m_digits.size()\
     \ == n * 2);\n      assert(BASE <= other.m_digits.back() * 2);\n      assert(compare_3way_abs(*this,\
     \ 0, n * 4, 0, other, 0, n * 2, n * 2) < 0);\n\n      const auto [Q1, S] = this->slice(n,\
-    \ n * 4).divmod_3n_2n(other, n);\n      const auto [Q0, R] = (S.lshift(n) + this->slice(0,\
-    \ n)).divmod_3n_2n(other, n);\n\n      return ::std::make_pair(Q1.lshift(n) +\
-    \ Q0, R);\n    }\n\n    ::std::pair<::tools::bigint, ::tools::bigint> divmod_2n_n(const\
+    \ n * 4).divmod_3n_2n(other, n);\n      const auto [Q0, R] = S.concat(*this, 0,\
+    \ n).divmod_3n_2n(other, n);\n\n      return ::std::make_pair(Q1.concat(Q0, 0,\
+    \ n), R);\n    }\n\n    ::std::pair<::tools::bigint, ::tools::bigint> divmod_2n_n(const\
     \ ::tools::bigint& other, const ::std::size_t n) const {\n      assert(this->m_positive);\n\
     \      assert(this->m_digits.size() <= n * 2);\n      assert(other.m_positive);\n\
     \      assert(other.m_digits.size() == n);\n      assert(BASE <= other.m_digits.back()\
@@ -844,33 +859,33 @@ data:
     \      }\n      if (other.m_digits.size() <= 8) {\n        return this->divmod_naive_u128(other);\n\
     \      }\n\n      assert(n % 2 == 0);\n      return this->divmod_4n_2n(other,\
     \ n / 2);\n    }\n\n  public:\n    ::std::pair<::tools::bigint, ::tools::bigint>\
-    \ divmod(const ::tools::bigint& other) const {\n      assert(other.signum() !=\
-    \ 0);\n\n      if (::tools::bigint::compare_3way_abs(*this, other) < 0) {\n  \
-    \      return ::std::make_pair(::tools::bigint{}, *this);\n      }\n      if (::tools::bigint::compare_3way_abs(other,\
+    \ divmod(const ::tools::bigint& other) const {\n      assert(!other.m_digits.empty());\n\
+    \n      if (::tools::bigint::compare_3way_abs(*this, other) < 0) {\n        return\
+    \ ::std::make_pair(::tools::bigint{}, *this);\n      }\n      if (::tools::bigint::compare_3way_abs(other,\
     \ divmod_naive_u64_threshold()) <= 0) {\n        return this->divmod_naive_u64(other);\n\
     \      }\n      if (::tools::bigint::compare_3way_abs(other, divmod_naive_u128_threshold())\
     \ <= 0) {\n        return this->divmod_naive_u128(other);\n      }\n\n      if\
     \ (!this->m_positive || !other.m_positive) {\n        auto [Q, R] = ::tools::abs(*this).divmod(::tools::abs(other));\n\
-    \        Q.m_positive = Q.signum() == 0 || (this->m_positive == other.m_positive);\n\
-    \        R.m_positive = R.signum() == 0 || this->m_positive;\n        return ::std::make_pair(Q,\
-    \ R);\n      }\n\n      const ::std::size_t DIV_LIMIT = 8;\n      const auto s\
-    \ = other.m_digits.size();\n      const auto m = ::tools::pow2(::tools::floor_log2(s\
+    \        Q.m_positive = Q.m_digits.empty() || (this->m_positive == other.m_positive);\n\
+    \        R.m_positive = R.m_digits.empty() || this->m_positive;\n        return\
+    \ ::std::make_pair(Q, R);\n      }\n\n      const ::std::size_t DIV_LIMIT = 8;\n\
+    \      const auto s = other.m_digits.size();\n      const auto m = ::tools::pow2(::tools::floor_log2(s\
     \ / DIV_LIMIT) + 1);\n      const auto n = ::tools::ceil(s, m) * m;\n\n      const\
     \ auto sigma1 = n - s;\n      auto sigma2 = ::tools::pow2(::tools::floor_log2(BASE\
     \ / (other.m_digits.back() + 1)));\n\n      auto B = other.lshift(sigma1);\n \
-    \     for (auto& B_i : B.m_digits) B_i *= sigma2;\n      B.regularize(2);\n  \
-    \    while (B.m_digits.size() < n || B.m_digits.back() * 2 < BASE) {\n       \
-    \ sigma2 *= 2;\n        for (auto& B_i : B.m_digits) B_i *= 2;\n        B.regularize(2);\n\
-    \      }\n\n      auto A = this->lshift(sigma1);\n      for (auto& A_i : A.m_digits)\
-    \ A_i *= sigma2;\n      A.regularize(2);\n\n      const auto t = ::std::max<::std::size_t>(2,\
-    \ ::tools::ceil(A.m_digits.size() + 1, n));\n      ::tools::bigint Q, Q_i, R_i;\n\
-    \      Q.m_digits.resize(n * (t - 1));\n      auto Z = A.slice(n * (t - 2), n\
-    \ * t);\n      ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);\n      ::std::copy(Q_i.m_digits.begin(),\
-    \ Q_i.m_digits.end(), Q.m_digits.begin() + n * (t - 2));\n      for (::std::size_t\
-    \ i = t - 2; i --> 0;) {\n        Z = R_i.lshift(n);\n        Z += A.slice(n *\
-    \ i, n * (i + 1));\n        ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);\n    \
-    \    ::std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin()\
-    \ + n * i);\n      }\n\n      return ::std::make_pair(Q.regularize(0), R_i.divmod_naive_u64(::tools::bigint(sigma2)).first.rshift(sigma1));\n\
+    \     for (auto& B_i : B.m_digits) B_i *= sigma2;\n      B.regularize<2>();\n\
+    \      assert(B.m_digits.size() == n);\n      while (B.m_digits.back() * 2 < BASE)\
+    \ {\n        sigma2 *= 2;\n        B += B;\n        assert(B.m_digits.size() ==\
+    \ n);\n      }\n\n      auto A = this->lshift(sigma1);\n      for (auto& A_i :\
+    \ A.m_digits) A_i *= sigma2;\n      A.regularize<2>();\n\n      const auto t =\
+    \ ::std::max<::std::size_t>(2, ::tools::ceil(A.m_digits.size() + 1, n));\n   \
+    \   ::tools::bigint Q, Q_i, R_i;\n      Q.m_digits.resize(n * (t - 1));\n    \
+    \  auto Z = A.slice(n * (t - 2), n * t);\n      ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B,\
+    \ n);\n      ::std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin()\
+    \ + n * (t - 2));\n      for (::std::size_t i = t - 2; i --> 0;) {\n        Z\
+    \ = R_i.concat(A, n * i, n * (i + 1));\n        ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B,\
+    \ n);\n        ::std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin()\
+    \ + n * i);\n      }\n\n      return ::std::make_pair(Q.regularize<0>(), R_i.divmod_naive_u64(::tools::bigint(sigma2)).first.rshift(sigma1));\n\
     \    }\n\n    ::tools::bigint& operator/=(const ::tools::bigint& other) {\n  \
     \    return *this = *this / other;\n    }\n    friend ::tools::bigint operator/(const\
     \ ::tools::bigint& lhs, const ::tools::bigint& rhs) {\n      return lhs.divmod(rhs).first;\n\
@@ -1072,7 +1087,7 @@ data:
   isVerificationFile: true
   path: tests/bigdecimal/multiplies.test.cpp
   requiredBy: []
-  timestamp: '2024-08-20 19:56:51+09:00'
+  timestamp: '2024-08-25 01:39:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/multiplies.test.cpp
