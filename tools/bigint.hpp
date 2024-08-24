@@ -64,9 +64,10 @@ namespace tools {
       return 0;
     }
 
-    ::tools::bigint& regularize(const int level) {
-      if (level > 0) {
-        if (level == 2) {
+    template <int LEVEL>
+    ::tools::bigint& regularize() {
+      if constexpr (LEVEL > 0) {
+        if constexpr (LEVEL == 2) {
           for (::std::size_t i = 0; i + 1 < this->m_digits.size(); ++i) {
             this->m_digits[i + 1] += ::tools::quo(this->m_digits[i], BASE);
             this->m_digits[i] = ::tools::mod(this->m_digits[i], BASE);
@@ -94,7 +95,7 @@ namespace tools {
             }
           }
         }
-        if (level == 2) {
+        if constexpr (LEVEL == 2) {
           while (!this->m_digits.empty() && this->m_digits.back() >= BASE) {
             this->m_digits.push_back(this->m_digits.back() / BASE);
             this->m_digits[this->m_digits.size() - 2] %= BASE;
@@ -145,9 +146,9 @@ namespace tools {
             }
             this->m_digits[0] += mod;
           }
-          this->regularize(2);
+          this->regularize<2>();
         } else {
-          this->regularize(0);
+          this->regularize<0>();
         }
       }
       return *this;
@@ -175,24 +176,35 @@ namespace tools {
     }
 
   private:
-    ::tools::bigint& internal_add(const ::tools::bigint& other, const bool plus) {
-      const bool this_positive = this->m_positive;
-      if (!this_positive) {
-        this->negate();
-      }
-      this->m_digits.resize(::std::max(this->m_digits.size(), other.m_digits.size()));
-      if (this_positive == (other.m_positive == plus)) {
-        for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {
-          this->m_digits[i] += other.m_digits[i];
+    template <bool PLUS>
+    ::tools::bigint& internal_add(const ::tools::bigint& other) {
+      if (this == &other) {
+        if constexpr (PLUS) {
+          for (auto& d : this->m_digits) d <<= 1;
+          this->regularize<1>();
+        } else {
+          this->m_digits.clear();
+          this->m_positive = true;
         }
       } else {
-        for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {
-          this->m_digits[i] -= other.m_digits[i];
+        const bool this_positive = this->m_positive;
+        if (!this_positive) {
+          this->negate();
         }
-      }
-      this->regularize(1);
-      if (!this_positive) {
-        this->negate();
+        this->m_digits.resize(::std::max(this->m_digits.size(), other.m_digits.size()));
+        if (this_positive == (other.m_positive == PLUS)) {
+          for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {
+            this->m_digits[i] += other.m_digits[i];
+          }
+        } else {
+          for (::std::size_t i = 0; i < other.m_digits.size(); ++i) {
+            this->m_digits[i] -= other.m_digits[i];
+          }
+        }
+        this->regularize<1>();
+        if (!this_positive) {
+          this->negate();
+        }
       }
       return *this;
     }
@@ -242,7 +254,7 @@ namespace tools {
         }
       }
 
-      this->regularize(0);
+      this->regularize<0>();
     }
 
     friend bool operator==(const ::tools::bigint& lhs, const ::tools::bigint& rhs) {
@@ -272,10 +284,10 @@ namespace tools {
     }
 
     ::tools::bigint& operator+=(const ::tools::bigint& other) {
-      return this->internal_add(other, true);
+      return this->internal_add<true>(other);
     }
     ::tools::bigint& operator-=(const ::tools::bigint& other) {
-      return this->internal_add(other, false);
+      return this->internal_add<false>(other);
     }
     ::tools::bigint& operator*=(const ::tools::bigint& other) {
       // Constraint derived from atcoder::convolution
@@ -319,7 +331,7 @@ namespace tools {
       }
 
       this->m_positive = this->m_positive == other.m_positive;
-      this->regularize(0);
+      this->regularize<0>();
       return *this;
     }
 
@@ -351,13 +363,13 @@ namespace tools {
     }
 
   private:
-    static ::tools::bigint divmod_naive_u64_threshold() {
+    static const ::tools::bigint& divmod_naive_u64_threshold() {
       static const ::tools::bigint threshold((::std::numeric_limits<::std::uint_fast64_t>::max() - (BASE - 1)) / BASE);
       return threshold;
     }
 
     ::std::pair<::tools::bigint, ::tools::bigint> divmod_naive_u64(const ::tools::bigint& other) const {
-      assert(other.signum() != 0);
+      assert(!other.m_digits.empty());
       assert(::tools::bigint::compare_3way_abs(other, divmod_naive_u64_threshold()) <= 0);
 
       ::std::uint_fast64_t b = 0;
@@ -376,20 +388,20 @@ namespace tools {
       }
 
       Q.m_positive = (this->m_positive == other.m_positive);
-      Q.regularize(0);
+      Q.regularize<0>();
       ::tools::bigint R(r);
-      R.m_positive = (R.signum() == 0 || this->m_positive);
+      R.m_positive = (r == 0 || this->m_positive);
 
       return ::std::make_pair(Q, R);
     }
 
-    static ::tools::bigint divmod_naive_u128_threshold() {
+    static const ::tools::bigint& divmod_naive_u128_threshold() {
       static const ::tools::bigint threshold("34028236692093846346337460743176820");
       return threshold;
     }
 
     ::std::pair<::tools::bigint, ::tools::bigint> divmod_naive_u128(const ::tools::bigint& other) const {
-      assert(other.signum() != 0);
+      assert(!other.m_digits.empty());
       assert(::tools::bigint::compare_3way_abs(other, divmod_naive_u128_threshold()) <= 0);
 
       ::tools::uint128_t b = 0;
@@ -408,9 +420,9 @@ namespace tools {
       }
 
       Q.m_positive = (this->m_positive == other.m_positive);
-      Q.regularize(0);
+      Q.regularize<0>();
       ::tools::bigint R(r);
-      R.m_positive = (R.signum() == 0 || this->m_positive);
+      R.m_positive = (r == 0 || this->m_positive);
 
       return ::std::make_pair(Q, R);
     }
@@ -464,6 +476,7 @@ namespace tools {
       }
       return 0;
     }
+    // *thisの[l, r)桁目
     ::tools::bigint slice(::std::size_t l, ::std::size_t r) const {
       assert(this->m_positive);
       assert(l <= r);
@@ -474,13 +487,14 @@ namespace tools {
       ::tools::bigint S;
       S.m_digits.reserve(r - l);
       ::std::copy(this->m_digits.begin() + l, this->m_digits.begin() + r, ::std::back_inserter(S.m_digits));
-      return S.regularize(0);
+      return S.regularize<0>();
     }
+    // *this * (BASE ** n)
     ::tools::bigint lshift(const int n) const {
       assert(this->m_positive);
 
       if (n == 0) return *this;
-      if (this->signum() == 0) return *this;
+      if (this->m_digits.empty()) return *this;
 
       ::tools::bigint S;
       S.m_digits.reserve(n + this->m_digits.size());
@@ -488,6 +502,7 @@ namespace tools {
       ::std::copy(this->m_digits.begin(), this->m_digits.end(), ::std::back_inserter(S.m_digits));
       return S;
     }
+    // *this / (BASE ** n)
     ::tools::bigint rshift(const ::std::size_t n) const {
       assert(this->m_positive);
 
@@ -496,6 +511,25 @@ namespace tools {
       ::tools::bigint S;
       S.m_digits.reserve(this->m_digits.size() - n);
       ::std::copy(this->m_digits.begin() + n, this->m_digits.end(), ::std::back_inserter(S.m_digits));
+      return S;
+    }
+    // *this * (BASE ** (r - l)) + otherの[l, r)桁目
+    ::tools::bigint concat(const ::tools::bigint& other, ::std::size_t l, ::std::size_t r) const {
+      assert(this->m_positive);
+      assert(other.m_positive);
+      assert(l < r);
+
+      if (this->m_digits.empty()) return other.slice(l, r);
+
+      const auto n = r - l;
+      ::tools::chmin(l, other.m_digits.size());
+      ::tools::chmin(r, other.m_digits.size());
+
+      ::tools::bigint S;
+      S.m_digits.reserve(this->m_digits.size() + n);
+      ::std::copy(other.m_digits.begin() + l, other.m_digits.begin() + r, ::std::back_inserter(S.m_digits));
+      ::std::fill_n(::std::back_inserter(S.m_digits), n - (r - l), 0);
+      ::std::copy(this->m_digits.begin(), this->m_digits.end(), ::std::back_inserter(S.m_digits));
       return S;
     }
 
@@ -517,16 +551,16 @@ namespace tools {
         S = this->slice(n, n * 3);
         S += other.slice(n, n * 2);
         S -= other.slice(n, n * 2).lshift(n);
-        D = other.slice(0, n).lshift(n) - other.slice(0, n);
+        D = other.slice(0, n).lshift(n);
+        D -= other.slice(0, n);
       }
 
-      auto R_hat = S.lshift(n);
-      R_hat += this->slice(0, n);
-      while (::tools::bigint::compare_3way_abs(R_hat, D) < 0) {
+      auto R_hat = S.concat(*this, 0, n);
+      R_hat -= D;
+      while (!R_hat.m_positive) {
         R_hat += other;
         --Q_hat;
       }
-      R_hat -= D;
 
       return ::std::make_pair(Q_hat, R_hat);
     }
@@ -540,9 +574,9 @@ namespace tools {
       assert(compare_3way_abs(*this, 0, n * 4, 0, other, 0, n * 2, n * 2) < 0);
 
       const auto [Q1, S] = this->slice(n, n * 4).divmod_3n_2n(other, n);
-      const auto [Q0, R] = (S.lshift(n) + this->slice(0, n)).divmod_3n_2n(other, n);
+      const auto [Q0, R] = S.concat(*this, 0, n).divmod_3n_2n(other, n);
 
-      return ::std::make_pair(Q1.lshift(n) + Q0, R);
+      return ::std::make_pair(Q1.concat(Q0, 0, n), R);
     }
 
     ::std::pair<::tools::bigint, ::tools::bigint> divmod_2n_n(const ::tools::bigint& other, const ::std::size_t n) const {
@@ -565,7 +599,7 @@ namespace tools {
 
   public:
     ::std::pair<::tools::bigint, ::tools::bigint> divmod(const ::tools::bigint& other) const {
-      assert(other.signum() != 0);
+      assert(!other.m_digits.empty());
 
       if (::tools::bigint::compare_3way_abs(*this, other) < 0) {
         return ::std::make_pair(::tools::bigint{}, *this);
@@ -579,8 +613,8 @@ namespace tools {
 
       if (!this->m_positive || !other.m_positive) {
         auto [Q, R] = ::tools::abs(*this).divmod(::tools::abs(other));
-        Q.m_positive = Q.signum() == 0 || (this->m_positive == other.m_positive);
-        R.m_positive = R.signum() == 0 || this->m_positive;
+        Q.m_positive = Q.m_digits.empty() || (this->m_positive == other.m_positive);
+        R.m_positive = R.m_digits.empty() || this->m_positive;
         return ::std::make_pair(Q, R);
       }
 
@@ -594,16 +628,17 @@ namespace tools {
 
       auto B = other.lshift(sigma1);
       for (auto& B_i : B.m_digits) B_i *= sigma2;
-      B.regularize(2);
-      while (B.m_digits.size() < n || B.m_digits.back() * 2 < BASE) {
+      B.regularize<2>();
+      assert(B.m_digits.size() == n);
+      while (B.m_digits.back() * 2 < BASE) {
         sigma2 *= 2;
-        for (auto& B_i : B.m_digits) B_i *= 2;
-        B.regularize(2);
+        B += B;
+        assert(B.m_digits.size() == n);
       }
 
       auto A = this->lshift(sigma1);
       for (auto& A_i : A.m_digits) A_i *= sigma2;
-      A.regularize(2);
+      A.regularize<2>();
 
       const auto t = ::std::max<::std::size_t>(2, ::tools::ceil(A.m_digits.size() + 1, n));
       ::tools::bigint Q, Q_i, R_i;
@@ -612,13 +647,12 @@ namespace tools {
       ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);
       ::std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin() + n * (t - 2));
       for (::std::size_t i = t - 2; i --> 0;) {
-        Z = R_i.lshift(n);
-        Z += A.slice(n * i, n * (i + 1));
+        Z = R_i.concat(A, n * i, n * (i + 1));
         ::std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);
         ::std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin() + n * i);
       }
 
-      return ::std::make_pair(Q.regularize(0), R_i.divmod_naive_u64(::tools::bigint(sigma2)).first.rshift(sigma1));
+      return ::std::make_pair(Q.regularize<0>(), R_i.divmod_naive_u64(::tools::bigint(sigma2)).first.rshift(sigma1));
     }
 
     ::tools::bigint& operator/=(const ::tools::bigint& other) {
