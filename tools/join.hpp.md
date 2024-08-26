@@ -10,6 +10,12 @@ data:
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/lowlink/biconnected_components.test.cpp
+    title: tests/lowlink/biconnected_components.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/is_bridge.test.cpp
+    title: tests/lowlink/is_bridge.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
   - icon: ':heavy_check_mark:'
@@ -91,6 +97,8 @@ data:
   - tests/prim/basic.test.cpp
   - tests/tree_diameter.test.cpp
   - tests/undoable_dsu.test.cpp
+  - tests/lowlink/biconnected_components.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/stirling_2nd/fixed_n.test.cpp
 documentation_of: tools/join.hpp

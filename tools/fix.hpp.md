@@ -12,6 +12,9 @@ data:
     path: tools/lazy_avl_tree.hpp
     title: Lazy reversible self-balancing binary search tree based on AVL tree
   - icon: ':heavy_check_mark:'
+    path: tools/lowlink.hpp
+    title: Lowlink
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   - icon: ':heavy_check_mark:'
@@ -33,6 +36,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lazy_avl_tree.test.cpp
     title: tests/lazy_avl_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/biconnected_components.test.cpp
+    title: tests/lowlink/biconnected_components.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/is_bridge.test.cpp
+    title: tests/lowlink/is_bridge.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/ncc_without_vertex.test.cpp
+    title: tests/lowlink/ncc_without_vertex.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
@@ -70,6 +82,7 @@ data:
   isVerificationFile: false
   path: tools/fix.hpp
   requiredBy:
+  - tools/lowlink.hpp
   - tools/persistent_dual_segtree.hpp
   - tools/detail/avl_tree_impl.hpp
   - tools/avl_tree.hpp
@@ -85,6 +98,9 @@ data:
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/set.test.cpp
   - tests/undoable_dsu.test.cpp
+  - tests/lowlink/biconnected_components.test.cpp
+  - tests/lowlink/ncc_without_vertex.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/fix.test.cpp
   - tests/lazy_avl_tree.test.cpp
   - tests/persistent_dual_segtree.test.cpp

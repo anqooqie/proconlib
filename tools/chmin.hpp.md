@@ -18,6 +18,9 @@ data:
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
+    path: tools/lowlink.hpp
+    title: Lowlink
+  - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
   - icon: ':heavy_check_mark:'
@@ -117,6 +120,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/biconnected_components.test.cpp
+    title: tests/lowlink/biconnected_components.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/is_bridge.test.cpp
+    title: tests/lowlink/is_bridge.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/ncc_without_vertex.test.cpp
+    title: tests/lowlink/ncc_without_vertex.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
@@ -218,6 +230,7 @@ data:
   - tools/naive_dijkstra.hpp
   - tools/bellman_ford.hpp
   - tools/segmented_sieve.hpp
+  - tools/lowlink.hpp
   - tools/zero_one_bfs.hpp
   - tools/bigdecimal.hpp
   - tools/tree_diameter.hpp
@@ -264,6 +277,9 @@ data:
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/prim/unconnected.test.cpp
   - tests/tree_diameter.test.cpp
+  - tests/lowlink/biconnected_components.test.cpp
+  - tests/lowlink/ncc_without_vertex.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/bigint/multiplies.test.cpp

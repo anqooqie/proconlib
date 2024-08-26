@@ -349,6 +349,9 @@ data:
       path: tools/lower_bound.hpp
       title: std::lower_bound, but returns index
     - icon: ':heavy_check_mark:'
+      path: tools/lowlink.hpp
+      title: Lowlink
+    - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
     - icon: ':heavy_check_mark:'
@@ -1196,6 +1199,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
+  - name: tests/lowlink
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/lowlink/biconnected_components.test.cpp
+      title: tests/lowlink/biconnected_components.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lowlink/is_bridge.test.cpp
+      title: tests/lowlink/is_bridge.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lowlink/ncc_without_vertex.test.cpp
+      title: tests/lowlink/ncc_without_vertex.test.cpp
   - name: tests/matrix
     pages:
     - icon: ':heavy_check_mark:'

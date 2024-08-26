@@ -24,6 +24,9 @@ data:
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
+    path: tools/lowlink.hpp
+    title: Lowlink
+  - icon: ':heavy_check_mark:'
     path: tools/naive_dijkstra.hpp
     title: Dijkstra's algorithm for dense graph
   - icon: ':heavy_check_mark:'
@@ -81,6 +84,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/biconnected_components.test.cpp
+    title: tests/lowlink/biconnected_components.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/is_bridge.test.cpp
+    title: tests/lowlink/is_bridge.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lowlink/ncc_without_vertex.test.cpp
+    title: tests/lowlink/ncc_without_vertex.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/naive_dijkstra.test.cpp
     title: tests/naive_dijkstra.test.cpp
@@ -143,6 +155,7 @@ data:
   path: tools/less_by.hpp
   requiredBy:
   - tools/naive_dijkstra.hpp
+  - tools/lowlink.hpp
   - tools/hld.hpp
   - tools/detail/geometry_2d.hpp
   - tools/convex_hull.hpp
@@ -179,6 +192,9 @@ data:
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/undoable_dsu.test.cpp
+  - tests/lowlink/biconnected_components.test.cpp
+  - tests/lowlink/ncc_without_vertex.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/polygon_2d/where.test.cpp
