@@ -20,7 +20,7 @@ lowlink graph(std::size_t n);
 It creates an undirected graph with $n$ vertices and $0$ edges.
 
 ### Constraints
-- $n \geq 0$
+- None
 
 ### Time Complexity
 - $O(n)$
@@ -74,7 +74,8 @@ In an undirected graph such as this graph, the vertex numbers are always sorted 
 ### Time Complexity
 - $O(1)$
 
-## edges (1)
+## edges
+### (1)
 ```cpp
 const std::vector<edge>& graph.edges();
 ```
@@ -82,10 +83,35 @@ const std::vector<edge>& graph.edges();
 It returns all the edges in the graph.
 The edges are ordered in the same order as added by `add_edge`.
 
-### Constraints
+#### Constraints
 - None
 
-### Time Complexity
+#### Time Complexity
+- $O(1)$
+
+### (2)
+```cpp
+struct edges_iterable {
+  struct iterator {
+    const edge& operator*();
+    iterator& operator++();
+    iterator operator++(int):
+    friend bool operator==(iterator lhs, iterator rhs);
+    friend bool operator!=(iterator lhs, iterator rhs);
+  };
+  iterator begin();
+  iterator end();
+};
+edges_iterable graph.edges(std::size_t v);
+```
+
+It returns an iterator that enumerates the edges adjacent to vertex $v$.
+The enumeration order is undefined, except that each element appears exactly once.
+
+#### Constraints
+- $0 \leq v < n$
+
+#### Time Complexity
 - $O(1)$
 
 ## neighbors
@@ -105,32 +131,9 @@ neighbors_iterable graph.neighbors(std::size_t v);
 ```
 
 It returns an iterator that enumerates the vertices adjacent to vertex $v$.
-The enumeration order is undefined, except that each element appears exactly once.
-
-### Constraints
-- $0 \leq v < n$
-
-### Time Complexity
-- $O(1)$
-
-### edges (2)
-```cpp
-struct edges_iterable {
-  struct iterator {
-    const edge& operator*();
-    iterator& operator++();
-    iterator operator++(int):
-    friend bool operator==(iterator lhs, iterator rhs);
-    friend bool operator!=(iterator lhs, iterator rhs);
-  };
-  iterator begin();
-  iterator end();
-};
-edges_iterable graph.edges(std::size_t v);
-```
-
-It returns an iterator that enumerates the edges adjacent to vertex $v$.
-The enumeration order is undefined, except that each element appears exactly once.
+The enumeration order is undefined.
+If the graph contains multiple edges, a vertex may appear more than once.
+Also, if the graph contains self-loops, vertex $v$ itself may appear in the enumeration.
 
 ### Constraints
 - $0 \leq v < n$
@@ -220,8 +223,7 @@ It returns $u$ such that the parent of vertex $u$ in the DFS tree is vertex $v$.
 - $0 \leq v < n$
 
 ### Time Complexity
-- $O(\|E\|)$ worst where $\|E\|$ is the number of edges
-- $\displaystyle O\left( \frac{\|E\|}{n} \right)$ amortized
+- $O(1)$
 
 ## echildren
 ```cpp
@@ -239,15 +241,14 @@ struct echildren_iterable {
 echildren_iterable graph.echildren(std::size_t v);
 ```
 
-It returns the tree edges from $v$.
+It returns the tree edges outward from vertex $v$.
 
 ### Constraints
 - `graph.build()` has been called ever.
 - $0 \leq v < n$
 
 ### Time Complexity
-- $O(\|E\|)$ worst where $\|E\|$ is the number of edges
-- $\displaystyle O\left( \frac{\|E\|}{n} \right)$ amortized
+- $O(1)$
 
 ## ord
 ```cpp
@@ -332,9 +333,9 @@ It returns whether the $k$-th edge is a bridge or not.
 ### Time Complexity
 - $O(1)$
 
-## biconnected_component
+## biconnected_components
 ```cpp
-std::vector<std::vector<std::size_t>> graph.biconnected_component();
+std::vector<std::vector<std::size_t>> graph.biconnected_components();
 ```
 
 It divides the graph into biconnected components and returns the list of them.
