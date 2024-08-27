@@ -4,8 +4,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/undoable_dsu.test.cpp
-    title: tests/undoable_dsu.test.cpp
+    path: tests/undoable_dsu/leader.test.cpp
+    title: tests/undoable_dsu/leader.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/undoable_dsu/ncc.test.cpp
+    title: tests/undoable_dsu/ncc.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -14,69 +17,66 @@ data:
   bundledCode: "#line 1 \"tools/undoable_dsu.hpp\"\n\n\n\n#include <vector>\n#include\
     \ <stack>\n#include <tuple>\n#include <cassert>\n#include <utility>\n#include\
     \ <algorithm>\n\nnamespace tools {\n  class undoable_dsu {\n  private:\n    ::std::vector<int>\
-    \ m_data;\n    ::std::stack<::std::tuple<int, int, int, int>> m_history;\n\n \
-    \   int size() const {\n      return this->m_data.size();\n    }\n\n  public:\n\
-    \    undoable_dsu() = default;\n    undoable_dsu(const ::tools::undoable_dsu&)\
-    \ = default;\n    undoable_dsu(::tools::undoable_dsu&&) = default;\n    ~undoable_dsu()\
-    \ = default;\n    ::tools::undoable_dsu& operator=(const ::tools::undoable_dsu&)\
-    \ = default;\n    ::tools::undoable_dsu& operator=(::tools::undoable_dsu&&) =\
-    \ default;\n\n    explicit undoable_dsu(const int n) : m_data(n, -1) {\n    }\n\
-    \n    int leader(const int x) const {\n      assert(0 <= x && x < this->size());\n\
-    \n      return this->m_data[x] < 0 ? x : this->leader(this->m_data[x]);\n    }\n\
-    \n    bool same(const int x, const int y) const {\n      assert(0 <= x && x <\
-    \ this->size());\n      assert(0 <= y && y < this->size());\n\n      return this->leader(x)\
-    \ == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n      assert(0\
-    \ <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\n  \
-    \    x = this->leader(x);\n      y = this->leader(y);\n      if (this->m_data[x]\
-    \ > this->m_data[y]) ::std::swap(x, y);\n      this->m_history.emplace(x, y, this->m_data[x],\
-    \ this->m_data[y]);\n\n      if (x == y) return x;\n\n      this->m_data[x] +=\
-    \ this->m_data[y];\n      this->m_data[y] = x;\n\n      return x;\n    }\n\n \
-    \   int size(const int x) const {\n      assert(0 <= x && x < this->size());\n\
+    \ m_data;\n    int m_ncc;\n    ::std::stack<::std::tuple<int, int, int, int, int>>\
+    \ m_history;\n\n    int size() const {\n      return this->m_data.size();\n  \
+    \  }\n\n  public:\n    undoable_dsu() = default;\n    explicit undoable_dsu(const\
+    \ int n) : m_data(n, -1), m_ncc(n) {\n    }\n\n    int leader(const int x) const\
+    \ {\n      assert(0 <= x && x < this->size());\n\n      return this->m_data[x]\
+    \ < 0 ? x : this->leader(this->m_data[x]);\n    }\n\n    bool same(const int x,\
+    \ const int y) const {\n      assert(0 <= x && x < this->size());\n      assert(0\
+    \ <= y && y < this->size());\n\n      return this->leader(x) == this->leader(y);\n\
+    \    }\n\n    int merge(int x, int y) {\n      assert(0 <= x && x < this->size());\n\
+    \      assert(0 <= y && y < this->size());\n\n      x = this->leader(x);\n   \
+    \   y = this->leader(y);\n      if (this->m_data[x] > this->m_data[y]) ::std::swap(x,\
+    \ y);\n      this->m_history.emplace(x, y, this->m_data[x], this->m_data[y], this->m_ncc);\n\
+    \n      if (x == y) return x;\n\n      this->m_data[x] += this->m_data[y];\n \
+    \     this->m_data[y] = x;\n      --this->m_ncc;\n\n      return x;\n    }\n\n\
+    \    int size(const int x) const {\n      assert(0 <= x && x < this->size());\n\
     \n      return -this->m_data[this->leader(x)];\n    }\n\n    void undo() {\n \
-    \     assert(!this->m_history.empty());\n\n      const auto [x, y, dx, dy] = this->m_history.top();\n\
-    \      this->m_history.pop();\n\n      this->m_data[x] = dx;\n      this->m_data[y]\
-    \ = dy;\n    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
-    \ res(this->size());\n      for (int i = 0; i < this->size(); ++i) {\n       \
-    \ res[this->leader(i)].push_back(i);\n      }\n      res.erase(::std::remove_if(res.begin(),\
-    \ res.end(), [](const auto& group) { return group.empty(); }), res.end());\n \
-    \     return res;\n    }\n  };\n}\n\n\n"
+    \     assert(!this->m_history.empty());\n\n      const auto [x, y, dx, dy, ncc]\
+    \ = this->m_history.top();\n      this->m_history.pop();\n\n      this->m_data[x]\
+    \ = dx;\n      this->m_data[y] = dy;\n      this->m_ncc = ncc;\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ groups() {\n      ::std::vector<::std::vector<int>> res(this->size());\n   \
+    \   for (int i = 0; i < this->size(); ++i) {\n        res[this->leader(i)].push_back(i);\n\
+    \      }\n      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto&\
+    \ group) { return group.empty(); }), res.end());\n      return res;\n    }\n\n\
+    \    int ncc() const {\n      return this->m_ncc;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_UNDOABLE_DSU_HPP\n#define TOOLS_UNDOABLE_DSU_HPP\n\n#include\
     \ <vector>\n#include <stack>\n#include <tuple>\n#include <cassert>\n#include <utility>\n\
     #include <algorithm>\n\nnamespace tools {\n  class undoable_dsu {\n  private:\n\
-    \    ::std::vector<int> m_data;\n    ::std::stack<::std::tuple<int, int, int,\
-    \ int>> m_history;\n\n    int size() const {\n      return this->m_data.size();\n\
-    \    }\n\n  public:\n    undoable_dsu() = default;\n    undoable_dsu(const ::tools::undoable_dsu&)\
-    \ = default;\n    undoable_dsu(::tools::undoable_dsu&&) = default;\n    ~undoable_dsu()\
-    \ = default;\n    ::tools::undoable_dsu& operator=(const ::tools::undoable_dsu&)\
-    \ = default;\n    ::tools::undoable_dsu& operator=(::tools::undoable_dsu&&) =\
-    \ default;\n\n    explicit undoable_dsu(const int n) : m_data(n, -1) {\n    }\n\
-    \n    int leader(const int x) const {\n      assert(0 <= x && x < this->size());\n\
-    \n      return this->m_data[x] < 0 ? x : this->leader(this->m_data[x]);\n    }\n\
-    \n    bool same(const int x, const int y) const {\n      assert(0 <= x && x <\
-    \ this->size());\n      assert(0 <= y && y < this->size());\n\n      return this->leader(x)\
-    \ == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n      assert(0\
-    \ <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\n  \
-    \    x = this->leader(x);\n      y = this->leader(y);\n      if (this->m_data[x]\
-    \ > this->m_data[y]) ::std::swap(x, y);\n      this->m_history.emplace(x, y, this->m_data[x],\
-    \ this->m_data[y]);\n\n      if (x == y) return x;\n\n      this->m_data[x] +=\
-    \ this->m_data[y];\n      this->m_data[y] = x;\n\n      return x;\n    }\n\n \
-    \   int size(const int x) const {\n      assert(0 <= x && x < this->size());\n\
+    \    ::std::vector<int> m_data;\n    int m_ncc;\n    ::std::stack<::std::tuple<int,\
+    \ int, int, int, int>> m_history;\n\n    int size() const {\n      return this->m_data.size();\n\
+    \    }\n\n  public:\n    undoable_dsu() = default;\n    explicit undoable_dsu(const\
+    \ int n) : m_data(n, -1), m_ncc(n) {\n    }\n\n    int leader(const int x) const\
+    \ {\n      assert(0 <= x && x < this->size());\n\n      return this->m_data[x]\
+    \ < 0 ? x : this->leader(this->m_data[x]);\n    }\n\n    bool same(const int x,\
+    \ const int y) const {\n      assert(0 <= x && x < this->size());\n      assert(0\
+    \ <= y && y < this->size());\n\n      return this->leader(x) == this->leader(y);\n\
+    \    }\n\n    int merge(int x, int y) {\n      assert(0 <= x && x < this->size());\n\
+    \      assert(0 <= y && y < this->size());\n\n      x = this->leader(x);\n   \
+    \   y = this->leader(y);\n      if (this->m_data[x] > this->m_data[y]) ::std::swap(x,\
+    \ y);\n      this->m_history.emplace(x, y, this->m_data[x], this->m_data[y], this->m_ncc);\n\
+    \n      if (x == y) return x;\n\n      this->m_data[x] += this->m_data[y];\n \
+    \     this->m_data[y] = x;\n      --this->m_ncc;\n\n      return x;\n    }\n\n\
+    \    int size(const int x) const {\n      assert(0 <= x && x < this->size());\n\
     \n      return -this->m_data[this->leader(x)];\n    }\n\n    void undo() {\n \
-    \     assert(!this->m_history.empty());\n\n      const auto [x, y, dx, dy] = this->m_history.top();\n\
-    \      this->m_history.pop();\n\n      this->m_data[x] = dx;\n      this->m_data[y]\
-    \ = dy;\n    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
-    \ res(this->size());\n      for (int i = 0; i < this->size(); ++i) {\n       \
-    \ res[this->leader(i)].push_back(i);\n      }\n      res.erase(::std::remove_if(res.begin(),\
-    \ res.end(), [](const auto& group) { return group.empty(); }), res.end());\n \
-    \     return res;\n    }\n  };\n}\n\n#endif\n"
+    \     assert(!this->m_history.empty());\n\n      const auto [x, y, dx, dy, ncc]\
+    \ = this->m_history.top();\n      this->m_history.pop();\n\n      this->m_data[x]\
+    \ = dx;\n      this->m_data[y] = dy;\n      this->m_ncc = ncc;\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ groups() {\n      ::std::vector<::std::vector<int>> res(this->size());\n   \
+    \   for (int i = 0; i < this->size(); ++i) {\n        res[this->leader(i)].push_back(i);\n\
+    \      }\n      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto&\
+    \ group) { return group.empty(); }), res.end());\n      return res;\n    }\n\n\
+    \    int ncc() const {\n      return this->m_ncc;\n    }\n  };\n}\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/undoable_dsu.hpp
   requiredBy: []
-  timestamp: '2023-08-05 18:58:35+09:00'
+  timestamp: '2024-08-27 23:14:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/undoable_dsu.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
+  - tests/undoable_dsu/ncc.test.cpp
 documentation_of: tools/undoable_dsu.hpp
 layout: document
 title: Undoable disjoint set union
@@ -196,3 +196,16 @@ Both of the orders of the connected components and the vertices are undefined.
 
 ### Time Complexity
 - $O(n)$
+
+## ncc
+```cpp
+int d.ncc();
+```
+
+It returns the number of connected components.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

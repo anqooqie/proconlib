@@ -29,19 +29,20 @@ data:
     PROBLEM: https://atcoder.jp/contests/abc302/tasks/abc302_ex
     links:
     - https://atcoder.jp/contests/abc302/tasks/abc302_ex
-  bundledCode: "#line 1 \"tests/undoable_dsu.test.cpp\"\n#define PROBLEM \"https://atcoder.jp/contests/abc302/tasks/abc302_ex\"\
-    \n\n#include <iostream>\n#include <vector>\n#line 1 \"tools/hld.hpp\"\n\n\n\n\
-    #line 5 \"tools/hld.hpp\"\n#include <cstddef>\n#include <iterator>\n#include <cassert>\n\
-    #include <limits>\n#include <stack>\n#include <utility>\n#include <algorithm>\n\
-    #include <numeric>\n#line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7\
-    \ \"lib/ac-library/atcoder/dsu.hpp\"\n\nnamespace atcoder {\n\n// Implement (union\
-    \ by size) + (path compression)\n// Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n\
-    // Data structures and algorithms for disjoint set union problems\nstruct dsu\
-    \ {\n  public:\n    dsu() : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n,\
-    \ -1) {}\n\n    int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n\
-    \        assert(0 <= b && b < _n);\n        int x = leader(a), y = leader(b);\n\
-    \        if (x == y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y])\
-    \ std::swap(x, y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
+  bundledCode: "#line 1 \"tests/undoable_dsu/leader.test.cpp\"\n#define PROBLEM \"\
+    https://atcoder.jp/contests/abc302/tasks/abc302_ex\"\n\n#include <iostream>\n\
+    #include <vector>\n#line 1 \"tools/hld.hpp\"\n\n\n\n#line 5 \"tools/hld.hpp\"\n\
+    #include <cstddef>\n#include <iterator>\n#include <cassert>\n#include <limits>\n\
+    #include <stack>\n#include <utility>\n#include <algorithm>\n#include <numeric>\n\
+    #line 1 \"lib/ac-library/atcoder/dsu.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/dsu.hpp\"\
+    \n\nnamespace atcoder {\n\n// Implement (union by size) + (path compression)\n\
+    // Reference:\n// Zvi Galil and Giuseppe F. Italiano,\n// Data structures and\
+    \ algorithms for disjoint set union problems\nstruct dsu {\n  public:\n    dsu()\
+    \ : _n(0) {}\n    explicit dsu(int n) : _n(n), parent_or_size(n, -1) {}\n\n  \
+    \  int merge(int a, int b) {\n        assert(0 <= a && a < _n);\n        assert(0\
+    \ <= b && b < _n);\n        int x = leader(a), y = leader(b);\n        if (x ==\
+    \ y) return x;\n        if (-parent_or_size[x] < -parent_or_size[y]) std::swap(x,\
+    \ y);\n        parent_or_size[x] += parent_or_size[y];\n        parent_or_size[y]\
     \ = x;\n        return x;\n    }\n\n    bool same(int a, int b) {\n        assert(0\
     \ <= a && a < _n);\n        assert(0 <= b && b < _n);\n        return leader(a)\
     \ == leader(b);\n    }\n\n    int leader(int a) {\n        assert(0 <= a && a\
@@ -232,49 +233,48 @@ data:
     \ tail.rend(), ::std::back_inserter(head));\n      return head;\n    }\n  };\n\
     }\n\n\n#line 1 \"tools/undoable_dsu.hpp\"\n\n\n\n#line 6 \"tools/undoable_dsu.hpp\"\
     \n#include <tuple>\n#line 10 \"tools/undoable_dsu.hpp\"\n\nnamespace tools {\n\
-    \  class undoable_dsu {\n  private:\n    ::std::vector<int> m_data;\n    ::std::stack<::std::tuple<int,\
-    \ int, int, int>> m_history;\n\n    int size() const {\n      return this->m_data.size();\n\
-    \    }\n\n  public:\n    undoable_dsu() = default;\n    undoable_dsu(const ::tools::undoable_dsu&)\
-    \ = default;\n    undoable_dsu(::tools::undoable_dsu&&) = default;\n    ~undoable_dsu()\
-    \ = default;\n    ::tools::undoable_dsu& operator=(const ::tools::undoable_dsu&)\
-    \ = default;\n    ::tools::undoable_dsu& operator=(::tools::undoable_dsu&&) =\
-    \ default;\n\n    explicit undoable_dsu(const int n) : m_data(n, -1) {\n    }\n\
-    \n    int leader(const int x) const {\n      assert(0 <= x && x < this->size());\n\
-    \n      return this->m_data[x] < 0 ? x : this->leader(this->m_data[x]);\n    }\n\
-    \n    bool same(const int x, const int y) const {\n      assert(0 <= x && x <\
-    \ this->size());\n      assert(0 <= y && y < this->size());\n\n      return this->leader(x)\
-    \ == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n      assert(0\
-    \ <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\n  \
-    \    x = this->leader(x);\n      y = this->leader(y);\n      if (this->m_data[x]\
+    \  class undoable_dsu {\n  private:\n    ::std::vector<int> m_data;\n    int m_ncc;\n\
+    \    ::std::stack<::std::tuple<int, int, int, int, int>> m_history;\n\n    int\
+    \ size() const {\n      return this->m_data.size();\n    }\n\n  public:\n    undoable_dsu()\
+    \ = default;\n    explicit undoable_dsu(const int n) : m_data(n, -1), m_ncc(n)\
+    \ {\n    }\n\n    int leader(const int x) const {\n      assert(0 <= x && x <\
+    \ this->size());\n\n      return this->m_data[x] < 0 ? x : this->leader(this->m_data[x]);\n\
+    \    }\n\n    bool same(const int x, const int y) const {\n      assert(0 <= x\
+    \ && x < this->size());\n      assert(0 <= y && y < this->size());\n\n      return\
+    \ this->leader(x) == this->leader(y);\n    }\n\n    int merge(int x, int y) {\n\
+    \      assert(0 <= x && x < this->size());\n      assert(0 <= y && y < this->size());\n\
+    \n      x = this->leader(x);\n      y = this->leader(y);\n      if (this->m_data[x]\
     \ > this->m_data[y]) ::std::swap(x, y);\n      this->m_history.emplace(x, y, this->m_data[x],\
-    \ this->m_data[y]);\n\n      if (x == y) return x;\n\n      this->m_data[x] +=\
-    \ this->m_data[y];\n      this->m_data[y] = x;\n\n      return x;\n    }\n\n \
-    \   int size(const int x) const {\n      assert(0 <= x && x < this->size());\n\
-    \n      return -this->m_data[this->leader(x)];\n    }\n\n    void undo() {\n \
-    \     assert(!this->m_history.empty());\n\n      const auto [x, y, dx, dy] = this->m_history.top();\n\
-    \      this->m_history.pop();\n\n      this->m_data[x] = dx;\n      this->m_data[y]\
-    \ = dy;\n    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
+    \ this->m_data[y], this->m_ncc);\n\n      if (x == y) return x;\n\n      this->m_data[x]\
+    \ += this->m_data[y];\n      this->m_data[y] = x;\n      --this->m_ncc;\n\n  \
+    \    return x;\n    }\n\n    int size(const int x) const {\n      assert(0 <=\
+    \ x && x < this->size());\n\n      return -this->m_data[this->leader(x)];\n  \
+    \  }\n\n    void undo() {\n      assert(!this->m_history.empty());\n\n      const\
+    \ auto [x, y, dx, dy, ncc] = this->m_history.top();\n      this->m_history.pop();\n\
+    \n      this->m_data[x] = dx;\n      this->m_data[y] = dy;\n      this->m_ncc\
+    \ = ncc;\n    }\n\n    ::std::vector<::std::vector<int>> groups() {\n      ::std::vector<::std::vector<int>>\
     \ res(this->size());\n      for (int i = 0; i < this->size(); ++i) {\n       \
     \ res[this->leader(i)].push_back(i);\n      }\n      res.erase(::std::remove_if(res.begin(),\
     \ res.end(), [](const auto& group) { return group.empty(); }), res.end());\n \
-    \     return res;\n    }\n  };\n}\n\n\n#line 1 \"tools/fix.hpp\"\n\n\n\n#line\
-    \ 6 \"tools/fix.hpp\"\n\nnamespace tools {\n  template <typename F>\n  struct\
-    \ fix : F {\n    template <typename G>\n    fix(G&& g) : F({::std::forward<G>(g)})\
-    \ {\n    }\n\n    template <typename... Args>\n    decltype(auto) operator()(Args&&...\
-    \ args) const {\n      return F::operator()(*this, ::std::forward<Args>(args)...);\n\
-    \    }\n  };\n\n  template <typename F>\n  fix(F&&) -> fix<::std::decay_t<F>>;\n\
-    }\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n\
-    #line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename Iterator>\n\
-    \  ::std::string join(const Iterator begin, const Iterator end, const ::std::string&\
-    \ delimiter) {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss\
-    \ << *begin;\n      for (auto it = ::std::next(begin); it != end; ++it) {\n  \
-    \      ss << delimiter << *it;\n      }\n    }\n    return ss.str();\n  }\n\n\
-    \  template <typename Iterator, typename F>\n  ::std::string join(const Iterator\
-    \ begin, const Iterator end, const F& mapper, const ::std::string& delimiter)\
-    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n\
+    \     return res;\n    }\n\n    int ncc() const {\n      return this->m_ncc;\n\
+    \    }\n  };\n}\n\n\n#line 1 \"tools/fix.hpp\"\n\n\n\n#line 6 \"tools/fix.hpp\"\
+    \n\nnamespace tools {\n  template <typename F>\n  struct fix : F {\n    template\
+    \ <typename G>\n    fix(G&& g) : F({::std::forward<G>(g)}) {\n    }\n\n    template\
+    \ <typename... Args>\n    decltype(auto) operator()(Args&&... args) const {\n\
+    \      return F::operator()(*this, ::std::forward<Args>(args)...);\n    }\n  };\n\
+    \n  template <typename F>\n  fix(F&&) -> fix<::std::decay_t<F>>;\n}\n\n\n#line\
+    \ 1 \"tools/join.hpp\"\n\n\n\n#include <string>\n#include <sstream>\n#line 7 \"\
+    tools/join.hpp\"\n\nnamespace tools {\n\n  template <typename Iterator>\n  ::std::string\
+    \ join(const Iterator begin, const Iterator end, const ::std::string& delimiter)\
+    \ {\n    ::std::ostringstream ss;\n    if (begin != end) {\n      ss << *begin;\n\
     \      for (auto it = ::std::next(begin); it != end; ++it) {\n        ss << delimiter\
-    \ << mapper(*it);\n      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 9 \"\
-    tests/undoable_dsu.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \ << *it;\n      }\n    }\n    return ss.str();\n  }\n\n  template <typename Iterator,\
+    \ typename F>\n  ::std::string join(const Iterator begin, const Iterator end,\
+    \ const F& mapper, const ::std::string& delimiter) {\n    ::std::ostringstream\
+    \ ss;\n    if (begin != end) {\n      ss << mapper(*begin);\n      for (auto it\
+    \ = ::std::next(begin); it != end; ++it) {\n        ss << delimiter << mapper(*it);\n\
+    \      }\n    }\n    return ss.str();\n  }\n}\n\n\n#line 9 \"tests/undoable_dsu/leader.test.cpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N;\n  std::cin >> N;\n  std::vector<int> A(N), B(N);\n  for (int i = 0;\
     \ i < N; ++i) {\n    std::cin >> A[i] >> B[i];\n    --A[i], --B[i];\n  }\n\n \
     \ tools::hld graph(N);\n  for (int i = 0; i < N - 1; ++i) {\n    int U, V;\n \
@@ -317,15 +317,15 @@ data:
   - tools/fix.hpp
   - tools/join.hpp
   isVerificationFile: true
-  path: tests/undoable_dsu.test.cpp
+  path: tests/undoable_dsu/leader.test.cpp
   requiredBy: []
-  timestamp: '2024-04-06 03:06:24+09:00'
+  timestamp: '2024-08-27 23:14:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/undoable_dsu.test.cpp
+documentation_of: tests/undoable_dsu/leader.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/undoable_dsu.test.cpp
-- /verify/tests/undoable_dsu.test.cpp.html
-title: tests/undoable_dsu.test.cpp
+- /verify/tests/undoable_dsu/leader.test.cpp
+- /verify/tests/undoable_dsu/leader.test.cpp.html
+title: tests/undoable_dsu/leader.test.cpp
 ---

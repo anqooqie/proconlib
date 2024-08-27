@@ -977,9 +977,6 @@ data:
       path: tests/uint128_t.test.cpp
       title: tests/uint128_t.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/undoable_dsu.test.cpp
-      title: tests/undoable_dsu.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1406,6 +1403,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
       title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - name: tests/undoable_dsu
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/undoable_dsu/leader.test.cpp
+      title: tests/undoable_dsu/leader.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/undoable_dsu/ncc.test.cpp
+      title: tests/undoable_dsu/ncc.test.cpp
   - name: tests/wavelet_matrix
     pages:
     - icon: ':heavy_check_mark:'

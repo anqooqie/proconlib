@@ -58,8 +58,8 @@ data:
     path: tests/stirling_1st/fixed_n.test.cpp
     title: tests/stirling_1st/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/undoable_dsu.test.cpp
-    title: tests/undoable_dsu.test.cpp
+    path: tests/undoable_dsu/leader.test.cpp
+    title: tests/undoable_dsu/leader.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -94,10 +94,10 @@ data:
   - tests/stirling_1st/fixed_k.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
   - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/set.test.cpp
-  - tests/undoable_dsu.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
   - tests/lowlink/is_bridge.test.cpp

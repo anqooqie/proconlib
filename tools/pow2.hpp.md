@@ -430,8 +430,8 @@ data:
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/undoable_dsu.test.cpp
-    title: tests/undoable_dsu.test.cpp
+    path: tests/undoable_dsu/leader.test.cpp
+    title: tests/undoable_dsu/leader.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
@@ -545,6 +545,7 @@ data:
   - tests/bigdecimal/rounding.test.cpp
   - tests/bigdecimal/hand.test.cpp
   - tests/fastio/string.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
   - tests/dual_segtree.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/ssize.test.cpp
@@ -578,7 +579,6 @@ data:
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/berlekamp_massey.test.cpp
   - tests/totient.test.cpp
-  - tests/undoable_dsu.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/tsort/query.test.cpp
   - tests/tsort/count.test.cpp

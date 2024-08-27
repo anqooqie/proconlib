@@ -133,8 +133,8 @@ data:
     path: tests/triangle_2d/incircle.test.cpp
     title: tests/triangle_2d/incircle.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/undoable_dsu.test.cpp
-    title: tests/undoable_dsu.test.cpp
+    path: tests/undoable_dsu/leader.test.cpp
+    title: tests/undoable_dsu/leader.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -169,6 +169,7 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/undoable_dsu/leader.test.cpp
   - tests/naive_dijkstra.test.cpp
   - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/where/without_radius.test.cpp
@@ -191,7 +192,6 @@ data:
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/undoable_dsu.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
   - tests/lowlink/is_bridge.test.cpp

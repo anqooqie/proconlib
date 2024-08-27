@@ -46,8 +46,8 @@ data:
     path: tests/tree_diameter.test.cpp
     title: tests/tree_diameter.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/undoable_dsu.test.cpp
-    title: tests/undoable_dsu.test.cpp
+    path: tests/undoable_dsu/leader.test.cpp
+    title: tests/undoable_dsu/leader.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/minimize.test.cpp
     title: tests/weighted_bipartite_matching/minimize.test.cpp
@@ -90,13 +90,13 @@ data:
   - tests/polynomial_product.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
   - tests/partition_function/diagonal.test.cpp
   - tests/cycle_detection/undirected.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/prim/basic.test.cpp
   - tests/tree_diameter.test.cpp
-  - tests/undoable_dsu.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lowlink/is_bridge.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
