@@ -117,3 +117,16 @@ Both of the orders of the connected components and the vertices are undefined.
 
 ### Time Complexity
 - $O(n)$
+
+## ncc
+```cpp
+int d.ncc();
+```
+
+It returns the number of connected components.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

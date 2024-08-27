@@ -12,7 +12,8 @@ namespace tools {
   class undoable_dsu {
   private:
     ::std::vector<int> m_data;
-    ::std::stack<::std::tuple<int, int, int, int>> m_history;
+    int m_ncc;
+    ::std::stack<::std::tuple<int, int, int, int, int>> m_history;
 
     int size() const {
       return this->m_data.size();
@@ -20,13 +21,7 @@ namespace tools {
 
   public:
     undoable_dsu() = default;
-    undoable_dsu(const ::tools::undoable_dsu&) = default;
-    undoable_dsu(::tools::undoable_dsu&&) = default;
-    ~undoable_dsu() = default;
-    ::tools::undoable_dsu& operator=(const ::tools::undoable_dsu&) = default;
-    ::tools::undoable_dsu& operator=(::tools::undoable_dsu&&) = default;
-
-    explicit undoable_dsu(const int n) : m_data(n, -1) {
+    explicit undoable_dsu(const int n) : m_data(n, -1), m_ncc(n) {
     }
 
     int leader(const int x) const {
@@ -49,12 +44,13 @@ namespace tools {
       x = this->leader(x);
       y = this->leader(y);
       if (this->m_data[x] > this->m_data[y]) ::std::swap(x, y);
-      this->m_history.emplace(x, y, this->m_data[x], this->m_data[y]);
+      this->m_history.emplace(x, y, this->m_data[x], this->m_data[y], this->m_ncc);
 
       if (x == y) return x;
 
       this->m_data[x] += this->m_data[y];
       this->m_data[y] = x;
+      --this->m_ncc;
 
       return x;
     }
@@ -68,11 +64,12 @@ namespace tools {
     void undo() {
       assert(!this->m_history.empty());
 
-      const auto [x, y, dx, dy] = this->m_history.top();
+      const auto [x, y, dx, dy, ncc] = this->m_history.top();
       this->m_history.pop();
 
       this->m_data[x] = dx;
       this->m_data[y] = dy;
+      this->m_ncc = ncc;
     }
 
     ::std::vector<::std::vector<int>> groups() {
@@ -82,6 +79,10 @@ namespace tools {
       }
       res.erase(::std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
+    }
+
+    int ncc() const {
+      return this->m_ncc;
     }
   };
 }
