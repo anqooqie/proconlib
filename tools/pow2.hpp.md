@@ -60,6 +60,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -283,6 +286,9 @@ data:
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
@@ -496,6 +502,7 @@ data:
   - tools/dual_segtree.hpp
   - tools/stirling_1st.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   - tools/zero_one_knapsack.hpp
   - tools/lca.hpp
@@ -568,6 +575,7 @@ data:
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/integer_interval_set.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp

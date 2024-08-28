@@ -24,6 +24,9 @@ data:
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/quaternion.hpp
     title: Quaternion
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -150,6 +156,7 @@ data:
   - tools/modint_for_rolling_hash.hpp
   - tools/floor_kth_root.hpp
   - tools/totient.hpp
+  - tools/ord_mod.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -160,6 +167,7 @@ data:
   - tests/quaternion/slerp.test.cpp
   - tests/floor_kth_root.test.cpp
   - tests/ceil_kth_root.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/totient.test.cpp
   - tests/permutation.test.cpp
   - tests/has_mod.test.cpp

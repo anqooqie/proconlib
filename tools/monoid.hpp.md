@@ -36,6 +36,9 @@ data:
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -159,6 +162,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
@@ -350,6 +356,7 @@ data:
   - tools/stirling_1st.hpp
   - tools/polynomial_interpolation.hpp
   - tools/pow.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -396,6 +403,7 @@ data:
   - tests/floor_kth_root.test.cpp
   - tests/ceil_kth_root.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/is_monoid.test.cpp

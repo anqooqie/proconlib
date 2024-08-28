@@ -118,6 +118,9 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/consistent.test.cpp
     title: tests/partition_function/consistent.test.cpp
   - icon: ':heavy_check_mark:'
@@ -256,6 +259,7 @@ data:
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/tsp.test.cpp
   - tests/uint128_t.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp

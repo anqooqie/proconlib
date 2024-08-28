@@ -33,6 +33,9 @@ data:
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/prime_factorization.hpp
     title: Pollard's rho algorithm
   - icon: ':heavy_check_mark:'
@@ -147,6 +150,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/log_mod.test.cpp
     title: tests/log_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -323,6 +329,7 @@ data:
   - tools/totient.hpp
   - tools/stirling_1st.hpp
   - tools/range_count_distinct.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   - tools/lca.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
@@ -369,6 +376,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/range_count_distinct.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp

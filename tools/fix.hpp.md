@@ -15,6 +15,9 @@ data:
     path: tools/lowlink.hpp
     title: Lowlink
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/persistent_dual_segtree.hpp
     title: Persistent dual segment tree
   - icon: ':heavy_check_mark:'
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lowlink/ncc_without_vertex.test.cpp
     title: tests/lowlink/ncc_without_vertex.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
@@ -87,6 +93,7 @@ data:
   - tools/detail/avl_tree_impl.hpp
   - tools/avl_tree.hpp
   - tools/stirling_1st.hpp
+  - tools/ord_mod.hpp
   - tools/lazy_avl_tree.hpp
   timestamp: '2021-05-16 02:11:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -98,6 +105,7 @@ data:
   - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/set.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
   - tests/lowlink/is_bridge.test.cpp

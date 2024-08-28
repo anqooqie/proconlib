@@ -397,6 +397,9 @@ data:
       path: tools/online_cumsum.hpp
       title: Online cumulative sum
     - icon: ':heavy_check_mark:'
+      path: tools/ord_mod.hpp
+      title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+    - icon: ':heavy_check_mark:'
       path: tools/osa_k.hpp
       title: osa_k's algorithm
     - icon: ':heavy_check_mark:'
@@ -865,6 +868,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/online_cumsum.test.cpp
       title: tests/online_cumsum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/ord_mod.test.cpp
+      title: tests/ord_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/osa_k.test.cpp
       title: tests/osa_k.test.cpp

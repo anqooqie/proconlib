@@ -36,6 +36,9 @@ data:
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/polygon_2d.hpp
     title: Two-dimensional polygon
   - icon: ':heavy_check_mark:'
@@ -123,6 +126,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -245,6 +251,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/pow.hpp
   - tools/polygon_2d.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   - tools/half_line_2d.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
@@ -276,6 +283,7 @@ data:
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp

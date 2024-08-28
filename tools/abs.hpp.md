@@ -113,6 +113,9 @@ data:
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -393,6 +396,9 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
   - icon: ':heavy_check_mark:'
@@ -637,6 +643,7 @@ data:
   - tools/uint128_t.hpp
   - tools/is_prime.hpp
   - tools/vector3.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   - tools/fact_mod_cache.hpp
   - tools/greater_by_arg_total.hpp
@@ -716,6 +723,7 @@ data:
   - tests/triangle_2d/incircle.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/less_by_arg_total.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp

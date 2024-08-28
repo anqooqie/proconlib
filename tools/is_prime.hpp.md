@@ -65,6 +65,9 @@ data:
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
+    path: tools/ord_mod.hpp
+    title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
+  - icon: ':heavy_check_mark:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':heavy_check_mark:'
@@ -239,6 +242,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod.test.cpp
+    title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
@@ -483,6 +489,7 @@ data:
   - tools/totient.hpp
   - tools/stirling_1st.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/ord_mod.hpp
   - tools/twelvefold_way.hpp
   - tools/fact_mod_cache.hpp
   - tools/sqrt_mod.hpp
@@ -542,6 +549,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/ord_mod.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp
