@@ -139,6 +139,7 @@
 "tests/naive_dijkstra.test.cpp": "2024-03-24 19:16:21 +0900",
 "tests/next_matching.test.cpp": "2024-03-24 19:16:21 +0900",
 "tests/online_cumsum.test.cpp": "2024-04-27 09:47:19 +0900",
+"tests/ord_mod.test.cpp": "2024-08-28 21:46:19 +0900",
 "tests/osa_k.test.cpp": "2024-02-18 13:45:51 +0900",
 "tests/partially_persistent_dsu.test.cpp": "2023-01-28 13:52:56 +0900",
 "tests/partition_function/all.test.cpp": "2024-04-29 15:33:11 +0900",
