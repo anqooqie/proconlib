@@ -33,7 +33,7 @@ It constructs a data structure that allows $\mathrm{ord}(x)$ to be returned in $
 T ord.query(T x);
 ```
 
-It returns $ord(x)$, the minimum positive integer $k$ such that $x^k \equiv 1 \pmod{p}$.
+It returns $\mathrm{ord}(x)$, the minimum positive integer $k$ such that $x^k \equiv 1 \pmod{p}$.
 
 ### Constraints
 - $1 \leq x < p$
