@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/tsort.hpp
     title: Topological sorting
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -24,15 +24,17 @@ data:
   bundledCode: "#line 1 \"tests/tsort/count.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n// Source: https://atcoder.jp/contests/abc041/tasks/abc041_d\n\n#include <iostream>\n\
     #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include\
-    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
-    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
-    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
-    } while (false)\n\n\n#line 1 \"tools/tsort.hpp\"\n\n\n\n#include <cstddef>\n#include\
-    \ <vector>\n#include <cassert>\n#include <queue>\n#include <cstdint>\n#line 1\
-    \ \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/pow2.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    \ <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond)\
+    \ {\\\n    ::std::cerr << file << ':' << line << \": \" << func << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/tsort.hpp\"\n\n\n\n#include\
+    \ <cstddef>\n#include <vector>\n#include <cassert>\n#include <queue>\n#include\
+    \ <cstdint>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#include <type_traits>\n#line 6\
+    \ \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename T, typename\
+    \ ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type = nullptr>\n\
+    \  constexpr T pow2(const T x) {\n    return static_cast<T>(1) << x;\n  }\n\n\
+    \  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 10 \"tools/tsort.hpp\"\
@@ -98,8 +100,8 @@ data:
   isVerificationFile: true
   path: tests/tsort/count.test.cpp
   requiredBy: []
-  timestamp: '2023-02-11 13:12:29+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/tsort/count.test.cpp
 layout: document

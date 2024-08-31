@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/117
@@ -348,19 +348,21 @@ data:
     \    }\n    M combination_with_repetition(const long long n, const long long r)\
     \ {\n      if (n < 0 || r < 0) return M::raw(0);\n      return this->binomial(n\
     \ + r - 1, r);\n    }\n  };\n}\n\n\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n\
-    #line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 7 \"tests/fact_mod_cache.test.cpp\"\
-    \n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\ntools::fact_mod_cache<mint>\
-    \ cache;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  static const auto discard = [](const char c) {\n    assert_that(std::cin.peek()\
-    \ == c);\n    std::cin.ignore();\n  };\n\n  ll T;\n  std::cin >> T;\n  discard('\\\
-    n');\n  for (ll t = 0; t < T; ++t) {\n    char type;\n    ll N, K;\n    std::cin\
-    \ >> type;\n    assert_that(type == 'C' || type == 'P' || type == 'H');\n    discard('(');\n\
-    \    std::cin >> N;\n    discard(',');\n    std::cin >> K;\n    discard(')');\n\
-    \    discard('\\n');\n\n    if (type == 'C') {\n      std::cout << cache.combination(N,\
-    \ K).val() << '\\n';\n    } else if (type == 'P') {\n      std::cout << cache.permutation(N,\
+    #line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
+    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
+    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
+    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 7 \"\
+    tests/fact_mod_cache.test.cpp\"\n\nusing ll = long long;\nusing mint = atcoder::modint1000000007;\n\
+    tools::fact_mod_cache<mint> cache;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  static const auto discard = [](const\
+    \ char c) {\n    assert_that(std::cin.peek() == c);\n    std::cin.ignore();\n\
+    \  };\n\n  ll T;\n  std::cin >> T;\n  discard('\\n');\n  for (ll t = 0; t < T;\
+    \ ++t) {\n    char type;\n    ll N, K;\n    std::cin >> type;\n    assert_that(type\
+    \ == 'C' || type == 'P' || type == 'H');\n    discard('(');\n    std::cin >> N;\n\
+    \    discard(',');\n    std::cin >> K;\n    discard(')');\n    discard('\\n');\n\
+    \n    if (type == 'C') {\n      std::cout << cache.combination(N, K).val() <<\
+    \ '\\n';\n    } else if (type == 'P') {\n      std::cout << cache.permutation(N,\
     \ K).val() << '\\n';\n    } else if (type == 'H') {\n      std::cout << cache.combination_with_repetition(N,\
     \ K).val() << '\\n';\n    }\n  }\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/117\"\n\n#include <iostream>\n\
@@ -391,8 +393,8 @@ data:
   isVerificationFile: true
   path: tests/fact_mod_cache.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/fact_mod_cache.test.cpp
 layout: document

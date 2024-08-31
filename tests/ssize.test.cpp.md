@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/binary_heap.hpp
     title: Binary heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -28,15 +28,16 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/ssize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/binary_heap.hpp\"\n\n\n\n#include\
-    \ <functional>\n#include <type_traits>\n#include <unordered_map>\n#include <cstddef>\n\
-    #include <vector>\n#include <utility>\n#include <algorithm>\n#include <limits>\n\
-    #include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n#include <string>\n#line\
-    \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\
-    \n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/binary_heap.hpp\"\n\n\n\n\
+    #include <functional>\n#include <type_traits>\n#include <unordered_map>\n#include\
+    \ <cstddef>\n#include <vector>\n#include <utility>\n#include <algorithm>\n#include\
+    \ <limits>\n#include <cassert>\n#line 14 \"tools/binary_heap.hpp\"\n#include <string>\n\
+    #line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools\
+    \ {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
@@ -172,8 +173,8 @@ data:
   isVerificationFile: true
   path: tests/ssize.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/ssize.test.cpp
 layout: document

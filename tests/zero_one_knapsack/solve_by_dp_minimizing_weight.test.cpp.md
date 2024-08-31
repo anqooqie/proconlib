@@ -1,39 +1,39 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmax.hpp
     title: chmax function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_get.hpp
     title: std::less by std::get
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_F
@@ -471,10 +471,11 @@ data:
     \      } else if (complexities[1] == min_complexity) {\n        return this->solve_by_dp_minimizing_weight();\n\
     \      } else {\n        return this->solve_by_meet_in_the_middle();\n      }\n\
     \    }\n  };\n}\n\n\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 6 \"tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp\"\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 6 \"tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N, W;\n  std::cin >> N >> W;\n  tools::zero_one_knapsack<ll> solver(W);\n\
     \  for (ll i = 0; i < N; ++i) {\n    ll v, w;\n    std::cin >> v >> w;\n    solver.add_item(v,\
@@ -504,8 +505,8 @@ data:
   isVerificationFile: true
   path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 19:16:21+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
 layout: document

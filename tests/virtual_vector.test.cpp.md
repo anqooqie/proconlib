@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/virtual_vector.hpp
     title: Lazy evaluation read-only std::vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -20,15 +20,16 @@ data:
   bundledCode: "#line 1 \"tests/virtual_vector.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#include <array>\n#include <cstddef>\n#include <vector>\n\
     #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include\
-    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
-    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
-    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
-    } while (false)\n\n\n#line 1 \"tools/virtual_vector.hpp\"\n\n\n\n#line 5 \"tools/virtual_vector.hpp\"\
-    \n#include <type_traits>\n#include <memory>\n#include <iterator>\n#include <cassert>\n\
-    #include <algorithm>\n\nnamespace tools {\n  template <typename F>\n  class virtual_vector\
-    \ {\n  public:\n    using size_type = ::std::size_t;\n\n    class iterator {\n\
-    \      const virtual_vector<F> *m_parent;\n      size_type m_i;\n\n    public:\n\
-    \      using reference = decltype(::std::declval<F>()(::std::declval<size_type>()));\n\
+    \ <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond)\
+    \ {\\\n    ::std::cerr << file << ':' << line << \": \" << func << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/virtual_vector.hpp\"\n\n\n\
+    \n#line 5 \"tools/virtual_vector.hpp\"\n#include <type_traits>\n#include <memory>\n\
+    #include <iterator>\n#include <cassert>\n#include <algorithm>\n\nnamespace tools\
+    \ {\n  template <typename F>\n  class virtual_vector {\n  public:\n    using size_type\
+    \ = ::std::size_t;\n\n    class iterator {\n      const virtual_vector<F> *m_parent;\n\
+    \      size_type m_i;\n\n    public:\n      using reference = decltype(::std::declval<F>()(::std::declval<size_type>()));\n\
     \      using value_type = ::std::remove_const_t<::std::remove_reference_t<reference>>;\n\
     \      using difference_type = ::std::ptrdiff_t;\n      using pointer = const\
     \ value_type*;\n      using iterator_category = ::std::random_access_iterator_tag;\n\
@@ -126,8 +127,8 @@ data:
   isVerificationFile: true
   path: tests/virtual_vector.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 13:12:44+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/virtual_vector.test.cpp
 layout: document

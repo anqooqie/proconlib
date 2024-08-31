@@ -1,68 +1,71 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/rounding_mode.hpp
     title: Rounding mode
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/signum.hpp
     title: Sign function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
@@ -606,8 +609,11 @@ data:
     \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
     \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
-    \ 33 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint\
-    \ abs(::tools::bigint x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \ 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools {\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const\
+    \ M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 34 \"tools/bigint.hpp\"\
+    \n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint\
+    \ x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -924,26 +930,26 @@ data:
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
     \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
     \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
-    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
-    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
-    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
-    \ }\n\n    return x;\n  }\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n#line 5\
-    \ \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n  constexpr\
-    \ int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>) {\n\
-    \      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) < x;\n\
-    \    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace tools\
-    \ {\n  enum class rounding_mode {\n    ceiling,\n    down,\n    floor,\n    half_down,\n\
-    \    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 17 \"tools/bigdecimal.hpp\"\
-    \n\nnamespace tools {\n  class bigdecimal {\n  private:\n    // *this := this->m_unscaled_value\
-    \ * (10 ** -this->m_scale)\n    ::tools::bigint m_unscaled_value;\n    ::std::ptrdiff_t\
-    \ m_scale;\n\n  public:\n    const ::tools::bigint& unscaled_value() const {\n\
-    \      return this->m_unscaled_value;\n    }\n    ::std::size_t precision() const\
-    \ {\n      return this->m_unscaled_value.size();\n    }\n    ::std::ptrdiff_t\
-    \ scale() const {\n      return this->m_scale;\n    }\n    int signum() const\
-    \ {\n      return this->m_unscaled_value.signum();\n    }\n    ::tools::bigdecimal&\
-    \ negate() {\n      this->m_unscaled_value.negate();\n      return *this;\n  \
-    \  }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t n) {\n\
-    \      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
+    \    return x;\n  }\n\n  template <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
+    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
+    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 1 \"tools/signum.hpp\"\n\n\n\n\
+    #line 5 \"tools/signum.hpp\"\n\nnamespace tools {\n\n  template <typename T>\n\
+    \  constexpr int signum(const T x) noexcept {\n    if constexpr (::std::is_signed_v<T>)\
+    \ {\n      return (T(0) < x) - (x < T(0));\n    } else {\n      return T(0) <\
+    \ x;\n    }\n  }\n}\n\n\n#line 1 \"tools/rounding_mode.hpp\"\n\n\n\nnamespace\
+    \ tools {\n  enum class rounding_mode {\n    ceiling,\n    down,\n    floor,\n\
+    \    half_down,\n    half_even,\n    half_up,\n    up\n  };\n}\n\n\n#line 17 \"\
+    tools/bigdecimal.hpp\"\n\nnamespace tools {\n  class bigdecimal {\n  private:\n\
+    \    // *this := this->m_unscaled_value * (10 ** -this->m_scale)\n    ::tools::bigint\
+    \ m_unscaled_value;\n    ::std::ptrdiff_t m_scale;\n\n  public:\n    const ::tools::bigint&\
+    \ unscaled_value() const {\n      return this->m_unscaled_value;\n    }\n    ::std::size_t\
+    \ precision() const {\n      return this->m_unscaled_value.size();\n    }\n  \
+    \  ::std::ptrdiff_t scale() const {\n      return this->m_scale;\n    }\n    int\
+    \ signum() const {\n      return this->m_unscaled_value.signum();\n    }\n   \
+    \ ::tools::bigdecimal& negate() {\n      this->m_unscaled_value.negate();\n  \
+    \    return *this;\n    }\n    ::tools::bigdecimal& multiply_by_pow10(const ::std::ptrdiff_t\
+    \ n) {\n      this->m_scale -= n;\n      return *this;\n    }\n    ::tools::bigdecimal&\
     \ divide_by_pow10(const ::std::ptrdiff_t n) {\n      return this->multiply_by_pow10(-n);\n\
     \    }\n    ::tools::bigdecimal& set_scale(const ::std::ptrdiff_t s) {\n     \
     \ this->m_unscaled_value.multiply_by_pow10(s - this->m_scale);\n      this->m_scale\
@@ -1083,12 +1089,13 @@ data:
   - tools/cmp_less.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
+  - tools/gcd.hpp
   - tools/signum.hpp
   - tools/rounding_mode.hpp
   isVerificationFile: true
   path: tests/bigdecimal/divides.test.cpp
   requiredBy: []
-  timestamp: '2024-08-25 01:39:16+09:00'
+  timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/divides.test.cpp

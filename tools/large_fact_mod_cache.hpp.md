@@ -1,126 +1,129 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fact_mod_cache.hpp
     title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/find_cycle.hpp
     title: Floyd's cycle-finding algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod_cache.hpp
     title: Cache for $b^n \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/large_fact_mod_cache.hpp\"\n\n\n\n#include <vector>\n\
@@ -386,32 +389,58 @@ data:
     \       } else {\n          assert(r == this->size());\n          return this->m_cumsum[l];\n\
     \        }\n      }\n    }\n    template <typename Y = X>\n    ::std::enable_if_t<!::tools::is_monoid_v<Y>,\
     \ T> sum(const ::std::size_t l, const ::std::size_t r) {\n      return this->prod(l,\
-    \ r);\n    }\n  };\n}\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"tools/monoid.hpp\"\
-    \n#include <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template\
-    \ <typename M, M E = ::std::numeric_limits<M>::lowest()>\n    struct max {\n \
-    \     using T = M;\n      static T op(const T& lhs, const T& rhs) {\n        return\
-    \ ::std::max(lhs, rhs);\n      }\n      static T e() {\n        return E;\n  \
-    \    }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \ r);\n    }\n  };\n}\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 1 \"tools/gcd.hpp\"\
+    \n\n\n\n#line 5 \"tools/gcd.hpp\"\n#include <numeric>\n\nnamespace tools {\n \
+    \ template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const\
+    \ M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 9 \"tools/monoid.hpp\"\
+    \n\nnamespace tools {\n  namespace monoid {\n    template <typename M, M ...dummy>\n\
+    \    struct max;\n\n    template <typename M>\n    struct max<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::max(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::min();\n        } else {\n       \
+    \   return -::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct max<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(E <= lhs);\n        assert(E\
+    \ <= rhs);\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename M, M ...dummy>\n\
+    \    struct min;\n\n    template <typename M>\n    struct min<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::min(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::max();\n        } else {\n       \
+    \   return ::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct min<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(lhs <= E);\n        assert(rhs\
+    \ <= E);\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
     \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 1 \"tools/convolution.hpp\"\n\n\n\n#line 5 \"tools/convolution.hpp\"\
-    \n#include <complex>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line\
-    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
-    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    \ {\n    private:\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n \
+    \       return T(1);\n      }\n    };\n\n    template <>\n    struct multiplies<bool>\
+    \ {\n      using T = bool;\n      static T op(const bool lhs, const bool rhs)\
+    \ {\n        return lhs && rhs;\n      }\n      static T e() {\n        return\
+    \ true;\n      }\n    };\n\n    template <typename M>\n    struct gcd {\n    private:\n\
+    \      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> &&\
+    \ !::std::is_same_v<M, bool>), \"If M is a built-in arithmetic type, it must be\
+    \ integral except for bool.\");\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return ::tools::gcd(lhs, rhs);\n      }\n      static\
+    \ T e() {\n        return T(0);\n      }\n    };\n\n    template <typename M,\
+    \ M E>\n    struct update {\n      static_assert(::std::is_integral_v<M>, \"M\
+    \ must be a built-in integral type.\");\n\n      using T = M;\n      static T\
+    \ op(const T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n     \
+    \ }\n      static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line\
+    \ 1 \"tools/convolution.hpp\"\n\n\n\n#line 5 \"tools/convolution.hpp\"\n#include\
+    \ <complex>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#line 7 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
+    // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
+    \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
+    // Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
     \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
@@ -1147,14 +1176,15 @@ data:
   - tools/group.hpp
   - tools/is_group.hpp
   - tools/monoid.hpp
+  - tools/gcd.hpp
   - tools/convolution.hpp
   - tools/garner3.hpp
   isVerificationFile: false
   path: tools/large_fact_mod_cache.hpp
   requiredBy:
   - tools/twelvefold_way.hpp
-  timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp

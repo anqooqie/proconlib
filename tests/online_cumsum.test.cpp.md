@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/is_group.hpp
     title: Check whether T is a group
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -252,46 +252,47 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/online_cumsum.hpp\"\
-    \n\n\n\n#line 5 \"tools/online_cumsum.hpp\"\n#include <vector>\n#include <cstddef>\n\
-    #line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace\
-    \ tools {\n\n  template <typename M, typename = void>\n  struct is_monoid : ::std::false_type\
-    \ {};\n\n  template <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n\
-    \    ::std::is_same_v<typename M::T, decltype(M::op(::std::declval<typename M::T>(),\
-    \ ::std::declval<typename M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n\
-    \  , void>> : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr\
-    \ bool is_monoid_v = ::tools::is_monoid<M>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\
-    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
-    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
-    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
-    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
-    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
-    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
-    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
-    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
-    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
-    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
-    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/is_group.hpp\"\
-    \n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ G, typename = void>\n  struct is_group : ::std::false_type {};\n\n  template\
-    \ <typename G>\n  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename\
-    \ G::T, decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename\
-    \ G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n  \
-    \  ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n\
-    \  , void>> : ::std::true_type {};\n\n  template <typename G>\n  inline constexpr\
-    \ bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line 11 \"tools/online_cumsum.hpp\"\
-    \n\nnamespace tools {\n  template <typename X, bool Forward = true>\n  class online_cumsum\
-    \ {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;\n\
-    \    using T = typename M::T;\n    ::std::vector<T> m_vector;\n    ::std::vector<T>\
-    \ m_cumsum;\n    ::std::size_t m_processed;\n\n  public:\n    online_cumsum()\
-    \ : online_cumsum(0) {\n    }\n    online_cumsum(const ::std::size_t n) : m_vector(n,\
-    \ M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {\n    }\n\n\
-    \    ::std::size_t size() const {\n      return this->m_vector.size();\n    }\n\
-    \    T& operator[](const ::std::size_t i) {\n      assert(i < this->size());\n\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
+    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
+    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
+    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/online_cumsum.hpp\"\n\n\n\n#line 5 \"tools/online_cumsum.hpp\"\n#include\
+    \ <vector>\n#include <cstddef>\n#line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 6\
+    \ \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ = void>\n  struct is_monoid : ::std::false_type {};\n\n  template <typename\
+    \ M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
+    \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
+    \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
+    \ = ::tools::is_monoid<M>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
+    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
+    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
+    \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
+    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
+    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
+    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
+    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
+    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
+    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
+    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
+    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
+    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/is_group.hpp\"\n\n\n\n#line\
+    \ 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename G, typename\
+    \ = void>\n  struct is_group : ::std::false_type {};\n\n  template <typename G>\n\
+    \  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename G::T,\
+    \ decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename G::T>()))>\
+    \ &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n    ::std::is_same_v<typename\
+    \ G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n  , void>> : ::std::true_type\
+    \ {};\n\n  template <typename G>\n  inline constexpr bool is_group_v = ::tools::is_group<G>::value;\n\
+    }\n\n\n#line 11 \"tools/online_cumsum.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ X, bool Forward = true>\n  class online_cumsum {\n    using M = ::std::conditional_t<::tools::is_monoid_v<X>,\
+    \ X, ::tools::group::plus<X>>;\n    using T = typename M::T;\n    ::std::vector<T>\
+    \ m_vector;\n    ::std::vector<T> m_cumsum;\n    ::std::size_t m_processed;\n\n\
+    \  public:\n    online_cumsum() : online_cumsum(0) {\n    }\n    online_cumsum(const\
+    \ ::std::size_t n) : m_vector(n, M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward\
+    \ ? 0 : n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_vector.size();\n\
+    \    }\n    T& operator[](const ::std::size_t i) {\n      assert(i < this->size());\n\
     \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
     \ ::std::size_t r) {\n      assert(l <= r && r <= this->size());\n      if constexpr\
     \ (Forward) {\n        for (; this->m_processed < r; ++this->m_processed) {\n\
@@ -953,8 +954,8 @@ data:
   isVerificationFile: true
   path: tests/online_cumsum.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 09:47:19+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/online_cumsum.test.cpp
 layout: document

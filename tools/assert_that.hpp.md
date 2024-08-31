@@ -36,186 +36,191 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/convolution/double.test.cpp
     title: tests/convolution/double.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/countr_zero.test.cpp
     title: tests/countr_zero.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/digit_sum.test.cpp
     title: tests/digit_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extend_hash.test.cpp
     title: tests/extend_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fact_mod_cache.test.cpp
     title: tests/fact_mod_cache.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fill.test.cpp
     title: tests/fill.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/find_cycle.test.cpp
     title: tests/find_cycle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor.test.cpp
     title: tests/floor.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_log.test.cpp
     title: tests/floor_log.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_log2.test.cpp
     title: tests/floor_log2.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_quotients.test.cpp
     title: tests/floor_quotients.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_sqrt.test.cpp
     title: tests/floor_sqrt.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/exp_other_mods.test.cpp
     title: tests/fps/exp_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/inv_other_mods.test.cpp
     title: tests/fps/inv_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fps/pow_other_mods.test.cpp
     title: tests/fps/pow_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/int128_t.test.cpp
     title: tests/int128_t.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/is_group.test.cpp
     title: tests/is_group.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/monoid.test.cpp
+    title: tests/monoid.test.cpp
+  - icon: ':x:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/ord_mod.test.cpp
     title: tests/ord_mod.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/partition_function/consistent.test.cpp
     title: tests/partition_function/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multidimensional.test.cpp
     title: tests/polynomial/multidimensional.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
     title: tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/quaternion/slerp.test.cpp
     title: tests/quaternion/slerp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/random_tree.test.cpp
     title: tests/random_tree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rotate_right.test.cpp
     title: tests/rotate_right.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/run_length.test.cpp
     title: tests/run_length.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/safe_int.test.cpp
     title: tests/safe_int.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/ssize.test.cpp
     title: tests/ssize.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_1st/consistent.test.cpp
     title: tests/stirling_1st/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/stirling_2nd/consistent.test.cpp
     title: tests/stirling_2nd/consistent.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsort/count.test.cpp
     title: tests/tsort/count.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsort/query.test.cpp
     title: tests/tsort/query.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tsp.test.cpp
     title: tests/tsp.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/tuple_hash.test.cpp
     title: tests/tuple_hash.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/uint128_t.test.cpp
     title: tests/uint128_t.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/virtual_vector.test.cpp
     title: tests/virtual_vector.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/xor_basis.test.cpp
     title: tests/xor_basis.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
     title: tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
     title: tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/assert_that.hpp\"\n\n\n\n#include <iostream>\n#include\
-    \ <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr\
-    \ << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" <<\
-    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
-    } while (false)\n\n\n"
+    \ <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond)\
+    \ {\\\n    ::std::cerr << file << ':' << line << \": \" << func << \": Assertion\
+    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
+    \  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n"
   code: "#ifndef TOOLS_ASSERT_THAT_HPP\n#define TOOLS_ASSERT_THAT_HPP\n\n#include\
-    \ <iostream>\n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond))\
-    \ {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ <<\
-    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
-    \n  }\\\n} while (false)\n\n#endif\n"
+    \ <iostream>\n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line,\
+    \ func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \"\
+    : \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n#endif\n"
   dependsOn: []
   isVerificationFile: false
   path: tools/assert_that.hpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/floor_sqrt.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
@@ -254,6 +259,7 @@ data:
   - tests/floor_quotients.test.cpp
   - tests/digit_sum.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/monoid.test.cpp
   - tests/multiset.test.cpp
   - tests/extend_input.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp

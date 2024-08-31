@@ -1,57 +1,60 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series
@@ -550,26 +553,54 @@ data:
     \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
     \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
     \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"\
-    tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n\
-    \  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    tools/monoid.hpp\"\n\n\n\n#line 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\
+    \n\nnamespace tools {\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> gcd(const M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line\
+    \ 9 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
+    \ <typename M, M ...dummy>\n    struct max;\n\n    template <typename M>\n   \
+    \ struct max<M> {\n      static_assert(::std::is_arithmetic_v<M>, \"M must be\
+    \ a built-in arithmetic type.\");\n\n      using T = M;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n         \
+    \ return ::std::numeric_limits<M>::min();\n        } else {\n          return\
+    \ -::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\n    template\
+    \ <typename M, M E>\n    struct max<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(E <= lhs);\n        assert(E\
+    \ <= rhs);\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename M, M ...dummy>\n\
+    \    struct min;\n\n    template <typename M>\n    struct min<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::min(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::max();\n        } else {\n       \
+    \   return ::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct min<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(lhs <= E);\n        assert(rhs\
+    \ <= E);\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
     \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace\
-    \ detail {\n    namespace convolution {\n      template <typename T, typename\
-    \ = void>\n      struct make_complex {\n        using type = T;\n      };\n\n\
-    \      template <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ {\n    private:\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n \
+    \       return T(1);\n      }\n    };\n\n    template <>\n    struct multiplies<bool>\
+    \ {\n      using T = bool;\n      static T op(const bool lhs, const bool rhs)\
+    \ {\n        return lhs && rhs;\n      }\n      static T e() {\n        return\
+    \ true;\n      }\n    };\n\n    template <typename M>\n    struct gcd {\n    private:\n\
+    \      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> &&\
+    \ !::std::is_same_v<M, bool>), \"If M is a built-in arithmetic type, it must be\
+    \ integral except for bool.\");\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return ::tools::gcd(lhs, rhs);\n      }\n      static\
+    \ T e() {\n        return T(0);\n      }\n    };\n\n    template <typename M,\
+    \ M E>\n    struct update {\n      static_assert(::std::is_integral_v<M>, \"M\
+    \ must be a built-in integral type.\");\n\n      using T = M;\n      static T\
+    \ op(const T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n     \
+    \ }\n      static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line\
+    \ 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace detail {\n  \
+    \  namespace convolution {\n      template <typename T, typename = void>\n   \
+    \   struct make_complex {\n        using type = T;\n      };\n\n      template\
+    \ <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ void>> {\n        using type = ::std::complex<T>;\n      };\n\n      template\
     \ <typename T>\n      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;\n\
     \n      template <typename AG, typename MM, typename InputIterator1, typename\
@@ -1091,12 +1122,13 @@ data:
   - tools/garner3.hpp
   - tools/group.hpp
   - tools/monoid.hpp
+  - tools/gcd.hpp
   - tools/less_by_first.hpp
   isVerificationFile: true
   path: tests/fps/compositional_inverse.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/fps/compositional_inverse.test.cpp
 layout: document

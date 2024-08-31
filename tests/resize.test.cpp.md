@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -20,12 +20,13 @@ data:
   bundledCode: "#line 1 \"tests/resize.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#include <array>\n\
     #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n\
-    #define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
-    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
-    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
-    \n\n#line 1 \"tools/resize.hpp\"\n\n\n\n#line 5 \"tools/resize.hpp\"\n#include\
-    \ <cstddef>\n#line 7 \"tools/resize.hpp\"\n#include <cassert>\n\nnamespace tools\
-    \ {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
+    #define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond) {\\\n  \
+    \  ::std::cerr << file << ':' << line << \": \" << func << \": Assertion `\" <<\
+    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
+    } while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__), __FILE__,\
+    \ __LINE__, __func__)\n\n\n#line 1 \"tools/resize.hpp\"\n\n\n\n#line 5 \"tools/resize.hpp\"\
+    \n#include <cstddef>\n#line 7 \"tools/resize.hpp\"\n#include <cassert>\n\nnamespace\
+    \ tools {\n  template <class T, class Allocator, typename Head>\n  void resize(::std::vector<T,\
     \ Allocator>& vector, const Head& head) {\n    vector.resize(head);\n  }\n  template\
     \ <class T, ::std::size_t N, typename Head>\n  void resize([[maybe_unused]] ::std::array<T,\
     \ N>& array, [[maybe_unused]] const Head& head) {\n    assert(array.size() ==\
@@ -109,8 +110,8 @@ data:
   isVerificationFile: true
   path: tests/resize.test.cpp
   requiredBy: []
-  timestamp: '2022-09-03 15:52:01+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/resize.test.cpp
 layout: document

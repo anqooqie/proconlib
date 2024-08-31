@@ -1,21 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/logn_integer_partition.hpp
     title: Multiset $S$ such that $\{\sum_{x \in S'} x | S' \subseteq S\} = \{0, 1,
       \ldots, N\}$ and $|S| = O(\log N)$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -36,13 +36,15 @@ data:
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
     \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 11 \"tests/logn_integer_partition.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  for (int n = 0; n < 32; ++n) {\n    const auto parts = tools::logn_integer_partition(n);\n\
-    \n    std::vector<int> sumset;\n    for (std::size_t state = 0; state < tools::pow2(parts.size());\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
+    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
+    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
+    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 11\
+    \ \"tests/logn_integer_partition.test.cpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  for (int n = 0; n < 32; ++n) {\n\
+    \    const auto parts = tools::logn_integer_partition(n);\n\n    std::vector<int>\
+    \ sumset;\n    for (std::size_t state = 0; state < tools::pow2(parts.size());\
     \ ++state) {\n      int sum = 0;\n      for (std::size_t i = 0; i < parts.size();\
     \ ++i) {\n        if (state & (1 << i)) {\n          sum += parts[i];\n      \
     \  }\n      }\n      sumset.push_back(sum);\n    }\n    std::sort(sumset.begin(),\
@@ -71,8 +73,8 @@ data:
   isVerificationFile: true
   path: tests/logn_integer_partition.test.cpp
   requiredBy: []
-  timestamp: '2022-10-15 20:30:06+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/logn_integer_partition.test.cpp
 layout: document

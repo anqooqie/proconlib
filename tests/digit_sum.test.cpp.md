@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/digit_sum.hpp
     title: Sum of digits
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -19,14 +19,15 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/digit_sum.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/digit_sum.hpp\"\n\n\n\n#include <cassert>\n\
-    \nnamespace tools {\n\n  template <typename T>\n  T digit_sum(T n) {\n    assert(n\
-    \ >= 0);\n    T sum = 0;\n    for (; n > 0; n /= 10) {\n      sum += n % 10;\n\
-    \    }\n    return sum;\n  }\n}\n\n\n#line 6 \"tests/digit_sum.test.cpp\"\n\n\
-    using ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/digit_sum.hpp\"\n\n\n\n#include\
+    \ <cassert>\n\nnamespace tools {\n\n  template <typename T>\n  T digit_sum(T n)\
+    \ {\n    assert(n >= 0);\n    T sum = 0;\n    for (; n > 0; n /= 10) {\n     \
+    \ sum += n % 10;\n    }\n    return sum;\n  }\n}\n\n\n#line 6 \"tests/digit_sum.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  assert_that(tools::digit_sum<ll>(0) == 0);\n  assert_that(tools::digit_sum<ll>(1)\
     \ == 1);\n  assert_that(tools::digit_sum<ll>(2) == 2);\n  assert_that(tools::digit_sum<ll>(3)\
     \ == 3);\n  assert_that(tools::digit_sum<ll>(4) == 4);\n  assert_that(tools::digit_sum<ll>(5)\
@@ -82,8 +83,8 @@ data:
   isVerificationFile: true
   path: tests/digit_sum.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/digit_sum.test.cpp
 layout: document

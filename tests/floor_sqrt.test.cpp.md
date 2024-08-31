@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_sqrt.hpp
     title: $\left\lfloor \sqrt{x} \right\rfloor$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -19,11 +19,12 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/floor_sqrt.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n#include\
-    \ <cassert>\n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(const\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/floor_sqrt.hpp\"\n\n\n\n\
+    #include <cassert>\n\nnamespace tools {\n\n  template <typename T>\n  T floor_sqrt(const\
     \ T n) {\n    assert(n >= 0);\n\n    T ok = 0;\n    T ng;\n    for (ng = 1; ng\
     \ <= n / ng; ng *= 2);\n\n    while (ng - ok > 1) {\n      const T mid = ok +\
     \ (ng - ok) / 2;\n      if (mid <= n / mid) {\n        ok = mid;\n      } else\
@@ -56,8 +57,8 @@ data:
   isVerificationFile: true
   path: tests/floor_sqrt.test.cpp
   requiredBy: []
-  timestamp: '2022-07-02 14:04:07+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/floor_sqrt.test.cpp
 layout: document

@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/multiset.hpp
     title: __gnu_pbds::tree allowing duplicated values
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/set.hpp
     title: Alias for __gnu_pbds::tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -22,13 +22,14 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/multiset.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/multiset.hpp\"\n\n\n\n#include <functional>\n\
-    #include <utility>\n#include <cstddef>\n#include <iterator>\n#include <limits>\n\
-    #include <initializer_list>\n#include <vector>\n#include <algorithm>\n#line 1\
-    \ \"tools/set.hpp\"\n\n\n\n#line 5 \"tools/set.hpp\"\n#include <ext/pb_ds/assoc_container.hpp>\n\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/multiset.hpp\"\n\n\n\n#include\
+    \ <functional>\n#include <utility>\n#include <cstddef>\n#include <iterator>\n\
+    #include <limits>\n#include <initializer_list>\n#include <vector>\n#include <algorithm>\n\
+    #line 1 \"tools/set.hpp\"\n\n\n\n#line 5 \"tools/set.hpp\"\n#include <ext/pb_ds/assoc_container.hpp>\n\
     #include <ext/pb_ds/tree_policy.hpp>\n#include <ext/pb_ds/tag_and_trait.hpp>\n\
     \nnamespace tools {\n  template <typename Key, typename Compare = ::std::less<Key>>\n\
     \  using set = ::__gnu_pbds::tree<Key, ::__gnu_pbds::null_type, Compare, ::__gnu_pbds::rb_tree_tag,\
@@ -414,8 +415,8 @@ data:
   isVerificationFile: true
   path: tests/multiset.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/multiset.test.cpp
 layout: document

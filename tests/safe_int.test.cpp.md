@@ -1,18 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/safe_int.hpp
     title: $\mathbb{Z} \cup \{\infty, -\infty, \mathrm{NaN}\}$ and $\mathbb{Z}_{\geq
       0} \cup \{\infty, \mathrm{NaN}\}$
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -20,14 +20,15 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/safe_int.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
-    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
-    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
-    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/safe_int.hpp\"\
-    \n\n\n\n#include <type_traits>\n#include <cstddef>\n#include <cassert>\n#include\
-    \ <limits>\n#include <array>\n#include <optional>\n#line 11 \"tools/safe_int.hpp\"\
-    \n\nnamespace tools {\n  template <typename T, typename = void>\n  class safe_int;\n\
-    \n  template <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>>\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that_impl(cond, file,\
+    \ line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' << line\
+    \ << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/safe_int.hpp\"\n\n\n\n#include <type_traits>\n#include <cstddef>\n#include\
+    \ <cassert>\n#include <limits>\n#include <array>\n#include <optional>\n#line 11\
+    \ \"tools/safe_int.hpp\"\n\nnamespace tools {\n  template <typename T, typename\
+    \ = void>\n  class safe_int;\n\n  template <typename T>\n  class safe_int<T, ::std::enable_if_t<::std::is_signed_v<T>>>\
     \ {\n  private:\n    enum class type {\n      finite,\n      pos_inf,\n      neg_inf,\n\
     \      nan\n    };\n    typename ::tools::safe_int<T>::type m_type;\n    T m_value;\n\
     \n    constexpr safe_int(const typename ::tools::safe_int<T>::type type) :\n \
@@ -461,8 +462,8 @@ data:
   isVerificationFile: true
   path: tests/safe_int.test.cpp
   requiredBy: []
-  timestamp: '2023-07-02 15:32:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/safe_int.test.cpp
 layout: document

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/alphabetical_order.hpp
     title: Alphabetical order of a given character
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   _extendedRequiredBy: []
@@ -20,16 +20,17 @@ data:
   bundledCode: "#line 1 \"tests/alphabetical_order.test.cpp\"\n#define PROBLEM \"\
     https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <cstdlib>\n#include\
     \ <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\
-    \n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
-    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
-    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
-    \n\n#line 1 \"tools/alphabetical_order.hpp\"\n\n\n\n#include <array>\n#include\
-    \ <limits>\n\nnamespace tools {\n\n  int alphabetical_order(const char c) {\n\
-    \    static const ::std::array<char, ::std::numeric_limits<char>::max()> map =\
-    \ []() {\n      ::std::array<char, ::std::numeric_limits<char>::max()> m;\n  \
-    \    m['A'] = 0;\n      m['B'] = 1;\n      m['C'] = 2;\n      m['D'] = 3;\n  \
-    \    m['E'] = 4;\n      m['F'] = 5;\n      m['G'] = 6;\n      m['H'] = 7;\n  \
-    \    m['I'] = 8;\n      m['J'] = 9;\n      m['K'] = 10;\n      m['L'] = 11;\n\
+    \n\n#define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond) {\\\n\
+    \    ::std::cerr << file << ':' << line << \": \" << func << \": Assertion `\"\
+    \ << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\
+    \n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__), __FILE__,\
+    \ __LINE__, __func__)\n\n\n#line 1 \"tools/alphabetical_order.hpp\"\n\n\n\n#include\
+    \ <array>\n#include <limits>\n\nnamespace tools {\n\n  int alphabetical_order(const\
+    \ char c) {\n    static const ::std::array<char, ::std::numeric_limits<char>::max()>\
+    \ map = []() {\n      ::std::array<char, ::std::numeric_limits<char>::max()> m;\n\
+    \      m['A'] = 0;\n      m['B'] = 1;\n      m['C'] = 2;\n      m['D'] = 3;\n\
+    \      m['E'] = 4;\n      m['F'] = 5;\n      m['G'] = 6;\n      m['H'] = 7;\n\
+    \      m['I'] = 8;\n      m['J'] = 9;\n      m['K'] = 10;\n      m['L'] = 11;\n\
     \      m['M'] = 12;\n      m['N'] = 13;\n      m['O'] = 14;\n      m['P'] = 15;\n\
     \      m['Q'] = 16;\n      m['R'] = 17;\n      m['S'] = 18;\n      m['T'] = 19;\n\
     \      m['U'] = 20;\n      m['V'] = 21;\n      m['W'] = 22;\n      m['X'] = 23;\n\
@@ -106,7 +107,7 @@ data:
   isVerificationFile: true
   path: tests/alphabetical_order.test.cpp
   requiredBy: []
-  timestamp: '2022-06-17 23:50:47+09:00'
+  timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/alphabetical_order.test.cpp

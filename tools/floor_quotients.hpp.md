@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/floor_quotients.test.cpp
     title: tests/floor_quotients.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/floor_quotients.hpp\"\n\n\n\n#include <vector>\n#include\
@@ -32,7 +32,7 @@ data:
   path: tools/floor_quotients.hpp
   requiredBy: []
   timestamp: '2023-07-09 15:30:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - tests/floor_quotients.test.cpp
 documentation_of: tools/floor_quotients.hpp

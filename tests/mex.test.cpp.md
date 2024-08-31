@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mex.hpp
     title: Minimum excluded value
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -19,13 +19,14 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/mex.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
-    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
-    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
-    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/mex.hpp\"\
-    \n\n\n\n#include <type_traits>\n#include <utility>\n#line 7 \"tools/mex.hpp\"\n\
-    #include <cstddef>\n#include <cassert>\n#include <algorithm>\n\nnamespace tools\
-    \ {\n\n  template <typename InputIterator>\n  ::std::decay_t<decltype(*::std::declval<InputIterator>())>\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that_impl(cond, file,\
+    \ line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' << line\
+    \ << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/mex.hpp\"\n\n\n\n#include <type_traits>\n#include <utility>\n#line 7 \"\
+    tools/mex.hpp\"\n#include <cstddef>\n#include <cassert>\n#include <algorithm>\n\
+    \nnamespace tools {\n\n  template <typename InputIterator>\n  ::std::decay_t<decltype(*::std::declval<InputIterator>())>\
     \ mex(InputIterator begin, InputIterator end) {\n    using T = ::std::decay_t<decltype(*::std::declval<InputIterator>())>;\n\
     \    const ::std::vector<T> orig(begin, end);\n    const ::std::size_t n = orig.size();\n\
     \n    assert(::std::all_of(orig.begin(), orig.end(), [](const auto& o) { return\
@@ -54,8 +55,8 @@ data:
   isVerificationFile: true
   path: tests/mex.test.cpp
   requiredBy: []
-  timestamp: '2024-01-07 15:56:46+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/mex.test.cpp
 layout: document

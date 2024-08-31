@@ -1,72 +1,75 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cin.hpp
     title: Fast input
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cout.hpp
     title: Fast output
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/division_of_big_integers
@@ -673,8 +676,11 @@ data:
     \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
     \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
-    \ 33 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint\
-    \ abs(::tools::bigint x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \ 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools {\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const\
+    \ M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 34 \"tools/bigint.hpp\"\
+    \n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint\
+    \ x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -991,11 +997,11 @@ data:
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
     \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
     \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
-    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
-    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
-    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
-    \ }\n\n    return x;\n  }\n}\n\n\n#line 9 \"tests/fastio/string.test.cpp\"\n\n\
-    using ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \    return x;\n  }\n\n  template <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
+    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
+    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 9 \"tests/fastio/string.test.cpp\"\
+    \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll T;\n  tools::cin >> T;\n  for (ll t = 0; t < T; ++t) {\n    const auto\
     \ A = [&]() {\n      std::string s;\n      tools::cin >> s;\n      return tools::bigint(s);\n\
     \    }();\n    const auto B = [&]() {\n      std::string s;\n      tools::cin\
@@ -1037,11 +1043,12 @@ data:
   - tools/cmp_less.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
+  - tools/gcd.hpp
   isVerificationFile: true
   path: tests/fastio/string.test.cpp
   requiredBy: []
-  timestamp: '2024-08-25 01:39:16+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/fastio/string.test.cpp
 layout: document

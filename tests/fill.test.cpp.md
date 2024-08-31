@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -23,14 +23,16 @@ data:
   bundledCode: "#line 1 \"tests/fill.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <vector>\n#include <array>\n\
     #line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n\
-    #define assert_that(cond) do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__\
-    \ << ':' << __LINE__ << \": \" << __func__ << \": Assertion `\" << #cond << \"\
-    ' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\
-    \n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#include <type_traits>\n#line 6 \"tools/fill.hpp\"\
-    \n#include <algorithm>\n#include <iterator>\n#include <cstddef>\n#line 1 \"tools/is_range.hpp\"\
-    \n\n\n\n#line 6 \"tools/is_range.hpp\"\n#include <utility>\n\nnamespace tools\
-    \ {\n  template <typename T, typename = ::std::void_t<>>\n  struct is_range :\
-    \ ::std::false_type {};\n\n  template <typename T>\n  struct is_range<T, ::std::void_t<decltype(::std::begin(::std::declval<T>()),\
+    #define assert_that_impl(cond, file, line, func) do {\\\n  if (!cond) {\\\n  \
+    \  ::std::cerr << file << ':' << line << \": \" << func << \": Assertion `\" <<\
+    \ #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n\
+    } while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__), __FILE__,\
+    \ __LINE__, __func__)\n\n\n#line 1 \"tools/fill.hpp\"\n\n\n\n#include <type_traits>\n\
+    #line 6 \"tools/fill.hpp\"\n#include <algorithm>\n#include <iterator>\n#include\
+    \ <cstddef>\n#line 1 \"tools/is_range.hpp\"\n\n\n\n#line 6 \"tools/is_range.hpp\"\
+    \n#include <utility>\n\nnamespace tools {\n  template <typename T, typename =\
+    \ ::std::void_t<>>\n  struct is_range : ::std::false_type {};\n\n  template <typename\
+    \ T>\n  struct is_range<T, ::std::void_t<decltype(::std::begin(::std::declval<T>()),\
     \ ::std::end(::std::declval<T>()))>> : ::std::true_type {};\n\n  template <typename\
     \ T>\n  inline constexpr bool is_range_v = ::tools::is_range<T>::value;\n}\n\n\
     \n#line 11 \"tools/fill.hpp\"\n\nnamespace tools {\n  template <class T, class\
@@ -117,8 +119,8 @@ data:
   isVerificationFile: true
   path: tests/fill.test.cpp
   requiredBy: []
-  timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/fill.test.cpp
 layout: document

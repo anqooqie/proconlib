@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fastio/integer.test.cpp
     title: tests/fastio/integer.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links:
     - https://nyaannyaan.github.io/library/misc/fastio.hpp.html
@@ -101,7 +101,7 @@ data:
   path: tools/cout.hpp
   requiredBy: []
   timestamp: '2023-05-02 20:12:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/fastio/integer.test.cpp
   - tests/fastio/string.test.cpp

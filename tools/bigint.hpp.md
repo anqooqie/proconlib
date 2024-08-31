@@ -1,63 +1,66 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil.hpp
     title: $\left\lceil \frac{x}{y} \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/chmin.hpp
     title: chmin function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor.hpp
     title: $\left\lfloor \frac{x}{y} \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/floor_log2.hpp
     title: $\left\lfloor \log_2(x) \right\rfloor$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner2.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$ and $\mathbb{Z} /
       M_2 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/int128_t.hpp
     title: 128 bit signed integer
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/rational.hpp
     title: Rational number
   _extendedVerifiedWith:
@@ -100,45 +103,48 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bigint/plus.test.cpp
     title: tests/bigint/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/cross_point.test.cpp
     title: tests/directed_line_segment_2d/cross_point.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/intersection.test.cpp
     title: tests/directed_line_segment_2d/intersection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: tests/monoid.test.cpp
+    title: tests/monoid.test.cpp
+  - icon: ':x:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/polygon_2d/minimum_bounding_circle.test.cpp
     title: tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/minus.test.cpp
     title: tests/rational/minus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/multiplies.test.cpp
     title: tests/rational/multiplies.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/plus.test.cpp
     title: tests/rational/plus.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/triangle_2d/circumcircle.test.cpp
     title: tests/triangle_2d/circumcircle.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#include <cstdint>\n\
@@ -668,8 +674,11 @@ data:
     \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
     \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
-    \ 33 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint\
-    \ abs(::tools::bigint x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \ 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools {\n\
+    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const\
+    \ M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 34 \"tools/bigint.hpp\"\
+    \n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint\
+    \ x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -986,10 +995,10 @@ data:
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
     \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
     \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
-    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
-    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
-    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
-    \ }\n\n    return x;\n  }\n}\n\n\n"
+    \    return x;\n  }\n\n  template <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
+    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
+    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_BIGINT_HPP\n#define TOOLS_BIGINT_HPP\n\n#include <vector>\n\
     #include <cstdint>\n#include <array>\n#include <cstddef>\n#include <algorithm>\n\
     #include <iterator>\n#include <type_traits>\n#include <string>\n#include <cassert>\n\
@@ -999,9 +1008,9 @@ data:
     \n#include \"tools/mod.hpp\"\n#include \"tools/floor.hpp\"\n#include \"tools/ssize.hpp\"\
     \n#include \"tools/int128_t.hpp\"\n#include \"tools/uint128_t.hpp\"\n#include\
     \ \"tools/ceil.hpp\"\n#include \"tools/pow2.hpp\"\n#include \"tools/garner2.hpp\"\
-    \n#include \"tools/chmin.hpp\"\n#include \"tools/floor_log2.hpp\"\n\nnamespace\
-    \ tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint x);\n\n  class\
-    \ bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \n#include \"tools/chmin.hpp\"\n#include \"tools/floor_log2.hpp\"\n#include \"\
+    tools/gcd.hpp\"\n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint\
+    \ x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -1318,10 +1327,10 @@ data:
     \ << self.m_digits[self.m_digits.size() - 1 - i];\n      }\n      return os;\n\
     \    }\n\n    friend ::tools::bigint abs(::tools::bigint x);\n  };\n\n  inline\
     \ ::tools::bigint abs(::tools::bigint x) {\n    if (!x.m_positive) x.negate();\n\
-    \    return x;\n  }\n\n  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint\
-    \ y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum() < 0) y.negate();\n\
-    \n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x, y);\n   \
-    \ }\n\n    return x;\n  }\n}\n\n#endif\n"
+    \    return x;\n  }\n\n  template <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
+    \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
+    \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/abs.hpp
   - tools/quo.hpp
@@ -1340,13 +1349,14 @@ data:
   - tools/cmp_less.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
+  - tools/gcd.hpp
   isVerificationFile: false
   path: tools/bigint.hpp
   requiredBy:
   - tools/bigdecimal.hpp
   - tools/rational.hpp
-  timestamp: '2024-08-25 01:39:16+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/bigdecimal/random.test.cpp
   - tests/bigdecimal/multiplies.test.cpp
@@ -1361,6 +1371,7 @@ data:
   - tests/rational/multiplies.test.cpp
   - tests/rational/plus.test.cpp
   - tests/rational/minus.test.cpp
+  - tests/monoid.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp

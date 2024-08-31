@@ -1,56 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/exp.hpp
     title: std::exp(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/log.hpp
     title: std::log(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow.hpp
     title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/quaternion.hpp
     title: Quaternion
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector.hpp
     title: Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/vector3.hpp
     title: Three dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/vector4.hpp
     title: Four dimensional vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_11_C
@@ -361,27 +364,54 @@ data:
     \ T x) {\n    return ::std::exp(x);\n  }\n}\n\n\n#line 1 \"tools/log.hpp\"\n\n\
     \n\n#line 5 \"tools/log.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
     \  auto log(const T x) {\n    return ::std::log(x);\n  }\n}\n\n\n#line 1 \"tools/pow.hpp\"\
-    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 6 \"tools/monoid.hpp\"\n#include\
-    \ <numeric>\n\nnamespace tools {\n  namespace monoid {\n    template <typename\
-    \ M, M E = ::std::numeric_limits<M>::lowest()>\n    struct max {\n      using\
-    \ T = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::max(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return E;\n      }\n    };\n\n\
-    \    template <typename M, M E = ::std::numeric_limits<M>::max()>\n    struct\
-    \ min {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n\
-    \        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n       \
-    \ return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\
-    \n\n\n\n#line 6 \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ M, typename = void>\n  struct is_monoid : ::std::false_type {};\n\n  template\
-    \ <typename M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \n\n\n\n#line 1 \"tools/monoid.hpp\"\n\n\n\n#line 1 \"tools/gcd.hpp\"\n\n\n\n\
+    #line 5 \"tools/gcd.hpp\"\n#include <numeric>\n\nnamespace tools {\n  template\
+    \ <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const M\
+    \ m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 9 \"tools/monoid.hpp\"\
+    \n\nnamespace tools {\n  namespace monoid {\n    template <typename M, M ...dummy>\n\
+    \    struct max;\n\n    template <typename M>\n    struct max<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::max(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::min();\n        } else {\n       \
+    \   return -::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct max<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(E <= lhs);\n        assert(E\
+    \ <= rhs);\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename M, M ...dummy>\n\
+    \    struct min;\n\n    template <typename M>\n    struct min<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::min(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::max();\n        } else {\n       \
+    \   return ::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct min<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(lhs <= E);\n        assert(rhs\
+    \ <= E);\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n    private:\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n \
+    \       return T(1);\n      }\n    };\n\n    template <>\n    struct multiplies<bool>\
+    \ {\n      using T = bool;\n      static T op(const bool lhs, const bool rhs)\
+    \ {\n        return lhs && rhs;\n      }\n      static T e() {\n        return\
+    \ true;\n      }\n    };\n\n    template <typename M>\n    struct gcd {\n    private:\n\
+    \      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> &&\
+    \ !::std::is_same_v<M, bool>), \"If M is a built-in arithmetic type, it must be\
+    \ integral except for bool.\");\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return ::tools::gcd(lhs, rhs);\n      }\n      static\
+    \ T e() {\n        return T(0);\n      }\n    };\n\n    template <typename M,\
+    \ M E>\n    struct update {\n      static_assert(::std::is_integral_v<M>, \"M\
+    \ must be a built-in integral type.\");\n\n      using T = M;\n      static T\
+    \ op(const T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n     \
+    \ }\n      static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line\
+    \ 1 \"tools/square.hpp\"\n\n\n\n#line 1 \"tools/is_monoid.hpp\"\n\n\n\n#line 6\
+    \ \"tools/is_monoid.hpp\"\n\nnamespace tools {\n\n  template <typename M, typename\
+    \ = void>\n  struct is_monoid : ::std::false_type {};\n\n  template <typename\
+    \ M>\n  struct is_monoid<M, ::std::enable_if_t<\n    ::std::is_same_v<typename\
     \ M::T, decltype(M::op(::std::declval<typename M::T>(), ::std::declval<typename\
     \ M::T>()))> &&\n    ::std::is_same_v<typename M::T, decltype(M::e())>\n  , void>>\
     \ : ::std::true_type {};\n\n  template <typename M>\n  inline constexpr bool is_monoid_v\
@@ -599,6 +629,7 @@ data:
   - tools/log.hpp
   - tools/pow.hpp
   - tools/monoid.hpp
+  - tools/gcd.hpp
   - tools/square.hpp
   - tools/is_monoid.hpp
   - tools/vector4.hpp
@@ -606,8 +637,8 @@ data:
   isVerificationFile: true
   path: tests/quaternion/dice_rotations.test.cpp
   requiredBy: []
-  timestamp: '2024-04-13 13:54:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/quaternion/dice_rotations.test.cpp
 layout: document

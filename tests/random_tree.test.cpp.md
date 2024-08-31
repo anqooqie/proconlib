@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/random_tree.hpp
     title: Random tree generator
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -45,12 +45,13 @@ data:
     \  private:\n    int _n;\n    // root node: -1 * component size\n    // otherwise:\
     \ parent\n    std::vector<int> parent_or_size;\n};\n\n}  // namespace atcoder\n\
     \n\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
-    \n#include <cstdlib>\n\n#define assert_that(cond) do {\\\n  if (!(cond)) {\\\n\
-    \    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \" << __func__ << \": Assertion\
-    \ `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\n\
-    \  }\\\n} while (false)\n\n\n#line 1 \"tools/random_tree.hpp\"\n\n\n\n#include\
-    \ <cstddef>\n#line 7 \"tools/random_tree.hpp\"\n#include <utility>\n#include <numeric>\n\
-    #line 10 \"tools/random_tree.hpp\"\n\n// Source: https://twitter.com/anta_prg/status/869633557362163712\n\
+    \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
+    \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
+    \ \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n    ::std::exit(EXIT_FAILURE);\\\
+    \n  }\\\n} while (false)\n#define assert_that(...) assert_that_impl((__VA_ARGS__),\
+    \ __FILE__, __LINE__, __func__)\n\n\n#line 1 \"tools/random_tree.hpp\"\n\n\n\n\
+    #include <cstddef>\n#line 7 \"tools/random_tree.hpp\"\n#include <utility>\n#include\
+    \ <numeric>\n#line 10 \"tools/random_tree.hpp\"\n\n// Source: https://twitter.com/anta_prg/status/869633557362163712\n\
     // License: unknown\n// Author: anta\n\nnamespace tools {\n\n  template <typename\
     \ T>\n  class random_tree {\n  private:\n    ::std::size_t m_size;\n\n  public:\n\
     \    random_tree() = default;\n    random_tree(const ::tools::random_tree<T>&)\
@@ -93,8 +94,8 @@ data:
   isVerificationFile: true
   path: tests/random_tree.test.cpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/random_tree.test.cpp
 layout: document

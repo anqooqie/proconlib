@@ -1,63 +1,66 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/convolution.hpp
     title: Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fps.hpp
     title: Formal power series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/garner3.hpp
     title: Garner's algorithm for $\mathbb{Z} / M_1 \mathbb{Z}$, $\mathbb{Z} / M_2
       \mathbb{Z}$ and $\mathbb{Z} / M_3 \mathbb{Z}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: tools/gcd.hpp
+    title: std::gcd(m, n) extended for my library
+  - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/mod.hpp
     title: Minimum non-negative reminder
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/partition_function.hpp
     title: Partition function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow2.hpp
     title: $2^x$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/pow_mod.hpp
     title: $x^y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/prod_mod.hpp
     title: $x \cdot y \pmod{M}$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -272,29 +275,31 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that(cond)\
-    \ do {\\\n  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ <<\
-    \ \": \" << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
-    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/partition_function.hpp\"\
-    \n\n\n\n#line 5 \"tools/partition_function.hpp\"\n#include <vector>\n#line 1 \"\
-    tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\n#include <cstddef>\n#include\
-    \ <initializer_list>\n#line 10 \"tools/fps.hpp\"\n#include <algorithm>\n#include\
-    \ <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line\
-    \ 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\n\n\n\n#ifdef _MSC_VER\n\
-    #include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n#include <bit>\n#endif\n\
-    \nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus >= 202002L\n\n\
-    using std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\nunsigned\
-    \ int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x < (unsigned\
-    \ int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <= n`\n// @return\
-    \ same with std::bit::countr_zero\nint countr_zero(unsigned int n) {\n#ifdef _MSC_VER\n\
-    \    unsigned long index;\n    _BitScanForward(&index, n);\n    return index;\n\
-    #else\n    return __builtin_ctz(n);\n#endif\n}\n\n// @param n `1 <= n`\n// @return\
-    \ same with std::bit::countr_zero\nconstexpr int countr_zero_constexpr(unsigned\
-    \ int n) {\n    int x = 0;\n    while (!(n & (1 << x))) x++;\n    return x;\n\
-    }\n\n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\nnamespace atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n   \
-    \       int g = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
+    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
+    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
+    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/partition_function.hpp\"\n\n\n\n#line 5 \"tools/partition_function.hpp\"\
+    \n#include <vector>\n#line 1 \"tools/fps.hpp\"\n\n\n\n#line 5 \"tools/fps.hpp\"\
+    \n#include <cstddef>\n#include <initializer_list>\n#line 10 \"tools/fps.hpp\"\n\
+    #include <algorithm>\n#include <iterator>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
+    \n\n\n\n#line 5 \"lib/ac-library/atcoder/convolution.hpp\"\n#include <array>\n\
+    #line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
+    #include <bit>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus\
+    \ >= 202002L\n\nusing std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\n\
+    unsigned int bit_ceil(unsigned int n) {\n    unsigned int x = 1;\n    while (x\
+    \ < (unsigned int)(n)) x *= 2;\n    return x;\n}\n\n#endif\n\n// @param n `1 <=\
+    \ n`\n// @return same with std::bit::countr_zero\nint countr_zero(unsigned int\
+    \ n) {\n#ifdef _MSC_VER\n    unsigned long index;\n    _BitScanForward(&index,\
+    \ n);\n    return index;\n#else\n    return __builtin_ctz(n);\n#endif\n}\n\n//\
+    \ @param n `1 <= n`\n// @return same with std::bit::countr_zero\nconstexpr int\
+    \ countr_zero_constexpr(unsigned int n) {\n    int x = 0;\n    while (!(n & (1\
+    \ << x))) x++;\n    return x;\n}\n\n}  // namespace internal\n\n}  // namespace\
+    \ atcoder\n\n\n#line 12 \"lib/ac-library/atcoder/convolution.hpp\"\n\nnamespace\
+    \ atcoder {\n\nnamespace internal {\n\ntemplate <class mint,\n          int g\
+    \ = internal::primitive_root<mint::mod()>,\n          internal::is_static_modint_t<mint>*\
     \ = nullptr>\nstruct fft_info {\n    static constexpr int rank2 = countr_zero_constexpr(mint::mod()\
     \ - 1);\n    std::array<mint, rank2 + 1> root;   // root[i]^(2^i) == 1\n    std::array<mint,\
     \ rank2 + 1> iroot;  // root[i] * iroot[i] == 1\n\n    std::array<mint, std::max(0,\
@@ -561,26 +566,54 @@ data:
     \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
     \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
     \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"\
-    tools/monoid.hpp\"\n\n\n\n#line 7 \"tools/monoid.hpp\"\n\nnamespace tools {\n\
-    \  namespace monoid {\n    template <typename M, M E = ::std::numeric_limits<M>::lowest()>\n\
-    \    struct max {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::max(lhs, rhs);\n      }\n      static T e() {\n\
-    \        return E;\n      }\n    };\n\n    template <typename M, M E = ::std::numeric_limits<M>::max()>\n\
-    \    struct min {\n      using T = M;\n      static T op(const T& lhs, const T&\
-    \ rhs) {\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    tools/monoid.hpp\"\n\n\n\n#line 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\
+    \n\nnamespace tools {\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> gcd(const M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line\
+    \ 9 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
+    \ <typename M, M ...dummy>\n    struct max;\n\n    template <typename M>\n   \
+    \ struct max<M> {\n      static_assert(::std::is_arithmetic_v<M>, \"M must be\
+    \ a built-in arithmetic type.\");\n\n      using T = M;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n         \
+    \ return ::std::numeric_limits<M>::min();\n        } else {\n          return\
+    \ -::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\n    template\
+    \ <typename M, M E>\n    struct max<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(E <= lhs);\n        assert(E\
+    \ <= rhs);\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename M, M ...dummy>\n\
+    \    struct min;\n\n    template <typename M>\n    struct min<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::min(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::max();\n        } else {\n       \
+    \   return ::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct min<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(lhs <= E);\n        assert(rhs\
+    \ <= E);\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
     \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
-    \ {\n      using T = M;\n      static T op(const T& lhs, const T& rhs) {\n   \
-    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
-    \      }\n    };\n\n    template <typename M>\n    struct gcd {\n      using T\
-    \ = M;\n      static T op(const T& lhs, const T& rhs) {\n        return ::std::gcd(lhs,\
-    \ rhs);\n      }\n      static T e() {\n        return T(0);\n      }\n    };\n\
-    \n    template <typename M, M E>\n    struct update {\n      using T = M;\n  \
-    \    static T op(const T& lhs, const T& rhs) {\n        return lhs == E ? rhs\
-    \ : lhs;\n      }\n      static T e() {\n        return E;\n      }\n    };\n\
-    \  }\n}\n\n\n#line 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace\
-    \ detail {\n    namespace convolution {\n      template <typename T, typename\
-    \ = void>\n      struct make_complex {\n        using type = T;\n      };\n\n\
-    \      template <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
+    \ {\n    private:\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n \
+    \       return T(1);\n      }\n    };\n\n    template <>\n    struct multiplies<bool>\
+    \ {\n      using T = bool;\n      static T op(const bool lhs, const bool rhs)\
+    \ {\n        return lhs && rhs;\n      }\n      static T e() {\n        return\
+    \ true;\n      }\n    };\n\n    template <typename M>\n    struct gcd {\n    private:\n\
+    \      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> &&\
+    \ !::std::is_same_v<M, bool>), \"If M is a built-in arithmetic type, it must be\
+    \ integral except for bool.\");\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return ::tools::gcd(lhs, rhs);\n      }\n      static\
+    \ T e() {\n        return T(0);\n      }\n    };\n\n    template <typename M,\
+    \ M E>\n    struct update {\n      static_assert(::std::is_integral_v<M>, \"M\
+    \ must be a built-in integral type.\");\n\n      using T = M;\n      static T\
+    \ op(const T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n     \
+    \ }\n      static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line\
+    \ 22 \"tools/convolution.hpp\"\n\nnamespace tools {\n  namespace detail {\n  \
+    \  namespace convolution {\n      template <typename T, typename = void>\n   \
+    \   struct make_complex {\n        using type = T;\n      };\n\n      template\
+    \ <typename T>\n      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>,\
     \ void>> {\n        using type = ::std::complex<T>;\n      };\n\n      template\
     \ <typename T>\n      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;\n\
     \n      template <typename AG, typename MM, typename InputIterator1, typename\
@@ -1122,12 +1155,13 @@ data:
   - tools/garner3.hpp
   - tools/group.hpp
   - tools/monoid.hpp
+  - tools/gcd.hpp
   - tools/less_by_first.hpp
   isVerificationFile: true
   path: tests/partition_function/consistent.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 15:33:11+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-31 13:46:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/partition_function/consistent.test.cpp
 layout: document

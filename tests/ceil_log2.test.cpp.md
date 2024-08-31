@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/ceil_log2.hpp
     title: $\left\lceil \log_2(x) \right\rceil$
   _extendedRequiredBy: []
@@ -19,12 +19,14 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/ceil_log2.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <cstdlib>\n#include <iostream>\n#include <cstdint>\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that(cond) do {\\\n\
-    \  if (!(cond)) {\\\n    ::std::cerr << __FILE__ << ':' << __LINE__ << \": \"\
-    \ << __func__ << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\n   \
-    \ ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n\n\n#line 1 \"tools/ceil_log2.hpp\"\
-    \n\n\n\n#include <type_traits>\n#include <cassert>\n#include <limits>\n#include\
-    \ <tuple>\n#include <array>\n#line 10 \"tools/ceil_log2.hpp\"\n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
+    \n\n\n\n#line 6 \"tools/assert_that.hpp\"\n\n#define assert_that_impl(cond, file,\
+    \ line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' << line\
+    \ << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\n';\\\
+    \n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/ceil_log2.hpp\"\n\n\n\n#include <type_traits>\n#include <cassert>\n#include\
+    \ <limits>\n#include <tuple>\n#include <array>\n#line 10 \"tools/ceil_log2.hpp\"\
+    \n\n// Source: https://stackoverflow.com/questions/3272424/compute-fast-log-base-2-ceiling/15327567#15327567\n\
     // License: CC BY-SA 3.0\n// Author: dgobbi\n\nnamespace tools {\n\n  template\
     \ <typename T>\n  T ceil_log2(T x) {\n    static_assert(::std::is_integral_v<T>);\n\
     \    assert(x > 0);\n    if constexpr (::std::is_signed_v<T>) {\n      return\
@@ -114,7 +116,7 @@ data:
   isVerificationFile: true
   path: tests/ceil_log2.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/ceil_log2.test.cpp

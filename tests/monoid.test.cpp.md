@@ -5,6 +5,9 @@ data:
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
   - icon: ':question:'
+    path: tools/assert_that.hpp
+    title: Assertion macro
+  - icon: ':question:'
     path: tools/bigint.hpp
     title: Arbitrary precision integer
   - icon: ':question:'
@@ -39,6 +42,9 @@ data:
     path: tools/mod.hpp
     title: Minimum non-negative reminder
   - icon: ':question:'
+    path: tools/monoid.hpp
+    title: Typical monoids
+  - icon: ':question:'
     path: tools/popcount.hpp
     title: Popcount
   - icon: ':question:'
@@ -61,27 +67,22 @@ data:
     title: 128 bit unsigned integer
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/division_of_big_integers
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
-    - https://judge.yosupo.jp/problem/division_of_big_integers
-  bundledCode: "#line 1 \"tests/bigint/divides.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_big_integers\"\
-    \n\n#include <iostream>\n#line 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n\
-    #include <cstdint>\n#include <array>\n#include <cstddef>\n#include <algorithm>\n\
-    #include <iterator>\n#include <type_traits>\n#include <string>\n#include <cassert>\n\
-    #include <limits>\n#include <utility>\n#include <tuple>\n#include <cmath>\n#line\
-    \ 18 \"tools/bigint.hpp\"\n#include <iomanip>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/modint.hpp\"\n#include <numeric>\n#line\
-    \ 7 \"lib/ac-library/atcoder/modint.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#line 5\
-    \ \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n\
-    // @return x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n\
-    \    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+  bundledCode: "#line 1 \"tests/monoid.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
+    \n\n#include <iostream>\n#include <limits>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
     \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
     // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
     \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
@@ -281,8 +282,63 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\
-    \n\n\n\n#line 9 \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/assert_that.hpp\"\
+    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
+    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
+    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
+    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
+    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
+    tools/monoid.hpp\"\n\n\n\n#line 5 \"tools/monoid.hpp\"\n#include <algorithm>\n\
+    #line 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename M, typename N>\n  constexpr ::std::common_type_t<M,\
+    \ N> gcd(const M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line\
+    \ 9 \"tools/monoid.hpp\"\n\nnamespace tools {\n  namespace monoid {\n    template\
+    \ <typename M, M ...dummy>\n    struct max;\n\n    template <typename M>\n   \
+    \ struct max<M> {\n      static_assert(::std::is_arithmetic_v<M>, \"M must be\
+    \ a built-in arithmetic type.\");\n\n      using T = M;\n      static T op(const\
+    \ T lhs, const T rhs) {\n        return ::std::max(lhs, rhs);\n      }\n     \
+    \ static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n         \
+    \ return ::std::numeric_limits<M>::min();\n        } else {\n          return\
+    \ -::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\n    template\
+    \ <typename M, M E>\n    struct max<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(E <= lhs);\n        assert(E\
+    \ <= rhs);\n        return ::std::max(lhs, rhs);\n      }\n      static T e()\
+    \ {\n        return E;\n      }\n    };\n\n    template <typename M, M ...dummy>\n\
+    \    struct min;\n\n    template <typename M>\n    struct min<M> {\n      static_assert(::std::is_arithmetic_v<M>,\
+    \ \"M must be a built-in arithmetic type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        return ::std::min(lhs, rhs);\n   \
+    \   }\n      static T e() {\n        if constexpr (::std::is_integral_v<M>) {\n\
+    \          return ::std::numeric_limits<M>::max();\n        } else {\n       \
+    \   return ::std::numeric_limits<M>::infinity();\n        }\n      }\n    };\n\
+    \n    template <typename M, M E>\n    struct min<M, E> {\n      static_assert(::std::is_integral_v<M>,\
+    \ \"M must be a built-in integral type.\");\n\n      using T = M;\n      static\
+    \ T op(const T lhs, const T rhs) {\n        assert(lhs <= E);\n        assert(rhs\
+    \ <= E);\n        return ::std::min(lhs, rhs);\n      }\n      static T e() {\n\
+    \        return E;\n      }\n    };\n\n    template <typename M>\n    struct multiplies\
+    \ {\n    private:\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return lhs * rhs;\n      }\n      static T e() {\n \
+    \       return T(1);\n      }\n    };\n\n    template <>\n    struct multiplies<bool>\
+    \ {\n      using T = bool;\n      static T op(const bool lhs, const bool rhs)\
+    \ {\n        return lhs && rhs;\n      }\n      static T e() {\n        return\
+    \ true;\n      }\n    };\n\n    template <typename M>\n    struct gcd {\n    private:\n\
+    \      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> &&\
+    \ !::std::is_same_v<M, bool>), \"If M is a built-in arithmetic type, it must be\
+    \ integral except for bool.\");\n      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>,\
+    \ const M, const M&>;\n\n    public:\n      using T = M;\n      static T op(VR\
+    \ lhs, VR rhs) {\n        return ::tools::gcd(lhs, rhs);\n      }\n      static\
+    \ T e() {\n        return T(0);\n      }\n    };\n\n    template <typename M,\
+    \ M E>\n    struct update {\n      static_assert(::std::is_integral_v<M>, \"M\
+    \ must be a built-in integral type.\");\n\n      using T = M;\n      static T\
+    \ op(const T lhs, const T rhs) {\n        return lhs == E ? rhs : lhs;\n     \
+    \ }\n      static T e() {\n        return E;\n      }\n    };\n  }\n}\n\n\n#line\
+    \ 1 \"tools/bigint.hpp\"\n\n\n\n#include <vector>\n#include <cstdint>\n#include\
+    \ <array>\n#include <cstddef>\n#line 9 \"tools/bigint.hpp\"\n#include <iterator>\n\
+    #line 11 \"tools/bigint.hpp\"\n#include <string>\n#line 15 \"tools/bigint.hpp\"\
+    \n#include <tuple>\n#include <cmath>\n#line 18 \"tools/bigint.hpp\"\n#include\
+    \ <iomanip>\n#line 1 \"lib/ac-library/atcoder/convolution.hpp\"\n\n\n\n#line 9\
+    \ \"lib/ac-library/atcoder/convolution.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
     #include <bit>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n#if __cplusplus\
     \ >= 202002L\n\nusing std::bit_ceil;\n\n#else\n\n// @return same with std::bit::bit_ceil\n\
@@ -598,11 +654,8 @@ data:
     \    if constexpr (::std::numeric_limits<T>::digits > 16) x |= (x >> 16);\n  \
     \    if constexpr (::std::numeric_limits<T>::digits > 32) x |= (x >> 32);\n  \
     \    return ::tools::popcount(x) - static_cast<T>(1);\n    }\n  }\n}\n\n\n#line\
-    \ 1 \"tools/gcd.hpp\"\n\n\n\n#line 6 \"tools/gcd.hpp\"\n\nnamespace tools {\n\
-    \  template <typename M, typename N>\n  constexpr ::std::common_type_t<M, N> gcd(const\
-    \ M m, const N n) {\n    return ::std::gcd(m, n);\n  }\n}\n\n\n#line 34 \"tools/bigint.hpp\"\
-    \n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint abs(::tools::bigint\
-    \ x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
+    \ 34 \"tools/bigint.hpp\"\n\nnamespace tools {\n  class bigint;\n\n  ::tools::bigint\
+    \ abs(::tools::bigint x);\n\n  class bigint {\n  private:\n    using mint1 = ::atcoder::static_modint<167772161>;\n\
     \    using mint2 = ::atcoder::static_modint<469762049>;\n\n    bool m_positive;\n\
     \    ::std::vector<::std::int_fast32_t> m_digits;\n    static constexpr ::std::int_fast32_t\
     \ BASE = 10000;\n    static constexpr ::std::int_fast32_t LOG10_BASE = 4;\n  \
@@ -922,18 +975,232 @@ data:
     \    return x;\n  }\n\n  template <>\n  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint\
     \ x, ::tools::bigint y) {\n    if (x.signum() < 0) x.negate();\n    if (y.signum()\
     \ < 0) y.negate();\n\n    while (y.signum() != 0) {\n      x %= y;\n      ::std::swap(x,\
-    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 5 \"tests/bigint/divides.test.cpp\"\
-    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int T;\n  std::cin >> T;\n  for (int t = 0; t < T; ++t) {\n    tools::bigint\
-    \ A, B;\n    std::cin >> A >> B;\n    const auto [Q, R] = A.divmod(B);\n    std::cout\
-    \ << Q << ' ' << R << '\\n';\n  }\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_big_integers\"\
-    \n\n#include <iostream>\n#include \"tools/bigint.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  int T;\n  std::cin >> T;\n  for\
-    \ (int t = 0; t < T; ++t) {\n    tools::bigint A, B;\n    std::cin >> A >> B;\n\
-    \    const auto [Q, R] = A.divmod(B);\n    std::cout << Q << ' ' << R << '\\n';\n\
-    \  }\n  return 0;\n}\n"
+    \ y);\n    }\n\n    return x;\n  }\n}\n\n\n#line 9 \"tests/monoid.test.cpp\"\n\
+    \nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::monoid::max<bool>::op(false,\
+    \ true) == true);\n  assert_that(tools::monoid::max<bool>::e() == false);\n  assert_that(tools::monoid::max<char>::op('a',\
+    \ 'b') == 'b');\n  assert_that(tools::monoid::max<char>::e() == std::numeric_limits<char>::min());\n\
+    \  assert_that(tools::monoid::max<short>::op(-1, 1) == 1);\n  assert_that(tools::monoid::max<short>::e()\
+    \ == std::numeric_limits<short>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ short>::op(0U, 1U) == 1U);\n  assert_that(tools::monoid::max<unsigned short>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::max<int>::op(-1, 1) == 1);\n  assert_that(tools::monoid::max<int>::e()\
+    \ == std::numeric_limits<int>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ int>::op(0U, 1U) == 1U);\n  assert_that(tools::monoid::max<unsigned int>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::max<long>::op(-1L, 1L) == 1L);\n  assert_that(tools::monoid::max<long>::e()\
+    \ == std::numeric_limits<long>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ long>::op(0UL, 1UL) == 1UL);\n  assert_that(tools::monoid::max<unsigned long>::e()\
+    \ == 0UL);\n  assert_that(tools::monoid::max<long long>::op(-1LL, 1LL) == 1LL);\n\
+    \  assert_that(tools::monoid::max<long long>::e() == std::numeric_limits<long\
+    \ long>::min());\n  assert_that(tools::monoid::max<unsigned long long>::op(0ULL,\
+    \ 1ULL) == 1ULL);\n  assert_that(tools::monoid::max<unsigned long long>::e() ==\
+    \ 0ULL);\n  assert_that(tools::monoid::max<float>::op(-1.0F, 1.0F) == 1.0F);\n\
+    \  assert_that(tools::monoid::max<float>::e() == -std::numeric_limits<float>::infinity());\n\
+    \  assert_that(tools::monoid::max<double>::op(-1.0, 1.0) == 1.0);\n  assert_that(tools::monoid::max<double>::e()\
+    \ == -std::numeric_limits<double>::infinity());\n  assert_that(tools::monoid::max<long\
+    \ double>::op(-1.0L, 1.0L) == 1.0L);\n  assert_that(tools::monoid::max<long double>::e()\
+    \ == -std::numeric_limits<long double>::infinity());\n  assert_that(tools::monoid::max<int,\
+    \ 42>::op(42, 43) == 43);\n  assert_that(tools::monoid::max<int, 42>::e() == 42);\n\
+    \n  assert_that(tools::monoid::min<bool>::op(false, true) == false);\n  assert_that(tools::monoid::min<bool>::e()\
+    \ == true);\n  assert_that(tools::monoid::min<char>::op('a', 'b') == 'a');\n \
+    \ assert_that(tools::monoid::min<char>::e() == std::numeric_limits<char>::max());\n\
+    \  assert_that(tools::monoid::min<short>::op(-1, 1) == -1);\n  assert_that(tools::monoid::min<short>::e()\
+    \ == std::numeric_limits<short>::max());\n  assert_that(tools::monoid::min<unsigned\
+    \ short>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::min<unsigned short>::e()\
+    \ == std::numeric_limits<unsigned short>::max());\n  assert_that(tools::monoid::min<int>::op(-1,\
+    \ 1) == -1);\n  assert_that(tools::monoid::min<int>::e() == std::numeric_limits<int>::max());\n\
+    \  assert_that(tools::monoid::min<unsigned int>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::min<unsigned\
+    \ int>::e() == std::numeric_limits<unsigned int>::max());\n  assert_that(tools::monoid::min<long>::op(-1L,\
+    \ 1L) == -1L);\n  assert_that(tools::monoid::min<long>::e() == std::numeric_limits<long>::max());\n\
+    \  assert_that(tools::monoid::min<unsigned long>::op(0UL, 1UL) == 0UL);\n  assert_that(tools::monoid::min<unsigned\
+    \ long>::e() == std::numeric_limits<unsigned long>::max());\n  assert_that(tools::monoid::min<long\
+    \ long>::op(-1LL, 1LL) == -1LL);\n  assert_that(tools::monoid::min<long long>::e()\
+    \ == std::numeric_limits<long long>::max());\n  assert_that(tools::monoid::min<unsigned\
+    \ long long>::op(0ULL, 1ULL) == 0ULL);\n  assert_that(tools::monoid::min<unsigned\
+    \ long long>::e() == std::numeric_limits<unsigned long long>::max());\n  assert_that(tools::monoid::min<float>::op(-1.0F,\
+    \ 1.0F) == -1.0F);\n  assert_that(tools::monoid::min<float>::e() == std::numeric_limits<float>::infinity());\n\
+    \  assert_that(tools::monoid::min<double>::op(-1.0, 1.0) == -1.0);\n  assert_that(tools::monoid::min<double>::e()\
+    \ == std::numeric_limits<double>::infinity());\n  assert_that(tools::monoid::min<long\
+    \ double>::op(-1.0L, 1.0L) == -1.0L);\n  assert_that(tools::monoid::min<long double>::e()\
+    \ == std::numeric_limits<long double>::infinity());\n  assert_that(tools::monoid::min<int,\
+    \ 42>::op(41, 42) == 41);\n  assert_that(tools::monoid::min<int, 42>::e() == 42);\n\
+    \n  assert_that(tools::monoid::multiplies<bool>::op(false, true) == false);\n\
+    \  assert_that(tools::monoid::multiplies<bool>::e() == true);\n  assert_that(tools::monoid::multiplies<short>::op(-2,\
+    \ 3) == -6);\n  assert_that(tools::monoid::multiplies<short>::e() == 1);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ short>::op(2U, 3U) == 6U);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ short>::e() == 1U);\n  assert_that(tools::monoid::multiplies<int>::op(-2, 3)\
+    \ == -6);\n  assert_that(tools::monoid::multiplies<int>::e() == 1);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ int>::op(2U, 3U) == 6U);\n  assert_that(tools::monoid::multiplies<unsigned int>::e()\
+    \ == 1U);\n  assert_that(tools::monoid::multiplies<long>::op(-2L, 3L) == -6L);\n\
+    \  assert_that(tools::monoid::multiplies<long>::e() == 1L);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ long>::op(2UL, 3UL) == 6UL);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ long>::e() == 1UL);\n  assert_that(tools::monoid::multiplies<long long>::op(-2LL,\
+    \ 3LL) == -6LL);\n  assert_that(tools::monoid::multiplies<long long>::e() == 1LL);\n\
+    \  assert_that(tools::monoid::multiplies<unsigned long long>::op(2ULL, 3ULL) ==\
+    \ 6ULL);\n  assert_that(tools::monoid::multiplies<unsigned long long>::e() ==\
+    \ 1ULL);\n  assert_that(tools::monoid::multiplies<float>::op(-2.0F, 3.0F) == -6.0F);\n\
+    \  assert_that(tools::monoid::multiplies<float>::e() == 1.0F);\n  assert_that(tools::monoid::multiplies<double>::op(-2.0,\
+    \ 3.0) == -6.0);\n  assert_that(tools::monoid::multiplies<double>::e() == 1.0);\n\
+    \  assert_that(tools::monoid::multiplies<long double>::op(-2.0L, 3.0L) == -6.0L);\n\
+    \  assert_that(tools::monoid::multiplies<long double>::e() == 1.0L);\n  assert_that(tools::monoid::multiplies<mint>::op(mint::raw(2),\
+    \ mint::raw(3)) == mint::raw(6));\n  assert_that(tools::monoid::multiplies<mint>::e()\
+    \ == mint::raw(1));\n  assert_that(tools::monoid::multiplies<tools::bigint>::op(tools::bigint(-2),\
+    \ tools::bigint(3)) == tools::bigint(-6));\n  assert_that(tools::monoid::multiplies<tools::bigint>::e()\
+    \ == tools::bigint(1));\n\n  assert_that(tools::monoid::gcd<short>::op(-12, 18)\
+    \ == 6);\n  assert_that(tools::monoid::gcd<short>::e() == 0);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ short>::op(12U, 18U) == 6U);\n  assert_that(tools::monoid::gcd<unsigned short>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::gcd<int>::op(-12, 18) == 6);\n  assert_that(tools::monoid::gcd<int>::e()\
+    \ == 0);\n  assert_that(tools::monoid::gcd<unsigned int>::op(12U, 18U) == 6U);\n\
+    \  assert_that(tools::monoid::gcd<unsigned int>::e() == 0U);\n  assert_that(tools::monoid::gcd<long>::op(-12L,\
+    \ 18L) == 6L);\n  assert_that(tools::monoid::gcd<long>::e() == 0L);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long>::op(12UL, 18UL) == 6UL);\n  assert_that(tools::monoid::gcd<unsigned long>::e()\
+    \ == 0UL);\n  assert_that(tools::monoid::gcd<long long>::op(-12LL, 18LL) == 6LL);\n\
+    \  assert_that(tools::monoid::gcd<long long>::e() == 0LL);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long long>::op(12ULL, 18ULL) == 6ULL);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long long>::e() == 0ULL);\n  assert_that(tools::monoid::gcd<tools::bigint>::op(tools::bigint(-12),\
+    \ tools::bigint(18)) == tools::bigint(6));\n  assert_that(tools::monoid::gcd<tools::bigint>::e()\
+    \ == tools::bigint(0));\n\n  assert_that(tools::monoid::update<bool, false>::op(true,\
+    \ false) == true);\n  assert_that(tools::monoid::update<bool, false>::op(false,\
+    \ true) == true);\n  assert_that(tools::monoid::update<bool, false>::e() == false);\n\
+    \  assert_that(tools::monoid::update<char, '\\0'>::op('a', 'b') == 'a');\n  assert_that(tools::monoid::update<char,\
+    \ '\\0'>::op('\\0', 'b') == 'b');\n  assert_that(tools::monoid::update<char, '\\\
+    0'>::e() == '\\0');\n  assert_that(tools::monoid::update<short, 42>::op(-1, 1)\
+    \ == -1);\n  assert_that(tools::monoid::update<short, 42>::op(42, 1) == 1);\n\
+    \  assert_that(tools::monoid::update<short, 42>::e() == 42);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::op(42U, 1U) == 1U);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::e() == 42U);\n  assert_that(tools::monoid::update<int, 42>::op(-1,\
+    \ 1) == -1);\n  assert_that(tools::monoid::update<int, 42>::op(42, 1) == 1);\n\
+    \  assert_that(tools::monoid::update<int, 42>::e() == 42);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::op(42U, 1U) == 1U);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::e() == 42U);\n  assert_that(tools::monoid::update<long, 42L>::op(-1L,\
+    \ 1L) == -1L);\n  assert_that(tools::monoid::update<long, 42L>::op(42L, 1L) ==\
+    \ 1L);\n  assert_that(tools::monoid::update<long, 42L>::e() == 42L);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::op(0UL, 1UL) == 0UL);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::op(42UL, 1UL) == 1UL);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::e() == 42UL);\n  assert_that(tools::monoid::update<long long, 42LL>::op(-1LL,\
+    \ 1LL) == -1LL);\n  assert_that(tools::monoid::update<long long, 42LL>::op(42LL,\
+    \ 1LL) == 1LL);\n  assert_that(tools::monoid::update<long long, 42LL>::e() ==\
+    \ 42LL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(0ULL,\
+    \ 1ULL) == 0ULL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(42ULL,\
+    \ 1ULL) == 1ULL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::e()\
+    \ == 42ULL);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
+    #include <iostream>\n#include <limits>\n#include \"atcoder/modint.hpp\"\n#include\
+    \ \"tools/assert_that.hpp\"\n#include \"tools/monoid.hpp\"\n#include \"tools/bigint.hpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  assert_that(tools::monoid::max<bool>::op(false,\
+    \ true) == true);\n  assert_that(tools::monoid::max<bool>::e() == false);\n  assert_that(tools::monoid::max<char>::op('a',\
+    \ 'b') == 'b');\n  assert_that(tools::monoid::max<char>::e() == std::numeric_limits<char>::min());\n\
+    \  assert_that(tools::monoid::max<short>::op(-1, 1) == 1);\n  assert_that(tools::monoid::max<short>::e()\
+    \ == std::numeric_limits<short>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ short>::op(0U, 1U) == 1U);\n  assert_that(tools::monoid::max<unsigned short>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::max<int>::op(-1, 1) == 1);\n  assert_that(tools::monoid::max<int>::e()\
+    \ == std::numeric_limits<int>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ int>::op(0U, 1U) == 1U);\n  assert_that(tools::monoid::max<unsigned int>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::max<long>::op(-1L, 1L) == 1L);\n  assert_that(tools::monoid::max<long>::e()\
+    \ == std::numeric_limits<long>::min());\n  assert_that(tools::monoid::max<unsigned\
+    \ long>::op(0UL, 1UL) == 1UL);\n  assert_that(tools::monoid::max<unsigned long>::e()\
+    \ == 0UL);\n  assert_that(tools::monoid::max<long long>::op(-1LL, 1LL) == 1LL);\n\
+    \  assert_that(tools::monoid::max<long long>::e() == std::numeric_limits<long\
+    \ long>::min());\n  assert_that(tools::monoid::max<unsigned long long>::op(0ULL,\
+    \ 1ULL) == 1ULL);\n  assert_that(tools::monoid::max<unsigned long long>::e() ==\
+    \ 0ULL);\n  assert_that(tools::monoid::max<float>::op(-1.0F, 1.0F) == 1.0F);\n\
+    \  assert_that(tools::monoid::max<float>::e() == -std::numeric_limits<float>::infinity());\n\
+    \  assert_that(tools::monoid::max<double>::op(-1.0, 1.0) == 1.0);\n  assert_that(tools::monoid::max<double>::e()\
+    \ == -std::numeric_limits<double>::infinity());\n  assert_that(tools::monoid::max<long\
+    \ double>::op(-1.0L, 1.0L) == 1.0L);\n  assert_that(tools::monoid::max<long double>::e()\
+    \ == -std::numeric_limits<long double>::infinity());\n  assert_that(tools::monoid::max<int,\
+    \ 42>::op(42, 43) == 43);\n  assert_that(tools::monoid::max<int, 42>::e() == 42);\n\
+    \n  assert_that(tools::monoid::min<bool>::op(false, true) == false);\n  assert_that(tools::monoid::min<bool>::e()\
+    \ == true);\n  assert_that(tools::monoid::min<char>::op('a', 'b') == 'a');\n \
+    \ assert_that(tools::monoid::min<char>::e() == std::numeric_limits<char>::max());\n\
+    \  assert_that(tools::monoid::min<short>::op(-1, 1) == -1);\n  assert_that(tools::monoid::min<short>::e()\
+    \ == std::numeric_limits<short>::max());\n  assert_that(tools::monoid::min<unsigned\
+    \ short>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::min<unsigned short>::e()\
+    \ == std::numeric_limits<unsigned short>::max());\n  assert_that(tools::monoid::min<int>::op(-1,\
+    \ 1) == -1);\n  assert_that(tools::monoid::min<int>::e() == std::numeric_limits<int>::max());\n\
+    \  assert_that(tools::monoid::min<unsigned int>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::min<unsigned\
+    \ int>::e() == std::numeric_limits<unsigned int>::max());\n  assert_that(tools::monoid::min<long>::op(-1L,\
+    \ 1L) == -1L);\n  assert_that(tools::monoid::min<long>::e() == std::numeric_limits<long>::max());\n\
+    \  assert_that(tools::monoid::min<unsigned long>::op(0UL, 1UL) == 0UL);\n  assert_that(tools::monoid::min<unsigned\
+    \ long>::e() == std::numeric_limits<unsigned long>::max());\n  assert_that(tools::monoid::min<long\
+    \ long>::op(-1LL, 1LL) == -1LL);\n  assert_that(tools::monoid::min<long long>::e()\
+    \ == std::numeric_limits<long long>::max());\n  assert_that(tools::monoid::min<unsigned\
+    \ long long>::op(0ULL, 1ULL) == 0ULL);\n  assert_that(tools::monoid::min<unsigned\
+    \ long long>::e() == std::numeric_limits<unsigned long long>::max());\n  assert_that(tools::monoid::min<float>::op(-1.0F,\
+    \ 1.0F) == -1.0F);\n  assert_that(tools::monoid::min<float>::e() == std::numeric_limits<float>::infinity());\n\
+    \  assert_that(tools::monoid::min<double>::op(-1.0, 1.0) == -1.0);\n  assert_that(tools::monoid::min<double>::e()\
+    \ == std::numeric_limits<double>::infinity());\n  assert_that(tools::monoid::min<long\
+    \ double>::op(-1.0L, 1.0L) == -1.0L);\n  assert_that(tools::monoid::min<long double>::e()\
+    \ == std::numeric_limits<long double>::infinity());\n  assert_that(tools::monoid::min<int,\
+    \ 42>::op(41, 42) == 41);\n  assert_that(tools::monoid::min<int, 42>::e() == 42);\n\
+    \n  assert_that(tools::monoid::multiplies<bool>::op(false, true) == false);\n\
+    \  assert_that(tools::monoid::multiplies<bool>::e() == true);\n  assert_that(tools::monoid::multiplies<short>::op(-2,\
+    \ 3) == -6);\n  assert_that(tools::monoid::multiplies<short>::e() == 1);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ short>::op(2U, 3U) == 6U);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ short>::e() == 1U);\n  assert_that(tools::monoid::multiplies<int>::op(-2, 3)\
+    \ == -6);\n  assert_that(tools::monoid::multiplies<int>::e() == 1);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ int>::op(2U, 3U) == 6U);\n  assert_that(tools::monoid::multiplies<unsigned int>::e()\
+    \ == 1U);\n  assert_that(tools::monoid::multiplies<long>::op(-2L, 3L) == -6L);\n\
+    \  assert_that(tools::monoid::multiplies<long>::e() == 1L);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ long>::op(2UL, 3UL) == 6UL);\n  assert_that(tools::monoid::multiplies<unsigned\
+    \ long>::e() == 1UL);\n  assert_that(tools::monoid::multiplies<long long>::op(-2LL,\
+    \ 3LL) == -6LL);\n  assert_that(tools::monoid::multiplies<long long>::e() == 1LL);\n\
+    \  assert_that(tools::monoid::multiplies<unsigned long long>::op(2ULL, 3ULL) ==\
+    \ 6ULL);\n  assert_that(tools::monoid::multiplies<unsigned long long>::e() ==\
+    \ 1ULL);\n  assert_that(tools::monoid::multiplies<float>::op(-2.0F, 3.0F) == -6.0F);\n\
+    \  assert_that(tools::monoid::multiplies<float>::e() == 1.0F);\n  assert_that(tools::monoid::multiplies<double>::op(-2.0,\
+    \ 3.0) == -6.0);\n  assert_that(tools::monoid::multiplies<double>::e() == 1.0);\n\
+    \  assert_that(tools::monoid::multiplies<long double>::op(-2.0L, 3.0L) == -6.0L);\n\
+    \  assert_that(tools::monoid::multiplies<long double>::e() == 1.0L);\n  assert_that(tools::monoid::multiplies<mint>::op(mint::raw(2),\
+    \ mint::raw(3)) == mint::raw(6));\n  assert_that(tools::monoid::multiplies<mint>::e()\
+    \ == mint::raw(1));\n  assert_that(tools::monoid::multiplies<tools::bigint>::op(tools::bigint(-2),\
+    \ tools::bigint(3)) == tools::bigint(-6));\n  assert_that(tools::monoid::multiplies<tools::bigint>::e()\
+    \ == tools::bigint(1));\n\n  assert_that(tools::monoid::gcd<short>::op(-12, 18)\
+    \ == 6);\n  assert_that(tools::monoid::gcd<short>::e() == 0);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ short>::op(12U, 18U) == 6U);\n  assert_that(tools::monoid::gcd<unsigned short>::e()\
+    \ == 0U);\n  assert_that(tools::monoid::gcd<int>::op(-12, 18) == 6);\n  assert_that(tools::monoid::gcd<int>::e()\
+    \ == 0);\n  assert_that(tools::monoid::gcd<unsigned int>::op(12U, 18U) == 6U);\n\
+    \  assert_that(tools::monoid::gcd<unsigned int>::e() == 0U);\n  assert_that(tools::monoid::gcd<long>::op(-12L,\
+    \ 18L) == 6L);\n  assert_that(tools::monoid::gcd<long>::e() == 0L);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long>::op(12UL, 18UL) == 6UL);\n  assert_that(tools::monoid::gcd<unsigned long>::e()\
+    \ == 0UL);\n  assert_that(tools::monoid::gcd<long long>::op(-12LL, 18LL) == 6LL);\n\
+    \  assert_that(tools::monoid::gcd<long long>::e() == 0LL);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long long>::op(12ULL, 18ULL) == 6ULL);\n  assert_that(tools::monoid::gcd<unsigned\
+    \ long long>::e() == 0ULL);\n  assert_that(tools::monoid::gcd<tools::bigint>::op(tools::bigint(-12),\
+    \ tools::bigint(18)) == tools::bigint(6));\n  assert_that(tools::monoid::gcd<tools::bigint>::e()\
+    \ == tools::bigint(0));\n\n  assert_that(tools::monoid::update<bool, false>::op(true,\
+    \ false) == true);\n  assert_that(tools::monoid::update<bool, false>::op(false,\
+    \ true) == true);\n  assert_that(tools::monoid::update<bool, false>::e() == false);\n\
+    \  assert_that(tools::monoid::update<char, '\\0'>::op('a', 'b') == 'a');\n  assert_that(tools::monoid::update<char,\
+    \ '\\0'>::op('\\0', 'b') == 'b');\n  assert_that(tools::monoid::update<char, '\\\
+    0'>::e() == '\\0');\n  assert_that(tools::monoid::update<short, 42>::op(-1, 1)\
+    \ == -1);\n  assert_that(tools::monoid::update<short, 42>::op(42, 1) == 1);\n\
+    \  assert_that(tools::monoid::update<short, 42>::e() == 42);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::op(42U, 1U) == 1U);\n  assert_that(tools::monoid::update<unsigned\
+    \ short, 42U>::e() == 42U);\n  assert_that(tools::monoid::update<int, 42>::op(-1,\
+    \ 1) == -1);\n  assert_that(tools::monoid::update<int, 42>::op(42, 1) == 1);\n\
+    \  assert_that(tools::monoid::update<int, 42>::e() == 42);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::op(0U, 1U) == 0U);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::op(42U, 1U) == 1U);\n  assert_that(tools::monoid::update<unsigned\
+    \ int, 42U>::e() == 42U);\n  assert_that(tools::monoid::update<long, 42L>::op(-1L,\
+    \ 1L) == -1L);\n  assert_that(tools::monoid::update<long, 42L>::op(42L, 1L) ==\
+    \ 1L);\n  assert_that(tools::monoid::update<long, 42L>::e() == 42L);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::op(0UL, 1UL) == 0UL);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::op(42UL, 1UL) == 1UL);\n  assert_that(tools::monoid::update<unsigned\
+    \ long, 42UL>::e() == 42UL);\n  assert_that(tools::monoid::update<long long, 42LL>::op(-1LL,\
+    \ 1LL) == -1LL);\n  assert_that(tools::monoid::update<long long, 42LL>::op(42LL,\
+    \ 1LL) == 1LL);\n  assert_that(tools::monoid::update<long long, 42LL>::e() ==\
+    \ 42LL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(0ULL,\
+    \ 1ULL) == 0ULL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(42ULL,\
+    \ 1ULL) == 1ULL);\n  assert_that(tools::monoid::update<unsigned long long, 42ULL>::e()\
+    \ == 42ULL);\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/assert_that.hpp
+  - tools/monoid.hpp
+  - tools/gcd.hpp
   - tools/bigint.hpp
   - tools/abs.hpp
   - tools/quo.hpp
@@ -952,17 +1219,16 @@ data:
   - tools/cmp_less.hpp
   - tools/floor_log2.hpp
   - tools/popcount.hpp
-  - tools/gcd.hpp
   isVerificationFile: true
-  path: tests/bigint/divides.test.cpp
+  path: tests/monoid.test.cpp
   requiredBy: []
   timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: tests/bigint/divides.test.cpp
+documentation_of: tests/monoid.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/bigint/divides.test.cpp
-- /verify/tests/bigint/divides.test.cpp.html
-title: tests/bigint/divides.test.cpp
+- /verify/tests/monoid.test.cpp
+- /verify/tests/monoid.test.cpp.html
+title: tests/monoid.test.cpp
 ---
