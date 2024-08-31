@@ -30,7 +30,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/next_matching.test.cpp
     title: tests/next_matching.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/rolling_hash.test.cpp
     title: tests/rolling_hash.test.cpp
   - icon: ':heavy_check_mark:'

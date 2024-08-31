@@ -39,7 +39,7 @@ data:
     - icon: ':question:'
       path: tools/bigint.hpp
       title: Arbitrary precision integer
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/binary_heap.hpp
       title: Binary heap
     - icon: ':heavy_check_mark:'
@@ -108,7 +108,7 @@ data:
     - icon: ':question:'
       path: tools/convolution.hpp
       title: Convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/countr_zero.hpp
       title: Number of trailing zeros
     - icon: ':heavy_check_mark:'
@@ -147,7 +147,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/dual_segtree.hpp
       title: Dual segment tree
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
@@ -180,7 +180,7 @@ data:
     - icon: ':question:'
       path: tools/find_cycle.hpp
       title: Floyd's cycle-finding algorithm
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fix.hpp
       title: Fixed point combinator
     - icon: ':question:'
@@ -248,7 +248,7 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
     - icon: ':question:'
@@ -426,7 +426,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/polygon_2d.hpp
       title: Two-dimensional polygon
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/polynomial.hpp
       title: Polynomial
     - icon: ':heavy_check_mark:'
@@ -495,16 +495,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_left.hpp
       title: Circular shift to the left
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/rotate_right.hpp
       title: Circular shift to the right
     - icon: ':warning:'
@@ -538,7 +538,7 @@ data:
     - icon: ':question:'
       path: tools/signum.hpp
       title: Sign function
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
@@ -550,7 +550,7 @@ data:
     - icon: ':question:'
       path: tools/ssize.hpp
       title: Polyfill of std::ssize
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/stirling_1st.hpp
       title: Signed Stirling numbers of the first kind
     - icon: ':question:'
@@ -646,7 +646,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/detail/interval_set.hpp
       title: tools/detail/interval_set.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/detail/rolling_hash.hpp
       title: tools/detail/rolling_hash.hpp
   verificationCategories:
@@ -931,25 +931,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rerooting_dp.test.cpp
       title: tests/rerooting_dp.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_left.test.cpp
       title: tests/rotate_left.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rotate_right.test.cpp
       title: tests/rotate_right.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/run_length.test.cpp
       title: tests/run_length.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/safe_int.test.cpp
       title: tests/safe_int.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/sample_point_shift.test.cpp
       title: tests/sample_point_shift.test.cpp
     - icon: ':heavy_check_mark:'
@@ -958,7 +958,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/sqrt_mod.test.cpp
       title: tests/sqrt_mod.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1305,13 +1305,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/rational/minus.test.cpp
       title: tests/rational/minus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/multiplies.test.cpp
       title: tests/rational/multiplies.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/plus.test.cpp
       title: tests/rational/plus.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/rational/random.test.cpp
       title: tests/rational/random.test.cpp
   - name: tests/scc_graph
@@ -1327,32 +1327,32 @@ data:
       title: tests/scc_graph/sccs.test.cpp
   - name: tests/sparse_fps_pow
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/fraction.test.cpp
       title: tests/sparse_fps_pow/fraction.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/sparse_fps_pow/regular.test.cpp
       title: tests/sparse_fps_pow/regular.test.cpp
   - name: tests/stirling_1st
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_1st/consistent.test.cpp
       title: tests/stirling_1st/consistent.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_1st/fixed_k.test.cpp
       title: tests/stirling_1st/fixed_k.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_1st/fixed_n.test.cpp
       title: tests/stirling_1st/fixed_n.test.cpp
   - name: tests/stirling_2nd
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_2nd/all.test.cpp
       title: tests/stirling_2nd/all.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_2nd/consistent.test.cpp
       title: tests/stirling_2nd/consistent.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/stirling_2nd/fixed_k.test.cpp
       title: tests/stirling_2nd/fixed_k.test.cpp
     - icon: ':x:'

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/countr_zero.hpp
     title: Number of trailing zeros
   - icon: ':question:'
