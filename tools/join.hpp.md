@@ -15,13 +15,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lowlink/is_bridge.test.cpp
     title: tests/lowlink/is_bridge.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial/naive_division.test.cpp
     title: tests/polynomial/naive_division.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/polynomial_product.test.cpp
     title: tests/polynomial_product.test.cpp
   - icon: ':heavy_check_mark:'

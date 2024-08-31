@@ -23,7 +23,7 @@ data:
   - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
   - icon: ':question:'
@@ -41,7 +41,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':question:'
@@ -56,7 +56,7 @@ data:
   - icon: ':question:'
     path: tools/quo.hpp
     title: Quotient as integer division
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':question:'

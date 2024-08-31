@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/set.hpp
     title: Alias for __gnu_pbds::tree
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/multiset.hpp\"\n\n\n\n#include <functional>\n#include\
@@ -295,7 +295,7 @@ data:
   path: tools/multiset.hpp
   requiredBy: []
   timestamp: '2022-10-01 21:52:08+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/multiset.test.cpp
 documentation_of: tools/multiset.hpp

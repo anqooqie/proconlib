@@ -36,12 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/matrix/static.test.cpp
     title: tests/matrix/static.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/matrix.hpp\"\n\n\n\n#include <cstddef>\n#include <array>\n\
@@ -693,7 +693,7 @@ data:
   path: tools/matrix.hpp
   requiredBy: []
   timestamp: '2024-03-23 22:25:26+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
   - tests/matrix/multiplies.test.cpp

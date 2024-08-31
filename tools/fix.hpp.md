@@ -14,7 +14,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/lowlink.hpp
     title: Lowlink
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/ord_mod.hpp
     title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
   - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lowlink/ncc_without_vertex.test.cpp
     title: tests/lowlink/ncc_without_vertex.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/ord_mod.test.cpp
     title: tests/ord_mod.test.cpp
   - icon: ':heavy_check_mark:'

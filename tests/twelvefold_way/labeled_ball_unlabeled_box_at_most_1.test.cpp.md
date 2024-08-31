@@ -56,7 +56,7 @@ data:
   - icon: ':question:'
     path: tools/inv_mod.hpp
     title: $x^{-1} \pmod{M}$
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
   - icon: ':question:'
@@ -65,7 +65,7 @@ data:
   - icon: ':question:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':question:'
@@ -77,10 +77,10 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/partition_function.hpp
     title: Partition function
   - icon: ':question:'
@@ -107,7 +107,7 @@ data:
   - icon: ':question:'
     path: tools/run_length.hpp
     title: Run-length encoding
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/sample_point_shift.hpp
     title: Shift of sampling points of polynomial
   - icon: ':question:'

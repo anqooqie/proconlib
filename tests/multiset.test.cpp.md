@@ -4,17 +4,17 @@ data:
   - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/multiset.hpp
     title: __gnu_pbds::tree allowing duplicated values
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/set.hpp
     title: Alias for __gnu_pbds::tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -416,7 +416,7 @@ data:
   path: tests/multiset.test.cpp
   requiredBy: []
   timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/multiset.test.cpp
 layout: document

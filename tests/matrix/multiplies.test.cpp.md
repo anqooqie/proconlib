@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
   - icon: ':question:'

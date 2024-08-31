@@ -23,7 +23,7 @@ data:
   - icon: ':question:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
   - icon: ':question:'
@@ -38,7 +38,7 @@ data:
   - icon: ':question:'
     path: tools/monoid.hpp
     title: Typical monoids
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':question:'
@@ -60,17 +60,17 @@ data:
     path: tools/uint128_t.hpp
     title: 128 bit unsigned integer
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':x:'
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
   - icon: ':x:'
@@ -114,7 +114,7 @@ data:
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/sample_point_shift.hpp\"\n\n\n\n#include <type_traits>\n\
@@ -1070,7 +1070,7 @@ data:
   - tools/large_fact_mod_cache.hpp
   - tools/twelvefold_way.hpp
   timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp

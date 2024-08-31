@@ -13,7 +13,7 @@ data:
   - icon: ':question:'
     path: tools/cmp_less.hpp
     title: Polyfill of std::cmp_less
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':question:'

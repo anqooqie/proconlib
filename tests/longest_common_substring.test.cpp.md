@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/longest_common_substring.hpp
     title: Longest common substring
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/mex.hpp
     title: Minimum excluded value
   _extendedRequiredBy: []

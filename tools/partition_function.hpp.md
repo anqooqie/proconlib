@@ -55,13 +55,13 @@ data:
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/consistent.test.cpp
     title: tests/partition_function/consistent.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/partition_function/diagonal.test.cpp
     title: tests/partition_function/diagonal.test.cpp
   - icon: ':x:'
@@ -102,7 +102,7 @@ data:
     title: tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/partition_function.hpp\"\n\n\n\n#include <cassert>\n\
@@ -1191,7 +1191,7 @@ data:
   requiredBy:
   - tools/twelvefold_way.hpp
   timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp

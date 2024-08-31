@@ -13,19 +13,19 @@ data:
   - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/is_group.hpp
     title: Check whether T is a group
   - icon: ':question:'
     path: tools/is_monoid.hpp
     title: Check whether T is a monoid
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/matrix.hpp
     title: Matrix
   - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':x:'
+  - icon: ':question:'
     path: tools/online_cumsum.hpp
     title: Online cumulative sum
   - icon: ':question:'
@@ -36,9 +36,9 @@ data:
     title: Vector
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -955,7 +955,7 @@ data:
   path: tests/online_cumsum.test.cpp
   requiredBy: []
   timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/online_cumsum.test.cpp
 layout: document
