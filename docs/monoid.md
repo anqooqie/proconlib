@@ -13,124 +13,237 @@ They are typical monoids.
 
 ## monoid::max
 ```cpp
-namespace monoid {
-  template <typename M, M E = std::numeric_limits<M>::lowest()>
-  struct max {
-    using T = M;
-    static T op(const T& x, const T& y) {
-      return std::max(x, y);
-    }
-    static T e() {
-      return E;
-    }
-  };
-}
+(1) template <typename M> struct monoid::max;
+(2) template <typename M, M E> struct monoid::max;
 ```
 
 It is a monoid $(M, \max, E)$.
-If $E$ is not specified, then $E$ is `std::numeric_limits<M>::lowest()`.
+
+- (1)
+    - If `<M>` is a built-in integral type, let $E$ be `std::numeric_limits<M>::min()`.
+    - If `<M>` is a built-in floating-point type, let $E$ be `-std::numeric_limits<M>::infinity()`.
 
 ### Constraints
-- $M$ is comparable.
-- If $E$ is not specified, $M$ is any of floating-point or integral types.
-- For all $x$ in $M$, $y$ in $M$ and $z$ in $M$, $\max(\max(x, y), z) = \max(x, \max(y, z))$.
-- For all $x$ in $M$, $\max(E, x) = \max(x, E) = x$.
+- (1)
+    - $M$ is a built-in arithmetic type.
+- (2)
+    - $M$ is a built-in integral type.
 
 ### Time Complexity
 - Not applicable
+
+## monoid::max::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::max::op
+```
+static M op(M x, M y);
+```
+
+It returns $\max(x, y)$.
+
+### Constraints
+- $E \leq x$
+- $E \leq y$
+
+### Time Complexity
+- $O(1)$
+
+## monoid::max::e
+```
+static M e();
+```
+
+It returns $E$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## monoid::min
 ```cpp
-namespace monoid {
-  template <typename M, M E = std::numeric_limits<M>::max()>
-  struct min {
-    using T = M;
-    static T op(const T& x, const T& y) {
-      return std::min(x, y);
-    }
-    static T e() {
-      return E;
-    }
-  };
-}
+(1) template <typename M> struct monoid::min;
+(2) template <typename M, M E> struct monoid::min;
 ```
 
 It is a monoid $(M, \min, E)$.
-If $E$ is not specified, then $E$ is `std::numeric_limits<M>::max()`.
+
+- (1)
+    - If `<M>` is a built-in integral type, let $E$ be `std::numeric_limits<M>::max()`.
+    - If `<M>` is a built-in floating-point type, let $E$ be `std::numeric_limits<M>::infinity()`.
 
 ### Constraints
-- $M$ is comparable.
-- If $E$ is not specified, $M$ is any of floating-point or integral types.
-- For all $x$ in $M$, $y$ in $M$ and $z$ in $M$, $\min(\min(x, y), z) = \min(x, \min(y, z))$.
-- For all $x$ in $M$, $\min(E, x) = \min(x, E) = x$.
+- (1)
+    - $M$ is a built-in arithmetic type.
+- (2)
+    - $M$ is a built-in integral type.
 
 ### Time Complexity
 - Not applicable
+
+## monoid::min::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::min::op
+```
+static M op(M x, M y);
+```
+
+It returns $\min(x, y)$.
+
+### Constraints
+- $x \leq E$
+- $y \leq E$
+
+### Time Complexity
+- $O(1)$
+
+## monoid::min::e
+```
+static M e();
+```
+
+It returns $E$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## monoid::multiplies
 ```cpp
-namespace monoid {
-  template <typename M>
-  struct multiplies {
-    using T = M;
-    static T op(const T& x, const T& y) {
-      return x * y;
-    }
-    static T e() {
-      return T(1);
-    }
-  };
-}
+template <typename M> struct monoid::multiplies;
 ```
 
-It is a monoid $(M, \cdot, 1)$.
+It is a monoid $(M, \times, 1)$.
 
 ### Constraints
-- `decltype(std::declval<M>() * std::declval<M>())` is `M`.
-- For all $x$ in $M$, $y$ in $M$ and $z$ in $M$, $(x \cdot y) \cdot z = x \cdot (y \cdot z)$.
-- For all $x$ in $M$, `M(1)` $\cdot x = x \cdot$ `M(1)` $= x$.
+- If `x` is `<M>` and `y` is `<M>`, then `x * y` is also `<M>`.
+- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x * y) * z` $=$ `x * (y * z)`.
+- For all `x` in `<M>`, `M(1) * x` $=$ `x * M(1)` $=$ `x`.
 
 ### Time Complexity
 - Not applicable
+
+## monoid::multiplies::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::multiplies::op
+```
+static M op(M x, M y);
+```
+
+It returns `x * y`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `x * y`
+
+## monoid::multiplies::e
+```
+static M e();
+```
+
+It returns `M(1)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `M(1)`
 
 ## monoid::gcd
 ```cpp
-namespace monoid {
-  template <typename M>
-  struct gcd {
-    using T = M;
-    static T op(const T& x, const T& y) {
-      return std::gcd(x, y);
-    }
-    static T e() {
-      return T(0);
-    }
-  };
-}
+template <typename M> struct monoid::gcd;
 ```
 
 It is a monoid $(M, \gcd, 0)$.
+Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in this monoid.
 
 ### Constraints
-- $M$ is any of integral types.
+- `tools::gcd(x, y)` is defined for `x` and `y` of type `<M>`. In particular, `<M>` is neither a built-in floating-point type nor `bool`.
 
 ### Time Complexity
 - Not applicable
 
+## monoid::gcd::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::gcd::op
+```
+static M op(M x, M y);
+```
+
+It returns `tools::gcd(x, y)`.
+For a built-in integral type `<M>`, this is equivalent to returning `std::gcd(x, y)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `tools::gcd(x, y)`
+
+## monoid::gcd::e
+```
+static M e();
+```
+
+It returns `M(0)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `M(0)`.
+
 ## monoid::update
 ```cpp
-namespace monoid {
-  template <typename M, M E>
-  struct update {
-    using T = M;
-    static T op(const T& x, const T& y) {
-      return x == E ? y : x;
-    }
-    static T e() {
-      return E;
-    }
-  };
-}
+template <typename M, M E> struct monoid::update;
 ```
 
 It is a monoid $(M, U, E)$ where
@@ -143,7 +256,46 @@ x & \text{(if $x \neq E$)}
 \end{align*}$$
 
 ### Constraints
+- `<M>` is a built-in integral type.
+
+### Time Complexity
+- Not applicable
+
+## monoid::update::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
 - None
 
 ### Time Complexity
 - Not applicable
+
+## monoid::update::op
+```
+static M op(M x, M y);
+```
+
+It returns $U(x, y)$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## monoid::update::e
+```
+static M e();
+```
+
+It returns `E`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

@@ -30,6 +30,7 @@
 #include "tools/garner2.hpp"
 #include "tools/chmin.hpp"
 #include "tools/floor_log2.hpp"
+#include "tools/gcd.hpp"
 
 namespace tools {
   class bigint;
@@ -738,7 +739,8 @@ namespace tools {
     return x;
   }
 
-  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint y) {
+  template <>
+  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint x, ::tools::bigint y) {
     if (x.signum() < 0) x.negate();
     if (y.signum() < 0) y.negate();
 
