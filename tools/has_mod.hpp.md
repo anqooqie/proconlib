@@ -8,10 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/bostan_mori.hpp
     title: Bostan-Mori algorithm
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
   - icon: ':question:'
@@ -33,10 +33,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/bostan_mori.test.cpp
     title: tests/bostan_mori.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
   - icon: ':x:'

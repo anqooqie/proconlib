@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cin.hpp
     title: Fast input
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/cout.hpp
     title: Fast output
   _extendedRequiredBy: []

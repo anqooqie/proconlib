@@ -33,7 +33,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/avl_tree/set.test.cpp
     title: tests/avl_tree/set.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/fix.test.cpp
     title: tests/fix.test.cpp
   - icon: ':heavy_check_mark:'

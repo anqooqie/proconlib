@@ -12,7 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/chromatic_number.test.cpp
     title: tests/chromatic_number.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/countr_zero.test.cpp
     title: tests/countr_zero.test.cpp
   - icon: ':x:'
