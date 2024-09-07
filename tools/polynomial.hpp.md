@@ -35,7 +35,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':heavy_check_mark:'
@@ -1950,23 +1950,23 @@ data:
   path: tools/polynomial.hpp
   requiredBy:
   - tools/berlekamp_massey.hpp
-  - tools/bostan_mori.hpp
   - tools/stirling_1st.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/bostan_mori.hpp
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/bostan_mori.test.cpp
   - tests/polynomial_product.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/polynomial_interpolation.test.cpp
   - tests/berlekamp_massey.test.cpp
 documentation_of: tools/polynomial.hpp

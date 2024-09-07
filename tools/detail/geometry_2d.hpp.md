@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
@@ -25,7 +25,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
@@ -1778,28 +1778,28 @@ data:
   path: tools/detail/geometry_2d.hpp
   requiredBy:
   - tools/circle_2d.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/line_2d.hpp
-  - tools/triangle_2d.hpp
   - tools/polygon_2d.hpp
   - tools/half_line_2d.hpp
+  - tools/triangle_2d.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/line_2d.hpp
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
 documentation_of: tools/detail/geometry_2d.hpp
 layout: document
 redirect_from:

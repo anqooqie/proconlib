@@ -1,32 +1,33 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
   bundledCode: "#line 1 \"tests/extend_output.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <array>\n#include <iostream>\n#include <optional>\n#include <queue>\n\
-    #include <sstream>\n#include <stack>\n#include <tuple>\n#include <unordered_set>\n\
-    #include <unordered_map>\n#include <utility>\n#include <vector>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
-    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
-    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
-    \n\n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
+    \n\n#include <array>\n#include <iostream>\n#include <map>\n#include <optional>\n\
+    #include <queue>\n#include <set>\n#include <sstream>\n#include <stack>\n#include\
+    \ <tuple>\n#include <unordered_set>\n#include <unordered_map>\n#include <utility>\n\
+    #include <vector>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include\
+    \ <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include\
+    \ <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\
+    \n\n\n#line 5 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n#ifdef _MSC_VER\n\
     #include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal {\n\n\
     // @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long long\
     \ x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n}\n\n\
@@ -238,12 +239,12 @@ data:
     tools/extend_output.hpp\"\n\n\n\n// WARNING:\n// This file adds functions to std\
     \ namespace for convenience.\n// Strictly speaking, it is not allowed in C++.\n\
     // It makes the program ill-formed to include this file, and may cause undefined\
-    \ behavior.\n\n#line 14 \"tools/extend_output.hpp\"\n#include <string>\n#line\
+    \ behavior.\n\n#line 16 \"tools/extend_output.hpp\"\n#include <string>\n#line\
     \ 1 \"tools/has_mod.hpp\"\n\n\n\n#line 6 \"tools/has_mod.hpp\"\n\nnamespace tools\
     \ {\n  template <typename T, typename = ::std::void_t<>>\n  struct has_mod : ::std::false_type\
     \ {};\n\n  template <typename T>\n  struct has_mod<T, ::std::void_t<decltype(::std::declval<T>().mod())>>\
     \ : ::std::true_type {};\n\n  template <typename T>\n  inline constexpr bool has_mod_v\
-    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 22 \"tools/extend_output.hpp\"\n\
+    \ = ::tools::has_mod<T>::value;\n}\n\n\n#line 24 \"tools/extend_output.hpp\"\n\
     \nnamespace tools {\n  namespace detail {\n    namespace extend_output {\n   \
     \   template <typename T>\n      ::std::ostream& debug_print(::std::ostream& os,\
     \ const T& container) {\n        ::std::string delimiter = \"\";\n        os <<\
@@ -252,10 +253,13 @@ data:
     \ os;\n      }\n    }\n  }\n}\n\nnamespace std {\n  template <class T, ::std::size_t\
     \ N>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::array<T, N>&\
     \ array) {\n    return ::tools::detail::extend_output::debug_print(os, array);\n\
-    \  }\n  \n  template <typename T>\n  ::std::ostream& operator<<(::std::ostream&\
-    \ os, const ::std::optional<T>& optional) {\n    if (optional) {\n      return\
-    \ os << *optional;\n    } else {\n      return os << \"null\";\n    }\n  }\n \
-    \ \n  template <class T1, class T2>\n  ::std::ostream& operator<<(::std::ostream&\
+    \  }\n  \n  template <class Key, class T, class Compare, class Allocator>\n  ::std::ostream&\
+    \ operator<<(::std::ostream& os, const ::std::map<Key, T, Compare, Allocator>&\
+    \ map) {\n    return ::tools::detail::extend_output::debug_print(os, map);\n \
+    \ }\n\n  template <typename T>\n  ::std::ostream& operator<<(::std::ostream& os,\
+    \ const ::std::optional<T>& optional) {\n    if (optional) {\n      return os\
+    \ << *optional;\n    } else {\n      return os << \"null\";\n    }\n  }\n  \n\
+    \  template <class T1, class T2>\n  ::std::ostream& operator<<(::std::ostream&\
     \ os, const ::std::pair<T1, T2>& pair) {\n    return os << '[' << pair.first <<\
     \ \", \" << pair.second << ']';\n  }\n  \n  template <class T, class Container>\n\
     \  ::std::ostream& operator<<(::std::ostream& os, ::std::queue<T, Container>&\
@@ -263,7 +267,9 @@ data:
     \ = \"\";\n    os << '[';\n    while (!queue.empty()) {\n      os << delimiter\
     \ << queue.front();\n      delimiter = \", \";\n      queue.pop();\n    }\n  \
     \  os << ']';\n  \n    queue = ::std::move(other);\n    return os;\n  }\n  \n\
-    \  template <class T, class Container>\n  ::std::ostream& operator<<(::std::ostream&\
+    \  template <class Key, class Compare, class Allocator>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::set<Key, Compare, Allocator>& set) {\n    return ::tools::detail::extend_output::debug_print(os,\
+    \ set);\n  }\n\n  template <class T, class Container>\n  ::std::ostream& operator<<(::std::ostream&\
     \ os, ::std::stack<T, Container>& stack) {\n    ::std::stack<T, Container> other;\n\
     \    while (!stack.empty()) {\n      other.push(stack.top());\n      stack.pop();\n\
     \    }\n  \n    ::std::string delimiter = \"\";\n    os << '[';\n    while (!other.empty())\
@@ -287,19 +293,23 @@ data:
     \    return ::tools::detail::extend_output::debug_print(os, vector);\n  }\n  \n\
     \  template <typename T>\n  ::std::enable_if_t<::tools::has_mod_v<T>, ::std::ostream&>\
     \ operator<<(::std::ostream& os, const T& x) {\n    return os << x.val();\n  }\n\
-    }\n\n\n#line 17 \"tests/extend_output.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    }\n\n\n#line 19 \"tests/extend_output.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  {\n    std::array<int, 3> v = {123, 456, 789};\n    std::ostringstream oss;\n\
     \    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n\
-    \    std::optional<int> v;\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
-    \ == \"null\");\n  }\n  {\n    std::optional<int> v(123);\n    std::ostringstream\
-    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"123\");\n  }\n\n  {\n  \
-    \  std::pair<int, int> v(123, 456);\n    std::ostringstream oss;\n    oss << v;\n\
-    \    assert_that(oss.str() == \"[123, 456]\");\n  }\n\n  {\n    std::queue<int>\
-    \ v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n    std::ostringstream\
-    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  \
-    \  assert_that(v.size() == 3);\n    assert_that(v.front() == 123);\n  }\n\n  {\n\
-    \    std::stack<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
+    \    std::map<int, int> v = {{{1, 123}, {2, 456}, {3, 789}}};\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[[1, 123], [2, 456], [3,\
+    \ 789]]\");\n  }\n\n  {\n    std::optional<int> v;\n    std::ostringstream oss;\n\
+    \    oss << v;\n    assert_that(oss.str() == \"null\");\n  }\n  {\n    std::optional<int>\
+    \ v(123);\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
+    \ == \"123\");\n  }\n\n  {\n    std::pair<int, int> v(123, 456);\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456]\");\n  }\n\n\
+    \  {\n    std::queue<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
+    \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
+    \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.front() ==\
+    \ 123);\n  }\n\n  {\n    std::set<int> v = {123, 456, 789};\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\
+    \n  {\n    std::stack<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
     \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
     \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.top() == 789);\n\
     \  }\n\n  {\n    std::tuple<int, int, int> v(123, 456, 789);\n    std::ostringstream\
@@ -321,43 +331,47 @@ data:
     \    assert_that(oss.str() == \"123\");\n  }\n\n  std::cout << \"Hello World\"\
     \ << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <array>\n#include <iostream>\n#include <optional>\n#include <queue>\n\
-    #include <sstream>\n#include <stack>\n#include <tuple>\n#include <unordered_set>\n\
-    #include <unordered_map>\n#include <utility>\n#include <vector>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/assert_that.hpp\"\n#include \"tools/extend_output.hpp\"\n\n\
-    using mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  {\n    std::array<int, 3> v = {123,\
-    \ 456, 789};\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
-    \ == \"[123, 456, 789]\");\n  }\n\n  {\n    std::optional<int> v;\n    std::ostringstream\
-    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"null\");\n  }\n  {\n   \
-    \ std::optional<int> v(123);\n    std::ostringstream oss;\n    oss << v;\n   \
-    \ assert_that(oss.str() == \"123\");\n  }\n\n  {\n    std::pair<int, int> v(123,\
-    \ 456);\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
-    \ == \"[123, 456]\");\n  }\n\n  {\n    std::queue<int> v;\n    v.push(123);\n\
-    \    v.push(456);\n    v.push(789);\n    std::ostringstream oss;\n    oss << v;\n\
-    \    assert_that(oss.str() == \"[123, 456, 789]\");\n    assert_that(v.size()\
-    \ == 3);\n    assert_that(v.front() == 123);\n  }\n\n  {\n    std::stack<int>\
-    \ v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n    std::ostringstream\
-    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  \
-    \  assert_that(v.size() == 3);\n    assert_that(v.top() == 789);\n  }\n\n  {\n\
-    \    std::tuple<int, int, int> v(123, 456, 789);\n    std::ostringstream oss;\n\
+    #include <array>\n#include <iostream>\n#include <map>\n#include <optional>\n#include\
+    \ <queue>\n#include <set>\n#include <sstream>\n#include <stack>\n#include <tuple>\n\
+    #include <unordered_set>\n#include <unordered_map>\n#include <utility>\n#include\
+    \ <vector>\n#include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\
+    \n#include \"tools/extend_output.hpp\"\n\nusing mint = atcoder::modint998244353;\n\
+    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  {\n    std::array<int, 3> v = {123, 456, 789};\n    std::ostringstream oss;\n\
     \    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\n  {\n\
-    \    std::unordered_set<int> v = {123, 456, 789};\n    std::ostringstream oss;\n\
-    \    oss << v;\n    assert_that(\n      oss.str() == \"[123, 456, 789]\"\n   \
-    \   || oss.str() == \"[123, 789, 456]\"\n      || oss.str() == \"[456, 123, 789]\"\
-    \n      || oss.str() == \"[456, 789, 123]\"\n      || oss.str() == \"[789, 123,\
-    \ 456]\"\n      || oss.str() == \"[789, 456, 123]\"\n    );\n  }\n\n  {\n    std::unordered_map<int,\
-    \ int> v = {{{1, 123}, {2, 456}, {3, 789}}};\n    std::ostringstream oss;\n  \
-    \  oss << v;\n    assert_that(\n      oss.str() == \"[[1, 123], [2, 456], [3,\
-    \ 789]]\"\n      || oss.str() == \"[[1, 123], [3, 789], [2, 456]]\"\n      ||\
-    \ oss.str() == \"[[2, 456], [1, 123], [3, 789]]\"\n      || oss.str() == \"[[2,\
-    \ 456], [3, 789], [1, 123]]\"\n      || oss.str() == \"[[3, 789], [1, 123], [2,\
-    \ 456]]\"\n      || oss.str() == \"[[3, 789], [2, 456], [1, 123]]\"\n    );\n\
-    \  }\n\n  {\n    std::vector<int> v = {123, 456, 789};\n    std::ostringstream\
+    \    std::map<int, int> v = {{{1, 123}, {2, 456}, {3, 789}}};\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[[1, 123], [2, 456], [3,\
+    \ 789]]\");\n  }\n\n  {\n    std::optional<int> v;\n    std::ostringstream oss;\n\
+    \    oss << v;\n    assert_that(oss.str() == \"null\");\n  }\n  {\n    std::optional<int>\
+    \ v(123);\n    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str()\
+    \ == \"123\");\n  }\n\n  {\n    std::pair<int, int> v(123, 456);\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456]\");\n  }\n\n\
+    \  {\n    std::queue<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
+    \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
+    \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.front() ==\
+    \ 123);\n  }\n\n  {\n    std::set<int> v = {123, 456, 789};\n    std::ostringstream\
     \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\
-    \n  {\n    std::ostringstream oss;\n    oss << mint(123);\n    assert_that(oss.str()\
-    \ == \"123\");\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n\
-    }\n"
+    \n  {\n    std::stack<int> v;\n    v.push(123);\n    v.push(456);\n    v.push(789);\n\
+    \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
+    \ 456, 789]\");\n    assert_that(v.size() == 3);\n    assert_that(v.top() == 789);\n\
+    \  }\n\n  {\n    std::tuple<int, int, int> v(123, 456, 789);\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(oss.str() == \"[123, 456, 789]\");\n  }\n\
+    \n  {\n    std::unordered_set<int> v = {123, 456, 789};\n    std::ostringstream\
+    \ oss;\n    oss << v;\n    assert_that(\n      oss.str() == \"[123, 456, 789]\"\
+    \n      || oss.str() == \"[123, 789, 456]\"\n      || oss.str() == \"[456, 123,\
+    \ 789]\"\n      || oss.str() == \"[456, 789, 123]\"\n      || oss.str() == \"\
+    [789, 123, 456]\"\n      || oss.str() == \"[789, 456, 123]\"\n    );\n  }\n\n\
+    \  {\n    std::unordered_map<int, int> v = {{{1, 123}, {2, 456}, {3, 789}}};\n\
+    \    std::ostringstream oss;\n    oss << v;\n    assert_that(\n      oss.str()\
+    \ == \"[[1, 123], [2, 456], [3, 789]]\"\n      || oss.str() == \"[[1, 123], [3,\
+    \ 789], [2, 456]]\"\n      || oss.str() == \"[[2, 456], [1, 123], [3, 789]]\"\n\
+    \      || oss.str() == \"[[2, 456], [3, 789], [1, 123]]\"\n      || oss.str()\
+    \ == \"[[3, 789], [1, 123], [2, 456]]\"\n      || oss.str() == \"[[3, 789], [2,\
+    \ 456], [1, 123]]\"\n    );\n  }\n\n  {\n    std::vector<int> v = {123, 456, 789};\n\
+    \    std::ostringstream oss;\n    oss << v;\n    assert_that(oss.str() == \"[123,\
+    \ 456, 789]\");\n  }\n\n  {\n    std::ostringstream oss;\n    oss << mint(123);\n\
+    \    assert_that(oss.str() == \"123\");\n  }\n\n  std::cout << \"Hello World\"\
+    \ << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
   - tools/extend_output.hpp
@@ -365,8 +379,8 @@ data:
   isVerificationFile: true
   path: tests/extend_output.test.cpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-07 11:32:34+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/extend_output.test.cpp
 layout: document

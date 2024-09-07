@@ -50,8 +50,8 @@ data:
   timestamp: '2021-07-24 04:45:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/qcfium.test.cpp
   - tests/mo.test.cpp
+  - tests/qcfium.test.cpp
 documentation_of: tools/qcfium.hpp
 layout: document
 title: QCFium's method

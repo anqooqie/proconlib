@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/extend_input.test.cpp
     title: tests/extend_input.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extend_input.hpp\"\n\n\n\n// WARNING:\n// This file\
@@ -76,10 +76,10 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2022-11-23 11:35:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - tests/extend_input.test.cpp
   - tests/util.test.cpp
+  - tests/extend_input.test.cpp
 documentation_of: tools/extend_input.hpp
 layout: document
 title: Extend operator>>

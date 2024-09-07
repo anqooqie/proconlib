@@ -284,90 +284,90 @@ data:
   isVerificationFile: false
   path: tools/group.hpp
   requiredBy:
-  - tools/sparse_fps_pow.hpp
-  - tools/convolution.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/online_cumsum.hpp
-  - tools/partition_function.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/fps.hpp
-  - tools/bell.hpp
-  - tools/sample_point_shift.hpp
-  - tools/polynomial.hpp
   - tools/stirling_2nd.hpp
-  - tools/bernoulli.hpp
-  - tools/bostan_mori.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/convolution.hpp
   - tools/stirling_1st.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/twelvefold_way.hpp
+  - tools/polynomial.hpp
+  - tools/fps.hpp
+  - tools/partition_function.hpp
+  - tools/bernoulli.hpp
   - tools/pdsu.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/sample_point_shift.hpp
+  - tools/twelvefold_way.hpp
+  - tools/large_fact_mod_cache.hpp
+  - tools/bell.hpp
+  - tools/bostan_mori.hpp
+  - tools/online_cumsum.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cumsum2d.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
-  - tests/convolution/mod1000000007.test.cpp
-  - tests/convolution/mod998244353.test.cpp
-  - tests/is_group.test.cpp
-  - tests/cartesian_tree/interval.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/avl_tree/reverse.test.cpp
-  - tests/pdsu.test.cpp
   - tests/partition_function/diagonal.test.cpp
   - tests/partition_function/consistent.test.cpp
   - tests/partition_function/all.test.cpp
+  - tests/polynomial_product.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/naive_division.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/is_monoid.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/avl_tree/reverse.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/pow_mod998244353.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/composition.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/inv_other_mods.test.cpp
   - tests/bell/consistent.test.cpp
   - tests/bell/all.test.cpp
   - tests/bell/fixed_n.test.cpp
-  - tests/online_cumsum.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/inv_other_mods.test.cpp
-  - tests/fps/exp_mod998244353.test.cpp
-  - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/composition.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/mod1000000007.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/cumsum2d.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/is_group.test.cpp
+  - tests/pdsu.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/is_monoid.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
+  - tests/online_cumsum.test.cpp
   - tests/bernoulli.test.cpp
 documentation_of: tools/group.hpp
 layout: document

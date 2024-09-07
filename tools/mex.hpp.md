@@ -53,9 +53,9 @@ data:
   timestamp: '2024-01-07 15:56:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/range_count_distinct.test.cpp
   - tests/mex.test.cpp
   - tests/longest_common_substring.test.cpp
-  - tests/range_count_distinct.test.cpp
 documentation_of: tools/mex.hpp
 layout: document
 title: Minimum excluded value

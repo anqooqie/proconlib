@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
@@ -696,11 +696,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
-  - tests/matrix/multiplies.test.cpp
   - tests/matrix/determinant.test.cpp
-  - tests/matrix/rank.test.cpp
-  - tests/matrix/static.test.cpp
+  - tests/matrix/multiplies.test.cpp
   - tests/matrix/solve.test.cpp
+  - tests/matrix/static.test.cpp
+  - tests/matrix/rank.test.cpp
   - tests/matrix/inv.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document

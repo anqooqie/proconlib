@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/detail/geometry_2d.hpp
     title: tools/detail/geometry_2d.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
@@ -28,7 +28,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/square.hpp
     title: $x^2$ under a given monoid
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
@@ -1069,8 +1069,8 @@ data:
   timestamp: '2024-04-13 13:54:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
   - tests/triangle_2d/incircle.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
 documentation_of: tools/triangle_2d.hpp
 layout: document
 title: Two-dimensional triangle

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
@@ -38,7 +38,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   - icon: ':heavy_check_mark:'

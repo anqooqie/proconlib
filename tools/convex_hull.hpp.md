@@ -7,16 +7,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/ccw.hpp
     title: Counter clockwise function
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
     path: tools/less_by.hpp
     title: std::less by key
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'
@@ -448,8 +448,8 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/convex_hull.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/convex_hull.hpp
 layout: document
 title: Convex hull

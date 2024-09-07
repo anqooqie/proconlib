@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
   _extendedRequiredBy: []

@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/less_by_first.hpp
     title: std::less by first
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
   _extendedRequiredBy: []

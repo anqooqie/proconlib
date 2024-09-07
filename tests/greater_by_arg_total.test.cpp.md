@@ -10,16 +10,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_arg_total.hpp
     title: std::greater by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
     path: tools/less_by_arg_total.hpp
     title: std::less by the argument (total order)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'

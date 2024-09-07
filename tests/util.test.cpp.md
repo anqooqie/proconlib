@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -116,8 +116,8 @@ data:
     \ x = T(n);\n    return is;\n  }\n}\n\n\n#line 1 \"tools/extend_output.hpp\"\n\
     \n\n\n// WARNING:\n// This file adds functions to std namespace for convenience.\n\
     // Strictly speaking, it is not allowed in C++.\n// It makes the program ill-formed\
-    \ to include this file, and may cause undefined behavior.\n\n#line 11 \"tools/extend_output.hpp\"\
-    \n#include <optional>\n#line 22 \"tools/extend_output.hpp\"\n\nnamespace tools\
+    \ to include this file, and may cause undefined behavior.\n\n#line 12 \"tools/extend_output.hpp\"\
+    \n#include <optional>\n#line 24 \"tools/extend_output.hpp\"\n\nnamespace tools\
     \ {\n  namespace detail {\n    namespace extend_output {\n      template <typename\
     \ T>\n      ::std::ostream& debug_print(::std::ostream& os, const T& container)\
     \ {\n        ::std::string delimiter = \"\";\n        os << '[';\n        for\
@@ -126,35 +126,40 @@ data:
     \  }\n}\n\nnamespace std {\n  template <class T, ::std::size_t N>\n  ::std::ostream&\
     \ operator<<(::std::ostream& os, const ::std::array<T, N>& array) {\n    return\
     \ ::tools::detail::extend_output::debug_print(os, array);\n  }\n  \n  template\
-    \ <typename T>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::optional<T>&\
-    \ optional) {\n    if (optional) {\n      return os << *optional;\n    } else\
-    \ {\n      return os << \"null\";\n    }\n  }\n  \n  template <class T1, class\
-    \ T2>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::pair<T1,\
-    \ T2>& pair) {\n    return os << '[' << pair.first << \", \" << pair.second <<\
-    \ ']';\n  }\n  \n  template <class T, class Container>\n  ::std::ostream& operator<<(::std::ostream&\
-    \ os, ::std::queue<T, Container>& queue) {\n    ::std::queue<T, Container> other\
-    \ = queue;\n    ::std::string delimiter = \"\";\n    os << '[';\n    while (!queue.empty())\
-    \ {\n      os << delimiter << queue.front();\n      delimiter = \", \";\n    \
-    \  queue.pop();\n    }\n    os << ']';\n  \n    queue = ::std::move(other);\n\
-    \    return os;\n  }\n  \n  template <class T, class Container>\n  ::std::ostream&\
-    \ operator<<(::std::ostream& os, ::std::stack<T, Container>& stack) {\n    ::std::stack<T,\
-    \ Container> other;\n    while (!stack.empty()) {\n      other.push(stack.top());\n\
-    \      stack.pop();\n    }\n  \n    ::std::string delimiter = \"\";\n    os <<\
-    \ '[';\n    while (!other.empty()) {\n      os << delimiter << other.top();\n\
-    \      delimiter = \", \";\n      stack.push(other.top());\n      other.pop();\n\
-    \    }\n    os << ']';\n  \n    return os;\n  }\n  \n  template <int I = -1, typename...\
-    \ Args>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::tuple<Args...>&\
-    \ tuple) {\n    if constexpr (I == -1) {\n      os << '[';\n    } else if constexpr\
-    \ (I == int(sizeof...(Args))) {\n      os << ']';\n    } else if constexpr (I\
-    \ == 0) {\n      os << ::std::get<I>(tuple);\n    } else {\n      os << \", \"\
-    \ << ::std::get<I>(tuple);\n    }\n  \n    if constexpr (I < int(sizeof...(Args)))\
-    \ {\n      return operator<<<I + 1>(os, tuple);\n    } else {\n      return os;\n\
-    \    }\n  }\n  \n  template <class Key, class T, class Hash, class Pred, class\
-    \ Allocator>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_map<Key,\
-    \ T, Hash, Pred, Allocator>& unordered_map) {\n    return ::tools::detail::extend_output::debug_print(os,\
-    \ unordered_map);\n  }\n  \n  template <class Key, class Hash, class Pred, class\
-    \ Allocator>\n  ::std::ostream& operator<<(::std::ostream& os, const ::std::unordered_set<Key,\
-    \ Hash, Pred, Allocator>& unordered_set) {\n    return ::tools::detail::extend_output::debug_print(os,\
+    \ <class Key, class T, class Compare, class Allocator>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::map<Key, T, Compare, Allocator>& map) {\n    return ::tools::detail::extend_output::debug_print(os,\
+    \ map);\n  }\n\n  template <typename T>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::optional<T>& optional) {\n    if (optional) {\n      return\
+    \ os << *optional;\n    } else {\n      return os << \"null\";\n    }\n  }\n \
+    \ \n  template <class T1, class T2>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::pair<T1, T2>& pair) {\n    return os << '[' << pair.first <<\
+    \ \", \" << pair.second << ']';\n  }\n  \n  template <class T, class Container>\n\
+    \  ::std::ostream& operator<<(::std::ostream& os, ::std::queue<T, Container>&\
+    \ queue) {\n    ::std::queue<T, Container> other = queue;\n    ::std::string delimiter\
+    \ = \"\";\n    os << '[';\n    while (!queue.empty()) {\n      os << delimiter\
+    \ << queue.front();\n      delimiter = \", \";\n      queue.pop();\n    }\n  \
+    \  os << ']';\n  \n    queue = ::std::move(other);\n    return os;\n  }\n  \n\
+    \  template <class Key, class Compare, class Allocator>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::set<Key, Compare, Allocator>& set) {\n    return ::tools::detail::extend_output::debug_print(os,\
+    \ set);\n  }\n\n  template <class T, class Container>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, ::std::stack<T, Container>& stack) {\n    ::std::stack<T, Container> other;\n\
+    \    while (!stack.empty()) {\n      other.push(stack.top());\n      stack.pop();\n\
+    \    }\n  \n    ::std::string delimiter = \"\";\n    os << '[';\n    while (!other.empty())\
+    \ {\n      os << delimiter << other.top();\n      delimiter = \", \";\n      stack.push(other.top());\n\
+    \      other.pop();\n    }\n    os << ']';\n  \n    return os;\n  }\n  \n  template\
+    \ <int I = -1, typename... Args>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::tuple<Args...>& tuple) {\n    if constexpr (I == -1) {\n  \
+    \    os << '[';\n    } else if constexpr (I == int(sizeof...(Args))) {\n     \
+    \ os << ']';\n    } else if constexpr (I == 0) {\n      os << ::std::get<I>(tuple);\n\
+    \    } else {\n      os << \", \" << ::std::get<I>(tuple);\n    }\n  \n    if\
+    \ constexpr (I < int(sizeof...(Args))) {\n      return operator<<<I + 1>(os, tuple);\n\
+    \    } else {\n      return os;\n    }\n  }\n  \n  template <class Key, class\
+    \ T, class Hash, class Pred, class Allocator>\n  ::std::ostream& operator<<(::std::ostream&\
+    \ os, const ::std::unordered_map<Key, T, Hash, Pred, Allocator>& unordered_map)\
+    \ {\n    return ::tools::detail::extend_output::debug_print(os, unordered_map);\n\
+    \  }\n  \n  template <class Key, class Hash, class Pred, class Allocator>\n  ::std::ostream&\
+    \ operator<<(::std::ostream& os, const ::std::unordered_set<Key, Hash, Pred, Allocator>&\
+    \ unordered_set) {\n    return ::tools::detail::extend_output::debug_print(os,\
     \ unordered_set);\n  }\n  \n  template <class T, class Allocator>\n  ::std::ostream&\
     \ operator<<(::std::ostream& os, const ::std::vector<T, Allocator>& vector) {\n\
     \    return ::tools::detail::extend_output::debug_print(os, vector);\n  }\n  \n\
@@ -227,8 +232,8 @@ data:
   isVerificationFile: true
   path: tests/util.test.cpp
   requiredBy: []
-  timestamp: '2024-03-30 17:59:25+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-07 11:32:34+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

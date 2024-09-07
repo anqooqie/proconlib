@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/abs.hpp
     title: std::abs(x) extended for my library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   _extendedRequiredBy:
@@ -726,59 +726,59 @@ data:
   isVerificationFile: false
   path: tools/vector.hpp
   requiredBy:
-  - tools/matrix.hpp
-  - tools/less_by_arg.hpp
-  - tools/greater_by_arg.hpp
-  - tools/quaternion.hpp
+  - tools/vector3.hpp
+  - tools/ccw.hpp
   - tools/detail/geometry_2d.hpp
   - tools/vector4.hpp
-  - tools/less_by_arg_total.hpp
-  - tools/convex_hull.hpp
-  - tools/circle_2d.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/vector2.hpp
-  - tools/line_2d.hpp
-  - tools/triangle_2d.hpp
-  - tools/ccw.hpp
-  - tools/polygon_2d.hpp
-  - tools/vector3.hpp
   - tools/greater_by_arg_total.hpp
+  - tools/circle_2d.hpp
+  - tools/polygon_2d.hpp
   - tools/half_line_2d.hpp
+  - tools/matrix.hpp
+  - tools/triangle_2d.hpp
+  - tools/vector2.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/quaternion.hpp
+  - tools/convex_hull.hpp
+  - tools/less_by_arg_total.hpp
+  - tools/less_by_arg.hpp
+  - tools/greater_by_arg.hpp
+  - tools/line_2d.hpp
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/ccw.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/greater_by_arg.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/area.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/slerp.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
+  - tests/ccw.test.cpp
   - tests/triangle_2d/incircle.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/area.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/less_by_arg.test.cpp
+  - tests/greater_by_arg.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/weighted_bipartite_matching/maximize.test.cpp
   - tests/online_cumsum.test.cpp
-  - tests/matrix/multiplies.test.cpp
+  - tests/less_by_arg_total.test.cpp
   - tests/matrix/determinant.test.cpp
-  - tests/matrix/rank.test.cpp
-  - tests/matrix/static.test.cpp
+  - tests/matrix/multiplies.test.cpp
   - tests/matrix/solve.test.cpp
+  - tests/matrix/static.test.cpp
+  - tests/matrix/rank.test.cpp
   - tests/matrix/inv.test.cpp
+  - tests/convex_hull.test.cpp
 documentation_of: tools/vector.hpp
 layout: document
 title: Vector
