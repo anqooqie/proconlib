@@ -2,8 +2,10 @@
 
 #include <array>
 #include <iostream>
+#include <map>
 #include <optional>
 #include <queue>
+#include <set>
 #include <sstream>
 #include <stack>
 #include <tuple>
@@ -26,6 +28,13 @@ int main() {
     std::ostringstream oss;
     oss << v;
     assert_that(oss.str() == "[123, 456, 789]");
+  }
+
+  {
+    std::map<int, int> v = {{{1, 123}, {2, 456}, {3, 789}}};
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "[[1, 123], [2, 456], [3, 789]]");
   }
 
   {
@@ -58,6 +67,13 @@ int main() {
     assert_that(oss.str() == "[123, 456, 789]");
     assert_that(v.size() == 3);
     assert_that(v.front() == 123);
+  }
+
+  {
+    std::set<int> v = {123, 456, 789};
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "[123, 456, 789]");
   }
 
   {

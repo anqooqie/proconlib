@@ -8,8 +8,10 @@
 
 #include <array>
 #include <iostream>
+#include <map>
 #include <optional>
 #include <queue>
+#include <set>
 #include <stack>
 #include <string>
 #include <tuple>
@@ -44,6 +46,11 @@ namespace std {
     return ::tools::detail::extend_output::debug_print(os, array);
   }
   
+  template <class Key, class T, class Compare, class Allocator>
+  ::std::ostream& operator<<(::std::ostream& os, const ::std::map<Key, T, Compare, Allocator>& map) {
+    return ::tools::detail::extend_output::debug_print(os, map);
+  }
+
   template <typename T>
   ::std::ostream& operator<<(::std::ostream& os, const ::std::optional<T>& optional) {
     if (optional) {
@@ -74,6 +81,11 @@ namespace std {
     return os;
   }
   
+  template <class Key, class Compare, class Allocator>
+  ::std::ostream& operator<<(::std::ostream& os, const ::std::set<Key, Compare, Allocator>& set) {
+    return ::tools::detail::extend_output::debug_print(os, set);
+  }
+
   template <class T, class Container>
   ::std::ostream& operator<<(::std::ostream& os, ::std::stack<T, Container>& stack) {
     ::std::stack<T, Container> other;
