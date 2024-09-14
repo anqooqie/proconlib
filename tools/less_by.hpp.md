@@ -21,6 +21,9 @@ data:
     path: tools/hld.hpp
     title: Heavy-light decomposition
   - icon: ':heavy_check_mark:'
+    path: tools/lca.hpp
+    title: Lowest common ancestor
+  - icon: ':heavy_check_mark:'
     path: tools/line_2d.hpp
     title: Two-dimensional line
   - icon: ':heavy_check_mark:'
@@ -78,6 +81,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/hld/vsubtree.test.cpp
     title: tests/hld/vsubtree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lca.test.cpp
+    title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/is_parallel_to.test.cpp
     title: tests/line_2d/is_parallel_to.test.cpp
@@ -161,6 +167,7 @@ data:
   - tools/polygon_2d.hpp
   - tools/half_line_2d.hpp
   - tools/hld.hpp
+  - tools/lca.hpp
   - tools/triangle_2d.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/convex_hull.hpp
@@ -169,6 +176,7 @@ data:
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/lca.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/area.test.cpp

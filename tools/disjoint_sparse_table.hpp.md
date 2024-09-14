@@ -13,17 +13,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/lca.hpp
-    title: Lowest common ancestor
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lca.test.cpp
-    title: tests/lca.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -175,12 +169,10 @@ data:
   - tools/popcount.hpp
   isVerificationFile: false
   path: tools/disjoint_sparse_table.hpp
-  requiredBy:
-  - tools/lca.hpp
+  requiredBy: []
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lca.test.cpp
   - tests/disjoint_sparse_table.test.cpp
 documentation_of: tools/disjoint_sparse_table.hpp
 layout: document

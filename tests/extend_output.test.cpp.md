@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/assert_that.hpp
     title: Assertion macro
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
@@ -380,7 +380,7 @@ data:
   path: tests/extend_output.test.cpp
   requiredBy: []
   timestamp: '2024-09-07 11:32:34+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/extend_output.test.cpp
 layout: document

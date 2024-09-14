@@ -12,7 +12,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/and_convolution.hpp
       title: Bitwise AND convolution
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
@@ -153,13 +153,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/exp.hpp
       title: std::exp(x) extended for my library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extend_hash.hpp
       title: Extend std::hash
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/extend_input.hpp
       title: Extend operator>>
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/extend_output.hpp
       title: Extend operator<<
     - icon: ':heavy_check_mark:'
@@ -174,7 +174,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/fact_mod_cache.hpp
       title: Cache for $n^{-1}, n!, n!^{-1} \pmod{P}$
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/fill.hpp
       title: Fill a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -248,10 +248,10 @@ data:
     - icon: ':warning:'
       path: tools/half_line_2d.hpp
       title: Two-dimensional half line
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/has_mod.hpp
       title: Check whether T has the member function mod()
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/hash_combine.hpp
       title: Combine hash values
     - icon: ':heavy_check_mark:'
@@ -281,7 +281,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_prime.hpp
       title: Miller-Rabin primality test
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/is_range.hpp
       title: Check whether T is a range type
     - icon: ':heavy_check_mark:'
@@ -390,7 +390,7 @@ data:
     - icon: ':warning:'
       path: tools/next_permutation.hpp
       title: Next permutation as n-choose-r
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/now.hpp
       title: The number of nanoseconds that have elapsed since epoch
     - icon: ':heavy_check_mark:'
@@ -495,7 +495,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/rerooting_dp.hpp
       title: Dynamic programming on trees with rerooting technique
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
@@ -580,7 +580,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/tsp.hpp
       title: Traveling salesman problem
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: tools/tuple_hash.hpp
       title: Hash of std::tuple
     - icon: ':heavy_check_mark:'
@@ -602,7 +602,7 @@ data:
     - icon: ':warning:'
       path: tools/upper_bound.hpp
       title: std::upper_bound, but returns index
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tools/util.hpp
       title: Commonly used utilities for competitive programming
     - icon: ':heavy_check_mark:'
@@ -739,7 +739,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/extend_input.test.cpp
       title: tests/extend_input.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/extend_output.test.cpp
       title: tests/extend_output.test.cpp
     - icon: ':heavy_check_mark:'
@@ -985,7 +985,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/uint128_t.test.cpp
       title: tests/uint128_t.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: tests/util.test.cpp
       title: tests/util.test.cpp
     - icon: ':heavy_check_mark:'

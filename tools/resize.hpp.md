@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/digit_product_frequency.hpp
     title: Frequency table of digit products
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
@@ -15,12 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/resize.hpp\"\n\n\n\n#include <vector>\n#include <cstddef>\n\
@@ -68,7 +68,7 @@ data:
   - tools/util.hpp
   - tools/digit_product_frequency.hpp
   timestamp: '2022-09-03 15:52:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/digit_product_frequency.test.cpp
   - tests/util.test.cpp

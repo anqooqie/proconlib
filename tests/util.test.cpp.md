@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_input.hpp
     title: Extend operator>>
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_output.hpp
     title: Extend operator<<
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/fill.hpp
     title: Fill a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/is_range.hpp
     title: Check whether T is a range type
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/resize.hpp
     title: Resize a multi-dimensional vector
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE_IF_CLANG: ''
@@ -233,7 +233,7 @@ data:
   path: tests/util.test.cpp
   requiredBy: []
   timestamp: '2024-09-07 11:32:34+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/util.test.cpp
 layout: document

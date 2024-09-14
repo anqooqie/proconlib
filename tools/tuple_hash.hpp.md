@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   _extendedRequiredBy:
@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/extend_hash.hpp
     title: Extend std::hash
   - icon: ':heavy_check_mark:'
@@ -56,7 +56,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   - icon: ':heavy_check_mark:'
@@ -171,15 +171,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/tuple_hash.test.cpp
     title: tests/tuple_hash.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/weighted_bipartite_matching/maximize.test.cpp
     title: tests/weighted_bipartite_matching/maximize.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/tuple_hash.hpp\"\n\n\n\n#include <cstddef>\n#include\
@@ -253,7 +253,7 @@ data:
   - tools/greater_by_arg.hpp
   - tools/line_2d.hpp
   timestamp: '2022-11-12 12:10:52+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/where.test.cpp

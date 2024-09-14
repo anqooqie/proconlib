@@ -13,19 +13,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/greater_by_second.hpp
     title: std::greater by second
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/hash_combine.hpp
     title: Combine hash values
   - icon: ':heavy_check_mark:'
     path: tools/mcf_graph.hpp
     title: Solver of minimum-cost flow problem
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/now.hpp
     title: The number of nanoseconds that have elapsed since epoch
   - icon: ':heavy_check_mark:'
     path: tools/ssize.hpp
     title: Polyfill of std::ssize
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/tuple_hash.hpp
     title: Hash of std::tuple
   - icon: ':heavy_check_mark:'

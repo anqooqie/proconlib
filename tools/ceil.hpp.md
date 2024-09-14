@@ -39,6 +39,9 @@ data:
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
+    path: tools/lca.hpp
+    title: Lowest common ancestor
+  - icon: ':heavy_check_mark:'
     path: tools/log_mod.hpp
     title: $\log_x y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -177,6 +180,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lca.test.cpp
+    title: tests/lca.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/line_2d/projection.test.cpp
     title: tests/line_2d/projection.test.cpp
@@ -351,6 +357,7 @@ data:
   - tools/log_mod.hpp
   - tools/polynomial.hpp
   - tools/dynamic_bitset.hpp
+  - tools/lca.hpp
   - tools/rolling_hash.hpp
   - tools/ceil_kth_root.hpp
   - tools/sparse_fps_pow.hpp
@@ -371,6 +378,7 @@ data:
   timestamp: '2023-08-20 17:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/lca.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp

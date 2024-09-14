@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: tools/has_mod.hpp
     title: Check whether T has the member function mod()
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tools/util.hpp
     title: Commonly used utilities for competitive programming
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/extend_output.test.cpp
     title: tests/extend_output.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tests/util.test.cpp
     title: tests/util.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/extend_output.hpp\"\n\n\n\n// WARNING:\n// This file\
@@ -144,7 +144,7 @@ data:
   requiredBy:
   - tools/util.hpp
   timestamp: '2024-09-07 11:32:34+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/extend_output.test.cpp
   - tests/util.test.cpp
