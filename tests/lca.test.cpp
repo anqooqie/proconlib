@@ -3,24 +3,22 @@
 #include <iostream>
 #include "tools/lca.hpp"
 
-using ll = long long;
-
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N, Q;
+  int N, Q;
   std::cin >> N >> Q;
-  ::tools::lca lca(N);
-  for (ll i = 1; i <= N - 1; ++i) {
-    ll p;
+  tools::lca lca(N);
+  for (int i = 1; i < N; ++i) {
+    int p;
     std::cin >> p;
     lca.add_edge(i, p);
   }
   lca.build(0);
 
-  for (ll q = 0; q < Q; ++q) {
-    ll u, v;
+  for (int q = 0; q < Q; ++q) {
+    int u, v;
     std::cin >> u >> v;
     std::cout << lca.query(u, v) << '\n';
   }
