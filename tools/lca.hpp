@@ -175,6 +175,13 @@ namespace tools {
 
       return lca;
     }
+
+    // for tools::auxiliary_tree
+    ::std::size_t internal_in(const ::std::size_t v) const {
+      assert(this->built());
+      assert(v < this->size());
+      return this->m_in[v];
+    }
   };
 }
 
