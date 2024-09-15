@@ -19,8 +19,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lca.test.cpp
     title: tests/lca.test.cpp
@@ -187,7 +193,9 @@ data:
     \        }\n        if (br * this->m_block_size < r) {\n          lca = ::std::min(lca,\
     \ this->m_tour[br * this->m_block_size + this->m_lookup_table[this->m_patterns[br]][0][r\
     \ % this->m_block_size]], this->less_by_depth());\n        }\n      }\n\n    \
-    \  return lca;\n    }\n  };\n}\n\n\n"
+    \  return lca;\n    }\n\n    // for tools::auxiliary_tree\n    ::std::size_t internal_in(const\
+    \ ::std::size_t v) const {\n      assert(this->built());\n      assert(v < this->size());\n\
+    \      return this->m_in[v];\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_LCA_HPP\n#define TOOLS_LCA_HPP\n\n#include <cstdint>\n#include\
     \ <vector>\n#include <cstddef>\n#include <cassert>\n#include <numeric>\n#include\
     \ <limits>\n#include <stack>\n#include <utility>\n#include <algorithm>\n#include\
@@ -270,7 +278,9 @@ data:
     \        }\n        if (br * this->m_block_size < r) {\n          lca = ::std::min(lca,\
     \ this->m_tour[br * this->m_block_size + this->m_lookup_table[this->m_patterns[br]][0][r\
     \ % this->m_block_size]], this->less_by_depth());\n        }\n      }\n\n    \
-    \  return lca;\n    }\n  };\n}\n\n#endif\n"
+    \  return lca;\n    }\n\n    // for tools::auxiliary_tree\n    ::std::size_t internal_in(const\
+    \ ::std::size_t v) const {\n      assert(this->built());\n      assert(v < this->size());\n\
+    \      return this->m_in[v];\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/ceil.hpp
   - tools/less_by.hpp
@@ -280,11 +290,13 @@ data:
   - tools/pow2.hpp
   isVerificationFile: false
   path: tools/lca.hpp
-  requiredBy: []
-  timestamp: '2024-09-15 05:25:57+09:00'
+  requiredBy:
+  - tools/auxiliary_tree.hpp
+  timestamp: '2024-09-15 21:33:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lca.test.cpp
+  - tests/auxiliary_tree.test.cpp
 documentation_of: tools/lca.hpp
 layout: document
 title: Lowest common ancestor

@@ -25,6 +25,9 @@ data:
     title: Signed Stirling numbers of the first kind
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/avl_tree/binary_search.test.cpp
     title: tests/avl_tree/binary_search.test.cpp
   - icon: ':heavy_check_mark:'
@@ -104,6 +107,7 @@ data:
   - tests/lowlink/ncc_without_vertex.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lowlink/is_bridge.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/fix.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp

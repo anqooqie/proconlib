@@ -16,6 +16,9 @@ data:
       path: tools/assert_that.hpp
       title: Assertion macro
     - icon: ':heavy_check_mark:'
+      path: tools/auxiliary_tree.hpp
+      title: Auxiliary tree
+    - icon: ':heavy_check_mark:'
       path: tools/avl_tree.hpp
       title: Reversible self-balancing binary search tree based on AVL tree
     - icon: ':heavy_check_mark:'
@@ -658,6 +661,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/and_convolution.test.cpp
       title: tests/and_convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/auxiliary_tree.test.cpp
+      title: tests/auxiliary_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bellman_ford.test.cpp
       title: tests/bellman_ford.test.cpp

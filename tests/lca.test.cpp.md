@@ -192,12 +192,15 @@ data:
     \        }\n        if (br * this->m_block_size < r) {\n          lca = ::std::min(lca,\
     \ this->m_tour[br * this->m_block_size + this->m_lookup_table[this->m_patterns[br]][0][r\
     \ % this->m_block_size]], this->less_by_depth());\n        }\n      }\n\n    \
-    \  return lca;\n    }\n  };\n}\n\n\n#line 5 \"tests/lca.test.cpp\"\n\nint main()\
-    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int\
-    \ N, Q;\n  std::cin >> N >> Q;\n  tools::lca lca(N);\n  for (int i = 1; i < N;\
-    \ ++i) {\n    int p;\n    std::cin >> p;\n    lca.add_edge(i, p);\n  }\n  lca.build(0);\n\
-    \n  for (int q = 0; q < Q; ++q) {\n    int u, v;\n    std::cin >> u >> v;\n  \
-    \  std::cout << lca.query(u, v) << '\\n';\n  }\n\n  return 0;\n}\n"
+    \  return lca;\n    }\n\n    // for tools::auxiliary_tree\n    ::std::size_t internal_in(const\
+    \ ::std::size_t v) const {\n      assert(this->built());\n      assert(v < this->size());\n\
+    \      return this->m_in[v];\n    }\n  };\n}\n\n\n#line 5 \"tests/lca.test.cpp\"\
+    \n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  int N, Q;\n  std::cin >> N >> Q;\n  tools::lca lca(N);\n  for (int i = 1;\
+    \ i < N; ++i) {\n    int p;\n    std::cin >> p;\n    lca.add_edge(i, p);\n  }\n\
+    \  lca.build(0);\n\n  for (int q = 0; q < Q; ++q) {\n    int u, v;\n    std::cin\
+    \ >> u >> v;\n    std::cout << lca.query(u, v) << '\\n';\n  }\n\n  return 0;\n\
+    }\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n\n#include <iostream>\n\
     #include \"tools/lca.hpp\"\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, Q;\n  std::cin >> N >> Q;\n  tools::lca lca(N);\n  for (int i = 1;\
@@ -216,7 +219,7 @@ data:
   isVerificationFile: true
   path: tests/lca.test.cpp
   requiredBy: []
-  timestamp: '2024-09-15 05:25:57+09:00'
+  timestamp: '2024-09-15 21:33:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lca.test.cpp

@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -51,6 +54,9 @@ data:
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
@@ -252,6 +258,7 @@ data:
   - tools/range_count_distinct.hpp
   - tools/bell.hpp
   - tools/bostan_mori.hpp
+  - tools/auxiliary_tree.hpp
   - tools/digit_product_frequency.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -270,6 +277,7 @@ data:
   - tests/polynomial/multipoint_evaluation.test.cpp
   - tests/digit_product_frequency.test.cpp
   - tests/range_count_distinct.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/partially_persistent_dsu.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp

@@ -6,6 +6,9 @@ data:
     title: Popcount
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/bigdecimal.hpp
     title: Arbitrary precision floating-point number
   - icon: ':heavy_check_mark:'
@@ -63,6 +66,9 @@ data:
     path: tools/wavelet_matrix.hpp
     title: Wavelet matrix
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bigdecimal/cast_to_long_long.test.cpp
     title: tests/bigdecimal/cast_to_long_long.test.cpp
@@ -332,6 +338,7 @@ data:
   - tools/extended_lucas.hpp
   - tools/rational.hpp
   - tools/disjoint_sparse_table_2d.hpp
+  - tools/auxiliary_tree.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/divisors.hpp
   - tools/bigdecimal.hpp
@@ -356,6 +363,7 @@ data:
   - tests/fastio/string.test.cpp
   - tests/log_mod.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/monoid.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp

@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/circle_2d.hpp
     title: Two-dimensional circle
   - icon: ':heavy_check_mark:'
@@ -42,6 +45,9 @@ data:
     path: tools/triangle_2d.hpp
     title: Two-dimensional triangle
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/circle_2d/intersection_to_circle.test.cpp
     title: tests/circle_2d/intersection_to_circle.test.cpp
@@ -171,6 +177,7 @@ data:
   - tools/triangle_2d.hpp
   - tools/directed_line_segment_2d.hpp
   - tools/convex_hull.hpp
+  - tools/auxiliary_tree.hpp
   - tools/lowlink.hpp
   - tools/line_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
@@ -189,6 +196,7 @@ data:
   - tests/real_interval_set.test.cpp
   - tests/triangle_2d/incircle.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/cross_point.test.cpp

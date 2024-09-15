@@ -6,6 +6,9 @@ data:
     path: tools/and_convolution.hpp
     title: Bitwise AND convolution
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -117,6 +120,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/and_convolution.test.cpp
     title: tests/and_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
@@ -506,6 +512,7 @@ data:
   - tools/extended_lucas.hpp
   - tools/rational.hpp
   - tools/disjoint_sparse_table_2d.hpp
+  - tools/auxiliary_tree.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/divisors.hpp
   - tools/dual_segtree.hpp
@@ -545,6 +552,7 @@ data:
   - tests/li_chao_segtree/line.test.cpp
   - tests/fastio/string.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/tsort/query.test.cpp
   - tests/tsort/count.test.cpp
   - tests/disjoint_sparse_table.test.cpp

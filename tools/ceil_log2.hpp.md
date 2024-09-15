@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -69,6 +72,9 @@ data:
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
@@ -344,6 +350,7 @@ data:
   - tools/bell.hpp
   - tools/bostan_mori.hpp
   - tools/disjoint_sparse_table_2d.hpp
+  - tools/auxiliary_tree.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/dual_segtree.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
@@ -368,6 +375,7 @@ data:
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/li_chao_segtree/segment.test.cpp
   - tests/li_chao_segtree/line.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/disjoint_sparse_table.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp

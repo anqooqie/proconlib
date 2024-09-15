@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/auxiliary_tree.hpp
+    title: Auxiliary tree
+  - icon: ':heavy_check_mark:'
     path: tools/bell.hpp
     title: Bell numbers
   - icon: ':heavy_check_mark:'
@@ -87,6 +90,9 @@ data:
     path: tools/zero_one_knapsack.hpp
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/auxiliary_tree.test.cpp
+    title: tests/auxiliary_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/bell/all.test.cpp
     title: tests/bell/all.test.cpp
@@ -372,6 +378,7 @@ data:
   - tools/round.hpp
   - tools/bostan_mori.hpp
   - tools/rational.hpp
+  - tools/auxiliary_tree.hpp
   - tools/bigdecimal.hpp
   - tools/ceil_log.hpp
   - tools/mo.hpp
@@ -405,6 +412,7 @@ data:
   - tests/ceil_kth_root.test.cpp
   - tests/log_mod.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
+  - tests/auxiliary_tree.test.cpp
   - tests/monoid.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
