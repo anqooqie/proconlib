@@ -245,14 +245,14 @@ data:
   isVerificationFile: false
   path: tools/osa_k.hpp
   requiredBy:
-  - tools/lcm_convolution.hpp
   - tools/gcd_convolution.hpp
+  - tools/lcm_convolution.hpp
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/lcm_convolution.test.cpp
   - tests/gcd_convolution.test.cpp
   - tests/osa_k.test.cpp
-  - tests/lcm_convolution.test.cpp
 documentation_of: tools/osa_k.hpp
 layout: document
 title: osa_k's algorithm

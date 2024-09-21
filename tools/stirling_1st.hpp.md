@@ -1808,8 +1808,8 @@ data:
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
 documentation_of: tools/stirling_1st.hpp
 layout: document

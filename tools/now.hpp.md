@@ -151,6 +151,9 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/pdsu.test.cpp
+    title: tests/pdsu.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
   - icon: ':heavy_check_mark:'
@@ -204,71 +207,72 @@ data:
   isVerificationFile: false
   path: tools/now.hpp
   requiredBy:
-  - tools/vector3.hpp
-  - tools/ccw.hpp
+  - tools/convex_hull.hpp
+  - tools/half_line_2d.hpp
+  - tools/circle_2d.hpp
+  - tools/greater_by_arg_total.hpp
   - tools/detail/rolling_hash.hpp
   - tools/detail/geometry_2d.hpp
-  - tools/vector4.hpp
-  - tools/greater_by_arg_total.hpp
-  - tools/circle_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/half_line_2d.hpp
-  - tools/util.hpp
   - tools/rolling_hash.hpp
-  - tools/extend_hash.hpp
-  - tools/matrix.hpp
   - tools/triangle_2d.hpp
-  - tools/vector2.hpp
+  - tools/vector3.hpp
   - tools/directed_line_segment_2d.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/quaternion.hpp
-  - tools/convex_hull.hpp
-  - tools/less_by_arg_total.hpp
   - tools/vector.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/util.hpp
+  - tools/polygon_2d.hpp
+  - tools/quaternion.hpp
+  - tools/vector4.hpp
   - tools/less_by_arg.hpp
+  - tools/vector2.hpp
+  - tools/less_by_arg_total.hpp
   - tools/greater_by_arg.hpp
-  - tools/tuple_hash.hpp
+  - tools/extend_hash.hpp
+  - tools/ccw.hpp
   - tools/line_2d.hpp
+  - tools/tuple_hash.hpp
+  - tools/matrix.hpp
   timestamp: '2022-11-12 12:10:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/tuple_hash.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/extend_hash.test.cpp
+  - tests/online_cumsum.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/greater_by_arg.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/ccw.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/less_by_arg.test.cpp
-  - tests/greater_by_arg.test.cpp
-  - tests/greater_by_arg_total.test.cpp
-  - tests/extend_hash.test.cpp
   - tests/rolling_hash.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/util.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
   - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
-  - tests/online_cumsum.test.cpp
-  - tests/less_by_arg_total.test.cpp
-  - tests/matrix/determinant.test.cpp
-  - tests/matrix/multiplies.test.cpp
-  - tests/matrix/solve.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/matrix/static.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/determinant.test.cpp
+  - tests/matrix/solve.test.cpp
   - tests/matrix/rank.test.cpp
   - tests/matrix/inv.test.cpp
-  - tests/convex_hull.test.cpp
+  - tests/pdsu.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/tuple_hash.test.cpp
+  - tests/less_by_arg_total.test.cpp
+  - tests/greater_by_arg_total.test.cpp
+  - tests/ccw.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/util.test.cpp
 documentation_of: tools/now.hpp
 layout: document
 title: The number of nanoseconds that have elapsed since epoch

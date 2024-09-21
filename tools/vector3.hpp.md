@@ -356,8 +356,8 @@ data:
   verifiedWith:
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/matrix/static.test.cpp
 documentation_of: tools/vector3.hpp
 layout: document

@@ -1073,8 +1073,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/line_2d/projection.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
+  - tests/line_2d/projection.test.cpp
 documentation_of: tools/line_2d.hpp
 layout: document
 title: Two-dimensional line

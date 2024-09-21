@@ -123,11 +123,11 @@ data:
   timestamp: '2024-02-17 19:44:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/countr_zero.test.cpp
   - tests/chromatic_number.test.cpp
-  - tests/rotate_left.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/countr_zero.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/rotate_left.test.cpp
 documentation_of: tools/countr_zero.hpp
 layout: document
 title: Number of trailing zeros

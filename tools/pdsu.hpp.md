@@ -39,13 +39,13 @@ data:
     \    }\n\n    int leader(const int x) {\n      assert(0 <= x && x < this->size());\n\
     \      if (this->m_parents[x] == x) {\n        return x;\n      }\n      const\
     \ auto r = this->leader(this->m_parents[x]);\n      if (this->m_consistent[r])\
-    \ {\n        this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);\n\
+    \ {\n        this->m_diffs[x] = G::op(this->m_diffs[this->m_parents[x]], this->m_diffs[x]);\n\
     \      }\n      return this->m_parents[x] = r;\n    }\n\n    ::std::pair<::tools::pdsu_diff,\
     \ T> diff(const int x, const int y) {\n      assert(0 <= x && x < this->size());\n\
     \      assert(0 <= y && y < this->size());\n      const auto x_r = this->leader(x);\n\
     \      const auto y_r = this->leader(y);\n      if (x_r == y_r) {\n        if\
     \ (this->m_consistent[x_r]) {\n          return ::std::make_pair(::tools::pdsu_diff::known,\
-    \ G::op(this->m_diffs[y], G::inv(this->m_diffs[x])));\n        } else {\n    \
+    \ G::op(G::inv(this->m_diffs[y]), this->m_diffs[x]));\n        } else {\n    \
     \      return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());\n  \
     \      }\n      } else {\n        return ::std::make_pair(::tools::pdsu_diff::unknown,\
     \ G::e());\n      }\n    }\n\n    bool same(const int x, const int y) {\n    \
@@ -54,15 +54,15 @@ data:
     \ x, int y, T w) {\n      assert(0 <= x && x < this->size());\n      assert(0\
     \ <= y && y < this->size());\n\n      auto x_r = this->leader(x);\n      auto\
     \ y_r = this->leader(y);\n\n      if (x_r == y_r) {\n        this->m_consistent[x_r]\
-    \ = (this->m_consistent[x_r] && G::op(this->m_diffs[x], w) == this->m_diffs[y]);\n\
+    \ = (this->m_consistent[x_r] && this->m_diffs[x] == G::op(this->m_diffs[y], w));\n\
     \        return x_r;\n      }\n\n      if (this->m_sizes[x_r] < this->m_sizes[y_r])\
     \ {\n        ::std::swap(x, y);\n        w = G::inv(w);\n        ::std::swap(x_r,\
     \ y_r);\n      }\n      this->m_parents[y_r] = x_r;\n      this->m_sizes[x_r]\
     \ += this->m_sizes[y_r];\n      if (this->m_consistent[x_r] = (this->m_consistent[x_r]\
-    \ && this->m_consistent[y_r])) {\n        this->m_diffs[y_r] = G::op(G::op(w,\
-    \ this->m_diffs[x]), G::inv(this->m_diffs[y]));\n      }\n      return x_r;\n\
-    \    }\n\n    int size(const int x) {\n      assert(0 <= x && x < this->size());\n\
-    \      return this->m_sizes[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ && this->m_consistent[y_r])) {\n        this->m_diffs[y_r] = G::op(G::op(this->m_diffs[x],\
+    \ G::inv(w)), G::inv(this->m_diffs[y]));\n      }\n      return x_r;\n    }\n\n\
+    \    int size(const int x) {\n      assert(0 <= x && x < this->size());\n    \
+    \  return this->m_sizes[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
     \ groups() {\n      ::std::vector<int> group_indices(this->size(), -1);\n    \
     \  int next_group_index = 0;\n      for (int i = 0; i < this->size(); ++i) {\n\
     \        if (group_indices[this->leader(i)] == -1) {\n          group_indices[this->leader(i)]\
@@ -83,13 +83,13 @@ data:
     \    }\n\n    int leader(const int x) {\n      assert(0 <= x && x < this->size());\n\
     \      if (this->m_parents[x] == x) {\n        return x;\n      }\n      const\
     \ auto r = this->leader(this->m_parents[x]);\n      if (this->m_consistent[r])\
-    \ {\n        this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);\n\
+    \ {\n        this->m_diffs[x] = G::op(this->m_diffs[this->m_parents[x]], this->m_diffs[x]);\n\
     \      }\n      return this->m_parents[x] = r;\n    }\n\n    ::std::pair<::tools::pdsu_diff,\
     \ T> diff(const int x, const int y) {\n      assert(0 <= x && x < this->size());\n\
     \      assert(0 <= y && y < this->size());\n      const auto x_r = this->leader(x);\n\
     \      const auto y_r = this->leader(y);\n      if (x_r == y_r) {\n        if\
     \ (this->m_consistent[x_r]) {\n          return ::std::make_pair(::tools::pdsu_diff::known,\
-    \ G::op(this->m_diffs[y], G::inv(this->m_diffs[x])));\n        } else {\n    \
+    \ G::op(G::inv(this->m_diffs[y]), this->m_diffs[x]));\n        } else {\n    \
     \      return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());\n  \
     \      }\n      } else {\n        return ::std::make_pair(::tools::pdsu_diff::unknown,\
     \ G::e());\n      }\n    }\n\n    bool same(const int x, const int y) {\n    \
@@ -98,15 +98,15 @@ data:
     \ x, int y, T w) {\n      assert(0 <= x && x < this->size());\n      assert(0\
     \ <= y && y < this->size());\n\n      auto x_r = this->leader(x);\n      auto\
     \ y_r = this->leader(y);\n\n      if (x_r == y_r) {\n        this->m_consistent[x_r]\
-    \ = (this->m_consistent[x_r] && G::op(this->m_diffs[x], w) == this->m_diffs[y]);\n\
+    \ = (this->m_consistent[x_r] && this->m_diffs[x] == G::op(this->m_diffs[y], w));\n\
     \        return x_r;\n      }\n\n      if (this->m_sizes[x_r] < this->m_sizes[y_r])\
     \ {\n        ::std::swap(x, y);\n        w = G::inv(w);\n        ::std::swap(x_r,\
     \ y_r);\n      }\n      this->m_parents[y_r] = x_r;\n      this->m_sizes[x_r]\
     \ += this->m_sizes[y_r];\n      if (this->m_consistent[x_r] = (this->m_consistent[x_r]\
-    \ && this->m_consistent[y_r])) {\n        this->m_diffs[y_r] = G::op(G::op(w,\
-    \ this->m_diffs[x]), G::inv(this->m_diffs[y]));\n      }\n      return x_r;\n\
-    \    }\n\n    int size(const int x) {\n      assert(0 <= x && x < this->size());\n\
-    \      return this->m_sizes[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
+    \ && this->m_consistent[y_r])) {\n        this->m_diffs[y_r] = G::op(G::op(this->m_diffs[x],\
+    \ G::inv(w)), G::inv(this->m_diffs[y]));\n      }\n      return x_r;\n    }\n\n\
+    \    int size(const int x) {\n      assert(0 <= x && x < this->size());\n    \
+    \  return this->m_sizes[this->leader(x)];\n    }\n\n    ::std::vector<::std::vector<int>>\
     \ groups() {\n      ::std::vector<int> group_indices(this->size(), -1);\n    \
     \  int next_group_index = 0;\n      for (int i = 0; i < this->size(); ++i) {\n\
     \        if (group_indices[this->leader(i)] == -1) {\n          group_indices[this->leader(i)]\
@@ -119,7 +119,7 @@ data:
   isVerificationFile: false
   path: tools/pdsu.hpp
   requiredBy: []
-  timestamp: '2024-02-18 13:45:51+09:00'
+  timestamp: '2024-09-22 01:23:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/pdsu.test.cpp
@@ -128,10 +128,10 @@ layout: document
 title: Potentialized disjoint set union
 ---
 
-Given an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$ and an abelian group $G$, it processes the following queries in $O(\alpha(n))$ time (amortized).
+Given a group $(G, \cdot)$ and an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}) \in G^n$, it processes the following queries in $O(\alpha(n))$ time (amortized).
 
-- Accepting the information $a_y - a_x = w$ under the abelian group $G$
-- Reporting $a_y - a_x$ under the abelian group $G$
+- Accepting the information $a_x = a_y \cdot w$
+- Reporting $a_y^{-1} \cdot a_x$
 
 ### License
 - CC0
@@ -145,14 +145,13 @@ template <typename G = tools::group::plus<long long>>
 pdsu<G> d(int n);
 ```
 
-It creates an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$.
+It creates an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}) \in G^n$.
 
 ### Constraints
 - $n \geq 0$
-- For all $a$ in `typename G::T` and $b$ in `typename G::T`, `G::op(a, b)` $=$ `G::op(b, a)`.
-- For all $a$ in `typename G::T`, $b$ in `typename G::T` and $c$ in `typename G::T`, `G::op(G::op(a, b), c)` $=$ `G::op(a, G::op(b, c))`.
-- For all $a$ in `typename G::T`, `G::op(G::e(), a)` $=$ `G::op(a, G::e())` $=$ `a`.
-- For all $a$ in `typename G::T`, `G::op(G::inv(a), a)` $=$ `G::op(a, G::inv(a))` $=$ `G::e()`.
+- $\forall a \in G. \forall b \in G. \forall c \in G. (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+- $\forall a \in G. e \cdot a = a \cdot e = a$ where $e$ is `G::e()`
+- $\forall a \in G. a^{-1} \cdot a = a \cdot a^{-1} = e$ where $e$ is `G::e()`
 
 ### Time Complexity
 - $O(n)$
@@ -162,7 +161,7 @@ It creates an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$.
 int d.merge(int x, int y, typename G::T w);
 ```
 
-It accepts the information $a_y - a_x = w$.
+It accepts the information $a_x = a_y \cdot w$.
 
 ### Constraints
 - $0 \leq x < n$
@@ -181,9 +180,9 @@ enum class pdsu_diff {
 std::pair<tools::pdsu_diff, typename G::T> d.diff(int x, int y);
 ```
 
-If $a_y - a_x$ can be calculated consistently, it returns $(\mathrm{known}, a_y - a_x)$.
-If $a_y - a_x$ is still unknown under the information accepted so far, it returns $(\mathrm{unknown}, e)$ where $e$ is `G::e()`.
-If it turns out that the consistent value of $a_y - a_x$ cannot be obtained, it returns $(\mathrm{inconsistent}, e)$ where $e$ is `G::e()`.
+If $a_y^{-1} \cdot a_x$ can be calculated consistently, it returns $(\mathrm{known}, a_y^{-1} \cdot a_x)$.
+If $a_y^{-1} \cdot a_x$ is still unknown under the information accepted so far, it returns $(\mathrm{unknown}, e)$ where $e$ is `G::e()`.
+If it turns out that the consistent value of $a_y^{-1} \cdot a_x$ cannot be obtained, it returns $(\mathrm{inconsistent}, e)$ where $e$ is `G::e()`.
 
 ### Constraints
 - $0 \leq x < n$
@@ -197,7 +196,7 @@ If it turns out that the consistent value of $a_y - a_x$ cannot be obtained, it 
 bool d.same(int x, int y);
 ```
 
-If $a_y - a_x$ is still unknown under the information accepted so far, it returns `false`.
+If $a_y^{-1} \cdot a_x$ is still unknown under the information accepted so far, it returns `false`.
 Otherwise, it returns `true`.
 
 ### Constraints

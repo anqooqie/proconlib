@@ -39,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/pdsu.test.cpp
+    title: tests/pdsu.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -696,12 +699,13 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
-  - tests/matrix/determinant.test.cpp
-  - tests/matrix/multiplies.test.cpp
-  - tests/matrix/solve.test.cpp
   - tests/matrix/static.test.cpp
+  - tests/matrix/multiplies.test.cpp
+  - tests/matrix/determinant.test.cpp
+  - tests/matrix/solve.test.cpp
   - tests/matrix/rank.test.cpp
   - tests/matrix/inv.test.cpp
+  - tests/pdsu.test.cpp
 documentation_of: tools/matrix.hpp
 layout: document
 title: Matrix

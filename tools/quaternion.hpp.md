@@ -752,8 +752,8 @@ data:
   verifiedWith:
   - tests/quaternion/angle_axis.test.cpp
   - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/slerp.test.cpp
 documentation_of: tools/quaternion.hpp
 layout: document
 title: Quaternion
