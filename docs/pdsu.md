@@ -3,10 +3,10 @@ title: Potentialized disjoint set union
 documentation_of: //tools/pdsu.hpp
 ---
 
-Given an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$ and an abelian group $G$, it processes the following queries in $O(\alpha(n))$ time (amortized).
+Given a group $(G, \cdot)$ and an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}) \in G^n$, it processes the following queries in $O(\alpha(n))$ time (amortized).
 
-- Accepting the information $a_y - a_x = w$ under the abelian group $G$
-- Reporting $a_y - a_x$ under the abelian group $G$
+- Accepting the information $a_x = a_y \cdot w$
+- Reporting $a_y^{-1} \cdot a_x$
 
 ### License
 - CC0
@@ -20,14 +20,13 @@ template <typename G = tools::group::plus<long long>>
 pdsu<G> d(int n);
 ```
 
-It creates an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$.
+It creates an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}) \in G^n$.
 
 ### Constraints
 - $n \geq 0$
-- For all $a$ in `typename G::T` and $b$ in `typename G::T`, `G::op(a, b)` $=$ `G::op(b, a)`.
-- For all $a$ in `typename G::T`, $b$ in `typename G::T` and $c$ in `typename G::T`, `G::op(G::op(a, b), c)` $=$ `G::op(a, G::op(b, c))`.
-- For all $a$ in `typename G::T`, `G::op(G::e(), a)` $=$ `G::op(a, G::e())` $=$ `a`.
-- For all $a$ in `typename G::T`, `G::op(G::inv(a), a)` $=$ `G::op(a, G::inv(a))` $=$ `G::e()`.
+- $\forall a \in G. \forall b \in G. \forall c \in G. (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+- $\forall a \in G. e \cdot a = a \cdot e = a$ where $e$ is `G::e()`
+- $\forall a \in G. a^{-1} \cdot a = a \cdot a^{-1} = e$ where $e$ is `G::e()`
 
 ### Time Complexity
 - $O(n)$
@@ -37,7 +36,7 @@ It creates an unknown integer sequence $a_0, a_1, \ldots, a_{n - 1}$.
 int d.merge(int x, int y, typename G::T w);
 ```
 
-It accepts the information $a_y - a_x = w$.
+It accepts the information $a_x = a_y \cdot w$.
 
 ### Constraints
 - $0 \leq x < n$
@@ -56,9 +55,9 @@ enum class pdsu_diff {
 std::pair<tools::pdsu_diff, typename G::T> d.diff(int x, int y);
 ```
 
-If $a_y - a_x$ can be calculated consistently, it returns $(\mathrm{known}, a_y - a_x)$.
-If $a_y - a_x$ is still unknown under the information accepted so far, it returns $(\mathrm{unknown}, e)$ where $e$ is `G::e()`.
-If it turns out that the consistent value of $a_y - a_x$ cannot be obtained, it returns $(\mathrm{inconsistent}, e)$ where $e$ is `G::e()`.
+If $a_y^{-1} \cdot a_x$ can be calculated consistently, it returns $(\mathrm{known}, a_y^{-1} \cdot a_x)$.
+If $a_y^{-1} \cdot a_x$ is still unknown under the information accepted so far, it returns $(\mathrm{unknown}, e)$ where $e$ is `G::e()`.
+If it turns out that the consistent value of $a_y^{-1} \cdot a_x$ cannot be obtained, it returns $(\mathrm{inconsistent}, e)$ where $e$ is `G::e()`.
 
 ### Constraints
 - $0 \leq x < n$
@@ -72,7 +71,7 @@ If it turns out that the consistent value of $a_y - a_x$ cannot be obtained, it 
 bool d.same(int x, int y);
 ```
 
-If $a_y - a_x$ is still unknown under the information accepted so far, it returns `false`.
+If $a_y^{-1} \cdot a_x$ is still unknown under the information accepted so far, it returns `false`.
 Otherwise, it returns `true`.
 
 ### Constraints

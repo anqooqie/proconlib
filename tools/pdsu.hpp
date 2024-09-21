@@ -45,7 +45,7 @@ namespace tools {
       }
       const auto r = this->leader(this->m_parents[x]);
       if (this->m_consistent[r]) {
-        this->m_diffs[x] = G::op(this->m_diffs[x], this->m_diffs[this->m_parents[x]]);
+        this->m_diffs[x] = G::op(this->m_diffs[this->m_parents[x]], this->m_diffs[x]);
       }
       return this->m_parents[x] = r;
     }
@@ -57,7 +57,7 @@ namespace tools {
       const auto y_r = this->leader(y);
       if (x_r == y_r) {
         if (this->m_consistent[x_r]) {
-          return ::std::make_pair(::tools::pdsu_diff::known, G::op(this->m_diffs[y], G::inv(this->m_diffs[x])));
+          return ::std::make_pair(::tools::pdsu_diff::known, G::op(G::inv(this->m_diffs[y]), this->m_diffs[x]));
         } else {
           return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());
         }
@@ -80,7 +80,7 @@ namespace tools {
       auto y_r = this->leader(y);
 
       if (x_r == y_r) {
-        this->m_consistent[x_r] = (this->m_consistent[x_r] && G::op(this->m_diffs[x], w) == this->m_diffs[y]);
+        this->m_consistent[x_r] = (this->m_consistent[x_r] && this->m_diffs[x] == G::op(this->m_diffs[y], w));
         return x_r;
       }
 
@@ -92,7 +92,7 @@ namespace tools {
       this->m_parents[y_r] = x_r;
       this->m_sizes[x_r] += this->m_sizes[y_r];
       if (this->m_consistent[x_r] = (this->m_consistent[x_r] && this->m_consistent[y_r])) {
-        this->m_diffs[y_r] = G::op(G::op(w, this->m_diffs[x]), G::inv(this->m_diffs[y]));
+        this->m_diffs[y_r] = G::op(G::op(this->m_diffs[x], G::inv(w)), G::inv(this->m_diffs[y]));
       }
       return x_r;
     }
