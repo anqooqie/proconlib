@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
-#include "tools/osa_k.hpp"
+#include "tools/linear_sieve.hpp"
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
@@ -34,11 +34,13 @@ namespace tools {
 
     a.resize(K, T(0));
     b.resize(K, T(0));
-    ::tools::osa_k<::std::size_t> osa_k(K);
-    for (const auto p : osa_k.prime_range(1, K)) {
-      for (::std::size_t k = 1; k * p < K; ++k) {
-        a[k * p] += a[k];
-        b[k * p] += b[k];
+    ::tools::linear_sieve<::std::size_t> sieve(K > 2 ? K - 1 : 1);
+    if (K > 1) {
+      for (const auto p : sieve.prime_range(1, K - 1)) {
+        for (::std::size_t k = 1; k * p < K; ++k) {
+          a[k * p] += a[k];
+          b[k * p] += b[k];
+        }
       }
     }
 
@@ -46,9 +48,11 @@ namespace tools {
       c_begin[i] = a[i] * b[i];
     }
 
-    for (const auto p : osa_k.prime_range(1, K)) {
-      for (::std::size_t k = (K - 1) / p; k >= 1; --k) {
-        c_begin[k * p] -= c_begin[k];
+    if (K > 1) {
+      for (const auto p : sieve.prime_range(1, K - 1)) {
+        for (::std::size_t k = (K - 1) / p; k >= 1; --k) {
+          c_begin[k * p] -= c_begin[k];
+        }
       }
     }
   }

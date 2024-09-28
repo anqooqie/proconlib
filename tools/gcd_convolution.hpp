@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
-#include "tools/osa_k.hpp"
+#include "tools/linear_sieve.hpp"
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
@@ -33,15 +33,19 @@ namespace tools {
       base[i] += a[0] * b[i];
     }
 
-    ::tools::osa_k<::std::size_t> osa_k(::std::max({N, M, K}));
-    for (const auto p : osa_k.prime_range(1, N)) {
-      for (::std::size_t k = (N - 1) / p; k >= 1; --k) {
-        a[k] += a[k * p];
+    ::tools::linear_sieve<::std::size_t> sieve(::std::max({N, M, K}) > 2 ? ::std::max({N, M, K}) - 1 : 1);
+    if (N > 1) {
+      for (const auto p : sieve.prime_range(1, N - 1)) {
+        for (::std::size_t k = (N - 1) / p; k >= 1; --k) {
+          a[k] += a[k * p];
+        }
       }
     }
-    for (const auto p : osa_k.prime_range(1, M)) {
-      for (::std::size_t k = (M - 1) / p; k >= 1; --k) {
-        b[k] += b[k * p];
+    if (M > 1) {
+      for (const auto p : sieve.prime_range(1, M - 1)) {
+        for (::std::size_t k = (M - 1) / p; k >= 1; --k) {
+          b[k] += b[k * p];
+        }
       }
     }
 
@@ -50,9 +54,11 @@ namespace tools {
     }
     ::std::fill(::std::next(c_begin, ::std::min({N, M, K})), c_end, T(0));
 
-    for (const auto p : osa_k.prime_range(1, K)) {
-      for (::std::size_t k = 1; k * p < K; ++k) {
-        c_begin[k] -= c_begin[k * p];
+    if (K > 1) {
+      for (const auto p : sieve.prime_range(1, K - 1)) {
+        for (::std::size_t k = 1; k * p < K; ++k) {
+          c_begin[k] -= c_begin[k * p];
+        }
       }
     }
 
