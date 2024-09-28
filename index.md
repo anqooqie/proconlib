@@ -336,6 +336,9 @@ data:
       path: tools/line_2d.hpp
       title: Two-dimensional line
     - icon: ':heavy_check_mark:'
+      path: tools/linear_sieve.hpp
+      title: Linear sieve
+    - icon: ':heavy_check_mark:'
       path: tools/lis.hpp
       title: Longest increasing subsequence
     - icon: ':heavy_check_mark:'
@@ -405,9 +408,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/ord_mod.hpp
       title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
-    - icon: ':heavy_check_mark:'
-      path: tools/osa_k.hpp
-      title: osa_k's algorithm
     - icon: ':heavy_check_mark:'
       path: tools/partially_persistent_dsu.hpp
       title: Partially persistent disjoint set union
@@ -848,6 +848,9 @@ data:
       path: tests/less_by_arg_total.test.cpp
       title: tests/less_by_arg_total.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/linear_sieve.test.cpp
+      title: tests/linear_sieve.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/lis.test.cpp
       title: tests/lis.test.cpp
     - icon: ':heavy_check_mark:'
@@ -886,9 +889,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/ord_mod.test.cpp
       title: tests/ord_mod.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/osa_k.test.cpp
-      title: tests/osa_k.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/partially_persistent_dsu.test.cpp
       title: tests/partially_persistent_dsu.test.cpp

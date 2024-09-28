@@ -106,6 +106,9 @@ data:
     path: tests/large_fact_mod_cache/binomial.test.cpp
     title: tests/large_fact_mod_cache/binomial.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/linear_sieve.test.cpp
+    title: tests/linear_sieve.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/logn_integer_partition.test.cpp
     title: tests/logn_integer_partition.test.cpp
   - icon: ':heavy_check_mark:'
@@ -256,6 +259,7 @@ data:
   - tests/monoid.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/extend_output.test.cpp
+  - tests/linear_sieve.test.cpp
   - tests/bell/consistent.test.cpp
   - tests/pdsu.test.cpp
   - tests/floor_quotients.test.cpp
