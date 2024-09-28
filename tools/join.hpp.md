@@ -7,6 +7,9 @@ data:
     path: tests/cycle_detection/undirected.test.cpp
     title: tests/cycle_detection/undirected.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/eratosthenes_sieve.test.cpp
+    title: tests/eratosthenes_sieve.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/lis.test.cpp
     title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
@@ -86,6 +89,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/lis.test.cpp
+  - tests/eratosthenes_sieve.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/partition_function/diagonal.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp

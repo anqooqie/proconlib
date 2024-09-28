@@ -154,6 +154,9 @@ data:
       path: tools/dynamic_bitset.hpp
       title: std::bitset with dynamic size
     - icon: ':heavy_check_mark:'
+      path: tools/eratosthenes_sieve.hpp
+      title: Sieve of Eratosthenes
+    - icon: ':heavy_check_mark:'
       path: tools/exp.hpp
       title: std::exp(x) extended for my library
     - icon: ':heavy_check_mark:'
@@ -739,6 +742,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/dual_segtree.test.cpp
       title: tests/dual_segtree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/eratosthenes_sieve.test.cpp
+      title: tests/eratosthenes_sieve.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/extend_hash.test.cpp
       title: tests/extend_hash.test.cpp
