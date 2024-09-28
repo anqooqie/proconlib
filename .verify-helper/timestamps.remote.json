@@ -63,6 +63,7 @@
 "tests/divisors.test.cpp": "2024-04-29 15:33:11 +0900",
 "tests/dsu.test.cpp": "2023-08-05 18:58:35 +0900",
 "tests/dual_segtree.test.cpp": "2024-02-18 13:45:51 +0900",
+"tests/eratosthenes_sieve.test.cpp": "2024-09-28 18:25:51 +0900",
 "tests/extend_hash.test.cpp": "2024-08-31 13:46:12 +0900",
 "tests/extend_input.test.cpp": "2024-08-31 13:46:12 +0900",
 "tests/extend_output.test.cpp": "2024-09-07 11:32:34 +0900",
