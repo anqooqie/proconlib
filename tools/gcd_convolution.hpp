@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
-#include "tools/linear_sieve.hpp"
+#include "tools/eratosthenes_sieve.hpp"
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
@@ -33,7 +33,7 @@ namespace tools {
       base[i] += a[0] * b[i];
     }
 
-    ::tools::linear_sieve<::std::size_t> sieve(::std::max({N, M, K}) > 2 ? ::std::max({N, M, K}) - 1 : 1);
+    ::tools::eratosthenes_sieve<::std::size_t> sieve(::std::max({N, M, K}) > 2 ? ::std::max({N, M, K}) - 1 : 1);
     if (N > 1) {
       for (const auto p : sieve.prime_range(1, N - 1)) {
         for (::std::size_t k = (N - 1) / p; k >= 1; --k) {

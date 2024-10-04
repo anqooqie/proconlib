@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
-#include "tools/linear_sieve.hpp"
+#include "tools/eratosthenes_sieve.hpp"
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
@@ -34,7 +34,7 @@ namespace tools {
 
     a.resize(K, T(0));
     b.resize(K, T(0));
-    ::tools::linear_sieve<::std::size_t> sieve(K > 2 ? K - 1 : 1);
+    ::tools::eratosthenes_sieve<::std::size_t> sieve(K > 2 ? K - 1 : 1);
     if (K > 1) {
       for (const auto p : sieve.prime_range(1, K - 1)) {
         for (::std::size_t k = 1; k * p < K; ++k) {
