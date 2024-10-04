@@ -5,7 +5,6 @@
 #include <limits>
 #include <functional>
 #include "tools/cumsum2d.hpp"
-#include "tools/group.hpp"
 #include "tools/chmin.hpp"
 #include "tools/cartesian_tree.hpp"
 #include "tools/chmax.hpp"
@@ -25,7 +24,7 @@ int main() {
     }
   }
 
-  const tools::cumsum2d<tools::group::plus<int>> sum(A);
+  const tools::cumsum2d<int> sum(A);
 
   ll answer = std::numeric_limits<ll>::min();
   for (int r1 = 0; r1 < N; ++r1) {

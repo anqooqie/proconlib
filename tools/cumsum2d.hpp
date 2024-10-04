@@ -1,17 +1,21 @@
 #ifndef TOOLS_CUMSUM2D_HPP
 #define TOOLS_CUMSUM2D_HPP
 
+#include <type_traits>
 #include <cstddef>
 #include <vector>
 #include <iterator>
 #include <algorithm>
 #include <cassert>
+#include "tools/is_group.hpp"
+#include "tools/group.hpp"
 
 namespace tools {
 
-  template <typename G>
+  template <typename X>
   class cumsum2d {
   private:
+    using G = ::std::conditional_t<::tools::is_group_v<X>, X, tools::group::plus<X>>;
     using T = typename G::T;
     ::std::size_t height;
     ::std::size_t width;

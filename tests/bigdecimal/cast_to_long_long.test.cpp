@@ -6,7 +6,6 @@
 #include <array>
 #include "tools/bigdecimal.hpp"
 #include "tools/cumsum2d.hpp"
-#include "tools/group.hpp"
 
 using ll = long long;
 
@@ -30,7 +29,7 @@ int main() {
     ++matrix[y][x];
   }
 
-  const auto cumsum = tools::cumsum2d<tools::group::plus<ll>>(matrix);
+  const auto cumsum = tools::cumsum2d<ll>(matrix);
   auto answer = 0LL;
   for (ll y = 0; y <= 18; ++y) {
     for (ll x = 0; x <= 18; ++x) {

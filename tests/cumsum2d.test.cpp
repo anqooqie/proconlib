@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <iterator>
 #include "tools/cumsum2d.hpp"
-#include "tools/group.hpp"
 
 using ll = long long;
 
@@ -39,9 +38,9 @@ int main() {
     }
   }
 
-  tools::cumsum2d<tools::group::plus<ll>> J_cumsum(J);
-  tools::cumsum2d<tools::group::plus<ll>> O_cumsum(O);
-  tools::cumsum2d<tools::group::plus<ll>> I_cumsum(I);
+  tools::cumsum2d<ll> J_cumsum(J);
+  tools::cumsum2d<ll> O_cumsum(O);
+  tools::cumsum2d<ll> I_cumsum(I);
 
   for (ll i = 0; i < K; ++i) {
     ll a, b, c, d;
