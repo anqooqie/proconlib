@@ -1,11 +1,23 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/gcd_convolution.hpp
+    title: GCD convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/lcm_convolution.hpp
+    title: LCM convolution
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/eratosthenes_sieve.test.cpp
     title: tests/eratosthenes_sieve.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/gcd_convolution.test.cpp
+    title: tests/gcd_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution.test.cpp
+    title: tests/lcm_convolution.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -376,11 +388,15 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/eratosthenes_sieve.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/gcd_convolution.hpp
+  - tools/lcm_convolution.hpp
   timestamp: '2024-09-28 22:59:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/eratosthenes_sieve.test.cpp
+  - tests/lcm_convolution.test.cpp
+  - tests/gcd_convolution.test.cpp
 documentation_of: tools/eratosthenes_sieve.hpp
 layout: document
 title: Sieve of Eratosthenes

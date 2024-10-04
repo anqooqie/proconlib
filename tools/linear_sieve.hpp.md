@@ -1,20 +1,8 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/gcd_convolution.hpp
-    title: GCD convolution
-  - icon: ':heavy_check_mark:'
-    path: tools/lcm_convolution.hpp
-    title: LCM convolution
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/gcd_convolution.test.cpp
-    title: tests/gcd_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lcm_convolution.test.cpp
-    title: tests/lcm_convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/linear_sieve.test.cpp
     title: tests/linear_sieve.test.cpp
@@ -217,15 +205,11 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/linear_sieve.hpp
-  requiredBy:
-  - tools/gcd_convolution.hpp
-  - tools/lcm_convolution.hpp
+  requiredBy: []
   timestamp: '2024-09-29 05:36:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lcm_convolution.test.cpp
   - tests/linear_sieve.test.cpp
-  - tests/gcd_convolution.test.cpp
 documentation_of: tools/linear_sieve.hpp
 layout: document
 title: Linear sieve
