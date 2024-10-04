@@ -19,6 +19,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/group.hpp
     title: Typical groups
+  - icon: ':heavy_check_mark:'
+    path: tools/is_group.hpp
+    title: Check whether T is a group
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -32,9 +35,31 @@ data:
   bundledCode: "#line 1 \"tests/cartesian_tree/interval.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc311/tasks/abc311_g\"\n\n#include <iostream>\n\
     #include <vector>\n#include <limits>\n#include <functional>\n#line 1 \"tools/cumsum2d.hpp\"\
-    \n\n\n\n#include <cstddef>\n#line 6 \"tools/cumsum2d.hpp\"\n#include <iterator>\n\
-    #include <algorithm>\n#include <cassert>\n\nnamespace tools {\n\n  template <typename\
-    \ G>\n  class cumsum2d {\n  private:\n    using T = typename G::T;\n    ::std::size_t\
+    \n\n\n\n#include <type_traits>\n#include <cstddef>\n#line 7 \"tools/cumsum2d.hpp\"\
+    \n#include <iterator>\n#include <algorithm>\n#include <cassert>\n#line 1 \"tools/is_group.hpp\"\
+    \n\n\n\n#line 5 \"tools/is_group.hpp\"\n#include <utility>\n\nnamespace tools\
+    \ {\n\n  template <typename G, typename = void>\n  struct is_group : ::std::false_type\
+    \ {};\n\n  template <typename G>\n  struct is_group<G, ::std::enable_if_t<\n \
+    \   ::std::is_same_v<typename G::T, decltype(G::op(::std::declval<typename G::T>(),\
+    \ ::std::declval<typename G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())>\
+    \ &&\n    ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename\
+    \ G::T>()))>\n  , void>> : ::std::true_type {};\n\n  template <typename G>\n \
+    \ inline constexpr bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line\
+    \ 1 \"tools/group.hpp\"\n\n\n\nnamespace tools {\n  namespace group {\n    template\
+    \ <typename G>\n    struct plus {\n      using T = G;\n      static T op(const\
+    \ T& lhs, const T& rhs) {\n        return lhs + rhs;\n      }\n      static T\
+    \ e() {\n        return T(0);\n      }\n      static T inv(const T& v) {\n   \
+    \     return -v;\n      }\n    };\n\n    template <typename G>\n    struct multiplies\
+    \ {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n   \
+    \     return lhs * rhs;\n      }\n      static T e() {\n        return T(1);\n\
+    \      }\n      static T inv(const T& v) {\n        return e() / v;\n      }\n\
+    \    };\n\n    template <typename G>\n    struct bit_xor {\n      using T = G;\n\
+    \      static T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n\
+    \      }\n      static T e() {\n        return T(0);\n      }\n      static T\
+    \ inv(const T& v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 12\
+    \ \"tools/cumsum2d.hpp\"\n\nnamespace tools {\n\n  template <typename X>\n  class\
+    \ cumsum2d {\n  private:\n    using G = ::std::conditional_t<::tools::is_group_v<X>,\
+    \ X, tools::group::plus<X>>;\n    using T = typename G::T;\n    ::std::size_t\
     \ height;\n    ::std::size_t width;\n    ::std::vector<T> preprocessed;\n\n  public:\n\
     \    template <typename Range>\n    explicit cumsum2d(const Range& range) {\n\
     \      const auto begin = ::std::begin(range);\n      const auto end = ::std::end(range);\n\
@@ -58,21 +83,9 @@ data:
     \            this->preprocessed[y2 * (this->width + 1) + x2],\n            G::inv(this->preprocessed[y2\
     \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
     \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
-    \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
-    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
-    \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
-    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
-    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
-    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
-    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
-    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
-    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
-    \ v;\n      }\n    };\n  }\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n#include\
-    \ <type_traits>\n#line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\
-    \n\nnamespace tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
+    \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/chmin.hpp\"\n\n\n\n\
+    #line 1 \"tools/cmp_less.hpp\"\n\n\n\n#line 5 \"tools/cmp_less.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename T, typename U>\n  constexpr bool cmp_less(const\
     \ T t, const U u) noexcept {\n    using UT = ::std::make_unsigned_t<T>;\n    using\
     \ UU = ::std::make_unsigned_t<U>;\n    if constexpr (::std::is_signed_v<T> ==\
     \ ::std::is_signed_v<U>) {\n      return t < u;\n    } else if constexpr (::std::is_signed_v<T>)\
@@ -82,16 +95,15 @@ data:
     \ rhs) {\n    bool updated;\n    if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>)\
     \ {\n      updated = ::tools::cmp_less(rhs, lhs);\n    } else {\n      updated\
     \ = rhs < lhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n\
-    }\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 6 \"tools/cartesian_tree.hpp\"\
-    \n#include <utility>\n#line 9 \"tools/cartesian_tree.hpp\"\n#include <stack>\n\
-    #line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T, typename Compare = ::std::less<T>>\n  class cartesian_tree {\n  public:\n\
-    \    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t left;\n\
-    \      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t> interval;\n\
-    \    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex> m_vertices;\n\
-    \n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const ::tools::cartesian_tree<T,\
-    \ Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T, Compare>&&)\
-    \ = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
+    }\n\n\n#line 1 \"tools/cartesian_tree.hpp\"\n\n\n\n#line 9 \"tools/cartesian_tree.hpp\"\
+    \n#include <stack>\n#line 11 \"tools/cartesian_tree.hpp\"\n\nnamespace tools {\n\
+    \  template <typename T, typename Compare = ::std::less<T>>\n  class cartesian_tree\
+    \ {\n  public:\n    struct vertex {\n      ::std::size_t parent;\n      ::std::size_t\
+    \ left;\n      ::std::size_t right;\n      ::std::pair<::std::size_t, ::std::size_t>\
+    \ interval;\n    };\n\n  private:\n    Compare m_comp;\n    ::std::vector<vertex>\
+    \ m_vertices;\n\n  public:\n    cartesian_tree() = default;\n    cartesian_tree(const\
+    \ ::tools::cartesian_tree<T, Compare>&) = default;\n    cartesian_tree(::tools::cartesian_tree<T,\
+    \ Compare>&&) = default;\n    ~cartesian_tree() = default;\n    ::tools::cartesian_tree<T,\
     \ Compare>& operator=(const ::tools::cartesian_tree<T, Compare>&) = default;\n\
     \    ::tools::cartesian_tree<T, Compare>& operator=(::tools::cartesian_tree<T,\
     \ Compare>&&) = default;\n\n    explicit cartesian_tree(const ::std::vector<T>&\
@@ -132,37 +144,36 @@ data:
     \  if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {\n     \
     \ updated = ::tools::cmp_less(lhs, rhs);\n    } else {\n      updated = lhs <\
     \ rhs;\n    }\n    if (updated) lhs = rhs;\n    return updated;\n  }\n}\n\n\n\
-    #line 12 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll = long long;\n\
+    #line 11 \"tests/cartesian_tree/interval.test.cpp\"\n\nusing ll = long long;\n\
     \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  int N, M;\n  std::cin >> N >> M;\n  auto A = std::vector(N, std::vector<int>(M));\n\
     \  for (auto& A_r : A) {\n    for (auto& A_rc: A_r) {\n      std::cin >> A_rc;\n\
-    \    }\n  }\n\n  const tools::cumsum2d<tools::group::plus<int>> sum(A);\n\n  ll\
-    \ answer = std::numeric_limits<ll>::min();\n  for (int r1 = 0; r1 < N; ++r1) {\n\
-    \    std::vector<int> row(M, std::numeric_limits<int>::max());\n    for (int r2\
-    \ = r1 + 1; r2 <= N; ++r2) {\n      for (int c = 0; c < M; ++c) {\n        tools::chmin(row[c],\
-    \ A[r2 - 1][c]);\n      }\n      const tools::cartesian_tree<int> cartesian_tree(row);\n\
-    \      for (int c = 0; c < M; ++c) {\n        const auto& [c1, c2] = cartesian_tree.get_vertex(c).interval;\n\
-    \        tools::chmax(answer, static_cast<ll>(row[c]) * sum.query(r1, r2, c1,\
-    \ c2));\n      }\n    }\n  }\n\n  std::cout << answer << '\\n';\n  return 0;\n\
-    }\n"
+    \    }\n  }\n\n  const tools::cumsum2d<int> sum(A);\n\n  ll answer = std::numeric_limits<ll>::min();\n\
+    \  for (int r1 = 0; r1 < N; ++r1) {\n    std::vector<int> row(M, std::numeric_limits<int>::max());\n\
+    \    for (int r2 = r1 + 1; r2 <= N; ++r2) {\n      for (int c = 0; c < M; ++c)\
+    \ {\n        tools::chmin(row[c], A[r2 - 1][c]);\n      }\n      const tools::cartesian_tree<int>\
+    \ cartesian_tree(row);\n      for (int c = 0; c < M; ++c) {\n        const auto&\
+    \ [c1, c2] = cartesian_tree.get_vertex(c).interval;\n        tools::chmax(answer,\
+    \ static_cast<ll>(row[c]) * sum.query(r1, r2, c1, c2));\n      }\n    }\n  }\n\
+    \n  std::cout << answer << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc311/tasks/abc311_g\"\n\n\
     #include <iostream>\n#include <vector>\n#include <limits>\n#include <functional>\n\
-    #include \"tools/cumsum2d.hpp\"\n#include \"tools/group.hpp\"\n#include \"tools/chmin.hpp\"\
-    \n#include \"tools/cartesian_tree.hpp\"\n#include \"tools/chmax.hpp\"\n\nusing\
-    \ ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  int N, M;\n  std::cin >> N >> M;\n  auto A = std::vector(N, std::vector<int>(M));\n\
-    \  for (auto& A_r : A) {\n    for (auto& A_rc: A_r) {\n      std::cin >> A_rc;\n\
-    \    }\n  }\n\n  const tools::cumsum2d<tools::group::plus<int>> sum(A);\n\n  ll\
-    \ answer = std::numeric_limits<ll>::min();\n  for (int r1 = 0; r1 < N; ++r1) {\n\
-    \    std::vector<int> row(M, std::numeric_limits<int>::max());\n    for (int r2\
-    \ = r1 + 1; r2 <= N; ++r2) {\n      for (int c = 0; c < M; ++c) {\n        tools::chmin(row[c],\
-    \ A[r2 - 1][c]);\n      }\n      const tools::cartesian_tree<int> cartesian_tree(row);\n\
-    \      for (int c = 0; c < M; ++c) {\n        const auto& [c1, c2] = cartesian_tree.get_vertex(c).interval;\n\
-    \        tools::chmax(answer, static_cast<ll>(row[c]) * sum.query(r1, r2, c1,\
-    \ c2));\n      }\n    }\n  }\n\n  std::cout << answer << '\\n';\n  return 0;\n\
-    }\n"
+    #include \"tools/cumsum2d.hpp\"\n#include \"tools/chmin.hpp\"\n#include \"tools/cartesian_tree.hpp\"\
+    \n#include \"tools/chmax.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  int N, M;\n  std::cin >> N >> M;\n\
+    \  auto A = std::vector(N, std::vector<int>(M));\n  for (auto& A_r : A) {\n  \
+    \  for (auto& A_rc: A_r) {\n      std::cin >> A_rc;\n    }\n  }\n\n  const tools::cumsum2d<int>\
+    \ sum(A);\n\n  ll answer = std::numeric_limits<ll>::min();\n  for (int r1 = 0;\
+    \ r1 < N; ++r1) {\n    std::vector<int> row(M, std::numeric_limits<int>::max());\n\
+    \    for (int r2 = r1 + 1; r2 <= N; ++r2) {\n      for (int c = 0; c < M; ++c)\
+    \ {\n        tools::chmin(row[c], A[r2 - 1][c]);\n      }\n      const tools::cartesian_tree<int>\
+    \ cartesian_tree(row);\n      for (int c = 0; c < M; ++c) {\n        const auto&\
+    \ [c1, c2] = cartesian_tree.get_vertex(c).interval;\n        tools::chmax(answer,\
+    \ static_cast<ll>(row[c]) * sum.query(r1, r2, c1, c2));\n      }\n    }\n  }\n\
+    \n  std::cout << answer << '\\n';\n  return 0;\n}\n"
   dependsOn:
   - tools/cumsum2d.hpp
+  - tools/is_group.hpp
   - tools/group.hpp
   - tools/chmin.hpp
   - tools/cmp_less.hpp
@@ -171,7 +182,7 @@ data:
   isVerificationFile: true
   path: tests/cartesian_tree/interval.test.cpp
   requiredBy: []
-  timestamp: '2024-03-24 19:16:21+09:00'
+  timestamp: '2024-10-05 00:25:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/cartesian_tree/interval.test.cpp

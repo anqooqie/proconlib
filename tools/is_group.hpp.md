@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/cumsum2d.hpp
+    title: 2D cumulative sum
+  - icon: ':heavy_check_mark:'
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
@@ -15,6 +18,15 @@ data:
     path: tools/twelvefold_way.hpp
     title: Twelvefold way
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/bigdecimal/cast_to_long_long.test.cpp
+    title: tests/bigdecimal/cast_to_long_long.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cartesian_tree/interval.test.cpp
+    title: tests/cartesian_tree/interval.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cumsum2d.test.cpp
+    title: tests/cumsum2d.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/is_group.test.cpp
     title: tests/is_group.test.cpp
@@ -96,12 +108,16 @@ data:
   - tools/large_fact_mod_cache.hpp
   - tools/twelvefold_way.hpp
   - tools/sample_point_shift.hpp
+  - tools/cumsum2d.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/online_cumsum.test.cpp
   - tests/sample_point_shift.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/cartesian_tree/interval.test.cpp
   - tests/is_group.test.cpp
+  - tests/cumsum2d.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp

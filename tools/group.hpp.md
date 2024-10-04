@@ -18,6 +18,9 @@ data:
     path: tools/convolution.hpp
     title: Convolution
   - icon: ':heavy_check_mark:'
+    path: tools/cumsum2d.hpp
+    title: 2D cumulative sum
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -301,6 +304,7 @@ data:
   - tools/fps.hpp
   - tools/polynomial_interpolation.hpp
   - tools/sample_point_shift.hpp
+  - tools/cumsum2d.hpp
   timestamp: '2024-01-03 03:48:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -42,6 +42,9 @@ data:
     path: tools/int128_t.hpp
     title: 128 bit signed integer
   - icon: ':heavy_check_mark:'
+    path: tools/is_group.hpp
+    title: Check whether T is a group
+  - icon: ':heavy_check_mark:'
     path: tools/is_prime.hpp
     title: Miller-Rabin primality test
   - icon: ':heavy_check_mark:'
@@ -1066,8 +1069,29 @@ data:
     \       os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i]\
     \ : 0);\n      }\n      return os;\n    }\n  };\n\n  inline ::tools::bigdecimal\
     \ abs(::tools::bigdecimal x) {\n    if (x.signum() < 0) x.negate();\n    return\
-    \ x;\n  }\n}\n\n\n#line 1 \"tools/cumsum2d.hpp\"\n\n\n\n#line 9 \"tools/cumsum2d.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename G>\n  class cumsum2d {\n  private:\n\
+    \ x;\n  }\n}\n\n\n#line 1 \"tools/cumsum2d.hpp\"\n\n\n\n#line 1 \"tools/is_group.hpp\"\
+    \n\n\n\n#line 6 \"tools/is_group.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ G, typename = void>\n  struct is_group : ::std::false_type {};\n\n  template\
+    \ <typename G>\n  struct is_group<G, ::std::enable_if_t<\n    ::std::is_same_v<typename\
+    \ G::T, decltype(G::op(::std::declval<typename G::T>(), ::std::declval<typename\
+    \ G::T>()))> &&\n    ::std::is_same_v<typename G::T, decltype(G::e())> &&\n  \
+    \  ::std::is_same_v<typename G::T, decltype(G::inv(::std::declval<typename G::T>()))>\n\
+    \  , void>> : ::std::true_type {};\n\n  template <typename G>\n  inline constexpr\
+    \ bool is_group_v = ::tools::is_group<G>::value;\n}\n\n\n#line 1 \"tools/group.hpp\"\
+    \n\n\n\nnamespace tools {\n  namespace group {\n    template <typename G>\n  \
+    \  struct plus {\n      using T = G;\n      static T op(const T& lhs, const T&\
+    \ rhs) {\n        return lhs + rhs;\n      }\n      static T e() {\n        return\
+    \ T(0);\n      }\n      static T inv(const T& v) {\n        return -v;\n     \
+    \ }\n    };\n\n    template <typename G>\n    struct multiplies {\n      using\
+    \ T = G;\n      static T op(const T& lhs, const T& rhs) {\n        return lhs\
+    \ * rhs;\n      }\n      static T e() {\n        return T(1);\n      }\n     \
+    \ static T inv(const T& v) {\n        return e() / v;\n      }\n    };\n\n   \
+    \ template <typename G>\n    struct bit_xor {\n      using T = G;\n      static\
+    \ T op(const T& lhs, const T& rhs) {\n        return lhs ^ rhs;\n      }\n   \
+    \   static T e() {\n        return T(0);\n      }\n      static T inv(const T&\
+    \ v) {\n        return v;\n      }\n    };\n  }\n}\n\n\n#line 12 \"tools/cumsum2d.hpp\"\
+    \n\nnamespace tools {\n\n  template <typename X>\n  class cumsum2d {\n  private:\n\
+    \    using G = ::std::conditional_t<::tools::is_group_v<X>, X, tools::group::plus<X>>;\n\
     \    using T = typename G::T;\n    ::std::size_t height;\n    ::std::size_t width;\n\
     \    ::std::vector<T> preprocessed;\n\n  public:\n    template <typename Range>\n\
     \    explicit cumsum2d(const Range& range) {\n      const auto begin = ::std::begin(range);\n\
@@ -1091,40 +1115,28 @@ data:
     \            this->preprocessed[y2 * (this->width + 1) + x2],\n            G::inv(this->preprocessed[y2\
     \ * (this->width + 1) + x1])\n          ),\n          G::inv(this->preprocessed[y1\
     \ * (this->width + 1) + x2])\n        ),\n        this->preprocessed[y1 * (this->width\
-    \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 1 \"tools/group.hpp\"\n\n\n\n\
-    namespace tools {\n  namespace group {\n    template <typename G>\n    struct\
-    \ plus {\n      using T = G;\n      static T op(const T& lhs, const T& rhs) {\n\
-    \        return lhs + rhs;\n      }\n      static T e() {\n        return T(0);\n\
-    \      }\n      static T inv(const T& v) {\n        return -v;\n      }\n    };\n\
-    \n    template <typename G>\n    struct multiplies {\n      using T = G;\n   \
-    \   static T op(const T& lhs, const T& rhs) {\n        return lhs * rhs;\n   \
-    \   }\n      static T e() {\n        return T(1);\n      }\n      static T inv(const\
-    \ T& v) {\n        return e() / v;\n      }\n    };\n\n    template <typename\
-    \ G>\n    struct bit_xor {\n      using T = G;\n      static T op(const T& lhs,\
-    \ const T& rhs) {\n        return lhs ^ rhs;\n      }\n      static T e() {\n\
-    \        return T(0);\n      }\n      static T inv(const T& v) {\n        return\
-    \ v;\n      }\n    };\n  }\n}\n\n\n#line 10 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\
+    \ + 1) + x1]\n      );\n    }\n  };\n}\n\n\n#line 9 \"tests/bigdecimal/cast_to_long_long.test.cpp\"\
     \n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::cin >> N;\n  std::vector<std::string> A(N);\n  for (auto& A_i\
     \ : A) std::cin >> A_i;\n\n  std::array<std::array<ll, 19>, 19> matrix({{}});\n\
     \  for (const auto& A_i : A) {\n    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));\n\
     \    ll y;\n    for (y = 0; y < 18 && A_i_ll % 2 == 0; ++y, A_i_ll /= 2);\n  \
     \  ll x;\n    for (x = 0; x < 18 && A_i_ll % 5 == 0; ++x, A_i_ll /= 5);\n \n \
-    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<tools::group::plus<ll>>(matrix);\n\
+    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<ll>(matrix);\n\
     \  auto answer = 0LL;\n  for (ll y = 0; y <= 18; ++y) {\n    for (ll x = 0; x\
     \ <= 18; ++x) {\n      answer += matrix[y][x] * cumsum.query(18 - y, 19, 18 -\
     \ x, 19);\n    }\n  }\n  answer -= cumsum.query(9, 19, 9, 19);\n  answer /= 2;\n\
     \  std::cout << answer << std::endl;\n\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/agc047/tasks/agc047_a\"\n\n\
     #include <iostream>\n#include <vector>\n#include <string>\n#include <array>\n\
-    #include \"tools/bigdecimal.hpp\"\n#include \"tools/cumsum2d.hpp\"\n#include \"\
-    tools/group.hpp\"\n\nusing ll = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<std::string>\
-    \ A(N);\n  for (auto& A_i : A) std::cin >> A_i;\n\n  std::array<std::array<ll,\
-    \ 19>, 19> matrix({{}});\n  for (const auto& A_i : A) {\n    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));\n\
+    #include \"tools/bigdecimal.hpp\"\n#include \"tools/cumsum2d.hpp\"\n\nusing ll\
+    \ = long long;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
+    \n  ll N;\n  std::cin >> N;\n  std::vector<std::string> A(N);\n  for (auto& A_i\
+    \ : A) std::cin >> A_i;\n\n  std::array<std::array<ll, 19>, 19> matrix({{}});\n\
+    \  for (const auto& A_i : A) {\n    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));\n\
     \    ll y;\n    for (y = 0; y < 18 && A_i_ll % 2 == 0; ++y, A_i_ll /= 2);\n  \
     \  ll x;\n    for (x = 0; x < 18 && A_i_ll % 5 == 0; ++x, A_i_ll /= 5);\n \n \
-    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<tools::group::plus<ll>>(matrix);\n\
+    \   ++matrix[y][x];\n  }\n\n  const auto cumsum = tools::cumsum2d<ll>(matrix);\n\
     \  auto answer = 0LL;\n  for (ll y = 0; y <= 18; ++y) {\n    for (ll x = 0; x\
     \ <= 18; ++x) {\n      answer += matrix[y][x] * cumsum.query(18 - y, 19, 18 -\
     \ x, 19);\n    }\n  }\n  answer -= cumsum.query(9, 19, 9, 19);\n  answer /= 2;\n\
@@ -1153,11 +1165,12 @@ data:
   - tools/signum.hpp
   - tools/rounding_mode.hpp
   - tools/cumsum2d.hpp
+  - tools/is_group.hpp
   - tools/group.hpp
   isVerificationFile: true
   path: tests/bigdecimal/cast_to_long_long.test.cpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-10-05 00:25:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/bigdecimal/cast_to_long_long.test.cpp
