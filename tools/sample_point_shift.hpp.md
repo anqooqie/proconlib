@@ -253,10 +253,18 @@ data:
     \ ::std::size_t n) : m_vector(n, M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward\
     \ ? 0 : n) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_vector.size();\n\
     \    }\n    T& operator[](const ::std::size_t i) {\n      assert(i < this->size());\n\
-    \      return this->m_vector[i];\n    }\n    T prod(const ::std::size_t l, const\
-    \ ::std::size_t r) {\n      assert(l <= r && r <= this->size());\n      if constexpr\
-    \ (Forward) {\n        for (; this->m_processed < r; ++this->m_processed) {\n\
-    \          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
+    \      return this->m_vector[i];\n    }\n\n    auto begin() { return this->m_vector.begin();\
+    \ }\n    auto begin() const { return this->m_vector.begin(); }\n    auto cbegin()\
+    \ const { return this->m_vector.cbegin(); }\n    auto end() { return this->m_vector.end();\
+    \ }\n    auto end() const { return this->m_vector.end(); }\n    auto cend() const\
+    \ { return this->m_vector.cend(); }\n    auto rbegin() { return this->m_vector.rbegin();\
+    \ }\n    auto rbegin() const { return this->m_vector.rbegin(); }\n    auto crbegin()\
+    \ const { return this->m_vector.crbegin(); }\n    auto rend() { return this->m_vector.rend();\
+    \ }\n    auto rend() const { return this->m_vector.rend(); }\n    auto crend()\
+    \ const { return this->m_vector.crend(); }\n\n    T prod(const ::std::size_t l,\
+    \ const ::std::size_t r) {\n      assert(l <= r && r <= this->size());\n     \
+    \ if constexpr (Forward) {\n        for (; this->m_processed < r; ++this->m_processed)\
+    \ {\n          this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed],\
     \ this->m_vector[this->m_processed]);\n        }\n        if constexpr (::tools::is_group_v<M>)\
     \ {\n          return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);\n \
     \       } else {\n          assert(l == 0);\n          return this->m_cumsum[r];\n\
@@ -1069,7 +1077,7 @@ data:
   requiredBy:
   - tools/large_fact_mod_cache.hpp
   - tools/twelvefold_way.hpp
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-10-05 15:13:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/sample_point_shift.test.cpp
