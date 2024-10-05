@@ -31,6 +31,20 @@ namespace tools {
       assert(i < this->size());
       return this->m_vector[i];
     }
+
+    auto begin() { return this->m_vector.begin(); }
+    auto begin() const { return this->m_vector.begin(); }
+    auto cbegin() const { return this->m_vector.cbegin(); }
+    auto end() { return this->m_vector.end(); }
+    auto end() const { return this->m_vector.end(); }
+    auto cend() const { return this->m_vector.cend(); }
+    auto rbegin() { return this->m_vector.rbegin(); }
+    auto rbegin() const { return this->m_vector.rbegin(); }
+    auto crbegin() const { return this->m_vector.crbegin(); }
+    auto rend() { return this->m_vector.rend(); }
+    auto rend() const { return this->m_vector.rend(); }
+    auto crend() const { return this->m_vector.crend(); }
+
     T prod(const ::std::size_t l, const ::std::size_t r) {
       assert(l <= r && r <= this->size());
       if constexpr (Forward) {
