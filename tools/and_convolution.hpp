@@ -6,7 +6,8 @@
 #include <cstddef>
 #include <iterator>
 #include <algorithm>
-#include "tools/pow2.hpp"
+#include "tools/superset_zeta.hpp"
+#include "tools/superset_moebius.hpp"
 
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
@@ -18,27 +19,18 @@ namespace tools {
     const ::std::size_t M = b.size();
     const ::std::size_t K = ::std::distance(c_begin, c_end);
 
-    for (::std::size_t i = 0; ::tools::pow2(i) < N; ++i) {
-      for (::std::size_t state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i) - 1)) << 1) | (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i)) < N; ++state) {
-        a[lower] += a[upper];
-      }
-    }
-    for (::std::size_t i = 0; ::tools::pow2(i) < M; ++i) {
-      for (::std::size_t state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i) - 1)) << 1) | (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i)) < M; ++state) {
-        b[lower] += b[upper];
-      }
-    }
+    a.resize(::std::min({N, M, K}));
+    b.resize(::std::min({N, M, K}));
+
+    ::tools::superset_zeta(a.begin(), a.end());
+    ::tools::superset_zeta(b.begin(), b.end());
 
     for (::std::size_t i = 0; i < ::std::min({N, M, K}); ++i) {
       c_begin[i] = a[i] * b[i];
     }
     ::std::fill(::std::next(c_begin, ::std::min({N, M, K})), c_end, T(0));
 
-    for (::std::size_t i = 0; ::tools::pow2(i) < K; ++i) {
-      for (::std::size_t state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i) - 1)) << 1) | (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i)) < K; ++state) {
-        c_begin[lower] -= c_begin[upper];
-      }
-    }
+    ::tools::superset_moebius(c_begin, c_end);
   }
 }
 
