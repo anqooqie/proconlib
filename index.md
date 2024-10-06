@@ -142,6 +142,12 @@ data:
       path: tools/disjoint_sparse_table_2d.hpp
       title: 2D disjoint sparse table
     - icon: ':heavy_check_mark:'
+      path: tools/divisor_moebius.hpp
+      title: "Divisor M\xF6bius transform"
+    - icon: ':heavy_check_mark:'
+      path: tools/divisor_zeta.hpp
+      title: Divisor Zeta transform
+    - icon: ':heavy_check_mark:'
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
@@ -384,6 +390,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/monoid.hpp
       title: Typical monoids
+    - icon: ':heavy_check_mark:'
+      path: tools/multiple_moebius.hpp
+      title: "Multiple M\xF6bius transform"
+    - icon: ':heavy_check_mark:'
+      path: tools/multiple_zeta.hpp
+      title: Multiple Zeta transform
     - icon: ':heavy_check_mark:'
       path: tools/multiset.hpp
       title: __gnu_pbds::tree allowing duplicated values
@@ -746,6 +758,12 @@ data:
       path: tests/disjoint_sparse_table_2d.test.cpp
       title: tests/disjoint_sparse_table_2d.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/divisor_moebius.test.cpp
+      title: tests/divisor_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/divisor_zeta.test.cpp
+      title: tests/divisor_zeta.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
     - icon: ':heavy_check_mark:'
@@ -886,6 +904,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/monoid.test.cpp
       title: tests/monoid.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/multiple_moebius.test.cpp
+      title: tests/multiple_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/multiple_zeta.test.cpp
+      title: tests/multiple_zeta.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/multiset.test.cpp
       title: tests/multiset.test.cpp

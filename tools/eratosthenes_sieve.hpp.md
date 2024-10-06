@@ -3,12 +3,30 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/divisor_moebius.hpp
+    title: "Divisor M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/divisor_zeta.hpp
+    title: Divisor Zeta transform
+  - icon: ':heavy_check_mark:'
     path: tools/gcd_convolution.hpp
     title: GCD convolution
   - icon: ':heavy_check_mark:'
     path: tools/lcm_convolution.hpp
     title: LCM convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_moebius.hpp
+    title: "Multiple M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_zeta.hpp
+    title: Multiple Zeta transform
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/divisor_moebius.test.cpp
+    title: tests/divisor_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisor_zeta.test.cpp
+    title: tests/divisor_zeta.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/eratosthenes_sieve.test.cpp
     title: tests/eratosthenes_sieve.test.cpp
@@ -18,6 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lcm_convolution.test.cpp
     title: tests/lcm_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/multiple_moebius.test.cpp
+    title: tests/multiple_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/multiple_zeta.test.cpp
+    title: tests/multiple_zeta.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -390,13 +414,21 @@ data:
   path: tools/eratosthenes_sieve.hpp
   requiredBy:
   - tools/gcd_convolution.hpp
+  - tools/divisor_zeta.hpp
+  - tools/divisor_moebius.hpp
+  - tools/multiple_zeta.hpp
+  - tools/multiple_moebius.hpp
   - tools/lcm_convolution.hpp
   timestamp: '2024-09-28 22:59:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/eratosthenes_sieve.test.cpp
   - tests/lcm_convolution.test.cpp
+  - tests/divisor_zeta.test.cpp
+  - tests/divisor_moebius.test.cpp
+  - tests/multiple_zeta.test.cpp
   - tests/gcd_convolution.test.cpp
+  - tests/multiple_moebius.test.cpp
 documentation_of: tools/eratosthenes_sieve.hpp
 layout: document
 title: Sieve of Eratosthenes

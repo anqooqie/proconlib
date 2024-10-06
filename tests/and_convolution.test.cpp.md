@@ -7,6 +7,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
+  - icon: ':heavy_check_mark:'
+    path: tools/superset_moebius.hpp
+    title: "Superset M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/superset_zeta.hpp
+    title: Superset Zeta transform
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -226,39 +232,55 @@ data:
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/and_convolution.hpp\"\
     \n\n\n\n#line 6 \"tools/and_convolution.hpp\"\n#include <cstddef>\n#include <iterator>\n\
-    #include <algorithm>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\
-    \n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
-    \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
-    \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
+    #include <algorithm>\n#line 1 \"tools/superset_zeta.hpp\"\n\n\n\n#line 1 \"tools/pow2.hpp\"\
+    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
+    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
+    \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 10 \"tools/and_convolution.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void and_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
-    \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
-    \ {\n    using T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin,\
-    \ a_end);\n    ::std::vector<T> b(b_begin, b_end);\n    const ::std::size_t N\
-    \ = a.size();\n    const ::std::size_t M = b.size();\n    const ::std::size_t\
-    \ K = ::std::distance(c_begin, c_end);\n\n    for (::std::size_t i = 0; ::tools::pow2(i)\
-    \ < N; ++i) {\n      for (::std::size_t state = 0, lower, upper; lower = ((state\
-    \ & ~(::tools::pow2(i) - 1)) << 1) | (state & (::tools::pow2(i) - 1)), (upper\
-    \ = lower | ::tools::pow2(i)) < N; ++state) {\n        a[lower] += a[upper];\n\
-    \      }\n    }\n    for (::std::size_t i = 0; ::tools::pow2(i) < M; ++i) {\n\
-    \      for (::std::size_t state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i)\
-    \ - 1)) << 1) | (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i))\
-    \ < M; ++state) {\n        b[lower] += b[upper];\n      }\n    }\n\n    for (::std::size_t\
-    \ i = 0; i < ::std::min({N, M, K}); ++i) {\n      c_begin[i] = a[i] * b[i];\n\
-    \    }\n    ::std::fill(::std::next(c_begin, ::std::min({N, M, K})), c_end, T(0));\n\
-    \n    for (::std::size_t i = 0; ::tools::pow2(i) < K; ++i) {\n      for (::std::size_t\
-    \ state = 0, lower, upper; lower = ((state & ~(::tools::pow2(i) - 1)) << 1) |\
-    \ (state & (::tools::pow2(i) - 1)), (upper = lower | ::tools::pow2(i)) < K; ++state)\
-    \ {\n        c_begin[lower] -= c_begin[upper];\n      }\n    }\n  }\n}\n\n\n#line\
-    \ 8 \"tests/and_convolution.test.cpp\"\n\nusing ll = long long;\nusing mint =\
-    \ atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));\n\
-    \  for (auto& a_i : a) {\n    ll a_i_ll;\n    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n\
-    \  }\n  for (auto& b_i : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i\
-    \ = mint::raw(b_i_ll);\n  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::and_convolution(a.begin(),\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 8 \"tools/superset_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void superset_zeta(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
+    \ N = end - begin;\n\n    for (int w = 0; ::tools::pow2(w) < N; ++w) {\n     \
+    \ for (int i = 0; ; i += ::tools::pow2(w)) {\n        for (; !((i >> w) & 1);\
+    \ ++i) {\n          if (!(i + ::tools::pow2(w) < N)) goto NEXT_W;\n          begin[i]\
+    \ += begin[i + ::tools::pow2(w)];\n        }\n      }\n    NEXT_W:\n      ;\n\
+    \    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void superset_zeta(const InputIterator begin, const InputIterator end, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(begin, end);\n    ::tools::superset_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/superset_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/superset_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void superset_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n\n\
+    \    for (int w = 0; ::tools::pow2(w) < N; ++w) {\n      for (int i = 0; ; i +=\
+    \ ::tools::pow2(w)) {\n        for (; !((i >> w) & 1); ++i) {\n          if (!(i\
+    \ + ::tools::pow2(w) < N)) goto NEXT_W;\n          begin[i] -= begin[i + ::tools::pow2(w)];\n\
+    \        }\n      }\n    NEXT_W:\n      ;\n    }\n  }\n\n  template <typename\
+    \ InputIterator, typename OutputIterator>\n  void superset_moebius(const InputIterator\
+    \ begin, const InputIterator end, const OutputIterator result) {\n    using T\
+    \ = typename ::std::iterator_traits<InputIterator>::value_type;\n    ::std::vector<T>\
+    \ b(begin, end);\n    ::tools::superset_moebius(b.begin(), b.end());\n    ::std::move(b.begin(),\
+    \ b.end(), result);\n  }\n}\n\n\n#line 11 \"tools/and_convolution.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename InputIterator, typename OutputIterator>\n  void\
+    \ and_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin,\
+    \ InputIterator b_end, OutputIterator c_begin, OutputIterator c_end) {\n    using\
+    \ T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin, a_end);\n\
+    \    ::std::vector<T> b(b_begin, b_end);\n    const ::std::size_t N = a.size();\n\
+    \    const ::std::size_t M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin,\
+    \ c_end);\n\n    a.resize(::std::min({N, M, K}));\n    b.resize(::std::min({N,\
+    \ M, K}));\n\n    ::tools::superset_zeta(a.begin(), a.end());\n    ::tools::superset_zeta(b.begin(),\
+    \ b.end());\n\n    for (::std::size_t i = 0; i < ::std::min({N, M, K}); ++i) {\n\
+    \      c_begin[i] = a[i] * b[i];\n    }\n    ::std::fill(::std::next(c_begin,\
+    \ ::std::min({N, M, K})), c_end, T(0));\n\n    ::tools::superset_moebius(c_begin,\
+    \ c_end);\n  }\n}\n\n\n#line 8 \"tests/and_convolution.test.cpp\"\n\nusing ll\
+    \ = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<mint>\
+    \ a(tools::pow2(N)), b(tools::pow2(N));\n  for (auto& a_i : a) {\n    ll a_i_ll;\n\
+    \    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n  }\n  for (auto& b_i\
+    \ : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i = mint::raw(b_i_ll);\n\
+    \  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::and_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
     \ = \"\";\n  for (const auto& c_i : c) {\n    std::cout << delimiter << c_i.val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
@@ -275,11 +297,13 @@ data:
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
   - tools/and_convolution.hpp
+  - tools/superset_zeta.hpp
   - tools/pow2.hpp
+  - tools/superset_moebius.hpp
   isVerificationFile: true
   path: tests/and_convolution.test.cpp
   requiredBy: []
-  timestamp: '2022-10-08 19:22:04+09:00'
+  timestamp: '2024-10-07 01:25:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/and_convolution.test.cpp

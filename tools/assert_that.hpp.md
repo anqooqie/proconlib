@@ -43,6 +43,12 @@ data:
     path: tests/digit_sum.test.cpp
     title: tests/digit_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/divisor_moebius.test.cpp
+    title: tests/divisor_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisor_zeta.test.cpp
+    title: tests/divisor_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extend_hash.test.cpp
     title: tests/extend_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -117,6 +123,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/monoid.test.cpp
     title: tests/monoid.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/multiple_moebius.test.cpp
+    title: tests/multiple_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/multiple_zeta.test.cpp
+    title: tests/multiple_zeta.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/multiset.test.cpp
     title: tests/multiset.test.cpp
@@ -269,6 +281,7 @@ data:
   - tests/ceil_kth_root.test.cpp
   - tests/multiset.test.cpp
   - tests/monoid.test.cpp
+  - tests/divisor_zeta.test.cpp
   - tests/ceil_log2.test.cpp
   - tests/extend_output.test.cpp
   - tests/linear_sieve.test.cpp
@@ -280,6 +293,7 @@ data:
   - tests/floor_log.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/permutation.test.cpp
+  - tests/divisor_moebius.test.cpp
   - tests/stirling_2nd/consistent.test.cpp
   - tests/tsp.test.cpp
   - tests/tuple_hash.test.cpp
@@ -294,6 +308,7 @@ data:
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/convolution/double.test.cpp
+  - tests/multiple_zeta.test.cpp
   - tests/is_monoid.test.cpp
   - tests/floor_sqrt.test.cpp
   - tests/uint128_t.test.cpp
@@ -301,6 +316,7 @@ data:
   - tests/polynomial/multidimensional.test.cpp
   - tests/mex.test.cpp
   - tests/fix.test.cpp
+  - tests/multiple_moebius.test.cpp
   - tests/rotate_left.test.cpp
   - tests/ceil.test.cpp
   - tests/has_mod.test.cpp

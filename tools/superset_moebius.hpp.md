@@ -4,8 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/and_convolution.hpp
+    title: Bitwise AND convolution
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/and_convolution.test.cpp
+    title: tests/and_convolution.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/superset_moebius.test.cpp
     title: tests/superset_moebius.test.cpp
@@ -51,10 +57,12 @@ data:
   - tools/pow2.hpp
   isVerificationFile: false
   path: tools/superset_moebius.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/and_convolution.hpp
   timestamp: '2024-10-07 00:03:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/and_convolution.test.cpp
   - tests/superset_moebius.test.cpp
 documentation_of: tools/superset_moebius.hpp
 layout: document
