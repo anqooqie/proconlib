@@ -99,6 +99,18 @@ data:
     path: tools/stirling_2nd.hpp
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
+    path: tools/subset_moebius.hpp
+    title: tools/subset_moebius.hpp
+  - icon: ':heavy_check_mark:'
+    path: tools/subset_zeta.hpp
+    title: Subset Zeta transform
+  - icon: ':heavy_check_mark:'
+    path: tools/superset_moebius.hpp
+    title: "Superset M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/superset_zeta.hpp
+    title: Superset Zeta transform
+  - icon: ':heavy_check_mark:'
     path: tools/tetration_mod.hpp
     title: $x \uparrow\uparrow y \pmod{M}$
   - icon: ':heavy_check_mark:'
@@ -391,6 +403,18 @@ data:
     path: tests/stirling_2nd/fixed_n.test.cpp
     title: tests/stirling_2nd/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/subset_moebius.test.cpp
+    title: tests/subset_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/subset_zeta.test.cpp
+    title: tests/subset_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/superset_moebius.test.cpp
+    title: tests/superset_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/superset_zeta.test.cpp
+    title: tests/superset_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tetration_mod.test.cpp
     title: tests/tetration_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -488,6 +512,8 @@ data:
   - tools/polynomial.hpp
   - tools/persistent_dual_segtree.hpp
   - tools/sparse_fps_pow.hpp
+  - tools/superset_moebius.hpp
+  - tools/subset_zeta.hpp
   - tools/bigint.hpp
   - tools/large_fact_mod_cache.hpp
   - tools/binary_heap.hpp
@@ -510,10 +536,12 @@ data:
   - tools/fps.hpp
   - tools/disjoint_sparse_table.hpp
   - tools/polynomial_interpolation.hpp
+  - tools/subset_moebius.hpp
   - tools/totient.hpp
   - tools/sample_point_shift.hpp
   - tools/disjoint_sparse_table_2d.hpp
   - tools/dual_segtree.hpp
+  - tools/superset_zeta.hpp
   - tools/rational.hpp
   - tools/prime_factorization.hpp
   - tools/zero_one_knapsack.hpp
@@ -564,6 +592,7 @@ data:
   - tests/bell/fixed_n.test.cpp
   - tests/bell/consistent.test.cpp
   - tests/bell/all.test.cpp
+  - tests/subset_moebius.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
@@ -596,6 +625,7 @@ data:
   - tests/bernoulli.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/persistent_dual_segtree.test.cpp
+  - tests/superset_zeta.test.cpp
   - tests/logn_integer_partition.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp
@@ -631,8 +661,10 @@ data:
   - tests/fps/pow_mod998244353.test.cpp
   - tests/fps/log_other_mods.test.cpp
   - tests/fps/inv_mod998244353.test.cpp
+  - tests/superset_moebius.test.cpp
   - tests/undoable_dsu/leader.test.cpp
   - tests/binary_heap.test.cpp
+  - tests/subset_zeta.test.cpp
 documentation_of: tools/pow2.hpp
 layout: document
 title: $2^x$

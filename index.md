@@ -563,8 +563,20 @@ data:
       path: tools/stirling_2nd.hpp
       title: Stirling numbers of the second kind
     - icon: ':heavy_check_mark:'
+      path: tools/subset_moebius.hpp
+      title: tools/subset_moebius.hpp
+    - icon: ':heavy_check_mark:'
+      path: tools/subset_zeta.hpp
+      title: Subset Zeta transform
+    - icon: ':heavy_check_mark:'
       path: tools/suffix_array.hpp
       title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
+    - icon: ':heavy_check_mark:'
+      path: tools/superset_moebius.hpp
+      title: "Superset M\xF6bius transform"
+    - icon: ':heavy_check_mark:'
+      path: tools/superset_zeta.hpp
+      title: Superset Zeta transform
     - icon: ':heavy_check_mark:'
       path: tools/swag.hpp
       title: Sliding window aggregation
@@ -974,8 +986,20 @@ data:
       path: tests/ssize.test.cpp
       title: tests/ssize.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/subset_moebius.test.cpp
+      title: tests/subset_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/subset_zeta.test.cpp
+      title: tests/subset_zeta.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/suffix_array.test.cpp
       title: tests/suffix_array.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/superset_moebius.test.cpp
+      title: tests/superset_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/superset_zeta.test.cpp
+      title: tests/superset_zeta.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/swag.test.cpp
       title: tests/swag.test.cpp

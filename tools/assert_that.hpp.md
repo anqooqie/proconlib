@@ -175,6 +175,18 @@ data:
     path: tests/stirling_2nd/consistent.test.cpp
     title: tests/stirling_2nd/consistent.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/subset_moebius.test.cpp
+    title: tests/subset_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/subset_zeta.test.cpp
+    title: tests/subset_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/superset_moebius.test.cpp
+    title: tests/superset_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/superset_zeta.test.cpp
+    title: tests/superset_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsort/count.test.cpp
     title: tests/tsort/count.test.cpp
   - icon: ':heavy_check_mark:'
@@ -261,6 +273,7 @@ data:
   - tests/extend_output.test.cpp
   - tests/linear_sieve.test.cpp
   - tests/bell/consistent.test.cpp
+  - tests/subset_moebius.test.cpp
   - tests/pdsu.test.cpp
   - tests/floor_quotients.test.cpp
   - tests/virtual_vector.test.cpp
@@ -275,6 +288,7 @@ data:
   - tests/resize.test.cpp
   - tests/ceil_quotients.test.cpp
   - tests/fact_mod_cache.test.cpp
+  - tests/superset_zeta.test.cpp
   - tests/logn_integer_partition.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
@@ -294,7 +308,9 @@ data:
   - tests/fps/inv_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
+  - tests/superset_moebius.test.cpp
   - tests/digit_sum.test.cpp
+  - tests/subset_zeta.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro
