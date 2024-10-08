@@ -4,20 +4,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/eratosthenes_sieve.hpp
     title: Sieve of Eratosthenes
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_moebius.hpp
+    title: "Multiple M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_zeta.hpp
+    title: Multiple Zeta transform
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/gcd_convolution.test.cpp
-    title: tests/gcd_convolution.test.cpp
+    path: tests/gcd_convolution/different_lengths.test.cpp
+    title: tests/gcd_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/gcd_convolution/regular.test.cpp
+    title: tests/gcd_convolution/regular.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/gcd_convolution.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <algorithm>\n#include <cstddef>\n#include <iterator>\n\
-    #line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\n\n#include <array>\n#include <cstdint>\n\
-    #line 9 \"tools/eratosthenes_sieve.hpp\"\n#include <cassert>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\
+  bundledCode: "#line 1 \"tools/gcd_convolution.hpp\"\n\n\n\n#include <iterator>\n\
+    #include <vector>\n#include <algorithm>\n#line 1 \"tools/multiple_zeta.hpp\"\n\
+    \n\n\n#line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\n\n#include <array>\n#include\
+    \ <cstdint>\n#line 7 \"tools/eratosthenes_sieve.hpp\"\n#include <cstddef>\n#line\
+    \ 9 \"tools/eratosthenes_sieve.hpp\"\n#include <cassert>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class eratosthenes_sieve {\n\
     \    constexpr static ::std::array<::std::uint64_t, 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
     \      UINT64_C(0b1000001010000010001010001010001000001010000010001010001010001000),\n\
@@ -195,74 +205,94 @@ data:
     \ const {\n      assert(1 <= i && i <= this->m_n);\n      return (this->m_is_prime[i\
     \ >> 6] >> (i & 0b111111)) & 1;\n    }\n\n    prime_iterable prime_range(const\
     \ int l, const int r) const {\n      assert(1 <= l && l <= r && r <= this->m_n);\n\
-    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 10 \"tools/gcd_convolution.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void gcd_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
-    \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
-    \ {\n    if (c_begin == c_end) return;\n\n    using T = ::std::decay_t<decltype(*a_begin)>;\n\
+    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/multiple_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void multiple_zeta(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
+    \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
+    \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
+    \  for (int i = (N - 1) / p; i >= 1; --i) {\n        begin[i] += begin[i * p];\n\
+    \      }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void multiple_zeta(const InputIterator begin, const InputIterator end, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(begin, end);\n    ::tools::multiple_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/multiple_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/multiple_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void multiple_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n \
+    \   if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int> sieve(N - 1);\n\
+    \    for (const auto p : sieve.prime_range(1, N - 1)) {\n      for (int i = 1;\
+    \ i * p < N; ++i) {\n        begin[i] -= begin[i * p];\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void multiple_moebius(const\
+    \ InputIterator begin, const InputIterator end, const OutputIterator result) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   ::std::vector<T> b(begin, end);\n    ::tools::multiple_moebius(b.begin(),\
+    \ b.end());\n    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 9\
+    \ \"tools/gcd_convolution.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
+    \ typename RandomAccessIterator>\n  void gcd_convolution(InputIterator a_begin,\
+    \ InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator\
+    \ c_begin, RandomAccessIterator c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
-    \    if (a.empty() || b.empty()) {\n      ::std::fill(c_begin, c_end, T(0));\n\
-    \      return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
-    \ M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin, c_end);\n\
-    \n    ::std::vector<T> base(K, T(0));\n    base[0] = a[0] * b[0];\n    for (::std::size_t\
-    \ i = 1; i < ::std::min(N, K); ++i) {\n      base[i] += a[i] * b[0];\n    }\n\
-    \    for (::std::size_t i = 1; i < ::std::min(M, K); ++i) {\n      base[i] +=\
-    \ a[0] * b[i];\n    }\n\n    ::tools::eratosthenes_sieve<::std::size_t> sieve(::std::max({N,\
-    \ M, K}) > 2 ? ::std::max({N, M, K}) - 1 : 1);\n    if (N > 1) {\n      for (const\
-    \ auto p : sieve.prime_range(1, N - 1)) {\n        for (::std::size_t k = (N -\
-    \ 1) / p; k >= 1; --k) {\n          a[k] += a[k * p];\n        }\n      }\n  \
-    \  }\n    if (M > 1) {\n      for (const auto p : sieve.prime_range(1, M - 1))\
-    \ {\n        for (::std::size_t k = (M - 1) / p; k >= 1; --k) {\n          b[k]\
-    \ += b[k * p];\n        }\n      }\n    }\n\n    for (::std::size_t i = 1; i <\
-    \ ::std::min({N, M, K}); ++i) {\n      c_begin[i] = a[i] * b[i];\n    }\n    ::std::fill(::std::next(c_begin,\
-    \ ::std::min({N, M, K})), c_end, T(0));\n\n    if (K > 1) {\n      for (const\
-    \ auto p : sieve.prime_range(1, K - 1)) {\n        for (::std::size_t k = 1; k\
-    \ * p < K; ++k) {\n          c_begin[k] -= c_begin[k * p];\n        }\n      }\n\
-    \    }\n\n    for (::std::size_t i = 0; i < K; ++i) {\n      c_begin[i] += base[i];\n\
-    \    }\n  }\n}\n\n\n"
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    ::std::vector<T> offset(::std::min(::std::max(N, M), K), T(0));\n\
+    \    if (::std::min({N, M, K}) > 0) {\n      offset[0] += a[0] * b[0];\n    }\n\
+    \    if (M > 0) {\n      for (int i = 1; i < ::std::min(N, K); ++i) {\n      \
+    \  offset[i] += a[i] * b[0];\n      }\n    }\n    if (N > 0) {\n      for (int\
+    \ i = 1; i < ::std::min(M, K); ++i) {\n        offset[i] += a[0] * b[i];\n   \
+    \   }\n    }\n\n    ::tools::multiple_zeta(a.begin(), a.end());\n    ::tools::multiple_zeta(b.begin(),\
+    \ b.end());\n\n    if (::std::min(N, M) <= K) {\n      if (::std::min(N, M) >\
+    \ 0) {\n        c_begin[0] = 0;\n      }\n      for (int i = 1; i < ::std::min(N,\
+    \ M); ++i) {\n        c_begin[i] = a[i] * b[i];\n      }\n      ::tools::multiple_moebius(c_begin,\
+    \ c_begin + ::std::min(N, M));\n      ::std::fill(c_begin + ::std::min(N, M),\
+    \ c_end, T(0));\n    } else {\n      ::std::vector<T> c;\n      c.reserve(::std::min(N,\
+    \ M));\n      c.push_back(0);\n      for (int i = 1; i < ::std::min(N, M); ++i)\
+    \ {\n        c.push_back(a[i] * b[i]);\n      }\n      ::tools::multiple_moebius(c.begin(),\
+    \ c.end());\n      ::std::move(c.begin(), c.begin() + K, c_begin);\n    }\n\n\
+    \    for (int i = 0; i < ::std::min(::std::max(N, M), K); ++i) {\n      c_begin[i]\
+    \ += offset[i];\n    }\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_GCD_CONVOLUTION_HPP\n#define TOOLS_GCD_CONVOLUTION_HPP\n\n\
-    #include <type_traits>\n#include <vector>\n#include <algorithm>\n#include <cstddef>\n\
-    #include <iterator>\n#include \"tools/eratosthenes_sieve.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename InputIterator, typename OutputIterator>\n  void gcd_convolution(InputIterator\
-    \ a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator\
-    \ c_begin, OutputIterator c_end) {\n    if (c_begin == c_end) return;\n\n    using\
-    \ T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin, a_end);\n\
-    \    ::std::vector<T> b(b_begin, b_end);\n    if (a.empty() || b.empty()) {\n\
-    \      ::std::fill(c_begin, c_end, T(0));\n      return;\n    }\n    const ::std::size_t\
-    \ N = a.size();\n    const ::std::size_t M = b.size();\n    const ::std::size_t\
-    \ K = ::std::distance(c_begin, c_end);\n\n    ::std::vector<T> base(K, T(0));\n\
-    \    base[0] = a[0] * b[0];\n    for (::std::size_t i = 1; i < ::std::min(N, K);\
-    \ ++i) {\n      base[i] += a[i] * b[0];\n    }\n    for (::std::size_t i = 1;\
-    \ i < ::std::min(M, K); ++i) {\n      base[i] += a[0] * b[i];\n    }\n\n    ::tools::eratosthenes_sieve<::std::size_t>\
-    \ sieve(::std::max({N, M, K}) > 2 ? ::std::max({N, M, K}) - 1 : 1);\n    if (N\
-    \ > 1) {\n      for (const auto p : sieve.prime_range(1, N - 1)) {\n        for\
-    \ (::std::size_t k = (N - 1) / p; k >= 1; --k) {\n          a[k] += a[k * p];\n\
-    \        }\n      }\n    }\n    if (M > 1) {\n      for (const auto p : sieve.prime_range(1,\
-    \ M - 1)) {\n        for (::std::size_t k = (M - 1) / p; k >= 1; --k) {\n    \
-    \      b[k] += b[k * p];\n        }\n      }\n    }\n\n    for (::std::size_t\
-    \ i = 1; i < ::std::min({N, M, K}); ++i) {\n      c_begin[i] = a[i] * b[i];\n\
-    \    }\n    ::std::fill(::std::next(c_begin, ::std::min({N, M, K})), c_end, T(0));\n\
-    \n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1, K - 1)) {\n\
-    \        for (::std::size_t k = 1; k * p < K; ++k) {\n          c_begin[k] -=\
-    \ c_begin[k * p];\n        }\n      }\n    }\n\n    for (::std::size_t i = 0;\
-    \ i < K; ++i) {\n      c_begin[i] += base[i];\n    }\n  }\n}\n\n#endif\n"
+    #include <iterator>\n#include <vector>\n#include <algorithm>\n#include \"tools/multiple_zeta.hpp\"\
+    \n#include \"tools/multiple_moebius.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ InputIterator, typename RandomAccessIterator>\n  void gcd_convolution(InputIterator\
+    \ a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator\
+    \ c_begin, RandomAccessIterator c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    ::std::vector<T> offset(::std::min(::std::max(N, M), K), T(0));\n\
+    \    if (::std::min({N, M, K}) > 0) {\n      offset[0] += a[0] * b[0];\n    }\n\
+    \    if (M > 0) {\n      for (int i = 1; i < ::std::min(N, K); ++i) {\n      \
+    \  offset[i] += a[i] * b[0];\n      }\n    }\n    if (N > 0) {\n      for (int\
+    \ i = 1; i < ::std::min(M, K); ++i) {\n        offset[i] += a[0] * b[i];\n   \
+    \   }\n    }\n\n    ::tools::multiple_zeta(a.begin(), a.end());\n    ::tools::multiple_zeta(b.begin(),\
+    \ b.end());\n\n    if (::std::min(N, M) <= K) {\n      if (::std::min(N, M) >\
+    \ 0) {\n        c_begin[0] = 0;\n      }\n      for (int i = 1; i < ::std::min(N,\
+    \ M); ++i) {\n        c_begin[i] = a[i] * b[i];\n      }\n      ::tools::multiple_moebius(c_begin,\
+    \ c_begin + ::std::min(N, M));\n      ::std::fill(c_begin + ::std::min(N, M),\
+    \ c_end, T(0));\n    } else {\n      ::std::vector<T> c;\n      c.reserve(::std::min(N,\
+    \ M));\n      c.push_back(0);\n      for (int i = 1; i < ::std::min(N, M); ++i)\
+    \ {\n        c.push_back(a[i] * b[i]);\n      }\n      ::tools::multiple_moebius(c.begin(),\
+    \ c.end());\n      ::std::move(c.begin(), c.begin() + K, c_begin);\n    }\n\n\
+    \    for (int i = 0; i < ::std::min(::std::max(N, M), K); ++i) {\n      c_begin[i]\
+    \ += offset[i];\n    }\n  }\n}\n\n#endif\n"
   dependsOn:
+  - tools/multiple_zeta.hpp
   - tools/eratosthenes_sieve.hpp
+  - tools/multiple_moebius.hpp
   isVerificationFile: false
   path: tools/gcd_convolution.hpp
   requiredBy: []
-  timestamp: '2024-10-04 23:52:08+09:00'
+  timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/gcd_convolution.test.cpp
+  - tests/gcd_convolution/different_lengths.test.cpp
+  - tests/gcd_convolution/regular.test.cpp
 documentation_of: tools/gcd_convolution.hpp
 layout: document
 title: GCD convolution
 ---
 
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void gcd_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end);
+template <typename InputIterator, typename RandomAccessIterator>
+void gcd_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end);
 ```
 
 Given two infinite sequences $(a_0, a_1, \ldots, a_{N - 1}, 0, 0, \ldots)$ and $(b_0, b_1, \ldots, b_{M - 1}, 0, 0, \ldots)$, it returns the first $K$ terms of the infinite sequence $(c_0, c_1, \ldots)$ where
@@ -277,12 +307,11 @@ c_k &= \sum_{\gcd(i, j) = k} a_i b_j
 Note that we define $\gcd(x, 0) = x$, $\gcd(0, y) = y$ and $\gcd(0, 0) = 0$ in this function.
 
 ### Constraints
-- `a_begin` $\leq$ `a_end`
-- `b_begin` $\leq$ `b_end`
-- `c_begin` $\leq$ `c_end`
+- `InputIterator` is an input iterator type.
+- `RandomAccessIterator` is a random access iterator type.
 
 ### Time Complexity
-- $O(\max(N, M, K) \log\log(\max(N, M, K)))$
+- $O(N \log \log N + M \log \log M + K)$
 
 ### License
 - CC0

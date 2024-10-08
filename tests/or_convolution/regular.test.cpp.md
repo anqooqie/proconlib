@@ -2,14 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: tools/assert_that.hpp
-    title: Assertion macro
+    path: tools/or_convolution.hpp
+    title: Bitwise OR convolution
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
   - icon: ':heavy_check_mark:'
-    path: tools/superset_zeta.hpp
-    title: Superset Zeta transform
+    path: tools/subset_moebius.hpp
+    title: "Subset M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/subset_zeta.hpp
+    title: Subset Zeta transform
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,31 +20,31 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+    PROBLEM: https://judge.yosupo.jp/problem/bitwise_and_convolution
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/superset_zeta.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <random>\n#include <vector>\n#include <iterator>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned int m) : _m(m),\
-    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
-    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
-    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+    - https://judge.yosupo.jp/problem/bitwise_and_convolution
+  bundledCode: "#line 1 \"tests/or_convolution/regular.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <algorithm>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
+    \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
+    namespace atcoder {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return\
+    \ x mod m\nconstexpr long long safe_mod(long long x, long long m) {\n    x %=\
+    \ m;\n    if (x < 0) x += m;\n    return x;\n}\n\n// Fast modular multiplication\
+    \ by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
@@ -228,70 +231,83 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/assert_that.hpp\"\
-    \n\n\n\n#line 5 \"tools/assert_that.hpp\"\n#include <cstdlib>\n\n#define assert_that_impl(cond,\
-    \ file, line, func) do {\\\n  if (!cond) {\\\n    ::std::cerr << file << ':' <<\
-    \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
-    n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
-    \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
-    tools/superset_zeta.hpp\"\n\n\n\n#line 6 \"tools/superset_zeta.hpp\"\n#include\
-    \ <algorithm>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 5 \"tools/pow2.hpp\"\n\
-    #include <cstddef>\n\nnamespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/or_convolution.hpp\"\
+    \n\n\n\n#include <iterator>\n#line 1 \"tools/subset_zeta.hpp\"\n\n\n\n#line 1\
+    \ \"tools/pow2.hpp\"\n\n\n\n#line 5 \"tools/pow2.hpp\"\n#include <cstddef>\n\n\
+    namespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(static_cast<typename ::std::make_unsigned<T>::type>(1) << static_cast<typename\
-    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 8 \"tools/superset_zeta.hpp\"\
-    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void superset_zeta(const\
+    \ ::std::make_unsigned<T>::type>(x));\n  }\n}\n\n\n#line 8 \"tools/subset_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void subset_zeta(const\
     \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
     \ N = end - begin;\n\n    for (int w = 0; ::tools::pow2(w) < N; ++w) {\n     \
     \ for (int i = 0; ; i += ::tools::pow2(w)) {\n        for (; !((i >> w) & 1);\
-    \ ++i) {\n          if (!(i + ::tools::pow2(w) < N)) goto NEXT_W;\n          begin[i]\
-    \ += begin[i + ::tools::pow2(w)];\n        }\n      }\n    NEXT_W:\n      ;\n\
+    \ ++i) {\n          if (!(i + ::tools::pow2(w) < N)) goto NEXT_W;\n          begin[i\
+    \ + ::tools::pow2(w)] += begin[i];\n        }\n      }\n    NEXT_W:\n      ;\n\
     \    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void superset_zeta(const InputIterator begin, const InputIterator end, const\
+    \  void subset_zeta(const InputIterator begin, const InputIterator end, const\
     \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    ::std::vector<T> a(begin, end);\n    ::tools::superset_zeta(a.begin(), a.end());\n\
-    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 10 \"tests/superset_zeta.test.cpp\"\
-    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  std::random_device seed_gen;\n\
-    \  std::mt19937 engine(seed_gen());\n  std::uniform_int_distribution<int> dist(0,\
-    \ 998244352);\n\n  for (int N = 0; N <= 20; ++N) {\n    std::vector<mint> a(N);\n\
-    \    for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n\n    std::vector<mint>\
-    \ b(N, mint::raw(0));\n    for (int i = 0; i < N; ++i) {\n      for (int j = 0;\
-    \ j < N; ++j) {\n        if ((i & j) == i) b[i] += a[j];\n      }\n    }\n\n \
-    \   std::vector<mint> actual_b;\n    tools::superset_zeta(a.begin(), a.end(),\
-    \ std::back_inserter(actual_b));\n    assert_that(actual_b == b);\n\n    tools::superset_zeta(a.begin(),\
-    \ a.end());\n    assert_that(a == b);\n  }\n\n  std::cout << \"Hello World\" <<\
-    \ '\\n';\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <random>\n#include <vector>\n#include <iterator>\n\
-    #include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\n#include\
-    \ \"tools/superset_zeta.hpp\"\n\nusing mint = atcoder::modint998244353;\n\nint\
-    \ main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  std::random_device seed_gen;\n  std::mt19937 engine(seed_gen());\n  std::uniform_int_distribution<int>\
-    \ dist(0, 998244352);\n\n  for (int N = 0; N <= 20; ++N) {\n    std::vector<mint>\
-    \ a(N);\n    for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n\n    std::vector<mint>\
-    \ b(N, mint::raw(0));\n    for (int i = 0; i < N; ++i) {\n      for (int j = 0;\
-    \ j < N; ++j) {\n        if ((i & j) == i) b[i] += a[j];\n      }\n    }\n\n \
-    \   std::vector<mint> actual_b;\n    tools::superset_zeta(a.begin(), a.end(),\
-    \ std::back_inserter(actual_b));\n    assert_that(actual_b == b);\n\n    tools::superset_zeta(a.begin(),\
-    \ a.end());\n    assert_that(a == b);\n  }\n\n  std::cout << \"Hello World\" <<\
-    \ '\\n';\n  return 0;\n}\n"
+    \    ::std::vector<T> a(begin, end);\n    ::tools::subset_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/subset_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/subset_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void subset_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n\n\
+    \    for (int w = 0; ::tools::pow2(w) < N; ++w) {\n      for (int i = 0; ; i +=\
+    \ ::tools::pow2(w)) {\n        for (; !((i >> w) & 1); ++i) {\n          if (!(i\
+    \ + ::tools::pow2(w) < N)) goto NEXT_W;\n          begin[i + ::tools::pow2(w)]\
+    \ -= begin[i];\n        }\n      }\n    NEXT_W:\n      ;\n    }\n  }\n\n  template\
+    \ <typename InputIterator, typename OutputIterator>\n  void subset_moebius(const\
+    \ InputIterator begin, const InputIterator end, const OutputIterator result) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   ::std::vector<T> b(begin, end);\n    ::tools::subset_moebius(b.begin(), b.end());\n\
+    \    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 8 \"tools/or_convolution.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename RandomAccessIterator>\n\
+    \  void or_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
+    \ b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator\
+    \ c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
+    \    const int K = ::std::distance(c_begin, c_end);\n\n    a.resize(K, T(0));\n\
+    \    ::tools::subset_zeta(a.begin(), a.end());\n    b.resize(K, T(0));\n    ::tools::subset_zeta(b.begin(),\
+    \ b.end());\n\n    for (int i = 0; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n\
+    \    }\n    ::tools::subset_moebius(c_begin, c_end);\n  }\n}\n\n\n#line 9 \"tests/or_convolution/regular.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N;\n  std::cin >> N;\n  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));\n\
+    \  for (auto& a_i : a) {\n    ll a_i_ll;\n    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n\
+    \  }\n  for (auto& b_i : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i\
+    \ = mint::raw(b_i_ll);\n  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::or_convolution(a.rbegin(),\
+    \ a.rend(), b.rbegin(), b.rend(), c.rbegin(), c.rend());\n\n  std::string delimiter\
+    \ = \"\";\n  for (const auto& c_i : c) {\n    std::cout << delimiter << c_i.val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\
+    \n\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <string>\n\
+    #include \"atcoder/modint.hpp\"\n#include \"tools/or_convolution.hpp\"\n\nusing\
+    \ ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<mint>\
+    \ a(tools::pow2(N)), b(tools::pow2(N));\n  for (auto& a_i : a) {\n    ll a_i_ll;\n\
+    \    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n  }\n  for (auto& b_i\
+    \ : b) {\n    ll b_i_ll;\n    std::cin >> b_i_ll;\n    b_i = mint::raw(b_i_ll);\n\
+    \  }\n\n  std::vector<mint> c(tools::pow2(N));\n  tools::or_convolution(a.rbegin(),\
+    \ a.rend(), b.rbegin(), b.rend(), c.rbegin(), c.rend());\n\n  std::string delimiter\
+    \ = \"\";\n  for (const auto& c_i : c) {\n    std::cout << delimiter << c_i.val();\n\
+    \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/assert_that.hpp
-  - tools/superset_zeta.hpp
+  - tools/or_convolution.hpp
+  - tools/subset_zeta.hpp
   - tools/pow2.hpp
+  - tools/subset_moebius.hpp
   isVerificationFile: true
-  path: tests/superset_zeta.test.cpp
+  path: tests/or_convolution/regular.test.cpp
   requiredBy: []
   timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/superset_zeta.test.cpp
+documentation_of: tests/or_convolution/regular.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/superset_zeta.test.cpp
-- /verify/tests/superset_zeta.test.cpp.html
-title: tests/superset_zeta.test.cpp
+- /verify/tests/or_convolution/regular.test.cpp
+- /verify/tests/or_convolution/regular.test.cpp.html
+title: tests/or_convolution/regular.test.cpp
 ---

@@ -4,8 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/pow2.hpp
     title: $2^x$
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/or_convolution.hpp
+    title: Bitwise OR convolution
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/or_convolution/different_lengths.test.cpp
+    title: tests/or_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/or_convolution/regular.test.cpp
+    title: tests/or_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/subset_moebius.test.cpp
     title: tests/subset_moebius.test.cpp
@@ -51,15 +60,49 @@ data:
   - tools/pow2.hpp
   isVerificationFile: false
   path: tools/subset_moebius.hpp
-  requiredBy: []
+  requiredBy:
+  - tools/or_convolution.hpp
   timestamp: '2024-10-07 00:03:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/subset_moebius.test.cpp
+  - tests/or_convolution/different_lengths.test.cpp
+  - tests/or_convolution/regular.test.cpp
 documentation_of: tools/subset_moebius.hpp
 layout: document
-redirect_from:
-- /library/tools/subset_moebius.hpp
-- /library/tools/subset_moebius.hpp.html
-title: tools/subset_moebius.hpp
+title: "Subset M\xF6bius transform"
 ---
+
+```cpp
+(1)
+template <typename InputIterator, typename OutputIterator>
+void subset_moebius(InputIterator begin, InputIterator end, OutputIterator result);
+
+(2)
+template <typename RandomAccessIterator>
+void subset_moebius(RandomAccessIterator begin, RandomAccessIterator end);
+```
+
+- (1)
+    - Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ that satisfies the following relational equation to `result`.
+- (2)
+    - Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ that satisfies the following relational equation to `begin`.
+
+The following relationship holds between $a$ and $b$.
+
+$$\begin{align*}
+b_i &= \sum_{\substack{0 \leq j < N \\ (i~\mathrm{OR}~j) = i}} a_j
+\end{align*}$$
+
+### Constraints
+- None
+    - Note that `result` in (1) can be the same as `begin`, but it would be better to use (2) in that case.
+
+### Time Complexity
+- $O(N \log N)$
+
+### License
+- CC0
+
+### Author
+- anqooqie

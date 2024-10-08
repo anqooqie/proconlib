@@ -23,8 +23,9 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/bitwise_and_convolution
     links:
     - https://judge.yosupo.jp/problem/bitwise_and_convolution
-  bundledCode: "#line 1 \"tests/and_convolution.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\
-    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+  bundledCode: "#line 1 \"tests/and_convolution/regular.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
@@ -231,10 +232,10 @@ data:
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
     \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/and_convolution.hpp\"\
-    \n\n\n\n#line 6 \"tools/and_convolution.hpp\"\n#include <cstddef>\n#include <iterator>\n\
-    #include <algorithm>\n#line 1 \"tools/superset_zeta.hpp\"\n\n\n\n#line 1 \"tools/pow2.hpp\"\
-    \n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\n  template <typename\
-    \ T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
+    \n\n\n\n#include <iterator>\n#line 6 \"tools/and_convolution.hpp\"\n#include <algorithm>\n\
+    #line 1 \"tools/superset_zeta.hpp\"\n\n\n\n#line 1 \"tools/pow2.hpp\"\n\n\n\n\
+    #line 5 \"tools/pow2.hpp\"\n#include <cstddef>\n\nnamespace tools {\n\n  template\
+    \ <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value, ::std::nullptr_t>::type\
     \ = nullptr>\n  constexpr T pow2(const T x) {\n    return static_cast<T>(1) <<\
     \ x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
@@ -262,20 +263,23 @@ data:
     \ begin, const InputIterator end, const OutputIterator result) {\n    using T\
     \ = typename ::std::iterator_traits<InputIterator>::value_type;\n    ::std::vector<T>\
     \ b(begin, end);\n    ::tools::superset_moebius(b.begin(), b.end());\n    ::std::move(b.begin(),\
-    \ b.end(), result);\n  }\n}\n\n\n#line 11 \"tools/and_convolution.hpp\"\n\nnamespace\
-    \ tools {\n  template <typename InputIterator, typename OutputIterator>\n  void\
-    \ and_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin,\
-    \ InputIterator b_end, OutputIterator c_begin, OutputIterator c_end) {\n    using\
-    \ T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin, a_end);\n\
-    \    ::std::vector<T> b(b_begin, b_end);\n    const ::std::size_t N = a.size();\n\
-    \    const ::std::size_t M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin,\
-    \ c_end);\n\n    a.resize(::std::min({N, M, K}));\n    b.resize(::std::min({N,\
-    \ M, K}));\n\n    ::tools::superset_zeta(a.begin(), a.end());\n    ::tools::superset_zeta(b.begin(),\
-    \ b.end());\n\n    for (::std::size_t i = 0; i < ::std::min({N, M, K}); ++i) {\n\
-    \      c_begin[i] = a[i] * b[i];\n    }\n    ::std::fill(::std::next(c_begin,\
-    \ ::std::min({N, M, K})), c_end, T(0));\n\n    ::tools::superset_moebius(c_begin,\
-    \ c_end);\n  }\n}\n\n\n#line 8 \"tests/and_convolution.test.cpp\"\n\nusing ll\
-    \ = long long;\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \ b.end(), result);\n  }\n}\n\n\n#line 9 \"tools/and_convolution.hpp\"\n\nnamespace\
+    \ tools {\n  template <typename InputIterator, typename RandomAccessIterator>\n\
+    \  void and_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
+    \ b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator\
+    \ c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    ::tools::superset_zeta(a.begin(), a.end());\n    ::tools::superset_zeta(b.begin(),\
+    \ b.end());\n\n    if (::std::min(N, M) <= K) {\n      for (int i = 0; i < ::std::min(N,\
+    \ M); ++i) {\n        c_begin[i] = a[i] * b[i];\n      }\n      ::tools::superset_moebius(c_begin,\
+    \ c_begin + ::std::min(N, M));\n      ::std::fill(c_begin + ::std::min(N, M),\
+    \ c_end, T(0));\n    } else {\n      ::std::vector<T> c;\n      c.reserve(::std::min(N,\
+    \ M));\n      for (int i = 0; i < ::std::min(N, M); ++i) {\n        c.push_back(a[i]\
+    \ * b[i]);\n      }\n      ::tools::superset_moebius(c.begin(), c.end());\n  \
+    \    ::std::move(c.begin(), c.begin() + K, c_begin);\n    }\n  }\n}\n\n\n#line\
+    \ 8 \"tests/and_convolution/regular.test.cpp\"\n\nusing ll = long long;\nusing\
+    \ mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
     \  std::ios_base::sync_with_stdio(false);\n\n  ll N;\n  std::cin >> N;\n  std::vector<mint>\
     \ a(tools::pow2(N)), b(tools::pow2(N));\n  for (auto& a_i : a) {\n    ll a_i_ll;\n\
     \    std::cin >> a_i_ll;\n    a_i = mint::raw(a_i_ll);\n  }\n  for (auto& b_i\
@@ -301,15 +305,15 @@ data:
   - tools/pow2.hpp
   - tools/superset_moebius.hpp
   isVerificationFile: true
-  path: tests/and_convolution.test.cpp
+  path: tests/and_convolution/regular.test.cpp
   requiredBy: []
-  timestamp: '2024-10-07 01:25:58+09:00'
+  timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/and_convolution.test.cpp
+documentation_of: tests/and_convolution/regular.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/and_convolution.test.cpp
-- /verify/tests/and_convolution.test.cpp.html
-title: tests/and_convolution.test.cpp
+- /verify/tests/and_convolution/regular.test.cpp
+- /verify/tests/and_convolution/regular.test.cpp.html
+title: tests/and_convolution/regular.test.cpp
 ---

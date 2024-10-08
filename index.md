@@ -418,6 +418,9 @@ data:
       path: tools/online_cumsum.hpp
       title: Online cumulative sum
     - icon: ':heavy_check_mark:'
+      path: tools/or_convolution.hpp
+      title: Bitwise OR convolution
+    - icon: ':heavy_check_mark:'
       path: tools/ord_mod.hpp
       title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
     - icon: ':heavy_check_mark:'
@@ -576,7 +579,7 @@ data:
       title: Stirling numbers of the second kind
     - icon: ':heavy_check_mark:'
       path: tools/subset_moebius.hpp
-      title: tools/subset_moebius.hpp
+      title: "Subset M\xF6bius transform"
     - icon: ':heavy_check_mark:'
       path: tools/subset_zeta.hpp
       title: Subset Zeta transform
@@ -685,9 +688,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/alphabetical_order.test.cpp
       title: tests/alphabetical_order.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/and_convolution.test.cpp
-      title: tests/and_convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/auxiliary_tree.test.cpp
       title: tests/auxiliary_tree.test.cpp
@@ -824,9 +824,6 @@ data:
       path: tests/floor_sqrt.test.cpp
       title: tests/floor_sqrt.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/gcd_convolution.test.cpp
-      title: tests/gcd_convolution.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/golden_section_search.test.cpp
       title: tests/golden_section_search.test.cpp
     - icon: ':heavy_check_mark:'
@@ -868,9 +865,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/lca.test.cpp
       title: tests/lca.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: tests/lcm_convolution.test.cpp
-      title: tests/lcm_convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/less_by_arg.test.cpp
       title: tests/less_by_arg.test.cpp
@@ -1054,6 +1048,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/xor_basis.test.cpp
       title: tests/xor_basis.test.cpp
+  - name: tests/and_convolution
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/and_convolution/different_lengths.test.cpp
+      title: tests/and_convolution/different_lengths.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/and_convolution/regular.test.cpp
+      title: tests/and_convolution/regular.test.cpp
   - name: tests/avl_tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -1224,6 +1226,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/fps/pow_other_mods.test.cpp
       title: tests/fps/pow_other_mods.test.cpp
+  - name: tests/gcd_convolution
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/gcd_convolution/different_lengths.test.cpp
+      title: tests/gcd_convolution/different_lengths.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/gcd_convolution/regular.test.cpp
+      title: tests/gcd_convolution/regular.test.cpp
   - name: tests/hld
     pages:
     - icon: ':heavy_check_mark:'
@@ -1249,6 +1259,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/large_fact_mod_cache/fact.test.cpp
       title: tests/large_fact_mod_cache/fact.test.cpp
+  - name: tests/lcm_convolution
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/lcm_convolution/different_lengths.test.cpp
+      title: tests/lcm_convolution/different_lengths.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lcm_convolution/regular.test.cpp
+      title: tests/lcm_convolution/regular.test.cpp
   - name: tests/li_chao_segtree
     pages:
     - icon: ':heavy_check_mark:'
@@ -1296,6 +1314,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/matrix/static.test.cpp
       title: tests/matrix/static.test.cpp
+  - name: tests/or_convolution
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/or_convolution/different_lengths.test.cpp
+      title: tests/or_convolution/different_lengths.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/or_convolution/regular.test.cpp
+      title: tests/or_convolution/regular.test.cpp
   - name: tests/partition_function
     pages:
     - icon: ':heavy_check_mark:'

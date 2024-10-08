@@ -63,6 +63,9 @@ data:
     path: tools/li_chao_segtree.hpp
     title: Li Chao segment tree
   - icon: ':heavy_check_mark:'
+    path: tools/or_convolution.hpp
+    title: Bitwise OR convolution
+  - icon: ':heavy_check_mark:'
     path: tools/ord_mod.hpp
     title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
   - icon: ':heavy_check_mark:'
@@ -100,7 +103,7 @@ data:
     title: Stirling numbers of the second kind
   - icon: ':heavy_check_mark:'
     path: tools/subset_moebius.hpp
-    title: tools/subset_moebius.hpp
+    title: "Subset M\xF6bius transform"
   - icon: ':heavy_check_mark:'
     path: tools/subset_zeta.hpp
     title: Subset Zeta transform
@@ -130,8 +133,11 @@ data:
     title: 0-1 knapsack problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/and_convolution.test.cpp
-    title: tests/and_convolution.test.cpp
+    path: tests/and_convolution/different_lengths.test.cpp
+    title: tests/and_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/and_convolution/regular.test.cpp
+    title: tests/and_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/auxiliary_tree.test.cpp
     title: tests/auxiliary_tree.test.cpp
@@ -306,6 +312,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/monoid.test.cpp
     title: tests/monoid.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/or_convolution/different_lengths.test.cpp
+    title: tests/or_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/or_convolution/regular.test.cpp
+    title: tests/or_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/ord_mod.test.cpp
     title: tests/ord_mod.test.cpp
@@ -516,6 +528,7 @@ data:
   - tools/subset_zeta.hpp
   - tools/bigint.hpp
   - tools/large_fact_mod_cache.hpp
+  - tools/or_convolution.hpp
   - tools/binary_heap.hpp
   - tools/stirling_1st.hpp
   - tools/bigdecimal.hpp
@@ -555,7 +568,6 @@ data:
   - tests/directed_line_segment_2d/cross_point.test.cpp
   - tests/directed_line_segment_2d/intersection.test.cpp
   - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/and_convolution.test.cpp
   - tests/ssize.test.cpp
   - tests/primitive_root.test.cpp
   - tests/tsort/query.test.cpp
@@ -636,6 +648,8 @@ data:
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
+  - tests/or_convolution/different_lengths.test.cpp
+  - tests/or_convolution/regular.test.cpp
   - tests/polynomial/naive_division.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
   - tests/polynomial/multidimensional.test.cpp
@@ -651,6 +665,8 @@ data:
   - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
+  - tests/and_convolution/different_lengths.test.cpp
+  - tests/and_convolution/regular.test.cpp
   - tests/fps/log_mod998244353.test.cpp
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/exp_mod998244353.test.cpp

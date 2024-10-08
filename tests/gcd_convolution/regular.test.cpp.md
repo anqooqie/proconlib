@@ -5,8 +5,14 @@ data:
     path: tools/eratosthenes_sieve.hpp
     title: Sieve of Eratosthenes
   - icon: ':heavy_check_mark:'
-    path: tools/lcm_convolution.hpp
-    title: LCM convolution
+    path: tools/gcd_convolution.hpp
+    title: GCD convolution
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_moebius.hpp
+    title: "Multiple M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/multiple_zeta.hpp
+    title: Multiple Zeta transform
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,11 +20,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/lcm_convolution
+    PROBLEM: https://judge.yosupo.jp/problem/gcd_convolution
     links:
-    - https://judge.yosupo.jp/problem/lcm_convolution
-  bundledCode: "#line 1 \"tests/lcm_convolution.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/lcm_convolution\"\
-    \n\n#include <iostream>\n#include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    - https://judge.yosupo.jp/problem/gcd_convolution
+  bundledCode: "#line 1 \"tests/gcd_convolution/regular.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/gcd_convolution\"\n\n#include <iostream>\n\
+    #include <vector>\n#include <string>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
     \n\n\n\n#include <cassert>\n#include <numeric>\n#include <type_traits>\n\n#ifdef\
     \ _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\
     \n\n\n\n#include <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n\
@@ -224,12 +231,13 @@ data:
     \ntemplate <class> struct is_dynamic_modint : public std::false_type {};\ntemplate\
     \ <int id>\nstruct is_dynamic_modint<dynamic_modint<id>> : public std::true_type\
     \ {};\n\ntemplate <class T>\nusing is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;\n\
-    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/lcm_convolution.hpp\"\
-    \n\n\n\n#line 6 \"tools/lcm_convolution.hpp\"\n#include <algorithm>\n#include\
-    \ <cstddef>\n#include <iterator>\n#line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\
-    \n\n#include <array>\n#include <cstdint>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\
-    \n\nnamespace tools {\n  template <typename T>\n  class eratosthenes_sieve {\n\
-    \    constexpr static ::std::array<::std::uint64_t, 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
+    \n}  // namespace internal\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/gcd_convolution.hpp\"\
+    \n\n\n\n#include <iterator>\n#line 6 \"tools/gcd_convolution.hpp\"\n#include <algorithm>\n\
+    #line 1 \"tools/multiple_zeta.hpp\"\n\n\n\n#line 1 \"tools/eratosthenes_sieve.hpp\"\
+    \n\n\n\n#include <array>\n#include <cstdint>\n#line 7 \"tools/eratosthenes_sieve.hpp\"\
+    \n#include <cstddef>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class eratosthenes_sieve {\n    constexpr static\
+    \ ::std::array<::std::uint64_t, 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
     \      UINT64_C(0b1000001010000010001010001010001000001010000010001010001010001000),\n\
     \      UINT64_C(0b1000100000101000001000101000101000100000101000001000101000101000),\n\
     \      UINT64_C(0b0010100010000010100000100010100010100010000010100000100010100010),\n\
@@ -405,59 +413,85 @@ data:
     \ const {\n      assert(1 <= i && i <= this->m_n);\n      return (this->m_is_prime[i\
     \ >> 6] >> (i & 0b111111)) & 1;\n    }\n\n    prime_iterable prime_range(const\
     \ int l, const int r) const {\n      assert(1 <= l && l <= r && r <= this->m_n);\n\
-    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 10 \"tools/lcm_convolution.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void lcm_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
-    \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
-    \ {\n    if (c_begin == c_end) return;\n\n    using T = ::std::decay_t<decltype(*a_begin)>;\n\
+    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/multiple_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void multiple_zeta(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
+    \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
+    \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
+    \  for (int i = (N - 1) / p; i >= 1; --i) {\n        begin[i] += begin[i * p];\n\
+    \      }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void multiple_zeta(const InputIterator begin, const InputIterator end, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(begin, end);\n    ::tools::multiple_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/multiple_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/multiple_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void multiple_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n \
+    \   if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int> sieve(N - 1);\n\
+    \    for (const auto p : sieve.prime_range(1, N - 1)) {\n      for (int i = 1;\
+    \ i * p < N; ++i) {\n        begin[i] -= begin[i * p];\n      }\n    }\n  }\n\n\
+    \  template <typename InputIterator, typename OutputIterator>\n  void multiple_moebius(const\
+    \ InputIterator begin, const InputIterator end, const OutputIterator result) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   ::std::vector<T> b(begin, end);\n    ::tools::multiple_moebius(b.begin(),\
+    \ b.end());\n    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 9\
+    \ \"tools/gcd_convolution.hpp\"\n\nnamespace tools {\n  template <typename InputIterator,\
+    \ typename RandomAccessIterator>\n  void gcd_convolution(InputIterator a_begin,\
+    \ InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator\
+    \ c_begin, RandomAccessIterator c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
-    \    if (a.empty() || b.empty()) {\n      ::std::fill(c_begin, c_end, T(0));\n\
-    \      return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
-    \ M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin, c_end);\n\
-    \n    c_begin[0] = a[0] * b[0];\n    for (::std::size_t i = 1; i < N; ++i) {\n\
-    \      c_begin[0] += a[i] * b[0];\n    }\n    for (::std::size_t i = 1; i < M;\
-    \ ++i) {\n      c_begin[0] += a[0] * b[i];\n    }\n\n    a.resize(K, T(0));\n\
-    \    b.resize(K, T(0));\n    ::tools::eratosthenes_sieve<::std::size_t> sieve(K\
-    \ > 2 ? K - 1 : 1);\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1,\
-    \ K - 1)) {\n        for (::std::size_t k = 1; k * p < K; ++k) {\n          a[k\
-    \ * p] += a[k];\n          b[k * p] += b[k];\n        }\n      }\n    }\n\n  \
-    \  for (::std::size_t i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n\
-    \    }\n\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1, K -\
-    \ 1)) {\n        for (::std::size_t k = (K - 1) / p; k >= 1; --k) {\n        \
-    \  c_begin[k * p] -= c_begin[k];\n        }\n      }\n    }\n  }\n}\n\n\n#line\
-    \ 8 \"tests/lcm_convolution.test.cpp\"\n\nusing ll = long long;\nusing mint =\
-    \ atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (ll\
-    \ i = 1; i <= N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    ::std::vector<T> offset(::std::min(::std::max(N, M), K), T(0));\n\
+    \    if (::std::min({N, M, K}) > 0) {\n      offset[0] += a[0] * b[0];\n    }\n\
+    \    if (M > 0) {\n      for (int i = 1; i < ::std::min(N, K); ++i) {\n      \
+    \  offset[i] += a[i] * b[0];\n      }\n    }\n    if (N > 0) {\n      for (int\
+    \ i = 1; i < ::std::min(M, K); ++i) {\n        offset[i] += a[0] * b[i];\n   \
+    \   }\n    }\n\n    ::tools::multiple_zeta(a.begin(), a.end());\n    ::tools::multiple_zeta(b.begin(),\
+    \ b.end());\n\n    if (::std::min(N, M) <= K) {\n      if (::std::min(N, M) >\
+    \ 0) {\n        c_begin[0] = 0;\n      }\n      for (int i = 1; i < ::std::min(N,\
+    \ M); ++i) {\n        c_begin[i] = a[i] * b[i];\n      }\n      ::tools::multiple_moebius(c_begin,\
+    \ c_begin + ::std::min(N, M));\n      ::std::fill(c_begin + ::std::min(N, M),\
+    \ c_end, T(0));\n    } else {\n      ::std::vector<T> c;\n      c.reserve(::std::min(N,\
+    \ M));\n      c.push_back(0);\n      for (int i = 1; i < ::std::min(N, M); ++i)\
+    \ {\n        c.push_back(a[i] * b[i]);\n      }\n      ::tools::multiple_moebius(c.begin(),\
+    \ c.end());\n      ::std::move(c.begin(), c.begin() + K, c_begin);\n    }\n\n\
+    \    for (int i = 0; i < ::std::min(::std::max(N, M), K); ++i) {\n      c_begin[i]\
+    \ += offset[i];\n    }\n  }\n}\n\n\n#line 8 \"tests/gcd_convolution/regular.test.cpp\"\
+    \n\nusing ll = long long;\nusing mint = atcoder::modint998244353;\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  ll\
+    \ N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (ll i =\
+    \ 1; i <= N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
     \  }\n  for (ll i = 1; i <= N; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n   \
-    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
+    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::gcd_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
     \ = \"\";\n  for (ll i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lcm_convolution\"\n\n#include\
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/gcd_convolution\"\n\n#include\
     \ <iostream>\n#include <vector>\n#include <string>\n#include \"atcoder/modint.hpp\"\
-    \n#include \"tools/lcm_convolution.hpp\"\n\nusing ll = long long;\nusing mint\
+    \n#include \"tools/gcd_convolution.hpp\"\n\nusing ll = long long;\nusing mint\
     \ = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  ll N;\n  std::cin >> N;\n  std::vector<mint> a(N + 1), b(N + 1);\n  for (ll\
     \ i = 1; i <= N; ++i) {\n    ll a_i;\n    std::cin >> a_i;\n    a[i] = mint::raw(a_i);\n\
     \  }\n  for (ll i = 1; i <= N; ++i) {\n    ll b_i;\n    std::cin >> b_i;\n   \
-    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::lcm_convolution(a.begin(),\
+    \ b[i] = mint::raw(b_i);\n  }\n\n  std::vector<mint> c(N + 1);\n  tools::gcd_convolution(a.begin(),\
     \ a.end(), b.begin(), b.end(), c.begin(), c.end());\n\n  std::string delimiter\
     \ = \"\";\n  for (ll i = 1; i <= N; ++i) {\n    std::cout << delimiter << c[i].val();\n\
     \    delimiter = \" \";\n  }\n  std::cout << '\\n';\n\n  return 0;\n}\n"
   dependsOn:
-  - tools/lcm_convolution.hpp
+  - tools/gcd_convolution.hpp
+  - tools/multiple_zeta.hpp
   - tools/eratosthenes_sieve.hpp
+  - tools/multiple_moebius.hpp
   isVerificationFile: true
-  path: tests/lcm_convolution.test.cpp
+  path: tests/gcd_convolution/regular.test.cpp
   requiredBy: []
-  timestamp: '2024-10-04 23:52:08+09:00'
+  timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/lcm_convolution.test.cpp
+documentation_of: tests/gcd_convolution/regular.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/lcm_convolution.test.cpp
-- /verify/tests/lcm_convolution.test.cpp.html
-title: tests/lcm_convolution.test.cpp
+- /verify/tests/gcd_convolution/regular.test.cpp
+- /verify/tests/gcd_convolution/regular.test.cpp.html
+title: tests/gcd_convolution/regular.test.cpp
 ---

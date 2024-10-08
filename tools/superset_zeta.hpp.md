@@ -10,8 +10,11 @@ data:
     title: Bitwise AND convolution
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/and_convolution.test.cpp
-    title: tests/and_convolution.test.cpp
+    path: tests/and_convolution/different_lengths.test.cpp
+    title: tests/and_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/and_convolution/regular.test.cpp
+    title: tests/and_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/superset_zeta.test.cpp
     title: tests/superset_zeta.test.cpp
@@ -61,52 +64,38 @@ data:
   timestamp: '2024-10-07 00:03:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/and_convolution.test.cpp
   - tests/superset_zeta.test.cpp
+  - tests/and_convolution/different_lengths.test.cpp
+  - tests/and_convolution/regular.test.cpp
 documentation_of: tools/superset_zeta.hpp
 layout: document
 title: Superset Zeta transform
 ---
 
-## (1)
 ```cpp
+(1)
 template <typename InputIterator, typename OutputIterator>
 void superset_zeta(InputIterator begin, InputIterator end, OutputIterator result);
-```
 
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ to `result` such that
-
-$$\begin{align*}
-b_i &= \sum_{(i~\mathrm{AND}~j) = i} a_j
-\end{align*}$$
-
-### Constraints
-- None
-    - Note that `result` can be the same as `begin`, but it would be better to use (2) in that case.
-
-### Time Complexity
-- $O(N \log N)$
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (2)
-```cpp
+(2)
 template <typename RandomAccessIterator>
 void superset_zeta(RandomAccessIterator begin, RandomAccessIterator end);
 ```
 
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ to `begin` such that
+- (1)
+    - Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ that satisfies the following relational equation to `result`.
+- (2)
+    - Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ that satisfies the following relational equation to `begin`.
+
+The following relationship holds between $a$ and $b$.
 
 $$\begin{align*}
-b_i &= \sum_{(i~\mathrm{AND}~j) = i} a_j
+b_i &= \sum_{\substack{0 \leq j < N \\ (i~\mathrm{AND}~j) = i}} a_j
 \end{align*}$$
 
 ### Constraints
 - None
+    - Note that `result` in (1) can be the same as `begin`, but it would be better to use (2) in that case.
 
 ### Time Complexity
 - $O(N \log N)$

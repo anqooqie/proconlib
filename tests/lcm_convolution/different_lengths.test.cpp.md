@@ -5,11 +5,17 @@ data:
     path: tools/assert_that.hpp
     title: Assertion macro
   - icon: ':heavy_check_mark:'
+    path: tools/divisor_moebius.hpp
+    title: "Divisor M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/divisor_zeta.hpp
+    title: Divisor Zeta transform
+  - icon: ':heavy_check_mark:'
     path: tools/eratosthenes_sieve.hpp
     title: Sieve of Eratosthenes
   - icon: ':heavy_check_mark:'
-    path: tools/multiple_moebius.hpp
-    title: "Multiple M\xF6bius transform"
+    path: tools/lcm_convolution.hpp
+    title: LCM convolution
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -20,28 +26,28 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/multiple_moebius.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
-    \n\n#include <iostream>\n#include <random>\n#include <vector>\n#include <iterator>\n\
-    #line 1 \"lib/ac-library/atcoder/modint.hpp\"\n\n\n\n#include <cassert>\n#include\
-    \ <numeric>\n#include <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n\
-    #endif\n\n#line 1 \"lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include\
-    \ <utility>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder\
-    \ {\n\nnamespace internal {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr\
-    \ long long safe_mod(long long x, long long m) {\n    x %= m;\n    if (x < 0)\
-    \ x += m;\n    return x;\n}\n\n// Fast modular multiplication by barrett reduction\n\
-    // Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n// NOTE: reconsider\
-    \ after Ice Lake\nstruct barrett {\n    unsigned int _m;\n    unsigned long long\
-    \ im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned int m) : _m(m),\
-    \ im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n    unsigned int\
-    \ umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n    // @param b\
-    \ `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned int\
-    \ a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im = 0,\
-    \ so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n        //\
-    \ -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0 <= c,\
-    \ d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64 + c*r\
-    \ + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64 +\
-    \ m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n       \
-    \ unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
+  bundledCode: "#line 1 \"tests/lcm_convolution/different_lengths.test.cpp\"\n#define\
+    \ PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n#include <iostream>\n\
+    #include <random>\n#include <vector>\n#include <numeric>\n#line 1 \"lib/ac-library/atcoder/modint.hpp\"\
+    \n\n\n\n#include <cassert>\n#line 6 \"lib/ac-library/atcoder/modint.hpp\"\n#include\
+    \ <type_traits>\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#line 1 \"\
+    lib/ac-library/atcoder/internal_math.hpp\"\n\n\n\n#include <utility>\n\n#ifdef\
+    \ _MSC_VER\n#include <intrin.h>\n#endif\n\nnamespace atcoder {\n\nnamespace internal\
+    \ {\n\n// @param m `1 <= m`\n// @return x mod m\nconstexpr long long safe_mod(long\
+    \ long x, long long m) {\n    x %= m;\n    if (x < 0) x += m;\n    return x;\n\
+    }\n\n// Fast modular multiplication by barrett reduction\n// Reference: https://en.wikipedia.org/wiki/Barrett_reduction\n\
+    // NOTE: reconsider after Ice Lake\nstruct barrett {\n    unsigned int _m;\n \
+    \   unsigned long long im;\n\n    // @param m `1 <= m`\n    explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n\n    // @return m\n\
+    \    unsigned int umod() const { return _m; }\n\n    // @param a `0 <= a < m`\n\
+    \    // @param b `0 <= b < m`\n    // @return `a * b % m`\n    unsigned int mul(unsigned\
+    \ int a, unsigned int b) const {\n        // [1] m = 1\n        // a = b = im\
+    \ = 0, so okay\n\n        // [2] m >= 2\n        // im = ceil(2^64 / m)\n    \
+    \    // -> im * m = 2^64 + r (0 <= r < m)\n        // let z = a*b = c*m + d (0\
+    \ <= c, d < m)\n        // a*b * im = (c*m + d) * im = c*(im*m) + d*im = c*2^64\
+    \ + c*r + d*im\n        // c*r + d*im < m * m + m * im < m * m + 2^64 + m <= 2^64\
+    \ + m * (m + 1) < 2^64 * 2\n        // ((ab * im) >> 64) == c or c + 1\n     \
+    \   unsigned long long z = a;\n        z *= b;\n#ifdef _MSC_VER\n        unsigned\
     \ long long x;\n        _umul128(z, im, &x);\n#else\n        unsigned long long\
     \ x =\n            (unsigned long long)(((unsigned __int128)(z)*im) >> 64);\n\
     #endif\n        unsigned long long y = x * _m;\n        return (unsigned int)(z\
@@ -234,12 +240,12 @@ data:
     \ line << \": \" << func << \": Assertion `\" << #cond << \"' failed.\" << '\\\
     n';\\\n    ::std::exit(EXIT_FAILURE);\\\n  }\\\n} while (false)\n#define assert_that(...)\
     \ assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)\n\n\n#line 1 \"\
-    tools/multiple_moebius.hpp\"\n\n\n\n#line 6 \"tools/multiple_moebius.hpp\"\n#include\
-    \ <algorithm>\n#line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\n\n#include <array>\n\
-    #include <cstdint>\n#line 7 \"tools/eratosthenes_sieve.hpp\"\n#include <cstddef>\n\
-    #line 11 \"tools/eratosthenes_sieve.hpp\"\n\nnamespace tools {\n  template <typename\
-    \ T>\n  class eratosthenes_sieve {\n    constexpr static ::std::array<::std::uint64_t,\
-    \ 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
+    tools/lcm_convolution.hpp\"\n\n\n\n#include <iterator>\n#line 6 \"tools/lcm_convolution.hpp\"\
+    \n#include <algorithm>\n#line 1 \"tools/divisor_zeta.hpp\"\n\n\n\n#line 1 \"tools/eratosthenes_sieve.hpp\"\
+    \n\n\n\n#include <array>\n#include <cstdint>\n#line 7 \"tools/eratosthenes_sieve.hpp\"\
+    \n#include <cstddef>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\n\nnamespace tools\
+    \ {\n  template <typename T>\n  class eratosthenes_sieve {\n    constexpr static\
+    \ ::std::array<::std::uint64_t, 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
     \      UINT64_C(0b1000001010000010001010001010001000001010000010001010001010001000),\n\
     \      UINT64_C(0b1000100000101000001000101000101000100000101000001000101000101000),\n\
     \      UINT64_C(0b0010100010000010100000100010100010100010000010100000100010100010),\n\
@@ -415,56 +421,89 @@ data:
     \ const {\n      assert(1 <= i && i <= this->m_n);\n      return (this->m_is_prime[i\
     \ >> 6] >> (i & 0b111111)) & 1;\n    }\n\n    prime_iterable prime_range(const\
     \ int l, const int r) const {\n      assert(1 <= l && l <= r && r <= this->m_n);\n\
-    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/multiple_moebius.hpp\"\
-    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void multiple_moebius(const\
+    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/divisor_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void divisor_zeta(const\
     \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
     \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
     \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
-    \  for (int i = 1; i * p < N; ++i) {\n        begin[i] -= begin[i * p];\n    \
+    \  for (int i = 1; i * p < N; ++i) {\n        begin[i * p] += begin[i];\n    \
     \  }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
-    \  void multiple_moebius(const InputIterator begin, const InputIterator end, const\
+    \  void divisor_zeta(const InputIterator begin, const InputIterator end, const\
     \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
-    \    ::std::vector<T> b(begin, end);\n    ::tools::multiple_moebius(b.begin(),\
-    \ b.end());\n    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 10\
-    \ \"tests/multiple_moebius.test.cpp\"\n\nusing mint = atcoder::modint998244353;\n\
-    \nint main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
-    \n  std::random_device seed_gen;\n  std::mt19937 engine(seed_gen());\n  std::uniform_int_distribution<int>\
-    \ dist(0, 998244352);\n\n  for (int N = 0; N <= 20; ++N) {\n    std::vector<mint>\
-    \ a(N);\n    for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n\n    std::vector<mint>\
-    \ b(N, mint::raw(0));\n    if (N > 0) b[0] = a[0];\n    for (int i = 1; i < N;\
-    \ ++i) {\n      for (int j = 1; j < N; ++j) {\n        if (j % i == 0) b[i] +=\
-    \ a[j];\n      }\n    }\n\n    std::vector<mint> actual_a;\n    tools::multiple_moebius(b.begin(),\
-    \ b.end(), std::back_inserter(actual_a));\n    assert_that(actual_a == a);\n\n\
-    \    tools::multiple_moebius(b.begin(), b.end());\n    assert_that(b == a);\n\
-    \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \    ::std::vector<T> a(begin, end);\n    ::tools::divisor_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/divisor_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/divisor_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void divisor_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n \
+    \   if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int> sieve(N - 1);\n\
+    \    for (const auto p : sieve.prime_range(1, N - 1)) {\n      for (int i = (N\
+    \ - 1) / p; i >= 1; --i) {\n        begin[i * p] -= begin[i];\n      }\n    }\n\
+    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  void divisor_moebius(const\
+    \ InputIterator begin, const InputIterator end, const OutputIterator result) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   ::std::vector<T> b(begin, end);\n    ::tools::divisor_moebius(b.begin(), b.end());\n\
+    \    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 9 \"tools/lcm_convolution.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename RandomAccessIterator>\n\
+    \  void lcm_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
+    \ b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator\
+    \ c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    if (::std::min({N, M, K}) > 0) {\n      c_begin[0] = a[0] * b[0];\n\
+    \    }\n    if (::std::min(M, K) > 0) {\n      for (int i = 1; i < N; ++i) {\n\
+    \        c_begin[0] += a[i] * b[0];\n      }\n    }\n    if (::std::min(N, K)\
+    \ > 0) {\n      for (int i = 1; i < M; ++i) {\n        c_begin[0] += a[0] * b[i];\n\
+    \      }\n    }\n\n    a.resize(K, T(0));\n    ::tools::divisor_zeta(a.begin(),\
+    \ a.end());\n    b.resize(K, T(0));\n    ::tools::divisor_zeta(b.begin(), b.end());\n\
+    \n    for (int i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n    }\n\
+    \    ::tools::divisor_moebius(c_begin, c_end);\n  }\n}\n\n\n#line 10 \"tests/lcm_convolution/different_lengths.test.cpp\"\
+    \n\nusing mint = atcoder::modint998244353;\n\nint main() {\n  std::cin.tie(nullptr);\n\
+    \  std::ios_base::sync_with_stdio(false);\n\n  std::random_device seed_gen;\n\
+    \  std::mt19937 engine(seed_gen());\n  std::uniform_int_distribution<int> dist(0,\
+    \ 998244352);\n\n  for (int N = 0; N <= 10; ++N) {\n    for (int M = 0; M <= 10;\
+    \ ++M) {\n      for (int K = 0; K <= 10; ++K) {\n        std::vector<mint> a(N);\n\
+    \        for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n        std::vector<mint>\
+    \ b(M);\n        for (auto&& b_i : b) b_i = mint::raw(dist(engine));\n       \
+    \ std::vector<mint> c(K, mint::raw(0));\n        for (int i = 0; i < N; ++i) {\n\
+    \          for (int j = 0; j < M; ++j) {\n            if (std::lcm(i, j) < K)\
+    \ {\n              c[std::lcm(i, j)] += a[i] * b[j];\n            }\n        \
+    \  }\n        }\n\n        std::vector<mint> actual_c(K);\n        tools::lcm_convolution(a.begin(),\
+    \ a.end(), b.begin(), b.end(), actual_c.begin(), actual_c.end());\n\n        assert_that(actual_c\
+    \ == c);\n      }\n    }\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
-    #include <iostream>\n#include <random>\n#include <vector>\n#include <iterator>\n\
+    #include <iostream>\n#include <random>\n#include <vector>\n#include <numeric>\n\
     #include \"atcoder/modint.hpp\"\n#include \"tools/assert_that.hpp\"\n#include\
-    \ \"tools/multiple_moebius.hpp\"\n\nusing mint = atcoder::modint998244353;\n\n\
+    \ \"tools/lcm_convolution.hpp\"\n\nusing mint = atcoder::modint998244353;\n\n\
     int main() {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\
     \n  std::random_device seed_gen;\n  std::mt19937 engine(seed_gen());\n  std::uniform_int_distribution<int>\
-    \ dist(0, 998244352);\n\n  for (int N = 0; N <= 20; ++N) {\n    std::vector<mint>\
-    \ a(N);\n    for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n\n    std::vector<mint>\
-    \ b(N, mint::raw(0));\n    if (N > 0) b[0] = a[0];\n    for (int i = 1; i < N;\
-    \ ++i) {\n      for (int j = 1; j < N; ++j) {\n        if (j % i == 0) b[i] +=\
-    \ a[j];\n      }\n    }\n\n    std::vector<mint> actual_a;\n    tools::multiple_moebius(b.begin(),\
-    \ b.end(), std::back_inserter(actual_a));\n    assert_that(actual_a == a);\n\n\
-    \    tools::multiple_moebius(b.begin(), b.end());\n    assert_that(b == a);\n\
-    \  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
+    \ dist(0, 998244352);\n\n  for (int N = 0; N <= 10; ++N) {\n    for (int M = 0;\
+    \ M <= 10; ++M) {\n      for (int K = 0; K <= 10; ++K) {\n        std::vector<mint>\
+    \ a(N);\n        for (auto&& a_i : a) a_i = mint::raw(dist(engine));\n       \
+    \ std::vector<mint> b(M);\n        for (auto&& b_i : b) b_i = mint::raw(dist(engine));\n\
+    \        std::vector<mint> c(K, mint::raw(0));\n        for (int i = 0; i < N;\
+    \ ++i) {\n          for (int j = 0; j < M; ++j) {\n            if (std::lcm(i,\
+    \ j) < K) {\n              c[std::lcm(i, j)] += a[i] * b[j];\n            }\n\
+    \          }\n        }\n\n        std::vector<mint> actual_c(K);\n        tools::lcm_convolution(a.begin(),\
+    \ a.end(), b.begin(), b.end(), actual_c.begin(), actual_c.end());\n\n        assert_that(actual_c\
+    \ == c);\n      }\n    }\n  }\n\n  std::cout << \"Hello World\" << '\\n';\n  return\
+    \ 0;\n}\n"
   dependsOn:
   - tools/assert_that.hpp
-  - tools/multiple_moebius.hpp
+  - tools/lcm_convolution.hpp
+  - tools/divisor_zeta.hpp
   - tools/eratosthenes_sieve.hpp
+  - tools/divisor_moebius.hpp
   isVerificationFile: true
-  path: tests/multiple_moebius.test.cpp
+  path: tests/lcm_convolution/different_lengths.test.cpp
   requiredBy: []
   timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/multiple_moebius.test.cpp
+documentation_of: tests/lcm_convolution/different_lengths.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/multiple_moebius.test.cpp
-- /verify/tests/multiple_moebius.test.cpp.html
-title: tests/multiple_moebius.test.cpp
+- /verify/tests/lcm_convolution/different_lengths.test.cpp
+- /verify/tests/lcm_convolution/different_lengths.test.cpp.html
+title: tests/lcm_convolution/different_lengths.test.cpp
 ---

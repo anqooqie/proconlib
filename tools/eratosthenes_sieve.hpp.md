@@ -31,11 +31,17 @@ data:
     path: tests/eratosthenes_sieve.test.cpp
     title: tests/eratosthenes_sieve.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/gcd_convolution.test.cpp
-    title: tests/gcd_convolution.test.cpp
+    path: tests/gcd_convolution/different_lengths.test.cpp
+    title: tests/gcd_convolution/different_lengths.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/lcm_convolution.test.cpp
-    title: tests/lcm_convolution.test.cpp
+    path: tests/gcd_convolution/regular.test.cpp
+    title: tests/gcd_convolution/regular.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution/different_lengths.test.cpp
+    title: tests/lcm_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution/regular.test.cpp
+    title: tests/lcm_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/multiple_moebius.test.cpp
     title: tests/multiple_moebius.test.cpp
@@ -423,11 +429,13 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/eratosthenes_sieve.test.cpp
-  - tests/lcm_convolution.test.cpp
   - tests/divisor_zeta.test.cpp
   - tests/divisor_moebius.test.cpp
+  - tests/gcd_convolution/different_lengths.test.cpp
+  - tests/gcd_convolution/regular.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
+  - tests/lcm_convolution/regular.test.cpp
   - tests/multiple_zeta.test.cpp
-  - tests/gcd_convolution.test.cpp
   - tests/multiple_moebius.test.cpp
 documentation_of: tools/eratosthenes_sieve.hpp
 layout: document

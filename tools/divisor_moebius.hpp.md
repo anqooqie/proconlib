@@ -4,11 +4,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/eratosthenes_sieve.hpp
     title: Sieve of Eratosthenes
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: tools/lcm_convolution.hpp
+    title: LCM convolution
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/divisor_moebius.test.cpp
     title: tests/divisor_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution/different_lengths.test.cpp
+    title: tests/lcm_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution/regular.test.cpp
+    title: tests/lcm_convolution/regular.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -202,8 +211,7 @@ data:
     \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
     \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
     \  for (int i = (N - 1) / p; i >= 1; --i) {\n        begin[i * p] -= begin[i];\n\
-    \      }\n    }\n\n    for (int i = 1; i < N; ++i) {\n      begin[0] -= begin[i];\n\
-    \    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \      }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
     \  void divisor_moebius(const InputIterator begin, const InputIterator end, const\
     \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> b(begin, end);\n    ::tools::divisor_moebius(b.begin(),\
@@ -215,8 +223,7 @@ data:
     \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
     \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
     \  for (int i = (N - 1) / p; i >= 1; --i) {\n        begin[i * p] -= begin[i];\n\
-    \      }\n    }\n\n    for (int i = 1; i < N; ++i) {\n      begin[0] -= begin[i];\n\
-    \    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \      }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
     \  void divisor_moebius(const InputIterator begin, const InputIterator end, const\
     \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> b(begin, end);\n    ::tools::divisor_moebius(b.begin(),\
@@ -225,61 +232,46 @@ data:
   - tools/eratosthenes_sieve.hpp
   isVerificationFile: false
   path: tools/divisor_moebius.hpp
-  requiredBy: []
-  timestamp: '2024-10-07 01:25:58+09:00'
+  requiredBy:
+  - tools/lcm_convolution.hpp
+  timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/divisor_moebius.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
+  - tests/lcm_convolution/regular.test.cpp
 documentation_of: tools/divisor_moebius.hpp
 layout: document
 title: "Divisor M\xF6bius transform"
 ---
 
-## (1)
 ```cpp
+(1)
 template <typename InputIterator, typename OutputIterator>
 void divisor_moebius(InputIterator begin, InputIterator end, OutputIterator result);
-```
 
-Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ to `result` such that
-
-$$\begin{align*}
-b_i &= \sum_{\mathrm{lcm}(i, j) = i} a_j
-\end{align*}$$
-
-In other words, $b_i (i > 0)$ is the sum of $a_j$ for $j$ such that $j$ is a positive divisor of $i$.
-Note that we define $\mathrm{lcm}(x, 0) = \mathrm{lcm}(0, y) = \mathrm{lcm}(0, 0) = 0$ in this function.
-
-### Constraints
-- None
-    - Note that `result` can be the same as `begin`, but it would be better to use (2) in that case.
-
-### Time Complexity
-- $O(N \log \log N)$
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (2)
-```cpp
+(2)
 template <typename RandomAccessIterator>
 void divisor_moebius(RandomAccessIterator begin, RandomAccessIterator end);
 ```
 
-Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ to `begin` such that
+- (1)
+    - Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ that satisfies the following relational equation to `result`.
+- (2)
+    - Given a sequence $(b_0, b_1, \ldots, b_{N - 1})$ from `begin` and `end`, it stores the sequence $(a_0, a_1, \ldots, a_{N - 1})$ that satisfies the following relational equation to `begin`.
+
+The following relationship holds between $a$ and $b$.
 
 $$\begin{align*}
-b_i &= \sum_{\mathrm{lcm}(i, j) = i} a_j
+b_i &= \left\{\begin{array}{ll}
+a_0 & (i = 0)\\
+\displaystyle \sum_{\substack{1 \leq j < N \\ j \mid i}} a_j & (i > 0)
+\end{array}\right.
 \end{align*}$$
-
-In other words, $b_i (i > 0)$ is the sum of $a_j$ for $j$ such that $j$ is a positive divisor of $i$.
-Note that we define $\mathrm{lcm}(x, 0) = \mathrm{lcm}(0, y) = \mathrm{lcm}(0, 0) = 0$ in this function.
 
 ### Constraints
 - None
+    - Note that `result` in (1) can be the same as `begin`, but it would be better to use (2) in that case.
 
 ### Time Complexity
 - $O(N \log \log N)$

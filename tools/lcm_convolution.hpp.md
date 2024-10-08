@@ -2,22 +2,32 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: tools/divisor_moebius.hpp
+    title: "Divisor M\xF6bius transform"
+  - icon: ':heavy_check_mark:'
+    path: tools/divisor_zeta.hpp
+    title: Divisor Zeta transform
+  - icon: ':heavy_check_mark:'
     path: tools/eratosthenes_sieve.hpp
     title: Sieve of Eratosthenes
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/lcm_convolution.test.cpp
-    title: tests/lcm_convolution.test.cpp
+    path: tests/lcm_convolution/different_lengths.test.cpp
+    title: tests/lcm_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lcm_convolution/regular.test.cpp
+    title: tests/lcm_convolution/regular.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 1 \"tools/lcm_convolution.hpp\"\n\n\n\n#include <type_traits>\n\
-    #include <vector>\n#include <algorithm>\n#include <cstddef>\n#include <iterator>\n\
-    #line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\n\n#include <array>\n#include <cstdint>\n\
-    #line 9 \"tools/eratosthenes_sieve.hpp\"\n#include <cassert>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\
+  bundledCode: "#line 1 \"tools/lcm_convolution.hpp\"\n\n\n\n#include <iterator>\n\
+    #include <vector>\n#include <algorithm>\n#line 1 \"tools/divisor_zeta.hpp\"\n\n\
+    \n\n#line 1 \"tools/eratosthenes_sieve.hpp\"\n\n\n\n#include <array>\n#include\
+    \ <cstdint>\n#line 7 \"tools/eratosthenes_sieve.hpp\"\n#include <cstddef>\n#line\
+    \ 9 \"tools/eratosthenes_sieve.hpp\"\n#include <cassert>\n#line 11 \"tools/eratosthenes_sieve.hpp\"\
     \n\nnamespace tools {\n  template <typename T>\n  class eratosthenes_sieve {\n\
     \    constexpr static ::std::array<::std::uint64_t, 15> init = {\n      UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),\n\
     \      UINT64_C(0b1000001010000010001010001010001000001010000010001010001010001000),\n\
@@ -195,64 +205,78 @@ data:
     \ const {\n      assert(1 <= i && i <= this->m_n);\n      return (this->m_is_prime[i\
     \ >> 6] >> (i & 0b111111)) & 1;\n    }\n\n    prime_iterable prime_range(const\
     \ int l, const int r) const {\n      assert(1 <= l && l <= r && r <= this->m_n);\n\
-    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 10 \"tools/lcm_convolution.hpp\"\
-    \n\nnamespace tools {\n  template <typename InputIterator, typename OutputIterator>\n\
+    \      return prime_iterable(this, l, r);\n    }\n  };\n}\n\n\n#line 8 \"tools/divisor_zeta.hpp\"\
+    \n\nnamespace tools {\n  template <typename RandomAccessIterator>\n  void divisor_zeta(const\
+    \ RandomAccessIterator begin, const RandomAccessIterator end) {\n    const int\
+    \ N = end - begin;\n    if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int>\
+    \ sieve(N - 1);\n    for (const auto p : sieve.prime_range(1, N - 1)) {\n    \
+    \  for (int i = 1; i * p < N; ++i) {\n        begin[i * p] += begin[i];\n    \
+    \  }\n    }\n  }\n\n  template <typename InputIterator, typename OutputIterator>\n\
+    \  void divisor_zeta(const InputIterator begin, const InputIterator end, const\
+    \ OutputIterator result) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(begin, end);\n    ::tools::divisor_zeta(a.begin(), a.end());\n\
+    \    ::std::move(a.begin(), a.end(), result);\n  }\n}\n\n\n#line 1 \"tools/divisor_moebius.hpp\"\
+    \n\n\n\n#line 8 \"tools/divisor_moebius.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename RandomAccessIterator>\n  void divisor_moebius(const RandomAccessIterator\
+    \ begin, const RandomAccessIterator end) {\n    const int N = end - begin;\n \
+    \   if (N < 2) return;\n\n    ::tools::eratosthenes_sieve<int> sieve(N - 1);\n\
+    \    for (const auto p : sieve.prime_range(1, N - 1)) {\n      for (int i = (N\
+    \ - 1) / p; i >= 1; --i) {\n        begin[i * p] -= begin[i];\n      }\n    }\n\
+    \  }\n\n  template <typename InputIterator, typename OutputIterator>\n  void divisor_moebius(const\
+    \ InputIterator begin, const InputIterator end, const OutputIterator result) {\n\
+    \    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n \
+    \   ::std::vector<T> b(begin, end);\n    ::tools::divisor_moebius(b.begin(), b.end());\n\
+    \    ::std::move(b.begin(), b.end(), result);\n  }\n}\n\n\n#line 9 \"tools/lcm_convolution.hpp\"\
+    \n\nnamespace tools {\n  template <typename InputIterator, typename RandomAccessIterator>\n\
     \  void lcm_convolution(InputIterator a_begin, InputIterator a_end, InputIterator\
-    \ b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end)\
-    \ {\n    if (c_begin == c_end) return;\n\n    using T = ::std::decay_t<decltype(*a_begin)>;\n\
+    \ b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator\
+    \ c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
     \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
-    \    if (a.empty() || b.empty()) {\n      ::std::fill(c_begin, c_end, T(0));\n\
-    \      return;\n    }\n    const ::std::size_t N = a.size();\n    const ::std::size_t\
-    \ M = b.size();\n    const ::std::size_t K = ::std::distance(c_begin, c_end);\n\
-    \n    c_begin[0] = a[0] * b[0];\n    for (::std::size_t i = 1; i < N; ++i) {\n\
-    \      c_begin[0] += a[i] * b[0];\n    }\n    for (::std::size_t i = 1; i < M;\
-    \ ++i) {\n      c_begin[0] += a[0] * b[i];\n    }\n\n    a.resize(K, T(0));\n\
-    \    b.resize(K, T(0));\n    ::tools::eratosthenes_sieve<::std::size_t> sieve(K\
-    \ > 2 ? K - 1 : 1);\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1,\
-    \ K - 1)) {\n        for (::std::size_t k = 1; k * p < K; ++k) {\n          a[k\
-    \ * p] += a[k];\n          b[k * p] += b[k];\n        }\n      }\n    }\n\n  \
-    \  for (::std::size_t i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n\
-    \    }\n\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1, K -\
-    \ 1)) {\n        for (::std::size_t k = (K - 1) / p; k >= 1; --k) {\n        \
-    \  c_begin[k * p] -= c_begin[k];\n        }\n      }\n    }\n  }\n}\n\n\n"
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    if (::std::min({N, M, K}) > 0) {\n      c_begin[0] = a[0] * b[0];\n\
+    \    }\n    if (::std::min(M, K) > 0) {\n      for (int i = 1; i < N; ++i) {\n\
+    \        c_begin[0] += a[i] * b[0];\n      }\n    }\n    if (::std::min(N, K)\
+    \ > 0) {\n      for (int i = 1; i < M; ++i) {\n        c_begin[0] += a[0] * b[i];\n\
+    \      }\n    }\n\n    a.resize(K, T(0));\n    ::tools::divisor_zeta(a.begin(),\
+    \ a.end());\n    b.resize(K, T(0));\n    ::tools::divisor_zeta(b.begin(), b.end());\n\
+    \n    for (int i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n    }\n\
+    \    ::tools::divisor_moebius(c_begin, c_end);\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_LCM_CONVOLUTION_HPP\n#define TOOLS_LCM_CONVOLUTION_HPP\n\n\
-    #include <type_traits>\n#include <vector>\n#include <algorithm>\n#include <cstddef>\n\
-    #include <iterator>\n#include \"tools/eratosthenes_sieve.hpp\"\n\nnamespace tools\
-    \ {\n  template <typename InputIterator, typename OutputIterator>\n  void lcm_convolution(InputIterator\
-    \ a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator\
-    \ c_begin, OutputIterator c_end) {\n    if (c_begin == c_end) return;\n\n    using\
-    \ T = ::std::decay_t<decltype(*a_begin)>;\n    ::std::vector<T> a(a_begin, a_end);\n\
-    \    ::std::vector<T> b(b_begin, b_end);\n    if (a.empty() || b.empty()) {\n\
-    \      ::std::fill(c_begin, c_end, T(0));\n      return;\n    }\n    const ::std::size_t\
-    \ N = a.size();\n    const ::std::size_t M = b.size();\n    const ::std::size_t\
-    \ K = ::std::distance(c_begin, c_end);\n\n    c_begin[0] = a[0] * b[0];\n    for\
-    \ (::std::size_t i = 1; i < N; ++i) {\n      c_begin[0] += a[i] * b[0];\n    }\n\
-    \    for (::std::size_t i = 1; i < M; ++i) {\n      c_begin[0] += a[0] * b[i];\n\
-    \    }\n\n    a.resize(K, T(0));\n    b.resize(K, T(0));\n    ::tools::eratosthenes_sieve<::std::size_t>\
-    \ sieve(K > 2 ? K - 1 : 1);\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1,\
-    \ K - 1)) {\n        for (::std::size_t k = 1; k * p < K; ++k) {\n          a[k\
-    \ * p] += a[k];\n          b[k * p] += b[k];\n        }\n      }\n    }\n\n  \
-    \  for (::std::size_t i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n\
-    \    }\n\n    if (K > 1) {\n      for (const auto p : sieve.prime_range(1, K -\
-    \ 1)) {\n        for (::std::size_t k = (K - 1) / p; k >= 1; --k) {\n        \
-    \  c_begin[k * p] -= c_begin[k];\n        }\n      }\n    }\n  }\n}\n\n#endif\n"
+    #include <iterator>\n#include <vector>\n#include <algorithm>\n#include \"tools/divisor_zeta.hpp\"\
+    \n#include \"tools/divisor_moebius.hpp\"\n\nnamespace tools {\n  template <typename\
+    \ InputIterator, typename RandomAccessIterator>\n  void lcm_convolution(InputIterator\
+    \ a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator\
+    \ c_begin, RandomAccessIterator c_end) {\n    using T = typename ::std::iterator_traits<InputIterator>::value_type;\n\
+    \    ::std::vector<T> a(a_begin, a_end);\n    ::std::vector<T> b(b_begin, b_end);\n\
+    \    const int N = a.size();\n    const int M = b.size();\n    const int K = ::std::distance(c_begin,\
+    \ c_end);\n\n    if (::std::min({N, M, K}) > 0) {\n      c_begin[0] = a[0] * b[0];\n\
+    \    }\n    if (::std::min(M, K) > 0) {\n      for (int i = 1; i < N; ++i) {\n\
+    \        c_begin[0] += a[i] * b[0];\n      }\n    }\n    if (::std::min(N, K)\
+    \ > 0) {\n      for (int i = 1; i < M; ++i) {\n        c_begin[0] += a[0] * b[i];\n\
+    \      }\n    }\n\n    a.resize(K, T(0));\n    ::tools::divisor_zeta(a.begin(),\
+    \ a.end());\n    b.resize(K, T(0));\n    ::tools::divisor_zeta(b.begin(), b.end());\n\
+    \n    for (int i = 1; i < K; ++i) {\n      c_begin[i] = a[i] * b[i];\n    }\n\
+    \    ::tools::divisor_moebius(c_begin, c_end);\n  }\n}\n\n#endif\n"
   dependsOn:
+  - tools/divisor_zeta.hpp
   - tools/eratosthenes_sieve.hpp
+  - tools/divisor_moebius.hpp
   isVerificationFile: false
   path: tools/lcm_convolution.hpp
   requiredBy: []
-  timestamp: '2024-10-04 23:52:08+09:00'
+  timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lcm_convolution.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
+  - tests/lcm_convolution/regular.test.cpp
 documentation_of: tools/lcm_convolution.hpp
 layout: document
 title: LCM convolution
 ---
 
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void lcm_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, OutputIterator c_begin, OutputIterator c_end);
+template <typename InputIterator, typename RandomAccessIterator>
+void lcm_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end);
 ```
 
 Given two infinite sequences $(a_0, a_1, \ldots, a_{N - 1}, 0, 0, \ldots)$ and $(b_0, b_1, \ldots, b_{M - 1}, 0, 0, \ldots)$, it returns the first $K$ terms of the infinite sequence $(c_0, c_1, \ldots)$ where
@@ -267,9 +291,8 @@ c_k &= \sum_{\mathrm{lcm}(i, j) = k} a_i b_j
 Note that we define $\mathrm{lcm}(x, 0) = \mathrm{lcm}(0, y) = \mathrm{lcm}(0, 0) = 0$ in this function.
 
 ### Constraints
-- `a_begin` $\leq$ `a_end`
-- `b_begin` $\leq$ `b_end`
-- `c_begin` $\leq$ `c_end`
+- `InputIterator` is an input iterator type.
+- `RandomAccessIterator` is a random access iterator type.
 
 ### Time Complexity
 - $O(N + M + K \log\log K)$
