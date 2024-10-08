@@ -1,30 +1,36 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A"
 
 #include <iostream>
+#include <random>
 #include <vector>
-#include <numeric>
 #include <iterator>
+#include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/divisor_zeta.hpp"
+
+using mint = atcoder::modint998244353;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  for (int N = 0; N <= 20; ++N) {
-    std::vector<int> a(N);
-    for (int i = 0; i < N; ++i) {
-      a[i] = 1 << i;
-    }
+  std::random_device seed_gen;
+  std::mt19937 engine(seed_gen());
+  std::uniform_int_distribution<int> dist(0, 998244352);
 
-    std::vector<int> b(N, 0);
-    for (int i = 0; i < N; ++i) {
-      for (int j = 0; j < N; ++j) {
-        if (std::lcm(i, j) == i) b[i] += a[j];
+  for (int N = 0; N <= 20; ++N) {
+    std::vector<mint> a(N);
+    for (auto&& a_i : a) a_i = mint::raw(dist(engine));
+
+    std::vector<mint> b(N, mint::raw(0));
+    if (N > 0) b[0] = a[0];
+    for (int i = 1; i < N; ++i) {
+      for (int j = 1; j < N; ++j) {
+        if (i % j == 0) b[i] += a[j];
       }
     }
 
-    std::vector<int> actual_b;
+    std::vector<mint> actual_b;
     tools::divisor_zeta(a.begin(), a.end(), std::back_inserter(actual_b));
     assert_that(actual_b == b);
 

@@ -18,10 +18,6 @@ namespace tools {
         begin[i * p] -= begin[i];
       }
     }
-
-    for (int i = 1; i < N; ++i) {
-      begin[0] -= begin[i];
-    }
   }
 
   template <typename InputIterator, typename OutputIterator>

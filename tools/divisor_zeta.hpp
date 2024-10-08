@@ -12,10 +12,6 @@ namespace tools {
     const int N = end - begin;
     if (N < 2) return;
 
-    for (int i = 1; i < N; ++i) {
-      begin[0] += begin[i];
-    }
-
     ::tools::eratosthenes_sieve<int> sieve(N - 1);
     for (const auto p : sieve.prime_range(1, N - 1)) {
       for (int i = 1; i * p < N; ++i) {
