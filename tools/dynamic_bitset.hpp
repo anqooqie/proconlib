@@ -261,6 +261,9 @@ namespace tools {
       }
       return os;
     }
+    bool empty() const {
+      return this->m_size == 0;
+    }
     void resize(const ::std::size_t size) {
       this->m_size = size;
       this->m_bits.resize(::tools::ceil(size, W));

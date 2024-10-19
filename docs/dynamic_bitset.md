@@ -74,6 +74,19 @@ They are methods based on `std::bitset`.
 ### Time Complexity
 - Same as ones of `std::bitset`.
 
+## empty
+```cpp
+bool s.empty();
+```
+
+It returns whether $n$ is $0$ or not.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## resize
 ```cpp
 void s.resize(std::size_t m);
