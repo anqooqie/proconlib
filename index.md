@@ -367,6 +367,9 @@ data:
       path: tools/lowlink.hpp
       title: Lowlink
     - icon: ':heavy_check_mark:'
+      path: tools/manacher.hpp
+      title: Manacher
+    - icon: ':heavy_check_mark:'
       path: tools/matrix.hpp
       title: Matrix
     - icon: ':heavy_check_mark:'
@@ -886,6 +889,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/longest_common_substring.test.cpp
       title: tests/longest_common_substring.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/manacher.test.cpp
+      title: tests/manacher.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/median_heap.test.cpp
       title: tests/median_heap.test.cpp

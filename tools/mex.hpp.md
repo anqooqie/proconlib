@@ -6,12 +6,18 @@ data:
     path: tools/longest_common_substring.hpp
     title: Longest common substring
   - icon: ':heavy_check_mark:'
+    path: tools/manacher.hpp
+    title: Manacher
+  - icon: ':heavy_check_mark:'
     path: tools/range_count_distinct.hpp
     title: Range count distinct
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/longest_common_substring.test.cpp
     title: tests/longest_common_substring.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/manacher.test.cpp
+    title: tests/manacher.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/mex.test.cpp
     title: tests/mex.test.cpp
@@ -50,9 +56,11 @@ data:
   requiredBy:
   - tools/longest_common_substring.hpp
   - tools/range_count_distinct.hpp
+  - tools/manacher.hpp
   timestamp: '2024-01-07 15:56:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/manacher.test.cpp
   - tests/range_count_distinct.test.cpp
   - tests/mex.test.cpp
   - tests/longest_common_substring.test.cpp
