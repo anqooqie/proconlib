@@ -1075,24 +1075,24 @@ data:
   isVerificationFile: false
   path: tools/sample_point_shift.hpp
   requiredBy:
-  - tools/large_fact_mod_cache.hpp
   - tools/twelvefold_way.hpp
+  - tools/large_fact_mod_cache.hpp
   timestamp: '2024-10-05 15:13:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/sample_point_shift.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/sample_point_shift.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
 documentation_of: tools/sample_point_shift.hpp

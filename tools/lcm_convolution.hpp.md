@@ -267,8 +267,8 @@ data:
   timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lcm_convolution/different_lengths.test.cpp
   - tests/lcm_convolution/regular.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
 documentation_of: tools/lcm_convolution.hpp
 layout: document
 title: LCM convolution

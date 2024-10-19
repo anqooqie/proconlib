@@ -455,132 +455,132 @@ data:
   isVerificationFile: false
   path: tools/pow_mod.hpp
   requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/primitive_root.hpp
-  - tools/bernoulli.hpp
-  - tools/sqrt_mod.hpp
-  - tools/polynomial.hpp
-  - tools/garner2.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/bigint.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/stirling_1st.hpp
-  - tools/bigdecimal.hpp
-  - tools/partition_function.hpp
-  - tools/extended_lucas.hpp
-  - tools/tetration_mod.hpp
+  - tools/is_prime.hpp
+  - tools/sample_point_shift.hpp
+  - tools/bostan_mori.hpp
+  - tools/divisors.hpp
   - tools/bell.hpp
   - tools/convolution.hpp
   - tools/ord_mod.hpp
-  - tools/is_prime.hpp
-  - tools/twelvefold_way.hpp
-  - tools/fact_mod_cache.hpp
-  - tools/log_mod.hpp
-  - tools/divisors.hpp
-  - tools/bostan_mori.hpp
-  - tools/stirling_2nd.hpp
-  - tools/fps.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/garner3.hpp
+  - tools/bernoulli.hpp
   - tools/totient.hpp
-  - tools/sample_point_shift.hpp
-  - tools/rational.hpp
   - tools/prime_factorization.hpp
+  - tools/fact_mod_cache.hpp
+  - tools/sqrt_mod.hpp
+  - tools/fps.hpp
+  - tools/bigdecimal.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/stirling_1st.hpp
+  - tools/extended_lucas.hpp
+  - tools/partition_function.hpp
+  - tools/primitive_root.hpp
+  - tools/garner3.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/twelvefold_way.hpp
+  - tools/rational.hpp
+  - tools/polynomial.hpp
+  - tools/log_mod.hpp
+  - tools/garner2.hpp
+  - tools/stirling_2nd.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/tetration_mod.hpp
+  - tools/bigint.hpp
+  - tools/large_fact_mod_cache.hpp
   timestamp: '2024-04-29 15:33:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/ord_mod.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/is_prime.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/partition_function/consistent.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/divisors.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/divides.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/monoid.test.cpp
-  - tests/totient.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/consistent.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/log_mod.test.cpp
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/monoid.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/ord_mod.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
   - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
   - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/large_fact_mod_cache/fact.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/divisors.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/totient.test.cpp
+  - tests/sqrt_mod.test.cpp
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
-  - tests/sqrt_mod.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/composition.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/is_prime.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/pow_mod.hpp
 layout: document
 title: $x^y \pmod{M}$

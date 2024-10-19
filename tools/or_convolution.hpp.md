@@ -85,8 +85,8 @@ data:
   timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/or_convolution/different_lengths.test.cpp
   - tests/or_convolution/regular.test.cpp
+  - tests/or_convolution/different_lengths.test.cpp
 documentation_of: tools/or_convolution.hpp
 layout: document
 title: Bitwise OR convolution

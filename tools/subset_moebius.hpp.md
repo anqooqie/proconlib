@@ -66,8 +66,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/subset_moebius.test.cpp
-  - tests/or_convolution/different_lengths.test.cpp
   - tests/or_convolution/regular.test.cpp
+  - tests/or_convolution/different_lengths.test.cpp
 documentation_of: tools/subset_moebius.hpp
 layout: document
 title: "Subset M\xF6bius transform"

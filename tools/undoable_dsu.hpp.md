@@ -75,8 +75,8 @@ data:
   timestamp: '2024-08-27 23:14:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/undoable_dsu/leader.test.cpp
   - tests/undoable_dsu/ncc.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
 documentation_of: tools/undoable_dsu.hpp
 layout: document
 title: Undoable disjoint set union

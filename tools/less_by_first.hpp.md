@@ -243,83 +243,83 @@ data:
   isVerificationFile: false
   path: tools/less_by_first.hpp
   requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/auxiliary_tree.hpp
-  - tools/bernoulli.hpp
-  - tools/polynomial.hpp
-  - tools/sparse_fps_pow.hpp
+  - tools/digit_product_frequency.hpp
+  - tools/bostan_mori.hpp
+  - tools/bell.hpp
   - tools/range_count_distinct.hpp
+  - tools/bernoulli.hpp
+  - tools/fps.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/stirling_1st.hpp
   - tools/partition_function.hpp
-  - tools/bell.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/twelvefold_way.hpp
-  - tools/bostan_mori.hpp
+  - tools/partially_persistent_dsu.hpp
+  - tools/polynomial.hpp
   - tools/wavelet_matrix.hpp
   - tools/stirling_2nd.hpp
-  - tools/fps.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/partially_persistent_dsu.hpp
-  - tools/digit_product_frequency.hpp
+  - tools/auxiliary_tree.hpp
+  - tools/berlekamp_massey.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/range_count_distinct.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/partition_function/consistent.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/consistent.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/auxiliary_tree.test.cpp
-  - tests/partially_persistent_dsu.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/range_count_distinct.test.cpp
+  - tests/auxiliary_tree.test.cpp
+  - tests/bostan_mori.test.cpp
+  - tests/partially_persistent_dsu.test.cpp
+  - tests/digit_product_frequency.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/composition.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/digit_product_frequency.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/less_by_first.hpp
 layout: document
 title: std::less by first

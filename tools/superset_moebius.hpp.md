@@ -65,9 +65,9 @@ data:
   timestamp: '2024-10-07 00:03:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/and_convolution/different_lengths.test.cpp
-  - tests/and_convolution/regular.test.cpp
   - tests/superset_moebius.test.cpp
+  - tests/and_convolution/regular.test.cpp
+  - tests/and_convolution/different_lengths.test.cpp
 documentation_of: tools/superset_moebius.hpp
 layout: document
 title: "Superset M\xF6bius transform"

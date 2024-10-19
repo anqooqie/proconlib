@@ -330,98 +330,98 @@ data:
   isVerificationFile: false
   path: tools/ceil_log2.hpp
   requiredBy:
-  - tools/berlekamp_massey.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/auxiliary_tree.hpp
-  - tools/bernoulli.hpp
-  - tools/polynomial.hpp
-  - tools/persistent_dual_segtree.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/large_fact_mod_cache.hpp
   - tools/binary_heap.hpp
-  - tools/stirling_1st.hpp
-  - tools/partition_function.hpp
-  - tools/lca.hpp
+  - tools/persistent_dual_segtree.hpp
+  - tools/sample_point_shift.hpp
+  - tools/bostan_mori.hpp
   - tools/bell.hpp
   - tools/convolution.hpp
-  - tools/twelvefold_way.hpp
-  - tools/bostan_mori.hpp
-  - tools/stirling_2nd.hpp
+  - tools/bernoulli.hpp
+  - tools/li_chao_segtree.hpp
   - tools/fps.hpp
-  - tools/disjoint_sparse_table.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/sample_point_shift.hpp
-  - tools/disjoint_sparse_table_2d.hpp
+  - tools/sparse_fps_pow.hpp
   - tools/dual_segtree.hpp
+  - tools/stirling_1st.hpp
+  - tools/partition_function.hpp
+  - tools/polynomial_interpolation.hpp
+  - tools/twelvefold_way.hpp
+  - tools/polynomial.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/stirling_2nd.hpp
+  - tools/lca.hpp
+  - tools/auxiliary_tree.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/large_fact_mod_cache.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/ssize.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/partition_function/consistent.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/dual_segtree.test.cpp
   - tests/ceil_log2.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/consistent.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/polynomial_product.test.cpp
-  - tests/bostan_mori.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/disjoint_sparse_table_2d.test.cpp
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
   - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/large_fact_mod_cache/fact.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/bernoulli.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/ssize.test.cpp
   - tests/persistent_dual_segtree.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/auxiliary_tree.test.cpp
+  - tests/lca.test.cpp
+  - tests/bostan_mori.test.cpp
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/lca.test.cpp
-  - tests/auxiliary_tree.test.cpp
-  - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/binary_heap.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/dual_segtree.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/composition.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
-  - tests/binary_heap.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/ceil_log2.hpp
 layout: document
 title: $\left\lceil \log_2(x) \right\rceil$

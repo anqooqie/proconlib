@@ -322,93 +322,93 @@ data:
   isVerificationFile: false
   path: tools/floor_log2.hpp
   requiredBy:
-  - tools/primitive_root.hpp
-  - tools/li_chao_segtree.hpp
-  - tools/auxiliary_tree.hpp
-  - tools/bigint.hpp
-  - tools/range_count_distinct.hpp
-  - tools/stirling_1st.hpp
-  - tools/bigdecimal.hpp
-  - tools/lca.hpp
-  - tools/extended_lucas.hpp
-  - tools/tetration_mod.hpp
-  - tools/ord_mod.hpp
-  - tools/twelvefold_way.hpp
-  - tools/log_mod.hpp
   - tools/divisors.hpp
-  - tools/wavelet_matrix.hpp
-  - tools/disjoint_sparse_table.hpp
+  - tools/range_count_distinct.hpp
+  - tools/ord_mod.hpp
   - tools/totient.hpp
-  - tools/disjoint_sparse_table_2d.hpp
-  - tools/rational.hpp
   - tools/prime_factorization.hpp
+  - tools/li_chao_segtree.hpp
+  - tools/bigdecimal.hpp
+  - tools/stirling_1st.hpp
+  - tools/extended_lucas.hpp
+  - tools/primitive_root.hpp
+  - tools/twelvefold_way.hpp
+  - tools/rational.hpp
+  - tools/wavelet_matrix.hpp
+  - tools/log_mod.hpp
+  - tools/disjoint_sparse_table_2d.hpp
+  - tools/lca.hpp
+  - tools/auxiliary_tree.hpp
+  - tools/disjoint_sparse_table.hpp
+  - tools/tetration_mod.hpp
+  - tools/bigint.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/ord_mod.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/range_count_distinct.test.cpp
-  - tests/primitive_root.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/bigdecimal/cast_to_long_long.test.cpp
-  - tests/bigdecimal/multiplies.test.cpp
-  - tests/bigdecimal/plus.test.cpp
-  - tests/bigdecimal/minus.test.cpp
-  - tests/bigdecimal/rounding.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/bigdecimal/divides.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/divisors.test.cpp
-  - tests/rational/multiplies.test.cpp
-  - tests/rational/plus.test.cpp
-  - tests/rational/minus.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/bigint/multiplies.test.cpp
   - tests/bigint/plus.test.cpp
-  - tests/bigint/minus.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/divides.test.cpp
-  - tests/fastio/string.test.cpp
-  - tests/monoid.test.cpp
-  - tests/totient.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/li_chao_segtree/segment.test.cpp
-  - tests/li_chao_segtree/line.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/lca.test.cpp
-  - tests/auxiliary_tree.test.cpp
-  - tests/log_mod.test.cpp
-  - tests/tetration_mod.test.cpp
+  - tests/bigint/multiplies.test.cpp
+  - tests/bigint/minus.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
-  - tests/wavelet_matrix/next_points.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
   - tests/disjoint_sparse_table_2d.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/log_mod.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/monoid.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/ord_mod.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/range_count_distinct.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/auxiliary_tree.test.cpp
+  - tests/divisors.test.cpp
+  - tests/lca.test.cpp
+  - tests/totient.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
+  - tests/bigdecimal/plus.test.cpp
+  - tests/bigdecimal/divides.test.cpp
+  - tests/bigdecimal/cast_to_long_long.test.cpp
+  - tests/bigdecimal/rounding.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/multiplies.test.cpp
+  - tests/bigdecimal/minus.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/li_chao_segtree/line.test.cpp
+  - tests/li_chao_segtree/segment.test.cpp
+  - tests/fastio/string.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
   - tests/fps/log_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
+  - tests/rational/plus.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/rational/multiplies.test.cpp
+  - tests/rational/minus.test.cpp
 documentation_of: tools/floor_log2.hpp
 layout: document
 title: $\left\lfloor \log_2(x) \right\rfloor$

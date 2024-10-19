@@ -391,105 +391,105 @@ data:
   isVerificationFile: false
   path: tools/monoid.hpp
   requiredBy:
-  - tools/ceil_kth_root.hpp
-  - tools/berlekamp_massey.hpp
-  - tools/bernoulli.hpp
   - tools/detail/rolling_hash.hpp
-  - tools/rolling_hash.hpp
-  - tools/polynomial.hpp
-  - tools/sparse_fps_pow.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/stirling_1st.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/sample_point_shift.hpp
+  - tools/bostan_mori.hpp
   - tools/quaternion.hpp
-  - tools/partition_function.hpp
-  - tools/pow.hpp
-  - tools/tetration_mod.hpp
   - tools/bell.hpp
   - tools/convolution.hpp
   - tools/ord_mod.hpp
+  - tools/bernoulli.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/totient.hpp
+  - tools/fps.hpp
+  - tools/pow.hpp
+  - tools/sparse_fps_pow.hpp
+  - tools/stirling_1st.hpp
+  - tools/partition_function.hpp
+  - tools/polynomial_interpolation.hpp
   - tools/twelvefold_way.hpp
-  - tools/bostan_mori.hpp
+  - tools/polynomial.hpp
   - tools/floor_kth_root.hpp
   - tools/stirling_2nd.hpp
-  - tools/fps.hpp
-  - tools/polynomial_interpolation.hpp
-  - tools/totient.hpp
-  - tools/sample_point_shift.hpp
+  - tools/rolling_hash.hpp
+  - tools/berlekamp_massey.hpp
+  - tools/tetration_mod.hpp
+  - tools/large_fact_mod_cache.hpp
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/monoid.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/ord_mod.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/berlekamp_massey.test.cpp
-  - tests/quaternion/angle_axis.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/stirling_2nd/all.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/is_group.test.cpp
+  - tests/quaternion/slerp.test.cpp
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/is_group.test.cpp
-  - tests/partition_function/consistent.test.cpp
-  - tests/partition_function/diagonal.test.cpp
-  - tests/partition_function/all.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/monoid.test.cpp
-  - tests/totient.test.cpp
-  - tests/bell/fixed_n.test.cpp
-  - tests/bell/consistent.test.cpp
-  - tests/bell/all.test.cpp
-  - tests/polynomial_product.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
   - tests/bostan_mori.test.cpp
-  - tests/stirling_1st/fixed_n.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/permutation.test.cpp
-  - tests/polynomial_interpolation.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
-  - tests/stirling_2nd/all.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/disjoint_sparse_table.test.cpp
-  - tests/large_fact_mod_cache/fact.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
-  - tests/bernoulli.test.cpp
-  - tests/floor_kth_root.test.cpp
-  - tests/sparse_fps_pow/fraction.test.cpp
-  - tests/sparse_fps_pow/regular.test.cpp
-  - tests/convolution/dynamic_mod.test.cpp
+  - tests/totient.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/convolution/double.test.cpp
   - tests/convolution/mod1000000007.test.cpp
   - tests/convolution/mod998244353.test.cpp
+  - tests/convolution/dynamic_mod.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/stirling_1st/fixed_n.test.cpp
   - tests/is_monoid.test.cpp
-  - tests/polynomial/naive_division.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
-  - tests/polynomial/multipoint_evaluation.test.cpp
-  - tests/polynomial/taylor_shift.test.cpp
-  - tests/polynomial/ntt_division.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/fps/log_mod998244353.test.cpp
-  - tests/fps/pow_other_mods.test.cpp
+  - tests/polynomial_interpolation.test.cpp
+  - tests/bell/all.test.cpp
+  - tests/bell/consistent.test.cpp
+  - tests/bell/fixed_n.test.cpp
+  - tests/sparse_fps_pow/fraction.test.cpp
+  - tests/sparse_fps_pow/regular.test.cpp
+  - tests/berlekamp_massey.test.cpp
+  - tests/partition_function/all.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/partition_function/diagonal.test.cpp
+  - tests/large_fact_mod_cache/fact.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/disjoint_sparse_table.test.cpp
+  - tests/floor_kth_root.test.cpp
   - tests/fps/exp_mod998244353.test.cpp
+  - tests/fps/inv_mod998244353.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
+  - tests/fps/pow_other_mods.test.cpp
+  - tests/fps/log_mod998244353.test.cpp
+  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/composition.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/compositional_inverse.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
-  - tests/fps/log_other_mods.test.cpp
-  - tests/fps/inv_mod998244353.test.cpp
+  - tests/bernoulli.test.cpp
+  - tests/permutation.test.cpp
+  - tests/polynomial/taylor_shift.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/polynomial/ntt_division.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation.test.cpp
+  - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/monoid.hpp
 layout: document
 title: Typical monoids

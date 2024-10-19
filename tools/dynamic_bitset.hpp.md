@@ -210,8 +210,9 @@ data:
     \ os, const ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
     \ i --> 0;) {\n        for (::std::size_t j = i + 1 < self.m_bits.size() ? W :\
     \ (self.m_size - 1) % W + 1; j --> 0;) {\n          os << ((self.m_bits[i] >>\
-    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    void resize(const\
-    \ ::std::size_t size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
+    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    bool empty() const\
+    \ {\n      return this->m_size == 0;\n    }\n    void resize(const ::std::size_t\
+    \ size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
     \ W));\n      if (size % W > 0) {\n        this->m_bits.back() &= (UINT64_C(1)\
     \ << (size % W)) - 1;\n      }\n    }\n    void shrink_to_fit() {\n      this->m_bits.shrink_to_fit();\n\
     \    }\n  private:\n    ::std::size_t Find_first(const ::std::size_t offset) const\
@@ -336,8 +337,9 @@ data:
     \ os, const ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
     \ i --> 0;) {\n        for (::std::size_t j = i + 1 < self.m_bits.size() ? W :\
     \ (self.m_size - 1) % W + 1; j --> 0;) {\n          os << ((self.m_bits[i] >>\
-    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    void resize(const\
-    \ ::std::size_t size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
+    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    bool empty() const\
+    \ {\n      return this->m_size == 0;\n    }\n    void resize(const ::std::size_t\
+    \ size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
     \ W));\n      if (size % W > 0) {\n        this->m_bits.back() &= (UINT64_C(1)\
     \ << (size % W)) - 1;\n      }\n    }\n    void shrink_to_fit() {\n      this->m_bits.shrink_to_fit();\n\
     \    }\n  private:\n    ::std::size_t Find_first(const ::std::size_t offset) const\
@@ -357,11 +359,11 @@ data:
   isVerificationFile: false
   path: tools/dynamic_bitset.hpp
   requiredBy: []
-  timestamp: '2024-03-22 23:44:26+09:00'
+  timestamp: '2024-10-19 09:52:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/rotate_right.test.cpp
   - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/rotate_right.test.cpp
   - tests/rotate_left.test.cpp
 documentation_of: tools/dynamic_bitset.hpp
 layout: document
@@ -438,6 +440,19 @@ They are methods based on `std::bitset`.
 
 ### Time Complexity
 - Same as ones of `std::bitset`.
+
+## empty
+```cpp
+bool s.empty();
+```
+
+It returns whether $n$ is $0$ or not.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## resize
 ```cpp

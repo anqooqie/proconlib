@@ -244,8 +244,9 @@ data:
     \ os, const ::tools::dynamic_bitset& self) {\n      for (::std::size_t i = self.m_bits.size();\
     \ i --> 0;) {\n        for (::std::size_t j = i + 1 < self.m_bits.size() ? W :\
     \ (self.m_size - 1) % W + 1; j --> 0;) {\n          os << ((self.m_bits[i] >>\
-    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    void resize(const\
-    \ ::std::size_t size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
+    \ j) & 1);\n        }\n      }\n      return os;\n    }\n    bool empty() const\
+    \ {\n      return this->m_size == 0;\n    }\n    void resize(const ::std::size_t\
+    \ size) {\n      this->m_size = size;\n      this->m_bits.resize(::tools::ceil(size,\
     \ W));\n      if (size % W > 0) {\n        this->m_bits.back() &= (UINT64_C(1)\
     \ << (size % W)) - 1;\n      }\n    }\n    void shrink_to_fit() {\n      this->m_bits.shrink_to_fit();\n\
     \    }\n  private:\n    ::std::size_t Find_first(const ::std::size_t offset) const\
@@ -1434,7 +1435,7 @@ data:
   isVerificationFile: true
   path: tests/rotate_right.test.cpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-10-19 09:52:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/rotate_right.test.cpp

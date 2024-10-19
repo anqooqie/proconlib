@@ -232,77 +232,77 @@ data:
   isVerificationFile: false
   path: tools/is_monoid.hpp
   requiredBy:
-  - tools/ceil_kth_root.hpp
-  - tools/half_line_2d.hpp
-  - tools/circle_2d.hpp
-  - tools/detail/rolling_hash.hpp
   - tools/detail/geometry_2d.hpp
-  - tools/rolling_hash.hpp
-  - tools/triangle_2d.hpp
-  - tools/online_cumsum.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/large_fact_mod_cache.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/polygon_2d.hpp
-  - tools/quaternion.hpp
-  - tools/pow.hpp
-  - tools/tetration_mod.hpp
-  - tools/ord_mod.hpp
-  - tools/line_2d.hpp
-  - tools/twelvefold_way.hpp
-  - tools/square.hpp
-  - tools/floor_kth_root.hpp
-  - tools/totient.hpp
+  - tools/detail/rolling_hash.hpp
+  - tools/ceil_kth_root.hpp
   - tools/sample_point_shift.hpp
+  - tools/directed_line_segment_2d.hpp
+  - tools/quaternion.hpp
+  - tools/circle_2d.hpp
+  - tools/ord_mod.hpp
+  - tools/online_cumsum.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/totient.hpp
+  - tools/square.hpp
+  - tools/polygon_2d.hpp
+  - tools/pow.hpp
+  - tools/twelvefold_way.hpp
+  - tools/half_line_2d.hpp
+  - tools/floor_kth_root.hpp
+  - tools/triangle_2d.hpp
+  - tools/rolling_hash.hpp
+  - tools/tetration_mod.hpp
+  - tools/line_2d.hpp
+  - tools/large_fact_mod_cache.hpp
   timestamp: '2024-03-23 15:55:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/ord_mod.test.cpp
-  - tests/online_cumsum.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/quaternion/angle_axis.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/totient.test.cpp
-  - tests/polygon_2d/area.test.cpp
-  - tests/polygon_2d/where.test.cpp
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/has_mod.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/permutation.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
+  - tests/polygon_2d/where.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
+  - tests/polygon_2d/area.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/totient.test.cpp
+  - tests/online_cumsum.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/is_monoid.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
   - tests/large_fact_mod_cache/fact.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/floor_kth_root.test.cpp
-  - tests/is_monoid.test.cpp
-  - tests/tetration_mod.test.cpp
-  - tests/has_mod.test.cpp
+  - tests/fps/log_other_mods.test.cpp
   - tests/fps/pow_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
-  - tests/fps/log_other_mods.test.cpp
+  - tests/permutation.test.cpp
 documentation_of: tools/is_monoid.hpp
 layout: document
 title: Check whether T is a monoid

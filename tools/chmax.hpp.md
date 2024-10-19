@@ -75,21 +75,21 @@ data:
   path: tools/chmax.hpp
   requiredBy:
   - tools/longest_common_substring.hpp
-  - tools/largest_rectangle_in_histogram.hpp
-  - tools/suffix_array.hpp
   - tools/zero_one_knapsack.hpp
+  - tools/suffix_array.hpp
+  - tools/largest_rectangle_in_histogram.hpp
   timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/longest_common_substring.test.cpp
-  - tests/suffix_array.test.cpp
   - tests/cartesian_tree/interval.test.cpp
-  - tests/rolling_hash.test.cpp
   - tests/largest_rectangle_in_histogram.test.cpp
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/next_matching.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/longest_common_substring.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
-  - tests/next_matching.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/suffix_array.test.cpp
 documentation_of: tools/chmax.hpp
 layout: document
 title: chmax function

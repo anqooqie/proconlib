@@ -583,9 +583,9 @@ data:
   timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
 documentation_of: tools/zero_one_knapsack.hpp
 layout: document
 title: 0-1 knapsack problem

@@ -237,9 +237,9 @@ data:
   timestamp: '2024-10-08 23:47:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/divisor_moebius.test.cpp
-  - tests/lcm_convolution/different_lengths.test.cpp
   - tests/lcm_convolution/regular.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
+  - tests/divisor_moebius.test.cpp
 documentation_of: tools/divisor_moebius.hpp
 layout: document
 title: "Divisor M\xF6bius transform"

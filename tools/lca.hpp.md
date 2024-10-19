@@ -295,8 +295,8 @@ data:
   timestamp: '2024-09-15 21:33:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lca.test.cpp
   - tests/auxiliary_tree.test.cpp
+  - tests/lca.test.cpp
 documentation_of: tools/lca.hpp
 layout: document
 title: Lowest common ancestor

@@ -65,8 +65,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/superset_zeta.test.cpp
-  - tests/and_convolution/different_lengths.test.cpp
   - tests/and_convolution/regular.test.cpp
+  - tests/and_convolution/different_lengths.test.cpp
 documentation_of: tools/superset_zeta.hpp
 layout: document
 title: Superset Zeta transform

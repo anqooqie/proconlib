@@ -109,31 +109,31 @@ data:
   isVerificationFile: false
   path: tools/run_length.hpp
   requiredBy:
-  - tools/extended_lucas.hpp
-  - tools/tetration_mod.hpp
-  - tools/twelvefold_way.hpp
   - tools/divisors.hpp
   - tools/totient.hpp
+  - tools/extended_lucas.hpp
+  - tools/twelvefold_way.hpp
+  - tools/tetration_mod.hpp
   timestamp: '2022-10-08 19:22:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/run_length.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/tetration_mod.test.cpp
   - tests/divisors.test.cpp
   - tests/totient.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
   - tests/extended_lucas.test.cpp
-  - tests/tetration_mod.test.cpp
+  - tests/run_length.test.cpp
 documentation_of: tools/run_length.hpp
 layout: document
 title: Run-length encoding
