@@ -37,6 +37,24 @@ data:
     path: tests/ceil_sqrt.test.cpp
     title: tests/ceil_sqrt.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/cmp_equal.test.cpp
+    title: tests/cmp_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_greater.test.cpp
+    title: tests/cmp_greater.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_greater_equal.test.cpp
+    title: tests/cmp_greater_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_less.test.cpp
+    title: tests/cmp_less.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_less_equal.test.cpp
+    title: tests/cmp_less_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_not_equal.test.cpp
+    title: tests/cmp_not_equal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/convolution/double.test.cpp
     title: tests/convolution/double.test.cpp
   - icon: ':heavy_check_mark:'
@@ -103,6 +121,12 @@ data:
     path: tests/gcd_convolution/different_lengths.test.cpp
     title: tests/gcd_convolution/different_lengths.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/greater_equal_moebius.test.cpp
+    title: tests/greater_equal_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/greater_equal_zeta.test.cpp
+    title: tests/greater_equal_zeta.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/has_mod.test.cpp
     title: tests/has_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -112,6 +136,9 @@ data:
     path: tests/is_group.test.cpp
     title: tests/is_group.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/is_in_grid.test.cpp
+    title: tests/is_in_grid.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/is_monoid.test.cpp
     title: tests/is_monoid.test.cpp
   - icon: ':heavy_check_mark:'
@@ -120,6 +147,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/lcm_convolution/different_lengths.test.cpp
     title: tests/lcm_convolution/different_lengths.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/less_equal_moebius.test.cpp
+    title: tests/less_equal_moebius.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/less_equal_zeta.test.cpp
+    title: tests/less_equal_zeta.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/linear_sieve.test.cpp
     title: tests/linear_sieve.test.cpp
@@ -264,6 +297,7 @@ data:
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/cmp_greater.test.cpp
   - tests/multiple_zeta.test.cpp
   - tests/gcd_convolution/different_lengths.test.cpp
   - tests/ceil_log2.test.cpp
@@ -275,9 +309,12 @@ data:
   - tests/ord_mod.test.cpp
   - tests/divisor_zeta.test.cpp
   - tests/floor_quotients.test.cpp
+  - tests/less_equal_zeta.test.cpp
   - tests/floor.test.cpp
+  - tests/cmp_not_equal.test.cpp
   - tests/has_mod.test.cpp
   - tests/subset_moebius.test.cpp
+  - tests/cmp_equal.test.cpp
   - tests/countr_zero.test.cpp
   - tests/floor_sqrt.test.cpp
   - tests/stirling_2nd/consistent.test.cpp
@@ -286,6 +323,7 @@ data:
   - tests/tsort/count.test.cpp
   - tests/superset_moebius.test.cpp
   - tests/rotate_right.test.cpp
+  - tests/greater_equal_zeta.test.cpp
   - tests/extend_input.test.cpp
   - tests/random_tree.test.cpp
   - tests/divisor_moebius.test.cpp
@@ -298,7 +336,9 @@ data:
   - tests/ceil_kth_root.test.cpp
   - tests/multiple_moebius.test.cpp
   - tests/uint128_t.test.cpp
+  - tests/cmp_less_equal.test.cpp
   - tests/extend_output.test.cpp
+  - tests/cmp_less.test.cpp
   - tests/convolution/double.test.cpp
   - tests/rotate_left.test.cpp
   - tests/fill.test.cpp
@@ -312,9 +352,11 @@ data:
   - tests/ceil.test.cpp
   - tests/or_convolution/different_lengths.test.cpp
   - tests/run_length.test.cpp
+  - tests/less_equal_moebius.test.cpp
   - tests/bell/consistent.test.cpp
   - tests/resize.test.cpp
   - tests/fix.test.cpp
+  - tests/greater_equal_moebius.test.cpp
   - tests/virtual_vector.test.cpp
   - tests/floor_log2.test.cpp
   - tests/alphabetical_order.test.cpp
@@ -328,6 +370,7 @@ data:
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
   - tests/partition_function/consistent.test.cpp
+  - tests/cmp_greater_equal.test.cpp
   - tests/large_fact_mod_cache/binomial.test.cpp
   - tests/logn_integer_partition.test.cpp
   - tests/fps/inv_other_mods.test.cpp
@@ -337,6 +380,7 @@ data:
   - tests/ceil_log.test.cpp
   - tests/fact_mod_cache.test.cpp
   - tests/and_convolution/different_lengths.test.cpp
+  - tests/is_in_grid.test.cpp
   - tests/ceil_quotients.test.cpp
   - tests/xor_basis.test.cpp
   - tests/permutation.test.cpp

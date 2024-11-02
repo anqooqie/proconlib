@@ -97,8 +97,20 @@ data:
       path: tools/cmp_equal.hpp
       title: Polyfill of std::cmp_equal
     - icon: ':heavy_check_mark:'
+      path: tools/cmp_greater.hpp
+      title: Polyfill of std::cmp_greater
+    - icon: ':heavy_check_mark:'
+      path: tools/cmp_greater_equal.hpp
+      title: Polyfill of std::cmp_greater_equal
+    - icon: ':heavy_check_mark:'
       path: tools/cmp_less.hpp
       title: Polyfill of std::cmp_less
+    - icon: ':heavy_check_mark:'
+      path: tools/cmp_less_equal.hpp
+      title: Polyfill of std::cmp_less_equal
+    - icon: ':heavy_check_mark:'
+      path: tools/cmp_not_equal.hpp
+      title: Polyfill of std::cmp_not_equal
     - icon: ':heavy_check_mark:'
       path: tools/compress.hpp
       title: Compress values
@@ -255,6 +267,12 @@ data:
       path: tools/greater_by_second.hpp
       title: std::greater by second
     - icon: ':heavy_check_mark:'
+      path: tools/greater_equal_moebius.hpp
+      title: Find $a$ from $b$ when $b_i = \sum_{j = i}^{N - 1} a_j$ holds
+    - icon: ':heavy_check_mark:'
+      path: tools/greater_equal_zeta.hpp
+      title: Find $b$ from $a$ when $b_i = \sum_{j = i}^{N - 1} a_j$ holds
+    - icon: ':heavy_check_mark:'
       path: tools/group.hpp
       title: Typical groups
     - icon: ':warning:'
@@ -287,6 +305,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tools/is_group.hpp
       title: Check whether T is a group
+    - icon: ':heavy_check_mark:'
+      path: tools/is_in_grid.hpp
+      title: Check whether $(r, c)$ is in a grid of height $h$ and width $w$
     - icon: ':heavy_check_mark:'
       path: tools/is_monoid.hpp
       title: Check whether T is a monoid
@@ -335,6 +356,12 @@ data:
     - icon: ':warning:'
       path: tools/less_by_second.hpp
       title: std::less by second
+    - icon: ':heavy_check_mark:'
+      path: tools/less_equal_moebius.hpp
+      title: Find $a$ from $b$ when $b_i = \sum_{j = 0}^i a_j$ holds
+    - icon: ':heavy_check_mark:'
+      path: tools/less_equal_zeta.hpp
+      title: Find $b$ from $a$ when $b_i = \sum_{j = 0}^i a_j$ holds
     - icon: ':heavy_check_mark:'
       path: tools/li_chao_segtree.hpp
       title: Li Chao segment tree
@@ -740,6 +767,24 @@ data:
       path: tests/chromatic_number.test.cpp
       title: tests/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/cmp_equal.test.cpp
+      title: tests/cmp_equal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cmp_greater.test.cpp
+      title: tests/cmp_greater.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cmp_greater_equal.test.cpp
+      title: tests/cmp_greater_equal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cmp_less.test.cpp
+      title: tests/cmp_less.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cmp_less_equal.test.cpp
+      title: tests/cmp_less_equal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/cmp_not_equal.test.cpp
+      title: tests/cmp_not_equal.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/convex_hull.test.cpp
       title: tests/convex_hull.test.cpp
     - icon: ':heavy_check_mark:'
@@ -836,6 +881,12 @@ data:
       path: tests/greater_by_arg_total.test.cpp
       title: tests/greater_by_arg_total.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/greater_equal_moebius.test.cpp
+      title: tests/greater_equal_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/greater_equal_zeta.test.cpp
+      title: tests/greater_equal_zeta.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/has_mod.test.cpp
       title: tests/has_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -853,6 +904,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/is_group.test.cpp
       title: tests/is_group.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/is_in_grid.test.cpp
+      title: tests/is_in_grid.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/is_monoid.test.cpp
       title: tests/is_monoid.test.cpp
@@ -874,6 +928,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/less_by_arg_total.test.cpp
       title: tests/less_by_arg_total.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/less_equal_moebius.test.cpp
+      title: tests/less_equal_moebius.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/less_equal_zeta.test.cpp
+      title: tests/less_equal_zeta.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/linear_sieve.test.cpp
       title: tests/linear_sieve.test.cpp

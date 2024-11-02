@@ -3,9 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: tools/cmp_not_equal.hpp
+    title: Polyfill of std::cmp_not_equal
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_equal.test.cpp
+    title: tests/cmp_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_not_equal.test.cpp
+    title: tests/cmp_not_equal.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
@@ -32,10 +41,13 @@ data:
   isVerificationFile: false
   path: tools/cmp_equal.hpp
   requiredBy:
+  - tools/cmp_not_equal.hpp
   - tools/suffix_array.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/cmp_not_equal.test.cpp
+  - tests/cmp_equal.test.cpp
   - tests/suffix_array.test.cpp
 documentation_of: tools/cmp_equal.hpp
 layout: document

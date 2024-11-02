@@ -18,8 +18,20 @@ data:
     path: tools/chmin.hpp
     title: chmin function
   - icon: ':heavy_check_mark:'
+    path: tools/cmp_greater.hpp
+    title: Polyfill of std::cmp_greater
+  - icon: ':heavy_check_mark:'
+    path: tools/cmp_greater_equal.hpp
+    title: Polyfill of std::cmp_greater_equal
+  - icon: ':heavy_check_mark:'
+    path: tools/cmp_less_equal.hpp
+    title: Polyfill of std::cmp_less_equal
+  - icon: ':heavy_check_mark:'
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
+  - icon: ':heavy_check_mark:'
+    path: tools/is_in_grid.hpp
+    title: Check whether $(r, c)$ is in a grid of height $h$ and width $w$
   - icon: ':heavy_check_mark:'
     path: tools/largest_rectangle_in_histogram.hpp
     title: Largest rectangle in histogram
@@ -109,6 +121,18 @@ data:
     path: tests/cartesian_tree/interval.test.cpp
     title: tests/cartesian_tree/interval.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/cmp_greater.test.cpp
+    title: tests/cmp_greater.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_greater_equal.test.cpp
+    title: tests/cmp_greater_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_less.test.cpp
+    title: tests/cmp_less.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/cmp_less_equal.test.cpp
+    title: tests/cmp_less_equal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/dijkstra/directed.test.cpp
     title: tests/dijkstra/directed.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,6 +150,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/is_in_grid.test.cpp
+    title: tests/is_in_grid.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/largest_rectangle_in_histogram.test.cpp
     title: tests/largest_rectangle_in_histogram.test.cpp
@@ -245,6 +272,7 @@ data:
   isVerificationFile: false
   path: tools/cmp_less.hpp
   requiredBy:
+  - tools/cmp_greater.hpp
   - tools/longest_common_substring.hpp
   - tools/zero_one_knapsack.hpp
   - tools/segmented_sieve.hpp
@@ -257,17 +285,21 @@ data:
   - tools/chmax.hpp
   - tools/zero_one_bfs.hpp
   - tools/xor_basis.hpp
+  - tools/cmp_less_equal.hpp
   - tools/rational.hpp
+  - tools/cmp_greater_equal.hpp
   - tools/tree_diameter.hpp
   - tools/bellman_ford.hpp
   - tools/largest_rectangle_in_histogram.hpp
   - tools/lowlink.hpp
   - tools/weighted_bipartite_matching.hpp
+  - tools/is_in_grid.hpp
   - tools/mcf_graph.hpp
   - tools/bigint.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/cmp_greater.test.cpp
   - tests/bigint/plus.test.cpp
   - tests/bigint/modulus.test.cpp
   - tests/bigint/divides.test.cpp
@@ -290,6 +322,8 @@ data:
   - tests/persistent_stack.test.cpp
   - tests/next_matching.test.cpp
   - tests/prim/unconnected.test.cpp
+  - tests/cmp_less_equal.test.cpp
+  - tests/cmp_less.test.cpp
   - tests/segmented_sieve.test.cpp
   - tests/naive_dijkstra.test.cpp
   - tests/rolling_hash.test.cpp
@@ -312,9 +346,11 @@ data:
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
+  - tests/cmp_greater_equal.test.cpp
   - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
+  - tests/is_in_grid.test.cpp
   - tests/xor_basis.test.cpp
   - tests/suffix_array.test.cpp
   - tests/rational/plus.test.cpp
