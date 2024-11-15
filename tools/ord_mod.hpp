@@ -4,6 +4,7 @@
 #include <vector>
 #include <cassert>
 #include <cstddef>
+#include <map>
 #include "tools/is_prime.hpp"
 #include "tools/prime_factorization.hpp"
 #include "tools/pow.hpp"
@@ -77,6 +78,41 @@ namespace tools {
       })(0, this->n(), x);
 
       return m;
+    }
+
+    ::std::map<T, T> count() const {
+      ::std::vector<T> E{1};
+      for (const auto e_i : this->m_e) {
+        E.push_back(E.back() * (e_i + 1));
+      }
+
+      ::std::vector<T> A(E.back());
+      A[0] = 1;
+      for (::std::size_t i = 0; i < this->n(); ++i) {
+        for (T f = 1; f <= this->m_e[i]; ++f) {
+          for (T s = 0; s < E[i]; ++s) {
+            A[f * E[i] + s] = A[(f - 1) * E[i] + s] * this->m_p[i];
+          }
+        }
+      }
+      for (auto&& A_i : A) A_i = (this->m_P - 1) / A_i;
+
+      auto B = A;
+      for (::std::size_t i = 0; i < this->n(); ++i) {
+        for (T s = 0, s_end = E.back() / E[i + 1]; s < s_end; ++s) {
+          for (T t = 0; t < E[i]; ++t) {
+            for (T f = 0; f < this->m_e[i]; ++f) {
+              B[s * E[i + 1] + f * E[i] + t] -= B[s * E[i + 1] + (f + 1) * E[i] + t];
+            }
+          }
+        }
+      }
+
+      ::std::map<T, T> result;
+      for (T i = 0; i < E.back(); ++i) {
+        result.emplace(A[i], B[i]);
+      }
+      return result;
     }
   };
 }

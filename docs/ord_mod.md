@@ -40,3 +40,23 @@ It returns $\mathrm{ord}(x)$, the minimum positive integer $k$ such that $x^k \e
 
 ### Time Complexity
 - $O((\log p)(\log \log p))$
+
+## count
+```cpp
+std::map<T, T> ord.count();
+```
+
+It returns pairs of two integers $(k, v)$ such that
+
+$$\begin{align*}
+\left\{\begin{array}{l}
+v = |\{x \in \mathbb{N} \mid 1 \leq x < p \land \mathrm{ord}(x) = k\}|\\
+v > 0
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O\left(2^\frac{\log p}{\log \log p} \frac{\log p}{\log \log p}\right)$
