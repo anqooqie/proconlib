@@ -252,8 +252,11 @@ data:
     path: tests/monoid.test.cpp
     title: tests/monoid.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
@@ -497,7 +500,6 @@ data:
   - tests/int128_t.test.cpp
   - tests/monoid.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
@@ -508,6 +510,8 @@ data:
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
   - tests/divisors.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/totient.test.cpp
   - tests/sqrt_mod.test.cpp

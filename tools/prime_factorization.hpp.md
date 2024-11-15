@@ -67,8 +67,11 @@ data:
     path: tests/fps/log_other_mods.test.cpp
     title: tests/fps/log_other_mods.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/prime_factorization.test.cpp
     title: tests/prime_factorization.test.cpp
@@ -324,8 +327,9 @@ data:
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/divisors.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/totient.test.cpp
   - tests/extended_lucas.test.cpp
   - tests/prime_factorization.test.cpp

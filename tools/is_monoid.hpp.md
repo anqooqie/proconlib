@@ -127,8 +127,11 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/permutation.test.cpp
     title: tests/permutation.test.cpp
@@ -270,7 +273,6 @@ data:
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
   - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/has_mod.test.cpp
   - tests/line_2d/is_parallel_to.test.cpp
   - tests/line_2d/projection.test.cpp
@@ -283,6 +285,8 @@ data:
   - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/totient.test.cpp
   - tests/online_cumsum.test.cpp
   - tests/ceil_kth_root.test.cpp

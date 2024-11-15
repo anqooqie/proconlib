@@ -983,9 +983,6 @@ data:
       path: tests/online_cumsum.test.cpp
       title: tests/online_cumsum.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/ord_mod.test.cpp
-      title: tests/ord_mod.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/partially_persistent_dsu.test.cpp
       title: tests/partially_persistent_dsu.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1388,6 +1385,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/or_convolution/regular.test.cpp
       title: tests/or_convolution/regular.test.cpp
+  - name: tests/ord_mod
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/ord_mod/count.test.cpp
+      title: tests/ord_mod/count.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/ord_mod/query.test.cpp
+      title: tests/ord_mod/query.test.cpp
   - name: tests/partition_function
     pages:
     - icon: ':heavy_check_mark:'

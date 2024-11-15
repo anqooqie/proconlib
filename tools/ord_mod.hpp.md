@@ -55,26 +55,29 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"tools/ord_mod.hpp\"\n\n\n\n#include <vector>\n#include <cassert>\n\
-    #include <cstddef>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include <array>\n#line\
-    \ 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\n\n\n\n#include\
-    \ <iostream>\n#include <string>\n#line 8 \"tools/uint128_t.hpp\"\n#include <algorithm>\n\
-    #line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n  constexpr float abs(const\
-    \ float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr double abs(const double\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long double abs(const long\
-    \ double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr int abs(const int\
-    \ x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const long x) {\n\
-    \    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const long long x)\
-    \ {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const unsigned\
-    \ int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned long\
-    \ x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
+    #include <cstddef>\n#include <map>\n#line 1 \"tools/is_prime.hpp\"\n\n\n\n#include\
+    \ <array>\n#line 1 \"tools/prod_mod.hpp\"\n\n\n\n#line 1 \"tools/uint128_t.hpp\"\
+    \n\n\n\n#include <iostream>\n#include <string>\n#line 8 \"tools/uint128_t.hpp\"\
+    \n#include <algorithm>\n#line 1 \"tools/abs.hpp\"\n\n\n\nnamespace tools {\n \
+    \ constexpr float abs(const float x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr\
+    \ double abs(const double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long\
+    \ double abs(const long double x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr\
+    \ int abs(const int x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long abs(const\
+    \ long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr long long abs(const\
+    \ long long x) {\n    return x < 0 ? -x : x;\n  }\n  constexpr unsigned int abs(const\
+    \ unsigned int x) {\n    return x;\n  }\n  constexpr unsigned long abs(const unsigned\
+    \ long x) {\n    return x;\n  }\n  constexpr unsigned long long abs(const unsigned\
     \ long long x) {\n    return x;\n  }\n}\n\n\n#line 10 \"tools/uint128_t.hpp\"\n\
     \nnamespace tools {\n  using uint128_t = unsigned __int128;\n\n  constexpr ::tools::uint128_t\
     \ abs(const ::tools::uint128_t& x) {\n    return x;\n  }\n}\n\nconstexpr inline\
@@ -268,7 +271,7 @@ data:
     \ : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename... Args>\n  \
     \  decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
     \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
-    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 12 \"tools/ord_mod.hpp\"\n\nnamespace\
+    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 13 \"tools/ord_mod.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  class ord_mod {\n  private:\n    T m_P;\n\
     \    ::std::vector<T> m_p;\n    ::std::vector<T> m_e;\n    ::std::vector<::std::vector<T>>\
     \ m_E;\n\n    ::std::size_t n() const {\n      return this->m_p.size();\n    }\n\
@@ -295,16 +298,29 @@ data:
     \       dfs(l, m, ::tools::pow_mod(Xbar_l_r, this->m_E[m][r], this->m_P));\n \
     \           dfs(m, r, ::tools::pow_mod(Xbar_l_r, this->m_E[l][m], this->m_P));\n\
     \          }\n          return;\n        }\n      })(0, this->n(), x);\n\n   \
-    \   return m;\n    }\n  };\n}\n\n\n"
+    \   return m;\n    }\n\n    ::std::map<T, T> count() const {\n      ::std::vector<T>\
+    \ E{1};\n      for (const auto e_i : this->m_e) {\n        E.push_back(E.back()\
+    \ * (e_i + 1));\n      }\n\n      ::std::vector<T> A(E.back());\n      A[0] =\
+    \ 1;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n        for (T f\
+    \ = 1; f <= this->m_e[i]; ++f) {\n          for (T s = 0; s < E[i]; ++s) {\n \
+    \           A[f * E[i] + s] = A[(f - 1) * E[i] + s] * this->m_p[i];\n        \
+    \  }\n        }\n      }\n      for (auto&& A_i : A) A_i = (this->m_P - 1) / A_i;\n\
+    \n      auto B = A;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n \
+    \       for (T s = 0, s_end = E.back() / E[i + 1]; s < s_end; ++s) {\n       \
+    \   for (T t = 0; t < E[i]; ++t) {\n            for (T f = 0; f < this->m_e[i];\
+    \ ++f) {\n              B[s * E[i + 1] + f * E[i] + t] -= B[s * E[i + 1] + (f\
+    \ + 1) * E[i] + t];\n            }\n          }\n        }\n      }\n\n      ::std::map<T,\
+    \ T> result;\n      for (T i = 0; i < E.back(); ++i) {\n        result.emplace(A[i],\
+    \ B[i]);\n      }\n      return result;\n    }\n  };\n}\n\n\n"
   code: "#ifndef TOOLS_ORD_MOD_HPP\n#define TOOLS_ORD_MOD_HPP\n\n#include <vector>\n\
-    #include <cassert>\n#include <cstddef>\n#include \"tools/is_prime.hpp\"\n#include\
-    \ \"tools/prime_factorization.hpp\"\n#include \"tools/pow.hpp\"\n#include \"tools/fix.hpp\"\
-    \n#include \"tools/pow_mod.hpp\"\n\nnamespace tools {\n  template <typename T>\n\
-    \  class ord_mod {\n  private:\n    T m_P;\n    ::std::vector<T> m_p;\n    ::std::vector<T>\
-    \ m_e;\n    ::std::vector<::std::vector<T>> m_E;\n\n    ::std::size_t n() const\
-    \ {\n      return this->m_p.size();\n    }\n\n  public:\n    ord_mod() = default;\n\
-    \    ord_mod(const T P) : m_P(P) {\n      assert(::tools::is_prime(P));\n\n  \
-    \    const auto factors = ::tools::prime_factorization(P - 1);\n      for (::std::size_t\
+    #include <cassert>\n#include <cstddef>\n#include <map>\n#include \"tools/is_prime.hpp\"\
+    \n#include \"tools/prime_factorization.hpp\"\n#include \"tools/pow.hpp\"\n#include\
+    \ \"tools/fix.hpp\"\n#include \"tools/pow_mod.hpp\"\n\nnamespace tools {\n  template\
+    \ <typename T>\n  class ord_mod {\n  private:\n    T m_P;\n    ::std::vector<T>\
+    \ m_p;\n    ::std::vector<T> m_e;\n    ::std::vector<::std::vector<T>> m_E;\n\n\
+    \    ::std::size_t n() const {\n      return this->m_p.size();\n    }\n\n  public:\n\
+    \    ord_mod() = default;\n    ord_mod(const T P) : m_P(P) {\n      assert(::tools::is_prime(P));\n\
+    \n      const auto factors = ::tools::prime_factorization(P - 1);\n      for (::std::size_t\
     \ l = 0, r = 0; l < factors.size(); l = r) {\n        for (; r < factors.size()\
     \ && factors[l] == factors[r]; ++r);\n        this->m_p.push_back(factors[l]);\n\
     \        this->m_e.push_back(r - l);\n      }\n\n      this->m_E.resize(this->n()\
@@ -325,7 +341,20 @@ data:
     \       dfs(l, m, ::tools::pow_mod(Xbar_l_r, this->m_E[m][r], this->m_P));\n \
     \           dfs(m, r, ::tools::pow_mod(Xbar_l_r, this->m_E[l][m], this->m_P));\n\
     \          }\n          return;\n        }\n      })(0, this->n(), x);\n\n   \
-    \   return m;\n    }\n  };\n}\n\n#endif\n"
+    \   return m;\n    }\n\n    ::std::map<T, T> count() const {\n      ::std::vector<T>\
+    \ E{1};\n      for (const auto e_i : this->m_e) {\n        E.push_back(E.back()\
+    \ * (e_i + 1));\n      }\n\n      ::std::vector<T> A(E.back());\n      A[0] =\
+    \ 1;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n        for (T f\
+    \ = 1; f <= this->m_e[i]; ++f) {\n          for (T s = 0; s < E[i]; ++s) {\n \
+    \           A[f * E[i] + s] = A[(f - 1) * E[i] + s] * this->m_p[i];\n        \
+    \  }\n        }\n      }\n      for (auto&& A_i : A) A_i = (this->m_P - 1) / A_i;\n\
+    \n      auto B = A;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n \
+    \       for (T s = 0, s_end = E.back() / E[i + 1]; s < s_end; ++s) {\n       \
+    \   for (T t = 0; t < E[i]; ++t) {\n            for (T f = 0; f < this->m_e[i];\
+    \ ++f) {\n              B[s * E[i + 1] + f * E[i] + t] -= B[s * E[i + 1] + (f\
+    \ + 1) * E[i] + t];\n            }\n          }\n        }\n      }\n\n      ::std::map<T,\
+    \ T> result;\n      for (T i = 0; i < E.back(); ++i) {\n        result.emplace(A[i],\
+    \ B[i]);\n      }\n      return result;\n    }\n  };\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
   - tools/prod_mod.hpp
@@ -347,10 +376,11 @@ data:
   isVerificationFile: false
   path: tools/ord_mod.hpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-11-16 02:14:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/ord_mod.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
 documentation_of: tools/ord_mod.hpp
 layout: document
 title: $\mathrm{ord}(x)$ for $x \in (\mathbb{Z}/p\mathbb{Z})^\times$
@@ -393,3 +423,23 @@ It returns $\mathrm{ord}(x)$, the minimum positive integer $k$ such that $x^k \e
 
 ### Time Complexity
 - $O((\log p)(\log \log p))$
+
+## count
+```cpp
+std::map<T, T> ord.count();
+```
+
+It returns pairs of two integers $(k, v)$ such that
+
+$$\begin{align*}
+\left\{\begin{array}{l}
+v = |\{x \in \mathbb{N} \mid 1 \leq x < p \land \mathrm{ord}(x) = k\}|\\
+v > 0
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O\left(2^\frac{\log p}{\log \log p} \frac{\log p}{\log \log p}\right)$

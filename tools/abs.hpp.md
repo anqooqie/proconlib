@@ -399,8 +399,11 @@ data:
     path: tests/online_cumsum.test.cpp
     title: tests/online_cumsum.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
@@ -683,7 +686,6 @@ data:
   - tests/int128_t.test.cpp
   - tests/monoid.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/matrix/static.test.cpp
   - tests/matrix/determinant.test.cpp
@@ -710,6 +712,8 @@ data:
   - tests/quaternion/dice_rotations.test.cpp
   - tests/quaternion/angle_axis.test.cpp
   - tests/divisors.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/totient.test.cpp
   - tests/online_cumsum.test.cpp

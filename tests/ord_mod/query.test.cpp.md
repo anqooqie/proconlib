@@ -68,7 +68,7 @@ data:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
-  bundledCode: "#line 1 \"tests/ord_mod.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
+  bundledCode: "#line 1 \"tests/ord_mod/query.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\
     \n\n#include <iostream>\n#line 1 \"tools/assert_that.hpp\"\n\n\n\n#line 5 \"tools/assert_that.hpp\"\
     \n#include <cstdlib>\n\n#define assert_that_impl(cond, file, line, func) do {\\\
     \n  if (!cond) {\\\n    ::std::cerr << file << ':' << line << \": \" << func <<\
@@ -130,11 +130,12 @@ data:
     \ && power != n - 1; power *= 2, target = ::tools::prod_mod(target, target, n))\
     \ {\n        if (target == n - 1) is_composite = false;\n      }\n\n      if (is_composite)\
     \ {\n        return false;\n      }\n    }\n\n    return true;\n  }\n}\n\n\n#line\
-    \ 1 \"tools/ord_mod.hpp\"\n\n\n\n#include <vector>\n#line 1 \"tools/prime_factorization.hpp\"\
-    \n\n\n\n#line 6 \"tools/prime_factorization.hpp\"\n#include <queue>\n#include\
-    \ <utility>\n#line 9 \"tools/prime_factorization.hpp\"\n#include <cmath>\n#include\
-    \ <numeric>\n#line 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\n\
-    namespace tools {\n\n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
+    \ 1 \"tools/ord_mod.hpp\"\n\n\n\n#include <vector>\n#line 7 \"tools/ord_mod.hpp\"\
+    \n#include <map>\n#line 1 \"tools/prime_factorization.hpp\"\n\n\n\n#line 6 \"\
+    tools/prime_factorization.hpp\"\n#include <queue>\n#include <utility>\n#line 9\
+    \ \"tools/prime_factorization.hpp\"\n#include <cmath>\n#include <numeric>\n#line\
+    \ 1 \"tools/pow2.hpp\"\n\n\n\n#line 6 \"tools/pow2.hpp\"\n\nnamespace tools {\n\
+    \n  template <typename T, typename ::std::enable_if<::std::is_unsigned<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
     \ static_cast<T>(1) << x;\n  }\n\n  template <typename T, typename ::std::enable_if<::std::is_signed<T>::value,\
     \ ::std::nullptr_t>::type = nullptr>\n  constexpr T pow2(const T x) {\n    return\
@@ -279,7 +280,7 @@ data:
     \ : F({::std::forward<G>(g)}) {\n    }\n\n    template <typename... Args>\n  \
     \  decltype(auto) operator()(Args&&... args) const {\n      return F::operator()(*this,\
     \ ::std::forward<Args>(args)...);\n    }\n  };\n\n  template <typename F>\n  fix(F&&)\
-    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 12 \"tools/ord_mod.hpp\"\n\nnamespace\
+    \ -> fix<::std::decay_t<F>>;\n}\n\n\n#line 13 \"tools/ord_mod.hpp\"\n\nnamespace\
     \ tools {\n  template <typename T>\n  class ord_mod {\n  private:\n    T m_P;\n\
     \    ::std::vector<T> m_p;\n    ::std::vector<T> m_e;\n    ::std::vector<::std::vector<T>>\
     \ m_E;\n\n    ::std::size_t n() const {\n      return this->m_p.size();\n    }\n\
@@ -306,27 +307,40 @@ data:
     \       dfs(l, m, ::tools::pow_mod(Xbar_l_r, this->m_E[m][r], this->m_P));\n \
     \           dfs(m, r, ::tools::pow_mod(Xbar_l_r, this->m_E[l][m], this->m_P));\n\
     \          }\n          return;\n        }\n      })(0, this->n(), x);\n\n   \
-    \   return m;\n    }\n  };\n}\n\n\n#line 8 \"tests/ord_mod.test.cpp\"\n\nusing\
-    \ ll = long long;\n\nll naive(const ll x, const ll P) {\n  ll m;\n  for (m = 1;\
-    \ tools::pow_mod(x, m, P) != 1; ++m);\n  return m;\n}\n\nint main() {\n  std::cin.tie(nullptr);\n\
-    \  std::ios_base::sync_with_stdio(false);\n\n  for (ll P = 1; P <= 100; ++P) {\n\
-    \    if (!tools::is_prime(P)) continue;\n    tools::ord_mod ord_mod(P);\n    for\
-    \ (ll x = 1; x < P; ++x) {\n      assert_that(ord_mod.query(x) == naive(x, P));\n\
-    \    }\n  }\n\n  tools::ord_mod ord_mod(999999999999999989);\n  assert_that(ord_mod.query(1)\
-    \ == 1);\n  assert_that(ord_mod.query(2) == 999999999999999988);\n  assert_that(ord_mod.query(3)\
-    \ == 999999999999999988);\n  assert_that(ord_mod.query(4) == 499999999999999994);\n\
-    \  assert_that(ord_mod.query(5) == 249999999999999997);\n  assert_that(ord_mod.query(6)\
-    \ == 499999999999999994);\n  assert_that(ord_mod.query(7) == 249999999999999997);\n\
-    \  assert_that(ord_mod.query(8) == 999999999999999988);\n  assert_that(ord_mod.query(9)\
-    \ == 499999999999999994);\n  assert_that(ord_mod.query(10) == 999999999999999988);\n\
-    \  assert_that(ord_mod.query(11) == 499999999999999994);\n  assert_that(ord_mod.query(12)\
-    \ == 999999999999999988);\n  assert_that(ord_mod.query(13) == 249999999999999997);\n\
-    \  assert_that(ord_mod.query(14) == 999999999999999988);\n  assert_that(ord_mod.query(15)\
-    \ == 999999999999999988);\n  assert_that(ord_mod.query(16) == 249999999999999997);\n\
-    \  assert_that(ord_mod.query(17) == 249999999999999997);\n  assert_that(ord_mod.query(18)\
-    \ == 999999999999999988);\n  assert_that(ord_mod.query(19) == 249999999999999997);\n\
-    \  assert_that(ord_mod.query(20) == 499999999999999994);\n\n  std::cout << \"\
-    Hello World\" << '\\n';\n  return 0;\n}\n"
+    \   return m;\n    }\n\n    ::std::map<T, T> count() const {\n      ::std::vector<T>\
+    \ E{1};\n      for (const auto e_i : this->m_e) {\n        E.push_back(E.back()\
+    \ * (e_i + 1));\n      }\n\n      ::std::vector<T> A(E.back());\n      A[0] =\
+    \ 1;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n        for (T f\
+    \ = 1; f <= this->m_e[i]; ++f) {\n          for (T s = 0; s < E[i]; ++s) {\n \
+    \           A[f * E[i] + s] = A[(f - 1) * E[i] + s] * this->m_p[i];\n        \
+    \  }\n        }\n      }\n      for (auto&& A_i : A) A_i = (this->m_P - 1) / A_i;\n\
+    \n      auto B = A;\n      for (::std::size_t i = 0; i < this->n(); ++i) {\n \
+    \       for (T s = 0, s_end = E.back() / E[i + 1]; s < s_end; ++s) {\n       \
+    \   for (T t = 0; t < E[i]; ++t) {\n            for (T f = 0; f < this->m_e[i];\
+    \ ++f) {\n              B[s * E[i + 1] + f * E[i] + t] -= B[s * E[i + 1] + (f\
+    \ + 1) * E[i] + t];\n            }\n          }\n        }\n      }\n\n      ::std::map<T,\
+    \ T> result;\n      for (T i = 0; i < E.back(); ++i) {\n        result.emplace(A[i],\
+    \ B[i]);\n      }\n      return result;\n    }\n  };\n}\n\n\n#line 8 \"tests/ord_mod/query.test.cpp\"\
+    \n\nusing ll = long long;\n\nll naive(const ll x, const ll P) {\n  ll m;\n  for\
+    \ (m = 1; tools::pow_mod(x, m, P) != 1; ++m);\n  return m;\n}\n\nint main() {\n\
+    \  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  for (ll\
+    \ P = 1; P <= 100; ++P) {\n    if (!tools::is_prime(P)) continue;\n    tools::ord_mod\
+    \ ord_mod(P);\n    for (ll x = 1; x < P; ++x) {\n      assert_that(ord_mod.query(x)\
+    \ == naive(x, P));\n    }\n  }\n\n  tools::ord_mod ord_mod(999999999999999989);\n\
+    \  assert_that(ord_mod.query(1) == 1);\n  assert_that(ord_mod.query(2) == 999999999999999988);\n\
+    \  assert_that(ord_mod.query(3) == 999999999999999988);\n  assert_that(ord_mod.query(4)\
+    \ == 499999999999999994);\n  assert_that(ord_mod.query(5) == 249999999999999997);\n\
+    \  assert_that(ord_mod.query(6) == 499999999999999994);\n  assert_that(ord_mod.query(7)\
+    \ == 249999999999999997);\n  assert_that(ord_mod.query(8) == 999999999999999988);\n\
+    \  assert_that(ord_mod.query(9) == 499999999999999994);\n  assert_that(ord_mod.query(10)\
+    \ == 999999999999999988);\n  assert_that(ord_mod.query(11) == 499999999999999994);\n\
+    \  assert_that(ord_mod.query(12) == 999999999999999988);\n  assert_that(ord_mod.query(13)\
+    \ == 249999999999999997);\n  assert_that(ord_mod.query(14) == 999999999999999988);\n\
+    \  assert_that(ord_mod.query(15) == 999999999999999988);\n  assert_that(ord_mod.query(16)\
+    \ == 249999999999999997);\n  assert_that(ord_mod.query(17) == 249999999999999997);\n\
+    \  assert_that(ord_mod.query(18) == 999999999999999988);\n  assert_that(ord_mod.query(19)\
+    \ == 249999999999999997);\n  assert_that(ord_mod.query(20) == 499999999999999994);\n\
+    \n  std::cout << \"Hello World\" << '\\n';\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A\"\n\n\
     #include <iostream>\n#include \"tools/assert_that.hpp\"\n#include \"tools/pow_mod.hpp\"\
     \n#include \"tools/is_prime.hpp\"\n#include \"tools/ord_mod.hpp\"\n\nusing ll\
@@ -371,15 +385,15 @@ data:
   - tools/is_monoid.hpp
   - tools/fix.hpp
   isVerificationFile: true
-  path: tests/ord_mod.test.cpp
+  path: tests/ord_mod/query.test.cpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-11-16 02:14:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/ord_mod.test.cpp
+documentation_of: tests/ord_mod/query.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/ord_mod.test.cpp
-- /verify/tests/ord_mod.test.cpp.html
-title: tests/ord_mod.test.cpp
+- /verify/tests/ord_mod/query.test.cpp
+- /verify/tests/ord_mod/query.test.cpp.html
+title: tests/ord_mod/query.test.cpp
 ---

@@ -160,8 +160,11 @@ data:
     path: tests/monoid.test.cpp
     title: tests/monoid.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/polygon_2d/area.test.cpp
     title: tests/polygon_2d/area.test.cpp
@@ -372,7 +375,6 @@ data:
   - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/monoid.test.cpp
   - tests/tetration_mod.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/range_count_distinct.test.cpp
@@ -381,6 +383,8 @@ data:
   - tests/auxiliary_tree.test.cpp
   - tests/divisors.test.cpp
   - tests/lca.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/totient.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp

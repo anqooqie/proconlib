@@ -319,8 +319,11 @@ data:
     path: tests/or_convolution/regular.test.cpp
     title: tests/or_convolution/regular.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/all.test.cpp
     title: tests/partition_function/all.test.cpp
@@ -583,7 +586,6 @@ data:
   - tests/monoid.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/ssize.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/polynomial_product.test.cpp
   - tests/subset_moebius.test.cpp
@@ -607,6 +609,8 @@ data:
   - tests/subset_zeta.test.cpp
   - tests/divisors.test.cpp
   - tests/lca.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/totient.test.cpp
   - tests/convolution/double.test.cpp

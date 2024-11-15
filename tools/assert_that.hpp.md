@@ -181,8 +181,8 @@ data:
     path: tests/or_convolution/different_lengths.test.cpp
     title: tests/or_convolution/different_lengths.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/partition_function/consistent.test.cpp
     title: tests/partition_function/consistent.test.cpp
@@ -306,7 +306,6 @@ data:
   - tests/tuple_hash.test.cpp
   - tests/monoid.test.cpp
   - tests/ssize.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/divisor_zeta.test.cpp
   - tests/floor_quotients.test.cpp
   - tests/less_equal_zeta.test.cpp
@@ -330,6 +329,7 @@ data:
   - tests/subset_zeta.test.cpp
   - tests/quaternion/slerp.test.cpp
   - tests/mex.test.cpp
+  - tests/ord_mod/query.test.cpp
   - tests/find_cycle.test.cpp
   - tests/extend_hash.test.cpp
   - tests/online_cumsum.test.cpp

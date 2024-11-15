@@ -52,8 +52,11 @@ data:
     path: tests/lowlink/ncc_without_vertex.test.cpp
     title: tests/lowlink/ncc_without_vertex.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/ord_mod.test.cpp
-    title: tests/ord_mod.test.cpp
+    path: tests/ord_mod/count.test.cpp
+    title: tests/ord_mod/count.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/ord_mod/query.test.cpp
+    title: tests/ord_mod/query.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_dual_segtree.test.cpp
     title: tests/persistent_dual_segtree.test.cpp
@@ -104,9 +107,10 @@ data:
   - tests/avl_tree/reverse.test.cpp
   - tests/avl_tree/binary_search.test.cpp
   - tests/avl_tree/set.test.cpp
-  - tests/ord_mod.test.cpp
   - tests/persistent_dual_segtree.test.cpp
   - tests/auxiliary_tree.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/ord_mod/count.test.cpp
   - tests/undoable_dsu/leader.test.cpp
   - tests/stirling_1st/consistent.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
