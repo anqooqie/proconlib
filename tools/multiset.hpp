@@ -14,20 +14,13 @@
 namespace tools {
   template <typename Key, typename Compare = ::std::less<Key>>
   class multiset {
-  private:
     class PairCompare {
-    private:
       Compare m_key_comp;
 
     public:
       PairCompare() = default;
       explicit PairCompare(const Compare& key_comp) : m_key_comp(key_comp) {
       }
-      PairCompare(const PairCompare&) = default;
-      PairCompare(PairCompare&&) = default;
-      ~PairCompare() = default;
-      PairCompare& operator=(const PairCompare&) = default;
-      PairCompare& operator=(PairCompare&&) = default;
 
       bool operator()(const ::std::pair<Key, ::std::size_t>& lhs, const ::std::pair<Key, ::std::size_t>& rhs) const {
         if (this->m_key_comp(lhs.first, rhs.first)) return true;
@@ -45,30 +38,24 @@ namespace tools {
 
   public:
     class iterator {
-    private:
       typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator m_it;
 
     public:
       using difference_type = ::std::ptrdiff_t;
       using value_type = Key;
-      using reference = Key&;
-      using pointer = Key*;
+      using reference = const Key&;
+      using pointer = const Key*;
       using iterator_category = ::std::bidirectional_iterator_tag;
 
       iterator() = default;
       iterator(const typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator it) : m_it(it) {
       }
-      iterator(const iterator&) = default;
-      iterator(iterator&&) = default;
-      ~iterator() = default;
-      iterator& operator=(const iterator&) = default;
-      iterator& operator=(iterator&&) = default;
 
       typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator base() const {
         return this->m_it;
       }
 
-      Key operator*() const {
+      reference operator*() const {
         return this->m_it->first;
       }
       iterator& operator++() {
@@ -97,68 +84,8 @@ namespace tools {
         return lhs.m_it != rhs.m_it;
       }
     };
+    using reverse_iterator = ::std::reverse_iterator<iterator>;
 
-    class reverse_iterator {
-    private:
-      iterator m_base;
-
-    public:
-      using difference_type = ::std::ptrdiff_t;
-      using value_type = Key;
-      using reference = Key&;
-      using pointer = Key*;
-      using iterator_category = ::std::bidirectional_iterator_tag;
-
-      reverse_iterator() = default;
-      reverse_iterator(const iterator base) : m_base(base) {
-      }
-      reverse_iterator(const reverse_iterator&) = default;
-      reverse_iterator(reverse_iterator&&) = default;
-      ~reverse_iterator() = default;
-      reverse_iterator& operator=(const reverse_iterator&) = default;
-      reverse_iterator& operator=(reverse_iterator&&) = default;
-
-      iterator base() const {
-        return this->m_base;
-      }
-
-      Key operator*() const {
-        return *::std::prev(this->m_base);
-      }
-      reverse_iterator& operator++() {
-        --this->m_base;
-        return *this;
-      }
-      reverse_iterator operator++(int) {
-        const auto self = *this;
-        ++*this;
-        return self;
-      }
-      reverse_iterator& operator--() {
-        ++this->m_base;
-        return *this;
-      }
-      reverse_iterator operator--(int) {
-        const auto self = *this;
-        --*this;
-        return self;
-      }
-
-      friend bool operator==(const reverse_iterator lhs, const reverse_iterator rhs) {
-        return lhs.m_base == rhs.m_base;
-      }
-      friend bool operator!=(const reverse_iterator lhs, const reverse_iterator rhs) {
-        return lhs.m_base != rhs.m_base;
-      }
-    };
-
-  private:
-    ::std::pair<iterator, bool> internal_insert(const Key& x) {
-      const auto [it, inserted] = this->m_set.insert(::std::make_pair(x, this->m_next_id++));
-      return ::std::make_pair(iterator(it), inserted);
-    }
-
-  public:
     ::std::size_t count(const Key& x) const {
       return this->m_set.order_of_key(::std::make_pair(x, ::std::numeric_limits<::std::size_t>::max())) - this->m_set.order_of_key(::std::make_pair(x, 0));
     }
@@ -175,21 +102,12 @@ namespace tools {
     explicit multiset(const Compare& comp = Compare()) : m_next_id(0), m_set(PairCompare(comp)) {
     }
     template <typename InputIterator>
-    multiset(InputIterator first, InputIterator last, const Compare& comp = Compare()) : multiset(comp) {
-      for (auto it = first; it != last; ++it) {
-        this->internal_insert(*it);
-      }
+    multiset(const InputIterator first, const InputIterator last, const Compare& comp = Compare()) : multiset(comp) {
+      this->insert(first, last);
     }
-    multiset(::std::initializer_list<Key> init, const Compare& comp = Compare()) : multiset(comp) {
-      for (auto& x : init) {
-        this->internal_insert(x);
-      }
+    multiset(const ::std::initializer_list<Key> init, const Compare& comp = Compare()) : multiset(comp) {
+      this->insert(init);
     }
-    multiset(const ::tools::multiset<Key, Compare>&) = default;
-    multiset(::tools::multiset<Key, Compare>&&) = default;
-    ~multiset() = default;
-    ::tools::multiset<Key, Compare>& operator=(const ::tools::multiset<Key, Compare>&) = default;
-    ::tools::multiset<Key, Compare>& operator=(::tools::multiset<Key, Compare>&&) = default;
 
     iterator begin() const {
       return iterator(this->m_set.begin());
@@ -230,30 +148,30 @@ namespace tools {
       this->m_set.clear();
     }
     iterator insert(const Key& x) {
-      return this->internal_insert(x).first;
+      return iterator(this->m_set.insert(::std::make_pair(x, this->m_next_id++)).first);
     }
     iterator insert([[maybe_unused]] const iterator position, const Key& x) {
       return this->insert(x);
     }
     template <typename InputIterator>
-    void insert(InputIterator first, InputIterator last) {
+    void insert(const InputIterator first, const InputIterator last) {
       for (auto it = first; it != last; ++it) {
-        this->internal_insert(*it);
+        this->insert(*it);
       }
     }
-    void insert(::std::initializer_list<Key> init) {
-      for (auto& x : init) {
-        this->internal_insert(x);
+    void insert(const ::std::initializer_list<Key> init) {
+      for (const auto& x : init) {
+        this->insert(x);
       }
     }
     template <class... Args>
-    ::std::pair<iterator, bool> emplace(Args&&... args) {
-      return this->internal_insert(Key(::std::forward<Args>(args)...));
+    iterator emplace(Args&&... args) {
+      return this->insert(Key(::std::forward<Args>(args)...));
     }
-    iterator erase(iterator position) {
+    iterator erase(const iterator position) {
       return iterator(this->m_set.erase(position.base()));
     }
-    iterator erase(iterator first, iterator last) {
+    iterator erase(const iterator first, const iterator last) {
       const ::std::size_t n = ::std::distance(first, last);
       auto it = first;
       for (::std::size_t i = 0; i < n; ++i) {
