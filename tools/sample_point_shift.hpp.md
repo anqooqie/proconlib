@@ -974,7 +974,7 @@ data:
     \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
-    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \ res;\n    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n}\n\n\n"
   code: "#ifndef TOOLS_SAMPLE_POINT_SHIFT_HPP\n#define TOOLS_SAMPLE_POINT_SHIFT_HPP\n\
     \n#include <type_traits>\n#include <iterator>\n#include <cassert>\n#include <array>\n\
@@ -1050,7 +1050,7 @@ data:
     \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
-    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \ res;\n    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n}\n\n#endif\n"
   dependsOn:
   - tools/is_prime.hpp
@@ -1077,7 +1077,7 @@ data:
   requiredBy:
   - tools/twelvefold_way.hpp
   - tools/large_fact_mod_cache.hpp
-  timestamp: '2024-10-05 15:13:11+09:00'
+  timestamp: '2024-11-17 01:03:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp

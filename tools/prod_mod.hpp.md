@@ -114,6 +114,9 @@ data:
     path: tests/bell/consistent.test.cpp
     title: tests/bell/consistent.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bell/fixed_n.test.cpp
     title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -523,6 +526,7 @@ data:
   - tests/prime_factorization.test.cpp
   - tests/bell/all.test.cpp
   - tests/bell/consistent.test.cpp
+  - tests/bell/diagonal.test.cpp
   - tests/bell/fixed_n.test.cpp
   - tests/sparse_fps_pow/fraction.test.cpp
   - tests/sparse_fps_pow/regular.test.cpp

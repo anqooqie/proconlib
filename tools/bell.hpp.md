@@ -86,6 +86,9 @@ data:
     path: tests/bell/consistent.test.cpp
     title: tests/bell/consistent.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/bell/fixed_n.test.cpp
     title: tests/bell/fixed_n.test.cpp
   - icon: ':heavy_check_mark:'
@@ -1477,6 +1480,7 @@ data:
   - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/bell/all.test.cpp
   - tests/bell/consistent.test.cpp
+  - tests/bell/diagonal.test.cpp
   - tests/bell/fixed_n.test.cpp
 documentation_of: tools/bell.hpp
 layout: document

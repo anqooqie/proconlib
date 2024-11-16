@@ -1077,7 +1077,7 @@ data:
     \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
-    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \ res;\n    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n}\n\n\n#line 16 \"tools/large_fact_mod_cache.hpp\"\n\n\
     namespace tools {\n\n  template <class M>\n  class large_fact_mod_cache {\n  \
     \  int m_K;\n    ::std::vector<M> m_factbs;\n\n  public:\n    large_fact_mod_cache()\
@@ -1944,7 +1944,7 @@ data:
   isVerificationFile: true
   path: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
   requiredBy: []
-  timestamp: '2024-10-05 15:13:11+09:00'
+  timestamp: '2024-11-17 01:03:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp

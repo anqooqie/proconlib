@@ -8,6 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/is_in_grid.hpp
     title: Check whether $(r, c)$ is in a grid of height $h$ and width $w$
+  - icon: ':heavy_check_mark:'
+    path: tools/small_range_lower_bound.hpp
+    title: std::lower_bound in $\left\langle O(N + \max(A_i) - \min(A_i)), O(1) \right\rangle$
+      time
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: tests/cmp_less_equal.test.cpp
@@ -15,6 +19,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/is_in_grid.test.cpp
     title: tests/is_in_grid.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/small_range_lower_bound.test.cpp
+    title: tests/small_range_lower_bound.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -39,10 +46,12 @@ data:
   isVerificationFile: false
   path: tools/cmp_less_equal.hpp
   requiredBy:
+  - tools/small_range_lower_bound.hpp
   - tools/is_in_grid.hpp
   timestamp: '2024-11-02 17:20:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - tests/small_range_lower_bound.test.cpp
   - tests/cmp_less_equal.test.cpp
   - tests/is_in_grid.test.cpp
 documentation_of: tools/cmp_less_equal.hpp

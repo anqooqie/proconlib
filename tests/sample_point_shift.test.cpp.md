@@ -936,7 +936,7 @@ data:
     \   ::std::vector<T> res;\n    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n\n  template <typename T>\n  ::std::vector<T> sample_point_shift(const\
     \ ::std::initializer_list<T> il, const T c, const int M) {\n    ::std::vector<T>\
-    \ res;\n    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
+    \ res;\n    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));\n\
     \    return res;\n  }\n}\n\n\n#line 1 \"tools/join.hpp\"\n\n\n\n#line 5 \"tools/join.hpp\"\
     \n#include <sstream>\n#line 7 \"tools/join.hpp\"\n\nnamespace tools {\n\n  template\
     \ <typename Iterator>\n  ::std::string join(const Iterator begin, const Iterator\
@@ -991,7 +991,7 @@ data:
   isVerificationFile: true
   path: tests/sample_point_shift.test.cpp
   requiredBy: []
-  timestamp: '2024-10-05 15:13:11+09:00'
+  timestamp: '2024-11-17 01:03:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/sample_point_shift.test.cpp

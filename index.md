@@ -590,6 +590,10 @@ data:
       path: tools/signum.hpp
       title: Sign function
     - icon: ':heavy_check_mark:'
+      path: tools/small_range_lower_bound.hpp
+      title: std::lower_bound in $\left\langle O(N + \max(A_i) - \min(A_i)), O(1)
+        \right\rangle$ time
+    - icon: ':heavy_check_mark:'
       path: tools/sparse_fps_pow.hpp
       title: Power of a sparse FPS
     - icon: ':heavy_check_mark:'
@@ -1064,6 +1068,9 @@ data:
       path: tests/set.test.cpp
       title: tests/set.test.cpp
     - icon: ':heavy_check_mark:'
+      path: tests/small_range_lower_bound.test.cpp
+      title: tests/small_range_lower_bound.test.cpp
+    - icon: ':heavy_check_mark:'
       path: tests/sqrt_mod.test.cpp
       title: tests/sqrt_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1141,6 +1148,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/bell/consistent.test.cpp
       title: tests/bell/consistent.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/bell/diagonal.test.cpp
+      title: tests/bell/diagonal.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/bell/fixed_n.test.cpp
       title: tests/bell/fixed_n.test.cpp

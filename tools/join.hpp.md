@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: tests/bell/diagonal.test.cpp
+    title: tests/bell/diagonal.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/cycle_detection/undirected.test.cpp
     title: tests/cycle_detection/undirected.test.cpp
   - icon: ':heavy_check_mark:'
@@ -99,6 +102,7 @@ data:
   - tests/undoable_dsu/leader.test.cpp
   - tests/stirling_1st/fixed_k.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
+  - tests/bell/diagonal.test.cpp
   - tests/partition_function/diagonal.test.cpp
   - tests/cycle_detection/undirected.test.cpp
   - tests/lowlink/is_bridge.test.cpp
