@@ -428,7 +428,7 @@ data:
       title: Multiple Zeta transform
     - icon: ':heavy_check_mark:'
       path: tools/multiset.hpp
-      title: __gnu_pbds::tree allowing duplicated values
+      title: __gnu_pbds::tree, but it allows duplication
     - icon: ':heavy_check_mark:'
       path: tools/naive_dijkstra.hpp
       title: Dijkstra's algorithm for dense graph
@@ -585,7 +585,7 @@ data:
       title: tools/segtree_beats.hpp
     - icon: ':heavy_check_mark:'
       path: tools/set.hpp
-      title: Alias for __gnu_pbds::tree
+      title: __gnu_pbds::tree, but more compatible with std::set
     - icon: ':heavy_check_mark:'
       path: tools/signum.hpp
       title: Sign function
@@ -1060,6 +1060,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/segmented_sieve.test.cpp
       title: tests/segmented_sieve.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/set.test.cpp
+      title: tests/set.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/sqrt_mod.test.cpp
       title: tests/sqrt_mod.test.cpp
