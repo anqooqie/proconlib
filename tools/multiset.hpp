@@ -4,12 +4,13 @@
 #include <functional>
 #include <utility>
 #include <cstddef>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/tag_and_trait.hpp>
 #include <iterator>
-#include <limits>
 #include <initializer_list>
-#include <vector>
+#include <limits>
 #include <algorithm>
-#include "tools/set.hpp"
 
 namespace tools {
   template <typename Key, typename Compare = ::std::less<Key>>
@@ -32,13 +33,20 @@ namespace tools {
         return this->m_key_comp;
       }
     };
+    using pbds_tree = ::__gnu_pbds::tree<::std::pair<Key, ::std::size_t>, ::__gnu_pbds::null_type, PairCompare, ::__gnu_pbds::rb_tree_tag, ::__gnu_pbds::tree_order_statistics_node_update>;
 
     ::std::size_t m_next_id;
-    ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare> m_set;
+    pbds_tree m_set;
 
   public:
+    using key_type = Key;
+    using value_type = Key;
+    using key_compare = Compare;
+    using value_compare = Compare;
+    using reference = Key&;
+    using const_reference = const Key&;
     class iterator {
-      typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator m_it;
+      typename pbds_tree::iterator m_it;
 
     public:
       using difference_type = ::std::ptrdiff_t;
@@ -48,10 +56,10 @@ namespace tools {
       using iterator_category = ::std::bidirectional_iterator_tag;
 
       iterator() = default;
-      iterator(const typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator it) : m_it(it) {
+      iterator(const typename pbds_tree::iterator it) : m_it(it) {
       }
 
-      typename ::tools::set<::std::pair<Key, ::std::size_t>, PairCompare>::iterator base() const {
+      typename pbds_tree::iterator base() const {
         return this->m_it;
       }
 
@@ -84,20 +92,13 @@ namespace tools {
         return lhs.m_it != rhs.m_it;
       }
     };
+    using const_iterator = iterator;
+    using size_type = ::std::size_t;
+    using difference_type = ::std::ptrdiff_t;
+    using pointer = Key*;
+    using const_pointer = const Key*;
     using reverse_iterator = ::std::reverse_iterator<iterator>;
-
-    ::std::size_t count(const Key& x) const {
-      return this->m_set.order_of_key(::std::make_pair(x, ::std::numeric_limits<::std::size_t>::max())) - this->m_set.order_of_key(::std::make_pair(x, 0));
-    }
-    iterator lower_bound(const Key& x) const {
-      return iterator(this->m_set.lower_bound(::std::make_pair(x, 0)));
-    }
-    iterator upper_bound(const Key& x) const {
-      return iterator(this->m_set.upper_bound(::std::make_pair(x, ::std::numeric_limits<::std::size_t>::max())));
-    }
-    Compare key_comp() const {
-      return this->m_set.get_cmp_fn().key_comp();
-    }
+    using const_reverse_iterator = reverse_iterator;
 
     explicit multiset(const Compare& comp = Compare()) : m_next_id(0), m_set(PairCompare(comp)) {
     }
@@ -137,10 +138,10 @@ namespace tools {
     bool empty() const {
       return this->m_set.empty();
     }
-    ::std::size_t size() const {
+    size_type size() const {
       return this->m_set.size();
     }
-    ::std::size_t max_size() const {
+    size_type max_size() const {
       return this->m_set.max_size();
     }
 
@@ -168,29 +169,41 @@ namespace tools {
     iterator emplace(Args&&... args) {
       return this->insert(Key(::std::forward<Args>(args)...));
     }
+    template <class... Args>
+    iterator emplace_hint([[maybe_unused]] const iterator hint, Args&&... args) {
+      return this->emplace(::std::forward<Args>(args)...);
+    }
     iterator erase(const iterator position) {
       return iterator(this->m_set.erase(position.base()));
     }
-    iterator erase(const iterator first, const iterator last) {
-      const ::std::size_t n = ::std::distance(first, last);
-      auto it = first;
-      for (::std::size_t i = 0; i < n; ++i) {
-        it = this->erase(it);
-      }
-      return it;
-    }
-    ::std::size_t erase(const Key& x) {
-      ::std::size_t n = 0;
+    size_type erase(const Key& x) {
+      size_type n = 0;
       for (auto it = this->lower_bound(x); it != this->end() && !this->key_comp()(x, *it); it = this->erase(it)) {
         ++n;
       }
       return n;
     }
+    iterator erase(const iterator first, const iterator last) {
+      const size_type n = ::std::distance(first, last);
+      auto it = first;
+      for (size_type i = 0; i < n; ++i) {
+        it = this->erase(it);
+      }
+      return it;
+    }
     void swap(::tools::multiset<Key, Compare>& st) {
       ::std::swap(this->m_next_id, st.m_next_id);
       this->m_set.swap(st.m_set);
     }
+    template <typename C2>
+    void merge(::tools::multiset<Key, C2>& source) {
+      this->insert(source.begin(), source.end());
+      source.clear();
+    }
 
+    size_type count(const Key& x) const {
+      return this->m_set.order_of_key(::std::make_pair(x, ::std::numeric_limits<::std::size_t>::max())) - this->m_set.order_of_key(::std::make_pair(x, 0));
+    }
     iterator find(const Key& x) const {
       const auto it = this->lower_bound(x);
       if (it == this->end() || this->key_comp()(x, *it)) return this->end();
@@ -202,40 +215,28 @@ namespace tools {
     ::std::pair<iterator, iterator> equal_range(const Key& x) const {
       return ::std::make_pair(this->lower_bound(x), this->upper_bound(x));
     }
+    iterator lower_bound(const Key& x) const {
+      return iterator(this->m_set.lower_bound(::std::make_pair(x, 0)));
+    }
+    iterator upper_bound(const Key& x) const {
+      return iterator(this->m_set.upper_bound(::std::make_pair(x, ::std::numeric_limits<::std::size_t>::max())));
+    }
 
+    Compare key_comp() const {
+      return this->m_set.get_cmp_fn().key_comp();
+    }
     Compare value_comp() const {
       return this->key_comp();
     }
 
-    using key_type = Key;
-    using value_type = Key;
-    using key_compare = Compare;
-    using value_compare = Compare;
-    using reference = Key&;
-    using const_reference = const Key&;
-    using const_iterator = iterator;
-    using size_type = ::std::size_t;
-    using difference_type = ::std::ptrdiff_t;
-    using pointer = Key*;
-    using const_pointer = const Key*;
-    using const_reverse_iterator = reverse_iterator;
-
     friend bool operator==(const ::tools::multiset<Key, Compare>& x, const ::tools::multiset<Key, Compare>& y) {
-      ::std::vector<Key> x2(x.begin(), x.end());
-      ::std::sort(x2.begin(), x2.end());
-      ::std::vector<Key> y2(y.begin(), y.end());
-      ::std::sort(y2.begin(), y2.end());
-      return ::std::equal(x2.begin(), x2.end(), y2.begin(), y2.end());
+      return ::std::equal(x.begin(), x.end(), y.begin(), y.end());
     }
     friend bool operator!=(const ::tools::multiset<Key, Compare>& x, const ::tools::multiset<Key, Compare>& y) {
       return !(x == y);
     }
     friend bool operator<(const ::tools::multiset<Key, Compare>& x, const ::tools::multiset<Key, Compare>& y) {
-      ::std::vector<Key> x2(x.begin(), x.end());
-      ::std::sort(x2.begin(), x2.end());
-      ::std::vector<Key> y2(y.begin(), y.end());
-      ::std::sort(y2.begin(), y2.end());
-      return ::std::lexicographical_compare(x2.begin(), x2.end(), y2.begin(), y2.end());
+      return ::std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
     }
     friend bool operator<=(const ::tools::multiset<Key, Compare>& x, const ::tools::multiset<Key, Compare>& y) {
       return !(y < x);
@@ -247,10 +248,10 @@ namespace tools {
       return !(x < y);
     }
 
-    iterator find_by_order(const ::std::size_t order) const {
+    iterator find_by_order(const size_type order) const {
       return iterator(this->m_set.find_by_order(order));
     }
-    ::std::size_t order_of_key(const Key& x) const {
+    size_type order_of_key(const Key& x) const {
       return this->m_set.order_of_key(::std::make_pair(x, 0));
     }
   };
