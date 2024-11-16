@@ -178,7 +178,7 @@ namespace tools {
   template <typename T>
   ::std::vector<T> sample_point_shift(const ::std::initializer_list<T> il, const T c, const int M) {
     ::std::vector<T> res;
-    return ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));
+    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));
     return res;
   }
 }
