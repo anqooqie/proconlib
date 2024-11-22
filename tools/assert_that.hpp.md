@@ -211,6 +211,9 @@ data:
     path: tests/resize.test.cpp
     title: tests/resize.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/reverse.test.cpp
+    title: tests/reverse.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
   - icon: ':heavy_check_mark:'
@@ -311,6 +314,7 @@ data:
   - tests/monoid.test.cpp
   - tests/ssize.test.cpp
   - tests/divisor_zeta.test.cpp
+  - tests/reverse.test.cpp
   - tests/floor_quotients.test.cpp
   - tests/less_equal_zeta.test.cpp
   - tests/floor.test.cpp

@@ -550,6 +550,9 @@ data:
       path: tools/resize.hpp
       title: Resize a multi-dimensional vector
     - icon: ':heavy_check_mark:'
+      path: tools/reverse.hpp
+      title: Bit reverse
+    - icon: ':heavy_check_mark:'
       path: tools/rolling_hash.hpp
       title: Rolling hash
     - icon: ':heavy_check_mark:'
@@ -1046,6 +1049,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/resize.test.cpp
       title: tests/resize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/reverse.test.cpp
+      title: tests/reverse.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/rolling_hash.test.cpp
       title: tests/rolling_hash.test.cpp

@@ -57,6 +57,9 @@ data:
     path: tools/rational.hpp
     title: Rational number
   - icon: ':heavy_check_mark:'
+    path: tools/reverse.hpp
+    title: Bit reverse
+  - icon: ':heavy_check_mark:'
     path: tools/stirling_1st.hpp
     title: Signed Stirling numbers of the first kind
   - icon: ':heavy_check_mark:'
@@ -204,6 +207,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/rational/random.test.cpp
     title: tests/rational/random.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/reverse.test.cpp
+    title: tests/reverse.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/rotate_left.test.cpp
     title: tests/rotate_left.test.cpp
@@ -363,6 +369,7 @@ data:
   - tools/primitive_root.hpp
   - tools/twelvefold_way.hpp
   - tools/rational.hpp
+  - tools/reverse.hpp
   - tools/floor_log2.hpp
   - tools/wavelet_matrix.hpp
   - tools/log_mod.hpp
@@ -403,6 +410,7 @@ data:
   - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/monoid.test.cpp
   - tests/tetration_mod.test.cpp
+  - tests/reverse.test.cpp
   - tests/line_2d/projection.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/range_count_distinct.test.cpp
