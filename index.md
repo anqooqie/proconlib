@@ -636,6 +636,9 @@ data:
       path: tools/totient.hpp
       title: Euler's totient function
     - icon: ':heavy_check_mark:'
+      path: tools/transposed.hpp
+      title: Transposition
+    - icon: ':heavy_check_mark:'
       path: tools/tree_diameter.hpp
       title: Diameter of a tree
     - icon: ':heavy_check_mark:'
@@ -1100,6 +1103,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/totient.test.cpp
       title: tests/totient.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/transposed.test.cpp
+      title: tests/transposed.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/tree_diameter.test.cpp
       title: tests/tree_diameter.test.cpp

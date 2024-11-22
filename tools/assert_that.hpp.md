@@ -244,6 +244,9 @@ data:
     path: tests/superset_zeta.test.cpp
     title: tests/superset_zeta.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/transposed.test.cpp
+    title: tests/transposed.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/tsort/count.test.cpp
     title: tests/tsort/count.test.cpp
   - icon: ':heavy_check_mark:'
@@ -301,6 +304,7 @@ data:
   - tests/multiple_zeta.test.cpp
   - tests/gcd_convolution/different_lengths.test.cpp
   - tests/ceil_log2.test.cpp
+  - tests/transposed.test.cpp
   - tests/lcm_convolution/different_lengths.test.cpp
   - tests/int128_t.test.cpp
   - tests/tuple_hash.test.cpp
