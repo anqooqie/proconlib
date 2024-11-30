@@ -14,7 +14,6 @@
 namespace tools {
   template <typename T>
   class permutation {
-  private:
     ::std::vector<T> m_perm;
     ::std::vector<T> m_inv;
 
@@ -38,12 +37,6 @@ namespace tools {
 
   public:
     permutation() = default;
-    permutation(const ::tools::permutation<T>&) = default;
-    permutation(::tools::permutation<T>&&) = default;
-    ~permutation() = default;
-    ::tools::permutation<T>& operator=(const ::tools::permutation<T>&) = default;
-    ::tools::permutation<T>& operator=(::tools::permutation<T>&&) = default;
-
     explicit permutation(::std::size_t n) : m_perm(n), m_inv(n) {
       ::std::iota(this->m_perm.begin(), this->m_perm.end(), 0);
       ::std::iota(this->m_inv.begin(), this->m_inv.end(), 0);
@@ -52,6 +45,8 @@ namespace tools {
     permutation(Iterator begin, Iterator end) : m_perm(begin, end) {
       this->verify_consistency();
       this->make_inv();
+    }
+    permutation(const ::std::vector<T>& v) : permutation(v.begin(), v.end()) {
     }
 
     ::std::size_t size() const {

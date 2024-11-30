@@ -15,6 +15,7 @@ It is a permutation of $n$ elements.
 ```cpp
 (1) permutation<T> p(std::size_t n);
 (2) template <typename Iterator> permutation<T> p(Iterator begin, Iterator end);
+(3) permutation<T> p(std::vector<T> v);
 ```
 
 It creates an identity permutation of $n$ elements.
@@ -27,6 +28,10 @@ The type parameter `<T>` represents the type of the elements.
     - All elements of $\[\mathrm{begin}, \mathrm{end})$ are unique.
     - All elements of $\[\mathrm{begin}, \mathrm{end})$ are $0$ or more.
     - All elements of $\[\mathrm{begin}, \mathrm{end})$ are less than $\mathrm{end} - \mathrm{begin}$.
+- (3)
+    - All elements of $v$ are unique.
+    - All elements of $v$ are $0$ or more.
+    - All elements of $v$ are less than `v.size()`.
 
 ### Time Complexity
 - $O(n)$
