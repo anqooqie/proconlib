@@ -38,9 +38,9 @@ namespace tools {
       }
 
       if constexpr (Restore) {
-        ::std::vector<int> answer(segtree.all_prod());
+        ::std::vector<int> answer(segtree.all_prod(), -1);
         for (int i = N - 1; i >= 0; --i) {
-          if (const auto k = segtree.get(p[i]); k == segtree.all_prod() || p[i] < p[answer[k]]) {
+          if (const auto k = segtree.get(p[i]); k == segtree.all_prod() || (answer[k] >= 0 && p[i] < p[answer[k]])) {
             answer[k - 1] = i;
           }
         }
@@ -88,9 +88,9 @@ namespace tools {
       }
 
       if constexpr (Restore) {
-        ::std::vector<int> answer(bisect.size());
+        ::std::vector<int> answer(bisect.size(), -1);
         for (int i = N - 1; i >= 0; --i) {
-          if (const auto k = lengths[i]; ::tools::cmp_equal(k, bisect.size()) || (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]], begin[i]))) {
+          if (const auto k = lengths[i]; ::tools::cmp_equal(k, bisect.size()) || (answer[k] >= 0 && (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]], begin[i])))) {
             answer[k - 1] = i;
           }
         }
