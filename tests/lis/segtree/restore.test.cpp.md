@@ -220,10 +220,10 @@ data:
     \ ::tools::monoid::max<int, 0>::op, ::tools::monoid::max<int, 0>::e> segtree(N);\n\
     \      for (int i = 0; i < N; ++i) {\n        segtree.set(p[i], segtree.prod(0,\
     \ p[i]) + 1);\n      }\n\n      if constexpr (Restore) {\n        ::std::vector<int>\
-    \ answer(segtree.all_prod());\n        for (int i = N - 1; i >= 0; --i) {\n  \
-    \        if (const auto k = segtree.get(p[i]); k == segtree.all_prod() || p[i]\
-    \ < p[answer[k]]) {\n            answer[k - 1] = i;\n          }\n        }\n\
-    \        return answer;\n      } else {\n        return segtree.all_prod();\n\
+    \ answer(segtree.all_prod(), -1);\n        for (int i = N - 1; i >= 0; --i) {\n\
+    \          if (const auto k = segtree.get(p[i]); k == segtree.all_prod() || (answer[k]\
+    \ >= 0 && p[i] < p[answer[k]])) {\n            answer[k - 1] = i;\n          }\n\
+    \        }\n        return answer;\n      } else {\n        return segtree.all_prod();\n\
     \      }\n    }\n    template <bool Strict, bool Restore, typename InputIterator,\
     \ typename Compare, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag,\
     \ typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t>\
@@ -255,13 +255,13 @@ data:
     \ (Restore) {\n          lengths[i] = ::std::distance(bisect.begin(), it) + 1;\n\
     \        }\n        if (it != bisect.end()) {\n          *it = i;\n        } else\
     \ {\n          bisect.push_back(i);\n        }\n      }\n\n      if constexpr\
-    \ (Restore) {\n        ::std::vector<int> answer(bisect.size());\n        for\
-    \ (int i = N - 1; i >= 0; --i) {\n          if (const auto k = lengths[i]; ::tools::cmp_equal(k,\
-    \ bisect.size()) || (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]],\
-    \ begin[i]))) {\n            answer[k - 1] = i;\n          }\n        }\n    \
-    \    return answer;\n      } else {\n        return bisect.size();\n      }\n\
-    \    }\n    template <bool Strict, bool Restore, typename InputIterator, typename\
-    \ Compare, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag,\
+    \ (Restore) {\n        ::std::vector<int> answer(bisect.size(), -1);\n       \
+    \ for (int i = N - 1; i >= 0; --i) {\n          if (const auto k = lengths[i];\
+    \ ::tools::cmp_equal(k, bisect.size()) || (answer[k] >= 0 && (Strict ? comp(begin[i],\
+    \ begin[answer[k]]) : !comp(begin[answer[k]], begin[i])))) {\n            answer[k\
+    \ - 1] = i;\n          }\n        }\n        return answer;\n      } else {\n\
+    \        return bisect.size();\n      }\n    }\n    template <bool Strict, bool\
+    \ Restore, typename InputIterator, typename Compare, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag,\
     \ typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t>\
     \ = nullptr>\n    ::std::conditional_t<Restore, ::std::vector<int>, int> bisect(const\
     \ InputIterator begin, const InputIterator end, const Compare& comp) {\n     \
@@ -311,7 +311,7 @@ data:
   isVerificationFile: true
   path: tests/lis/segtree/restore.test.cpp
   requiredBy: []
-  timestamp: '2024-11-30 16:17:24+09:00'
+  timestamp: '2024-11-30 16:59:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/lis/segtree/restore.test.cpp
