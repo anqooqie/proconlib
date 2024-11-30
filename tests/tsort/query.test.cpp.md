@@ -81,40 +81,36 @@ data:
     \ \"tools/permutation.hpp\"\n#include <numeric>\n#include <algorithm>\n#include\
     \ <iterator>\n#include <utility>\n#line 12 \"tools/permutation.hpp\"\n#include\
     \ <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
-    \ {\n  private:\n    ::std::vector<T> m_perm;\n    ::std::vector<T> m_inv;\n\n\
-    \    void verify_consistency() const {\n#ifndef NDEBUG\n      ::std::vector<bool>\
-    \ unique(this->m_perm.size(), true);\n      for (const T x : this->m_perm) {\n\
-    \        assert(0 <= x && x < T(this->m_perm.size()));\n        assert(unique[x]);\n\
-    \        unique[x] = false;\n      }\n#endif\n    }\n\n    void make_inv() {\n\
-    \      this->m_inv.resize(this->m_perm.size());\n      for (::std::size_t i =\
-    \ 0; i < this->m_perm.size(); ++i) {\n        this->m_inv[this->m_perm[i]] = i;\n\
-    \      }\n    }\n\n  public:\n    permutation() = default;\n    permutation(const\
-    \ ::tools::permutation<T>&) = default;\n    permutation(::tools::permutation<T>&&)\
-    \ = default;\n    ~permutation() = default;\n    ::tools::permutation<T>& operator=(const\
-    \ ::tools::permutation<T>&) = default;\n    ::tools::permutation<T>& operator=(::tools::permutation<T>&&)\
-    \ = default;\n\n    explicit permutation(::std::size_t n) : m_perm(n), m_inv(n)\
-    \ {\n      ::std::iota(this->m_perm.begin(), this->m_perm.end(), 0);\n      ::std::iota(this->m_inv.begin(),\
-    \ this->m_inv.end(), 0);\n    }\n    template <typename Iterator>\n    permutation(Iterator\
-    \ begin, Iterator end) : m_perm(begin, end) {\n      this->verify_consistency();\n\
-    \      this->make_inv();\n    }\n\n    ::std::size_t size() const {\n      return\
-    \ this->m_perm.size();\n    }\n    T operator[](const ::std::size_t i) const {\n\
-    \      assert(i < this->size());\n      return this->m_perm[i];\n    }\n    typename\
-    \ ::std::vector<T>::const_iterator begin() const {\n      return this->m_perm.begin();\n\
-    \    }\n    typename ::std::vector<T>::const_iterator end() const {\n      return\
-    \ this->m_perm.end();\n    }\n\n    ::tools::permutation<T>& swap_from_left(const\
-    \ T x, const T y) {\n      assert(0 <= x && x < T(this->size()));\n      assert(0\
-    \ <= y && y < T(this->size()));\n      this->m_inv[this->m_perm[y]] = x;\n   \
-    \   this->m_inv[this->m_perm[x]] = y;\n      ::std::swap(this->m_perm[x], this->m_perm[y]);\n\
-    \      return *this;\n    }\n    ::tools::permutation<T>& swap_from_right(const\
-    \ T x, const T y) {\n      assert(0 <= x && x < T(this->size()));\n      assert(0\
-    \ <= y && y < T(this->size()));\n      this->m_perm[this->m_inv[y]] = x;\n   \
-    \   this->m_perm[this->m_inv[x]] = y;\n      ::std::swap(this->m_inv[x], this->m_inv[y]);\n\
-    \      return *this;\n    }\n\n    T id() const {\n      if (this->size() == 0)\
-    \ return 0;\n\n      ::std::vector<T> left(this->size());\n      ::std::iota(left.begin(),\
-    \ left.end(), 0);\n\n      ::std::vector<T> fact(this->size());\n      fact[0]\
-    \ = 1;\n      for (::std::size_t i = 1; i < this->size(); ++i) {\n        fact[i]\
-    \ = fact[i - 1] * i;\n      }\n\n      T id = 0;\n      for (::std::size_t i =\
-    \ 0; i < this->size(); ++i) {\n        auto it = ::std::lower_bound(left.begin(),\
+    \ {\n    ::std::vector<T> m_perm;\n    ::std::vector<T> m_inv;\n\n    void verify_consistency()\
+    \ const {\n#ifndef NDEBUG\n      ::std::vector<bool> unique(this->m_perm.size(),\
+    \ true);\n      for (const T x : this->m_perm) {\n        assert(0 <= x && x <\
+    \ T(this->m_perm.size()));\n        assert(unique[x]);\n        unique[x] = false;\n\
+    \      }\n#endif\n    }\n\n    void make_inv() {\n      this->m_inv.resize(this->m_perm.size());\n\
+    \      for (::std::size_t i = 0; i < this->m_perm.size(); ++i) {\n        this->m_inv[this->m_perm[i]]\
+    \ = i;\n      }\n    }\n\n  public:\n    permutation() = default;\n    explicit\
+    \ permutation(::std::size_t n) : m_perm(n), m_inv(n) {\n      ::std::iota(this->m_perm.begin(),\
+    \ this->m_perm.end(), 0);\n      ::std::iota(this->m_inv.begin(), this->m_inv.end(),\
+    \ 0);\n    }\n    template <typename Iterator>\n    permutation(Iterator begin,\
+    \ Iterator end) : m_perm(begin, end) {\n      this->verify_consistency();\n  \
+    \    this->make_inv();\n    }\n    permutation(const ::std::vector<T>& v) : permutation(v.begin(),\
+    \ v.end()) {\n    }\n\n    ::std::size_t size() const {\n      return this->m_perm.size();\n\
+    \    }\n    T operator[](const ::std::size_t i) const {\n      assert(i < this->size());\n\
+    \      return this->m_perm[i];\n    }\n    typename ::std::vector<T>::const_iterator\
+    \ begin() const {\n      return this->m_perm.begin();\n    }\n    typename ::std::vector<T>::const_iterator\
+    \ end() const {\n      return this->m_perm.end();\n    }\n\n    ::tools::permutation<T>&\
+    \ swap_from_left(const T x, const T y) {\n      assert(0 <= x && x < T(this->size()));\n\
+    \      assert(0 <= y && y < T(this->size()));\n      this->m_inv[this->m_perm[y]]\
+    \ = x;\n      this->m_inv[this->m_perm[x]] = y;\n      ::std::swap(this->m_perm[x],\
+    \ this->m_perm[y]);\n      return *this;\n    }\n    ::tools::permutation<T>&\
+    \ swap_from_right(const T x, const T y) {\n      assert(0 <= x && x < T(this->size()));\n\
+    \      assert(0 <= y && y < T(this->size()));\n      this->m_perm[this->m_inv[y]]\
+    \ = x;\n      this->m_perm[this->m_inv[x]] = y;\n      ::std::swap(this->m_inv[x],\
+    \ this->m_inv[y]);\n      return *this;\n    }\n\n    T id() const {\n      if\
+    \ (this->size() == 0) return 0;\n\n      ::std::vector<T> left(this->size());\n\
+    \      ::std::iota(left.begin(), left.end(), 0);\n\n      ::std::vector<T> fact(this->size());\n\
+    \      fact[0] = 1;\n      for (::std::size_t i = 1; i < this->size(); ++i) {\n\
+    \        fact[i] = fact[i - 1] * i;\n      }\n\n      T id = 0;\n      for (::std::size_t\
+    \ i = 0; i < this->size(); ++i) {\n        auto it = ::std::lower_bound(left.begin(),\
     \ left.end(), this->m_perm[i]);\n        id += ::std::distance(left.begin(), it)\
     \ * fact[this->m_perm.size() - 1 - i];\n        left.erase(it);\n      }\n\n \
     \     return id;\n    }\n\n    static ::tools::permutation<T> from(const ::std::size_t\
@@ -233,7 +229,7 @@ data:
   isVerificationFile: true
   path: tests/tsort/query.test.cpp
   requiredBy: []
-  timestamp: '2024-08-31 13:46:12+09:00'
+  timestamp: '2024-11-30 16:17:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: tests/tsort/query.test.cpp

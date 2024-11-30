@@ -36,6 +36,9 @@ data:
     path: tools/large_fact_mod_cache.hpp
     title: Precompute $n! \pmod{P}$ for $0 \leq n < P \approx 10^9$
   - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
+  - icon: ':heavy_check_mark:'
     path: tools/modint_for_rolling_hash.hpp
     title: $\mathbb{Z} / (2^{61} - 1) \mathbb{Z}$
   - icon: ':heavy_check_mark:'
@@ -168,6 +171,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/large_fact_mod_cache/fact.test.cpp
     title: tests/large_fact_mod_cache/fact.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/bisect/no_restore.test.cpp
+    title: tests/lis/bisect/no_restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/bisect/restore.test.cpp
+    title: tests/lis/bisect/restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/segtree/no_restore.test.cpp
+    title: tests/lis/segtree/no_restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/segtree/restore.test.cpp
+    title: tests/lis/segtree/restore.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/monoid.test.cpp
     title: tests/monoid.test.cpp
@@ -415,6 +430,7 @@ data:
   - tools/partition_function.hpp
   - tools/polynomial_interpolation.hpp
   - tools/twelvefold_way.hpp
+  - tools/lis.hpp
   - tools/polynomial.hpp
   - tools/floor_kth_root.hpp
   - tools/stirling_2nd.hpp
@@ -491,6 +507,10 @@ data:
   - tests/fps/exp_other_mods.test.cpp
   - tests/fps/pow_mod998244353.test.cpp
   - tests/bernoulli.test.cpp
+  - tests/lis/segtree/restore.test.cpp
+  - tests/lis/segtree/no_restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
+  - tests/lis/bisect/no_restore.test.cpp
   - tests/permutation.test.cpp
   - tests/polynomial/taylor_shift.test.cpp
   - tests/polynomial/multipoint_evaluation_other_mods.test.cpp

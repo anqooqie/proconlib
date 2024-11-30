@@ -6,6 +6,9 @@ data:
     path: tools/cmp_not_equal.hpp
     title: Polyfill of std::cmp_not_equal
   - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
+  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   _extendedVerifiedWith:
@@ -15,6 +18,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/cmp_not_equal.test.cpp
     title: tests/cmp_not_equal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/bisect/no_restore.test.cpp
+    title: tests/lis/bisect/no_restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/bisect/restore.test.cpp
+    title: tests/lis/bisect/restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/segtree/no_restore.test.cpp
+    title: tests/lis/segtree/no_restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/segtree/restore.test.cpp
+    title: tests/lis/segtree/restore.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
@@ -43,11 +58,16 @@ data:
   requiredBy:
   - tools/cmp_not_equal.hpp
   - tools/suffix_array.hpp
+  - tools/lis.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/cmp_not_equal.test.cpp
   - tests/cmp_equal.test.cpp
+  - tests/lis/segtree/restore.test.cpp
+  - tests/lis/segtree/no_restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
+  - tests/lis/bisect/no_restore.test.cpp
   - tests/suffix_array.test.cpp
 documentation_of: tools/cmp_equal.hpp
 layout: document

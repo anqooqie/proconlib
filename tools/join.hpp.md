@@ -13,8 +13,11 @@ data:
     path: tests/eratosthenes_sieve.test.cpp
     title: tests/eratosthenes_sieve.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/lis.test.cpp
-    title: tests/lis.test.cpp
+    path: tests/lis/bisect/restore.test.cpp
+    title: tests/lis/bisect/restore.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/lis/segtree/restore.test.cpp
+    title: tests/lis/segtree/restore.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/lowlink/biconnected_components.test.cpp
     title: tests/lowlink/biconnected_components.test.cpp
@@ -107,7 +110,8 @@ data:
   - tests/cycle_detection/undirected.test.cpp
   - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
-  - tests/lis.test.cpp
+  - tests/lis/segtree/restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
   - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/join.hpp
 layout: document

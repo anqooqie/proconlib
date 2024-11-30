@@ -8,33 +8,29 @@ data:
     path: tools/gcd.hpp
     title: std::gcd(m, n) extended for my library
   - icon: ':heavy_check_mark:'
+    path: tools/lis.hpp
+    title: Longest increasing subsequence
+  - icon: ':heavy_check_mark:'
     path: tools/monoid.hpp
     title: Typical monoids
   - icon: ':heavy_check_mark:'
     path: tools/permutation.hpp
     title: Permutation
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/lis/bisect/no_restore.test.cpp
-    title: tests/lis/bisect/no_restore.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lis/bisect/restore.test.cpp
-    title: tests/lis/bisect/restore.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lis/segtree/no_restore.test.cpp
-    title: tests/lis/segtree/no_restore.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/lis/segtree/restore.test.cpp
-    title: tests/lis/segtree/restore.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 1 \"tools/lis.hpp\"\n\n\n\n#include <type_traits>\n#include\
-    \ <iterator>\n#include <cstddef>\n#include <vector>\n#include <numeric>\n#include\
-    \ <algorithm>\n#include <functional>\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D
+  bundledCode: "#line 1 \"tests/lis/bisect/no_restore.test.cpp\"\n#define PROBLEM\
+    \ \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D\"\n\n#include <iostream>\n\
+    #include <vector>\n#line 1 \"tools/lis.hpp\"\n\n\n\n#include <type_traits>\n#include\
+    \ <iterator>\n#include <cstddef>\n#line 8 \"tools/lis.hpp\"\n#include <numeric>\n\
+    #include <algorithm>\n#include <functional>\n#line 1 \"lib/ac-library/atcoder/segtree.hpp\"\
     \n\n\n\n#line 5 \"lib/ac-library/atcoder/segtree.hpp\"\n#include <cassert>\n#line\
     \ 8 \"lib/ac-library/atcoder/segtree.hpp\"\n\n#line 1 \"lib/ac-library/atcoder/internal_bit.hpp\"\
     \n\n\n\n#ifdef _MSC_VER\n#include <intrin.h>\n#endif\n\n#if __cplusplus >= 202002L\n\
@@ -92,8 +88,8 @@ data:
     \ & -r) != r);\n        return 0;\n    }\n\n  private:\n    int _n, size, log;\n\
     \    std::vector<S> d;\n\n    void update(int k) { d[k] = op(d[2 * k], d[2 * k\
     \ + 1]); }\n};\n\n}  // namespace atcoder\n\n\n#line 1 \"tools/permutation.hpp\"\
-    \n\n\n\n#line 10 \"tools/permutation.hpp\"\n#include <utility>\n#include <iostream>\n\
-    #include <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
+    \n\n\n\n#line 10 \"tools/permutation.hpp\"\n#include <utility>\n#line 12 \"tools/permutation.hpp\"\
+    \n#include <string>\n\nnamespace tools {\n  template <typename T>\n  class permutation\
     \ {\n    ::std::vector<T> m_perm;\n    ::std::vector<T> m_inv;\n\n    void verify_consistency()\
     \ const {\n#ifndef NDEBUG\n      ::std::vector<bool> unique(this->m_perm.size(),\
     \ true);\n      for (const T x : this->m_perm) {\n        assert(0 <= x && x <\
@@ -278,218 +274,33 @@ data:
     \    }\n    template <bool Strict, typename InputIterator>\n    int bisect(const\
     \ InputIterator begin, const InputIterator end) {\n      return ::tools::lis::bisect<Strict,\
     \ false>(begin, end, ::std::less<typename ::std::iterator_traits<InputIterator>::value_type>{});\n\
-    \    }\n  }\n}\n\n\n"
-  code: "#ifndef TOOLS_LIS_HPP\n#define TOOLS_LIS_HPP\n\n#include <type_traits>\n\
-    #include <iterator>\n#include <cstddef>\n#include <vector>\n#include <numeric>\n\
-    #include <algorithm>\n#include <functional>\n#include \"atcoder/segtree.hpp\"\n\
-    #include \"tools/permutation.hpp\"\n#include \"tools/monoid.hpp\"\n#include \"\
-    tools/cmp_equal.hpp\"\n\nnamespace tools {\n  namespace lis {\n    template <bool\
-    \ Strict, bool Restore, typename RandomAccessIterator, typename Compare, ::std::enable_if_t<::std::is_base_of_v<::std::random_access_iterator_tag,\
-    \ typename ::std::iterator_traits<RandomAccessIterator>::iterator_category>, ::std::nullptr_t>\
-    \ = nullptr>\n    ::std::conditional_t<Restore, ::std::vector<int>, int> segtree(const\
-    \ RandomAccessIterator begin, const RandomAccessIterator end, const Compare& comp)\
-    \ {\n      const int N = end - begin;\n\n      const auto p = ::tools::permutation<int>([&]()\
-    \ {\n        ::std::vector<int> v(N);\n        if constexpr (Strict) {\n     \
-    \     ::std::iota(v.rbegin(), v.rend(), 0);\n        } else {\n          ::std::iota(v.begin(),\
-    \ v.end(), 0);\n        }\n        ::std::stable_sort(v.begin(), v.end(), [&](const\
-    \ auto x, const auto y) {\n          return comp(begin[x], begin[y]);\n      \
-    \  });\n        return v;\n      }()).inv_inplace();\n\n      ::atcoder::segtree<int,\
-    \ ::tools::monoid::max<int, 0>::op, ::tools::monoid::max<int, 0>::e> segtree(N);\n\
-    \      for (int i = 0; i < N; ++i) {\n        segtree.set(p[i], segtree.prod(0,\
-    \ p[i]) + 1);\n      }\n\n      if constexpr (Restore) {\n        ::std::vector<int>\
-    \ answer(segtree.all_prod());\n        for (int i = N - 1; i >= 0; --i) {\n  \
-    \        if (const auto k = segtree.get(p[i]); k == segtree.all_prod() || p[i]\
-    \ < p[answer[k]]) {\n            answer[k - 1] = i;\n          }\n        }\n\
-    \        return answer;\n      } else {\n        return segtree.all_prod();\n\
-    \      }\n    }\n    template <bool Strict, bool Restore, typename InputIterator,\
-    \ typename Compare, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag,\
-    \ typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t>\
-    \ = nullptr>\n    ::std::conditional_t<Restore, ::std::vector<int>, int> segtree(const\
-    \ InputIterator begin, const InputIterator end, const Compare& comp) {\n     \
-    \ ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type> v(begin,\
-    \ end);\n      return ::tools::lis::segtree<Strict, Restore>(v.begin(), v.end());\n\
-    \    }\n    template <bool Strict, bool Restore, typename InputIterator>\n   \
-    \ ::std::conditional_t<Restore, ::std::vector<int>, int> segtree(const InputIterator\
-    \ begin, const InputIterator end) {\n      return ::tools::lis::segtree<Strict,\
-    \ Restore>(begin, end, ::std::less<typename ::std::iterator_traits<InputIterator>::value_type>{});\n\
-    \    }\n    template <bool Strict, typename InputIterator, typename Compare>\n\
-    \    int segtree(const InputIterator begin, const InputIterator end, const Compare&\
-    \ comp) {\n      return ::tools::lis::segtree<Strict, false>(begin, end, comp);\n\
-    \    }\n    template <bool Strict, typename InputIterator>\n    int segtree(const\
-    \ InputIterator begin, const InputIterator end) {\n      return ::tools::lis::segtree<Strict,\
-    \ false>(begin, end, ::std::less<typename ::std::iterator_traits<InputIterator>::value_type>{});\n\
-    \    }\n\n    template <bool Strict, bool Restore, typename RandomAccessIterator,\
-    \ typename Compare, ::std::enable_if_t<::std::is_base_of_v<::std::random_access_iterator_tag,\
-    \ typename ::std::iterator_traits<RandomAccessIterator>::iterator_category>, ::std::nullptr_t>\
-    \ = nullptr>\n    ::std::conditional_t<Restore, ::std::vector<int>, int> bisect(const\
-    \ RandomAccessIterator begin, const RandomAccessIterator end, const Compare& comp)\
-    \ {\n      const int N = end - begin;\n\n      ::std::vector<int> bisect;\n  \
-    \    ::std::vector<int> lengths(Restore ? N : 0);\n      for (int i = 0; i < N;\
-    \ ++i) {\n        const auto it = Strict\n          ? ::std::lower_bound(bisect.begin(),\
-    \ bisect.end(), i, [&](const auto x, const auto y) { return comp(begin[x], begin[y]);\
-    \ })\n          : ::std::upper_bound(bisect.begin(), bisect.end(), i, [&](const\
-    \ auto x, const auto y) { return comp(begin[x], begin[y]); });\n        if constexpr\
-    \ (Restore) {\n          lengths[i] = ::std::distance(bisect.begin(), it) + 1;\n\
-    \        }\n        if (it != bisect.end()) {\n          *it = i;\n        } else\
-    \ {\n          bisect.push_back(i);\n        }\n      }\n\n      if constexpr\
-    \ (Restore) {\n        ::std::vector<int> answer(bisect.size());\n        for\
-    \ (int i = N - 1; i >= 0; --i) {\n          if (const auto k = lengths[i]; ::tools::cmp_equal(k,\
-    \ bisect.size()) || (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]],\
-    \ begin[i]))) {\n            answer[k - 1] = i;\n          }\n        }\n    \
-    \    return answer;\n      } else {\n        return bisect.size();\n      }\n\
-    \    }\n    template <bool Strict, bool Restore, typename InputIterator, typename\
-    \ Compare, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag,\
-    \ typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t>\
-    \ = nullptr>\n    ::std::conditional_t<Restore, ::std::vector<int>, int> bisect(const\
-    \ InputIterator begin, const InputIterator end, const Compare& comp) {\n     \
-    \ ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type> v(begin,\
-    \ end);\n      return ::tools::lis::bisect<Strict, Restore>(v.begin(), v.end());\n\
-    \    }\n    template <bool Strict, bool Restore, typename InputIterator>\n   \
-    \ ::std::conditional_t<Restore, ::std::vector<int>, int> bisect(const InputIterator\
-    \ begin, const InputIterator end) {\n      return ::tools::lis::bisect<Strict,\
-    \ Restore>(begin, end, ::std::less<typename ::std::iterator_traits<InputIterator>::value_type>{});\n\
-    \    }\n    template <bool Strict, typename InputIterator, typename Compare>\n\
-    \    int bisect(const InputIterator begin, const InputIterator end, const Compare&\
-    \ comp) {\n      return ::tools::lis::bisect<Strict, false>(begin, end, comp);\n\
-    \    }\n    template <bool Strict, typename InputIterator>\n    int bisect(const\
-    \ InputIterator begin, const InputIterator end) {\n      return ::tools::lis::bisect<Strict,\
-    \ false>(begin, end, ::std::less<typename ::std::iterator_traits<InputIterator>::value_type>{});\n\
-    \    }\n  }\n}\n\n#endif\n"
+    \    }\n  }\n}\n\n\n#line 6 \"tests/lis/bisect/no_restore.test.cpp\"\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int\
+    \ n;\n  std::cin >> n;\n  std::vector<int> a(n);\n  for (auto&& a_i : a) std::cin\
+    \ >> a_i;\n\n  std::cout << tools::lis::bisect<true>(a.begin(), a.end()) << '\\\
+    n';\n  return 0;\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_D\"\n\n\
+    #include <iostream>\n#include <vector>\n#include \"tools/lis.hpp\"\n\nint main()\
+    \ {\n  std::cin.tie(nullptr);\n  std::ios_base::sync_with_stdio(false);\n\n  int\
+    \ n;\n  std::cin >> n;\n  std::vector<int> a(n);\n  for (auto&& a_i : a) std::cin\
+    \ >> a_i;\n\n  std::cout << tools::lis::bisect<true>(a.begin(), a.end()) << '\\\
+    n';\n  return 0;\n}\n"
   dependsOn:
+  - tools/lis.hpp
   - tools/permutation.hpp
   - tools/monoid.hpp
   - tools/gcd.hpp
   - tools/cmp_equal.hpp
-  isVerificationFile: false
-  path: tools/lis.hpp
+  isVerificationFile: true
+  path: tests/lis/bisect/no_restore.test.cpp
   requiredBy: []
   timestamp: '2024-11-30 16:17:24+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - tests/lis/segtree/restore.test.cpp
-  - tests/lis/segtree/no_restore.test.cpp
-  - tests/lis/bisect/restore.test.cpp
-  - tests/lis/bisect/no_restore.test.cpp
-documentation_of: tools/lis.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: tests/lis/bisect/no_restore.test.cpp
 layout: document
-title: Longest increasing subsequence
+redirect_from:
+- /verify/tests/lis/bisect/no_restore.test.cpp
+- /verify/tests/lis/bisect/no_restore.test.cpp.html
+title: tests/lis/bisect/no_restore.test.cpp
 ---
-
-## (1)
-```cpp
-int lis::segtree<true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::segtree<true, false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::bisect<true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::bisect<true, false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-```
-
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$, it returns the length of the longest increasing subsequence.
-The relationship $a_i < a_j$ is defined by $\mathrm{comp}(a_i, a_j)$.
-
-### Constraints
-- `comp` is strict weak ordering.
-
-### Time Complexity
-- $O(N \log N)$
-
-### Algorithm
-In the `segtree` function, it speeds up the DP of $O(N^2)$ time, which maximizes the length of the increasing subsequence when the last element of the increasing subsequence is $a_i$, to $O(N \log N)$ time using a segment tree.
-In the `bisect` function, it sppeds up the DP of $O(N^2)$ time, which minimizes the last element of the increasing subsequence when the length of the increasing subsequence is $l$, to $O(N \log N)$ time using binary search.
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (2)
-```cpp
-int lis::segtree<false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::segtree<false, false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::bisect<false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-int lis::bisect<false, false>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-```
-
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$, it returns the length of the longest non-decreasing subsequence.
-The relationship $a_i \leq a_j$ is defined by $\lnot \mathrm{comp}(a_j, a_i)$.
-
-### Constraints
-- `comp` is strict weak ordering.
-
-### Time Complexity
-- $O(N \log N)$
-
-### Algorithm
-See (1).
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (3)
-```cpp
-std::vector<int> lis::segtree<true, true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-std::vector<int> lis::bisect<true, true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-```
-
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$, it returns the indices of the longest increasing subsequence.
-Since there can be multiple longest increasing subsequences, the one with the smallest index sequence in lexicographic order is returned.
-
-Formally speaking, it returns the smallest integer sequence $(i_0, i_1, \ldots, i_{k - 1})$ in lexicographic order that satisfy the following conditions:
-
-$$\begin{align*}
-i_0 < i_1 < \cdots < l_{k - 1}\\
-a_{i_0} < a_{i_1} < \cdots < a_{i_{k - 1}}
-\end{align*}$$
-
-where $k$ is the length of the longest increasing subsequence, and the relationship $a_i < a_j$ is defined by $\mathrm{comp}(a_i, a_j)$.
-
-### Constraints
-- `comp` is strict weak ordering.
-
-### Time Complexity
-- $O(N \log N)$
-
-### Algorithm
-See (1).
-
-### License
-- CC0
-
-### Author
-- anqooqie
-
-## (4)
-```cpp
-std::vector<int> lis::segtree<false, true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-std::vector<int> lis::bisect<false, true>(InputIterator begin, InputIterator end, Compare comp = std::less<typename std::iterator_traits<InputIterator>::value_type>{});
-```
-
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$, it returns the indices of the longest non-decreasing subsequence.
-Since there can be multiple longest non-decreasing subsequences, the one with the smallest index sequence in lexicographic order is returned.
-
-Formally speaking, it returns the smallest integer sequence $(i_0, i_1, \ldots, i_{k - 1})$ in lexicographic order that satisfy the following conditions:
-
-$$\begin{align*}
-i_0 < i_1 < \cdots < l_{k - 1}\\
-a_{i_0} \leq a_{i_1} \leq \cdots \leq a_{i_{k - 1}}
-\end{align*}$$
-
-where $k$ is the length of the longest non-decreasing subsequence, and the relationship $a_i \leq a_j$ is defined by $\lnot \mathrm{comp}(a_j, a_i)$.
-
-### Constraints
-- `comp` is strict weak ordering.
-
-### Time Complexity
-- $O(N \log N)$
-
-### Algorithm
-See (1).
-
-### License
-- CC0
-
-### Author
-- anqooqie

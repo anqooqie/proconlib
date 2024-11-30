@@ -948,9 +948,6 @@ data:
       path: tests/linear_sieve.test.cpp
       title: tests/linear_sieve.test.cpp
     - icon: ':heavy_check_mark:'
-      path: tests/lis.test.cpp
-      title: tests/lis.test.cpp
-    - icon: ':heavy_check_mark:'
       path: tests/log_mod.test.cpp
       title: tests/log_mod.test.cpp
     - icon: ':heavy_check_mark:'
@@ -1371,6 +1368,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/line_2d/projection.test.cpp
       title: tests/line_2d/projection.test.cpp
+  - name: tests/lis/bisect
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/lis/bisect/no_restore.test.cpp
+      title: tests/lis/bisect/no_restore.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lis/bisect/restore.test.cpp
+      title: tests/lis/bisect/restore.test.cpp
+  - name: tests/lis/segtree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tests/lis/segtree/no_restore.test.cpp
+      title: tests/lis/segtree/no_restore.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/lis/segtree/restore.test.cpp
+      title: tests/lis/segtree/restore.test.cpp
   - name: tests/lowlink
     pages:
     - icon: ':heavy_check_mark:'

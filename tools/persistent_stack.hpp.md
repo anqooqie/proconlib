@@ -1,14 +1,8 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: tools/lis.hpp
-    title: Longest increasing subsequence
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: tests/lis.test.cpp
-    title: tests/lis.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/persistent_stack.test.cpp
     title: tests/persistent_stack.test.cpp
@@ -89,13 +83,11 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: tools/persistent_stack.hpp
-  requiredBy:
-  - tools/lis.hpp
+  requiredBy: []
   timestamp: '2022-04-16 10:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/persistent_stack.test.cpp
-  - tests/lis.test.cpp
 documentation_of: tools/persistent_stack.hpp
 layout: document
 title: Persistent stack
