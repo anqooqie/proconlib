@@ -54,10 +54,6 @@ data:
     path: tools/segmented_sieve.hpp
     title: Segmented sieve
   - icon: ':heavy_check_mark:'
-    path: tools/small_range_lower_bound.hpp
-    title: std::lower_bound in $\left\langle O(N + \max(A_i) - \min(A_i)), O(1) \right\rangle$
-      time
-  - icon: ':heavy_check_mark:'
     path: tools/suffix_array.hpp
     title: Wrapper of atcoder::suffix_array and atcoder::lcp_array
   - icon: ':heavy_check_mark:'
@@ -215,9 +211,6 @@ data:
     path: tests/segmented_sieve.test.cpp
     title: tests/segmented_sieve.test.cpp
   - icon: ':heavy_check_mark:'
-    path: tests/small_range_lower_bound.test.cpp
-    title: tests/small_range_lower_bound.test.cpp
-  - icon: ':heavy_check_mark:'
     path: tests/suffix_array.test.cpp
     title: tests/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'
@@ -295,7 +288,6 @@ data:
   - tools/cmp_less_equal.hpp
   - tools/rational.hpp
   - tools/cmp_greater_equal.hpp
-  - tools/small_range_lower_bound.hpp
   - tools/tree_diameter.hpp
   - tools/bellman_ford.hpp
   - tools/largest_rectangle_in_histogram.hpp
@@ -314,7 +306,6 @@ data:
   - tests/bigint/multiplies.test.cpp
   - tests/bigint/minus.test.cpp
   - tests/bellman_ford.test.cpp
-  - tests/small_range_lower_bound.test.cpp
   - tests/monoid.test.cpp
   - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
