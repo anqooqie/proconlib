@@ -5,12 +5,9 @@
 #include <type_traits>
 #include <iterator>
 #include <cstddef>
-#include <cassert>
-#include <algorithm>
 #include <limits>
-#include <iterator>
-#include <vector>
-#include "tools/cmp_less_equal.hpp"
+#include <algorithm>
+#include <numeric>
 
 namespace tools {
   template <typename T>
@@ -18,33 +15,29 @@ namespace tools {
     T m_min;
     ::std::vector<int> m_res;
 
-    template <typename RandomAccessIterator, ::std::enable_if_t<::std::is_base_of_v<::std::random_access_iterator_tag, typename ::std::iterator_traits<RandomAccessIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
-    void init(const RandomAccessIterator begin, const RandomAccessIterator end) {
-      assert(::std::is_sorted(begin, end));
-      const int N = end - begin;
+    template <typename ForwardIterator, ::std::enable_if_t<::std::is_base_of_v<::std::forward_iterator_tag, typename ::std::iterator_traits<ForwardIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
+    void init(const ForwardIterator begin, const ForwardIterator end) {
       if (begin == end) {
         this->m_min = ::std::numeric_limits<T>::max();
-        this->m_res.resize(1);
+        this->m_res.assign({0});
       } else {
-        this->m_min = *begin;
-        this->m_res.resize(*::std::prev(end) - *begin + 2);
-        for (int l = 0, r = 0, d = 0; l < N; d = begin[l] - *begin + 1, l = r) {
-          for (; r < N && begin[l] == begin[r]; ++r);
-          for (int x = d; ::tools::cmp_less_equal(x, begin[l] - *begin); ++x) {
-            this->m_res[x] = l;
-          }
+        const auto [minit, maxit] = ::std::minmax_element(begin, end);
+        this->m_min = *minit;
+        this->m_res.assign(*maxit - *minit + 2, 0);
+        for (auto it = begin; it != end; ++it) {
+          ++this->m_res[*it - *minit + 1];
         }
+        ::std::partial_sum(this->m_res.begin(), this->m_res.end(), this->m_res.begin());
       }
-      this->m_res.back() = N;
     }
 
   public:
     small_range_lower_bound() = default;
-    template <typename RandomAccessIterator, ::std::enable_if_t<::std::is_base_of_v<::std::random_access_iterator_tag, typename ::std::iterator_traits<RandomAccessIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
-    small_range_lower_bound(const RandomAccessIterator begin, const RandomAccessIterator end) {
+    template <typename ForwardIterator, ::std::enable_if_t<::std::is_base_of_v<::std::forward_iterator_tag, typename ::std::iterator_traits<ForwardIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
+    small_range_lower_bound(const ForwardIterator begin, const ForwardIterator end) {
       this->init(begin, end);
     }
-    template <typename InputIterator, ::std::enable_if_t<!::std::is_base_of_v<::std::random_access_iterator_tag, typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
+    template <typename InputIterator, ::std::enable_if_t<!::std::is_base_of_v<::std::forward_iterator_tag, typename ::std::iterator_traits<InputIterator>::iterator_category>, ::std::nullptr_t> = nullptr>
     small_range_lower_bound(const InputIterator begin, const InputIterator end) {
       ::std::vector<T> v(begin, end);
       this->init(v.begin(), v.end());
