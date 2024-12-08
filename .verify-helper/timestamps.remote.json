@@ -71,6 +71,7 @@
 "tests/divisor_moebius.test.cpp": "2024-10-08 23:47:47 +0900",
 "tests/divisor_zeta.test.cpp": "2024-10-08 23:47:47 +0900",
 "tests/divisors.test.cpp": "2024-04-29 15:33:11 +0900",
+"tests/divisors_of_divisor.test.cpp": "2024-12-08 17:34:07 +0900",
 "tests/dsu.test.cpp": "2023-08-05 18:58:35 +0900",
 "tests/dual_segtree.test.cpp": "2024-02-18 13:45:51 +0900",
 "tests/eratosthenes_sieve.test.cpp": "2024-09-28 22:59:33 +0900",
