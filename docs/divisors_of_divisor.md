@@ -112,3 +112,36 @@ It is equivalent to `ds.divisors(ds.find(d))`.
 ### Time Complexity
 - If you just call `divisors`, it takes only $O\left( \frac{\log n}{\log \log n} \right)$ time.
 - If you enumerate all the positive divisors of $d$, it takes $O\left( 2^\frac{\log d}{\log \log d} \frac{\log n}{\log \log n} \right)$ time.
+
+## estimated_complexity
+```cpp
+int ds.estimated_complexity();
+```
+
+The following code, which enumerates all positive divisors $d$ of `*it` for all positive divisors `*it` of $n$, is expected to take `ds.estimated_complexity()` time multiplied by a constant.
+
+```cpp
+tools::divisors_of_divisor<long long> ds(n);
+for (auto it = ds.divisors().begin(); it != ds.divisors().end(); ++it) {
+  for (const auto d : ds.divisors(it)) {
+    // some process executed in O(1) time
+  }
+}
+```
+
+The reason `estimated_complexity` was created is because it is difficult to express the computational complexity of the above code in order notation.
+The values of `tools::divisors_of_divisor<long long>(n).estimated_complexity()` for typical values of $n$ are shown below.
+
+|$n$|`estimated_complexity`|
+|$840$|$530$|
+|$720{,}720$|$12{,}885$|
+|$735{,}134{,}400$|$201{,}432$|
+|$963{,}761{,}198{,}400$|$2{,}665{,}635$|
+|$866{,}421{,}317{,}361{,}600$|$24{,}057{,}915$|
+|$897{,}612{,}484{,}786{,}617{,}600$|$215{,}026{,}245$|
+
+### Constraints
+- None
+
+### Time Complexity
+- $O\left( \left( \log n \right)^2 \right)$

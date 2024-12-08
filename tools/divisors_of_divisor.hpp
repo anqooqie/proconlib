@@ -2,15 +2,17 @@
 #define TOOLS_DIVISORS_OF_DIVISOR_HPP
 
 #include <vector>
+#include <numeric>
+#include <algorithm>
 #include <cstddef>
 #include <iterator>
-#include <algorithm>
+#include <utility>
 #include <cassert>
-#include <numeric>
+#include "atcoder/modint.hpp"
+#include "tools/less_by.hpp"
 #include "tools/ceil.hpp"
 #include "tools/prime_factorization.hpp"
-#include "tools/cmp_less.hpp"
-#include "tools/less_by.hpp"
+#include "tools/fps.hpp"
 
 namespace tools {
   template <typename T>
@@ -18,6 +20,29 @@ namespace tools {
     ::std::vector<T> m_divisors;
     ::std::vector<int> m_sorted_divisors;
     ::std::vector<int> m_Q;
+
+    template <typename InputIterator>
+    void init(const InputIterator begin, const InputIterator end) {
+      this->m_divisors.push_back(1);
+      this->m_Q.push_back(1);
+      for (auto it = begin; it != end; ++it) {
+        const T p = it->first;
+        const int q = it->second;
+        const int divisors_size = this->m_divisors.size();
+        T pe = 1;
+        for (int e = 1; e <= q; ++e) {
+          pe *= p;
+          for (int i = 0; i < divisors_size; ++i) {
+            this->m_divisors.push_back(this->m_divisors[i] * pe);
+          }
+        }
+        this->m_Q.push_back(this->m_Q.back() * (q + 1));
+      }
+
+      this->m_sorted_divisors.resize(this->m_divisors.size());
+      ::std::iota(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), 0);
+      ::std::sort(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), ::tools::less_by([&](const auto i) { return this->m_divisors[i]; }));
+    }
 
   public:
     class divisors_iterable {
@@ -109,26 +134,17 @@ namespace tools {
     divisors_of_divisor() = default;
     divisors_of_divisor(const T n) {
       const auto factors = ::tools::prime_factorization(n);
-      this->m_divisors.push_back(1);
-      this->m_Q.push_back(1);
-      for (int l = 0, r = 0; ::tools::cmp_less(l, factors.size()); l = r) {
-        for (; ::tools::cmp_less(r, factors.size()) && factors[l] == factors[r]; ++r);
-        const auto& p = factors[l];
-        const auto q = r - l;
-        const int divisors_size = this->m_divisors.size();
-        T pe = 1;
-        for (int e = 1; e <= q; ++e) {
-          pe *= p;
-          for (int i = 0; i < divisors_size; ++i) {
-            this->m_divisors.push_back(this->m_divisors[i] * pe);
-          }
-        }
-        this->m_Q.push_back(this->m_Q.back() * (q + 1));
+      const int k = factors.size();
+      ::std::vector<::std::pair<T, int>> v;
+      for (int l = 0, r = 0; l < k; l = r) {
+        for (; r < k && factors[l] == factors[r]; ++r);
+        v.emplace_back(factors[l], r - l);
       }
-
-      this->m_sorted_divisors.resize(this->m_divisors.size());
-      ::std::iota(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), 0);
-      ::std::sort(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), ::tools::less_by([&](const auto i) { return this->m_divisors[i]; }));
+      this->init(v.begin(), v.end());
+    }
+    template <typename InputIterator>
+    divisors_of_divisor(const InputIterator begin, const InputIterator end) {
+      this->init(begin, end);
     }
 
     typename ::std::vector<T>::const_iterator find(const T x) const {
@@ -155,6 +171,54 @@ namespace tools {
     }
     divisors_iterable divisors(const T d) const {
       return this->divisors(this->find(d));
+    }
+
+    int estimated_complexity() const {
+      using M = ::atcoder::modint998244353;
+      using F = ::tools::fps<M>;
+
+      const int k = this->m_Q.size() - 1;
+      ::std::vector<int> q(k);
+      for (int i = 0; i < k; ++i) {
+        q[i] = this->m_Q[i + 1] / this->m_Q[i] - 1;
+      }
+
+      ::std::vector<int> s(k + 1);
+      s[k] = 0;
+      for (int i = k - 1; i >= 0; --i) {
+        s[i] = s[i + 1] + q[i];
+      }
+
+      ::std::vector<F> f(k, F(s[0] + 1));
+      for (int i = 0; i < k; ++i) {
+        f[i][0] = M(1);
+        if (q[i] + 1 <= s[0]) f[i][q[i] + 1] = M(-q[i] - 2);
+        if (q[i] + 2 <= s[0]) f[i][q[i] + 2] = M(q[i] + 1);
+      }
+
+      ::std::vector<F> n(k + 1);
+      n[k] = F(s[0] + 1);
+      n[k][0] = M(1);
+      for (int i = k - 1; i >= 0; --i) {
+        n[i] = n[i + 1] * f[i];
+      }
+
+      ::std::vector<F> d(2 * k + 2);
+      d[0] = F(s[0] + 1);
+      d[0][0] = M(1);
+      d[1] = F(s[0] + 1);
+      d[1][0] = M(1);
+      if (s[0] > 0) d[1][1] = M(-1);
+      d[1] = d[1].inv();
+      for (int i = 2; i <= 2 * k + 1; ++i) {
+        d[i] = d[i - 1] * d[1];
+      }
+
+      M answer(0);
+      for (int i = 0; i <= k; ++i) {
+        answer += M(this->m_Q[i]) * (n[i] * d[2 * (k - i) + 1])[s[i]];
+      }
+      return answer.val();
     }
   };
 }
