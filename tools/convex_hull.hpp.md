@@ -448,8 +448,8 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/convex_hull.test.cpp
+  - tests/polygon_2d/minimum_bounding_circle.test.cpp
 documentation_of: tools/convex_hull.hpp
 layout: document
 title: Convex hull

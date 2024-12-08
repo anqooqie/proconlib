@@ -750,10 +750,10 @@ data:
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/quaternion/slerp.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/slerp.test.cpp
 documentation_of: tools/quaternion.hpp
 layout: document
 title: Quaternion

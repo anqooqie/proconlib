@@ -56,19 +56,19 @@ data:
   isVerificationFile: false
   path: tools/cmp_equal.hpp
   requiredBy:
-  - tools/cmp_not_equal.hpp
   - tools/suffix_array.hpp
+  - tools/cmp_not_equal.hpp
   - tools/lis.hpp
   timestamp: '2024-03-20 23:37:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cmp_not_equal.test.cpp
   - tests/cmp_equal.test.cpp
-  - tests/lis/segtree/restore.test.cpp
-  - tests/lis/segtree/no_restore.test.cpp
-  - tests/lis/bisect/restore.test.cpp
-  - tests/lis/bisect/no_restore.test.cpp
   - tests/suffix_array.test.cpp
+  - tests/lis/segtree/no_restore.test.cpp
+  - tests/lis/segtree/restore.test.cpp
+  - tests/lis/bisect/no_restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
+  - tests/cmp_not_equal.test.cpp
 documentation_of: tools/cmp_equal.hpp
 layout: document
 title: Polyfill of std::cmp_equal

@@ -70,6 +70,9 @@ data:
     path: tests/divisor_zeta.test.cpp
     title: tests/divisor_zeta.test.cpp
   - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
+  - icon: ':heavy_check_mark:'
     path: tests/extend_hash.test.cpp
     title: tests/extend_hash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -303,98 +306,99 @@ data:
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/cmp_greater.test.cpp
-  - tests/multiple_zeta.test.cpp
-  - tests/gcd_convolution/different_lengths.test.cpp
-  - tests/ceil_log2.test.cpp
-  - tests/transposed.test.cpp
-  - tests/lcm_convolution/different_lengths.test.cpp
-  - tests/int128_t.test.cpp
-  - tests/tuple_hash.test.cpp
-  - tests/monoid.test.cpp
-  - tests/ssize.test.cpp
-  - tests/divisor_zeta.test.cpp
-  - tests/reverse.test.cpp
-  - tests/floor_quotients.test.cpp
-  - tests/less_equal_zeta.test.cpp
-  - tests/floor.test.cpp
-  - tests/cmp_not_equal.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/subset_moebius.test.cpp
-  - tests/cmp_equal.test.cpp
-  - tests/countr_zero.test.cpp
-  - tests/floor_sqrt.test.cpp
-  - tests/stirling_2nd/consistent.test.cpp
-  - tests/is_group.test.cpp
+  - tests/convolution/double.test.cpp
+  - tests/mex.test.cpp
+  - tests/stirling_1st/consistent.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/ceil_sqrt.test.cpp
+  - tests/multiple_moebius.test.cpp
+  - tests/and_convolution/different_lengths.test.cpp
   - tests/tsort/query.test.cpp
   - tests/tsort/count.test.cpp
-  - tests/superset_moebius.test.cpp
-  - tests/rotate_right.test.cpp
-  - tests/greater_equal_zeta.test.cpp
-  - tests/extend_input.test.cpp
-  - tests/random_tree.test.cpp
-  - tests/divisor_moebius.test.cpp
-  - tests/subset_zeta.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/mex.test.cpp
-  - tests/ord_mod/query.test.cpp
-  - tests/find_cycle.test.cpp
-  - tests/extend_hash.test.cpp
-  - tests/online_cumsum.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/multiple_moebius.test.cpp
-  - tests/uint128_t.test.cpp
-  - tests/cmp_less_equal.test.cpp
-  - tests/extend_output.test.cpp
-  - tests/cmp_less.test.cpp
-  - tests/convolution/double.test.cpp
-  - tests/rotate_left.test.cpp
-  - tests/fill.test.cpp
-  - tests/floor_log.test.cpp
-  - tests/linear_sieve.test.cpp
-  - tests/stirling_1st/consistent.test.cpp
-  - tests/is_monoid.test.cpp
-  - tests/bigdecimal/random.test.cpp
-  - tests/bigdecimal/hand.test.cpp
-  - tests/digit_sum.test.cpp
-  - tests/ceil.test.cpp
-  - tests/or_convolution/different_lengths.test.cpp
-  - tests/run_length.test.cpp
-  - tests/less_equal_moebius.test.cpp
-  - tests/bell/consistent.test.cpp
-  - tests/resize.test.cpp
-  - tests/fix.test.cpp
-  - tests/greater_equal_moebius.test.cpp
+  - tests/subset_moebius.test.cpp
+  - tests/int128_t.test.cpp
   - tests/virtual_vector.test.cpp
-  - tests/floor_log2.test.cpp
-  - tests/alphabetical_order.test.cpp
-  - tests/safe_int.test.cpp
+  - tests/less_equal_moebius.test.cpp
+  - tests/countr_zero.test.cpp
+  - tests/linear_sieve.test.cpp
+  - tests/subset_zeta.test.cpp
+  - tests/fact_mod_cache.test.cpp
+  - tests/superset_moebius.test.cpp
+  - tests/is_group.test.cpp
+  - tests/bigdecimal/hand.test.cpp
+  - tests/bigdecimal/random.test.cpp
+  - tests/less_equal_zeta.test.cpp
+  - tests/transposed.test.cpp
+  - tests/fill.test.cpp
+  - tests/cmp_equal.test.cpp
+  - tests/extend_hash.test.cpp
   - tests/superset_zeta.test.cpp
+  - tests/polynomial/multidimensional.test.cpp
+  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
+  - tests/digit_sum.test.cpp
+  - tests/find_cycle.test.cpp
   - tests/multiset.test.cpp
+  - tests/is_monoid.test.cpp
+  - tests/fix.test.cpp
+  - tests/run_length.test.cpp
+  - tests/ceil_quotients.test.cpp
+  - tests/online_cumsum.test.cpp
+  - tests/multiple_zeta.test.cpp
+  - tests/cmp_less_equal.test.cpp
+  - tests/xor_basis.test.cpp
+  - tests/extend_output.test.cpp
+  - tests/alphabetical_order.test.cpp
+  - tests/permutation.test.cpp
+  - tests/bell/consistent.test.cpp
   - tests/pdsu.test.cpp
-  - tests/ceil_sqrt.test.cpp
-  - tests/tsp.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
-  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/cmp_less.test.cpp
+  - tests/random_tree.test.cpp
+  - tests/rotate_right.test.cpp
+  - tests/uint128_t.test.cpp
+  - tests/tuple_hash.test.cpp
+  - tests/reverse.test.cpp
   - tests/zero_one_knapsack/solve_by_meet_in_the_middle.test.cpp
-  - tests/partition_function/consistent.test.cpp
-  - tests/cmp_greater_equal.test.cpp
-  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_minimizing_weight.test.cpp
+  - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
+  - tests/ceil.test.cpp
+  - tests/stirling_2nd/consistent.test.cpp
+  - tests/floor_quotients.test.cpp
+  - tests/greater_equal_moebius.test.cpp
+  - tests/monoid.test.cpp
   - tests/logn_integer_partition.test.cpp
+  - tests/greater_equal_zeta.test.cpp
+  - tests/cmp_greater.test.cpp
+  - tests/divisors_of_divisor.test.cpp
+  - tests/extend_input.test.cpp
+  - tests/resize.test.cpp
+  - tests/ceil_log.test.cpp
+  - tests/rational/random.test.cpp
+  - tests/ssize.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/cmp_greater_equal.test.cpp
+  - tests/divisor_zeta.test.cpp
+  - tests/ceil_kth_root.test.cpp
+  - tests/partition_function/consistent.test.cpp
+  - tests/large_fact_mod_cache/binomial.test.cpp
+  - tests/gcd_convolution/different_lengths.test.cpp
+  - tests/safe_int.test.cpp
+  - tests/ceil_log2.test.cpp
+  - tests/floor.test.cpp
+  - tests/rotate_left.test.cpp
+  - tests/lcm_convolution/different_lengths.test.cpp
+  - tests/or_convolution/different_lengths.test.cpp
+  - tests/floor_log2.test.cpp
+  - tests/ord_mod/query.test.cpp
+  - tests/tsp.test.cpp
+  - tests/floor_log.test.cpp
   - tests/fps/inv_other_mods.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
   - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/ceil_log.test.cpp
-  - tests/fact_mod_cache.test.cpp
-  - tests/and_convolution/different_lengths.test.cpp
+  - tests/cmp_not_equal.test.cpp
   - tests/is_in_grid.test.cpp
-  - tests/ceil_quotients.test.cpp
-  - tests/xor_basis.test.cpp
-  - tests/permutation.test.cpp
-  - tests/rational/random.test.cpp
-  - tests/polynomial/multipoint_evaluation_other_mods.test.cpp
-  - tests/polynomial/multidimensional.test.cpp
+  - tests/divisor_moebius.test.cpp
+  - tests/floor_sqrt.test.cpp
 documentation_of: tools/assert_that.hpp
 layout: document
 title: Assertion macro

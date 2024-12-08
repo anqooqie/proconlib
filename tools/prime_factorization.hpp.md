@@ -36,6 +36,9 @@ data:
     path: tools/divisors.hpp
     title: List all divisors
   - icon: ':heavy_check_mark:'
+    path: tools/divisors_of_divisor.hpp
+    title: List all divisors of a divisor of $n$
+  - icon: ':heavy_check_mark:'
     path: tools/extended_lucas.hpp
     title: Extended Lucas' theorem
   - icon: ':heavy_check_mark:'
@@ -57,6 +60,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/divisors.test.cpp
     title: tests/divisors.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/extended_lucas.test.cpp
     title: tests/extended_lucas.test.cpp
@@ -303,38 +309,40 @@ data:
   isVerificationFile: false
   path: tools/prime_factorization.hpp
   requiredBy:
-  - tools/divisors.hpp
   - tools/ord_mod.hpp
-  - tools/totient.hpp
-  - tools/extended_lucas.hpp
-  - tools/primitive_root.hpp
-  - tools/twelvefold_way.hpp
   - tools/tetration_mod.hpp
+  - tools/divisors_of_divisor.hpp
+  - tools/twelvefold_way.hpp
+  - tools/primitive_root.hpp
+  - tools/extended_lucas.hpp
+  - tools/divisors.hpp
+  - tools/totient.hpp
   timestamp: '2024-04-29 15:33:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/primitive_root.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
-  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
-  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
   - tests/tetration_mod.test.cpp
   - tests/divisors.test.cpp
+  - tests/extended_lucas.test.cpp
+  - tests/primitive_root.test.cpp
+  - tests/totient.test.cpp
+  - tests/divisors_of_divisor.test.cpp
+  - tests/prime_factorization.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_unrestricted.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_least_1.test.cpp
+  - tests/twelvefold_way/labeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_labeled_box_at_most_1.test.cpp
+  - tests/twelvefold_way/unlabeled_ball_unlabeled_box_at_most_1.test.cpp
   - tests/ord_mod/query.test.cpp
   - tests/ord_mod/count.test.cpp
-  - tests/totient.test.cpp
-  - tests/extended_lucas.test.cpp
-  - tests/prime_factorization.test.cpp
-  - tests/fps/log_other_mods.test.cpp
   - tests/fps/exp_other_mods.test.cpp
+  - tests/fps/log_other_mods.test.cpp
 documentation_of: tools/prime_factorization.hpp
 layout: document
 title: Pollard's rho algorithm

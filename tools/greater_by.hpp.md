@@ -37,14 +37,14 @@ data:
   isVerificationFile: false
   path: tools/greater_by.hpp
   requiredBy:
-  - tools/prim.hpp
   - tools/polynomial_product.hpp
+  - tools/prim.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/polynomial_product.test.cpp
-  - tests/prim/basic.test.cpp
   - tests/prim/unconnected.test.cpp
+  - tests/prim/basic.test.cpp
 documentation_of: tools/greater_by.hpp
 layout: document
 title: std::greater by key

@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tools/directed_line_segment_2d.hpp
     title: Two-dimensional directed line segment
+  - icon: ':heavy_check_mark:'
+    path: tools/divisors_of_divisor.hpp
+    title: List all divisors of a divisor of $n$
   - icon: ':warning:'
     path: tools/half_line_2d.hpp
     title: Two-dimensional half line
@@ -72,6 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/hld/epath.test.cpp
     title: tests/hld/epath.test.cpp
@@ -166,57 +172,59 @@ data:
   isVerificationFile: false
   path: tools/less_by.hpp
   requiredBy:
-  - tools/detail/geometry_2d.hpp
-  - tools/hld.hpp
-  - tools/directed_line_segment_2d.hpp
-  - tools/circle_2d.hpp
-  - tools/polygon_2d.hpp
-  - tools/naive_dijkstra.hpp
-  - tools/scc_graph.hpp
-  - tools/convex_hull.hpp
   - tools/half_line_2d.hpp
-  - tools/lca.hpp
-  - tools/triangle_2d.hpp
+  - tools/naive_dijkstra.hpp
   - tools/auxiliary_tree.hpp
+  - tools/lca.hpp
+  - tools/divisors_of_divisor.hpp
+  - tools/triangle_2d.hpp
   - tools/lowlink.hpp
+  - tools/convex_hull.hpp
+  - tools/circle_2d.hpp
+  - tools/directed_line_segment_2d.hpp
   - tools/line_2d.hpp
+  - tools/hld.hpp
+  - tools/scc_graph.hpp
+  - tools/polygon_2d.hpp
+  - tools/detail/geometry_2d.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/scc_graph/scc_id.test.cpp
-  - tests/scc_graph/edges_to_scc.test.cpp
-  - tests/scc_graph/sccs.test.cpp
-  - tests/line_2d/is_parallel_to.test.cpp
-  - tests/line_2d/projection.test.cpp
-  - tests/triangle_2d/circumcircle.test.cpp
-  - tests/triangle_2d/incircle.test.cpp
+  - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
+  - tests/quaternion/angle_axis.test.cpp
+  - tests/convex_hull.test.cpp
   - tests/polygon_2d/where.test.cpp
   - tests/polygon_2d/minimum_bounding_circle.test.cpp
   - tests/polygon_2d/area.test.cpp
-  - tests/hld/lca.test.cpp
+  - tests/lca.test.cpp
+  - tests/directed_line_segment_2d/squared_distance.test.cpp
+  - tests/directed_line_segment_2d/cross_point.test.cpp
+  - tests/directed_line_segment_2d/intersection.test.cpp
+  - tests/naive_dijkstra.test.cpp
+  - tests/real_interval_set.test.cpp
+  - tests/line_2d/projection.test.cpp
+  - tests/line_2d/is_parallel_to.test.cpp
+  - tests/scc_graph/scc_id.test.cpp
+  - tests/scc_graph/edges_to_scc.test.cpp
+  - tests/scc_graph/sccs.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
+  - tests/circle_2d/intersection_to_line.test.cpp
+  - tests/circle_2d/intersection_to_circle.test.cpp
+  - tests/circle_2d/where/with_radius.test.cpp
+  - tests/circle_2d/where/without_radius.test.cpp
+  - tests/divisors_of_divisor.test.cpp
+  - tests/triangle_2d/circumcircle.test.cpp
+  - tests/triangle_2d/incircle.test.cpp
   - tests/hld/vancestor.test.cpp
-  - tests/hld/vpath.test.cpp
+  - tests/hld/lca.test.cpp
   - tests/hld/epath.test.cpp
   - tests/hld/vsubtree.test.cpp
-  - tests/auxiliary_tree.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
-  - tests/quaternion/dice_rotations.test.cpp
-  - tests/quaternion/angle_axis.test.cpp
-  - tests/lca.test.cpp
-  - tests/convex_hull.test.cpp
-  - tests/naive_dijkstra.test.cpp
-  - tests/undoable_dsu/leader.test.cpp
-  - tests/directed_line_segment_2d/cross_point.test.cpp
-  - tests/directed_line_segment_2d/squared_distance.test.cpp
-  - tests/directed_line_segment_2d/intersection.test.cpp
-  - tests/circle_2d/intersection_to_line.test.cpp
-  - tests/circle_2d/where/without_radius.test.cpp
-  - tests/circle_2d/where/with_radius.test.cpp
-  - tests/circle_2d/intersection_to_circle.test.cpp
-  - tests/real_interval_set.test.cpp
-  - tests/lowlink/is_bridge.test.cpp
+  - tests/hld/vpath.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
+  - tests/auxiliary_tree.test.cpp
 documentation_of: tools/less_by.hpp
 layout: document
 title: std::less by key

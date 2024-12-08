@@ -461,8 +461,8 @@ data:
   timestamp: '2024-08-27 00:30:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/ncc_without_vertex.test.cpp
+  - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
 documentation_of: tools/lowlink.hpp
 layout: document

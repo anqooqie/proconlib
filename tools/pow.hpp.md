@@ -183,34 +183,34 @@ data:
   isVerificationFile: false
   path: tools/pow.hpp
   requiredBy:
-  - tools/detail/rolling_hash.hpp
-  - tools/ceil_kth_root.hpp
-  - tools/quaternion.hpp
   - tools/ord_mod.hpp
-  - tools/modint_for_rolling_hash.hpp
-  - tools/totient.hpp
-  - tools/floor_kth_root.hpp
-  - tools/rolling_hash.hpp
   - tools/tetration_mod.hpp
+  - tools/quaternion.hpp
+  - tools/ceil_kth_root.hpp
+  - tools/totient.hpp
+  - tools/rolling_hash.hpp
+  - tools/floor_kth_root.hpp
+  - tools/modint_for_rolling_hash.hpp
+  - tools/detail/rolling_hash.hpp
   timestamp: '2024-08-31 13:46:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/tetration_mod.test.cpp
-  - tests/has_mod.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/tetration_mod.test.cpp
+  - tests/floor_kth_root.test.cpp
+  - tests/rolling_hash.test.cpp
+  - tests/permutation.test.cpp
+  - tests/totient.test.cpp
+  - tests/has_mod.test.cpp
+  - tests/ceil_kth_root.test.cpp
   - tests/ord_mod/query.test.cpp
   - tests/ord_mod/count.test.cpp
-  - tests/totient.test.cpp
-  - tests/ceil_kth_root.test.cpp
-  - tests/rolling_hash.test.cpp
-  - tests/floor_kth_root.test.cpp
+  - tests/fps/exp_other_mods.test.cpp
   - tests/fps/log_other_mods.test.cpp
   - tests/fps/pow_other_mods.test.cpp
-  - tests/fps/exp_other_mods.test.cpp
-  - tests/permutation.test.cpp
 documentation_of: tools/pow.hpp
 layout: document
 title: $b^n$ under a given monoid, and std::pow(b, n) extended for my library

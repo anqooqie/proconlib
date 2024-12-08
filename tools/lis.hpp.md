@@ -366,10 +366,10 @@ data:
   timestamp: '2024-11-30 16:59:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/lis/segtree/restore.test.cpp
   - tests/lis/segtree/no_restore.test.cpp
-  - tests/lis/bisect/restore.test.cpp
+  - tests/lis/segtree/restore.test.cpp
   - tests/lis/bisect/no_restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
 documentation_of: tools/lis.hpp
 layout: document
 title: Longest increasing subsequence

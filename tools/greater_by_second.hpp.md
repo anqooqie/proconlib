@@ -48,18 +48,18 @@ data:
   isVerificationFile: false
   path: tools/greater_by_second.hpp
   requiredBy:
-  - tools/dijkstra.hpp
-  - tools/weighted_bipartite_matching.hpp
   - tools/mcf_graph.hpp
+  - tools/weighted_bipartite_matching.hpp
+  - tools/dijkstra.hpp
   timestamp: '2021-03-29 00:30:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/dijkstra/directed.test.cpp
+  - tests/dijkstra/undirected.test.cpp
   - tests/weighted_bipartite_matching/multiple_calls.test.cpp
   - tests/weighted_bipartite_matching/maximize.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
   - tests/persistent_stack.test.cpp
-  - tests/dijkstra/undirected.test.cpp
-  - tests/dijkstra/directed.test.cpp
 documentation_of: tools/greater_by_second.hpp
 layout: document
 title: std::greater by second

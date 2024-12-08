@@ -354,11 +354,11 @@ data:
   timestamp: '2024-03-23 22:25:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/matrix/static.test.cpp
-  - tests/quaternion/slerp.test.cpp
-  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/dice_rotations.test.cpp
+  - tests/quaternion/look_rotation.test.cpp
   - tests/quaternion/angle_axis.test.cpp
+  - tests/quaternion/slerp.test.cpp
+  - tests/matrix/static.test.cpp
 documentation_of: tools/vector3.hpp
 layout: document
 title: Three dimensional vector

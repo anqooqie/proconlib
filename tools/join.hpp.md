@@ -94,25 +94,25 @@ data:
   timestamp: '2024-04-06 03:06:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/polynomial_product.test.cpp
-  - tests/weighted_bipartite_matching/minimize.test.cpp
-  - tests/tree_diameter.test.cpp
-  - tests/stirling_2nd/fixed_k.test.cpp
-  - tests/stirling_2nd/fixed_n.test.cpp
-  - tests/prim/basic.test.cpp
-  - tests/eratosthenes_sieve.test.cpp
-  - tests/sample_point_shift.test.cpp
-  - tests/undoable_dsu/leader.test.cpp
-  - tests/stirling_1st/fixed_k.test.cpp
   - tests/stirling_1st/fixed_n.test.cpp
-  - tests/bell/diagonal.test.cpp
-  - tests/partition_function/diagonal.test.cpp
+  - tests/stirling_1st/fixed_k.test.cpp
+  - tests/weighted_bipartite_matching/minimize.test.cpp
+  - tests/eratosthenes_sieve.test.cpp
+  - tests/tree_diameter.test.cpp
+  - tests/polynomial/naive_division.test.cpp
   - tests/cycle_detection/undirected.test.cpp
+  - tests/polynomial_product.test.cpp
+  - tests/undoable_dsu/leader.test.cpp
+  - tests/bell/diagonal.test.cpp
+  - tests/prim/basic.test.cpp
+  - tests/stirling_2nd/fixed_n.test.cpp
+  - tests/stirling_2nd/fixed_k.test.cpp
+  - tests/sample_point_shift.test.cpp
+  - tests/partition_function/diagonal.test.cpp
   - tests/lowlink/is_bridge.test.cpp
   - tests/lowlink/biconnected_components.test.cpp
   - tests/lis/segtree/restore.test.cpp
   - tests/lis/bisect/restore.test.cpp
-  - tests/polynomial/naive_division.test.cpp
 documentation_of: tools/join.hpp
 layout: document
 title: Join elements with delimiter

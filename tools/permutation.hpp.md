@@ -170,11 +170,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - tests/tsort/query.test.cpp
-  - tests/lis/segtree/restore.test.cpp
-  - tests/lis/segtree/no_restore.test.cpp
-  - tests/lis/bisect/restore.test.cpp
-  - tests/lis/bisect/no_restore.test.cpp
   - tests/permutation.test.cpp
+  - tests/lis/segtree/no_restore.test.cpp
+  - tests/lis/segtree/restore.test.cpp
+  - tests/lis/bisect/no_restore.test.cpp
+  - tests/lis/bisect/restore.test.cpp
 documentation_of: tools/permutation.hpp
 layout: document
 title: Permutation

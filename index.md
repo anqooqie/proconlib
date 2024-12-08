@@ -163,6 +163,9 @@ data:
       path: tools/divisors.hpp
       title: List all divisors
     - icon: ':heavy_check_mark:'
+      path: tools/divisors_of_divisor.hpp
+      title: List all divisors of a divisor of $n$
+    - icon: ':heavy_check_mark:'
       path: tools/dsu.hpp
       title: Disjoint set union
     - icon: ':heavy_check_mark:'
@@ -824,6 +827,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: tests/divisors.test.cpp
       title: tests/divisors.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/divisors_of_divisor.test.cpp
+      title: tests/divisors_of_divisor.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/dsu.test.cpp
       title: tests/dsu.test.cpp

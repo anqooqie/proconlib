@@ -368,11 +368,11 @@ data:
   timestamp: '2023-07-22 12:30:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/wavelet_matrix/next_points.test.cpp
   - tests/wavelet_matrix/kth_smallest.test.cpp
-  - tests/wavelet_matrix/range_freq.test.cpp
   - tests/wavelet_matrix/range_prod.test.cpp
   - tests/wavelet_matrix/prev_points.test.cpp
+  - tests/wavelet_matrix/next_points.test.cpp
+  - tests/wavelet_matrix/range_freq.test.cpp
   - tests/range_count_distinct.test.cpp
 documentation_of: tools/wavelet_matrix.hpp
 layout: document

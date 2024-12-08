@@ -118,8 +118,8 @@ data:
   timestamp: '2024-02-18 13:45:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/prim/basic.test.cpp
   - tests/prim/unconnected.test.cpp
+  - tests/prim/basic.test.cpp
 documentation_of: tools/prim.hpp
 layout: document
 title: Prim's algorithm

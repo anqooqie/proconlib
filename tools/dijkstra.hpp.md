@@ -121,8 +121,8 @@ data:
   timestamp: '2024-03-24 19:16:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - tests/dijkstra/undirected.test.cpp
   - tests/dijkstra/directed.test.cpp
+  - tests/dijkstra/undirected.test.cpp
 documentation_of: tools/dijkstra.hpp
 layout: document
 title: Dijkstra's algorithm
