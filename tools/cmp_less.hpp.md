@@ -30,9 +30,6 @@ data:
     path: tools/dijkstra.hpp
     title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
-    path: tools/divisors_of_divisor.hpp
-    title: List all divisors of a divisor of $n$
-  - icon: ':heavy_check_mark:'
     path: tools/is_in_grid.hpp
     title: Check whether $(r, c)$ is in a grid of height $h$ and width $w$
   - icon: ':heavy_check_mark:'
@@ -150,9 +147,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/directed_line_segment_2d/squared_distance.test.cpp
     title: tests/directed_line_segment_2d/squared_distance.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: tests/divisors_of_divisor.test.cpp
-    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
@@ -284,7 +278,6 @@ data:
   - tools/zero_one_knapsack.hpp
   - tools/xor_basis.hpp
   - tools/suffix_array.hpp
-  - tools/divisors_of_divisor.hpp
   - tools/tree_diameter.hpp
   - tools/lowlink.hpp
   - tools/mcf_graph.hpp
@@ -347,7 +340,6 @@ data:
   - tests/zero_one_knapsack/solve_by_dp_maximizing_value.test.cpp
   - tests/monoid.test.cpp
   - tests/cmp_greater.test.cpp
-  - tests/divisors_of_divisor.test.cpp
   - tests/persistent_stack.test.cpp
   - tests/cartesian_tree/interval.test.cpp
   - tests/zero_one_bfs/directed.test.cpp

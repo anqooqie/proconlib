@@ -21,6 +21,9 @@ data:
     path: tools/digit_product_frequency.hpp
     title: Frequency table of digit products
   - icon: ':heavy_check_mark:'
+    path: tools/divisors_of_divisor.hpp
+    title: List all divisors of a divisor of $n$
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -81,6 +84,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/digit_product_frequency.test.cpp
     title: tests/digit_product_frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/composition.test.cpp
     title: tests/fps/composition.test.cpp
@@ -253,6 +259,7 @@ data:
   - tools/partially_persistent_dsu.hpp
   - tools/auxiliary_tree.hpp
   - tools/berlekamp_massey.hpp
+  - tools/divisors_of_divisor.hpp
   - tools/twelvefold_way.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -296,6 +303,7 @@ data:
   - tests/stirling_2nd/fixed_k.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/divisors_of_divisor.test.cpp
   - tests/partition_function/all.test.cpp
   - tests/partition_function/consistent.test.cpp
   - tests/partition_function/diagonal.test.cpp

@@ -21,6 +21,9 @@ data:
     path: tools/cumsum2d.hpp
     title: 2D cumulative sum
   - icon: ':heavy_check_mark:'
+    path: tools/divisors_of_divisor.hpp
+    title: List all divisors of a divisor of $n$
+  - icon: ':heavy_check_mark:'
     path: tools/fps.hpp
     title: Formal power series
   - icon: ':heavy_check_mark:'
@@ -105,6 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table_2d.test.cpp
     title: tests/disjoint_sparse_table_2d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fps/composition.test.cpp
     title: tests/fps/composition.test.cpp
@@ -294,6 +300,7 @@ data:
   - tools/stirling_1st.hpp
   - tools/convolution.hpp
   - tools/berlekamp_massey.hpp
+  - tools/divisors_of_divisor.hpp
   - tools/twelvefold_way.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -345,6 +352,7 @@ data:
   - tests/avl_tree/reverse.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/divisors_of_divisor.test.cpp
   - tests/cartesian_tree/interval.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/partition_function/all.test.cpp

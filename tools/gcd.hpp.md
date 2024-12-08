@@ -30,6 +30,9 @@ data:
     path: tools/detail/rolling_hash.hpp
     title: tools/detail/rolling_hash.hpp
   - icon: ':heavy_check_mark:'
+    path: tools/divisors_of_divisor.hpp
+    title: List all divisors of a divisor of $n$
+  - icon: ':heavy_check_mark:'
     path: tools/floor_kth_root.hpp
     title: $\left\lfloor x^\frac{1}{k} \right\rfloor$
   - icon: ':heavy_check_mark:'
@@ -180,6 +183,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: tests/disjoint_sparse_table.test.cpp
     title: tests/disjoint_sparse_table.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: tests/divisors_of_divisor.test.cpp
+    title: tests/divisors_of_divisor.test.cpp
   - icon: ':heavy_check_mark:'
     path: tests/fastio/string.test.cpp
     title: tests/fastio/string.test.cpp
@@ -423,6 +429,7 @@ data:
   - tools/ord_mod.hpp
   - tools/tetration_mod.hpp
   - tools/berlekamp_massey.hpp
+  - tools/divisors_of_divisor.hpp
   - tools/twelvefold_way.hpp
   - tools/polynomial.hpp
   - tools/fps.hpp
@@ -509,6 +516,7 @@ data:
   - tests/monoid.test.cpp
   - tests/bostan_mori.test.cpp
   - tests/polynomial_interpolation.test.cpp
+  - tests/divisors_of_divisor.test.cpp
   - tests/sample_point_shift.test.cpp
   - tests/triangle_2d/circumcircle.test.cpp
   - tests/rational/plus.test.cpp
