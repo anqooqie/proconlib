@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/matrix_rank"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/matrix_rank
 
 #include <iostream>
 #include "atcoder/modint.hpp"

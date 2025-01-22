@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/rational_approximation"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/rational_approximation
 
 #include <iostream>
 #include <tuple>

@@ -1,5 +1,5 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D"
-#define ERROR 1e-9
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D
+// competitive-verifier: ERROR 1e-9
 
 #include <iostream>
 #include "tools/vector2.hpp"

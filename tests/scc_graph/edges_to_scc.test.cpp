@@ -1,4 +1,4 @@
-#define PROBLEM "https://atcoder.jp/contests/abc204/tasks/abc204_c"
+// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc204/tasks/abc204_c
 
 #include <iostream>
 #include "tools/scc_graph.hpp"

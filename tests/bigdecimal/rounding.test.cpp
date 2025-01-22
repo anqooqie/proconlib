@@ -1,4 +1,4 @@
-#define PROBLEM "https://atcoder.jp/contests/abc273/tasks/abc273_b"
+// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc273/tasks/abc273_b
 
 #include <iostream>
 #include "tools/bigdecimal.hpp"

@@ -1,5 +1,5 @@
-#define PROBLEM "https://atcoder.jp/contests/abc151/tasks/abc151_f"
-#define ERROR 1e-6
+// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f
+// competitive-verifier: ERROR 1e-6
 
 #include <iostream>
 #include <vector>

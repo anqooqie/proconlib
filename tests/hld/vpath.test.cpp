@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/vertex_set_path_composite
 
 #include <utility>
 #include <iostream>

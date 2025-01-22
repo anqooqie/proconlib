@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/static_range_count_distinct"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/static_range_count_distinct
 
 #include <iostream>
 #include <vector>

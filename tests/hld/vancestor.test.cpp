@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/jump_on_tree"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/jump_on_tree
 
 #include <iostream>
 #include "tools/hld.hpp"

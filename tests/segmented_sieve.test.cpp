@@ -1,4 +1,4 @@
-#define PROBLEM "https://atcoder.jp/contests/abc227/tasks/abc227_g"
+// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc227/tasks/abc227_g
 
 #include <iostream>
 #include <unordered_map>

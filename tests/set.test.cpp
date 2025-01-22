@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/ordered_set"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/ordered_set
 
 #include <iostream>
 #include <algorithm>

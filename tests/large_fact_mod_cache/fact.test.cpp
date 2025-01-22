@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/many_factorials"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/many_factorials
 
 #include <iostream>
 #include "atcoder/modint.hpp"

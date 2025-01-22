@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/scc"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/scc
 
 #include <iostream>
 #include "tools/scc_graph.hpp"

@@ -1,6 +1,6 @@
 # My Library for Competitive Programming
 
-[![Actions Status](https://github.com/anqooqie/proconlib/workflows/verify/badge.svg)](https://github.com/anqooqie/proconlib/actions)
+[![Actions Status](https://github.com/anqooqie/proconlib/actions/workflows/verify.yml/badge.svg)](https://github.com/anqooqie/proconlib/actions)
 [![anqooqie](https://img.shields.io/endpoint?url=https%3A%2F%2Fatcoder-badges.now.sh%2Fapi%2Fatcoder%2Fjson%2Fanqooqie)](https://atcoder.jp/users/anqooqie)
 
 ## What is This
@@ -8,7 +8,7 @@ It is my library for competitive programming written in C++17.
 All the functions and classes are available on both gcc and clang unless otherwise noted in documentation.
 
 ## Documentation
-See my [GitHub Pages](https://anqooqie.github.io/proconlib/).
+See my [![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://anqooqie.github.io/proconlib).
 
 ## License
 See individual pages in GitHub Pages.

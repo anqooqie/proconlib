@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/deque_operate_all_composite"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/deque_operate_all_composite
 
 #include <iostream>
 #include "atcoder/modint.hpp"

@@ -1,5 +1,5 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_B"
-#define ERROR 1e-6
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_B
+// competitive-verifier: ERROR 1e-6
 
 #include <iostream>
 #include <array>

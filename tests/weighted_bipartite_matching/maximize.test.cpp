@@ -1,4 +1,4 @@
-#define PROBLEM "https://atcoder.jp/contests/acl1/tasks/acl1_c"
+// competitive-verifier: PROBLEM https://atcoder.jp/contests/acl1/tasks/acl1_c
 
 #include <iostream>
 #include <vector>
