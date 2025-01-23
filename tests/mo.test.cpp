@@ -1,9 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/static_range_frequency
-#ifdef __clang__
-  #define IGNORE
-#endif
 
-#include "tools/qcfium.hpp"
 #include <iostream>
 #include <vector>
 #include "tools/mo.hpp"
