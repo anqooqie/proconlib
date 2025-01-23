@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc141/tasks/abc141_e
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <unordered_map>

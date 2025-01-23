@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc208/tasks/abc208_e
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <numeric>

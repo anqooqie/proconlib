@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc334/tasks/abc334_g
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <vector>

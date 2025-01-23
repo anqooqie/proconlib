@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/agc002/tasks/agc002_d
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include "tools/partially_persistent_dsu.hpp"

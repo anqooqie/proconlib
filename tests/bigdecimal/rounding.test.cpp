@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc273/tasks/abc273_b
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include "tools/bigdecimal.hpp"

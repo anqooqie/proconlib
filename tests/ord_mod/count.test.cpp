@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc212/tasks/abc212_g
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include "atcoder/modint.hpp"

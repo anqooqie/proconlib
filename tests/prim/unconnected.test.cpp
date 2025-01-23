@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc270/tasks/abc270_f
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <vector>

@@ -9,7 +9,7 @@ resolve:
 
 .PHONY: docs
 docs:
-	competitive-verifier docs --verify-json .competitive-verifier/local/verify_files.json result.json
+	competitive-verifier docs --verify-json .competitive-verifier/local/verify_files.json .competitive-verifier/local/result.json
 	(cd .competitive-verifier/_jekyll && bundle config set --local path .vendor/bundle && bundle install && bundle exec jekyll serve --incremental --livereload)
 
 .PHONY: watch

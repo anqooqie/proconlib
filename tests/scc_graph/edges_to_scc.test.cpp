@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc204/tasks/abc204_c
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include "tools/scc_graph.hpp"

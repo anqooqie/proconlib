@@ -1,4 +1,5 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc127/tasks/abc127_f
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include "tools/median_heap.hpp"

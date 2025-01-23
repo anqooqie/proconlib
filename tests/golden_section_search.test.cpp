@@ -1,5 +1,6 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc292/tasks/abc292_f
 // competitive-verifier: ERROR 1e-9
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <cmath>

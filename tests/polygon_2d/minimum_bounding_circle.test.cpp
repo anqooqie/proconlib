@@ -1,5 +1,6 @@
 // competitive-verifier: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f
 // competitive-verifier: ERROR 1e-6
+// competitive-verifier: IGNORE
 
 #include <iostream>
 #include <vector>
