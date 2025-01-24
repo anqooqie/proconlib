@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <cstdint>
@@ -76,6 +76,5 @@ int main() {
   assert_that(tools::countr_zero(UINT64_C(18446744073709551614)) == 1);
   assert_that(tools::countr_zero(UINT64_C(18446744073709551615)) == 0);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

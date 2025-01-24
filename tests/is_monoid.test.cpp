@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -14,6 +14,5 @@ int main() {
   assert_that(tools::is_monoid_v<tools::monoid::multiplies<int>> == true);
   assert_that(tools::is_monoid_v<tools::group::plus<int>> == true);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

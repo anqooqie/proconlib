@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -34,6 +34,5 @@ int main() {
   assert_that(!tools::is_in_grid(0, -1, 0U, 0U));
   assert_that(!tools::is_in_grid(0, 0, 0U, 0U));
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

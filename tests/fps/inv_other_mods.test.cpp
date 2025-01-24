@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <initializer_list>
 #include <type_traits>
@@ -53,6 +53,5 @@ int main() {
   solve({118232768, 222490630, 398642533, 451309769, 425956381, 488484142, 913374112, 586809, 283205947});
   solve({907649121, 290651129, 813718295, 770591820, 913049957, 587190944, 411145555, 899491439, 722412549, 182227749});
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

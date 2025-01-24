@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -12,6 +12,5 @@ int main() {
     return n >= 2 ? fib(n - 2) + fib(n - 1) : n;
   })(10) == 55);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

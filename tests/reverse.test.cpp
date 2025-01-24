@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <cstdint>
@@ -166,6 +166,5 @@ int main() {
   assert_that(tools::reverse(0b0010100000100000100010100010000010100000100010100010100010101100LL, 63) == 0b0001101010001010001010001000001010000010001010001000001000001010LL);
   assert_that(tools::reverse(0b0111111111111111111111111111111111111111111111111111111111111111LL, 63) == 0b0111111111111111111111111111111111111111111111111111111111111111LL);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

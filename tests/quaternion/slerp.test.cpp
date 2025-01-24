@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <cmath>
@@ -32,6 +32,5 @@ int main() {
     assert_that((tools::quaternion<double>::slerp(q0, q1, 1.0) - q1).norm() <= 1e-5);
   }
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

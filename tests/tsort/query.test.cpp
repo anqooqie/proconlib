@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 // oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B properly, so I implemented a special judge for the problem.
 
 #include <iostream>
@@ -157,6 +157,5 @@ int main() {
   corner_02();
   corner_03();
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

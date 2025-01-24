@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <vector>
@@ -85,6 +85,5 @@ int main() {
 
   verify_not_tle(131072, 131072);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

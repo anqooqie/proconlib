@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <algorithm>
 #include <functional>
@@ -47,6 +47,5 @@ int main() {
     assert_that(v.size() == old_size);
   }
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "tools/lowlink.hpp"
-#include "tools/cmp_less.hpp"
 #include "tools/join.hpp"
 
 int main() {

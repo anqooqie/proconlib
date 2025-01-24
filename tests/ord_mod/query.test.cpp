@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -48,6 +48,5 @@ int main() {
   assert_that(ord_mod.query(19) == 249999999999999997);
   assert_that(ord_mod.query(20) == 499999999999999994);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

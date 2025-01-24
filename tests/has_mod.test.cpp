@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <string>
@@ -20,6 +20,5 @@ int main() {
   assert_that(!tools::has_mod_v<std::vector<atcoder::modint>>);
   assert_that(!tools::has_mod_v<std::vector<tools::modint_for_rolling_hash>>);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

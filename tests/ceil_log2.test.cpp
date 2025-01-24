@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <cstdlib>
 #include <iostream>
@@ -66,6 +66,5 @@ int main() {
   assert_that(tools::ceil_log2(UINT64_C(9223372036854775809)) == 64);
   assert_that(tools::ceil_log2(UINT64_C(18446744073709551615)) == 64);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

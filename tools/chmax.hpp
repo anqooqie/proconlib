@@ -2,7 +2,7 @@
 #define TOOLS_CHMAX_HPP
 
 #include <type_traits>
-#include "tools/cmp_less.hpp"
+#include <utility>
 
 namespace tools {
 
@@ -10,7 +10,7 @@ namespace tools {
   bool chmax(M& lhs, const N& rhs) {
     bool updated;
     if constexpr (::std::is_integral_v<M> && ::std::is_integral_v<N>) {
-      updated = ::tools::cmp_less(lhs, rhs);
+      updated = ::std::cmp_less(lhs, rhs);
     } else {
       updated = lhs < rhs;
     }

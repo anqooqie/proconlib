@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <cstddef>
 #include <initializer_list>
@@ -65,6 +65,5 @@ int main() {
   solve({0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 536870912);
   solve({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 576460752303423488);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

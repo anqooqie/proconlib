@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <cstdlib>
 #include <iostream>
@@ -21,6 +21,5 @@ int main() {
   v = std::vector<ll>({3, 2, 4, 1});
   assert_that(tools::mex(v.begin(), v.end()) == 0);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

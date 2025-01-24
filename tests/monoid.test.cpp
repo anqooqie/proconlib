@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <limits>
@@ -150,6 +150,5 @@ int main() {
   assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(42ULL, 1ULL) == 1ULL);
   assert_that(tools::monoid::update<unsigned long long, 42ULL>::e() == 42ULL);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

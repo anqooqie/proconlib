@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <cstdint>
@@ -319,6 +319,5 @@ int main() {
   assert_that(tools::rotate_right(0, 1, 9223372036854775807) == 0);
   assert_that(tools::rotate_right(1, 1, 9223372036854775807) == 1);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

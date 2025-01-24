@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -40,6 +40,5 @@ int main() {
   assert_that(tools::find_cycle(mint13(11), [](const auto& x) { return x * mint13(11); }) == pair(0, 12));
   assert_that(tools::find_cycle(mint13(12), [](const auto& x) { return x * mint13(12); }) == pair(0, 2));
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

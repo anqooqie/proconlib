@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <cstdlib>
 #include <iostream>
@@ -135,6 +135,5 @@ int main() {
   test_signed_int();
   test_unsigned_int();
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

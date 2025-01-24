@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -17,6 +17,5 @@ int main() {
   heap.emplace(3, 3);
   assert_that(tools::ssize(heap) == 3);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

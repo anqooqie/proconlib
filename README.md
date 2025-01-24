@@ -4,14 +4,14 @@
 [![anqooqie](https://img.shields.io/endpoint?url=https%3A%2F%2Fatcoder-badges.now.sh%2Fapi%2Fatcoder%2Fjson%2Fanqooqie)](https://atcoder.jp/users/anqooqie)
 
 ## What is This
-It is my library for competitive programming written in C++17.
-All the functions and classes are available on both gcc and clang unless otherwise noted in documentation.
+It is my library for competitive programming.
+It requires gcc and C++20.
 
 ## Documentation
 See my [![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://anqooqie.github.io/proconlib).
 
 ## License
-See individual pages in GitHub Pages.
+Since different files have different licenses, please refer to the corresponding page in GitHub Pages.
 
 ## How to Use
 Download the library at first.

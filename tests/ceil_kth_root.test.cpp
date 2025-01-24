@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -113,6 +113,5 @@ int main() {
   assert_that(tools::ceil_kth_root(2, 64) == 2);
   assert_that(tools::ceil_kth_root(9223372036854775807, 64) == 2);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <vector>
@@ -60,6 +60,5 @@ int main() {
     } while (std::next_permutation(expected.begin(), expected.end()));
   }
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

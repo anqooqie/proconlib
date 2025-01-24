@@ -7,11 +7,11 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
+#include <utility>
 #include <functional>
 #include "atcoder/segtree.hpp"
 #include "tools/permutation.hpp"
 #include "tools/monoid.hpp"
-#include "tools/cmp_equal.hpp"
 
 namespace tools {
   namespace lis {
@@ -90,7 +90,7 @@ namespace tools {
       if constexpr (Restore) {
         ::std::vector<int> answer(bisect.size(), -1);
         for (int i = N - 1; i >= 0; --i) {
-          if (const auto k = lengths[i]; ::tools::cmp_equal(k, bisect.size()) || (answer[k] >= 0 && (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]], begin[i])))) {
+          if (const auto k = lengths[i]; ::std::cmp_equal(k, bisect.size()) || (answer[k] >= 0 && (Strict ? comp(begin[i], begin[answer[k]]) : !comp(begin[answer[k]], begin[i])))) {
             answer[k - 1] = i;
           }
         }

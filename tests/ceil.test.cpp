@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -58,6 +58,5 @@ int main() {
   assert_that(tools::ceil(9223372036854775807, 2) == 4611686018427387904);
   assert_that(tools::ceil(9223372036854775807, 3) == 3074457345618258603);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

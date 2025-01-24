@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 // Source: https://atcoder.jp/contests/abc041/tasks/abc041_d
 
 #include <iostream>
@@ -36,6 +36,5 @@ int main() {
   sample_02();
   sample_03();
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

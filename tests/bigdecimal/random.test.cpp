@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -84,6 +84,5 @@ int main() {
   assert_that(static_cast<double>(tools::bigdecimal("-7947717608030811285600.0")) == -7.947717608030811e+21);
   assert_that(static_cast<double>(tools::bigdecimal("-921.24546068561416098")) == -921.2454606856141);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

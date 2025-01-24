@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -52,6 +52,5 @@ int main() {
   assert_that(tools::digit_sum<ll>(9223372036854775806) == 87);
   assert_that(tools::digit_sum<ll>(9223372036854775807) == 88);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

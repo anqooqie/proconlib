@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <array>
@@ -19,6 +19,5 @@ int main() {
   const tools::virtual_vector u(5, [b](const std::size_t i) -> const int& { return b[i]; });
   assert_that(v == u);
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

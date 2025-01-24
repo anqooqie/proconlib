@@ -13,7 +13,6 @@
 #include "atcoder/string.hpp"
 #include "tools/chmin.hpp"
 #include "tools/chmax.hpp"
-#include "tools/cmp_equal.hpp"
 
 namespace tools {
 
@@ -106,7 +105,7 @@ namespace tools {
       }
 
       this->erase_if([&](const int i, const int j) {
-        return ::tools::cmp_equal(j, orig[i].size());
+        return ::std::cmp_equal(j, orig[i].size());
       });
     }
     template <typename Container>

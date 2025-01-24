@@ -1,9 +1,9 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/two_edge_connected_components
 
 #include <iostream>
+#include <utility>
 #include "atcoder/dsu.hpp"
 #include "tools/lowlink.hpp"
-#include "tools/cmp_less.hpp"
 #include "tools/join.hpp"
 
 int main() {
@@ -22,7 +22,7 @@ int main() {
   graph.build();
 
   atcoder::dsu dsu(N);
-  for (int k = 0; tools::cmp_less(k, graph.edges().size()); ++k) {
+  for (int k = 0; std::cmp_less(k, graph.edges().size()); ++k) {
     if (!graph.is_bridge(k)) {
       const auto& edge = graph.get_edge(k);
       dsu.merge(edge.from, edge.to);

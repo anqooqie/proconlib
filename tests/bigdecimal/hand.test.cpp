@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -23,6 +23,5 @@ int main() {
   assert_that(::tools::bigdecimal("100").divide_and_copy(::tools::bigdecimal("4"), -1, ::tools::rounding_mode::half_even) == ::tools::bigdecimal("20"));
   assert_that(::tools::bigdecimal("1000").divide_and_copy(::tools::bigdecimal("4"), -2, ::tools::rounding_mode::half_even) == ::tools::bigdecimal("200"));
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

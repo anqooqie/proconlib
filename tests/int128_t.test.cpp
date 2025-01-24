@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include <sstream>
@@ -87,6 +87,5 @@ int main() {
     assert_that(oss.str() == "170141183460469231731687303715884105727");
   }
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }

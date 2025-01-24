@@ -163,7 +163,7 @@ namespace tools {
       answer = ::std::numeric_limits<T>::min();
       ::std::pair<::std::size_t, ::std::size_t> selected_as_bitset;
       ::std::size_t r = second_half.size();
-      for (const auto [state, v, w] : first_half) {
+      for (const auto& [state, v, w] : first_half) {
         for (; w + ::std::get<2>(second_half[r - 1]) > this->m_W; --r);
         if (::tools::chmax(answer, v + ::std::get<1>(second_half[r - 1]))) {
           selected_as_bitset = ::std::make_pair(state, ::std::get<0>(second_half[r - 1]));

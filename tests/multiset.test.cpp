@@ -1,4 +1,4 @@
-// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/ITP1_1_A
+// competitive-verifier: STANDALONE
 
 #include <iostream>
 #include "tools/assert_that.hpp"
@@ -383,6 +383,5 @@ int main() {
     assert_that(*it == 1);
   }
 
-  std::cout << "Hello World" << '\n';
   return 0;
 }
