@@ -92,6 +92,8 @@ namespace tools {
     }
 
     ::std::vector<R> query() const {
+      assert(this->m_edges.size() + 1 == this->size());
+
       const int PRE_VERTEX = 1;
       const int POST_EDGE = 2;
       const int POST_VERTEX = 3;

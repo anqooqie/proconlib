@@ -111,7 +111,7 @@ The rooted tree $T' = (V', E'; r')$ is the one formed by edging such vertices $V
 std::size_t qr.size();
 ```
 
-It returns $\|X'\|$.
+It returns $\|V'\|$.
 
 ### Constraints
 - None
@@ -135,7 +135,7 @@ struct vertices_iterable {
 vertices_iterable qr.vertices();
 ```
 
-It returns $X'$.
+It returns $V'$.
 
 ### Constraints
 - None
@@ -164,7 +164,7 @@ std::size_t qr.parent(std::size_t v);
 It returns the parent of $v$ in $T'$.
 
 ### Constraints
-- $v \in X'$
+- $v \in V'$
 - $v \neq r'$
 
 ### Time Complexity
@@ -178,7 +178,7 @@ const std::vector<std::size_t>& qr.children(std::size_t v);
 It returns the children of $v$ in $T'$.
 
 ### Constraints
-- $v \in X'$
+- $v \in V'$
 
 ### Time Complexity
 - $O(\log \|X\|)$

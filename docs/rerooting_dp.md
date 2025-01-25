@@ -1,9 +1,9 @@
 ---
-title: Dynamic programming on trees with rerooting technique
+title: Dynamic programming on a tree with rerooting technique
 documentation_of: //tools/rerooting_dp.hpp
 ---
 
-It is an abstract framework for the dynamic programming on trees with rerooting technique.
+It is an abstract framework for dynamic programming on a tree with rerooting technique.
 
 ### Example
 It calculates the diameter of a given tree.
