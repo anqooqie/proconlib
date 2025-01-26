@@ -9,9 +9,9 @@
 #include <limits>
 #include <cmath>
 #include <iostream>
+#include <iterator>
 #include "tools/bigint.hpp"
 #include "tools/signum.hpp"
-#include "tools/ssize.hpp"
 #include "tools/rounding_mode.hpp"
 #include "tools/abs.hpp"
 
@@ -244,11 +244,11 @@ namespace tools {
       if (self.signum() < 0) {
         os << '-';
       }
-      for (auto i = ::std::max(::tools::ssize(self.m_unscaled_value) - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i) {
+      for (auto i = ::std::max(::std::ssize(self.m_unscaled_value) - 1, self.m_scale); i >= ::std::min<::std::ptrdiff_t>(0, self.m_scale); --i) {
         if (i == self.m_scale - 1) {
           os << '.';
         }
-        os << (0 <= i && i < ::tools::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i] : 0);
+        os << (0 <= i && i < ::std::ssize(self.m_unscaled_value) ? self.m_unscaled_value[i] : 0);
       }
       return os;
     }

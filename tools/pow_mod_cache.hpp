@@ -7,8 +7,8 @@
 #include <type_traits>
 #include <cstddef>
 #include <algorithm>
+#include <iterator>
 #include <cassert>
-#include "tools/ssize.hpp"
 #include "tools/find_cycle.hpp"
 #include "tools/mod.hpp"
 #include "tools/floor.hpp"
@@ -44,11 +44,11 @@ namespace tools {
 
     M operator[](const long long n) {
       if (!this->m_period) {
-        if (::std::max<long long>(::tools::ssize(this->m_pow) - 1, n) - ::std::min<long long>(n, -(::tools::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
+        if (::std::max<long long>(::std::ssize(this->m_pow) - 1, n) - ::std::min<long long>(n, -(::std::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
           if (n >= 0) {
-            const long long size = ::tools::ssize(this->m_pow);
+            const long long size = ::std::ssize(this->m_pow);
             this->m_pow.resize(::std::max(size, n + 1));
-            for (long long i = size; i < ::tools::ssize(this->m_pow); ++i) {
+            for (long long i = size; i < ::std::ssize(this->m_pow); ++i) {
               this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
             }
             return this->m_pow[n];
@@ -56,9 +56,9 @@ namespace tools {
             if (this->m_inv_pow.size() == 1) {
               this->m_inv_pow.push_back(this->m_pow[1].inv());
             }
-            const long long size = ::tools::ssize(this->m_inv_pow);
+            const long long size = ::std::ssize(this->m_inv_pow);
             this->m_inv_pow.resize(::std::max(size, -n + 1));
-            for (long long i = size; i < ::tools::ssize(this->m_inv_pow); ++i) {
+            for (long long i = size; i < ::std::ssize(this->m_inv_pow); ++i) {
               this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];
             }
             return this->m_inv_pow[-n];
@@ -66,9 +66,9 @@ namespace tools {
         }
 
         this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; });
-        const long long size = ::tools::ssize(this->m_pow);
+        const long long size = ::std::ssize(this->m_pow);
         this->m_pow.resize(this->m_period->first + this->m_period->second);
-        for (long long i = size; i < ::tools::ssize(this->m_pow); ++i) {
+        for (long long i = size; i < ::std::ssize(this->m_pow); ++i) {
           this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
         }
         this->m_inv_pow.clear();
@@ -94,17 +94,17 @@ namespace tools {
       (*this)[l];
 
       {
-        const long long size = ::tools::ssize(this->m_cumsum);
+        const long long size = ::std::ssize(this->m_cumsum);
         this->m_cumsum.resize(this->m_pow.size() + 1);
-        for (long long i = size; i < ::tools::ssize(this->m_cumsum); ++i) {
+        for (long long i = size; i < ::std::ssize(this->m_cumsum); ++i) {
           this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i - 1];
         }
       }
 
       if (!this->m_period) {
-        const long long size = ::tools::ssize(this->m_inv_cumsum);
+        const long long size = ::std::ssize(this->m_inv_cumsum);
         this->m_inv_cumsum.resize(this->m_inv_pow.size() + 1);
-        for (long long i = size; i < ::tools::ssize(this->m_inv_cumsum); ++i) {
+        for (long long i = size; i < ::std::ssize(this->m_inv_cumsum); ++i) {
           this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i - 1];
         }
 

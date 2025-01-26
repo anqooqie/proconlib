@@ -1,16 +1,17 @@
 #ifndef TOOLS_RATIONAL_HPP
 #define TOOLS_RATIONAL_HPP
 
+#include <algorithm>
+#include <cstddef>
 #include <cassert>
 #include <type_traits>
-#include <cstddef>
 #include <limits>
+#include <iterator>
 #include <iostream>
 #include "tools/bigint.hpp"
 #include "tools/gcd.hpp"
 #include "tools/bigdecimal.hpp"
 #include "tools/signum.hpp"
-#include "tools/ssize.hpp"
 #include "tools/is_rational.hpp"
 #include "tools/abs.hpp"
 
@@ -157,11 +158,11 @@ namespace tools {
 
     explicit operator double() const {
       ::tools::bigint unscaled_value(this->m_numerator);
-      unscaled_value.multiply_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));
+      unscaled_value.multiply_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::std::ssize(this->m_numerator) - ::std::ssize(this->m_denominator)));
       unscaled_value /= this->m_denominator;
 
       ::tools::bigdecimal result(unscaled_value);
-      result.divide_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::tools::ssize(this->m_numerator) - ::tools::ssize(this->m_denominator)));
+      result.divide_by_pow10((::std::numeric_limits<double>::digits10 + 2) - (::std::ssize(this->m_numerator) - ::std::ssize(this->m_denominator)));
       return static_cast<double>(result);
     }
 

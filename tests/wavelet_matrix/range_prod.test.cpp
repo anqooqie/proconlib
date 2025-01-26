@@ -4,9 +4,9 @@
 #include <vector>
 #include <queue>
 #include <tuple>
+#include <iterator>
 #include "atcoder/fenwicktree.hpp"
 #include "tools/wavelet_matrix.hpp"
-#include "tools/ssize.hpp"
 
 using ll = long long;
 
@@ -47,7 +47,7 @@ int main() {
   std::vector<atcoder::fenwick_tree<ll>> fws;
   for (const auto& v : wm.build()) {
     fws.emplace_back(v.size());
-    for (int i = 0; i < tools::ssize(v); ++i) {
+    for (int i = 0; i < std::ssize(v); ++i) {
       if (int(v[i]) < N) {
         fws.back().add(i, ws[v[i]]);
       }

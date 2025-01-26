@@ -6,10 +6,10 @@
 #include <limits>
 #include <queue>
 #include <algorithm>
+#include <iterator>
 #include "tools/persistent_stack.hpp"
 #include "tools/greater_by_second.hpp"
 #include "tools/chmin.hpp"
-#include "tools/ssize.hpp"
 
 using ll = long long;
 
@@ -58,7 +58,7 @@ int main() {
     answers.push_back(stack.top());
   }
   std::reverse(answers.begin(), answers.end());
-  for (ll i = 0; i + 1 < tools::ssize(answers); ++i) {
+  for (ll i = 0; i + 1 < std::ssize(answers); ++i) {
     std::cout << answers[i] << ' ' << answers[i + 1] << '\n';
   }
 

@@ -2,9 +2,9 @@
 #define TOOLS_LARGE_FACT_MOD_CACHE_HPP
 
 #include <vector>
+#include <cassert>
 #include <iterator>
 #include <utility>
-#include <cassert>
 #include <algorithm>
 #include "tools/is_prime.hpp"
 #include "tools/pow_mod_cache.hpp"
@@ -12,7 +12,6 @@
 #include "tools/ceil_log2.hpp"
 #include "tools/pow2.hpp"
 #include "tools/sample_point_shift.hpp"
-#include "tools/ssize.hpp"
 
 namespace tools {
 
@@ -47,7 +46,7 @@ namespace tools {
         ::tools::sample_point_shift(this->m_factbs.begin(), this->m_factbs.end(), pow2[K], P / ::tools::pow2(K) + 1 - ::tools::pow2(K), ::std::back_inserter(this->m_factbs));
       }
       this->m_factbs.insert(this->m_factbs.begin(), M(1));
-      for (int i = 1; i < ::tools::ssize(this->m_factbs); ++i) {
+      for (int i = 1; i < ::std::ssize(this->m_factbs); ++i) {
         this->m_factbs[i] *= this->m_factbs[i - 1] * pow2[K] * M(i);
       }
     }

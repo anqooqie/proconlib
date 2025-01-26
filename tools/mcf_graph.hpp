@@ -8,10 +8,10 @@
 #include <limits>
 #include <numeric>
 #include <stack>
+#include <iterator>
 #include <algorithm>
 #include <queue>
 #include <tuple>
-#include "tools/ssize.hpp"
 #include "tools/chmin.hpp"
 #include "tools/greater_by_second.hpp"
 
@@ -164,7 +164,7 @@ namespace tools {
             prev[v] = -1;
           }
           dist[new_scc_vertices[0]] = 0;
-          for (int i = 0; i < ::tools::ssize(new_scc_vertices) - 1; ++i) {
+          for (int i = 0; i < ::std::ssize(new_scc_vertices) - 1; ++i) {
             for (const auto edge_id : new_scc_edge_ids) {
               const auto& edge = this->m_edges[edge_id];
               if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {
@@ -254,7 +254,7 @@ namespace tools {
 
       dist[s] = 0;
       for (int i = 0; i < this->size() - 1; ++i) {
-        for (int edge_id = 0; edge_id < ::tools::ssize(this->m_edges); ++edge_id) {
+        for (int edge_id = 0; edge_id < ::std::ssize(this->m_edges); ++edge_id) {
           const auto& edge = this->m_edges[edge_id];
           if (edge.flow < edge.cap && dist[edge.from] < ::std::numeric_limits<Cost>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {
             prev[edge.to] = edge_id;
@@ -403,13 +403,13 @@ namespace tools {
     }
 
     ::tools::mcf_graph<Cap, Cost>::edge get_edge(const int i) const {
-      assert(0 <= i && i < ::tools::ssize(this->m_edges) / 2);
+      assert(0 <= i && i < ::std::ssize(this->m_edges) / 2);
       return this->m_edges[i * 2];
     }
 
     ::std::vector<::tools::mcf_graph<Cap, Cost>::edge> edges() const {
       ::std::vector<::tools::mcf_graph<Cap, Cost>::edge> result;
-      for (int edge_id = 0; edge_id < ::tools::ssize(this->m_edges); edge_id += 2) {
+      for (int edge_id = 0; edge_id < ::std::ssize(this->m_edges); edge_id += 2) {
         result.push_back(this->m_edges[edge_id]);
       }
       return result;

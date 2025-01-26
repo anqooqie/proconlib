@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <cassert>
+#include <iterator>
 #include "tools/tsp.hpp"
 #include "tools/assert_that.hpp"
-#include "tools/ssize.hpp"
 
 using ll = long long;
 
@@ -24,8 +24,8 @@ int main() {
   const auto res = graph.query();
   if (res) {
     const auto& [answer, vids, eids] = *res;
-    assert_that(tools::ssize(vids) == V);
-    assert_that(tools::ssize(eids) == V);
+    assert_that(std::ssize(vids) == V);
+    assert_that(std::ssize(eids) == V);
     ll sum = 0;
     for (ll i = 0; i < V; ++i) {
       assert_that(graph.get_edge(eids[i]).from == vids[i]);

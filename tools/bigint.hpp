@@ -5,8 +5,8 @@
 #include <cstdint>
 #include <array>
 #include <cstddef>
-#include <algorithm>
 #include <iterator>
+#include <algorithm>
 #include <type_traits>
 #include <string>
 #include <cassert>
@@ -22,7 +22,6 @@
 #include "tools/quo.hpp"
 #include "tools/mod.hpp"
 #include "tools/floor.hpp"
-#include "tools/ssize.hpp"
 #include "tools/int128_t.hpp"
 #include "tools/uint128_t.hpp"
 #include "tools/ceil.hpp"
@@ -132,7 +131,7 @@ namespace tools {
           ::std::vector<::std::int_fast32_t> zero(exponent10000, 0);
           this->m_digits.insert(this->m_digits.begin(), zero.begin(), zero.end());
         } else if (exponent10000 < 0) {
-          if (::tools::ssize(this->m_digits) >= -exponent10000) {
+          if (::std::ssize(this->m_digits) >= -exponent10000) {
             mod = this->m_digits[-exponent10000 - 1] / POW10[LOG10_BASE * (exponent10000 + 1) - exponent];
           }
           this->m_digits.erase(this->m_digits.begin(), this->m_digits.begin() + ::std::min<::std::size_t>(-exponent10000, this->m_digits.size()));

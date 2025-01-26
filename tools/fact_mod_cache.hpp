@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <cassert>
+#include <iterator>
 #include <algorithm>
 #include <cmath>
 #include "tools/is_prime.hpp"
-#include "tools/ssize.hpp"
 
 namespace tools {
 
@@ -27,9 +27,9 @@ namespace tools {
 
     M inv(const long long n) {
       assert(n % M::mod() != 0);
-      const long long size = ::tools::ssize(this->m_inv);
+      const long long size = ::std::ssize(this->m_inv);
       this->m_inv.resize(::std::clamp<long long>(::std::abs(n) + 1, size, M::mod()));
-      for (long long i = size; i < ::tools::ssize(this->m_inv); ++i) {
+      for (long long i = size; i < ::std::ssize(this->m_inv); ++i) {
         this->m_inv[i] = -this->m_inv[M::mod() % i] * M::raw(M::mod() / i);
       }
       M result = this->m_inv[::std::abs(n) % M::mod()];
@@ -38,19 +38,19 @@ namespace tools {
     }
     M fact(const long long n) {
       assert(n >= 0);
-      const long long size = ::tools::ssize(this->m_fact);
+      const long long size = ::std::ssize(this->m_fact);
       this->m_fact.resize(::std::clamp<long long>(n + 1, size, M::mod()));
-      for (long long i = size; i < ::tools::ssize(this->m_fact); ++i) {
+      for (long long i = size; i < ::std::ssize(this->m_fact); ++i) {
         this->m_fact[i] = this->m_fact[i - 1] * M::raw(i);
       }
       return n < M::mod() ? this->m_fact[n] : M::raw(0);
     }
     M fact_inv(const long long n) {
       assert(0 <= n && n < M::mod());
-      const long long size = ::tools::ssize(this->m_fact_inv);
+      const long long size = ::std::ssize(this->m_fact_inv);
       this->m_fact_inv.resize(::std::max<long long>(size, n + 1));
       this->inv(this->m_fact_inv.size() - 1);
-      for (long long i = size; i < ::tools::ssize(this->m_fact_inv); ++i) {
+      for (long long i = size; i < ::std::ssize(this->m_fact_inv); ++i) {
         this->m_fact_inv[i] = this->m_fact_inv[i - 1] * this->m_inv[i];
       }
       return this->m_fact_inv[n];

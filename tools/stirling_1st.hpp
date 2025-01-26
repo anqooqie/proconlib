@@ -3,10 +3,10 @@
 
 #include <cassert>
 #include <vector>
+#include <iterator>
 #include "tools/is_prime.hpp"
 #include "tools/polynomial.hpp"
 #include "tools/floor_log2.hpp"
-#include "tools/ssize.hpp"
 #include "tools/pow2.hpp"
 #include "tools/fix.hpp"
 #include "tools/virtual_vector.hpp"
@@ -27,7 +27,7 @@ namespace tools {
       if (N > 0) {
         bases.resize(::tools::floor_log2(N) + 1);
         bases[0] = ::tools::polynomial<M>{M(0), M(1)};
-        for (int i = 1; i < ::tools::ssize(bases); ++i) {
+        for (int i = 1; i < ::std::ssize(bases); ++i) {
           bases[i] = bases[i - 1] * bases[i - 1](::tools::polynomial<M>{M(-::tools::pow2(i - 1)), M(1)});
         }
       }

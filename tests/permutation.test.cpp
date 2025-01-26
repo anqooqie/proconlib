@@ -1,12 +1,12 @@
 // competitive-verifier: STANDALONE
 
-#include <iostream>
 #include <vector>
+#include <iterator>
+#include <iostream>
 #include <numeric>
 #include <algorithm>
 #include "tools/assert_that.hpp"
 #include "tools/permutation.hpp"
-#include "tools/ssize.hpp"
 #include "tools/pow.hpp"
 
 using ll = long long;
@@ -29,7 +29,7 @@ struct group {
 void abc013d(const ll& N, const ll& D, const std::vector<ll>& A, const std::vector<ll>& expected) {
   group::N = N;
   tools::permutation<ll> unit(N);
-  for (ll i = 0; i < tools::ssize(A); ++i) {
+  for (ll i = 0; i < std::ssize(A); ++i) {
     unit.swap_from_right(A[i] - 1, A[i]);
   }
 

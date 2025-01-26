@@ -14,7 +14,6 @@
 #include "tools/ceil_log2.hpp"
 #include "tools/pow2.hpp"
 #include "tools/lower_bound.hpp"
-#include "tools/ssize.hpp"
 
 namespace tools {
   template <typename T>
@@ -100,7 +99,7 @@ namespace tools {
 
       auto l_id = ::tools::lower_bound(this->m_xs.begin(), ::std::prev(this->m_xs.end()), l);
       auto r_id = ::tools::lower_bound(this->m_xs.begin(), ::std::prev(this->m_xs.end()), r);
-      if (r_id == ::tools::ssize(this->m_xs) - 1 || r < this->m_xs[r_id]) --r_id;
+      if (r_id == ::std::ssize(this->m_xs) - 1 || r < this->m_xs[r_id]) --r_id;
       if (r_id < l_id) return;
       l_id += this->capacity();
       r_id += this->capacity() + 1;
