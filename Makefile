@@ -5,7 +5,7 @@ verify:
 .PHONY: resolve
 resolve:
 	mkdir -p .competitive-verifier/local
-	competitive-verifier oj-resolve --exclude archive atcoder lib template oj-resolve --config .verify-helper/config.toml >.competitive-verifier/local/verify_files.json
+	CPLUS_INCLUDE_PATH= competitive-verifier oj-resolve --exclude archive atcoder lib template oj-resolve --config .verify-helper/config.toml >.competitive-verifier/local/verify_files.json
 
 .PHONY: docs
 docs:

@@ -4,12 +4,12 @@
 #include <cassert>
 #include <limits>
 #include <queue>
+#include <ranges>
 #include <stack>
 #include <tuple>
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include <ranges>
 #include "tools/chmin.hpp"
 #include "tools/greater_by_second.hpp"
 
@@ -35,7 +35,7 @@ namespace tools {
     };
 
     minimum_steiner_tree() = default;
-    minimum_steiner_tree(const int n) : m_graph(n) {
+    explicit minimum_steiner_tree(const int n) : m_graph(n) {
       assert(n >= 0);
     }
 

@@ -30,7 +30,7 @@ It creates an empty buffer for `tools::persistent_dual_segtree<M>`.
 
 ## Constructor
 ```cpp
-persistent_dual_segtree<M> a(persistent_dual_segtree<M>::buffer& buffer, std::size_t n);
+persistent_dual_segtree<M> a(persistent_dual_segtree<M>::buffer& buffer, int n);
 ```
 
 It creates a sequence $(a_0, a_1, \ldots, a_{n - 1})$ filled in `M::e()`.
@@ -39,13 +39,14 @@ The data will be stored on `buffer`.
 ### Constraints
 - For all $x$ in `typename M::T`, $y$ in `typename M::T` and $z$ in `typename M::T`, `M::op(M::op(x, y), z)` $=$ `M::op(x, M::op(y, z))`.
 - For all $x$ in `typename M::T`, `M::op(M::e(), x)` $=$ `M::op(x, M::e())` $=$ `x`.
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t a.size();
+int a.size();
 ```
 
 It returns $n$.
@@ -58,7 +59,7 @@ It returns $n$.
 
 ## apply
 ```cpp
-persistent_dual_segtree<M> a.apply(std::size_t l, std::size_t r, typename M::T x);
+persistent_dual_segtree<M> a.apply(int l, int r, typename M::T x);
 ```
 
 It returns a new sequence $(b_0, b_1, \ldots, b_{n - 1})$ which satisfies the following.
@@ -78,7 +79,7 @@ a_i & \text{(otherwise)}
 
 ## get
 ```cpp
-typename M::T a.get(std::size_t i);
+typename M::T a.get(int i);
 ```
 
 It returns $a_i$.

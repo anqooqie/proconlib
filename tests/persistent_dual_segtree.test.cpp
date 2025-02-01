@@ -1,48 +1,56 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc253/tasks/abc253_f
-// competitive-verifier: IGNORE
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/range_affine_point_get
 
 #include <iostream>
+#include <tuple>
 #include <vector>
-#include <utility>
+#include "atcoder/modint.hpp"
 #include "tools/persistent_dual_segtree.hpp"
-#include "tools/group.hpp"
 
-using ll = long long;
+using mint = atcoder::modint998244353;
+struct monoid {
+  using T = std::pair<mint, mint>;
+  static T op(const T& f, const T& g) {
+    return {f.first * g.first, f.first * g.second + f.second};
+  }
+  static T e() {
+    return {mint::raw(1), mint::raw(0)};
+  }
+};
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N, M, Q;
-  std::cin >> N >> M >> Q;
+  int N, Q;
+  std::cin >> N >> Q;
+  std::vector<mint> a(N);
+  for (auto&& a_i : a) {
+    int x;
+    std::cin >> x;
+    a_i = mint::raw(x);
+  }
 
-  std::vector<std::pair<ll, ll>> updated(N, std::make_pair(0, 0));
-  tools::persistent_dual_segtree<tools::group::plus<ll>>::buffer buffer;
-  std::vector<tools::persistent_dual_segtree<tools::group::plus<ll>>> dual_segtrees;
-  dual_segtrees.emplace_back(buffer, M);
-
-  for (ll q = 0; q < Q; ++q) {
-    ll t;
+  tools::persistent_dual_segtree<monoid>::buffer buffer;
+  std::vector<tools::persistent_dual_segtree<monoid>> seg;
+  seg.emplace_back(buffer, N);
+  std::vector<std::tuple<int, int>> queries;
+  for (int q = 0; q < Q; ++q) {
+    int t;
     std::cin >> t;
-    if (t == 1) {
-      ll l, r, x;
-      std::cin >> l >> r >> x;
-      --l;
-      dual_segtrees.push_back(dual_segtrees.back().apply(l, r, x));
-    } else if (t == 2) {
-      ll i, x;
-      std::cin >> i >> x;
-      --i;
-      dual_segtrees.push_back(dual_segtrees.back());
-      updated[i] = std::make_pair(q, x);
+    if (t == 0) {
+      int l, r, b, c;
+      std::cin >> l >> r >> b >> c;
+      seg.push_back(seg.back().apply(l, r, {mint::raw(b), mint::raw(c)}));
     } else {
-      ll i, j;
-      std::cin >> i >> j;
-      --i, --j;
-      dual_segtrees.push_back(dual_segtrees.back());
-      const auto& [t, x] = updated[i];
-      std::cout << dual_segtrees.back().get(j) - dual_segtrees[t].get(j) + x << '\n';
+      int i;
+      std::cin >> i;
+      queries.emplace_back(seg.size() - 1, i);
     }
+  }
+
+  for (const auto& [t, i] : queries) {
+    const auto [b, c] = seg[t].get(i);
+    std::cout << (b * a[i] + c).val() << '\n';
   }
   return 0;
 }

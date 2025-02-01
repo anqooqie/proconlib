@@ -1,11 +1,9 @@
 #ifndef TOOLS_PERSISTENT_DUAL_SEGTREE_HPP
 #define TOOLS_PERSISTENT_DUAL_SEGTREE_HPP
 
-#include <cstddef>
-#include <limits>
-#include <vector>
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <vector>
 #include "tools/fix.hpp"
 #include "tools/pow2.hpp"
 #include "tools/ceil_log2.hpp"
@@ -14,52 +12,38 @@ namespace tools {
 
   template <typename M>
   class persistent_dual_segtree {
-  private:
     using T = typename M::T;
 
     struct node {
       T lazy;
-      ::std::size_t left;
-      ::std::size_t right;
+      int left;
+      int right;
     };
 
   public:
     class buffer {
-    private:
       ::std::vector<::tools::persistent_dual_segtree<M>::node> m_nodes;
 
     public:
-      buffer() = default;
-      buffer(const ::tools::persistent_dual_segtree<M>::buffer&) = default;
-      buffer(::tools::persistent_dual_segtree<M>::buffer&&) = default;
-      ~buffer() = default;
-      ::tools::persistent_dual_segtree<M>::buffer& operator=(const ::tools::persistent_dual_segtree<M>::buffer&) = default;
-      ::tools::persistent_dual_segtree<M>::buffer& operator=(::tools::persistent_dual_segtree<M>::buffer&&) = default;
-
       friend ::tools::persistent_dual_segtree<M>;
     };
 
   private:
-    static const ::std::size_t EMPTY = ::std::numeric_limits<::std::size_t>::max();
+    static const int EMPTY = -1;
     ::tools::persistent_dual_segtree<M>::buffer *m_buffer;
-    ::std::size_t m_size;
-    ::std::size_t m_root;
+    int m_size;
+    int m_root;
 
-    persistent_dual_segtree(::tools::persistent_dual_segtree<M>::buffer * const buffer, const ::std::size_t size, const ::std::size_t root) : m_buffer(buffer), m_size(size), m_root(root) {
+    persistent_dual_segtree(::tools::persistent_dual_segtree<M>::buffer * const buffer, const int size, const int root) : m_buffer(buffer), m_size(size), m_root(root) {
     }
 
   public:
     persistent_dual_segtree() = default;
-    persistent_dual_segtree(const ::tools::persistent_dual_segtree<M>&) = default;
-    persistent_dual_segtree(::tools::persistent_dual_segtree<M>&&) = default;
-    ~persistent_dual_segtree() = default;
-    ::tools::persistent_dual_segtree<M>& operator=(const ::tools::persistent_dual_segtree<M>&) = default;
-    ::tools::persistent_dual_segtree<M>& operator=(::tools::persistent_dual_segtree<M>&&) = default;
-
-    persistent_dual_segtree(::tools::persistent_dual_segtree<M>::buffer& buffer, const ::std::size_t n) : m_buffer(&buffer), m_size(n), m_root(EMPTY) {
+    persistent_dual_segtree(::tools::persistent_dual_segtree<M>::buffer& buffer, const int n) : m_buffer(&buffer), m_size(n), m_root(EMPTY) {
+      assert(n >= 0);
       if (n == 0) return;
 
-      this->m_root = ::tools::fix([&](auto&& dfs, const ::std::size_t l, const ::std::size_t r) -> ::std::size_t {
+      this->m_root = ::tools::fix([&](auto&& dfs, const int l, const int r) -> int {
         ::tools::persistent_dual_segtree<M>::node node;
         node.lazy = M::e();
         if (r - l == 1) {
@@ -76,17 +60,17 @@ namespace tools {
       })(0, n);
     }
 
-    ::std::size_t size() const {
+    int size() const {
       return this->m_size;
     }
 
-    ::tools::persistent_dual_segtree<M> apply(const ::std::size_t l, const ::std::size_t r, const T& x) {
-      assert(l <= r && r <= this->m_size);
+    ::tools::persistent_dual_segtree<M> apply(const int l, const int r, const T& x) {
+      assert(0 <= l && l <= r && r <= this->m_size);
       if (l == r) return *this;
       if (x == M::e()) return *this;
 
       return ::tools::persistent_dual_segtree<M>(this->m_buffer, this->m_size, ::tools::fix(
-        [&](auto&& dfs, const ::std::size_t old_node_id, const ::std::size_t ll, const ::std::size_t rr, const T& xx) -> ::std::size_t {
+        [&](auto&& dfs, const int old_node_id, const int ll, const int rr, const T& xx) -> int {
           ::tools::persistent_dual_segtree<M>::node new_node;
           const auto new_lazy = M::op(xx, this->m_buffer->m_nodes[old_node_id].lazy);
           if (::std::min(rr, r) <= ::std::max(ll, l)) {
@@ -110,10 +94,10 @@ namespace tools {
       )(this->m_root, 0, this->m_size, M::e()));
     }
 
-    T get(const ::std::size_t i) const {
-      assert(i < this->m_size);
+    T get(const int i) const {
+      assert(0 <= i && i < this->m_size);
 
-      return ::tools::fix([&](auto&& dfs, const ::std::size_t node_id, const ::std::size_t l, const ::std::size_t r, const T& x) -> T {
+      return ::tools::fix([&](auto&& dfs, const int node_id, const int l, const int r, const T& x) -> T {
         const auto& node = this->m_buffer->m_nodes[node_id];
         const auto new_lazy = M::op(x, node.lazy);
         if (r - l == 1) return new_lazy;
