@@ -22,7 +22,6 @@ It returns $r$.
 
 ### Constraints
 - $b \neq 0$
-- $r$ is representable in type `std::common_type_t<M, N>`.
 
 ### Time Complexity
 - $O(1)$
