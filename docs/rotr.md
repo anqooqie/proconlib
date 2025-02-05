@@ -1,13 +1,13 @@
 ---
 title: Circular shift to the right
-documentation_of: //tools/rotate_right.hpp
+documentation_of: //tools/rotr.hpp
 ---
 
 ## (1)
 
 ```cpp
 template <typename T, typename U>
-T rotate_right(T x, std::size_t n, U s);
+T rotr(T x, int n, U s);
 ```
 
 It returns $r$ which satisfies the followings.
@@ -17,7 +17,7 @@ It returns $r$ which satisfies the followings.
 ### Constraints
 - `<T>` is a built-in integral type
 - `<U>` is a built-in integral type
-- $n \leq$ `std::numeric_limits<T>::digits`
+- $0 \leq n \leq$ `std::numeric_limits<T>::digits`
 - $0 \leq x < 2^n$
 
 ### Time Complexity
@@ -33,7 +33,7 @@ It returns $r$ which satisfies the followings.
 
 ```cpp
 template <typename T, typename U>
-T rotate_right(T x, U s);
+T rotr(T x, U s);
 ```
 
 It returns $r$ which satisfies the followings.
