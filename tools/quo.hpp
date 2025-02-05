@@ -1,20 +1,22 @@
 #ifndef TOOLS_QUO_H
 #define TOOLS_QUO_H
 
+#include <cassert>
 #include <type_traits>
 
 namespace tools {
 
   template <typename M, typename N>
-  constexpr ::std::common_type_t<M, N> quo(const M lhs, const N rhs) {
-    using T = ::std::common_type_t<M, N>;
-    if (lhs >= M(0)) {
-      return lhs / rhs;
+  constexpr ::std::common_type_t<M, N> quo(const M a, const N b) {
+    assert(b != 0);
+
+    if (a >= 0) {
+      return a / b;
     } else {
-      if (rhs >= N(0)) {
-        return -((-lhs - T(1) + rhs) / rhs);
+      if (b >= 0) {
+        return (a + 1) / b - 1;
       } else {
-        return (-lhs - T(1) + -rhs) / -rhs;
+        return (a + 1) / b + 1;
       }
     }
   }

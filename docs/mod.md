@@ -8,10 +8,21 @@ template <typename M, typename N>
 constexpr std::common_type_t<M, N> mod(M a, N b);
 ```
 
-It returns $r$, which satisfies $a = qb + r$ and $0 \leq r < \|b\|$.
+Given $a$ and $b (\neq 0)$, a pair of values $(q, r)$ satisfying the following conditions is uniquely determined.
+
+$$\begin{align*}
+\left\{\begin{array}{l}
+a = qb + r\\
+q \in \mathbb{Z}\\
+0 \leq r < |b|
+\end{array}\right.&
+\end{align*}$$
+
+It returns $r$.
 
 ### Constraints
 - $b \neq 0$
+- $r$ is representable in type `std::common_type_t<M, N>`.
 
 ### Time Complexity
 - $O(1)$
