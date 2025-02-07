@@ -18,6 +18,7 @@ $$\begin{align*}
 \end{align*}$$
 
 ### Constraints
+- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
 - $x \geq 0$
 - If $x > 0$, $2^{\lceil \log_2(x) \rceil}$ is representable in type `T`.
 

@@ -4,6 +4,8 @@
 #include <cstdint>
 #include "tools/assert_that.hpp"
 #include "tools/bit_floor.hpp"
+#include "tools/int128_t.hpp"
+#include "tools/uint128_t.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -72,6 +74,38 @@ int main() {
   assert_that(tools::bit_floor(UINT64_C(9223372036854775808)) == UINT64_C(9223372036854775808));
   assert_that(tools::bit_floor(UINT64_C(9223372036854775809)) == UINT64_C(9223372036854775808));
   assert_that(tools::bit_floor(UINT64_C(18446744073709551615)) == UINT64_C(9223372036854775808));
+
+  assert_that(tools::bit_floor(INT128_C(0)) == INT128_C(0));
+  assert_that(tools::bit_floor(INT128_C(1)) == INT128_C(1));
+  assert_that(tools::bit_floor(INT128_C(2)) == INT128_C(2));
+  assert_that(tools::bit_floor(INT128_C(3)) == INT128_C(2));
+  assert_that(tools::bit_floor(INT128_C(4)) == INT128_C(4));
+  assert_that(tools::bit_floor(INT128_C(5)) == INT128_C(4));
+  assert_that(tools::bit_floor(INT128_C(6)) == INT128_C(4));
+  assert_that(tools::bit_floor(INT128_C(7)) == INT128_C(4));
+  assert_that(tools::bit_floor(INT128_C(8)) == INT128_C(8));
+  assert_that(tools::bit_floor(INT128_C(9)) == INT128_C(8));
+  assert_that(tools::bit_floor(INT128_C(10)) == INT128_C(8));
+  assert_that(tools::bit_floor(INT128_C(85070591730234615865843651857942052863)) == INT128_C(42535295865117307932921825928971026432));
+  assert_that(tools::bit_floor(INT128_C(85070591730234615865843651857942052864)) == INT128_C(85070591730234615865843651857942052864));
+  assert_that(tools::bit_floor(INT128_C(85070591730234615865843651857942052865)) == INT128_C(85070591730234615865843651857942052864));
+  assert_that(tools::bit_floor(INT128_C(170141183460469231731687303715884105727)) == INT128_C(85070591730234615865843651857942052864));
+
+  assert_that(tools::bit_floor(UINT128_C(0)) == UINT128_C(0));
+  assert_that(tools::bit_floor(UINT128_C(1)) == UINT128_C(1));
+  assert_that(tools::bit_floor(UINT128_C(2)) == UINT128_C(2));
+  assert_that(tools::bit_floor(UINT128_C(3)) == UINT128_C(2));
+  assert_that(tools::bit_floor(UINT128_C(4)) == UINT128_C(4));
+  assert_that(tools::bit_floor(UINT128_C(5)) == UINT128_C(4));
+  assert_that(tools::bit_floor(UINT128_C(6)) == UINT128_C(4));
+  assert_that(tools::bit_floor(UINT128_C(7)) == UINT128_C(4));
+  assert_that(tools::bit_floor(UINT128_C(8)) == UINT128_C(8));
+  assert_that(tools::bit_floor(UINT128_C(9)) == UINT128_C(8));
+  assert_that(tools::bit_floor(UINT128_C(10)) == UINT128_C(8));
+  assert_that(tools::bit_floor(UINT128_C(170141183460469231731687303715884105727)) == UINT128_C(85070591730234615865843651857942052864));
+  assert_that(tools::bit_floor(UINT128_C(170141183460469231731687303715884105728)) == UINT128_C(170141183460469231731687303715884105728));
+  assert_that(tools::bit_floor(UINT128_C(170141183460469231731687303715884105729)) == UINT128_C(170141183460469231731687303715884105728));
+  assert_that(tools::bit_floor(UINT128_C(340282366920938463463374607431768211455)) == UINT128_C(170141183460469231731687303715884105728));
 
   return 0;
 }

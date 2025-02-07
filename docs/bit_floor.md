@@ -18,6 +18,7 @@ $$\begin{align*}
 \end{align*}$$
 
 ### Constraints
+- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
 - $x \geq 0$
 
 ### Time Complexity

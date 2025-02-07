@@ -3,18 +3,36 @@
 
 #include <bit>
 #include <cassert>
-#include <type_traits>
+#include "tools/is_signed.hpp"
+#include "tools/make_unsigned.hpp"
+#include "tools/uint128_t.hpp"
 
 namespace tools {
   template <typename T>
-  constexpr T bit_ceil(const T x) {
-    if constexpr (std::is_signed_v<T>) {
+  constexpr T bit_ceil(const T x) noexcept {
+    if constexpr (::tools::is_signed_v<T>) {
       assert(x >= 0);
-      return ::std::bit_ceil<::std::make_unsigned_t<T>>(x);
+      return ::tools::bit_ceil<::tools::make_unsigned_t<T>>(x);
     } else {
       return ::std::bit_ceil(x);
     }
   }
+
+#if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
+  template <>
+  constexpr ::tools::uint128_t bit_ceil<::tools::uint128_t>(::tools::uint128_t x) noexcept {
+    if (x <= 1) return 1;
+    --x;
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+    x |= x >> 32;
+    x |= x >> 64;
+    return ++x;
+  }
+#endif
 }
 
 #endif
