@@ -106,24 +106,24 @@ int main() {
   }
 
   {
-    static_assert(::tools::abs(INT128_C(-170141183460469231731687303715884105727)) == INT128_C(170141183460469231731687303715884105727));
-    static_assert(::tools::abs(INT128_C(-1)) == INT128_C(1));
-    static_assert(::tools::abs(INT128_C(0)) == INT128_C(0));
-    static_assert(::tools::abs(INT128_C(1)) == INT128_C(1));
-    static_assert(::tools::abs(INT128_C(170141183460469231731687303715884105727)) == INT128_C(170141183460469231731687303715884105727));
+    static_assert(tools::abs(INT128_C(-170141183460469231731687303715884105727)) == INT128_C(170141183460469231731687303715884105727));
+    static_assert(tools::abs(INT128_C(-1)) == INT128_C(1));
+    static_assert(tools::abs(INT128_C(0)) == INT128_C(0));
+    static_assert(tools::abs(INT128_C(1)) == INT128_C(1));
+    static_assert(tools::abs(INT128_C(170141183460469231731687303715884105727)) == INT128_C(170141183460469231731687303715884105727));
   }
 
   {
-    ::std::unordered_set<::tools::int128_t> s;
-    for (::tools::int128_t i = -100000; i < 100000; ++i) {
+    std::unordered_set<tools::int128_t> s;
+    for (tools::int128_t i = -100000; i < 100000; ++i) {
       s.insert(i);
     }
     assert_that(s.size() == 200000);
   }
 
   {
-    assert_that(::std::numeric_limits<::tools::int128_t>::min() == INT128_C(-170141183460469231731687303715884105728));
-    assert_that(::std::numeric_limits<::tools::int128_t>::max() == INT128_C(170141183460469231731687303715884105727));
+    assert_that(std::numeric_limits<tools::int128_t>::min() == INT128_C(-170141183460469231731687303715884105728));
+    assert_that(std::numeric_limits<tools::int128_t>::max() == INT128_C(170141183460469231731687303715884105727));
   }
 
   return 0;
