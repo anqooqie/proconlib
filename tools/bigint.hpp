@@ -1,35 +1,35 @@
 #ifndef TOOLS_BIGINT_HPP
 #define TOOLS_BIGINT_HPP
 
-#include <vector>
-#include <cstdint>
-#include <array>
-#include <cstddef>
-#include <iterator>
 #include <algorithm>
-#include <type_traits>
-#include <string>
+#include <array>
 #include <cassert>
-#include <limits>
-#include <utility>
-#include <tuple>
 #include <cmath>
-#include <iostream>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <string>
+#include <tuple>
 #include <iomanip>
-#include "atcoder/modint.hpp"
+#include <iostream>
+#include <iterator>
+#include <type_traits>
+#include <utility>
+#include <vector>
 #include "atcoder/convolution.hpp"
+#include "atcoder/modint.hpp"
 #include "tools/abs.hpp"
-#include "tools/quo.hpp"
-#include "tools/mod.hpp"
-#include "tools/floor.hpp"
-#include "tools/int128_t.hpp"
-#include "tools/uint128_t.hpp"
 #include "tools/ceil.hpp"
-#include "tools/pow2.hpp"
-#include "tools/garner2.hpp"
 #include "tools/chmin.hpp"
+#include "tools/floor.hpp"
 #include "tools/floor_log2.hpp"
+#include "tools/garner2.hpp"
 #include "tools/gcd.hpp"
+#include "tools/int128_t.hpp"
+#include "tools/mod.hpp"
+#include "tools/pow2.hpp"
+#include "tools/quo.hpp"
+#include "tools/uint128_t.hpp"
 
 namespace tools {
   class bigint;
@@ -683,7 +683,7 @@ namespace tools {
     }
 
     explicit operator ::tools::int128_t() const {
-      assert(::tools::bigint(INT128_MIN) <= *this && *this <= ::tools::bigint(INT128_MAX));
+      assert(::tools::bigint(::std::numeric_limits<::tools::int128_t>::min()) <= *this && *this <= ::tools::bigint(::std::numeric_limits<::tools::int128_t>::max()));
       ::tools::int128_t result = 0;
       for (::std::size_t i = this->m_digits.size(); i --> 0;) {
         result = result * BASE + this->m_digits[i] * (this->m_positive ? 1 : -1);
@@ -692,7 +692,7 @@ namespace tools {
     }
 
     explicit operator ::tools::uint128_t() const {
-      assert(::tools::bigint(0) <= *this && *this <= ::tools::bigint(UINT128_MAX));
+      assert(::tools::bigint(0) <= *this && *this <= ::tools::bigint(::std::numeric_limits<::tools::uint128_t>::max()));
       ::tools::uint128_t result = 0;
       for (::std::size_t i = this->m_digits.size(); i --> 0;) {
         result = result * BASE + this->m_digits[i];

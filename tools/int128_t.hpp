@@ -1,62 +1,86 @@
 #ifndef TOOLS_INT128_T_HPP
 #define TOOLS_INT128_T_HPP
 
-#include <iostream>
-#include <string>
+#include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <string>
 #include "tools/abs.hpp"
 #include "tools/uint128_t.hpp"
 
 namespace tools {
   using int128_t = __int128;
 
+  namespace detail {
+    namespace int128_t {
+      constexpr ::tools::int128_t parse(const ::std::string& s) {
+        assert(!s.empty());
+        ::tools::int128_t x = 0;
+        if (s[0] == '-') {
+          for (::std::size_t i = 1; i < s.size(); ++i) {
+            assert('0' <= s[i] && s[i] <= '9');
+            x *= 10;
+            x -= s[i] - '0';
+          }
+        } else {
+          for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {
+            assert('0' <= s[i] && s[i] <= '9');
+            x *= 10;
+            x += s[i] - '0';
+          }
+        }
+        return x;
+      }
+    }
+  }
+
   constexpr ::tools::int128_t abs(const ::tools::int128_t& x) {
-    return x < 0 ? -x : x;
+    return x >= 0 ? x : -x;
   }
 }
 
-constexpr inline ::tools::int128_t INT128_MAX = (::tools::int128_t(1) << 126) | ((::tools::int128_t(1) << 126) - 1);
-constexpr inline ::tools::int128_t INT128_MIN = -INT128_MAX - 1;
+#define INT128_C(c) ::tools::detail::int128_t::parse(#c)
 
-::std::istream& operator>>(::std::istream& is, ::tools::int128_t& x) {
+inline ::std::istream& operator>>(::std::istream& is, ::tools::int128_t& x) {
   ::std::string s;
   is >> s;
-  assert(!s.empty());
-
-  if (s == "-170141183460469231731687303715884105728") {
-    x = INT128_MIN;
-    return is;
-  }
-
-  x = 0;
-  for (::std::size_t i = s[0] == '+' || s[0] == '-'; i < s.size(); ++i) {
-    assert('0' <= s[i] && s[i] <= '9');
-    x = 10 * x + (s[i] - '0');
-  }
-
-  if (s[0] == '-') x = -x;
-
+  x = ::tools::detail::int128_t::parse(s);
   return is;
 }
 
-::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {
-  if (x == 0) return os << '0';
-  if (x == INT128_MIN) return os << "-170141183460469231731687303715884105728";
-
+inline ::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {
   ::std::string s;
-  const bool negative = x < 0;
-
-  if (negative) x = -x;
-  while (x > 0) {
-    s.push_back('0' + x % 10);
-    x /= 10;
+  if (x > 0) {
+    while (x > 0) {
+      s.push_back('0' + x % 10);
+      x /= 10;
+    }
+  } else if (x < 0) {
+    while (x < 0) {
+      s.push_back('0' + (-(x % 10)));
+      x /= 10;
+    }
+    s.push_back('-');
+  } else {
+    s.push_back('0');
   }
 
-  if (negative) s.push_back('-');
-  ::std::reverse(s.begin(), s.end());
+  ::std::ranges::reverse(s);
   return os << s;
 }
+
+#if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
+  namespace std {
+    template <>
+    struct hash<::tools::int128_t> {
+      ::std::size_t operator()(const ::tools::int128_t& x) const {
+        static ::std::hash<::tools::uint128_t> hasher;
+        return hasher(static_cast<::tools::uint128_t>(x));
+      }
+    };
+  }
+#endif
 
 #endif
