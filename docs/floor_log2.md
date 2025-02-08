@@ -5,14 +5,14 @@ documentation_of: //tools/floor_log2.hpp
 
 ```cpp
 template <typename T>
-T floor_log2(T x);
+constexpr T floor_log2(T x) noexcept;
 ```
 
 It returns $\left\lfloor \log_2(x) \right\rfloor$.
 
 ### Constraints
+- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
 - $x > 0$
-- `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
 ### Time Complexity
 - $O(\log\log x)$
