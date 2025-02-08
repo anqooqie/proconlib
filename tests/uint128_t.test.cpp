@@ -22,6 +22,9 @@ int main() {
     oss.str("");
     oss << UINT128_C(0);
     assert_that(oss.str() == "0");
+    oss.str("");
+    oss << UINT128_C(0x0);
+    assert_that(oss.str() == "0");
   }
   {
     tools::uint128_t v;
@@ -32,6 +35,9 @@ int main() {
     assert_that(oss.str() == "0");
     oss.str("");
     oss << UINT128_C(+0);
+    assert_that(oss.str() == "0");
+    oss.str("");
+    oss << UINT128_C(+0x0);
     assert_that(oss.str() == "0");
   }
 
@@ -45,6 +51,9 @@ int main() {
     oss.str("");
     oss << UINT128_C(1);
     assert_that(oss.str() == "1");
+    oss.str("");
+    oss << UINT128_C(0x1);
+    assert_that(oss.str() == "1");
   }
   {
     tools::uint128_t v;
@@ -55,6 +64,9 @@ int main() {
     assert_that(oss.str() == "1");
     oss.str("");
     oss << UINT128_C(+1);
+    assert_that(oss.str() == "1");
+    oss.str("");
+    oss << UINT128_C(+0x1);
     assert_that(oss.str() == "1");
   }
 
@@ -68,6 +80,9 @@ int main() {
     oss.str("");
     oss << UINT128_C(340282366920938463463374607431768211455);
     assert_that(oss.str() == "340282366920938463463374607431768211455");
+    oss.str("");
+    oss << UINT128_C(0xffffffffffffffffffffffffffffffff);
+    assert_that(oss.str() == "340282366920938463463374607431768211455");
   }
   {
     tools::uint128_t v;
@@ -78,6 +93,9 @@ int main() {
     assert_that(oss.str() == "340282366920938463463374607431768211455");
     oss.str("");
     oss << UINT128_C(+340282366920938463463374607431768211455);
+    assert_that(oss.str() == "340282366920938463463374607431768211455");
+    oss.str("");
+    oss << UINT128_C(+0xffffffffffffffffffffffffffffffff);
     assert_that(oss.str() == "340282366920938463463374607431768211455");
   }
 

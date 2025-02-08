@@ -19,16 +19,46 @@ namespace tools {
         assert(!s.empty());
         ::tools::int128_t x = 0;
         if (s[0] == '-') {
-          for (::std::size_t i = 1; i < s.size(); ++i) {
-            assert('0' <= s[i] && s[i] <= '9');
-            x *= 10;
-            x -= s[i] - '0';
+          ::std::size_t i = 1;
+          if (i + 1 < s.size() && s[i] == '0' && (s[i + 1] == 'x' || s[i + 1] == 'X')) {
+            for (i += 2; i < s.size(); ++i) {
+              assert(('0' <= s[i] && s[i] <= '9') || ('a' <= s[i] && s[i] <= 'f') || ('A' <= s[i] && s[i] <= 'F'));
+              x *= 16;
+              if ('0' <= s[i] && s[i] <= '9') {
+                x -= s[i] - '0';
+              } else if ('a' <= s[i] && s[i] <= 'f') {
+                x -= s[i] - 'a' + 10;
+              } else {
+                x -= s[i] - 'A' + 10;
+              }
+            }
+          } else {
+            for (; i < s.size(); ++i) {
+              assert('0' <= s[i] && s[i] <= '9');
+              x *= 10;
+              x -= s[i] - '0';
+            }
           }
         } else {
-          for (::std::size_t i = s[0] == '+'; i < s.size(); ++i) {
-            assert('0' <= s[i] && s[i] <= '9');
-            x *= 10;
-            x += s[i] - '0';
+          ::std::size_t i = s[0] == '+';
+          if (i + 1 < s.size() && s[i] == '0' && (s[i + 1] == 'x' || s[i + 1] == 'X')) {
+            for (i += 2; i < s.size(); ++i) {
+              assert(('0' <= s[i] && s[i] <= '9') || ('a' <= s[i] && s[i] <= 'f') || ('A' <= s[i] && s[i] <= 'F'));
+              x <<= 4;
+              if ('0' <= s[i] && s[i] <= '9') {
+                x |= s[i] - '0';
+              } else if ('a' <= s[i] && s[i] <= 'f') {
+                x |= s[i] - 'a' + 10;
+              } else {
+                x |= s[i] - 'A' + 10;
+              }
+            }
+          } else {
+            for (; i < s.size(); ++i) {
+              assert('0' <= s[i] && s[i] <= '9');
+              x *= 10;
+              x += s[i] - '0';
+            }
           }
         }
         return x;

@@ -22,6 +22,9 @@ int main() {
     oss.str("");
     oss << INT128_C(-170141183460469231731687303715884105728);
     assert_that(oss.str() == "-170141183460469231731687303715884105728");
+    oss.str("");
+    oss << INT128_C(-0x80000000000000000000000000000000);
+    assert_that(oss.str() == "-170141183460469231731687303715884105728");
   }
 
   {
@@ -33,6 +36,9 @@ int main() {
     assert_that(oss.str() == "-1");
     oss.str("");
     oss << INT128_C(-1);
+    assert_that(oss.str() == "-1");
+    oss.str("");
+    oss << INT128_C(-0x1);
     assert_that(oss.str() == "-1");
   }
 
@@ -46,6 +52,9 @@ int main() {
     oss.str("");
     oss << INT128_C(0);
     assert_that(oss.str() == "0");
+    oss.str("");
+    oss << INT128_C(0x0);
+    assert_that(oss.str() == "0");
   }
   {
     tools::int128_t v;
@@ -56,6 +65,9 @@ int main() {
     assert_that(oss.str() == "0");
     oss.str("");
     oss << INT128_C(+0);
+    assert_that(oss.str() == "0");
+    oss.str("");
+    oss << INT128_C(+0x0);
     assert_that(oss.str() == "0");
   }
 
@@ -69,6 +81,9 @@ int main() {
     oss.str("");
     oss << INT128_C(1);
     assert_that(oss.str() == "1");
+    oss.str("");
+    oss << INT128_C(0x1);
+    assert_that(oss.str() == "1");
   }
   {
     tools::int128_t v;
@@ -79,6 +94,9 @@ int main() {
     assert_that(oss.str() == "1");
     oss.str("");
     oss << INT128_C(+1);
+    assert_that(oss.str() == "1");
+    oss.str("");
+    oss << INT128_C(+0x1);
     assert_that(oss.str() == "1");
   }
 
@@ -92,6 +110,9 @@ int main() {
     oss.str("");
     oss << INT128_C(170141183460469231731687303715884105727);
     assert_that(oss.str() == "170141183460469231731687303715884105727");
+    oss.str("");
+    oss << INT128_C(0x7fffffffffffffffffffffffffffffff);
+    assert_that(oss.str() == "170141183460469231731687303715884105727");
   }
   {
     tools::int128_t v;
@@ -102,6 +123,9 @@ int main() {
     assert_that(oss.str() == "170141183460469231731687303715884105727");
     oss.str("");
     oss << INT128_C(+170141183460469231731687303715884105727);
+    assert_that(oss.str() == "170141183460469231731687303715884105727");
+    oss.str("");
+    oss << INT128_C(+0x7fffffffffffffffffffffffffffffff);
     assert_that(oss.str() == "170141183460469231731687303715884105727");
   }
 

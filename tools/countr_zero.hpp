@@ -33,7 +33,7 @@ namespace tools {
       struct ntz_traits<128> {
         using type = ::tools::uint128_t;
         static constexpr int shift = 120;
-        static constexpr type magic = UINT128_C(1360791906900646753867474206897715071);
+        static constexpr type magic = UINT128_C(0x01061438916347932a5cd9d3ead7b77f);
         static constexpr int ntz_table[255] = {
           128,   0,   1,  -1,   2,  -1,   8,  -1,   3,  -1,  15,  -1,   9,  -1,  22,  -1,
             4,  -1,  29,  -1,  16,  -1,  36,  -1,  10,  -1,  43,  -1,  23,  -1,  50,  -1,

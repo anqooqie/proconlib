@@ -32,7 +32,7 @@ It is a compile-time constant, a 128-bit unsigned integer whose value is $x$.
 For example, you can write `UINT128_C(340282366920938463463374607431768211455)`.
 
 ### Constraints
-- `x` is represented by regular expression `\+?[0-9]+`.
+- `x` is represented by regular expression `\+?([0-9]+|0[Xx][0-9A-Fa-f]+)`.
 - $0 \leq x \leq 2^{128} - 1$
 
 ### Time Complexity

@@ -32,7 +32,7 @@ It is a compile-time constant, a 128-bit signed integer whose value is $x$.
 For example, you can write `INT128_C(-170141183460469231731687303715884105728)`.
 
 ### Constraints
-- `x` is represented by regular expression `[+\-]?[0-9]+`.
+- `x` is represented by regular expression `[+\-]?([0-9]+|0[Xx][0-9A-Fa-f]+)`.
 - $-2^{127} \leq x \leq 2^{127} - 1$
 
 ### Time Complexity
