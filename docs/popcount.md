@@ -5,14 +5,14 @@ documentation_of: //tools/popcount.hpp
 
 ```cpp
 template <typename T>
-T popcount(T x);
+constexpr int popcount(T x) noexcept;
 ```
 
 It returns the number of 1 bits in the value of $x$.
 
 ### Constraints
+- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
 - $x \geq 0$
-- `std::numeric_limits<T>::digits` is $8$, $16$, $32$ or $64$.
 
 ### Time Complexity
 - $O(\log\log x)$
