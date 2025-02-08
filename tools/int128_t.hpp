@@ -7,6 +7,7 @@
 #include <functional>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include "tools/abs.hpp"
 #include "tools/uint128_t.hpp"
 
