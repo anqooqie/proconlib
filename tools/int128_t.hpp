@@ -15,7 +15,7 @@ namespace tools {
 
   namespace detail {
     namespace int128_t {
-      constexpr ::tools::int128_t parse(const ::std::string& s) {
+      constexpr ::tools::int128_t parse(const ::std::string_view s) {
         assert(!s.empty());
         ::tools::int128_t x = 0;
         if (s[0] == '-') {

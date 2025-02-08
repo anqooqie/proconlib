@@ -8,6 +8,7 @@
 #include <functional>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include "tools/abs.hpp"
 #include "tools/hash_combine.hpp"
 #include "tools/now.hpp"
@@ -17,7 +18,7 @@ namespace tools {
 
   namespace detail {
     namespace uint128_t {
-      constexpr ::tools::uint128_t parse(const ::std::string& s) {
+      constexpr ::tools::uint128_t parse(const ::std::string_view s) {
         assert(!s.empty());
         ::tools::uint128_t x = 0;
         ::std::size_t i = s[0] == '+';

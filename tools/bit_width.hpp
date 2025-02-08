@@ -11,6 +11,9 @@
 
 namespace tools {
   template <typename T>
+  constexpr int bit_width(T) noexcept;
+
+  template <typename T>
   constexpr int bit_width(const T x) noexcept {
     static_assert(::tools::is_integral_v<T> && !::std::is_same_v<::std::remove_cv_t<T>, bool>);
     if constexpr (::tools::is_signed_v<T>) {
