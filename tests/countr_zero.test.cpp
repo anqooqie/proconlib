@@ -4,13 +4,12 @@
 #include <cstdint>
 #include "tools/assert_that.hpp"
 #include "tools/countr_zero.hpp"
+#include "tools/int128_t.hpp"
+#include "tools/uint128_t.hpp"
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
-
-  assert_that(tools::countr_zero(false) == 1);
-  assert_that(tools::countr_zero(true) == 0);
 
   assert_that(tools::countr_zero(INT32_C(0)) == 31);
   assert_that(tools::countr_zero(INT32_C(1)) == 0);
@@ -75,6 +74,38 @@ int main() {
   assert_that(tools::countr_zero(UINT64_C(9223372036854775809)) == 0);
   assert_that(tools::countr_zero(UINT64_C(18446744073709551614)) == 1);
   assert_that(tools::countr_zero(UINT64_C(18446744073709551615)) == 0);
+
+  assert_that(tools::countr_zero(INT128_C(0)) == 127);
+  assert_that(tools::countr_zero(INT128_C(1)) == 0);
+  assert_that(tools::countr_zero(INT128_C(2)) == 1);
+  assert_that(tools::countr_zero(INT128_C(3)) == 0);
+  assert_that(tools::countr_zero(INT128_C(4)) == 2);
+  assert_that(tools::countr_zero(INT128_C(5)) == 0);
+  assert_that(tools::countr_zero(INT128_C(6)) == 1);
+  assert_that(tools::countr_zero(INT128_C(7)) == 0);
+  assert_that(tools::countr_zero(INT128_C(8)) == 3);
+  assert_that(tools::countr_zero(INT128_C(9)) == 0);
+  assert_that(tools::countr_zero(INT128_C(85070591730234615865843651857942052863)) == 0);
+  assert_that(tools::countr_zero(INT128_C(85070591730234615865843651857942052864)) == 126);
+  assert_that(tools::countr_zero(INT128_C(85070591730234615865843651857942052865)) == 0);
+  assert_that(tools::countr_zero(INT128_C(170141183460469231731687303715884105726)) == 1);
+  assert_that(tools::countr_zero(INT128_C(170141183460469231731687303715884105727)) == 0);
+
+  assert_that(tools::countr_zero(UINT128_C(0)) == 128);
+  assert_that(tools::countr_zero(UINT128_C(1)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(2)) == 1);
+  assert_that(tools::countr_zero(UINT128_C(3)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(4)) == 2);
+  assert_that(tools::countr_zero(UINT128_C(5)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(6)) == 1);
+  assert_that(tools::countr_zero(UINT128_C(7)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(8)) == 3);
+  assert_that(tools::countr_zero(UINT128_C(9)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(170141183460469231731687303715884105727)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(170141183460469231731687303715884105728)) == 127);
+  assert_that(tools::countr_zero(UINT128_C(170141183460469231731687303715884105729)) == 0);
+  assert_that(tools::countr_zero(UINT128_C(340282366920938463463374607431768211454)) == 1);
+  assert_that(tools::countr_zero(UINT128_C(340282366920938463463374607431768211455)) == 0);
 
   return 0;
 }
