@@ -7,7 +7,6 @@
 #include "tools/is_integral.hpp"
 #include "tools/is_signed.hpp"
 #include "tools/make_unsigned.hpp"
-#include "tools/uint128_t.hpp"
 
 namespace tools {
   template <typename T>
@@ -23,20 +22,6 @@ namespace tools {
       return ::std::bit_floor(x);
     }
   }
-
-#if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
-  template <>
-  constexpr ::tools::uint128_t bit_floor<::tools::uint128_t>(::tools::uint128_t x) noexcept {
-    x |= x >> 1;
-    x |= x >> 2;
-    x |= x >> 4;
-    x |= x >> 8;
-    x |= x >> 16;
-    x |= x >> 32;
-    x |= x >> 64;
-    return x & ~(x >> 1);
-  }
-#endif
 }
 
 #endif
