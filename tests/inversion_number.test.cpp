@@ -2,20 +2,16 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <iterator>
 #include "tools/inversion_number.hpp"
-
-using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll n;
+  int n;
   std::cin >> n;
-  std::vector<ll> a;
-  std::copy_n(std::istream_iterator<ll>(std::cin), n, std::back_inserter(a));
-  std::cout << tools::inversion_number(a.begin(), a.end()) << '\n';
+  std::vector<int> a(n);
+  for (auto& a_i : a) std::cin >> a_i;
+  std::cout << tools::inversion_number(a) << '\n';
   return 0;
 }

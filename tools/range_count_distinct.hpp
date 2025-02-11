@@ -1,11 +1,12 @@
 #ifndef TOOLS_RANGE_COUNT_DISTINCT_HPP
 #define TOOLS_RANGE_COUNT_DISTINCT_HPP
 
-#include <cstddef>
 #include <cassert>
-#include <vector>
+#include <cstddef>
 #include <iterator>
 #include <limits>
+#include <ranges>
+#include <vector>
 #include "tools/wavelet_matrix.hpp"
 #include "tools/compress.hpp"
 #include "tools/mex.hpp"
@@ -27,7 +28,7 @@ namespace tools {
     template <typename InputIterator>
     range_count_distinct(const InputIterator begin, const InputIterator end) {
       ::std::vector<::std::size_t> seq;
-      ::tools::compress(begin, end, ::std::back_inserter(seq));
+      ::tools::compress(::std::ranges::subrange(begin, end), ::std::back_inserter(seq));
       this->m_size = seq.size();
 
       const auto NONE = ::std::numeric_limits<::std::size_t>::max();

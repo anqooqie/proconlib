@@ -4,17 +4,17 @@ documentation_of: //tools/inversion_number.hpp
 ---
 
 ```cpp
-template <typename Iterator>
-typename std::iterator_traits<Iterator>::value_type inversion_number(Iterator begin, Iterator end);
+template <::std::ranges::range R>
+long long inversion_number(R&& a);
 ```
 
-It returns the number of inversions of a given integer sequence $(a_0, a_1, \ldots, a_{N - 1})$.
+It returns the number of inversions of a given sequence $(a_0, a_1, \ldots, a_{n - 1})$.
 
 ### Constraints
-- None
+- For any integer pairs $(l, r)$ such that $0 \leq l < r < n$, $a_i < a_j$ is defined.
 
 ### Time Complexity
-- $O(N \log N)$
+- $O(n \log n)$
 
 ### License
 - CC0
