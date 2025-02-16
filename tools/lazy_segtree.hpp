@@ -1,6 +1,7 @@
 #ifndef TOOLS_LAZY_SEGTREE_HPP
 #define TOOLS_LAZY_SEGTREE_HPP
 
+#include <algorithm>
 #include <cassert>
 #include <functional>
 #include <numeric>
@@ -44,8 +45,8 @@ namespace tools {
     template <typename T>
     static constexpr bool has_lazy = !::std::is_same_v<T, ::tools::detail::lazy_segtree::nop_monoid>;
 
-    int m_height;
     int m_size;
+    int m_height;
     ::std::vector<S> m_data;
     ::std::vector<F> m_lazy;
 
@@ -81,8 +82,7 @@ namespace tools {
     explicit lazy_segtree(const int n) : lazy_segtree(::std::vector<S>(n, SM::e())) {
     }
     template <typename SFINAE = SM> requires (!has_data<SFINAE>)
-    explicit lazy_segtree(const int n) : m_size(n) {
-      this->m_height = ::tools::ceil_log2(::std::max(1, this->m_size));
+    explicit lazy_segtree(const int n) : m_size(n), m_height(::tools::ceil_log2(::std::max(1, n))) {
       this->m_lazy.assign(2 * this->capacity(), FM::e());
     }
     template <::std::ranges::range R, typename SFINAE = SM> requires (has_data<SFINAE>)
@@ -104,11 +104,17 @@ namespace tools {
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     void set(const int p, const S& x) {
       assert(0 <= p && p < this->m_size);
-      if constexpr (has_lazy<FM>) {
-        for (auto h = this->m_height; h > 0; --h) this->push((this->capacity() + p) >> h);
-      }
-      this->m_data[this->capacity() + p] = x;
-      for (auto h = 1; h <= this->m_height; ++h) this->update((this->capacity() + p) >> h);
+      ::tools::fix([&](auto&& dfs, const int h, const int k) -> void {
+        if (h > 0) {
+          if constexpr (has_lazy<FM>) {
+            this->push(k);
+          }
+          dfs(h - 1, (this->capacity() + p) >> (h - 1));
+          this->update(k);
+        } else {
+          this->m_data[this->capacity() + p] = x;
+        }
+      })(this->m_height, 1);
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     S get(const int p) {
@@ -117,8 +123,14 @@ namespace tools {
     template <typename SFINAE = SM> requires (!has_data<SFINAE>)
     F get(const int p) {
       assert(0 <= p && p < this->m_size);
-      for (auto h = this->m_height; h > 0; --h) this->push((this->capacity() + p) >> h);
-      return this->m_lazy[this->capacity() + p];
+      return ::tools::fix([&](auto&& dfs, const int h, const int k) -> F {
+        if (h > 0) {
+          this->push(k);
+          return dfs(h - 1, (this->capacity() + p) >> (h - 1));
+        } else {
+          return this->m_lazy[this->capacity() + p];
+        }
+      })(this->m_height, 1);
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     S prod(const int l, const int r) {

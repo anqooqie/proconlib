@@ -284,7 +284,7 @@ If `g` is monotone, this is the maximum `r` that satisfies `g(op(a[l], a[l + 1],
 
 ## min_left
 ```cpp
-int avl_tree.min_left<G>(int l, G g)
+int avl_tree.min_left<G>(int r, G g)
 ```
 It returns an index `l` that satisfies both of the followings.
 
