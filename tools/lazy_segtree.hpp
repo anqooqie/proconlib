@@ -12,26 +12,9 @@
 #include <vector>
 #include "tools/ceil_log2.hpp"
 #include "tools/fix.hpp"
+#include "tools/nop_monoid.hpp"
 
 namespace tools {
-  namespace detail {
-    namespace lazy_segtree {
-      struct nop_monoid {
-        using T = ::std::monostate;
-        static T op(T, T) {
-          return {};
-        }
-        static T e() {
-          return {};
-        }
-      };
-      template <typename F, typename S>
-      S nop_mapping(F, const S& e) {
-        return e;
-      }
-    }
-  }
-
   template <typename SM, typename FM, auto mapping>
   class lazy_segtree {
     using S = typename SM::T;
@@ -41,9 +24,9 @@ namespace tools {
       "mapping must work as S(F, S)");
 
     template <typename T>
-    static constexpr bool has_data = !::std::is_same_v<T, ::tools::detail::lazy_segtree::nop_monoid>;
+    static constexpr bool has_data = !::std::is_same_v<T, ::tools::nop_monoid>;
     template <typename T>
-    static constexpr bool has_lazy = !::std::is_same_v<T, ::tools::detail::lazy_segtree::nop_monoid>;
+    static constexpr bool has_lazy = !::std::is_same_v<T, ::tools::nop_monoid>;
 
     int m_size;
     int m_height;

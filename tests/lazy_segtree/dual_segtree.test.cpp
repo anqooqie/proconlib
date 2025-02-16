@@ -6,9 +6,11 @@
 #include <vector>
 #include "atcoder/modint.hpp"
 #include "tools/lazy_segtree.hpp"
+#include "tools/nop_mapping.hpp"
+#include "tools/nop_monoid.hpp"
 
 template <typename FM>
-using dual_segtree = tools::lazy_segtree<tools::detail::lazy_segtree::nop_monoid, FM, tools::detail::lazy_segtree::nop_mapping<typename FM::T, std::monostate>>;
+using dual_segtree = tools::lazy_segtree<tools::nop_monoid, FM, tools::nop_mapping<typename FM::T, std::monostate>>;
 
 using mint = atcoder::modint998244353;
 
