@@ -65,7 +65,7 @@ It returns $r^\ast$.
 
 ## get
 ```cpp
-S a.get(long long p);
+F a.get(long long p);
 ```
 
 It returns $a_p$.

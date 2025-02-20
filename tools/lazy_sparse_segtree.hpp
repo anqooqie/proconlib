@@ -217,8 +217,8 @@ namespace tools {
       })(this->m_root, 0, this->capacity());
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    S all_prod() {
-      return this->prod(this->lower_bound(), this->upper_bound());
+    S all_prod() const {
+      return this->m_nodes[this->m_root].data;
     }
     template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
     void apply(const long long p, const F& f) {

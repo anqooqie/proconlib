@@ -133,8 +133,8 @@ namespace tools {
       })(1, 0, this->capacity());
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    S all_prod() {
-      return this->prod(0, this->m_size);
+    S all_prod() const {
+      return this->m_data[1];
     }
     template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
     void apply(const int p, const F& f) {

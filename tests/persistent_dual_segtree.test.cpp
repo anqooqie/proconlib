@@ -32,7 +32,7 @@ int main() {
 
   tools::persistent_dual_segtree<monoid>::buffer buffer;
   std::vector<tools::persistent_dual_segtree<monoid>> seg;
-  seg.emplace_back(buffer, N);
+  seg.emplace_back(buffer, 0, N);
   std::vector<std::tuple<int, int>> queries;
   for (int q = 0; q < Q; ++q) {
     int t;
