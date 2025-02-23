@@ -1,12 +1,11 @@
 #ifndef TOOLS_ONLINE_CUMSUM_HPP
 #define TOOLS_ONLINE_CUMSUM_HPP
 
+#include <cassert>
 #include <type_traits>
 #include <vector>
-#include <cstddef>
-#include <cassert>
-#include "tools/is_monoid.hpp"
 #include "tools/group.hpp"
+#include "tools/is_monoid.hpp"
 #include "tools/is_group.hpp"
 
 namespace tools {
@@ -16,19 +15,19 @@ namespace tools {
     using T = typename M::T;
     ::std::vector<T> m_vector;
     ::std::vector<T> m_cumsum;
-    ::std::size_t m_processed;
+    int m_processed;
 
   public:
     online_cumsum() : online_cumsum(0) {
     }
-    online_cumsum(const ::std::size_t n) : m_vector(n, M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {
+    online_cumsum(const int n) : m_vector(n, M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {
     }
 
-    ::std::size_t size() const {
+    int size() const {
       return this->m_vector.size();
     }
-    T& operator[](const ::std::size_t i) {
-      assert(i < this->size());
+    T& operator[](const int i) {
+      assert(0 <= i && i < this->size());
       return this->m_vector[i];
     }
 
@@ -45,8 +44,8 @@ namespace tools {
     auto rend() const { return this->m_vector.rend(); }
     auto crend() const { return this->m_vector.crend(); }
 
-    T prod(const ::std::size_t l, const ::std::size_t r) {
-      assert(l <= r && r <= this->size());
+    T prod(const int l, const int r) {
+      assert(0 <= l && l <= r && r <= this->size());
       if constexpr (Forward) {
         for (; this->m_processed < r; ++this->m_processed) {
           this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);
@@ -69,8 +68,8 @@ namespace tools {
         }
       }
     }
-    template <typename Y = X>
-    ::std::enable_if_t<!::tools::is_monoid_v<Y>, T> sum(const ::std::size_t l, const ::std::size_t r) {
+    template <typename Y = X> requires (!::tools::is_monoid_v<Y>)
+    T sum(const int l, const int r) {
       return this->prod(l, r);
     }
   };

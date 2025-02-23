@@ -3,8 +3,8 @@
 #include <iostream>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
-#include "tools/online_cumsum.hpp"
 #include "tools/matrix.hpp"
+#include "tools/online_cumsum.hpp"
 
 using mint = atcoder::modint998244353;
 using matrix2x2 = tools::matrix<mint, 2, 2>;

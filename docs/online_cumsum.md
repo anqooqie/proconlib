@@ -13,9 +13,9 @@ It is a cumulative sum, but allows you to construct it by online.
 
 ## Constructor
 ```cpp
-(1) online_cumsum<T, Forward = true> a(std::size_t n = 0);
-(2) online_cumsum<M, Forward = true> a(std::size_t n = 0);
-(3) online_cumsum<G, Forward = true> a(std::size_t n = 0);
+(1) online_cumsum<T, Forward = true> a(int n = 0);
+(2) online_cumsum<M, Forward = true> a(int n = 0);
+(3) online_cumsum<G, Forward = true> a(int n = 0);
 ```
 
 - (1)
@@ -43,13 +43,14 @@ It is a cumulative sum, but allows you to construct it by online.
     - For all $x$ in `typename G::T`, $y$ in `typename G::T` and $z$ in `typename G::T`, `G::op(G::op(x, y), z)` $=$ `G::op(x, G::op(y, z))`.
     - For all $x$ in `typename G::T`, `G::op(G::e(), x)` $=$ `G::op(x, G::e())` $= x$.
     - For all $x$ in `typename G::T`, `G::op(G::inv(x), x)` $=$ `G::op(x, G::inv(x))` $=$ `G::e()`.
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t a.size();
+int a.size();
 ```
 
 It returns $n$.
@@ -62,7 +63,7 @@ It returns $n$.
 
 ## operator[]
 ```cpp
-(see below) a.operator[](std::size_t i);
+(see below) a.operator[](int i);
 ```
 
 It returns the reference to $a_i$.
@@ -86,7 +87,7 @@ The return type is as follows.
 
 ## prod
 ```cpp
-(see below) a.prod(std::size_t l, std::size_t r);
+(see below) a.prod(int l, int r);
 ```
 
 It returns $a_l \cdot a_{l + 1} \cdot \ldots \cdot a_{r - 1}$.
@@ -110,7 +111,7 @@ The return type is as follows.
 
 ## sum
 ```cpp
-T a.sum(std::size_t l, std::size_t r);
+T a.sum(int l, int r);
 ```
 
 It is an alias for `a.prod(l, r)`.
