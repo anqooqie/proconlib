@@ -25,6 +25,6 @@ int main() {
     answers.push_back(std::round(*it));
   }
 
-  std::cout << tools::join(answers.begin(), answers.end(), " ") << '\n';
+  std::cout << tools::join(answers, " ") << '\n';
   return 0;
 }

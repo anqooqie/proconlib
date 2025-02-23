@@ -16,7 +16,7 @@ int main() {
 
   const auto lis = tools::lis::segtree<true, true>(A.begin(), A.end());
   std::cout << lis.size() << '\n';
-  std::cout << tools::join(lis.begin(), lis.end(), " ") << '\n';
+  std::cout << tools::join(lis, " ") << '\n';
 
   return 0;
 }

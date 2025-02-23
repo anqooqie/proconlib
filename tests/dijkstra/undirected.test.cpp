@@ -2,10 +2,9 @@
 // competitive-verifier: IGNORE
 
 #include <iostream>
-#include <string>
-#include <limits>
-#include <cstddef>
+#include <ranges>
 #include "tools/dijkstra.hpp"
+#include "tools/join.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -22,13 +21,7 @@ int main() {
     graph.add_edge(U, V, 1);
   }
 
-  const auto prev = graph.query(Y).second;
-  std::string delimiter;
-  for (int here = X; here >= 0; here = (prev[here] < std::numeric_limits<std::size_t>::max() ? graph.get_edge(prev[here]).from ^ graph.get_edge(prev[here]).to ^ here : -1)) {
-    std::cout << delimiter << here + 1;
-    delimiter = " ";
-  }
-  std::cout << '\n';
+  std::cout << tools::join(graph.query<true>(X).vertex_path(Y) | std::views::transform([](const auto v) { return v + 1; }), " ") << '\n';
 
   return 0;
 }

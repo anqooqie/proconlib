@@ -1,15 +1,16 @@
 #ifndef TOOLS_ZERO_ONE_BFS_HPP
 #define TOOLS_ZERO_ONE_BFS_HPP
 
-#include <cstddef>
-#include <vector>
-#include <cassert>
-#include <tuple>
 #include <algorithm>
-#include <utility>
-#include <limits>
+#include <cassert>
 #include <deque>
+#include <iterator>
+#include <limits>
+#include <utility>
+#include <tuple>
+#include <vector>
 #include "tools/chmin.hpp"
+#include "tools/shortest_path_tree.hpp"
 
 namespace tools {
 
@@ -17,39 +18,32 @@ namespace tools {
   class zero_one_bfs {
   public:
     struct edge {
-      ::std::size_t id;
-      ::std::size_t from;
-      ::std::size_t to;
+      int from;
+      int to;
       T cost;
     };
 
   private:
     ::std::vector<edge> m_edges;
-    ::std::vector<::std::vector<::std::size_t>> m_graph;
+    ::std::vector<::std::vector<int>> m_graph;
 
   public:
     zero_one_bfs() = default;
-    zero_one_bfs(const ::tools::zero_one_bfs<Directed, T>&) = default;
-    zero_one_bfs(::tools::zero_one_bfs<Directed, T>&&) = default;
-    ~zero_one_bfs() = default;
-    ::tools::zero_one_bfs<Directed, T>& operator=(const ::tools::zero_one_bfs<Directed, T>&) = default;
-    ::tools::zero_one_bfs<Directed, T>& operator=(::tools::zero_one_bfs<Directed, T>&&) = default;
-
-    explicit zero_one_bfs(const ::std::size_t n) : m_graph(n) {
+    explicit zero_one_bfs(const int n) : m_graph(n) {
     }
 
-    ::std::size_t size() const {
+    int size() const {
       return this->m_graph.size();
     }
 
-    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T& w) {
-      assert(u < this->size());
-      assert(v < this->size());
+    int add_edge(int u, int v, const T w) {
+      assert(0 <= u && u < this->size());
+      assert(0 <= v && v < this->size());
       assert(w == 0 || w == 1);
       if constexpr (!Directed) {
         ::std::tie(u, v) = ::std::minmax({u, v});
       }
-      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+      this->m_edges.push_back({u, v, w});
       this->m_graph[u].push_back(this->m_edges.size() - 1);
       if constexpr (!Directed) {
         this->m_graph[v].push_back(this->m_edges.size() - 1);
@@ -57,23 +51,30 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const ::std::size_t k) const {
-      assert(k < this->m_edges.size());
+    const edge& get_edge(const int k) const & {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return this->m_edges[k];
     }
-
-    const ::std::vector<edge>& edges() const {
-      return this->m_edges;
+    edge get_edge(const int k) && {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      return ::std::move(this->m_edges[k]);
     }
 
-    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) const {
-      assert(s < this->size());
+    const ::std::vector<edge>& edges() const & {
+      return this->m_edges;
+    }
+    ::std::vector<edge> edges() && {
+      return ::std::move(this->m_edges);
+    }
+
+    template <bool Restore = false>
+    auto query(const int s) const {
+      assert(0 <= s && s < this->size());
 
       ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<::std::size_t> prev(this->size());
-      prev[s] = ::std::numeric_limits<::std::size_t>::max();
-      ::std::deque<::std::pair<::std::size_t, T>> deque;
+      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
+      ::std::deque<::std::pair<int, T>> deque;
       deque.emplace_front(s, 0);
 
       while (!deque.empty()) {
@@ -84,7 +85,9 @@ namespace tools {
           const auto& edge = this->m_edges[edge_id];
           const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);
           if (::tools::chmin(dist[next], dist[here] + edge.cost)) {
-            prev[next] = edge.id;
+            if constexpr (Restore) {
+              prev[next] = edge.id;
+            }
             if (edge.cost == 0) {
               deque.emplace_front(next, dist[next]);
             } else {
@@ -94,7 +97,13 @@ namespace tools {
         }
       }
 
-      return ::std::make_pair(dist, prev);
+      if constexpr (Restore) {
+        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
+          return this->m_edges[e].from ^ (Directed ? 0 : this->m_edges[e].to ^ v);
+        });
+      } else {
+        return dist;
+      }
     }
   };
 }

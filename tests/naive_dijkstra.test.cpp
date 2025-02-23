@@ -27,8 +27,8 @@ int main() {
     }
   }
 
-  const auto dist1 = graph1.query(0).first;
-  const auto dist2 = graph2.query(N - 1).first;
+  const auto dist1 = graph1.query(0);
+  const auto dist2 = graph2.query(N - 1);
   ll answer = std::numeric_limits<ll>::max();
   for (ll i = 0; i < N; ++i) {
     tools::chmin(answer, dist1[i] + dist2[i]);

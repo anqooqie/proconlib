@@ -1,13 +1,14 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/product_of_polynomial_sequence
 
 #include <iostream>
-#include <vector>
-#include <string>
 #include <iterator>
+#include <ranges>
+#include <string>
+#include <vector>
 #include "atcoder/modint.hpp"
+#include "tools/join.hpp"
 #include "tools/polynomial.hpp"
 #include "tools/polynomial_product.hpp"
-#include "tools/join.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -33,7 +34,7 @@ int main() {
   }
 
   const auto answer = tools::polynomial_product(f.begin(), f.end());
-  std::cout << tools::join(answer.pbegin(), std::next(answer.pbegin(), D + 1), [](const auto k) { return k.val(); }, " ") << '\n';
+  std::cout << tools::join(std::ranges::subrange(answer.pbegin(), std::next(answer.pbegin(), D + 1)) | std::views::transform([](const auto k) { return k.val(); }), " ") << '\n';
 
   return 0;
 }

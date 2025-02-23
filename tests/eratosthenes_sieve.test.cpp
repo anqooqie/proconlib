@@ -27,7 +27,7 @@ int main() {
   }
 
   std::cout << pi_N << ' ' << answers.size() << '\n';
-  std::cout << tools::join(answers.begin(), answers.end(), " ") << '\n';
+  std::cout << tools::join(answers, " ") << '\n';
 
   return 0;
 }

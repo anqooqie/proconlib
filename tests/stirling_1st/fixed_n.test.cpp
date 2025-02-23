@@ -1,6 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind
 
 #include <iostream>
+#include <ranges>
 #include "atcoder/modint.hpp"
 #include "tools/stirling_1st.hpp"
 #include "tools/join.hpp"
@@ -15,7 +16,7 @@ int main() {
   std::cin >> N;
 
   const auto answers = tools::stirling_1st::fixed_n<mint>(N, N);
-  std::cout << tools::join(answers.begin(), answers.end(), [](const auto x) { return x.val(); }, " ") << '\n';
+  std::cout << tools::join(answers | std::views::transform([](const auto x) { return x.val(); }), " ") << '\n';
 
   return 0;
 }

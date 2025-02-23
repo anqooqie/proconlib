@@ -14,7 +14,7 @@ All the edges must have non-nagative costs.
 
 ## Constructor
 ```cpp
-dijkstra<Directed, T> graph(std::size_t n);
+dijkstra<Directed, T> graph(int n);
 ```
 
 If the type parameter `<Directed>` is `true`, it creates a directed graph with $n$ vertices and $0$ edges.
@@ -22,14 +22,14 @@ If the type parameter `<Directed>` is `false`, it creates an undirected graph wi
 The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
-- None
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -42,7 +42,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+int graph.add_edge(int u, int v, T w);
 ```
 
 If `<Directed>` is `true`, it adds a directed edge oriented from $u$ to $v$ with cost `w`.
@@ -60,12 +60,11 @@ It returns an integer $k$ such that this is the $k$-th ($0$ indexed) edge that i
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
   T cost;
 };
-const edge& graph.get_edge(std::size_t k);
+edge graph.get_edge(int k);
 ```
 
 It returns the $k$-th ($0$ indexed) edge.
@@ -78,7 +77,7 @@ It returns the $k$-th ($0$ indexed) edge.
 
 ## edges
 ```cpp
-const std::vector<edge>& graph.edges();
+std::vector<edge> graph.edges();
 ```
 
 It returns all the edges in the graph.
@@ -92,14 +91,15 @@ The edges are ordered in the same order as added by `add_edge`.
 
 ## query
 ```cpp
-std::pair<std::vector<T>, std::vector<std::size_t>> graph.query(std::size_t s);
+(1) std::vector<T> graph.query(int s);
+(2) std::vector<T> graph.query<false>(int s);
+(3) tools::shortest_path_tree<T, (anonymous type)> graph.query<true>(int s);
 ```
 
-It solves the single source shortest path problem on the graph.
-It returns two vectors `dist` and `prev`.
-`dist[t]` represents the smallest value as the sum of the costs of the edges that make up the path from $s$ to $t$.
-`prev[t]` represents the index of the edge from the parent of $t$ to $t$ in the shortest path tree rooted at $s$.
-If $t = s$ or $t$ is unrechable from $s$, `prev[t]` is `std::numeric_limits<std::size_t>::max()`.
+- (1), (2)
+    - It is identical to `graph.query<true>(s).dist()`.
+- (3)
+    - It returns the answer to the single source shortest path problem from a source vertex $s$.
 
 ### Constraints
 - $0 \leq s < n$

@@ -1,17 +1,17 @@
 #ifndef TOOLS_NAIVE_DIJKSTRA_HPP
 #define TOOLS_NAIVE_DIJKSTRA_HPP
 
-#include <cstddef>
-#include <vector>
-#include <limits>
-#include <cassert>
-#include <tuple>
 #include <algorithm>
-#include <utility>
-#include <numeric>
+#include <cassert>
 #include <iterator>
-#include "tools/less_by.hpp"
+#include <limits>
+#include <numeric>
+#include <tuple>
+#include <utility>
+#include <vector>
 #include "tools/chmin.hpp"
+#include "tools/less_by.hpp"
+#include "tools/shortest_path_tree.hpp"
 
 namespace tools {
 
@@ -19,41 +19,34 @@ namespace tools {
   class naive_dijkstra {
   public:
     struct edge {
-      ::std::size_t id;
-      ::std::size_t from;
-      ::std::size_t to;
+      int from;
+      int to;
       T cost;
     };
 
   private:
-    ::std::size_t m_size;
+    int m_size;
     ::std::vector<edge> m_edges;
-    ::std::vector<::std::size_t> m_graph;
+    ::std::vector<int> m_graph;
 
   public:
     naive_dijkstra() = default;
-    naive_dijkstra(const ::tools::naive_dijkstra<Directed, T>&) = default;
-    naive_dijkstra(::tools::naive_dijkstra<Directed, T>&&) = default;
-    ~naive_dijkstra() = default;
-    ::tools::naive_dijkstra<Directed, T>& operator=(const ::tools::naive_dijkstra<Directed, T>&) = default;
-    ::tools::naive_dijkstra<Directed, T>& operator=(::tools::naive_dijkstra<Directed, T>&&) = default;
-
-    explicit naive_dijkstra(const ::std::size_t n) : m_size(n), m_graph(n * n, ::std::numeric_limits<::std::size_t>::max()) {
+    explicit naive_dijkstra(const int n) : m_size(n), m_graph(n * n, -1) {
     }
 
-    ::std::size_t size() const {
+    int size() const {
       return this->m_size;
     }
 
-    ::std::size_t add_edge(::std::size_t u, ::std::size_t v, const T& w) {
-      assert(u < this->size());
-      assert(v < this->size());
+    int add_edge(int u, int v, const T w) {
+      assert(0 <= u && u < this->size());
+      assert(0 <= v && v < this->size());
       assert(w >= 0);
       if constexpr (!Directed) {
         ::std::tie(u, v) = ::std::minmax({u, v});
       }
-      this->m_edges.push_back(edge{this->m_edges.size(), u, v, w});
-      if (this->m_graph[u * this->size() + v] == ::std::numeric_limits<::std::size_t>::max() || w < this->m_edges[this->m_graph[u * this->size() + v]].cost) {
+      this->m_edges.push_back({u, v, w});
+      if (this->m_graph[u * this->size() + v] < 0 || w < this->m_edges[this->m_graph[u * this->size() + v]].cost) {
         this->m_graph[u * this->size() + v] = this->m_edges.size() - 1;
         if constexpr (!Directed) {
             this->m_graph[v * this->size() + u] = this->m_edges.size() - 1;
@@ -62,27 +55,34 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const ::std::size_t k) const {
-      assert(k < this->m_edges.size());
+    const edge& get_edge(const int k) const & {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return this->m_edges[k];
     }
-
-    const ::std::vector<edge>& edges() const {
-      return this->m_edges;
+    edge get_edge(const int k) && {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      return ::std::move(this->m_edges[k]);
     }
 
-    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) const {
-      assert(s < this->size());
+    const ::std::vector<edge>& edges() const & {
+      return this->m_edges;
+    }
+    ::std::vector<edge> edges() && {
+      return ::std::move(this->m_edges);
+    }
+
+    template <bool Restore = false>
+    auto query(const int s) const {
+      assert(0 <= s && s < this->size());
 
       ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<::std::size_t> prev(this->size());
-      prev[s] = ::std::numeric_limits<::std::size_t>::max();
+      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
 
-      ::std::vector<::std::size_t> Q(this->size());
+      ::std::vector<int> Q(this->size());
       ::std::iota(Q.begin(), Q.end(), 0);
       while (!Q.empty()) {
-        const auto min_it = ::std::min_element(Q.begin(), Q.end(), ::tools::less_by([&](const auto v) { return dist[v]; }));
+        const auto min_it = ::std::ranges::min_element(Q, ::tools::less_by([&](const auto v) { return dist[v]; }));
         const auto here = *min_it;
         if (dist[here] == ::std::numeric_limits<T>::max()) break;
 
@@ -90,13 +90,22 @@ namespace tools {
         Q.pop_back();
 
         for (const auto next : Q) {
-          if (this->m_graph[here * this->size() + next] != ::std::numeric_limits<::std::size_t>::max() && ::tools::chmin(dist[next], dist[here] + this->m_edges[this->m_graph[here * this->size() + next]].cost)) {
-            prev[next] = this->m_graph[here * this->size() + next];
+          const auto edge_id = this->m_graph[here * this->size() + next];
+          if (edge_id >= 0 && ::tools::chmin(dist[next], dist[here] + this->m_edges[edge_id].cost)) {
+            if constexpr (Restore) {
+              prev[next] = edge_id;
+            }
           }
         }
       }
 
-      return ::std::make_pair(dist, prev);
+      if constexpr (Restore) {
+        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
+          return this->m_edges[e].from ^ (Directed ? 0 : this->m_edges[e].to ^ v);
+        });
+      } else {
+        return dist;
+      }
     }
   };
 }

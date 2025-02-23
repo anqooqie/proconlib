@@ -1,31 +1,20 @@
 #ifndef TOOLS_JOIN_HPP
 #define TOOLS_JOIN_HPP
 
+#include <ranges>
 #include <string>
 #include <sstream>
-#include <iterator>
 
 namespace tools {
-
-  template <typename Iterator>
-  ::std::string join(const Iterator begin, const Iterator end, const ::std::string& delimiter) {
+  template <::std::ranges::range R>
+  ::std::string join(R&& e, const ::std::string& delimiter) {
     ::std::ostringstream ss;
-    if (begin != end) {
-      ss << *begin;
-      for (auto it = ::std::next(begin); it != end; ++it) {
+    auto it = ::std::ranges::begin(e);
+    const auto end = ::std::ranges::end(e);
+    if (it != end) {
+      ss << *it;
+      for (++it; it != end; ++it) {
         ss << delimiter << *it;
-      }
-    }
-    return ss.str();
-  }
-
-  template <typename Iterator, typename F>
-  ::std::string join(const Iterator begin, const Iterator end, const F& mapper, const ::std::string& delimiter) {
-    ::std::ostringstream ss;
-    if (begin != end) {
-      ss << mapper(*begin);
-      for (auto it = ::std::next(begin); it != end; ++it) {
-        ss << delimiter << mapper(*it);
       }
     }
     return ss.str();

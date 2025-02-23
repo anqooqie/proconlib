@@ -22,7 +22,7 @@ int main() {
   const auto groups = graph.biconnected_components();
   std::cout << groups.size() << '\n';
   for (const auto& group : groups) {
-    std::cout << group.size() << ' ' << tools::join(group.begin(), group.end(), " ") << '\n';
+    std::cout << group.size() << ' ' << tools::join(group, " ") << '\n';
   }
 
   return 0;

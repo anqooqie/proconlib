@@ -21,8 +21,8 @@ int main() {
   if (const auto answer = graph.query(); answer) {
     const auto& [vids, eids] = *answer;
     std::cout << vids.size() << '\n';
-    std::cout << tools::join(vids.begin(), vids.end(), " ") << '\n';
-    std::cout << tools::join(eids.begin(), eids.end(), " ") << '\n';
+    std::cout << tools::join(vids, " ") << '\n';
+    std::cout << tools::join(eids, " ") << '\n';
   } else {
     std::cout << -1 << '\n';
   }

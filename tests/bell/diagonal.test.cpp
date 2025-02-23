@@ -1,6 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bell_number
 
 #include <iostream>
+#include <ranges>
 #include "atcoder/modint.hpp"
 #include "tools/bell.hpp"
 #include "tools/join.hpp"
@@ -15,7 +16,7 @@ int main() {
   std::cin >> N;
 
   const auto answers = tools::bell::diagonal<mint>(N);
-  std::cout << tools::join(answers.begin(), answers.end(), [](const auto B_i) { return B_i.val(); }, " ") << '\n';
+  std::cout << tools::join(answers | std::views::transform([](const auto B_i) { return B_i.val(); }), " ") << '\n';
 
   return 0;
 }

@@ -32,7 +32,7 @@ int main() {
   const auto groups = dsu.groups();
   std::cout << groups.size() << '\n';
   for (const auto& group : groups) {
-    std::cout << group.size() << ' ' << tools::join(group.begin(), group.end(), " ") << '\n';
+    std::cout << group.size() << ' ' << tools::join(group, " ") << '\n';
   }
 
   return 0;

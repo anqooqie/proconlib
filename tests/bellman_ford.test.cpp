@@ -1,32 +1,34 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc137/tasks/abc137_e
-// competitive-verifier: IGNORE
+// competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/GRL_1_B
 
+#include <algorithm>
 #include <iostream>
 #include <limits>
-#include <algorithm>
 #include "tools/bellman_ford.hpp"
-
-using ll = long long;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N, M, P;
-  std::cin >> N >> M >> P;
-  tools::bellman_ford<ll> graph(N);
-  for (ll i = 0; i < M; ++i) {
-    ll A, B, C;
-    std::cin >> A >> B >> C;
-    --A, --B;
-    graph.add_edge(A, B, -C + P);
+  int N, M, r;
+  std::cin >> N >> M >> r;
+  tools::bellman_ford<int> graph(N);
+  for (int i = 0; i < M; ++i) {
+    int s, t, d;
+    std::cin >> s >> t >> d;
+    graph.add_edge(s, t, d);
   }
 
-  const auto [dist, prev] = graph.query(0);
-  if (dist[N - 1] == std::numeric_limits<ll>::min()) {
-    std::cout << -1 << '\n';
+  const auto dist = graph.query(r);
+  if (std::ranges::find(dist, std::numeric_limits<int>::min()) != dist.end()) {
+    std::cout << "NEGATIVE CYCLE" << '\n';
   } else {
-    std::cout << std::max<ll>(0, -dist[N - 1]) << '\n';
+    for (const auto d : dist) {
+      if (d == std::numeric_limits<int>::max()) {
+        std::cout << "INF" << '\n';
+      } else {
+        std::cout << d << '\n';
+      }
+    }
   }
 
   return 0;

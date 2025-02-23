@@ -31,6 +31,6 @@ int main() {
   }
 
   std::cout << cost << '\n';
-  std::cout << tools::join(p.begin(), p.end(), " ") << '\n';
+  std::cout << tools::join(p, " ") << '\n';
   return 0;
 }

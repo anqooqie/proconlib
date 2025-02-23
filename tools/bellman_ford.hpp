@@ -1,12 +1,13 @@
 #ifndef TOOLS_BELLMAN_FORD_HPP
 #define TOOLS_BELLMAN_FORD_HPP
 
-#include <cstddef>
-#include <vector>
 #include <cassert>
-#include <utility>
+#include <iterator>
 #include <limits>
+#include <utility>
+#include <vector>
 #include "tools/chmin.hpp"
+#include "tools/shortest_path_tree.hpp"
 
 namespace tools {
 
@@ -14,77 +15,92 @@ namespace tools {
   class bellman_ford {
   public:
     struct edge {
-      ::std::size_t id;
-      ::std::size_t from;
-      ::std::size_t to;
+      int from;
+      int to;
       T cost;
     };
 
   private:
-    ::std::size_t m_size;
+    int m_size;
     ::std::vector<edge> m_edges;
 
   public:
     bellman_ford() = default;
-    bellman_ford(const ::tools::bellman_ford<T>&) = default;
-    bellman_ford(::tools::bellman_ford<T>&&) = default;
-    ~bellman_ford() = default;
-    ::tools::bellman_ford<T>& operator=(const ::tools::bellman_ford<T>&) = default;
-    ::tools::bellman_ford<T>& operator=(::tools::bellman_ford<T>&&) = default;
-
-    explicit bellman_ford(const ::std::size_t n) : m_size(n) {
+    explicit bellman_ford(const int n) : m_size(n) {
     }
 
-    ::std::size_t size() const {
+    int size() const {
       return this->m_size;
     }
 
-    ::std::size_t add_edge(const ::std::size_t u, const ::std::size_t v, const T& w) {
-      assert(u < this->size());
-      assert(v < this->size());
-      this->m_edges.push_back(edge({this->m_edges.size(), u, v, w}));
+    int add_edge(const int u, const int v, const T w) {
+      assert(0 <= u && u < this->size());
+      assert(0 <= v && v < this->size());
+      this->m_edges.push_back({u, v, w});
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const ::std::size_t k) const {
-      assert(k < this->m_edges.size());
+    const edge& get_edge(const int k) const & {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return this->m_edges[k];
     }
-
-    const ::std::vector<edge>& edges() const {
-      return this->m_edges;
+    edge get_edge(const int k) && {
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      return ::std::move(this->m_edges[k]);
     }
 
-    ::std::pair<::std::vector<T>, ::std::vector<::std::size_t>> query(const ::std::size_t s) const {
-      assert(s < this->size());
+    const ::std::vector<edge>& edges() const & {
+      return this->m_edges;
+    }
+    ::std::vector<edge> edges() && {
+      return ::std::move(this->m_edges);
+    }
+
+    template <bool Restore = false>
+    auto query(const int s) const {
+      assert(0 <= s && s < this->size());
 
       ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<::std::size_t> prev(this->size());
-      prev[s] = ::std::numeric_limits<::std::size_t>::max();
+      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
 
-      for (::std::size_t i = 0; i + 1 < this->size(); ++i) {
-        for (const auto& edge : this->m_edges) {
+      for (int i = 0; i + 1 < this->size(); ++i) {
+        for (int k = 0; k < ::std::ssize(this->m_edges); ++k) {
+          const auto& edge = this->m_edges[k];
           if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + edge.cost)) {
-            prev[edge.to] = edge.id;
+            if constexpr (Restore) {
+              prev[edge.to] = k;
+            }
           }
         }
       }
-      for (const auto& edge : this->m_edges) {
-        if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0) < dist[edge.to]) {
-          dist[edge.to] = ::std::numeric_limits<T>::min();
-          prev[edge.to] = edge.id;
+      for (int k = 0; k < ::std::ssize(this->m_edges); ++k) {
+        const auto& edge = this->m_edges[k];
+        if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::lowest() ? edge.cost : 0) < dist[edge.to]) {
+          dist[edge.to] = ::std::numeric_limits<T>::lowest();
+          if constexpr (Restore) {
+            prev[edge.to] = k;
+          }
         }
       }
-      for (::std::size_t i = 0; i + 1 < this->size(); ++i) {
-        for (const auto& edge : this->m_edges) {
-          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::min() ? edge.cost : 0))) {
-            prev[edge.to] = edge.id;
+      for (int i = 0; i + 1 < this->size(); ++i) {
+        for (int k = 0; k < ::std::ssize(this->m_edges); ++k) {
+          const auto& edge = this->m_edges[k];
+          if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::lowest() ? edge.cost : 0))) {
+            if constexpr (Restore) {
+              prev[edge.to] = k;
+            }
           }
         }
       }
 
-      return ::std::make_pair(dist, prev);
+      if constexpr (Restore) {
+        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, auto) {
+          return this->m_edges[e].from;
+        });
+      } else {
+        return dist;
+      }
     }
   };
 }

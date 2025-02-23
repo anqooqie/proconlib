@@ -21,7 +21,7 @@ int main() {
 
   const auto [X, e] = graph.query().first[0];
   std::cout << X << '\n';
-  std::cout << tools::join(e.begin(), e.end(), " ") << '\n';
+  std::cout << tools::join(e, " ") << '\n';
 
   return 0;
 }

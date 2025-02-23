@@ -2,6 +2,7 @@
 // competitive-verifier: IGNORE
 
 #include <iostream>
+#include <ranges>
 #include <vector>
 #include "tools/hld.hpp"
 #include "tools/undoable_dsu.hpp"
@@ -55,6 +56,6 @@ int main() {
     has_cycle[dsu.leader(B[v])] = has_cycle_B;
   })(0);
 
-  std::cout << tools::join(answers.begin() + 1, answers.end(), " ") << '\n';
+  std::cout << tools::join(std::ranges::subrange(answers.begin() + 1, answers.end()), " ") << '\n';
   return 0;
 }

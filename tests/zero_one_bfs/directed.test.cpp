@@ -38,7 +38,7 @@ int main() {
       ll X, Y;
       std::cin >> X >> Y;
       --X, --Y;
-      answer += graph.query(P(pX, pY)).first[P(X, Y)];
+      answer += graph.query(P(pX, pY))[P(X, Y)];
       std::tie(pX, pY) = std::make_pair(X, Y);
     }
 
