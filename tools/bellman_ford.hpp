@@ -79,7 +79,7 @@ namespace tools {
         if (dist[edge.from] < ::std::numeric_limits<T>::max() && dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::lowest() ? edge.cost : 0) < dist[edge.to]) {
           dist[edge.to] = ::std::numeric_limits<T>::lowest();
           if constexpr (Restore) {
-            prev[edge.to] = k;
+            prev[edge.to] = -1;
           }
         }
       }
@@ -88,7 +88,7 @@ namespace tools {
           const auto& edge = this->m_edges[k];
           if (dist[edge.from] < ::std::numeric_limits<T>::max() && ::tools::chmin(dist[edge.to], dist[edge.from] + (dist[edge.from] > ::std::numeric_limits<T>::lowest() ? edge.cost : 0))) {
             if constexpr (Restore) {
-              prev[edge.to] = k;
+              prev[edge.to] = -1;
             }
           }
         }
