@@ -1,19 +1,18 @@
 #ifndef TOOLS_DYNAMIC_BITSET_HPP
 #define TOOLS_DYNAMIC_BITSET_HPP
 
-#include <cstddef>
-#include <limits>
-#include <cstdint>
-#include <vector>
-#include <string>
-#include <cassert>
 #include <algorithm>
-#include <iterator>
-#include <sstream>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
 #include <iostream>
+#include <iterator>
+#include <limits>
+#include <sstream>
+#include <string>
+#include <vector>
 #include "tools/ceil.hpp"
-#include "tools/popcount.hpp"
-#include "tools/countr_zero.hpp"
 
 namespace tools {
   class dynamic_bitset {
@@ -182,7 +181,7 @@ namespace tools {
     ::std::size_t count() const {
       ::std::size_t result = 0;
       for (::std::size_t i = 0; i < this->m_bits.size(); ++i) {
-        result += ::tools::popcount(this->m_bits[i]);
+        result += ::std::popcount(this->m_bits[i]);
       }
       return result;
     }
@@ -278,7 +277,7 @@ namespace tools {
     ::std::size_t Find_first(const ::std::size_t offset) const {
       for (::std::size_t i = offset; i < this->m_bits.size(); ++i) {
         if (this->m_bits[i] > 0) {
-          return i * W + ::tools::countr_zero(this->m_bits[i]);
+          return i * W + ::std::countr_zero(this->m_bits[i]);
         }
       }
       return this->m_size;
@@ -291,7 +290,7 @@ namespace tools {
       assert(pos < this->m_size);
 
       if (pos % W == W - 1) return this->Find_first((pos + 1) / W);
-      if (const auto x = this->m_bits[pos / W] >> (pos % W + 1); x > 0) return pos + ::tools::countr_zero(x) + 1;
+      if (const auto x = this->m_bits[pos / W] >> (pos % W + 1); x > 0) return pos + ::std::countr_zero(x) + 1;
       return this->Find_first(pos / W + 1);
     }
   };

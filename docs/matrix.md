@@ -15,8 +15,8 @@ It is a $n \times m$-dimensional matrix.
 ```cpp
 (1) matrix<T, n, m> A();
 (2) matrix<T, n, m> A(std::initializer_list<std::initializer_list<T>> il);
-(3) matrix<T> A(std::size_t n, std::size_t m);
-(4) matrix<T> A(std::size_t n, std::size_t m, T x);
+(3) matrix<T> A(int n, int m);
+(4) matrix<T> A(int n, int m, T x);
 (5) matrix<T> A(std::initializer_list<std::initializer_list<T>> il);
 ```
 
@@ -35,6 +35,9 @@ The type parameter `<T>` represents the type of the elements.
 - (2)
     - `il.size()` is equal to $n$.
     - For all $0 \leq r < n$, `il.begin()[r].size()` is equal to $m$.
+- (3), (4)
+    - $n \geq 0$
+    - $m \geq 0$
 - (5)
     - For all $0 \leq r < $`il.size()`, `il.begin()[r].size()` is equal to `il.begin()->size()`.
 
@@ -57,7 +60,7 @@ It is the $(i, j)$-th element of the matrix.
 
 ## rows
 ```cpp
-std::size_t A.rows();
+int A.rows();
 ```
 
 It returns $n$, the number of rows of the matrix.
@@ -70,7 +73,7 @@ It returns $n$, the number of rows of the matrix.
 
 ## cols
 ```cpp
-std::size_t A.cols();
+int A.cols();
 ```
 
 It returns $m$, the number of columns of the matrix.
@@ -83,7 +86,7 @@ It returns $m$, the number of columns of the matrix.
 
 ## gauss_jordan
 ```cpp
-std::size_t A.gauss_jordan();
+int A.gauss_jordan();
 ```
 
 It transforms $A$ to the reduced row echelon form, and returns the rank of $A$.
@@ -96,7 +99,7 @@ It transforms $A$ to the reduced row echelon form, and returns the rank of $A$.
 
 ## rank
 ```cpp
-std::size_t A.rank();
+int A.rank();
 ```
 
 It returns the rank of $A$.
@@ -354,8 +357,8 @@ It returns $Av$.
 It is equivalent to the following code.
 
 ```cpp
-for (std::size_t r = 0; r < self.rows(); ++r) {
-  for (std::size_t c = 0; c < self.cols(); ++c) {
+for (int r = 0; r < self.rows(); ++r) {
+  for (int c = 0; c < self.cols(); ++c) {
     is >> self[r][c];
   }
 }
@@ -377,9 +380,9 @@ return is;
 It is equivalent to the following code.
 
 ```cpp
-for (std::size_t r = 0; r < self.rows(); ++r) {
+for (int r = 0; r < self.rows(); ++r) {
   os << '[';
-  for (std::size_t c = 0; c < self.cols(); ++c) {
+  for (int c = 0; c < self.cols(); ++c) {
     if (c > 0) os << ", ";
     os << self[r][c];
   }
@@ -397,13 +400,14 @@ return os;
 ## e
 ```cpp
 (1) matrix<T, n, n> matrix<T, n, n>::e();
-(2) matrix<T> matrix<T>::e(std::size_t n);
+(2) matrix<T> matrix<T>::e(int n);
 ```
 
 It returns $n \times n$-dimensional identity matrix.
 
 ### Constraints
-- None
+- (2)
+    - $n \geq 0$
 
 ### Time Complexity
 - $O(n^2)$
