@@ -95,6 +95,123 @@ namespace tools {
       operator T() const {
         return T::raw(static_cast<bool>(this->m_ref));
       }
+
+      unsigned int val() const {
+        return static_cast<bool>(this->m_ref);
+      }
+      reference& operator++() {
+        this->m_ref = !static_cast<bool>(this->m_ref);
+        return *this;
+      }
+      reference& operator--() {
+        return ++*this;
+      }
+      T operator++(int) {
+        const T result = *this;
+        ++*this;
+        return result;
+      }
+      T operator--(int) {
+        return (*this)++;
+      }
+      reference& operator+=(const T rhs) {
+        if (rhs.val()) ++*this;
+        return *this;
+      }
+      reference& operator+=(const reference& rhs) {
+        if (rhs.m_ref) ++*this;
+        return *this;
+      }
+      reference& operator-=(const T rhs) {
+        return *this += rhs;
+      }
+      reference& operator-=(const reference& rhs) {
+        return *this += rhs;
+      }
+      reference& operator*=(const T rhs) {
+        if (!rhs.val()) this->m_ref = false;
+        return *this;
+      }
+      reference& operator*=(const reference& rhs) {
+        if (!rhs.m_ref) this->m_ref = false;
+        return *this;
+      }
+      reference& operator/=(const T rhs) {
+        assert(rhs.val());
+        return *this;
+      }
+      reference& operator/=(const reference& rhs) {
+        assert(rhs.m_ref);
+        return *this;
+      }
+      T operator+() const {
+        return *this;
+      }
+      T operator-() const {
+        return *this;
+      }
+      T pow(const long long n) const {
+        assert(0 <= n);
+        return *this;
+      }
+      T inv() const {
+        assert(this->m_ref);
+        return *this;
+      }
+      friend T operator+(const reference& lhs, const reference& rhs) {
+        return static_cast<T>(lhs) += rhs;
+      }
+      friend T operator+(const T lhs, const reference& rhs) {
+        return T(lhs) += rhs;
+      }
+      friend T operator+(const reference& lhs, const T rhs) {
+        return static_cast<T>(lhs) += rhs;
+      }
+      friend T operator-(const reference& lhs, const reference& rhs) {
+        return static_cast<T>(lhs) -= rhs;
+      }
+      friend T operator-(const T lhs, const reference& rhs) {
+        return T(lhs) -= rhs;
+      }
+      friend T operator-(const reference& lhs, const T rhs) {
+        return static_cast<T>(lhs) -= rhs;
+      }
+      friend T operator*(const reference& lhs, const reference& rhs) {
+        return static_cast<T>(lhs) *= rhs;
+      }
+      friend T operator*(const T lhs, const reference& rhs) {
+        return T(lhs) *= rhs;
+      }
+      friend T operator*(const reference& lhs, const T rhs) {
+        return static_cast<T>(lhs) *= rhs;
+      }
+      friend T operator/(const reference& lhs, const reference& rhs) {
+        return static_cast<T>(lhs) /= rhs;
+      }
+      friend T operator/(const T lhs, const reference& rhs) {
+        return T(lhs) /= rhs;
+      }
+      friend T operator/(const reference& lhs, const T rhs) {
+        return static_cast<T>(lhs) /= rhs;
+      }
+      friend bool operator==(const reference& lhs, const reference& rhs) {
+        return static_cast<bool>(lhs.m_ref) == static_cast<bool>(rhs.m_ref);
+      }
+      friend bool operator==(const T lhs, const reference& rhs) {
+        return lhs.val() == static_cast<bool>(rhs.m_ref);
+      }
+      friend bool operator==(const reference& lhs, const T rhs) {
+        return static_cast<bool>(lhs.m_ref) == rhs.val();
+      }
+      friend bool operator!=(const reference& lhs, const reference& rhs) {
+        return static_cast<bool>(lhs.m_ref) != static_cast<bool>(rhs.m_ref);
+      }
+      friend bool operator!=(const T lhs, const reference& rhs) {
+        return lhs.val() != static_cast<bool>(rhs.m_ref);
+      }
+      friend bool operator!=(const reference& lhs, const T rhs) {
+        return static_cast<bool>(lhs.m_ref) != rhs.val();
+      }
     };
     class const_row_reference {
       friend Mat;
