@@ -1,12 +1,13 @@
 #ifndef TOOLS_LINEAR_SIEVE_HPP
 #define TOOLS_LINEAR_SIEVE_HPP
 
-#include <vector>
+#include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <iterator>
-#include <cassert>
+#include <ranges>
 #include <tuple>
-#include <algorithm>
+#include <vector>
 
 namespace tools {
   template <typename T>
@@ -21,7 +22,7 @@ namespace tools {
     }
 
   public:
-    class prime_factor_iterable {
+    class prime_factor_view : public ::std::ranges::view_interface<prime_factor_view> {
     private:
       ::tools::linear_sieve<T> const *m_parent;
       int m_n;
@@ -35,7 +36,7 @@ namespace tools {
       public:
         using difference_type = ::std::ptrdiff_t;
         using value_type = T;
-        using reference = const T&;
+        using reference = T;
         using pointer = const T*;
         using iterator_category = ::std::input_iterator_tag;
 
@@ -43,7 +44,7 @@ namespace tools {
         iterator(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
         }
 
-        value_type operator*() const {
+        reference operator*() const {
           return this->m_parent->m_lpf[this->m_n];
         }
         iterator& operator++() {
@@ -64,8 +65,8 @@ namespace tools {
         }
       };
 
-      prime_factor_iterable() = default;
-      prime_factor_iterable(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
+      prime_factor_view() = default;
+      prime_factor_view(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
       }
 
       iterator begin() const {
@@ -76,7 +77,7 @@ namespace tools {
       }
     };
 
-    class distinct_prime_factor_iterable {
+    class distinct_prime_factor_view : public ::std::ranges::view_interface<distinct_prime_factor_view> {
     private:
       ::tools::linear_sieve<T> const *m_parent;
       int m_n;
@@ -90,7 +91,7 @@ namespace tools {
       public:
         using difference_type = ::std::ptrdiff_t;
         using value_type = ::std::tuple<T, T, T>;
-        using reference = const ::std::tuple<T, T, T>&;
+        using reference = ::std::tuple<T, T, T>;
         using pointer = const ::std::tuple<T, T, T>*;
         using iterator_category = ::std::input_iterator_tag;
 
@@ -98,7 +99,7 @@ namespace tools {
         iterator(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
         }
 
-        value_type operator*() const {
+        reference operator*() const {
           return value_type(this->m_parent->m_lpf[this->m_n], this->m_parent->m_ord[this->m_n], this->m_parent->m_pow[this->m_n]);
         }
         iterator& operator++() {
@@ -119,8 +120,8 @@ namespace tools {
         }
       };
 
-      distinct_prime_factor_iterable() = default;
-      distinct_prime_factor_iterable(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
+      distinct_prime_factor_view() = default;
+      distinct_prime_factor_view(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
       }
 
       iterator begin() const {
@@ -131,7 +132,7 @@ namespace tools {
       }
     };
 
-    class prime_iterable {
+    class prime_view : public ::std::ranges::view_interface<prime_view> {
     private:
       ::tools::linear_sieve<T> const *m_parent;
       int m_l;
@@ -146,7 +147,7 @@ namespace tools {
       public:
         using difference_type = ::std::ptrdiff_t;
         using value_type = T;
-        using reference = const T&;
+        using reference = T;
         using pointer = const T*;
         using iterator_category = ::std::input_iterator_tag;
 
@@ -154,7 +155,7 @@ namespace tools {
         iterator(::tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_i(::std::distance(parent->m_primes.begin(), ::std::lower_bound(parent->m_primes.begin(), parent->m_primes.end(), n))) {
         }
 
-        value_type operator*() const {
+        reference operator*() const {
           return this->m_parent->m_primes[this->m_i];
         }
         iterator& operator++() {
@@ -175,8 +176,8 @@ namespace tools {
         }
       };
 
-      prime_iterable() = default;
-      prime_iterable(::tools::linear_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
+      prime_view() = default;
+      prime_view(::tools::linear_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
       }
 
       iterator begin() const {
@@ -216,19 +217,19 @@ namespace tools {
       return n >= 2 && this->m_lpf[n] == n;
     }
 
-    prime_factor_iterable prime_factor_range(const int n) const {
+    prime_factor_view prime_factor_range(const int n) const {
       assert(1 <= n && n <= this->N());
-      return prime_factor_iterable(this, n);
+      return prime_factor_view(this, n);
     }
 
-    distinct_prime_factor_iterable distinct_prime_factor_range(const int n) const {
+    distinct_prime_factor_view distinct_prime_factor_range(const int n) const {
       assert(1 <= n && n <= this->N());
-      return distinct_prime_factor_iterable(this, n);
+      return distinct_prime_factor_view(this, n);
     }
 
-    prime_iterable prime_range(const int l, const int r) const {
+    prime_view prime_range(const int l, const int r) const {
       assert(1 <= l && l <= r && r <= this->N());
-      return prime_iterable(this, l, r);
+      return prime_view(this, l, r);
     }
 
     ::std::vector<T> divisors(const int n) const {
@@ -249,7 +250,7 @@ namespace tools {
 
     ::std::vector<T> sorted_divisors(const int n) const {
       auto D = this->divisors(n);
-      ::std::sort(D.begin(), D.end());
+      ::std::ranges::sort(D);
       return D;
     }
   };

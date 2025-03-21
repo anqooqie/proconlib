@@ -40,7 +40,7 @@ It returns whether $n$ is a prime or not.
 
 ## prime_factor_range
 ```cpp
-struct prime_factor_iterable {
+struct prime_factor_view : public std::ranges::view_interface<prime_factor_view> {
   struct iterator {
     T operator*();
     iterator& operator++();
@@ -51,7 +51,7 @@ struct prime_factor_iterable {
   iterator begin();
   iterator end();
 };
-prime_factor_iterable sieve.prime_factor_range(int n);
+prime_factor_view sieve.prime_factor_range(int n);
 ```
 
 It returns the prime factors of $n$ in ascending order.
@@ -65,7 +65,7 @@ It returns the prime factors of $n$ in ascending order.
 
 ## distinct_prime_factor_range
 ```cpp
-struct distinct_prime_factor_iterable {
+struct distinct_prime_factor_view : public std::ranges::view_interface<distinct_prime_factor_view> {
   struct iterator {
     std::tuple<T, T, T> operator*();
     iterator& operator++();
@@ -76,7 +76,7 @@ struct distinct_prime_factor_iterable {
   iterator begin();
   iterator end();
 };
-distinct_prime_factor_iterable sieve.distinct_prime_factor_range(int n);
+distinct_prime_factor_view sieve.distinct_prime_factor_range(int n);
 ```
 
 By using some primes $p_1 < p_2 < \cdots < p_k$ and some positive integers $q_1, q_2, \ldots, q_k$, we can denote $n$ as $p_1^{q_1} p_2^{q_2} \cdots p_k^{q_k}$.
@@ -91,7 +91,7 @@ It returns $((p_1, q_1, p_1^{q_1}), (p_2, q_2, p_2^{q_2}), \ldots, (p_k, q_k, p_
 
 ## prime_range
 ```cpp
-struct prime_iterable {
+struct prime_view : public std::ranges::view_interface<prime_view> {
   struct iterator {
     T operator*();
     iterator& operator++();
@@ -102,7 +102,7 @@ struct prime_iterable {
   iterator begin();
   iterator end();
 };
-prime_iterable sieve.prime_range(int l, int r);
+prime_view sieve.prime_range(int l, int r);
 ```
 
 It returns the primes $p$ such that $l \leq p \leq r$ in ascending order.
@@ -126,7 +126,7 @@ Note that the order of divisors is undefined.
 - $1 \leq n \leq N$
 
 ### Time Complexity
-- $O\left(2^\frac{\log n}{\log\log n}\right)$
+- $O\left(n^\frac{1}{\log\log n}\right)$
 
 ## sorted_divisors
 ```cpp
@@ -139,4 +139,4 @@ It returns the positive divisors of $n$ in ascending order.
 - $1 \leq n \leq N$
 
 ### Time Complexity
-- $O\left(2^\frac{\log n}{\log\log n} \frac{\log n}{\log\log n}\right)$
+- $O\left(n^\frac{1}{\log\log n} \frac{\log n}{\log\log n}\right)$
