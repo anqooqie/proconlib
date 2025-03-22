@@ -17,7 +17,7 @@ It provides the following operations.
 
 ## Constructor
 ```cpp
-dual_segtree<M> a(std::size_t n);
+dual_segtree<M> a(int n);
 ```
 
 It creates a sequence $(a_0, a_1, \ldots, a_{n - 1})$ filled in `M::e()`.
@@ -31,7 +31,7 @@ It creates a sequence $(a_0, a_1, \ldots, a_{n - 1})$ filled in `M::e()`.
 
 ## apply
 ```cpp
-void a.apply(std::size_t l, std::size_t r, typename M::T x);
+void a.apply(int l, int r, typename M::T x);
 ```
 
 For all $i$ such that $l \leq i < r$, it updates $a_i$ to `M::op`$(x, a_i)$.
@@ -44,7 +44,7 @@ For all $i$ such that $l \leq i < r$, it updates $a_i$ to `M::op`$(x, a_i)$.
 
 ## get
 ```cpp
-typename M::T a.get(std::size_t i);
+typename M::T a.get(int i);
 ```
 
 It returns $a_i$.
