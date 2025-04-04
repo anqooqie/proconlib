@@ -1,6 +1,7 @@
 #ifndef TOOLS_MINIMUM_STEINER_TREE_HPP
 #define TOOLS_MINIMUM_STEINER_TREE_HPP
 
+#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <queue>
