@@ -42,19 +42,12 @@ namespace tools {
 
   template <typename T, bool Filled, bool HasRadius>
   class circle_2d {
-  private:
     ::tools::vector2<T> m_center;
     T m_radius;
     T m_squared_radius;
 
   public:
     circle_2d() = default;
-    circle_2d(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;
-    circle_2d(::tools::circle_2d<T, Filled, HasRadius>&&) = default;
-    ~circle_2d() = default;
-    ::tools::circle_2d<T, Filled, HasRadius>& operator=(const ::tools::circle_2d<T, Filled, HasRadius>&) = default;
-    ::tools::circle_2d<T, Filled, HasRadius>& operator=(::tools::circle_2d<T, Filled, HasRadius>&&) = default;
-
     circle_2d(const ::tools::vector2<T>& center, const T& radius_or_squared_radius);
 
     template <typename T_ = T, bool Filled_ = Filled>
@@ -83,18 +76,11 @@ namespace tools {
 
   template <typename T>
   class directed_line_segment_2d {
-  private:
     ::tools::vector2<T> m_p1;
     ::tools::vector2<T> m_p2;
 
   public:
     directed_line_segment_2d() = default;
-    directed_line_segment_2d(const ::tools::directed_line_segment_2d<T>&) = default;
-    directed_line_segment_2d(::tools::directed_line_segment_2d<T>&&) = default;
-    ~directed_line_segment_2d() = default;
-    ::tools::directed_line_segment_2d<T>& operator=(const ::tools::directed_line_segment_2d<T>&) = default;
-    ::tools::directed_line_segment_2d<T>& operator=(::tools::directed_line_segment_2d<T>&&) = default;
-
     directed_line_segment_2d(const ::tools::vector2<T>& p1, const ::tools::vector2<T>& p2);
 
     bool contains(const ::tools::vector2<T>& p) const;
@@ -149,18 +135,11 @@ namespace tools {
 
   template <typename T>
   class half_line_2d {
-  private:
     ::tools::vector2<T> m_a;
     ::tools::vector2<T> m_d;
 
   public:
     half_line_2d() = default;
-    half_line_2d(const ::tools::half_line_2d<T>&) = default;
-    half_line_2d(::tools::half_line_2d<T>&&) = default;
-    ~half_line_2d() = default;
-    ::tools::half_line_2d<T>& operator=(const ::tools::half_line_2d<T>&) = default;
-    ::tools::half_line_2d<T>& operator=(::tools::half_line_2d<T>&&) = default;
-
     half_line_2d(const ::tools::vector2<T>& a, const ::tools::vector2<T>& d);
 
     const ::tools::vector2<T>& a() const;
@@ -206,19 +185,12 @@ namespace tools {
 
   template <typename T>
   class line_2d {
-  private:
     T m_a;
     T m_b;
     T m_c;
 
   public:
     line_2d() = default;
-    line_2d(const ::tools::line_2d<T>&) = default;
-    line_2d(::tools::line_2d<T>&&) = default;
-    ~line_2d() = default;
-    ::tools::line_2d<T>& operator=(const ::tools::line_2d<T>&) = default;
-    ::tools::line_2d<T>& operator=(::tools::line_2d<T>&&) = default;
-
     line_2d(const T& a, const T& b, const T& c);
 
     const T& a() const;
@@ -284,12 +256,6 @@ namespace tools {
 
   public:
     polygon_2d() = default;
-    polygon_2d(const ::tools::polygon_2d<T, Filled>&) = default;
-    polygon_2d(::tools::polygon_2d<T, Filled>&&) = default;
-    ~polygon_2d() = default;
-    ::tools::polygon_2d<T, Filled>& operator=(const ::tools::polygon_2d<T, Filled>&) = default;
-    ::tools::polygon_2d<T, Filled>& operator=(::tools::polygon_2d<T, Filled>&&) = default;
-
     template <typename InputIterator>
     polygon_2d(const InputIterator& begin, const InputIterator& end);
     polygon_2d(::std::initializer_list<::tools::vector2<T>> init);
@@ -306,18 +272,11 @@ namespace tools {
 
   template <typename T, bool Filled>
   class triangle_2d : public polygon_2d<T, Filled> {
-  private:
     template <typename OutputIterator>
     void sorted_edges(OutputIterator result) const;
 
   public:
     triangle_2d() = default;
-    triangle_2d(const ::tools::triangle_2d<T, Filled>&) = default;
-    triangle_2d(::tools::triangle_2d<T, Filled>&&) = default;
-    ~triangle_2d() = default;
-    ::tools::triangle_2d<T, Filled>& operator=(const ::tools::triangle_2d<T, Filled>&) = default;
-    ::tools::triangle_2d<T, Filled>& operator=(::tools::triangle_2d<T, Filled>&&) = default;
-
     template <typename InputIterator>
     triangle_2d(const InputIterator& begin, const InputIterator& end);
     triangle_2d(::std::initializer_list<::tools::vector2<T>> init);
@@ -671,10 +630,10 @@ namespace tools {
     if (l1.is_parallel_to(l2)) return ::std::nullopt;
     if (lhs.m_p1 == rhs.m_p1 || lhs.m_p1 == rhs.m_p2) return result_t(variant_t(lhs.m_p1));
     if (lhs.m_p2 == rhs.m_p1 || lhs.m_p2 == rhs.m_p2) return result_t(variant_t(lhs.m_p2));
-    if (((rhs.m_p1.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p1.x - lhs.m_p1.x)) *
-        ((rhs.m_p2.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p2.x - lhs.m_p1.x)) > T(0) ||
-        ((lhs.m_p1.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p1.x - rhs.m_p1.x)) *
-        ((lhs.m_p2.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p2.x - rhs.m_p1.x)) > T(0)) return ::std::nullopt;
+    if (::tools::signum((rhs.m_p1.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p1.x - lhs.m_p1.x)) *
+        ::tools::signum((rhs.m_p2.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p2.x - lhs.m_p1.x)) > 0 ||
+        ::tools::signum((lhs.m_p1.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p1.x - rhs.m_p1.x)) *
+        ::tools::signum((lhs.m_p2.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p2.x - rhs.m_p1.x)) > 0) return ::std::nullopt;
     return result_t(variant_t(*l1.cross_point(l2)));
   }
 
