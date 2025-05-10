@@ -1,10 +1,10 @@
 // competitive-verifier: STANDALONE
 
-#include <vector>
-#include <iterator>
-#include <iostream>
-#include <numeric>
 #include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <numeric>
+#include <vector>
 #include "tools/assert_that.hpp"
 #include "tools/permutation.hpp"
 #include "tools/pow.hpp"
@@ -54,7 +54,7 @@ int main() {
     ll id = 0;
     do {
       const auto actual = tools::permutation<ll>::from(n, id);
-      assert_that(actual == tools::permutation<ll>(expected.begin(), expected.end()));
+      assert_that(actual == tools::permutation<ll>(expected));
       assert_that(actual.id() == id);
       ++id;
     } while (std::next_permutation(expected.begin(), expected.end()));

@@ -13,9 +13,8 @@ It is a permutation of $n$ elements.
 
 ## Constructor
 ```cpp
-(1) permutation<T> p(std::size_t n);
-(2) template <typename Iterator> permutation<T> p(Iterator begin, Iterator end);
-(3) permutation<T> p(std::vector<T> v);
+(1) permutation<T> p(int n);
+(2) permutation<T> p(std::ranges::range v);
 ```
 
 It creates an identity permutation of $n$ elements.
@@ -25,20 +24,16 @@ The type parameter `<T>` represents the type of the elements.
 - (1)
     - None
 - (2)
-    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are unique.
-    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are $0$ or more.
-    - All elements of $\[\mathrm{begin}, \mathrm{end})$ are less than $\mathrm{end} - \mathrm{begin}$.
-- (3)
     - All elements of $v$ are unique.
     - All elements of $v$ are $0$ or more.
-    - All elements of $v$ are less than `v.size()`.
+    - All elements of $v$ are less than $n$ where $n = \|v\|$.
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t p.size();
+int p.size();
 ```
 
 It returns $n$.
@@ -51,7 +46,7 @@ It returns $n$.
 
 ## operator[]
 ```cpp
-T p[std::size_t i];
+T p.operator[](int i);
 ```
 
 It returns the position to which the $i$-th element mapped by the permutation.
@@ -65,10 +60,11 @@ In other words, the permutation maps the $i$-th element to the `p[i]`-th element
 
 ## begin
 ```cpp
-typename std::vector<T>::const_iterator p.begin();
+permutation<T>::iterator p.begin();
 ```
 
 It returns the iterator pointing to the first element.
+Note that `permutation<T>::iterator` is the read-only random access iterator referring to `T`.
 
 ### Constraints
 - None
@@ -78,7 +74,7 @@ It returns the iterator pointing to the first element.
 
 ## end
 ```cpp
-typename std::vector<T>::const_iterator p.end();
+permutation<T>::iterator p.end();
 ```
 
 It returns the iterator pointing to the element which would follow the last element.
@@ -91,7 +87,7 @@ It returns the iterator pointing to the element which would follow the last elem
 
 ## swap_from_left
 ```cpp
-permutation<T>& p.swap_from_left(T x, T y);
+permutation<T>& p.swap_from_left(int x, int y);
 ```
 
 Let $p^\ast$ be $p$ just before the function call.
@@ -116,7 +112,7 @@ It updates $p$ to $q$, and returns the updated $p$.
 
 ## swap_from_right
 ```cpp
-permutation<T>& p.swap_from_right(T x, T y);
+permutation<T>& p.swap_from_right(int x, int y);
 ```
 
 Let $p^\ast$ be $p$ just before the function call.
@@ -141,7 +137,7 @@ It updates $p$ to $q$, and returns the updated $p$.
 
 ## id
 ```cpp
-T p.id();
+long long p.id();
 ```
 
 It returns the number of permutations of $n$ elements less than $p$ in lexicographical order.
@@ -154,7 +150,7 @@ It returns the number of permutations of $n$ elements less than $p$ in lexicogra
 
 ## from
 ```cpp
-permutation<T> permutation<T>::from(std::size_t n, T id);
+permutation<T> permutation<T>::from(int n, long long id);
 ```
 
 It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
@@ -168,7 +164,7 @@ It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
 ## inv
 ```cpp
 (1) tools::permutation<T> p.inv();
-(2) tools::permutation<T> p.inv(std::size_t i);
+(2) tools::permutation<T> p.inv(int i);
 ```
 
 - (1)

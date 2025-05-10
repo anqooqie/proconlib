@@ -2,17 +2,12 @@
 // oj-verify currently cannot handle https://onlinejudge.u-aizu.ac.jp/problems/GRL_4_B properly, so I implemented a special judge for the problem.
 
 #include <iostream>
-#include <cstddef>
 #include "tools/assert_that.hpp"
-#include "tools/tsort.hpp"
 #include "tools/permutation.hpp"
+#include "tools/tsort.hpp"
 
 void verify(const tools::tsort& graph) {
-  const auto result = [&]() {
-    const auto r = graph.query();
-    return tools::permutation<std::size_t>(r.begin(), r.end());
-  }();
-
+  const tools::permutation<int> result(graph.query());
   assert_that(result.size() == graph.size());
   for (const auto& edge : graph.edges()) {
     assert_that(result.inv(edge.from) < result.inv(edge.to));
