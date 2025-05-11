@@ -67,6 +67,19 @@ Otherwise, it returns `std::nullopt`.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
+## crosses
+```cpp
+bool s.crosses(directed_line_segment_2d<T> t);
+```
+
+It returns whether $s$ and $t$ intersects at one point or not.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
 ## midpoint
 ```cpp
 tools::vector2<T> s.midpoint();

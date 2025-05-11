@@ -94,6 +94,7 @@ namespace tools {
     template <typename T_ = T>
     ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>, ::std::optional<::tools::vector2<T>>>
     cross_point(const ::tools::line_2d<T>& other) const;
+    bool crosses(const ::tools::directed_line_segment_2d<T>& other) const;
     template <typename T_ = T>
     ::std::enable_if_t<::tools::is_rational_v<T_> || ::std::is_floating_point_v<T_>, ::tools::vector2<T>>
     midpoint() const;
@@ -509,6 +510,21 @@ namespace tools {
   }
 
   template <typename T>
+  bool directed_line_segment_2d<T>::crosses(const ::tools::directed_line_segment_2d<T>& other) const {
+    if (this->to_line() == other.to_line()) {
+      const auto base = this->to_vector();
+      const auto fixed_other = base.inner_product(other.to_vector()) > T(0) ? other : -other;
+      const T d1(0);
+      const T d2 = base.inner_product(base);
+      const T d3 = base.inner_product(fixed_other.m_p1 - this->m_p1);
+      const T d4 = base.inner_product(fixed_other.m_p2 - this->m_p1);
+      return d1 == d4 || d2 == d3;
+    }
+    return ::tools::signum(this->to_vector().outer_product(other.m_p1 - this->m_p1)) * ::tools::signum(this->to_vector().outer_product(other.m_p2 - this->m_p1)) <= 0
+      && ::tools::signum(other.to_vector().outer_product(this->m_p1 - other.m_p1)) * ::tools::signum(other.to_vector().outer_product(this->m_p2 - other.m_p1)) <= 0;
+  }
+
+  template <typename T>
   ::std::conditional_t<::std::is_floating_point_v<T>, T, double> directed_line_segment_2d<T>::length() const {
     return this->to_vector().l2_norm();
   }
@@ -630,10 +646,10 @@ namespace tools {
     if (l1.is_parallel_to(l2)) return ::std::nullopt;
     if (lhs.m_p1 == rhs.m_p1 || lhs.m_p1 == rhs.m_p2) return result_t(variant_t(lhs.m_p1));
     if (lhs.m_p2 == rhs.m_p1 || lhs.m_p2 == rhs.m_p2) return result_t(variant_t(lhs.m_p2));
-    if (::tools::signum((rhs.m_p1.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p1.x - lhs.m_p1.x)) *
-        ::tools::signum((rhs.m_p2.y - lhs.m_p1.y) * (lhs.m_p2.x - lhs.m_p1.x) - (lhs.m_p2.y - lhs.m_p1.y) * (rhs.m_p2.x - lhs.m_p1.x)) > 0 ||
-        ::tools::signum((lhs.m_p1.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p1.x - rhs.m_p1.x)) *
-        ::tools::signum((lhs.m_p2.y - rhs.m_p1.y) * (rhs.m_p2.x - rhs.m_p1.x) - (rhs.m_p2.y - rhs.m_p1.y) * (lhs.m_p2.x - rhs.m_p1.x)) > 0) return ::std::nullopt;
+    if (
+      ::tools::signum(lhs.to_vector().outer_product(rhs.m_p1 - lhs.m_p1)) * ::tools::signum(lhs.to_vector().outer_product(rhs.m_p2 - lhs.m_p1)) > 0
+      || ::tools::signum(rhs.to_vector().outer_product(lhs.m_p1 - rhs.m_p1)) * ::tools::signum(rhs.to_vector().outer_product(lhs.m_p2 - rhs.m_p1)) > 0
+    ) return ::std::nullopt;
     return result_t(variant_t(*l1.cross_point(l2)));
   }
 
