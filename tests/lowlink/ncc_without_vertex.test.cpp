@@ -2,8 +2,8 @@
 // competitive-verifier: IGNORE
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 #include "atcoder/modint.hpp"
 #include "tools/lowlink.hpp"
 

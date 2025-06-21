@@ -4,7 +4,7 @@ documentation_of: //tools/lowlink.hpp
 ---
 
 Given an undirected graph, it creates a data structure that allows enumeration of bridges and articulation points in linear time.
-The graph may contain self-loops or multiple edges and need not be connected.
+The graph may contain self-loops and multiple edges, and need not be connected.
 
 ### License
 - CC0
@@ -14,20 +14,20 @@ The graph may contain self-loops or multiple edges and need not be connected.
 
 ## Constructor
 ```cpp
-lowlink graph(std::size_t n);
+lowlink graph(int n);
 ```
 
 It creates an undirected graph with $n$ vertices and $0$ edges.
 
 ### Constraints
-- None
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -40,7 +40,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v);
+int graph.add_edge(int u, int v);
 ```
 
 It adds an undirected edge connecting vertex $u$ and vertex $v$ to the graph, and returns the number of edges that existed before the undirected edge was added.
@@ -56,15 +56,14 @@ It adds an undirected edge connecting vertex $u$ and vertex $v$ to the graph, an
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
 };
-const edge& graph.get_edge(std::size_t k);
+const edge& graph.get_edge(int k);
 ```
 
 It returns information about the $k$-th edge in $0$-indexed.
-The information means that the `id`-th edge added to this graph is the undirected edge connecting vertex `from` and vertex `to`.
+The information means that the $k$-th edge added to this graph is the undirected edge connecting vertex `from` and vertex `to`.
 Of course, as this is an undirected graph, the `from` and `to` orientations are meaningless.
 In an undirected graph such as this graph, the vertex numbers are always sorted so that `from` $\leq$ `to`.
 
@@ -102,7 +101,7 @@ struct edges_iterable {
   iterator begin();
   iterator end();
 };
-edges_iterable graph.edges(std::size_t v);
+edges_iterable graph.edges(int v);
 ```
 
 It returns an iterator that enumerates the edges adjacent to vertex $v$.
@@ -118,7 +117,7 @@ The enumeration order is undefined, except that each element appears exactly onc
 ```cpp
 struct neighbors_iterable {
   struct iterator {
-    std::size_t operator*();
+    int operator*();
     iterator& operator++();
     iterator operator++(int):
     friend bool operator==(iterator lhs, iterator rhs);
@@ -127,7 +126,7 @@ struct neighbors_iterable {
   iterator begin();
   iterator end();
 };
-neighbors_iterable graph.neighbors(std::size_t v);
+neighbors_iterable graph.neighbors(int v);
 ```
 
 It returns an iterator that enumerates the vertices adjacent to vertex $v$.
@@ -172,7 +171,7 @@ Note that there are as many vertices $v$ such that $\mathrm{ord}(v) = 0$ as ther
 
 ## vparent
 ```cpp
-std::size_t graph.vparent(std::size_t v);
+int graph.vparent(int v);
 ```
 
 It returns $u$ such that the parent of vertex $v$ in the DFS tree is vertex $u$.
@@ -187,7 +186,7 @@ It returns $u$ such that the parent of vertex $v$ in the DFS tree is vertex $u$.
 
 ## eparent
 ```cpp
-const edge& graph.eparent(std::size_t v);
+const edge& graph.eparent(int v);
 ```
 
 It returns the tree edge towards vertex $v$.
@@ -204,7 +203,7 @@ It returns the tree edge towards vertex $v$.
 ```cpp
 struct vchildren_iterable {
   struct iterator {
-    std::size_t operator*();
+    int operator*();
     iterator& operator++();
     iterator operator++(int):
     friend bool operator==(iterator lhs, iterator rhs);
@@ -213,7 +212,7 @@ struct vchildren_iterable {
   iterator begin();
   iterator end();
 };
-vchildren_iterable graph.vchildren(std::size_t v);
+vchildren_iterable graph.vchildren(int v);
 ```
 
 It returns $u$ such that the parent of vertex $u$ in the DFS tree is vertex $v$.
@@ -238,7 +237,7 @@ struct echildren_iterable {
   iterator begin();
   iterator end();
 };
-echildren_iterable graph.echildren(std::size_t v);
+echildren_iterable graph.echildren(int v);
 ```
 
 It returns the tree edges outward from vertex $v$.
@@ -252,7 +251,7 @@ It returns the tree edges outward from vertex $v$.
 
 ## ord
 ```cpp
-std::size_t graph.ord(std::size_t v);
+int graph.ord(int v);
 ```
 
 It returns $\mathrm{ord}(v)$.
@@ -266,7 +265,7 @@ It returns $\mathrm{ord}(v)$.
 
 ## low
 ```cpp
-std::size_t graph.low(std::size_t v);
+int graph.low(int v);
 ```
 
 It returns $\mathrm{low}(v)$.
@@ -280,7 +279,7 @@ It returns $\mathrm{low}(v)$.
 
 ## ncc
 ```cpp
-std::size_t graph.ncc();
+int graph.ncc();
 ```
 
 It returns the number of connected components of the graph.
@@ -293,7 +292,7 @@ It returns the number of connected components of the graph.
 
 ## ncc_without_vertex
 ```cpp
-std::size_t graph.ncc_without_vertex(std::size_t v);
+int graph.ncc_without_vertex(int v);
 ```
 
 It returns the number of connected components of the graph without vertex $v$.
@@ -307,7 +306,7 @@ It returns the number of connected components of the graph without vertex $v$.
 
 ## is_articulation_point
 ```cpp
-bool graph.is_articulation_point(std::size_t v);
+bool graph.is_articulation_point(int v);
 ```
 
 It returns whether vertex $v$ is an articulation point or not.
@@ -321,7 +320,7 @@ It returns whether vertex $v$ is an articulation point or not.
 
 ## is_bridge
 ```cpp
-bool graph.is_bridge(std::size_t k);
+bool graph.is_bridge(int k);
 ```
 
 It returns whether the $k$-th edge is a bridge or not.
@@ -335,7 +334,7 @@ It returns whether the $k$-th edge is a bridge or not.
 
 ## biconnected_components
 ```cpp
-std::vector<std::vector<std::size_t>> graph.biconnected_components();
+std::vector<std::vector<int>> graph.biconnected_components();
 ```
 
 It divides the graph into biconnected components and returns the list of them.

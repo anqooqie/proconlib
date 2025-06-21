@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/biconnected_components
 
 #include <iostream>
-#include "tools/lowlink.hpp"
 #include "tools/join.hpp"
+#include "tools/lowlink.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -22,7 +22,7 @@ int main() {
   const auto groups = graph.biconnected_components();
   std::cout << groups.size() << '\n';
   for (const auto& group : groups) {
-    std::cout << group.size() << ' ' << tools::join(group, " ") << '\n';
+    std::cout << group.size() << ' ' << tools::join(group, ' ') << '\n';
   }
 
   return 0;

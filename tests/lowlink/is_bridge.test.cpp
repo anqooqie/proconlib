@@ -3,8 +3,8 @@
 #include <iostream>
 #include <utility>
 #include "atcoder/dsu.hpp"
-#include "tools/lowlink.hpp"
 #include "tools/join.hpp"
+#include "tools/lowlink.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -32,7 +32,7 @@ int main() {
   const auto groups = dsu.groups();
   std::cout << groups.size() << '\n';
   for (const auto& group : groups) {
-    std::cout << group.size() << ' ' << tools::join(group, " ") << '\n';
+    std::cout << group.size() << ' ' << tools::join(group, ' ') << '\n';
   }
 
   return 0;
