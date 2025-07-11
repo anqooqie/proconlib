@@ -1,10 +1,10 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_C
 
-#include <iostream>
-#include <vector>
-#include <cstddef>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <ranges>
+#include <vector>
 #include "tools/wavelet_matrix.hpp"
 
 int main() {
@@ -28,16 +28,16 @@ int main() {
     std::cin >> sx >> tx >> sy >> ty;
     ++tx, ++ty;
 
-    std::vector<std::size_t> answers;
-    decltype(wm.next_points(0, 0, 0)) partial_answers;
+    std::vector<int> answers;
+    std::ranges::subrange<std::vector<int>::const_iterator> partial_answers;
     for (int y = sy; [&]() {
       partial_answers = wm.next_points(sx, tx, y);
-      return partial_answers.first < partial_answers.second && wm.get_point(*partial_answers.first).second < ty;
+      return !std::ranges::empty(partial_answers) && wm.get_point(*std::ranges::begin(partial_answers)).second < ty;
     }(); y = wm.get_point(answers.back()).second + 1) {
-      std::copy(partial_answers.first, partial_answers.second, std::back_inserter(answers));
+      std::ranges::copy(partial_answers, std::back_inserter(answers));
     }
 
-    std::sort(answers.begin(), answers.end());
+    std::ranges::sort(answers);
     for (const auto answer : answers) {
       std::cout << answer << '\n';
     }

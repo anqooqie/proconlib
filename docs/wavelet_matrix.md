@@ -26,7 +26,7 @@ It creates an empty two-dimensional plane.
 
 ## size
 ```cpp
-std::size_t wm.size();
+int wm.size();
 ```
 
 It returns the number of points on the plane.
@@ -39,7 +39,7 @@ It returns the number of points on the plane.
 
 ## add_point
 ```cpp
-std::size_t wm.add_point(T x, T y);
+int wm.add_point(T x, T y);
 ```
 
 It adds a point $(x, y)$ to the plane.
@@ -53,13 +53,13 @@ It returns an integer $i$ such that this is the $i$-th ($0$ indexed) point that 
 
 ## get_point
 ```cpp
-std::pair<T, T> wm.get_point(std::size_t i)
+std::pair<T, T> wm.get_point(int i)
 ```
 
 It returns the $i$-th ($0$ indexed) point.
 
 ### Constraints
-- $i < n$ where $n$ is `wm.size()`
+- $0 \leq i < n$ where $n$ is `wm.size()`
 
 ### Time Complexity
 - $O(1)$
@@ -80,7 +80,7 @@ The points are ordered in the same order as added by `add_point`.
 
 ## build
 ```cpp
-std::vector<std::vector<std::size_t>> wm.build();
+std::vector<std::vector<int>> wm.build();
 ```
 
 It internally creates the data structure called as wavelet matrix.
@@ -124,7 +124,7 @@ std::cout << answer << '\n';
 
 ## apply
 ```cpp
-std::vector<std::pair<std::size_t, std::size_t>> wm.apply(std::size_t i);
+std::vector<std::pair<int, int>> wm.apply(int i);
 ```
 
 It has no side effects, but just returns pairs $(0, j_0), (1, j_1), \ldots, (H - 1, j_{H - 1})$ where $H$ is the number of rows of the returned matrix from `wm.build()`.
@@ -187,14 +187,14 @@ while (!query_types.empty()) {
 
 ### Constraints
 - `wm.build()` has been called ever.
-- $i < n$
+- $0 \leq i < n$
 
 ### Time Complexity
 - $O(\log n)$
 
 ## kth_smallest
 ```cpp
-std::size_t wm.kth_smallest(T l, T r, std::size_t k);
+int wm.kth_smallest(T l, T r, int k);
 ```
 
 It returns $i$ such that $l \leq x_i < r$ and $\|\\{j \mid l \leq x_j < r \land (y_j, j) < (y_i, i)) \\}\| = k$.
@@ -202,14 +202,14 @@ It returns $i$ such that $l \leq x_i < r$ and $\|\\{j \mid l \leq x_j < r \land 
 ### Constraints
 - `wm.build()` has been called ever.
 - $l \leq r$
-- $k < \|\\{i \mid l \leq x_i < r\\}\|$
+- $0 \leq k < \|\\{i \mid l \leq x_i < r\\}\|$
 
 ### Time Complexity
 - $O(\log n)$
 
 ## kth_largest
 ```cpp
-std::size_t wm.kth_largest(T l, T r, std::size_t k);
+int wm.kth_largest(T l, T r, int k);
 ```
 
 It returns $i$ such that $l \leq x_i < r$ and $\|\\{j \mid l \leq x_j < r \land (y_i, i) < (y_j, j)) \\}\| = k$.
@@ -217,14 +217,14 @@ It returns $i$ such that $l \leq x_i < r$ and $\|\\{j \mid l \leq x_j < r \land 
 ### Constraints
 - `wm.build()` has been called ever.
 - $l \leq r$
-- $k < \|\\{i \mid l \leq x_i < r\\}\|$
+- $0 \leq k < \|\\{i \mid l \leq x_i < r\\}\|$
 
 ### Time Complexity
 - $O(\log n)$
 
 ## range_prod
 ```cpp
-std::vector<std::tuple<std::size_t, std::size_t, std::size_t>> wm.range_prod(T l, T r, T u);
+std::vector<std::tuple<int, int, int>> wm.range_prod(T l, T r, T u);
 ```
 
 It has no side effects, but just returns tuples $(0, l_0, r_0), (1, l_1, r_1), \ldots, (H - 1, l_{H - 1}, r_{H - 1})$ where $H$ is the number of rows of the returned matrix from `wm.build()`.
@@ -242,9 +242,9 @@ See the examples of `build` and `apply`.
 
 ## range_freq
 ```cpp
-(1) std::size_t wm.range_freq(T l, T r);
-(2) std::size_t wm.range_freq(T l, T r, T u);
-(3) std::size_t wm.range_freq(T l, T r, T d, T u);
+(1) int wm.range_freq(T l, T r);
+(2) int wm.range_freq(T l, T r, T u);
+(3) int wm.range_freq(T l, T r, T d, T u);
 ```
 
 - (1)
@@ -298,11 +298,10 @@ If such the $y_i$ does not exist, it returns `std::nullopt`.
 
 ## prev_points
 ```cpp
-std::pair<typename std::vector<std::size_t>::const_iterator, typename std::vector<std::size_t>::const_iterator> prev_points(T l, T r, T u)
+std::ranges::subrange<std::vector<int>::const_iterator> prev_points(T l, T r, T u)
 ```
 
-Let us denote the returned iterator pair by `begin` and `end`.
-`std::vector<std::size_t>(begin, end)` would be $\\{i \mid l \leq x_i < r \land y_i = y\\}$ sorted in ascending order, where $y$ is `wm.prev_value(l, r, u)`.
+It returns $\\{i \mid l \leq x_i < r \land y_i = y\\}$ sorted in ascending order, where $y$ is `wm.prev_value(l, r, u)`.
 
 ### Constraints
 - `wm.build()` has been called ever.
@@ -313,11 +312,10 @@ Let us denote the returned iterator pair by `begin` and `end`.
 
 ## next_points
 ```cpp
-std::pair<typename std::vector<std::size_t>::const_iterator, typename std::vector<std::size_t>::const_iterator> next_points(T l, T r, T d)
+std::ranges::subrange<std::vector<int>::const_iterator> next_points(T l, T r, T d)
 ```
 
-Let us denote the returned iterator pair by `begin` and `end`.
-`std::vector<std::size_t>(begin, end)` would be $\\{i \mid l \leq x_i < r \land y_i = y\\}$ sorted in ascending order, where $y$ is `wm.next_value(l, r, d)`.
+It returns $\\{i \mid l \leq x_i < r \land y_i = y\\}$ sorted in ascending order, where $y$ is `wm.next_value(l, r, d)`.
 
 ### Constraints
 - `wm.build()` has been called ever.
