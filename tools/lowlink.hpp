@@ -171,7 +171,7 @@ namespace tools {
         iterator() = default;
         iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          for (; this->m_i < eids.size() && [&]() {
+          for (; this->m_i < ::std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -184,9 +184,9 @@ namespace tools {
         }
         iterator& operator++() {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          assert(this->m_i < eids.size());
+          assert(this->m_i < ::std::ssize(eids));
 
-          for (++this->m_i; this->m_i < eids.size() && [&]() {
+          for (++this->m_i; this->m_i < ::std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -243,7 +243,7 @@ namespace tools {
         iterator() = default;
         iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          for (; this->m_i < eids.size() && [&]() {
+          for (; this->m_i < ::std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -255,9 +255,9 @@ namespace tools {
         }
         iterator& operator++() {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          assert(this->m_i < eids.size());
+          assert(this->m_i < ::std::ssize(eids));
 
-          for (++this->m_i; this->m_i < eids.size() && [&]() {
+          for (++this->m_i; this->m_i < ::std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -312,7 +312,7 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const {
-      assert(0 <= k && k < this->m_edges.size());
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return this->m_edges[k];
     }
 
@@ -470,7 +470,7 @@ namespace tools {
 
     bool is_bridge(const int k) const {
       assert(this->m_built);
-      assert(0 <= k && k < this->m_edges.size());
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
 
       const auto [u, v] = ::std::minmax({this->m_edges[k].from, this->m_edges[k].to}, ::tools::less_by([&](const auto w) { return this->m_ord[w]; }));
       return this->m_ord[u] < this->m_low[v];
