@@ -18,20 +18,19 @@ template <typename InputIterator>
 compressor<T> cp(InputIterator begin, InputIterator end);
 
 (2)
-compressor<T> cp(std::vector<T> v);
+compressor<T> cp(std::ranges::range range);
 ```
 
-It creates an integer set initialized with a given integer container.
+It creates an integer set initialized with a given integer range.
 
 ### Constraints
-- (1)
-    - `begin` $\leq$ `end`
+- None
 
 ### Time Complexity
 - (1)
-    - $O(n \log n)$ where $n$ is `end` $-$ `begin`
+    - $O(n \log n)$ where $n$ is `std::distance(begin, end)`
 - (2)
-    - $O(n \log n)$ where $n$ is `v.size()`
+    - $O(n \log n)$ where $n$ is `std::ranges::distance(range)`
 
 ## size
 ```cpp
@@ -71,6 +70,19 @@ It returns the $i$-th ($0$-indexed) least integer in the set.
 
 ### Time Complexity
 - $O(1)$
+
+## contains
+```cpp
+bool cp.contains(T x);
+```
+
+It returns whether the set contains $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log n)$ where $n$ is `cp.size()`
 
 ## begin
 ```cpp
