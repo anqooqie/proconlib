@@ -95,7 +95,7 @@ namespace tools {
           }
         }
         this->m_bvs[h].build();
-        ::std::array<int, 2> offsets = {0, this->m_bvs[h].zeros()};
+        ::std::array<int, 2> offsets = {0, static_cast<int>(this->m_bvs[h].zeros())};
         for (int i = 0; i < n; ++i) {
           auto& offset = offsets[this->m_bvs[h].get(i)];
           nxt[offset] = cur[i];
