@@ -53,7 +53,7 @@ It returns an integer $i$ such that this is the $i$-th ($0$ indexed) point that 
 
 ## get_point
 ```cpp
-std::pair<T, T> wm.get_point(int i)
+std::pair<T, T> wm.get_point(int i);
 ```
 
 It returns the $i$-th ($0$ indexed) point.
