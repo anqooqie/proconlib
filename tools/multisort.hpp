@@ -30,7 +30,7 @@ namespace tools {
   > requires ::std::sortable<::std::vector<int>::iterator, Comp>
   void multisort(R1&& r1, R2&& r2, const Comp comp) {
     const int n = ::std::ranges::size(r1);
-    assert(::std::ranges::size(r2) == n);
+    assert(::std::ranges::ssize(r2) == n);
 
     ::std::vector<int> p(n);
     ::std::iota(p.begin(), p.end(), 0);
@@ -48,8 +48,8 @@ namespace tools {
   > requires ::std::sortable<::std::vector<int>::iterator, Comp>
   void multisort(R1&& r1, R2&& r2, R3&& r3, const Comp comp) {
     const int n = ::std::ranges::size(r1);
-    assert(::std::ranges::size(r2) == n);
-    assert(::std::ranges::size(r3) == n);
+    assert(::std::ranges::ssize(r2) == n);
+    assert(::std::ranges::ssize(r3) == n);
 
     ::std::vector<int> p(n);
     ::std::iota(p.begin(), p.end(), 0);
@@ -69,9 +69,9 @@ namespace tools {
   > requires ::std::sortable<::std::vector<int>::iterator, Comp>
   void multisort(R1&& r1, R2&& r2, R3&& r3, R4&& r4, const Comp comp) {
     const int n = ::std::ranges::size(r1);
-    assert(::std::ranges::size(r2) == n);
-    assert(::std::ranges::size(r3) == n);
-    assert(::std::ranges::size(r4) == n);
+    assert(::std::ranges::ssize(r2) == n);
+    assert(::std::ranges::ssize(r3) == n);
+    assert(::std::ranges::ssize(r4) == n);
 
     ::std::vector<int> p(n);
     ::std::iota(p.begin(), p.end(), 0);
@@ -93,10 +93,10 @@ namespace tools {
   > requires ::std::sortable<::std::vector<int>::iterator, Comp>
   void multisort(R1&& r1, R2&& r2, R3&& r3, R4&& r4, R5&& r5, const Comp comp) {
     const int n = ::std::ranges::size(r1);
-    assert(::std::ranges::size(r2) == n);
-    assert(::std::ranges::size(r3) == n);
-    assert(::std::ranges::size(r4) == n);
-    assert(::std::ranges::size(r5) == n);
+    assert(::std::ranges::ssize(r2) == n);
+    assert(::std::ranges::ssize(r3) == n);
+    assert(::std::ranges::ssize(r4) == n);
+    assert(::std::ranges::ssize(r5) == n);
 
     ::std::vector<int> p(n);
     ::std::iota(p.begin(), p.end(), 0);
