@@ -117,7 +117,7 @@ namespace tools {
     }
 
     T query(const T& x) const {
-      const auto it = ::std::lower_bound(this->m_xs.begin(), this->m_xs.end(), x);
+      const auto it = ::std::ranges::lower_bound(this->m_xs, x);
       assert(*it == x);
       const ::std::size_t node_id = this->capacity() + ::std::distance(this->m_xs.begin(), it);
 

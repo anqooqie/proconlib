@@ -25,13 +25,13 @@ namespace tools {
     ::std::vector<::tools::bit_vector> m_bvs;
 
     int iid(const int i) const {
-      return ::tools::lower_bound(this->m_xs.begin(), this->m_xs.end(), ::std::make_pair(this->m_ps[i].first, i));
+      return ::tools::lower_bound(this->m_xs, ::std::make_pair(this->m_ps[i].first, i));
     }
     int xid(const T& x) const {
-      return ::tools::lower_bound(this->m_xs.begin(), this->m_xs.end(), ::std::make_pair(x, 0), ::tools::less_by_first());
+      return ::tools::lower_bound(this->m_xs, ::std::make_pair(x, 0), ::tools::less_by_first{});
     }
     int yid(const T& y) const {
-      return ::tools::lower_bound(this->m_ys.begin(), this->m_ys.end(), y);
+      return ::tools::lower_bound(this->m_ys, y);
     }
     int lg() const {
       return this->m_bvs.size();

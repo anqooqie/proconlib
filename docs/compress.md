@@ -4,7 +4,7 @@ documentation_of: //tools/compress.hpp
 ---
 
 ```cpp
-template <::std::ranges::range R, typename OutputIterator>
+template <std::ranges::range R, typename OutputIterator>
 void compress(R&& a, OutputIterator result);
 ```
 

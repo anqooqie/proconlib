@@ -15,7 +15,7 @@ namespace tools {
       ::std::ranges::sort(sorted);
       sorted.erase(::std::unique(sorted.begin(), sorted.end()), sorted.end());
       for (auto it = ::std::ranges::begin(a); it != ::std::ranges::end(a); ++it, ++result) {
-        *result = ::tools::lower_bound(sorted.begin(), sorted.end(), *it);
+        *result = ::tools::lower_bound(sorted, *it);
       }
     } else {
       ::tools::compress(::std::vector<T>(::std::ranges::begin(a), ::std::ranges::end(a)), result);

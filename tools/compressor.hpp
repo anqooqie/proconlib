@@ -27,7 +27,7 @@ namespace tools {
       return this->m_sorted.size();
     }
     T compress(const T& x) const {
-      const T i = ::tools::lower_bound(this->m_sorted.begin(), this->m_sorted.end(), x);
+      const T i = ::tools::lower_bound(this->m_sorted, x);
       assert(i < this->size());
       assert(this->m_sorted[i] == x);
       return i;
@@ -37,7 +37,7 @@ namespace tools {
       return this->m_sorted[i];
     }
     bool contains(const T& x) const {
-      const auto it = ::std::lower_bound(this->m_sorted.begin(), this->m_sorted.end(), x);
+      const auto it = ::std::ranges::lower_bound(this->m_sorted, x);
       return it != this->m_sorted.end() && *it == x;
     }
 
