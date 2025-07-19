@@ -1,27 +1,45 @@
 #ifndef TOOLS_MONOID_HPP
 #define TOOLS_MONOID_HPP
 
-#include <type_traits>
 #include <algorithm>
-#include <limits>
 #include <cassert>
+#include <cstddef>
+#include <limits>
+#include <type_traits>
 #include "tools/gcd.hpp"
+#include "tools/is_arithmetic.hpp"
+#include "tools/is_integral.hpp"
 
 namespace tools {
   namespace monoid {
-    template <typename M, M ...dummy>
-    struct max;
+    template <typename M> requires (!::tools::is_arithmetic_v<M> || (::tools::is_integral_v<M> && !::std::is_same_v<M, bool>))
+    class gcd {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
-    template <typename M>
-    struct max<M> {
-      static_assert(::std::is_arithmetic_v<M>, "M must be a built-in arithmetic type.");
-
+    public:
       using T = M;
-      static T op(const T lhs, const T rhs) {
-        return ::std::max(lhs, rhs);
+      static T op(VR x, VR y) {
+        return ::tools::gcd(x, y);
       }
       static T e() {
-        if constexpr (::std::is_integral_v<M>) {
+        return T(0);
+      }
+    };
+
+    template <typename M, M ...dummy>
+    class max;
+
+    template <typename M> requires (::tools::is_arithmetic_v<M>)
+    class max<M> {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
+
+    public:
+      using T = M;
+      static T op(VR x, VR y) {
+        return ::std::max(x, y);
+      }
+      static T e() {
+        if constexpr (::tools::is_integral_v<M>) {
           return ::std::numeric_limits<M>::min();
         } else {
           return -::std::numeric_limits<M>::infinity();
@@ -30,14 +48,15 @@ namespace tools {
     };
 
     template <typename M, M E>
-    struct max<M, E> {
-      static_assert(::std::is_integral_v<M>, "M must be a built-in integral type.");
+    class max<M, E> {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
+    public:
       using T = M;
-      static T op(const T lhs, const T rhs) {
-        assert(E <= lhs);
-        assert(E <= rhs);
-        return ::std::max(lhs, rhs);
+      static T op(VR x, VR y) {
+        assert(E <= x);
+        assert(E <= y);
+        return ::std::max(x, y);
       }
       static T e() {
         return E;
@@ -45,18 +64,19 @@ namespace tools {
     };
 
     template <typename M, M ...dummy>
-    struct min;
+    class min;
 
-    template <typename M>
-    struct min<M> {
-      static_assert(::std::is_arithmetic_v<M>, "M must be a built-in arithmetic type.");
+    template <typename M> requires (::tools::is_arithmetic_v<M>)
+    class min<M> {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
+    public:
       using T = M;
-      static T op(const T lhs, const T rhs) {
-        return ::std::min(lhs, rhs);
+      static T op(VR x, VR y) {
+        return ::std::min(x, y);
       }
       static T e() {
-        if constexpr (::std::is_integral_v<M>) {
+        if constexpr (::tools::is_integral_v<M>) {
           return ::std::numeric_limits<M>::max();
         } else {
           return ::std::numeric_limits<M>::infinity();
@@ -65,14 +85,15 @@ namespace tools {
     };
 
     template <typename M, M E>
-    struct min<M, E> {
-      static_assert(::std::is_integral_v<M>, "M must be a built-in integral type.");
+    class min<M, E> {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
+    public:
       using T = M;
-      static T op(const T lhs, const T rhs) {
-        assert(lhs <= E);
-        assert(rhs <= E);
-        return ::std::min(lhs, rhs);
+      static T op(VR x, VR y) {
+        assert(x <= E);
+        assert(y <= E);
+        return ::std::min(x, y);
       }
       static T e() {
         return E;
@@ -80,14 +101,13 @@ namespace tools {
     };
 
     template <typename M>
-    struct multiplies {
-    private:
-      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>, const M, const M&>;
+    class multiplies {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
     public:
       using T = M;
-      static T op(VR lhs, VR rhs) {
-        return lhs * rhs;
+      static T op(VR x, VR y) {
+        return x * y;
       }
       static T e() {
         return T(1);
@@ -97,37 +117,22 @@ namespace tools {
     template <>
     struct multiplies<bool> {
       using T = bool;
-      static T op(const bool lhs, const bool rhs) {
-        return lhs && rhs;
+      static T op(const bool x, const bool y) {
+        return x && y;
       }
       static T e() {
         return true;
       }
     };
 
-    template <typename M>
-    struct gcd {
-    private:
-      static_assert(!::std::is_arithmetic_v<M> || (::std::is_integral_v<M> && !::std::is_same_v<M, bool>), "If M is a built-in arithmetic type, it must be integral except for bool.");
-      using VR = ::std::conditional_t<::std::is_arithmetic_v<M>, const M, const M&>;
+    template <typename M, M E>
+    class update {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
 
     public:
       using T = M;
-      static T op(VR lhs, VR rhs) {
-        return ::tools::gcd(lhs, rhs);
-      }
-      static T e() {
-        return T(0);
-      }
-    };
-
-    template <typename M, M E>
-    struct update {
-      static_assert(::std::is_integral_v<M>, "M must be a built-in integral type.");
-
-      using T = M;
-      static T op(const T lhs, const T rhs) {
-        return lhs == E ? rhs : lhs;
+      static T op(VR x, VR y) {
+        return x == E ? y : x;
       }
       static T e() {
         return E;

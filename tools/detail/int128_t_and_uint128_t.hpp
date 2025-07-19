@@ -1,5 +1,5 @@
-#ifndef TOOLS_DETAIL_INT128_T_HPP
-#define TOOLS_DETAIL_INT128_T_HPP
+#ifndef TOOLS_DETAIL_INT128_T_AND_UINT128_T_HPP
+#define TOOLS_DETAIL_INT128_T_AND_UINT128_T_HPP
 
 #include <algorithm>
 #include <cassert>
@@ -10,15 +10,19 @@
 #include <limits>
 #include <string>
 #include <string_view>
+#include <utility>
+#include <type_traits>
 #include "tools/abs.hpp"
 #include "tools/bit_ceil.hpp"
 #include "tools/bit_floor.hpp"
 #include "tools/bit_width.hpp"
 #include "tools/countr_zero.hpp"
+#include "tools/gcd.hpp"
+#include "tools/hash_combine.hpp"
+#include "tools/is_arithmetic.hpp"
 #include "tools/is_integral.hpp"
 #include "tools/is_signed.hpp"
 #include "tools/is_unsigned.hpp"
-#include "tools/hash_combine.hpp"
 #include "tools/make_signed.hpp"
 #include "tools/make_unsigned.hpp"
 #include "tools/now.hpp"
@@ -189,6 +193,23 @@ namespace std {
 #endif
 
 namespace tools {
+  template <>
+  struct is_arithmetic<::tools::int128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<::tools::uint128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<const ::tools::int128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<const ::tools::uint128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<volatile ::tools::int128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<volatile ::tools::uint128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<const volatile ::tools::int128_t> : ::std::true_type {};
+  template <>
+  struct is_arithmetic<const volatile ::tools::uint128_t> : ::std::true_type {};
+
   template <>
   struct is_integral<::tools::int128_t> : ::std::true_type {};
   template <>
@@ -411,6 +432,29 @@ namespace tools {
   constexpr int countr_zero<::tools::uint128_t>(const ::tools::uint128_t x) noexcept {
     return ::tools::detail::countr_zero::impl(x);
   }
+
+  constexpr ::tools::uint128_t gcd(::tools::uint128_t m, ::tools::uint128_t n) noexcept {
+    while (n != 0) {
+      m %= n;
+      ::std::swap(m, n);
+    }
+    return m;
+  }
+  template <typename M, typename N> requires (
+    ((::std::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool>) || ::std::is_same_v<::std::remove_cv_t<M>, ::tools::int128_t> || ::std::is_same_v<::std::remove_cv_t<M>, ::tools::uint128_t>)
+    && ((::std::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>) || ::std::is_same_v<::std::remove_cv_t<N>, ::tools::int128_t> || ::std::is_same_v<::std::remove_cv_t<N>, ::tools::uint128_t>)
+    && !(::std::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool> && ::std::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>)
+    && !(::std::is_same_v<::std::remove_cv_t<M>, ::tools::uint128_t> && ::std::is_same_v<::std::remove_cv_t<N>, ::tools::uint128_t>)
+  )
+  constexpr ::std::common_type_t<M, N> gcd(const M m, const N n) {
+    return ::std::common_type_t<M, N>(
+      ::tools::gcd(
+        m >= 0 ? ::tools::uint128_t(m) : ::tools::uint128_t(-(m + 1)) + 1,
+        n >= 0 ? ::tools::uint128_t(n) : ::tools::uint128_t(-(n + 1)) + 1
+      )
+    );
+  }
+
 #endif
 }
 

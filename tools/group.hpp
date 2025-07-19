@@ -1,47 +1,60 @@
 #ifndef TOOLS_GROUP_HPP
 #define TOOLS_GROUP_HPP
 
+#include <cstddef>
+#include <type_traits>
+#include "tools/is_arithmetic.hpp"
+
 namespace tools {
   namespace group {
     template <typename G>
-    struct plus {
+    class bit_xor {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+
+    public:
       using T = G;
-      static T op(const T& lhs, const T& rhs) {
-        return lhs + rhs;
+      static T op(VR x, VR y) {
+        return x ^ y;
       }
       static T e() {
         return T(0);
       }
-      static T inv(const T& v) {
-        return -v;
+      static T inv(VR x) {
+        return x;
       }
     };
 
     template <typename G>
-    struct multiplies {
+    class multiplies {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+
+    public:
       using T = G;
-      static T op(const T& lhs, const T& rhs) {
-        return lhs * rhs;
+      static T op(VR x, VR y) {
+        return x * y;
       }
       static T e() {
         return T(1);
       }
-      static T inv(const T& v) {
-        return e() / v;
+      static T inv(VR x) {
+        return e() / x;
       }
     };
 
     template <typename G>
-    struct bit_xor {
+    class plus {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+
+    public:
       using T = G;
-      static T op(const T& lhs, const T& rhs) {
-        return lhs ^ rhs;
+      static T op(VR x, VR y) {
+        return x + y;
       }
       static T e() {
         return T(0);
       }
-      static T inv(const T& v) {
-        return v;
+      static T inv(VR x) {
+        return -x;
       }
     };
   }

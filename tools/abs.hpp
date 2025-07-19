@@ -20,13 +20,13 @@ namespace tools {
   constexpr long long abs(const long long x) {
     return x < 0 ? -x : x;
   }
-  constexpr unsigned int abs(const unsigned int x) {
+  constexpr unsigned int abs(const unsigned int x) noexcept {
     return x;
   }
-  constexpr unsigned long abs(const unsigned long x) {
+  constexpr unsigned long abs(const unsigned long x) noexcept {
     return x;
   }
-  constexpr unsigned long long abs(const unsigned long long x) {
+  constexpr unsigned long long abs(const unsigned long long x) noexcept {
     return x;
   }
 }

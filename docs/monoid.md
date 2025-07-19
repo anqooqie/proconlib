@@ -11,6 +11,60 @@ They are typical monoids.
 ### Author
 - anqooqie
 
+## monoid::gcd
+```cpp
+template <typename M> struct monoid::gcd;
+```
+
+It is a monoid $(M, \gcd, 0)$.
+Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in this monoid.
+
+### Constraints
+- `tools::gcd(x, y)` is defined for `x` and `y` of type `<M>`. In particular, `<M>` is neither a built-in floating-point type nor `bool`.
+
+### Time Complexity
+- Not applicable
+
+## monoid::gcd::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::gcd::op
+```
+static M op(M x, M y);
+```
+
+It returns `tools::gcd(x, y)`.
+For a built-in integral type `<M>`, this is equivalent to returning `std::gcd(x, y)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `tools::gcd(x, y)`
+
+## monoid::gcd::e
+```
+static M e();
+```
+
+It returns `M(0)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `M(0)`.
+
 ## monoid::max
 ```cpp
 (1) template <typename M> struct monoid::max;
@@ -20,14 +74,12 @@ They are typical monoids.
 It is a monoid $(M, \max, E)$.
 
 - (1)
-    - If `<M>` is a built-in integral type, let $E$ be `std::numeric_limits<M>::min()`.
-    - If `<M>` is a built-in floating-point type, let $E$ be `-std::numeric_limits<M>::infinity()`.
+    - If `tools::is_integral_v<M>`, let $E$ be `std::numeric_limits<M>::min()`.
+    - If `std::is_floating_point_v<M>`, let $E$ be `-std::numeric_limits<M>::infinity()`.
 
 ### Constraints
 - (1)
-    - $M$ is a built-in arithmetic type.
-- (2)
-    - $M$ is a built-in integral type.
+    - `tools::is_arithemtic_v<M>` is `true`.
 
 ### Time Complexity
 - Not applicable
@@ -81,14 +133,12 @@ It returns $E$.
 It is a monoid $(M, \min, E)$.
 
 - (1)
-    - If `<M>` is a built-in integral type, let $E$ be `std::numeric_limits<M>::max()`.
-    - If `<M>` is a built-in floating-point type, let $E$ be `std::numeric_limits<M>::infinity()`.
+    - If `tools::is_integral_v<M>`, let $E$ be `std::numeric_limits<M>::max()`.
+    - If `std::is_floating_point_v<M>`, let $E$ be `std::numeric_limits<M>::infinity()`.
 
 ### Constraints
 - (1)
-    - $M$ is a built-in arithmetic type.
-- (2)
-    - $M$ is a built-in integral type.
+    - `tools::is_arithemtic_v<M>` is `true`.
 
 ### Time Complexity
 - Not applicable
@@ -187,60 +237,6 @@ It returns `M(1)`.
 ### Time Complexity
 - Same as that of `M(1)`
 
-## monoid::gcd
-```cpp
-template <typename M> struct monoid::gcd;
-```
-
-It is a monoid $(M, \gcd, 0)$.
-Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in this monoid.
-
-### Constraints
-- `tools::gcd(x, y)` is defined for `x` and `y` of type `<M>`. In particular, `<M>` is neither a built-in floating-point type nor `bool`.
-
-### Time Complexity
-- Not applicable
-
-## monoid::gcd::T
-```
-using T = M;
-```
-
-It is an alias for `<M>`.
-
-### Constraints
-- None
-
-### Time Complexity
-- Not applicable
-
-## monoid::gcd::op
-```
-static M op(M x, M y);
-```
-
-It returns `tools::gcd(x, y)`.
-For a built-in integral type `<M>`, this is equivalent to returning `std::gcd(x, y)`.
-
-### Constraints
-- None
-
-### Time Complexity
-- Same as that of `tools::gcd(x, y)`
-
-## monoid::gcd::e
-```
-static M e();
-```
-
-It returns `M(0)`.
-
-### Constraints
-- None
-
-### Time Complexity
-- Same as that of `M(0)`.
-
 ## monoid::update
 ```cpp
 template <typename M, M E> struct monoid::update;
@@ -256,7 +252,7 @@ x & \text{(if $x \neq E$)}
 \end{align*}$$
 
 ### Constraints
-- `<M>` is a built-in integral type.
+- None
 
 ### Time Complexity
 - Not applicable

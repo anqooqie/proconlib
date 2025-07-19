@@ -9,7 +9,9 @@
 #include <cstdint>
 #include <limits>
 #include <string>
+#include <string_view>
 #include <tuple>
+#include <type_traits>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -26,6 +28,7 @@
 #include "tools/garner2.hpp"
 #include "tools/gcd.hpp"
 #include "tools/int128_t.hpp"
+#include "tools/is_integral.hpp"
 #include "tools/mod.hpp"
 #include "tools/pow2.hpp"
 #include "tools/quo.hpp"
@@ -212,13 +215,7 @@ namespace tools {
   public:
     bigint() : m_positive(true) {
     }
-    bigint(const ::tools::bigint&) = default;
-    bigint(::tools::bigint&&) = default;
-    ~bigint() = default;
-    ::tools::bigint& operator=(const ::tools::bigint&) = default;
-    ::tools::bigint& operator=(::tools::bigint&&) = default;
-
-    template <typename T, typename ::std::enable_if<::std::is_integral_v<T> || ::std::is_same_v<T, ::tools::int128_t> || ::std::is_same_v<T, ::tools::uint128_t>, ::std::nullptr_t>::type = nullptr>
+    template <typename T> requires ::tools::is_integral_v<T>
     explicit bigint(T n) : m_positive(n >= 0) {
       while (n != 0) {
         this->m_digits.push_back(n % BASE);
@@ -230,7 +227,7 @@ namespace tools {
         }
       }
     }
-    explicit bigint(const ::std::string& s) {
+    explicit bigint(const ::std::string_view s) {
       assert(!s.empty());
 
       ::std::size_t offset;
@@ -738,8 +735,7 @@ namespace tools {
     return x;
   }
 
-  template <>
-  ::tools::bigint gcd<::tools::bigint, ::tools::bigint>(::tools::bigint x, ::tools::bigint y) {
+  inline ::tools::bigint gcd(::tools::bigint x, ::tools::bigint y) {
     if (x.signum() < 0) x.negate();
     if (y.signum() < 0) y.negate();
 
@@ -749,6 +745,14 @@ namespace tools {
     }
 
     return x;
+  }
+  template <typename M> requires (::tools::is_integral_v<M>)
+  ::tools::bigint gcd(const M m, const ::tools::bigint& n) {
+    return ::tools::gcd(::tools::bigint(m), n);
+  }
+  template <typename N> requires (::tools::is_integral_v<N>)
+  ::tools::bigint gcd(const ::tools::bigint& m, const N n) {
+    return ::tools::gcd(m, ::tools::bigint(n));
   }
 }
 

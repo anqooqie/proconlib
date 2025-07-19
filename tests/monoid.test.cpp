@@ -4,14 +4,39 @@
 #include <limits>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
-#include "tools/monoid.hpp"
 #include "tools/bigint.hpp"
+#include "tools/int128_t.hpp"
+#include "tools/monoid.hpp"
+#include "tools/uint128_t.hpp"
 
 using mint = atcoder::modint998244353;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
+
+  assert_that(tools::monoid::gcd<short>::op(-12, 18) == 6);
+  assert_that(tools::monoid::gcd<short>::e() == 0);
+  assert_that(tools::monoid::gcd<unsigned short>::op(12U, 18U) == 6U);
+  assert_that(tools::monoid::gcd<unsigned short>::e() == 0U);
+  assert_that(tools::monoid::gcd<int>::op(-12, 18) == 6);
+  assert_that(tools::monoid::gcd<int>::e() == 0);
+  assert_that(tools::monoid::gcd<unsigned int>::op(12U, 18U) == 6U);
+  assert_that(tools::monoid::gcd<unsigned int>::e() == 0U);
+  assert_that(tools::monoid::gcd<long>::op(-12L, 18L) == 6L);
+  assert_that(tools::monoid::gcd<long>::e() == 0L);
+  assert_that(tools::monoid::gcd<unsigned long>::op(12UL, 18UL) == 6UL);
+  assert_that(tools::monoid::gcd<unsigned long>::e() == 0UL);
+  assert_that(tools::monoid::gcd<long long>::op(-12LL, 18LL) == 6LL);
+  assert_that(tools::monoid::gcd<long long>::e() == 0LL);
+  assert_that(tools::monoid::gcd<unsigned long long>::op(12ULL, 18ULL) == 6ULL);
+  assert_that(tools::monoid::gcd<unsigned long long>::e() == 0ULL);
+  assert_that(tools::monoid::gcd<tools::int128_t>::op(INT128_C(-12), INT128_C(18)) == INT128_C(6));
+  assert_that(tools::monoid::gcd<tools::int128_t>::e() == INT128_C(0));
+  assert_that(tools::monoid::gcd<tools::uint128_t>::op(UINT128_C(12), UINT128_C(18)) == UINT128_C(6));
+  assert_that(tools::monoid::gcd<tools::uint128_t>::e() == UINT128_C(0));
+  assert_that(tools::monoid::gcd<tools::bigint>::op(tools::bigint(-12), tools::bigint(18)) == tools::bigint(6));
+  assert_that(tools::monoid::gcd<tools::bigint>::e() == tools::bigint(0));
 
   assert_that(tools::monoid::max<bool>::op(false, true) == true);
   assert_that(tools::monoid::max<bool>::e() == false);
@@ -39,6 +64,10 @@ int main() {
   assert_that(tools::monoid::max<double>::e() == -std::numeric_limits<double>::infinity());
   assert_that(tools::monoid::max<long double>::op(-1.0L, 1.0L) == 1.0L);
   assert_that(tools::monoid::max<long double>::e() == -std::numeric_limits<long double>::infinity());
+  assert_that(tools::monoid::max<tools::int128_t>::op(INT128_C(-1), INT128_C(1)) == INT128_C(1));
+  assert_that(tools::monoid::max<tools::int128_t>::e() == std::numeric_limits<tools::int128_t>::min());
+  assert_that(tools::monoid::max<tools::uint128_t>::op(UINT128_C(0), UINT128_C(1)) == UINT128_C(1));
+  assert_that(tools::monoid::max<tools::uint128_t>::e() == UINT128_C(0));
   assert_that(tools::monoid::max<int, 42>::op(42, 43) == 43);
   assert_that(tools::monoid::max<int, 42>::e() == 42);
 
@@ -68,6 +97,10 @@ int main() {
   assert_that(tools::monoid::min<double>::e() == std::numeric_limits<double>::infinity());
   assert_that(tools::monoid::min<long double>::op(-1.0L, 1.0L) == -1.0L);
   assert_that(tools::monoid::min<long double>::e() == std::numeric_limits<long double>::infinity());
+  assert_that(tools::monoid::min<tools::int128_t>::op(INT128_C(-1), INT128_C(1)) == INT128_C(-1));
+  assert_that(tools::monoid::min<tools::int128_t>::e() == std::numeric_limits<tools::int128_t>::max());
+  assert_that(tools::monoid::min<tools::uint128_t>::op(UINT128_C(0), UINT128_C(1)) == UINT128_C(0));
+  assert_that(tools::monoid::min<tools::uint128_t>::e() == std::numeric_limits<tools::uint128_t>::max());
   assert_that(tools::monoid::min<int, 42>::op(41, 42) == 41);
   assert_that(tools::monoid::min<int, 42>::e() == 42);
 
@@ -97,27 +130,12 @@ int main() {
   assert_that(tools::monoid::multiplies<long double>::e() == 1.0L);
   assert_that(tools::monoid::multiplies<mint>::op(mint::raw(2), mint::raw(3)) == mint::raw(6));
   assert_that(tools::monoid::multiplies<mint>::e() == mint::raw(1));
+  assert_that(tools::monoid::multiplies<tools::int128_t>::op(INT128_C(-2), INT128_C(3)) == INT128_C(-6));
+  assert_that(tools::monoid::multiplies<tools::int128_t>::e() == INT128_C(1));
+  assert_that(tools::monoid::multiplies<tools::uint128_t>::op(UINT128_C(2), UINT128_C(3)) == UINT128_C(6));
+  assert_that(tools::monoid::multiplies<tools::uint128_t>::e() == UINT128_C(1));
   assert_that(tools::monoid::multiplies<tools::bigint>::op(tools::bigint(-2), tools::bigint(3)) == tools::bigint(-6));
   assert_that(tools::monoid::multiplies<tools::bigint>::e() == tools::bigint(1));
-
-  assert_that(tools::monoid::gcd<short>::op(-12, 18) == 6);
-  assert_that(tools::monoid::gcd<short>::e() == 0);
-  assert_that(tools::monoid::gcd<unsigned short>::op(12U, 18U) == 6U);
-  assert_that(tools::monoid::gcd<unsigned short>::e() == 0U);
-  assert_that(tools::monoid::gcd<int>::op(-12, 18) == 6);
-  assert_that(tools::monoid::gcd<int>::e() == 0);
-  assert_that(tools::monoid::gcd<unsigned int>::op(12U, 18U) == 6U);
-  assert_that(tools::monoid::gcd<unsigned int>::e() == 0U);
-  assert_that(tools::monoid::gcd<long>::op(-12L, 18L) == 6L);
-  assert_that(tools::monoid::gcd<long>::e() == 0L);
-  assert_that(tools::monoid::gcd<unsigned long>::op(12UL, 18UL) == 6UL);
-  assert_that(tools::monoid::gcd<unsigned long>::e() == 0UL);
-  assert_that(tools::monoid::gcd<long long>::op(-12LL, 18LL) == 6LL);
-  assert_that(tools::monoid::gcd<long long>::e() == 0LL);
-  assert_that(tools::monoid::gcd<unsigned long long>::op(12ULL, 18ULL) == 6ULL);
-  assert_that(tools::monoid::gcd<unsigned long long>::e() == 0ULL);
-  assert_that(tools::monoid::gcd<tools::bigint>::op(tools::bigint(-12), tools::bigint(18)) == tools::bigint(6));
-  assert_that(tools::monoid::gcd<tools::bigint>::e() == tools::bigint(0));
 
   assert_that(tools::monoid::update<bool, false>::op(true, false) == true);
   assert_that(tools::monoid::update<bool, false>::op(false, true) == true);
@@ -149,6 +167,12 @@ int main() {
   assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(0ULL, 1ULL) == 0ULL);
   assert_that(tools::monoid::update<unsigned long long, 42ULL>::op(42ULL, 1ULL) == 1ULL);
   assert_that(tools::monoid::update<unsigned long long, 42ULL>::e() == 42ULL);
+  assert_that(tools::monoid::update<tools::int128_t, INT128_C(42)>::op(INT128_C(-1), INT128_C(1)) == INT128_C(-1));
+  assert_that(tools::monoid::update<tools::int128_t, INT128_C(42)>::op(INT128_C(42), INT128_C(1)) == INT128_C(1));
+  assert_that(tools::monoid::update<tools::int128_t, INT128_C(42)>::e() == INT128_C(42));
+  assert_that(tools::monoid::update<tools::uint128_t, UINT128_C(42)>::op(UINT128_C(0), UINT128_C(1)) == UINT128_C(0));
+  assert_that(tools::monoid::update<tools::uint128_t, UINT128_C(42)>::op(UINT128_C(42), UINT128_C(1)) == UINT128_C(1));
+  assert_that(tools::monoid::update<tools::uint128_t, UINT128_C(42)>::e() == UINT128_C(42));
 
   return 0;
 }
