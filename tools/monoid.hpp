@@ -12,6 +12,34 @@
 
 namespace tools {
   namespace monoid {
+    template <typename M>
+    class bit_and {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
+
+    public:
+      using T = M;
+      static T op(VR x, VR y) {
+        return x & y;
+      }
+      static T e() {
+        return ::std::numeric_limits<T>::max();
+      }
+    };
+
+    template <typename M>
+    class bit_or {
+      using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;
+
+    public:
+      using T = M;
+      static T op(VR x, VR y) {
+        return x | y;
+      }
+      static T e() {
+        return T(0);
+      }
+    };
+
     template <typename M> requires (!::tools::is_arithmetic_v<M> || (::tools::is_integral_v<M> && !::std::is_same_v<M, bool>))
     class gcd {
       using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;

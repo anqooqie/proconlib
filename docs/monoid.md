@@ -11,6 +11,114 @@ They are typical monoids.
 ### Author
 - anqooqie
 
+## monoid::bit_and
+```cpp
+template <typename M> struct monoid::bit_and;
+```
+
+It is a monoid $(M, \mathrm{AND}, $`std::numeric_limits<M>::max()`$)$.
+
+### Constraints
+- If `x` is `<M>` and `y` is `<M>`, then `x & y` is also `<M>`.
+- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x & y) & z` $=$ `x & (y & z)`.
+- For all `x` in `<M>`, `std::numeric_limits<M>::max() & x` $=$ `x & std::numeric_limits<M>::max()` $=$ `x`.
+
+### Time Complexity
+- Not applicable
+
+## monoid::bit_and::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::bit_and::op
+```
+static M op(M x, M y);
+```
+
+It returns `x & y`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `x & y`
+
+## monoid::bit_and::e
+```
+static M e();
+```
+
+It returns `std::numeric_limits<M>::max()`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `std::numeric_limits<M>::max()`
+
+## monoid::bit_or
+```cpp
+template <typename M> struct monoid::bit_or;
+```
+
+It is a monoid $(M, \mathrm{OR}, 0)$.
+
+### Constraints
+- If `x` is `<M>` and `y` is `<M>`, then `x | y` is also `<M>`.
+- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x | y) | z` $=$ `x | (y | z)`.
+- For all `x` in `<M>`, `M(0) | x` $=$ `x | M(0)` $=$ `x`.
+
+### Time Complexity
+- Not applicable
+
+## monoid::bit_or::T
+```
+using T = M;
+```
+
+It is an alias for `<M>`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Not applicable
+
+## monoid::bit_or::op
+```
+static M op(M x, M y);
+```
+
+It returns `x | y`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `x | y`
+
+## monoid::bit_or::e
+```
+static M e();
+```
+
+It returns `M(0)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- Same as that of `M(0)`
+
 ## monoid::gcd
 ```cpp
 template <typename M> struct monoid::gcd;
