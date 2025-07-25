@@ -180,7 +180,7 @@ namespace tools {
       }});
       if (const auto r = table[f1(x)][f1(y)]; r) return *r;
 
-      if (y.m_value < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();
+      if ((y.m_value) < 0 && x.m_value > ::std::numeric_limits<T>::max() + y.m_value) return *U();
       if (y.m_value > 0 && x.m_value < ::std::numeric_limits<T>::min() + y.m_value) return *U();
       return ::tools::safe_int<T>(x.m_value - y.m_value);
     }
