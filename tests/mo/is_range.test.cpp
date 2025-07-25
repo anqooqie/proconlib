@@ -16,18 +16,20 @@ int main() {
 
   tools::mo mo(N, Q);
   std::vector<int> queries(Q);
-  for (int i = 0; i < Q; ++i) {
+  for (int q = 0; q < Q; ++q) {
     int l, r;
     std::cin >> l >> r;
     mo.add_query(l, r);
-    std::cin >> queries[i];
+    std::cin >> queries[q];
   }
 
   tools::unordered_map<int, int> freq;
-  const auto add = [&](const int i) { ++freq[a[i]]; };
-  const auto remove = [&](const int i) { --freq[a[i]]; };
   ::std::vector<int> answers(Q);
-  mo.run(add, add, remove, remove, [&](const int q) {
+  mo.run([&](const int i) {
+    --freq[a[i]];
+  }, [&](const int i) {
+    ++freq[a[i]];
+  }, [&](const int q) {
     if (const auto it = freq.find(queries[q]); it != freq.end()) {
       answers[q] = it->second;
     } else {

@@ -5,20 +5,17 @@ documentation_of: //tools/mo.hpp
 
 Assume the following situation.
 
-- $Q$ queries are given.
-- The $i$-th query asks you about some kind of value for the range $[l_i, r_i)$. $(0 \leq l_i \leq r_i \leq N)$
-- Some kind of state is uniquely determined from a range $[l, r)$.
-- If you know the state uniquely determined from $[l - 1, r)$, you can calculate the state uniquely determined from $[l, r)$ in $\alpha$ time.
-- If you know the state uniquely determined from $[l + 1, r)$, you can calculate the state uniquely determined from $[l, r)$ in $\alpha$ time.
-- If you know the state uniquely determined from $[l, r - 1)$, you can calculate the state uniquely determined from $[l, r)$ in $\alpha$ time.
-- If you know the state uniquely determined from $[l, r + 1)$, you can calculate the state uniquely determined from $[l, r)$ in $\alpha$ time.
-- If you know the state uniquely determined from $[l_i, r_i)$, you can answer the $i$-th query in $\beta$ time.
+- Given $f \colon \mathbb{N}^2 \to S$, $g \colon S \to T$ and $Q$ queries $(l_0, r_0), (l_1, r_1), \ldots, (l_{Q - 1}, r_{Q - 1})$ such that $0 \leq l_q \leq M$ and $0 \leq r_q \leq N$ for any $0 \leq q < Q$, you need to answer $g(f(l_0, r_0)), g(f(l_1, r_1)), \ldots, g(f(l_{Q - 1}, r_{Q - 1}))$.
+- Given $f(l, r)$, it is possible to get $f(l - 1, r)$ in $\alpha$ time. 
+- Given $f(l, r)$, it is possible to get $f(l + 1, r)$ in $\alpha$ time. 
+- Given $f(l, r)$, it is possible to get $f(l, r - 1)$ in $\alpha$ time. 
+- Given $f(l, r)$, it is possible to get $f(l, r + 1)$ in $\alpha$ time. 
+- Given $s$, it is possible to get $g(s)$ in $\beta$ time.
 
-In this situation, Mo's algorithm can answer $Q$ queries in $O(\alpha N \sqrt{Q} + \beta Q)$ time.
+In this situation, Mo's algorithm can answer $Q$ queries in $O(\alpha \sqrt{MNQ} + \beta Q + Q \log Q)$ time.
 
 ### References
-- [Mo's algorithm とその上位互換の話 - あなたは嘘つきですかと聞かれたら「YES」と答えるブログ](https://snuke.hatenablog.com/entry/2016/07/01/000000)
-- [Mo’s algorithm \| Nyaan’s Library](https://nyaannyaan.github.io/library/misc/mo.hpp.html)
+- [定数倍が最適な Mo's Algorithm - noshi91のメモ](https://noshi91.hatenablog.com/entry/2023/04/13/224811)
 
 ### License
 - CC0
@@ -28,49 +25,68 @@ In this situation, Mo's algorithm can answer $Q$ queries in $O(\alpha N \sqrt{Q}
 
 ## Constructor
 ```cpp
-mo mo(std::size_t N, std::size_t Q);
+(1) mo<false> mo(int M, int N, int Q);
+(2) mo<true> mo(int N, int Q);
+(3) mo mo(int N, int Q);
 ```
 
 It creates a storage for queries.
+
+- (2)
+    - By adding the constraints $M = N$ and $l_q \leq r_q$ for any $0 \leq q < Q$, it makes Mo's algorithm $\sqrt{2}$ times faster.
+- (3)
+    - It is equivalent to (2).
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O\left(\log \frac{N}{\sqrt{Q}} + \sqrt{Q}\right)$
+- $O(Q)$
 
 ## add_query
 ```cpp
-void mo.add_query(std::size_t l, std::size_t r);
+void mo.add_query(int l, int r);
 ```
 
-It adds a query for $[l, r)$ to the storage.
+It adds a query $(l, r)$ to the storage.
 
 ### Constraints
-- $0 \leq l \leq r \leq N$
+- The number of times that `mo.add_query` has been called so far is less than $Q$.
+- $0 \leq l \leq M$
+- $0 \leq r \leq N$
+- If `mo` is constructed by the constructor (2) or (3), $l \leq r$
 
 ### Time Complexity
-- $O(1)$ amortized
+- $O(1)$
 
 ## run
 ```cpp
-template <typename AL, typename AR, typename DL, typename DR, typename F>
-void mo.run(AL add_left, AR add_right, DL delete_left, DR delete_right, F run_query);
+(1)
+template <typename DL, typename IL, typename DR, typename IR, typename F>
+requires (std::invocable<DL, int> && std::invocable<IL, int> && std::invocable<DR, int> && std::invocable<IR, int> && std::invocable<F, int>)
+void mo.run(DL decrement_l, IL increment_l, DR decrement_r, IR increment_r, F run_query);
+
+(2)
+template <typename D, typename A, typename F>
+requires (std::invocable<D, int> && std::invocable<A, int> && std::invocable<F, int>)
+void mo.run(D del, A add, F run_query);
 ```
 
-It runs Mo's algorithm.
-When `run_query(i)` is invoked, you can answer the $i$-th query by using the state uniquely determined from $[l_i, r_i)$.
+It executes Mo's algorithm.
+
+- (1)
+    - You need to compute $f(0, 0)$ in advance.
+    - When `decrement_l` is called with parameter $l$, you should have $f(l + 1, r)$, so you need to compute $f(l, r)$ using $f(l + 1, r)$.
+    - When `increment_l` is called with parameter $l$, you should have $f(l - 1, r)$, so you need to compute $f(l, r)$ using $f(l - 1, r)$.
+    - When `decrement_r` is called with parameter $r$, you should have $f(l, r + 1)$, so you need to compute $f(l, r)$ using $f(l, r + 1)$.
+    - When `increment_r` is called with parameter $r$, you should have $f(l, r - 1)$, so you need to compute $f(l, r)$ using $f(l, r - 1)$.
+    - When `run_query` is called with parameter $q$, you should have $f(l_q, r_q)$, so you need to compute $g(f(l_q, r_q))$ and answer the $q$-th query.
+- (2)
+    - It is equivalent to `mo.run(add, del, del, add, run_query)`.
 
 ### Constraints
-- `add_left(std::size_t)` is invocable.
-- `add_right(std::size_t)` is invocable.
-- `delete_left(std::size_t)` is invocable.
-- `delete_right(std::size_t)` is invocable.
-- `run_query(std::size_t)` is invocable.
-- When `add_left(i)` is invoked, you have to update the state from one uniquely determined from $[l, r)$ to one uniquely determined from $[l - 1, r)$. (You may utilize the contract that $i = l - 1$ holds.)
-- When `add_right(i)` is invoked, you have to update the state from one uniquely determined from $[l, r)$ to one uniquely determined from $[l, r + 1)$. (You may utilize the contract that $i = r$ holds.)
-- When `delete_left(i)` is invoked, you have to update the state from one uniquely determined from $[l, r)$ to one uniquely determined from $[l + 1, r)$. (You may utilize the contract that $i = l$ holds.)
-- When `delete_right(i)` is invoked, you have to update the state from one uniquely determined from $[l, r)$ to one uniquely determined from $[l, r - 1)$. (You may utilize the contract that $i = r - 1$ holds.)
+- (2)
+    - `mo` is constructed by the constructor (2) or (3).
 
 ### Time Complexity
-- $O(\alpha N \sqrt{Q} + \beta Q)$ where $\alpha$ is the time to run `add_left`, `add_right`, `delete_left` and `delete_right`, and $\beta$ is the time to run `run_query`.
+- $O(\alpha \sqrt{MNQ} + \beta Q + Q \log Q)$ where $\alpha$ is the time to run `decrement_l`, `increment_l`, `decrement_r` and `increment_r`, and $\beta$ is the time to run `run_query`.
