@@ -124,3 +124,16 @@ It is an alias for `a.prod(l, r)`.
 
 ### Time Complexity
 - $O(1)$ amortized
+
+## operator&gt;&gt;
+```cpp
+std::istream& operator>>(std::istream& is, online_cumsum<X, Forward>& a);
+```
+
+It stores the values read from `is` into $a_0, a_1, \ldots, a_{n - 1}$ in that order.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$

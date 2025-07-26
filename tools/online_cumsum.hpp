@@ -1,7 +1,9 @@
 #ifndef TOOLS_ONLINE_CUMSUM_HPP
 #define TOOLS_ONLINE_CUMSUM_HPP
 
+#include <algorithm>
 #include <cassert>
+#include <iostream>
 #include <type_traits>
 #include <vector>
 #include "tools/group.hpp"
@@ -71,6 +73,20 @@ namespace tools {
     template <typename Y = X> requires (!::tools::is_monoid_v<Y>)
     T sum(const int l, const int r) {
       return this->prod(l, r);
+    }
+
+    friend ::std::istream& operator>>(::std::istream& is, ::tools::online_cumsum<X, Forward>& self) {
+      if constexpr (Forward) {
+        ::std::fill(self.m_cumsum.begin(), self.m_cumsum.begin() + self.m_processed, M::e());
+        self.m_processed = 0;
+      } else {
+        ::std::fill(self.m_cumsum.begin() + self.m_processed, self.m_cumsum.end(), M::e());
+        self.m_processed = self.size();
+      }
+      for (auto it = self.begin(); it != self.end(); ++it) {
+        is >> *it;
+      }
+      return is;
     }
   };
 }
