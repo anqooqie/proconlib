@@ -14,7 +14,7 @@ int main() {
   std::vector<int> a(N);
   for (auto& a_i : a) std::cin >> a_i;
 
-  tools::mo mo(N, Q);
+  tools::mo mo;
   std::vector<int> queries(Q);
   for (int q = 0; q < Q; ++q) {
     int l, r;

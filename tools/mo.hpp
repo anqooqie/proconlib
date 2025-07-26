@@ -6,81 +6,98 @@
 #include <cmath>
 #include <concepts>
 #include <iterator>
-#include <tuple>
+#include <numeric>
+#include <ranges>
+#include <utility>
 #include <vector>
 
 namespace tools {
-  template <bool IsRange = true>
   class mo {
-    int m_bucket_size;
-    ::std::vector<::std::tuple<int, int, int>> m_queries;
+    ::std::vector<::std::pair<int, int>> m_queries;
+
+    bool queries_are_intervals() const {
+      return ::std::ranges::all_of(this->m_queries, [](const auto& query) { return query.first <= query.second; });
+    }
 
   public:
     mo() = default;
-    template <bool SFINAE = IsRange> requires (SFINAE)
-    mo(const int n, const int q) : m_bucket_size(::std::max<int>(1, ::std::round(n / ::std::sqrt(std::max(1, q))))) {
-      this->m_queries.reserve(q);
-    }
-    template <bool SFINAE = !IsRange> requires (SFINAE)
-    mo(const int m, const int n, const int q) : m_bucket_size(::std::max<int>(1, ::std::round(::std::sqrt(2.0 * m * n) / ::std::sqrt(std::max(1, q))))) {
-      this->m_queries.reserve(q);
+
+    int add_query(const int l, const int r) {
+      assert(l >= 0);
+      assert(r >= 0);
+      this->m_queries.emplace_back(l, r);
+      return this->m_queries.size() - 1;
     }
 
-    void add_query(const int l, const int r) {
-      if constexpr (IsRange) {
-        assert(0 <= l && l <= r);
-      } else {
-        assert(0 <= l);
-        assert(0 <= r);
-      }
-      this->m_queries.emplace_back(this->m_queries.size(), l, r);
+    const ::std::pair<int, int>& get_query(const int q) const & {
+      assert(0 <= q && q < ::std::ssize(this->m_queries));
+      return this->m_queries[q];
+    }
+    ::std::pair<int, int> get_query(const int q) && {
+      assert(0 <= q && q < ::std::ssize(this->m_queries));
+      return ::std::move(this->m_queries[q]);
     }
 
-    template <typename D, typename A, typename F, bool SFINAE = IsRange>
-    requires (::std::invocable<D, int> && ::std::invocable<A, int> && ::std::invocable<F, int> && SFINAE)
+    const ::std::vector<::std::pair<int, int>>& queries() const & {
+      return this->m_queries;
+    }
+    ::std::vector<::std::pair<int, int>> queries() && {
+      return ::std::move(this->m_queries);
+    }
+
+    template <typename D, typename A, typename F>
+    requires (::std::invocable<D, int> && ::std::invocable<A, int> && ::std::invocable<F, int>)
     void run(const D& del, const A& add, const F& run_query) {
+      assert(this->queries_are_intervals());
       this->run(add, del, del, add, run_query);
     }
 
     template <typename DL, typename IL, typename DR, typename IR, typename F>
     requires (::std::invocable<DL, int> && ::std::invocable<IL, int> && ::std::invocable<DR, int> && ::std::invocable<IR, int> && ::std::invocable<F, int>)
     void run(const DL& decrement_l, const IL& increment_l, const DR& decrement_r, const IR& increment_r, const F& run_query) {
-      const auto comp1 = [&](const auto& a, const auto& b) {
-        const auto bucket_a = ::std::get<1>(a) / this->m_bucket_size;
-        const auto bucket_b = ::std::get<1>(b) / this->m_bucket_size;
-        if (bucket_a != bucket_b) return bucket_a < bucket_b;
-        if (bucket_a % 2 == 0) return ::std::get<2>(a) < ::std::get<2>(b);
-        return ::std::get<2>(a) > ::std::get<2>(b);
-      };
-      const auto comp2 = [&](const auto& a, const auto& b) {
-        const auto bucket_a = (::std::get<1>(a) + this->m_bucket_size / 2) / this->m_bucket_size;
-        const auto bucket_b = (::std::get<1>(b) + this->m_bucket_size / 2) / this->m_bucket_size;
-        if (bucket_a != bucket_b) return bucket_a < bucket_b;
-        if (bucket_a % 2 == 0) return ::std::get<2>(a) < ::std::get<2>(b);
-        return ::std::get<2>(a) > ::std::get<2>(b);
-      };
+      const int M = this->m_queries.empty() ? 0 : ::std::ranges::max(this->m_queries | ::std::views::transform(&::std::pair<int, int>::first));
+      const int N = this->m_queries.empty() ? 0 : ::std::ranges::max(this->m_queries | ::std::views::transform(&::std::pair<int, int>::second));
+      const int Q = this->m_queries.size();
+      const int B = ::std::max<int>(1, ::std::round((this->queries_are_intervals() ? ::std::sqrt(M * (2.0 * N - M)) : ::std::sqrt(2.0 * M * N)) / ::std::sqrt(std::max(1, Q))));
 
-      ::std::ranges::sort(this->m_queries, comp1);
+      ::std::vector<int> ordered_queries1(Q);
+      ::std::iota(ordered_queries1.begin(), ordered_queries1.end(), 0);
+      ::std::ranges::sort(ordered_queries1, [&](const int q1, const int q2) {
+        const auto& [l1, r1] = this->m_queries[q1];
+        const auto& [l2, r2] = this->m_queries[q2];
+        const auto bucket1 = l1 / B;
+        const auto bucket2 = l2 / B;
+        if (bucket1 != bucket2) return bucket1 < bucket2;
+        if (bucket1 % 2 == 0) return r1 < r2;
+        return r1 > r2;
+      });
       long long dist1 = 0;
-      for (int q = 0; q + 1 < ::std::ssize(this->m_queries); ++q) {
-        dist1 += ::std::abs(::std::get<1>(this->m_queries[q]) - ::std::get<1>(this->m_queries[q + 1]));
-        dist1 += ::std::abs(::std::get<2>(this->m_queries[q]) - ::std::get<2>(this->m_queries[q + 1]));
+      for (int i = 0; i + 1 < Q; ++i) {
+        dist1 += ::std::abs(this->m_queries[ordered_queries1[i]].first - this->m_queries[ordered_queries1[i + 1]].first);
+        dist1 += ::std::abs(this->m_queries[ordered_queries1[i]].second - this->m_queries[ordered_queries1[i + 1]].second);
       }
 
-      ::std::ranges::sort(this->m_queries, comp2);
+      ::std::vector<int> ordered_queries2(Q);
+      ::std::iota(ordered_queries2.begin(), ordered_queries2.end(), 0);
+      ::std::ranges::sort(ordered_queries2, [&](const int q1, const int q2) {
+        const auto& [l1, r1] = this->m_queries[q1];
+        const auto& [l2, r2] = this->m_queries[q2];
+        const auto bucket1 = (l1 + B / 2) / B;
+        const auto bucket2 = (l2 + B / 2) / B;
+        if (bucket1 != bucket2) return bucket1 < bucket2;
+        if (bucket1 % 2 == 0) return r1 < r2;
+        return r1 > r2;
+      });
       long long dist2 = 0;
-      for (int q = 0; q + 1 < ::std::ssize(this->m_queries); ++q) {
-        dist2 += ::std::abs(::std::get<1>(this->m_queries[q]) - ::std::get<1>(this->m_queries[q + 1]));
-        dist2 += ::std::abs(::std::get<2>(this->m_queries[q]) - ::std::get<2>(this->m_queries[q + 1]));
-      }
-
-      if (dist1 < dist2) {
-        ::std::ranges::sort(this->m_queries, comp1);
+      for (int i = 0; i + 1 < Q; ++i) {
+        dist2 += ::std::abs(this->m_queries[ordered_queries2[i]].first - this->m_queries[ordered_queries2[i + 1]].first);
+        dist2 += ::std::abs(this->m_queries[ordered_queries2[i]].second - this->m_queries[ordered_queries2[i + 1]].second);
       }
 
       int l = 0;
       int r = 0;
-      for (const auto& [q, ql, qr] : this->m_queries) {
+      for (const auto q : (dist1 < dist2 ? ordered_queries1 : ordered_queries2)) {
+        const auto& [ql, qr] = this->m_queries[q];
         for (; ql < l; --l) decrement_l(l - 1);
         for (; r < qr; ++r) increment_r(r);
         for (; l < ql; ++l) increment_l(l);
