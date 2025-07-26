@@ -152,15 +152,25 @@ It returns $i$ such that $l \leq x_i < r$ and $\|\\{j \mid l \leq x_j < r \land 
 
 ## range_sum
 ```cpp
-typename G::T wm.range_sum(T l, T r, T d, T u);
+(1) typename G::T wm.range_sum(T l, T r, T u);
+(2) typename G::T wm.range_sum(T l, T r, T d, T u);
 ```
 
-It returns the sum of $w_i$ such that $l \leq x_i < r$ and $d \leq y_i < u$ hold, where the addition is defined by the commutative group $G$.
+- (1)
+    - It returns the sum of $w_i$ such that $l \leq x_i < r$ and $y_i < u$.
+- (2)
+    - It returns the sum of $w_i$ such that $l \leq x_i < r$ and $d \leq y_i < u$.
+
+Note that the addition is defined by the commutative group $G$.
 
 ### Constraints
-- `wm.build()` has been called ever.
-- $l \leq r$
-- $d \leq u$
+- (1)
+    - `wm.build()` has been called ever.
+    - $l \leq r$
+- (2)
+    - `wm.build()` has been called ever.
+    - $l \leq r$
+    - $d \leq u$
 
 ### Time Complexity
 - (`<Updatable>` is `true`): $O\left((\log n)^2\right)$

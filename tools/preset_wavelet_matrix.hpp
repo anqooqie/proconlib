@@ -105,10 +105,9 @@ namespace tools {
       return this->m_wm.kth_largest(l, r, k);
     }
 
-    U range_sum(const T& l, const T& r, const T& d, const T& u) const {
+    U range_sum(const T& l, const T& r, const T& u) const {
       assert(this->built());
       assert(l <= r);
-      assert(d <= u);
 
       U res = G::e();
       for (const auto& [h, jl, jr] : this->m_wm.range_prod(l, r, u)) {
@@ -118,15 +117,16 @@ namespace tools {
           res = G::op(res, G::op(G::inv(this->m_aux[h][jl]), this->m_aux[h][jr]));
         }
       }
-      for (const auto& [h, jl, jr] : this->m_wm.range_prod(l, r, d)) {
-        if constexpr (Updatable) {
-          res = G::op(res, G::inv(this->m_aux[h].prod(jl, jr)));
-        } else {
-          res = G::op(res, G::op(G::inv(this->m_aux[h][jr]), this->m_aux[h][jl]));
-        }
-      }
 
       return res;
+    }
+
+    U range_sum(const T& l, const T& r, const T& d, const T& u) const {
+      assert(this->built());
+      assert(l <= r);
+      assert(d <= u);
+
+      return G::op(this->range_sum(l, r, u), G::inv(this->range_sum(l, r, d)));
     }
 
     int range_freq(const T& l, const T& r) const {
