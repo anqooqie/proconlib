@@ -57,7 +57,7 @@ submit: combined.cpp
 
 .PHONY: clean
 clean:
-	rm -f *~ a.out combined.cpp {output_checker,input_generator,output_generator}{,_combined.cpp}
+	rm -f *~ a.out combined.cpp output_checker output_checker_combined.cpp input_generator input_generator_combined.cpp output_generator output_generator_combined.cpp
 
 .PHONY: force
 force:
