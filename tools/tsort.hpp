@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstdint>
+#include <iterator>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -38,11 +39,11 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < this->m_edges.size());
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return this->m_edges[k];
     }
     edge get_edge(const int k) && {
-      assert(0 <= k && k < this->m_edges.size());
+      assert(0 <= k && k < ::std::ssize(this->m_edges));
       return ::std::move(this->m_edges[k]);
     }
 
