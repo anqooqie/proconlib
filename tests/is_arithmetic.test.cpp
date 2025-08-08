@@ -9,6 +9,11 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
+  static_assert(tools::is_arithmetic_v<bool>);
+  static_assert(tools::is_arithmetic_v<const bool>);
+  static_assert(!tools::is_arithmetic_v<bool&>);
+  static_assert(!tools::is_arithmetic_v<const bool&>);
+
   static_assert(tools::is_arithmetic_v<int>);
   static_assert(tools::is_arithmetic_v<unsigned int>);
   static_assert(tools::is_arithmetic_v<const int>);
