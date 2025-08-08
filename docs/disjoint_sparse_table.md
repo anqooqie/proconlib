@@ -13,8 +13,10 @@ It is a data structure which can return $\prod_{l \leq i < r} a_i$ under a given
 
 ## Constructor
 ```cpp
-template <typename InputIterator>
-disjoint_sparse_table<M> table(InputIterator begin, InputIterator end);
+template <std::ranges::range R>
+disjoint_sparse_table<M> table(R&& a);
+template <std::input_iterator F, std::sentinel_for<F> S>
+disjoint_sparse_table<M> table(F first, S last);
 ```
 
 It takes a sequence $(a_1, a_2, \ldots, a_N)$, and constructs a data structure which can return $\prod_{l \leq i < r} a_i$ under a given monoid $M$.
@@ -28,7 +30,7 @@ It takes a sequence $(a_1, a_2, \ldots, a_N)$, and constructs a data structure w
 
 ## size
 ```cpp
-std::size_t table.size();
+int table.size();
 ```
 
 It returns $N$.
@@ -41,7 +43,7 @@ It returns $N$.
 
 ## prod
 ```cpp
-typename M::T table.prod(std::size_t l, std::size_t r);
+typename M::T table.prod(int l, int r);
 ```
 
 It returns $\prod_{l \leq i < r} a_i$ under the monoid $M$.
