@@ -1,14 +1,13 @@
 #ifndef TOOLS_DSU_HPP
 #define TOOLS_DSU_HPP
 
-#include <vector>
+#include <algorithm>
 #include <cassert>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
 namespace tools {
   class dsu {
-  private:
     // if this->m_data[x] < 0:
     //   x is a root.
     //   size(x) is -this->m_data[x].
@@ -23,12 +22,6 @@ namespace tools {
 
   public:
     dsu() = default;
-    dsu(const ::tools::dsu&) = default;
-    dsu(::tools::dsu&&) = default;
-    ~dsu() = default;
-    ::tools::dsu& operator=(const ::tools::dsu&) = default;
-    ::tools::dsu& operator=(::tools::dsu&&) = default;
-
     explicit dsu(const int n) : m_data(n, -1) {
     }
 
