@@ -1,8 +1,8 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DPL_1_H
 
 #include <iostream>
-#include "tools/zero_one_knapsack.hpp"
 #include "tools/assert_that.hpp"
+#include "tools/zero_one_knapsack.hpp"
 
 using ll = long long;
 
@@ -19,7 +19,7 @@ int main() {
     solver.add_item(v, w);
   }
 
-  const auto [answer, selected] = solver.query();
+  const auto [answer, selected] = solver.query<true>();
   ll v = 0;
   ll w = 0;
   for (const auto i : selected) {

@@ -26,7 +26,7 @@ It creates a solver for the 0-1 knapsack problem where $W$ is the capacity of th
 
 ## size
 ```cpp
-std::size_t solver.size();
+int solver.size();
 ```
 
 It returns the number of items.
@@ -52,7 +52,7 @@ It returns $W$.
 
 ## add_item
 ```cpp
-std::size_t solver.add_item(T v, T w);
+int solver.add_item(T v, T w);
 ```
 
 It adds an item with value $v$ and weight $w$.
@@ -67,7 +67,7 @@ It returns an integer $k$ such that this is the $k$-th item that is added.
 
 ## get_item
 ```cpp
-std::pair<T, T> solver.get_item(std::size_t k);
+std::pair<T, T> solver.get_item(int k);
 ```
 
 It returns the value and the weight of the $k$-th item.
@@ -80,7 +80,7 @@ It returns the value and the weight of the $k$-th item.
 
 ## items
 ```cpp
-const std::vector<std::pair<T, T>>& solver.items();
+std::vector<std::pair<T, T>> solver.items();
 ```
 
 It returns all the items registered in the solver.
@@ -94,7 +94,8 @@ The items are ordered in the same order as added by `add_item`.
 
 ## query
 ```cpp
-std::pair<T, std::vector<::std::size_t>> solver.query();
+T solver.query();
+std::pair<T, std::vector<int>> solver.query<true>();
 ```
 
 It finds a subset of items such that:
@@ -102,7 +103,8 @@ It finds a subset of items such that:
 - The total value of the items is as large as possible.
 - The items have combined weight at most $W$.
 
-It returns the maximum total value of items and the indices of the items.
+If the template parameter is `true`, it returns the maximum total value of items and the indices of the items.
+Otherwise, it returns the maximum total value of items.
 
 ### Constraints
 - None
