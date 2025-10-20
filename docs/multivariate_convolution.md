@@ -20,7 +20,7 @@ $f$ and $g$ are given as the one-dimensional arrays of length $\prod\_{k=1}^K N_
 - There is an integer $c$ with $2^c \mid (M - 1)$ and $2 \left(\prod_{k=1}^K N_k\right) - 1 \leq 2^c$.
 
 ### Time Complexity
-- $O(L (\log L)^2)$ where $L = \prod_{k=1}^K N_k$
+- $O(KL \log L)$ where $L = \prod_{k=1}^K N_k$
 
 ### License
 - CC0
