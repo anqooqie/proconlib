@@ -5,7 +5,7 @@
 #include <ranges>
 #include <vector>
 #include "atcoder/modint.hpp"
-#include "tools/fds_with_prefix_sum.hpp"
+#include "tools/fds_with_prefix_sums.hpp"
 #include "tools/floor_sqrt.hpp"
 #include "tools/join.hpp"
 
@@ -28,7 +28,7 @@ int main() {
       f[i] = mint::raw(v);
     }
     std::cout << tools::join(
-      (tools::fds_with_prefix_sum<mint>(N, [](long long) { return mint::raw(1); }) / tools::fds_with_prefix_sum<mint>(N, f)) |
+      (tools::fds_with_prefix_sums<mint>(N, [](long long) { return mint::raw(1); }) / tools::fds_with_prefix_sums<mint>(N, f)) |
         std::views::transform([](const mint x) { return x.val(); }),
       ' '
     ) << '\n';

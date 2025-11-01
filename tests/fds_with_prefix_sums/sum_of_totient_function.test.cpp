@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "atcoder/modint.hpp"
-#include "tools/fds_with_prefix_sum.hpp"
+#include "tools/fds_with_prefix_sums.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -15,8 +15,8 @@ int main() {
 
   const auto inv2 = mint::raw(2).inv();
   std::cout << (
-    tools::fds_with_prefix_sum<mint>(N, [&](const long long i) { return mint(i) * mint(i + 1) * inv2; }) /
-    tools::fds_with_prefix_sum<mint>(N, [&](const long long i) { return mint(i); })
+    tools::fds_with_prefix_sums<mint>(N, [&](const long long i) { return mint(i) * mint(i + 1) * inv2; }) /
+    tools::fds_with_prefix_sums<mint>(N, [&](const long long i) { return mint(i); })
   ).rbegin()->val() << '\n';
 
   return 0;

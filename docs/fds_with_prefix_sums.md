@@ -1,6 +1,6 @@
 ---
-title: Formal Dirichlet series with prefix sum
-documentation_of: //tools/fds_with_prefix_sum.hpp
+title: Formal Dirichlet series with prefix sums
+documentation_of: //tools/fds_with_prefix_sums.hpp
 ---
 
 It is a formal Dirichlet series that manages the prefix sums of the coefficients.
@@ -10,7 +10,7 @@ However, since it is not possible to store an infinite number of coefficients, o
 The information to be stored is defined using the following items.
 
 $$\begin{align*}
-Q_N &:= \left\{ \left\lfloor \frac{N}{x} \right\rfloor \mid x \in \mathbb{Z} \land 1 \leq x \leq N \right\}\\
+Q_N &:= \left\{ \left\lfloor \frac{N}{n} \right\rfloor \mid n \in \mathbb{Z} \land 1 \leq n \leq N \right\}\\
 (a_0, a_1, \ldots, a_{|Q_N| - 1}) &:= \text{(the sequence of the integers contained in $Q_N$ arranged in ascending order)}\\
 F(n) &:= \sum_{i=1}^n f(i)
 \end{align*}$$
@@ -24,6 +24,7 @@ Furthermore, $D_f(s)$ has a multiplicative inverse as a formal Dirichlet series 
 
 ### References
 - [Dirichlet 積と、数論関数の累積和 \| maspyのHP](https://maspypy.com/dirichlet-%E7%A9%8D%E3%81%A8%E3%80%81%E6%95%B0%E8%AB%96%E9%96%A2%E6%95%B0%E3%81%AE%E7%B4%AF%E7%A9%8D%E5%92%8C)
+- [Comment by ecnerwala posted on Codeforces blog](https://codeforces.com/blog/entry/117635?#comment-1041002)
 
 ### License
 - CC0
@@ -34,18 +35,18 @@ Furthermore, $D_f(s)$ has a multiplicative inverse as a formal Dirichlet series 
 ## Constructor
 ```cpp
 (1)
-fds_with_prefix_sum<M> D_f(long long N);
+fds_with_prefix_sums<M> D_f(long long N);
 
 (2)
 template <typename PrefixSumFunction>
 requires std::regular_invocable<PrefixSumFunction, long long>
       && std::assignable_from<M&, std::invoke_result_t<PrefixSumFunction, long long>>
-fds_with_prefix_sum<M> D_f(long long N, PrefixSumFunction F);
+fds_with_prefix_sums<M> D_f(long long N, PrefixSumFunction F);
 
 (3)
 template <std::ranges::input_range R>
 requires std::assignable_from<M&, std::ranges::range_value_t<R>>
-fds_with_prefix_sum<M> D_f(long long N, R&& prefix_sums);
+fds_with_prefix_sums<M> D_f(long long N, R&& prefix_sums);
 ```
 
 - (1)
@@ -61,7 +62,7 @@ fds_with_prefix_sum<M> D_f(long long N, R&& prefix_sums);
 - (2)
     - For any positive integer $n$, $F(n)$ can be obtained.
 - (3)
-    - the length of `prefix_sums` is $2 \lfloor \sqrt{N} \rfloor - [ N < \lfloor \sqrt{N} \rfloor (\lfloor \sqrt{N} \rfloor + 1) ]$.
+    - the length of `prefix_sums` is $\|Q_N\| = 2 \lfloor \sqrt{N} \rfloor - [ N < \lfloor \sqrt{N} \rfloor (\lfloor \sqrt{N} \rfloor + 1) ]$.
 
 ### Time Complexity
 - (1), (3)
@@ -90,7 +91,7 @@ reverse_iterator D_f.rbegin();
 reverse_iterator D_f.rend();
 ```
 
-It returns a reverse iterator to enumerate $F(a_{\|Q_N\| - 1}), F(a_{\|Q_N\| - 2}), \ldots, F(a_0)$.
+It returns an iterator to enumerate $F(a_{\|Q_N\| - 1}), F(a_{\|Q_N\| - 2}), \ldots, F(a_0)$.
 In particular, you can obtain $\sum_{n=1}^N f(n)$ by `*D_f.rbegin()`.
 
 ### Constraints
@@ -101,7 +102,7 @@ In particular, you can obtain $\sum_{n=1}^N f(n)$ by `*D_f.rbegin()`.
 
 ## Unary plus operator
 ```cpp
-fds_with_prefix_sum<M> D_f.operator+();
+fds_with_prefix_sums<M> D_f.operator+();
 ```
 
 It returns $D_f(s)$.
@@ -114,7 +115,7 @@ It returns $D_f(s)$.
 
 ## Unary minus operator
 ```cpp
-fds_with_prefix_sum<M> D_f.operator-();
+fds_with_prefix_sums<M> D_f.operator-();
 ```
 
 It returns $-D_f(s)$.
@@ -127,8 +128,8 @@ It returns $-D_f(s)$.
 
 ## Addition operators
 ```cpp
-(1) fds_with_prefix_sum<M> operator+(fds_with_prefix_sum<M> D_f, fds_with_prefix_sum<M> D_g);
-(2) fds_with_prefix_sum<M>& D_f.operator+=(fds_with_prefix_sum<M> D_g);
+(1) fds_with_prefix_sums<M> operator+(fds_with_prefix_sums<M> D_f, fds_with_prefix_sums<M> D_g);
+(2) fds_with_prefix_sums<M>& D_f.operator+=(fds_with_prefix_sums<M> D_g);
 ```
 
 It returns $D_f(s) + D_g(s)$.
@@ -141,8 +142,8 @@ It returns $D_f(s) + D_g(s)$.
 
 ## Subtraction operators
 ```cpp
-(1) fds_with_prefix_sum<M> operator-(fds_with_prefix_sum<M> D_f, fds_with_prefix_sum<M> D_g);
-(2) fds_with_prefix_sum<M>& D_f.operator-=(fds_with_prefix_sum<M> D_g);
+(1) fds_with_prefix_sums<M> operator-(fds_with_prefix_sums<M> D_f, fds_with_prefix_sums<M> D_g);
+(2) fds_with_prefix_sums<M>& D_f.operator-=(fds_with_prefix_sums<M> D_g);
 ```
 
 It returns $D_f(s) - D_g(s)$.
@@ -155,8 +156,8 @@ It returns $D_f(s) - D_g(s)$.
 
 ## Multiplication operators
 ```cpp
-(1) fds_with_prefix_sum<M> operator*(fds_with_prefix_sum<M> D_f, fds_with_prefix_sum<M> D_g);
-(2) fds_with_prefix_sum<M>& D_f.operator*=(fds_with_prefix_sum<M> D_g);
+(1) fds_with_prefix_sums<M> operator*(fds_with_prefix_sums<M> D_f, fds_with_prefix_sums<M> D_g);
+(2) fds_with_prefix_sums<M>& D_f.operator*=(fds_with_prefix_sums<M> D_g);
 ```
 
 It returns $D_f(s) D_g(s)$.
@@ -169,8 +170,8 @@ It returns $D_f(s) D_g(s)$.
 
 ## Division operators
 ```cpp
-(1) fds_with_prefix_sum<M> operator/(fds_with_prefix_sum<M> D_f, fds_with_prefix_sum<M> D_g);
-(2) fds_with_prefix_sum<M>& D_f.operator/=(fds_with_prefix_sum<M> D_g);
+(1) fds_with_prefix_sums<M> operator/(fds_with_prefix_sums<M> D_f, fds_with_prefix_sums<M> D_g);
+(2) fds_with_prefix_sums<M>& D_f.operator/=(fds_with_prefix_sums<M> D_g);
 ```
 
 It returns $\displaystyle \frac{D_f(s)}{D_g(s)}$.

@@ -1,11 +1,12 @@
-#ifndef TOOLS_FDS_WITH_PREFIX_SUM_HPP
-#define TOOLS_FDS_WITH_PREFIX_SUM_HPP
+#ifndef TOOLS_FDS_WITH_PREFIX_SUMS_HPP
+#define TOOLS_FDS_WITH_PREFIX_SUMS_HPP
 
 #include <algorithm>
 #include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <iterator>
+#include <numeric>
 #include <ranges>
 #include <type_traits>
 #include <vector>
@@ -15,8 +16,8 @@
 namespace tools {
   template <typename M>
   requires ::tools::has_mod_v<M>
-  class fds_with_prefix_sum {
-    using F = ::tools::fds_with_prefix_sum<M>;
+  class fds_with_prefix_sums {
+    using F = ::tools::fds_with_prefix_sums<M>;
     long long m_N;
     ::std::vector<M> m_lo;
     ::std::vector<M> m_hi;
@@ -125,13 +126,13 @@ namespace tools {
     };
     using reverse_iterator = ::std::reverse_iterator<iterator>;
 
-    fds_with_prefix_sum() = default;
-    fds_with_prefix_sum(const long long N) : fds_with_prefix_sum(N, [](long long) { return M::raw(0); }) {
+    fds_with_prefix_sums() = default;
+    fds_with_prefix_sums(const long long N) : fds_with_prefix_sums(N, [](long long) { return M::raw(0); }) {
     }
     template <typename PrefixSumFunction>
     requires ::std::regular_invocable<PrefixSumFunction, long long>
           && ::std::assignable_from<M&, ::std::invoke_result_t<PrefixSumFunction, long long>>
-    fds_with_prefix_sum(const long long N, const PrefixSumFunction& sum) : m_N(N) {
+    fds_with_prefix_sums(const long long N, const PrefixSumFunction& sum) : m_N(N) {
       assert(N >= 1);
       const auto sqrt_N = ::tools::floor_sqrt(N);
       this->m_lo.reserve(sqrt_N + 1);
@@ -148,7 +149,7 @@ namespace tools {
     }
     template <::std::ranges::input_range R>
     requires ::std::assignable_from<M&, ::std::ranges::range_value_t<R>>
-    fds_with_prefix_sum(const long long N, R&& v) : m_N(N) {
+    fds_with_prefix_sums(const long long N, R&& v) : m_N(N) {
       assert(N >= 1);
       const auto sqrt_N = ::tools::floor_sqrt(N);
       this->m_lo.resize(sqrt_N + 1);
@@ -264,6 +265,7 @@ namespace tools {
 
     F& operator/=(const F& g) {
       assert(this->m_N == g.m_N);
+      assert(::std::gcd(g.m_lo[1].val(), M::mod()) == 1);
       const auto g1_inv = g.m_lo[1].inv();
       const auto hi_max = this->hi_max();
 
