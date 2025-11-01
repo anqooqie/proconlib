@@ -22,15 +22,14 @@ In (2), addition is defined by `AG` and multiplication is defined by `MM`.
 - $\|a\| = \|b\|$
 - (2)
     - `typename AG::T` and `typename MM::T` are the same.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
-    - For all $x$ in $R$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
-    - For all $x$ in $R$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
-    - For all $x$ in $R$ and $y$ in $R$, `AG::op(x, y)` $=$ `AG::op(y, x)`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(MM::op(x, y), z)` $=$ `MM::op(x, MM::op(y, z))`.
-    - For all $x$ in $R$, `MM::op(MM::e(), x)` $=$ `MM::op(x, MM::e())` $= x$.
-    - For all $x$ in $R$ and $y$ in $R$, `MM::op(x, y)` $=$ `MM::op(y, x)`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(x, AG::op(y, z))` $=$ `AG::op(MM::op(x, y), MM::op(x, z))`.
-    - For all $x$ in $R$, $y$ in $R$ and $z$ in $R$, `MM::op(AG::op(x, y), z)` $=$ `AG::op(MM::op(x, z), MM::op(y, z))`.
+    - For all $x$, $y$ and $z$, `AG::op(AG::op(x, y), z)` $=$ `AG::op(x, AG::op(y, z))`.
+    - For all $x$, `AG::op(AG::e(), x)` $=$ `AG::op(x, AG::e())` $= x$.
+    - For all $x$, `AG::op(AG::inv(x), x)` $=$ `AG::op(x, AG::inv(x))` $=$ `AG::e()`.
+    - For all $x$ and $y$, `AG::op(x, y)` $=$ `AG::op(y, x)`.
+    - For all $x$, $y$ and $z$, `MM::op(MM::op(x, y), z)` $=$ `MM::op(x, MM::op(y, z))`.
+    - For all $x$, `MM::op(MM::e(), x)` $=$ `MM::op(x, MM::e())` $= x$.
+    - For all $x$, $y$ and $z$, `MM::op(x, AG::op(y, z))` $=$ `AG::op(MM::op(x, y), MM::op(x, z))`.
+    - For all $x$, $y$ and $z$, `MM::op(AG::op(x, y), z)` $=$ `AG::op(MM::op(x, z), MM::op(y, z))`.
     - `std::ranges::range_value_t<R1>` is assignable to `typename AG::T`.
     - `std::ranges::range_value_t<R2>` is assignable to `typename AG::T`.
 
