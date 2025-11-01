@@ -28,8 +28,8 @@ int main() {
       f[i] = mint::raw(v);
     }
     std::cout << tools::join(
-      (tools::fds_with_prefix_sums<mint>(N, [](long long) { return mint::raw(1); }) / tools::fds_with_prefix_sums<mint>(N, f)) |
-        std::views::transform([](const mint x) { return x.val(); }),
+      (tools::fds_with_prefix_sums<mint>(N, [](long long) { return mint::raw(1); }) / tools::fds_with_prefix_sums<mint>(N, f))
+      | std::views::transform(&mint::val),
       ' '
     ) << '\n';
   }
