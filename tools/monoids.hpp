@@ -1,5 +1,5 @@
-#ifndef TOOLS_MONOID_HPP
-#define TOOLS_MONOID_HPP
+#ifndef TOOLS_MONOIDS_HPP
+#define TOOLS_MONOIDS_HPP
 
 #include <algorithm>
 #include <cassert>
@@ -11,7 +11,7 @@
 #include "tools/is_integral.hpp"
 
 namespace tools {
-  namespace monoid {
+  namespace monoids {
     template <typename M>
     class bit_and {
       using VR = ::std::conditional_t<::tools::is_arithmetic_v<M> && sizeof(M) <= sizeof(::std::size_t), const M, const M&>;

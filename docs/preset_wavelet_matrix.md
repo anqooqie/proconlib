@@ -19,7 +19,7 @@ Given $n$ weighted points $(x_0, y_0, w_0), (x_1, y_1, w_1), \ldots, (x_{n - 1},
 ```
 
 - (1)
-    - It is identical to `preset_wavelet_matrix<T, tools::group::plus<U>, Updatable> wm();`
+    - It is identical to `preset_wavelet_matrix<T, tools::groups::plus<U>, Updatable> wm();`
 - (2)
     - It creates a two-dimensional plane with $0$ weighted points.
     - The weight of each point is on a given commutative group $G$.

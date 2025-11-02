@@ -8,14 +8,14 @@
 #include <algorithm>
 #include <cassert>
 #include "tools/is_group.hpp"
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 
 namespace tools {
 
   template <typename X>
   class cumsum2d {
   private:
-    using G = ::std::conditional_t<::tools::is_group_v<X>, X, tools::group::plus<X>>;
+    using G = ::std::conditional_t<::tools::is_group_v<X>, X, tools::groups::plus<X>>;
     using T = typename G::T;
     ::std::size_t height;
     ::std::size_t width;

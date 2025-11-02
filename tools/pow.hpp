@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <cassert>
 #include <cmath>
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 #include "tools/square.hpp"
 
 namespace tools {
@@ -22,7 +22,7 @@ namespace tools {
   template <typename T, typename E>
   ::std::enable_if_t<::std::is_integral_v<E>, T> pow(const T& base, const E exponent) {
     assert(exponent >= 0);
-    return ::tools::pow<::tools::monoid::multiplies<T>>(base, exponent);
+    return ::tools::pow<::tools::monoids::multiplies<T>>(base, exponent);
   }
 
   template <typename T, typename E>

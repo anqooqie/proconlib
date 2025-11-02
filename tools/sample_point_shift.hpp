@@ -11,7 +11,7 @@
 #include "tools/is_prime.hpp"
 #include "tools/fact_mod_cache.hpp"
 #include "tools/online_cumsum.hpp"
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 #include "tools/convolution.hpp"
 
 namespace tools {
@@ -31,8 +31,8 @@ namespace tools {
     ::tools::fact_mod_cache<T> cache;
     const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
 
-    ::tools::online_cumsum<::tools::monoid::multiplies<T>, true> nl(N);
-    ::tools::online_cumsum<::tools::monoid::multiplies<T>, false> nr(N);
+    ::tools::online_cumsum<::tools::monoids::multiplies<T>, true> nl(N);
+    ::tools::online_cumsum<::tools::monoids::multiplies<T>, false> nr(N);
     {
       T last = c;
       for (int i = 0; i < N; ++i, --last) {

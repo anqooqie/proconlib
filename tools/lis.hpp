@@ -11,7 +11,7 @@
 #include <functional>
 #include "atcoder/segtree.hpp"
 #include "tools/permutation.hpp"
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 
 namespace tools {
   namespace lis {
@@ -32,7 +32,7 @@ namespace tools {
         return v;
       }()).inv_inplace();
 
-      ::atcoder::segtree<int, ::tools::monoid::max<int, 0>::op, ::tools::monoid::max<int, 0>::e> segtree(N);
+      ::atcoder::segtree<int, ::tools::monoids::max<int, 0>::op, ::tools::monoids::max<int, 0>::e> segtree(N);
       for (int i = 0; i < N; ++i) {
         segtree.set(p[i], segtree.prod(0, p[i]) + 1);
       }

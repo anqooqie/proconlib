@@ -23,7 +23,7 @@ cumsum2d<G> cumsum(Range A);
 ```
 
 - (1)
-    - It is identical to `cumsum2d<tools::group::plus<T>> cumsum(A);`.
+    - It is identical to `cumsum2d<tools::groups::plus<T>> cumsum(A);`.
 - (2)
     - It constructs a data structure which can return $\sum_{r = r_1}^{r_2 - 1} \sum_{c = c_1}^{c_2 - 1} A_{r,c}$ for a given $r_1, r_2, c_1, c_2$ in $\langle O(HW), O(1) \rangle$ time, where $H$ is the number of rows of $A$, and $W$ is the number of columns of $A$.
 

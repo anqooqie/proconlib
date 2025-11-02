@@ -5,7 +5,7 @@
 #include <cassert>
 #include <numeric>
 #include <utility>
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 
 namespace tools {
   enum class pdsu_diff {
@@ -14,7 +14,7 @@ namespace tools {
     inconsistent
   };
 
-  template <typename G = ::tools::group::plus<long long>>
+  template <typename G = ::tools::groups::plus<long long>>
   class pdsu {
   private:
     using T = typename G::T;

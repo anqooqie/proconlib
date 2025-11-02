@@ -16,7 +16,7 @@ Given a group $(G, \cdot)$ and an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}
 
 ## Constructor
 ```cpp
-template <typename G = tools::group::plus<long long>>
+template <typename G = tools::groups::plus<long long>>
 pdsu<G> d(int n);
 ```
 

@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/staticrmq
 
 #include <iostream>
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 #include "tools/disjoint_sparse_table.hpp"
 
 using ll = long long;
@@ -17,7 +17,7 @@ int main() {
     std::cin >> a_i;
   }
 
-  tools::disjoint_sparse_table<tools::monoid::min<ll>> dst(a.begin(), a.end());
+  tools::disjoint_sparse_table<tools::monoids::min<ll>> dst(a.begin(), a.end());
   for (ll q = 0; q < Q; ++q) {
     ll l, r;
     std::cin >> l >> r;

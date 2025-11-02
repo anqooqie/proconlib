@@ -19,7 +19,7 @@ It is a cumulative sum, but allows you to construct it by online.
 ```
 
 - (1)
-    - It is identical to `online_cumsum<tools::group::plus<T>, Forward> a(n);`
+    - It is identical to `online_cumsum<tools::groups::plus<T>, Forward> a(n);`
 - (2)
     - Given a monoid `M`, it creates an array of type `typename M::T` and length $n$ filled with indeterminate values.
     - In $a$, multiplication is defined by `M`. In other words, $x \cdot y$ is defined by `M::op(x, y)` and the identity is defined by `M::e()`.

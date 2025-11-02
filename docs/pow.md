@@ -13,7 +13,7 @@ T pow(T b, E n);
 ```
 
 It returns $b^n$ under a given monoid $M$.
-If $M$ is not given, `tools::monoid::multiplies<T>` will be used.
+If $M$ is not given, `tools::monoids::multiplies<T>` will be used.
 
 ### Constraints
 - `std::is_integral_v<E>` is `true`.

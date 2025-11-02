@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include "tools/assert_that.hpp"
-#include "tools/group.hpp"
-#include "tools/monoid.hpp"
+#include "tools/groups.hpp"
+#include "tools/monoids.hpp"
 #include "tools/online_imos.hpp"
 
 int main() {
@@ -85,12 +85,12 @@ int main() {
     assert_that(a[0] == 304);
   }
   {
-    tools::online_imos<tools::monoid::max<int>> a;
+    tools::online_imos<tools::monoids::max<int>> a;
     assert_that(a.size() == 0);
     a.apply(0, 0, 0);
   }
   {
-    tools::online_imos<tools::monoid::max<int>> a(1);
+    tools::online_imos<tools::monoids::max<int>> a(1);
     assert_that(a.size() == 1);
     a.apply(0, 1, 0);
     a.apply(1, 1, 1);
@@ -99,7 +99,7 @@ int main() {
     assert_that(a[0] == 0);
   }
   {
-    tools::online_imos<tools::monoid::max<int>> a(2);
+    tools::online_imos<tools::monoids::max<int>> a(2);
     assert_that(a.size() == 2);
     a.apply(0, 2, 0);
     a.apply(1, 2, 1);
@@ -114,12 +114,12 @@ int main() {
     assert_that(a[1] == 3);
   }
   {
-    tools::online_imos<tools::monoid::max<int>, false> a;
+    tools::online_imos<tools::monoids::max<int>, false> a;
     assert_that(a.size() == 0);
     a.apply(0, 0, 0);
   }
   {
-    tools::online_imos<tools::monoid::max<int>, false> a(1);
+    tools::online_imos<tools::monoids::max<int>, false> a(1);
     assert_that(a.size() == 1);
     a.apply(0, 1, 0);
     a.apply(0, 0, 1);
@@ -128,7 +128,7 @@ int main() {
     assert_that(a[0] == 0);
   }
   {
-    tools::online_imos<tools::monoid::max<int>, false> a(2);
+    tools::online_imos<tools::monoids::max<int>, false> a(2);
     assert_that(a.size() == 2);
     a.apply(0, 2, 0);
     a.apply(0, 1, 1);
@@ -143,12 +143,12 @@ int main() {
     assert_that(a[0] == 3);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>> a;
+    tools::online_imos<tools::groups::bit_xor<int>> a;
     assert_that(a.size() == 0);
     a.apply(0, 0, 1);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>> a(1);
+    tools::online_imos<tools::groups::bit_xor<int>> a(1);
     assert_that(a.size() == 1);
     a.apply(0, 0, 1);
     a.apply(1, 1, 2);
@@ -158,7 +158,7 @@ int main() {
     assert_that(a[0] == 4);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>> a(2);
+    tools::online_imos<tools::groups::bit_xor<int>> a(2);
     assert_that(a.size() == 2);
     a.apply(0, 0, 1);
     a.apply(1, 1, 2);
@@ -177,12 +177,12 @@ int main() {
     assert_that(a[1] == 304);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>, false> a;
+    tools::online_imos<tools::groups::bit_xor<int>, false> a;
     assert_that(a.size() == 0);
     a.apply(0, 0, 1);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>, false> a(1);
+    tools::online_imos<tools::groups::bit_xor<int>, false> a(1);
     assert_that(a.size() == 1);
     a.apply(1, 1, 1);
     a.apply(0, 0, 2);
@@ -192,7 +192,7 @@ int main() {
     assert_that(a[0] == 4);
   }
   {
-    tools::online_imos<tools::group::bit_xor<int>, false> a(2);
+    tools::online_imos<tools::groups::bit_xor<int>, false> a(2);
     assert_that(a.size() == 2);
     a.apply(2, 2, 1);
     a.apply(1, 1, 2);

@@ -1,12 +1,12 @@
-#ifndef TOOLS_GROUP_HPP
-#define TOOLS_GROUP_HPP
+#ifndef TOOLS_GROUPS_HPP
+#define TOOLS_GROUPS_HPP
 
 #include <cstddef>
 #include <type_traits>
 #include "tools/is_arithmetic.hpp"
 
 namespace tools {
-  namespace group {
+  namespace groups {
     template <typename G>
     class bit_xor {
       using VR = ::std::conditional_t<::tools::is_arithmetic_v<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;

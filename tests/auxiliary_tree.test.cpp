@@ -5,7 +5,7 @@
 #include <utility>
 #include "tools/auxiliary_tree.hpp"
 #include "tools/rerooting_dp.hpp"
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -55,7 +55,7 @@ int main() {
     const auto f_ev = [&](const auto e, const auto v) {
       return std::make_pair(e, c[aux2tree[v]] == color);
     };
-    tools::rerooting_dp<std::pair<int, bool>, tools::monoid::min<int>, decltype(f_ve), decltype(f_ev)> dp(aux.size(), f_ve, f_ev);
+    tools::rerooting_dp<std::pair<int, bool>, tools::monoids::min<int>, decltype(f_ve), decltype(f_ev)> dp(aux.size(), f_ve, f_ev);
     for (const auto tree_v : aux.vertices()) {
       if (tree_v == aux.root()) continue;
       dp.add_edge(tree2aux[tree_v], tree2aux[aux.parent(tree_v)]);

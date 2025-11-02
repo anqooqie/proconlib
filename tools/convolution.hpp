@@ -17,8 +17,8 @@
 #include "tools/ceil_log2.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/garner3.hpp"
-#include "tools/group.hpp"
-#include "tools/monoid.hpp"
+#include "tools/groups.hpp"
+#include "tools/monoids.hpp"
 
 namespace tools {
   namespace detail {
@@ -333,7 +333,7 @@ namespace tools {
       return;
     }
 
-    if constexpr (::std::is_same_v<AG, ::tools::group::plus<T>> && (::std::is_same_v<MM, ::tools::monoid::multiplies<T>> || ::std::is_same_v<MM, ::tools::group::multiplies<T>>)) {
+    if constexpr (::std::is_same_v<AG, ::tools::groups::plus<T>> && (::std::is_same_v<MM, ::tools::monoids::multiplies<T>> || ::std::is_same_v<MM, ::tools::groups::multiplies<T>>)) {
       if constexpr (::std::is_floating_point_v<T> || ::std::is_same_v<T, ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>) {
         ::tools::detail::convolution::fft(a_begin, a_end, b_begin, b_end, result);
       } else if constexpr (::std::is_integral_v<T>) {
@@ -360,7 +360,7 @@ namespace tools {
   void convolution(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, const OutputIterator result) {
     using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
     static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
-    ::tools::convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>>(a_begin, a_end, b_begin, b_end, result);
+    ::tools::convolution<::tools::groups::plus<T>, ::tools::monoids::multiplies<T>>(a_begin, a_end, b_begin, b_end, result);
   }
 }
 

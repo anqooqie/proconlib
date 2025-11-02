@@ -6,14 +6,14 @@
 #include <iostream>
 #include <type_traits>
 #include <vector>
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 #include "tools/is_monoid.hpp"
 #include "tools/is_group.hpp"
 
 namespace tools {
   template <typename X, bool Forward = true>
   class online_cumsum {
-    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::group::plus<X>>;
+    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::groups::plus<X>>;
     using T = typename M::T;
     ::std::vector<T> m_vector;
     ::std::vector<T> m_cumsum;

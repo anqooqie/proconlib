@@ -37,15 +37,15 @@ It returns an empty sequence if at least one of $a$ and $b$ are empty.
 - If $R$ is an integral type, $N + M \leq 2^{24} + 1 = 16777217$ and all the elements of the array are in $R$ after convolution.
 
 ### Time Complexity
-- (`AG` is `tools::group::plus<atcoder::static_modint<?>>` and `MM` is either of `tools::monoid::multiplies<atcoder::static_modint<?>>` or `tools::group::multiplies<atcoder::static_modint<?>>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<atcoder::dynamic_modint<?>>` and `MM` is either of `tools::monoid::multiplies<atcoder::dynamic_modint<?>>` or `tools::group::multiplies<atcoder::dynamic_modint<?>>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<float>` and `MM` is either of `tools::monoid::multiplies<float>` or `tools::group::multiplies<float>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<double>` and `MM` is either of `tools::monoid::multiplies<double>` or `tools::group::multiplies<double>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<long double>` and `MM` is either of `tools::monoid::multiplies<long double>` or `tools::group::multiplies<long double>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<std::complex<float>>` and `MM` is either of `tools::monoid::multiplies<std::complex<float>>` or `tools::group::multiplies<std::complex<float>>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<std::complex<double>>` and `MM` is either of `tools::monoid::multiplies<std::complex<double>>` or `tools::group::multiplies<std::complex<double>>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<std::complex<long double>>` and `MM` is either of `tools::monoid::multiplies<std::complex<long double>>` or `tools::group::multiplies<std::complex<long double>>`): $O((N + M) \log (N + M))$
-- (`AG` is `tools::group::plus<R>` and `MM` is `tools::monoid::multiplies<R>` where $R$ is an integral type): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<atcoder::static_modint<?>>` and `MM` is either of `tools::monoids::multiplies<atcoder::static_modint<?>>` or `tools::groups::multiplies<atcoder::static_modint<?>>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<atcoder::dynamic_modint<?>>` and `MM` is either of `tools::monoids::multiplies<atcoder::dynamic_modint<?>>` or `tools::groups::multiplies<atcoder::dynamic_modint<?>>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<float>` and `MM` is either of `tools::monoids::multiplies<float>` or `tools::groups::multiplies<float>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<double>` and `MM` is either of `tools::monoids::multiplies<double>` or `tools::groups::multiplies<double>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<long double>` and `MM` is either of `tools::monoids::multiplies<long double>` or `tools::groups::multiplies<long double>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<std::complex<float>>` and `MM` is either of `tools::monoids::multiplies<std::complex<float>>` or `tools::groups::multiplies<std::complex<float>>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<std::complex<double>>` and `MM` is either of `tools::monoids::multiplies<std::complex<double>>` or `tools::groups::multiplies<std::complex<double>>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<std::complex<long double>>` and `MM` is either of `tools::monoids::multiplies<std::complex<long double>>` or `tools::groups::multiplies<std::complex<long double>>`): $O((N + M) \log (N + M))$
+- (`AG` is `tools::groups::plus<R>` and `MM` is `tools::monoids::multiplies<R>` where $R$ is an integral type): $O((N + M) \log (N + M))$
 - (otherwise): $O(NM \alpha \beta)$ where `AG::op` takes $\alpha$ time and `MM::op` takes $\beta$ time
 
 ### License
@@ -60,7 +60,7 @@ template <typename InputIterator1, typename InputIterator2, typename OutputItera
 void convolution(InputIterator1 a_begin, InputIterator1 a_end, InputIterator2 b_begin, InputIterator2 b_end, OutputIterator result);
 ```
 
-It is equivalent to `convolution<tools::group::plus<R>, tools::monoid::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator1>())>`.
+It is equivalent to `convolution<tools::groups::plus<R>, tools::monoids::multiplies<R>>(a_begin, a_end, b_begin, b_end)` where `R` is `std::decay_t<decltype(*std::declval<InputIterator1>())>`.
 
 ### Constraints
 - `std::decay_t<decltype(*std::declval<InputIterator1>())>` and `std::decay_t<decltype(*std::declval<InputIterator2>())>` are the same type $R$.

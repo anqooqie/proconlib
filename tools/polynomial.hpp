@@ -13,8 +13,8 @@
 #include <numeric>
 #include "atcoder/modint.hpp"
 #include "tools/is_prime.hpp"
-#include "tools/group.hpp"
-#include "tools/monoid.hpp"
+#include "tools/groups.hpp"
+#include "tools/monoids.hpp"
 #include "tools/fps.hpp"
 #include "tools/has_mod.hpp"
 #include "tools/fact_mod_cache.hpp"
@@ -48,7 +48,7 @@ namespace tools {
   template <typename T1, typename T2 = void>
   class polynomial {
   private:
-    using AG = ::std::conditional_t<::std::is_same_v<T2, void>, ::tools::group::plus<T1>, T1>;
+    using AG = ::std::conditional_t<::std::is_same_v<T2, void>, ::tools::groups::plus<T1>, T1>;
     using MM = ::std::conditional_t<
       ::std::is_same_v<T2, void>,
         ::std::conditional_t<
@@ -58,15 +58,15 @@ namespace tools {
           ::std::is_floating_point_v<T1> ||
           ::tools::detail::polynomial::is_prime_modint_v<T1> ||
           ::atcoder::internal::is_dynamic_modint<T1>::value,
-            ::tools::group::multiplies<T1>,
+            ::tools::groups::multiplies<T1>,
             ::std::conditional_t<
               ::std::is_integral_v<T1> ||
               ::atcoder::internal::is_static_modint<T1>::value,
-                ::tools::monoid::multiplies<T1>,
+                ::tools::monoids::multiplies<T1>,
                 ::std::conditional_t<
                   ::tools::detail::polynomial::can_divide_v<T1>,
-                    ::tools::group::multiplies<T1>,
-                    ::tools::monoid::multiplies<T1>
+                    ::tools::groups::multiplies<T1>,
+                    ::tools::monoids::multiplies<T1>
                 >
             >
         >,
@@ -78,11 +78,11 @@ namespace tools {
     using P = ::tools::polynomial<T1, T2>;
 
     static constexpr bool IS_MOD_P = ::tools::detail::polynomial::is_prime_modint_v<R>
-      && ::std::is_same_v<AG, ::tools::group::plus<R>>
-      && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      && ::std::is_same_v<AG, ::tools::groups::plus<R>>
+      && (::std::is_same_v<MM, ::tools::monoids::multiplies<R>> || ::std::is_same_v<MM, ::tools::groups::multiplies<R>>);
     static constexpr bool IS_MOD_M = ::tools::has_mod_v<R>
-      && ::std::is_same_v<AG, ::tools::group::plus<R>>
-      && (::std::is_same_v<MM, ::tools::monoid::multiplies<R>> || ::std::is_same_v<MM, ::tools::group::multiplies<R>>);
+      && ::std::is_same_v<AG, ::tools::groups::plus<R>>
+      && (::std::is_same_v<MM, ::tools::monoids::multiplies<R>> || ::std::is_same_v<MM, ::tools::groups::multiplies<R>>);
 
     ::std::vector<R> m_vector;
 

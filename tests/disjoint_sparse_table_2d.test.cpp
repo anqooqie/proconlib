@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iterator>
 #include "tools/disjoint_sparse_table_2d.hpp"
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -37,9 +37,9 @@ int main() {
     }
   }
 
-  tools::disjoint_sparse_table_2d<tools::group::plus<int>> J_dst(J);
-  tools::disjoint_sparse_table_2d<tools::group::plus<int>> O_dst(O);
-  tools::disjoint_sparse_table_2d<tools::group::plus<int>> I_dst(I);
+  tools::disjoint_sparse_table_2d<tools::groups::plus<int>> J_dst(J);
+  tools::disjoint_sparse_table_2d<tools::groups::plus<int>> O_dst(O);
+  tools::disjoint_sparse_table_2d<tools::groups::plus<int>> I_dst(I);
 
   for (int i = 0; i < K; ++i) {
     int a, b, c, d;

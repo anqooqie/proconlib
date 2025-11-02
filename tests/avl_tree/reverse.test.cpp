@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 #include "tools/avl_tree.hpp"
 
 using ll = long long;
@@ -16,8 +16,8 @@ int main() {
   std::vector<ll> a(N);
   for (auto& a_i : a) std::cin >> a_i;
 
-  tools::avl_tree<tools::group::plus<ll>, true>::buffer buffer;
-  tools::avl_tree<tools::group::plus<ll>, true> avl_tree(buffer, a);
+  tools::avl_tree<tools::groups::plus<ll>, true>::buffer buffer;
+  tools::avl_tree<tools::groups::plus<ll>, true> avl_tree(buffer, a);
   for (int q = 0; q < Q; ++q) {
     int t, l, r;
     std::cin >> t >> l >> r;

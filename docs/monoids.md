@@ -1,6 +1,6 @@
 ---
 title: Typical monoids
-documentation_of: //tools/monoid.hpp
+documentation_of: //tools/monoids.hpp
 ---
 
 They are typical monoids.
@@ -11,9 +11,9 @@ They are typical monoids.
 ### Author
 - anqooqie
 
-## monoid::bit_and
+## monoids::bit_and
 ```cpp
-template <typename M> struct monoid::bit_and;
+template <typename M> struct monoids::bit_and;
 ```
 
 It is a monoid $(M, \mathrm{AND}, $`std::numeric_limits<M>::max()`$)$.
@@ -26,7 +26,7 @@ It is a monoid $(M, \mathrm{AND}, $`std::numeric_limits<M>::max()`$)$.
 ### Time Complexity
 - Not applicable
 
-## monoid::bit_and::T
+## monoids::bit_and::T
 ```
 using T = M;
 ```
@@ -39,7 +39,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::bit_and::op
+## monoids::bit_and::op
 ```
 static M op(M x, M y);
 ```
@@ -52,7 +52,7 @@ It returns `x & y`.
 ### Time Complexity
 - Same as that of `x & y`
 
-## monoid::bit_and::e
+## monoids::bit_and::e
 ```
 static M e();
 ```
@@ -65,9 +65,9 @@ It returns `std::numeric_limits<M>::max()`.
 ### Time Complexity
 - Same as that of `std::numeric_limits<M>::max()`
 
-## monoid::bit_or
+## monoids::bit_or
 ```cpp
-template <typename M> struct monoid::bit_or;
+template <typename M> struct monoids::bit_or;
 ```
 
 It is a monoid $(M, \mathrm{OR}, 0)$.
@@ -80,7 +80,7 @@ It is a monoid $(M, \mathrm{OR}, 0)$.
 ### Time Complexity
 - Not applicable
 
-## monoid::bit_or::T
+## monoids::bit_or::T
 ```
 using T = M;
 ```
@@ -93,7 +93,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::bit_or::op
+## monoids::bit_or::op
 ```
 static M op(M x, M y);
 ```
@@ -106,7 +106,7 @@ It returns `x | y`.
 ### Time Complexity
 - Same as that of `x | y`
 
-## monoid::bit_or::e
+## monoids::bit_or::e
 ```
 static M e();
 ```
@@ -119,9 +119,9 @@ It returns `M(0)`.
 ### Time Complexity
 - Same as that of `M(0)`
 
-## monoid::gcd
+## monoids::gcd
 ```cpp
-template <typename M> struct monoid::gcd;
+template <typename M> struct monoids::gcd;
 ```
 
 It is a monoid $(M, \gcd, 0)$.
@@ -133,7 +133,7 @@ Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in t
 ### Time Complexity
 - Not applicable
 
-## monoid::gcd::T
+## monoids::gcd::T
 ```
 using T = M;
 ```
@@ -146,7 +146,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::gcd::op
+## monoids::gcd::op
 ```
 static M op(M x, M y);
 ```
@@ -160,7 +160,7 @@ For a built-in integral type `<M>`, this is equivalent to returning `std::gcd(x,
 ### Time Complexity
 - Same as that of `tools::gcd(x, y)`
 
-## monoid::gcd::e
+## monoids::gcd::e
 ```
 static M e();
 ```
@@ -173,10 +173,10 @@ It returns `M(0)`.
 ### Time Complexity
 - Same as that of `M(0)`.
 
-## monoid::max
+## monoids::max
 ```cpp
-(1) template <typename M> struct monoid::max;
-(2) template <typename M, M E> struct monoid::max;
+(1) template <typename M> struct monoids::max;
+(2) template <typename M, M E> struct monoids::max;
 ```
 
 It is a monoid $(M, \max, E)$.
@@ -192,7 +192,7 @@ It is a monoid $(M, \max, E)$.
 ### Time Complexity
 - Not applicable
 
-## monoid::max::T
+## monoids::max::T
 ```
 using T = M;
 ```
@@ -205,7 +205,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::max::op
+## monoids::max::op
 ```
 static M op(M x, M y);
 ```
@@ -219,7 +219,7 @@ It returns $\max(x, y)$.
 ### Time Complexity
 - $O(1)$
 
-## monoid::max::e
+## monoids::max::e
 ```
 static M e();
 ```
@@ -232,10 +232,10 @@ It returns $E$.
 ### Time Complexity
 - $O(1)$
 
-## monoid::min
+## monoids::min
 ```cpp
-(1) template <typename M> struct monoid::min;
-(2) template <typename M, M E> struct monoid::min;
+(1) template <typename M> struct monoids::min;
+(2) template <typename M, M E> struct monoids::min;
 ```
 
 It is a monoid $(M, \min, E)$.
@@ -251,7 +251,7 @@ It is a monoid $(M, \min, E)$.
 ### Time Complexity
 - Not applicable
 
-## monoid::min::T
+## monoids::min::T
 ```
 using T = M;
 ```
@@ -264,7 +264,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::min::op
+## monoids::min::op
 ```
 static M op(M x, M y);
 ```
@@ -278,7 +278,7 @@ It returns $\min(x, y)$.
 ### Time Complexity
 - $O(1)$
 
-## monoid::min::e
+## monoids::min::e
 ```
 static M e();
 ```
@@ -291,9 +291,9 @@ It returns $E$.
 ### Time Complexity
 - $O(1)$
 
-## monoid::multiplies
+## monoids::multiplies
 ```cpp
-template <typename M> struct monoid::multiplies;
+template <typename M> struct monoids::multiplies;
 ```
 
 It is a monoid $(M, \times, 1)$.
@@ -306,7 +306,7 @@ It is a monoid $(M, \times, 1)$.
 ### Time Complexity
 - Not applicable
 
-## monoid::multiplies::T
+## monoids::multiplies::T
 ```
 using T = M;
 ```
@@ -319,7 +319,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::multiplies::op
+## monoids::multiplies::op
 ```
 static M op(M x, M y);
 ```
@@ -332,7 +332,7 @@ It returns `x * y`.
 ### Time Complexity
 - Same as that of `x * y`
 
-## monoid::multiplies::e
+## monoids::multiplies::e
 ```
 static M e();
 ```
@@ -345,9 +345,9 @@ It returns `M(1)`.
 ### Time Complexity
 - Same as that of `M(1)`
 
-## monoid::update
+## monoids::update
 ```cpp
-template <typename M, M E> struct monoid::update;
+template <typename M, M E> struct monoids::update;
 ```
 
 It is a monoid $(M, U, E)$ where
@@ -365,7 +365,7 @@ x & \text{(if $x \neq E$)}
 ### Time Complexity
 - Not applicable
 
-## monoid::update::T
+## monoids::update::T
 ```
 using T = M;
 ```
@@ -378,7 +378,7 @@ It is an alias for `<M>`.
 ### Time Complexity
 - Not applicable
 
-## monoid::update::op
+## monoids::update::op
 ```
 static M op(M x, M y);
 ```
@@ -391,7 +391,7 @@ It returns $U(x, y)$.
 ### Time Complexity
 - $O(1)$
 
-## monoid::update::e
+## monoids::update::e
 ```
 static M e();
 ```

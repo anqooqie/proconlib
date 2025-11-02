@@ -19,7 +19,7 @@ It is an array with an auxiliary difference array to perform range update querie
 ```
 
 - (1)
-    - It is identical to `online_imos<tools::group::plus<T>, Forward> a(n);`
+    - It is identical to `online_imos<tools::groups::plus<T>, Forward> a(n);`
 - (2)
     - Given a commutative monoid `M`, it creates an array of type `typename M::T` and length $n$ filled with `M::e()`.
     - In $a$, multiplication is defined by `M`. In other words, $x \cdot y$ is defined by `M::op(x, y)` and the identity is defined by `M::e()`.

@@ -1,6 +1,6 @@
 ---
 title: Typical groups
-documentation_of: //tools/group.hpp
+documentation_of: //tools/groups.hpp
 ---
 
 They are typical groups.
@@ -11,9 +11,9 @@ They are typical groups.
 ### Author
 - anqooqie
 
-## group::bit_xor
+## groups::bit_xor
 ```cpp
-template <typename G> struct group::bit_xor;
+template <typename G> struct groups::bit_xor;
 ```
 
 It is a group $(G, \oplus, 0)$.
@@ -27,7 +27,7 @@ It is a group $(G, \oplus, 0)$.
 ### Time Complexity
 - Not applicable
 
-## group::bit_xor::T
+## groups::bit_xor::T
 ```
 using T = G;
 ```
@@ -40,7 +40,7 @@ It is an alias for `<G>`.
 ### Time Complexity
 - Not applicable
 
-## group::bit_xor::op
+## groups::bit_xor::op
 ```
 static G op(G x, G y);
 ```
@@ -53,7 +53,7 @@ It returns `x ^ y`.
 ### Time Complexity
 - Same as that of `x ^ y`
 
-## group::bit_xor::e
+## groups::bit_xor::e
 ```
 static G e();
 ```
@@ -66,7 +66,7 @@ It returns `G(0)`.
 ### Time Complexity
 - Same as that of `G(0)`
 
-## group::bit_xor::inv
+## groups::bit_xor::inv
 ```
 static G inv(G x);
 ```
@@ -79,9 +79,9 @@ It returns `x`.
 ### Time Complexity
 - Same as that of `G(x)`
 
-## group::multiplies
+## groups::multiplies
 ```cpp
-template <typename G> struct group::multiplies;
+template <typename G> struct groups::multiplies;
 ```
 
 It is a group $(G, \times, 1)$.
@@ -95,7 +95,7 @@ It is a group $(G, \times, 1)$.
 ### Time Complexity
 - Not applicable
 
-## group::multiplies::T
+## groups::multiplies::T
 ```
 using T = G;
 ```
@@ -108,7 +108,7 @@ It is an alias for `<G>`.
 ### Time Complexity
 - Not applicable
 
-## group::multiplies::op
+## groups::multiplies::op
 ```
 static G op(G x, G y);
 ```
@@ -121,7 +121,7 @@ It returns `x * y`.
 ### Time Complexity
 - Same as that of `x * y`
 
-## group::multiplies::e
+## groups::multiplies::e
 ```
 static G e();
 ```
@@ -134,7 +134,7 @@ It returns `G(1)`.
 ### Time Complexity
 - Same as that of `G(1)`
 
-## group::multiplies::inv
+## groups::multiplies::inv
 ```
 static G inv(G x);
 ```
@@ -147,9 +147,9 @@ It returns `G(1) / x`.
 ### Time Complexity
 - Same as that of `G(1) / x`
 
-## group::plus
+## groups::plus
 ```cpp
-template <typename G> struct group::plus;
+template <typename G> struct groups::plus;
 ```
 
 It is a group $(G, +, 0)$.
@@ -163,7 +163,7 @@ It is a group $(G, +, 0)$.
 ### Time Complexity
 - Not applicable
 
-## group::plus::T
+## groups::plus::T
 ```
 using T = G;
 ```
@@ -176,7 +176,7 @@ It is an alias for `<G>`.
 ### Time Complexity
 - Not applicable
 
-## group::plus::op
+## groups::plus::op
 ```
 static G op(G x, G y);
 ```
@@ -189,7 +189,7 @@ It returns `x + y`.
 ### Time Complexity
 - Same as that of `x + y`
 
-## group::plus::e
+## groups::plus::e
 ```
 static G e();
 ```
@@ -202,7 +202,7 @@ It returns `G(0)`.
 ### Time Complexity
 - Same as that of `G(0)`
 
-## group::plus::inv
+## groups::plus::inv
 ```
 static G inv(G x);
 ```

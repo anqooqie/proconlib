@@ -10,10 +10,10 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include "tools/group.hpp"
+#include "tools/groups.hpp"
 #include "tools/is_group.hpp"
 #include "tools/is_monoid.hpp"
-#include "tools/monoid.hpp"
+#include "tools/monoids.hpp"
 
 namespace tools {
   template <typename AG, typename MM, ::std::ranges::input_range R1, ::std::ranges::input_range R2>
@@ -104,7 +104,7 @@ namespace tools {
   template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
   auto subset_convolution(R1&& a, R2&& b) {
     using T = ::std::common_type_t<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>;
-    return ::tools::subset_convolution<::tools::group::plus<T>, ::tools::monoid::multiplies<T>, R1, R2>(::std::forward<R1>(a), ::std::forward<R2>(b));
+    return ::tools::subset_convolution<::tools::groups::plus<T>, ::tools::monoids::multiplies<T>, R1, R2>(::std::forward<R1>(a), ::std::forward<R2>(b));
   }
 }
 
