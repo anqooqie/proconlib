@@ -26,7 +26,7 @@ It creates an empty list of rectangles.
 
 ## size
 ```cpp
-std::size_t rs.size();
+int rs.size();
 ```
 
 It returns the number of rectangles in the list.
@@ -39,7 +39,7 @@ It returns the number of rectangles in the list.
 
 ## add_rectangle
 ```cpp
-std::size_t rs.add_rectangle(T l, T r, T d, T u);
+int rs.add_rectangle(T l, T r, T d, T u);
 ```
 
 It adds a rectangle represented by $\\{(x, y) \mid l \leq x \leq y \land d \leq y \leq u \\}$.
@@ -53,7 +53,7 @@ It returns an integer $k$ such that this is the $k$-th rectangle that is added.
 
 ## get_rectangle
 ```cpp
-std::tuple<T, T, T, T> rs.get_rectangle(std::size_t k);
+std::tuple<T, T, T, T> rs.get_rectangle(int k);
 ```
 
 It returns $(l, r, d, u)$ such that the $k$-th rectangle is represented by $\\{(x, y) \mid l \leq x \leq y \land d \leq y \leq u \\}$.
@@ -66,7 +66,7 @@ It returns $(l, r, d, u)$ such that the $k$-th rectangle is represented by $\\{(
 
 ## rectangles
 ```cpp
-const std::vector<std::tuple<T, T, T, T>>& rs.rectangles();
+std::vector<std::tuple<T, T, T, T>> rs.rectangles();
 ```
 
 It returns all the rectangles in the list.

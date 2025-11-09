@@ -1,19 +1,17 @@
 #ifndef TOOLS_RECTNAGLE_UNION_AREA_HPP
 #define TOOLS_RECTNAGLE_UNION_AREA_HPP
 
-#include <utility>
-#include <limits>
-#include <vector>
-#include <tuple>
-#include <cstddef>
 #include <cassert>
+#include <limits>
+#include <tuple>
+#include <utility>
+#include <vector>
 #include "atcoder/lazysegtree.hpp"
 #include "tools/compressor.hpp"
 
 namespace tools {
   template <typename T>
   class rectangle_union_area {
-  private:
     using S = ::std::pair<int, T>;
     static S op(const S& x, const S& y) {
       return x.first < y.first ? x : x.first > y.first ? y : S(x.first, x.second + y.second);
@@ -36,30 +34,35 @@ namespace tools {
 
   public:
     rectangle_union_area() = default;
-    rectangle_union_area(const ::tools::rectangle_union_area<T>&) = default;
-    rectangle_union_area(::tools::rectangle_union_area<T>&&) = default;
-    ~rectangle_union_area() = default;
-    ::tools::rectangle_union_area<T>& operator=(const ::tools::rectangle_union_area<T>&) = default;
-    ::tools::rectangle_union_area<T>& operator=(::tools::rectangle_union_area<T>&&) = default;
 
-    ::std::size_t size() const {
-      return this->m_rectangle.size();
+    int size() const {
+      return this->m_rectangles.size();
     }
 
-    ::std::size_t add_rectangle(const T l, const T r, const T d, const T u) {
+    int add_rectangle(const T l, const T r, const T d, const T u) {
       assert(l < r);
       assert(d < u);
       this->m_rectangles.emplace_back(l, r, d, u);
       return this->m_rectangles.size() - 1;
     }
 
-    const ::std::tuple<T, T, T, T>& get_rectangle(const ::std::size_t k) const {
-      assert(k < this->m_rectangles.size());
-      return this->m_rectangles[k];
+    template <typename Self>
+    decltype(auto) get_rectangle(this Self&& self, const int k) {
+      assert(0 <= k && k < self.m_rectangles.size());
+      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
+        return static_cast<const ::std::tuple<T, T, T, T>&>(self.m_rectangles[k]);
+      } else {
+        return ::std::tuple<T, T, T, T>(::std::forward_like<Self>(self.m_rectangles[k]));
+      }
     }
 
-    const ::std::vector<::std::tuple<T, T, T, T>>& rectangles() const {
-      return this->m_rectangles;
+    template <typename Self>
+    decltype(auto) rectangles(this Self&& self) {
+      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
+        return static_cast<const ::std::vector<::std::tuple<T, T, T, T>>&>(self.m_rectangles);
+      } else {
+        return ::std::vector<::std::tuple<T, T, T, T>>(::std::forward_like<Self>(self.m_rectangles));
+      }
     }
 
     T query() const {
@@ -72,8 +75,8 @@ namespace tools {
       }
       ::tools::compressor<T> x_comp(x_list), y_comp(y_list);
 
-      ::std::vector<::std::pair<::std::vector<::std::size_t>, ::std::vector<::std::size_t>>> sorted_rectangles(x_comp.size() + 1);
-      for (::std::size_t i = 0; i < this->m_rectangles.size(); ++i) {
+      ::std::vector<::std::pair<::std::vector<int>, ::std::vector<int>>> sorted_rectangles(x_comp.size() + 1);
+      for (int i = 0; i < this->size(); ++i) {
         const auto& [l, r, d, u] = this->m_rectangles[i];
         sorted_rectangles[x_comp.compress(l)].first.push_back(i);
         sorted_rectangles[x_comp.compress(r)].second.push_back(i);
