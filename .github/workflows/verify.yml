@@ -86,6 +86,15 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 2147483647
 
+      - name: Install and switch default to GCC 14
+        run: |
+          gcc --version
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gcc-14 g++-14
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 140 \
+            --slave /usr/bin/g++ g++ /usr/bin/g++-14
+          gcc --version
+
       - name: Restore cached results
         if: ${{ ! inputs.ignore_prev_result }}
         uses: actions/cache/restore@v4

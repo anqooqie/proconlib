@@ -5,7 +5,7 @@
 
 ## What is This
 It is my library for competitive programming.
-It requires gcc and C++20.
+It requires gcc and C++23.
 
 ## Documentation
 See my [![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://anqooqie.github.io/proconlib).

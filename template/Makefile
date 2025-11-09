@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++20 -O2 -g -fsanitize=address,undefined -DLOCAL
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++23 -O2 -g -fsanitize=address,undefined -DLOCAL
 LDFLAGS = -lm
 
 a.out: combined.cpp
