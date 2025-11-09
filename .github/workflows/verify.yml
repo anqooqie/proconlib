@@ -95,6 +95,14 @@ jobs:
             --slave /usr/bin/g++ g++ /usr/bin/g++-14
           gcc --version
 
+      - name: Install and switch default to Clang 20
+        run: |
+          clang --version
+          sudo apt-get install -y --no-install-recommends clang-20 clang++-20
+          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-20 200
+          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-20 200
+          clang --version
+
       - name: Restore cached results
         if: ${{ ! inputs.ignore_prev_result }}
         uses: actions/cache/restore@v4
