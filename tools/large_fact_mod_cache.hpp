@@ -34,7 +34,9 @@ namespace tools {
       ::std::vector<M> f_im1{M(1)};
       ::std::vector<M> f_i;
       for (int i = 1; i <= K; ++i, f_i.swap(f_im1)) {
-        ::tools::sample_point_shift(f_im1.begin(), f_im1.end(), pow2[i - 1], 3 * ::tools::pow2(i - 1), ::std::back_inserter(f_im1));
+        for (const auto& v : ::tools::sample_point_shift(f_im1, pow2[i - 1], 3 * ::tools::pow2(i - 1))) {
+          f_im1.push_back(v);
+        }
         f_i.resize(::tools::pow2(i));
         for (int j = 0; j < ::tools::pow2(i); ++j) {
           f_i[j] = f_im1[2 * j] * f_im1[2 * j + 1] * pow2[i - 1] * (M(2) * M(j) + M(1));
@@ -43,7 +45,9 @@ namespace tools {
 
       this->m_factbs = ::std::move(f_im1);
       if (::tools::pow2(K) <= P / ::tools::pow2(K)) {
-        ::tools::sample_point_shift(this->m_factbs.begin(), this->m_factbs.end(), pow2[K], P / ::tools::pow2(K) + 1 - ::tools::pow2(K), ::std::back_inserter(this->m_factbs));
+        for (const auto& v : ::tools::sample_point_shift(this->m_factbs, pow2[K], P / ::tools::pow2(K) + 1 - ::tools::pow2(K))) {
+          this->m_factbs.push_back(v);
+        }
       }
       this->m_factbs.insert(this->m_factbs.begin(), M(1));
       for (int i = 1; i < ::std::ssize(this->m_factbs); ++i) {

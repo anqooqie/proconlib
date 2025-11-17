@@ -1,22 +1,23 @@
 #ifndef TOOLS_POW_MOD_CACHE_HPP
 #define TOOLS_POW_MOD_CACHE_HPP
 
-#include <vector>
+#include <algorithm>
+#include <cassert>
+#include <concepts>
+#include <cstddef>
+#include <iterator>
 #include <optional>
 #include <utility>
-#include <type_traits>
-#include <cstddef>
-#include <algorithm>
-#include <iterator>
-#include <cassert>
-#include "tools/find_cycle.hpp"
-#include "tools/mod.hpp"
-#include "tools/floor.hpp"
+#include <vector>
 #include "tools/ceil.hpp"
+#include "tools/find_cycle.hpp"
+#include "tools/floor.hpp"
+#include "tools/mod.hpp"
+#include "tools/modint_compatible.hpp"
 
 namespace tools {
 
-  template <class M>
+  template <::tools::modint_compatible M>
   class pow_mod_cache {
     ::std::vector<M> m_pow;
     ::std::vector<M> m_cumsum;
@@ -38,8 +39,7 @@ namespace tools {
         this->m_inv_cumsum.clear();
       }
     }
-    template <typename Z, ::std::enable_if_t<::std::is_integral_v<Z>, ::std::nullptr_t> = nullptr>
-    explicit pow_mod_cache(const Z base) : pow_mod_cache(M(base)) {
+    explicit pow_mod_cache(::std::integral auto&& base) : pow_mod_cache(M(base)) {
     }
 
     M operator[](const long long n) {

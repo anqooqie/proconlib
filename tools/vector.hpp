@@ -106,7 +106,6 @@ namespace tools {
 
   template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max()>
   class vector : public ::tools::detail::vector::members<T, N> {
-  private:
     using Base = ::tools::detail::vector::members<T, N>;
     using F = ::std::conditional_t<::std::is_floating_point_v<T>, T, double>;
     using V = ::tools::vector<T, N>;
@@ -122,7 +121,6 @@ namespace tools {
     using const_pointer = const T*;
     using value_type = T;
     class iterator {
-    private:
       V* m_parent;
       size_type m_i;
 
@@ -134,12 +132,6 @@ namespace tools {
       using iterator_category = ::std::random_access_iterator_tag;
 
       iterator() = default;
-      iterator(const iterator&) = default;
-      iterator(iterator&&) = default;
-      ~iterator() = default;
-      iterator& operator=(const iterator&) = default;
-      iterator& operator=(iterator&&) = default;
-
       iterator(V * const parent, const size_type i) : m_parent(parent), m_i(i) {}
 
       reference operator*() const {
@@ -218,7 +210,6 @@ namespace tools {
       }
     };
     class const_iterator {
-    private:
       const V *m_parent;
       size_type m_i;
 
@@ -230,12 +221,6 @@ namespace tools {
       using iterator_category = ::std::random_access_iterator_tag;
 
       const_iterator() = default;
-      const_iterator(const const_iterator&) = default;
-      const_iterator(const_iterator&&) = default;
-      ~const_iterator() = default;
-      const_iterator& operator=(const const_iterator&) = default;
-      const_iterator& operator=(const_iterator&&) = default;
-
       const_iterator(const V * const parent, const size_type i) : m_parent(parent), m_i(i) {}
 
       reference operator*() const {

@@ -1,25 +1,24 @@
 #ifndef TOOLS_REROOTING_DP_HPP
 #define TOOLS_REROOTING_DP_HPP
 
+#include <algorithm>
 #include <cstddef>
-#include <vector>
 #include <cassert>
 #include <limits>
 #include <stack>
 #include <tuple>
-#include <algorithm>
+#include <vector>
+#include "tools/commutative_monoid.hpp"
 
 namespace tools {
-  template <typename R, typename M, typename F_VE, typename F_EV>
+  template <typename R, ::tools::commutative_monoid M, typename F_VE, typename F_EV>
   class rerooting_dp {
-  private:
     ::std::vector<::std::size_t> m_edges;
     ::std::vector<::std::vector<::std::size_t>> m_graph;
     F_VE m_f_ve;
     F_EV m_f_ev;
 
     class vertex {
-    private:
       const ::tools::rerooting_dp<R, M, F_VE, F_EV> *m_self;
 
     public:
@@ -32,12 +31,6 @@ namespace tools {
       ::std::vector<typename M::T> children_dp_cumsum2;
 
       vertex() = default;
-      vertex(const vertex&) = default;
-      vertex(vertex&&) = default;
-      ~vertex() = default;
-      vertex& operator=(const vertex&) = default;
-      vertex& operator=(vertex&&) = default;
-
       explicit vertex(const ::tools::rerooting_dp<R, M, F_VE, F_EV> * const self, const ::std::size_t id) :
         m_self(self), id(id), parent_dp(M::e()) {
       }
@@ -70,12 +63,6 @@ namespace tools {
 
   public:
     rerooting_dp() = default;
-    rerooting_dp(const ::tools::rerooting_dp<R, M, F_VE, F_EV>&) = default;
-    rerooting_dp(::tools::rerooting_dp<R, M, F_VE, F_EV>&&) = default;
-    ~rerooting_dp() = default;
-    ::tools::rerooting_dp<R, M, F_VE, F_EV>& operator=(const ::tools::rerooting_dp<R, M, F_VE, F_EV>&) = default;
-    ::tools::rerooting_dp<R, M, F_VE, F_EV>& operator=(::tools::rerooting_dp<R, M, F_VE, F_EV>&&) = default;
-
     rerooting_dp(const ::std::size_t n, const F_VE& f_ve, const F_EV& f_ev) : m_graph(n), m_f_ve(f_ve), m_f_ev(f_ev) {
       assert(n >= 1);
     }

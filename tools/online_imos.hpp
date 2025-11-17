@@ -6,14 +6,14 @@
 #include <iterator>
 #include <type_traits>
 #include <vector>
+#include "tools/commutative_group.hpp"
+#include "tools/commutative_monoid.hpp"
 #include "tools/groups.hpp"
-#include "tools/is_monoid.hpp"
-#include "tools/is_group.hpp"
 
 namespace tools {
   template <typename X, bool Forward = true>
   class online_imos {
-    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::groups::plus<X>>;
+    using M = ::std::conditional_t<::tools::commutative_monoid<X>, X, ::tools::groups::plus<X>>;
     using T = typename M::T;
     ::std::vector<T> m_vector;
     ::std::vector<T> m_diffs;
@@ -151,7 +151,7 @@ namespace tools {
       if constexpr (Forward) {
         assert(this->m_processed <= l);
         this->m_diffs[l] = M::op(x, this->m_diffs[l]);
-        if constexpr (::tools::is_group_v<M>) {
+        if constexpr (::tools::commutative_group<M>) {
           this->m_diffs[r] = M::op(M::inv(x), this->m_diffs[r]);
         } else {
           assert(r == this->size());
@@ -159,14 +159,14 @@ namespace tools {
       } else {
         assert(r <= this->m_processed);
         this->m_diffs[r] = M::op(x, this->m_diffs[r]);
-        if constexpr (::tools::is_group_v<M>) {
+        if constexpr (::tools::commutative_group<M>) {
           this->m_diffs[l] = M::op(M::inv(x), this->m_diffs[l]);
         } else {
           assert(l == 0);
         }
       }
     }
-    template <typename Y = X> requires (!::tools::is_monoid_v<Y>)
+    template <typename Y = X> requires (!::tools::commutative_monoid<Y>)
     void add(const int l, const int r, const T& x) {
       this->apply(l, r, x);
     }

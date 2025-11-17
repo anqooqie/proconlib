@@ -4,7 +4,7 @@ documentation_of: //tools/bostan_mori.hpp
 ---
 
 ```cpp
-template <typename M>
+template <tools::modint M>
 M bostan_mori(tools::polynomial<M> P, tools::polynomial<M> Q, unsigned long long n);
 ```
 
@@ -14,7 +14,6 @@ It returns $[x^n]\frac{P(x)}{Q(x)}$.
 - $\gcd(Q(0), M) = 1$ where $M$ is `M::mod()`
 
 ### Time Complexity
-- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
 - $O((\mathrm{deg}(P) + \mathrm{deg}(Q)) \log (\mathrm{deg}(P) + \mathrm{deg}(Q)) \log n + \log M)$
 
 ### References

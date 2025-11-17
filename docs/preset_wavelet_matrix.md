@@ -27,13 +27,9 @@ Given $n$ weighted points $(x_0, y_0, w_0), (x_1, y_1, w_1), \ldots, (x_{n - 1},
 
 ### Constraints
 - (1)
-    - `tools::is_group_v<U>` does not hold.
+    - `tools::commutative_group<U>` does not hold.
 - (2)
-    - `tools::is_group_v<G>` holds.
-    - For all $x$ in `typename G::T` and $y$ in `typename G::T`, `G::op(x, y)` $=$ `G::op(y, x)`.
-    - For all $x$ in `typename G::T`, $y$ in `typename G::T` and $z$ in `typename G::T`, `G::op(G::op(x, y), z)` $=$ `G::op(x, G::op(y, z))`.
-    - For all $x$ in `typename G::T`, `G::op(x, G::e())` $= x$.
-    - For all $x$ in `typename G::T`, `G::op(x, G::inv(x))` $=$ `G::e()`.
+    - `tools::commutative_group<G>` holds.
 
 ### Time Complexity
 - $O(1)$

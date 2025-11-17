@@ -5,7 +5,7 @@
 #include <sstream>
 
 namespace tools {
-  template <::std::ranges::range R, typename T>
+  template <::std::ranges::input_range R, typename T>
   ::std::string join(R&& e, const T& d) {
     ::std::ostringstream ss;
     auto it = ::std::ranges::begin(e);

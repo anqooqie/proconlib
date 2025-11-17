@@ -19,10 +19,7 @@ template <typename G> struct groups::bit_xor;
 It is a group $(G, \oplus, 0)$.
 
 ### Constraints
-- If `x` is `<G>` and `y` is `<G>`, then `x ^ y` is also `<G>`.
-- For all `x` in `<G>`, `y` in `<G>` and `z` in `<G>`, `(x ^ y) ^ z` $=$ `x ^ (y ^ z)`.
-- For all `x` in `<G>`, `G(0) ^ x` $=$ `x ^ G(0)` $=$ `x`.
-- For all `x` in `<G>`, `x ^ x` $=$ `G(0)`.
+- `tools::commutative_group<tools::groups::bit_xor<G>>` holds.
 
 ### Time Complexity
 - Not applicable
@@ -87,10 +84,7 @@ template <typename G> struct groups::multiplies;
 It is a group $(G, \times, 1)$.
 
 ### Constraints
-- If `x` is `<G>` and `y` is `<G>`, then `x * y` is also `<G>`.
-- For all `x` in `<G>`, `y` in `<G>` and `z` in `<G>`, `(x * y) * z` $=$ `x * (y * z)`.
-- For all `x` in `<G>`, `G(1) * x` $=$ `x * G(1)` $=$ `x`.
-- For all `x` in `<G>`, `(G(1) / x) * x` $=$ `x * (G(1) / x)` $=$ `G(1)`.
+- `tools::group<tools::groups::multiplies<G>>` holds.
 
 ### Time Complexity
 - Not applicable
@@ -155,10 +149,7 @@ template <typename G> struct groups::plus;
 It is a group $(G, +, 0)$.
 
 ### Constraints
-- If `x` is `<G>` and `y` is `<G>`, then `x + y` is also `<G>`.
-- For all `x` in `<G>`, `y` in `<G>` and `z` in `<G>`, `(x + y) + z` $=$ `x + (y + z)`.
-- For all `x` in `<G>`, `G(0) + x` $=$ `x + G(0)` $=$ `x`.
-- For all `x` in `<G>`, `(-x) + x` $=$ `x + (-x)` $=$ `G(0)`.
+- `tools::commutative_group<tools::groups::plus<G>>` holds.
 
 ### Time Complexity
 - Not applicable

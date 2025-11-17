@@ -24,8 +24,8 @@ It also returns ${}_n \mathrm{C}_r, {}_n \mathrm{P}_r, {}_n \mathrm{H}_r \pmod{P
     - It precomputes $n^{-1}, n!, n!^{-1} \pmod{P}$ for any $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
 
 ### Constraints
-- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`
-- `M::mod()` is a prime
+- `tools::modint_compatible<M>` holds.
+- `M::mod()` is a prime.
 
 ### Time Complexity
 - (1)

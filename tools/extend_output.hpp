@@ -20,7 +20,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#include "tools/has_mod.hpp"
+#include "tools/modint_compatible.hpp"
 
 namespace tools {
   namespace detail {
@@ -141,8 +141,7 @@ namespace std {
     return ::tools::detail::extend_output::debug_print(os, vector);
   }
   
-  template <typename T>
-  ::std::enable_if_t<::tools::has_mod_v<T>, ::std::ostream&> operator<<(::std::ostream& os, const T& x) {
+  ::std::ostream& operator<<(::std::ostream& os, ::tools::modint_compatible auto&& x) {
     return os << x.val();
   }
 }

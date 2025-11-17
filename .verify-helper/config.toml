@@ -4,4 +4,4 @@ CXXFLAGS = ["--std=c++23", "-O2", "-Wall", "-g"]
 
 [[languages.cpp.environments]]
 CXX = "clang++"
-CXXFLAGS = ["--std=c++23", "-O2", "-Wall", "-g"]
+CXXFLAGS = ["--std=c++23", "-O2", "-Wall", "-g", "-fno-builtin-std-forward_like"]

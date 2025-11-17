@@ -16,12 +16,10 @@ They are typical monoids.
 template <typename M> struct monoids::bit_and;
 ```
 
-It is a monoid $(M, \mathrm{AND}, $`std::numeric_limits<M>::max()`$)$.
+It is a commutative monoid $(M, \mathrm{AND}, $`std::numeric_limits<M>::max()`$)$.
 
 ### Constraints
-- If `x` is `<M>` and `y` is `<M>`, then `x & y` is also `<M>`.
-- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x & y) & z` $=$ `x & (y & z)`.
-- For all `x` in `<M>`, `std::numeric_limits<M>::max() & x` $=$ `x & std::numeric_limits<M>::max()` $=$ `x`.
+- `tools::commutative_monoid<tools::monoids::bit_and<M>>` holds.
 
 ### Time Complexity
 - Not applicable
@@ -70,12 +68,10 @@ It returns `std::numeric_limits<M>::max()`.
 template <typename M> struct monoids::bit_or;
 ```
 
-It is a monoid $(M, \mathrm{OR}, 0)$.
+It is a commutative monoid $(M, \mathrm{OR}, 0)$.
 
 ### Constraints
-- If `x` is `<M>` and `y` is `<M>`, then `x | y` is also `<M>`.
-- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x | y) | z` $=$ `x | (y | z)`.
-- For all `x` in `<M>`, `M(0) | x` $=$ `x | M(0)` $=$ `x`.
+- `tools::commutative_monoid<tools::monoids::bit_or<M>>` holds.
 
 ### Time Complexity
 - Not applicable
@@ -124,7 +120,7 @@ It returns `M(0)`.
 template <typename M> struct monoids::gcd;
 ```
 
-It is a monoid $(M, \gcd, 0)$.
+It is a commutative monoid $(M, \gcd, 0)$.
 Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in this monoid.
 
 ### Constraints
@@ -152,7 +148,7 @@ static M op(M x, M y);
 ```
 
 It returns `tools::gcd(x, y)`.
-For a built-in integral type `<M>`, this is equivalent to returning `std::gcd(x, y)`.
+For a built-in non-bool integral type `<M>`, this is equivalent to returning `std::gcd(x, y)`.
 
 ### Constraints
 - None
@@ -175,19 +171,18 @@ It returns `M(0)`.
 
 ## monoids::max
 ```cpp
-(1) template <typename M> struct monoids::max;
-(2) template <typename M, M E> struct monoids::max;
+(1) template <tools::arithmetic M> struct monoids::max;
+(2) template <std::totally_ordered M, M E> struct monoids::max;
 ```
 
-It is a monoid $(M, \max, E)$.
+It is a commutative monoid $(M, \max, E)$.
 
 - (1)
-    - If `tools::is_integral_v<M>`, let $E$ be `std::numeric_limits<M>::min()`.
-    - If `std::is_floating_point_v<M>`, let $E$ be `-std::numeric_limits<M>::infinity()`.
+    - If `tools::integral<M>`, let $E$ be `std::numeric_limits<M>::min()`.
+    - If `std::floating_point<M>`, let $E$ be `-std::numeric_limits<M>::infinity()`.
 
 ### Constraints
-- (1)
-    - `tools::is_arithemtic_v<M>` is `true`.
+- None
 
 ### Time Complexity
 - Not applicable
@@ -234,19 +229,18 @@ It returns $E$.
 
 ## monoids::min
 ```cpp
-(1) template <typename M> struct monoids::min;
-(2) template <typename M, M E> struct monoids::min;
+(1) template <tools::arithmetic M> struct monoids::min;
+(2) template <std::totally_ordered M, M E> struct monoids::min;
 ```
 
-It is a monoid $(M, \min, E)$.
+It is a commutative monoid $(M, \min, E)$.
 
 - (1)
-    - If `tools::is_integral_v<M>`, let $E$ be `std::numeric_limits<M>::max()`.
-    - If `std::is_floating_point_v<M>`, let $E$ be `std::numeric_limits<M>::infinity()`.
+    - If `tools::integral<M>`, let $E$ be `std::numeric_limits<M>::max()`.
+    - If `std::floating_point<M>`, let $E$ be `std::numeric_limits<M>::infinity()`.
 
 ### Constraints
-- (1)
-    - `tools::is_arithemtic_v<M>` is `true`.
+- None
 
 ### Time Complexity
 - Not applicable
@@ -299,9 +293,7 @@ template <typename M> struct monoids::multiplies;
 It is a monoid $(M, \times, 1)$.
 
 ### Constraints
-- If `x` is `<M>` and `y` is `<M>`, then `x * y` is also `<M>`.
-- For all `x` in `<M>`, `y` in `<M>` and `z` in `<M>`, `(x * y) * z` $=$ `x * (y * z)`.
-- For all `x` in `<M>`, `M(1) * x` $=$ `x * M(1)` $=$ `x`.
+- `tools::monoid<tools::monoids::multiplies<M>>` holds.
 
 ### Time Complexity
 - Not applicable

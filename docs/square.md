@@ -5,16 +5,17 @@ documentation_of: //tools/square.hpp
 
 ```cpp
 (1)
-template <typename M>
+template <tools::monoid M>
 typename M::T square(typename M::T x);
 
 (2)
 template <typename T>
+requires (!tools::monoid<T>)
 T square(T x);
 ```
 
 It returns $x^2$ under a given monoid.
-The default monoid is $(\mathbb{Z}, \times)$.
+The default monoid is $(T, \times)$.
 
 ### Constraints
 - (1)

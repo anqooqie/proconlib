@@ -199,11 +199,8 @@ namespace tools {
     }
     F& multiply_inplace(const F& g, const int d) {
       assert(d >= 0);
-      const int n = this->size();
-      F res;
-      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n), g.cbegin(), g.cbegin() + ::std::min<int>(d, g.size()), ::std::back_inserter(res));
-      res.resize(d);
-      *this = ::std::move(res);
+      this->m_vector = ::tools::convolution(*this | ::std::views::take(d), g | ::std::views::take(d));
+      this->m_vector.resize(d);
       return *this;
     }
     F& multiply_inplace(const F& g) { return this->multiply_inplace(g, this->size()); }
@@ -296,12 +293,8 @@ namespace tools {
 
     F& divide_inplace(const F& g, const int d) {
       assert(d >= 0);
-      const int n = this->size();
-      const auto g_inv = g.inv(d);
-      F res;
-      ::tools::convolution(this->cbegin(), this->cbegin() + ::std::min(d, n), g_inv.cbegin(), g_inv.cend(), ::std::back_inserter(res));
-      res.resize(d);
-      *this = ::std::move(res);
+      this->m_vector = ::tools::convolution(*this | ::std::views::take(d), g.inv(d));
+      this->m_vector.resize(d);
       return *this;
     }
     F& divide_inplace(const F& g) { return this->divide_inplace(g, this->size()); }

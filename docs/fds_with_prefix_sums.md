@@ -57,7 +57,7 @@ fds_with_prefix_sums<M> D_f(long long N, R&& prefix_sums);
     - Given $F(a_0), F(a_1), \ldots, F(a_{\|Q_N\| - 1})$, it creates $D_f(s)$.
 
 ### Constraints
-- `<M>` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
+- `tools::modint_compatible<M>` holds.
 - $N \geq 1$
 - (2)
     - For any positive integer $n$, $F(n)$ can be obtained.

@@ -38,8 +38,7 @@ namespace std {
   template <class T, class Allocator>
   std::ostream& operator<<(std::ostream& os, const std::vector<T, Allocator>& vector);
 
-  template <typename T>
-  std::enable_if_t<tools::has_mod_v<T>, std::ostream&> operator<<(std::ostream& os, const T& x);
+  std::ostream& operator<<(std::ostream& os, ::tools::modint_compatible auto&& x);
 }
 ```
 

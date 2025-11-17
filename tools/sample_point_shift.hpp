@@ -1,185 +1,130 @@
 #ifndef TOOLS_SAMPLE_POINT_SHIFT_HPP
 #define TOOLS_SAMPLE_POINT_SHIFT_HPP
 
-#include <type_traits>
-#include <iterator>
-#include <cassert>
-#include <array>
-#include <vector>
-#include <initializer_list>
 #include <algorithm>
-#include "tools/is_prime.hpp"
-#include "tools/fact_mod_cache.hpp"
-#include "tools/online_cumsum.hpp"
-#include "tools/monoids.hpp"
+#include <array>
+#include <cassert>
+#include <iterator>
+#include <ranges>
+#include <utility>
+#include <vector>
 #include "tools/convolution.hpp"
+#include "tools/fact_mod_cache.hpp"
+#include "tools/is_prime.hpp"
+#include "tools/modint.hpp"
+#include "tools/monoids.hpp"
+#include "tools/online_cumsum.hpp"
 
 namespace tools {
+  template <::std::ranges::input_range R>
+  requires ::tools::modint<::std::ranges::range_value_t<R>>
+  auto sample_point_shift(R&& f, const ::std::ranges::range_value_t<R> c) {
+    using T = ::std::ranges::range_value_t<R>;
 
-  template <typename RandomAccessIterator>
-  ::std::enable_if_t<
-    ::std::is_base_of_v<
-      ::std::random_access_iterator_tag,
-      typename ::std::iterator_traits<RandomAccessIterator>::iterator_category
-    >,
-    typename ::std::iterator_traits<RandomAccessIterator>::value_type
-  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type c) {
-    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;
-    assert(::tools::is_prime(T::mod()));
-    const int N = ::std::distance(begin, end);
-    assert(1 <= N && N <= T::mod());
-    ::tools::fact_mod_cache<T> cache;
-    const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
+    if constexpr (::std::ranges::forward_range<R> || ::std::ranges::sized_range<R>) {
+      assert(::tools::is_prime(T::mod()));
+      const int N = ::std::ranges::distance(f);
+      assert(1 <= N && N <= T::mod());
 
-    ::tools::online_cumsum<::tools::monoids::multiplies<T>, true> nl(N);
-    ::tools::online_cumsum<::tools::monoids::multiplies<T>, false> nr(N);
-    {
-      T last = c;
-      for (int i = 0; i < N; ++i, --last) {
-        nl[i] = nr[i] = last;
-      }
-    }
+      ::tools::fact_mod_cache<T> cache;
+      const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
 
-    T answer(0);
-    for (int i = 0; i < N; ++i) {
-      answer += nl.prod(0, i) * nr.prod(i + 1, N) * minus_1_pow[(N - 1 - i) & 1] * cache.fact_inv(N - 1 - i) * cache.fact_inv(i) * begin[i];
-    }
-
-    return answer;
-  }
-
-  template <typename InputIterator>
-  ::std::enable_if_t<
-    !::std::is_base_of_v<
-      ::std::random_access_iterator_tag,
-      typename ::std::iterator_traits<InputIterator>::iterator_category
-    >,
-    typename ::std::iterator_traits<InputIterator>::value_type
-  > sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    const ::std::vector<T> samples(begin, end);
-    return ::tools::sample_point_shift(samples.begin(), samples.end(), c);
-  }
-
-  template <typename T>
-  T sample_point_shift(const ::std::initializer_list<T> il, const T c) {
-    return ::tools::sample_point_shift(il.begin(), il.end(), c);
-  }
-
-  template <typename RandomAccessIterator, typename OutputIterator>
-  ::std::enable_if_t<
-    ::std::is_base_of_v<
-      ::std::random_access_iterator_tag,
-      typename ::std::iterator_traits<RandomAccessIterator>::iterator_category
-    >,
-    void
-  > sample_point_shift(const RandomAccessIterator begin, const RandomAccessIterator end, const typename ::std::iterator_traits<RandomAccessIterator>::value_type c, const int M, OutputIterator result) {
-    using T = typename ::std::iterator_traits<RandomAccessIterator>::value_type;
-    assert(::tools::is_prime(T::mod()));
-    const int N = ::std::distance(begin, end);
-    assert(1 <= N && N <= T::mod());
-    assert(0 <= M);
-    if (M == 1) {
-      result = ::tools::sample_point_shift(begin, end, c);
-      ++result;
-    }
-    if (M <= 1) return;
-    ::tools::fact_mod_cache<T> cache;
-    const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
-
-    ::std::vector<T> c1;
-    {
-      ::std::vector<T> a1(N);
-      for (int i = 0; i < N; ++i) {
-        a1[i] = begin[i] * cache.fact_inv(i);
+      ::tools::online_cumsum<::tools::monoids::multiplies<T>, true> nl(N);
+      ::tools::online_cumsum<::tools::monoids::multiplies<T>, false> nr(N);
+      {
+        T last = c;
+        for (int i = 0; i < N; ++i, --last) {
+          nl[i] = nr[i] = last;
+        }
       }
 
-      ::std::vector<T> b1(N);
-      for (int i = 0; i < N; ++i) {
-        b1[i] = minus_1_pow[i & 1] * cache.fact_inv(i);
+      T answer(0);
+      for (const auto& [i, f_i] : f | ::std::views::enumerate) {
+        answer += nl.prod(0, i) * nr.prod(i + 1, N) * minus_1_pow[(N - 1 - i) & 1] * cache.fact_inv(N - 1 - i) * cache.fact_inv(i) * f_i;
       }
 
-      ::tools::convolution(a1.begin(), a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));
+      return answer;
+    } else {
+      return ::tools::sample_point_shift(::std::forward<R>(f) | ::std::ranges::to<::std::vector<T>>(), c);
+    }
+  }
+
+  template <::std::ranges::input_range R>
+  requires ::tools::modint<::std::ranges::range_value_t<R>>
+  auto sample_point_shift(R&& f, const ::std::ranges::range_value_t<R> c, const int M) {
+    using T = ::std::ranges::range_value_t<R>;
+
+    if constexpr (::std::ranges::forward_range<R> || ::std::ranges::sized_range<R>) {
+      assert(::tools::is_prime(T::mod()));
+      const int N = ::std::ranges::distance(f);
+      assert(1 <= N && N <= T::mod());
+      assert(0 <= M);
+
+      if (M == 1) {
+        return ::std::vector<T>{::tools::sample_point_shift(::std::forward<R>(f), c)};
+      }
+      if (M == 0) {
+        return ::std::vector<T>{};
+      }
+
+      ::tools::fact_mod_cache<T> cache;
+      const ::std::array<T, 2> minus_1_pow = {T(1), T(-1)};
+
+      auto c1 = ::tools::convolution(
+        ::std::forward<R>(f) | ::std::views::enumerate | ::std::views::transform([&](const auto& tuple) {
+          const auto& [i, f_i] = tuple;
+          return f_i * cache.fact_inv(i);
+        }),
+        ::std::views::iota(0, N) | ::std::views::transform([&](const auto i) {
+          return minus_1_pow[i & 1] * cache.fact_inv(i);
+        })
+      );
       c1.resize(N);
-    }
 
-    ::std::vector<T> c2;
-    {
-      ::std::vector<T> a2(N);
-      for (int i = 0; i < N; ++i) {
-        a2[i] = c1[N - 1 - i] * cache.fact(N - 1 - i);
+      ::std::vector<T> c2;
+      {
+        ::std::vector<T> a2(N);
+        for (int i = 0; i < N; ++i) {
+          a2[i] = c1[N - 1 - i] * cache.fact(N - 1 - i);
+        }
+
+        ::std::vector<T> b2(N);
+        b2[0] = T(1);
+        T b = c;
+        for (int i = 1; i < N; ++i, --b) {
+          b2[i] = b2[i - 1] * b;
+        }
+        for (int i = 0; i < N; ++i) {
+          b2[i] *= cache.fact_inv(i);
+        }
+
+        c2 = ::tools::convolution(::std::move(a2), ::std::move(b2));
+        c2.resize(N);
+        ::std::ranges::reverse(c2);
+        for (int i = 0; i < N; ++i) {
+          c2[i] *= cache.fact_inv(i);
+        }
       }
 
-      ::std::vector<T> b2(N);
-      b2[0] = T(1);
-      T b = c;
-      for (int i = 1; i < N; ++i, --b) {
-        b2[i] = b2[i - 1] * b;
-      }
-      for (int i = 0; i < N; ++i) {
-        b2[i] *= cache.fact_inv(i);
-      }
-
-      ::tools::convolution(a2.begin(), a2.end(), b2.begin(), b2.end(), ::std::back_inserter(c2));
-      c2.resize(N);
-      ::std::reverse(c2.begin(), c2.end());
-      for (int i = 0; i < N; ++i) {
-        c2[i] *= cache.fact_inv(i);
-      }
-    }
-
-    ::std::vector<T> c3;
-    const int m = ::std::min(M, T::mod());
-    {
-      const auto& a3 = c2;
-
-      ::std::vector<T> b3(m);
-      for (int i = 0; i < m; ++i) {
-        b3[i] = cache.fact_inv(i);
-      }
-
-      ::tools::convolution(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));
+      const int m = ::std::min(M, T::mod());
+      auto c3 = ::tools::convolution(
+        ::std::move(c2),
+        ::std::views::iota(0, m) | ::std::views::transform([&](const auto i) { return cache.fact_inv(i); })
+      );
       c3.resize(m);
       for (int i = 0; i < m; ++i) {
         c3[i] *= cache.fact(i);
       }
+
+      c3.resize(M);
+      for (int i = m; i < M; ++i) {
+        c3[i] = c3[i % T::mod()];
+      }
+
+      return c3;
+    } else {
+      return ::tools::sample_point_shift(::std::forward<R>(f) | ::std::ranges::to<::std::vector<T>>(), c, M);
     }
-
-    c3.resize(M);
-    for (int i = m; i < M; ++i) {
-      c3[i] = c3[i % T::mod()];
-    }
-
-    ::std::copy(c3.begin(), c3.end(), result);
-  }
-
-  template <typename InputIterator, typename OutputIterator>
-  ::std::enable_if_t<
-    !::std::is_base_of_v<
-      ::std::random_access_iterator_tag,
-      typename ::std::iterator_traits<InputIterator>::iterator_category
-    >,
-    void
-  > sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M, const OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    const ::std::vector<T> samples(begin, end);
-    ::tools::sample_point_shift(samples.begin(), samples.end(), c, M, result);
-  }
-
-  template <typename InputIterator>
-  ::std::vector<typename ::std::iterator_traits<InputIterator>::value_type>
-  sample_point_shift(const InputIterator begin, const InputIterator end, const typename ::std::iterator_traits<InputIterator>::value_type c, const int M) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    ::std::vector<T> res;
-    ::tools::sample_point_shift(begin, end, c, M, ::std::back_inserter(res));
-    return res;
-  }
-
-  template <typename T>
-  ::std::vector<T> sample_point_shift(const ::std::initializer_list<T> il, const T c, const int M) {
-    ::std::vector<T> res;
-    ::tools::sample_point_shift(il.begin(), il.end(), c, M, ::std::back_inserter(res));
-    return res;
   }
 }
 

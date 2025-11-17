@@ -14,26 +14,24 @@ It is a data structure which can return $\prod_{d \leq i < u} \prod_{l \leq j < 
 
 ## Constructor
 ```cpp
-template <typename Range>
-disjoint_sparse_table_2d<M> dst(Range A);
+template <std::ranges::input_range R>
+requires std::ranges::input_range<std::ranges::range_reference_t<R>>
+  && std::assignable_from<T&, std::ranges::range_value_t<std::ranges::range_reference_t<R>>>
+disjoint_sparse_table_2d<M> dst(R&& A);
 ```
 
 It constructs a data structure which can return $\prod_{d \leq i < u} \prod_{l \leq j < r} A_{i, j}$ under a given monoid for given $d, u, l, r$ in $\langle O(HW \log H \log W), O(1) \rangle$ time, where $H$ is the number of rows of $A$, and $W$ is the number of columns of $A$.
 
 ### Constraints
-- `std::begin(range)` and `std::end(range)` are compilable and has the same type.
-- `std::begin(*std::begin(range))` and `std::end(*std::begin(range))` are compilable and has the same type.
-- The type of `*std::begin(*std::begin(range))` is `typename M::T`.
-- For all $a$ in `typename M::T`, $b$ in `typename M::T` and $c$ in `typename M::T`, `M::op(M::op(a, b), c)` $=$ `M::op(a, M::op(b, c))`.
-- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `a`.
-- For all $a$ in `typename M::T` and $b$ in `typename M::T`, `M::op(a, b)` $=$ `M::op(b, a)`.
+- `tools::commutative_monoid<M>` holds.
+- For any $i$ and $j$ such that $0 \leq i < j < H$, $\|A_i\| = \|A_j\|$.
 
 ### Time Complexity
 - $O(HW \log H \log W)$
 
 ## height
 ```cpp
-std::size_t dst.height();
+int dst.height();
 ```
 
 It returns $H$.
@@ -46,7 +44,7 @@ It returns $H$.
 
 ## width
 ```cpp
-std::size_t dst.width();
+int dst.width();
 ```
 
 It returns $W$.
@@ -59,7 +57,7 @@ It returns $W$.
 
 ## prod
 ```cpp
-typename M::T dst.prod(std::size_t d, std::size_t u, std::size_t l, std::size_t r);
+typename M::T dst.prod(int d, int u, int l, int r);
 ```
 
 It returns $\prod_{d \leq i < u} \prod_{l \leq j < r} A_{i, j}$ under the monoid `<M>`.

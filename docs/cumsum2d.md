@@ -14,12 +14,16 @@ It is a data structure which can return $\sum_{r = r_1}^{r_2 - 1} \sum_{c = c_1}
 ## Constructor
 ```cpp
 (1)
-template <typename Range>
-cumsum2d<T> cumsum(Range A);
+template <std::ranges::input_range R>
+requires std::ranges::input_range<std::ranges::range_reference_t<R>>
+      && std::assignable_from<T&, std::ranges::range_value_t<std::ranges::range_reference_t<R>>>
+cumsum2d<T> cumsum(R&& A);
 
 (2)
-template <typename Range>
-cumsum2d<G> cumsum(Range A);
+template <std::ranges::input_range R>
+requires std::ranges::input_range<std::ranges::range_reference_t<R>>
+      && std::assignable_from<typename G::T&, std::ranges::range_value_t<std::ranges::range_reference_t<R>>>
+cumsum2d<G> cumsum(R&& A);
 ```
 
 - (1)
@@ -28,19 +32,18 @@ cumsum2d<G> cumsum(Range A);
     - It constructs a data structure which can return $\sum_{r = r_1}^{r_2 - 1} \sum_{c = c_1}^{c_2 - 1} A_{r,c}$ for a given $r_1, r_2, c_1, c_2$ in $\langle O(HW), O(1) \rangle$ time, where $H$ is the number of rows of $A$, and $W$ is the number of columns of $A$.
 
 ### Constraints
-- `std::begin(range)` and `std::end(range)` are compilable and has the same type.
-- `std::begin(*std::begin(range))` and `std::end(*std::begin(range))` are compilable and has the same type.
-- The type of `*std::begin(*std::begin(range))` is `typename G::T`.
-- For all $a$ in `typename G::T`, $b$ in `typename G::T` and $c$ in `typename G::T`, `G::op(G::op(a, b), c)` $=$ `G::op(a, G::op(b, c))`.
-- For all $a$ in `typename G::T`, `G::op(G::e(), a)` $=$ `G::op(a, G::e())` $=$ `a`.
-- For all $a$ in `typename G::T`, `G::op(G::inv(a), a)` $=$ `G::op(a, G::inv(a))` $=$ `G::e()`.
+- (1)
+    - `tools::commutative_group<T>` does not hold.
+    - `tools::commutaitve_group<tools::groups::plus<T>>` holds.
+- (2)
+    - `tools::commutative_group<G>` holds.
 
 ### Time Complexity
 - $O(HW)$ where $H$ is the number of rows of $A$ and $W$ is the number of columns of $A$
 
 ## query
 ```cpp
-typename G::T cumsum.query(std::size_t r1, std::size_t r2, std::size_t c1, std::size_t c2);
+typename G::T cumsum.query(int r1, int r2, int c1, int c2);
 ```
 
 It returns $\sum_{r = r_1}^{r_2 - 1} \sum_{c = c_1}^{c_2 - 1} A_{r,c}$.

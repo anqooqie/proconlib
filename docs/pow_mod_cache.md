@@ -17,17 +17,13 @@ It caches $b^n \pmod{M}$ and returns them in $O(1)$ amortized time.
 pow_mod_cache<M> cache(M b);
 
 (2)
-template <typename Z>
-pow_mod_cache<M> cache(Z b);
+pow_mod_cache<M> cache(std::integral auto&& b);
 ```
 
 It creates an empty cache to store $b^n \pmod{M}$.
 
 ### Constraints
-- (1)
-    - `<M>` is `atcoder::static_modint`, `atcoder::dynamic_modint` or `tools::modint_for_rolling_hash`
-- (2)
-    - `<Z>` is an integral type.
+- `tools::modint_compatible<M>` holds.
 
 ### Time Complexity
 - $O(1)$

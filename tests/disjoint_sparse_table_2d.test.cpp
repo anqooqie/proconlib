@@ -1,10 +1,10 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0560
 
-#include <iostream>
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <string>
+#include <vector>
 #include "tools/disjoint_sparse_table_2d.hpp"
 #include "tools/groups.hpp"
 

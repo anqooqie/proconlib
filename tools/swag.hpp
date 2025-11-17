@@ -1,12 +1,13 @@
 #ifndef TOOLS_SWAG_HPP
 #define TOOLS_SWAG_HPP
 
+#include <cassert>
 #include <stack>
 #include <utility>
-#include <cassert>
+#include "tools/monoid.hpp"
 
 namespace tools {
-  template <typename M>
+  template <::tools::monoid M>
   class swag {
   private:
     using T = typename M::T;
@@ -22,11 +23,6 @@ namespace tools {
 
   public:
     swag() = default;
-    swag(const ::tools::swag<M>&) = default;
-    swag(::tools::swag<M>&&) = default;
-    ~swag() = default;
-    ::tools::swag<M>& operator=(const ::tools::swag<M>&) = default;
-    ::tools::swag<M>& operator=(::tools::swag<M>&&) = default;
 
     bool empty() const {
       return this->m_head.empty() && this->m_tail.empty();

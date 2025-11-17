@@ -8,14 +8,14 @@
 #include <type_traits>
 #include <vector>
 #include "atcoder/segtree.hpp"
+#include "tools/commutative_group.hpp"
 #include "tools/groups.hpp"
-#include "tools/is_group.hpp"
 #include "tools/wavelet_matrix.hpp"
 
 namespace tools {
   template <typename T, typename X, bool Updatable>
   class preset_wavelet_matrix {
-    using G = ::std::conditional_t<::tools::is_group_v<X>, X, ::tools::groups::plus<X>>;
+    using G = ::std::conditional_t<::tools::commutative_group<X>, X, ::tools::groups::plus<X>>;
     using U = typename G::T;
 
     ::tools::wavelet_matrix<T> m_wm;

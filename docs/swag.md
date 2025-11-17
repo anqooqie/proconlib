@@ -27,8 +27,7 @@ swag<M> swag();
 It creates an empty sequence of elements on a given monoid $M$.
 
 ### Constraints
-- For all $a$ in `typename M::T`, $b$ in `typename M::T` and $c$ in `typename M::T`, `M::op(M::op(a, b), c)` $=$ `M::op(a, M::op(b, c))`.
-- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `a`.
+- `tools::monoid<M>` holds.
 
 ### Time Complexity
 - $O(1)$

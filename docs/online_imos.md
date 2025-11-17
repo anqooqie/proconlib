@@ -35,18 +35,11 @@ It is an array with an auxiliary difference array to perform range update querie
 
 ### Constraints
 - (1)
-    - `tools::is_monoid_v<T>` does not hold.
+    - `tools::commutative_monoid<T>` does not hold.
 - (2)
-    - `tools::is_monoid_v<M>` holds, but `tools::is_group_v<M>` does not hold.
-    - For all $x$ in `typename M::T` and $y$ in `typename M::T`, `M::op(x, y)` $=$ `M::op(y, x)`.
-    - For all $x$ in `typename M::T`, $y$ in `typename M::T` and $z$ in `typename M::T`, `M::op(M::op(x, y), z)` $=$ `M::op(x, M::op(y, z))`.
-    - For all $x$ in `typename M::T`, `M::op(M::e(), x)` $=$ `M::op(x, M::e())` $= x$.
+    - `tools::commutaitve_monoid<M>` holds, but `tools::commutative_group<M>` does not hold.
 - (3)
-    - `tools::is_group_v<G>` holds.
-    - For all $x$ in `typename G::T` and $y$ in `typename G::T`, `G::op(x, y)` $=$ `G::op(y, x)`.
-    - For all $x$ in `typename G::T`, $y$ in `typename G::T` and $z$ in `typename G::T`, `G::op(G::op(x, y), z)` $=$ `G::op(x, G::op(y, z))`.
-    - For all $x$ in `typename G::T`, `G::op(G::e(), x)` $=$ `G::op(x, G::e())` $= x$.
-    - For all $x$ in `typename G::T`, `G::op(G::inv(x), x)` $=$ `G::op(x, G::inv(x))` $=$ `G::e()`.
+    - `tools::commutative_group<G>` holds.
 - $n \geq 0$
 
 ### Time Complexity

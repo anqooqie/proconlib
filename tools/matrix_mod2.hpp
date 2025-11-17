@@ -8,6 +8,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <optional>
 #include <string_view>
 #include <type_traits>
@@ -21,7 +22,7 @@
 namespace tools {
   namespace detail {
     namespace matrix {
-      template <int N, int M>
+      template <::std::size_t N, ::std::size_t M>
       class members<::atcoder::static_modint<2>, N, M> {
       protected:
         constexpr static bool variable_sized = false;
@@ -29,7 +30,7 @@ namespace tools {
         members() : m_values() {}
       };
       template <>
-      class members<::atcoder::static_modint<2>, -1, -1> {
+      class members<::atcoder::static_modint<2>, ::std::numeric_limits<::std::size_t>::max(), ::std::numeric_limits<::std::size_t>::max()> {
       protected:
         constexpr static bool variable_sized = true;
         ::std::vector<::tools::dynamic_bitset> m_values;
@@ -41,9 +42,9 @@ namespace tools {
     }
   }
 
-  template <int N, int M>
+  template <::std::size_t N, ::std::size_t M>
   class matrix<::atcoder::static_modint<2>, N, M> : ::tools::detail::matrix::members<::atcoder::static_modint<2>, N, M> {
-    template <typename, int, int>
+    template <typename, ::std::size_t, ::std::size_t>
     friend class ::tools::matrix;
     using T = ::atcoder::static_modint<2>;
     using Mat = ::tools::matrix<T, N, M>;
@@ -297,7 +298,7 @@ namespace tools {
     friend Mat operator-(const Mat& lhs, const Mat& rhs) {
       return Mat(lhs) -= rhs;
     }
-    template <int K> requires (!Mat::variable_sized || K == -1)
+    template <::std::size_t K> requires (!Mat::variable_sized || K == ::std::numeric_limits<::std::size_t>::max())
     friend ::tools::matrix<T, N, K> operator*(const Mat& lhs, const ::tools::matrix<T, M, K>& rhs) {
       assert(lhs.cols() == rhs.rows());
 

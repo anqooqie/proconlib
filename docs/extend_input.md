@@ -17,8 +17,7 @@ namespace std {
   template <class T, class Allocator>
   std::istream& operator>>(std::istream& is, std::vector<T, Allocator>& vector);
 
-  template <typename T>
-  std::enable_if_t<tools::has_mod_v<T>, std::istream&> operator>>(std::istream& is, T& x);
+  std::istream& operator>>(std::istream& is, tools::modint_compatible auto&& x);
 }
 ```
 

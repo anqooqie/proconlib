@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <vector>
-#include <string>
 #include "atcoder/modint.hpp"
 #include "tools/convolution.hpp"
+#include "tools/join.hpp"
 
 using ll = long long;
 using mint = atcoder::modint1000000007;
@@ -29,15 +29,7 @@ int main() {
     b.emplace_back(b_i);
   }
 
-  std::vector<mint> c;
-  tools::convolution(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(c));
-
-  std::string delimiter = "";
-  for (const mint& c_i : c) {
-    std::cout << delimiter << c_i.val();
-    delimiter = " ";
-  }
-  std::cout << '\n';
+  std::cout << tools::join(tools::convolution(a, b) | std::views::transform(&mint::val), ' ') << '\n';
 
   return 0;
 }

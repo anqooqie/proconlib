@@ -3,11 +3,12 @@
 
 #include <vector>
 #include "tools/ceil_log2.hpp"
+#include "tools/monoid.hpp"
 #include "tools/pow2.hpp"
 
 namespace tools {
 
-  template <typename M>
+  template <::tools::monoid M>
   class dual_segtree {
     using T = typename M::T;
     int height;

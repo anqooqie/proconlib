@@ -1,96 +1,96 @@
 #ifndef TOOLS_CONVOLUTION_HPP
 #define TOOLS_CONVOLUTION_HPP
 
-#include <type_traits>
-#include <complex>
-#include <cassert>
-#include <vector>
-#include <iterator>
-#include <cstddef>
 #include <algorithm>
-#include <utility>
+#include <cassert>
 #include <cmath>
+#include <complex>
+#include <concepts>
+#include <cstddef>
 #include <iterator>
-#include "atcoder/modint.hpp"
+#include <ranges>
+#include <type_traits>
+#include <utility>
+#include <vector>
 #include "atcoder/convolution.hpp"
-#include "tools/pow2.hpp"
+#include "atcoder/modint.hpp"
+#include "tools/available_for_multiple_range_adaptors.hpp"
 #include "tools/ceil_log2.hpp"
-#include "tools/is_prime.hpp"
+#include "tools/complex.hpp"
 #include "tools/garner3.hpp"
 #include "tools/groups.hpp"
+#include "tools/is_prime.hpp"
+#include "tools/modint.hpp"
 #include "tools/monoids.hpp"
+#include "tools/pow2.hpp"
+#include "tools/ring.hpp"
+#include "tools/rings.hpp"
 
 namespace tools {
   namespace detail {
     namespace convolution {
-      template <typename T, typename = void>
-      struct make_complex {
-        using type = T;
-      };
+      template <::tools::ring R, ::std::ranges::forward_range R1, ::std::ranges::forward_range R2>
+      requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+            && ::std::assignable_from<typename R::add::T&, ::std::ranges::range_value_t<R1>>
+      auto naive(R1&& a, R2&& b) {
+        assert(!::std::ranges::empty(a));
+        assert(!::std::ranges::empty(b));
 
-      template <typename T>
-      struct make_complex<T, ::std::enable_if_t<::std::is_floating_point_v<T>, void>> {
-        using type = ::std::complex<T>;
-      };
+        using Add = typename R::add;
+        using Mul = typename R::mul;
+        using T = typename Add::T;
 
-      template <typename T>
-      using make_complex_t = typename ::tools::detail::convolution::make_complex<T>::type;
+        const auto n = ::std::ranges::distance(a);
+        const auto m = ::std::ranges::distance(b);
 
-      template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
-      void naive(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-        static_assert(::std::is_same_v<typename AG::T, typename MM::T>);
-        assert(a_begin != a_end);
-        assert(b_begin != b_end);
-
-        using T = typename AG::T;
-
-        const auto n = ::std::distance(a_begin, a_end);
-        const auto m = ::std::distance(b_begin, b_end);
-
-        ::std::vector<T> c(n + m - 1, AG::e());
+        ::std::vector<T> c(n + m - 1, Add::e());
         if (n < m) {
-          auto c_begin = c.begin();
-          for (auto b_it = b_begin; b_it != b_end; ++b_it, ++c_begin) {
-            auto c_it = c_begin;
-            for (auto a_it = a_begin; a_it != a_end; ++a_it, ++c_it) {
-              *c_it = AG::op(*c_it, MM::op(*a_it, *b_it));
+          auto it1 = c.begin();
+          for (const auto& b_j : b) {
+            auto it2 = it1;
+            for (const auto& a_i : a) {
+              *it2 = Add::op(*it2, Mul::op(a_i, b_j));
+              ++it2;
             }
+            ++it1;
           }
         } else {
-          auto c_begin = c.begin();
-          for (auto a_it = a_begin; a_it != a_end; ++a_it, ++c_begin) {
-            auto c_it = c_begin;
-            for (auto b_it = b_begin; b_it != b_end; ++b_it, ++c_it) {
-              *c_it = AG::op(*c_it, MM::op(*a_it, *b_it));
+          auto it1 = c.begin();
+          for (const auto& a_i : a) {
+            auto it2 = it1;
+            for (const auto& b_j : b) {
+              *it2 = Add::op(*it2, Mul::op(a_i, b_j));
+              ++it2;
             }
+            ++it1;
           }
         }
 
-        ::std::move(c.begin(), c.end(), result);
+        return c;
       }
 
-      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
-      void fft(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-        using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-        static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
-        using C = ::tools::detail::convolution::make_complex_t<T>;
-        static_assert(::std::is_same_v<C, ::std::complex<float>> || ::std::is_same_v<C, ::std::complex<double>> || ::std::is_same_v<C, ::std::complex<long double>>);
+      template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
+      requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+            && (::std::floating_point<::std::ranges::range_value_t<R1>> || ::tools::complex<::std::ranges::range_value_t<R1>>)
+      auto fft(R1&& pa, R2&& pb) {
+        using T = ::std::ranges::range_value_t<R1>;
+        using C = ::std::conditional_t<::std::floating_point<T>, ::std::complex<T>, T>;
         using R = typename C::value_type;
 
-        assert(a_begin != a_end);
-        assert(b_begin != b_end);
+        assert(!::std::ranges::empty(pa));
+        assert(!::std::ranges::empty(pb));
 
         ::std::vector<C> a, b;
-        if constexpr (::std::is_same_v<T, R>) {
-          for (auto it = a_begin; it != a_end; ++it) {
-            a.emplace_back(*it, 0);
+        if constexpr (::std::same_as<T, R>) {
+          for (auto&& a_i : pa) {
+            a.emplace_back(::std::forward<decltype(a_i)>(a_i), 0);
           }
-          for (auto it = b_begin; it != b_end; ++it) {
-            b.emplace_back(*it, 0);
+          for (auto&& b_i : pb) {
+            b.emplace_back(::std::forward<decltype(b_i)>(b_i), 0);
           }
-        } else if constexpr (::std::is_same_v<T, C>) {
-          a.assign(a_begin, a_end);
-          b.assign(b_begin, b_end);
+        } else {
+          a = ::std::forward<R1>(pa) | ::std::ranges::to<::std::vector<C>>();
+          b = ::std::forward<R2>(pb) | ::std::ranges::to<::std::vector<C>>();
         }
         const auto n = a.size() + b.size() - 1;
         const auto z = ::tools::pow2(::tools::ceil_log2(n));
@@ -130,29 +130,35 @@ namespace tools {
         ::std::reverse(::std::next(pow_root.begin()), pow_root.end());
         butterfly(a);
 
-        for (::std::size_t i = 0; i < n; ++i) {
-          if constexpr (::std::is_same_v<T, R>) {
-            *result = a[i].real() / z;
-          } else {
-            *result = a[i] / z;
+        if constexpr (::std::same_as<T, R>) {
+          ::std::vector<T> c;
+          c.reserve(n);
+          for (::std::size_t i = 0; i < n; ++i) {
+            c.push_back(a[i].real() / z);
           }
-          ++result;
+          return c;
+        } else {
+          a.resize(n);
+          for (auto& a_i : a) {
+            a_i /= z;
+          }
+          return a;
         }
       }
 
-      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
-      void ntt(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
+      template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
+      requires (::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+            && ::atcoder::internal::is_static_modint<::std::ranges::range_value_t<R1>>::value
+            && ::std::ranges::range_value_t<R1>::mod() <= 2000000000
+            && ::tools::is_prime(::std::ranges::range_value_t<R1>::mod()))
+      auto ntt(R1&& pa, R2&& pb) {
+        using M = ::std::ranges::range_value_t<R1>;
+        
+        assert(!::std::ranges::empty(pa));
+        assert(!::std::ranges::empty(pb));
 
-        static_assert(::atcoder::internal::is_static_modint<M>::value);
-        static_assert(2 <= M::mod() && M::mod() <= 2000000000);
-        static_assert(::tools::is_prime(M::mod()));
-        assert(a_begin != a_end);
-        assert(b_begin != b_end);
-
-        ::std::vector<M> a(a_begin, a_end);
-        ::std::vector<M> b(b_begin, b_end);
+        auto a = ::std::forward<R1>(pa) | ::std::ranges::to<::std::vector<M>>();
+        auto b = ::std::forward<R2>(pb) | ::std::ranges::to<::std::vector<M>>();
         const auto n = a.size();
         const auto m = b.size();
         const auto z = ::tools::pow2(::tools::ceil_log2(n + m - 1));
@@ -176,14 +182,12 @@ namespace tools {
           ::atcoder::internal::butterfly_inv(a);
           const auto iz = M(z / 2).inv();
 
-          *result = afbf;
-          ++result;
-          for (::std::size_t i = 1; i < n + m - 2; ++i) {
-            *result = a[i] * iz;
-            ++result;
+          a.resize(n + m - 1);
+          a.front() = afbf;
+          for (auto it = ::std::next(a.begin()), end = ::std::prev(a.end()); it != end; ++it) {
+            *it *= iz;
           }
-          *result = abbb;
-          ++result;
+          a.back() = abbb;
 
         } else {
 
@@ -200,167 +204,133 @@ namespace tools {
           ::atcoder::internal::butterfly_inv(a);
           const auto iz = M(z).inv();
 
-          for (::std::size_t i = 0; i < n + m - 1; ++i) {
-            *result = a[i] * iz;
-            ++result;
+          a.resize(n + m - 1);
+          for (auto& a_i : a) {
+            a_i *= iz;
           }
 
+        }
+
+        return a;
+      }
+
+      template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
+      requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+            && ::tools::modint<::std::ranges::range_value_t<R1>>
+      auto ntt_and_garner(R1&& a, R2&& b) {
+        using M = ::std::ranges::range_value_t<R1>;
+
+        if constexpr (::tools::available_for_multiple_range_adaptors<R1> && ::tools::available_for_multiple_range_adaptors<R2>) {
+          using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1
+          using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1
+          using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1
+
+          assert(!::std::ranges::empty(a));
+          assert(!::std::ranges::empty(b));
+
+          const auto n = ::std::ranges::distance(a);
+          const auto m = ::std::ranges::distance(b);
+          const auto z = ::tools::pow2(::tools::ceil_log2(n + m - 1));
+
+          assert((M1::mod() - 1) % z == 0);
+          assert((M2::mod() - 1) % z == 0);
+          assert((M3::mod() - 1) % z == 0);
+
+          // No need for the following assertion because the condition always holds.
+          // assert(std::min(n, m) * tools::square(M::mod() - 1) < M1::mod() * M2::mod() * M3::mod());
+
+          return ::std::views::zip_transform(
+            [](const auto c1_i, const auto c2_i, const auto c3_i) {
+              return M::raw(::tools::garner3(c1_i, c2_i, c3_i, M::mod()));
+            },
+            ::tools::detail::convolution::ntt(
+              a | ::std::views::transform([](const auto a_i) { return M1(a_i.val()); }),
+              b | ::std::views::transform([](const auto b_i) { return M1(b_i.val()); })
+            ),
+            ::tools::detail::convolution::ntt(
+              a | ::std::views::transform([](const auto a_i) { return M2(a_i.val()); }),
+              b | ::std::views::transform([](const auto b_i) { return M2(b_i.val()); })
+            ),
+            ::tools::detail::convolution::ntt(
+              a | ::std::views::transform([](const auto a_i) { return M3(a_i.val()); }),
+              b | ::std::views::transform([](const auto b_i) { return M3(b_i.val()); })
+            )
+          ) | ::std::ranges::to<::std::vector<M>>();
+        } else {
+          const auto va = ::std::forward<R1>(a) | ::std::ranges::to<::std::vector<M>>();
+          const auto vb = ::std::forward<R2>(b) | ::std::ranges::to<::std::vector<M>>();
+          return ::tools::detail::convolution::ntt_and_garner(va, vb);
         }
       }
 
-      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
-      void ntt_and_garner(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-        using M = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-        static_assert(::std::is_same_v<M, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
-        using M1 = ::atcoder::static_modint<1107296257>; // 33 * 2^25 + 1
-        using M2 = ::atcoder::static_modint<1711276033>; // 51 * 2^25 + 1
-        using M3 = ::atcoder::static_modint<1811939329>; // 27 * 2^26 + 1
-
-        static_assert(::atcoder::internal::is_static_modint<M>::value || ::atcoder::internal::is_dynamic_modint<M>::value);
-        assert(a_begin != a_end);
-        assert(b_begin != b_end);
-
-        const auto n = ::std::distance(a_begin, a_end);
-        const auto m = ::std::distance(b_begin, b_end);
-        const auto z = ::tools::pow2(::tools::ceil_log2(n + m - 1));
-
-        assert((M1::mod() - 1) % z == 0);
-        assert((M2::mod() - 1) % z == 0);
-        assert((M3::mod() - 1) % z == 0);
-
-        // No need for the following assertion because the condition always holds.
-        // assert(std::min(a.size(), b.size()) * tools::square(M::mod() - 1) < M1::mod() * M2::mod() * M3::mod());
-
-        ::std::vector<M1> c1;
-        c1.reserve(n + m - 1);
-        {
-          ::std::vector<M1> a1;
-          a1.reserve(n);
-          for (auto it = a_begin; it != a_end; ++it) {
-            a1.emplace_back(it->val());
-          }
-
-          ::std::vector<M1> b1;
-          b1.reserve(m);
-          for (auto it = b_begin; it != b_end; ++it) {
-            b1.emplace_back(it->val());
-          }
-
-          ::tools::detail::convolution::ntt(a1.begin(), a1.end(), b1.begin(), b1.end(), ::std::back_inserter(c1));
-        }
-
-        ::std::vector<M2> c2;
-        c2.reserve(n + m - 1);
-        {
-          ::std::vector<M2> a2;
-          a2.reserve(n);
-          for (auto it = a_begin; it != a_end; ++it) {
-            a2.emplace_back(it->val());
-          }
-
-          ::std::vector<M2> b2;
-          b2.reserve(m);
-          for (auto it = b_begin; it != b_end; ++it) {
-            b2.emplace_back(it->val());
-          }
-
-          ::tools::detail::convolution::ntt(a2.begin(), a2.end(), b2.begin(), b2.end(), ::std::back_inserter(c2));
-        }
-
-        ::std::vector<M3> c3;
-        c3.reserve(n + m - 1);
-        {
-          ::std::vector<M3> a3;
-          a3.reserve(n);
-          for (auto it = a_begin; it != a_end; ++it) {
-            a3.emplace_back(it->val());
-          }
-
-          ::std::vector<M3> b3;
-          b3.reserve(m);
-          for (auto it = b_begin; it != b_end; ++it) {
-            b3.emplace_back(it->val());
-          }
-
-          ::tools::detail::convolution::ntt(a3.begin(), a3.end(), b3.begin(), b3.end(), ::std::back_inserter(c3));
-        }
-
-        for (::std::size_t i = 0; i < c1.size(); ++i) {
-          *result = M::raw(::tools::garner3(c1[i], c2[i], c3[i], M::mod()));
-          ++result;
-        }
-      }
-
-      template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
-      void ntt_and_garner_for_ll(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-        using Z = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-        static_assert(::std::is_same_v<Z, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
+      template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
+      requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+            && ::std::integral<::std::ranges::range_value_t<R1>>
+      auto ntt_and_garner_for_ll(R1&& a, R2&& b) {
+        using Z = ::std::ranges::range_value_t<R1>;
         using ll = long long;
 
-        static_assert(::std::is_integral_v<Z>);
-        assert(a_begin != a_end);
-        assert(b_begin != b_end);
-
-        const auto n = ::std::distance(a_begin, a_end);
-        const auto m = ::std::distance(b_begin, b_end);
-        assert(n + m - 1 <= ::tools::pow2(24));
-
-        ::std::vector<ll> a, b;
-        a.reserve(n);
-        b.reserve(m);
-        ::std::copy(a_begin, a_end, ::std::back_inserter(a));
-        ::std::copy(b_begin, b_end, ::std::back_inserter(b));
-
-        for (const auto c_i : ::atcoder::convolution_ll(a, b)) {
-          *result = c_i;
-          ++result;
-        }
+        return ::atcoder::convolution_ll(
+          ::std::forward<R1>(a) | ::std::ranges::to<::std::vector<ll>>(),
+          ::std::forward<R2>(b) | ::std::ranges::to<::std::vector<ll>>()
+        ) | ::std::ranges::to<::std::vector<Z>>();
       }
     }
   }
 
-  template <typename AG, typename MM, typename InputIterator1, typename InputIterator2, typename OutputIterator>
-  void convolution(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, OutputIterator result) {
-    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
+  template <::tools::ring R, ::std::ranges::input_range R1, ::std::ranges::input_range R2>
+  requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+        && ::std::assignable_from<typename R::add::T&, ::std::ranges::range_value_t<R1>>
+  auto convolution(R1&& a, R2&& b) {
+    if constexpr (::std::ranges::forward_range<R1> && ::std::ranges::forward_range<R2>) {
+      using Add = typename R::add;
+      using Mul = typename R::mul;
+      using T = typename Add::T;
 
-    if (a_begin == a_end || b_begin == b_end) return;
+      if (::std::ranges::empty(a) || ::std::ranges::empty(b)) {
+        return ::std::vector<T>{};
+      }
 
-    const auto n = ::std::distance(a_begin, a_end);
-    const auto m = ::std::distance(b_begin, b_end);
-    if (::std::min(n, m) <= 60) {
-      ::tools::detail::convolution::naive<AG, MM>(a_begin, a_end, b_begin, b_end, result);
-      return;
-    }
+      const auto n = ::std::ranges::distance(a);
+      const auto m = ::std::ranges::distance(b);
 
-    if constexpr (::std::is_same_v<AG, ::tools::groups::plus<T>> && (::std::is_same_v<MM, ::tools::monoids::multiplies<T>> || ::std::is_same_v<MM, ::tools::groups::multiplies<T>>)) {
-      if constexpr (::std::is_floating_point_v<T> || ::std::is_same_v<T, ::std::complex<float>> || ::std::is_same_v<T, ::std::complex<double>> || ::std::is_same_v<T, ::std::complex<long double>>) {
-        ::tools::detail::convolution::fft(a_begin, a_end, b_begin, b_end, result);
-      } else if constexpr (::std::is_integral_v<T>) {
-        ::tools::detail::convolution::ntt_and_garner_for_ll(a_begin, a_end, b_begin, b_end, result);
-      } else if constexpr (::atcoder::internal::is_static_modint<T>::value || ::atcoder::internal::is_dynamic_modint<T>::value) {
-        if constexpr (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 && ::tools::is_prime(T::mod())) {
-          if ((T::mod() - 1) % ::tools::pow2(::tools::ceil_log2(n + m - 1)) == 0) {
-            ::tools::detail::convolution::ntt(a_begin, a_end, b_begin, b_end, result);
+      if (::std::min(n, m) <= 60) {
+        return ::tools::detail::convolution::naive<R>(::std::forward<R1>(a), ::std::forward<R2>(b));
+      }
+
+      if constexpr (::std::same_as<Add, ::tools::groups::plus<T>> && (::std::same_as<Mul, ::tools::monoids::multiplies<T>> || ::std::same_as<Mul, ::tools::groups::multiplies<T>>)) {
+        if constexpr (::std::floating_point<T> || ::tools::complex<T>) {
+          return ::tools::detail::convolution::fft(::std::forward<R1>(a), ::std::forward<R2>(b));
+        } else if constexpr (::std::integral<T>) {
+          return ::tools::detail::convolution::ntt_and_garner_for_ll(::std::forward<R1>(a), ::std::forward<R2>(b));
+        } else if constexpr (::tools::modint<T>) {
+          if constexpr (::atcoder::internal::is_static_modint<T>::value && T::mod() <= 2000000000 && ::tools::is_prime(T::mod())) {
+            if ((T::mod() - 1) % ::tools::pow2(::tools::ceil_log2(n + m - 1)) == 0) {
+              return ::tools::detail::convolution::ntt(::std::forward<R1>(a), ::std::forward<R2>(b));
+            } else {
+              return ::tools::detail::convolution::ntt_and_garner(::std::forward<R1>(a), ::std::forward<R2>(b));
+            }
           } else {
-            ::tools::detail::convolution::ntt_and_garner(a_begin, a_end, b_begin, b_end, result);
+            return ::tools::detail::convolution::ntt_and_garner(::std::forward<R1>(a), ::std::forward<R2>(b));
           }
         } else {
-          ::tools::detail::convolution::ntt_and_garner(a_begin, a_end, b_begin, b_end, result);
+          return ::tools::detail::convolution::naive<R>(::std::forward<R1>(a), ::std::forward<R2>(b));
         }
       } else {
-        ::tools::detail::convolution::naive<AG, MM>(a_begin, a_end, b_begin, b_end, result);
+        return ::tools::detail::convolution::naive<R>(::std::forward<R1>(a), ::std::forward<R2>(b));
       }
     } else {
-      ::tools::detail::convolution::naive<AG, MM>(a_begin, a_end, b_begin, b_end, result);
+      return ::tools::convolution(
+        ::std::forward<R1>(a) | ::std::ranges::to<::std::vector<::std::ranges::range_value_t<R1>>>(),
+        ::std::forward<R2>(b) | ::std::ranges::to<::std::vector<::std::ranges::range_value_t<R2>>>()
+      );
     }
   }
 
-  template <typename InputIterator1, typename InputIterator2, typename OutputIterator>
-  void convolution(const InputIterator1 a_begin, const InputIterator1 a_end, const InputIterator2 b_begin, const InputIterator2 b_end, const OutputIterator result) {
-    using T = ::std::decay_t<decltype(*::std::declval<InputIterator1>())>;
-    static_assert(::std::is_same_v<T, ::std::decay_t<decltype(*::std::declval<InputIterator2>())>>);
-    ::tools::convolution<::tools::groups::plus<T>, ::tools::monoids::multiplies<T>>(a_begin, a_end, b_begin, b_end, result);
+  template <::std::ranges::input_range R1, ::std::ranges::input_range R2>
+  requires ::std::same_as<::std::ranges::range_value_t<R1>, ::std::ranges::range_value_t<R2>>
+  auto convolution(R1&& a, R2&& b) {
+    return ::tools::convolution<::tools::rings::plus_multiplies<::std::ranges::range_value_t<R1>>>(::std::forward<R1>(a), ::std::forward<R2>(b));
   }
 }
 

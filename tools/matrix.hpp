@@ -19,18 +19,15 @@
 namespace tools {
   namespace detail {
     namespace matrix {
-      template <typename T, int N, int M>
+      template <typename T, ::std::size_t N, ::std::size_t M>
       class members {
-        static_assert(N >= 0);
-        static_assert(M >= 0);
-
       protected:
         constexpr static bool variable_sized = false;
         ::std::array<T, N * M> m_values;
         members() : m_values() {}
       };
       template <typename T>
-      class members<T, -1, -1> {
+      class members<T, ::std::numeric_limits<::std::size_t>::max(), ::std::numeric_limits<::std::size_t>::max()> {
       protected:
         constexpr static bool variable_sized = true;
         ::std::vector<T> m_values;
@@ -49,9 +46,9 @@ namespace tools {
     }
   }
 
-  template <typename T, int N = -1, int M = -1>
+  template <typename T, ::std::size_t N = ::std::numeric_limits<::std::size_t>::max(), ::std::size_t M = ::std::numeric_limits<::std::size_t>::max()>
   class matrix : ::tools::detail::matrix::members<T, N, M> {
-    template <typename, int, int>
+    template <typename, ::std::size_t, ::std::size_t>
     friend class ::tools::matrix;
     using Mat = ::tools::matrix<T, N, M>;
     using Base = ::tools::detail::matrix::members<T, N, M>;
@@ -114,7 +111,7 @@ namespace tools {
     friend Mat operator-(const Mat& lhs, const Mat& rhs) {
       return Mat(lhs) -= rhs;
     }
-    template <int K> requires (!Mat::variable_sized || K == -1)
+    template <::std::size_t K> requires (!Mat::variable_sized || K == ::std::numeric_limits<::std::size_t>::max())
     friend ::tools::matrix<T, N, K> operator*(const Mat& lhs, const ::tools::matrix<T, M, K>& rhs) {
       assert(lhs.cols() == rhs.rows());
       auto result = [&]() {

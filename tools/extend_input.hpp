@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include "tools/has_mod.hpp"
+#include "tools/modint_compatible.hpp"
 
 namespace tools {
   namespace detail {
@@ -54,8 +54,8 @@ namespace std {
     return ::tools::detail::extend_input::read(is, vector);
   }
 
-  template <typename T>
-  ::std::enable_if_t<::tools::has_mod_v<T>, ::std::istream&> operator>>(::std::istream& is, T& x) {
+  template <::tools::modint_compatible T>
+  ::std::istream& operator>>(::std::istream& is, T& x) {
     long long n;
     is >> n;
     x = T(n);

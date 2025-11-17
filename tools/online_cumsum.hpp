@@ -6,14 +6,14 @@
 #include <iostream>
 #include <type_traits>
 #include <vector>
+#include "tools/group.hpp"
 #include "tools/groups.hpp"
-#include "tools/is_monoid.hpp"
-#include "tools/is_group.hpp"
+#include "tools/monoid.hpp"
 
 namespace tools {
   template <typename X, bool Forward = true>
   class online_cumsum {
-    using M = ::std::conditional_t<::tools::is_monoid_v<X>, X, ::tools::groups::plus<X>>;
+    using M = ::std::conditional_t<::tools::monoid<X>, X, ::tools::groups::plus<X>>;
     using T = typename M::T;
     ::std::vector<T> m_vector;
     ::std::vector<T> m_cumsum;
@@ -52,7 +52,7 @@ namespace tools {
         for (; this->m_processed < r; ++this->m_processed) {
           this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);
         }
-        if constexpr (::tools::is_group_v<M>) {
+        if constexpr (::tools::group<M>) {
           return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);
         } else {
           assert(l == 0);
@@ -62,7 +62,7 @@ namespace tools {
         for (; this->m_processed > l; --this->m_processed) {
           this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed - 1], this->m_cumsum[this->m_processed]);
         }
-        if constexpr (::tools::is_group_v<M>) {
+        if constexpr (::tools::group<M>) {
           return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));
         } else {
           assert(r == this->size());
@@ -70,7 +70,7 @@ namespace tools {
         }
       }
     }
-    template <typename Y = X> requires (!::tools::is_monoid_v<Y>)
+    template <typename Y = X> requires (!::tools::monoid<Y>)
     T sum(const int l, const int r) {
       return this->prod(l, r);
     }

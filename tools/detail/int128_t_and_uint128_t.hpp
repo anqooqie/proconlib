@@ -19,7 +19,6 @@
 #include "tools/countr_zero.hpp"
 #include "tools/gcd.hpp"
 #include "tools/hash_combine.hpp"
-#include "tools/is_arithmetic.hpp"
 #include "tools/is_integral.hpp"
 #include "tools/is_signed.hpp"
 #include "tools/is_unsigned.hpp"
@@ -193,23 +192,6 @@ namespace std {
 #endif
 
 namespace tools {
-  template <>
-  struct is_arithmetic<::tools::int128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<::tools::uint128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<const ::tools::int128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<const ::tools::uint128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<volatile ::tools::int128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<volatile ::tools::uint128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<const volatile ::tools::int128_t> : ::std::true_type {};
-  template <>
-  struct is_arithmetic<const volatile ::tools::uint128_t> : ::std::true_type {};
-
   template <>
   struct is_integral<::tools::int128_t> : ::std::true_type {};
   template <>

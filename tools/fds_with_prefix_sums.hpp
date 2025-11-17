@@ -12,11 +12,10 @@
 #include <utility>
 #include <vector>
 #include "tools/floor_sqrt.hpp"
-#include "tools/has_mod.hpp"
+#include "tools/modint_compatible.hpp"
 
 namespace tools {
-  template <typename M>
-  requires ::tools::has_mod_v<M>
+  template <::tools::modint_compatible M>
   class fds_with_prefix_sums {
     using F = ::tools::fds_with_prefix_sums<M>;
     long long m_N;
@@ -128,7 +127,7 @@ namespace tools {
     using reverse_iterator = ::std::reverse_iterator<iterator>;
 
     fds_with_prefix_sums() = default;
-    fds_with_prefix_sums(const long long N) : fds_with_prefix_sums(N, [](long long) { return M::raw(0); }) {
+    explicit fds_with_prefix_sums(const long long N) : fds_with_prefix_sums(N, [](long long) { return M::raw(0); }) {
     }
     template <typename PrefixSumFunction>
     requires ::std::regular_invocable<PrefixSumFunction, long long>
@@ -158,7 +157,7 @@ namespace tools {
       const auto hi_max = sqrt_N - (N < sqrt_N * (sqrt_N + 1));
       this->m_hi.resize(hi_max + 1);
       this->m_hi[0] = M::raw(0);
-      ::std::ranges::copy_n(::std::ranges::copy_n(::std::ranges::begin(::std::forward<R>(v)), sqrt_N, ::std::next(this->m_lo.begin())).in, hi_max, this->m_hi.rbegin());
+      ::std::ranges::copy_n(::std::ranges::copy_n(::std::ranges::begin(v), sqrt_N, ::std::next(this->m_lo.begin())).in, hi_max, this->m_hi.rbegin());
     }
 
     iterator begin() const {

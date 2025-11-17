@@ -2,15 +2,14 @@
 #define TOOLS_BOSTAN_MORI_HPP
 
 #include <cassert>
-#include <numeric>
 #include <cstddef>
+#include <numeric>
+#include "tools/modint.hpp"
 #include "tools/polynomial.hpp"
-#include "tools/has_mod.hpp"
 
 namespace tools {
-  template <typename M>
+  template <::tools::modint M>
   M bostan_mori(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long long n) {
-    static_assert(::tools::has_mod_v<M>);
     assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
 
     P.regularize();

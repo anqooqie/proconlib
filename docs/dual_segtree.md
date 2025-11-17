@@ -23,8 +23,7 @@ dual_segtree<M> a(int n);
 It creates a sequence $(a_0, a_1, \ldots, a_{n - 1})$ filled in `M::e()`.
 
 ### Constraints
-- For all $x$ in `typename M::T`, $y$ in `typename M::T` and $z$ in `typename M::T`, `M::op(M::op(x, y), z)` $=$ `M::op(x, M::op(y, z))`.
-- For all $x$ in `typename M::T`, `M::op(M::e(), x)` $=$ `M::op(x, M::e())` $=$ `x`.
+- `tools::monoid<M>` holds.
 
 ### Time Complexity
 - $O(n)$

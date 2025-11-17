@@ -4,8 +4,8 @@ documentation_of: //tools/join.hpp
 ---
 
 ```cpp
-template <std::ranges::range R, typename T>
-std::string join(R e, T d);
+template <std::ranges::input_range R, typename T>
+std::string join(R&& e, T d);
 ```
 
 Given $n$ elements $e_0, e_1, \cdots, e_{n - 1}$, it returns $e_0 + d + e_1 + d + \cdots + d + e_{n - 1}$ where $+$ is string concatenation.

@@ -5,13 +5,15 @@
 #include <cassert>
 #include <iterator>
 #include <ranges>
+#include <utility>
 #include <vector>
 #include "tools/ceil_log2.hpp"
 #include "tools/floor_log2.hpp"
+#include "tools/monoid.hpp"
 #include "tools/pow2.hpp"
 
 namespace tools {
-  template <typename M>
+  template <::tools::monoid M>
   class disjoint_sparse_table {
     using T = typename M::T;
     ::std::vector<T> m_value;
@@ -21,9 +23,8 @@ namespace tools {
 
   public:
     disjoint_sparse_table() = default;
-    template <::std::ranges::range R>
-    disjoint_sparse_table(R&& a) {
-      ::std::ranges::copy(a, ::std::back_inserter(this->m_value));
+    template <::std::ranges::input_range R>
+    disjoint_sparse_table(R&& a) : m_value(::std::forward<R>(a) | ::std::ranges::to<::std::vector<T>>()) {
       this->m_size = this->m_value.size();
       this->m_height = this->m_size <= 1 ? this->m_size : ::tools::ceil_log2(this->m_size);
       this->m_capacity = this->m_size <= 1 ? this->m_size : ::tools::pow2(this->m_height);

@@ -1,16 +1,17 @@
 #ifndef TOOLS_FACT_MOD_CACHE_HPP
 #define TOOLS_FACT_MOD_CACHE_HPP
 
-#include <vector>
-#include <cassert>
-#include <iterator>
 #include <algorithm>
+#include <cassert>
 #include <cmath>
+#include <iterator>
+#include <vector>
 #include "tools/is_prime.hpp"
+#include "tools/modint_compatible.hpp"
 
 namespace tools {
 
-  template <class M>
+  template <::tools::modint_compatible M>
   class fact_mod_cache {
     ::std::vector<M> m_inv;
     ::std::vector<M> m_fact;

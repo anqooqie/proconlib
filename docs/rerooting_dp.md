@@ -69,9 +69,7 @@ The meaning of each the type parameter is as follows.
     - the function which accepts the product of aggregated edge attributes and the index of the vertex adjacent to the subtrees, and returns the aggregated vertex attribute
 
 ### Constraints
-- For all $a$ in `typename M::T` and $b$ in `typename M::T`, `M::op(a, b)` $=$ `M::op(b, a)`.
-- For all $a$ in `typename M::T`, $b$ in `typename M::T` and $c$ in `typename M::T`, `M::op(M::op(a, b), c)` $=$ `M::op(a, M::op(b, c))`.
-- For all $a$ in `typename M::T`, `M::op(M::e(), a)` $=$ `M::op(a, M::e())` $=$ `a`.
+- `tools::commutative_monoid<M>` holds.
 - `f_ve` is invocable.
 - `f_ve` accepts two arguments, `R` and `std::size_t`.
 - `f_ve` returns `typename M::T`.

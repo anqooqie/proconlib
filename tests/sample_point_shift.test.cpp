@@ -2,10 +2,11 @@
 
 #include <iostream>
 #include <ranges>
+#include <utility>
 #include <vector>
 #include "atcoder/modint.hpp"
-#include "tools/sample_point_shift.hpp"
 #include "tools/join.hpp"
+#include "tools/sample_point_shift.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -28,8 +29,7 @@ int main() {
     f[i] = mint::raw(f_i);
   }
 
-  const auto g = tools::sample_point_shift(f.begin(), f.end(), c, M);
-  std::cout << tools::join(g | std::views::transform([](const auto g_i) { return g_i.val(); }), " ") << '\n';
+  std::cout << tools::join(tools::sample_point_shift(std::move(f), c, M) | std::views::transform(&mint::val), ' ') << '\n';
 
   return 0;
 }
