@@ -52,20 +52,23 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return this->m_edges[k];
-    }
-    edge get_edge(const int k) && {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return ::std::move(this->m_edges[k]);
+    template <typename Self>
+    decltype(auto) get_edge(this Self&& self, const int k) {
+      assert(0 <= k && k < ::std::ssize(self.m_edges));
+      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
+        return static_cast<const edge&>(self.m_edges[k]);
+      } else {
+        return edge(::std::forward_like<Self>(self.m_edges[k]));
+      }
     }
 
-    const ::std::vector<edge>& edges() const & {
-      return this->m_edges;
-    }
-    ::std::vector<edge> edges() && {
-      return ::std::move(this->m_edges);
+    template <typename Self>
+    decltype(auto) edges(this Self&& self) {
+      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
+        return static_cast<const ::std::vector<edge>&>(self.m_edges);
+      } else {
+        return ::std::vector<edge>(::std::forward_like<Self>(self.m_edges));
+      }
     }
 
     template <bool Restore = false>
