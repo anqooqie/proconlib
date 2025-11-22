@@ -5,7 +5,7 @@
 
 ## What is This
 It is my C++23 library for competitive programming.
-All the functions and classes are available on both gcc and clang unless otherwise noted in documentation.
+All the functions and classes are available on both gcc 14+ and clang 20+ unless otherwise noted in documentation.
 
 ## Documentation
 See my [![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://anqooqie.github.io/proconlib).
