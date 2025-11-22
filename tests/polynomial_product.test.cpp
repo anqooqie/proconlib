@@ -1,7 +1,6 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/product_of_polynomial_sequence
 
 #include <iostream>
-#include <iterator>
 #include <ranges>
 #include <string>
 #include <vector>
@@ -33,8 +32,8 @@ int main() {
     D += d;
   }
 
-  const auto answer = tools::polynomial_product(f.begin(), f.end());
-  std::cout << tools::join(std::ranges::subrange(answer.pbegin(), std::next(answer.pbegin(), D + 1)) | std::views::transform([](const auto k) { return k.val(); }), " ") << '\n';
+  const auto answer = tools::polynomial_product(f);
+  std::cout << tools::join(std::views::counted(answer.pbegin(), D + 1) | std::views::transform(&mint::val), ' ') << '\n';
 
   return 0;
 }

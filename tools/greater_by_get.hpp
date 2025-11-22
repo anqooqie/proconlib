@@ -8,7 +8,7 @@ namespace tools {
 
   template <::std::size_t I>
   struct greater_by_get {
-    template <class T>
+    template <typename T>
     bool operator()(const T& x, const T& y) const {
       return ::std::get<I>(x) > ::std::get<I>(y);
     }

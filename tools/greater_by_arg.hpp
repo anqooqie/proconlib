@@ -8,17 +8,10 @@ namespace tools {
 
   template <typename T>
   class greater_by_arg {
-  private:
     ::tools::less_by_arg<T> m_comp;
 
   public:
     greater_by_arg() = default;
-    greater_by_arg(const ::tools::greater_by_arg<T>&) = default;
-    greater_by_arg(::tools::greater_by_arg<T>&&) = default;
-    ~greater_by_arg() = default;
-    ::tools::greater_by_arg<T>& operator=(const ::tools::greater_by_arg<T>&) = default;
-    ::tools::greater_by_arg<T>& operator=(::tools::greater_by_arg<T>&&) = default;
-
     greater_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : m_comp(o, d) {
     }
 

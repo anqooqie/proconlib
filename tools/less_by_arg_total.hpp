@@ -8,7 +8,6 @@ namespace tools {
 
   template <typename T>
   class less_by_arg_total {
-  private:
     ::tools::vector2<T> o;
     ::tools::vector2<T> d;
 
@@ -52,12 +51,6 @@ namespace tools {
 
   public:
     less_by_arg_total() = default;
-    less_by_arg_total(const ::tools::less_by_arg_total<T>&) = default;
-    less_by_arg_total(::tools::less_by_arg_total<T>&&) = default;
-    ~less_by_arg_total() = default;
-    ::tools::less_by_arg_total<T>& operator=(const ::tools::less_by_arg_total<T>&) = default;
-    ::tools::less_by_arg_total<T>& operator=(::tools::less_by_arg_total<T>&&) = default;
-
     less_by_arg_total(const ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : o(o), d(d - o) {
     }
 

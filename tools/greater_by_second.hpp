@@ -5,9 +5,8 @@
 
 namespace tools {
 
-  class greater_by_second {
-  public:
-    template <class T1, class T2>
+  struct greater_by_second {
+    template <typename T1, typename T2>
     bool operator()(const ::std::pair<T1, T2>& x, const ::std::pair<T1, T2>& y) const {
       return x.second > y.second;
     }

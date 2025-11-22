@@ -9,7 +9,6 @@ namespace tools {
 
   template <typename T>
   class less_by_arg {
-  private:
     ::tools::vector2<T> o;
     ::tools::vector2<T> d;
 
@@ -24,12 +23,6 @@ namespace tools {
 
   public:
     less_by_arg() = default;
-    less_by_arg(const ::tools::less_by_arg<T>&) = default;
-    less_by_arg(::tools::less_by_arg<T>&&) = default;
-    ~less_by_arg() = default;
-    ::tools::less_by_arg<T>& operator=(const ::tools::less_by_arg<T>&) = default;
-    ::tools::less_by_arg<T>& operator=(::tools::less_by_arg<T>&&) = default;
-
     less_by_arg(const ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : o(o), d(d) {
       assert(d != o);
     }
