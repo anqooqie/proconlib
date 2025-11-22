@@ -3,13 +3,11 @@
 
 #include <cassert>
 #include <type_traits>
-#include "tools/is_integral.hpp"
+#include "tools/non_bool_integral.hpp"
 #include "tools/is_unsigned.hpp"
 
 namespace tools {
-  template <typename M, typename N> requires (
-    ::tools::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool> &&
-    ::tools::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>)
+  template <::tools::non_bool_integral M, ::tools::non_bool_integral N>
   constexpr ::std::common_type_t<M, N> ceil(const M x, const N y) noexcept {
     assert(y != 0);
     if (y >= 0) {
