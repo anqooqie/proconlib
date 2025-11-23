@@ -1,5 +1,5 @@
 ---
-title: Product of binomials
+title: $\prod_{i = 0}^{m - 1} (a_i + b_i x^{c_i})^{d_i}$
 documentation_of: //tools/binomial_product.hpp
 ---
 
@@ -16,6 +16,7 @@ Given $(a_i, b_i, c_i, d_i) \in \mathbb{Z}/M\mathbb{Z} \times \mathbb{Z}/M\mathb
 
 ### Constraints
 - $0 \leq n \leq \mathrm{lpf}(M)$
+- $a_i = 0$ or $\gcd(a_i, M) = 1$
 - $c_i \geq 0$
 - $d_i \geq 0$
 - $i \neq j \Rightarrow c_i \neq c_j$
