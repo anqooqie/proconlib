@@ -17,38 +17,38 @@
 
 namespace tools {
 
-  template <::tools::modint_compatible M>
+  template <tools::modint_compatible M>
   class pow_mod_cache {
-    ::std::vector<M> m_pow;
-    ::std::vector<M> m_cumsum;
-    ::std::vector<M> m_inv_pow;
-    ::std::vector<M> m_inv_cumsum;
-    ::std::optional<::std::pair<long long, long long>> m_period;
+    std::vector<M> m_pow;
+    std::vector<M> m_cumsum;
+    std::vector<M> m_inv_pow;
+    std::vector<M> m_inv_cumsum;
+    std::optional<std::pair<long long, long long>> m_period;
 
   public:
     pow_mod_cache() = default;
     explicit pow_mod_cache(const M base) : m_pow({M(1), base}), m_cumsum({M::raw(0)}), m_inv_pow({M(1)}), m_inv_cumsum({M::raw(0)}) {
       if (base == M(-1)) {
         if (M::mod() > 2) {
-          this->m_period = ::std::make_pair(0LL, 2LL);
+          this->m_period = std::make_pair(0LL, 2LL);
         } else {
-          this->m_period = ::std::make_pair(0LL, 1LL);
+          this->m_period = std::make_pair(0LL, 1LL);
           this->m_pow.resize(1);
         }
         this->m_inv_pow.clear();
         this->m_inv_cumsum.clear();
       }
     }
-    explicit pow_mod_cache(::std::integral auto&& base) : pow_mod_cache(M(base)) {
+    explicit pow_mod_cache(std::integral auto&& base) : pow_mod_cache(M(base)) {
     }
 
     M operator[](const long long n) {
       if (!this->m_period) {
-        if (::std::max<long long>(::std::ssize(this->m_pow) - 1, n) - ::std::min<long long>(n, -(::std::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
+        if (std::max<long long>(std::ssize(this->m_pow) - 1, n) - std::min<long long>(n, -(std::ssize(this->m_inv_pow) - 1)) + 1 < M::mod() - 1) {
           if (n >= 0) {
-            const long long size = ::std::ssize(this->m_pow);
-            this->m_pow.resize(::std::max(size, n + 1));
-            for (long long i = size; i < ::std::ssize(this->m_pow); ++i) {
+            const long long size = std::ssize(this->m_pow);
+            this->m_pow.resize(std::max(size, n + 1));
+            for (long long i = size; i < std::ssize(this->m_pow); ++i) {
               this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
             }
             return this->m_pow[n];
@@ -56,19 +56,19 @@ namespace tools {
             if (this->m_inv_pow.size() == 1) {
               this->m_inv_pow.push_back(this->m_pow[1].inv());
             }
-            const long long size = ::std::ssize(this->m_inv_pow);
-            this->m_inv_pow.resize(::std::max(size, -n + 1));
-            for (long long i = size; i < ::std::ssize(this->m_inv_pow); ++i) {
+            const long long size = std::ssize(this->m_inv_pow);
+            this->m_inv_pow.resize(std::max(size, -n + 1));
+            for (long long i = size; i < std::ssize(this->m_inv_pow); ++i) {
               this->m_inv_pow[i] = this->m_inv_pow[i - 1] * this->m_inv_pow[1];
             }
             return this->m_inv_pow[-n];
           }
         }
 
-        this->m_period = ::tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; });
-        const long long size = ::std::ssize(this->m_pow);
+        this->m_period = tools::find_cycle(this->m_pow[0], [&](const M& prev) { return prev * this->m_pow[1]; });
+        const long long size = std::ssize(this->m_pow);
         this->m_pow.resize(this->m_period->first + this->m_period->second);
-        for (long long i = size; i < ::std::ssize(this->m_pow); ++i) {
+        for (long long i = size; i < std::ssize(this->m_pow); ++i) {
           this->m_pow[i] = this->m_pow[i - 1] * this->m_pow[1];
         }
         this->m_inv_pow.clear();
@@ -76,7 +76,7 @@ namespace tools {
       }
 
       if (this->m_period->first == 0) {
-        return this->m_pow[::tools::mod(n, this->m_period->second)];
+        return this->m_pow[tools::mod(n, this->m_period->second)];
       } else {
         assert(n >= 0);
         if (n < this->m_period->first + this->m_period->second) {
@@ -94,17 +94,17 @@ namespace tools {
       (*this)[l];
 
       {
-        const long long size = ::std::ssize(this->m_cumsum);
+        const long long size = std::ssize(this->m_cumsum);
         this->m_cumsum.resize(this->m_pow.size() + 1);
-        for (long long i = size; i < ::std::ssize(this->m_cumsum); ++i) {
+        for (long long i = size; i < std::ssize(this->m_cumsum); ++i) {
           this->m_cumsum[i] = this->m_cumsum[i - 1] + this->m_pow[i - 1];
         }
       }
 
       if (!this->m_period) {
-        const long long size = ::std::ssize(this->m_inv_cumsum);
+        const long long size = std::ssize(this->m_inv_cumsum);
         this->m_inv_cumsum.resize(this->m_inv_pow.size() + 1);
-        for (long long i = size; i < ::std::ssize(this->m_inv_cumsum); ++i) {
+        for (long long i = size; i < std::ssize(this->m_inv_cumsum); ++i) {
           this->m_inv_cumsum[i] = this->m_inv_cumsum[i - 1] + this->m_pow[i - 1];
         }
 
@@ -134,7 +134,7 @@ namespace tools {
         return f(r) - f(l);
       } else {
         const auto& n = this->m_period->second;
-        return cumsum(::tools::mod(l, n), n) + cumsum(0, ::tools::mod(r, n)) + cumsum(0, n) * M(::tools::floor(r, n) - ::tools::ceil(l, n));
+        return cumsum(tools::mod(l, n), n) + cumsum(0, tools::mod(r, n)) + cumsum(0, n) * M(tools::floor(r, n) - tools::ceil(l, n));
       }
     }
   };

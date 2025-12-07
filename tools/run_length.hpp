@@ -9,11 +9,11 @@
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
   void run_length(const InputIterator& begin, const InputIterator& end, OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
+    using T = typename std::iterator_traits<InputIterator>::value_type;
     if (begin == end) return;
 
-    ::std::pair<T, ::std::size_t> prev;
-    for (auto [it, breaks] = ::std::make_pair(begin, false); !breaks; breaks = it == end, it = ::std::next(it, breaks ? 0 : 1)) {
+    std::pair<T, std::size_t> prev;
+    for (auto [it, breaks] = std::make_pair(begin, false); !breaks; breaks = it == end, it = std::next(it, breaks ? 0 : 1)) {
       bool flg1, flg2;
       if (it == begin) {
         flg1 = false;

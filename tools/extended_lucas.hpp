@@ -42,7 +42,7 @@ namespace tools {
   class extended_lucas {
     struct combination_prime_pow {
       int p, q, m;
-      ::std::vector<int> fac, invfac, ppow;
+      std::vector<int> fac, invfac, ppow;
 
       long long ej(long long n) const {
         long long ret = 0;
@@ -76,14 +76,14 @@ namespace tools {
         long long ret = this->ppow[e0];
         if (this->q == 1) { // Lucas
           while (n) {
-            ret = ::tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r % this->p] * this->invfac[k % this->p] % this->p;
+            ret = tools::int128_t(ret) * this->fac[n % this->p] * this->invfac[r % this->p] * this->invfac[k % this->p] % this->p;
             n /= this->p, r /= this->p, k /= this->p;
           }
           return static_cast<int>(ret);
         } else {
           if ((p > 2 || q < 3) && (this->ej(n / this->m) - this->ej(r / this->m) - this->ej(k / this->m)) & 1) ret = this->m - ret;
           while (n) {
-            ret = ::tools::int128_t(ret) * this->fac[n % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;
+            ret = tools::int128_t(ret) * this->fac[n % this->m] * this->invfac[r % this->m] * this->invfac[k % this->m] % this->m;
             n /= this->p, r /= this->p, k /= this->p;
           }
           return static_cast<int>(ret);
@@ -91,13 +91,13 @@ namespace tools {
       }
     };
 
-    ::std::vector<combination_prime_pow> m_cpps;
+    std::vector<combination_prime_pow> m_cpps;
 
   public:
     extended_lucas() {
-      const auto prime_factors = ::tools::prime_factorization(M::mod());
-      ::std::vector<::std::pair<int, int>> distinct_prime_factors;
-      ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));
+      const auto prime_factors = tools::prime_factorization(M::mod());
+      std::vector<std::pair<int, int>> distinct_prime_factors;
+      tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
       for (const auto& [p, q] : distinct_prime_factors) {
         this->m_cpps.emplace_back(p, q);
       }
@@ -105,18 +105,18 @@ namespace tools {
 
     M fact(const long long n) const {
       assert(n >= 0);
-      ::std::vector<::std::pair<int, int>> rs;
+      std::vector<std::pair<int, int>> rs;
       for (const auto& cpp : this->m_cpps) rs.emplace_back(cpp.fact(n), cpp.m);
-      return ::tools::garner<M>(rs.begin(), rs.end()).first;
+      return tools::garner<M>(rs.begin(), rs.end()).first;
     }
     M binomial(const long long n, const long long r) const {
       if (r < 0) return M::raw(0);
       if (0 <= n && n < r) return M::raw(0);
       if (n < 0) return M((r & 1) ? -1 : 1) * this->binomial(-n + r - 1, r);
 
-      ::std::vector<::std::pair<int, int>> rs;
+      std::vector<std::pair<int, int>> rs;
       for (const auto& cpp : this->m_cpps) rs.emplace_back(cpp.combination(n, r), cpp.m);
-      return ::tools::garner<M>(rs.begin(), rs.end()).first;
+      return tools::garner<M>(rs.begin(), rs.end()).first;
     }
     M combination(const long long n, const long long r) const {
       if (!(0 <= r && r <= n)) return M::raw(0);

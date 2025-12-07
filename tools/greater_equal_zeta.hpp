@@ -16,10 +16,10 @@ namespace tools {
 
   template <typename InputIterator, typename OutputIterator>
   void greater_equal_zeta(const InputIterator begin, const InputIterator end, const OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    ::std::vector<T> a(begin, end);
-    ::tools::greater_equal_zeta(a.begin(), a.end());
-    ::std::move(a.begin(), a.end(), result);
+    using T = typename std::iterator_traits<InputIterator>::value_type;
+    std::vector<T> a(begin, end);
+    tools::greater_equal_zeta(a.begin(), a.end());
+    std::move(a.begin(), a.end(), result);
   }
 }
 

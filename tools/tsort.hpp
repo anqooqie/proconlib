@@ -18,8 +18,8 @@ namespace tools {
     };
 
   private:
-    ::std::vector<edge> m_edges;
-    ::std::vector<::std::vector<int>> m_graph;
+    std::vector<edge> m_edges;
+    std::vector<std::vector<int>> m_graph;
 
   public:
     tsort() = default;
@@ -39,37 +39,37 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
       return this->m_edges[k];
     }
     edge get_edge(const int k) && {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return ::std::move(this->m_edges[k]);
+      assert(0 <= k && k < std::ssize(this->m_edges));
+      return std::move(this->m_edges[k]);
     }
 
-    const ::std::vector<edge>& edges() const & {
+    const std::vector<edge>& edges() const & {
       return this->m_edges;
     }
-    ::std::vector<edge> edges() && {
-      return ::std::move(this->m_edges);
+    std::vector<edge> edges() && {
+      return std::move(this->m_edges);
     }
 
-    ::std::vector<int> query() const {
-      ::std::vector<int> indegs(this->size(), 0);
+    std::vector<int> query() const {
+      std::vector<int> indegs(this->size(), 0);
       for (int u = 0; u < this->size(); ++u) {
         for (const auto e : this->m_graph[u]) {
           ++indegs[this->m_edges[e].to];
         }
       }
 
-      ::std::queue<int> queue;
+      std::queue<int> queue;
       for (int v = 0; v < this->size(); ++v) {
         if (indegs[v] == 0) {
           queue.push(v);
         }
       }
 
-      ::std::vector<int> result;
+      std::vector<int> result;
       result.reserve(this->size());
       while (!queue.empty()) {
         const auto u = queue.front();
@@ -89,18 +89,18 @@ namespace tools {
 
     template <typename R = long long>
     R count() const {
-      using u32 = ::std::uint_fast32_t;
+      using u32 = std::uint_fast32_t;
 
       assert(this->size() < 32);
 
-      ::std::vector<u32> graph(this->size());
+      std::vector<u32> graph(this->size());
       for (const auto& edge : this->m_edges) {
         graph[edge.from] |= u32(1) << edge.to;
       }
 
-      ::std::vector<R> dp(::tools::pow2(this->size()));
+      std::vector<R> dp(tools::pow2(this->size()));
       dp[0] = R(1);
-      for (u32 state = 1; state < ::tools::pow2(this->size()); ++state) {
+      for (u32 state = 1; state < tools::pow2(this->size()); ++state) {
         dp[state] = R(0);
         for (int v = 0; v < this->size(); ++v) {
           if (const auto prev_state = state & ~(u32(1) << v); ((state >> v) & 1) && !(graph[v] & prev_state)) {
@@ -109,7 +109,7 @@ namespace tools {
         }
       }
 
-      return dp[::tools::pow2(this->size()) - 1];
+      return dp[tools::pow2(this->size()) - 1];
     }
   };
 }

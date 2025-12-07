@@ -8,10 +8,10 @@
 
 namespace tools {
   template <typename M>
-  ::tools::fps<M> bernoulli(const int n) {
-    assert(::tools::is_prime(M::mod()));
+  tools::fps<M> bernoulli(const int n) {
+    assert(tools::is_prime(M::mod()));
     assert(0 <= n && n < M::mod());
-    ::tools::fact_mod_cache<M> cache;
+    tools::fact_mod_cache<M> cache;
 
     tools::fps<M> f(n + 1);
     for (int i = 0; i <= n; ++i) {

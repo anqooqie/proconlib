@@ -7,8 +7,8 @@
 
 namespace tools {
 
-  template <::tools::non_bool_integral M, ::tools::non_bool_integral N>
-  constexpr ::std::common_type_t<M, N> floor(const M x, const N y) noexcept {
+  template <tools::non_bool_integral M, tools::non_bool_integral N>
+  constexpr std::common_type_t<M, N> floor(const M x, const N y) noexcept {
     assert(y != 0);
     if (y >= 0) {
       if (x >= 0) {

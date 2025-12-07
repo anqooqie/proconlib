@@ -15,12 +15,12 @@
 namespace tools {
   template <typename T, typename X, bool Updatable>
   class preset_wavelet_matrix {
-    using G = ::std::conditional_t<::tools::commutative_group<X>, X, ::tools::groups::plus<X>>;
+    using G = std::conditional_t<tools::commutative_group<X>, X, tools::groups::plus<X>>;
     using U = typename G::T;
 
-    ::tools::wavelet_matrix<T> m_wm;
-    ::std::vector<U> m_ws;
-    ::std::vector<::std::conditional_t<Updatable, ::atcoder::segtree<U, G::op, G::e>, ::std::vector<U>>> m_aux;
+    tools::wavelet_matrix<T> m_wm;
+    std::vector<U> m_ws;
+    std::vector<std::conditional_t<Updatable, atcoder::segtree<U, G::op, G::e>, std::vector<U>>> m_aux;
 
     bool built() const {
       return !this->m_aux.empty();
@@ -40,15 +40,15 @@ namespace tools {
       return this->m_wm.add_point(x, y);
     }
 
-    ::std::tuple<T, T, U> get_point(const int i) const {
+    std::tuple<T, T, U> get_point(const int i) const {
       assert(0 <= i && i < this->size());
 
       const auto [x, y] = this->m_wm.get_point(i);
       return {x, y, this->m_ws[i]};
     }
 
-    ::std::vector<::std::tuple<T, T, U>> points() const {
-      ::std::vector<::std::tuple<T, T, U>> res;
+    std::vector<std::tuple<T, T, U>> points() const {
+      std::vector<std::tuple<T, T, U>> res;
       res.reserve(this->size());
       for (int i = 0; i < this->size(); ++i) {
         res.push_back(this->get_point(i));
@@ -61,7 +61,7 @@ namespace tools {
 
       for (const auto& A_h : this->m_wm.build()) {
         if constexpr (Updatable) {
-          ::std::vector<U> v(this->size());
+          std::vector<U> v(this->size());
           for (int j = 0; j < this->size(); ++j) {
             v[j] = this->m_ws[A_h[j]];
           }
@@ -151,28 +151,28 @@ namespace tools {
       return this->m_wm.range_freq(l, r, d, u);
     }
 
-    ::std::optional<T> prev_value(const T& l, const T& r, const T& u) const {
+    std::optional<T> prev_value(const T& l, const T& r, const T& u) const {
       assert(this->built());
       assert(l <= r);
 
       return this->m_wm.prev_value(l, r, u);
     }
 
-    ::std::optional<T> next_value(const T& l, const T& r, const T& d) const {
+    std::optional<T> next_value(const T& l, const T& r, const T& d) const {
       assert(this->built());
       assert(l <= r);
 
       return this->m_wm.next_value(l, r, d);
     }
 
-    ::std::ranges::subrange<::std::vector<int>::const_iterator> prev_points(const T& l, const T& r, const T& u) const {
+    std::ranges::subrange<std::vector<int>::const_iterator> prev_points(const T& l, const T& r, const T& u) const {
       assert(this->built());
       assert(l <= r);
 
       return this->m_wm.prev_points(l, r, u);
     }
 
-    ::std::ranges::subrange<::std::vector<int>::const_iterator> next_points(const T& l, const T& r, const T& d) const {
+    std::ranges::subrange<std::vector<int>::const_iterator> next_points(const T& l, const T& r, const T& d) const {
       assert(this->built());
       assert(l <= r);
 

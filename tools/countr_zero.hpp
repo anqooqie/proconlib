@@ -13,12 +13,12 @@
 namespace tools {
   template <typename T>
   constexpr int countr_zero(const T x) noexcept {
-    static_assert(::tools::is_integral_v<T> && !::std::is_same_v<::std::remove_cv_t<T>, bool>);
-    if constexpr (::tools::is_signed_v<T>) {
+    static_assert(tools::is_integral_v<T> && !std::is_same_v<std::remove_cv_t<T>, bool>);
+    if constexpr (tools::is_signed_v<T>) {
       assert(x >= 0);
-      return ::std::min(::tools::countr_zero<::tools::make_unsigned_t<T>>(x), ::std::numeric_limits<T>::digits);
+      return std::min(tools::countr_zero<tools::make_unsigned_t<T>>(x), std::numeric_limits<T>::digits);
     } else {
-      return ::std::countr_zero(x);
+      return std::countr_zero(x);
     }
   }
 }

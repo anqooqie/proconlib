@@ -11,11 +11,11 @@ namespace tools {
   void subset_moebius(const RandomAccessIterator begin, const RandomAccessIterator end) {
     const int N = end - begin;
 
-    for (int w = 0; ::tools::pow2(w) < N; ++w) {
-      for (int i = 0; ; i += ::tools::pow2(w)) {
+    for (int w = 0; tools::pow2(w) < N; ++w) {
+      for (int i = 0; ; i += tools::pow2(w)) {
         for (; !((i >> w) & 1); ++i) {
-          if (!(i + ::tools::pow2(w) < N)) goto NEXT_W;
-          begin[i + ::tools::pow2(w)] -= begin[i];
+          if (!(i + tools::pow2(w) < N)) goto NEXT_W;
+          begin[i + tools::pow2(w)] -= begin[i];
         }
       }
     NEXT_W:
@@ -25,10 +25,10 @@ namespace tools {
 
   template <typename InputIterator, typename OutputIterator>
   void subset_moebius(const InputIterator begin, const InputIterator end, const OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    ::std::vector<T> b(begin, end);
-    ::tools::subset_moebius(b.begin(), b.end());
-    ::std::move(b.begin(), b.end(), result);
+    using T = typename std::iterator_traits<InputIterator>::value_type;
+    std::vector<T> b(begin, end);
+    tools::subset_moebius(b.begin(), b.end());
+    std::move(b.begin(), b.end(), result);
   }
 }
 

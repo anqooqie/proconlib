@@ -10,15 +10,15 @@
 
 namespace tools {
 
-  template <::std::ranges::range R>
+  template <std::ranges::range R>
   long long inversion_number(R&& a) {
-    ::std::vector<int> compressed;
-    ::tools::compress(a, ::std::back_inserter(compressed));
+    std::vector<int> compressed;
+    tools::compress(a, std::back_inserter(compressed));
 
     if (compressed.empty()) return 0;
 
-    const auto max = *::std::ranges::max_element(compressed);
-    ::atcoder::fenwick_tree<int> fw(max + 1);
+    const auto max = *std::ranges::max_element(compressed);
+    atcoder::fenwick_tree<int> fw(max + 1);
     long long res = 0;
     for (const auto x : compressed) {
       res += fw.sum(x + 1, max + 1);

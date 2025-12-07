@@ -25,8 +25,8 @@ namespace tools {
     };
 
   private:
-    ::std::vector<edge> m_edges;
-    ::std::vector<::std::vector<int>> m_graph;
+    std::vector<edge> m_edges;
+    std::vector<std::vector<int>> m_graph;
 
   public:
     dijkstra() = default;
@@ -42,7 +42,7 @@ namespace tools {
       assert(0 <= v && v < this->size());
       assert(w >= 0);
       if constexpr (!Directed) {
-        ::std::tie(u, v) = ::std::minmax({u, v});
+        std::tie(u, v) = std::minmax({u, v});
       }
       this->m_edges.push_back({u, v, w});
       this->m_graph[u].push_back(this->m_edges.size() - 1);
@@ -54,20 +54,20 @@ namespace tools {
 
     template <typename Self>
     decltype(auto) get_edge(this Self&& self, const int k) {
-      assert(0 <= k && k < ::std::ssize(self.m_edges));
-      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
+      assert(0 <= k && k < std::ssize(self.m_edges));
+      if constexpr (std::is_lvalue_reference_v<Self&&>) {
         return static_cast<const edge&>(self.m_edges[k]);
       } else {
-        return edge(::std::forward_like<Self>(self.m_edges[k]));
+        return edge(std::forward_like<Self>(self.m_edges[k]));
       }
     }
 
     template <typename Self>
     decltype(auto) edges(this Self&& self) {
-      if constexpr (::std::is_lvalue_reference_v<Self&&>) {
-        return static_cast<const ::std::vector<edge>&>(self.m_edges);
+      if constexpr (std::is_lvalue_reference_v<Self&&>) {
+        return static_cast<const std::vector<edge>&>(self.m_edges);
       } else {
-        return ::std::vector<edge>(::std::forward_like<Self>(self.m_edges));
+        return std::vector<edge>(std::forward_like<Self>(self.m_edges));
       }
     }
 
@@ -75,11 +75,11 @@ namespace tools {
     auto query(const int s) const {
       assert(0 <= s && s < this->size());
 
-      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      std::vector<T> dist(this->size(), std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
+      std::vector<int> prev(Restore ? this->size() : 0, -1);
 
-      ::std::priority_queue<::std::pair<int, T>, ::std::vector<::std::pair<int, T>>, ::tools::greater_by_second> pq;
+      std::priority_queue<std::pair<int, T>, std::vector<std::pair<int, T>>, tools::greater_by_second> pq;
       pq.emplace(s, 0);
 
       while (!pq.empty()) {
@@ -89,7 +89,7 @@ namespace tools {
         for (const auto edge_id : this->m_graph[here]) {
           const auto& edge = this->m_edges[edge_id];
           const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);
-          if (::tools::chmin(dist[next], dist[here] + edge.cost)) {
+          if (tools::chmin(dist[next], dist[here] + edge.cost)) {
             if constexpr (Restore) {
               prev[next] = edge_id;
             }
@@ -99,7 +99,7 @@ namespace tools {
       }
 
       if constexpr (Restore) {
-        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
+        return tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
           return this->m_edges[e].from ^ (Directed ? 0 : this->m_edges[e].to ^ v);
         });
       } else {

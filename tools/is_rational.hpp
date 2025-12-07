@@ -8,7 +8,7 @@ namespace tools {
   struct is_rational : std::false_type {};
 
   template <typename T>
-  inline constexpr bool is_rational_v = ::tools::is_rational<T>::value;
+  inline constexpr bool is_rational_v = tools::is_rational<T>::value;
 }
 
 #endif

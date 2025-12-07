@@ -8,9 +8,9 @@
 #include "tools/polynomial.hpp"
 
 namespace tools {
-  template <::tools::modint M>
-  M bostan_mori(::tools::polynomial<M> P, ::tools::polynomial<M> Q, unsigned long long n) {
-    assert(::std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
+  template <tools::modint M>
+  M bostan_mori(tools::polynomial<M> P, tools::polynomial<M> Q, unsigned long long n) {
+    assert(std::gcd(Q.empty() ? 0 : Q[0].val(), M::mod()) == 1);
 
     P.regularize();
     Q.regularize();
@@ -18,7 +18,7 @@ namespace tools {
     while (n > 0) {
       // Q1(x) = Q(-x)
       auto Q1 = Q;
-      for (::std::size_t i = 1; i < Q1.size(); i += 2) {
+      for (std::size_t i = 1; i < Q1.size(); i += 2) {
         Q1[i] = -Q1[i];
       }
 
@@ -26,11 +26,11 @@ namespace tools {
       const auto QQ = Q * Q1;
 
       P.clear();
-      for (::std::size_t i = n & 1; i < PQ.size(); i += 2) {
+      for (std::size_t i = n & 1; i < PQ.size(); i += 2) {
         P.push_back(PQ[i]);
       }
       Q.clear();
-      for (::std::size_t i = 0; i < QQ.size(); i += 2) {
+      for (std::size_t i = 0; i < QQ.size(); i += 2) {
         Q.push_back(QQ[i]);
       }
 

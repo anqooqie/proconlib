@@ -5,10 +5,10 @@
 
 namespace tools {
   template <typename T>
-  struct make_signed : ::std::make_signed<T> {};
+  struct make_signed : std::make_signed<T> {};
 
   template <typename T>
-  using make_signed_t = typename ::tools::make_signed<T>::type;
+  using make_signed_t = typename tools::make_signed<T>::type;
 }
 
 #endif

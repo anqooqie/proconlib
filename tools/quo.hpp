@@ -8,9 +8,9 @@
 namespace tools {
 
   template <typename M, typename N> requires (
-    ::tools::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool> &&
-    ::tools::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>)
-  constexpr ::std::common_type_t<M, N> quo(const M a, const N b) noexcept {
+    tools::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool> &&
+    tools::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>)
+  constexpr std::common_type_t<M, N> quo(const M a, const N b) noexcept {
     assert(b != 0);
 
     if (a >= 0) {

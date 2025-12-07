@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename R>
-  concept commutative_ring = ::tools::ring<R> && ::tools::commutative_monoid<typename R::mul>;
+  concept commutative_ring = tools::ring<R> && tools::commutative_monoid<typename R::mul>;
 }
 
 #endif

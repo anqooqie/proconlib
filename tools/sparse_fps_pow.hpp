@@ -16,15 +16,15 @@
 
 namespace tools {
   template <typename InputIterator>
-  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>> sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned long long k, ::std::size_t n) {
-    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;
-    using F = ::tools::fps<M>;
+  tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(const InputIterator begin, const InputIterator end, const unsigned long long k, std::size_t n) {
+    using M = std::decay_t<decltype(std::declval<InputIterator>()->second)>;
+    using F = tools::fps<M>;
 
-    assert(::tools::is_prime(M::mod()));
+    assert(tools::is_prime(M::mod()));
     assert(n <= M::mod());
     assert(begin <= end);
-    assert(::std::all_of(begin, end, [](const auto& pair) { return pair.first >= 0; }));
-    assert(::std::is_sorted(begin, end, ::tools::less_by_first()));
+    assert(std::all_of(begin, end, [](const auto& pair) { return pair.first >= 0; }));
+    assert(std::is_sorted(begin, end, tools::less_by_first()));
 
     if (n == 0) {
       return F();
@@ -35,23 +35,23 @@ namespace tools {
       return res;
     }
 
-    const auto offset = ::std::find_if(begin, end, [](const auto& pair) { return pair.second != M::raw(0); });
+    const auto offset = std::find_if(begin, end, [](const auto& pair) { return pair.second != M::raw(0); });
     if (offset == end) {
       return F(n);
     }
-    if (::tools::ceil(n, k) <= static_cast<::std::size_t>(offset->first)) {
+    if (tools::ceil(n, k) <= static_cast<std::size_t>(offset->first)) {
       return F(n);
     }
 
     F res(n - offset->first * k);
-    const auto deg = [&](const auto& it) -> ::std::size_t { return it->first - offset->first; };
+    const auto deg = [&](const auto& it) -> std::size_t { return it->first - offset->first; };
 
-    ::tools::fact_mod_cache<M> cache;
+    tools::fact_mod_cache<M> cache;
     const auto ic = offset->second.inv();
 
     res[0] = offset->second.pow(k);
-    for (::std::size_t i = 1; i < n - offset->first * k; ++i) {
-      for (auto it = ::std::next(offset); it != end; ++it) {
+    for (std::size_t i = 1; i < n - offset->first * k; ++i) {
+      for (auto it = std::next(offset); it != end; ++it) {
         if (i < deg(it)) break;
         res[i] += (M(k) * M(deg(it)) - M(i - deg(it))) * it->second * res[i - deg(it)];
       }
@@ -63,24 +63,24 @@ namespace tools {
   }
 
   template <typename M>
-  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int, M>> il, const unsigned long long k, ::std::size_t n) {
-    return ::tools::sparse_fps_pow(il.begin(), il.end(), k, n);
+  tools::fps<M> sparse_fps_pow(const std::initializer_list<std::pair<int, M>> il, const unsigned long long k, std::size_t n) {
+    return tools::sparse_fps_pow(il.begin(), il.end(), k, n);
   }
 
   template <typename InputIterator>
-  ::tools::fps<::std::decay_t<decltype(::std::declval<InputIterator>()->second)>>
-  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const InputIterator g_begin, const InputIterator g_end, const unsigned long long k, ::std::size_t n) {
-    using M = ::std::decay_t<decltype(::std::declval<InputIterator>()->second)>;
-    using F = ::tools::fps<M>;
+  tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>>
+  sparse_fps_pow(const InputIterator f_begin, const InputIterator f_end, const InputIterator g_begin, const InputIterator g_end, const unsigned long long k, std::size_t n) {
+    using M = std::decay_t<decltype(std::declval<InputIterator>()->second)>;
+    using F = tools::fps<M>;
 
-    assert(::tools::is_prime(M::mod()));
+    assert(tools::is_prime(M::mod()));
     assert(n <= M::mod());
     assert(f_begin <= f_end);
-    assert(::std::all_of(f_begin, f_end, [](const auto& pair) { return pair.first >= 0; }));
-    assert(::std::is_sorted(f_begin, f_end, ::tools::less_by_first()));
+    assert(std::all_of(f_begin, f_end, [](const auto& pair) { return pair.first >= 0; }));
+    assert(std::is_sorted(f_begin, f_end, tools::less_by_first()));
     assert(g_begin < g_end);
-    assert(::std::all_of(g_begin, g_end, [](const auto& pair) { return pair.first >= 0; }));
-    assert(::std::is_sorted(g_begin, g_end, ::tools::less_by_first()));
+    assert(std::all_of(g_begin, g_end, [](const auto& pair) { return pair.first >= 0; }));
+    assert(std::is_sorted(g_begin, g_end, tools::less_by_first()));
     assert(g_begin->first == 0);
     assert(g_begin->second != M::raw(0));
 
@@ -93,22 +93,22 @@ namespace tools {
       return res;
     }
 
-    const auto f_offset = ::std::find_if(f_begin, f_end, [](const auto& pair) { return pair.second != M::raw(0); });
+    const auto f_offset = std::find_if(f_begin, f_end, [](const auto& pair) { return pair.second != M::raw(0); });
     if (f_offset == f_end) {
       return F(n);
     }
-    if (::tools::ceil(n, k) <= static_cast<::std::size_t>(f_offset->first)) {
+    if (tools::ceil(n, k) <= static_cast<std::size_t>(f_offset->first)) {
       return F(n);
     }
 
     F res(n - f_offset->first * k);
-    const auto f_deg = [&](const auto& it) -> ::std::size_t { return it->first - f_offset->first; };
+    const auto f_deg = [&](const auto& it) -> std::size_t { return it->first - f_offset->first; };
 
-    ::tools::fact_mod_cache<M> cache;
+    tools::fact_mod_cache<M> cache;
     const auto ic = (f_offset->second * g_begin->second).inv();
 
     res[0] = (f_offset->second / g_begin->second).pow(k);
-    for (::std::size_t i = 1; i < n - f_offset->first * k; ++i) {
+    for (std::size_t i = 1; i < n - f_offset->first * k; ++i) {
       for (auto f_it = f_offset; f_it != f_end; ++f_it) {
         if (i < f_deg(f_it)) break;
         for (auto g_it = std::next(g_begin, f_it == f_offset); g_it != g_end; ++g_it) {
@@ -124,8 +124,8 @@ namespace tools {
   }
 
   template <typename M>
-  ::tools::fps<M> sparse_fps_pow(const ::std::initializer_list<::std::pair<int, M>> f, const ::std::initializer_list<::std::pair<int, M>> g, const unsigned long long k, ::std::size_t n) {
-    return ::tools::sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n);
+  tools::fps<M> sparse_fps_pow(const std::initializer_list<std::pair<int, M>> f, const std::initializer_list<std::pair<int, M>> g, const unsigned long long k, std::size_t n) {
+    return tools::sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n);
   }
 }
 

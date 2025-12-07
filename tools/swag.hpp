@@ -7,12 +7,12 @@
 #include "tools/monoid.hpp"
 
 namespace tools {
-  template <::tools::monoid M>
+  template <tools::monoid M>
   class swag {
   private:
     using T = typename M::T;
-    ::std::stack<::std::pair<T, T>> m_head;
-    ::std::stack<::std::pair<T, T>> m_tail;
+    std::stack<std::pair<T, T>> m_head;
+    std::stack<std::pair<T, T>> m_tail;
 
     T head_prod() const {
       return this->m_head.empty() ? M::e() : this->m_head.top().second;
@@ -34,13 +34,13 @@ namespace tools {
 
     template <typename... Args>
     void emplace_back(Args&&... args) {
-      this->push_back(T(::std::forward<Args>(args)...));
+      this->push_back(T(std::forward<Args>(args)...));
     }
 
     void pop_back() {
       assert(!this->empty());
       if (this->m_tail.empty()) {
-        ::std::stack<T> tmp;
+        std::stack<T> tmp;
         while (tmp.size() + 1 < this->m_head.size()) {
           tmp.push(this->m_head.top().first);
           this->m_head.pop();
@@ -63,13 +63,13 @@ namespace tools {
 
     template <typename... Args>
     void emplace_front(Args&&... args) {
-      this->push_front(T(::std::forward<Args>(args)...));
+      this->push_front(T(std::forward<Args>(args)...));
     }
 
     void pop_front() {
       assert(!this->empty());
       if (this->m_head.empty()) {
-        ::std::stack<T> tmp;
+        std::stack<T> tmp;
         while (this->m_tail.size() > tmp.size() + 1) {
           tmp.push(this->m_tail.top().first);
           this->m_tail.pop();

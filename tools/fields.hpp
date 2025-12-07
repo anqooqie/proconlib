@@ -7,11 +7,11 @@
 
 namespace tools {
   namespace fields {
-    template <::tools::commutative_group A, ::tools::commutative_group M>
-    using of = ::tools::rings::of<A, M>;
+    template <tools::commutative_group A, tools::commutative_group M>
+    using of = tools::rings::of<A, M>;
 
     template <typename F>
-    using plus_multiplies = ::tools::fields::of<::tools::groups::plus<F>, ::tools::groups::multiplies<F>>;
+    using plus_multiplies = tools::fields::of<tools::groups::plus<F>, tools::groups::multiplies<F>>;
   }
 }
 

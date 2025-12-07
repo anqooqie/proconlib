@@ -7,7 +7,7 @@
 
 namespace tools {
   template <typename T>
-  concept non_bool_integral = ::tools::integral<T> && !::std::same_as<::std::remove_cv_t<T>, bool>;
+  concept non_bool_integral = tools::integral<T> && !std::same_as<std::remove_cv_t<T>, bool>;
 }
 
 #endif

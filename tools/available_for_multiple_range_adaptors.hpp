@@ -8,9 +8,9 @@
 
 namespace tools {
   template <typename T>
-  concept available_for_multiple_range_adaptors = ::std::ranges::forward_range<T>
-    && ::std::ranges::viewable_range<T>
-    && ::std::copyable<::std::views::all_t<T>>;
+  concept available_for_multiple_range_adaptors = std::ranges::forward_range<T>
+    && std::ranges::viewable_range<T>
+    && std::copyable<std::views::all_t<T>>;
 }
 
 #endif

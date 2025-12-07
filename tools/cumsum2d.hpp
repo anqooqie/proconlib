@@ -16,30 +16,30 @@ namespace tools {
 
   template <typename X>
   class cumsum2d {
-    using G = ::std::conditional_t<::tools::commutative_group<X>, X, ::tools::groups::plus<X>>;
+    using G = std::conditional_t<tools::commutative_group<X>, X, tools::groups::plus<X>>;
     using T = typename G::T;
     int m_height;
     int m_width;
-    ::std::vector<T> m_preprocessed;
+    std::vector<T> m_preprocessed;
 
     int p(const int y, const int x) const {
       return y * (this->m_width + 1) + x;
     }
 
   public:
-    template <::std::ranges::input_range R>
-    requires ::std::ranges::input_range<::std::ranges::range_reference_t<R>>
-          && ::std::assignable_from<T&, ::std::ranges::range_value_t<::std::ranges::range_reference_t<R>>>
+    template <std::ranges::input_range R>
+    requires std::ranges::input_range<std::ranges::range_reference_t<R>>
+          && std::assignable_from<T&, std::ranges::range_value_t<std::ranges::range_reference_t<R>>>
     explicit cumsum2d(R&& range) : m_height(0), m_width(0) {
-      for (auto&& row : ::std::forward<R>(range)) {
+      for (auto&& row : std::forward<R>(range)) {
         this->m_preprocessed.push_back(G::e());
         const auto old_size = this->m_preprocessed.size();
-        ::std::ranges::copy(::std::forward<decltype(row)>(row), ::std::back_inserter(this->m_preprocessed));
+        std::ranges::copy(std::forward<decltype(row)>(row), std::back_inserter(this->m_preprocessed));
         if (this->m_height == 0) {
           this->m_width = this->m_preprocessed.size() - old_size;
           this->m_preprocessed.insert(this->m_preprocessed.begin(), this->m_width + 1, G::e());
         } else {
-          assert(::std::cmp_equal(this->m_width, this->m_preprocessed.size() - old_size));
+          assert(std::cmp_equal(this->m_width, this->m_preprocessed.size() - old_size));
         }
         ++this->m_height;
       }

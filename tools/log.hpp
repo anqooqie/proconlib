@@ -6,7 +6,7 @@
 namespace tools {
   template <typename T>
   auto log(const T x) {
-    return ::std::log(x);
+    return std::log(x);
   }
 }
 

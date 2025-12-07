@@ -27,12 +27,12 @@ namespace tools {
       int idx;
     };
 
-    ::std::vector<::std::vector<internal_edge>> m_g;
-    ::std::vector<edge> m_edges;
-    ::std::vector<int> m_mate;
-    ::std::vector<int> m_label;
-    ::std::vector<int> m_first;
-    ::std::queue<int> m_que;
+    std::vector<std::vector<internal_edge>> m_g;
+    std::vector<edge> m_edges;
+    std::vector<int> m_mate;
+    std::vector<int> m_label;
+    std::vector<int> m_first;
+    std::queue<int> m_que;
 
   public:
     max_matching() = default;
@@ -46,7 +46,7 @@ namespace tools {
     int add_edge(int u, int v) {
       assert(0 <= u && u < this->size());
       assert(0 <= v && v < this->size());
-      ::std::tie(u, v) = ::std::minmax({u, v});
+      std::tie(u, v) = std::minmax({u, v});
       this->m_g[u + 1].push_back({v + 1, static_cast<int>(this->m_edges.size() + this->m_g.size())});
       this->m_g[v + 1].push_back({u + 1, static_cast<int>(this->m_edges.size() + this->m_g.size())});
       this->m_edges.push_back({u, v});
@@ -54,19 +54,19 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
       return this->m_edges[k];
     }
     edge get_edge(const int k) && {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return ::std::move(this->m_edges[k]);
+      assert(0 <= k && k < std::ssize(this->m_edges));
+      return std::move(this->m_edges[k]);
     }
 
-    const ::std::vector<edge>& edges() const & {
+    const std::vector<edge>& edges() const & {
       return this->m_edges;
     }
-    ::std::vector<edge> edges() && {
-      return ::std::move(this->m_edges);
+    std::vector<edge> edges() && {
+      return std::move(this->m_edges);
     }
 
   private:
@@ -80,7 +80,7 @@ namespace tools {
       const int t = this->m_mate[v];
       this->m_mate[v] = w;
       if (this->m_mate[t] != v) return;
-      if (this->m_label[v] < ::std::ssize(this->m_g)) {
+      if (this->m_label[v] < std::ssize(this->m_g)) {
         this->m_mate[t] = this->m_label[v];
         this->rematch(this->m_label[v], t);
       } else {
@@ -99,7 +99,7 @@ namespace tools {
       this->m_label[r] = -num;
       this->m_label[s] = -num;
       while (true) {
-        if (s != 0) ::std::swap(r, s);
+        if (s != 0) std::swap(r, s);
         r = this->find(this->m_label[this->m_mate[r]]);
         if (this->m_label[r] == -num) {
           join = r;
@@ -124,7 +124,7 @@ namespace tools {
     }
 
     bool augment_check(const int u) {
-      this->m_que = ::std::queue<int>{};
+      this->m_que = std::queue<int>{};
       this->m_first[u] = 0;
       this->m_label[u] = 0;
       this->m_que.push(u);
@@ -150,13 +150,13 @@ namespace tools {
     }
 
   public:
-    ::std::vector<::std::pair<int, int>> query() {
-      for (int i = 1; i < ::std::ssize(this->m_g); ++i) {
+    std::vector<std::pair<int, int>> query() {
+      for (int i = 1; i < std::ssize(this->m_g); ++i) {
         if (this->m_mate[i] != 0) continue;
         if (this->augment_check(i)) this->m_label.assign(this->m_g.size(), -1);
       }
-      ::std::vector<::std::pair<int, int>> ret;
-      for (int i = 1; i < ::std::ssize(this->m_g); ++i) {
+      std::vector<std::pair<int, int>> ret;
+      for (int i = 1; i < std::ssize(this->m_g); ++i) {
         if (i < this->m_mate[i]) ret.emplace_back(i - 1, this->m_mate[i] - 1);
       }
       return ret;

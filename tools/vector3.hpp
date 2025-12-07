@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename T>
-  using vector3 = ::tools::vector<T, 3>;
+  using vector3 = tools::vector<T, 3>;
 }
 
 #endif

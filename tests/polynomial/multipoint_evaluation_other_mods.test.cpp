@@ -17,7 +17,7 @@ std::vector<M> naive(const tools::polynomial<M>& f, const std::vector<M>& p) {
 }
 
 template <typename M = void>
-void verify_not_wa(const std::vector<int>& oc, const ::std::vector<int>& op) {
+void verify_not_wa(const std::vector<int>& oc, const std::vector<int>& op) {
   if constexpr (std::is_same_v<M, void>) {
 
     verify_not_wa<atcoder::static_modint<1>>(oc, op);

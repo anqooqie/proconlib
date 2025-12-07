@@ -22,33 +22,33 @@
 namespace tools {
   namespace detail {
     namespace matrix {
-      template <::std::size_t N, ::std::size_t M>
-      class members<::atcoder::static_modint<2>, N, M> {
+      template <std::size_t N, std::size_t M>
+      class members<atcoder::static_modint<2>, N, M> {
       protected:
         constexpr static bool variable_sized = false;
-        ::std::array<::std::bitset<M>, N> m_values;
+        std::array<std::bitset<M>, N> m_values;
         members() : m_values() {}
       };
       template <>
-      class members<::atcoder::static_modint<2>, ::std::numeric_limits<::std::size_t>::max(), ::std::numeric_limits<::std::size_t>::max()> {
+      class members<atcoder::static_modint<2>, std::numeric_limits<std::size_t>::max(), std::numeric_limits<std::size_t>::max()> {
       protected:
         constexpr static bool variable_sized = true;
-        ::std::vector<::tools::dynamic_bitset> m_values;
+        std::vector<tools::dynamic_bitset> m_values;
         int m_cols;
         members() = default;
-        members(const int rows, const int cols) : m_values(rows, ::tools::dynamic_bitset(cols)), m_cols(cols) {}
-        members(const int rows, const int cols, const ::atcoder::static_modint<2> value) : m_values(rows, value.val() ? ::tools::dynamic_bitset(cols).set() : ::tools::dynamic_bitset(cols)), m_cols(cols) {}
+        members(const int rows, const int cols) : m_values(rows, tools::dynamic_bitset(cols)), m_cols(cols) {}
+        members(const int rows, const int cols, const atcoder::static_modint<2> value) : m_values(rows, value.val() ? tools::dynamic_bitset(cols).set() : tools::dynamic_bitset(cols)), m_cols(cols) {}
       };
     }
   }
 
-  template <::std::size_t N, ::std::size_t M>
-  class matrix<::atcoder::static_modint<2>, N, M> : ::tools::detail::matrix::members<::atcoder::static_modint<2>, N, M> {
-    template <typename, ::std::size_t, ::std::size_t>
-    friend class ::tools::matrix;
-    using T = ::atcoder::static_modint<2>;
-    using Mat = ::tools::matrix<T, N, M>;
-    using Base = ::tools::detail::matrix::members<T, N, M>;
+  template <std::size_t N, std::size_t M>
+  class matrix<atcoder::static_modint<2>, N, M> : tools::detail::matrix::members<atcoder::static_modint<2>, N, M> {
+    template <typename, std::size_t, std::size_t>
+    friend class tools::matrix;
+    using T = atcoder::static_modint<2>;
+    using Mat = tools::matrix<T, N, M>;
+    using Base = tools::detail::matrix::members<T, N, M>;
     constexpr static bool variable_sized = Base::variable_sized;
 
   public:
@@ -59,7 +59,7 @@ namespace tools {
       friend Mat;
       friend class const_row_reference;
 
-      using wrapped = typename ::std::conditional_t<variable_sized, ::std::vector<::tools::dynamic_bitset>, ::std::array<::std::bitset<M>, N>>::iterator;
+      using wrapped = typename std::conditional_t<variable_sized, std::vector<tools::dynamic_bitset>, std::array<std::bitset<M>, N>>::iterator;
       wrapped m_it;
 
       explicit row_reference(const wrapped it) : m_it(it) {
@@ -69,14 +69,14 @@ namespace tools {
       row_reference() = default;
 
       reference operator[](const int c) const {
-        assert(0 <= c && c < ::std::ssize(*this->m_it));
+        assert(0 <= c && c < std::ssize(*this->m_it));
         return reference((*this->m_it)[c]);
       }
     };
     class reference {
       friend class row_reference;
 
-      using wrapped = typename ::std::conditional_t<variable_sized, ::tools::dynamic_bitset, ::std::bitset<M>>::reference;
+      using wrapped = typename std::conditional_t<variable_sized, tools::dynamic_bitset, std::bitset<M>>::reference;
       wrapped m_ref;
 
       explicit reference(const wrapped ref) : m_ref(ref) {
@@ -217,7 +217,7 @@ namespace tools {
     class const_row_reference {
       friend Mat;
 
-      using wrapped = typename ::std::conditional_t<variable_sized, ::std::vector<::tools::dynamic_bitset>, ::std::array<::std::bitset<M>, N>>::const_iterator;
+      using wrapped = typename std::conditional_t<variable_sized, std::vector<tools::dynamic_bitset>, std::array<std::bitset<M>, N>>::const_iterator;
       wrapped m_it;
 
       explicit const_row_reference(const wrapped it) : m_it(it) {
@@ -229,7 +229,7 @@ namespace tools {
       }
 
       T operator[](const int c) const {
-        assert(0 <= c && c < ::std::ssize(*this->m_it));
+        assert(0 <= c && c < std::ssize(*this->m_it));
         return T::raw(this->m_it->test(c));
       }
     };
@@ -240,9 +240,9 @@ namespace tools {
     template <bool SFINAE = variable_sized> requires (SFINAE)
     matrix(const int rows, const int cols, const T value) : Base(rows, cols, value) {}
     template <bool SFINAE = !variable_sized> requires (SFINAE)
-    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) {
+    matrix(const std::initializer_list<std::initializer_list<T>> il) {
       assert(il.size() == this->rows());
-      assert(::std::ranges::all_of(il, [&](const auto& row) { return ::std::ssize(row) == this->cols(); }));
+      assert(std::ranges::all_of(il, [&](const auto& row) { return std::ssize(row) == this->cols(); }));
       for (int r = 0; r < this->rows(); ++r) {
         for (int c = 0; c < this->cols(); ++c) {
           if (il.begin()[r].begin()[c].val()) {
@@ -251,9 +251,9 @@ namespace tools {
         }
       }
     }
-    template <bool SFINAE = variable_sized, ::std::nullptr_t = nullptr> requires (SFINAE)
-    matrix(const ::std::initializer_list<::std::initializer_list<T>> il) : Base(il.size(), il.size() ? il.begin()->size() : 0) {
-      assert(::std::ranges::all_of(il, [&](const auto& row) { return ::std::ssize(row) == this->cols(); }));
+    template <bool SFINAE = variable_sized, std::nullptr_t = nullptr> requires (SFINAE)
+    matrix(const std::initializer_list<std::initializer_list<T>> il) : Base(il.size(), il.size() ? il.begin()->size() : 0) {
+      assert(std::ranges::all_of(il, [&](const auto& row) { return std::ssize(row) == this->cols(); }));
       for (int r = 0; r < this->rows(); ++r) {
         for (int c = 0; c < this->cols(); ++c) {
           if (il.begin()[r].begin()[c].val()) {
@@ -298,17 +298,17 @@ namespace tools {
     friend Mat operator-(const Mat& lhs, const Mat& rhs) {
       return Mat(lhs) -= rhs;
     }
-    template <::std::size_t K> requires (!Mat::variable_sized || K == ::std::numeric_limits<::std::size_t>::max())
-    friend ::tools::matrix<T, N, K> operator*(const Mat& lhs, const ::tools::matrix<T, M, K>& rhs) {
+    template <std::size_t K> requires (!Mat::variable_sized || K == std::numeric_limits<std::size_t>::max())
+    friend tools::matrix<T, N, K> operator*(const Mat& lhs, const tools::matrix<T, M, K>& rhs) {
       assert(lhs.cols() == rhs.rows());
 
       const auto transposed = rhs.transposed();
 
       auto result = [&]() {
         if constexpr (Mat::variable_sized) {
-          return ::tools::matrix<T>(lhs.rows(), rhs.cols());
+          return tools::matrix<T>(lhs.rows(), rhs.cols());
         } else {
-          return ::tools::matrix<T, N, K>{};
+          return tools::matrix<T, N, K>{};
         }
       }();
       for (int i = 0; i < lhs.rows(); ++i) {
@@ -320,17 +320,17 @@ namespace tools {
       }
       return result;
     }
-    friend ::tools::vector<T, N> operator*(const Mat& lhs, const ::tools::vector<T, M>& rhs) {
+    friend tools::vector<T, N> operator*(const Mat& lhs, const tools::vector<T, M>& rhs) {
       assert(lhs.cols() == rhs.size());
 
       auto bitset = [&]() {
         if constexpr (Mat::variable_sized) {
-          return ::tools::dynamic_bitset(lhs.cols());
+          return tools::dynamic_bitset(lhs.cols());
         } else {
-          return ::std::bitset<M>{};
+          return std::bitset<M>{};
         }
       }();
-      for (int i = 0; i < ::std::ssize(rhs); ++i) {
+      for (int i = 0; i < std::ssize(rhs); ++i) {
         if (rhs[i].val()) {
           bitset.set(i);
         }
@@ -338,9 +338,9 @@ namespace tools {
 
       auto result = [&]() {
         if constexpr (Mat::variable_sized) {
-          return ::tools::vector<T>(lhs.rows());
+          return tools::vector<T>(lhs.rows());
         } else {
-          return ::tools::vector<T, N>{};
+          return tools::vector<T, N>{};
         }
       }();
       for (int i = 0; i < lhs.rows(); ++i) {
@@ -351,7 +351,7 @@ namespace tools {
     friend Mat operator*(const Mat& lhs, const T& rhs) {
       return Mat(lhs) *= rhs;
     }
-    friend Mat operator/(const Mat& lhs, const ::tools::matrix<T, M, M>& rhs) {
+    friend Mat operator/(const Mat& lhs, const tools::matrix<T, M, M>& rhs) {
       const auto inv = rhs.inv();
       assert(inv);
       return lhs * *inv;
@@ -370,7 +370,7 @@ namespace tools {
     Mat& operator-=(const Mat& other) {
       return *this += other;
     }
-    Mat& operator*=(const ::tools::matrix<T, M, M>& other) {
+    Mat& operator*=(const tools::matrix<T, M, M>& other) {
       return *this = *this * other;
     }
     Mat& operator*=(const T c) {
@@ -381,7 +381,7 @@ namespace tools {
       }
       return *this;
     }
-    Mat& operator/=(const ::tools::matrix<T, M, M>& other) {
+    Mat& operator/=(const tools::matrix<T, M, M>& other) {
       return *this = *this / other;
     }
     Mat& operator/=(const T c) {
@@ -399,7 +399,7 @@ namespace tools {
       return !(lhs == rhs);
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, Mat& self) {
+    friend std::istream& operator>>(std::istream& is, Mat& self) {
       for (int r = 0; r < self.rows(); ++r) {
         for (int c = 0; c < self.cols(); ++c) {
           char v;
@@ -412,11 +412,11 @@ namespace tools {
       }
       return is;
     }
-    friend ::std::ostream& operator<<(::std::ostream& os, const Mat& self) {
+    friend std::ostream& operator<<(std::ostream& os, const Mat& self) {
       for (int r = 0; r < self.rows(); ++r) {
         os << '[';
         for (int c = 0; c < self.cols(); ++c) {
-          os << ('0' + self.m_values[r].test(c)) << ::std::array<::std::string_view, 2>{", ", ""}[c == self.cols() - 1];
+          os << ('0' + self.m_values[r].test(c)) << std::array<std::string_view, 2>{", ", ""}[c == self.cols() - 1];
         }
         os << ']' << '\n';
       }
@@ -432,7 +432,7 @@ namespace tools {
         if (pivot == this->rows()) continue;
 
         if (pivot != rank) {
-          ::std::swap(this->m_values[rank], this->m_values[pivot]);
+          std::swap(this->m_values[rank], this->m_values[pivot]);
         }
 
         for (int r = 0; r < this->rows(); ++r) {
@@ -451,14 +451,14 @@ namespace tools {
       return (this->rows() < this->cols() ? this->transposed() : Mat(*this)).gauss_jordan();
     }
 
-    ::tools::matrix<T> solve(const ::tools::vector<T, N>& b) const {
-      assert(this->rows() == ::std::ssize(b));
+    tools::matrix<T> solve(const tools::vector<T, N>& b) const {
+      assert(this->rows() == std::ssize(b));
       assert(this->cols() >= 1);
       auto Ab = [&]() {
         if constexpr (variable_sized) {
           return Mat(this->rows(), this->cols() + 1);
         } else {
-          return ::tools::matrix<T, N, M + 1>{};
+          return tools::matrix<T, N, M + 1>{};
         }
       }();
       for (int r = 0; r < this->rows(); ++r) {
@@ -474,7 +474,7 @@ namespace tools {
 
       Ab.gauss_jordan();
 
-      ::std::vector<int> ranks(Ab.cols());
+      std::vector<int> ranks(Ab.cols());
       for (int r = 0, cl = 0, cr = 0; r <= Ab.rows(); ++r, cl = cr) {
         for (; cr < Ab.cols() && (r == Ab.rows() || !Ab.m_values[r].test(cr)); ++cr);
         for (int c = cl; c < cr; ++c) {
@@ -483,10 +483,10 @@ namespace tools {
       }
 
       if (ranks[Ab.cols() - 2] < ranks[Ab.cols() - 1]) {
-        return ::tools::matrix<T>(this->rows(), 0);
+        return tools::matrix<T>(this->rows(), 0);
       }
 
-      ::tools::matrix<T> answer(this->cols(), this->cols() - ranks.back() + 1);
+      tools::matrix<T> answer(this->cols(), this->cols() - ranks.back() + 1);
       int free = this->cols() - ranks.back() - 1;
 
       for (int l = this->cols(), r = this->cols(); r > 0; r = l) {
@@ -539,14 +539,14 @@ namespace tools {
     }
 
     template <bool SFINAE = variable_sized || N == M> requires (SFINAE)
-    ::std::optional<Mat> inv() const {
+    std::optional<Mat> inv() const {
       assert(this->rows() == this->cols());
 
       auto AI = [&]() {
         if constexpr (variable_sized) {
           return Mat(this->rows(), this->cols() * 2);
         } else {
-          return ::tools::matrix<T, N, M * 2>{};
+          return tools::matrix<T, N, M * 2>{};
         }
       }();
       for (int r = 0; r < this->rows(); ++r) {
@@ -560,7 +560,7 @@ namespace tools {
 
       AI.gauss_jordan();
       for (int i = 0; i < this->rows(); ++i) {
-        if (!AI.m_values[i].test(i)) return ::std::nullopt;
+        if (!AI.m_values[i].test(i)) return std::nullopt;
       }
 
       auto B = [&]() {
@@ -580,12 +580,12 @@ namespace tools {
       return B;
     }
 
-    ::tools::matrix<T, M, N> transposed() const {
+    tools::matrix<T, M, N> transposed() const {
       auto A_T = [&]() {
         if constexpr (variable_sized) {
           return Mat(this->cols(), this->rows());
         } else {
-          return ::tools::matrix<T, M, N>{};
+          return tools::matrix<T, M, N>{};
         }
       }();
       for (int r = 0; r < this->rows(); ++r) {

@@ -20,22 +20,22 @@ namespace tools {
 
     struct node {
       F lazy;
-      ::std::array<int, 2> children;
+      std::array<int, 2> children;
     };
 
   public:
     class buffer {
-      ::std::vector<::tools::persistent_dual_segtree<FM>::node> m_nodes;
+      std::vector<tools::persistent_dual_segtree<FM>::node> m_nodes;
       long long m_offset;
       long long m_size;
       int m_height;
 
     public:
-      friend ::tools::persistent_dual_segtree<FM>;
+      friend tools::persistent_dual_segtree<FM>;
     };
 
   private:
-    ::tools::persistent_dual_segtree<FM>::buffer *m_buffer;
+    tools::persistent_dual_segtree<FM>::buffer *m_buffer;
     int m_root;
 
     long long capacity() const {
@@ -44,12 +44,12 @@ namespace tools {
 
   public:
     persistent_dual_segtree() = default;
-    persistent_dual_segtree(::tools::persistent_dual_segtree<FM>::buffer& buffer, const long long l_star, const long long r_star) : m_buffer(&buffer) {
+    persistent_dual_segtree(tools::persistent_dual_segtree<FM>::buffer& buffer, const long long l_star, const long long r_star) : m_buffer(&buffer) {
       assert(buffer.m_nodes.empty());
       assert(l_star <= r_star);
       buffer.m_offset = l_star;
       buffer.m_size = r_star - l_star;
-      buffer.m_height = ::tools::ceil_log2(::std::max(1LL, r_star - l_star));
+      buffer.m_height = tools::ceil_log2(std::max(1LL, r_star - l_star));
       buffer.m_nodes.push_back({FM::e(), {-1, -1}});
       for (int k = 1; k <= buffer.m_height; ++k) {
         buffer.m_nodes.push_back({FM::e(), {k - 1, k - 1}});
@@ -68,19 +68,19 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       p -= buffer.m_offset;
 
-      return ::tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> F {
+      return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> F {
         assert(kl < kr);
         if (p <= kl && kr <= p + 1) return FM::op(lz, buffer.m_nodes[k].lazy);
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         if (p < km) return dfs(buffer.m_nodes[k].children[0], kl, km, next_lz);
         else return dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
       })(this->m_root, 0, this->capacity(), FM::e());
     }
-    ::tools::persistent_dual_segtree<FM> apply(const long long p, const F& f) const {
+    tools::persistent_dual_segtree<FM> apply(const long long p, const F& f) const {
       return this->apply(p, p + 1, f);
     }
-    ::tools::persistent_dual_segtree<FM> apply(long long l, long long r, const F& f) const {
+    tools::persistent_dual_segtree<FM> apply(long long l, long long r, const F& f) const {
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return *this;
       auto& buffer = *this->m_buffer;
@@ -88,7 +88,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = ::tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
+      res.m_root = tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           const F modified_lz = FM::op(f, lz);
@@ -100,7 +100,7 @@ namespace tools {
           buffer.m_nodes.push_back({FM::op(lz, buffer.m_nodes[k].lazy), buffer.m_nodes[k].children});
           return buffer.m_nodes.size() - 1;
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         const auto left_child = dfs(buffer.m_nodes[k].children[0], kl, km, next_lz);
         const auto right_child = dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
@@ -109,7 +109,7 @@ namespace tools {
       })(res.m_root, 0, res.capacity(), FM::e());
       return res;
     }
-    ::tools::persistent_dual_segtree<FM> rollback(const ::tools::persistent_dual_segtree<FM>& s, long long l, long long r) const {
+    tools::persistent_dual_segtree<FM> rollback(const tools::persistent_dual_segtree<FM>& s, long long l, long long r) const {
       assert(this->m_buffer == s.m_buffer);
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return *this;
@@ -119,7 +119,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = ::tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
+      res.m_root = tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           if (lz2 == FM::e()) return k2;
@@ -131,7 +131,7 @@ namespace tools {
           buffer.m_nodes.push_back({FM::op(lz1, buffer.m_nodes[k1].lazy), buffer.m_nodes[k1].children});
           return buffer.m_nodes.size() - 1;
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz1 = FM::op(lz1, buffer.m_nodes[k1].lazy);
         const F next_lz2 = FM::op(lz2, buffer.m_nodes[k2].lazy);
         const auto left_child = dfs(buffer.m_nodes[k1].children[0], buffer.m_nodes[k2].children[0], kl, km, next_lz1, next_lz2);

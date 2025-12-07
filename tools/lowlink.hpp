@@ -24,37 +24,37 @@ namespace tools {
     };
 
   private:
-    ::std::vector<edge> m_edges;
-    ::std::vector<::std::vector<int>> m_graph;
+    std::vector<edge> m_edges;
+    std::vector<std::vector<int>> m_graph;
     bool m_built;
-    ::std::vector<int> m_from;
-    ::std::vector<int> m_ord;
-    ::std::vector<int> m_low;
+    std::vector<int> m_from;
+    std::vector<int> m_ord;
+    std::vector<int> m_low;
     int m_ncc;
-    ::std::vector<int> m_ncc_without_vertex;
+    std::vector<int> m_ncc_without_vertex;
 
   public:
     class neighbors_iterable {
     private:
-      ::tools::lowlink const *m_parent;
+      tools::lowlink const *m_parent;
       int m_v;
 
     public:
       class iterator {
       private:
-        ::tools::lowlink const *m_parent;
+        tools::lowlink const *m_parent;
         int m_v;
         int m_i;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = int;
         using reference = const int&;
         using pointer = const int*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
+        iterator(tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
         }
 
         value_type operator*() const {
@@ -81,7 +81,7 @@ namespace tools {
       };
 
       neighbors_iterable() = default;
-      neighbors_iterable(::tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
+      neighbors_iterable(tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
       }
 
       iterator begin() const {
@@ -94,25 +94,25 @@ namespace tools {
 
     class edges_iterable {
     private:
-      ::tools::lowlink const *m_parent;
+      tools::lowlink const *m_parent;
       int m_v;
 
     public:
       class iterator {
       private:
-        ::tools::lowlink const *m_parent;
+        tools::lowlink const *m_parent;
         int m_v;
         int m_i;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = edge;
         using reference = const edge&;
         using pointer = const edge*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
+        iterator(tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
         }
 
         reference operator*() const {
@@ -138,7 +138,7 @@ namespace tools {
       };
 
       edges_iterable() = default;
-      edges_iterable(::tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
+      edges_iterable(tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
       }
 
       iterator begin() const {
@@ -151,27 +151,27 @@ namespace tools {
 
     class vchildren_iterable {
     private:
-      ::tools::lowlink const *m_parent;
+      tools::lowlink const *m_parent;
       int m_v;
 
     public:
       class iterator {
       private:
-        ::tools::lowlink const *m_parent;
+        tools::lowlink const *m_parent;
         int m_v;
         int m_i;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = int;
         using reference = const int&;
         using pointer = const int*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
+        iterator(tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          for (; this->m_i < ::std::ssize(eids) && [&]() {
+          for (; this->m_i < std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -184,9 +184,9 @@ namespace tools {
         }
         iterator& operator++() {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          assert(this->m_i < ::std::ssize(eids));
+          assert(this->m_i < std::ssize(eids));
 
-          for (++this->m_i; this->m_i < ::std::ssize(eids) && [&]() {
+          for (++this->m_i; this->m_i < std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -210,7 +210,7 @@ namespace tools {
       };
 
       vchildren_iterable() = default;
-      vchildren_iterable(::tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
+      vchildren_iterable(tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
       }
 
       iterator begin() const {
@@ -223,27 +223,27 @@ namespace tools {
 
     class echildren_iterable {
     private:
-      ::tools::lowlink const *m_parent;
+      tools::lowlink const *m_parent;
       int m_v;
 
     public:
       class iterator {
       private:
-        ::tools::lowlink const *m_parent;
+        tools::lowlink const *m_parent;
         int m_v;
         int m_i;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = edge;
         using reference = const edge&;
         using pointer = const edge*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
+        iterator(tools::lowlink const * const parent, const int v, const int i) : m_parent(parent), m_v(v), m_i(i) {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          for (; this->m_i < ::std::ssize(eids) && [&]() {
+          for (; this->m_i < std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -255,9 +255,9 @@ namespace tools {
         }
         iterator& operator++() {
           const auto& eids = this->m_parent->m_graph[this->m_v];
-          assert(this->m_i < ::std::ssize(eids));
+          assert(this->m_i < std::ssize(eids));
 
-          for (++this->m_i; this->m_i < ::std::ssize(eids) && [&]() {
+          for (++this->m_i; this->m_i < std::ssize(eids) && [&]() {
             const auto eid = eids[this->m_i];
             const auto& edge = this->m_parent->m_edges[eid];
             return this->m_parent->m_from[edge.from ^ edge.to ^ this->m_v] != eid;
@@ -281,7 +281,7 @@ namespace tools {
       };
 
       echildren_iterable() = default;
-      echildren_iterable(::tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
+      echildren_iterable(tools::lowlink const * const parent, const int v) : m_parent(parent), m_v(v) {
       }
 
       iterator begin() const {
@@ -304,7 +304,7 @@ namespace tools {
       assert(!this->m_built);
       assert(0 <= u && u < this->size());
       assert(0 <= v && v < this->size());
-      ::std::tie(u, v) = ::std::minmax({u, v});
+      std::tie(u, v) = std::minmax({u, v});
       this->m_edges.push_back(edge{u, v});
       this->m_graph[u].push_back(this->m_edges.size() - 1);
       this->m_graph[v].push_back(this->m_edges.size() - 1);
@@ -312,11 +312,11 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
       return this->m_edges[k];
     }
 
-    const ::std::vector<edge>& edges() const {
+    const std::vector<edge>& edges() const {
       return this->m_edges;
     }
 
@@ -347,7 +347,7 @@ namespace tools {
         ++this->m_ncc;
         int next_ord = 0;
 
-        ::std::stack<::std::pair<int, int>> stack;
+        std::stack<std::pair<int, int>> stack;
         stack.emplace(r, N_A);
         stack.emplace(r, N_A - 1);
         while (!stack.empty()) {
@@ -376,9 +376,9 @@ namespace tools {
               const auto& edge = this->m_edges[eid];
               const auto u = edge.from ^ edge.to ^ v;
               if (this->m_ord[u] < this->m_ord[v] && eid != this->m_from[v]) {
-                ::tools::chmin(this->m_low[v], this->m_ord[u]);
+                tools::chmin(this->m_low[v], this->m_ord[u]);
               } else if (this->m_ord[u] > this->m_ord[v] && eid == this->m_from[u]) {
-                ::tools::chmin(this->m_low[v], this->m_low[u]);
+                tools::chmin(this->m_low[v], this->m_low[u]);
               }
             }
           }
@@ -390,7 +390,7 @@ namespace tools {
       this->m_ncc_without_vertex.assign(this->size(), this->m_ncc);
       for (int v = 0; v < this->size(); ++v) {
         if (this->m_ord[v] == 0) {
-          this->m_ncc_without_vertex[v] += ::std::distance(this->echildren(v).begin(), this->echildren(v).end());
+          this->m_ncc_without_vertex[v] += std::distance(this->echildren(v).begin(), this->echildren(v).end());
           --this->m_ncc_without_vertex[v];
         } else {
           for (const auto& edge : this->echildren(v)) {
@@ -470,26 +470,26 @@ namespace tools {
 
     bool is_bridge(const int k) const {
       assert(this->m_built);
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
 
-      const auto [u, v] = ::std::minmax({this->m_edges[k].from, this->m_edges[k].to}, ::tools::less_by([&](const auto w) { return this->m_ord[w]; }));
+      const auto [u, v] = std::minmax({this->m_edges[k].from, this->m_edges[k].to}, tools::less_by([&](const auto w) { return this->m_ord[w]; }));
       return this->m_ord[u] < this->m_low[v];
     }
 
-    ::std::vector<::std::vector<int>> biconnected_components() const {
+    std::vector<std::vector<int>> biconnected_components() const {
       assert(this->m_built);
 
-      ::std::vector<::std::vector<int>> groups;
+      std::vector<std::vector<int>> groups;
 
       for (int r = 0; r < this->size(); ++r) {
         if (this->ord(r) == 0) {
           if (this->m_ncc_without_vertex[r] < this->m_ncc) {
-            groups.emplace_back(::std::initializer_list<int>{r});
+            groups.emplace_back(std::initializer_list<int>{r});
           } else {
-            ::tools::fix([&](auto&& dfs, const auto g, const auto v) -> void {
+            tools::fix([&](auto&& dfs, const auto g, const auto v) -> void {
               for (const auto u : this->vchildren(v)) {
                 if (this->ord(v) <= this->low(u)) {
-                  groups.emplace_back(::std::initializer_list<int>{v, u});
+                  groups.emplace_back(std::initializer_list<int>{v, u});
                   dfs(groups.size() - 1, u);
                 } else {
                   groups[g].push_back(u);

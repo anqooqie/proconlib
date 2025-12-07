@@ -11,9 +11,9 @@
 namespace tools {
   class undoable_dsu {
   private:
-    ::std::vector<int> m_data;
+    std::vector<int> m_data;
     int m_ncc;
-    ::std::stack<::std::tuple<int, int, int, int, int>> m_history;
+    std::stack<std::tuple<int, int, int, int, int>> m_history;
 
     int size() const {
       return this->m_data.size();
@@ -43,7 +43,7 @@ namespace tools {
 
       x = this->leader(x);
       y = this->leader(y);
-      if (this->m_data[x] > this->m_data[y]) ::std::swap(x, y);
+      if (this->m_data[x] > this->m_data[y]) std::swap(x, y);
       this->m_history.emplace(x, y, this->m_data[x], this->m_data[y], this->m_ncc);
 
       if (x == y) return x;
@@ -72,12 +72,12 @@ namespace tools {
       this->m_ncc = ncc;
     }
 
-    ::std::vector<::std::vector<int>> groups() {
-      ::std::vector<::std::vector<int>> res(this->size());
+    std::vector<std::vector<int>> groups() {
+      std::vector<std::vector<int>> res(this->size());
       for (int i = 0; i < this->size(); ++i) {
         res[this->leader(i)].push_back(i);
       }
-      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
+      res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
     }
 

@@ -12,7 +12,7 @@
 namespace tools {
   template <typename T>
   class eratosthenes_sieve {
-    constexpr static ::std::array<::std::uint64_t, 15> init = {
+    constexpr static std::array<std::uint64_t, 15> init = {
       UINT64_C(0b0010100000100010100010100010000010100000100010100010100010000010),
       UINT64_C(0b1000001010000010001010001010001000001010000010001010001010001000),
       UINT64_C(0b1000100000101000001000101000101000100000101000001000101000101000),
@@ -29,31 +29,31 @@ namespace tools {
       UINT64_C(0b0010001010001010001000001010000010001010001010001000001010000010),
       UINT64_C(0b1000001000101000101000100000101000001000101000101000100000101000),
     };
-    ::std::vector<::std::uint64_t> m_is_prime;
+    std::vector<std::uint64_t> m_is_prime;
     int m_n;
 
   public:
     class prime_iterable {
     private:
-      ::tools::eratosthenes_sieve<T> const *m_parent;
+      tools::eratosthenes_sieve<T> const *m_parent;
       int m_l;
       int m_r;
 
     public:
       class iterator {
       private:
-        ::tools::eratosthenes_sieve<T> const *m_parent;
+        tools::eratosthenes_sieve<T> const *m_parent;
         int m_p;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = T;
         using reference = const T&;
         using pointer = const T*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::eratosthenes_sieve<T> const * const parent, const int p) : m_parent(parent), m_p(p) {
+        iterator(tools::eratosthenes_sieve<T> const * const parent, const int p) : m_parent(parent), m_p(p) {
           for (; this->m_p <= parent->m_n && !parent->is_prime(this->m_p); ++this->m_p);
         }
 
@@ -79,7 +79,7 @@ namespace tools {
       };
 
       prime_iterable() = default;
-      prime_iterable(::tools::eratosthenes_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
+      prime_iterable(tools::eratosthenes_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
       }
 
       iterator begin() const {
@@ -95,7 +95,7 @@ namespace tools {
       assert(n >= 1);
       this->m_is_prime.reserve((n >> 6) + 1);
       for (int i = 0; i <= n; i += 960) {
-        ::std::copy(init.begin(), n < i + 959 ? ::std::next(init.begin(), (n >> 6) % 15 + 1) : init.end(), ::std::back_inserter(this->m_is_prime));
+        std::copy(init.begin(), n < i + 959 ? std::next(init.begin(), (n >> 6) % 15 + 1) : init.end(), std::back_inserter(this->m_is_prime));
       }
       this->m_is_prime[0] ^= UINT64_C(0b101110);
 

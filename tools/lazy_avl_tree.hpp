@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename SM, typename FM, auto mapping, bool Reversible = false>
-  using lazy_avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM, FM, mapping>;
+  using lazy_avl_tree = tools::detail::avl_tree::avl_tree_impl<Reversible, SM, FM, mapping>;
 }
 
 #endif

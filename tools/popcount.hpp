@@ -15,18 +15,18 @@ namespace tools {
 
   template <typename T>
   constexpr int popcount(const T x) noexcept {
-    static_assert(::tools::is_integral_v<T> && !::std::is_same_v<::std::remove_cv_t<T>, bool>);
-    if constexpr (::tools::is_signed_v<T>) {
+    static_assert(tools::is_integral_v<T> && !std::is_same_v<std::remove_cv_t<T>, bool>);
+    if constexpr (tools::is_signed_v<T>) {
       assert(x >= 0);
-      return ::tools::popcount<::tools::make_unsigned_t<T>>(x);
+      return tools::popcount<tools::make_unsigned_t<T>>(x);
     } else {
-      return ::std::popcount(x);
+      return std::popcount(x);
     }
   }
 
 #if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
   template <>
-  constexpr int popcount<::tools::uint128_t>(::tools::uint128_t x) noexcept {
+  constexpr int popcount<tools::uint128_t>(tools::uint128_t x) noexcept {
     x = (x & UINT128_C(0x55555555555555555555555555555555)) + (x >> 1 & UINT128_C(0x55555555555555555555555555555555));
     x = (x & UINT128_C(0x33333333333333333333333333333333)) + (x >> 2 & UINT128_C(0x33333333333333333333333333333333));
     x = (x & UINT128_C(0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT128_C(0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f));

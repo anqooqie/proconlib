@@ -23,8 +23,8 @@ namespace tools {
 
       void load() {
         const int len = in_right - in_left;
-        ::std::memmove(inbuf, inbuf + in_left, len);
-        in_right = len + ::std::fread(inbuf + len, 1, SZ - len, stdin);
+        std::memmove(inbuf, inbuf + in_left, len);
+        in_right = len + std::fread(inbuf + len, 1, SZ - len, stdin);
         in_left = 0;
       }
 
@@ -38,7 +38,7 @@ namespace tools {
         c = inbuf[in_left++];
       }
 
-      void rd(::std::string& s) {
+      void rd(std::string& s) {
         for (; (in_left < in_right || (load(), in_left < in_right)) && (inbuf[in_left] == ' ' || inbuf[in_left] == '\n'); ++in_left);
         s.clear();
         if (in_left == in_right) return;
@@ -48,9 +48,9 @@ namespace tools {
           for (to = in_left; to < in_right && inbuf[to] != ' ' && inbuf[to] != '\n'; ++to);
           const int new_real_size = real_size + (to - in_left);
           if (int(s.size()) < new_real_size) {
-            s.resize(::std::max(new_real_size, int(s.size()) * 2));
+            s.resize(std::max(new_real_size, int(s.size()) * 2));
           }
-          ::std::memcpy(s.data() + real_size, inbuf + in_left, to - in_left);
+          std::memcpy(s.data() + real_size, inbuf + in_left, to - in_left);
           in_left = to;
           real_size = new_real_size;
         } while (in_left == in_right && (load(), in_left < in_right));
@@ -65,7 +65,7 @@ namespace tools {
           c = inbuf[in_left++];
         } while (c < '-');
         [[maybe_unused]] bool minus = false;
-        if constexpr (::std::is_signed_v<T>) {
+        if constexpr (std::is_signed_v<T>) {
           if (c == '-') {
             minus = true;
             c = inbuf[in_left++];
@@ -76,7 +76,7 @@ namespace tools {
           x = x * 10 + (c & 15);
           c = inbuf[in_left++];
         }
-        if constexpr (::std::is_signed_v<T>) {
+        if constexpr (std::is_signed_v<T>) {
           if (minus) x = -x;
         }
       }
@@ -85,13 +85,13 @@ namespace tools {
 
   struct istream {
     template <typename... Args>
-    ::tools::istream& operator>>(Args&&... args) {
-      ::tools::detail::istream::rd(::std::forward<Args>(args)...);
+    tools::istream& operator>>(Args&&... args) {
+      tools::detail::istream::rd(std::forward<Args>(args)...);
       return *this;
     }
   };
 
-  ::tools::istream cin;
+  tools::istream cin;
 }
 
 #endif

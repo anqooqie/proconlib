@@ -5,10 +5,10 @@
 
 namespace tools {
   template <typename T>
-  struct is_unsigned : ::std::is_unsigned<T> {};
+  struct is_unsigned : std::is_unsigned<T> {};
 
   template <typename T>
-  inline constexpr bool is_unsigned_v = ::tools::is_unsigned<T>::value;
+  inline constexpr bool is_unsigned_v = tools::is_unsigned<T>::value;
 }
 
 #endif

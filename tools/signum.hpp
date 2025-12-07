@@ -7,7 +7,7 @@ namespace tools {
 
   template <typename T>
   constexpr int signum(const T x) noexcept {
-    if constexpr (::tools::is_unsigned_v<T>) {
+    if constexpr (tools::is_unsigned_v<T>) {
       return T(0) < x;
     } else {
       return (T(0) < x) - (x < T(0));

@@ -14,7 +14,7 @@ int main() {
   for (ll t = 0; t < T; ++t) {
     ll X, Y, M;
     std::cin >> X >> Y >> M;
-    if (const auto answer = ::tools::log_mod(X, Y, M); answer) {
+    if (const auto answer = tools::log_mod(X, Y, M); answer) {
       std::cout << *answer << '\n';
     } else {
       std::cout << -1 << '\n';

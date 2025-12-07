@@ -11,11 +11,11 @@ namespace tools {
   void superset_zeta(const RandomAccessIterator begin, const RandomAccessIterator end) {
     const int N = end - begin;
 
-    for (int w = 0; ::tools::pow2(w) < N; ++w) {
-      for (int i = 0; ; i += ::tools::pow2(w)) {
+    for (int w = 0; tools::pow2(w) < N; ++w) {
+      for (int i = 0; ; i += tools::pow2(w)) {
         for (; !((i >> w) & 1); ++i) {
-          if (!(i + ::tools::pow2(w) < N)) goto NEXT_W;
-          begin[i] += begin[i + ::tools::pow2(w)];
+          if (!(i + tools::pow2(w) < N)) goto NEXT_W;
+          begin[i] += begin[i + tools::pow2(w)];
         }
       }
     NEXT_W:
@@ -25,10 +25,10 @@ namespace tools {
 
   template <typename InputIterator, typename OutputIterator>
   void superset_zeta(const InputIterator begin, const InputIterator end, const OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    ::std::vector<T> a(begin, end);
-    ::tools::superset_zeta(a.begin(), a.end());
-    ::std::move(a.begin(), a.end(), result);
+    using T = typename std::iterator_traits<InputIterator>::value_type;
+    std::vector<T> a(begin, end);
+    tools::superset_zeta(a.begin(), a.end());
+    std::move(a.begin(), a.end(), result);
   }
 }
 

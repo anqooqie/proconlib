@@ -23,12 +23,12 @@
 
 using ll = long long;
 using ull = unsigned long long;
-using i32 = ::std::int32_t;
-using u32 = ::std::uint32_t;
-using i64 = ::std::int64_t;
-using u64 = ::std::uint64_t;
+using i32 = std::int32_t;
+using u32 = std::uint32_t;
+using i64 = std::int64_t;
+using u64 = std::uint64_t;
 
-#define ALL(x) ::std::begin(x), ::std::end(x)
+#define ALL(x) std::begin(x), std::end(x)
 #define REP(i, n) for (long long i = 0, i##_len = static_cast<long long>(n); i < i##_len; ++i)
 
 #endif

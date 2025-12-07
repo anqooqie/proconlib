@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename F>
-  concept field = ::tools::commutative_ring<F> && ::tools::commutative_group<typename F::mul>;
+  concept field = tools::commutative_ring<F> && tools::commutative_group<typename F::mul>;
 }
 
 #endif

@@ -20,18 +20,18 @@ namespace tools {
     using S = typename SM::T;
     using F = typename FM::T;
     static_assert(
-      ::std::is_convertible_v<decltype(mapping), ::std::function<S(F, S)>>,
+      std::is_convertible_v<decltype(mapping), std::function<S(F, S)>>,
       "mapping must work as S(F, S)");
 
     template <typename T>
-    static constexpr bool has_data = !::std::is_same_v<T, ::tools::nop_monoid>;
+    static constexpr bool has_data = !std::is_same_v<T, tools::nop_monoid>;
     template <typename T>
-    static constexpr bool has_lazy = !::std::is_same_v<T, ::tools::nop_monoid>;
+    static constexpr bool has_lazy = !std::is_same_v<T, tools::nop_monoid>;
 
     int m_size;
     int m_height;
-    ::std::vector<S> m_data;
-    ::std::vector<F> m_lazy;
+    std::vector<S> m_data;
+    std::vector<F> m_lazy;
 
     int capacity() const {
       return 1 << this->m_height;
@@ -62,16 +62,16 @@ namespace tools {
   public:
     lazy_segtree() = default;
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    explicit lazy_segtree(const int n) : lazy_segtree(::std::vector<S>(n, SM::e())) {
+    explicit lazy_segtree(const int n) : lazy_segtree(std::vector<S>(n, SM::e())) {
     }
     template <typename SFINAE = SM> requires (!has_data<SFINAE>)
-    explicit lazy_segtree(const int n) : m_size(n), m_height(::tools::ceil_log2(::std::max(1, n))) {
+    explicit lazy_segtree(const int n) : m_size(n), m_height(tools::ceil_log2(std::max(1, n))) {
       this->m_lazy.assign(2 * this->capacity(), FM::e());
     }
-    template <::std::ranges::range R, typename SFINAE = SM> requires (has_data<SFINAE>)
-    explicit lazy_segtree(R&& r) : m_data(::std::ranges::begin(r), ::std::ranges::end(r)) {
+    template <std::ranges::range R, typename SFINAE = SM> requires (has_data<SFINAE>)
+    explicit lazy_segtree(R&& r) : m_data(std::ranges::begin(r), std::ranges::end(r)) {
       this->m_size = this->m_data.size();
-      this->m_height = ::tools::ceil_log2(::std::max(1, this->m_size));
+      this->m_height = tools::ceil_log2(std::max(1, this->m_size));
       this->m_data.reserve(2 * this->capacity());
       this->m_data.insert(this->m_data.begin(), this->capacity(), SM::e());
       this->m_data.resize(2 * this->capacity(), SM::e());
@@ -87,7 +87,7 @@ namespace tools {
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     void set(const int p, const S& x) {
       assert(0 <= p && p < this->m_size);
-      ::tools::fix([&](auto&& dfs, const int h, const int k) -> void {
+      tools::fix([&](auto&& dfs, const int h, const int k) -> void {
         if (h > 0) {
           if constexpr (has_lazy<FM>) {
             this->push(k);
@@ -106,7 +106,7 @@ namespace tools {
     template <typename SFINAE = SM> requires (!has_data<SFINAE>)
     F get(const int p) {
       assert(0 <= p && p < this->m_size);
-      return ::tools::fix([&](auto&& dfs, const int h, const int k) -> F {
+      return tools::fix([&](auto&& dfs, const int h, const int k) -> F {
         if (h > 0) {
           this->push(k);
           return dfs(h - 1, (this->capacity() + p) >> (h - 1));
@@ -119,13 +119,13 @@ namespace tools {
     S prod(const int l, const int r) {
       assert(0 <= l && l <= r && r <= this->m_size);
       if (l == r) return SM::e();
-      return ::tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> S {
+      return tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> S {
         assert(kl < kr);
         if (l <= kl && kr <= r) return this->m_data[k];
         if constexpr (has_lazy<FM>) {
           this->push(k);
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         S res = SM::e();
         if (l < km) res = SM::op(res, dfs(k << 1, kl, km));
         if (km < r) res = SM::op(res, dfs((k << 1) + 1, km, kr));
@@ -144,14 +144,14 @@ namespace tools {
     void apply(const int l, const int r, const F& f) {
       assert(0 <= l && l <= r && r <= this->m_size);
       if (l == r) return;
-      ::tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> void {
+      tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> void {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           this->all_apply(k, f);
           return;
         }
         this->push(k);
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         if (l < km) dfs(k << 1, kl, km);
         if (km < r) dfs((k << 1) + 1, km, kr);
         if constexpr (has_data<SM>) {
@@ -164,14 +164,14 @@ namespace tools {
       assert(0 <= l && l <= this->m_size);
       assert(g(SM::e()));
       if (l == this->m_size) return l;
-      return ::std::min(::tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> ::std::pair<S, int> {
+      return std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
           if constexpr (has_lazy<FM>) {
             this->push(k);
           }
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           if (l < km) {
             const auto [hc, hr] = dfs(c, k << 1, kl, km);
             assert(l <= hr && hr <= km);
@@ -186,7 +186,7 @@ namespace tools {
           if constexpr (has_lazy<FM>) {
             this->push(k);
           }
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const auto [hc, hr] = dfs(c, k << 1, kl, km);
           assert(l <= hr && hr <= km);
           if (hr < km) return {hc, hr};
@@ -199,14 +199,14 @@ namespace tools {
       assert(0 <= r && r <= this->m_size);
       assert(g(SM::e()));
       if (r == 0) return r;
-      return ::tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> ::std::pair<S, int> {
+      return tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
           if constexpr (has_lazy<FM>) {
             this->push(k);
           }
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           if (km < r) {
             const auto [hc, hl] = dfs(c, (k << 1) + 1, km, kr);
             assert(km <= hl && hl <= r);
@@ -221,7 +221,7 @@ namespace tools {
           if constexpr (has_lazy<FM>) {
             this->push(k);
           }
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const auto [hc, hl] = dfs(c, (k << 1) + 1, km, kr);
           assert(km <= hl && hl <= r);
           if (km < hl) return {hc, hl};

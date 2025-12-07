@@ -24,20 +24,20 @@ namespace tools {
       if (*--itr1 < *itr2) {
         Iterator j = k;
         while (!(*itr1 < *j)) ++j;
-        ::std::iter_swap(itr1, j);
+        std::iter_swap(itr1, j);
         ++itr1;
         ++j;
         itr2 = k;
-        ::std::rotate(itr1, j, last);
+        std::rotate(itr1, j, last);
         while (last != j) {
           ++j;
           ++itr2;
         }
-        ::std::rotate(k, itr2, last);
+        std::rotate(k, itr2, last);
         return true;
       }
     }
-    ::std::rotate(first, k, last);
+    std::rotate(first, k, last);
     return false;
   }
 }

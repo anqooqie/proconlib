@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename T, typename F>
-  ::std::tuple<T, T, T, T> rational_binary_search(const T& p1, const T& q1, const T& p2, const T& q2, const F& f, const T& N) {
+  std::tuple<T, T, T, T> rational_binary_search(const T& p1, const T& q1, const T& p2, const T& q2, const F& f, const T& N) {
     assert(q1 >= T(0));
     assert(q2 >= T(0));
     assert(N > T(0));
@@ -59,7 +59,7 @@ namespace tools {
             ng = mid;
           }
         }
-        ::std::tie(p3, q3, p4, q4) = ::std::make_tuple(p3 + ok * p4, q3 + ok * q4, p3 + ng * p4, q3 + ng * q4);
+        std::tie(p3, q3, p4, q4) = std::make_tuple(p3 + ok * p4, q3 + ok * q4, p3 + ng * p4, q3 + ng * q4);
       } else {
         T ng(1);
         if (q3 == T(0)) {
@@ -83,12 +83,12 @@ namespace tools {
             ng = mid;
           }
         }
-        ::std::tie(p3, q3, p4, q4) = ::std::make_tuple(ng * p3 + p4, ng * q3 + q4, ok * p3 + p4, ok * q3 + q4);
+        std::tie(p3, q3, p4, q4) = std::make_tuple(ng * p3 + p4, ng * q3 + q4, ok * p3 + p4, ok * q3 + q4);
       }
       d = !d;
     }
 
-    return ::std::make_tuple(p3, q3, p4, q4);
+    return std::make_tuple(p3, q3, p4, q4);
   }
 }
 

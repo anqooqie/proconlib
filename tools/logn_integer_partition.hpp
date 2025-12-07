@@ -6,9 +6,9 @@
 
 namespace tools {
   template <typename T>
-  ::std::vector<T> logn_integer_partition(T n) {
+  std::vector<T> logn_integer_partition(T n) {
     assert(n >= 0);
-    ::std::vector<T> res;
+    std::vector<T> res;
     for (T pow2 = 1; pow2 < n; n -= pow2, pow2 *= 2) {
       res.push_back(pow2);
     }

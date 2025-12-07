@@ -9,14 +9,14 @@
 
 namespace tools {
   namespace rings {
-    template <::tools::commutative_group A, ::tools::monoid M>
-    using of = ::tools::semirings::of<A, M>;
+    template <tools::commutative_group A, tools::monoid M>
+    using of = tools::semirings::of<A, M>;
 
     template <typename R>
-    using plus_multiplies = ::tools::rings::of<::tools::groups::plus<R>, ::tools::monoids::multiplies<R>>;
+    using plus_multiplies = tools::rings::of<tools::groups::plus<R>, tools::monoids::multiplies<R>>;
 
     template <typename R>
-    using xor_and = ::tools::rings::of<::tools::groups::bit_xor<R>, ::tools::monoids::bit_and<R>>;
+    using xor_and = tools::rings::of<tools::groups::bit_xor<R>, tools::monoids::bit_and<R>>;
   }
 }
 

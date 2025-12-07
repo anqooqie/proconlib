@@ -14,15 +14,15 @@ namespace tools {
     inconsistent
   };
 
-  template <typename G = ::tools::groups::plus<long long>>
+  template <typename G = tools::groups::plus<long long>>
   class pdsu {
   private:
     using T = typename G::T;
 
-    ::std::vector<int> m_parents;
-    ::std::vector<int> m_sizes;
-    ::std::vector<T> m_diffs;
-    ::std::vector<bool> m_consistent;
+    std::vector<int> m_parents;
+    std::vector<int> m_sizes;
+    std::vector<T> m_diffs;
+    std::vector<bool> m_consistent;
 
   public:
     explicit pdsu(const int n) :
@@ -31,7 +31,7 @@ namespace tools {
       m_diffs(n, G::e()),
       m_consistent(n, true) {
       assert(n >= 0);
-      ::std::iota(this->m_parents.begin(), this->m_parents.end(), 0);
+      std::iota(this->m_parents.begin(), this->m_parents.end(), 0);
     }
 
     int size() const {
@@ -50,19 +50,19 @@ namespace tools {
       return this->m_parents[x] = r;
     }
 
-    ::std::pair<::tools::pdsu_diff, T> diff(const int x, const int y) {
+    std::pair<tools::pdsu_diff, T> diff(const int x, const int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
       const auto x_r = this->leader(x);
       const auto y_r = this->leader(y);
       if (x_r == y_r) {
         if (this->m_consistent[x_r]) {
-          return ::std::make_pair(::tools::pdsu_diff::known, G::op(G::inv(this->m_diffs[y]), this->m_diffs[x]));
+          return std::make_pair(tools::pdsu_diff::known, G::op(G::inv(this->m_diffs[y]), this->m_diffs[x]));
         } else {
-          return ::std::make_pair(::tools::pdsu_diff::inconsistent, G::e());
+          return std::make_pair(tools::pdsu_diff::inconsistent, G::e());
         }
       } else {
-        return ::std::make_pair(::tools::pdsu_diff::unknown, G::e());
+        return std::make_pair(tools::pdsu_diff::unknown, G::e());
       }
     }
 
@@ -85,9 +85,9 @@ namespace tools {
       }
 
       if (this->m_sizes[x_r] < this->m_sizes[y_r]) {
-        ::std::swap(x, y);
+        std::swap(x, y);
         w = G::inv(w);
-        ::std::swap(x_r, y_r);
+        std::swap(x_r, y_r);
       }
       this->m_parents[y_r] = x_r;
       this->m_sizes[x_r] += this->m_sizes[y_r];
@@ -102,8 +102,8 @@ namespace tools {
       return this->m_sizes[this->leader(x)];
     }
 
-    ::std::vector<::std::vector<int>> groups() {
-      ::std::vector<int> group_indices(this->size(), -1);
+    std::vector<std::vector<int>> groups() {
+      std::vector<int> group_indices(this->size(), -1);
       int next_group_index = 0;
       for (int i = 0; i < this->size(); ++i) {
         if (group_indices[this->leader(i)] == -1) {
@@ -112,7 +112,7 @@ namespace tools {
         }
       }
 
-      ::std::vector<::std::vector<int>> groups(next_group_index);
+      std::vector<std::vector<int>> groups(next_group_index);
       for (int i = 0; i < this->size(); ++i) {
         groups[group_indices[this->leader(i)]].push_back(i);
       }

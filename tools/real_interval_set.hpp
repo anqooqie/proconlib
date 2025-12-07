@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename T>
-  using real_interval_set = ::tools::detail::interval_set<T, false>;
+  using real_interval_set = tools::detail::interval_set<T, false>;
 }
 
 #endif

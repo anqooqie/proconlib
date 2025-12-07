@@ -8,17 +8,17 @@ namespace tools {
   template <typename F>
   struct fix : F {
     template <typename G>
-    fix(G&& g) : F({::std::forward<G>(g)}) {
+    fix(G&& g) : F({std::forward<G>(g)}) {
     }
 
     template <typename... Args>
     decltype(auto) operator()(Args&&... args) const {
-      return F::operator()(*this, ::std::forward<Args>(args)...);
+      return F::operator()(*this, std::forward<Args>(args)...);
     }
   };
 
   template <typename F>
-  fix(F&&) -> fix<::std::decay_t<F>>;
+  fix(F&&) -> fix<std::decay_t<F>>;
 }
 
 #endif

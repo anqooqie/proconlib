@@ -16,26 +16,26 @@
 namespace tools {
 
   template <typename T>
-  ::std::vector<T> prime_factorization(T n) {
+  std::vector<T> prime_factorization(T n) {
     assert(1 <= n && n <= 1000000000000000000);
-    ::std::vector<T> result;
+    std::vector<T> result;
 
     if (n == 1) return result;
 
-    ::std::queue<::std::pair<T, T>> factors({::std::pair<T, T>(n, 1)});
+    std::queue<std::pair<T, T>> factors({std::pair<T, T>(n, 1)});
     while (!factors.empty()) {
       const T factor = factors.front().first;
       const T occurrences = factors.front().second;
       factors.pop();
-      if (::tools::is_prime(factor)) {
+      if (tools::is_prime(factor)) {
         for (T i = 0; i < occurrences; ++i) {
           result.push_back(factor);
         }
       } else {
-        const T m = ::tools::pow2((::tools::floor_log2(factor) + 1) / 8);
+        const T m = tools::pow2((tools::floor_log2(factor) + 1) / 8);
         for (T c = 1; ; ++c) {
           const auto f = [&](T& x) {
-            x = ::tools::prod_mod(x, x, factor);
+            x = tools::prod_mod(x, x, factor);
             x += c;
             if (x >= factor) x -= factor;
           };
@@ -51,11 +51,11 @@ namespace tools {
             T k = 0;
             do {
               ys = y;
-              for (T i = 0; i < ::std::min(m, r - k); ++i) {
+              for (T i = 0; i < std::min(m, r - k); ++i) {
                 f(y);
-                q = ::tools::prod_mod(q, ::std::abs(x - y), factor);
+                q = tools::prod_mod(q, std::abs(x - y), factor);
               }
-              g = ::std::gcd(q, factor);
+              g = std::gcd(q, factor);
               k += m;
             } while (k < r && g == 1);
             r *= 2;
@@ -63,12 +63,12 @@ namespace tools {
           if (g == factor) {
             do {
               f(ys);
-              g = ::std::gcd(::std::abs(x - ys), factor);
+              g = std::gcd(std::abs(x - ys), factor);
             } while (g == 1);
           }
           if (g < factor) {
             T h = factor / g;
-            if (h < g) ::std::swap(g, h);
+            if (h < g) std::swap(g, h);
             T n = 1;
             while (h % g == 0) {
               h /= g;
@@ -82,7 +82,7 @@ namespace tools {
       }
     }
 
-    ::std::sort(result.begin(), result.end());
+    std::sort(result.begin(), result.end());
     return result;
   }
 }

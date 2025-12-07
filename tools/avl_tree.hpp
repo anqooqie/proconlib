@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename SM, bool Reversible = false>
-  using avl_tree = ::tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;
+  using avl_tree = tools::detail::avl_tree::avl_tree_impl<Reversible, SM>;
 }
 
 #endif

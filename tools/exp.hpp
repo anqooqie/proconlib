@@ -6,7 +6,7 @@
 namespace tools {
   template <typename T>
   auto exp(const T x) {
-    return ::std::exp(x);
+    return std::exp(x);
   }
 }
 

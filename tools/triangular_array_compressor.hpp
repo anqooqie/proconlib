@@ -10,7 +10,7 @@ namespace tools {
   class triangular_array_compressor;
 
   template <>
-  class triangular_array_compressor<::std::less<int>> {
+  class triangular_array_compressor<std::less<int>> {
     int m_size;
 
   public:
@@ -29,7 +29,7 @@ namespace tools {
       return (i >= (n + 1) / 2 ? (n - 1 - i) * (n - 1) - 1 : i * (n - 2) - 1) + j;
     }
 
-    ::std::pair<int, int> decompress(const int k) const {
+    std::pair<int, int> decompress(const int k) const {
       const auto& n = this->m_size;
       assert(0 <= k && k < n * (n - 1) / 2);
       auto i = k / (n - 1);
@@ -45,7 +45,7 @@ namespace tools {
   };
 
   template <>
-  class triangular_array_compressor<::std::less_equal<int>> {
+  class triangular_array_compressor<std::less_equal<int>> {
     int m_size;
 
   public:
@@ -64,7 +64,7 @@ namespace tools {
       return (i >= (n + 1) / 2 ? (n - 1 - i) * (n + 1) + 1 : i * n) + j;
     }
 
-    ::std::pair<int, int> decompress(const int k) const {
+    std::pair<int, int> decompress(const int k) const {
       const auto& n = this->m_size;
       assert(0 <= k && k < n * (n + 1) / 2);
       auto i = k / (n + 1);
@@ -80,7 +80,7 @@ namespace tools {
   };
 
   template <>
-  class triangular_array_compressor<::std::greater<int>> {
+  class triangular_array_compressor<std::greater<int>> {
     int m_size;
 
   public:
@@ -99,7 +99,7 @@ namespace tools {
       return (i >= (n + 1) / 2 ? (n - 1 - i) * n : i * (n - 1)) + j;
     }
 
-    ::std::pair<int, int> decompress(const int k) const {
+    std::pair<int, int> decompress(const int k) const {
       const auto& n = this->m_size;
       assert(0 <= k && k < n * (n - 1) / 2);
       auto i = k / (n - 1);
@@ -113,7 +113,7 @@ namespace tools {
   };
 
   template <>
-  class triangular_array_compressor<::std::greater_equal<int>> {
+  class triangular_array_compressor<std::greater_equal<int>> {
     int m_size;
 
   public:
@@ -132,7 +132,7 @@ namespace tools {
       return (i >= (n + 1) / 2 ? (n - 1 - i) * (n + 1) + n - i : i * (n + 1)) + j;
     }
 
-    ::std::pair<int, int> decompress(const int k) const {
+    std::pair<int, int> decompress(const int k) const {
       const auto& n = this->m_size;
       assert(0 <= k && k < n * (n + 1) / 2);
       auto i = k / (n + 1);

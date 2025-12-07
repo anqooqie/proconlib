@@ -19,28 +19,28 @@ namespace tools {
     using S = typename SM::T;
     using F = typename FM::T;
     static_assert(
-      ::std::is_convertible_v<decltype(mapping), ::std::function<S(F, S)>>,
+      std::is_convertible_v<decltype(mapping), std::function<S(F, S)>>,
       "mapping must work as S(F, S)");
 
     struct node {
       S data;
       F lazy;
-      ::std::array<int, 2> children;
+      std::array<int, 2> children;
     };
 
   public:
     class buffer {
-      ::std::vector<::tools::persistent_lazy_segtree<SM, FM, mapping>::node> m_nodes;
+      std::vector<tools::persistent_lazy_segtree<SM, FM, mapping>::node> m_nodes;
       long long m_offset;
       long long m_size;
       int m_height;
 
     public:
-      friend ::tools::persistent_lazy_segtree<SM, FM, mapping>;
+      friend tools::persistent_lazy_segtree<SM, FM, mapping>;
     };
 
   private:
-    ::tools::persistent_lazy_segtree<SM, FM, mapping>::buffer *m_buffer;
+    tools::persistent_lazy_segtree<SM, FM, mapping>::buffer *m_buffer;
     int m_root;
 
     long long capacity() const {
@@ -49,39 +49,39 @@ namespace tools {
 
   public:
     persistent_lazy_segtree() = default;
-    persistent_lazy_segtree(::tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, const long long l_star, const long long r_star) :
+    persistent_lazy_segtree(tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, const long long l_star, const long long r_star) :
       persistent_lazy_segtree(buffer, l_star, r_star, SM::e()) {
     }
-    persistent_lazy_segtree(::tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, const long long l_star, const long long r_star, const S& x) : m_buffer(&buffer) {
+    persistent_lazy_segtree(tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, const long long l_star, const long long r_star, const S& x) : m_buffer(&buffer) {
       assert(buffer.m_nodes.empty());
       assert(l_star <= r_star);
       buffer.m_offset = l_star;
       buffer.m_size = r_star - l_star;
-      buffer.m_height = ::tools::ceil_log2(::std::max(1LL, r_star - l_star));
+      buffer.m_height = tools::ceil_log2(std::max(1LL, r_star - l_star));
       buffer.m_nodes.push_back({x, FM::e(), {-1, -1}});
       for (int k = 1; k <= buffer.m_height; ++k) {
         buffer.m_nodes.push_back({SM::op(buffer.m_nodes.back().data, buffer.m_nodes.back().data), FM::e(), {k - 1, k - 1}});
       }
       this->m_root = buffer.m_height;
     }
-    template <::std::ranges::range R>
-    persistent_lazy_segtree(::tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, R&& v) : m_buffer(&buffer) {
+    template <std::ranges::range R>
+    persistent_lazy_segtree(tools::persistent_lazy_segtree<SM, FM, mapping>::buffer& buffer, R&& v) : m_buffer(&buffer) {
       assert(buffer.m_nodes.empty());
       for (auto&& x : v) {
         buffer.m_nodes.push_back({x, FM::e(), {-1, -1}});
       }
       buffer.m_offset = 0;
       buffer.m_size = buffer.m_nodes.size();
-      buffer.m_height = ::tools::ceil_log2(::std::max(1LL, buffer.m_size));
+      buffer.m_height = tools::ceil_log2(std::max(1LL, buffer.m_size));
       buffer.m_nodes.push_back({SM::e(), FM::e(), {-1, -1}});
       for (int h = 1; h <= buffer.m_height; ++h) {
         buffer.m_nodes.push_back({SM::e(), FM::e(), {static_cast<int>(buffer.m_nodes.size()) - 1, static_cast<int>(buffer.m_nodes.size()) - 1}});
       }
-      this->m_root = ::tools::fix([&](auto&& dfs, const int h, const long long kl, const long long kr) -> int {
+      this->m_root = tools::fix([&](auto&& dfs, const int h, const long long kl, const long long kr) -> int {
         assert(kl < kr);
         if (buffer.m_size <= kl) return buffer.m_size + h;
         if (h == 0) return kl;
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const auto left_child = dfs(h - 1, kl, km);
         const auto right_child = dfs(h - 1, km, kr);
         buffer.m_nodes.push_back({SM::op(buffer.m_nodes[left_child].data, buffer.m_nodes[right_child].data), FM::e(), {left_child, right_child}});
@@ -95,13 +95,13 @@ namespace tools {
     long long upper_bound() const {
       return this->m_buffer->m_offset + this->m_buffer->m_size;
     }
-    ::tools::persistent_lazy_segtree<SM, FM, mapping> set(long long p, const S& x) const {
+    tools::persistent_lazy_segtree<SM, FM, mapping> set(long long p, const S& x) const {
       assert(this->lower_bound() <= p && p < this->upper_bound());
       auto& buffer = *this->m_buffer;
       p -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = ::tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
+      res.m_root = tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
         assert(kl < kr);
         if (p <= kl && kr <= p + 1) {
           buffer.m_nodes.push_back({x, FM::e(), buffer.m_nodes[k].children});
@@ -112,7 +112,7 @@ namespace tools {
           buffer.m_nodes.push_back({mapping(lz, buffer.m_nodes[k].data), FM::op(lz, buffer.m_nodes[k].lazy), buffer.m_nodes[k].children});
           return buffer.m_nodes.size() - 1;
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         const auto left_child = dfs(buffer.m_nodes[k].children[0], kl, km, next_lz);
         const auto right_child = dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
@@ -131,10 +131,10 @@ namespace tools {
       l -= buffer.m_offset;
       r -= buffer.m_offset;
 
-      return ::tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> S {
+      return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> S {
         assert(kl < kr);
         if (l <= kl && kr <= r) return mapping(lz, buffer.m_nodes[k].data);
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         S res = SM::e();
         if (l < km) res = SM::op(res, dfs(buffer.m_nodes[k].children[0], kl, km, next_lz));
@@ -145,10 +145,10 @@ namespace tools {
     S all_prod() const {
       return this->m_buffer->m_nodes[this->m_root].data;
     }
-    ::tools::persistent_lazy_segtree<SM, FM, mapping> apply(const long long p, const F& f) const {
+    tools::persistent_lazy_segtree<SM, FM, mapping> apply(const long long p, const F& f) const {
       return this->apply(p, p + 1, f);
     }
-    ::tools::persistent_lazy_segtree<SM, FM, mapping> apply(long long l, long long r, const F& f) const {
+    tools::persistent_lazy_segtree<SM, FM, mapping> apply(long long l, long long r, const F& f) const {
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return *this;
       auto& buffer = *this->m_buffer;
@@ -156,7 +156,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = ::tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
+      res.m_root = tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           const F modified_lz = FM::op(f, lz);
@@ -168,7 +168,7 @@ namespace tools {
           buffer.m_nodes.push_back({mapping(lz, buffer.m_nodes[k].data), FM::op(lz, buffer.m_nodes[k].lazy), buffer.m_nodes[k].children});
           return buffer.m_nodes.size() - 1;
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         const auto left_child = dfs(buffer.m_nodes[k].children[0], kl, km, next_lz);
         const auto right_child = dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
@@ -177,7 +177,7 @@ namespace tools {
       })(res.m_root, 0, res.capacity(), FM::e());
       return res;
     }
-    ::tools::persistent_lazy_segtree<SM, FM, mapping> rollback(const ::tools::persistent_lazy_segtree<SM, FM, mapping>& s, long long l, long long r) const {
+    tools::persistent_lazy_segtree<SM, FM, mapping> rollback(const tools::persistent_lazy_segtree<SM, FM, mapping>& s, long long l, long long r) const {
       assert(this->m_buffer == s.m_buffer);
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return *this;
@@ -187,7 +187,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = ::tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
+      res.m_root = tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           if (lz2 == FM::e()) return k2;
@@ -199,7 +199,7 @@ namespace tools {
           buffer.m_nodes.push_back({mapping(lz1, buffer.m_nodes[k1].data), FM::op(lz1, buffer.m_nodes[k1].lazy), buffer.m_nodes[k1].children});
           return buffer.m_nodes.size() - 1;
         }
-        const auto km = ::std::midpoint(kl, kr);
+        const auto km = std::midpoint(kl, kr);
         const F next_lz1 = FM::op(lz1, buffer.m_nodes[k1].lazy);
         const F next_lz2 = FM::op(lz2, buffer.m_nodes[k2].lazy);
         const auto left_child = dfs(buffer.m_nodes[k1].children[0], buffer.m_nodes[k2].children[0], kl, km, next_lz1, next_lz2);
@@ -217,11 +217,11 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       l -= buffer.m_offset;
 
-      return buffer.m_offset + ::std::min(::tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr, const F& lz) -> ::std::pair<S, long long> {
+      return buffer.m_offset + std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr, const F& lz) -> std::pair<S, long long> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
           if (l < km) {
             const auto [hc, hr] = dfs(c, buffer.m_nodes[k].children[0], kl, km, next_lz);
@@ -234,7 +234,7 @@ namespace tools {
         } else {
           if (const auto wc = SM::op(c, mapping(lz, buffer.m_nodes[k].data)); g(wc)) return {wc, kr};
           if (kr - kl == 1) return {c, kl};
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
           const auto [hc, hr] = dfs(c, buffer.m_nodes[k].children[0], kl, km, next_lz);
           assert(l <= hr && hr <= km);
@@ -251,11 +251,11 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       r -= buffer.m_offset;
 
-      return buffer.m_offset + ::tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr, const F& lz) -> ::std::pair<S, long long> {
+      return buffer.m_offset + tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr, const F& lz) -> std::pair<S, long long> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
           if (km < r) {
             const auto [hc, hl] = dfs(c, buffer.m_nodes[k].children[1], km, kr, next_lz);
@@ -268,7 +268,7 @@ namespace tools {
         } else {
           if (const auto wc = SM::op(mapping(lz, buffer.m_nodes[k].data), c); g(wc)) return {wc, kl};
           if (kr - kl == 1) return {c, kr};
-          const auto km = ::std::midpoint(kl, kr);
+          const auto km = std::midpoint(kl, kr);
           const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
           const auto [hc, hl] = dfs(c, buffer.m_nodes[k].children[1], km, kr, next_lz);
           assert(km <= hl && hl <= r);

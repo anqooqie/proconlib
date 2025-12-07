@@ -7,8 +7,8 @@
 namespace tools {
 
   int alphabetical_order(const char c) {
-    static const ::std::array<char, ::std::numeric_limits<char>::max()> map = []() {
-      ::std::array<char, ::std::numeric_limits<char>::max()> m;
+    static const std::array<char, std::numeric_limits<char>::max()> map = []() {
+      std::array<char, std::numeric_limits<char>::max()> m;
       m['A'] = 0;
       m['B'] = 1;
       m['C'] = 2;

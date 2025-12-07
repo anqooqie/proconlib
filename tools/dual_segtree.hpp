@@ -8,11 +8,11 @@
 
 namespace tools {
 
-  template <::tools::monoid M>
+  template <tools::monoid M>
   class dual_segtree {
     using T = typename M::T;
     int height;
-    ::std::vector<T> lazy;
+    std::vector<T> lazy;
 
     void propagate(const int node_id) {
       if(this->lazy[node_id] == M::e()) return;
@@ -34,8 +34,8 @@ namespace tools {
   public:
     dual_segtree() = default;
     explicit dual_segtree(const int n) :
-      height(::tools::ceil_log2(n)),
-      lazy(::tools::pow2(this->height + 1), M::e()) {
+      height(tools::ceil_log2(n)),
+      lazy(tools::pow2(this->height + 1), M::e()) {
     }
 
     void apply(const int a, const int b, const T& x) {

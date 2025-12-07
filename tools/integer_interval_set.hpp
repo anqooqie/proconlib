@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename T>
-  using integer_interval_set = ::tools::detail::interval_set<T, true>;
+  using integer_interval_set = tools::detail::interval_set<T, true>;
 }
 
 #endif

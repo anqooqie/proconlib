@@ -16,7 +16,7 @@ int main() {
     ll a_i;
     std::cin >> a_i;
 
-    const ::std::vector<ll> prime_factors = tools::prime_factorization(a_i);
+    const std::vector<ll> prime_factors = tools::prime_factorization(a_i);
     std::cout << prime_factors.size();
     for (const ll& p : prime_factors) {
       std::cout << ' ' << p;

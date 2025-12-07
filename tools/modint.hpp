@@ -6,10 +6,10 @@
 
 namespace tools {
   template <typename T>
-  concept modint = ::tools::modint_compatible<T>
+  concept modint = tools::modint_compatible<T>
     && requires(T a) {
-      { T::mod() } -> ::std::same_as<int>;
-      { a.val() } -> ::std::same_as<int>;
+      { T::mod() } -> std::same_as<int>;
+      { a.val() } -> std::same_as<int>;
     };
 }
 

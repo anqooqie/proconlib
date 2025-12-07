@@ -16,7 +16,7 @@ namespace tools {
 
     template <typename T>
     bool operator()(const T& x, const T& y) const {
-      return ::std::invoke(this->m_selector, x) < ::std::invoke(this->m_selector, y);
+      return std::invoke(this->m_selector, x) < std::invoke(this->m_selector, y);
     }
   };
 }

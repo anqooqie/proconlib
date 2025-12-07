@@ -15,26 +15,26 @@ namespace tools {
   template <bool DIRECTED>
   class cycle_detection {
   private:
-    ::std::vector<::std::vector<::std::size_t>> m_graph;
-    ::std::vector<::std::pair<::std::size_t, ::std::size_t>> m_edges;
+    std::vector<std::vector<std::size_t>> m_graph;
+    std::vector<std::pair<std::size_t, std::size_t>> m_edges;
 
   public:
     cycle_detection() = default;
-    cycle_detection(const ::tools::cycle_detection<DIRECTED>&) = default;
-    cycle_detection(::tools::cycle_detection<DIRECTED>&&) = default;
+    cycle_detection(const tools::cycle_detection<DIRECTED>&) = default;
+    cycle_detection(tools::cycle_detection<DIRECTED>&&) = default;
     ~cycle_detection() = default;
-    ::tools::cycle_detection<DIRECTED>& operator=(const ::tools::cycle_detection<DIRECTED>&) = default;
-    ::tools::cycle_detection<DIRECTED>& operator=(::tools::cycle_detection<DIRECTED>&&) = default;
+    tools::cycle_detection<DIRECTED>& operator=(const tools::cycle_detection<DIRECTED>&) = default;
+    tools::cycle_detection<DIRECTED>& operator=(tools::cycle_detection<DIRECTED>&&) = default;
 
-    explicit cycle_detection(const ::std::size_t n) :
+    explicit cycle_detection(const std::size_t n) :
       m_graph(n) {
     }
 
-    ::std::size_t size() const {
+    std::size_t size() const {
       return this->m_graph.size();
     }
 
-    ::std::size_t add_edge(::std::size_t u, ::std::size_t v) {
+    std::size_t add_edge(std::size_t u, std::size_t v) {
       assert(u < this->size());
       assert(v < this->size());
 
@@ -46,15 +46,15 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    ::std::optional<::std::pair<::std::vector<::std::size_t>, ::std::vector<::std::size_t>>> query() const {
-      ::std::stack<std::tuple<bool, ::std::size_t, ::std::size_t>> stack;
-      for (::std::size_t v = 0; v < this->size(); ++v) {
-        stack.emplace(false, v, ::std::numeric_limits<::std::size_t>::max());
-        stack.emplace(true, v, ::std::numeric_limits<::std::size_t>::max());
+    std::optional<std::pair<std::vector<std::size_t>, std::vector<std::size_t>>> query() const {
+      std::stack<std::tuple<bool, std::size_t, std::size_t>> stack;
+      for (std::size_t v = 0; v < this->size(); ++v) {
+        stack.emplace(false, v, std::numeric_limits<std::size_t>::max());
+        stack.emplace(true, v, std::numeric_limits<std::size_t>::max());
       }
-      ::std::vector<bool> pre(this->size(), false);
-      ::std::vector<bool> post(this->size(), false);
-      ::std::vector<::std::size_t> prev(this->size(), ::std::numeric_limits<::std::size_t>::max());
+      std::vector<bool> pre(this->size(), false);
+      std::vector<bool> post(this->size(), false);
+      std::vector<std::size_t> prev(this->size(), std::numeric_limits<std::size_t>::max());
       while (!stack.empty()) {
         const auto [is_pre, here, from] = stack.top();
         stack.pop();
@@ -63,15 +63,15 @@ namespace tools {
         if (is_pre) {
           prev[here] = from;
           if (pre[here]) {
-            ::std::vector<::std::size_t> vids, eids({from});
-            for (::std::size_t v = this->m_edges[from].first ^ (DIRECTED ? 0 : this->m_edges[from].second ^ here); v != here; v = this->m_edges[prev[v]].first ^ (DIRECTED ? 0 : this->m_edges[prev[v]].second ^ v)) {
+            std::vector<std::size_t> vids, eids({from});
+            for (std::size_t v = this->m_edges[from].first ^ (DIRECTED ? 0 : this->m_edges[from].second ^ here); v != here; v = this->m_edges[prev[v]].first ^ (DIRECTED ? 0 : this->m_edges[prev[v]].second ^ v)) {
               vids.push_back(v);
               eids.push_back(prev[v]);
             }
             vids.push_back(here);
-            ::std::reverse(vids.begin(), vids.end());
-            ::std::reverse(eids.begin(), eids.end());
-            return ::std::make_optional(::std::make_pair(vids, eids));
+            std::reverse(vids.begin(), vids.end());
+            std::reverse(eids.begin(), eids.end());
+            return std::make_optional(std::make_pair(vids, eids));
           }
           pre[here] = true;
           for (const auto eid : this->m_graph[here]) {
@@ -85,7 +85,7 @@ namespace tools {
         }
       }
 
-      return ::std::nullopt;
+      return std::nullopt;
     }
   };
 }

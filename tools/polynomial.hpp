@@ -31,31 +31,31 @@ namespace tools {
     namespace polynomial {
       template <typename T>
       concept can_divide = requires(T a, T b) {
-        { a / b } -> ::std::same_as<T>;
+        { a / b } -> std::same_as<T>;
       };
 
       template <typename T>
-      concept prime_modint = ::atcoder::internal::is_static_modint<T>::value && ::tools::is_prime(T::mod());
+      concept prime_modint = atcoder::internal::is_static_modint<T>::value && tools::is_prime(T::mod());
     }
   }
 
   template <typename X>
   class polynomial {
-    using R = ::std::conditional_t<
-      ::tools::ring<X>,
+    using R = std::conditional_t<
+      tools::ring<X>,
         X,
-        ::tools::rings::of<
-          ::tools::groups::plus<X>,
-          ::std::conditional_t<
-            ::tools::complex<X> || ::std::floating_point<X> || ::tools::detail::polynomial::prime_modint<X> || ::atcoder::internal::is_dynamic_modint<X>::value,
-              ::tools::groups::multiplies<X>,
-              ::std::conditional_t<
-                ::tools::integral<X> || ::atcoder::internal::is_static_modint<X>::value,
-                  ::tools::monoids::multiplies<X>,
-                  ::std::conditional_t<
-                    ::tools::detail::polynomial::can_divide<X>,
-                      ::tools::groups::multiplies<X>,
-                      ::tools::monoids::multiplies<X>
+        tools::rings::of<
+          tools::groups::plus<X>,
+          std::conditional_t<
+            tools::complex<X> || std::floating_point<X> || tools::detail::polynomial::prime_modint<X> || atcoder::internal::is_dynamic_modint<X>::value,
+              tools::groups::multiplies<X>,
+              std::conditional_t<
+                tools::integral<X> || atcoder::internal::is_static_modint<X>::value,
+                  tools::monoids::multiplies<X>,
+                  std::conditional_t<
+                    tools::detail::polynomial::can_divide<X>,
+                      tools::groups::multiplies<X>,
+                      tools::monoids::multiplies<X>
                   >
               >
           >
@@ -64,35 +64,35 @@ namespace tools {
     using Add = typename R::add;
     using Mul = typename R::mul;
     using T = typename Add::T;
-    using P = ::tools::polynomial<X>;
+    using P = tools::polynomial<X>;
 
-    static constexpr bool IS_MOD_P = ::tools::detail::polynomial::prime_modint<T>
-      && ::std::same_as<Add, ::tools::groups::plus<T>>
-      && (::std::same_as<Mul, ::tools::monoids::multiplies<T>> || ::std::same_as<Mul, ::tools::groups::multiplies<T>>);
-    static constexpr bool IS_MOD_M = ::tools::modint_compatible<T>
-      && ::std::same_as<Add, ::tools::groups::plus<T>>
-      && (::std::same_as<Mul, ::tools::monoids::multiplies<T>> || ::std::same_as<Mul, ::tools::groups::multiplies<T>>);
-    ::std::vector<T> m_vector;
+    static constexpr bool IS_MOD_P = tools::detail::polynomial::prime_modint<T>
+      && std::same_as<Add, tools::groups::plus<T>>
+      && (std::same_as<Mul, tools::monoids::multiplies<T>> || std::same_as<Mul, tools::groups::multiplies<T>>);
+    static constexpr bool IS_MOD_M = tools::modint_compatible<T>
+      && std::same_as<Add, tools::groups::plus<T>>
+      && (std::same_as<Mul, tools::monoids::multiplies<T>> || std::same_as<Mul, tools::groups::multiplies<T>>);
+    std::vector<T> m_vector;
 
   public:
     using reference = T&;
     using const_reference = const T&;
-    using iterator = typename ::std::vector<T>::iterator;
-    using const_iterator = typename ::std::vector<T>::const_iterator;
-    using size_type = ::std::size_t;
-    using difference_type = ::std::ptrdiff_t;
+    using iterator = typename std::vector<T>::iterator;
+    using const_iterator = typename std::vector<T>::const_iterator;
+    using size_type = std::size_t;
+    using difference_type = std::ptrdiff_t;
     using value_type = T;
-    using allocator_type = typename ::std::vector<T>::allocator_type;
+    using allocator_type = typename std::vector<T>::allocator_type;
     using pointer = T*;
     using const_pointer = const T*;
-    using reverse_iterator = typename ::std::vector<T>::reverse_iterator;
-    using const_reverse_iterator = typename ::std::vector<T>::const_reverse_iterator;
+    using reverse_iterator = typename std::vector<T>::reverse_iterator;
+    using const_reverse_iterator = typename std::vector<T>::const_reverse_iterator;
 
     polynomial() = default;
     explicit polynomial(const size_type n) : m_vector(n) {}
     polynomial(const size_type n, const_reference value) : m_vector(n, value) {}
     template <class InputIter> polynomial(const InputIter first, const InputIter last) : m_vector(first, last) {}
-    polynomial(const ::std::initializer_list<T> il) : m_vector(il) {}
+    polynomial(const std::initializer_list<T> il) : m_vector(il) {}
 
     iterator begin() noexcept { return this->m_vector.begin(); }
     const_iterator begin() const noexcept { return this->m_vector.begin(); }
@@ -129,17 +129,17 @@ namespace tools {
 
     template <class InputIterator> void assign(const InputIterator first, const InputIterator last) { this->m_vector.assign(first, last); }
     void assign(const size_type n, const T& u) { this->m_vector.assign(n, u); }
-    void assign(const ::std::initializer_list<T> il) { this->m_vector.assign(il); }
+    void assign(const std::initializer_list<T> il) { this->m_vector.assign(il); }
     void push_back(const T& x) { this->m_vector.push_back(x); }
-    void push_back(T&& x) { this->m_vector.push_back(::std::forward<T>(x)); }
-    template <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(::std::forward<Args>(args)...); }
+    void push_back(T&& x) { this->m_vector.push_back(std::forward<T>(x)); }
+    template <class... Args> reference emplace_back(Args&&... args) { return this->m_vector.emplace_back(std::forward<Args>(args)...); }
     void pop_back() { this->m_vector.pop_back(); }
     iterator insert(const const_iterator position, const T& x) { return this->m_vector.insert(position, x); }
-    iterator insert(const const_iterator position, T&& x) { return this->m_vector.insert(position, ::std::forward<T>(x)); }
+    iterator insert(const const_iterator position, T&& x) { return this->m_vector.insert(position, std::forward<T>(x)); }
     iterator insert(const const_iterator position, const size_type n, const T& x) { return this->m_vector.insert(position, n, x); }
     template <class InputIterator> iterator insert(const const_iterator position, const InputIterator first, const InputIterator last) { return this->m_vector.insert(position, first, last); }
-    iterator insert(const const_iterator position, const ::std::initializer_list<T> il) { return this->m_vector.insert(position, il); }
-    template <class... Args> iterator emplace(const const_iterator position, Args&&... args) { return this->m_vector.emplace(position, ::std::forward<Args>(args)...); }
+    iterator insert(const const_iterator position, const std::initializer_list<T> il) { return this->m_vector.insert(position, il); }
+    template <class... Args> iterator emplace(const const_iterator position, Args&&... args) { return this->m_vector.emplace(position, std::forward<Args>(args)...); }
     iterator erase(const const_iterator position) { return this->m_vector.erase(position); }
     iterator erase(const const_iterator first, const const_iterator last) { return this->m_vector.erase(first, last); }
     void swap(P& x) noexcept { this->m_vector.swap(x.m_vector); }
@@ -148,9 +148,9 @@ namespace tools {
     allocator_type get_allocator() const noexcept { return this->m_vector.get_allocator(); }
 
     friend bool operator==(const P& x, const P& y) {
-      const auto n = ::std::min(x.size(), y.size());
+      const auto n = std::min(x.size(), y.size());
       static const auto is_zero = [](const T& e) { return e == Add::e(); };
-      return ::std::equal(x.begin(), x.begin() + n, y.begin(), y.begin() + n) && ::std::all_of(x.begin() + n, x.end(), is_zero) && ::std::all_of(y.begin() + n, y.end(), is_zero);
+      return std::equal(x.begin(), x.begin() + n, y.begin(), y.begin() + n) && std::all_of(x.begin() + n, x.end(), is_zero) && std::all_of(y.begin() + n, y.end(), is_zero);
     }
     friend bool operator!=(const P& x, const P& y) { return !(x == y); }
 
@@ -158,18 +158,18 @@ namespace tools {
 
     class coefficient_iterator {
     private:
-      const ::std::vector<T> *m_vector;
-      ::std::size_t m_offset;
+      const std::vector<T> *m_vector;
+      std::size_t m_offset;
 
     public:
-      using difference_type = ::std::ptrdiff_t;
+      using difference_type = std::ptrdiff_t;
       using value_type = T;
       using reference = const T&;
       using pointer = const T*;
-      using iterator_category = ::std::random_access_iterator_tag;
+      using iterator_category = std::random_access_iterator_tag;
 
       coefficient_iterator() = default;
-      coefficient_iterator(const ::std::vector<T> * const vector, const ::std::size_t offset) :
+      coefficient_iterator(const std::vector<T> * const vector, const std::size_t offset) :
         m_vector(vector),
         m_offset(offset) {
       }
@@ -200,28 +200,28 @@ namespace tools {
         --*this;
         return self;
       }
-      coefficient_iterator& operator+=(const ::std::ptrdiff_t n) {
+      coefficient_iterator& operator+=(const std::ptrdiff_t n) {
         this->m_offset += n;
         return *this;
       }
-      coefficient_iterator& operator-=(const ::std::ptrdiff_t n) {
+      coefficient_iterator& operator-=(const std::ptrdiff_t n) {
         this->m_offset -= n;
         return *this;
       }
-      friend coefficient_iterator operator+(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
+      friend coefficient_iterator operator+(const coefficient_iterator& self, const std::ptrdiff_t n) {
         return coefficient_iterator(self.m_vector, self.m_offset + n);
       }
-      friend coefficient_iterator operator+(const ::std::ptrdiff_t n, const coefficient_iterator& self) {
+      friend coefficient_iterator operator+(const std::ptrdiff_t n, const coefficient_iterator& self) {
         return self + n;
       }
-      friend coefficient_iterator operator-(const coefficient_iterator& self, const ::std::ptrdiff_t n) {
+      friend coefficient_iterator operator-(const coefficient_iterator& self, const std::ptrdiff_t n) {
         return coefficient_iterator(self.m_vector, self.m_offset - n);
       }
-      friend ::std::ptrdiff_t operator-(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
+      friend std::ptrdiff_t operator-(const coefficient_iterator& lhs, const coefficient_iterator& rhs) {
         assert(lhs.m_vector == rhs.m_vector);
-        return static_cast<::std::ptrdiff_t>(lhs.m_offset) - static_cast<::std::ptrdiff_t>(rhs.m_offset);
+        return static_cast<std::ptrdiff_t>(lhs.m_offset) - static_cast<std::ptrdiff_t>(rhs.m_offset);
       }
-      const T& operator[](const ::std::ptrdiff_t n) const {
+      const T& operator[](const std::ptrdiff_t n) const {
         return *(*this + n);
       }
 
@@ -266,11 +266,11 @@ namespace tools {
     }
 
     P operator+() const {
-      return P(this->begin(), ::std::next(this->begin(), this->deg() + 1));
+      return P(this->begin(), std::next(this->begin(), this->deg() + 1));
     }
     P operator-() const {
       P res;
-      for (auto it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1); it != end; ++it) {
+      for (auto it = this->begin(), end = std::next(this->begin(), this->deg() + 1); it != end; ++it) {
         res.push_back(Add::inv(*it));
       }
       return res;
@@ -315,7 +315,7 @@ namespace tools {
     P& operator+=(const P& g) {
       const int n = this->deg() + 1;
       const int m = g.deg() + 1;
-      this->resize(::std::max(n, m), Add::e());
+      this->resize(std::max(n, m), Add::e());
       for (int i = 0; i < m; ++i) {
         (*this)[i] = Add::op((*this)[i], g[i]);
       }
@@ -324,7 +324,7 @@ namespace tools {
     P& operator-=(const P& g) {
       const int n = this->deg() + 1;
       const int m = g.deg() + 1;
-      this->resize(::std::max(n, m), Add::e());
+      this->resize(std::max(n, m), Add::e());
       for (int i = 0; i < m; ++i) {
         (*this)[i] = Add::op((*this)[i], Add::inv(g[i]));
       }
@@ -344,7 +344,7 @@ namespace tools {
 
       this->regularize();
       const int n = this->size();
-      this->erase(this->begin(), this->begin() + ::std::min(n, d));
+      this->erase(this->begin(), this->begin() + std::min(n, d));
       return *this;
     }
 
@@ -352,21 +352,21 @@ namespace tools {
       const int n = this->deg() + 1;
       const int m = g.deg() + 1;
 
-      this->m_vector = ::tools::convolution<R>(*this, g);
+      this->m_vector = tools::convolution<R>(*this, g);
       return this->regularize();
     }
 
   private:
     P& divide_inplace_naive(const const_iterator g_begin, const const_iterator g_end) {
       const int n = this->size();
-      const int m = ::std::distance(g_begin, g_end);
+      const int m = std::distance(g_begin, g_end);
 
       assert(0 < m && m <= n);
       assert(Add::e() != Mul::e());
       assert(this->back() != Add::e());
-      assert(*::std::prev(g_end) != Add::e());
+      assert(*std::prev(g_end) != Add::e());
 
-      const auto ic = Mul::inv(*::std::prev(g_end));
+      const auto ic = Mul::inv(*std::prev(g_end));
       P q(n - m + 1);
       for (int i = n - m; i >= 0; --i) {
         q[i] = Mul::op((*this)[m - 1 + i], ic);
@@ -375,20 +375,20 @@ namespace tools {
           *f_it = Add::op(*f_it, Add::inv(Mul::op(*g_it, q[i])));
         }
       }
-      return *this = ::std::move(q);
+      return *this = std::move(q);
     }
     P& divide_inplace_faster(const const_iterator g_begin, const const_iterator g_end) {
       const int n = this->size();
-      const int m = ::std::distance(g_begin, g_end);
+      const int m = std::distance(g_begin, g_end);
 
       static_assert(IS_MOD_M);
       assert(0 < m && m <= n);
       assert(Add::e() != Mul::e());
       assert(this->back() != Add::e());
-      assert(::std::gcd(::std::prev(g_end)->val(), T::mod()) == 1);
+      assert(std::gcd(std::prev(g_end)->val(), T::mod()) == 1);
 
-      ::tools::fps<T> q(this->rbegin(), ::std::next(this->rbegin(), n - m + 1));
-      q.divide_inplace(::tools::fps<T>(::std::make_reverse_iterator(g_end), ::std::next(::std::make_reverse_iterator(g_end), ::std::min(m, n - m + 1))));
+      tools::fps<T> q(this->rbegin(), std::next(this->rbegin(), n - m + 1));
+      q.divide_inplace(tools::fps<T>(std::make_reverse_iterator(g_end), std::next(std::make_reverse_iterator(g_end), std::min(m, n - m + 1))));
       this->assign(q.rbegin(), q.rend());
       return *this;
     }
@@ -412,7 +412,7 @@ namespace tools {
       }
 
       if constexpr (IS_MOD_M) {
-        assert(::std::gcd(g[m - 1].val(), T::mod()) == 1);
+        assert(std::gcd(g[m - 1].val(), T::mod()) == 1);
         return this->divide_inplace_faster(g.begin(), g.begin() + m);
       } else {
         return this->divide_inplace_naive(g.begin(), g.begin() + m);
@@ -435,42 +435,42 @@ namespace tools {
       const auto m = g.size();
       assert(m > 1);
 
-      const auto z = ::tools::pow2(::tools::ceil_log2(m - 1));
+      const auto z = tools::pow2(tools::ceil_log2(m - 1));
       assert((T::mod() - 1) % z == 0);
 
       auto q = (*this) / g;
-      for (::std::size_t i = z; i < q.size(); ++i) {
+      for (std::size_t i = z; i < q.size(); ++i) {
         q[i & (z - 1)] += q[i];
       }
       q.resize(z);
-      ::atcoder::internal::butterfly(q.m_vector);
+      atcoder::internal::butterfly(q.m_vector);
 
       if (z < m) {
         g[0] += g[m - 1];
       }
       g.resize(z);
-      ::atcoder::internal::butterfly(g.m_vector);
+      atcoder::internal::butterfly(g.m_vector);
 
-      for (::std::size_t i = 0; i < z; ++i) {
+      for (std::size_t i = 0; i < z; ++i) {
         q[i] *= g[i];
       }
 
-      ::atcoder::internal::butterfly_inv(q.m_vector);
+      atcoder::internal::butterfly_inv(q.m_vector);
       const auto iz = T(z).inv();
 
       q.resize(m - 1);
-      for (::std::size_t i = 0; i < q.size(); ++i) {
+      for (std::size_t i = 0; i < q.size(); ++i) {
         q[i] = -(q[i] * iz);
       }
 
-      for (::std::size_t offset = 0; offset < n; offset += z) {
-        for (::std::size_t i = offset; i < ::std::min(offset + m - 1, n); ++i) {
+      for (std::size_t offset = 0; offset < n; offset += z) {
+        for (std::size_t i = offset; i < std::min(offset + m - 1, n); ++i) {
           q[i & (z - 1)] += (*this)[i];
         }
       }
 
       q.regularize();
-      return *this = ::std::move(q);
+      return *this = std::move(q);
     }
 
   public:
@@ -483,7 +483,7 @@ namespace tools {
       this->regularize();
 
       const auto n = this->size();
-      const ::std::size_t m = g.deg() + 1;
+      const std::size_t m = g.deg() + 1;
 
       assert(m > 0);
       if (n < m) {
@@ -496,8 +496,8 @@ namespace tools {
       }
 
       if constexpr (IS_MOD_P) {
-        const auto lz = ::tools::ceil_log2(m - 1);
-        const auto z = ::tools::pow2(lz);
+        const auto lz = tools::ceil_log2(m - 1);
+        const auto z = tools::pow2(lz);
         if (!((T::mod() - 1) & (z - 1)) && lz + m < n) {
           return this->modulo_inplace_faster(g);
         } else {
@@ -519,20 +519,20 @@ namespace tools {
       return this->regularize();
     }
     P derivative() const {
-      return P(this->begin(), ::std::next(this->begin(), this->deg() + 1)).derivative_inplace();
+      return P(this->begin(), std::next(this->begin(), this->deg() + 1)).derivative_inplace();
     }
 
   private:
     P& taylor_shift(const T& c) {
       static_assert(IS_MOD_M);
-      assert(::tools::is_prime(T::mod()));
+      assert(tools::is_prime(T::mod()));
 
       this->regularize();
       const int n = this->size();
       assert(n < T::mod());
 
-      ::tools::fact_mod_cache<T> cache;
-      ::tools::pow_mod_cache<T> pow_c(c);
+      tools::fact_mod_cache<T> cache;
+      tools::pow_mod_cache<T> pow_c(c);
 
       P a;
       a.reserve(n);
@@ -550,7 +550,7 @@ namespace tools {
 
       this->clear();
       this->reserve(n);
-      for (int i = 0; i < ::std::min(n, int(a.size()) - (n - 1)); ++i) {
+      for (int i = 0; i < std::min(n, int(a.size()) - (n - 1)); ++i) {
         this->push_back(a[n - 1 + i] * cache.fact_inv(i));
       }
       return *this;
@@ -592,7 +592,7 @@ namespace tools {
       res.reserve((this->size() - 1) * d + 1);
       auto a_i = Mul::e();
       res.push_back(this->front());
-      for (auto it = ::std::next(this->begin()); it != this->end(); ++it) {
+      for (auto it = std::next(this->begin()); it != this->end(); ++it) {
         for (int i = 1; i < d; ++i) {
           res.push_back(Add::e());
         }
@@ -600,14 +600,14 @@ namespace tools {
         a_i = Mul::op(a_i, a);
       }
       res.regularize();
-      return *this = ::std::move(res);
+      return *this = std::move(res);
     }
 
   public:
     T operator()(const T& a) const {
       auto x = Mul::e();
       auto res = Add::e();
-      for (auto it = this->begin(), end = ::std::next(this->begin(), this->deg() + 1); it != end; ++it) {
+      for (auto it = this->begin(), end = std::next(this->begin(), this->deg() + 1); it != end; ++it) {
         res = Add::op(res, Mul::op(*it, x));
         x = Mul::op(x, a);
       }
@@ -618,7 +618,7 @@ namespace tools {
       if (n == 0) return P{};
       const int m = g.deg() + 1;
       if (m == 0) return P{(*this)[0]};
-      if (::std::all_of(g.begin(), ::std::next(g.begin(), m - 1), [](const auto& g_i) { return g_i == Add::e(); })) {
+      if (std::all_of(g.begin(), std::next(g.begin(), m - 1), [](const auto& g_i) { return g_i == Add::e(); })) {
         return P(this->begin(), this->begin() + n).composition_ax_d(g.back(), m - 1);
       }
 
@@ -634,7 +634,7 @@ namespace tools {
       };
 
       if constexpr (IS_MOD_M) {
-        if (::tools::is_prime(T::mod()) && n < T::mod()) {
+        if (tools::is_prime(T::mod()) && n < T::mod()) {
           if (m == 2) {
             return P(this->begin(), this->begin() + n).taylor_shift(g[0]).composition_ax_d(g[1], 1);
           } else if (m == 3) {
@@ -648,48 +648,48 @@ namespace tools {
     }
 
   private:
-    ::std::vector<T> multipoint_evaluation_naive(const ::std::vector<T>& p) const {
-      ::std::vector<T> res;
+    std::vector<T> multipoint_evaluation_naive(const std::vector<T>& p) const {
+      std::vector<T> res;
       for (const auto& p_i : p) {
         res.push_back((*this)(p_i));
       }
       return res;
     }
-    ::std::vector<T> multipoint_evaluation_faster(const ::std::vector<T>& p) const {
+    std::vector<T> multipoint_evaluation_faster(const std::vector<T>& p) const {
       const int M = p.size();
       assert(M > 0);
 
-      const auto h = ::tools::ceil_log2(M);
-      ::std::vector<P> prods(::tools::pow2(h) * 2);
+      const auto h = tools::ceil_log2(M);
+      std::vector<P> prods(tools::pow2(h) * 2);
       for (int i = 0; i < M; ++i) {
-        prods[::tools::pow2(h) + i] = P{-p[i], T(1)};
+        prods[tools::pow2(h) + i] = P{-p[i], T(1)};
       }
-      for (int i = M; i < ::tools::pow2(h); ++i) {
-        prods[::tools::pow2(h) + i] = P{T(1)};
+      for (int i = M; i < tools::pow2(h); ++i) {
+        prods[tools::pow2(h) + i] = P{T(1)};
       }
-      for (int i = ::tools::pow2(h) - 1; i > 0; --i) {
+      for (int i = tools::pow2(h) - 1; i > 0; --i) {
         prods[i] = prods[i * 2] * prods[i * 2 + 1];
       }
 
-      ::std::vector<P> mods(::tools::pow2(h) * 2);
+      std::vector<P> mods(tools::pow2(h) * 2);
       mods[1] = *this % prods[1];
-      for (int i = 2; i < ::tools::pow2(h) + M; ++i) {
+      for (int i = 2; i < tools::pow2(h) + M; ++i) {
         mods[i] = mods[i / 2] % prods[i];
       }
 
-      ::std::vector<T> res;
+      std::vector<T> res;
       res.reserve(M);
       for (int i = 0; i < M; ++i) {
-        res.push_back(*mods[::tools::pow2(h) + i].pbegin());
+        res.push_back(*mods[tools::pow2(h) + i].pbegin());
       }
       return res;
     }
 
   public:
     template <typename InputIterator>
-    ::std::vector<T> multipoint_evaluation(const InputIterator begin, const InputIterator end) const {
-      ::std::vector<T> p(begin, end);
-      if (p.empty()) return ::std::vector<T>{};
+    std::vector<T> multipoint_evaluation(const InputIterator begin, const InputIterator end) const {
+      std::vector<T> p(begin, end);
+      if (p.empty()) return std::vector<T>{};
 
       if constexpr (IS_MOD_M) {
         return this->multipoint_evaluation_faster(p);

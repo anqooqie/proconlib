@@ -7,15 +7,15 @@ namespace tools {
   namespace detail {
     namespace specialization_of {
       template <typename, template <typename...> typename>
-      struct trait : ::std::false_type {};
+      struct trait : std::false_type {};
 
       template <template <typename...> typename U, typename... Args>
-      struct trait<U<Args...>, U> : ::std::true_type {};
+      struct trait<U<Args...>, U> : std::true_type {};
     }
   }
 
   template <typename T, template <typename...> typename U>
-  concept specialization_of = ::tools::detail::specialization_of::trait<T, U>::value;
+  concept specialization_of = tools::detail::specialization_of::trait<T, U>::value;
 }
 
 #endif

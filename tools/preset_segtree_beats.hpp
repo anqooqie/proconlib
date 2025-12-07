@@ -40,14 +40,14 @@ namespace tools {
       T second_lowest(const T a, const T a2, const T c, const T c2) {
         assert(a <= a2); // a < a2 or a == a2 == INF
         assert(c <= c2); // c < c2 or c == c2 == -INF
-        return a == c ? ::std::min(a2, c2) : a2 <= c ? a2 : c2 <= a ? c2 : ::std::max(a, c);
+        return a == c ? std::min(a2, c2) : a2 <= c ? a2 : c2 <= a ? c2 : std::max(a, c);
       }
 
       template <typename T>
       T second_highest(const T a, const T a2, const T b, const T b2) {
         assert(a >= a2); // a > a2 or a == a2 == -INF
         assert(b >= b2); // b > b2 or b == b2 == INF
-        return a == b ? ::std::max(a2, b2) : a2 >= b ? a2 : b2 >= a ? b2 : ::std::min(a, b);
+        return a == b ? std::max(a2, b2) : a2 >= b ? a2 : b2 >= a ? b2 : std::min(a, b);
       }
 
       template <typename T>
@@ -55,10 +55,10 @@ namespace tools {
         T lo, hi, lo2, hi2, sum, sz, nlo, nhi;
         bool fail;
         S():
-          lo(::std::numeric_limits<T>::max()),
-          hi(::std::numeric_limits<T>::min()),
-          lo2(::std::numeric_limits<T>::max()),
-          hi2(::std::numeric_limits<T>::min()),
+          lo(std::numeric_limits<T>::max()),
+          hi(std::numeric_limits<T>::min()),
+          lo2(std::numeric_limits<T>::max()),
+          hi2(std::numeric_limits<T>::min()),
           sum(0),
           sz(0),
           nlo(0),
@@ -68,8 +68,8 @@ namespace tools {
         S(const T x, const T sz_):
           lo(x),
           hi(x),
-          lo2(::std::numeric_limits<T>::max()),
-          hi2(::std::numeric_limits<T>::min()),
+          lo2(std::numeric_limits<T>::max()),
+          hi2(std::numeric_limits<T>::min()),
           sum(x * sz_),
           sz(sz_),
           nlo(sz_),
@@ -83,8 +83,8 @@ namespace tools {
         if (l.lo > l.hi) return r;
         if (r.lo > r.hi) return l;
         S<T> ret;
-        ret.lo = ::std::min(l.lo, r.lo);
-        ret.hi = ::std::max(l.hi, r.hi);
+        ret.lo = std::min(l.lo, r.lo);
+        ret.hi = std::max(l.hi, r.hi);
         ret.lo2 = second_lowest(l.lo, l.lo2, r.lo, r.lo2);
         ret.hi2 = second_highest(l.hi, l.hi2, r.hi, r.hi2);
         ret.sum = l.sum + r.sum;
@@ -103,8 +103,8 @@ namespace tools {
       struct F {
         T lb, ub, bias;
         F():
-          lb(::std::numeric_limits<T>::min()),
-          ub(::std::numeric_limits<T>::max()),
+          lb(std::numeric_limits<T>::min()),
+          ub(std::numeric_limits<T>::max()),
           bias(0) {
         }
         F(const T chmax_, const T chmin_, const T add):
@@ -113,13 +113,13 @@ namespace tools {
           bias(add) {
         }
         static F<T> chmin(const T x) {
-          return F<T>(::std::numeric_limits<T>::min(), x, 0);
+          return F<T>(std::numeric_limits<T>::min(), x, 0);
         }
         static F<T> chmax(const T x) {
-          return F<T>(x, ::std::numeric_limits<T>::max(), 0);
+          return F<T>(x, std::numeric_limits<T>::max(), 0);
         }
         static F<T> add(const T x) {
-          return F<T>(::std::numeric_limits<T>::min(), ::std::numeric_limits<T>::max(), x);
+          return F<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max(), x);
         }
       };
 
@@ -129,13 +129,13 @@ namespace tools {
 
         // f の作用後 x の要素が 1 種類だけになるケース
         if (x.lo == x.hi || f.lb == f.ub || f.lb >= x.hi || f.ub <= x.lo) {
-          return S<T>(::std::clamp(x.lo, f.lb, f.ub) + f.bias, x.sz);
+          return S<T>(std::clamp(x.lo, f.lb, f.ub) + f.bias, x.sz);
         }
 
         // 2 種類 -> 1 種類
         if (x.lo2 == x.hi) {
-          x.lo = x.hi2 = ::std::max(x.lo, f.lb) + f.bias;
-          x.hi = x.lo2 = ::std::min(x.hi, f.ub) + f.bias;
+          x.lo = x.hi2 = std::max(x.lo, f.lb) + f.bias;
+          x.hi = x.lo2 = std::min(x.hi, f.ub) + f.bias;
           x.sum = x.lo * x.nlo + x.hi * x.nhi;
           return x;
         }
@@ -161,14 +161,14 @@ namespace tools {
         F<T> ret;
 
         ret.lb = fold.lb;
-        if (::std::numeric_limits<T>::min() < ret.lb && ret.lb < ::std::numeric_limits<T>::max()) ret.lb += fold.bias;
-        ret.lb = ::std::clamp(ret.lb, fnew.lb, fnew.ub);
-        if (::std::numeric_limits<T>::min() < ret.lb && ret.lb < ::std::numeric_limits<T>::max()) ret.lb -= fold.bias;
+        if (std::numeric_limits<T>::min() < ret.lb && ret.lb < std::numeric_limits<T>::max()) ret.lb += fold.bias;
+        ret.lb = std::clamp(ret.lb, fnew.lb, fnew.ub);
+        if (std::numeric_limits<T>::min() < ret.lb && ret.lb < std::numeric_limits<T>::max()) ret.lb -= fold.bias;
 
         ret.ub = fold.ub;
-        if (::std::numeric_limits<T>::min() < ret.ub && ret.ub < ::std::numeric_limits<T>::max()) ret.ub += fold.bias;
-        ret.ub = ::std::clamp(ret.ub, fnew.lb, fnew.ub);
-        if (::std::numeric_limits<T>::min() < ret.ub && ret.ub < ::std::numeric_limits<T>::max()) ret.ub -= fold.bias;
+        if (std::numeric_limits<T>::min() < ret.ub && ret.ub < std::numeric_limits<T>::max()) ret.ub += fold.bias;
+        ret.ub = std::clamp(ret.ub, fnew.lb, fnew.ub);
+        if (std::numeric_limits<T>::min() < ret.ub && ret.ub < std::numeric_limits<T>::max()) ret.ub -= fold.bias;
 
         ret.bias = fold.bias + fnew.bias;
 
@@ -181,36 +181,36 @@ namespace tools {
       }
 
       template <typename T>
-      using Base = ::tools::segtree_beats<S<T>, op<T>, e<T>, F<T>, mapping<T>, composition<T>, id<T>>;
+      using Base = tools::segtree_beats<S<T>, op<T>, e<T>, F<T>, mapping<T>, composition<T>, id<T>>;
     }
   }
 
   template <typename T>
   class preset_segtree_beats {
   private:
-    ::tools::detail::preset_segtree_beats::Base<T> m_base;
-    using S = ::tools::detail::preset_segtree_beats::S<T>;
-    using F = ::tools::detail::preset_segtree_beats::F<T>;
+    tools::detail::preset_segtree_beats::Base<T> m_base;
+    using S = tools::detail::preset_segtree_beats::S<T>;
+    using F = tools::detail::preset_segtree_beats::F<T>;
 
   public:
-    preset_segtree_beats(const ::tools::preset_segtree_beats<T>&) = default;
-    preset_segtree_beats(::tools::preset_segtree_beats<T>&&) = default;
+    preset_segtree_beats(const tools::preset_segtree_beats<T>&) = default;
+    preset_segtree_beats(tools::preset_segtree_beats<T>&&) = default;
     ~preset_segtree_beats() = default;
-    ::tools::preset_segtree_beats<T>& operator=(const ::tools::preset_segtree_beats<T>&) = default;
-    ::tools::preset_segtree_beats<T>& operator=(::tools::preset_segtree_beats<T>&&) = default;
+    tools::preset_segtree_beats<T>& operator=(const tools::preset_segtree_beats<T>&) = default;
+    tools::preset_segtree_beats<T>& operator=(tools::preset_segtree_beats<T>&&) = default;
 
     explicit preset_segtree_beats(const int n) : m_base(n) {
     }
     template <typename InputIterator>
     preset_segtree_beats(const InputIterator begin, const InputIterator end) : m_base([&]() {
-      ::std::vector<S> v;
+      std::vector<S> v;
       for (auto it = begin; it != end; ++it) {
         v.emplace_back(*it, 1);
       }
       return v;
     }()) {
     }
-    explicit preset_segtree_beats(const ::std::vector<T>& v) : preset_segtree_beats(v.begin(), v.end()) {
+    explicit preset_segtree_beats(const std::vector<T>& v) : preset_segtree_beats(v.begin(), v.end()) {
     }
 
     void set(const int p, const T x) {

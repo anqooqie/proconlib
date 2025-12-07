@@ -13,10 +13,10 @@
 namespace tools {
   template <typename X, bool Forward = true>
   class online_cumsum {
-    using M = ::std::conditional_t<::tools::monoid<X>, X, ::tools::groups::plus<X>>;
+    using M = std::conditional_t<tools::monoid<X>, X, tools::groups::plus<X>>;
     using T = typename M::T;
-    ::std::vector<T> m_vector;
-    ::std::vector<T> m_cumsum;
+    std::vector<T> m_vector;
+    std::vector<T> m_cumsum;
     int m_processed;
 
   public:
@@ -52,7 +52,7 @@ namespace tools {
         for (; this->m_processed < r; ++this->m_processed) {
           this->m_cumsum[this->m_processed + 1] = M::op(this->m_cumsum[this->m_processed], this->m_vector[this->m_processed]);
         }
-        if constexpr (::tools::group<M>) {
+        if constexpr (tools::group<M>) {
           return M::op(M::inv(this->m_cumsum[l]), this->m_cumsum[r]);
         } else {
           assert(l == 0);
@@ -62,7 +62,7 @@ namespace tools {
         for (; this->m_processed > l; --this->m_processed) {
           this->m_cumsum[this->m_processed - 1] = M::op(this->m_vector[this->m_processed - 1], this->m_cumsum[this->m_processed]);
         }
-        if constexpr (::tools::group<M>) {
+        if constexpr (tools::group<M>) {
           return M::op(this->m_cumsum[l], M::inv(this->m_cumsum[r]));
         } else {
           assert(r == this->size());
@@ -70,17 +70,17 @@ namespace tools {
         }
       }
     }
-    template <typename Y = X> requires (!::tools::monoid<Y>)
+    template <typename Y = X> requires (!tools::monoid<Y>)
     T sum(const int l, const int r) {
       return this->prod(l, r);
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::online_cumsum<X, Forward>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::online_cumsum<X, Forward>& self) {
       if constexpr (Forward) {
-        ::std::fill(self.m_cumsum.begin(), self.m_cumsum.begin() + self.m_processed, M::e());
+        std::fill(self.m_cumsum.begin(), self.m_cumsum.begin() + self.m_processed, M::e());
         self.m_processed = 0;
       } else {
-        ::std::fill(self.m_cumsum.begin() + self.m_processed, self.m_cumsum.end(), M::e());
+        std::fill(self.m_cumsum.begin() + self.m_processed, self.m_cumsum.end(), M::e());
         self.m_processed = self.size();
       }
       for (auto it = self.begin(); it != self.end(); ++it) {

@@ -16,7 +16,7 @@ using S = std::tuple<ll, ll, ll>;
 struct SM {
   using T = S;
   static T op(const T& x, const T& y) {
-    return T(std::max(std::get<0>(x), std::get<0>(y)), std::min(::std::get<1>(x), std::get<1>(y)), std::get<2>(x) + std::get<2>(y));
+    return T(std::max(std::get<0>(x), std::get<0>(y)), std::min(std::get<1>(x), std::get<1>(y)), std::get<2>(x) + std::get<2>(y));
   }
   static T e() {
     return T(std::numeric_limits<ll>::min(), std::numeric_limits<ll>::max(), 0LL);

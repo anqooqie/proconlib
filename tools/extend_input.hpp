@@ -18,7 +18,7 @@ namespace tools {
   namespace detail {
     namespace extend_input {
       template <typename T>
-      ::std::istream& read(::std::istream& is, T& container) {
+      std::istream& read(std::istream& is, T& container) {
         for (auto& v : container) {
           is >> v;
         }
@@ -29,20 +29,20 @@ namespace tools {
 }
 
 namespace std {
-  template <class T, ::std::size_t N>
-  ::std::istream& operator>>(::std::istream& is, ::std::array<T, N>& array) {
-    return ::tools::detail::extend_input::read(is, array);
+  template <class T, std::size_t N>
+  std::istream& operator>>(std::istream& is, std::array<T, N>& array) {
+    return tools::detail::extend_input::read(is, array);
   }
 
   template <class T1, class T2>
-  ::std::istream& operator>>(::std::istream& is, ::std::pair<T1, T2>& pair) {
+  std::istream& operator>>(std::istream& is, std::pair<T1, T2>& pair) {
     return is >> pair.first >> pair.second;
   }
 
   template <int I = 0, typename... Args>
-  ::std::istream& operator>>(::std::istream& is, ::std::tuple<Args...>& tuple) {
+  std::istream& operator>>(std::istream& is, std::tuple<Args...>& tuple) {
     if constexpr (I < int(sizeof...(Args))) {
-        is >> ::std::get<I>(tuple);
+        is >> std::get<I>(tuple);
         return operator>><I + 1>(is, tuple);
       } else {
       return is;
@@ -50,12 +50,12 @@ namespace std {
   }
 
   template <class T, class Allocator>
-  ::std::istream& operator>>(::std::istream& is, ::std::vector<T, Allocator>& vector) {
-    return ::tools::detail::extend_input::read(is, vector);
+  std::istream& operator>>(std::istream& is, std::vector<T, Allocator>& vector) {
+    return tools::detail::extend_input::read(is, vector);
   }
 
-  template <::tools::modint_compatible T>
-  ::std::istream& operator>>(::std::istream& is, T& x) {
+  template <tools::modint_compatible T>
+  std::istream& operator>>(std::istream& is, T& x) {
     long long n;
     is >> n;
     x = T(n);

@@ -11,29 +11,29 @@
 
 namespace tools {
   template <class T, class Allocator, typename V>
-  ::std::enable_if_t<!::tools::is_range_v<T>, void> fill(::std::vector<T, Allocator>& vector, const V& value) {
-    ::std::fill(::std::begin(vector), ::std::end(vector), value);
+  std::enable_if_t<!tools::is_range_v<T>, void> fill(std::vector<T, Allocator>& vector, const V& value) {
+    std::fill(std::begin(vector), std::end(vector), value);
   }
-  template <class T, ::std::size_t N, typename V>
-  ::std::enable_if_t<!::tools::is_range_v<T>, void> fill(::std::array<T, N>& array, const V& value) {
-    ::std::fill(::std::begin(array), ::std::end(array), value);
+  template <class T, std::size_t N, typename V>
+  std::enable_if_t<!tools::is_range_v<T>, void> fill(std::array<T, N>& array, const V& value) {
+    std::fill(std::begin(array), std::end(array), value);
   }
 
   template <class T, class Allocator, typename V>
-  ::std::enable_if_t<::tools::is_range_v<T>, void> fill(::std::vector<T, Allocator>& vector, const V& value);
-  template <class T, ::std::size_t N, typename V>
-  ::std::enable_if_t<::tools::is_range_v<T>, void> fill(::std::array<T, N>& array, const V& value);
+  std::enable_if_t<tools::is_range_v<T>, void> fill(std::vector<T, Allocator>& vector, const V& value);
+  template <class T, std::size_t N, typename V>
+  std::enable_if_t<tools::is_range_v<T>, void> fill(std::array<T, N>& array, const V& value);
 
   template <class T, class Allocator, typename V>
-  ::std::enable_if_t<::tools::is_range_v<T>, void> fill(::std::vector<T, Allocator>& vector, const V& value) {
+  std::enable_if_t<tools::is_range_v<T>, void> fill(std::vector<T, Allocator>& vector, const V& value) {
     for (auto& child : vector) {
-      ::tools::fill(child, value);
+      tools::fill(child, value);
     }
   }
-  template <class T, ::std::size_t N, typename V>
-  ::std::enable_if_t<::tools::is_range_v<T>, void> fill(::std::array<T, N>& array, const V& value) {
+  template <class T, std::size_t N, typename V>
+  std::enable_if_t<tools::is_range_v<T>, void> fill(std::array<T, N>& array, const V& value) {
     for (auto& child : array) {
-      ::tools::fill(child, value);
+      tools::fill(child, value);
     }
   }
 }

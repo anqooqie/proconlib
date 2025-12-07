@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename M>
-  concept commutative_monoid = ::tools::monoid<M>;
+  concept commutative_monoid = tools::monoid<M>;
 }
 
 #endif

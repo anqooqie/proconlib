@@ -14,12 +14,12 @@
 namespace tools {
   template <typename T>
   class permutation {
-    ::std::vector<int> m_perm;
-    ::std::vector<int> m_inv;
+    std::vector<int> m_perm;
+    std::vector<int> m_inv;
 
     void verify_consistency() const {
 #ifndef NDEBUG
-      ::std::vector<bool> unique(this->size(), true);
+      std::vector<bool> unique(this->size(), true);
       for (const auto x : this->m_perm) {
         assert(0 <= x && x < this->size());
         assert(unique[x]);
@@ -37,17 +37,17 @@ namespace tools {
 
   public:
     class iterator {
-      ::std::vector<int>::const_iterator m_it;
+      std::vector<int>::const_iterator m_it;
 
     public:
       using reference = T;
       using value_type = T;
-      using difference_type = ::std::ptrdiff_t;
+      using difference_type = std::ptrdiff_t;
       using pointer = const value_type*;
-      using iterator_category = ::std::random_access_iterator_tag;
+      using iterator_category = std::random_access_iterator_tag;
 
       iterator() = default;
-      iterator(const ::std::vector<int>::const_iterator it) : m_it(it) {
+      iterator(const std::vector<int>::const_iterator it) : m_it(it) {
       }
 
       reference operator*() const {
@@ -118,11 +118,11 @@ namespace tools {
 
     permutation() = default;
     explicit permutation(const int n) : m_perm(n), m_inv(n) {
-      ::std::iota(this->m_perm.begin(), this->m_perm.end(), 0);
-      ::std::iota(this->m_inv.begin(), this->m_inv.end(), 0);
+      std::iota(this->m_perm.begin(), this->m_perm.end(), 0);
+      std::iota(this->m_inv.begin(), this->m_inv.end(), 0);
     }
-    template <::std::ranges::range R>
-    permutation(R&& r) : m_perm(::std::ranges::begin(r), ::std::ranges::end(r)) {
+    template <std::ranges::range R>
+    permutation(R&& r) : m_perm(std::ranges::begin(r), std::ranges::end(r)) {
       this->verify_consistency();
       this->make_inv();
     }
@@ -141,30 +141,30 @@ namespace tools {
       return this->m_perm.end();
     }
 
-    ::tools::permutation<T>& swap_from_left(const int x, const int y) {
+    tools::permutation<T>& swap_from_left(const int x, const int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
       this->m_inv[this->m_perm[y]] = x;
       this->m_inv[this->m_perm[x]] = y;
-      ::std::swap(this->m_perm[x], this->m_perm[y]);
+      std::swap(this->m_perm[x], this->m_perm[y]);
       return *this;
     }
-    ::tools::permutation<T>& swap_from_right(const int x, const int y) {
+    tools::permutation<T>& swap_from_right(const int x, const int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
       this->m_perm[this->m_inv[y]] = x;
       this->m_perm[this->m_inv[x]] = y;
-      ::std::swap(this->m_inv[x], this->m_inv[y]);
+      std::swap(this->m_inv[x], this->m_inv[y]);
       return *this;
     }
 
     long long id() const {
       if (this->size() == 0) return 0;
 
-      ::std::vector<int> left(this->size());
-      ::std::iota(left.begin(), left.end(), 0);
+      std::vector<int> left(this->size());
+      std::iota(left.begin(), left.end(), 0);
 
-      ::std::vector<long long> fact(this->size());
+      std::vector<long long> fact(this->size());
       fact[0] = 1;
       for (int i = 1; i < this->size(); ++i) {
         fact[i] = fact[i - 1] * i;
@@ -172,41 +172,41 @@ namespace tools {
 
       long long id = 0;
       for (int i = 0; i < this->size(); ++i) {
-        auto it = ::std::lower_bound(left.begin(), left.end(), this->m_perm[i]);
-        id += ::std::distance(left.begin(), it) * fact[this->size() - 1 - i];
+        auto it = std::lower_bound(left.begin(), left.end(), this->m_perm[i]);
+        id += std::distance(left.begin(), it) * fact[this->size() - 1 - i];
         left.erase(it);
       }
 
       return id;
     }
 
-    static ::tools::permutation<T> from(const int n, long long id) {
-      if (n == 0) return ::tools::permutation<T>(0);
+    static tools::permutation<T> from(const int n, long long id) {
+      if (n == 0) return tools::permutation<T>(0);
 
-      ::std::vector<int> left(n);
-      ::std::iota(left.begin(), left.end(), 0);
+      std::vector<int> left(n);
+      std::iota(left.begin(), left.end(), 0);
 
-      ::std::vector<long long> fact(n);
+      std::vector<long long> fact(n);
       fact[0] = 1;
       for (int i = 1; i < n; ++i) {
         fact[i] = fact[i - 1] * i;
       }
 
-      ::std::vector<int> p;
+      std::vector<int> p;
       for (int i = 0; i < n; ++i) {
-        const auto it = ::std::next(left.begin(), id / fact[n - i - 1]);
+        const auto it = std::next(left.begin(), id / fact[n - i - 1]);
         p.push_back(*it);
         left.erase(it);
         id %= fact[n - i - 1];
       }
 
-      return ::tools::permutation<T>(p);
+      return tools::permutation<T>(p);
     }
 
-    ::tools::permutation<T> inv() const {
-      return ::tools::permutation<T>(this->m_inv);
+    tools::permutation<T> inv() const {
+      return tools::permutation<T>(this->m_inv);
     }
-    ::tools::permutation<T>& inv_inplace() {
+    tools::permutation<T>& inv_inplace() {
       this->m_perm.swap(this->m_inv);
       return *this;
     }
@@ -215,7 +215,7 @@ namespace tools {
       return this->m_inv[i];
     }
 
-    ::tools::permutation<T>& operator*=(const ::tools::permutation<T>& other) {
+    tools::permutation<T>& operator*=(const tools::permutation<T>& other) {
       assert(this->size() == other.size());
       for (int i = 0; i < this->size(); ++i) {
         this->m_inv[i] = other.m_perm[this->m_perm[i]];
@@ -224,18 +224,18 @@ namespace tools {
       this->make_inv();
       return *this;
     }
-    friend ::tools::permutation<T> operator*(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {
-      return ::tools::permutation<T>(lhs) *= rhs;
+    friend tools::permutation<T> operator*(const tools::permutation<T>& lhs, const tools::permutation<T>& rhs) {
+      return tools::permutation<T>(lhs) *= rhs;
     }
 
-    friend bool operator==(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {
+    friend bool operator==(const tools::permutation<T>& lhs, const tools::permutation<T>& rhs) {
       return lhs.m_perm == rhs.m_perm;
     }
-    friend bool operator!=(const ::tools::permutation<T>& lhs, const ::tools::permutation<T>& rhs) {
+    friend bool operator!=(const tools::permutation<T>& lhs, const tools::permutation<T>& rhs) {
       return lhs.m_perm != rhs.m_perm;
     }
 
-    friend ::std::ostream& operator<<(::std::ostream& os, const ::tools::permutation<T>& self) {
+    friend std::ostream& operator<<(std::ostream& os, const tools::permutation<T>& self) {
       os << '(';
       auto it = self.begin();
       const auto end = self.end();
@@ -247,7 +247,7 @@ namespace tools {
       }
       return os << ')';
     }
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::permutation<T>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::permutation<T>& self) {
       for (auto& value : self.m_perm) {
         is >> value;
       }

@@ -13,8 +13,8 @@ namespace tools {
     static const M2 m1_inv_mod_m2 = M2::raw(M1::mod()).inv();
 
     assert(M1::mod() < M2::mod());
-    assert(::tools::is_prime(M1::mod()));
-    assert(::tools::is_prime(M2::mod()));
+    assert(tools::is_prime(M1::mod()));
+    assert(tools::is_prime(M2::mod()));
 
     // t = (b - a) / M1; (mod M2)
     // return a + t * M1;

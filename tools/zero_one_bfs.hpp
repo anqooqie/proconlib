@@ -24,8 +24,8 @@ namespace tools {
     };
 
   private:
-    ::std::vector<edge> m_edges;
-    ::std::vector<::std::vector<int>> m_graph;
+    std::vector<edge> m_edges;
+    std::vector<std::vector<int>> m_graph;
 
   public:
     zero_one_bfs() = default;
@@ -41,7 +41,7 @@ namespace tools {
       assert(0 <= v && v < this->size());
       assert(w == 0 || w == 1);
       if constexpr (!Directed) {
-        ::std::tie(u, v) = ::std::minmax({u, v});
+        std::tie(u, v) = std::minmax({u, v});
       }
       this->m_edges.push_back({u, v, w});
       this->m_graph[u].push_back(this->m_edges.size() - 1);
@@ -52,29 +52,29 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
       return this->m_edges[k];
     }
     edge get_edge(const int k) && {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return ::std::move(this->m_edges[k]);
+      assert(0 <= k && k < std::ssize(this->m_edges));
+      return std::move(this->m_edges[k]);
     }
 
-    const ::std::vector<edge>& edges() const & {
+    const std::vector<edge>& edges() const & {
       return this->m_edges;
     }
-    ::std::vector<edge> edges() && {
-      return ::std::move(this->m_edges);
+    std::vector<edge> edges() && {
+      return std::move(this->m_edges);
     }
 
     template <bool Restore = false>
     auto query(const int s) const {
       assert(0 <= s && s < this->size());
 
-      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      std::vector<T> dist(this->size(), std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
-      ::std::deque<::std::pair<int, T>> deque;
+      std::vector<int> prev(Restore ? this->size() : 0, -1);
+      std::deque<std::pair<int, T>> deque;
       deque.emplace_front(s, 0);
 
       while (!deque.empty()) {
@@ -84,7 +84,7 @@ namespace tools {
         for (const auto edge_id : this->m_graph[here]) {
           const auto& edge = this->m_edges[edge_id];
           const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);
-          if (::tools::chmin(dist[next], dist[here] + edge.cost)) {
+          if (tools::chmin(dist[next], dist[here] + edge.cost)) {
             if constexpr (Restore) {
               prev[next] = edge.id;
             }
@@ -98,7 +98,7 @@ namespace tools {
       }
 
       if constexpr (Restore) {
-        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
+        return tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
           return this->m_edges[e].from ^ (Directed ? 0 : this->m_edges[e].to ^ v);
         });
       } else {

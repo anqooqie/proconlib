@@ -26,8 +26,8 @@ namespace tools {
 
   private:
     int m_size;
-    ::std::vector<edge> m_edges;
-    ::std::vector<int> m_graph;
+    std::vector<edge> m_edges;
+    std::vector<int> m_graph;
 
   public:
     naive_dijkstra() = default;
@@ -43,7 +43,7 @@ namespace tools {
       assert(0 <= v && v < this->size());
       assert(w >= 0);
       if constexpr (!Directed) {
-        ::std::tie(u, v) = ::std::minmax({u, v});
+        std::tie(u, v) = std::minmax({u, v});
       }
       this->m_edges.push_back({u, v, w});
       if (this->m_graph[u * this->size() + v] < 0 || w < this->m_edges[this->m_graph[u * this->size() + v]].cost) {
@@ -56,42 +56,42 @@ namespace tools {
     }
 
     const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
+      assert(0 <= k && k < std::ssize(this->m_edges));
       return this->m_edges[k];
     }
     edge get_edge(const int k) && {
-      assert(0 <= k && k < ::std::ssize(this->m_edges));
-      return ::std::move(this->m_edges[k]);
+      assert(0 <= k && k < std::ssize(this->m_edges));
+      return std::move(this->m_edges[k]);
     }
 
-    const ::std::vector<edge>& edges() const & {
+    const std::vector<edge>& edges() const & {
       return this->m_edges;
     }
-    ::std::vector<edge> edges() && {
-      return ::std::move(this->m_edges);
+    std::vector<edge> edges() && {
+      return std::move(this->m_edges);
     }
 
     template <bool Restore = false>
     auto query(const int s) const {
       assert(0 <= s && s < this->size());
 
-      ::std::vector<T> dist(this->size(), ::std::numeric_limits<T>::max());
+      std::vector<T> dist(this->size(), std::numeric_limits<T>::max());
       dist[s] = 0;
-      ::std::vector<int> prev(Restore ? this->size() : 0, -1);
+      std::vector<int> prev(Restore ? this->size() : 0, -1);
 
-      ::std::vector<int> Q(this->size());
-      ::std::iota(Q.begin(), Q.end(), 0);
+      std::vector<int> Q(this->size());
+      std::iota(Q.begin(), Q.end(), 0);
       while (!Q.empty()) {
-        const auto min_it = ::std::ranges::min_element(Q, ::tools::less_by([&](const auto v) { return dist[v]; }));
+        const auto min_it = std::ranges::min_element(Q, tools::less_by([&](const auto v) { return dist[v]; }));
         const auto here = *min_it;
-        if (dist[here] == ::std::numeric_limits<T>::max()) break;
+        if (dist[here] == std::numeric_limits<T>::max()) break;
 
-        ::std::iter_swap(min_it, ::std::prev(Q.end()));
+        std::iter_swap(min_it, std::prev(Q.end()));
         Q.pop_back();
 
         for (const auto next : Q) {
           const auto edge_id = this->m_graph[here * this->size() + next];
-          if (edge_id >= 0 && ::tools::chmin(dist[next], dist[here] + this->m_edges[edge_id].cost)) {
+          if (edge_id >= 0 && tools::chmin(dist[next], dist[here] + this->m_edges[edge_id].cost)) {
             if constexpr (Restore) {
               prev[next] = edge_id;
             }
@@ -100,7 +100,7 @@ namespace tools {
       }
 
       if constexpr (Restore) {
-        return ::tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
+        return tools::shortest_path_tree(dist, prev, [&](const auto e, const auto v) {
           return this->m_edges[e].from ^ (Directed ? 0 : this->m_edges[e].to ^ v);
         });
       } else {

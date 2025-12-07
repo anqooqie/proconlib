@@ -15,12 +15,12 @@
 #include "tools/modint_compatible.hpp"
 
 namespace tools {
-  template <::tools::modint_compatible M>
+  template <tools::modint_compatible M>
   class fds_with_prefix_sums {
-    using F = ::tools::fds_with_prefix_sums<M>;
+    using F = tools::fds_with_prefix_sums<M>;
     long long m_N;
-    ::std::vector<M> m_lo;
-    ::std::vector<M> m_hi;
+    std::vector<M> m_lo;
+    std::vector<M> m_hi;
 
     long long sqrt_N() const {
       return this->m_lo.size() - 1;
@@ -32,17 +32,17 @@ namespace tools {
   public:
     class iterator {
       const F *m_parent;
-      ::std::size_t m_i;
+      std::size_t m_i;
 
     public:
       using reference = const M&;
       using value_type = M;
-      using difference_type = ::std::ptrdiff_t;
+      using difference_type = std::ptrdiff_t;
       using pointer = const M*;
-      using iterator_category = ::std::random_access_iterator_tag;
+      using iterator_category = std::random_access_iterator_tag;
 
       iterator() = default;
-      iterator(const F * const parent, const ::std::size_t i) : m_parent(parent), m_i(i) {
+      iterator(const F * const parent, const std::size_t i) : m_parent(parent), m_i(i) {
       }
 
       reference operator*() const {
@@ -124,17 +124,17 @@ namespace tools {
         return lhs.m_i >= rhs.m_i;
       }
     };
-    using reverse_iterator = ::std::reverse_iterator<iterator>;
+    using reverse_iterator = std::reverse_iterator<iterator>;
 
     fds_with_prefix_sums() = default;
     explicit fds_with_prefix_sums(const long long N) : fds_with_prefix_sums(N, [](long long) { return M::raw(0); }) {
     }
     template <typename PrefixSumFunction>
-    requires ::std::regular_invocable<PrefixSumFunction, long long>
-          && ::std::assignable_from<M&, ::std::invoke_result_t<PrefixSumFunction, long long>>
+    requires std::regular_invocable<PrefixSumFunction, long long>
+          && std::assignable_from<M&, std::invoke_result_t<PrefixSumFunction, long long>>
     fds_with_prefix_sums(const long long N, const PrefixSumFunction& sum) : m_N(N) {
       assert(N >= 1);
-      const auto sqrt_N = ::tools::floor_sqrt(N);
+      const auto sqrt_N = tools::floor_sqrt(N);
       this->m_lo.reserve(sqrt_N + 1);
       this->m_lo.push_back(M::raw(0));
       for (long long i = 1; i <= sqrt_N; ++i) {
@@ -147,17 +147,17 @@ namespace tools {
         this->m_hi.push_back(sum(N / i));
       }
     }
-    template <::std::ranges::input_range R>
-    requires ::std::assignable_from<M&, ::std::ranges::range_value_t<R>>
+    template <std::ranges::input_range R>
+    requires std::assignable_from<M&, std::ranges::range_value_t<R>>
     fds_with_prefix_sums(const long long N, R&& v) : m_N(N) {
       assert(N >= 1);
-      const auto sqrt_N = ::tools::floor_sqrt(N);
+      const auto sqrt_N = tools::floor_sqrt(N);
       this->m_lo.resize(sqrt_N + 1);
       this->m_lo[0] = M::raw(0);
       const auto hi_max = sqrt_N - (N < sqrt_N * (sqrt_N + 1));
       this->m_hi.resize(hi_max + 1);
       this->m_hi[0] = M::raw(0);
-      ::std::ranges::copy_n(::std::ranges::copy_n(::std::ranges::begin(v), sqrt_N, ::std::next(this->m_lo.begin())).in, hi_max, this->m_hi.rbegin());
+      std::ranges::copy_n(std::ranges::copy_n(std::ranges::begin(v), sqrt_N, std::next(this->m_lo.begin())).in, hi_max, this->m_hi.rbegin());
     }
 
     iterator begin() const {
@@ -167,10 +167,10 @@ namespace tools {
       return iterator(this, this->sqrt_N() + this->hi_max());
     }
     reverse_iterator rbegin() const {
-      return ::std::make_reverse_iterator(this->end());
+      return std::make_reverse_iterator(this->end());
     }
     reverse_iterator rend() const {
-      return ::std::make_reverse_iterator(this->begin());
+      return std::make_reverse_iterator(this->begin());
     }
 
     F operator+() const {
@@ -265,7 +265,7 @@ namespace tools {
 
     F& operator/=(const F& g) {
       assert(this->m_N == g.m_N);
-      assert(::std::gcd(g.m_lo[1].val(), M::mod()) == 1);
+      assert(std::gcd(g.m_lo[1].val(), M::mod()) == 1);
       const auto g1_inv = g.m_lo[1].inv();
       const auto hi_max = this->hi_max();
 
@@ -293,14 +293,14 @@ namespace tools {
       };
       for (long long i = 1; i * (i + 1) * (i + 1) <= this->m_N; ++i) {
         for (long long j = i + 1; i * j * j <= this->m_N; ++j) {
-          apply(j, ::std::min(this->m_N / (i * j), hi_max + 1), (g.m_lo[i] - g.m_lo[i - 1]) * (this->m_lo[j] - this->m_lo[j - 1]));
+          apply(j, std::min(this->m_N / (i * j), hi_max + 1), (g.m_lo[i] - g.m_lo[i - 1]) * (this->m_lo[j] - this->m_lo[j - 1]));
           apply(j, j, ((i * j <= hi_max ? g.m_hi[i * j] : g.m_lo[this->m_N / (i * j)]) - g.m_lo[j - 1]) * (this->m_lo[i] - this->m_lo[i - 1]));
         }
       }
       for (long long i = 1; i * i * (i + 1) <= this->m_N; ++i) {
         for (long long j = i; i * j * (j + 1) <= this->m_N; ++j) {
           apply(i, i, ((i * j <= hi_max ? g.m_hi[i * j] : g.m_lo[this->m_N / (i * j)]) - g.m_lo[j]) * (this->m_lo[j] - this->m_lo[j - 1]));
-          apply(j + 1, ::std::min(this->m_N / (i * j), hi_max + 1), (g.m_lo[j] - g.m_lo[j - 1]) * (this->m_lo[i] - this->m_lo[i - 1]));
+          apply(j + 1, std::min(this->m_N / (i * j), hi_max + 1), (g.m_lo[j] - g.m_lo[j - 1]) * (this->m_lo[i] - this->m_lo[i - 1]));
         }
       }
       for (long long i = 1; i * i * i <= this->m_N; ++i) {

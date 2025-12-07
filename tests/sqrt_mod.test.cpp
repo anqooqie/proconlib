@@ -14,7 +14,7 @@ int main() {
   for (ll t = 0; t < T; ++t) {
     ll Y, P;
     std::cin >> Y >> P;
-    const auto answer = ::tools::sqrt_mod(Y, P);
+    const auto answer = tools::sqrt_mod(Y, P);
     std::cout << (answer ? *answer : -1) << '\n';
   }
 

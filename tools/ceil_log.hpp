@@ -8,13 +8,13 @@
 namespace tools {
 
   template <typename M, typename N>
-  ::std::common_type_t<M, N> ceil_log(const M& base, const N& antilogarithm) {
+  std::common_type_t<M, N> ceil_log(const M& base, const N& antilogarithm) {
     assert(2 <= base && base <= 1000000000000000000);
     assert(1 <= antilogarithm && antilogarithm <= 1000000000000000000);
 
-    const ::std::common_type_t<M, N> threshold = tools::ceil(antilogarithm, base);
-    ::std::common_type_t<M, N> logarithm = 0;
-    for (::std::common_type_t<M, N> pow = 1; pow < antilogarithm; pow = (pow < threshold ? pow * base : antilogarithm)) {
+    const std::common_type_t<M, N> threshold = tools::ceil(antilogarithm, base);
+    std::common_type_t<M, N> logarithm = 0;
+    for (std::common_type_t<M, N> pow = 1; pow < antilogarithm; pow = (pow < threshold ? pow * base : antilogarithm)) {
       ++logarithm;
     }
 

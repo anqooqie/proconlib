@@ -5,7 +5,7 @@
 
 namespace tools {
   template <typename T>
-  concept integral = ::tools::is_integral_v<T>;
+  concept integral = tools::is_integral_v<T>;
 }
 
 #endif

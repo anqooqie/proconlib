@@ -12,13 +12,13 @@
 namespace tools {
   class bit_vector {
   private:
-    using u32 = ::std::uint32_t;
-    using i64 = ::std::int64_t;
-    using u64 = ::std::uint64_t;
+    using u32 = std::uint32_t;
+    using i64 = std::int64_t;
+    using u64 = std::uint64_t;
 
     static constexpr u32 w = 64;
-    ::std::vector<u64> m_block;
-    ::std::vector<u32> m_count;
+    std::vector<u64> m_block;
+    std::vector<u32> m_count;
     u32 m_size, m_zeros;
 
   public:

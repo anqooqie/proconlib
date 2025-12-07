@@ -8,7 +8,7 @@
 
 namespace tools {
   template <typename SM>
-  using sparse_segtree = ::tools::lazy_sparse_segtree<SM, ::tools::nop_monoid, ::tools::nop_mapping<::std::monostate, typename SM::T>>;
+  using sparse_segtree = tools::lazy_sparse_segtree<SM, tools::nop_monoid, tools::nop_mapping<std::monostate, typename SM::T>>;
 }
 
 #endif

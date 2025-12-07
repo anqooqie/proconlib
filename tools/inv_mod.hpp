@@ -9,9 +9,9 @@ namespace tools {
 
   template <typename T1, typename T2>
   constexpr T2 inv_mod(const T1 x, const T2 m) {
-    const auto [x0, y0, gcd] = ::tools::extgcd(x, m);
+    const auto [x0, y0, gcd] = tools::extgcd(x, m);
     assert(gcd == 1);
-    return ::tools::mod(x0, m);
+    return tools::mod(x0, m);
   }
 }
 

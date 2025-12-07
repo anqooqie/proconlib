@@ -32,10 +32,10 @@ namespace tools {
 
   namespace detail {
     namespace int128_t {
-      constexpr ::tools::uint128_t parse_unsigned(const ::std::string_view s) noexcept {
+      constexpr tools::uint128_t parse_unsigned(const std::string_view s) noexcept {
         assert(!s.empty());
-        ::tools::uint128_t x = 0;
-        ::std::size_t i = s[0] == '+';
+        tools::uint128_t x = 0;
+        std::size_t i = s[0] == '+';
         if (i + 1 < s.size() && s[i] == '0' && (s[i + 1] == 'x' || s[i + 1] == 'X')) {
           for (i += 2; i < s.size(); ++i) {
             assert(('0' <= s[i] && s[i] <= '9') || ('a' <= s[i] && s[i] <= 'f') || ('A' <= s[i] && s[i] <= 'F'));
@@ -58,11 +58,11 @@ namespace tools {
         return x;
       }
 
-      constexpr ::tools::int128_t parse_signed(const ::std::string_view s) noexcept {
+      constexpr tools::int128_t parse_signed(const std::string_view s) noexcept {
         assert(!s.empty());
-        ::tools::int128_t x = 0;
+        tools::int128_t x = 0;
         if (s[0] == '-') {
-          ::std::size_t i = 1;
+          std::size_t i = 1;
           if (i + 1 < s.size() && s[i] == '0' && (s[i + 1] == 'x' || s[i + 1] == 'X')) {
             for (i += 2; i < s.size(); ++i) {
               assert(('0' <= s[i] && s[i] <= '9') || ('a' <= s[i] && s[i] <= 'f') || ('A' <= s[i] && s[i] <= 'F'));
@@ -83,7 +83,7 @@ namespace tools {
             }
           }
         } else {
-          ::std::size_t i = s[0] == '+';
+          std::size_t i = s[0] == '+';
           if (i + 1 < s.size() && s[i] == '0' && (s[i + 1] == 'x' || s[i + 1] == 'X')) {
             for (i += 2; i < s.size(); ++i) {
               assert(('0' <= s[i] && s[i] <= '9') || ('a' <= s[i] && s[i] <= 'f') || ('A' <= s[i] && s[i] <= 'F'));
@@ -109,32 +109,32 @@ namespace tools {
     }
   }
 
-  constexpr ::tools::uint128_t abs(const ::tools::uint128_t& x) noexcept {
+  constexpr tools::uint128_t abs(const tools::uint128_t& x) noexcept {
     return x;
   }
-  constexpr ::tools::int128_t abs(const ::tools::int128_t& x) {
+  constexpr tools::int128_t abs(const tools::int128_t& x) {
     return x >= 0 ? x : -x;
   }
 }
 
-#define UINT128_C(c) ::tools::detail::int128_t::parse_unsigned(#c)
-#define INT128_C(c) ::tools::detail::int128_t::parse_signed(#c)
+#define UINT128_C(c) tools::detail::int128_t::parse_unsigned(#c)
+#define INT128_C(c) tools::detail::int128_t::parse_signed(#c)
 
-inline ::std::istream& operator>>(::std::istream& is, ::tools::uint128_t& x) {
-  ::std::string s;
+inline std::istream& operator>>(std::istream& is, tools::uint128_t& x) {
+  std::string s;
   is >> s;
-  x = ::tools::detail::int128_t::parse_unsigned(s);
+  x = tools::detail::int128_t::parse_unsigned(s);
   return is;
 }
-inline ::std::istream& operator>>(::std::istream& is, ::tools::int128_t& x) {
-  ::std::string s;
+inline std::istream& operator>>(std::istream& is, tools::int128_t& x) {
+  std::string s;
   is >> s;
-  x = ::tools::detail::int128_t::parse_signed(s);
+  x = tools::detail::int128_t::parse_signed(s);
   return is;
 }
 
-inline ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {
-  ::std::string s;
+inline std::ostream& operator<<(std::ostream& os, tools::uint128_t x) {
+  std::string s;
   if (x > 0) {
     while (x > 0) {
       s.push_back('0' + x % 10);
@@ -144,11 +144,11 @@ inline ::std::ostream& operator<<(::std::ostream& os, ::tools::uint128_t x) {
     s.push_back('0');
   }
 
-  ::std::ranges::reverse(s);
+  std::ranges::reverse(s);
   return os << s;
 }
-inline ::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {
-  ::std::string s;
+inline std::ostream& operator<<(std::ostream& os, tools::int128_t x) {
+  std::string s;
   if (x > 0) {
     while (x > 0) {
       s.push_back('0' + x % 10);
@@ -164,28 +164,28 @@ inline ::std::ostream& operator<<(::std::ostream& os, ::tools::int128_t x) {
     s.push_back('0');
   }
 
-  ::std::ranges::reverse(s);
+  std::ranges::reverse(s);
   return os << s;
 }
 
 #if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
 namespace std {
   template <>
-  struct hash<::tools::uint128_t> {
-    ::std::size_t operator()(const ::tools::uint128_t& x) const {
-      static const ::std::size_t seed = ::tools::now();
+  struct hash<tools::uint128_t> {
+    std::size_t operator()(const tools::uint128_t& x) const {
+      static const std::size_t seed = tools::now();
 
-      ::std::size_t hash = seed;
-      ::tools::hash_combine(hash, static_cast<::std::uint64_t>(x >> 64));
-      ::tools::hash_combine(hash, static_cast<::std::uint64_t>(x & ((UINT128_C(1) << 64) - 1)));
+      std::size_t hash = seed;
+      tools::hash_combine(hash, static_cast<std::uint64_t>(x >> 64));
+      tools::hash_combine(hash, static_cast<std::uint64_t>(x & ((UINT128_C(1) << 64) - 1)));
       return hash;
     }
   };
   template <>
-  struct hash<::tools::int128_t> {
-    ::std::size_t operator()(const ::tools::int128_t& x) const {
-      static ::std::hash<::tools::uint128_t> hasher;
-      return hasher(static_cast<::tools::uint128_t>(x));
+  struct hash<tools::int128_t> {
+    std::size_t operator()(const tools::int128_t& x) const {
+      static std::hash<tools::uint128_t> hasher;
+      return hasher(static_cast<tools::uint128_t>(x));
     }
   };
 }
@@ -193,125 +193,125 @@ namespace std {
 
 namespace tools {
   template <>
-  struct is_integral<::tools::int128_t> : ::std::true_type {};
+  struct is_integral<tools::int128_t> : std::true_type {};
   template <>
-  struct is_integral<::tools::uint128_t> : ::std::true_type {};
+  struct is_integral<tools::uint128_t> : std::true_type {};
   template <>
-  struct is_integral<const ::tools::int128_t> : ::std::true_type {};
+  struct is_integral<const tools::int128_t> : std::true_type {};
   template <>
-  struct is_integral<const ::tools::uint128_t> : ::std::true_type {};
+  struct is_integral<const tools::uint128_t> : std::true_type {};
   template <>
-  struct is_integral<volatile ::tools::int128_t> : ::std::true_type {};
+  struct is_integral<volatile tools::int128_t> : std::true_type {};
   template <>
-  struct is_integral<volatile ::tools::uint128_t> : ::std::true_type {};
+  struct is_integral<volatile tools::uint128_t> : std::true_type {};
   template <>
-  struct is_integral<const volatile ::tools::int128_t> : ::std::true_type {};
+  struct is_integral<const volatile tools::int128_t> : std::true_type {};
   template <>
-  struct is_integral<const volatile ::tools::uint128_t> : ::std::true_type {};
+  struct is_integral<const volatile tools::uint128_t> : std::true_type {};
 
   template <>
-  struct is_signed<::tools::int128_t> : ::std::true_type {};
+  struct is_signed<tools::int128_t> : std::true_type {};
   template <>
-  struct is_signed<::tools::uint128_t> : ::std::false_type {};
+  struct is_signed<tools::uint128_t> : std::false_type {};
   template <>
-  struct is_signed<const ::tools::int128_t> : ::std::true_type {};
+  struct is_signed<const tools::int128_t> : std::true_type {};
   template <>
-  struct is_signed<const ::tools::uint128_t> : ::std::false_type {};
+  struct is_signed<const tools::uint128_t> : std::false_type {};
   template <>
-  struct is_signed<volatile ::tools::int128_t> : ::std::true_type {};
+  struct is_signed<volatile tools::int128_t> : std::true_type {};
   template <>
-  struct is_signed<volatile ::tools::uint128_t> : ::std::false_type {};
+  struct is_signed<volatile tools::uint128_t> : std::false_type {};
   template <>
-  struct is_signed<const volatile ::tools::int128_t> : ::std::true_type {};
+  struct is_signed<const volatile tools::int128_t> : std::true_type {};
   template <>
-  struct is_signed<const volatile ::tools::uint128_t> : ::std::false_type {};
+  struct is_signed<const volatile tools::uint128_t> : std::false_type {};
 
   template <>
-  struct is_unsigned<::tools::int128_t> : ::std::false_type {};
+  struct is_unsigned<tools::int128_t> : std::false_type {};
   template <>
-  struct is_unsigned<::tools::uint128_t> : ::std::true_type {};
+  struct is_unsigned<tools::uint128_t> : std::true_type {};
   template <>
-  struct is_unsigned<const ::tools::int128_t> : ::std::false_type {};
+  struct is_unsigned<const tools::int128_t> : std::false_type {};
   template <>
-  struct is_unsigned<const ::tools::uint128_t> : ::std::true_type {};
+  struct is_unsigned<const tools::uint128_t> : std::true_type {};
   template <>
-  struct is_unsigned<volatile ::tools::int128_t> : ::std::false_type {};
+  struct is_unsigned<volatile tools::int128_t> : std::false_type {};
   template <>
-  struct is_unsigned<volatile ::tools::uint128_t> : ::std::true_type {};
+  struct is_unsigned<volatile tools::uint128_t> : std::true_type {};
   template <>
-  struct is_unsigned<const volatile ::tools::int128_t> : ::std::false_type {};
+  struct is_unsigned<const volatile tools::int128_t> : std::false_type {};
   template <>
-  struct is_unsigned<const volatile ::tools::uint128_t> : ::std::true_type {};
+  struct is_unsigned<const volatile tools::uint128_t> : std::true_type {};
 
   template <>
-  struct make_signed<::tools::int128_t> {
-    using type = ::tools::int128_t;
+  struct make_signed<tools::int128_t> {
+    using type = tools::int128_t;
   };
   template <>
-  struct make_signed<::tools::uint128_t> {
-    using type = ::tools::int128_t;
+  struct make_signed<tools::uint128_t> {
+    using type = tools::int128_t;
   };
   template <>
-  struct make_signed<const ::tools::int128_t> {
-    using type = const ::tools::int128_t;
+  struct make_signed<const tools::int128_t> {
+    using type = const tools::int128_t;
   };
   template <>
-  struct make_signed<const ::tools::uint128_t> {
-    using type = const ::tools::int128_t;
+  struct make_signed<const tools::uint128_t> {
+    using type = const tools::int128_t;
   };
   template <>
-  struct make_signed<volatile ::tools::int128_t> {
-    using type = volatile ::tools::int128_t;
+  struct make_signed<volatile tools::int128_t> {
+    using type = volatile tools::int128_t;
   };
   template <>
-  struct make_signed<volatile ::tools::uint128_t> {
-    using type = volatile ::tools::int128_t;
+  struct make_signed<volatile tools::uint128_t> {
+    using type = volatile tools::int128_t;
   };
   template <>
-  struct make_signed<const volatile ::tools::int128_t> {
-    using type = const volatile ::tools::int128_t;
+  struct make_signed<const volatile tools::int128_t> {
+    using type = const volatile tools::int128_t;
   };
   template <>
-  struct make_signed<const volatile ::tools::uint128_t> {
-    using type = const volatile ::tools::int128_t;
+  struct make_signed<const volatile tools::uint128_t> {
+    using type = const volatile tools::int128_t;
   };
 
   template <>
-  struct make_unsigned<::tools::int128_t> {
-    using type = ::tools::uint128_t;
+  struct make_unsigned<tools::int128_t> {
+    using type = tools::uint128_t;
   };
   template <>
-  struct make_unsigned<::tools::uint128_t> {
-    using type = ::tools::uint128_t;
+  struct make_unsigned<tools::uint128_t> {
+    using type = tools::uint128_t;
   };
   template <>
-  struct make_unsigned<const ::tools::int128_t> {
-    using type = const ::tools::uint128_t;
+  struct make_unsigned<const tools::int128_t> {
+    using type = const tools::uint128_t;
   };
   template <>
-  struct make_unsigned<const ::tools::uint128_t> {
-    using type = const ::tools::uint128_t;
+  struct make_unsigned<const tools::uint128_t> {
+    using type = const tools::uint128_t;
   };
   template <>
-  struct make_unsigned<volatile ::tools::int128_t> {
-    using type = volatile ::tools::uint128_t;
+  struct make_unsigned<volatile tools::int128_t> {
+    using type = volatile tools::uint128_t;
   };
   template <>
-  struct make_unsigned<volatile ::tools::uint128_t> {
-    using type = volatile ::tools::uint128_t;
+  struct make_unsigned<volatile tools::uint128_t> {
+    using type = volatile tools::uint128_t;
   };
   template <>
-  struct make_unsigned<const volatile ::tools::int128_t> {
-    using type = const volatile ::tools::uint128_t;
+  struct make_unsigned<const volatile tools::int128_t> {
+    using type = const volatile tools::uint128_t;
   };
   template <>
-  struct make_unsigned<const volatile ::tools::uint128_t> {
-    using type = const volatile ::tools::uint128_t;
+  struct make_unsigned<const volatile tools::uint128_t> {
+    using type = const volatile tools::uint128_t;
   };
 
 #if defined(__GLIBCXX__) && defined(__STRICT_ANSI__)
   template <>
-  constexpr ::tools::uint128_t bit_ceil<::tools::uint128_t>(::tools::uint128_t x) noexcept {
+  constexpr tools::uint128_t bit_ceil<tools::uint128_t>(tools::uint128_t x) noexcept {
     if (x <= 1) return 1;
     --x;
     x |= x >> 1;
@@ -325,7 +325,7 @@ namespace tools {
   }
 
   template <>
-  constexpr ::tools::uint128_t bit_floor<::tools::uint128_t>(::tools::uint128_t x) noexcept {
+  constexpr tools::uint128_t bit_floor<tools::uint128_t>(tools::uint128_t x) noexcept {
     x |= x >> 1;
     x |= x >> 2;
     x |= x >> 4;
@@ -337,7 +337,7 @@ namespace tools {
   }
 
   template <>
-  constexpr int bit_width<::tools::uint128_t>(::tools::uint128_t x) noexcept {
+  constexpr int bit_width<tools::uint128_t>(tools::uint128_t x) noexcept {
     int w = 0;
     if (x & UINT128_C(0xffffffffffffffff0000000000000000)) {
       x >>= 64;
@@ -373,12 +373,12 @@ namespace tools {
 
   namespace detail {
     namespace countr_zero {
-      template <::std::size_t N>
+      template <std::size_t N>
       struct ntz_traits;
 
       template <>
       struct ntz_traits<128> {
-        using type = ::tools::uint128_t;
+        using type = tools::uint128_t;
         static constexpr int shift = 120;
         static constexpr type magic = UINT128_C(0x01061438916347932a5cd9d3ead7b77f);
         static constexpr int ntz_table[255] = {
@@ -403,7 +403,7 @@ namespace tools {
 
       template <typename T>
       constexpr int impl(const T x) noexcept {
-        using tr = ::tools::detail::countr_zero::ntz_traits<::std::numeric_limits<T>::digits>;
+        using tr = tools::detail::countr_zero::ntz_traits<std::numeric_limits<T>::digits>;
         using type = typename tr::type;
         return tr::ntz_table[static_cast<type>(tr::magic * static_cast<type>(x & -x)) >> tr::shift];
       }
@@ -411,28 +411,28 @@ namespace tools {
   }
 
   template <>
-  constexpr int countr_zero<::tools::uint128_t>(const ::tools::uint128_t x) noexcept {
-    return ::tools::detail::countr_zero::impl(x);
+  constexpr int countr_zero<tools::uint128_t>(const tools::uint128_t x) noexcept {
+    return tools::detail::countr_zero::impl(x);
   }
 
-  constexpr ::tools::uint128_t gcd(::tools::uint128_t m, ::tools::uint128_t n) noexcept {
+  constexpr tools::uint128_t gcd(tools::uint128_t m, tools::uint128_t n) noexcept {
     while (n != 0) {
       m %= n;
-      ::std::swap(m, n);
+      std::swap(m, n);
     }
     return m;
   }
   template <typename M, typename N> requires (
-    ((::std::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool>) || ::std::is_same_v<::std::remove_cv_t<M>, ::tools::int128_t> || ::std::is_same_v<::std::remove_cv_t<M>, ::tools::uint128_t>)
-    && ((::std::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>) || ::std::is_same_v<::std::remove_cv_t<N>, ::tools::int128_t> || ::std::is_same_v<::std::remove_cv_t<N>, ::tools::uint128_t>)
-    && !(::std::is_integral_v<M> && !::std::is_same_v<::std::remove_cv_t<M>, bool> && ::std::is_integral_v<N> && !::std::is_same_v<::std::remove_cv_t<N>, bool>)
-    && !(::std::is_same_v<::std::remove_cv_t<M>, ::tools::uint128_t> && ::std::is_same_v<::std::remove_cv_t<N>, ::tools::uint128_t>)
+    ((std::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool>) || std::is_same_v<std::remove_cv_t<M>, tools::int128_t> || std::is_same_v<std::remove_cv_t<M>, tools::uint128_t>)
+    && ((std::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>) || std::is_same_v<std::remove_cv_t<N>, tools::int128_t> || std::is_same_v<std::remove_cv_t<N>, tools::uint128_t>)
+    && !(std::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool> && std::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>)
+    && !(std::is_same_v<std::remove_cv_t<M>, tools::uint128_t> && std::is_same_v<std::remove_cv_t<N>, tools::uint128_t>)
   )
-  constexpr ::std::common_type_t<M, N> gcd(const M m, const N n) {
-    return ::std::common_type_t<M, N>(
-      ::tools::gcd(
-        m >= 0 ? ::tools::uint128_t(m) : ::tools::uint128_t(-(m + 1)) + 1,
-        n >= 0 ? ::tools::uint128_t(n) : ::tools::uint128_t(-(n + 1)) + 1
+  constexpr std::common_type_t<M, N> gcd(const M m, const N n) {
+    return std::common_type_t<M, N>(
+      tools::gcd(
+        m >= 0 ? tools::uint128_t(m) : tools::uint128_t(-(m + 1)) + 1,
+        n >= 0 ? tools::uint128_t(n) : tools::uint128_t(-(n + 1)) + 1
       )
     );
   }

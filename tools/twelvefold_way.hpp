@@ -29,19 +29,19 @@ namespace tools {
         // O(1)
         return M::raw(0);
       } else {
-        if (::tools::is_prime(M::mod())) {
-          if (::std::min<long long>(K, M::mod()) <= 10000000) {
+        if (tools::is_prime(M::mod())) {
+          if (std::min<long long>(K, M::mod()) <= 10000000) {
             // O(min(K, P) + log K / log P)
-            ::tools::fact_mod_cache<M> cache;
+            tools::fact_mod_cache<M> cache;
             return cache.permutation(K, N);
           } else {
             // O(sqrt(P log P) + sqrt(P / log P) log K)
-            ::tools::large_fact_mod_cache<M> cache;
+            tools::large_fact_mod_cache<M> cache;
             return cache.permutation(K, N);
           }
         } else {
           // O(M + (log M / log log M) log K)
-          ::tools::extended_lucas<M> cache;
+          tools::extended_lucas<M> cache;
           return cache.permutation(K, N);
         }
       }
@@ -65,10 +65,10 @@ namespace tools {
         // O(1)
         return M::raw(0);
       } else {
-        if (::tools::is_prime(M::mod())) {
+        if (tools::is_prime(M::mod())) {
           // O(K log N)
-          ::tools::fact_mod_cache<M> cache;
-          ::tools::pow_mod_cache<M> pow_m1(-1);
+          tools::fact_mod_cache<M> cache;
+          tools::pow_mod_cache<M> pow_m1(-1);
           auto res = M::raw(0);
           for (int i = 0; i <= K; ++i) {
             res += pow_m1[K - i] * cache.combination(K, i) * M(i).pow(N);
@@ -77,8 +77,8 @@ namespace tools {
         } else {
           if (N <= 10000000 / K) {
             // O(NK)
-            ::tools::fact_mod_cache<M> cache;
-            auto res = ::tools::stirling_2nd::all<M>(N, K)[N][K];
+            tools::fact_mod_cache<M> cache;
+            auto res = tools::stirling_2nd::all<M>(N, K)[N][K];
             int i;
             for (M k(i = 1); i <= K; ++i, ++k) {
               res *= k;
@@ -86,8 +86,8 @@ namespace tools {
             return res;
           } else {
             // O(M + K ((log M / log log M) log K + (log M / log log M)^2 + log N))
-            ::tools::extended_lucas<M> cache;
-            ::tools::pow_mod_cache<M> pow_m1(-1);
+            tools::extended_lucas<M> cache;
+            tools::pow_mod_cache<M> pow_m1(-1);
             auto res = M::raw(0);
             for (int i = 0; i <= K; ++i) {
               res += pow_m1[K - i] * cache.combination(K, i) * M(i).pow(N);
@@ -112,19 +112,19 @@ namespace tools {
         // O(1)
         return M::raw(0);
       } else {
-        if (::tools::is_prime(M::mod())) {
+        if (tools::is_prime(M::mod())) {
           if (std::min<long long>(K, M::mod()) <= 10000000) {
             // O(min(K, P) + log K / log P)
-            ::tools::fact_mod_cache<M> cache;
+            tools::fact_mod_cache<M> cache;
             return cache.combination(K, N);
           } else {
             // O(sqrt(P log P) + sqrt(P / log P) log K)
-            ::tools::large_fact_mod_cache<M> cache;
+            tools::large_fact_mod_cache<M> cache;
             return cache.combination(K, N);
           }
         } else {
           // O(M + (log M / log log M) log K)
-          ::tools::extended_lucas<M> cache;
+          tools::extended_lucas<M> cache;
           return cache.combination(K, N);
         }
       }
@@ -135,19 +135,19 @@ namespace tools {
       assert(N >= 0);
       assert(K >= 0);
 
-      if (::tools::is_prime(M::mod())) {
+      if (tools::is_prime(M::mod())) {
         if (std::min<long long>(N + K, M::mod()) <= 10000000) {
           // O(min(N + K, P) + log (N + K) / log P)
-          ::tools::fact_mod_cache<M> cache;
+          tools::fact_mod_cache<M> cache;
           return cache.combination_with_repetition(K, N);
         } else {
           // O(sqrt(P log P) + sqrt(P / log P) log (N + K))
-          ::tools::large_fact_mod_cache<M> cache;
+          tools::large_fact_mod_cache<M> cache;
           return cache.combination_with_repetition(K, N);
         }
       } else {
         // O(M + (log M / log log M) log (N + K))
-        ::tools::extended_lucas<M> cache;
+        tools::extended_lucas<M> cache;
         return cache.combination_with_repetition(K, N);
       }
     }
@@ -161,19 +161,19 @@ namespace tools {
         // O(1)
         return M::raw(0);
       } else {
-        if (::tools::is_prime(M::mod())) {
+        if (tools::is_prime(M::mod())) {
           if (std::min<long long>(N, M::mod()) <= 10000000) {
             // O(min(N, P) + log N / log P)
-            ::tools::fact_mod_cache<M> cache;
+            tools::fact_mod_cache<M> cache;
             return cache.binomial(N - 1, N - K);
           } else {
             // O(sqrt(P log P) + sqrt(P / log P) log N)
-            ::tools::large_fact_mod_cache<M> cache;
+            tools::large_fact_mod_cache<M> cache;
             return cache.binomial(N - 1, N - K);
           }
         } else {
           // O(M + (log M / log log M) log N)
-          ::tools::extended_lucas<M> cache;
+          tools::extended_lucas<M> cache;
           return cache.binomial(N - 1, N - K);
         }
       }
@@ -198,12 +198,12 @@ namespace tools {
       assert(N >= 0);
       assert(K >= 0);
 
-      if (::tools::is_prime(M::mod()) && ::std::min(N, K) < M::mod()) {
+      if (tools::is_prime(M::mod()) && std::min(N, K) < M::mod()) {
         // O(min(N, K) log N)
-        return ::tools::bell::fixed_n<M>(N, K)[K];
+        return tools::bell::fixed_n<M>(N, K)[K];
       } else {
         // O(NK)
-        return ::tools::bell::all<M>(N, K)[N][K];
+        return tools::bell::all<M>(N, K)[N][K];
       }
     }
 
@@ -216,12 +216,12 @@ namespace tools {
         // O(1)
         return M::raw(0);
       } else {
-        if (::tools::is_prime(M::mod()) && K < M::mod()) {
+        if (tools::is_prime(M::mod()) && K < M::mod()) {
           // O(K \log N)
-          return ::tools::stirling_2nd::fixed_n<M>(N, K)[K];
+          return tools::stirling_2nd::fixed_n<M>(N, K)[K];
         } else {
           // O(NK)
-          return ::tools::stirling_2nd::all<M>(N, K)[N][K];
+          return tools::stirling_2nd::all<M>(N, K)[N][K];
         }
       }
     }
@@ -247,10 +247,10 @@ namespace tools {
 
       if (N == K) {
         // O(N log N)
-        return ::tools::partition_function::diagonal<M>(N)[N];
+        return tools::partition_function::diagonal<M>(N)[N];
       } else {
         // O(N min(N, K))
-        return ::tools::partition_function::all<M>(N, ::std::min(N, K))[N][::std::min(N, K)];
+        return tools::partition_function::all<M>(N, std::min(N, K))[N][std::min(N, K)];
       }
     }
 
@@ -264,10 +264,10 @@ namespace tools {
         return M::raw(0);
       } else if (N == 2 * K) {
         // O(K log K)
-        return ::tools::partition_function::diagonal<M>(K)[K];
+        return tools::partition_function::diagonal<M>(K)[K];
       } else {
         // O((N - K) min(N - K, K))
-        return ::tools::partition_function::all<M>(N - K, ::std::min(N - K, K))[N - K][::std::min(N - K, K)];
+        return tools::partition_function::all<M>(N - K, std::min(N - K, K))[N - K][std::min(N - K, K)];
       }
     }
   };

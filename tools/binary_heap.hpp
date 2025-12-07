@@ -17,58 +17,58 @@
 
 namespace tools {
 
-  template <class Key, class Priority, class Compare = ::std::less<Priority>, bool UseVectorToStoreKeys = ::std::is_integral_v<Key>>
+  template <class Key, class Priority, class Compare = std::less<Priority>, bool UseVectorToStoreKeys = std::is_integral_v<Key>>
   class binary_heap {
   private:
     Compare m_compare;
-    ::std::unordered_map<Key, ::std::size_t> m_heap_index;
-    ::std::vector<::std::size_t> m_heap_index_fast;
-    ::std::vector<::std::pair<Key, Priority>> m_heap;
-    ::std::size_t m_size;
+    std::unordered_map<Key, std::size_t> m_heap_index;
+    std::vector<std::size_t> m_heap_index_fast;
+    std::vector<std::pair<Key, Priority>> m_heap;
+    std::size_t m_size;
 
-    void swap(::std::size_t x, ::std::size_t y) {
+    void swap(std::size_t x, std::size_t y) {
       if constexpr (UseVectorToStoreKeys) {
-        ::std::swap(this->m_heap_index_fast[this->m_heap[x].first], this->m_heap_index_fast[this->m_heap[y].first]);
+        std::swap(this->m_heap_index_fast[this->m_heap[x].first], this->m_heap_index_fast[this->m_heap[y].first]);
       } else {
-        ::std::swap(this->m_heap_index[this->m_heap[x].first], this->m_heap_index[this->m_heap[y].first]);
+        std::swap(this->m_heap_index[this->m_heap[x].first], this->m_heap_index[this->m_heap[y].first]);
       }
-      ::std::swap(this->m_heap[x], this->m_heap[y]);
+      std::swap(this->m_heap[x], this->m_heap[y]);
     }
 
-    void upheap(::std::size_t i) {
+    void upheap(std::size_t i) {
       for (; i > 1 && this->m_compare(this->m_heap[i / 2].second, this->m_heap[i].second); i /= 2) {
         this->swap(i / 2, i);
       }
     }
 
-    void downheap(::std::size_t i) {
-      auto calc_next_i = [this](const ::std::size_t self) {
-        const std::array<::std::size_t, 3> targets = {self, self * 2, self * 2 + 1};
-        return *::std::max_element(
+    void downheap(std::size_t i) {
+      auto calc_next_i = [this](const std::size_t self) {
+        const std::array<std::size_t, 3> targets = {self, self * 2, self * 2 + 1};
+        return *std::max_element(
           targets.begin(),
           std::next(targets.begin(), self * 2 + 1 <= this->m_size ? 3 : self * 2 <= this->m_size ? 2 : 1),
-          [this](const ::std::size_t x, const ::std::size_t y) {
+          [this](const std::size_t x, const std::size_t y) {
             return this->m_compare(this->m_heap[x].second, this->m_heap[y].second);
           }
         );
       };
-      for (::std::size_t next_i; i != (next_i = calc_next_i(i)); i = next_i) {
+      for (std::size_t next_i; i != (next_i = calc_next_i(i)); i = next_i) {
         this->swap(i, next_i);
       }
     }
 
-    ::std::size_t get_internal_index(const Key& k) const {
+    std::size_t get_internal_index(const Key& k) const {
       if constexpr (UseVectorToStoreKeys) {
-        if (::std::size_t(k) < this->m_heap_index_fast.size()) {
+        if (std::size_t(k) < this->m_heap_index_fast.size()) {
           return this->m_heap_index_fast[k];
         } else {
-          return ::std::numeric_limits<::std::size_t>::max();
+          return std::numeric_limits<std::size_t>::max();
         }
       } else {
         if (const auto it = this->m_heap_index.find(k); it != this->m_heap_index.end()) {
           return it->second;
         } else {
-          return ::std::numeric_limits<::std::size_t>::max();
+          return std::numeric_limits<std::size_t>::max();
         }
       }
     }
@@ -86,19 +86,19 @@ namespace tools {
       return this->m_size == 0;
     }
 
-    ::std::size_t size() const noexcept {
+    std::size_t size() const noexcept {
       return this->m_size;
     }
 
-    const ::std::pair<Key, Priority>& top() const {
+    const std::pair<Key, Priority>& top() const {
       assert(!this->empty());
       return this->m_heap[1];
     }
 
     bool contains(const Key& k) const {
       if constexpr (UseVectorToStoreKeys) {
-        if (::std::size_t(k) < this->m_heap_index_fast.size()) {
-          return this->m_heap_index_fast[k] != ::std::numeric_limits<::std::size_t>::max();
+        if (std::size_t(k) < this->m_heap_index_fast.size()) {
+          return this->m_heap_index_fast[k] != std::numeric_limits<std::size_t>::max();
         } else {
           return false;
         }
@@ -115,10 +115,10 @@ namespace tools {
       }
     }
 
-    bool push(const ::std::pair<Key, Priority>& x) {
-      ::std::size_t internal_index = this->get_internal_index(x.first);
+    bool push(const std::pair<Key, Priority>& x) {
+      std::size_t internal_index = this->get_internal_index(x.first);
 
-      if (internal_index != ::std::numeric_limits<::std::size_t>::max()) {
+      if (internal_index != std::numeric_limits<std::size_t>::max()) {
         const Priority prev_priority = this->m_heap[internal_index].second;
         this->m_heap[internal_index].second = x.second;
         if (this->m_compare(prev_priority, x.second)) {
@@ -133,8 +133,8 @@ namespace tools {
         ++this->m_size;
 
         if constexpr (UseVectorToStoreKeys) {
-          if (::std::size_t(x.first) >= this->m_heap_index_fast.size()) {
-            this->m_heap_index_fast.resize(::tools::pow2(::tools::ceil_log2(x.first + 1)), ::std::numeric_limits<::std::size_t>::max());
+          if (std::size_t(x.first) >= this->m_heap_index_fast.size()) {
+            this->m_heap_index_fast.resize(tools::pow2(tools::ceil_log2(x.first + 1)), std::numeric_limits<std::size_t>::max());
           }
           this->m_heap_index_fast[x.first] = this->m_size;
         } else {
@@ -144,12 +144,12 @@ namespace tools {
         this->upheap(this->m_size);
       }
 
-      return internal_index == ::std::numeric_limits<::std::size_t>::max();
+      return internal_index == std::numeric_limits<std::size_t>::max();
     }
 
     template <typename... Args>
     bool emplace(Args&&... args) {
-      return this->push(::std::make_pair(::std::forward<Args>(args)...));
+      return this->push(std::make_pair(std::forward<Args>(args)...));
     }
 
     void pop() {
@@ -160,7 +160,7 @@ namespace tools {
       }
 
       if constexpr (UseVectorToStoreKeys) {
-        this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();
+        this->m_heap_index_fast[k] = std::numeric_limits<std::size_t>::max();
       } else {
         this->m_heap_index.erase(k);
       }
@@ -171,9 +171,9 @@ namespace tools {
       }
     }
 
-    ::std::size_t erase(const Key& k) {
-      ::std::size_t internal_index = this->get_internal_index(k);
-      if (internal_index == ::std::numeric_limits<::std::size_t>::max()) {
+    std::size_t erase(const Key& k) {
+      std::size_t internal_index = this->get_internal_index(k);
+      if (internal_index == std::numeric_limits<std::size_t>::max()) {
         return 0;
       }
 
@@ -185,7 +185,7 @@ namespace tools {
       }
 
       if constexpr (UseVectorToStoreKeys) {
-        this->m_heap_index_fast[k] = ::std::numeric_limits<::std::size_t>::max();
+        this->m_heap_index_fast[k] = std::numeric_limits<std::size_t>::max();
       } else {
         this->m_heap_index.erase(k);
       }
@@ -202,10 +202,10 @@ namespace tools {
       return 1;
     }
 
-    friend ::std::ostream& operator<<(::std::ostream& os, binary_heap& self) {
+    friend std::ostream& operator<<(std::ostream& os, binary_heap& self) {
       std::string delimiter = "";
       os << '[';
-      for (::std::size_t i = 1; i <= self.m_size; ++i) {
+      for (std::size_t i = 1; i <= self.m_size; ++i) {
         os << delimiter << '[' << self.m_heap[i].first << ", " << self.m_heap[i].second << ']';
         delimiter = ", ";
       }

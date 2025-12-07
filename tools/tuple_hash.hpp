@@ -12,14 +12,14 @@
 namespace tools {
   template <typename... Ts>
   struct tuple_hash {
-    template <::std::size_t I = sizeof...(Ts) - 1>
-    ::std::size_t operator()(const ::std::tuple<Ts...>& key) const {
-      if constexpr (I == ::std::numeric_limits<::std::size_t>::max()) {
-        static const ::std::size_t seed = ::tools::now();
+    template <std::size_t I = sizeof...(Ts) - 1>
+    std::size_t operator()(const std::tuple<Ts...>& key) const {
+      if constexpr (I == std::numeric_limits<std::size_t>::max()) {
+        static const std::size_t seed = tools::now();
         return seed;
       } else {
-        ::std::size_t seed = this->operator()<I - 1>(key);
-        ::tools::hash_combine(seed, ::std::get<I>(key));
+        std::size_t seed = this->operator()<I - 1>(key);
+        tools::hash_combine(seed, std::get<I>(key));
         return seed;
       }
     }

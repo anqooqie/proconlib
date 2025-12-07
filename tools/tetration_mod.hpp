@@ -28,36 +28,36 @@ namespace tools {
       if (lla == 1) return 1LL;
       if (llb == 0) return 1LL;
       if (llb == 1) return lla;
-      if (llb == 2 && lla <= 15) return ::tools::pow(lla, lla);
-      if (llb == 3 && lla <= 3) return ::tools::pow(lla, ::tools::pow(lla, lla));
-      if (llb == 4 && lla <= 2) return ::tools::pow(lla, ::tools::pow(lla, ::tools::pow(lla, lla)));
+      if (llb == 2 && lla <= 15) return tools::pow(lla, lla);
+      if (llb == 3 && lla <= 3) return tools::pow(lla, tools::pow(lla, lla));
+      if (llb == 4 && lla <= 2) return tools::pow(lla, tools::pow(lla, tools::pow(lla, lla)));
 
       // Too large
-      return ::std::numeric_limits<long long>::max();
+      return std::numeric_limits<long long>::max();
     };
 
-    if (const auto x = f(a, b); x < ::std::numeric_limits<long long>::max()) {
+    if (const auto x = f(a, b); x < std::numeric_limits<long long>::max()) {
       return x % m;
     }
 
-    ::std::vector<::std::pair<T, T>> answers;
-    const ::std::vector<T> prime_factors = ::tools::prime_factorization(m);
-    ::std::vector<::std::pair<T, T>> distinct_prime_factors;
-    ::tools::run_length(prime_factors.begin(), prime_factors.end(), ::std::back_inserter(distinct_prime_factors));
+    std::vector<std::pair<T, T>> answers;
+    const std::vector<T> prime_factors = tools::prime_factorization(m);
+    std::vector<std::pair<T, T>> distinct_prime_factors;
+    tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
     for (const auto& [p, q] : distinct_prime_factors) {
-      const T P = ::tools::pow(p, q);
-      if (::std::gcd(a, p) == 1) {
-        answers.emplace_back(::tools::pow_mod(a, ::tools::tetration_mod(a, b - 1, ::tools::totient(P)), P), P);
+      const T P = tools::pow(p, q);
+      if (std::gcd(a, p) == 1) {
+        answers.emplace_back(tools::pow_mod(a, tools::tetration_mod(a, b - 1, tools::totient(P)), P), P);
       } else {
         if (f(a, b - 1) >= q) {
           answers.emplace_back(0, P);
         } else {
-          answers.emplace_back(::tools::pow_mod(a, f(a, b - 1), P), P);
+          answers.emplace_back(tools::pow_mod(a, f(a, b - 1), P), P);
         }
       }
     }
 
-    return ::tools::garner(answers.begin(), answers.end(), m).first;
+    return tools::garner(answers.begin(), answers.end(), m).first;
   }
 }
 

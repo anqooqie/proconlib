@@ -16,10 +16,10 @@ namespace tools {
 
   template <typename InputIterator, typename OutputIterator>
   void greater_equal_moebius(const InputIterator begin, const InputIterator end, const OutputIterator result) {
-    using T = typename ::std::iterator_traits<InputIterator>::value_type;
-    ::std::vector<T> b(begin, end);
-    ::tools::greater_equal_moebius(b.begin(), b.end());
-    ::std::move(b.begin(), b.end(), result);
+    using T = typename std::iterator_traits<InputIterator>::value_type;
+    std::vector<T> b(begin, end);
+    tools::greater_equal_moebius(b.begin(), b.end());
+    std::move(b.begin(), b.end(), result);
   }
 }
 

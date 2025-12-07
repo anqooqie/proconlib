@@ -17,39 +17,39 @@
 namespace tools {
   class hld {
     bool m_built;
-    ::std::vector<::std::vector<int>> m_graph;
-    ::std::vector<int> m_edges;
-    ::std::vector<int> m_parent;
-    ::std::vector<int> m_depth;
-    ::atcoder::dsu m_dsu;
-    ::std::vector<int> m_out;
-    ::std::vector<int> m_vid2dfs;
-    ::std::vector<int> m_dfs2vid;
-    ::std::vector<int> m_eid2dfs;
-    ::std::vector<int> m_dfs2eid;
-    ::std::vector<::std::vector<int>> m_ancestors;
+    std::vector<std::vector<int>> m_graph;
+    std::vector<int> m_edges;
+    std::vector<int> m_parent;
+    std::vector<int> m_depth;
+    atcoder::dsu m_dsu;
+    std::vector<int> m_out;
+    std::vector<int> m_vid2dfs;
+    std::vector<int> m_dfs2vid;
+    std::vector<int> m_eid2dfs;
+    std::vector<int> m_dfs2eid;
+    std::vector<std::vector<int>> m_ancestors;
 
   public:
-    class vchildren_view : public ::std::ranges::view_interface<vchildren_view> {
-      ::tools::hld const *m_parent;
+    class vchildren_view : public std::ranges::view_interface<vchildren_view> {
+      tools::hld const *m_parent;
       int m_v;
 
     public:
       class iterator {
       private:
-        ::tools::hld const *m_parent;
+        tools::hld const *m_parent;
         int m_v;
         int m_i;
 
       public:
-        using difference_type = ::std::ptrdiff_t;
+        using difference_type = std::ptrdiff_t;
         using value_type = int;
         using reference = int;
         using pointer = int*;
-        using iterator_category = ::std::input_iterator_tag;
+        using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(::tools::hld const * const parent, const int v, const int i) :
+        iterator(tools::hld const * const parent, const int v, const int i) :
           m_parent(parent),
           m_v(v),
           m_i(i) {
@@ -76,7 +76,7 @@ namespace tools {
       };
 
       vchildren_view() = default;
-      vchildren_view(::tools::hld const * const parent, const int v) :
+      vchildren_view(tools::hld const * const parent, const int v) :
         m_parent(parent),
         m_v(v) {
       }
@@ -110,21 +110,21 @@ namespace tools {
     void build(const int root) {
       assert(!this->m_built);
       assert(0 <= root && root < this->size());
-      assert(::std::ssize(this->m_edges) + 1 == this->size());
+      assert(std::ssize(this->m_edges) + 1 == this->size());
 
       this->m_parent.resize(this->size());
       this->m_depth.resize(this->size());
-      this->m_dsu = ::atcoder::dsu(this->size());
+      this->m_dsu = atcoder::dsu(this->size());
       this->m_out.resize(this->size());
       this->m_vid2dfs.resize(this->size());
       this->m_dfs2vid.resize(this->size());
       this->m_eid2dfs.resize(this->m_edges.size());
       this->m_dfs2eid.resize(this->m_edges.size());
 
-      ::std::vector<int> subtree_size(this->size());
-      this->m_parent[root] = ::std::numeric_limits<int>::max();
+      std::vector<int> subtree_size(this->size());
+      this->m_parent[root] = std::numeric_limits<int>::max();
       this->m_depth[root] = 0;
-      ::std::stack<::std::pair<int, bool>> stack;
+      std::stack<std::pair<int, bool>> stack;
       stack.emplace(root, false);
       stack.emplace(root, true);
       while (!stack.empty()) {
@@ -153,14 +153,14 @@ namespace tools {
 
       for (int v = 0; v < this->size(); ++v) {
         if (v != root) {
-          this->m_graph[v].erase(::std::ranges::find(this->m_graph[v], this->m_parent[v]));
+          this->m_graph[v].erase(std::ranges::find(this->m_graph[v], this->m_parent[v]));
         }
         if (this->m_graph[v].size() > 1) {
-          ::std::iter_swap(
+          std::iter_swap(
             this->m_graph[v].begin(),
-            ::std::ranges::max_element(
+            std::ranges::max_element(
               this->m_graph[v],
-              ::tools::less_by([&](const int eid) { return subtree_size[this->m_edges[eid] ^ v]; })
+              tools::less_by([&](const int eid) { return subtree_size[this->m_edges[eid] ^ v]; })
             )
           );
         }
@@ -221,15 +221,15 @@ namespace tools {
 
       if (this->m_ancestors.empty()) {
         this->m_ancestors.resize(this->size());
-        ::std::vector<int> targets(this->size());
-        ::std::iota(targets.begin(), targets.end(), 0);
-        targets.erase(::std::remove(targets.begin(), targets.end(), this->m_dfs2vid[0]), targets.end());
+        std::vector<int> targets(this->size());
+        std::iota(targets.begin(), targets.end(), 0);
+        targets.erase(std::remove(targets.begin(), targets.end(), this->m_dfs2vid[0]), targets.end());
         for (const auto t : targets) {
           this->m_ancestors[t].push_back(this->vparent(t));
         }
         for (int g = 1; [&]() {
-          targets.erase(::std::remove_if(targets.begin(), targets.end(), [&](const int t) {
-            return this->m_depth[t] < ::tools::pow2(g);
+          targets.erase(std::remove_if(targets.begin(), targets.end(), [&](const int t) {
+            return this->m_depth[t] < tools::pow2(g);
           }), targets.end());
           return !targets.empty();
         }(); ++g) {
@@ -240,7 +240,7 @@ namespace tools {
       }
 
       int res = v;
-      for (int g = 0; ::tools::pow2(g) <= k; ++g) {
+      for (int g = 0; tools::pow2(g) <= k; ++g) {
         if ((k >> g) & 1) {
           res = this->m_ancestors[res][g];
         }
@@ -248,12 +248,12 @@ namespace tools {
 
       return res;
     }
-    ::tools::hld::vchildren_view vchildren(const int v) const & {
+    tools::hld::vchildren_view vchildren(const int v) const & {
       assert(this->m_built);
       assert(0 <= v && v < this->size());
-      return ::tools::hld::vchildren_view(this, v);
+      return tools::hld::vchildren_view(this, v);
     }
-    const ::std::vector<int>& echildren(const int v) const & {
+    const std::vector<int>& echildren(const int v) const & {
       assert(this->m_built);
       assert(0 <= v && v < this->size());
       return this->m_graph[v];
@@ -299,23 +299,23 @@ namespace tools {
       }
     }
 
-    ::std::pair<int, int> vsubtree(const int v) const {
+    std::pair<int, int> vsubtree(const int v) const {
       assert(this->m_built);
       assert(0 <= v && v < this->size());
-      return ::std::make_pair(this->m_vid2dfs[v], this->m_out[v]);
+      return std::make_pair(this->m_vid2dfs[v], this->m_out[v]);
     }
-    ::std::pair<int, int> esubtree(const int v) const {
+    std::pair<int, int> esubtree(const int v) const {
       assert(this->m_built);
       assert(0 <= v && v < this->size());
-      return ::std::make_pair(this->m_depth[v] == 0 ? 0 : this->m_eid2dfs[this->m_parent[v]] + 1, this->m_out[v] - 1);
+      return std::make_pair(this->m_depth[v] == 0 ? 0 : this->m_eid2dfs[this->m_parent[v]] + 1, this->m_out[v] - 1);
     }
 
-    ::std::vector<::std::pair<int, int>> vpath(int u, int v) {
+    std::vector<std::pair<int, int>> vpath(int u, int v) {
       assert(this->m_built);
       assert(0 <= u && u < this->size());
       assert(0 <= v && v < this->size());
 
-      ::std::vector<::std::pair<int, int>> head, tail;
+      std::vector<std::pair<int, int>> head, tail;
       while (!this->m_dsu.same(u, v)) {
         if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)]) {
           head.emplace_back(this->m_vid2dfs[u] + 1, this->m_vid2dfs[this->m_dsu.leader(u)]);
@@ -331,15 +331,15 @@ namespace tools {
         head.emplace_back(this->m_vid2dfs[u], this->m_vid2dfs[v] + 1);
       }
 
-      ::std::copy(tail.rbegin(), tail.rend(), ::std::back_inserter(head));
+      std::copy(tail.rbegin(), tail.rend(), std::back_inserter(head));
       return head;
     }
-    ::std::vector<::std::pair<int, int>> epath(int u, int v) {
+    std::vector<std::pair<int, int>> epath(int u, int v) {
       assert(this->m_built);
       assert(0 <= u && u < this->size());
       assert(0 <= v && v < this->size());
 
-      ::std::vector<::std::pair<int, int>> head, tail;
+      std::vector<std::pair<int, int>> head, tail;
       while (!this->m_dsu.same(u, v)) {
         if (this->m_depth[this->m_dsu.leader(u)] >= this->m_depth[this->m_dsu.leader(v)]) {
           head.emplace_back(this->m_eid2dfs[this->m_parent[u]] + 1, this->m_eid2dfs[this->m_parent[this->m_dsu.leader(u)]]);
@@ -355,7 +355,7 @@ namespace tools {
         head.emplace_back(this->m_eid2dfs[this->m_graph[u].front()], this->m_eid2dfs[this->m_parent[v]] + 1);
       }
 
-      ::std::copy(tail.rbegin(), tail.rend(), ::std::back_inserter(head));
+      std::copy(tail.rbegin(), tail.rend(), std::back_inserter(head));
       return head;
     }
   };

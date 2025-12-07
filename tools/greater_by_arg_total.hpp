@@ -8,14 +8,14 @@ namespace tools {
 
   template <typename T>
   class greater_by_arg_total {
-    ::tools::less_by_arg_total<T> m_comp;
+    tools::less_by_arg_total<T> m_comp;
 
   public:
     greater_by_arg_total() = default;
-    greater_by_arg_total(const ::tools::vector2<T>& o, const ::tools::vector2<T>& d) : m_comp(o, d) {
+    greater_by_arg_total(const tools::vector2<T>& o, const tools::vector2<T>& d) : m_comp(o, d) {
     }
 
-    bool operator()(const ::tools::vector2<T>& a, const ::tools::vector2<T>& b) const {
+    bool operator()(const tools::vector2<T>& a, const tools::vector2<T>& b) const {
       return this->m_comp(b, a);
     }
   };

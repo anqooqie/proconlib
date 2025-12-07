@@ -9,7 +9,7 @@ namespace tools {
   namespace groups {
     template <typename G>
     class bit_xor {
-      using VR = ::std::conditional_t<::tools::arithmetic<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
 
     public:
       using T = G;
@@ -26,7 +26,7 @@ namespace tools {
 
     template <typename G>
     class multiplies {
-      using VR = ::std::conditional_t<::tools::arithmetic<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
 
     public:
       using T = G;
@@ -43,7 +43,7 @@ namespace tools {
 
     template <typename G>
     class plus {
-      using VR = ::std::conditional_t<::tools::arithmetic<G> && sizeof(G) <= sizeof(::std::size_t), const G, const G&>;
+      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
 
     public:
       using T = G;

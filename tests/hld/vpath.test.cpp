@@ -11,13 +11,13 @@ using ll = long long;
 using mint = atcoder::modint998244353;
 
 std::pair<mint, mint> op(const std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {
-  return ::std::make_pair(e1.first * e2.first, e1.first * e2.second + e1.second);
+  return std::make_pair(e1.first * e2.first, e1.first * e2.second + e1.second);
 }
 std::pair<mint, mint> po(const std::pair<mint, mint> e1, const std::pair<mint, mint> e2) {
   return op(e2, e1);
 }
 std::pair<mint, mint> e() {
-  return ::std::make_pair(mint::raw(1), mint::raw(0));
+  return std::make_pair(mint::raw(1), mint::raw(0));
 }
 
 int main() {

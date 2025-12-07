@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename R>
-  concept ring = ::tools::semiring<R> && ::tools::commutative_group<typename R::add>;
+  concept ring = tools::semiring<R> && tools::commutative_group<typename R::add>;
 }
 
 #endif

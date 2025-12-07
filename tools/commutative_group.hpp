@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename G>
-  concept commutative_group = ::tools::group<G> && ::tools::commutative_monoid<G>;
+  concept commutative_group = tools::group<G> && tools::commutative_monoid<G>;
 }
 
 #endif

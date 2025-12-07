@@ -30,12 +30,12 @@
 
 namespace tools {
   template <typename T>
-  void hash_combine(::std::size_t& seed, const T& v) {
-    static const ::std::hash<T> hasher;
-    static constexpr ::std::size_t k_mul = 0x9ddfea08eb382d69ULL;
-    ::std::size_t a = (hasher(v) ^ seed) * k_mul;
+  void hash_combine(std::size_t& seed, const T& v) {
+    static const std::hash<T> hasher;
+    static constexpr std::size_t k_mul = 0x9ddfea08eb382d69ULL;
+    std::size_t a = (hasher(v) ^ seed) * k_mul;
     a ^= (a >> 47);
-    ::std::size_t b = (seed ^ a) * k_mul;
+    std::size_t b = (seed ^ a) * k_mul;
     b ^= (b >> 47);
     seed = b * k_mul;
   }

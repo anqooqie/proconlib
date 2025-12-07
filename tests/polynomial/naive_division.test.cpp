@@ -20,7 +20,7 @@ int main() {
   for (auto& C_i : C) std::cin >> C_i;
 
   const auto B = C / A;
-  ::std::vector<ll> answers;
+  std::vector<ll> answers;
   for (auto it = B.pbegin(), end = std::next(B.pbegin(), M + 1); it != end; ++it) {
     answers.push_back(std::round(*it));
   }

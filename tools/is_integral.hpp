@@ -5,10 +5,10 @@
 
 namespace tools {
   template <typename T>
-  struct is_integral : ::std::is_integral<T> {};
+  struct is_integral : std::is_integral<T> {};
 
   template <typename T>
-  inline constexpr bool is_integral_v = ::tools::is_integral<T>::value;
+  inline constexpr bool is_integral_v = tools::is_integral<T>::value;
 }
 
 #endif

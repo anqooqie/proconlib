@@ -6,11 +6,11 @@
 
 namespace tools {
 
-  template <::std::size_t I>
+  template <std::size_t I>
   struct greater_by_get {
     template <typename T>
     bool operator()(const T& x, const T& y) const {
-      return ::std::get<I>(x) > ::std::get<I>(y);
+      return std::get<I>(x) > std::get<I>(y);
     }
   };
 }

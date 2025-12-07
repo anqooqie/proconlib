@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename T>
-  concept arithmetic = ::tools::integral<T> || ::std::floating_point<T>;
+  concept arithmetic = tools::integral<T> || std::floating_point<T>;
 }
 
 #endif

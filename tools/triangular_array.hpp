@@ -14,9 +14,9 @@ namespace tools {
   class triangular_array;
 
   template <typename T>
-  class triangular_array<T, ::std::less<int>> {
-    ::tools::triangular_array_compressor<::std::less<int>> m_comp;
-    ::std::vector<T> m_data;
+  class triangular_array<T, std::less<int>> {
+    tools::triangular_array_compressor<std::less<int>> m_comp;
+    std::vector<T> m_data;
   
   public:
     triangular_array() = default;
@@ -31,27 +31,27 @@ namespace tools {
       return this->m_comp.size();
     }
 
-    ::std::vector<T>::iterator operator[](const int i) {
+    std::vector<T>::iterator operator[](const int i) {
       assert(0 <= i && i + 1 < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, i + 1) - (i + 1));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, i + 1) - (i + 1));
     }
-    ::std::vector<T>::const_iterator operator[](const int i) const {
+    std::vector<T>::const_iterator operator[](const int i) const {
       assert(0 <= i && i + 1 < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, i + 1) - (i + 1));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, i + 1) - (i + 1));
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::triangular_array<T, ::std::less<int>>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::triangular_array<T, std::less<int>>& self) {
       for (int i = 0; i + 1 < self.size(); ++i) {
-        ::std::copy_n(::std::istream_iterator<T>(is), self.size() - 1 - i, ::std::next(self.m_data.begin(), self.m_comp.compress(i, i + 1)));
+        std::copy_n(std::istream_iterator<T>(is), self.size() - 1 - i, std::next(self.m_data.begin(), self.m_comp.compress(i, i + 1)));
       }
       return is;
     }
   };
 
   template <typename T>
-  class triangular_array<T, ::std::less_equal<int>> {
-    ::tools::triangular_array_compressor<::std::less_equal<int>> m_comp;
-    ::std::vector<T> m_data;
+  class triangular_array<T, std::less_equal<int>> {
+    tools::triangular_array_compressor<std::less_equal<int>> m_comp;
+    std::vector<T> m_data;
   
   public:
     triangular_array() = default;
@@ -66,27 +66,27 @@ namespace tools {
       return this->m_comp.size();
     }
 
-    ::std::vector<T>::iterator operator[](const int i) {
+    std::vector<T>::iterator operator[](const int i) {
       assert(0 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, i) - i);
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, i) - i);
     }
-    ::std::vector<T>::const_iterator operator[](const int i) const {
+    std::vector<T>::const_iterator operator[](const int i) const {
       assert(0 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, i) - i);
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, i) - i);
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::triangular_array<T, ::std::less_equal<int>>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::triangular_array<T, std::less_equal<int>>& self) {
       for (int i = 0; i < self.size(); ++i) {
-        ::std::copy_n(::std::istream_iterator<T>(is), self.size() - i, ::std::next(self.m_data.begin(), self.m_comp.compress(i, i)));
+        std::copy_n(std::istream_iterator<T>(is), self.size() - i, std::next(self.m_data.begin(), self.m_comp.compress(i, i)));
       }
       return is;
     }
   };
 
   template <typename T>
-  class triangular_array<T, ::std::greater<int>> {
-    ::tools::triangular_array_compressor<::std::greater<int>> m_comp;
-    ::std::vector<T> m_data;
+  class triangular_array<T, std::greater<int>> {
+    tools::triangular_array_compressor<std::greater<int>> m_comp;
+    std::vector<T> m_data;
   
   public:
     triangular_array() = default;
@@ -101,27 +101,27 @@ namespace tools {
       return this->m_comp.size();
     }
 
-    ::std::vector<T>::iterator operator[](const int i) {
+    std::vector<T>::iterator operator[](const int i) {
       assert(1 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
     }
-    ::std::vector<T>::const_iterator operator[](const int i) const {
+    std::vector<T>::const_iterator operator[](const int i) const {
       assert(1 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::triangular_array<T, ::std::greater<int>>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::triangular_array<T, std::greater<int>>& self) {
       for (int i = 1; i < self.size(); ++i) {
-        ::std::copy_n(::std::istream_iterator<T>(is), i, self[i]);
+        std::copy_n(std::istream_iterator<T>(is), i, self[i]);
       }
       return is;
     }
   };
 
   template <typename T>
-  class triangular_array<T, ::std::greater_equal<int>> {
-    ::tools::triangular_array_compressor<::std::greater_equal<int>> m_comp;
-    ::std::vector<T> m_data;
+  class triangular_array<T, std::greater_equal<int>> {
+    tools::triangular_array_compressor<std::greater_equal<int>> m_comp;
+    std::vector<T> m_data;
   
   public:
     triangular_array() = default;
@@ -136,18 +136,18 @@ namespace tools {
       return this->m_comp.size();
     }
 
-    ::std::vector<T>::iterator operator[](const int i) {
+    std::vector<T>::iterator operator[](const int i) {
       assert(0 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
     }
-    ::std::vector<T>::const_iterator operator[](const int i) const {
+    std::vector<T>::const_iterator operator[](const int i) const {
       assert(0 <= i && i < this->size());
-      return ::std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
+      return std::next(this->m_data.begin(), this->m_comp.compress(i, 0));
     }
 
-    friend ::std::istream& operator>>(::std::istream& is, ::tools::triangular_array<T, ::std::greater_equal<int>>& self) {
+    friend std::istream& operator>>(std::istream& is, tools::triangular_array<T, std::greater_equal<int>>& self) {
       for (int i = 0; i < self.size(); ++i) {
-        ::std::copy_n(::std::istream_iterator<T>(is), i + 1, self[i]);
+        std::copy_n(std::istream_iterator<T>(is), i + 1, self[i]);
       }
       return is;
     }

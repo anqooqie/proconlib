@@ -5,13 +5,13 @@
 
 namespace tools {
 
-  template <::tools::monoid M>
+  template <tools::monoid M>
   typename M::T square(const typename M::T& x) {
     return M::op(x, x);
   }
 
   template <typename T>
-  requires (!::tools::monoid<T>)
+  requires (!tools::monoid<T>)
   T square(const T& x) {
     return x * x;
   }

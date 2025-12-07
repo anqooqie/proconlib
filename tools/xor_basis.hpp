@@ -12,13 +12,13 @@
 namespace tools {
   template <typename InputIterator, typename OutputIterator>
   void xor_basis(const InputIterator& begin, const InputIterator& end, OutputIterator result) {
-    using T = ::std::decay_t<decltype(*begin)>;
+    using T = std::decay_t<decltype(*begin)>;
 
-    ::std::vector<T> basis;
+    std::vector<T> basis;
     for (auto it = begin; it != end; ++it) {
       T e = *it;
       for (const T& b : basis) {
-        ::tools::chmin(e, e ^ b);
+        tools::chmin(e, e ^ b);
       }
       if (e != 0) {
         basis.push_back(e);

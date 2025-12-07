@@ -5,7 +5,7 @@
 
 namespace tools {
   struct nop_monoid {
-    using T = ::std::monostate;
+    using T = std::monostate;
     static T op(T, T) {
       return {};
     }

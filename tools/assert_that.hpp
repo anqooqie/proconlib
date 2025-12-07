@@ -6,8 +6,8 @@
 
 #define assert_that_impl(cond, file, line, func) do {\
   if (!cond) {\
-    ::std::cerr << file << ':' << line << ": " << func << ": Assertion `" << #cond << "' failed." << '\n';\
-    ::std::exit(EXIT_FAILURE);\
+    std::cerr << file << ':' << line << ": " << func << ": Assertion `" << #cond << "' failed." << '\n';\
+    std::exit(EXIT_FAILURE);\
   }\
 } while (false)
 #define assert_that(...) assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)

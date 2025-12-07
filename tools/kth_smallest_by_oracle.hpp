@@ -7,7 +7,7 @@
 namespace tools {
   template <typename... Args>
   auto kth_smallest_by_oracle(Args&&... args) {
-    return ::tools::detail::kth_largest_by_oracle::impl<false>(::std::forward<Args>(args)...);
+    return tools::detail::kth_largest_by_oracle::impl<false>(std::forward<Args>(args)...);
   }
 }
 

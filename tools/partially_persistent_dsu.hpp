@@ -13,9 +13,9 @@ namespace tools {
   class partially_persistent_dsu {
   private:
     int m_now;
-    ::std::vector<::std::pair<int, int>> m_parents;
-    ::std::vector<int> m_ranks;
-    ::std::vector<::std::vector<::std::pair<int, int>>> m_sizes;
+    std::vector<std::pair<int, int>> m_parents;
+    std::vector<int> m_ranks;
+    std::vector<std::vector<std::pair<int, int>>> m_sizes;
 
     int size() const {
       return this->m_parents.size();
@@ -23,17 +23,17 @@ namespace tools {
 
   public:
     partially_persistent_dsu() = default;
-    partially_persistent_dsu(const ::tools::partially_persistent_dsu&) = default;
-    partially_persistent_dsu(::tools::partially_persistent_dsu&&) = default;
+    partially_persistent_dsu(const tools::partially_persistent_dsu&) = default;
+    partially_persistent_dsu(tools::partially_persistent_dsu&&) = default;
     ~partially_persistent_dsu() = default;
-    ::tools::partially_persistent_dsu& operator=(const ::tools::partially_persistent_dsu&) = default;
-    ::tools::partially_persistent_dsu& operator=(::tools::partially_persistent_dsu&&) = default;
+    tools::partially_persistent_dsu& operator=(const tools::partially_persistent_dsu&) = default;
+    tools::partially_persistent_dsu& operator=(tools::partially_persistent_dsu&&) = default;
 
     explicit partially_persistent_dsu(const int n) :
       m_now(0),
-      m_parents(n, ::std::make_pair(::std::numeric_limits<int>::max(), -1)),
+      m_parents(n, std::make_pair(std::numeric_limits<int>::max(), -1)),
       m_ranks(n, 0),
-      m_sizes(n, ::std::vector<::std::pair<int, int>>{::std::make_pair(0, 1)}) {
+      m_sizes(n, std::vector<std::pair<int, int>>{std::make_pair(0, 1)}) {
     }
 
     int now() const {
@@ -65,9 +65,9 @@ namespace tools {
       y = this->leader(this->m_now, y);
       if (x == y) return x;
 
-      if (this->m_ranks[x] < this->m_ranks[y]) ::std::swap(x, y);
+      if (this->m_ranks[x] < this->m_ranks[y]) std::swap(x, y);
 
-      this->m_parents[y] = ::std::make_pair(this->m_now, x);
+      this->m_parents[y] = std::make_pair(this->m_now, x);
       if (this->m_ranks[x] == this->m_ranks[y]) ++this->m_ranks[x];
       this->m_sizes[x].emplace_back(this->m_now, this->m_sizes[x].back().second + this->m_sizes[y].back().second);
 
@@ -79,23 +79,23 @@ namespace tools {
       assert(0 <= x && x < this->size());
 
       x = this->leader(t, x);
-      auto it = ::std::upper_bound(this->m_sizes[x].begin(), this->m_sizes[x].end(), ::std::make_pair(t, 0), ::tools::less_by_first());
+      auto it = std::upper_bound(this->m_sizes[x].begin(), this->m_sizes[x].end(), std::make_pair(t, 0), tools::less_by_first());
       --it;
       return it->second;
     }
 
-    ::std::vector<::std::vector<int>> groups(const int t) const {
+    std::vector<std::vector<int>> groups(const int t) const {
       assert(0 <= t && t <= this->m_now);
 
-      ::std::vector<::std::vector<int>> graph(this->size());
+      std::vector<std::vector<int>> graph(this->size());
       for (int i = 0; i < this->size(); ++i) {
         if (this->m_parents[i].first <= t) graph[this->m_parents[i].second].push_back(i);
       }
 
-      ::std::vector<::std::vector<int>> res(this->size());
+      std::vector<std::vector<int>> res(this->size());
       for (int root = 0; root < this->size(); ++root) {
         if (t < this->m_parents[root].first) {
-          ::std::queue<int> queue({root});
+          std::queue<int> queue({root});
           while (!queue.empty()) {
             const auto here = queue.front();
             queue.pop();
@@ -107,7 +107,7 @@ namespace tools {
         }
       }
 
-      res.erase(::std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
+      res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
     }
   };

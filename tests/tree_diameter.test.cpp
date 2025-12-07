@@ -25,6 +25,6 @@ int main() {
 
   const auto [X, u, unused] = tree.query();
   std::cout << X << ' ' << u.size() << '\n';
-  std::cout << ::tools::join(u, " ") << '\n';
+  std::cout << tools::join(u, " ") << '\n';
   return 0;
 }

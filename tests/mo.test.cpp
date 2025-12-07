@@ -24,7 +24,7 @@ int main() {
   }
 
   tools::unordered_map<int, int> freq;
-  ::std::vector<int> answers(Q);
+  std::vector<int> answers(Q);
   mo.run([&](const int i) {
     --freq[a[i]];
   }, [&](const int i) {

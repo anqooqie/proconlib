@@ -6,7 +6,7 @@
 
 namespace tools {
   template <typename T>
-  concept complex = ::tools::specialization_of<T, ::std::complex>;
+  concept complex = tools::specialization_of<T, std::complex>;
 }
 
 #endif

@@ -7,9 +7,9 @@
 
 namespace tools {
   template <typename M, typename N>
-  constexpr ::std::common_type_t<M, N> block_floor(const M x, const N y) noexcept {
+  constexpr std::common_type_t<M, N> block_floor(const M x, const N y) noexcept {
     assert(y > 0);
-    return ::tools::floor(x, y) * y;
+    return tools::floor(x, y) * y;
   }
 }
 

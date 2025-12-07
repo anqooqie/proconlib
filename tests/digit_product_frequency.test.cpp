@@ -15,7 +15,7 @@ int main() {
   std::cin >> N >> K;
 
   const auto freq = tools::digit_product_frequency(N);
-  std::cout << ::std::accumulate(freq.begin(), freq.upper_bound(K), 0LL, [](const auto sum, const auto& pair) { return sum + pair.second; }) << '\n';
+  std::cout << std::accumulate(freq.begin(), freq.upper_bound(K), 0LL, [](const auto sum, const auto& pair) { return sum + pair.second; }) << '\n';
 
   return 0;
 }

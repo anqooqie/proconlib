@@ -18,39 +18,39 @@ namespace tools {
   template <class M>
   class large_fact_mod_cache {
     int m_K;
-    ::std::vector<M> m_factbs;
+    std::vector<M> m_factbs;
 
   public:
     large_fact_mod_cache() {
       const long long P = M::mod();
-      assert(::tools::is_prime(P));
-      ::tools::pow_mod_cache<M> pow2(2);
+      assert(tools::is_prime(P));
+      tools::pow_mod_cache<M> pow2(2);
 
       long long K = 0;
       const long long Q = 200000;
-      for (; ::tools::ceil(P * ::tools::ceil_log2(P), ::tools::pow2(K)) + Q * ::tools::pow2(K) > ::tools::ceil(P * ::tools::ceil_log2(P), ::tools::pow2(K + 1)) + Q * ::tools::pow2(K + 1); ++K);
+      for (; tools::ceil(P * tools::ceil_log2(P), tools::pow2(K)) + Q * tools::pow2(K) > tools::ceil(P * tools::ceil_log2(P), tools::pow2(K + 1)) + Q * tools::pow2(K + 1); ++K);
       this->m_K = K;
 
-      ::std::vector<M> f_im1{M(1)};
-      ::std::vector<M> f_i;
+      std::vector<M> f_im1{M(1)};
+      std::vector<M> f_i;
       for (int i = 1; i <= K; ++i, f_i.swap(f_im1)) {
-        for (const auto& v : ::tools::sample_point_shift(f_im1, pow2[i - 1], 3 * ::tools::pow2(i - 1))) {
+        for (const auto& v : tools::sample_point_shift(f_im1, pow2[i - 1], 3 * tools::pow2(i - 1))) {
           f_im1.push_back(v);
         }
-        f_i.resize(::tools::pow2(i));
-        for (int j = 0; j < ::tools::pow2(i); ++j) {
+        f_i.resize(tools::pow2(i));
+        for (int j = 0; j < tools::pow2(i); ++j) {
           f_i[j] = f_im1[2 * j] * f_im1[2 * j + 1] * pow2[i - 1] * (M(2) * M(j) + M(1));
         }
       }
 
-      this->m_factbs = ::std::move(f_im1);
-      if (::tools::pow2(K) <= P / ::tools::pow2(K)) {
-        for (const auto& v : ::tools::sample_point_shift(this->m_factbs, pow2[K], P / ::tools::pow2(K) + 1 - ::tools::pow2(K))) {
+      this->m_factbs = std::move(f_im1);
+      if (tools::pow2(K) <= P / tools::pow2(K)) {
+        for (const auto& v : tools::sample_point_shift(this->m_factbs, pow2[K], P / tools::pow2(K) + 1 - tools::pow2(K))) {
           this->m_factbs.push_back(v);
         }
       }
       this->m_factbs.insert(this->m_factbs.begin(), M(1));
-      for (int i = 1; i < ::std::ssize(this->m_factbs); ++i) {
+      for (int i = 1; i < std::ssize(this->m_factbs); ++i) {
         this->m_factbs[i] *= this->m_factbs[i - 1] * pow2[K] * M(i);
       }
     }
@@ -62,7 +62,7 @@ namespace tools {
       const auto n = static_cast<int>(nll);
       const auto prev = (n >> this->m_K) << this->m_K;
       const auto next = ((n >> this->m_K) + 1) << this->m_K;
-      if (n - prev <= ::std::min(next, M::mod() - 1) - n) {
+      if (n - prev <= std::min(next, M::mod() - 1) - n) {
         auto res = this->m_factbs[prev >> this->m_K];
         int i;
         for (M m(i = prev + 1); i <= n; ++i, ++m) {

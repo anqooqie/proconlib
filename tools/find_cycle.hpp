@@ -6,7 +6,7 @@
 namespace tools {
 
   template <typename T, typename F>
-  ::std::pair<long long, long long> find_cycle(const T& seed, const F& f) {
+  std::pair<long long, long long> find_cycle(const T& seed, const F& f) {
     auto i = 1LL;
     auto j = 2LL;
     T x = f(seed);
@@ -27,7 +27,7 @@ namespace tools {
 
     const auto cycle = j - i;
 
-    return ::std::make_pair(head, cycle);
+    return std::make_pair(head, cycle);
   }
 }
 

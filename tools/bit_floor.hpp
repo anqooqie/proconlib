@@ -14,12 +14,12 @@ namespace tools {
 
   template <typename T>
   constexpr T bit_floor(const T x) noexcept {
-    static_assert(::tools::is_integral_v<T> && !::std::is_same_v<::std::remove_cv_t<T>, bool>);
-    if constexpr (::tools::is_signed_v<T>) {
+    static_assert(tools::is_integral_v<T> && !std::is_same_v<std::remove_cv_t<T>, bool>);
+    if constexpr (tools::is_signed_v<T>) {
       assert(x >= 0);
-      return ::tools::bit_floor<::tools::make_unsigned_t<T>>(x);
+      return tools::bit_floor<tools::make_unsigned_t<T>>(x);
     } else {
-      return ::std::bit_floor(x);
+      return std::bit_floor(x);
     }
   }
 }

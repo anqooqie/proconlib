@@ -30,7 +30,7 @@ int main() {
     std::cin >> top_face >> front_face;
     const auto top_direction = six_directions[std::distance(faces.begin(), std::find(faces.begin(), faces.end(), top_face))];
     const auto front_direction = six_directions[std::distance(faces.begin(), std::find(faces.begin(), faces.end(), front_face))];
-    const auto q = ::tools::quaternion<double>::look_rotation(front_direction, top_direction);
+    const auto q = tools::quaternion<double>::look_rotation(front_direction, top_direction);
     const auto answer_with_error = q * tools::vector3<double>(1, 0, 0);
 
     std::cout << faces[std::distance(six_directions.begin(), std::min_element(six_directions.begin(), six_directions.end(), tools::less_by([&](const auto& possible_answer) {

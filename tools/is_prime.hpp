@@ -8,7 +8,7 @@
 namespace tools {
 
   constexpr bool is_prime(const unsigned long long n) {
-    constexpr ::std::array<unsigned long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+    constexpr std::array<unsigned long long, 7> bases = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
     if (n <= 1) return false;
     if (n == 2) return true;
@@ -21,11 +21,11 @@ namespace tools {
       if (a % n == 0) return true;
 
       auto power = d;
-      auto target = ::tools::pow_mod(a, power, n);
+      auto target = tools::pow_mod(a, power, n);
 
       bool is_composite = true;
       if (target == 1) is_composite = false;
-      for (; is_composite && power != n - 1; power *= 2, target = ::tools::prod_mod(target, target, n)) {
+      for (; is_composite && power != n - 1; power *= 2, target = tools::prod_mod(target, target, n)) {
         if (target == n - 1) is_composite = false;
       }
 
