@@ -2,14 +2,15 @@
 // competitive-verifier: ERROR 1e-6
 // competitive-verifier: IGNORE
 
+#include <cmath>
+#include <iomanip>
+#include <ios>
 #include <iostream>
 #include <vector>
-#include <iomanip>
-#include <cmath>
-#include "tools/vector2.hpp"
 #include "tools/convex_hull.hpp"
-#include "tools/rational.hpp"
 #include "tools/polygon_2d.hpp"
+#include "tools/rational.hpp"
+#include "tools/vector2.hpp"
 
 using ll = long long;
 
@@ -40,6 +41,6 @@ int main() {
     v2.emplace_back(tools::rational(v[i].x), tools::rational(v[i].y));
   }
 
-  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational, false>(v2.begin(), v2.end()).minimum_bounding_circle().squared_radius())) << '\n';
+  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational, false>(v2).minimum_bounding_circle().squared_radius())) << '\n';
   return 0;
 }

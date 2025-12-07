@@ -1,10 +1,10 @@
 #ifndef TOOLS_EXTGCD_HPP
 #define TOOLS_EXTGCD_HPP
 
+#include <algorithm>
+#include <cassert>
 #include <tuple>
 #include <utility>
-#include <cassert>
-#include <algorithm>
 #include "tools/abs.hpp"
 
 namespace tools {
@@ -36,8 +36,12 @@ namespace tools {
     if (prev_r_is_neg) prev_s = -prev_s;
     if (r_is_neg) prev_t = -prev_t;
 
-    assert(tools::abs(prev_s) <= std::max(b / prev_r / T(2), T(1)));
-    assert(tools::abs(prev_t) <= std::max(a / prev_r / T(2), T(1)));
+    {
+      using std::abs;
+      using tools::abs;
+      assert(abs(prev_s) <= std::max(b / prev_r / T(2), T(1)));
+      assert(abs(prev_t) <= std::max(a / prev_r / T(2), T(1)));
+    }
     return std::make_tuple(prev_s, prev_t, prev_r);
   }
 }

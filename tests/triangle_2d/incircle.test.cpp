@@ -1,11 +1,12 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_7_B
 // competitive-verifier: ERROR 1e-6
 
-#include <iostream>
 #include <array>
 #include <iomanip>
-#include "tools/vector2.hpp"
+#include <ios>
+#include <iostream>
 #include "tools/triangle_2d.hpp"
+#include "tools/vector2.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -13,7 +14,7 @@ int main() {
 
   std::array<tools::vector2<double>, 3> p;
   std::cin >> p[0] >> p[1] >> p[2];
-  const auto incircle = tools::triangle_2d<double, false>(p.begin(), p.end()).incircle();
+  const auto incircle = tools::triangle_2d<double, false>(p).incircle();
   std::cout << std::fixed << std::setprecision(10) << incircle.center().x << ' ' << incircle.center().y << ' ' << incircle.radius() << '\n';
 
   return 0;

@@ -5,10 +5,12 @@
 #include <array>
 #include <cassert>
 #include <cmath>
+#include <concepts>
 #include <cstddef>
 #include <initializer_list>
 #include <limits>
 #include <optional>
+#include <ranges>
 #include <tuple>
 #include <type_traits>
 #include <utility>
@@ -50,23 +52,23 @@ namespace tools {
     circle_2d() = default;
     circle_2d(const tools::vector2<T>& center, const T& radius_or_squared_radius);
 
-    template <typename T_ = T, bool Filled_ = Filled>
-    std::enable_if_t<std::is_floating_point_v<T_> && Filled_, T> area() const;
+    T area() const
+    requires std::floating_point<T> && Filled;
     tools::vector2<T> center() const;
-    template <bool HasRadius_ = HasRadius>
-    std::enable_if_t<HasRadius_, T> radius() const;
+    T radius() const
+    requires HasRadius;
     T squared_radius() const;
     std::pair<int, int> where(const tools::circle_2d<T, Filled, HasRadius>& other) const;
     int where(const tools::vector2<T>& p) const;
 
-    template <typename T_, bool HasRadius_>
-    friend std::enable_if_t<std::is_floating_point_v<T_>, std::optional<std::variant<tools::circle_2d<T_, false, HasRadius_>, std::vector<tools::vector2<T_>>>>>
+    template <std::floating_point T_, bool HasRadius_>
+    friend std::optional<std::variant<tools::circle_2d<T_, false, HasRadius_>, std::vector<tools::vector2<T_>>>>
     operator&(const tools::circle_2d<T_, false, HasRadius_>& lhs, const tools::circle_2d<T_, false, HasRadius_>& rhs);
-    template <typename T_, bool HasRadius_>
-    friend std::enable_if_t<std::is_floating_point_v<T_>, std::vector<tools::vector2<T_>>>
+    template <std::floating_point T_, bool HasRadius_>
+    friend std::vector<tools::vector2<T_>>
     operator&(const tools::circle_2d<T_, false, HasRadius_>& lhs, const tools::line_2d<T_>& rhs);
-    template <typename T_, bool HasRadius_>
-    friend std::enable_if_t<std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    template <std::floating_point T_, bool HasRadius_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::circle_2d<T_, true, HasRadius_>& lhs, const tools::line_2d<T_>& rhs);
     template <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>
     friend bool operator==(const tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const tools::circle_2d<T_, Filled_, HasRadius2>& rhs);
@@ -85,33 +87,25 @@ namespace tools {
 
     bool contains(const tools::vector2<T>& p) const;
     std::conditional_t<std::is_floating_point_v<T>, T, double> length() const; 
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::line_2d<T>& other) const;
+    std::optional<tools::vector2<T>> cross_point(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     bool crosses(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::vector2<T>>
-    midpoint() const;
+    tools::vector2<T> midpoint() const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     const tools::vector2<T>& p1() const;
     const tools::vector2<T>& p2() const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::vector2<T>& p) const;
+    T squared_distance(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::vector2<T>& p) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     T squared_length() const;
     tools::half_line_2d<T> to_half_line() const;
     tools::line_2d<T> to_line() const;
@@ -120,13 +114,16 @@ namespace tools {
     tools::directed_line_segment_2d<T> operator+() const;
     tools::directed_line_segment_2d<T> operator-() const;
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::directed_line_segment_2d<T_>& lhs, const tools::directed_line_segment_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::directed_line_segment_2d<T_>& lhs, const tools::half_line_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::directed_line_segment_2d<T_>& lhs, const tools::line_2d<T_>& rhs);
     template <typename T_>
     friend bool operator==(const tools::directed_line_segment_2d<T_>& lhs, const tools::directed_line_segment_2d<T_>& rhs);
@@ -145,38 +142,34 @@ namespace tools {
 
     const tools::vector2<T>& a() const;
     bool contains(const tools::vector2<T>& p) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::line_2d<T>& other) const;
+    std::optional<tools::vector2<T>> cross_point(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     const tools::vector2<T>& d() const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::vector2<T>& p) const;
+    T squared_distance(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::vector2<T>& p) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     tools::line_2d<T> to_line() const;
 
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::half_line_2d<T_>& lhs, const tools::directed_line_segment_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>, tools::half_line_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>, tools::half_line_2d<T_>>>
     operator&(const tools::half_line_2d<T_>& lhs, const tools::half_line_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::half_line_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::half_line_2d<T_>>>
     operator&(const tools::half_line_2d<T_>& lhs, const tools::line_2d<T_>& rhs);
     template <typename T_>
     friend bool operator==(const tools::half_line_2d<T_>& lhs, const tools::half_line_2d<T_>& rhs);
@@ -198,48 +191,43 @@ namespace tools {
     const T& b() const;
     const T& c() const;
     bool contains(const tools::vector2<T>& p) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-    cross_point(const tools::line_2d<T>& other) const;
+    std::optional<tools::vector2<T>> cross_point(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    std::optional<tools::vector2<T>> cross_point(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     bool crosses(const tools::line_2d<T>& other) const;
     bool is_parallel_to(const tools::line_2d<T>& other) const;
     tools::vector2<T> normal() const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::vector2<T>>
-    projection(const tools::vector2<T>& p) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::directed_line_segment_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::half_line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::line_2d<T>& other) const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-    squared_distance(const tools::vector2<T>& p) const;
+    tools::vector2<T> projection(const tools::vector2<T>& p) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::directed_line_segment_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::half_line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::line_2d<T>& other) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    T squared_distance(const tools::vector2<T>& p) const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
 
-    template <typename T_, bool HasRadius_>
-    friend std::enable_if_t<std::is_floating_point_v<T_>, std::vector<tools::vector2<T_>>>
+    template <std::floating_point T_, bool HasRadius_>
+    friend std::vector<tools::vector2<T_>>
     operator&(const tools::line_2d<T_>& lhs, const tools::circle_2d<T_, false, HasRadius_>& rhs);
-    template <typename T_, bool HasRadius_>
-    friend std::enable_if_t<std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    template <std::floating_point T_, bool HasRadius_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::line_2d<T_>& lhs, const tools::circle_2d<T_, true, HasRadius_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::directed_line_segment_2d<T_>>>
     operator&(const tools::line_2d<T_>& lhs, const tools::directed_line_segment_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::half_line_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::half_line_2d<T_>>>
     operator&(const tools::line_2d<T_>& lhs, const tools::half_line_2d<T_>& rhs);
     template <typename T_>
-    friend std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<std::variant<tools::vector2<T_>, tools::line_2d<T_>>>>
+    requires tools::is_rational_v<T_> || std::floating_point<T_>
+    friend std::optional<std::variant<tools::vector2<T_>, tools::line_2d<T_>>>
     operator&(const tools::line_2d<T_>& lhs, const tools::line_2d<T_>& rhs);
     template <typename T_>
     friend bool operator==(const tools::line_2d<T_>& lhs, const tools::line_2d<T_>& rhs);
@@ -257,17 +245,18 @@ namespace tools {
 
   public:
     polygon_2d() = default;
-    template <typename InputIterator>
-    polygon_2d(const InputIterator& begin, const InputIterator& end);
+    template <std::ranges::input_range R>
+    requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+    polygon_2d(R&& r);
     polygon_2d(std::initializer_list<tools::vector2<T>> init);
 
-    template <typename T_ = T, bool Filled_ = Filled>
-    std::enable_if_t<(tools::is_rational_v<T_> || std::is_floating_point_v<T_>) && Filled_, T> area() const;
-    template <bool Filled_ = Filled>
-    std::enable_if_t<Filled_, T> doubled_area() const;
+    T area() const
+    requires (tools::is_rational_v<T> || std::floating_point<T>) && Filled;
+    T doubled_area() const
+    requires Filled;
     bool is_counterclockwise() const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> minimum_bounding_circle() const;
+    tools::circle_2d<T, Filled, false> minimum_bounding_circle() const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     int where(const tools::vector2<T>& p) const;
   };
 
@@ -278,16 +267,17 @@ namespace tools {
 
   public:
     triangle_2d() = default;
-    template <typename InputIterator>
-    triangle_2d(const InputIterator& begin, const InputIterator& end);
+    template <std::ranges::input_range R>
+    requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+    triangle_2d(R&& r);
     triangle_2d(std::initializer_list<tools::vector2<T>> init);
 
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> circumcircle() const;
-    template <typename T_ = T>
-    std::enable_if_t<std::is_floating_point_v<T_>, tools::circle_2d<T, Filled>> incircle() const;
-    template <typename T_ = T>
-    std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> minimum_bounding_circle() const;
+    tools::circle_2d<T, Filled, false> circumcircle() const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
+    tools::circle_2d<T, Filled> incircle() const
+    requires std::floating_point<T>;
+    tools::circle_2d<T, Filled, false> minimum_bounding_circle() const
+    requires tools::is_rational_v<T> || std::floating_point<T>;
     int type() const;
   };
 
@@ -302,8 +292,8 @@ namespace tools {
     }
   }
 
-  template <typename T, bool Filled, bool HasRadius> template <typename T_, bool Filled_>
-  std::enable_if_t<std::is_floating_point_v<T_> && Filled_, T> circle_2d<T, Filled, HasRadius>::area() const {
+  template <typename T, bool Filled, bool HasRadius>
+  T circle_2d<T, Filled, HasRadius>::area() const requires std::floating_point<T> && Filled {
     return std::acos(T(-1)) * this->m_squared_radius;
   }
 
@@ -312,8 +302,8 @@ namespace tools {
     return this->m_center;
   }
 
-  template <typename T, bool Filled, bool HasRadius> template <bool HasRadius_>
-  std::enable_if_t<HasRadius_, T> circle_2d<T, Filled, HasRadius>::radius() const {
+  template <typename T, bool Filled, bool HasRadius>
+  T circle_2d<T, Filled, HasRadius>::radius() const requires HasRadius {
     return this->m_radius;
   }
 
@@ -371,8 +361,8 @@ namespace tools {
     return tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());
   }
 
-  template <typename T, bool HasRadius>
-  std::enable_if_t<std::is_floating_point_v<T>, std::optional<std::variant<tools::circle_2d<T, false, HasRadius>, std::vector<tools::vector2<T>>>>>
+  template <std::floating_point T, bool HasRadius>
+  std::optional<std::variant<tools::circle_2d<T, false, HasRadius>, std::vector<tools::vector2<T>>>>
   operator&(const tools::circle_2d<T, false, HasRadius>& lhs, const tools::circle_2d<T, false, HasRadius>& rhs) {
     using variant_t = std::variant<tools::circle_2d<T, false, HasRadius>, std::vector<tools::vector2<T>>>;
     using result_t = std::optional<variant_t>;
@@ -390,8 +380,8 @@ namespace tools {
     return result_t(variant_t(lhs & l));
   }
 
-  template <typename T, bool HasRadius>
-  std::enable_if_t<std::is_floating_point_v<T>, std::vector<tools::vector2<T>>>
+  template <std::floating_point T, bool HasRadius>
+  std::vector<tools::vector2<T>>
   operator&(const tools::circle_2d<T, false, HasRadius>& lhs, const tools::line_2d<T>& rhs) {
     using result_t = std::vector<tools::vector2<T>>;
     if (const auto intersection = tools::circle_2d<T, true, HasRadius>(lhs.m_center, HasRadius ? lhs.m_radius : lhs.m_squared_radius) & rhs; intersection) {
@@ -409,8 +399,8 @@ namespace tools {
     }
   }
 
-  template <typename T, bool HasRadius>
-  std::enable_if_t<std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  template <std::floating_point T, bool HasRadius>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::circle_2d<T, true, HasRadius>& lhs, const tools::line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -461,9 +451,9 @@ namespace tools {
     return T(0) <= d && d <= this->squared_length();
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  directed_line_segment_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> directed_line_segment_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     const auto intersection = *this & other;
     struct {
@@ -477,9 +467,9 @@ namespace tools {
     return intersection ? std::visit(visitor, *intersection) : std::nullopt;
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  directed_line_segment_2d<T>::cross_point(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> directed_line_segment_2d<T>::cross_point(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     const auto intersection = *this & other;
     struct {
@@ -493,9 +483,9 @@ namespace tools {
     return intersection ? std::visit(visitor, *intersection) : std::nullopt;
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  directed_line_segment_2d<T>::cross_point(const tools::line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> directed_line_segment_2d<T>::cross_point(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     const auto intersection = *this & other;
     struct {
@@ -529,9 +519,9 @@ namespace tools {
     return this->to_vector().l2_norm();
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::vector2<T>>
-  directed_line_segment_2d<T>::midpoint() const {
+  template <typename T>
+  tools::vector2<T> directed_line_segment_2d<T>::midpoint() const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return (this->m_p1 + this->m_p2) / T(2);
   }
 
@@ -545,9 +535,9 @@ namespace tools {
     return this->m_p2;
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  directed_line_segment_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  T directed_line_segment_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (*this & other) {
       return T(0);
     }
@@ -559,9 +549,9 @@ namespace tools {
     });
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  directed_line_segment_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  T directed_line_segment_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (*this & other) {
       return T(0);
     }
@@ -571,9 +561,9 @@ namespace tools {
     });
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  directed_line_segment_2d<T>::squared_distance(const tools::line_2d<T>& other) const {
+  template <typename T>
+  T directed_line_segment_2d<T>::squared_distance(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (*this & other) {
       return T(0);
     }
@@ -583,9 +573,9 @@ namespace tools {
     });
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  directed_line_segment_2d<T>::squared_distance(const tools::vector2<T>& p) const {
+  template <typename T>
+  T directed_line_segment_2d<T>::squared_distance(const tools::vector2<T>& p) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     const auto x = this->to_line().projection(p);
     const auto d = this->to_vector().inner_product(x - this->m_p1);
     return (p - (d < T(0) ? this->m_p1 : this->squared_length() < d ? this->m_p2 : x)).squared_l2_norm();
@@ -622,7 +612,8 @@ namespace tools {
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::directed_line_segment_2d<T>& lhs, const tools::directed_line_segment_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -654,7 +645,8 @@ namespace tools {
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::directed_line_segment_2d<T>& lhs, const tools::half_line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -685,7 +677,8 @@ namespace tools {
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::directed_line_segment_2d<T>& lhs, const tools::line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -725,15 +718,15 @@ namespace tools {
     return l.a() * p.x + l.b() * p.y + l.c() == T(0) && this->m_d.inner_product(p - this->m_a) >= T(0);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  half_line_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> half_line_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.cross_point(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  half_line_2d<T>::cross_point(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> half_line_2d<T>::cross_point(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     const auto intersection = *this & other;
     struct {
@@ -750,9 +743,9 @@ namespace tools {
     return intersection ? std::visit(visitor, *intersection) : std::nullopt;
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  half_line_2d<T>::cross_point(const tools::line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> half_line_2d<T>::cross_point(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     const auto intersection = *this & other;
     struct {
@@ -771,15 +764,15 @@ namespace tools {
     return this->m_d;
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  half_line_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  T half_line_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.squared_distance(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  half_line_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  T half_line_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (*this & other) {
       return T(0);
     }
@@ -802,18 +795,18 @@ namespace tools {
     }
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  half_line_2d<T>::squared_distance(const tools::line_2d<T>& other) const {
+  template <typename T>
+  T half_line_2d<T>::squared_distance(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (*this & other) {
       return T(0);
     }
     return other.squared_distance(this->m_a);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  half_line_2d<T>::squared_distance(const tools::vector2<T>& p) const {
+  template <typename T>
+  T half_line_2d<T>::squared_distance(const tools::vector2<T>& p) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     auto x = this->to_line().projection(p);
     const auto d = this->m_d.inner_product(x - this->m_a);
     return (p - (d < T(0) ? this->m_a : x)).squared_l2_norm();
@@ -825,13 +818,15 @@ namespace tools {
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::half_line_2d<T>& lhs, const tools::directed_line_segment_2d<T>& rhs) {
     return rhs & lhs;
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>, tools::half_line_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>, tools::half_line_2d<T>>>
   operator&(const tools::half_line_2d<T>& lhs, const tools::half_line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>, tools::half_line_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -868,7 +863,8 @@ namespace tools {
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>>>
+  requires tools::is_rational_v<T> || std::floating_point<T>
+  std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>>
   operator&(const tools::half_line_2d<T>& lhs, const tools::line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::half_line_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -918,21 +914,21 @@ namespace tools {
     return this->m_a * p.x + this->m_b * p.y + this->m_c == T(0);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  line_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> line_2d<T>::cross_point(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.cross_point(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  line_2d<T>::cross_point(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> line_2d<T>::cross_point(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.cross_point(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, std::optional<tools::vector2<T>>>
-  line_2d<T>::cross_point(const tools::line_2d<T>& other) const {
+  template <typename T>
+  std::optional<tools::vector2<T>> line_2d<T>::cross_point(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     using result_t = std::optional<tools::vector2<T>>;
     if (!this->crosses(other)) return std::nullopt;
     return result_t(tools::vector2<T>(
@@ -956,27 +952,27 @@ namespace tools {
     return tools::vector2<T>(this->m_a, this->m_b);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::vector2<T>>
-  line_2d<T>::projection(const tools::vector2<T>& p) const {
+  template <typename T>
+  tools::vector2<T> line_2d<T>::projection(const tools::vector2<T>& p) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return *tools::half_line_2d<T>(p, this->normal()).to_line().cross_point(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  line_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const {
+  template <typename T>
+  T line_2d<T>::squared_distance(const tools::directed_line_segment_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.squared_distance(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  line_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const {
+  template <typename T>
+  T line_2d<T>::squared_distance(const tools::half_line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return other.squared_distance(*this);
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  line_2d<T>::squared_distance(const tools::line_2d<T>& other) const {
+  template <typename T>
+  T line_2d<T>::squared_distance(const tools::line_2d<T>& other) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     if (this->is_parallel_to(other)) {
       return tools::square(other.m_a * this->m_c - this->m_a * other.m_c) / (tools::square(this->m_a) + tools::square(this->m_b)) / tools::square(other.m_a);
     } else {
@@ -984,38 +980,41 @@ namespace tools {
     }
   }
 
-  template <typename T> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, T>
-  line_2d<T>::squared_distance(const tools::vector2<T>& p) const {
+  template <typename T>
+  T line_2d<T>::squared_distance(const tools::vector2<T>& p) const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     return (p - this->projection(p)).squared_l2_norm();
   }
 
-  template <typename T, bool HasRadius>
-  std::enable_if_t<std::is_floating_point_v<T>, std::vector<tools::vector2<T>>>
+  template <std::floating_point T, bool HasRadius>
+  std::vector<tools::vector2<T>>
   operator&(const tools::line_2d<T>& lhs, const tools::circle_2d<T, false, HasRadius>& rhs) {
     return rhs & lhs;
   }
 
-  template <typename T, bool HasRadius>
-  std::enable_if_t<std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  template <std::floating_point T, bool HasRadius>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::line_2d<T>& lhs, const tools::circle_2d<T, true, HasRadius>& rhs) {
     return rhs & lhs;
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>>
+  requires tools::is_rational_v<T> || std::is_floating_point_v<T>
+  std::optional<std::variant<tools::vector2<T>, tools::directed_line_segment_2d<T>>>
   operator&(const tools::line_2d<T>& lhs, const tools::directed_line_segment_2d<T>& rhs) {
     return rhs & lhs;
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>>>
+  requires tools::is_rational_v<T> || std::is_floating_point_v<T>
+  std::optional<std::variant<tools::vector2<T>, tools::half_line_2d<T>>>
   operator&(const tools::line_2d<T>& lhs, const tools::half_line_2d<T>& rhs) {
     return rhs & lhs;
   }
 
   template <typename T>
-  std::enable_if_t<tools::is_rational_v<T> || std::is_floating_point_v<T>, std::optional<std::variant<tools::vector2<T>, tools::line_2d<T>>>>
+  requires tools::is_rational_v<T> || std::is_floating_point_v<T>
+  std::optional<std::variant<tools::vector2<T>, tools::line_2d<T>>>
   operator&(const tools::line_2d<T>& lhs, const tools::line_2d<T>& rhs) {
     using variant_t = std::variant<tools::vector2<T>, tools::line_2d<T>>;
     using result_t = std::optional<variant_t>;
@@ -1049,23 +1048,28 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  template <typename InputIterator>
-  polygon_2d<T, Filled>::polygon_2d(const InputIterator& begin, const InputIterator& end) : m_points(begin, end) {
+  template <std::ranges::input_range R>
+  requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+  polygon_2d<T, Filled>::polygon_2d(R&& r) : m_points(std::forward<R>(r) | std::ranges::to<std::vector<tools::vector2<T>>>()) {
     assert(this->m_points.size() >= 3);
   }
 
   template <typename T, bool Filled>
-  polygon_2d<T, Filled>::polygon_2d(std::initializer_list<tools::vector2<T>> init) : polygon_2d(init.begin(), init.end()) {
+  polygon_2d<T, Filled>::polygon_2d(std::initializer_list<tools::vector2<T>> init) : polygon_2d(init) {
   }
 
-  template <typename T, bool Filled> template <typename T_, bool Filled_>
-  std::enable_if_t<(tools::is_rational_v<T_> || std::is_floating_point_v<T_>) && Filled_, T> polygon_2d<T, Filled>::area() const {
+  template <typename T, bool Filled>
+  T polygon_2d<T, Filled>::area() const
+  requires (tools::is_rational_v<T> || std::floating_point<T>) && Filled {
     return this->doubled_area() / T(2);
   }
 
-  template <typename T, bool Filled> template <bool Filled_>
-  std::enable_if_t<Filled_, T> polygon_2d<T, Filled>::doubled_area() const {
-    return tools::abs(this->doubled_signed_area());
+  template <typename T, bool Filled>
+  T polygon_2d<T, Filled>::doubled_area() const
+  requires Filled {
+    using std::abs;
+    using tools::abs;
+    return abs(this->doubled_signed_area());
   }
 
   template <typename T, bool Filled>
@@ -1073,13 +1077,14 @@ namespace tools {
     return this->doubled_signed_area() > T(0);
   }
 
-  template <typename T, bool Filled> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> polygon_2d<T, Filled>::minimum_bounding_circle() const {
+  template <typename T, bool Filled>
+  tools::circle_2d<T, Filled, false> polygon_2d<T, Filled>::minimum_bounding_circle() const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     std::optional<tools::circle_2d<T, Filled, false>> answer;
     for (std::size_t i = 0; i < this->m_points.size(); ++i) {
       for (std::size_t j = i + 1; j < this->m_points.size(); ++j) {
         for (std::size_t k = j + 1; k < this->m_points.size(); ++k) {
-          if (const auto possible_answer = tools::triangle_2d<T, Filled>({this->m_points[i], this->m_points[j], this->m_points[k]}).minimum_bounding_circle();
+          if (const auto possible_answer = tools::triangle_2d<T, Filled>{this->m_points[i], this->m_points[j], this->m_points[k]}.minimum_bounding_circle();
               !answer || answer->squared_radius() < possible_answer.squared_radius()) {
             answer = std::move(possible_answer);
           }
@@ -1133,17 +1138,19 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  template <typename InputIterator>
-  triangle_2d<T, Filled>::triangle_2d(const InputIterator& begin, const InputIterator& end) : polygon_2d<T, Filled>(begin, end) {
+  template <std::ranges::input_range R>
+  requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+  triangle_2d<T, Filled>::triangle_2d(R&& r) : polygon_2d<T, Filled>(std::forward<R>(r)) {
     assert(this->m_points.size() == 3);
   }
 
   template <typename T, bool Filled>
-  triangle_2d<T, Filled>::triangle_2d(std::initializer_list<tools::vector2<T>> init) : triangle_2d(init.begin(), init.end()) {
+  triangle_2d<T, Filled>::triangle_2d(std::initializer_list<tools::vector2<T>> init) : triangle_2d(init) {
   }
 
-  template <typename T, bool Filled> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> triangle_2d<T, Filled>::circumcircle() const {
+  template <typename T, bool Filled>
+  tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::circumcircle() const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     const auto& A = this->m_points[0];
     const auto& B = this->m_points[1];
     const auto& C = this->m_points[2];
@@ -1157,8 +1164,9 @@ namespace tools {
     return tools::circle_2d<T, Filled, false>(circumcenter, (circumcenter - A).squared_l2_norm());
   }
 
-  template <typename T, bool Filled> template <typename T_>
-  std::enable_if_t<std::is_floating_point_v<T_>, tools::circle_2d<T, Filled>> triangle_2d<T, Filled>::incircle() const {
+  template <typename T, bool Filled>
+  tools::circle_2d<T, Filled> triangle_2d<T, Filled>::incircle() const
+  requires std::floating_point<T> {
     const auto& A = this->m_points[0];
     const auto& B = this->m_points[1];
     const auto& C = this->m_points[2];
@@ -1166,11 +1174,15 @@ namespace tools {
     const auto b = (A - C).l2_norm();
     const auto c = (B - A).l2_norm();
     const auto incenter = (a * A + b * B + c * C) / (a + b + c);
-    return tools::circle_2d<T, Filled>(incenter, tools::abs(this->doubled_signed_area()) / (a + b + c));
+
+    using std::abs;
+    using tools::abs;
+    return tools::circle_2d<T, Filled>(incenter, abs(this->doubled_signed_area()) / (a + b + c));
   }
 
-  template <typename T, bool Filled> template <typename T_>
-  std::enable_if_t<tools::is_rational_v<T_> || std::is_floating_point_v<T_>, tools::circle_2d<T, Filled, false>> triangle_2d<T, Filled>::minimum_bounding_circle() const {
+  template <typename T, bool Filled>
+  tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::minimum_bounding_circle() const
+  requires tools::is_rational_v<T> || std::floating_point<T> {
     std::array<tools::directed_line_segment_2d<T>, 3> edges;
     this->sorted_edges(edges.begin());
     if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length()) {

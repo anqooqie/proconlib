@@ -447,7 +447,9 @@ namespace tools {
     T l1_norm() const {
       T res{};
       for (const auto& v : *this) {
-        res += tools::abs(v);
+        using std::abs;
+        using tools::abs;
+        res += abs(v);
       }
       return res;
     }

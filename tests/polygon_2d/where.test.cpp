@@ -2,10 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <iterator>
-#include "tools/vector2.hpp"
 #include "tools/polygon_2d.hpp"
+#include "tools/vector2.hpp"
 
 using ll = long long;
 using T = std::int_fast64_t;
@@ -16,9 +14,11 @@ int main() {
 
   ll n;
   std::cin >> n;
-  std::vector<tools::vector2<T>> g;
-  std::copy_n(std::istream_iterator<tools::vector2<T>>(std::cin), n, std::back_inserter(g));
-  tools::polygon_2d<T, false> polygon(g.begin(), g.end());
+  tools::polygon_2d<T, false> polygon([&]() {
+    std::vector<tools::vector2<T>> g(n);
+    for (auto& g_i : g) std::cin >> g_i;
+    return g;
+  }());
 
   ll Q;
   std::cin >> Q;

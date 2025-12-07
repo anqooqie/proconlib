@@ -609,7 +609,9 @@ namespace tools {
       }
 
       if (!this->m_positive || !other.m_positive) {
-        auto [Q, R] = tools::abs(*this).divmod(tools::abs(other));
+        using std::abs;
+        using tools::abs;
+        auto [Q, R] = abs(*this).divmod(abs(other));
         Q.m_positive = Q.m_digits.empty() || (this->m_positive == other.m_positive);
         R.m_positive = R.m_digits.empty() || this->m_positive;
         return std::make_pair(Q, R);

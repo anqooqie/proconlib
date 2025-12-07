@@ -14,8 +14,10 @@ It is a triangle which consists of 3 points $p_0, p_1, p_2$.
 ## Constructor
 ```cpp
 (1)
-template <typename T, bool Filled> template <typename InputIterator>
-triangle_2d<T, Filled> s(InputIterator begin, InputIterator end);
+template <typename T, bool Filled>
+template <std::ranges::input_range R>
+requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+triangle_2d<T, Filled> s(R&& r);
 
 (2)
 template <typename T, bool Filled>
@@ -28,7 +30,7 @@ If `Filled` is `false`, it consists only of the boundary.
 
 ### Constraints
 - (1)
-    - $\mathrm{end} - \mathrm{begin} = 3$
+    - $\|r\| = 3$
 - (2)
     - `init.size()` $= 3$
 

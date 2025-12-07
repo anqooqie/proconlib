@@ -14,8 +14,10 @@ It is a polygon which consists of $n$ points $p_0, p_1, \ldots, p_{n - 1}$.
 ## Constructor
 ```cpp
 (1)
-template <typename T, bool Filled> template <typename InputIterator>
-polygon_2d<T, Filled> s(InputIterator begin, InputIterator end);
+template <typename T, bool Filled>
+template <std::ranges::input_range R>
+requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+polygon_2d<T, Filled> s(R&& r);
 
 (2)
 template <typename T, bool Filled>
@@ -28,7 +30,7 @@ If `Filled` is `false`, it consists only of the boundary.
 
 ### Constraints
 - (1)
-    - $\mathrm{end} - \mathrm{begin} \geq 3$
+    - $\|r\| \geq 3$
 - (2)
     - `init.size()` $\geq 3$
 
