@@ -14,10 +14,10 @@ If `std::gcd(m, n)` is available, it returns `std::gcd(m, n)`.
 For example, `tools::gcd(tools::bigint, tools::bigint)` gets available if you include `tools/bigint.hpp`.
 
 ### Constraints
-- See the standard or the explanation of the corresponding header file.
+- See the standard or the documentation page for each arguments.
 
 ### Time Complexity
-- See the standard or the explanation of the corresponding header file.
+- See the standard or the documentation page for each arguments.
 
 ### License
 - CC0

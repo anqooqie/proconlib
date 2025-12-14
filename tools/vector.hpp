@@ -1,21 +1,22 @@
 #ifndef TOOLS_VECTOR_HPP
 #define TOOLS_VECTOR_HPP
 
-#include <cstddef>
-#include <array>
-#include <initializer_list>
-#include <cassert>
-#include <limits>
-#include <vector>
-#include <type_traits>
-#include <iterator>
 #include <algorithm>
-#include <utility>
+#include <array>
+#include <cassert>
 #include <cmath>
-#include <iostream>
-#include <string>
+#include <concepts>
+#include <cstddef>
 #include <functional>
+#include <initializer_list>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <type_traits>
+#include <string>
 #include <tuple>
+#include <utility>
+#include <vector>
 #include "tools/abs.hpp"
 #include "tools/tuple_hash.hpp"
 
@@ -107,7 +108,7 @@ namespace tools {
   template <typename T, std::size_t N = std::numeric_limits<std::size_t>::max()>
   class vector : public tools::detail::vector::members<T, N> {
     using Base = tools::detail::vector::members<T, N>;
-    using F = std::conditional_t<std::is_floating_point_v<T>, T, double>;
+    using F = std::conditional_t<std::floating_point<T>, T, double>;
     using V = tools::vector<T, N>;
     constexpr static bool variable_sized = Base::variable_sized;
     constexpr static bool has_aliases = Base::has_aliases;
@@ -334,18 +335,13 @@ namespace tools {
       return *this;
     }
 
-    template <bool SFINAE = variable_sized, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    explicit vector(size_type n) : Base(n) {}
-    template <bool SFINAE = variable_sized, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    vector(size_type n, const_reference value) : Base(n, value) {}
-    template <typename InputIter, bool SFINAE = variable_sized, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    vector(const InputIter first, const InputIter last) : Base(first, last) {}
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y) : Base(x, y) {}
-    template <bool SFINAE = N == 3, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y, const T& z) : Base(x, y, z) {}
-    template <bool SFINAE = N == 4, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    vector(const T& x, const T& y, const T& z, const T& w) : Base(x, y, z, w) {}
+    explicit vector(size_type n) requires (variable_sized) : Base(n) {}
+    vector(size_type n, const_reference value) requires (variable_sized) : Base(n, value) {}
+    template <typename InputIter>
+    vector(const InputIter first, const InputIter last) requires (variable_sized) : Base(first, last) {}
+    vector(const T& x, const T& y) requires (N == 2) : Base(x, y) {}
+    vector(const T& x, const T& y, const T& z) requires (N == 3) : Base(x, y, z) {}
+    vector(const T& x, const T& y, const T& z, const T& w) requires (N == 4) : Base(x, y, z, w) {}
     vector(const std::initializer_list<T> il) : Base(il) {}
 
     iterator begin() noexcept { return iterator(this, 0); }
@@ -447,9 +443,7 @@ namespace tools {
     T l1_norm() const {
       T res{};
       for (const auto& v : *this) {
-        using std::abs;
-        using tools::abs;
-        res += abs(v);
+        res += tools::abs(v);
       }
       return res;
     }
@@ -459,8 +453,7 @@ namespace tools {
     F l2_norm() const {
       return std::sqrt(static_cast<F>(this->squared_l2_norm()));
     }
-    template <bool SFINAE = std::is_floating_point_v<T>, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    V normalized() const {
+    V normalized() const requires std::floating_point<T> {
       return *this / this->l2_norm();
     }
 
@@ -480,21 +473,17 @@ namespace tools {
       return is;
     }
 
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    T outer_product(const V& other) const {
+    T outer_product(const V& other) const requires (N == 2) {
       return this->x * other.y - this->y * other.x;
     }
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    V turned90() const {
+    V turned90() const requires (N == 2) {
       return V{-this->y, this->x};
     }
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    V turned270() const {
+    V turned270() const requires (N == 2) {
       return V{this->y, -this->x};
     }
 
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    static const std::array<V, 4>& four_directions() {
+    static const std::array<V, 4>& four_directions() requires (N == 2) {
       static const std::array<V, 4> res = {
         V{T(1), T(0)},
         V{T(0), T(1)},
@@ -503,8 +492,7 @@ namespace tools {
       };
       return res;
     }
-    template <bool SFINAE = N == 2, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    static const std::array<V, 8>& eight_directions() {
+    static const std::array<V, 8>& eight_directions() requires (N == 2) {
       static const std::array<V, 8> res = {
         V{T(1), T(0)},
         V{T(1), T(1)},
@@ -518,12 +506,10 @@ namespace tools {
       return res;
     }
 
-    template <bool SFINAE = N == 3, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    V outer_product(const V& other) const {
+    V outer_product(const V& other) const requires (N == 3) {
       return V{this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z, this->x * other.y - this->y * other.x};
     }
-    template <bool SFINAE = N == 3 && std::is_floating_point_v<T>, std::enable_if_t<SFINAE, std::nullptr_t> = nullptr>
-    std::array<V, 3> orthonormal_basis() const {
+    std::array<V, 3> orthonormal_basis() const requires (N == 3 && std::floating_point<T>) {
       assert((*this != V{0, 0, 0}));
 
       std::array<V, 3> v;

@@ -1,15 +1,24 @@
 #ifndef TOOLS_ABS_HPP
 #define TOOLS_ABS_HPP
 
+#include <cmath>
+#include <type_traits>
+
 namespace tools {
-  constexpr unsigned int abs(const unsigned int x) noexcept {
-    return x;
+  namespace detail {
+    namespace abs {
+      template <typename T>
+      struct impl {
+        constexpr T operator()(const T x) const noexcept(noexcept(std::abs(x))) {
+          return std::abs(x);
+        }
+      };
+    }
   }
-  constexpr unsigned long abs(const unsigned long x) noexcept {
-    return x;
-  }
-  constexpr unsigned long long abs(const unsigned long long x) noexcept {
-    return x;
+
+  template <typename T>
+  constexpr auto abs(T&& x) noexcept(noexcept(tools::detail::abs::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x)))) -> decltype(auto) {
+    return tools::detail::abs::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x));
   }
 }
 

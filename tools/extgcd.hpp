@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <concepts>
 #include <tuple>
 #include <utility>
 #include "tools/abs.hpp"
@@ -10,6 +11,7 @@
 namespace tools {
 
   template <typename T>
+  requires (!std::unsigned_integral<T>)
   std::tuple<T, T, T> extgcd(T prev_r, T r) {
     const bool prev_r_is_neg = prev_r < T(0);
     const bool r_is_neg = r < T(0);
@@ -36,12 +38,8 @@ namespace tools {
     if (prev_r_is_neg) prev_s = -prev_s;
     if (r_is_neg) prev_t = -prev_t;
 
-    {
-      using std::abs;
-      using tools::abs;
-      assert(abs(prev_s) <= std::max(b / prev_r / T(2), T(1)));
-      assert(abs(prev_t) <= std::max(a / prev_r / T(2), T(1)));
-    }
+    assert(tools::abs(prev_s) <= std::max(b / prev_r / T(2), T(1)));
+    assert(tools::abs(prev_t) <= std::max(a / prev_r / T(2), T(1)));
     return std::make_tuple(prev_s, prev_t, prev_r);
   }
 }

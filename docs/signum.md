@@ -18,6 +18,9 @@ $$\begin{align*}
 \end{array}\right.&
 \end{align*}$$
 
+`tools::signum(x)` will be extended by other header files in my library.
+For example, `tools::signum(tools::bigint)` gets available if you include `tools/bigint.hpp`.
+
 ### Constraints
 - None
 

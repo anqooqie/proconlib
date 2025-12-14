@@ -10,6 +10,6 @@ int main() {
 
   tools::bigdecimal A, B;
   std::cin >> A >> B;
-  std::cout << A.divide_and_copy(B, 0, tools::rounding_mode::down) << '\n';
+  std::cout << A.divide(B, 0, tools::rounding_mode::down) << '\n';
   return 0;
 }

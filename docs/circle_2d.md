@@ -56,6 +56,20 @@ It returns $o$.
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
 
+## contains
+```cpp
+bool c.contains(tools::vector2<T> p);
+```
+
+If `Filled` is `true`, it returns whether $p$ is on the boundary of $c$ or in the interior of $c$.
+If `Filled` is `false`, it returns whether $p$ is on the boundary of $c$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$ if `<T>` is a built-in numerical type
+
 ## radius
 ```cpp
 T c.radius();

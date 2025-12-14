@@ -24,6 +24,7 @@
 #include "tools/is_unsigned.hpp"
 #include "tools/make_signed.hpp"
 #include "tools/make_unsigned.hpp"
+#include "tools/non_bool_integral.hpp"
 #include "tools/now.hpp"
 
 namespace tools {
@@ -107,13 +108,15 @@ namespace tools {
         return x;
       }
     }
-  }
 
-  constexpr tools::uint128_t abs(const tools::uint128_t& x) noexcept {
-    return x;
-  }
-  constexpr tools::int128_t abs(const tools::int128_t& x) {
-    return x >= 0 ? x : -x;
+    namespace abs {
+      template <>
+      struct impl<tools::int128_t> {
+        constexpr tools::int128_t operator()(const tools::int128_t& x) const noexcept {
+          return x >= 0 ? x : -x;
+        }
+      };
+    }
   }
 }
 
@@ -415,28 +418,41 @@ namespace tools {
     return tools::detail::countr_zero::impl(x);
   }
 
-  constexpr tools::uint128_t gcd(tools::uint128_t m, tools::uint128_t n) noexcept {
-    while (n != 0) {
-      m %= n;
-      std::swap(m, n);
-    }
-    return m;
-  }
-  template <typename M, typename N> requires (
-    ((std::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool>) || std::is_same_v<std::remove_cv_t<M>, tools::int128_t> || std::is_same_v<std::remove_cv_t<M>, tools::uint128_t>)
-    && ((std::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>) || std::is_same_v<std::remove_cv_t<N>, tools::int128_t> || std::is_same_v<std::remove_cv_t<N>, tools::uint128_t>)
-    && !(std::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool> && std::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>)
-    && !(std::is_same_v<std::remove_cv_t<M>, tools::uint128_t> && std::is_same_v<std::remove_cv_t<N>, tools::uint128_t>)
-  )
-  constexpr std::common_type_t<M, N> gcd(const M m, const N n) {
-    return std::common_type_t<M, N>(
-      tools::gcd(
-        m >= 0 ? tools::uint128_t(m) : tools::uint128_t(-(m + 1)) + 1,
-        n >= 0 ? tools::uint128_t(n) : tools::uint128_t(-(n + 1)) + 1
-      )
-    );
-  }
+  namespace detail {
+    namespace gcd {
+      template <>
+      struct impl<tools::uint128_t, tools::uint128_t> {
+        constexpr tools::uint128_t operator()(tools::uint128_t m, tools::uint128_t n) const noexcept {
+          while (n != 0) {
+            m %= n;
+            std::swap(m, n);
+          }
+          return m;
+        };
+      };
 
+      template <typename T>
+      concept non_bool_integral_at_most_128bit = tools::non_bool_integral<T> && std::numeric_limits<T>::digits <= 128;
+      template <typename T>
+      concept non_bool_integral_at_most_64bit = tools::non_bool_integral<T> && std::numeric_limits<T>::digits <= 64;
+
+      template <typename M, typename N> requires (
+        (non_bool_integral_at_most_128bit<M> && non_bool_integral_at_most_128bit<N>)
+        && !(non_bool_integral_at_most_64bit<M> && non_bool_integral_at_most_64bit<N>)
+        && !(std::same_as<M, tools::uint128_t> && std::same_as<N, tools::uint128_t>)
+      )
+      struct impl<M, N> {
+        constexpr std::common_type_t<M, N> operator()(const M m, const N n) const noexcept {
+          return std::common_type_t<M, N>(
+            tools::gcd(
+              m >= 0 ? tools::uint128_t(m) : tools::uint128_t(-(m + 1)) + 1,
+              n >= 0 ? tools::uint128_t(n) : tools::uint128_t(-(n + 1)) + 1
+            )
+          );
+        }
+      };
+    }
+  }
 #endif
 }
 

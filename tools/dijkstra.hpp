@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 #include "tools/chmin.hpp"
+#include "tools/getter_result.hpp"
 #include "tools/greater_by_second.hpp"
 #include "tools/shortest_path_tree.hpp"
 
@@ -52,23 +53,13 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    template <typename Self>
-    decltype(auto) get_edge(this Self&& self, const int k) {
+    auto get_edge(this auto&& self, const int k) -> tools::getter_result_t<decltype(self), edge> {
       assert(0 <= k && k < std::ssize(self.m_edges));
-      if constexpr (std::is_lvalue_reference_v<Self&&>) {
-        return static_cast<const edge&>(self.m_edges[k]);
-      } else {
-        return edge(std::forward_like<Self>(self.m_edges[k]));
-      }
+      return std::forward_like<decltype(self)>(self.m_edges[k]);
     }
 
-    template <typename Self>
-    decltype(auto) edges(this Self&& self) {
-      if constexpr (std::is_lvalue_reference_v<Self&&>) {
-        return static_cast<const std::vector<edge>&>(self.m_edges);
-      } else {
-        return std::vector<edge>(std::forward_like<Self>(self.m_edges));
-      }
+    auto edges(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<edge>> {
+      return std::forward_like<decltype(self)>(self.m_edges);
     }
 
     template <bool Restore = false>

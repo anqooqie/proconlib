@@ -1,20 +1,21 @@
 #ifndef TOOLS_DETAIL_ROLLING_HASH_HPP
 #define TOOLS_DETAIL_ROLLING_HASH_HPP
 
-#include <cstdint>
 #include <cassert>
+#include <concepts>
+#include <cstdint>
+#include <limits>
 #include <tuple>
 #include <vector>
-#include "tools/pow.hpp"
 #include "tools/extgcd.hpp"
-#include "tools/pow_mod_cache.hpp"
 #include "tools/now.hpp"
+#include "tools/pow.hpp"
+#include "tools/pow_mod_cache.hpp"
 
 namespace tools {
   class rolling_hash;
 
   class modint_for_rolling_hash {
-  private:
     static constexpr std::uint64_t MASK30 = (std::uint64_t(1) << 30) - 1;
     static constexpr std::uint64_t MASK31 = (std::uint64_t(1) << 31) - 1;
     static constexpr std::uint64_t MOD = (std::uint64_t(1) << 61) - 1;
@@ -22,9 +23,6 @@ namespace tools {
     static constexpr std::uint64_t POSITIVIZER = MOD * 4;
 
     std::uint64_t m_val;
-
-    modint_for_rolling_hash(const std::uint64_t x, int) : m_val(x) {
-    }
 
     static std::uint64_t mul(const std::uint64_t a, const std::uint64_t b) {
       assert(a < MOD);
@@ -48,13 +46,13 @@ namespace tools {
 
   public:
     modint_for_rolling_hash() = default;
-    modint_for_rolling_hash(const tools::modint_for_rolling_hash&) = default;
-    modint_for_rolling_hash(tools::modint_for_rolling_hash&&) = default;
-    ~modint_for_rolling_hash() = default;
-    tools::modint_for_rolling_hash& operator=(const tools::modint_for_rolling_hash&) = default;
-    tools::modint_for_rolling_hash& operator=(tools::modint_for_rolling_hash&&) = default;
-
-    explicit modint_for_rolling_hash(const std::uint64_t x) : m_val(calc_mod(x)) {
+    template <typename T>
+    requires (std::signed_integral<T> && std::numeric_limits<T>::digits <= 63)
+    explicit modint_for_rolling_hash(const T x) : m_val(x >= 0 ? calc_mod(x) : calc_mod(POSITIVIZER - calc_mod(static_cast<std::uint64_t>(-(x + 1)) + 1))) {
+    }
+    template <typename T>
+    requires (std::unsigned_integral<T> && std::numeric_limits<T>::digits <= 64)
+    explicit modint_for_rolling_hash(const T x) : m_val(calc_mod(x)) {
     }
 
     tools::modint_for_rolling_hash pow(const long long n) const {
@@ -62,7 +60,7 @@ namespace tools {
     }
     tools::modint_for_rolling_hash inv() const {
       assert(this->m_val != 0);
-      return tools::modint_for_rolling_hash(std::get<0>(tools::extgcd(this->m_val, MOD)));
+      return tools::modint_for_rolling_hash(std::get<0>(tools::extgcd<std::int64_t>(this->m_val, MOD)));
     }
 
     tools::modint_for_rolling_hash operator+() const {
@@ -129,8 +127,10 @@ namespace tools {
       return this->m_val;
     }
 
-    static tools::modint_for_rolling_hash raw(const std::uint64_t x) {
-      return tools::modint_for_rolling_hash(x, 0);
+    static tools::modint_for_rolling_hash raw(std::integral auto const x) {
+      tools::modint_for_rolling_hash res;
+      res.m_val = static_cast<std::uint64_t>(x);
+      return res;
     }
     static long long mod() {
       return MOD;
@@ -140,19 +140,12 @@ namespace tools {
   };
 
   class rolling_hash {
-  private:
     using mint = tools::modint_for_rolling_hash;
     inline static tools::pow_mod_cache<mint> m_pow_base = tools::pow_mod_cache<mint>(tools::now());
     std::vector<mint> m_hash;
 
   public:
     rolling_hash() = default;
-    rolling_hash(const tools::rolling_hash&) = default;
-    rolling_hash(tools::rolling_hash&&) = default;
-    ~rolling_hash() = default;
-    tools::rolling_hash& operator=(const tools::rolling_hash&) = default;
-    tools::rolling_hash& operator=(tools::rolling_hash&&) = default;
-
     template <typename InputIterator>
     rolling_hash(InputIterator begin, InputIterator end) {
       this->m_hash.push_back(mint::raw(0));

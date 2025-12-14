@@ -4,12 +4,13 @@
 #include <ios>
 #include <iostream>
 #include <vector>
+#include "tools/bigint.hpp"
 #include "tools/polygon_2d.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 
 using ll = long long;
-using T = tools::rational;
+using T = tools::rational<tools::bigint>;
 
 int main() {
   std::cin.tie(nullptr);

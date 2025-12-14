@@ -17,11 +17,11 @@ It is a polygon which consists of $n$ points $p_0, p_1, \ldots, p_{n - 1}$.
 template <typename T, bool Filled>
 template <std::ranges::input_range R>
 requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-polygon_2d<T, Filled> s(R&& r);
+polygon_2d<T, Filled> s(R&& p);
 
 (2)
 template <typename T, bool Filled>
-polygon_2d<T, Filled> s(std::initializer_list<tools::vector2<T>> init);
+polygon_2d<T, Filled> s(std::initializer_list<tools::vector2<T>> p);
 ```
 
 It creates a polygon.
@@ -29,10 +29,7 @@ If `Filled` is `true`, it consists of both the boundary and the interior.
 If `Filled` is `false`, it consists only of the boundary.
 
 ### Constraints
-- (1)
-    - $\|r\| \geq 3$
-- (2)
-    - `init.size()` $\geq 3$
+- $n \geq 3$
 
 ### Time Complexity
 - $O(n)$ if `<T>` is a built-in numerical type
@@ -88,7 +85,7 @@ It returns the minimum bounding circle of $s$.
 - `<T>` is `tools::rational` or a built-in floating point type.
 
 ### Time Complexity
-- $O(n^3)$ if `<T>` is a built-in numerical type
+- $O(n)$ expected if `<T>` is a built-in numerical type
 
 ## where
 ```cpp

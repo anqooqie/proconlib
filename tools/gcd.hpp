@@ -5,12 +5,20 @@
 #include <type_traits>
 
 namespace tools {
-  template <typename M, typename N> requires (
-    std::is_integral_v<M> && !std::is_same_v<std::remove_cv_t<M>, bool>
-    && std::is_integral_v<N> && !std::is_same_v<std::remove_cv_t<N>, bool>
-  )
-  constexpr std::common_type_t<M, N> gcd(const M m, const N n) {
-    return std::gcd(m, n);
+  namespace detail {
+    namespace gcd {
+      template <typename M, typename N>
+      struct impl {
+        constexpr std::common_type_t<M, N> operator()(const M m, const N n) const noexcept(noexcept(std::gcd(m, n))) {
+          return std::gcd(m, n);
+        }
+      };
+    }
+  }
+
+  template <typename M, typename N>
+  constexpr auto gcd(M&& m, N&& n) noexcept(noexcept(tools::detail::gcd::impl<std::remove_cvref_t<M>, std::remove_cvref_t<N>>{}(std::forward<M>(m), std::forward<N>(n)))) -> decltype(auto){
+    return tools::detail::gcd::impl<std::remove_cvref_t<M>, std::remove_cvref_t<N>>{}(std::forward<M>(m), std::forward<N>(n));
   }
 }
 

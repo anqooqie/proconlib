@@ -5,6 +5,7 @@ documentation_of: //tools/extgcd.hpp
 
 ```cpp
 template <typename T>
+requires (!std::unsigned_integral<T>)
 std::tuple<T, T, T> extgcd(T a, T b);
 ```
 

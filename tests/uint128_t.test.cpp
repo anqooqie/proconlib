@@ -4,7 +4,6 @@
 #include <limits>
 #include <sstream>
 #include <unordered_set>
-#include "tools/abs.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/uint128_t.hpp"
 
@@ -97,12 +96,6 @@ int main() {
     oss.str("");
     oss << UINT128_C(+0xffffffffffffffffffffffffffffffff);
     assert_that(oss.str() == "340282366920938463463374607431768211455");
-  }
-
-  {
-    static_assert(tools::abs(UINT128_C(0)) == UINT128_C(0));
-    static_assert(tools::abs(UINT128_C(1)) == UINT128_C(1));
-    static_assert(tools::abs(UINT128_C(340282366920938463463374607431768211455)) == UINT128_C(340282366920938463463374607431768211455));
   }
 
   {

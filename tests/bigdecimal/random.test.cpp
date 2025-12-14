@@ -19,7 +19,7 @@ end
     [*2.times.map{BigDecimal(5.times.map{rand(10)}.join) * BigDecimal(10).power(rand(11) - 8) * (rand(2) * 2 - 1)}]
 end
 10.times do
-  ->(x, y){puts "  assert_that(tools::bigdecimal(\"#{x.to_s("F")}\").divide_and_copy(tools::bigdecimal(\"#{y.to_s("F")}\"), 15) == tools::bigdecimal(\"#{x.div(y, 100).round(15, BigDecimal::ROUND_HALF_EVEN).to_s("F")}\"));"}\
+  ->(x, y){puts "  assert_that(tools::bigdecimal(\"#{x.to_s("F")}\").divide(tools::bigdecimal(\"#{y.to_s("F")}\"), 15) == tools::bigdecimal(\"#{x.div(y, 100).round(15, BigDecimal::ROUND_HALF_EVEN).to_s("F")}\"));"}\
     [*2.times.map{BigDecimal(5.times.map{rand(10)}.join) * BigDecimal(10).power(rand(11) - 8) * (rand(2) * 2 - 1)}]
 end
 10.times do
@@ -63,16 +63,16 @@ int main() {
   assert_that(tools::bigdecimal("-79237.0") * tools::bigdecimal("779530.0") == tools::bigdecimal("-61767618610.0"));
   assert_that(tools::bigdecimal("0.70356") * tools::bigdecimal("0.0058389") == tools::bigdecimal("0.004108016484"));
   assert_that(tools::bigdecimal("-47.693") * tools::bigdecimal("-0.0020069") == tools::bigdecimal("0.0957150817"));
-  assert_that(tools::bigdecimal("0.14094").divide_and_copy(tools::bigdecimal("-0.00081366"), 15) == tools::bigdecimal("-173.217314357348278"));
-  assert_that(tools::bigdecimal("-0.020643").divide_and_copy(tools::bigdecimal("-0.55371"), 15) == tools::bigdecimal("0.037281248306875"));
-  assert_that(tools::bigdecimal("868220.0").divide_and_copy(tools::bigdecimal("0.066584"), 15) == tools::bigdecimal("13039468.941487444431095"));
-  assert_that(tools::bigdecimal("-771070.0").divide_and_copy(tools::bigdecimal("-0.004221"), 15) == tools::bigdecimal("182674721.629945510542525"));
-  assert_that(tools::bigdecimal("0.00007411").divide_and_copy(tools::bigdecimal("720550.0"), 15) == tools::bigdecimal("0.000000000102852"));
-  assert_that(tools::bigdecimal("46198.0").divide_and_copy(tools::bigdecimal("-48179.0"), 15) == tools::bigdecimal("-0.958882500674568"));
-  assert_that(tools::bigdecimal("0.00094178").divide_and_copy(tools::bigdecimal("378.3"), 15) == tools::bigdecimal("0.000002489505683"));
-  assert_that(tools::bigdecimal("7393100.0").divide_and_copy(tools::bigdecimal("9.9838"), 15) == tools::bigdecimal("740509.62559346140748"));
-  assert_that(tools::bigdecimal("-0.00070613").divide_and_copy(tools::bigdecimal("-4489.9"), 15) == tools::bigdecimal("0.000000157270763"));
-  assert_that(tools::bigdecimal("-0.16924").divide_and_copy(tools::bigdecimal("0.12616"), 15) == tools::bigdecimal("-1.34147114774889"));
+  assert_that(tools::bigdecimal("0.14094").divide(tools::bigdecimal("-0.00081366"), 15) == tools::bigdecimal("-173.217314357348278"));
+  assert_that(tools::bigdecimal("-0.020643").divide(tools::bigdecimal("-0.55371"), 15) == tools::bigdecimal("0.037281248306875"));
+  assert_that(tools::bigdecimal("868220.0").divide(tools::bigdecimal("0.066584"), 15) == tools::bigdecimal("13039468.941487444431095"));
+  assert_that(tools::bigdecimal("-771070.0").divide(tools::bigdecimal("-0.004221"), 15) == tools::bigdecimal("182674721.629945510542525"));
+  assert_that(tools::bigdecimal("0.00007411").divide(tools::bigdecimal("720550.0"), 15) == tools::bigdecimal("0.000000000102852"));
+  assert_that(tools::bigdecimal("46198.0").divide(tools::bigdecimal("-48179.0"), 15) == tools::bigdecimal("-0.958882500674568"));
+  assert_that(tools::bigdecimal("0.00094178").divide(tools::bigdecimal("378.3"), 15) == tools::bigdecimal("0.000002489505683"));
+  assert_that(tools::bigdecimal("7393100.0").divide(tools::bigdecimal("9.9838"), 15) == tools::bigdecimal("740509.62559346140748"));
+  assert_that(tools::bigdecimal("-0.00070613").divide(tools::bigdecimal("-4489.9"), 15) == tools::bigdecimal("0.000000157270763"));
+  assert_that(tools::bigdecimal("-0.16924").divide(tools::bigdecimal("0.12616"), 15) == tools::bigdecimal("-1.34147114774889"));
   assert_that(static_cast<double>(tools::bigdecimal("0.00060849208430964892484")) == 0.000608492084309649);
   assert_that(static_cast<double>(tools::bigdecimal("-8367632.5457855285954")) == -8367632.545785529);
   assert_that(static_cast<double>(tools::bigdecimal("0.000000082904080060350542742")) == 8.290408006035054e-08);

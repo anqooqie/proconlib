@@ -90,19 +90,6 @@ It is the W component of $q$.
 ### Time Complexity
 - $O(1)$
 
-## abs
-```cpp
-T q.abs();
-```
-
-It returns $\|q\| = \sqrt{w^2 + x^2 + y^2 + z^2}$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
 ## norm
 ```cpp
 T q.norm();
@@ -419,6 +406,19 @@ std::array<quaternion<T>, 24> quaternion<T>::dice_rotations();
 ```
 
 It returns all the states which a dice can have..
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## tools::abs
+```cpp
+T tools::abs(quaternion<T> q);
+```
+
+It returns $\|q\| = \sqrt{w^2 + x^2 + y^2 + z^2}$.
 
 ### Constraints
 - None

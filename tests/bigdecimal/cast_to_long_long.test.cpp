@@ -21,7 +21,7 @@ int main() {
 
   std::array<std::array<ll, 19>, 19> matrix({{}});
   for (const auto& A_i : A) {
-    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_by_pow10(9));
+    auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_inplace_by_pow10(9));
     ll y;
     for (y = 0; y < 18 && A_i_ll % 2 == 0; ++y, A_i_ll /= 2);
     ll x;

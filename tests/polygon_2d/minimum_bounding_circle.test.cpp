@@ -1,46 +1,34 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f
-// competitive-verifier: ERROR 1e-6
-// competitive-verifier: IGNORE
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/minimum_enclosing_circle
 
-#include <cmath>
-#include <iomanip>
-#include <ios>
 #include <iostream>
+#include <string>
 #include <vector>
-#include "tools/convex_hull.hpp"
+#include "tools/bigint.hpp"
 #include "tools/polygon_2d.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 
-using ll = long long;
+using T = tools::rational<tools::bigint, false>;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N;
+  int N;
   std::cin >> N;
-  std::vector<tools::vector2<ll>> v(N);
-  for (auto& v_i : v) std::cin >> v_i;
+  std::vector<tools::vector2<T>> p(N);
+  for (auto& p_i : p) std::cin >> p_i;
 
-  if (N == 2) {
-    std::cout << std::fixed << std::setprecision(18) << (v[1] - v[0]).l2_norm() / 2.0 << '\n';
-    return 0;
+  if (N >= 3) {
+    const auto C = tools::polygon_2d<T, false>(p).minimum_bounding_circle();
+
+    for (const auto& p_i : p) {
+      std::cout << (C.contains(p_i) ? '1' : '0');
+    }
+  } else {
+    std::cout << std::string(N, '1');
   }
+  std::cout << '\n';
 
-  std::vector<ll> convex_hull;
-  tools::convex_hull(v.begin(), v.end(), true, std::back_inserter(convex_hull));
-
-  if (convex_hull.size() == 2) {
-    std::cout << std::fixed << std::setprecision(18) << (v[convex_hull[1]] - v[convex_hull[0]]).l2_norm() / 2.0 << '\n';
-    return 0;
-  }
-
-  std::vector<tools::vector2<tools::rational>> v2;
-  for (const auto& i : convex_hull) {
-    v2.emplace_back(tools::rational(v[i].x), tools::rational(v[i].y));
-  }
-
-  std::cout << std::fixed << std::setprecision(18) << std::sqrt(static_cast<double>(tools::polygon_2d<tools::rational, false>(v2).minimum_bounding_circle().squared_radius())) << '\n';
   return 0;
 }

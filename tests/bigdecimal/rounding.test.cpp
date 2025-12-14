@@ -14,7 +14,7 @@ int main() {
   std::cin >> X >> K;
 
   for (int k = 0; k < K; ++k) {
-    X.divide(tools::bigdecimal(1), -k - 1, tools::rounding_mode::half_up);
+    X.divide_inplace(tools::bigdecimal(1), -k - 1, tools::rounding_mode::half_up);
   }
 
   std::cout << X << '\n';

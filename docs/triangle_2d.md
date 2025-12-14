@@ -17,11 +17,11 @@ It is a triangle which consists of 3 points $p_0, p_1, p_2$.
 template <typename T, bool Filled>
 template <std::ranges::input_range R>
 requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-triangle_2d<T, Filled> s(R&& r);
+triangle_2d<T, Filled> s(R&& p);
 
 (2)
 template <typename T, bool Filled>
-triangle_2d<T, Filled> s(std::initializer_list<tools::vector2<T>> init);
+triangle_2d<T, Filled> s(std::initializer_list<tools::vector2<T>> p);
 ```
 
 It creates a triangle.
@@ -29,10 +29,9 @@ If `Filled` is `true`, it consists of both the boundary and the interior.
 If `Filled` is `false`, it consists only of the boundary.
 
 ### Constraints
-- (1)
-    - $\|r\| = 3$
-- (2)
-    - `init.size()` $= 3$
+- $\|p\| = 3$
+- $p_0$, $p_1$ and $p_2$ are distinct.
+- $p_0$, $p_1$ and $p_2$ are not on the same line.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type

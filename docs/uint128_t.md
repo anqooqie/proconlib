@@ -65,19 +65,6 @@ It prints $x$ to `os`.
 ### Time Complexity
 - $O(\log x)$
 
-## tools::abs
-```cpp
-constexpr uint128_t tools::abs(uint128_t x);
-```
-
-It returns $x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
 ## std::hash&lt;uint128_t&gt;
 ```cpp
 namespace std {

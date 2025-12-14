@@ -5,9 +5,7 @@ documentation_of: //tools/bigdecimal.hpp
 
 It is an arbitrary precision floating-point number.
 It consists of two integers, the unscaled value and the scale.
-In other words, an arbitrary precision number $x$ is managed as the form $u_x \times 10^{-s_x}$ where $u_x$ is the unscaled value of $x$ and $s_x$ is the scale of $x$.
-
-For explanatory purposes, let $u_\circ$ denote the unscaled value of $\circ$ and $s_\circ$ denote the scale of $\circ$ in this page.
+In other words, an arbitrary precision number $x$ is managed as the form $x_u \times 10^{-x_s}$ where $x_u \in \mathbb{Z}$ is the unscaled value of $x$ and $x_s \in \mathbb{Z}$ is the scale of $x$.
 
 ### License
 - CC0
@@ -18,9 +16,9 @@ For explanatory purposes, let $u_\circ$ denote the unscaled value of $\circ$ and
 ## Constructor
 ```cpp
 (1) bigdecimal x;
-(2) bigdecimal x(long long n);
+(2) bigdecimal x(tools::integral auto n);
 (3) bigdecimal x(const tools::bigint& n);
-(4) bigdecimal x(const std::string& s);
+(4) bigdecimal x(std::string s);
 ```
 
 - (1)
@@ -44,12 +42,115 @@ For explanatory purposes, let $u_\circ$ denote the unscaled value of $\circ$ and
 - (4)
     - $O(\|s\|)$
 
-## unscaled_value
+## abs_inplace
 ```cpp
-const tools::bigint& x.unscaled_value();
+bigdecimal& x.abs_inplace();
 ```
 
-It returns $u_x$.
+It updates $x$ to $\|x\|$, and returns the updated $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## divide
+```cpp
+(1) bigdecimal x.divide(const bigdecimal& y, const std::ptrdiff_t s);
+(2) bigdecimal x.divide(const bigdecimal& y, const std::ptrdiff_t s, const tools::rounding_mode rounding_mode);
+```
+
+- (1)
+    - It returns $z$ such that $z_u$ is $10^{s - (x_s - y_s)}\frac{x_u}{y_u}$ rounded by banker's rounding mode and $z_s$ is $s$.
+- (2)
+    - It returns $z$ such that $z_u$ is $10^{s - (x_s - y_s)}\frac{x_u}{y_u}$ rounded by the specified rounding mode and $z_s$ is $s$.
+
+### Constraints
+- $0 < \|y_u\| < 10^{2^{27}} = 10^{134217728}$
+
+### Time Complexity
+- $O((\log \|10^{s - (x_s - y_s)} x_u\| + \log \|y_u\|) \log (\log \|10^{s - (x_s - y_s)} x_u\| + \log \|y_u\|))$
+
+## divide_by_pow10
+```cpp
+bigdecimal x.divide_by_pow10(std::ptrdiff_t n);
+```
+
+It returns $y$ such that $y_s$ is $x_s + n$.
+In other words, it returns $10^{-n} x$ while keeping the precision of $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x_u\|)$
+
+## divide_inplace
+```cpp
+(1) bigdecimal& x.divide_inplace(const bigdecimal& y, const std::ptrdiff_t s);
+(2) bigdecimal& x.divide_inplace(const bigdecimal& y, const std::ptrdiff_t s, const tools::rounding_mode rounding_mode);
+```
+
+- (1)
+    - It updates $x_u$ to $10^{s - (x_s - y_s)}\frac{x_u}{y_u}$ rounded by banker's rounding mode and $x_s$ to $s$, and returns the updated $x$.
+- (2)
+    - It updates $x_u$ to $10^{s - (x_s - y_s)}\frac{x_u}{y_u}$ rounded by the specified rounding mode and $x_s$ to $s$, and returns the updated $x$.
+
+### Constraints
+- $0 < \|y_u\| < 10^{2^{27}} = 10^{134217728}$
+
+### Time Complexity
+- $O((\log \|10^{s - (x_s - y_s)} x_u\| + \log \|y_u\|) \log (\log \|10^{s - (x_s - y_s)} x_u\| + \log \|y_u\|))$
+
+## divide_inplace_by_pow10
+```cpp
+bigdecimal& x.divide_inplace_by_pow10(std::ptrdiff_t n);
+```
+
+It updates $x_s$ to $x_s + n$, and returns the updated $x$.
+In other words, it updates $x$ to $10^{-n} x$ while keeping the precision of $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## multiply_by_pow10
+```cpp
+bigdecimal x.multiply_by_pow10(std::ptrdiff_t n);
+```
+
+It returns $y$ such that $y_s$ is $x_s - n$.
+In other words, it returns $10^n x$ while keeping the precision of $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x_u\|)$
+
+## multiply_inplace_by_pow10
+```cpp
+bigdecimal& x.multiply_inplace_by_pow10(std::ptrdiff_t n);
+```
+
+It updates $x_s$ to $x_s - n$, and returns the updated $x$.
+In other words, it updates $x$ to $10^n x$ while keeping the precision of $x$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## negate
+```cpp
+bigdecimal& x.negate();
+```
+
+It updates $x_u$ to $-x_u$, and returns the updated $x$.
 
 ### Constraints
 - None
@@ -66,7 +167,7 @@ It returns
 
 $$\begin{align*}
 \left\{\begin{array}{ll}
-\left\lfloor \log_{10} |u_x| \right\rfloor + 1 & \text{(if $x \neq 0$)}\\
+\left\lfloor \log_{10} |x_u| \right\rfloor + 1 & \text{(if $x \neq 0$)}\\
 0 & \text{(if $x = 0$)}
 \end{array}\right.&
 \end{align*}$$
@@ -82,69 +183,7 @@ $$\begin{align*}
 std::ptrdiff_t x.scale();
 ```
 
-It returns $s_x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## signum
-```cpp
-int x.signum();
-```
-
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < 0$)}\\
-0 & \text{(if $x = 0$)}\\
-1 & \text{(if $x > 0$)}
-\end{array}\right.&
-\end{align*}$$
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## negate
-```cpp
-bigdecimal& x.negate();
-```
-
-It updates $u_x$ to $-u_x$, and returns the updated $x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## multiply_by_pow10
-```cpp
-bigdecimal& x.multiply_by_pow10(std::ptrdiff_t n);
-```
-
-It updates $s_x$ to $s_x - n$, and returns the updated $x$.
-In other words, it updates $x$ to $10^n x$ while keeping the precision of $x$.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## divide_by_pow10
-```cpp
-bigdecimal& x.divide_by_pow10(std::ptrdiff_t n);
-```
-
-It updates $s_x$ to $s_x + n$, and returns the updated $x$.
-In other words, it updates $x$ to $10^{-n} x$ while keeping the precision of $x$.
+It returns $x_s$.
 
 ### Constraints
 - None
@@ -157,35 +196,42 @@ In other words, it updates $x$ to $10^{-n} x$ while keeping the precision of $x$
 bigdecimal& x.set_scale(std::ptrdiff_t s);
 ```
 
-It updates $u_x$ to $10^{s - s_x} u_x$ rounded towards zero and $s_x$ to $s$, and returns the updated $x$.
+It updates $u_x$ to $10^{s - x_s} x_u$ rounded towards zero and $x_s$ to $s$, and returns the updated $x$.
 In other words, it updates the scale of $x$ to the specified value while keeping the numerical value of $x$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\| + \max(0, s - s_x))$
+- $O(\log \|x_u\| + \max(0, s - x_s))$
 
-## compare_3way
+## unscaled_value
 ```cpp
-int bigdecimal::compare_3way(const bigdecimal& x, const bigdecimal& y);
+const tools::bigint& x.unscaled_value();
 ```
 
-It returns
-
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < y$)}\\
-0 & \text{(if $x = y$)}\\
-1 & \text{(if $x > y$)}
-\end{array}\right.&
-\end{align*}$$
+It returns $x_u$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\| + \log \|u_y\|)$
+- $O(1)$
+
+## operator&lt;=&gt;
+```cpp
+std::weak_ordering operator<=>(const bigdecimal& x, const bigdecimal& y);
+```
+
+If $x < y$, then it returns `std::weak_ordering::less`.
+If $x = y$, then it returns `std::weak_ordering::equivalent`.
+If $x > y$, then it returns `std::weak_ordering::greater`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x_u\| + \log \|y_u\|)$
 
 ## Comparison operators
 ```cpp
@@ -203,7 +249,7 @@ It compares $x$ and $y$, and returns the result.
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\| + \log \|u_y\|)$
+- $O(\log \|x_u\| + \log \|y_u\|)$
 
 ## Unary operators
 ```cpp
@@ -220,7 +266,7 @@ It compares $x$ and $y$, and returns the result.
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\|)$
+- $O(\log \|x_u\|)$
 
 ## Addition operators
 ```cpp
@@ -229,15 +275,15 @@ It compares $x$ and $y$, and returns the result.
 ```
 
 - (1)
-    - It updates $x$ to $x + y$ and $s_x$ to $\max(s_x, s_y)$, and returns the updated $x$.
+    - It updates $x$ to $x + y$ and $x_s$ to $\max(x_s, y_s)$, and returns the updated $x$.
 - (2)
-    - It returns $x + y$ whose scale is $\max(s_x, s_y)$.
+    - It returns $x + y$ whose scale is $\max(x_s, y_s)$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\| + \log \|u_y\| + \|s_x - s_y\|)$
+- $O(\log \|x_u\| + \log \|y_u\| + \|x_s - y_s\|)$
 
 ## Subtraction operators
 ```cpp
@@ -246,15 +292,15 @@ It compares $x$ and $y$, and returns the result.
 ```
 
 - (1)
-    - It updates $x$ to $x - y$ and $s_x$ to $\max(s_x, s_y)$, and returns the updated $x$.
+    - It updates $x$ to $x - y$ and $x_s$ to $\max(x_s, y_s)$, and returns the updated $x$.
 - (2)
-    - It returns $x - y$ whose scale is $\max(s_x, s_y)$.
+    - It returns $x - y$ whose scale is $\max(x_s, y_s)$.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\| + \log \|u_y\| + \|s_x - s_y\|)$
+- $O(\log \|x_u\| + \log \|y_u\| + \|x_s - y_s\|)$
 
 ## Multiplication operators
 ```cpp
@@ -263,15 +309,15 @@ It compares $x$ and $y$, and returns the result.
 ```
 
 - (1)
-    - It updates $u_x$ to $u_x u_y$ and $s_x$ to $s_x + s_y$, and returns the updated $x$.
+    - It updates $x_u$ to $x_u y_u$ and $x_s$ to $x_s + y_s$, and returns the updated $x$.
 - (2)
-    - It returns the arbitrary precision floating-point number whose unscaled value is $u_x u_y$ and scale is $s_x + s_y$.
+    - It returns the arbitrary precision floating-point number whose unscaled value is $x_u y_u$ and scale is $x_s + y_s$.
 
 ### Constraints
-- $\| u_x u_y \| < 10^{2^{27} + 4} = 10^{134217732}$
+- $\| x_u y_u \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
-- $O((\log \|u_x\| + \log \|u_y\|) \log (\log \|u_x\| + \log \|u_y\|))$
+- $O((\log \|x_u\| + \log \|y_u\|) \log (\log \|x_u\| + \log \|y_u\|))$
 
 ## Division operators
 ```cpp
@@ -280,36 +326,19 @@ It compares $x$ and $y$, and returns the result.
 ```
 
 - (1)
-    - It updates $u_x$ to $\frac{u_x}{u_y}$ rounded by banker's rounding and $s_x$ to $s_x - s_y$, and returns the updated $x$.
+    - It updates $x_u$ to $\frac{x_u}{y_u}$ rounded by banker's rounding and $x_s$ to $x_s - y_s$, and returns the updated $x$.
 - (2)
-    - It returns the arbitrary precision floating-point number whose unscaled value is $\frac{u_x}{u_y}$ rounded by banker's rounding and scale is $s_x - s_y$.
+    - It returns the arbitrary precision floating-point number whose unscaled value is $\frac{x_u}{y_u}$ rounded by banker's rounding and scale is $x_s - y_s$.
 
 ### Constraints
-- $0 < \|u_y\| < 10^{2^{27}} = 10^{134217728}$
+- $0 < \|y_u\| < 10^{2^{27}} = 10^{134217728}$
 
 ### Time Complexity
-- $O((\log \|u_x\| + \log \|u_y\|) \log (\log \|u_x\| + \log \|u_y\|))$
-
-## divide
-```cpp
-(1) bigdecimal& x.divide(const bigdecimal& y, const std::ptrdiff_t s, const tools::rounding_mode rounding_mode);
-(2) bigdecimal& x.divide(const bigdecimal& y, const std::ptrdiff_t s);
-```
-
-- (1)
-    - It updates $u_x$ to $10^{s - (s_x - s_y)}\frac{u_x}{u_y}$ rounded by the specified rounding mode and $s_x$ to $s$, and returns the updated $x$.
-- (2)
-    - It updates $u_x$ to $10^{s - (s_x - s_y)}\frac{u_x}{u_y}$ rounded by banker's rounding mode and $s_x$ to $s$, and returns the updated $x$.
-
-### Constraints
-- $0 < \|u_y\| < 10^{2^{27}} = 10^{134217728}$
-
-### Time Complexity
-- $O((\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|) \log (\log \|10^{s - (s_x - s_y)} u_x\| + \log \|u_y\|))$
+- $O((\log \|x_u\| + \log \|y_u\|) \log (\log \|x_u\| + \log \|y_u\|))$
 
 ## operator T
 ```cpp
-T explicit operator T(bigdecimal& x);
+T explicit operator T(const bigdecimal& x);
 ```
 
 It casts $x$ to the type `T`.
@@ -319,7 +348,7 @@ It casts $x$ to the type `T`.
 - `std::numeric_limits<T>::min()` $\leq x \leq$ `std::numeric_limits<T>::max()`
 
 ### Time Complexity
-- $O(\log \|u_x\|)$
+- $O(\log \|x_u\|)$
 
 ## operator&gt;&gt;
 ```cpp
@@ -345,7 +374,7 @@ It prints $x$ to `os`.
 - None
 
 ### Time Complexity
-- $O(\max(\log(\|u_x\|), \|s_x\|))$
+- $O(\max(\log(\|x_u\|), \|x_s\|))$
 
 ## tools::abs
 ```cpp
@@ -358,4 +387,25 @@ It returns $\|x\|$.
 - None
 
 ### Time Complexity
-- $O(\log \|u_x\|)$
+- $O(\log \|x_u\|)$
+
+## tools::signum
+```cpp
+int tools::signum(bigdecimal x);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+-1 & \text{(if $x < 0$)}\\
+0 & \text{(if $x = 0$)}\\
+1 & \text{(if $x > 0$)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

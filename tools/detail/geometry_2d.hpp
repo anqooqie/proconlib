@@ -8,8 +8,10 @@
 #include <concepts>
 #include <cstddef>
 #include <initializer_list>
+#include <iterator>
 #include <limits>
 #include <optional>
+#include <random>
 #include <ranges>
 #include <tuple>
 #include <type_traits>
@@ -17,6 +19,7 @@
 #include <variant>
 #include <vector>
 #include "tools/abs.hpp"
+#include "tools/ccw.hpp"
 #include "tools/is_rational.hpp"
 #include "tools/less_by.hpp"
 #include "tools/signum.hpp"
@@ -55,6 +58,7 @@ namespace tools {
     T area() const
     requires std::floating_point<T> && Filled;
     tools::vector2<T> center() const;
+    bool contains(const tools::vector2<T>& p) const;
     T radius() const
     requires HasRadius;
     T squared_radius() const;
@@ -247,8 +251,8 @@ namespace tools {
     polygon_2d() = default;
     template <std::ranges::input_range R>
     requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-    polygon_2d(R&& r);
-    polygon_2d(std::initializer_list<tools::vector2<T>> init);
+    polygon_2d(R&& p);
+    polygon_2d(std::initializer_list<tools::vector2<T>> p);
 
     T area() const
     requires (tools::is_rational_v<T> || std::floating_point<T>) && Filled;
@@ -262,15 +266,14 @@ namespace tools {
 
   template <typename T, bool Filled>
   class triangle_2d : public polygon_2d<T, Filled> {
-    template <typename OutputIterator>
-    void sorted_edges(OutputIterator result) const;
+    std::array<tools::directed_line_segment_2d<T>, 3> sorted_edges() const;
 
   public:
     triangle_2d() = default;
     template <std::ranges::input_range R>
     requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-    triangle_2d(R&& r);
-    triangle_2d(std::initializer_list<tools::vector2<T>> init);
+    triangle_2d(R&& p);
+    triangle_2d(std::initializer_list<tools::vector2<T>> p);
 
     tools::circle_2d<T, Filled, false> circumcircle() const
     requires tools::is_rational_v<T> || std::floating_point<T>;
@@ -300,6 +303,15 @@ namespace tools {
   template <typename T, bool Filled, bool HasRadius>
   tools::vector2<T> circle_2d<T, Filled, HasRadius>::center() const {
     return this->m_center;
+  }
+
+  template <typename T, bool Filled, bool HasRadius>
+  bool circle_2d<T, Filled, HasRadius>::contains(const tools::vector2<T>& p) const {
+    if constexpr (Filled) {
+      return this->where(p) >= 0;
+    } else {
+      return this->where(p) == 0;
+    }
   }
 
   template <typename T, bool Filled, bool HasRadius>
@@ -1050,12 +1062,12 @@ namespace tools {
   template <typename T, bool Filled>
   template <std::ranges::input_range R>
   requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-  polygon_2d<T, Filled>::polygon_2d(R&& r) : m_points(std::forward<R>(r) | std::ranges::to<std::vector<tools::vector2<T>>>()) {
+  polygon_2d<T, Filled>::polygon_2d(R&& p) : m_points(std::forward<R>(p) | std::ranges::to<std::vector<tools::vector2<T>>>()) {
     assert(this->m_points.size() >= 3);
   }
 
   template <typename T, bool Filled>
-  polygon_2d<T, Filled>::polygon_2d(std::initializer_list<tools::vector2<T>> init) : polygon_2d(init) {
+  polygon_2d<T, Filled>::polygon_2d(std::initializer_list<tools::vector2<T>> p) : polygon_2d(std::views::all(p)) {
   }
 
   template <typename T, bool Filled>
@@ -1067,9 +1079,7 @@ namespace tools {
   template <typename T, bool Filled>
   T polygon_2d<T, Filled>::doubled_area() const
   requires Filled {
-    using std::abs;
-    using tools::abs;
-    return abs(this->doubled_signed_area());
+    return tools::abs(this->doubled_signed_area());
   }
 
   template <typename T, bool Filled>
@@ -1080,18 +1090,55 @@ namespace tools {
   template <typename T, bool Filled>
   tools::circle_2d<T, Filled, false> polygon_2d<T, Filled>::minimum_bounding_circle() const
   requires tools::is_rational_v<T> || std::floating_point<T> {
-    std::optional<tools::circle_2d<T, Filled, false>> answer;
-    for (std::size_t i = 0; i < this->m_points.size(); ++i) {
-      for (std::size_t j = i + 1; j < this->m_points.size(); ++j) {
-        for (std::size_t k = j + 1; k < this->m_points.size(); ++k) {
-          if (const auto possible_answer = tools::triangle_2d<T, Filled>{this->m_points[i], this->m_points[j], this->m_points[k]}.minimum_bounding_circle();
-              !answer || answer->squared_radius() < possible_answer.squared_radius()) {
-            answer = std::move(possible_answer);
-          }
+    static std::random_device seed_gen;
+    thread_local std::mt19937 engine(seed_gen());
+
+    auto shuffled_points = this->m_points;
+    std::ranges::shuffle(shuffled_points, engine);
+
+    using variant_t = std::variant<std::nullptr_t, tools::vector2<T>, tools::circle_2d<T, true, false>>;
+    struct visitor_t {
+      tools::vector2<T> p;
+      bool operator()(std::nullptr_t) {
+        return false;
+      }
+      bool operator()(const tools::vector2<T>& c) {
+        return c == this->p;
+      }
+      bool operator()(const tools::circle_2d<T, true, false>& c) {
+        return c.contains(this->p);
+      }
+    };
+
+    variant_t res = nullptr;
+    for (int i = 0; i < std::ssize(shuffled_points); ++i) {
+      if (std::visit(visitor_t{shuffled_points[i]}, res)) continue;
+      res = shuffled_points[i];
+      for (int j = 0; j < i; ++j) {
+        if (std::visit(visitor_t{shuffled_points[j]}, res)) continue;
+        res = tools::circle_2d<T, true, false>(
+          (shuffled_points[i] + shuffled_points[j]) / T(2),
+          ((shuffled_points[j] - shuffled_points[i]) / T(2)).squared_l2_norm()
+        );
+        for (int k = 0; k < j; ++k) {
+          if (std::visit(visitor_t{shuffled_points[k]}, res)) continue;
+          res = tools::triangle_2d<T, true>{shuffled_points[i], shuffled_points[j], shuffled_points[k]}.circumcircle();
         }
       }
     }
-    return *answer;
+
+    struct {
+      tools::circle_2d<T, Filled, false> operator()(std::nullptr_t) {
+        return tools::circle_2d<T, Filled, false>{};
+      }
+      tools::circle_2d<T, Filled, false> operator()(tools::vector2<T>) {
+        return tools::circle_2d<T, Filled, false>{};
+      }
+      tools::circle_2d<T, Filled, false> operator()(const tools::circle_2d<T, true, false>& c) {
+        return tools::circle_2d<T, Filled, false>(c.center(), c.squared_radius());
+      }
+    } visitor;
+    return std::visit(visitor, res);
   }
 
   template <typename T, bool Filled>
@@ -1122,46 +1169,34 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  template <typename OutputIterator>
-  void triangle_2d<T, Filled>::sorted_edges(OutputIterator result) const {
+  std::array<tools::directed_line_segment_2d<T>, 3> triangle_2d<T, Filled>::sorted_edges() const {
     std::array<tools::directed_line_segment_2d<T>, 3> edges;
     for (int i = 0; i < 3; ++i) {
       edges[i] = tools::directed_line_segment_2d<T>(this->m_points[i], this->m_points[(i + 1) % 3]);
     }
-    std::sort(edges.begin(), edges.end(), tools::less_by([](const auto& edge) {
-      return edge.squared_length();
-    }));
-    for (const auto& edge : edges) {
-      *result = edge;
-      ++result;
-    }
+    std::ranges::sort(edges, tools::less_by(&tools::directed_line_segment_2d<T>::squared_length));
+    return edges;
   }
 
   template <typename T, bool Filled>
   template <std::ranges::input_range R>
   requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
-  triangle_2d<T, Filled>::triangle_2d(R&& r) : polygon_2d<T, Filled>(std::forward<R>(r)) {
+  triangle_2d<T, Filled>::triangle_2d(R&& p) : polygon_2d<T, Filled>(std::forward<R>(p)) {
     assert(this->m_points.size() == 3);
+    assert(std::abs(tools::ccw(this->m_points[0], this->m_points[1], this->m_points[2])) == 1);
   }
 
   template <typename T, bool Filled>
-  triangle_2d<T, Filled>::triangle_2d(std::initializer_list<tools::vector2<T>> init) : triangle_2d(init) {
+  triangle_2d<T, Filled>::triangle_2d(std::initializer_list<tools::vector2<T>> p) : triangle_2d(std::views::all(p)) {
   }
 
   template <typename T, bool Filled>
   tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::circumcircle() const
   requires tools::is_rational_v<T> || std::floating_point<T> {
-    const auto& A = this->m_points[0];
-    const auto& B = this->m_points[1];
-    const auto& C = this->m_points[2];
-    const auto a2 = (C - B).squared_l2_norm();
-    const auto b2 = (A - C).squared_l2_norm();
-    const auto c2 = (B - A).squared_l2_norm();
-    const auto kA = a2 * (b2 + c2 - a2);
-    const auto kB = b2 * (c2 + a2 - b2);
-    const auto kC = c2 * (a2 + b2 - c2);
-    const auto circumcenter = (kA * A + kB * B + kC * C) / (kA + kB + kC);
-    return tools::circle_2d<T, Filled, false>(circumcenter, (circumcenter - A).squared_l2_norm());
+    const auto u = this->m_points[1] - this->m_points[0];
+    const auto v = this->m_points[2] - this->m_points[0];
+    const auto shifted_circumcenter = (v.squared_l2_norm() * u - u.squared_l2_norm() * v).turned90() / (T(2) * u.outer_product(v));
+    return tools::circle_2d<T, Filled, false>(this->m_points[0] + shifted_circumcenter, shifted_circumcenter.squared_l2_norm());
   }
 
   template <typename T, bool Filled>
@@ -1174,17 +1209,13 @@ namespace tools {
     const auto b = (A - C).l2_norm();
     const auto c = (B - A).l2_norm();
     const auto incenter = (a * A + b * B + c * C) / (a + b + c);
-
-    using std::abs;
-    using tools::abs;
-    return tools::circle_2d<T, Filled>(incenter, abs(this->doubled_signed_area()) / (a + b + c));
+    return tools::circle_2d<T, Filled>(incenter, tools::abs(this->doubled_signed_area()) / (a + b + c));
   }
 
   template <typename T, bool Filled>
   tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::minimum_bounding_circle() const
   requires tools::is_rational_v<T> || std::floating_point<T> {
-    std::array<tools::directed_line_segment_2d<T>, 3> edges;
-    this->sorted_edges(edges.begin());
+    const auto edges = this->sorted_edges();
     if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length()) {
       const auto center = edges[2].midpoint();
       return tools::circle_2d<T, Filled, false>(center, (center - edges[2].p1()).squared_l2_norm());
@@ -1195,8 +1226,7 @@ namespace tools {
 
   template <typename T, bool Filled>
   int triangle_2d<T, Filled>::type() const {
-    std::array<tools::directed_line_segment_2d<T>, 3> edges;
-    this->sorted_edges(edges.begin());
+    const auto edges = this->sorted_edges();
     const auto c2 = edges[2].squared_length();
     const auto a2b2 = edges[1].squared_length() + edges[0].squared_length();
     if (c2 < a2b2) {

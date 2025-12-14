@@ -14,8 +14,8 @@ It is an arbitrary precision integer.
 ## Constructor
 ```cpp
 (1) bigint x();
-(2) template <typename Z> bigint x(Z n);
-(3) bigint x(const std::string& s);
+(2) bigint x(tools::integral auto n);
+(3) bigint x(std::string_view s);
 ```
 
 - (1)
@@ -26,8 +26,6 @@ It is an arbitrary precision integer.
     - It parses $s$ as a signed integer and creates an arbitrary precision integer whose value is parsed $s$.
 
 ### Constraints
-- (2)
-    - `std::is_integral_v<Z>` holds, `<Z>` is `tools::int128_t` or `<Z>` is `tools::uint128_t`.
 - (3)
     - $s$ is expressed as `[+-]?[0-9]+` in regular expressions
 
@@ -39,12 +37,12 @@ It is an arbitrary precision integer.
 - (3)
     - $O(\|s\|)$
 
-## negate
+## abs_inplace
 ```cpp
-bigint& x.negate();
+bigint& x.abs_inplace();
 ```
 
-It updates $x$ to $-x$, and returns the updated $x$.
+It updates $x$ to $\|x\|$, and returns the updated $x$.
 
 ### Constraints
 - None
@@ -52,22 +50,22 @@ It updates $x$ to $-x$, and returns the updated $x$.
 ### Time Complexity
 - $O(1)$
 
-## multiply_by_pow10
+## divide_by_pow10
 ```cpp
-bigint& x.multiply_by_pow10(std::ptrdiff_t n);
+bigint x.divide_by_pow10(std::ptrdiff_t n);
 ```
 
-It updates $x$ to $10^n x$ rounded towards zero, and returns the updated $x$.
+It returns $10^{-n} x$ rounded towards zero.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|x\| + \max(0, n))$
+- $O(\log \|x\| + \max(0, -n))$
 
-## divide_by_pow10
+## divide_inplace_by_pow10
 ```cpp
-bigint& x.divide_by_pow10(std::ptrdiff_t n);
+bigint& x.divide_inplace_by_pow10(std::ptrdiff_t n);
 ```
 
 It updates $x$ to $10^{-n} x$ rounded towards zero, and returns the updated $x$.
@@ -78,41 +76,51 @@ It updates $x$ to $10^{-n} x$ rounded towards zero, and returns the updated $x$.
 ### Time Complexity
 - $O(\log \|x\| + \max(0, -n))$
 
-## compare_3way
+## divmod
 ```cpp
-int bigint::compare_3way(const bigint& x, const bigint& y);
+std::pair<bigint, bigint> x.divmod(const bigint& y);
 ```
 
-It returns
+It returns `x / y` and `x % y`.
 
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < y$)}\\
-0 & \text{(if $x = y$)}\\
-1 & \text{(if $x > y$)}
-\end{array}\right.&
-\end{align*}$$
+### Constraints
+- $0 < \|y\| < 10^{2^{27}} = 10^{134217728}$
+
+### Time Complexity
+- $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
+
+## multiply_by_pow10
+```cpp
+bigint x.multiply_by_pow10(std::ptrdiff_t n);
+```
+
+It returns $10^n x$ rounded towards zero.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(\log \|x\| + \log \|y\|)$
+- $O(\log \|x\| + \max(0, n))$
 
-## signum
+## multiply_inplace_by_pow10
 ```cpp
-int x.signum();
+bigint& x.multiply_inplace_by_pow10(std::ptrdiff_t n);
 ```
 
-It returns
+It updates $x$ to $10^n x$ rounded towards zero, and returns the updated $x$.
 
-$$\begin{align*}
-\left\{\begin{array}{ll}
--1 & \text{(if $x < 0$)}\\
-0 & \text{(if $x = 0$)}\\
-1 & \text{(if $x > 0$)}
-\end{array}\right.&
-\end{align*}$$
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x\| + \max(0, n))$
+
+## negate
+```cpp
+bigint& x.negate();
+```
+
+It updates $x$ to $-x$, and returns the updated $x$.
 
 ### Constraints
 - None
@@ -156,6 +164,21 @@ $$\begin{align*}
 
 ### Time Complexity
 - $O(1)$
+
+## operator&lt;=&gt;
+```cpp
+std::strong_ordering operator<=>(const bigint& x, const bigint& y);
+```
+
+If $x < y$, then it returns `std::strong_ordering::less`.
+If $x = y$, then it returns `std::strong_ordering::equal`.
+If $x > y$, then it returns `std::strong_ordering::greater`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(\log \|x\| + \log \|y\|)$
 
 ## Comparison operators
 ```cpp
@@ -277,19 +300,6 @@ It compares $x$ and $y$, and returns the result.
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
 
-## divmod
-```cpp
-std::pair<bigint, bigint> x.divmod(const bigint& y);
-```
-
-It returns `x / y` and `x % y`.
-
-### Constraints
-- $0 < \|y\| < 10^{2^{27}} = 10^{134217728}$
-
-### Time Complexity
-- $O((\log \|x\| + \log \|y\|) \log (\log \|x\| + \log \|y\|))$
-
 ## operator T
 ```cpp
 T explicit operator T(bigint& x);
@@ -355,3 +365,24 @@ It returns $\gcd(x, y)$.
 
 ### Time Complexity
 - $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
+
+## tools::signum
+```cpp
+int tools::signum(bigint x);
+```
+
+It returns
+
+$$\begin{align*}
+\left\{\begin{array}{ll}
+-1 & \text{(if $x < 0$)}\\
+0 & \text{(if $x = 0$)}\\
+1 & \text{(if $x > 0$)}
+\end{array}\right.&
+\end{align*}$$
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
