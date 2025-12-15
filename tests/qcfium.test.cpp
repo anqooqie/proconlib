@@ -3,8 +3,8 @@
   #define IGNORE
 #endif
 
-#include "tools/qcfium.hpp"
 #include <iostream>
+#include "tools/qcfium.hpp"
 
 int main() {
   std::cin.tie(nullptr);

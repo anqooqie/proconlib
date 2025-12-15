@@ -365,12 +365,12 @@ namespace tools {
           return 2;
         }
       }
-    }(), tools::signum(this->m_squared_radius - other.m_squared_radius));
+    }(), tools::signum(this->m_squared_radius <=> other.m_squared_radius));
   }
 
   template <typename T, bool Filled, bool HasRadius>
   int circle_2d<T, Filled, HasRadius>::where(const tools::vector2<T>& p) const {
-    return tools::signum(this->m_squared_radius - (p - this->m_center).squared_l2_norm());
+    return tools::signum(this->m_squared_radius <=> (p - this->m_center).squared_l2_norm());
   }
 
   template <std::floating_point T, bool HasRadius>

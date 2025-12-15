@@ -23,6 +23,7 @@
 #include "atcoder/convolution.hpp"
 #include "atcoder/modint.hpp"
 #include "tools/abs.hpp"
+#include "tools/block_ceil.hpp"
 #include "tools/ceil.hpp"
 #include "tools/chmin.hpp"
 #include "tools/floor.hpp"
@@ -37,6 +38,7 @@
 #include "tools/quo.hpp"
 #include "tools/signum.hpp"
 #include "tools/uint128_t.hpp"
+#include "tools/unsigned_integral.hpp"
 
 namespace tools {
   class bigint;
@@ -214,12 +216,12 @@ namespace tools {
     }
 
   private:
-    template <typename T>
+    template <tools::unsigned_integral T>
     static const tools::bigint& divmod_naive_threshold() {
       static const tools::bigint threshold((std::numeric_limits<T>::max() - (BASE - 1)) / BASE);
       return threshold;
     }
-    template <typename T>
+    template <tools::unsigned_integral T>
     std::pair<tools::bigint, tools::bigint> divmod_naive(const tools::bigint& other) const {
       assert(!other.m_digits.empty());
       assert(tools::bigint::compare_3way_abs(other, divmod_naive_threshold<T>()) <= 0);
@@ -244,7 +246,54 @@ namespace tools {
       tools::bigint R(r);
       R.m_nonnegative = (r == 0 || this->m_nonnegative);
 
-      return std::make_pair(Q, R);
+      return std::make_pair(std::move(Q), std::move(R));
+    }
+    static constexpr std::size_t divmod_div_limit() {
+      return 48;
+    }
+    std::pair<tools::bigint, tools::bigint> divmod_knuth_d(const tools::bigint& other) const {
+      assert(this->m_nonnegative);
+      assert(other.m_nonnegative);
+      assert(!other.m_digits.empty());
+      assert(BASE <= other.m_digits.back() * 2);
+
+      if (*this < other) {
+        return std::make_pair(tools::bigint{}, *this);
+      }
+
+      tools::bigint R(*this);
+      R.m_digits.push_back(0);
+
+      tools::bigint Q;
+      Q.m_digits.resize(R.m_digits.size() - other.m_digits.size());
+      for (int i = Q.m_digits.size() - 1; i >= 0; --i) {
+        Q.m_digits[i] = std::min((R.m_digits.back() * BASE + R.m_digits.rbegin()[1]) / other.m_digits.back(), BASE - 1);
+        for (int j = 0; j < std::ssize(other.m_digits); ++j) {
+          R.m_digits[i + j] -= Q.m_digits[i] * other.m_digits[j];
+          R.m_digits[i + j + 1] += tools::quo(R.m_digits[i + j], BASE);
+          R.m_digits[i + j] = tools::mod(R.m_digits[i + j], BASE);
+        }
+        while (R.m_digits.back() < 0) {
+          --Q.m_digits[i];
+          for (int j = 0; j < std::ssize(other.m_digits); ++j) {
+            R.m_digits[i + j] += other.m_digits[j];
+            if (R.m_digits[i + j] >= BASE) {
+              R.m_digits[i + j] -= BASE;
+              ++R.m_digits[i + j + 1];
+            }
+          }
+        }
+        R.m_digits.pop_back();
+      }
+
+      while (!Q.m_digits.empty() && Q.m_digits.back() == 0) {
+        Q.m_digits.pop_back();
+      }
+      while (!R.m_digits.empty() && R.m_digits.back() == 0) {
+        R.m_digits.pop_back();
+      }
+
+      return std::make_pair(std::move(Q), std::move(R));
     }
     // S1の[l1, r1)桁目 * (BASE ** n1) <=> S2の[l2, r2)桁目 * (BASE ** n2)
     static std::strong_ordering compare_3way_abs(const tools::bigint& S1, std::size_t l1, std::size_t r1, std::size_t n1, const tools::bigint& S2, std::size_t l2, std::size_t r2, std::size_t n2) {
@@ -306,7 +355,8 @@ namespace tools {
       tools::bigint S;
       S.m_digits.reserve(r - l);
       std::copy(this->m_digits.begin() + l, this->m_digits.begin() + r, std::back_inserter(S.m_digits));
-      return S.regularize<0>();
+      S.regularize<0>();
+      return S;
     }
     // *this * (BASE ** n)
     tools::bigint lshift(const int n) const {
@@ -317,8 +367,8 @@ namespace tools {
 
       tools::bigint S;
       S.m_digits.reserve(n + this->m_digits.size());
-      std::fill_n(std::back_inserter(S.m_digits), n, 0);
-      std::copy(this->m_digits.begin(), this->m_digits.end(), std::back_inserter(S.m_digits));
+      S.m_digits.resize(n, 0);
+      std::ranges::copy(this->m_digits, std::back_inserter(S.m_digits));
       return S;
     }
     // *this / (BASE ** n)
@@ -381,7 +431,7 @@ namespace tools {
         --Q_hat;
       }
 
-      return std::make_pair(Q_hat, R_hat);
+      return std::make_pair(std::move(Q_hat), std::move(R_hat));
     }
 
     std::pair<tools::bigint, tools::bigint> divmod_4n_2n(const tools::bigint& other, const std::size_t n) const {
@@ -393,9 +443,9 @@ namespace tools {
       assert(compare_3way_abs(*this, 0, n * 4, 0, other, 0, n * 2, n * 2) < 0);
 
       const auto [Q1, S] = this->slice(n, n * 4).divmod_3n_2n(other, n);
-      const auto [Q0, R] = S.concat(*this, 0, n).divmod_3n_2n(other, n);
+      auto [Q0, R] = S.concat(*this, 0, n).divmod_3n_2n(other, n);
 
-      return std::make_pair(Q1.concat(Q0, 0, n), R);
+      return std::make_pair(Q1.concat(Q0, 0, n), std::move(R));
     }
 
     std::pair<tools::bigint, tools::bigint> divmod_2n_n(const tools::bigint& other, const std::size_t n) const {
@@ -410,6 +460,9 @@ namespace tools {
       }
       if (other.m_digits.size() <= 8) {
         return this->divmod_naive<tools::uint128_t>(other);
+      }
+      if (other.m_digits.size() <= tools::bigint::divmod_div_limit()) {
+        return this->divmod_knuth_d(other);
       }
 
       assert(n % 2 == 0);
@@ -434,13 +487,27 @@ namespace tools {
         auto [Q, R] = tools::abs(*this).divmod(tools::abs(other));
         Q.m_nonnegative = Q.m_digits.empty() || (this->m_nonnegative == other.m_nonnegative);
         R.m_nonnegative = R.m_digits.empty() || this->m_nonnegative;
-        return std::make_pair(Q, R);
+        return std::make_pair(std::move(Q), std::move(R));
       }
 
-      const std::size_t DIV_LIMIT = 8;
+      if (other.m_digits.size() <= tools::bigint::divmod_div_limit()) {
+        const auto sigma = BASE / (other.m_digits.back() + 1);
+
+        tools::bigint A(*this);
+        for (auto& A_i : A.m_digits) A_i *= sigma;
+        A.regularize<2>();
+
+        tools::bigint B(other);
+        for (auto& B_i : B.m_digits) B_i *= sigma;
+        B.regularize<2>();
+
+        auto [Q, R] = A.divmod_knuth_d(B);
+        return std::make_pair(std::move(Q), R.divmod_naive<std::uint_fast64_t>(tools::bigint(sigma)).first);
+      }
+
       const auto s = other.m_digits.size();
-      const auto m = tools::pow2(tools::floor_log2(s / DIV_LIMIT) + 1);
-      const auto n = tools::ceil(s, m) * m;
+      const auto m = tools::pow2(tools::floor_log2(s / tools::bigint::divmod_div_limit()) + 1);
+      const auto n = tools::block_ceil(s, m);
 
       const auto sigma1 = n - s;
       auto sigma2 = tools::pow2(tools::floor_log2(BASE / (other.m_digits.back() + 1)));
@@ -464,14 +531,14 @@ namespace tools {
       Q.m_digits.resize(n * (t - 1));
       auto Z = A.slice(n * (t - 2), n * t);
       std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);
-      std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin() + n * (t - 2));
+      std::ranges::copy(Q_i.m_digits, Q.m_digits.begin() + n * (t - 2));
       for (std::size_t i = t - 2; i --> 0;) {
         Z = R_i.concat(A, n * i, n * (i + 1));
         std::tie(Q_i, R_i) = Z.divmod_2n_n(B, n);
-        std::copy(Q_i.m_digits.begin(), Q_i.m_digits.end(), Q.m_digits.begin() + n * i);
+        std::ranges::copy(Q_i.m_digits, Q.m_digits.begin() + n * i);
       }
 
-      return std::make_pair(Q.regularize<0>(), R_i.divmod_naive<std::uint_fast64_t>(tools::bigint(sigma2)).first.rshift(sigma1));
+      return std::make_pair(std::move(Q.regularize<0>()), R_i.divmod_naive<std::uint_fast64_t>(tools::bigint(sigma2)).first.rshift(sigma1));
     }
     tools::bigint multiply_by_pow10(this auto&& self, const std::ptrdiff_t exponent) {
       return tools::bigint(std::forward<decltype(self)>(self)).multiply_inplace_by_pow10(exponent);

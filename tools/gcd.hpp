@@ -3,6 +3,7 @@
 
 #include <numeric>
 #include <type_traits>
+#include <utility>
 
 namespace tools {
   namespace detail {

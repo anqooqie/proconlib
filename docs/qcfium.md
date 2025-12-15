@@ -11,6 +11,7 @@ It enables some compile options to speed up.
 
 ### Constraints
 - It requires GCC.
+- `tools/qcfium.hpp` must be included after standard libraries.
 
 ### Time Complexity
 - Not applicable
