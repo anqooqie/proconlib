@@ -52,13 +52,13 @@ It returns the area of $s$.
 
 ## circumcircle
 ```cpp
-tools::circle_2d<T, Filled, false> s.circumcircle();
+tools::circumcircle_2d<T, Filled> s.circumcircle();
 ```
 
 It returns the circumcircle of $s$.
 
 ### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
+- None
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type
@@ -104,13 +104,13 @@ It returns whether $s$ is counterclockwise or not.
 
 ## minimum_bounding_circle
 ```cpp
-tools::circle_2d<T, Filled, false> s.minimum_bounding_circle();
+tools::circumcircle_2d<T, Filled> s.minimum_bounding_circle();
 ```
 
 It returns the minimum bounding circle of $s$.
 
 ### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
+- None
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type

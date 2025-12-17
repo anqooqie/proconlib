@@ -13,18 +13,31 @@ It is a circle.
 
 ## Constructor
 ```cpp
+(1)
 template <typename T, bool Filled, bool HasRadius = true>
 circle_2d<T, Filled, HasRadius> c(tools::vector2<T> o, T x);
+
+(2)
+template <typename T, bool Filled, bool HasRadius = true>
+circle_2d<T, Filled, HasRadius> c(tools::circumcircle_2d<T> c);
 ```
 
-It creates a circle with center $o$.
+- (1)
+    - It creates a circle with center $o$.
+    - If `HasRadius` is `true`, the radius of it is $x$.
+    - If `HasRadius` is `false`, the radius of it is $\sqrt{x}$.
+- (2)
+    - It creates a circle which is the same as $c$.
+
 If `Filled` is `true`, it consists of both the boundary and the interior.
 If `Filled` is `false`, it consists only of the boundary.
-If `HasRadius` is `true`, the radius of it is $x$.
-If `HasRadius` is `false`, the radius of it is $\sqrt{x}$.
 
 ### Constraints
-- $x > 0$
+- (1)
+    - $x > 0$
+- (2)
+    - If `HasRadius` is `true`, then `std::floating_point<T>` holds.
+    - If `HasRadius` is `false`, then `std::floating_point<T>` holds or `T` is `tools::rational`.
 
 ### Time Complexity
 - $O(1)$ if `<T>` is a built-in numerical type

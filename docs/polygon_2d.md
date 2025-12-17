@@ -76,16 +76,29 @@ It returns whether $s$ is counterclockwise or not.
 
 ## minimum_bounding_circle
 ```cpp
-tools::circle_2d<T, Filled, false> s.minimum_bounding_circle();
+tools::circumcircle_2d<T, Filled> s.minimum_bounding_circle();
 ```
 
 It returns the minimum bounding circle of $s$.
 
 ### Constraints
-- `<T>` is `tools::rational` or a built-in floating point type.
+- None
 
 ### Time Complexity
 - $O(n)$ expected if `<T>` is a built-in numerical type
+
+## points
+```cpp
+std::vector<tools::vector2<T>> s.points();
+```
+
+It returns $p$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
 
 ## where
 ```cpp

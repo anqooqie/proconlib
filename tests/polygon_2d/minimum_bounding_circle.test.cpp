@@ -3,12 +3,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "tools/bigint.hpp"
 #include "tools/polygon_2d.hpp"
-#include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 
-using T = tools::rational<tools::bigint, false>;
+using T = long long;
 
 int main() {
   std::cin.tie(nullptr);

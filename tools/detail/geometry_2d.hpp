@@ -20,6 +20,7 @@
 #include <vector>
 #include "tools/abs.hpp"
 #include "tools/ccw.hpp"
+#include "tools/getter_result.hpp"
 #include "tools/is_rational.hpp"
 #include "tools/less_by.hpp"
 #include "tools/signum.hpp"
@@ -29,6 +30,9 @@
 namespace tools {
   template <typename T, bool Filled, bool HasRadius = true>
   class circle_2d;
+
+  template <typename T, bool Filled>
+  class circumcircle_2d;
 
   template <typename T>
   class directed_line_segment_2d;
@@ -54,14 +58,16 @@ namespace tools {
   public:
     circle_2d() = default;
     circle_2d(const tools::vector2<T>& center, const T& radius_or_squared_radius);
+    explicit circle_2d(const tools::circumcircle_2d<T, Filled>& circumcircle)
+    requires std::floating_point<T> || (!HasRadius && tools::is_rational_v<T>);
 
     T area() const
     requires std::floating_point<T> && Filled;
-    tools::vector2<T> center() const;
+    auto center(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>>;
     bool contains(const tools::vector2<T>& p) const;
-    T radius() const
+    auto radius(this auto&& self) -> tools::getter_result_t<decltype(self), T>
     requires HasRadius;
-    T squared_radius() const;
+    auto squared_radius(this auto&& self) -> tools::getter_result_t<decltype(self), T>;
     std::pair<int, int> where(const tools::circle_2d<T, Filled, HasRadius>& other) const;
     int where(const tools::vector2<T>& p) const;
 
@@ -78,6 +84,30 @@ namespace tools {
     friend bool operator==(const tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const tools::circle_2d<T_, Filled_, HasRadius2>& rhs);
     template <typename T_, bool Filled_, bool HasRadius1, bool HasRadius2>
     friend bool operator!=(const tools::circle_2d<T_, Filled_, HasRadius1>& lhs, const tools::circle_2d<T_, Filled_, HasRadius2>& rhs);
+  };
+
+  template <typename T, bool Filled>
+  class circumcircle_2d {
+    std::vector<tools::vector2<T>> m_points;
+
+  public:
+    circumcircle_2d() = default;
+    template <std::ranges::input_range R>
+    requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+    circumcircle_2d(R&& p);
+    circumcircle_2d(std::initializer_list<tools::vector2<T>> p);
+
+    T area() const
+    requires std::floating_point<T> && Filled;
+    tools::vector2<T> center() const
+    requires std::floating_point<T> || tools::is_rational_v<T>;
+    bool contains(const tools::vector2<T>& p) const;
+    auto points(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<tools::vector2<T>>>;
+    T radius() const
+    requires std::floating_point<T>;
+    T squared_radius() const
+    requires std::floating_point<T> || tools::is_rational_v<T>;
+    int where(const tools::vector2<T>& p) const;
   };
 
   template <typename T>
@@ -100,8 +130,8 @@ namespace tools {
     bool crosses(const tools::directed_line_segment_2d<T>& other) const;
     tools::vector2<T> midpoint() const
     requires tools::is_rational_v<T> || std::floating_point<T>;
-    const tools::vector2<T>& p1() const;
-    const tools::vector2<T>& p2() const;
+    auto p1(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>>;
+    auto p2(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>>;
     T squared_distance(const tools::directed_line_segment_2d<T>& other) const
     requires tools::is_rational_v<T> || std::floating_point<T>;
     T squared_distance(const tools::half_line_2d<T>& other) const
@@ -144,7 +174,7 @@ namespace tools {
     half_line_2d() = default;
     half_line_2d(const tools::vector2<T>& a, const tools::vector2<T>& d);
 
-    const tools::vector2<T>& a() const;
+    auto a(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>>;
     bool contains(const tools::vector2<T>& p) const;
     std::optional<tools::vector2<T>> cross_point(const tools::directed_line_segment_2d<T>& other) const
     requires tools::is_rational_v<T> || std::floating_point<T>;
@@ -152,7 +182,7 @@ namespace tools {
     requires tools::is_rational_v<T> || std::floating_point<T>;
     std::optional<tools::vector2<T>> cross_point(const tools::line_2d<T>& other) const
     requires tools::is_rational_v<T> || std::floating_point<T>;
-    const tools::vector2<T>& d() const;
+    auto d(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>>;
     T squared_distance(const tools::directed_line_segment_2d<T>& other) const
     requires tools::is_rational_v<T> || std::floating_point<T>;
     T squared_distance(const tools::half_line_2d<T>& other) const
@@ -191,9 +221,9 @@ namespace tools {
     line_2d() = default;
     line_2d(const T& a, const T& b, const T& c);
 
-    const T& a() const;
-    const T& b() const;
-    const T& c() const;
+    auto a(this auto&& self) -> tools::getter_result_t<decltype(self), T>;
+    auto b(this auto&& self) -> tools::getter_result_t<decltype(self), T>;
+    auto c(this auto&& self) -> tools::getter_result_t<decltype(self), T>;
     bool contains(const tools::vector2<T>& p) const;
     std::optional<tools::vector2<T>> cross_point(const tools::directed_line_segment_2d<T>& other) const
     requires tools::is_rational_v<T> || std::floating_point<T>;
@@ -259,8 +289,8 @@ namespace tools {
     T doubled_area() const
     requires Filled;
     bool is_counterclockwise() const;
-    tools::circle_2d<T, Filled, false> minimum_bounding_circle() const
-    requires tools::is_rational_v<T> || std::floating_point<T>;
+    tools::circumcircle_2d<T, Filled> minimum_bounding_circle() const;
+    auto points(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<tools::vector2<T>>>;
     int where(const tools::vector2<T>& p) const;
   };
 
@@ -275,12 +305,10 @@ namespace tools {
     triangle_2d(R&& p);
     triangle_2d(std::initializer_list<tools::vector2<T>> p);
 
-    tools::circle_2d<T, Filled, false> circumcircle() const
-    requires tools::is_rational_v<T> || std::floating_point<T>;
+    tools::circumcircle_2d<T, Filled> circumcircle() const;
     tools::circle_2d<T, Filled> incircle() const
     requires std::floating_point<T>;
-    tools::circle_2d<T, Filled, false> minimum_bounding_circle() const
-    requires tools::is_rational_v<T> || std::floating_point<T>;
+    tools::circumcircle_2d<T, Filled> minimum_bounding_circle() const;
     int type() const;
   };
 
@@ -296,13 +324,22 @@ namespace tools {
   }
 
   template <typename T, bool Filled, bool HasRadius>
+  circle_2d<T, Filled, HasRadius>::circle_2d(const tools::circumcircle_2d<T, Filled>& circumcircle)
+  requires std::floating_point<T> || (!HasRadius && tools::is_rational_v<T>)
+  : m_center(circumcircle.center()), m_squared_radius(circumcircle.squared_radius()) {
+    if constexpr (HasRadius) {
+      this->m_radius = std::sqrt(this->m_squared_radius);
+    }
+  }
+
+  template <typename T, bool Filled, bool HasRadius>
   T circle_2d<T, Filled, HasRadius>::area() const requires std::floating_point<T> && Filled {
     return std::acos(T(-1)) * this->m_squared_radius;
   }
 
   template <typename T, bool Filled, bool HasRadius>
-  tools::vector2<T> circle_2d<T, Filled, HasRadius>::center() const {
-    return this->m_center;
+  auto circle_2d<T, Filled, HasRadius>::center(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>> {
+    return std::forward_like<decltype(self)>(self.m_center);
   }
 
   template <typename T, bool Filled, bool HasRadius>
@@ -315,13 +352,14 @@ namespace tools {
   }
 
   template <typename T, bool Filled, bool HasRadius>
-  T circle_2d<T, Filled, HasRadius>::radius() const requires HasRadius {
-    return this->m_radius;
+  auto circle_2d<T, Filled, HasRadius>::radius(this auto&& self) -> tools::getter_result_t<decltype(self), T>
+  requires HasRadius {
+    return std::forward_like<decltype(self)>(self.m_radius);
   }
 
   template <typename T, bool Filled, bool HasRadius>
-  T circle_2d<T, Filled, HasRadius>::squared_radius() const {
-    return this->m_squared_radius;
+  auto circle_2d<T, Filled, HasRadius>::squared_radius(this auto&& self) -> tools::getter_result_t<decltype(self), T> {
+    return std::forward_like<decltype(self)>(self.m_squared_radius);
   }
 
   template <typename T, bool Filled, bool HasRadius>
@@ -447,6 +485,86 @@ namespace tools {
     return !(lhs == rhs);
   }
 
+  template <typename T, bool Filled>
+  template <std::ranges::input_range R>
+  requires std::assignable_from<tools::vector2<T>&, std::ranges::range_reference_t<R>>
+  circumcircle_2d<T, Filled>::circumcircle_2d(R&& p) : m_points(std::forward<R>(p) | std::ranges::to<std::vector<tools::vector2<T>>>()) {
+    assert(this->m_points.size() == 2 || this->m_points.size() == 3);
+    if (this->m_points.size() == 2) {
+      assert(this->m_points[0] != this->m_points[1]);
+    } else {
+      const auto ccw = tools::ccw(this->m_points[0], this->m_points[1], this->m_points[2]);
+      assert(std::abs(ccw) == 1);
+      if (ccw == -1) {
+        std::swap(this->m_points[1], this->m_points[2]);
+      }
+    }
+  }
+
+  template <typename T, bool Filled>
+  circumcircle_2d<T, Filled>::circumcircle_2d(std::initializer_list<tools::vector2<T>> p) : circumcircle_2d(std::views::all(p)) {
+  }
+
+  template <typename T, bool Filled>
+  T circumcircle_2d<T, Filled>::area() const
+  requires std::floating_point<T> && Filled {
+    return std::acos(T(-1)) * this->squared_radius();
+  }
+
+  template <typename T, bool Filled>
+  tools::vector2<T> circumcircle_2d<T, Filled>::center() const
+  requires std::floating_point<T> || tools::is_rational_v<T> {
+    if (this->m_points.size() == 2) {
+      return (this->m_points[0] + this->m_points[1]) / T(2);
+    } else {
+      const auto u = this->m_points[1] - this->m_points[0];
+      const auto v = this->m_points[2] - this->m_points[0];
+      const auto shifted_circumcenter = (v.squared_l2_norm() * u - u.squared_l2_norm() * v).turned90() / (T(2) * u.outer_product(v));
+      return this->m_points[0] + shifted_circumcenter;
+    }
+  }
+
+  template <typename T, bool Filled>
+  bool circumcircle_2d<T, Filled>::contains(const tools::vector2<T>& p) const {
+    if constexpr (Filled) {
+      return this->where(p) >= 0;
+    } else {
+      return this->where(p) == 0;
+    }
+  }
+
+  template <typename T, bool Filled>
+  auto circumcircle_2d<T, Filled>::points(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<tools::vector2<T>>> {
+    return std::forward_like<decltype(self)>(self.m_points);
+  }
+
+  template <typename T, bool Filled>
+  T circumcircle_2d<T, Filled>::radius() const
+  requires std::floating_point<T> {
+    return std::sqrt(this->squared_radius());
+  }
+
+  template <typename T, bool Filled>
+  T circumcircle_2d<T, Filled>::squared_radius() const
+  requires std::floating_point<T> || tools::is_rational_v<T> {
+    return (this->m_points[0] - this->center()).squared_l2_norm();
+  }
+
+  template <typename T, bool Filled>
+  int circumcircle_2d<T, Filled>::where(const tools::vector2<T>& p) const {
+    if (this->m_points.size() == 2) {
+      return -tools::signum((this->m_points[0] - p).inner_product(this->m_points[1] - p));
+    } else {
+      const auto p0 = this->m_points[0] - p;
+      const auto p1 = this->m_points[1] - p;
+      const auto p2 = this->m_points[2] - p;
+      const auto p0sq = p0.squared_l2_norm();
+      const auto p1sq = p1.squared_l2_norm();
+      const auto p2sq = p2.squared_l2_norm();
+      return tools::signum(p0.x * p1.y * p2sq + p0.y * p1sq * p2.x + p0sq * p1.x * p2.y - p0sq * p1.y * p2.x - p0.y * p1.x * p2sq - p0.x * p1sq * p2.y);
+    }
+  }
+
   template <typename T>
   directed_line_segment_2d<T>::directed_line_segment_2d(const tools::vector2<T>& p1, const tools::vector2<T>& p2) :
     m_p1(p1),
@@ -538,13 +656,13 @@ namespace tools {
   }
 
   template <typename T>
-  const tools::vector2<T>& directed_line_segment_2d<T>::p1() const {
-    return this->m_p1;
+  auto directed_line_segment_2d<T>::p1(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>> {
+    return std::forward_like<decltype(self)>(self.m_p1);
   }
 
   template <typename T>
-  const tools::vector2<T>& directed_line_segment_2d<T>::p2() const {
-    return this->m_p2;
+  auto directed_line_segment_2d<T>::p2(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>> {
+    return std::forward_like<decltype(self)>(self.m_p2);
   }
 
   template <typename T>
@@ -720,8 +838,8 @@ namespace tools {
   }
 
   template <typename T>
-  const tools::vector2<T>& half_line_2d<T>::a() const {
-    return this->m_a;
+  auto half_line_2d<T>::a(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>> {
+    return std::forward_like<decltype(self)>(self.m_a);
   }
 
   template <typename T>
@@ -772,8 +890,8 @@ namespace tools {
   }
 
   template <typename T>
-  const tools::vector2<T>& half_line_2d<T>::d() const {
-    return this->m_d;
+  auto half_line_2d<T>::d(this auto&& self) -> tools::getter_result_t<decltype(self), tools::vector2<T>> {
+    return std::forward_like<decltype(self)>(self.m_d);
   }
 
   template <typename T>
@@ -907,18 +1025,18 @@ namespace tools {
   }
 
   template <typename T>
-  const T& line_2d<T>::a() const {
-    return this->m_a;
+  auto line_2d<T>::a(this auto&& self) -> tools::getter_result_t<decltype(self), T> {
+    return std::forward_like<decltype(self)>(self.m_a);
   }
 
   template <typename T>
-  const T& line_2d<T>::b() const {
-    return this->m_b;
+  auto line_2d<T>::b(this auto&& self) -> tools::getter_result_t<decltype(self), T> {
+    return std::forward_like<decltype(self)>(self.m_b);
   }
 
   template <typename T>
-  const T& line_2d<T>::c() const {
-    return this->m_c;
+  auto line_2d<T>::c(this auto&& self) -> tools::getter_result_t<decltype(self), T> {
+    return std::forward_like<decltype(self)>(self.m_c);
   }
 
   template <typename T>
@@ -1088,15 +1206,14 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  tools::circle_2d<T, Filled, false> polygon_2d<T, Filled>::minimum_bounding_circle() const
-  requires tools::is_rational_v<T> || std::floating_point<T> {
+  tools::circumcircle_2d<T, Filled> polygon_2d<T, Filled>::minimum_bounding_circle() const {
     static std::random_device seed_gen;
     thread_local std::mt19937 engine(seed_gen());
 
     auto shuffled_points = this->m_points;
     std::ranges::shuffle(shuffled_points, engine);
 
-    using variant_t = std::variant<std::nullptr_t, tools::vector2<T>, tools::circle_2d<T, true, false>>;
+    using variant_t = std::variant<std::nullptr_t, tools::vector2<T>, tools::circumcircle_2d<T, true>>;
     struct visitor_t {
       tools::vector2<T> p;
       bool operator()(std::nullptr_t) {
@@ -1105,7 +1222,7 @@ namespace tools {
       bool operator()(const tools::vector2<T>& c) {
         return c == this->p;
       }
-      bool operator()(const tools::circle_2d<T, true, false>& c) {
+      bool operator()(const tools::circumcircle_2d<T, true>& c) {
         return c.contains(this->p);
       }
     };
@@ -1116,29 +1233,31 @@ namespace tools {
       res = shuffled_points[i];
       for (int j = 0; j < i; ++j) {
         if (std::visit(visitor_t{shuffled_points[j]}, res)) continue;
-        res = tools::circle_2d<T, true, false>(
-          (shuffled_points[i] + shuffled_points[j]) / T(2),
-          ((shuffled_points[j] - shuffled_points[i]) / T(2)).squared_l2_norm()
-        );
+        res = tools::circumcircle_2d<T, true>{shuffled_points[i], shuffled_points[j]};
         for (int k = 0; k < j; ++k) {
           if (std::visit(visitor_t{shuffled_points[k]}, res)) continue;
-          res = tools::triangle_2d<T, true>{shuffled_points[i], shuffled_points[j], shuffled_points[k]}.circumcircle();
+          res = tools::circumcircle_2d<T, true>{shuffled_points[i], shuffled_points[j], shuffled_points[k]};
         }
       }
     }
 
     struct {
-      tools::circle_2d<T, Filled, false> operator()(std::nullptr_t) {
-        return tools::circle_2d<T, Filled, false>{};
+      tools::circumcircle_2d<T, Filled> operator()(std::nullptr_t) {
+        return tools::circumcircle_2d<T, Filled>{};
       }
-      tools::circle_2d<T, Filled, false> operator()(tools::vector2<T>) {
-        return tools::circle_2d<T, Filled, false>{};
+      tools::circumcircle_2d<T, Filled> operator()(tools::vector2<T>) {
+        return tools::circumcircle_2d<T, Filled>{};
       }
-      tools::circle_2d<T, Filled, false> operator()(const tools::circle_2d<T, true, false>& c) {
-        return tools::circle_2d<T, Filled, false>(c.center(), c.squared_radius());
+      tools::circumcircle_2d<T, Filled> operator()(const tools::circumcircle_2d<T, true>& c) {
+        return tools::circumcircle_2d<T, Filled>(c.points());
       }
     } visitor;
     return std::visit(visitor, res);
+  }
+
+  template <typename T, bool Filled>
+  auto polygon_2d<T, Filled>::points(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<tools::vector2<T>>> {
+    return std::forward_like<decltype(self)>(self.m_points);
   }
 
   template <typename T, bool Filled>
@@ -1191,12 +1310,8 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::circumcircle() const
-  requires tools::is_rational_v<T> || std::floating_point<T> {
-    const auto u = this->m_points[1] - this->m_points[0];
-    const auto v = this->m_points[2] - this->m_points[0];
-    const auto shifted_circumcenter = (v.squared_l2_norm() * u - u.squared_l2_norm() * v).turned90() / (T(2) * u.outer_product(v));
-    return tools::circle_2d<T, Filled, false>(this->m_points[0] + shifted_circumcenter, shifted_circumcenter.squared_l2_norm());
+  tools::circumcircle_2d<T, Filled> triangle_2d<T, Filled>::circumcircle() const {
+    return tools::circumcircle_2d<T, Filled>(this->m_points);
   }
 
   template <typename T, bool Filled>
@@ -1213,12 +1328,10 @@ namespace tools {
   }
 
   template <typename T, bool Filled>
-  tools::circle_2d<T, Filled, false> triangle_2d<T, Filled>::minimum_bounding_circle() const
-  requires tools::is_rational_v<T> || std::floating_point<T> {
+  tools::circumcircle_2d<T, Filled> triangle_2d<T, Filled>::minimum_bounding_circle() const {
     const auto edges = this->sorted_edges();
     if (edges[0].squared_length() + edges[1].squared_length() <= edges[2].squared_length()) {
-      const auto center = edges[2].midpoint();
-      return tools::circle_2d<T, Filled, false>(center, (center - edges[2].p1()).squared_l2_norm());
+      return tools::circumcircle_2d<T, Filled>{edges[2].p1(), edges[2].p2()};
     } else {
       return this->circumcircle();
     }
