@@ -61,7 +61,7 @@ namespace tools {
   }
 
   template <typename T>
-  constexpr auto signum(T&& x) noexcept(noexcept(tools::detail::signum::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x)))) -> decltype(auto) {
+  constexpr decltype(auto) signum(T&& x) noexcept(noexcept(tools::detail::signum::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x)))) {
     return tools::detail::signum::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x));
   }
 }

@@ -4,15 +4,14 @@ documentation_of: //tools/countr_zero.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr int countr_zero(T x) noexcept;
+constexpr int countr_zero(auto&& x);
 ```
 
 It returns the number of trailing zeros. (e.g., `countr_zero(0b10100)` is $2$)
-If $x$ is $0$, it returns `std::numeric_limits<T>::digits`.
+If $x$ is $0$, it returns `std::numeric_limits<std::remove_cvref_t<decltype(x)>>::digits`.
 
 ### Constraints
-- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
+- `tools::non_bool_integral<std::remove_cvref_t<decltype(x)>>` holds.
 - $x \geq 0$
 
 ### Time Complexity

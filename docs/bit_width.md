@@ -4,8 +4,7 @@ documentation_of: //tools/bit_width.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr int bit_width(T x) noexcept;
+constexpr int bit_width(auto&& x);
 ```
 
 It returns the bit width required to represent $x$.
@@ -19,7 +18,7 @@ $$\begin{align*}
 \end{align*}$$
 
 ### Constraints
-- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
+- `tools::non_bool_integral<std::remove_cvref_t<decltype(x)>>` holds.
 - $x \geq 0$
 
 ### Time Complexity

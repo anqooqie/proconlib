@@ -18,7 +18,7 @@ namespace tools {
   }
 
   template <typename M, typename N>
-  constexpr auto gcd(M&& m, N&& n) noexcept(noexcept(tools::detail::gcd::impl<std::remove_cvref_t<M>, std::remove_cvref_t<N>>{}(std::forward<M>(m), std::forward<N>(n)))) -> decltype(auto){
+  constexpr decltype(auto) gcd(M&& m, N&& n) noexcept(noexcept(tools::detail::gcd::impl<std::remove_cvref_t<M>, std::remove_cvref_t<N>>{}(std::forward<M>(m), std::forward<N>(n)))) {
     return tools::detail::gcd::impl<std::remove_cvref_t<M>, std::remove_cvref_t<N>>{}(std::forward<M>(m), std::forward<N>(n));
   }
 }

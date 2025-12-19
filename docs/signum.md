@@ -4,8 +4,7 @@ documentation_of: //tools/signum.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr int signum(T x) noexcept;
+constexpr int signum(auto&& x);
 ```
 
 It returns

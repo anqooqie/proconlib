@@ -4,8 +4,7 @@ documentation_of: //tools/gcd.hpp
 ---
 
 ```cpp
-template <typename M, typename N>
-constexpr std::common_type_t<M, N> gcd(M m, N n);
+constexpr auto gcd(auto&& m, auto&& n) -> decltype(std::gcd(m, n));
 ```
 
 If `std::gcd(m, n)` is available, it returns `std::gcd(m, n)`.

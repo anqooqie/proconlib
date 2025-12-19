@@ -18,7 +18,7 @@ namespace tools {
   }
 
   template <typename T>
-  constexpr auto abs(T&& x) noexcept(noexcept(tools::detail::abs::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x)))) -> decltype(auto) {
+  constexpr decltype(auto) abs(T&& x) noexcept(noexcept(tools::detail::abs::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x)))) {
     return tools::detail::abs::impl<std::remove_cvref_t<T>>{}(std::forward<T>(x));
   }
 }

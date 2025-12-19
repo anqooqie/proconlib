@@ -4,8 +4,7 @@ documentation_of: //tools/bit_ceil.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr T bit_ceil(T x);
+constexpr auto bit_ceil(auto&& x) -> std::remove_cvref_t<decltype(x)>;
 ```
 
 It returns the following value.
@@ -18,7 +17,7 @@ $$\begin{align*}
 \end{align*}$$
 
 ### Constraints
-- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
+- `tools::non_bool_integral<std::remove_cvref_t<decltype(x)>>` holds.
 - $x \geq 0$
 - If $x > 0$, $2^{\lceil \log_2(x) \rceil}$ is representable in type `T`.
 

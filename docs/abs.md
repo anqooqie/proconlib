@@ -4,8 +4,7 @@ documentation_of: //tools/abs.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr auto abs(T x) -> decltype(std::abs(x));
+constexpr auto abs(auto&& x) -> decltype(std::abs(x));
 ```
 
 If `std::abs(x)` is available, it returns `std::abs(x)`.
