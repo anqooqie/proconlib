@@ -4,8 +4,7 @@ documentation_of: //tools/exp.hpp
 ---
 
 ```cpp
-template <typename T>
-auto exp(T x) -> decltype(std::exp(x));
+auto exp(auto&& x) -> decltype(std::exp(x));
 ```
 
 If `std::exp(x)` is available, it returns `std::exp(x)`.

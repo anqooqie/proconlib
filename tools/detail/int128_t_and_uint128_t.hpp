@@ -26,6 +26,7 @@
 #include "tools/make_unsigned.hpp"
 #include "tools/non_bool_integral.hpp"
 #include "tools/now.hpp"
+#include "tools/popcount.hpp"
 
 namespace tools {
   using uint128_t = unsigned __int128;
@@ -439,6 +440,20 @@ namespace tools {
       }
     };
   }
+
+  template <>
+  struct detail::popcount::impl<tools::uint128_t> {
+    constexpr int operator()(tools::uint128_t x) const noexcept {
+      x = (x & UINT128_C(0x55555555555555555555555555555555)) + (x >> 1 & UINT128_C(0x55555555555555555555555555555555));
+      x = (x & UINT128_C(0x33333333333333333333333333333333)) + (x >> 2 & UINT128_C(0x33333333333333333333333333333333));
+      x = (x & UINT128_C(0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f)) + (x >> 4 & UINT128_C(0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f));
+      x = (x & UINT128_C(0x00ff00ff00ff00ff00ff00ff00ff00ff)) + (x >> 8 & UINT128_C(0x00ff00ff00ff00ff00ff00ff00ff00ff));
+      x = (x & UINT128_C(0x0000ffff0000ffff0000ffff0000ffff)) + (x >> 16 & UINT128_C(0x0000ffff0000ffff0000ffff0000ffff));
+      x = (x & UINT128_C(0x00000000ffffffff00000000ffffffff)) + (x >> 32 & UINT128_C(0x00000000ffffffff00000000ffffffff));
+      x = (x & UINT128_C(0x0000000000000000ffffffffffffffff)) + (x >> 64 & UINT128_C(0x0000000000000000ffffffffffffffff));
+      return x;
+    }
+  };
 #endif
 }
 

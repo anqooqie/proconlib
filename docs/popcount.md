@@ -4,14 +4,13 @@ documentation_of: //tools/popcount.hpp
 ---
 
 ```cpp
-template <typename T>
-constexpr int popcount(T x) noexcept;
+constexpr int popcount(auto&& x);
 ```
 
 It returns the number of 1 bits in the value of $x$.
 
 ### Constraints
-- `<T>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
+- `tools::non_bool_integral<std::remove_cvref_t<decltype(x)>>` holds.
 - $x \geq 0$
 
 ### Time Complexity
