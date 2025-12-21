@@ -13,19 +13,17 @@
 #include "tools/non_bool_integral.hpp"
 
 namespace tools {
-  namespace detail {
-    namespace countr_zero {
-      template <tools::non_bool_integral T>
-      struct impl {
-        constexpr int operator()(const T x) const noexcept(noexcept(impl<tools::make_unsigned_t<T>>{}(x))) requires tools::is_signed_v<T> {
-          assert(x >= 0);
-          return std::min(impl<tools::make_unsigned_t<T>>{}(x), std::numeric_limits<T>::digits);
-        }
-        constexpr int operator()(const T x) const noexcept(noexcept(std::countr_zero(x))) requires tools::is_unsigned_v<T> {
-          return std::countr_zero(x);
-        }
-      };
-    }
+  namespace detail::countr_zero {
+    template <tools::non_bool_integral T>
+    struct impl {
+      constexpr int operator()(const T x) const noexcept(noexcept(impl<tools::make_unsigned_t<T>>{}(x))) requires tools::is_signed_v<T> {
+        assert(x >= 0);
+        return std::min(impl<tools::make_unsigned_t<T>>{}(x), std::numeric_limits<T>::digits);
+      }
+      constexpr int operator()(const T x) const noexcept(noexcept(std::countr_zero(x))) requires tools::is_unsigned_v<T> {
+        return std::countr_zero(x);
+      }
+    };
   }
 
   template <typename T>

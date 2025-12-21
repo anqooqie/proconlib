@@ -1,38 +1,44 @@
 #ifndef TOOLS_QUATERNION_HPP
 #define TOOLS_QUATERNION_HPP
 
-#include <type_traits>
-#include <cmath>
 #include <algorithm>
 #include <cassert>
-#include <sstream>
+#include <cmath>
+#include <concepts>
 #include <random>
+#include <sstream>
+#include <utility>
 #include "tools/abs.hpp"
 #include "tools/exp.hpp"
 #include "tools/log.hpp"
+#include "tools/mutable_type.hpp"
 #include "tools/pow.hpp"
-#include "tools/vector4.hpp"
 #include "tools/vector3.hpp"
+#include "tools/vector4.hpp"
 
 namespace tools {
-  template <typename T>
+  template <std::floating_point T>
   class quaternion;
 
-  template <typename T>
+  template <std::floating_point T>
   struct detail::abs::impl<tools::quaternion<T>> {
     T operator()(const tools::quaternion<T>&) const;
   };
-  template <typename T>
-  tools::quaternion<T> exp(const tools::quaternion<T>& q);
-  template <typename T>
-  tools::quaternion<T> log(const tools::quaternion<T>& q);
-  template <typename T>
-  tools::quaternion<T> pow(const tools::quaternion<T>& base, T exponent);
+  template <std::floating_point T>
+  struct detail::exp::impl<tools::quaternion<T>> {
+    tools::quaternion<T> operator()(const tools::quaternion<T>&) const;
+  };
+  template <std::floating_point T>
+  struct detail::log::impl<tools::quaternion<T>> {
+    tools::quaternion<T> operator()(const tools::quaternion<T>&) const;
+  };
+  template <std::floating_point T>
+  struct detail::pow::impl<tools::quaternion<T>, T> {
+    tools::quaternion<T> operator()(const tools::quaternion<T>&, T) const;
+  };
 
-  template <typename T>
+  template <std::floating_point T>
   class quaternion {
-    static_assert(std::is_floating_point_v<T>);
-
     static constexpr T eps = 1e-5;
     static constexpr T pi = 3.14159265358979323846264338327950288419716939937510L;
 
@@ -83,34 +89,34 @@ namespace tools {
       return tools::quaternion<T>(-this->x, -this->y, -this->z, -this->w);
     }
 
-    auto operator+=(this auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
+    auto operator+=(this tools::mutable_type auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
       self.x += other.x;
       self.y += other.y;
       self.z += other.z;
       self.w += other.w;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::quaternion<T> operator+(const tools::quaternion<T>& lhs, const tools::quaternion<T>& rhs) {
       return tools::quaternion<T>(lhs) += rhs;
     }
 
-    auto operator-=(this auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
+    auto operator-=(this tools::mutable_type auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
       self.x -= other.x;
       self.y -= other.y;
       self.z -= other.z;
       self.w -= other.w;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::quaternion<T> operator-(const tools::quaternion<T>& lhs, const tools::quaternion<T>& rhs) {
       return tools::quaternion<T>(lhs) -= rhs;
     }
 
-    auto operator*=(this auto&& self, const T c) -> decltype(self) {
+    auto operator*=(this tools::mutable_type auto&& self, const T c) -> decltype(self) {
       self.x *= c;
       self.y *= c;
       self.z *= c;
       self.w *= c;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::quaternion<T> operator*(const tools::quaternion<T>& self, const T c) {
       return tools::quaternion<T>(self) *= c;
@@ -124,21 +130,21 @@ namespace tools {
       const auto imag = lhs.real() * rhs.imag() + rhs.real() * lhs.imag() + lhs.imag().outer_product(rhs.imag());
       return tools::quaternion<T>(imag.x, imag.y, imag.z, real);
     }
-    auto operator*=(this auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
+    auto operator*=(this tools::mutable_type auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
       self = self * other;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::vector3<T> operator*(const tools::quaternion<T>& q, const tools::vector3<T>& v) {
       assert(std::abs(q.norm() - 1) <= eps);
       return (q * tools::quaternion<T>(v.x, v.y, v.z, 0) * q.conj()).imag();
     }
 
-    auto operator/=(this auto&& self, const T c) -> decltype(self) {
+    auto operator/=(this tools::mutable_type auto&& self, const T c) -> decltype(self) {
       self.x /= c;
       self.y /= c;
       self.z /= c;
       self.w /= c;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::quaternion<T> operator/(const tools::quaternion<T>& self, const T c) {
       return tools::quaternion<T>(self) /= c;
@@ -152,9 +158,9 @@ namespace tools {
     friend tools::quaternion<T> operator/(const tools::quaternion<T>& lhs, const tools::quaternion<T>& rhs) {
       return lhs * rhs.inv();
     }
-    auto operator/=(this auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
+    auto operator/=(this tools::mutable_type auto&& self, const tools::quaternion<T>& other) -> decltype(self) {
       self = self / other;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
 
     friend bool operator==(const tools::quaternion<T>& lhs, const tools::quaternion<T>& rhs) {
@@ -269,13 +275,13 @@ namespace tools {
     }
   };
 
-  template <typename T>
+  template <std::floating_point T>
   T detail::abs::impl<tools::quaternion<T>>::operator()(const tools::quaternion<T>& q) const {
     return tools::vector4<T>(q.x, q.y, q.z, q.w).l2_norm();
   };
 
-  template <typename T>
-  tools::quaternion<T> exp(const tools::quaternion<T>& q) {
+  template <std::floating_point T>
+  tools::quaternion<T> detail::exp::impl<tools::quaternion<T>>::operator()(const tools::quaternion<T>& q) const {
     const auto inorm = q.imag().l2_norm();
     if (inorm == 0) {
       return tools::quaternion<T>(0, 0, 0, std::exp(q.real()));
@@ -285,20 +291,20 @@ namespace tools {
     const auto real = rexp * std::cos(inorm);
     const auto imag = rexp * std::sin(inorm) / inorm * q.imag();
     return tools::quaternion<T>(imag.x, imag.y, imag.z, real);
-  }
+  };
 
-  template <typename T>
-  tools::quaternion<T> log(const tools::quaternion<T>& q) {
+  template <std::floating_point T>
+  tools::quaternion<T> detail::log::impl<tools::quaternion<T>>::operator()(const tools::quaternion<T>& q) const {
     assert(q != tools::quaternion<T>(0, 0, 0, 0));
     const auto inorm = q.imag().l2_norm();
     const auto uimag = inorm == 0 ? tools::vector3<T>(1, 0, 0) : q.imag() / inorm;
     const auto real = std::log(tools::abs(q));
     const auto imag = std::atan2(inorm, q.real()) * uimag;
     return tools::quaternion<T>(imag.x, imag.y, imag.z, real);
-  }
+  };
 
-  template <typename T>
-  tools::quaternion<T> pow(const tools::quaternion<T>& base, const T exponent) {
+  template <std::floating_point T>
+  tools::quaternion<T> detail::pow::impl<tools::quaternion<T>, T>::operator()(const tools::quaternion<T>& base, const T exponent) const {
     const auto norm = base.norm();
     if (norm == 0) {
       assert(exponent != 0);
@@ -306,7 +312,7 @@ namespace tools {
     }
 
     return tools::exp(exponent * tools::log(base));
-  }
+  };
 }
 
 #endif

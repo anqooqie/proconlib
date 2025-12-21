@@ -16,8 +16,6 @@
 #include <string>
 #include <string_view>
 #include <tuple>
-#include <type_traits>
-#include <type_traits>
 #include <utility>
 #include <vector>
 #include "atcoder/convolution.hpp"
@@ -33,6 +31,7 @@
 #include "tools/int128_t.hpp"
 #include "tools/integral.hpp"
 #include "tools/mod.hpp"
+#include "tools/mutable_type.hpp"
 #include "tools/non_bool_integral.hpp"
 #include "tools/pow2.hpp"
 #include "tools/quo.hpp"
@@ -79,7 +78,7 @@ namespace tools {
     }
 
     template <bool PLUS>
-    auto internal_add(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto internal_add(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       if (std::addressof(self) == std::addressof(other)) {
         if constexpr (PLUS) {
           for (auto& d : self.m_digits) d <<= 1;
@@ -108,10 +107,10 @@ namespace tools {
           self.negate();
         }
       }
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     template <int LEVEL> requires (0 <= LEVEL && LEVEL <= 2)
-    auto regularize(this auto&& self) -> decltype(self) {
+    auto regularize(this tools::mutable_type auto&& self) -> decltype(self) {
       if constexpr (LEVEL > 0) {
         if constexpr (LEVEL == 2) {
           for (std::size_t i = 0; i + 1 < self.m_digits.size(); ++i) {
@@ -159,7 +158,7 @@ namespace tools {
       if (self.m_digits.empty() && !self.m_nonnegative) {
         self.m_nonnegative = true;
       }
-      return self;
+      return std::forward<decltype(self)>(self);
     }
 
   public:
@@ -203,16 +202,16 @@ namespace tools {
       this->regularize<0>();
     }
 
-    auto abs_inplace(this auto&& self) -> decltype(self) {
+    auto abs_inplace(this tools::mutable_type auto&& self) -> decltype(self) {
       if (!self.m_nonnegative) self.negate();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint divide_by_pow10(this auto&& self, const std::ptrdiff_t exponent) {
       return tools::bigint(std::forward<decltype(self)>(self)).divide_inplace_by_pow10(exponent);
     }
-    auto divide_inplace_by_pow10(this auto&& self, const std::ptrdiff_t exponent) -> decltype(self) {
+    auto divide_inplace_by_pow10(this tools::mutable_type auto&& self, const std::ptrdiff_t exponent) -> decltype(self) {
       self.multiply_inplace_by_pow10(-exponent);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
 
   private:
@@ -543,7 +542,7 @@ namespace tools {
     tools::bigint multiply_by_pow10(this auto&& self, const std::ptrdiff_t exponent) {
       return tools::bigint(std::forward<decltype(self)>(self)).multiply_inplace_by_pow10(exponent);
     }
-    auto multiply_inplace_by_pow10(this auto&& self, const std::ptrdiff_t exponent) -> decltype(self) {
+    auto multiply_inplace_by_pow10(this tools::mutable_type auto&& self, const std::ptrdiff_t exponent) -> decltype(self) {
       if (!self.m_digits.empty()) {
         const std::ptrdiff_t exponent10000 = tools::floor(exponent, LOG10_BASE);
         std::int_fast32_t mod = 0;
@@ -571,13 +570,13 @@ namespace tools {
           self.template regularize<0>();
         }
       }
-      return self;
+      return std::forward<decltype(self)>(self);
     }
-    auto negate(this auto&& self) -> decltype(self) {
+    auto negate(this tools::mutable_type auto&& self) -> decltype(self) {
       if (!self.m_digits.empty()) {
         self.m_nonnegative = !self.m_nonnegative;
       }
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     std::size_t size() const {
       if (this->m_digits.empty()) return 0;
@@ -605,18 +604,18 @@ namespace tools {
       return tools::bigint(std::forward<decltype(self)>(self)).negate();
     }
 
-    auto operator++(this auto&& self) -> decltype(self) {
+    auto operator++(this tools::mutable_type auto&& self) -> decltype(self) {
       self += tools::bigint(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint operator++(int) {
       tools::bigint old(*this);
       ++(*this);
       return old;
     }
-    auto operator--(this auto&& self) -> decltype(self) {
+    auto operator--(this tools::mutable_type auto&& self) -> decltype(self) {
       self -= tools::bigint(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint operator--(int) {
       tools::bigint old(*this);
@@ -624,33 +623,23 @@ namespace tools {
       return old;
     }
 
-    auto operator+=(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto operator+=(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       self.template internal_add<true>(other);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint operator+(this auto&& lhs, const tools::bigint& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigint(lhs) += rhs;
-      } else {
-        lhs += rhs;
-        return std::move(lhs);
-      }
+      return tools::bigint(std::forward<decltype(lhs)>(lhs)) += rhs;
     }
 
-    auto operator-=(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto operator-=(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       self.template internal_add<false>(other);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint operator-(this auto&& lhs, const tools::bigint& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigint(lhs) -= rhs;
-      } else {
-        lhs -= rhs;
-        return std::move(lhs);
-      }
+      return tools::bigint(std::forward<decltype(lhs)>(lhs)) -= rhs;
     }
 
-    auto operator*=(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto operator*=(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       // Constraint derived from atcoder::convolution
       assert(self.m_digits.size() + other.m_digits.size() <= tools::pow2(25) + 1);
 
@@ -684,28 +673,23 @@ namespace tools {
 
       self.m_nonnegative = self.m_nonnegative == other.m_nonnegative;
       self.template regularize<0>();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigint operator*(this auto&& lhs, const tools::bigint& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigint(lhs) *= rhs;
-      } else {
-        lhs *= rhs;
-        return std::move(lhs);
-      }
+      return tools::bigint(std::forward<decltype(lhs)>(lhs)) *= rhs;
     }
 
-    auto operator/=(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto operator/=(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       self = self / other;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::bigint operator/(const tools::bigint& lhs, const tools::bigint& rhs) {
       return lhs.divmod(rhs).first;
     }
 
-    auto operator%=(this auto&& self, const tools::bigint& other) -> decltype(self) {
+    auto operator%=(this tools::mutable_type auto&& self, const tools::bigint& other) -> decltype(self) {
       self = self % other;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     friend tools::bigint operator%(const tools::bigint& lhs, const tools::bigint& rhs) {
       return lhs.divmod(rhs).second;

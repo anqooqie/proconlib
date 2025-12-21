@@ -6,15 +6,13 @@
 #include <utility>
 
 namespace tools {
-  namespace detail {
-    namespace abs {
-      template <typename T>
-      struct impl {
-        constexpr T operator()(const T x) const noexcept(noexcept(std::abs(x))) {
-          return std::abs(x);
-        }
-      };
-    }
+  namespace detail::abs {
+    template <typename T>
+    struct impl {
+      constexpr decltype(auto) operator()(const T x) const noexcept(noexcept(std::abs(x))) {
+        return std::abs(x);
+      }
+    };
   }
 
   template <typename T>

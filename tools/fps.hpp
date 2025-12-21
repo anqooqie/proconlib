@@ -1,30 +1,50 @@
 #ifndef TOOLS_FPS_HPP
 #define TOOLS_FPS_HPP
 
-#include <vector>
+#include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <initializer_list>
-#include <utility>
-#include <cassert>
-#include <numeric>
-#include <algorithm>
 #include <iterator>
+#include <numeric>
+#include <utility>
+#include <vector>
 #include "atcoder/modint.hpp"
 #include "atcoder/convolution.hpp"
-#include "tools/convolution.hpp"
-#include "tools/is_prime.hpp"
-#include "tools/pow2.hpp"
 #include "tools/ceil_log2.hpp"
+#include "tools/convolution.hpp"
+#include "tools/exp.hpp"
+#include "tools/integral.hpp"
+#include "tools/is_prime.hpp"
 #include "tools/less_by_first.hpp"
+#include "tools/log.hpp"
+#include "tools/modint.hpp"
+#include "tools/pow.hpp"
+#include "tools/pow2.hpp"
 
 // Source: https://opt-cp.com/fps-implementation/
 // License: CC0
 // Author: opt
 
 namespace tools {
-  template <typename M>
+  template <tools::modint M>
+  class fps;
+
+  template <tools::modint M>
+  struct detail::exp::impl<tools::fps<M>> {
+    tools::fps<M> operator()(auto&&) const;
+  };
+  template <tools::modint M>
+  struct detail::log::impl<tools::fps<M>> {
+    tools::fps<M> operator()(auto&&) const;
+  };
+  template <tools::modint M, tools::integral E>
+  struct detail::pow::impl<tools::fps<M>, E> {
+    tools::fps<M> operator()(auto&&, E) const;
+  };
+
+  template <tools::modint M>
   class fps {
-  private:
     using F = tools::fps<M>;
     std::vector<M> m_vector;
 
@@ -57,12 +77,6 @@ namespace tools {
     using const_reverse_iterator = typename std::vector<M>::const_reverse_iterator;
 
     fps() = default;
-    fps(const F&) = default;
-    fps(F&&) = default;
-    ~fps() = default;
-    F& operator=(const F&) = default;
-    F& operator=(F&&) = default;
-
     explicit fps(const size_type n) : m_vector(n) {}
     fps(const size_type n, const_reference value) : m_vector(n, value) {}
     template <class InputIter> fps(const InputIter first, const InputIter last) : m_vector(first, last) {}
@@ -765,6 +779,19 @@ namespace tools {
     friend F operator/(const F& f, const F& g) { return F(f) /= g; }
     friend F operator<<(const F& f, const int d) { return F(f) <<= d; }
     friend F operator>>(const F& f, const int d) { return F(f) >>= d; }
+  };
+
+  template <tools::modint M>
+  tools::fps<M> detail::exp::impl<tools::fps<M>>::operator()(auto&& f) const {
+    return std::forward<decltype(f)>(f).exp();
+  };
+  template <tools::modint M>
+  tools::fps<M> detail::log::impl<tools::fps<M>>::operator()(auto&& f) const {
+    return std::forward<decltype(f)>(f).log();
+  };
+  template <tools::modint M, tools::integral E>
+  tools::fps<M> detail::pow::impl<tools::fps<M>, E>::operator()(auto&& f, const E k) const {
+    return std::forward<decltype(f)>(f).pow(k);
   };
 }
 

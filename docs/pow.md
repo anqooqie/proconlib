@@ -5,22 +5,17 @@ documentation_of: //tools/pow.hpp
 
 ## (1)
 ```cpp
-template <typename M, typename E>
-typename M::T pow(typename M::T b, E n);
-
-template <typename T, typename E>
-T pow(T b, E n);
+template <tools::group G>
+typename G::T pow(typename G::T b, tools::integral auto n);
 ```
 
-It returns $b^n$ under a given monoid $M$.
-If $M$ is not given, `tools::monoids::multiplies<T>` will be used.
+It returns $b^n$ under a given group $G$.
 
 ### Constraints
-- `std::is_integral_v<E>` is `true`.
-- $n \geq 0$
+- None
 
 ### Time Complexity
-- $O(\log n)$ if `M::op(b, b)` takes $O(1)$ time
+- $O(\log n)$ if it takes $O(1)$ time to compute `G::op(b, b)`
 
 ### License
 - CC0
@@ -30,8 +25,48 @@ If $M$ is not given, `tools::monoids::multiplies<T>` will be used.
 
 ## (2)
 ```cpp
-template <typename T, typename E>
-T pow(T b, E n);
+template <tools::monoid M>
+requires (!tools::group<M>)
+typename M::T pow(typename M::T b, tools::integral auto n);
+```
+
+It returns $b^n$ under a given monoid $M$.
+
+### Constraints
+- $n \geq 0$
+
+### Time Complexity
+- $O(\log n)$ if it takes $O(1)$ time to compute `M::op(b, b)`
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## (3)
+```cpp
+auto pow(auto b, tools::integral auto n) -> decltype(b);
+```
+
+It returns $b^n$ under the monoid `tools::monoids::multiplies<decltype(b)>`.
+
+### Constraints
+- $n \geq 0$
+
+### Time Complexity
+- $O(\log n)$ if it takes $O(1)$ time to compute `b * b`
+
+### License
+- CC0
+
+### Author
+- anqooqie
+
+## (4)
+```cpp
+auto pow(auto b, auto n) -> decltype(std::pow(b, n))
+requires (!tools::integral<decltype(n)>);
 ```
 
 If `std::pow(b, n)` is available, it returns `std::pow(b, n)`.
@@ -40,11 +75,10 @@ If `std::pow(b, n)` is available, it returns `std::pow(b, n)`.
 For example, `tools::pow(tools::quaternion<T>, T)` gets available if you include `tools/quaternion.hpp`.
 
 ### Constraints
-- `std::is_integral_v<E>` is `false`.
-- See the standard or the explanation of the corresponding header file.
+- See the standard or the documentation page for each arguments.
 
 ### Time Complexity
-- See the standard or the explanation of the corresponding header file.
+- See the standard or the documentation page for each arguments.
 
 ### License
 - CC0

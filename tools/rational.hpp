@@ -9,7 +9,6 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
-#include <type_traits>
 #include <utility>
 #include "tools/abs.hpp"
 #include "tools/bigdecimal.hpp"
@@ -18,6 +17,7 @@
 #include "tools/getter_result.hpp"
 #include "tools/integral.hpp"
 #include "tools/is_rational.hpp"
+#include "tools/mutable_type.hpp"
 #include "tools/non_bool_integral.hpp"
 #include "tools/signed_integral.hpp"
 #include "tools/signum.hpp"
@@ -51,7 +51,7 @@ namespace tools {
         x = -x;
       }
     }
-    auto regularize(this auto&& self) -> decltype(self) {
+    auto regularize(this tools::mutable_type auto&& self) -> decltype(self) {
       if (tools::signum(self.m_denominator) < 0) {
         R::negate(self.m_numerator);
         R::negate(self.m_denominator);
@@ -63,7 +63,7 @@ namespace tools {
           self.template reduce<true>();
         }
       }
-      return self;
+      return std::forward<decltype(self)>(self);
     }
 
   public:
@@ -86,27 +86,27 @@ namespace tools {
       this->regularize();
     }
 
-    auto abs_inplace(this auto&& self) -> decltype(self) {
+    auto abs_inplace(this tools::mutable_type auto&& self) -> decltype(self) {
       if (tools::signum(self) < 0) self.negate();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     auto denominator(this auto&& self) -> tools::getter_result_t<decltype(self), Z> {
       return std::forward_like<decltype(self)>(self.m_denominator);
     }
-    auto negate(this auto&& self) -> decltype(self) {
+    auto negate(this tools::mutable_type auto&& self) -> decltype(self) {
       R::negate(self.m_numerator);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     auto numerator(this auto&& self) -> tools::getter_result_t<decltype(self), Z> {
       return std::forward_like<decltype(self)>(self.m_numerator);
     }
     template <bool SFINAE = !AutoReduce>
     requires SFINAE
-    auto reduce(this auto&& self) -> decltype(self) {
+    auto reduce(this tools::mutable_type auto&& self) -> decltype(self) {
       const auto gcd = tools::gcd(self.m_numerator, self.m_denominator);
       self.m_numerator /= gcd;
       self.m_denominator /= gcd;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
 
     friend std::conditional_t<AutoReduce, std::strong_ordering, std::weak_ordering> operator<=>(const R& lhs, const R& rhs) {
@@ -130,18 +130,18 @@ namespace tools {
       return R(std::forward<decltype(self)>(self)).negate();
     }
 
-    auto operator++(this auto&& self) -> decltype(self) {
+    auto operator++(this tools::mutable_type auto&& self) -> decltype(self) {
       self += R(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator++(int) {
       R old(*this);
       ++(*this);
       return old;
     }
-    auto operator--(this auto&& self) -> decltype(self) {
+    auto operator--(this tools::mutable_type auto&& self) -> decltype(self) {
       self -= R(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator--(int) {
       R old(*this);
@@ -149,67 +149,47 @@ namespace tools {
       return old;
     }
 
-    auto operator+=(this auto&& self, const R& other) -> decltype(self) {
+    auto operator+=(this tools::mutable_type auto&& self, const R& other) -> decltype(self) {
       self.m_numerator *= other.m_denominator;
       self.m_numerator += other.m_numerator * self.m_denominator;
       self.m_denominator *= other.m_denominator;
       self.regularize();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator+(this auto&& lhs, const R& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return R(lhs) += rhs;
-      } else {
-        lhs += rhs;
-        return std::move(lhs);
-      }
+      return R(std::forward<decltype(lhs)>(lhs)) += rhs;
     }
 
-    auto operator-=(this auto&& self, const R& other) -> decltype(self) {
+    auto operator-=(this tools::mutable_type auto&& self, const R& other) -> decltype(self) {
       self.m_numerator *= other.m_denominator;
       self.m_numerator -= other.m_numerator * self.m_denominator;
       self.m_denominator *= other.m_denominator;
       self.regularize();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator-(this auto&& lhs, const R& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return R(lhs) -= rhs;
-      } else {
-        lhs -= rhs;
-        return std::move(lhs);
-      }
+      return R(std::forward<decltype(lhs)>(lhs)) -= rhs;
     }
 
-    auto operator*=(this auto&& self, const R& other) -> decltype(self) {
+    auto operator*=(this tools::mutable_type auto&& self, const R& other) -> decltype(self) {
       self.m_numerator *= other.m_numerator;
       self.m_denominator *= other.m_denominator;
       self.regularize();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator*(this auto&& lhs, const R& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return R(lhs) *= rhs;
-      } else {
-        lhs *= rhs;
-        return std::move(lhs);
-      }
+      return R(std::forward<decltype(lhs)>(lhs)) *= rhs;
     }
 
-    auto operator/=(this auto&& self, const R& other) -> decltype(self) {
+    auto operator/=(this tools::mutable_type auto&& self, const R& other) -> decltype(self) {
       assert(tools::signum(other) != 0);
       self.m_numerator *= other.m_denominator;
       self.m_denominator *= other.m_numerator;
       self.regularize();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     R operator/(this auto&& lhs, const R& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return R(lhs) /= rhs;
-      } else {
-        lhs /= rhs;
-        return std::move(lhs);
-      }
+      return R(std::forward<decltype(lhs)>(lhs)) /= rhs;
     }
 
     explicit operator bool() const {

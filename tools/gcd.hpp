@@ -6,15 +6,13 @@
 #include <utility>
 
 namespace tools {
-  namespace detail {
-    namespace gcd {
-      template <typename M, typename N>
-      struct impl {
-        constexpr std::common_type_t<M, N> operator()(const M m, const N n) const noexcept(noexcept(std::gcd(m, n))) {
-          return std::gcd(m, n);
-        }
-      };
-    }
+  namespace detail::gcd {
+    template <typename M, typename N>
+    struct impl {
+      constexpr decltype(auto) operator()(const M m, const N n) const noexcept(noexcept(std::gcd(m, n))) {
+        return std::gcd(m, n);
+      }
+    };
   }
 
   template <typename M, typename N>

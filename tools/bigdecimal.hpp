@@ -11,12 +11,12 @@
 #include <limits>
 #include <memory>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include "tools/abs.hpp"
 #include "tools/bigint.hpp"
 #include "tools/getter_result.hpp"
 #include "tools/integral.hpp"
+#include "tools/mutable_type.hpp"
 #include "tools/non_bool_integral.hpp"
 #include "tools/rounding_mode.hpp"
 #include "tools/signum.hpp"
@@ -55,40 +55,30 @@ namespace tools {
       this->m_unscaled_value = tools::bigint(s);
     }
 
-    auto abs_inplace(this auto&& self) -> decltype(self) {
+    auto abs_inplace(this tools::mutable_type auto&& self) -> decltype(self) {
       if (tools::signum(self) < 0) self.negate();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal divide(this auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale) {
-      if constexpr (std::is_lvalue_reference_v<decltype(self)> || std::is_const_v<std::remove_reference_t<decltype(self)>>) {
-        return tools::bigdecimal(self).divide_inplace(other, scale);
-      } else {
-        self.divide_inplace(other, scale);
-        return std::move(self);
-      }
+      return tools::bigdecimal(std::forward<decltype(self)>(self)).divide_inplace(other, scale);
     }
     tools::bigdecimal divide(this auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale, const tools::rounding_mode rounding_mode) {
-      if constexpr (std::is_lvalue_reference_v<decltype(self)> || std::is_const_v<std::remove_reference_t<decltype(self)>>) {
-        return tools::bigdecimal(self).divide_inplace(other, scale, rounding_mode);
-      } else {
-        self.divide_inplace(other, scale, rounding_mode);
-        return std::move(self);
-      }
+      return tools::bigdecimal(std::forward<decltype(self)>(self)).divide_inplace(other, scale, rounding_mode);
     }
     tools::bigdecimal divide_by_pow10(this auto&& self, const std::ptrdiff_t n) {
       return tools::bigdecimal(std::forward<decltype(self)>(self)).divide_inplace_by_pow10(n);
     }
-    auto divide_inplace(this auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale) -> decltype(self) {
+    auto divide_inplace(this tools::mutable_type auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale) -> decltype(self) {
       self.divide_inplace(other, scale, tools::rounding_mode::half_even);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
-    auto divide_inplace(this auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale, const tools::rounding_mode rounding_mode) -> decltype(self) {
+    auto divide_inplace(this tools::mutable_type auto&& self, const tools::bigdecimal& other, const std::ptrdiff_t scale, const tools::rounding_mode rounding_mode) -> decltype(self) {
       assert(tools::signum(other) != 0);
 
       if (std::addressof(self) == std::addressof(other)) {
         self.m_unscaled_value = tools::bigint(1).multiply_inplace_by_pow10(scale);
         self.m_scale = scale;
-        return self;
+        return std::forward<decltype(self)>(self);
       }
 
       tools::bigdecimal old_this(self);
@@ -127,22 +117,22 @@ namespace tools {
         self.m_unscaled_value += tools::bigint(tools::signum(old_this) * tools::signum(other));
       }
 
-      return self;
+      return std::forward<decltype(self)>(self);
     }
-    auto divide_inplace_by_pow10(this auto&& self, const std::ptrdiff_t n) -> decltype(self) {
+    auto divide_inplace_by_pow10(this tools::mutable_type auto&& self, const std::ptrdiff_t n) -> decltype(self) {
       self.multiply_inplace_by_pow10(-n);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal multiply_by_pow10(this auto&& self, const std::ptrdiff_t n) {
       return tools::bigdecimal(std::forward<decltype(self)>(self)).multiply_inplace_by_pow10(n);
     }
-    auto multiply_inplace_by_pow10(this auto&& self, const std::ptrdiff_t n) -> decltype(self) {
+    auto multiply_inplace_by_pow10(this tools::mutable_type auto&& self, const std::ptrdiff_t n) -> decltype(self) {
       self.m_scale -= n;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
-    auto negate(this auto&& self) -> decltype(self) {
+    auto negate(this tools::mutable_type auto&& self) -> decltype(self) {
       self.m_unscaled_value.negate();
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     std::size_t precision() const {
       return this->m_unscaled_value.size();
@@ -150,10 +140,10 @@ namespace tools {
     std::ptrdiff_t scale() const {
       return this->m_scale;
     }
-    auto set_scale(this auto&& self, const std::ptrdiff_t s) -> decltype(self) {
+    auto set_scale(this tools::mutable_type auto&& self, const std::ptrdiff_t s) -> decltype(self) {
       self.m_unscaled_value.multiply_inplace_by_pow10(s - self.m_scale);
       self.m_scale = s;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     auto unscaled_value(this auto&& self) -> tools::getter_result_t<decltype(self), tools::bigint> {
       return std::forward_like<decltype(self)>(self.m_unscaled_value);
@@ -180,18 +170,18 @@ namespace tools {
       return tools::bigdecimal(std::forward<decltype(self)>(self)).negate();
     }
 
-    auto operator++(this auto&& self) -> decltype(self) {
+    auto operator++(this tools::mutable_type auto&& self) -> decltype(self) {
       self += tools::bigdecimal(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator++(int) {
       tools::bigdecimal old(*this);
       ++(*this);
       return old;
     }
-    auto operator--(this auto&& self) -> decltype(self) {
+    auto operator--(this tools::mutable_type auto&& self) -> decltype(self) {
       self -= tools::bigdecimal(1);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator--(int) {
       tools::bigdecimal old(*this);
@@ -199,63 +189,43 @@ namespace tools {
       return old;
     }
 
-    auto operator+=(this auto&& self, tools::bigdecimal other) -> decltype(self) {
+    auto operator+=(this tools::mutable_type auto&& self, tools::bigdecimal other) -> decltype(self) {
       const std::size_t scale = std::max(self.m_scale, other.m_scale);
       self.set_scale(scale);
       other.set_scale(scale);
       self.m_unscaled_value += other.m_unscaled_value;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator+(this auto&& lhs, const tools::bigdecimal& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigdecimal(lhs) += rhs;
-      } else {
-        lhs += rhs;
-        return std::move(lhs);
-      }
+      return tools::bigdecimal(std::forward<decltype(lhs)>(lhs)) += rhs;
     }
 
-    auto operator-=(this auto&& self, tools::bigdecimal other) -> decltype(self) {
+    auto operator-=(this tools::mutable_type auto&& self, tools::bigdecimal other) -> decltype(self) {
       const std::size_t scale = std::max(self.m_scale, other.m_scale);
       self.set_scale(scale);
       other.set_scale(scale);
       self.m_unscaled_value -= other.m_unscaled_value;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator-(this auto&& lhs, const tools::bigdecimal& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigdecimal(lhs) -= rhs;
-      } else {
-        lhs -= rhs;
-        return std::move(lhs);
-      }
+      return tools::bigdecimal(std::forward<decltype(lhs)>(lhs)) -= rhs;
     }
 
-    auto operator*=(this auto&& self, const tools::bigdecimal& other) -> decltype(self) {
+    auto operator*=(this tools::mutable_type auto&& self, const tools::bigdecimal& other) -> decltype(self) {
       self.m_unscaled_value *= other.m_unscaled_value;
       self.m_scale += other.m_scale;
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator*(this auto&& lhs, const tools::bigdecimal& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigdecimal(lhs) *= rhs;
-      } else {
-        lhs *= rhs;
-        return std::move(lhs);
-      }
+      return tools::bigdecimal(std::forward<decltype(lhs)>(lhs)) *= rhs;
     }
 
-    auto operator/=(this auto&& self, const tools::bigdecimal& other) -> decltype(self) {
+    auto operator/=(this tools::mutable_type auto&& self, const tools::bigdecimal& other) -> decltype(self) {
       self.divide_inplace(other, self.m_scale - other.m_scale);
-      return self;
+      return std::forward<decltype(self)>(self);
     }
     tools::bigdecimal operator/(this auto&& lhs, const tools::bigdecimal& rhs) {
-      if constexpr (std::is_lvalue_reference_v<decltype(lhs)> || std::is_const_v<std::remove_reference_t<decltype(lhs)>>) {
-        return tools::bigdecimal(lhs) /= rhs;
-      } else {
-        lhs /= rhs;
-        return std::move(lhs);
-      }
+      return tools::bigdecimal(std::forward<decltype(lhs)>(lhs)) /= rhs;
     }
 
     explicit operator bool() const {

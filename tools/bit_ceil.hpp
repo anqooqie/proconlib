@@ -11,19 +11,17 @@
 #include "tools/non_bool_integral.hpp"
 
 namespace tools {
-  namespace detail {
-    namespace bit_ceil {
-      template <tools::non_bool_integral T>
-      struct impl {
-        constexpr T operator()(const T x) const noexcept(noexcept(impl<tools::make_unsigned_t<T>>{}(x))) requires tools::is_signed_v<T> {
-          assert(x >= 0);
-          return impl<tools::make_unsigned_t<T>>{}(x);
-        }
-        constexpr T operator()(const T x) const noexcept(noexcept(std::bit_ceil(x))) requires tools::is_unsigned_v<T> {
-          return std::bit_ceil(x);
-        }
-      };
-    }
+  namespace detail::bit_ceil {
+    template <tools::non_bool_integral T>
+    struct impl {
+      constexpr T operator()(const T x) const noexcept(noexcept(impl<tools::make_unsigned_t<T>>{}(x))) requires tools::is_signed_v<T> {
+        assert(x >= 0);
+        return impl<tools::make_unsigned_t<T>>{}(x);
+      }
+      constexpr T operator()(const T x) const noexcept(noexcept(std::bit_ceil(x))) requires tools::is_unsigned_v<T> {
+        return std::bit_ceil(x);
+      }
+    };
   }
 
   template <typename T>
