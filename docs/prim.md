@@ -13,21 +13,21 @@ It constructs minimum spanning trees for each connected components of a given un
 
 ## Constructor
 ```cpp
-prim<T> graph(std::size_t n);
+prim<T> graph(int n);
 ```
 
 It creates an undirected graph with $n$ vertices and $0$ edges.
 The type parameter `<T>` represents the type of the cost.
 
 ### Constraints
-- None
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -40,7 +40,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+int graph.add_edge(int u, int v, T w);
 ```
 
 It adds an undirected edge between $u$ and $v$ with cost `w`.
@@ -56,12 +56,11 @@ It returns an integer $k$ such that this is the $k$-th ($0$ indexed) edge that i
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
   T cost;
 };
-const edge& graph.get_edge(std::size_t k);
+const edge& graph.get_edge(int k);
 ```
 
 It returns the $k$-th ($0$ indexed) edge.
@@ -88,52 +87,95 @@ The edges are ordered in the same order as added by `add_edge`.
 
 ## query
 ```cpp
-std::pair<std::vector<std::pair<T, std::vector<std::size_t>>>, std::vector<std::size_t>> graph.query();
+struct minimum_spanning_tree {
+  T cost();
+  std::vector<int> edge_ids();
+};
+struct minimum_spanning_forest {
+  minimum_spanning_tree get_mst(int k);
+  std::vector<minimum_spanning_tree> msts();
+  int mst_id(int v);
+};
+
+(1) std::vector<T> graph.query();
+(2) std::vector<T> graph.query<false>();
+(3) minimum_spanning_forest graph.query<true>();
 ```
 
-It constructs minimum spanning trees for each connected components of the graph, and returns the information about the minimum spanning trees in the following layout.
-The order of minimum spanning trees is undefined.
-
-```
-(
-  [
-    (
-      total cost of the 0th MST,
-      [
-        index of an edge in the 0th MST,
-        index of another edge in the 0th MST,
-        ...
-      ]
-    ),
-    (
-      total cost of the 1st MST,
-      [
-        index of an edge in the 1st MST,
-        index of another edge in the 1st MST,
-        ...
-      ]
-    ),
-    (
-      total cost of the 2nd MST,
-      [
-        index of an edge in the 2nd MST,
-        index of another edge in the 2nd MST,
-        ...
-      ]
-    ),
-    ...
-  ],
-  [
-    index of the MST which contains the 0th vertex,
-    index of the MST which contains the 1st vertex,
-    index of the MST which contains the 2nd vertex,
-    ...
-  ]
-)
-```
+- (1), (2)
+    - It is identical to `graph.query<true>().msts() | std::views::transform([](const auto& mst) { return mst.cost(); }) | std::ranges::to<std::vector>()`.
+- (3)
+    - It returns the information about the minimum spanning trees for each connected components of the graph.
+    - The order of the connected components is undefined.
 
 ### Constraints
 - None
 
 ### Time Complexity
 - $O((n + \|E\|) \log n)$ where $\|E\|$ is the number of edges
+
+## minimum_spanning_forest::get_mst
+```cpp
+minimum_spanning_tree msf.get_mst(int k);
+```
+
+It returns the minimum spanning tree for the $k$-th connected component of the graph.
+
+### Constraints
+- $0 \leq k < $ `msf.msts().size()`
+
+### Time Complexity
+- $O(1)$
+
+## minimum_spanning_forest::msts
+```cpp
+std::vector<minimum_spanning_tree> msf.msts();
+```
+
+It returns the minimum spanning trees for each connected components of the graph.
+It is guaranteed that `msf.msts()[k]` is the same as `msf.get_mst(k)`.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## minimum_spanning_forest::mst_id
+```cpp
+int msf.mst_id(int v);
+```
+
+It returns $k$ such that the $k$-th connected component contains vertex $v$.
+
+### Constraints
+- $0 \leq v < n$
+
+### Time Complexity
+- $O(1)$
+
+## minimum_spanning_tree::cost
+```cpp
+T mst.cost();
+```
+
+It returns the total cost of the minimum spanning tree.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## minimum_spanning_tree::cost
+```cpp
+std::vector<int> mst.edge_ids();
+```
+
+It returns the indices of each edge in the minimum spanning tree.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

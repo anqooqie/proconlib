@@ -15,7 +15,7 @@ It is the data structure that combines the rooted tree (called the shortest path
 
 ## Constructor
 ```cpp
-shortest_path_tree<Cost, F> graph(std::ranges::range d, std::rangs::range p, F f);
+shortest_path_tree<Cost, F> graph(std::ranges::input_range auto&& d, std::rangs::input_range auto&& p, F f);
 ```
 
 Given $(d_0, d_1, \ldots, d_{n - 1})$, the shortest distance from a single source to vertex $v$ $(0 \leq v < n)$, and $(p_0, p_1, \ldots, p_{n - 1})$, the edge number from the parent of vertex $v$ to vertex $v$ in the shortest path tree $(0 \leq v < n)$, it creates a data structure representing the answer to the single source shortest path problem.

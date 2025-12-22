@@ -19,9 +19,9 @@ int main() {
     graph.add_edge(a, b, c);
   }
 
-  const auto [X, e] = graph.query().first[0];
-  std::cout << X << '\n';
-  std::cout << tools::join(e, " ") << '\n';
+  const auto answer = graph.query<true>().get_mst(0);
+  std::cout << answer.cost() << '\n';
+  std::cout << tools::join(answer.edge_ids(), ' ') << '\n';
 
   return 0;
 }
