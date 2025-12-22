@@ -78,9 +78,9 @@ namespace tools {
         m_denominator(static_cast<Z>(tools::bigint(1).multiply_inplace_by_pow10(std::max<std::ptrdiff_t>(0, d.scale())))) {
       this->regularize();
     }
-    template <typename T>
-    requires requires(T n) { Z(n); }
-    rational(const T& numerator, const T& denominator)
+    template <typename T, typename U>
+    requires requires(T n) { Z(n); } && requires(U d) { Z(d); }
+    rational(const T& numerator, const U& denominator)
       : m_numerator(numerator), m_denominator(denominator) {
       assert(tools::signum(denominator) != 0);
       this->regularize();

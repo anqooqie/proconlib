@@ -41,7 +41,7 @@ namespace tools {
     }
 
     std::vector<std::pair<T, T>> answers;
-    for (const auto& [p, q] : tools::run_length(tools::prime_factorization(m))) {
+    for (const auto& [p, q] : tools::run_length<T>(tools::prime_factorization(m))) {
       const T P = tools::pow(p, q);
       if (std::gcd(a, p) == 1) {
         answers.emplace_back(tools::pow_mod(a, tools::tetration_mod(a, b - 1, tools::totient(P)), P), P);

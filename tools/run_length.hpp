@@ -4,11 +4,12 @@
 #include <ranges>
 #include <utility>
 #include <vector>
+#include "tools/integral.hpp"
 
 namespace tools {
-  template <std::ranges::input_range R>
+  template <tools::integral T, std::ranges::input_range R>
   auto run_length(R&& r) {
-    std::vector<std::pair<std::ranges::range_value_t<R>, int>> res;
+    std::vector<std::pair<std::ranges::range_value_t<R>, T>> res;
 
     for (const auto& x : r) {
       if (res.empty() || res.back().first != x) {
@@ -19,6 +20,11 @@ namespace tools {
     }
 
     return res;
+  }
+
+  template <std::ranges::input_range R>
+  auto run_length(R&& r) {
+    return tools::run_length<int>(std::forward<R>(r));
   }
 }
 

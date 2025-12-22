@@ -17,9 +17,9 @@ When automatic reduction is enabled, $\gcd(x_n, x_d) = 1$ is also simultaneously
 ## Constructor
 ```cpp
 (1) rational<Z, AutoReduce> x;
-(2) rational<Z, AutoReduce> x(T n);
+(2) rational<Z, AutoReduce> x(Z n);
 (3) rational<Z, AutoReduce> x(const tools::bigdecimal& y);
-(4) rational<Z, AutoReduce> x(T n, T d);
+(4) rational<Z, AutoReduce> x(Z n, Z d);
 ```
 
 - (1)
