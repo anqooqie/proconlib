@@ -15,10 +15,7 @@ namespace tools {
   T totient(const T& x) {
     assert(1 <= x && x <= 1000000000000000000);
     T prod = 1;
-    const std::vector<T> prime_factors = tools::prime_factorization(x);
-    std::vector<std::pair<T, T>> distinct_prime_factors;
-    tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
-    for (const auto& [p, q] : distinct_prime_factors) {
+    for (const auto& [p, q] : tools::run_length(tools::prime_factorization(x))) {
       prod *= tools::pow(p, q - 1) * (p - 1);
     }
     return prod;

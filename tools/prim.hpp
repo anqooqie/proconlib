@@ -94,7 +94,7 @@ namespace tools {
     }
 
     auto get_edge(this auto&& self, const int k) -> tools::getter_result_t<decltype(self), edge> {
-      assert(0 <= k && k < self.m_edges.size());
+      assert(0 <= k && k < std::ssize(self.m_edges));
       return std::forward_like<decltype(self)>(self.m_edges[k]);
     }
 

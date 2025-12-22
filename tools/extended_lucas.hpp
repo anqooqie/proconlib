@@ -95,10 +95,7 @@ namespace tools {
 
   public:
     extended_lucas() {
-      const auto prime_factors = tools::prime_factorization(M::mod());
-      std::vector<std::pair<int, int>> distinct_prime_factors;
-      tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
-      for (const auto& [p, q] : distinct_prime_factors) {
+      for (const auto& [p, q] : tools::run_length(tools::prime_factorization(M::mod()))) {
         this->m_cpps.emplace_back(p, q);
       }
     }

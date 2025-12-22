@@ -13,15 +13,12 @@ namespace tools {
 
   template <typename T>
   std::vector<T> divisors(const T& n) {
-    const std::vector<T> prime_factors = tools::prime_factorization(n);
-    std::vector<std::pair<T, T>> distinct_prime_factors;
-    tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
-
     std::vector<T> result({1});
-    for (const auto& [p, q] : distinct_prime_factors) {
+    for (const auto& [p, q] : tools::run_length(tools::prime_factorization(n))) {
       const std::size_t prev_size = result.size();
       for (std::size_t i = 0; i < prev_size; ++i) {
-        for (T e = 1, p_e = p; e <= q; ++e, p_e *= p) {
+        T p_e = p;
+        for (int e = 1; e <= q; ++e, p_e *= p) {
           result.push_back(result[i] * p_e);
         }
       }

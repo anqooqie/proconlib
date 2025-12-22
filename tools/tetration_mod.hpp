@@ -41,10 +41,7 @@ namespace tools {
     }
 
     std::vector<std::pair<T, T>> answers;
-    const std::vector<T> prime_factors = tools::prime_factorization(m);
-    std::vector<std::pair<T, T>> distinct_prime_factors;
-    tools::run_length(prime_factors.begin(), prime_factors.end(), std::back_inserter(distinct_prime_factors));
-    for (const auto& [p, q] : distinct_prime_factors) {
+    for (const auto& [p, q] : tools::run_length(tools::prime_factorization(m))) {
       const T P = tools::pow(p, q);
       if (std::gcd(a, p) == 1) {
         answers.emplace_back(tools::pow_mod(a, tools::tetration_mod(a, b - 1, tools::totient(P)), P), P);

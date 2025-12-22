@@ -4,17 +4,17 @@ documentation_of: //tools/run_length.hpp
 ---
 
 ```cpp
-template <typename InputIterator, typename OutputIterator>
-void run_length(InputIterator begin, InputIterator end, OutputIterator result);
+template <std::ranges::input_range R>
+std::vector<std::pair<std::ranges::range_value_t<R>, int>> run_length(R&& r);
 ```
 
-It replaces consecutive elements to a pair of the element and the number of occurrences, and stores the pairs with such a format to `result`. 
+It replaces consecutive elements to a pair of the element and the number of occurrences, and returns the pairs with such a format. 
 
 ### Constraints
 - None
 
 ### Time Complexity
-- $O(N)$ where $N$ is `end` - `begin`.
+- $O(\|r\|)$
 
 ### License
 - CC0
