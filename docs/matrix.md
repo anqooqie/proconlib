@@ -30,6 +30,7 @@ It is a $n \times m$-dimensional matrix.
     - It creates a $n \times m$-dimensional matrix where $n$ is `il.size()`, $m$ is `il.empty() ? 0 : il.begin()->size()` and $A_{r, c}$ is `il.begin()[r].begin()[c]`.
 
 The type parameter `<T>` represents the type of the elements.
+Alternatively, you can explicitly specify the algebraic structure (at least a semiring) of the coefficient ring as `<T>`.
 
 ### Constraints
 - (2)
@@ -92,7 +93,7 @@ int A.gauss_jordan();
 It transforms $A$ to the reduced row echelon form, and returns the rank of $A$.
 
 ### Constraints
-- None
+- The coefficient ring is a field.
 
 ### Time Complexity
 - $O(n m^2)$
@@ -105,7 +106,7 @@ int A.rank();
 It returns the rank of $A$.
 
 ### Constraints
-- None
+- The coefficient ring is a field.
 
 ### Time Complexity
 - $O(nm \min(n, m))$
@@ -133,6 +134,7 @@ If the answers exist, it returns $B$.
 Otherwise, it returns a $m \times 0$-dimensional matrix.
 
 ### Constraints
+- The coefficient ring is a field.
 - (1)
     - `A` is `matrix<T, n, m>`.
     - $m \geq 1$
@@ -152,6 +154,7 @@ T A.determinant();
 It returns $\|A\|$.
 
 ### Constraints
+- The coefficient ring is a field.
 - $n = m$
 
 ### Time Complexity
@@ -180,7 +183,7 @@ It returns the copy of $A$.
 It returns $-A$.
 
 ### Constraints
-- None
+- The coefficient ring is a ring.
 
 ### Time Complexity
 - $O(nm)$
@@ -220,6 +223,7 @@ It returns $-A$.
     - It updates $A$ to $A - B$, and returns the new $A$.
 
 ### Constraints
+- The coefficient ring is a ring.
 - (3), (4)
     - The number of rows of $A$ is equal to the number of rows of $B$.
     - The number of columns of $A$ is equal to the number of columns of $B$.
@@ -301,6 +305,7 @@ It returns $Av$.
     - It updates $A$ to $AB^{-1}$, and returns the new $A$.
 
 ### Constraints
+- The coefficient ring is a field.
 - (1), (2)
     - $B^{-1}$ exists.
 - (3), (4)
@@ -324,6 +329,7 @@ It returns $Av$.
     - It updates $A$ to $c^{-1} A$, and returns the new $A$.
 
 ### Constraints
+- The coefficient ring is a field.
 - $c \neq 0$
 
 ### Time Complexity
@@ -422,6 +428,7 @@ If $A^{-1}$ exists, it returns $A^{-1}$.
 Otherwise, it returns `std::nullopt`.
 
 ### Constraints
+- The coefficient ring is a field.
 - (1)
     - $A$ is `matrix<T, n, n>`.
 - (2)

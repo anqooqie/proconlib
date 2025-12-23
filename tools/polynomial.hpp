@@ -11,62 +11,31 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include "atcoder/modint.hpp"
 #include "tools/ceil_log2.hpp"
-#include "tools/complex.hpp"
+#include "tools/convolution.hpp"
 #include "tools/fact_mod_cache.hpp"
 #include "tools/groups.hpp"
 #include "tools/fps.hpp"
-#include "tools/integral.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/modint_compatible.hpp"
 #include "tools/monoids.hpp"
+#include "tools/multiplicative_structure.hpp"
 #include "tools/pow2.hpp"
 #include "tools/pow_mod_cache.hpp"
+#include "tools/prime_static_modint.hpp"
 #include "tools/ring.hpp"
 #include "tools/rings.hpp"
 
 namespace tools {
-  namespace detail {
-    namespace polynomial {
-      template <typename T>
-      concept can_divide = requires(T a, T b) {
-        { a / b } -> std::same_as<T>;
-      };
-
-      template <typename T>
-      concept prime_modint = atcoder::internal::is_static_modint<T>::value && tools::is_prime(T::mod());
-    }
-  }
-
   template <typename X>
   class polynomial {
-    using R = std::conditional_t<
-      tools::ring<X>,
-        X,
-        tools::rings::of<
-          tools::groups::plus<X>,
-          std::conditional_t<
-            tools::complex<X> || std::floating_point<X> || tools::detail::polynomial::prime_modint<X> || atcoder::internal::is_dynamic_modint<X>::value,
-              tools::groups::multiplies<X>,
-              std::conditional_t<
-                tools::integral<X> || atcoder::internal::is_static_modint<X>::value,
-                  tools::monoids::multiplies<X>,
-                  std::conditional_t<
-                    tools::detail::polynomial::can_divide<X>,
-                      tools::groups::multiplies<X>,
-                      tools::monoids::multiplies<X>
-                  >
-              >
-          >
-        >
-    >;
+    using R = std::conditional_t<tools::ring<X>, X, tools::rings::of<tools::groups::plus<X>, tools::multiplicative_structure<X>>>;
     using Add = typename R::add;
     using Mul = typename R::mul;
     using T = typename Add::T;
     using P = tools::polynomial<X>;
 
-    static constexpr bool IS_MOD_P = tools::detail::polynomial::prime_modint<T>
+    static constexpr bool IS_MOD_P = tools::prime_static_modint<T>
       && std::same_as<Add, tools::groups::plus<T>>
       && (std::same_as<Mul, tools::monoids::multiplies<T>> || std::same_as<Mul, tools::groups::multiplies<T>>);
     static constexpr bool IS_MOD_M = tools::modint_compatible<T>
@@ -157,7 +126,6 @@ namespace tools {
     friend void swap(P& x, P& y) noexcept { x.m_vector.swap(y.m_vector); }
 
     class coefficient_iterator {
-    private:
       const std::vector<T> *m_vector;
       std::size_t m_offset;
 
