@@ -22,38 +22,20 @@ namespace tools {
     template <>
     struct impl<std::strong_ordering> {
       constexpr int operator()(const std::strong_ordering x) const noexcept {
-        if (x < 0) {
-          return -1;
-        } else if (x == 0) {
-          return 0;
-        } else {
-          return 1;
-        }
+        return (0 < x) - (x < 0);
       }
     };
     template <>
     struct impl<std::weak_ordering> {
       constexpr int operator()(const std::weak_ordering x) const noexcept {
-        if (x < 0) {
-          return -1;
-        } else if (x == 0) {
-          return 0;
-        } else {
-          return 1;
-        }
+        return (0 < x) - (x < 0);
       }
     };
     template <>
     struct impl<std::partial_ordering> {
       constexpr int operator()(const std::partial_ordering x) const noexcept {
         assert(x != std::partial_ordering::unordered);
-        if (x < 0) {
-          return -1;
-        } else if (x == 0) {
-          return 0;
-        } else {
-          return 1;
-        }
+        return (0 < x) - (x < 0);
       }
     };
   }
