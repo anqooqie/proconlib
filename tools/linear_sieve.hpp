@@ -7,6 +7,7 @@
 #include <iterator>
 #include <ranges>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 namespace tools {
@@ -23,13 +24,11 @@ namespace tools {
 
   public:
     class prime_factor_view : public std::ranges::view_interface<prime_factor_view> {
-    private:
       tools::linear_sieve<T> const *m_parent;
       int m_n;
 
     public:
       class iterator {
-      private:
         tools::linear_sieve<T> const *m_parent;
         int m_n;
 
@@ -78,13 +77,11 @@ namespace tools {
     };
 
     class distinct_prime_factor_view : public std::ranges::view_interface<distinct_prime_factor_view> {
-    private:
       tools::linear_sieve<T> const *m_parent;
       int m_n;
 
     public:
       class iterator {
-      private:
         tools::linear_sieve<T> const *m_parent;
         int m_n;
 
@@ -133,14 +130,12 @@ namespace tools {
     };
 
     class prime_view : public std::ranges::view_interface<prime_view> {
-    private:
       tools::linear_sieve<T> const *m_parent;
       int m_l;
       int m_r;
 
     public:
       class iterator {
-      private:
         tools::linear_sieve<T> const *m_parent;
         int m_i;
 
@@ -252,6 +247,27 @@ namespace tools {
       auto D = this->divisors(n);
       std::ranges::sort(D);
       return D;
+    }
+
+    std::vector<T> divisor_counts() const {
+      std::vector<T> divisor_counts(this->N() + 1);
+
+      std::vector<std::pair<int, int>> dp(this->N() + 1);
+      dp[0] = std::make_pair(0, 0);
+      dp[1] = std::make_pair(1, 1);
+      for (int i = 2; i <= this->N(); ++i) {
+        const auto& prev = dp[i / this->m_lpf[i]];
+        if (this->m_lpf[i / this->m_lpf[i]] == this->m_lpf[i]) {
+          dp[i] = std::make_pair(prev.first + 1, prev.second);
+        } else {
+          dp[i] = std::make_pair(2, prev.first * prev.second);
+        }
+      }
+
+      for (int i = 0; i <= this->N(); ++i) {
+        divisor_counts[i] = dp[i].first * dp[i].second;
+      }
+      return divisor_counts;
     }
   };
 }

@@ -140,3 +140,17 @@ It returns the positive divisors of $n$ in ascending order.
 
 ### Time Complexity
 - $O\left(n^\frac{1}{\log\log n} \frac{\log n}{\log\log n}\right)$
+
+## divisor_counts
+```cpp
+std::vector<T> sieve.divisor_counts();
+```
+
+It returns $\sigma_0(i)$ for each $i = 0, 1, \ldots, n$.
+For convenience, we define $\sigma_0(0)$ as $0$. 
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$
