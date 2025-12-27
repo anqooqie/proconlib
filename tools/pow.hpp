@@ -9,7 +9,7 @@
 #include "tools/integral.hpp"
 #include "tools/group.hpp"
 #include "tools/monoid.hpp"
-#include "tools/monoids.hpp"
+#include "tools/multiplicative_structure.hpp"
 #include "tools/square.hpp"
 
 namespace tools {
@@ -39,9 +39,9 @@ namespace tools {
       }
 
       constexpr X operator()(const X& b, const E n) const
-      noexcept(noexcept(impl<tools::monoids::multiplies<X>, E>{}(b, n)))
+      noexcept(noexcept(impl<tools::multiplicative_structure<X>, E>{}(b, n)))
       requires (!tools::monoid<X> && tools::integral<E>) {
-        return impl<tools::monoids::multiplies<X>, E>{}(b, n);
+        return impl<tools::multiplicative_structure<X>, E>{}(b, n);
       }
 
       constexpr decltype(auto) operator()(const X& b, const E n) const

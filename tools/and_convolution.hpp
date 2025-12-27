@@ -2,6 +2,7 @@
 #define TOOLS_AND_CONVOLUTION_HPP
 
 #include <cassert>
+#include <iterator>
 #include <ranges>
 #include <type_traits>
 #include <utility>
@@ -17,7 +18,7 @@ namespace tools {
     auto a = std::forward<R1>(a_orig) | std::ranges::to<std::vector<T>>();
     auto b = std::forward<R2>(b_orig) | std::ranges::to<std::vector<T>>();
     const int N = a.size();
-    assert(b.size() == N);
+    assert(std::ssize(b) == N);
     assert(tools::has_single_bit(N));
 
     tools::superset_zeta_inplace(a);

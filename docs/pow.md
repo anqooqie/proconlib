@@ -15,7 +15,7 @@ It returns $b^n$ under a given group $G$.
 - None
 
 ### Time Complexity
-- $O(\log n)$ if it takes $O(1)$ time to compute `G::op(b, b)`
+- $O(\log \|n\|)$ if it takes $O(1)$ time to compute `G::op(b, b)`
 
 ### License
 - CC0
@@ -49,13 +49,13 @@ It returns $b^n$ under a given monoid $M$.
 auto pow(auto b, tools::integral auto n) -> decltype(b);
 ```
 
-It returns $b^n$ under the monoid `tools::monoids::multiplies<decltype(b)>`.
+It returns `tools::pow<tools::multiplicative_structure<decltype(b)>>(b, n)`.
 
 ### Constraints
-- $n \geq 0$
+- If `tools::multiplicative_structure<decltype(b)>` is `tools::monoids::multiplies<decltype(b)>`, then $n \geq 0$.
 
 ### Time Complexity
-- $O(\log n)$ if it takes $O(1)$ time to compute `b * b`
+- $O(\log \|n\|)$ if it takes $O(1)$ time to compute `b * b`
 
 ### License
 - CC0
