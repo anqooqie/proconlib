@@ -1,0 +1,39 @@
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution
+
+#include <algorithm>
+#include <iostream>
+#include <ranges>
+#include <vector>
+#include "atcoder/modint.hpp"
+#include "tools/join.hpp"
+#include "tools/or_convolution.hpp"
+#include "tools/pow2.hpp"
+
+using mint = atcoder::modint998244353;
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
+  int N;
+  std::cin >> N;
+  std::vector<mint> a(tools::pow2(N)), b(tools::pow2(N));
+  for (auto& a_i : a) {
+    int a_i_int;
+    std::cin >> a_i_int;
+    a_i = mint::raw(a_i_int);
+  }
+  for (auto& b_i : b) {
+    int b_i_int;
+    std::cin >> b_i_int;
+    b_i = mint::raw(b_i_int);
+  }
+
+  std::ranges::reverse(a);
+  std::ranges::reverse(b);
+  auto c = tools::or_convolution(a, b);
+  std::ranges::reverse(c);
+
+  std::cout << tools::join(c | std::views::transform(&mint::val), ' ') << '\n';
+  return 0;
+}

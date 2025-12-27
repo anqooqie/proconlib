@@ -4,7 +4,7 @@ documentation_of: //tools/pow2.hpp
 ---
 
 ```cpp
-template <typename T>
+template <tools::integral T>
 constexpr T pow2(T x);
 ```
 

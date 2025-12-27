@@ -3,10 +3,10 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include <iterator>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/multiple_zeta.hpp"
+#include "tools/multiple_zeta_inplace.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -30,11 +30,9 @@ int main() {
       }
     }
 
-    std::vector<mint> actual_b;
-    tools::multiple_zeta(a.begin(), a.end(), std::back_inserter(actual_b));
-    assert_that(actual_b == b);
+    assert_that(tools::multiple_zeta(a) == b);
 
-    tools::multiple_zeta(a.begin(), a.end());
+    tools::multiple_zeta_inplace(a);
     assert_that(a == b);
   }
 

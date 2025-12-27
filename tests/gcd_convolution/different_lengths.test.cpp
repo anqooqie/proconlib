@@ -1,9 +1,9 @@
 // competitive-verifier: STANDALONE
 
 #include <iostream>
+#include <numeric>
 #include <random>
 #include <vector>
-#include <numeric>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/gcd_convolution.hpp"
@@ -34,10 +34,7 @@ int main() {
           }
         }
 
-        std::vector<mint> actual_c(K);
-        tools::gcd_convolution(a.begin(), a.end(), b.begin(), b.end(), actual_c.begin(), actual_c.end());
-
-        assert_that(actual_c == c);
+        assert_that(tools::gcd_convolution(a, b, K) == c);
       }
     }
   }

@@ -4,29 +4,20 @@ documentation_of: //tools/greater_equal_zeta.hpp
 ---
 
 ```cpp
-(1)
-template <typename InputIterator, typename OutputIterator>
-void greater_equal_zeta(InputIterator begin, InputIterator end, OutputIterator result);
-
-(2)
-template <typename RandomAccessIterator>
-void greater_equal_zeta(RandomAccessIterator begin, RandomAccessIterator end);
+template <std::ranges::input_range R>
+std::vector<std::ranges::range_value_t<R>> greater_equal_zeta(R&& a);
 ```
 
-- (1)
-    - Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ that satisfies the following relational equation to `result`.
-- (2)
-    - Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $(b_0, b_1, \ldots, b_{N - 1})$ that satisfies the following relational equation to `begin`.
-
-The following relationship holds between $a$ and $b$.
+Assume that the following relationship holds between $a = (a_0, a_1, \ldots, a_{N - 1})$ and $b = (b_0, b_1, \ldots, b_{N - 1})$.
 
 $$\begin{align*}
 b_i &= \sum_{i \leq j < N} a_j
 \end{align*}$$
 
+Given $a$, it returns $b$.
+
 ### Constraints
 - None
-    - Note that `result` in (1) can be the same as `begin`, but it would be better to use (2) in that case.
 
 ### Time Complexity
 - $O(N)$

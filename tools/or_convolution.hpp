@@ -1,28 +1,34 @@
 #ifndef TOOLS_OR_CONVOLUTION_HPP
 #define TOOLS_OR_CONVOLUTION_HPP
 
-#include <iterator>
+#include <cassert>
+#include <ranges>
+#include <type_traits>
+#include <utility>
 #include <vector>
-#include "tools/subset_zeta.hpp"
-#include "tools/subset_moebius.hpp"
+#include "tools/has_single_bit.hpp"
+#include "tools/subset_moebius_inplace.hpp"
+#include "tools/subset_zeta_inplace.hpp"
 
 namespace tools {
-  template <typename InputIterator, typename RandomAccessIterator>
-  void or_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end) {
-    using T = typename std::iterator_traits<InputIterator>::value_type;
-    std::vector<T> a(a_begin, a_end);
-    std::vector<T> b(b_begin, b_end);
-    const int K = std::distance(c_begin, c_end);
+  template <std::ranges::input_range R1, std::ranges::input_range R2>
+  std::vector<std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>> or_convolution(R1&& a_orig, R2&& b_orig) {
+    using T = std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>;
+    auto a = std::forward<R1>(a_orig) | std::ranges::to<std::vector<T>>();
+    auto b = std::forward<R2>(b_orig) | std::ranges::to<std::vector<T>>();
+    const int N = a.size();
+    assert(b.size() == N);
+    assert(tools::has_single_bit(N));
 
-    a.resize(K, T(0));
-    tools::subset_zeta(a.begin(), a.end());
-    b.resize(K, T(0));
-    tools::subset_zeta(b.begin(), b.end());
+    tools::subset_zeta_inplace(a);
+    tools::subset_zeta_inplace(b);
 
-    for (int i = 0; i < K; ++i) {
-      c_begin[i] = a[i] * b[i];
+    std::vector<T> c(N);
+    for (int i = 0; i < N; ++i) {
+      c[i] = a[i] * b[i];
     }
-    tools::subset_moebius(c_begin, c_end);
+    tools::subset_moebius_inplace(c);
+    return c;
   }
 }
 

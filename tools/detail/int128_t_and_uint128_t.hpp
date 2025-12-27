@@ -18,6 +18,7 @@
 #include "tools/bit_width.hpp"
 #include "tools/countr_zero.hpp"
 #include "tools/gcd.hpp"
+#include "tools/has_single_bit.hpp"
 #include "tools/hash_combine.hpp"
 #include "tools/is_integral.hpp"
 #include "tools/is_signed.hpp"
@@ -440,6 +441,13 @@ namespace tools {
       }
     };
   }
+
+  template <>
+  struct detail::has_single_bit::impl<tools::uint128_t> {
+    constexpr bool operator()(tools::uint128_t x) const noexcept {
+      return x != 0 && (x & (x - 1)) == 0;
+    }
+  };
 
   template <>
   struct detail::popcount::impl<tools::uint128_t> {

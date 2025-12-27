@@ -3,10 +3,10 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include <iterator>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/greater_equal_moebius.hpp"
+#include "tools/greater_equal_moebius_inplace.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -29,11 +29,9 @@ int main() {
       }
     }
 
-    std::vector<mint> actual_a;
-    tools::greater_equal_moebius(b.begin(), b.end(), std::back_inserter(actual_a));
-    assert_that(actual_a == a);
+    assert_that(tools::greater_equal_moebius(b) == a);
 
-    tools::greater_equal_moebius(b.begin(), b.end());
+    tools::greater_equal_moebius_inplace(b);
     assert_that(b == a);
   }
 

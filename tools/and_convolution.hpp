@@ -1,40 +1,34 @@
 #ifndef TOOLS_AND_CONVOLUTION_HPP
 #define TOOLS_AND_CONVOLUTION_HPP
 
-#include <iterator>
+#include <cassert>
+#include <ranges>
+#include <type_traits>
+#include <utility>
 #include <vector>
-#include <algorithm>
-#include "tools/superset_zeta.hpp"
-#include "tools/superset_moebius.hpp"
+#include "tools/has_single_bit.hpp"
+#include "tools/superset_moebius_inplace.hpp"
+#include "tools/superset_zeta_inplace.hpp"
 
 namespace tools {
-  template <typename InputIterator, typename RandomAccessIterator>
-  void and_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end) {
-    using T = typename std::iterator_traits<InputIterator>::value_type;
-    std::vector<T> a(a_begin, a_end);
-    std::vector<T> b(b_begin, b_end);
+  template <std::ranges::input_range R1, std::ranges::input_range R2>
+  std::vector<std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>> and_convolution(R1&& a_orig, R2&& b_orig) {
+    using T = std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>;
+    auto a = std::forward<R1>(a_orig) | std::ranges::to<std::vector<T>>();
+    auto b = std::forward<R2>(b_orig) | std::ranges::to<std::vector<T>>();
     const int N = a.size();
-    const int M = b.size();
-    const int K = std::distance(c_begin, c_end);
+    assert(b.size() == N);
+    assert(tools::has_single_bit(N));
 
-    tools::superset_zeta(a.begin(), a.end());
-    tools::superset_zeta(b.begin(), b.end());
+    tools::superset_zeta_inplace(a);
+    tools::superset_zeta_inplace(b);
 
-    if (std::min(N, M) <= K) {
-      for (int i = 0; i < std::min(N, M); ++i) {
-        c_begin[i] = a[i] * b[i];
-      }
-      tools::superset_moebius(c_begin, c_begin + std::min(N, M));
-      std::fill(c_begin + std::min(N, M), c_end, T(0));
-    } else {
-      std::vector<T> c;
-      c.reserve(std::min(N, M));
-      for (int i = 0; i < std::min(N, M); ++i) {
-        c.push_back(a[i] * b[i]);
-      }
-      tools::superset_moebius(c.begin(), c.end());
-      std::move(c.begin(), c.begin() + K, c_begin);
+    std::vector<T> c(N);
+    for (int i = 0; i < N; ++i) {
+      c[i] = a[i] * b[i];
     }
+    tools::superset_moebius_inplace(c);
+    return c;
   }
 }
 

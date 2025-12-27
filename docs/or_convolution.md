@@ -4,25 +4,21 @@ documentation_of: //tools/or_convolution.hpp
 ---
 
 ```cpp
-template <typename InputIterator, typename RandomAccessIterator>
-void or_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end);
+template <std::ranges::input_range R1, std::ranges::input_range R2>
+std::vector<std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>> or_convolution(R1&& a, R2&& b);
 ```
 
-Given two infinite sequences $(a_0, a_1, \ldots, a_{N - 1}, 0, 0, \ldots)$ and $(b_0, b_1, \ldots, b_{M - 1}, 0, 0, \ldots)$, it returns the first $K$ terms of the infinite sequence $(c_0, c_1, \ldots)$ where
+Given two sequences $(a_0, a_1, \ldots, a_{N - 1})$ and $(b_0, b_1, \ldots, b_{N - 1})$, it returns the sequence $(c_0, c_1, \ldots, c_{N - 1})$ where
 
 $$\begin{align*}
-N &= \mathrm{a\_end} - \mathrm{a\_begin}\\
-M &= \mathrm{b\_end} - \mathrm{b\_begin}\\
-K &= \mathrm{c\_end} - \mathrm{c\_begin}\\
 c_k &= \sum_{(i~\mathrm{OR}~j) = k} a_i b_j
 \end{align*}$$
 
 ### Constraints
-- `InputIterator` is an input iterator type.
-- `RandomAccessIterator` is a random access iterator type.
+- $N$ is a power of two.
 
 ### Time Complexity
-- $O(N + M + K \log K)$
+- $O(N \log N)$
 
 ### License
 - CC0

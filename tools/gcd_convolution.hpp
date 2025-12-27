@@ -1,21 +1,26 @@
 #ifndef TOOLS_GCD_CONVOLUTION_HPP
 #define TOOLS_GCD_CONVOLUTION_HPP
 
-#include <iterator>
-#include <vector>
 #include <algorithm>
-#include "tools/multiple_zeta.hpp"
-#include "tools/multiple_moebius.hpp"
+#include <cassert>
+#include <iterator>
+#include <ranges>
+#include <type_traits>
+#include <utility>
+#include <vector>
+#include "tools/multiple_moebius_inplace.hpp"
+#include "tools/multiple_zeta_inplace.hpp"
 
 namespace tools {
-  template <typename InputIterator, typename RandomAccessIterator>
-  void gcd_convolution(InputIterator a_begin, InputIterator a_end, InputIterator b_begin, InputIterator b_end, RandomAccessIterator c_begin, RandomAccessIterator c_end) {
-    using T = typename std::iterator_traits<InputIterator>::value_type;
-    std::vector<T> a(a_begin, a_end);
-    std::vector<T> b(b_begin, b_end);
+  template <std::ranges::input_range R1, std::ranges::input_range R2>
+  std::vector<std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>> gcd_convolution(R1&& a_orig, R2&& b_orig, const int K) {
+    assert(K >= 0);
+
+    using T = std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>;
+    auto a = std::forward<R1>(a_orig) | std::ranges::to<std::vector<T>>();
+    auto b = std::forward<R2>(b_orig) | std::ranges::to<std::vector<T>>();
     const int N = a.size();
     const int M = b.size();
-    const int K = std::distance(c_begin, c_end);
 
     std::vector<T> offset(std::min(std::max(N, M), K), T(0));
     if (std::min({N, M, K}) > 0) {
@@ -32,31 +37,57 @@ namespace tools {
       }
     }
 
-    tools::multiple_zeta(a.begin(), a.end());
-    tools::multiple_zeta(b.begin(), b.end());
+    tools::multiple_zeta_inplace(a);
+    tools::multiple_zeta_inplace(b);
 
+    std::vector<T> c;
     if (std::min(N, M) <= K) {
+      c.reserve(K);
       if (std::min(N, M) > 0) {
-        c_begin[0] = 0;
+        c.emplace_back(0);
       }
-      for (int i = 1; i < std::min(N, M); ++i) {
-        c_begin[i] = a[i] * b[i];
-      }
-      tools::multiple_moebius(c_begin, c_begin + std::min(N, M));
-      std::fill(c_begin + std::min(N, M), c_end, T(0));
-    } else {
-      std::vector<T> c;
-      c.reserve(std::min(N, M));
-      c.push_back(0);
       for (int i = 1; i < std::min(N, M); ++i) {
         c.push_back(a[i] * b[i]);
       }
-      tools::multiple_moebius(c.begin(), c.end());
-      std::move(c.begin(), c.begin() + K, c_begin);
+      tools::multiple_moebius_inplace(c);
+      c.resize(K, T(0));
+    } else {
+      c.reserve(std::min(N, M));
+      c.emplace_back(0);
+      for (int i = 1; i < std::min(N, M); ++i) {
+        c.push_back(a[i] * b[i]);
+      }
+      tools::multiple_moebius_inplace(c);
+      c.resize(K);
     }
 
     for (int i = 0; i < std::min(std::max(N, M), K); ++i) {
-      c_begin[i] += offset[i];
+      c[i] += offset[i];
+    }
+    return c;
+  }
+
+  template <std::ranges::input_range R1, std::ranges::input_range R2>
+  std::vector<std::common_type_t<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>> gcd_convolution(R1&& a, R2&& b) {
+    if constexpr ((std::ranges::sized_range<R1> || std::ranges::forward_range<R1>) && (std::ranges::sized_range<R2> || std::ranges::forward_range<R2>)) {
+      const int N = [&]() {
+        if constexpr (std::ranges::sized_range<R1>) {
+          return std::ranges::size(a);
+        } else {
+          return std::ranges::distance(a);
+        }
+      }();
+      const int M = [&]() {
+        if constexpr (std::ranges::sized_range<R2>) {
+          return std::ranges::size(b);
+        } else {
+          return std::ranges::distance(b);
+        }
+      }();
+      assert(N == M);
+      return tools::gcd_convolution(std::forward<R1>(a), std::forward<R2>(b), N);
+    } else {
+      return tools::gcd_convolution(std::forward<R1>(a) | std::ranges::to<std::vector>(), std::forward<R2>(b) | std::ranges::to<std::vector>());
     }
   }
 }

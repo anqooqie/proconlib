@@ -3,10 +3,10 @@
 #include <iostream>
 #include <random>
 #include <vector>
-#include <iterator>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
 #include "tools/divisor_moebius.hpp"
+#include "tools/divisor_moebius_inplace.hpp"
 
 using mint = atcoder::modint998244353;
 
@@ -30,11 +30,9 @@ int main() {
       }
     }
 
-    std::vector<mint> actual_a;
-    tools::divisor_moebius(b.begin(), b.end(), std::back_inserter(actual_a));
-    assert_that(actual_a == a);
+    assert_that(tools::divisor_moebius(b) == a);
 
-    tools::divisor_moebius(b.begin(), b.end());
+    tools::divisor_moebius_inplace(b);
     assert_that(b == a);
   }
 
