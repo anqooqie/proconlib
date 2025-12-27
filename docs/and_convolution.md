@@ -15,6 +15,7 @@ c_k &= \sum_{(i~\mathrm{AND}~j) = k} a_i b_j
 \end{align*}$$
 
 ### Constraints
+- $\|a\| = \|b\|$
 - $N$ is a power of two.
 
 ### Time Complexity
