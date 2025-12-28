@@ -117,3 +117,18 @@ Both of the orders of the connected components and the vertices are undefined.
 
 ### Time Complexity
 - $O(n)$
+
+## when_connected
+```cpp
+int d.when_connected(int a, int b);
+```
+
+It returns the minimum integer $t$ such that the vertices $a$ and $b$ were in the same connected component if `d.now()` is greater than or equal to $t$.
+If such the integer does not exist, it returns `std::numeric_limits<int>::max()`.
+
+### Constraints
+- $0 \leq a < n$
+- $0 \leq b < n$
+
+### Time Complexity
+- $O(\log n)$

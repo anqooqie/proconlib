@@ -1,17 +1,17 @@
 #ifndef TOOLS_PARTIALLY_PERSISTENT_DSU_HPP
 #define TOOLS_PARTIALLY_PERSISTENT_DSU_HPP
 
-#include <vector>
-#include <utility>
-#include <limits>
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <limits>
 #include <queue>
+#include <utility>
+#include <vector>
 #include "tools/less_by_first.hpp"
 
 namespace tools {
   class partially_persistent_dsu {
-  private:
     int m_now;
     std::vector<std::pair<int, int>> m_parents;
     std::vector<int> m_ranks;
@@ -23,12 +23,6 @@ namespace tools {
 
   public:
     partially_persistent_dsu() = default;
-    partially_persistent_dsu(const tools::partially_persistent_dsu&) = default;
-    partially_persistent_dsu(tools::partially_persistent_dsu&&) = default;
-    ~partially_persistent_dsu() = default;
-    tools::partially_persistent_dsu& operator=(const tools::partially_persistent_dsu&) = default;
-    tools::partially_persistent_dsu& operator=(tools::partially_persistent_dsu&&) = default;
-
     explicit partially_persistent_dsu(const int n) :
       m_now(0),
       m_parents(n, std::make_pair(std::numeric_limits<int>::max(), -1)),
@@ -109,6 +103,31 @@ namespace tools {
 
       res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
+    }
+
+    int when_connected(const int x, const int y) const {
+      assert(0 <= x && x < this->size());
+      assert(0 <= y && y < this->size());
+
+      std::vector<int> x_ancestors;
+      for (int v = x; v != -1; v = this->m_parents[v].second) {
+        x_ancestors.push_back(v);
+      }
+      const int xl = x_ancestors.size();
+
+      std::vector<int> y_ancestors;
+      for (int v = y; v != -1; v = this->m_parents[v].second) {
+        y_ancestors.push_back(v);
+      }
+      const int yl = y_ancestors.size();
+
+      int d = 0;
+      for (; xl - d - 1 >= 0 && yl - d - 1 >= 0 && x_ancestors[xl - d - 1] == y_ancestors[yl - d - 1]; ++d);
+
+      return d == 0 ? std::numeric_limits<int>::max() : std::max(
+        xl - d - 1 >= 0 ? this->m_parents[x_ancestors[xl - d - 1]].first : 0,
+        yl - d - 1 >= 0 ? this->m_parents[y_ancestors[yl - d - 1]].first : 0
+      );
     }
   };
 }
