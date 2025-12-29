@@ -24,10 +24,10 @@ int main() {
   std::cin >> n;
 
   std::vector<int> costs;
-  const auto f_ve = [&](const int dist, const std::size_t edge_id) {
+  const auto f_ve = [&](const int dist, const int edge_id) {
     return dist + costs[edge_id];
   };
-  const auto f_ev = [](const int dist, std::size_t) {
+  const auto f_ev = [](const int dist, int) {
     return dist;
   };
 
@@ -53,7 +53,10 @@ int main() {
 
 ## Constructor
 ```cpp
-rerooting_dp<R, M, F_VE, F_EV> graph(std::size_t n, F_VE f_ve, F_EV f_ev);
+template <typename R, tools::commutative_monoid M, std::regular_invocable<R, int> F_VE, std::regular_invocable<typename M::T, int> F_EV>
+requires std::convertible_to<std::invoke_result_t<F_VE, R, int>, typename M::T>
+      && std::convertible_to<std::invoke_result_t<F_EV, typename M::T, int>, R>
+rerooting_dp<R, M, F_VE, F_EV> graph(int n, F_VE f_ve, F_EV f_ev);
 ```
 
 It creates a graph with $n$ vertices and $0$ edges.
@@ -69,20 +72,14 @@ The meaning of each the type parameter is as follows.
     - the function which accepts the product of aggregated edge attributes and the index of the vertex adjacent to the subtrees, and returns the aggregated vertex attribute
 
 ### Constraints
-- `tools::commutative_monoid<M>` holds.
-- `f_ve` is invocable.
-- `f_ve` accepts two arguments, `R` and `std::size_t`.
-- `f_ve` returns `typename M::T`.
-- `f_ev` is invocable.
-- `f_ev` accepts two arguments, `typename M::T` and `std::size_t`.
-- `f_ev` returns `R`.
+- $n \geq 1$
 
 ### Time Complexity
 - $O(1)$
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -95,7 +92,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v);
+int graph.add_edge(int u, int v);
 ```
 
 It adds an undirected edge between $u$ and $v$ to the graph.

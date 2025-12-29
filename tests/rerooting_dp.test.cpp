@@ -1,10 +1,11 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/tree_path_composite_sum
 
-#include <utility>
 #include <iostream>
+#include <ranges>
+#include <utility>
 #include <vector>
-#include <cstddef>
 #include "atcoder/modint.hpp"
+#include "tools/join.hpp"
 #include "tools/rerooting_dp.hpp"
 
 using mint = atcoder::modint998244353;
@@ -35,10 +36,10 @@ int main() {
     a.push_back(mint::raw(a_i));
   }
 
-  const auto f_ve = [&](const std::pair<int, mint>& sum, const std::size_t edge_id) {
+  const auto f_ve = [&](const std::pair<int, mint>& sum, const int edge_id) {
     return std::make_pair(sum.first, b[edge_id] * sum.second + c[edge_id] * sum.first);
   };
-  const auto f_ev = [&](const std::pair<int, mint>& sum, const std::size_t vertex_id) {
+  const auto f_ev = [&](const std::pair<int, mint>& sum, const int vertex_id) {
     return std::make_pair(sum.first + 1, sum.second + a[vertex_id]);
   };
 
@@ -51,9 +52,6 @@ int main() {
     c.push_back(mint::raw(c_i));
   }
 
-  const auto answers = dp.query();
-  for (int i = 0; i < N; ++i) {
-    std::cout << answers[i].second.val() << " \n"[i == N - 1];
-  }
+  std::cout << tools::join(dp.query() | std::views::transform([](const auto& answer) { return answer.second.val(); }), ' ') << '\n';
   return 0;
 }
