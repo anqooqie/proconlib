@@ -5,6 +5,7 @@
 #include <cassert>
 #include <concepts>
 #include <functional>
+#include <iterator>
 #include <limits>
 #include <ranges>
 #include <stack>
@@ -86,7 +87,7 @@ namespace tools {
     }
 
     std::vector<R> query() const {
-      assert(this->m_edges.size() + 1 == this->size());
+      assert(std::ssize(this->m_edges) + 1 == this->size());
 
       const int PRE_VERTEX = 1;
       const int POST_EDGE = 2;
@@ -111,7 +112,7 @@ namespace tools {
 
           vertex& v = vertices[vertex_id];
           stack.emplace(POST_VERTEX, vertex_id, INVALID);
-          for (int neighbor_id = 0; neighbor_id < this->m_graph[vertex_id].size(); ++neighbor_id) {
+          for (int neighbor_id = 0; neighbor_id < std::ssize(this->m_graph[vertex_id]); ++neighbor_id) {
             const int child_vertex_id = this->m_edges[this->m_graph[vertex_id][neighbor_id]] ^ vertex_id;
             if (will_visit[child_vertex_id]) {
               v.neighbor_id_of_parent = neighbor_id;
