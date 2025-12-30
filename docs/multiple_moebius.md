@@ -6,6 +6,9 @@ documentation_of: //tools/multiple_moebius.hpp
 ```cpp
 template <std::ranges::input_range R>
 std::vector<std::ranges::range_value_t<R>> multiple_moebius(R&& b);
+
+template <tools::commutative_group G, std::ranges::input_range R>
+std::vector<std::ranges::range_value_t<R>> multiple_moebius(R&& b);
 ```
 
 Assume that the following relationship holds between $a = (a_0, a_1, \ldots, a_{N - 1})$ and $b = (b_0, b_1, \ldots, b_{N - 1})$.
