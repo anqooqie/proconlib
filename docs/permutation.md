@@ -14,7 +14,7 @@ It is a permutation of $n$ elements.
 ## Constructor
 ```cpp
 (1) permutation<T> p(int n);
-(2) permutation<T> p(std::ranges::range v);
+(2) permutation<T> p(std::ranges::input_range auto&& v);
 ```
 
 It creates an identity permutation of $n$ elements.
@@ -22,7 +22,7 @@ The type parameter `<T>` represents the type of the elements.
 
 ### Constraints
 - (1)
-    - None
+    - $n \geq 0$
 - (2)
     - All elements of $v$ are unique.
     - All elements of $v$ are $0$ or more.
@@ -143,10 +143,10 @@ long long p.id();
 It returns the number of permutations of $n$ elements less than $p$ in lexicographical order.
 
 ### Constraints
-- None
+- $n \leq 20$
 
 ### Time Complexity
-- $O(n^2)$
+- $O(n \log n)$
 
 ## from
 ```cpp
@@ -156,10 +156,11 @@ permutation<T> permutation<T>::from(int n, long long id);
 It returns the permutation of $n$ elements $p$, such that `p.id() == id`.
 
 ### Constraints
+- $0 \leq n \leq 20$
 - $0 \leq \mathrm{id} < n!$
 
 ### Time Complexity
-- $O(n^2)$
+- $O(n \log n)$
 
 ## inv
 ```cpp

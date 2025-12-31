@@ -1,21 +1,37 @@
 #ifndef TOOLS_PERMUTATION_HPP
 #define TOOLS_PERMUTATION_HPP
 
-#include <algorithm>
 #include <cassert>
+#include <concepts>
 #include <cstddef>
 #include <iostream>
 #include <iterator>
-#include <numeric>
 #include <ranges>
 #include <utility>
 #include <vector>
+#include "atcoder/fenwicktree.hpp"
+#include "atcoder/segtree.hpp"
+#include "tools/groups.hpp"
+#include "tools/integral.hpp"
+#include "tools/mutable_type.hpp"
 
 namespace tools {
-  template <typename T>
+  template <tools::integral T>
   class permutation {
     std::vector<int> m_perm;
     std::vector<int> m_inv;
+
+    static std::vector<long long> make_fact(const int n) {
+      assert(0 <= n && n <= 20);
+      std::vector<long long> fact(n);
+      if (n > 0) {
+        fact[0] = 1;
+        for (int i = 1; i < n; ++i) {
+          fact[i] = fact[i - 1] * i;
+        }
+      }
+      return fact;
+    }
 
     void verify_consistency() const {
 #ifndef NDEBUG
@@ -117,12 +133,11 @@ namespace tools {
     };
 
     permutation() = default;
-    explicit permutation(const int n) : m_perm(n), m_inv(n) {
-      std::iota(this->m_perm.begin(), this->m_perm.end(), 0);
-      std::iota(this->m_inv.begin(), this->m_inv.end(), 0);
+    explicit permutation(const int n) : m_perm(std::views::iota(0, n) | std::ranges::to<std::vector>()), m_inv(std::views::iota(0, n) | std::ranges::to<std::vector>()) {
     }
-    template <std::ranges::range R>
-    permutation(R&& r) : m_perm(std::ranges::begin(r), std::ranges::end(r)) {
+    template <std::ranges::input_range R>
+    requires std::convertible_to<std::ranges::range_reference_t<R>, int>
+    permutation(R&& r) : m_perm(std::forward<R>(r) | std::ranges::to<std::vector<int>>()) {
       this->verify_consistency();
       this->make_inv();
     }
@@ -141,91 +156,82 @@ namespace tools {
       return this->m_perm.end();
     }
 
-    tools::permutation<T>& swap_from_left(const int x, const int y) {
-      assert(0 <= x && x < this->size());
-      assert(0 <= y && y < this->size());
-      this->m_inv[this->m_perm[y]] = x;
-      this->m_inv[this->m_perm[x]] = y;
-      std::swap(this->m_perm[x], this->m_perm[y]);
-      return *this;
+    auto swap_from_left(this tools::mutable_type auto&& self, const int x, const int y) -> decltype(self) {
+      assert(0 <= x && x < self.size());
+      assert(0 <= y && y < self.size());
+      self.m_inv[self.m_perm[y]] = x;
+      self.m_inv[self.m_perm[x]] = y;
+      std::swap(self.m_perm[x], self.m_perm[y]);
+      return std::forward<decltype(self)>(self);
     }
-    tools::permutation<T>& swap_from_right(const int x, const int y) {
-      assert(0 <= x && x < this->size());
-      assert(0 <= y && y < this->size());
-      this->m_perm[this->m_inv[y]] = x;
-      this->m_perm[this->m_inv[x]] = y;
-      std::swap(this->m_inv[x], this->m_inv[y]);
-      return *this;
+    auto swap_from_right(this tools::mutable_type auto&& self, const int x, const int y) -> decltype(self) {
+      assert(0 <= x && x < self.size());
+      assert(0 <= y && y < self.size());
+      self.m_perm[self.m_inv[y]] = x;
+      self.m_perm[self.m_inv[x]] = y;
+      std::swap(self.m_inv[x], self.m_inv[y]);
+      return std::forward<decltype(self)>(self);
     }
 
     long long id() const {
-      if (this->size() == 0) return 0;
+      assert(this->size() <= 20);
 
-      std::vector<int> left(this->size());
-      std::iota(left.begin(), left.end(), 0);
-
-      std::vector<long long> fact(this->size());
-      fact[0] = 1;
-      for (int i = 1; i < this->size(); ++i) {
-        fact[i] = fact[i - 1] * i;
+      const auto fact = tools::permutation<T>::make_fact(this->size());
+      atcoder::fenwick_tree<int> fw(this->size());
+      for (int i = 0; i < this->size(); ++i) {
+        fw.add(i, 1);
       }
 
       long long id = 0;
       for (int i = 0; i < this->size(); ++i) {
-        auto it = std::lower_bound(left.begin(), left.end(), this->m_perm[i]);
-        id += std::distance(left.begin(), it) * fact[this->size() - 1 - i];
-        left.erase(it);
+        id += fw.sum(0, this->m_perm[i]) * fact[this->size() - 1 - i];
+        fw.add(this->m_perm[i], -1);
       }
 
       return id;
     }
 
     static tools::permutation<T> from(const int n, long long id) {
-      if (n == 0) return tools::permutation<T>(0);
-
-      std::vector<int> left(n);
-      std::iota(left.begin(), left.end(), 0);
-
-      std::vector<long long> fact(n);
-      fact[0] = 1;
-      for (int i = 1; i < n; ++i) {
-        fact[i] = fact[i - 1] * i;
-      }
+      assert(0 <= n && n <= 20);
+      const auto fact = tools::permutation<T>::make_fact(n);
+      assert(0 <= id && id < (n == 0 ? 1 : fact[n - 1] * n));
+      atcoder::segtree<int, tools::groups::plus<int>::op, tools::groups::plus<int>::e> seg(std::vector<int>(n, 1));
 
       std::vector<int> p;
+      p.reserve(n);
       for (int i = 0; i < n; ++i) {
-        const auto it = std::next(left.begin(), id / fact[n - i - 1]);
-        p.push_back(*it);
-        left.erase(it);
-        id %= fact[n - i - 1];
+        const auto c = id / fact[n - 1 - i];
+        id -= c * fact[n - 1 - i];
+        p.push_back(seg.max_right(0, [&](const auto sum) { return sum <= c; }));
+        seg.set(p.back(), 0);
       }
 
-      return tools::permutation<T>(p);
+      return tools::permutation<T>(std::move(p));
     }
 
     tools::permutation<T> inv() const {
       return tools::permutation<T>(this->m_inv);
     }
-    tools::permutation<T>& inv_inplace() {
-      this->m_perm.swap(this->m_inv);
-      return *this;
+    auto inv_inplace(this tools::mutable_type auto&& self) -> decltype(self) {
+      self.m_perm.swap(self.m_inv);
+      return std::forward<decltype(self)>(self);
     }
     T inv(const int i) const {
       assert(0 <= i && i < this->size());
       return this->m_inv[i];
     }
 
-    tools::permutation<T>& operator*=(const tools::permutation<T>& other) {
-      assert(this->size() == other.size());
-      for (int i = 0; i < this->size(); ++i) {
-        this->m_inv[i] = other.m_perm[this->m_perm[i]];
+    auto operator*=(this tools::mutable_type auto&& self, const tools::permutation<T>& other) -> decltype(self) {
+      assert(self.size() == other.size());
+      for (int i = 0; i < self.size(); ++i) {
+        self.m_inv[i] = other.m_perm[self.m_perm[i]];
       }
-      this->m_perm.swap(this->m_inv);
-      this->make_inv();
-      return *this;
+      self.m_perm.swap(self.m_inv);
+      self.make_inv();
+      return std::forward<decltype(self)>(self);
     }
-    friend tools::permutation<T> operator*(const tools::permutation<T>& lhs, const tools::permutation<T>& rhs) {
-      return tools::permutation<T>(lhs) *= rhs;
+    tools::permutation<T> operator*(this auto&& lhs, const tools::permutation<T>& rhs) {
+      return tools::permutation<T>(std::forward<decltype(lhs)>(lhs)) *= rhs;
     }
 
     friend bool operator==(const tools::permutation<T>& lhs, const tools::permutation<T>& rhs) {
