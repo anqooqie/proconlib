@@ -1,18 +1,17 @@
 ---
-title: Polyfill of std::cmp_less
+title: std::cmp_less extended for my library
 documentation_of: //tools/cmp_less.hpp
 ---
 
 ```cpp
-template <typename T, typename U>
+template <tools::integral T, tools::integral U>
 constexpr bool cmp_less(T t, U u) noexcept;
 ```
 
-It is identical to `std::cmp_less` in C++20.
+It is almost identical to `std::cmp_less`, but compatible with user-defined extended integral types.
 
 ### Constraints
-- `<T>` is an integral type.
-- `<U>` is an integral type.
+- None
 
 ### Time Complexity
 - $O(1)$

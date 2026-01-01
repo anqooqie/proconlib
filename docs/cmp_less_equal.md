@@ -1,18 +1,17 @@
 ---
-title: Polyfill of std::cmp_less_equal
+title: std::cmp_less_equal extended for my library
 documentation_of: //tools/cmp_less_equal.hpp
 ---
 
 ```cpp
-template <typename T, typename U>
+template <tools::integral T, tools::integral U>
 constexpr bool cmp_less_equal(T t, U u) noexcept;
 ```
 
-It is identical to `std::cmp_less_equal` in C++20.
+It is almost identical to `std::cmp_less_equal`, but compatible with user-defined extended integral types.
 
 ### Constraints
-- `<T>` is an integral type.
-- `<U>` is an integral type.
+- None
 
 ### Time Complexity
 - $O(1)$

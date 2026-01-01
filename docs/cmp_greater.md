@@ -1,18 +1,17 @@
 ---
-title: Polyfill of std::cmp_greater
+title: std::cmp_greater extended for my library
 documentation_of: //tools/cmp_greater.hpp
 ---
 
 ```cpp
-template <typename T, typename U>
+template <tools::integral T, tools::integral U>
 constexpr bool cmp_greater(T t, U u) noexcept;
 ```
 
-It is identical to `std::cmp_greater` in C++20.
+It is almost identical to `std::cmp_greater`, but compatible with user-defined extended integral types.
 
 ### Constraints
-- `<T>` is an integral type.
-- `<U>` is an integral type.
+- None
 
 ### Time Complexity
 - $O(1)$

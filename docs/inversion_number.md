@@ -4,14 +4,15 @@ documentation_of: //tools/inversion_number.hpp
 ---
 
 ```cpp
-template <::std::ranges::range R>
+template <std::ranges::input_range R>
+requires std::totally_ordered<std::ranges::range_value_t<R>>
 long long inversion_number(R&& a);
 ```
 
-It returns the number of inversions of a given sequence $(a_0, a_1, \ldots, a_{n - 1})$.
+Given a sequence $(a_0, a_1, \ldots, a_{n - 1})$, it returns the number of integer pairs $(i, j)$ such that $0 \leq i < j < n \land a_i > a_j$.
 
 ### Constraints
-- For any integer pairs $(l, r)$ such that $0 \leq l < r < n$, $a_i < a_j$ is defined.
+- None
 
 ### Time Complexity
 - $O(n \log n)$

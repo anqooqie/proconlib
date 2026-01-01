@@ -2,38 +2,32 @@
 #define TOOLS_RANGE_COUNT_DISTINCT_HPP
 
 #include <cassert>
-#include <cstddef>
+#include <concepts>
 #include <iterator>
 #include <limits>
 #include <ranges>
+#include <utility>
 #include <vector>
-#include "tools/wavelet_matrix.hpp"
-#include "tools/compress.hpp"
+#include "tools/compressed.hpp"
 #include "tools/mex.hpp"
+#include "tools/wavelet_matrix.hpp"
 
 namespace tools {
   class range_count_distinct {
-  private:
-    std::size_t m_size;
-    tools::wavelet_matrix<std::size_t> m_wm;
+    int m_size;
+    tools::wavelet_matrix<int> m_wm;
 
   public:
     range_count_distinct() = default;
-    range_count_distinct(const tools::range_count_distinct&) = default;
-    range_count_distinct(tools::range_count_distinct&&) = default;
-    ~range_count_distinct() = default;
-    tools::range_count_distinct& operator=(const tools::range_count_distinct&) = default;
-    tools::range_count_distinct& operator=(tools::range_count_distinct&&) = default;
-
-    template <typename InputIterator>
-    range_count_distinct(const InputIterator begin, const InputIterator end) {
-      std::vector<std::size_t> seq;
-      tools::compress(std::ranges::subrange(begin, end), std::back_inserter(seq));
+    template <std::ranges::input_range R>
+    requires std::totally_ordered<std::ranges::range_value_t<R>>
+    range_count_distinct(R&& r) {
+      const auto seq = tools::compressed<int>(std::forward<R>(r));
       this->m_size = seq.size();
 
-      const auto NONE = std::numeric_limits<std::size_t>::max();
-      std::vector<std::size_t> prev(tools::mex(seq.begin(), seq.end()), NONE);
-      for (std::size_t i = 0; i < seq.size(); ++i) {
+      const int NONE = -1;
+      std::vector<int> prev(tools::mex(seq), NONE);
+      for (int i = 0; i < std::ssize(seq); ++i) {
         if (prev[seq[i]] != NONE) {
           this->m_wm.add_point(prev[seq[i]], i);
         }
@@ -43,14 +37,14 @@ namespace tools {
       this->m_wm.build();
     }
 
-    std::size_t size() const {
+    int size() const {
       return this->m_size;
     }
 
-    std::size_t query(std::size_t l, std::size_t r) const {
-      assert(l <= r && r <= this->size());
+    int query(const int l, const int r) const {
+      assert(0 <= l && l <= r && r <= this->size());
 
-      return (r - l) - this->m_wm.range_freq(l, std::numeric_limits<std::size_t>::max(), r);
+      return (r - l) - this->m_wm.range_freq(l, std::numeric_limits<int>::max(), r);
     }
   };
 }

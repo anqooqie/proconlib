@@ -3,26 +3,74 @@ title: Manacher
 documentation_of: //tools/manacher.hpp
 ---
 
-```cpp
-template <typename InputIterator, typename OutputIterator>
-void manacher(InputIterator begin, InputIterator end, OutputIterator result);
-```
-
-Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$ from `begin` and `end`, it stores the sequence $((l_0, r_0), (l_1, r_1), \ldots, (l_{2N}, r_{2N}))$ to `result` where the output sequence represents the following facts.
-
-Let $a[l, r)$ denote the continuous subsequence of $a$ created using $a_i$ such that $l \leq i < r$.
-The longest palindrome centered on $a_i$ is $a[l_{2i + 1}, r_{2i + 1})$.
-The longest palindrome centered on the $i$-th one of the $N + 1$ boundaries between the elements is $a[l_{2i}, r_{2i})$. (Note that $i$ is $0$-indexed.)
-
-### Constraints
-- An integer can be read from `<InputIterator>`.
-- A pair of two integers can be written to `<OutputIterator>`.
-
-### Time Complexity
-- $O(N)$
+Given an integer sequence $(a_0, a_1, \ldots, a_{n - 1})$, it calculates the longest palindrome centered on $a_i$ for each $i = 0, 1, \ldots, n - 1$ and the longest palindrome centered on the $i$-th one of the $n + 1$ boundaries between the integers for each $i = 0, 1, \ldots, n$.
 
 ### License
 - CC0
 
 ### Author
 - anqooqie
+
+## Constructor
+```cpp
+template <std::ranges::input_range R>
+requires tools::integral<std::ranges::range_value_t<R>>
+manacher a(R&& r);
+```
+
+Given an integer sequence, it calculates the longest palindromes.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(n)$
+
+## size
+```cpp
+int a.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## odd_length
+```cpp
+(1) int a.odd_length(int i);
+(2) int a.odd_length<false>(int i);
+(3) std::pair<int, int> a.odd_length<true>(int i);
+```
+
+- (1), (2)
+    - It returns the length of the longest palindrome centered on $a_i$.
+- (3)
+    - It returns the integer pair $(l, r)$ such that $(a_l, a_{l + 1}, \ldots, a_{r - 1})$ is the longest palindrome centered on $a_i$.
+
+### Constraints
+- $0 \leq i < n$
+
+### Time Complexity
+- $O(1)$
+
+## even_length
+```cpp
+(1) int a.even_length(int i);
+(2) int a.even_length<false>(int i);
+(3) std::pair<int, int> a.even_length<true>(int i);
+```
+
+- (1), (2)
+    - It returns the length of the longest palindrome centered on the $i$-th one of the $n + 1$ boundaries between the integers.
+- (3)
+    - It returns the integer pair $(l, r)$ such that $(a_l, a_{l + 1}, \ldots, a_{r - 1})$ is the longest palindrome centered on the $i$-th one of the $n + 1$ boundaries between the integers.
+
+### Constraints
+- $0 \leq i \leq n$
+
+### Time Complexity
+- $O(1)$

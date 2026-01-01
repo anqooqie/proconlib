@@ -3,7 +3,7 @@ title: Range count distinct
 documentation_of: //tools/range_count_distinct.hpp
 ---
 
-It takes an integer sequence $(a_0, a_1, \ldots, a_{N - 1})$ as input and can answer the number of distinct integers occured in $(a_l, a_{l + 1}, \ldots, a_{r - 1})$ in $\langle O(N \log N), O(\log N) \rangle$ time.
+It takes a sequence $(a_0, a_1, \ldots, a_{N - 1})$ as input and can answer the number of distinct elements occured in $(a_l, a_{l + 1}, \ldots, a_{r - 1})$ in $\langle O(N \log N), O(\log N) \rangle$ time.
 
 ### License
 - CC0
@@ -13,22 +13,22 @@ It takes an integer sequence $(a_0, a_1, \ldots, a_{N - 1})$ as input and can an
 
 ## Constructor
 ```cpp
-template <typename InputIterator>
-range_count_distinct a(InputIterator begin, InputIterator end);
+template <std::ranges::input_range R>
+requires std::totally_ordered<std::ranges::range_value_t<R>>
+range_count_distinct a(R&& r);
 ```
 
-It takes an integer sequence $(a_0, a_1, \ldots, a_{N - 1})$ as input.
+It takes a sequence $(a_0, a_1, \ldots, a_{N - 1})$ as input.
 
 ### Constraints
-- `begin` $\leq$ `end`
-- `std::decay_t<decltype(*std::declval<InputIterator>())>` is one of integral types.
+- None
 
 ### Time Complexity
 - $O(N \log N)$
 
 ## size
 ```cpp
-std::size_t a.size();
+int a.size();
 ```
 
 It returns $N$.
@@ -41,10 +41,10 @@ It returns $N$.
 
 ## query
 ```cpp
-std::size_t a.query(std::size_t l, std::size_t r);
+int a.query(int l, int r);
 ```
 
-It returns the number of distinct integers occured in $(a_l, a_{l + 1}, \ldots, a_{r - 1})$.
+It returns the number of distinct elements occured in $(a_l, a_{l + 1}, \ldots, a_{r - 1})$.
 
 ### Constraints
 - $0 \leq l \leq r \leq N$

@@ -1,29 +1,38 @@
 #ifndef TOOLS_LONGEST_COMMON_SUBSTRING_HPP
 #define TOOLS_LONGEST_COMMON_SUBSTRING_HPP
 
-#include <tuple>
-#include <cstddef>
-#include <type_traits>
-#include <string>
-#include <vector>
 #include <algorithm>
+#include <concepts>
 #include <iterator>
+#include <ranges>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <utility>
+#include <vector>
 #include "atcoder/string.hpp"
 #include "tools/mex.hpp"
 #include "tools/chmax.hpp"
 
 namespace tools {
-  template <typename InputIterator>
-  std::tuple<std::size_t, std::size_t, std::size_t, std::size_t> longest_common_substring(const InputIterator S_begin, const InputIterator S_end, const InputIterator T_begin, const InputIterator T_end) {
-    using Z = std::decay_t<decltype(*std::declval<InputIterator>())>;
-    using Container = std::conditional_t<std::is_same_v<Z, char>, std::string, std::vector<Z>>;
+  template <std::ranges::input_range R1, std::ranges::input_range R2>
+  requires std::same_as<std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>> && (
+    std::same_as<std::ranges::range_value_t<R1>, char> ||
+    std::same_as<std::ranges::range_value_t<R1>, int> ||
+    std::same_as<std::ranges::range_value_t<R1>, unsigned int> ||
+    std::same_as<std::ranges::range_value_t<R1>, long long> ||
+    std::same_as<std::ranges::range_value_t<R1>, unsigned long long> 
+  )
+  std::tuple<int, int, int, int> longest_common_substring(R1&& S, R2&& T) {
+    using Z = std::ranges::range_value_t<R1>;
+    using Container = std::conditional_t<std::same_as<Z, char>, std::string, std::vector<Z>>;
 
-    Container ST(S_begin, S_end);
+    auto ST = std::forward<R1>(S) | std::ranges::to<Container>();
     const int N = ST.size();
-    std::copy(T_begin, T_end, std::back_inserter(ST));
+    std::ranges::copy(std::forward<R2>(T), std::back_inserter(ST));
     const int M = ST.size() - N;
 
-    ST.push_back(tools::mex(ST.begin(), ST.end()));
+    ST.push_back(tools::mex(ST));
     std::rotate(std::next(ST.begin(), N), std::prev(ST.end()), ST.end());
 
     const auto sa = atcoder::suffix_array(ST);

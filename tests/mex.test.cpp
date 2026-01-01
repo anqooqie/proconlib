@@ -13,13 +13,13 @@ int main() {
   std::ios_base::sync_with_stdio(false);
 
   std::vector<ll> v({1000000000000000000, 2, 1, 0});
-  assert_that(tools::mex(v.begin(), v.end()) == 3);
+  assert_that(tools::mex(v) == 3);
   v = std::vector<ll>({3, 3, 2, 2, 1, 1, 0});
-  assert_that(tools::mex(v.begin(), v.end()) == 4);
+  assert_that(tools::mex(v) == 4);
   v = std::vector<ll>({3, 2, 0, 4, 1});
-  assert_that(tools::mex(v.begin(), v.end()) == 5);
+  assert_that(tools::mex(v) == 5);
   v = std::vector<ll>({3, 2, 4, 1});
-  assert_that(tools::mex(v.begin(), v.end()) == 0);
+  assert_that(tools::mex(v) == 0);
 
   return 0;
 }

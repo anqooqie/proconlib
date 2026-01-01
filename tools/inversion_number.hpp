@@ -2,22 +2,23 @@
 #define TOOLS_INVERSION_NUMBER_HPP
 
 #include <algorithm>
-#include <iterator>
+#include <concepts>
 #include <ranges>
+#include <utility>
 #include <vector>
 #include "atcoder/fenwicktree.hpp"
-#include "tools/compress.hpp"
+#include "tools/compressed.hpp"
 
 namespace tools {
 
-  template <std::ranges::range R>
+  template <std::ranges::input_range R>
+  requires std::totally_ordered<std::ranges::range_value_t<R>>
   long long inversion_number(R&& a) {
-    std::vector<int> compressed;
-    tools::compress(a, std::back_inserter(compressed));
+    const auto compressed = tools::compressed<int>(std::forward<R>(a));
 
     if (compressed.empty()) return 0;
 
-    const auto max = *std::ranges::max_element(compressed);
+    const auto max = std::ranges::max(compressed);
     atcoder::fenwick_tree<int> fw(max + 1);
     long long res = 0;
     for (const auto x : compressed) {

@@ -4,19 +4,18 @@ documentation_of: //tools/mex.hpp
 ---
 
 ```cpp
-template <typename InputIterator>
-std::decay_t<decltype(*std::declval<InputIterator>())> mex(InputIterator begin, InputIterator end);
+template <std::ranges::input_range R>
+requires tools::integral<std::ranges::range_value_t<R>>
+std::ranges::range_value_t<R> mex(R&& a);
 ```
 
 It returns the minimum non-negative integer which is not in a given sequence.
 
 ### Constraints
-- `begin` $\leq$ `end`
-- `std::decay_t<decltype(*std::declval<InputIterator>())>` is an integral type.
 - All the integers in the sequence are non-negative.
 
 ### Time Complexity
-- $O(n)$ where $n$ is `end` - `begin`
+- $O(\|a\|)$
 
 ### License
 - CC0

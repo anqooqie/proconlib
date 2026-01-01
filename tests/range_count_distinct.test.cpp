@@ -13,7 +13,7 @@ int main() {
   std::vector<int> a(N);
   for (auto& a_i : a) std::cin >> a_i;
 
-  tools::range_count_distinct seq(a.begin(), a.end());
+  tools::range_count_distinct seq(a);
 
   for (int q = 0; q < Q; ++q) {
     int l, r;

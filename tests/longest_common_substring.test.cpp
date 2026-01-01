@@ -11,7 +11,7 @@ int main() {
   std::string S, T;
   std::cin >> S >> T;
 
-  const auto [a, b, c, d] = tools::longest_common_substring(S.begin(), S.end(), T.begin(), T.end());
+  const auto [a, b, c, d] = tools::longest_common_substring(S, T);
   std::cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
 
   return 0;

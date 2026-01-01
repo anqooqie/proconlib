@@ -9,7 +9,7 @@ namespace tools {
   template <typename RandomAccessIterator>
   bool next_matching(RandomAccessIterator begin, RandomAccessIterator end) {
     const auto N = std::distance(begin, end);
-    // assert(tools::mex(begin, end) == N);
+    // assert(tools::mex(std::ranges::subrange(begin, end)) == N);
     if (N <= 2) return false;
 
     auto l = (N - 2) / 2 * 2;
