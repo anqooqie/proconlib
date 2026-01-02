@@ -1,17 +1,17 @@
 ---
-title: List all divisors
+title: List all positive divisors
 documentation_of: //tools/divisors.hpp
 ---
 
 ```cpp
-template <typename T>
+template <std::integral T>
 std::vector<T> divisors(T n);
 ```
 
-It returns the sorted divisors of $n$.
+It returns the sorted positive divisors of $n$.
 
 ### Constraints
-- $1 \leq n \leq 10^{18}$
+- $n \geq 1$
 
 ### Time Complexity
 - Supposed to be $O\left(n^\frac{1}{4}\right)$ expected

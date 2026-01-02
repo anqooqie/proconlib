@@ -13,14 +13,14 @@ Given a positive divisor $d$ of a positive integer $n$, it enumerates all the po
 
 ## Constructor
 ```cpp
+template <std::integral T>
 divisors_of_divisor<T> ds(T n);
 ```
 
 It constructs a data structure that allows enumeration of all the positive divisors of $d$ where $d$ is a positive divisor of $n$.
 
 ### Constraints
-- `<T>` is an integral type.
-- $1 \leq n \leq 10^{18}$
+- $n \geq 1$
 
 ### Time Complexity
 - Supposed to be $O\left(n^\frac{1}{4}\right)$ expected
@@ -55,7 +55,7 @@ Otherwise, it returns `ds.divisors().end()`.
 - None
 
 ### Time Complexity
-- $O\left( \frac{\log n}{\log \log n} \right)$
+- $O(\log(d(n)))$
 
 ## contains
 ```cpp
@@ -68,11 +68,11 @@ It returns whether $x$ is a positive divisor of $n$ or not.
 - None
 
 ### Time Complexity
-- $O\left( \frac{\log n}{\log \log n} \right)$
+- $O(\log(d(n)))$
 
 ## divisors (2)
 ```cpp
-struct divisors_iterable {
+struct divisor_view : public std::ranges::view_interface<divisor_view> {
   struct iterator {
     T operator*();
     iterator& operator++();
@@ -86,7 +86,7 @@ struct divisors_iterable {
   iterator begin();
   iterator end();
 };
-divisors_iterable ds.divisors(typename std::vector<T>::const_iterator it);
+divisor_view ds.divisors(typename std::vector<T>::const_iterator it);
 ```
 
 Given the iterator of `ds.divisors()` referring to a positive divisor $d$ of $n$, it enumerates all the positive divisors of $d$.
@@ -97,7 +97,7 @@ Given the iterator of `ds.divisors()` referring to a positive divisor $d$ of $n$
 
 ### Time Complexity
 - If you just call `divisors`, it takes only $O(1)$ time.
-- If you enumerate all the positive divisors of $d$, it takes $O\left( 2^\frac{\log d}{\log \log d} \frac{\log n}{\log \log n} \right)$ time.
+- If you enumerate all the positive divisors of $d$, it takes $O\left( \frac{\log n}{\log \log n} d(d) \right)$ time.
 
 ## divisors (3)
 ```cpp
@@ -110,8 +110,8 @@ It is equivalent to `ds.divisors(ds.find(d))`.
 - $d$ is a positive divisor of $n$.
 
 ### Time Complexity
-- If you just call `divisors`, it takes only $O\left( \frac{\log n}{\log \log n} \right)$ time.
-- If you enumerate all the positive divisors of $d$, it takes $O\left( 2^\frac{\log d}{\log \log d} \frac{\log n}{\log \log n} \right)$ time.
+- If you just call `divisors`, it takes only $O(\log(d(n)))$ time.
+- If you enumerate all the positive divisors of $d$, it takes $O\left( \frac{\log n}{\log \log n} d(d) \right)$ time.
 
 ## estimated_complexity
 ```cpp

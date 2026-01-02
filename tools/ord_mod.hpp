@@ -3,24 +3,24 @@
 
 #include <vector>
 #include <cassert>
-#include <cstddef>
+#include <concepts>
 #include <map>
-#include "tools/is_prime.hpp"
-#include "tools/prime_factorization.hpp"
-#include "tools/pow.hpp"
 #include "tools/fix.hpp"
+#include "tools/is_prime.hpp"
+#include "tools/pow.hpp"
 #include "tools/pow_mod.hpp"
+#include "tools/prime_factorization.hpp"
+#include "tools/run_length.hpp"
 
 namespace tools {
-  template <typename T>
+  template <std::integral T>
   class ord_mod {
-  private:
     T m_P;
     std::vector<T> m_p;
     std::vector<T> m_e;
     std::vector<std::vector<T>> m_E;
 
-    std::size_t n() const {
+    int n() const {
       return this->m_p.size();
     }
 
@@ -29,23 +29,21 @@ namespace tools {
     ord_mod(const T P) : m_P(P) {
       assert(tools::is_prime(P));
 
-      const auto factors = tools::prime_factorization(P - 1);
-      for (std::size_t l = 0, r = 0; l < factors.size(); l = r) {
-        for (; r < factors.size() && factors[l] == factors[r]; ++r);
-        this->m_p.push_back(factors[l]);
-        this->m_e.push_back(r - l);
+      for (const auto& [p, q] : tools::run_length(tools::prime_factorization(P - 1))) {
+        this->m_p.push_back(p);
+        this->m_e.push_back(q);
       }
 
       this->m_E.resize(this->n() + 1);
-      for (std::size_t l = 0; l <= this->n(); ++l) {
+      for (int l = 0; l <= this->n(); ++l) {
         this->m_E[l].resize(this->n() + 1);
         this->m_E[l][l] = 1;
       }
-      for (std::size_t l = 0; l + 1 <= this->n(); ++l) {
+      for (int l = 0; l + 1 <= this->n(); ++l) {
         this->m_E[l][l + 1] = tools::pow(this->m_p[l], this->m_e[l]);
       }
-      for (std::size_t l = 0; l + 2 <= this->n(); ++l) {
-        for (std::size_t r = l + 2; r <= this->n(); ++r) {
+      for (int l = 0; l + 2 <= this->n(); ++l) {
+        for (int r = l + 2; r <= this->n(); ++r) {
           this->m_E[l][r] = this->m_E[l][r - 1] * this->m_E[r - 1][r];
         }
       }
@@ -55,25 +53,25 @@ namespace tools {
       assert(1 <= x && x < this->m_P);
 
       T m = 1;
-      tools::fix([&](auto&& dfs, const std::size_t l, const std::size_t r, const T Xbar_l_r) -> void {
+      tools::fix([&](auto&& dfs, const int l, const int r, const T Xbar_l_r) -> void {
         switch (r - l) {
         case 0:
-          return;
+          break;
         case 1:
           {
-            std::size_t f_l;
+            int f_l;
             T v;
             for (f_l = 0, v = Xbar_l_r; v != 1; ++f_l, v = tools::pow_mod(v, this->m_p[l], this->m_P));
             m *= tools::pow(this->m_p[l], f_l);
           }
-          return;
+          break;
         default:
           {
             const auto m = (l + r) / 2;
             dfs(l, m, tools::pow_mod(Xbar_l_r, this->m_E[m][r], this->m_P));
             dfs(m, r, tools::pow_mod(Xbar_l_r, this->m_E[l][m], this->m_P));
           }
-          return;
+          break;
         }
       })(0, this->n(), x);
 
@@ -88,7 +86,7 @@ namespace tools {
 
       std::vector<T> A(E.back());
       A[0] = 1;
-      for (std::size_t i = 0; i < this->n(); ++i) {
+      for (int i = 0; i < this->n(); ++i) {
         for (T f = 1; f <= this->m_e[i]; ++f) {
           for (T s = 0; s < E[i]; ++s) {
             A[f * E[i] + s] = A[(f - 1) * E[i] + s] * this->m_p[i];
@@ -98,7 +96,7 @@ namespace tools {
       for (auto&& A_i : A) A_i = (this->m_P - 1) / A_i;
 
       auto B = A;
-      for (std::size_t i = 0; i < this->n(); ++i) {
+      for (int i = 0; i < this->n(); ++i) {
         for (T s = 0, s_end = E.back() / E[i + 1]; s < s_end; ++s) {
           for (T t = 0; t < E[i]; ++t) {
             for (T f = 0; f < this->m_e[i]; ++f) {

@@ -3,8 +3,11 @@
 
 #include <algorithm>
 #include <cassert>
+#include <concepts>
 #include <iostream>
+#include <ranges>
 #include <type_traits>
+#include <utility>
 #include <vector>
 #include "tools/group.hpp"
 #include "tools/groups.hpp"
@@ -23,6 +26,10 @@ namespace tools {
     online_cumsum() : online_cumsum(0) {
     }
     online_cumsum(const int n) : m_vector(n, M::e()), m_cumsum(n + 1, M::e()), m_processed(Forward ? 0 : n) {
+    }
+    template <std::ranges::input_range R>
+    requires std::assignable_from<T&, std::ranges::range_reference_t<R>>
+    online_cumsum(R&& r) : m_vector(std::forward<R>(r) | std::ranges::to<std::vector<T>>()), m_cumsum(this->m_vector.size() + 1, M::e()), m_processed(Forward ? 0 : this->m_vector.size()) {
     }
 
     int size() const {

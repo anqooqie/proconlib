@@ -1,51 +1,33 @@
 #ifndef TOOLS_DIVISORS_OF_DIVISOR_HPP
 #define TOOLS_DIVISORS_OF_DIVISOR_HPP
 
-#include <vector>
-#include <numeric>
 #include <algorithm>
+#include <cassert>
+#include <concepts>
 #include <cstddef>
 #include <iterator>
+#include <numeric>
+#include <ranges>
 #include <utility>
-#include <cassert>
+#include <vector>
 #include "atcoder/modint.hpp"
-#include "tools/less_by.hpp"
-#include "tools/ceil.hpp"
-#include "tools/prime_factorization.hpp"
+#include "tools/block_ceil.hpp"
+#include "tools/block_floor.hpp"
 #include "tools/fps.hpp"
+#include "tools/getter_result.hpp"
+#include "tools/less_by.hpp"
+#include "tools/run_length.hpp"
+#include "tools/prime_factorization.hpp"
 
 namespace tools {
-  template <typename T>
+  template <std::integral T>
   class divisors_of_divisor {
     std::vector<T> m_divisors;
     std::vector<int> m_sorted_divisors;
     std::vector<int> m_Q;
 
-    template <typename InputIterator>
-    void init(const InputIterator begin, const InputIterator end) {
-      this->m_divisors.push_back(1);
-      this->m_Q.push_back(1);
-      for (auto it = begin; it != end; ++it) {
-        const T p = it->first;
-        const int q = it->second;
-        const int divisors_size = this->m_divisors.size();
-        T pe = 1;
-        for (int e = 1; e <= q; ++e) {
-          pe *= p;
-          for (int i = 0; i < divisors_size; ++i) {
-            this->m_divisors.push_back(this->m_divisors[i] * pe);
-          }
-        }
-        this->m_Q.push_back(this->m_Q.back() * (q + 1));
-      }
-
-      this->m_sorted_divisors.resize(this->m_divisors.size());
-      std::iota(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), 0);
-      std::sort(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), tools::less_by([&](const auto i) { return this->m_divisors[i]; }));
-    }
-
   public:
-    class divisors_iterable {
+    class divisor_view : public std::ranges::view_interface<divisor_view> {
       const tools::divisors_of_divisor<T> *m_parent;
       int m_s;
 
@@ -80,7 +62,7 @@ namespace tools {
             this->m_t < this->m_parent->m_Q.back() && this->m_parent->m_divisors[this->m_s] % this->m_parent->m_divisors[this->m_t] != 0;
             ++it
           ) {
-            this->m_t = tools::ceil(this->m_t, *it) * *it;
+            this->m_t = tools::block_ceil(this->m_t, *it);
           }
           return *this;
         }
@@ -94,7 +76,7 @@ namespace tools {
           for (int i = 0, max = 0; this->m_parent->m_divisors[this->m_s] % this->m_parent->m_divisors[this->m_t] != 0; ++i) {
             const auto q = this->m_s % this->m_parent->m_Q[i + 1] / this->m_parent->m_Q[i];
             max += q * this->m_parent->m_Q[i];
-            this->m_t = this->m_t / this->m_parent->m_Q[i + 1] * this->m_parent->m_Q[i + 1] + std::min(this->m_t % this->m_parent->m_Q[i + 1], max);
+            this->m_t = tools::block_floor(this->m_t, this->m_parent->m_Q[i + 1]) + std::min(this->m_t % this->m_parent->m_Q[i + 1], max);
           }
           return *this;
         }
@@ -119,8 +101,8 @@ namespace tools {
         }
       };
 
-      divisors_iterable() = default;
-      divisors_iterable(const tools::divisors_of_divisor<T> * const parent, const int s) : m_parent(parent), m_s(s) {
+      divisor_view() = default;
+      divisor_view(const tools::divisors_of_divisor<T> * const parent, const int s) : m_parent(parent), m_s(s) {
       }
 
       iterator begin() const {
@@ -132,23 +114,35 @@ namespace tools {
     };
 
     divisors_of_divisor() = default;
-    divisors_of_divisor(const T n) {
-      const auto factors = tools::prime_factorization(n);
-      const int k = factors.size();
-      std::vector<std::pair<T, int>> v;
-      for (int l = 0, r = 0; l < k; l = r) {
-        for (; r < k && factors[l] == factors[r]; ++r);
-        v.emplace_back(factors[l], r - l);
-      }
-      this->init(v.begin(), v.end());
+    divisors_of_divisor(const T n) : divisors_of_divisor(tools::run_length(tools::prime_factorization(n))) {
     }
-    template <typename InputIterator>
-    divisors_of_divisor(const InputIterator begin, const InputIterator end) {
-      this->init(begin, end);
+    template <std::ranges::input_range R>
+    requires std::assignable_from<T&, std::tuple_element_t<0, std::ranges::range_value_t<R>>>
+          && std::assignable_from<int&, std::tuple_element_t<1, std::ranges::range_value_t<R>>>
+    divisors_of_divisor(R&& r) {
+      this->m_divisors.push_back(1);
+      this->m_Q.push_back(1);
+      for (auto it = std::ranges::begin(r); it != std::ranges::end(r); ++it) {
+        const T p = it->first;
+        const int q = it->second;
+        const int divisors_size = this->m_divisors.size();
+        T pe = 1;
+        for (int e = 1; e <= q; ++e) {
+          pe *= p;
+          for (int i = 0; i < divisors_size; ++i) {
+            this->m_divisors.push_back(this->m_divisors[i] * pe);
+          }
+        }
+        this->m_Q.push_back(this->m_Q.back() * (q + 1));
+      }
+
+      this->m_sorted_divisors.resize(this->m_divisors.size());
+      std::iota(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), 0);
+      std::ranges::sort(this->m_sorted_divisors, tools::less_by([&](const auto i) { return this->m_divisors[i]; }));
     }
 
     typename std::vector<T>::const_iterator find(const T x) const {
-      if (const auto it = std::partition_point(this->m_sorted_divisors.begin(), this->m_sorted_divisors.end(), [&](const auto i) { return this->m_divisors[i] < x; }); it != this->m_sorted_divisors.end()) {
+      if (const auto it = std::ranges::partition_point(this->m_sorted_divisors, [&](const auto i) { return this->m_divisors[i] < x; }); it != this->m_sorted_divisors.end()) {
         if (this->m_divisors[*it] == x) {
           return this->m_divisors.cbegin() + *it;
         } else {
@@ -162,14 +156,14 @@ namespace tools {
       return this->find(x) != this->m_divisors.cend();
     }
 
-    const std::vector<T>& divisors() const {
-      return this->m_divisors;
+    auto divisors(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<T>> {
+      return std::forward_like<decltype(self)>(self.m_divisors);
     }
-    divisors_iterable divisors(const typename std::vector<T>::const_iterator it) const {
+    divisor_view divisors(const typename std::vector<T>::const_iterator it) const {
       assert(it != this->m_divisors.cend());
-      return divisors_iterable(this, std::distance(this->m_divisors.cbegin(), it));
+      return divisor_view(this, std::distance(this->m_divisors.cbegin(), it));
     }
-    divisors_iterable divisors(const T d) const {
+    divisor_view divisors(const T d) const {
       return this->divisors(this->find(d));
     }
 

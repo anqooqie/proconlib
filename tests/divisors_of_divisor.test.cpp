@@ -1,12 +1,12 @@
 // competitive-verifier: STANDALONE
 
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <vector>
 #include "tools/assert_that.hpp"
-#include "tools/divisors_of_divisor.hpp"
 #include "tools/divisors.hpp"
+#include "tools/divisors_of_divisor.hpp"
 
 using ll = long long;
 
@@ -24,13 +24,13 @@ int main() {
       tools::divisors_of_divisor<ll> ds(n);
 
       assert_that([&]() {
-        std::vector<ll> v(ds.divisors().begin(), ds.divisors().end());
-        std::sort(v.begin(), v.end());
+        std::vector<ll> v(ds.divisors());
+        std::ranges::sort(v);
         return v;
       }() == divisors[n]);
 
       for (ll m = 0; m <= 100; ++m) {
-        assert_that(ds.contains(m) == (std::find(divisors[n].begin(), divisors[n].end(), m) != divisors[n].end()));
+        assert_that(ds.contains(m) == (std::ranges::find(divisors[n], m) != divisors[n].end()));
         if (ds.contains(m)) {
           assert_that(*ds.find(m) == m);
         } else {
@@ -40,13 +40,13 @@ int main() {
 
       for (auto it = ds.divisors().begin(); it != ds.divisors().end(); ++it) {
         assert_that([&]() {
-          std::vector<ll> v(ds.divisors(it).begin(), ds.divisors(it).end());
-          std::sort(v.begin(), v.end());
+          auto v = ds.divisors(it) | std::ranges::to<std::vector>();
+          std::ranges::sort(v);
           return v;
         }() == divisors[*it]);
         assert_that([&]() {
           std::vector<ll> v(std::make_reverse_iterator(ds.divisors(it).end()), std::make_reverse_iterator(ds.divisors(it).begin()));
-          std::sort(v.begin(), v.end());
+          std::ranges::sort(v);
           return v;
         }() == divisors[*it]);
       }
@@ -60,13 +60,13 @@ int main() {
     tools::divisors_of_divisor<ll> ds(n);
 
     assert_that([&]() {
-      std::vector<ll> v(ds.divisors().begin(), ds.divisors().end());
-      std::sort(v.begin(), v.end());
+      std::vector<ll> v(ds.divisors());
+      std::ranges::sort(v);
       return v;
     }() == divisors);
 
     for (auto it = ds.divisors().begin(); it != ds.divisors().end(); ++it) {
-      assert_that(std::all_of(ds.divisors(it).begin(), ds.divisors(it).end(), [&](const auto d) { return *it % d == 0; }));
+      assert_that(std::ranges::all_of(ds.divisors(it), [&](const auto d) { return *it % d == 0; }));
       assert_that(std::all_of(std::make_reverse_iterator(ds.divisors(it).end()), std::make_reverse_iterator(ds.divisors(it).begin()), [&](const auto d) { return *it % d == 0; }));
     }
   }

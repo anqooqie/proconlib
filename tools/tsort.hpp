@@ -7,6 +7,7 @@
 #include <queue>
 #include <utility>
 #include <vector>
+#include "tools/getter_result.hpp"
 #include "tools/pow2.hpp"
 
 namespace tools {
@@ -38,20 +39,13 @@ namespace tools {
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const int k) const & {
-      assert(0 <= k && k < std::ssize(this->m_edges));
-      return this->m_edges[k];
-    }
-    edge get_edge(const int k) && {
-      assert(0 <= k && k < std::ssize(this->m_edges));
-      return std::move(this->m_edges[k]);
+    auto get_edge(this auto&& self, const int k) -> tools::getter_result_t<decltype(self), edge> {
+      assert(0 <= k && k < std::ssize(self.m_edges));
+      return std::forward_like<decltype(self)>(self.m_edges[k]);
     }
 
-    const std::vector<edge>& edges() const & {
-      return this->m_edges;
-    }
-    std::vector<edge> edges() && {
-      return std::move(this->m_edges);
+    auto edges(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<edge>> {
+      return std::forward_like<decltype(self)>(self.m_edges);
     }
 
     std::vector<int> query() const {

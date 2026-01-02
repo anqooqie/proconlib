@@ -16,6 +16,7 @@ For a fixed prime $p$, it returns the minimum positive integer $k$ such that $x^
 
 ## Constructor
 ```cpp
+template <std::integral T>
 ord_mod<T> ord(T p);
 ```
 
@@ -23,7 +24,6 @@ It constructs a data structure that allows $\mathrm{ord}(x)$ to be returned in $
 
 ### Constraints
 - $p$ is a prime.
-- $2 \leq p \leq 10^{18}$
 
 ### Time Complexity
 - Supposed to be $O\left(p^\frac{1}{4}\right)$ expected

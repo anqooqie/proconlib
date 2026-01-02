@@ -1,10 +1,10 @@
 #ifndef TOOLS_PDSU_HPP
 #define TOOLS_PDSU_HPP
 
-#include <vector>
 #include <cassert>
 #include <numeric>
 #include <utility>
+#include <vector>
 #include "tools/groups.hpp"
 
 namespace tools {
@@ -16,7 +16,6 @@ namespace tools {
 
   template <typename G = tools::groups::plus<long long>>
   class pdsu {
-  private:
     using T = typename G::T;
 
     std::vector<int> m_parents;
@@ -25,6 +24,7 @@ namespace tools {
     std::vector<bool> m_consistent;
 
   public:
+    pdsu() = default;
     explicit pdsu(const int n) :
       m_parents(n),
       m_sizes(n, 1),
@@ -91,7 +91,8 @@ namespace tools {
       }
       this->m_parents[y_r] = x_r;
       this->m_sizes[x_r] += this->m_sizes[y_r];
-      if (this->m_consistent[x_r] = (this->m_consistent[x_r] && this->m_consistent[y_r])) {
+      this->m_consistent[x_r] = this->m_consistent[x_r] && this->m_consistent[y_r];
+      if (this->m_consistent[x_r]) {
         this->m_diffs[y_r] = G::op(G::op(this->m_diffs[x], G::inv(w)), G::inv(this->m_diffs[y]));
       }
       return x_r;
