@@ -1,10 +1,11 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
 
 #include <iostream>
-#include <vector>
+#include <ranges>
 #include <utility>
-#include <string>
+#include <vector>
 #include "atcoder/modint.hpp"
+#include "tools/join.hpp"
 #include "tools/sparse_fps_pow.hpp"
 
 using ll = long long;
@@ -24,14 +25,6 @@ int main() {
     a.emplace_back(i, mint::raw(a_i));
   }
 
-  const auto b = tools::sparse_fps_pow(a.begin(), a.end(), M, N);
-
-  std::string delimiter = "";
-  for (const mint& b_i : b) {
-    std::cout << delimiter << b_i.val();
-    delimiter = " ";
-  }
-  std::cout << '\n';
-
+  std::cout << tools::join(tools::sparse_fps_pow(a, M, N) | std::views::transform(&mint::val), ' ') << '\n';
   return 0;
 }

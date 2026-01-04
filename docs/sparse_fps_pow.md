@@ -6,24 +6,24 @@ documentation_of: //tools/sparse_fps_pow.hpp
 ## (1)
 
 ```cpp
-template <typename InputIterator>
-tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator begin, InputIterator end, unsigned long long k, std::size_t n);
+template <std::ranges::input_range R>
+requires tools::integral<std::tuple_element_t<0, std::ranges::range_value_t<R>>>
+      && tools::modint<std::tuple_element_t<1, std::ranges::range_value_t<R>>>
+tools::fps<std::tuple_element_t<1, std::ranges::range_value_t<R>>> sparse_fps_pow(R&& f, unsigned long long k, int n);
 ```
 
 It returns $f^k$, the element of the ring $(\mathbb{Z}/p\mathbb{Z})[x]/(x^n)$.
-$f$ is given as the list of degree-coefficient pairs.
+$f = \sum_{i = 0}^{m - 1} f_i x^{d_i}$ is given as the list of degree-coefficient pairs $((d_0, f_0), (d_1, f_1), \ldots, (d_{m - 1}, f_{m - 1}))$.
 
 ### Constraints
-- `begin` $\leq$ `end`
-- `*begin` is convertible to `std::pair<int, M>` where `M` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- `std::all_of(begin, end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(begin, end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(begin, end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == end`
+- For any $i$, $d_i \geq 0$.
+- $(d_0, d_1, \ldots, d_{m - 1})$ are sorted in ascending order.
+- $(d_0, d_1, \ldots, d_{m - 1})$ are distinct.
 - $p$ is a prime where $p$ is `M::mod()`.
-- $n \leq p$
+- $0 \leq n \leq p$
 
 ### Time Complexity
-- $O(nm + \log k + \log p)$ where $m$ is `end` $-$ `begin`
+- $O(nm + \log k + \log p)$
 
 ### License
 - CC0
@@ -34,52 +34,36 @@ $f$ is given as the list of degree-coefficient pairs.
 ## (2)
 
 ```cpp
-template <typename M>
-tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> il, unsigned long long k, std::size_t n);
-```
-
-It is identical to `sparse_fps_pow(il.begin(), il.end(), k, n)`.
-
-## (3)
-
-```cpp
-template <typename InputIterator>
-tools::fps<std::decay_t<decltype(std::declval<InputIterator>()->second)>> sparse_fps_pow(InputIterator f_begin, InputIterator f_end, InputIterator g_begin, InputIterator g_end, unsigned long long k, std::size_t n);
+template <std::ranges::input_range R1, std::ranges::input_range R2>
+requires tools::integral<std::tuple_element_t<0, std::ranges::range_value_t<R1>>>
+      && tools::modint<std::tuple_element_t<1, std::ranges::range_value_t<R1>>>
+      && tools::integral<std::tuple_element_t<0, std::ranges::range_value_t<R2>>>
+      && std::same_as<std::tuple_element_t<1, std::ranges::range_value_t<R1>>, std::tuple_element_t<1, std::ranges::range_value_t<R2>>>
+tools::fps<std::tuple_element_t<1, std::ranges::range_value_t<R1>>> sparse_fps_pow(R1&& f, R2&& g, unsigned long long k, int n);
 ```
 
 It returns $\left(\frac{f}{g}\right)^k$, the element of the ring $(\mathbb{Z}/p\mathbb{Z})[x]/(x^n)$.
-Each of $f$ and $g$ is given as the list of degree-coefficient pairs.
+$f = \sum_{i = 0}^{m_1 - 1} f_i x^{d_i}$ is given as the list of degree-coefficient pairs $((d_0, f_0), (d_1, f_1), \ldots, (d_{m_1 - 1}, f_{m_1 - 1}))$.
+Also, $g = \sum_{i = 0}^{m_2 - 1} g_i x^{e_i}$ is given as the list of degree-coefficient pairs $((e_0, g_0), (e_1, g_1), \ldots, (e_{m_2 - 1}, g_{m_2 - 1}))$.
 
 ### Constraints
-- `f_begin` $\leq$ `f_end`
-- `*f_begin` is convertible to `std::pair<int, M>` where `M` is `atcoder::static_modint` or `atcoder::dynamic_modint`.
-- `std::all_of(f_begin, f_end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(f_begin, f_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(f_begin, f_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == f_end`
-- `g_begin` $<$ `g_end`
-- `*g_begin` is convertible to `std::pair<int, M>`.
-- `std::all_of(g_begin, g_end, [](std::pair<int, M> pair) { return pair.first >= 0; })`
-- `std::is_sorted(g_begin, g_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; })`
-- `std::unique(g_begin, g_end, [](std::pair<int, M> pair1, std::pair<int, M> pair2) { return pair1.first < pair2.first; }) == g_end`
-- `g_begin->first == 0`
-- `g_begin->second != M(0)`
+- For any $i$, $d_i \geq 0$.
+- $(d_0, d_1, \ldots, d_{m - 1})$ are sorted in ascending order.
+- $(d_0, d_1, \ldots, d_{m - 1})$ are distinct.
+- $m_2 > 0$
+- For any $i$, $e_i \geq 0$.
+- $(e_0, e_1, \ldots, e_{m - 1})$ are sorted in ascending order.
+- $(e_0, e_1, \ldots, e_{m - 1})$ are distinct.
+- $e_0 = 0$
+- $g_0 \neq 0$
 - $p$ is a prime where $p$ is `M::mod()`.
-- $n \leq p$
+- $0 \leq n \leq p$
 
 ### Time Complexity
-- $O(n m_1 m_2 + \log k + \log p)$ where $m_1$ is `f_end` $-$ `f_begin` and $m_2$ is `g_end` $-$ `g_begin`
+- $O(n m_1 m_2 + \log k + \log p)$
 
 ### License
 - CC0
 
 ### Author
 - anqooqie
-
-## (4)
-
-```cpp
-template <typename M>
-tools::fps<M> sparse_fps_pow(std::initializer_list<std::pair<int, M>> f, std::initializer_list<std::pair<int, M>> g, unsigned long long k, std::size_t n);
-```
-
-It is identical to `sparse_fps_pow(f.begin(), f.end(), g.begin(), g.end(), k, n)`.

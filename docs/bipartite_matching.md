@@ -13,7 +13,7 @@ It calculates the maximum matching on a given bipartite graph.
 
 ## Constructor
 ```cpp
-bipartite_matching graph(std::size_t n1, std::size_t n2);
+bipartite_matching graph(int n1, int n2);
 ```
 
 It creates an bipartite graph with $0$ edges.
@@ -21,14 +21,15 @@ Vertices of the graph can be divided into two disjoint and independent sets $U$ 
 $U$ consists of $n_1$ vertices and $V$ consists of $n_2$ vertices.
 
 ### Constraints
-- None
+- $n_1 \geq 0$
+- $n_2 \geq 0$
 
 ### Time Complexity
 - $O(n_1 + n_2)$
 
 ## size1
 ```cpp
-std::size_t graph.size1();
+int graph.size1();
 ```
 
 It returns $n_1$.
@@ -41,7 +42,7 @@ It returns $n_1$.
 
 ## size2
 ```cpp
-std::size_t graph.size2();
+int graph.size2();
 ```
 
 It returns $n_2$.
@@ -54,7 +55,7 @@ It returns $n_2$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t a, std::size_t b);
+int graph.add_edge(int a, int b);
 ```
 
 It adds an edge between $a \in U$ and $b \in V$.
@@ -70,11 +71,10 @@ It returns an integer $k$ such that this is the $k$-th edge that is added.
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
 };
-edge graph.get_edge(std::size_t k);
+edge graph.get_edge(int k);
 ```
 
 It returns the $k$-th edge.
@@ -101,10 +101,15 @@ The edges are ordered in the same order as added by `add_edge`.
 
 ## query
 ```cpp
-std::vector<std::size_t> graph.query();
+(1) int graph.query();
+(2) int graph.query<false>();
+(3) std::vector<int> graph.query<true>();
 ```
 
-It returns the indices of the edges which can reach the maximum matching.
+- (1), (2)
+    - It returns the number of edges which can reach the maximum matching.
+- (3)
+    - It returns the indices of the edges which can reach the maximum matching.
 
 ### Constraints
 - None

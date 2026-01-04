@@ -1,16 +1,15 @@
 #ifndef TOOLS_CHMIN_HPP
 #define TOOLS_CHMIN_HPP
 
-#include <type_traits>
-#include <utility>
+#include "tools/cmp_less.hpp"
+#include "tools/integral.hpp"
 
 namespace tools {
-
   template <typename M, typename N>
   bool chmin(M& lhs, const N& rhs) {
     bool updated;
-    if constexpr (std::is_integral_v<M> && std::is_integral_v<N>) {
-      updated = std::cmp_less(rhs, lhs);
+    if constexpr (tools::integral<M> && tools::integral<N>) {
+      updated = tools::cmp_less(rhs, lhs);
     } else {
       updated = rhs < lhs;
     }

@@ -12,11 +12,11 @@
 #include "tools/chmin.hpp"
 #include "tools/getter_result.hpp"
 #include "tools/greater_by_second.hpp"
+#include "tools/integral.hpp"
 #include "tools/shortest_path_tree.hpp"
 
 namespace tools {
-
-  template <bool Directed, typename T>
+  template <bool Directed, tools::integral T>
   class dijkstra {
   public:
     struct edge {

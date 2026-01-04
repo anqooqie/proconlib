@@ -1,26 +1,18 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/acl1/tasks/acl1_c
-// competitive-verifier: IGNORE
+// competitive-verifier: STANDALONE
+// Source: https://atcoder.jp/contests/acl1/tasks/acl1_c
 
 #include <iostream>
-#include <vector>
-#include <string>
-#include <variant>
 #include <queue>
-#include "tools/weighted_bipartite_matching.hpp"
+#include <string>
+#include <vector>
+#include "tools/assert_that.hpp"
 #include "tools/vector2.hpp"
+#include "tools/weighted_bipartite_matching.hpp"
 
 using ll = long long;
 
-int main() {
-  std::cin.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-
-  ll N, M;
-  std::cin >> N >> M;
-  std::vector<std::string> S(N);
-  for (auto& S_i : S) std::cin >> S_i;
-
-  tools::weighted_bipartite_matching<ll> graph(N * M, N * M, true);
+ll solve(const ll N, const ll M, const std::vector<std::string>& S) {
+  tools::weighted_bipartite_matching<true, ll> graph(N * M, N * M);
   ll number_of_pieces = 0;
   for (ll y1 = 0; y1 < N; ++y1) {
     for (ll x1 = 0; x1 < M; ++x1) {
@@ -46,7 +38,43 @@ int main() {
       }
     }
   }
+  return *graph.query(number_of_pieces);
+}
 
-  std::cout << graph.query(number_of_pieces)->first << '\n';
+void sample_01() {
+  const ll N = 3;
+  const ll M = 3;
+  const std::vector<std::string> S = {
+    "o..",
+    "...",
+    "o.#",
+  };
+  assert_that(solve(N, M, S) == 4);
+}
+
+void sample_02() {
+  const ll N = 9;
+  const ll M = 10;
+  const std::vector<std::string> S = {
+    ".#....o#..",
+    ".#..#..##o",
+    ".....#o.##",
+    ".###.#o..o",
+    "#.#...##.#",
+    "..#..#.###",
+    "#o.....#..",
+    "....###..o",
+    "o.......o#",
+  };
+  assert_that(solve(N, M, S) == 24);
+}
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
+  sample_01();
+  sample_02();
+
   return 0;
 }

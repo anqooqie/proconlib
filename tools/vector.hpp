@@ -12,9 +12,9 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
-#include <type_traits>
 #include <string>
 #include <tuple>
+#include <type_traits>
 #include <utility>
 #include <vector>
 #include "tools/abs.hpp"
@@ -40,10 +40,9 @@ namespace tools {
       protected:
         constexpr static bool variable_sized = false;
         constexpr static bool has_aliases = true;
-        std::array<T*, 2> m_values;
-        members() : m_values{&this->x, &this->y} {}
-        members(const T& x, const T& y) : m_values{&this->x, &this->y}, x(x), y(y) {}
-        members(const std::initializer_list<T> il) : m_values{&this->x, &this->y}, x(il.begin()[0]), y(il.begin()[1]) {
+        members() = default;
+        members(const T& x, const T& y) : x(x), y(y) {}
+        members(const std::initializer_list<T> il) : x(il.begin()[0]), y(il.begin()[1]) {
           assert(il.size() == 2);
         }
 
@@ -57,10 +56,9 @@ namespace tools {
       protected:
         constexpr static bool variable_sized = false;
         constexpr static bool has_aliases = true;
-        std::array<T*, 3> m_values;
-        members() : m_values{&this->x, &this->y, &this->z} {}
-        members(const T& x, const T& y, const T& z) : m_values{&this->x, &this->y, &this->z}, x(x), y(y), z(z) {}
-        members(const std::initializer_list<T> il) : m_values{&this->x, &this->y, &this->z}, x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]) {
+        members() = default;
+        members(const T& x, const T& y, const T& z) : x(x), y(y), z(z) {}
+        members(const std::initializer_list<T> il) : x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]) {
           assert(il.size() == 3);
         }
 
@@ -75,10 +73,9 @@ namespace tools {
       protected:
         constexpr static bool variable_sized = false;
         constexpr static bool has_aliases = true;
-        std::array<T*, 4> m_values;
-        members() : m_values{&this->x, &this->y, &this->z, &this->w} {}
-        members(const T& x, const T& y, const T& z, const T& w) : m_values{&this->x, &this->y, &this->z, &this->w}, x(x), y(y), z(z), w(w) {}
-        members(const std::initializer_list<T> il) : m_values{&this->x, &this->y, &this->z, &this->w}, x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]), w(il.begin()[3]) {
+        members() = default;
+        members(const T& x, const T& y, const T& z, const T& w) : x(x), y(y), z(z), w(w) {}
+        members(const std::initializer_list<T> il) : x(il.begin()[0]), y(il.begin()[1]), z(il.begin()[2]), w(il.begin()[3]) {
           assert(il.size() == 4);
         }
 
@@ -98,7 +95,7 @@ namespace tools {
         members() = default;
         members(const std::size_t n) : m_values(n) {}
         members(const std::size_t n, const T& value) : m_values(n, value) {}
-        template <typename InputIter>
+        template <std::input_iterator InputIter>
         members(const InputIter first, const InputIter last) : m_values(first, last) {}
         members(const std::initializer_list<T> il) : m_values(il) {}
       };
@@ -303,41 +300,9 @@ namespace tools {
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     vector() = default;
-    vector(const V& other) : Base() {
-      if constexpr (has_aliases) {
-        std::copy(other.begin(), other.end(), this->begin());
-      } else {
-        this->m_values = other.m_values;
-      }
-    }
-    vector(V&& other) noexcept {
-      if constexpr (has_aliases) {
-        std::copy(other.begin(), other.end(), this->begin());
-      } else {
-        this->m_values = std::move(other.m_values);
-      }
-    }
-    ~vector() = default;
-    V& operator=(const V& other) {
-      if constexpr (has_aliases) {
-        std::copy(other.begin(), other.end(), this->begin());
-      } else {
-        this->m_values = other.m_values;
-      }
-      return *this;
-    }
-    V& operator=(V&& other) noexcept {
-      if constexpr (has_aliases) {
-        std::copy(other.begin(), other.end(), this->begin());
-      } else {
-        this->m_values = std::move(other.m_values);
-      }
-      return *this;
-    }
-
     explicit vector(size_type n) requires (variable_sized) : Base(n) {}
     vector(size_type n, const_reference value) requires (variable_sized) : Base(n, value) {}
-    template <typename InputIter>
+    template <std::input_iterator InputIter>
     vector(const InputIter first, const InputIter last) requires (variable_sized) : Base(first, last) {}
     vector(const T& x, const T& y) requires (N == 2) : Base(x, y) {}
     vector(const T& x, const T& y, const T& z) requires (N == 3) : Base(x, y, z) {}
@@ -357,21 +322,45 @@ namespace tools {
     const_reverse_iterator rend() const noexcept { return std::make_reverse_iterator(this->begin()); }
     const_reverse_iterator crend() const noexcept { return std::make_reverse_iterator(this->cbegin()); }
 
-    size_type size() const noexcept { return this->m_values.size(); }
-    bool empty() const noexcept { return this->m_values.empty(); }
-
-    reference operator[](const size_type n) {
-      if constexpr (has_aliases) {
-        return *this->m_values[n];
+    size_type size() const noexcept {
+      if constexpr (variable_sized) {
+        return this->m_values.size();
       } else {
-        return this->m_values[n];
+        return N;
       }
     }
-    const_reference operator[](const size_type n) const {
-      if constexpr (has_aliases) {
-        return *this->m_values[n];
+    bool empty() const noexcept {
+      if constexpr (variable_sized) {
+        return this->m_values.empty();
       } else {
-        return this->m_values[n];
+        return N == 0;
+      }
+    }
+
+    auto operator[](this auto&& self, const size_type n) -> std::conditional_t<std::is_const_v<std::remove_reference_t<decltype(self)>>, const_reference, reference> {
+      assert(n < self.size());
+      if constexpr (has_aliases) {
+        if constexpr (N == 2) {
+          switch (n) {
+            case 0: return self.x;
+            default: return self.y;
+          }
+        } else if constexpr (N == 3) {
+          switch (n) {
+            case 0: return self.x;
+            case 1: return self.y;
+            default: return self.z;
+          }
+        } else {
+          switch (n) {
+            case 0: return self.x;
+            case 1: return self.y;
+            case 2: return self.z;
+            default: return self.w;
+          }
+        }
+      } else {
+        return self.m_values[n];
       }
     }
     reference front() { return *this->begin(); }

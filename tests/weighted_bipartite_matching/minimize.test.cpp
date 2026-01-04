@@ -1,10 +1,12 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/assignment
 
+#include <algorithm>
+#include <functional>
 #include <iostream>
-#include <variant>
+#include <ranges>
 #include <vector>
-#include "tools/weighted_bipartite_matching.hpp"
 #include "tools/join.hpp"
+#include "tools/weighted_bipartite_matching.hpp"
 
 using ll = long long;
 
@@ -15,7 +17,7 @@ int main() {
   ll N;
   std::cin >> N;
 
-  tools::weighted_bipartite_matching<ll> graph(N, N, false);
+  tools::weighted_bipartite_matching<false, ll> graph(N, N);
   for (ll i = 0; i < N; ++i) {
     for (ll j = 0; j < N; ++j) {
       ll a_ij;
@@ -25,12 +27,12 @@ int main() {
   }
 
   std::vector<ll> p(N);
-  const auto [cost, edges] = *graph.query(N);
-  for (const auto k : edges) {
-    p[graph.get_edge(k).from] = graph.get_edge(k).to;
+  const auto edges = *graph.query<true>(N);
+  for (const auto& edge : edges | std::views::transform([&](const auto k) { return graph.get_edge(k); })) {
+    p[edge.from] = edge.to;
   }
 
-  std::cout << cost << '\n';
-  std::cout << tools::join(p, " ") << '\n';
+  std::cout << std::ranges::fold_left(edges | std::views::transform([&](const auto k) { return graph.get_edge(k).weight; }), 0LL, std::plus<ll>{}) << '\n';
+  std::cout << tools::join(p, ' ') << '\n';
   return 0;
 }

@@ -228,10 +228,11 @@ namespace tools {
           assert(!std::ranges::empty(a));
           assert(!std::ranges::empty(b));
 
+          #ifndef NDEBUG
           const auto n = std::ranges::distance(a);
           const auto m = std::ranges::distance(b);
           const auto z = tools::pow2(tools::ceil_log2(n + m - 1));
-
+          #endif
           assert((M1::mod() - 1) % z == 0);
           assert((M2::mod() - 1) % z == 0);
           assert((M3::mod() - 1) % z == 0);

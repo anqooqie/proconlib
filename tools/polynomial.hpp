@@ -317,9 +317,6 @@ namespace tools {
     }
 
     P& operator*=(const P& g) {
-      const int n = this->deg() + 1;
-      const int m = g.deg() + 1;
-
       this->m_vector = tools::convolution<R>(*this, g);
       return this->regularize();
     }
