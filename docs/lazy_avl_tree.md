@@ -51,10 +51,12 @@ For simplicity, in this document, we assume that the oracles `op`, `e`, `mapping
 ```cpp
 (1) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer);
 (2) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer, int n);
-(3) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer, std::vector<S> v);
+(3) lazy_avl_tree<SM, FM, mapping> avl_tree(lazy_avl_tree<SM, FM, mapping>::buffer& buffer, std::ranges::input_range auto&& v)
+    requires std::assignable_from<S&, std::ranges::range_reference_t<R>>;
 (4) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer);
 (5) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer, int n);
-(6) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer, std::vector<S> v);
+(6) lazy_avl_tree<SM, FM, mapping, Reversible> avl_tree(lazy_avl_tree<SM, FM, mapping, Reversible>::buffer& buffer, std::ranges::input_range auto&& v)
+    requires std::assignable_from<S&, std::ranges::range_reference_t<R>>;
 ```
 
 It defines $S$ by `typename SM::T`, $\mathrm{op}$ by `S SM::op(S x, S y)`, $\mathrm{e}$ by `S SM::e()`, $F$ by `typename FM::T`, $\mathrm{composition}$ by `F FM::op(F f, F g)`, $\mathrm{id}$ by `F FM::e()` and $\mathrm{mapping}$ by `S mapping(F f, S x)`.
@@ -219,7 +221,7 @@ It removes `a[p]`. (remaining elements will be concatenated)
 
 ## merge
 ```cpp
-void avl_tree.merge(lazy_avl_tree<SM, FM, mapping, Reversible> other);
+void avl_tree.merge(lazy_avl_tree<SM, FM, mapping, Reversible>&& other);
 ```
 
 It appends the sequence represented by `other` to the end of `a`.
@@ -234,10 +236,11 @@ It appends the sequence represented by `other` to the end of `a`.
 
 ## split
 ```cpp
-std::pair<lazy_avl_tree<SM, FM, mapping, Reversible>, avl_tree<SM, FM, mapping, Reversible>> avl_tree.split(int i);
+std::pair<lazy_avl_tree<SM, FM, mapping, Reversible>, avl_tree<SM, FM, mapping, Reversible>> std::move(avl_tree).split(int i);
 ```
 
 It splits `a` into the two sequences `a[0], a[1], ..., a[i - 1]` and `a[i], a[i + 1], ..., a[a.size() - 1]`.
+`avl_tree` gets empty after call of this function.
 
 ### Constraints
 - `buffer` is in its lifetime.

@@ -50,10 +50,12 @@ For simplicity, in this document, we assume that the oracles `op` and `e` work i
 ```cpp
 (1) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer);
 (2) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, int n);
-(3) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, std::vector<S> v);
+(3) avl_tree<M> avl_tree(avl_tree<M>::buffer& buffer, std::ranges::input_range auto&& v)
+    requires std::assignable_from<S&, std::ranges::range_reference_t<R>>;
 (4) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer);
 (5) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, int n);
-(6) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, std::vector<S> v);
+(6) avl_tree<M, Reversible> avl_tree(avl_tree<M, Reversible>::buffer& buffer, std::ranges::input_range auto&& v)
+    requires std::assignable_from<S&, std::ranges::range_reference_t<R>>;
 ```
 
 It defines $S$ by `typename M::T`, $\mathrm{op}$ by `S M::op(S x, S y)` and $\mathrm{e}$ by `S M::e()`.
@@ -194,7 +196,7 @@ It removes `a[p]`. (remaining elements will be concatenated)
 
 ## merge
 ```cpp
-void avl_tree.merge(avl_tree<M, Reversible> other);
+void avl_tree.merge(avl_tree<M, Reversible>&& other);
 ```
 
 It appends the sequence represented by `other` to the end of `a`.
@@ -209,10 +211,11 @@ It appends the sequence represented by `other` to the end of `a`.
 
 ## split
 ```cpp
-std::pair<avl_tree<M, Reversible>, avl_tree<M, Reversible>> avl_tree.split(int i);
+std::pair<avl_tree<M, Reversible>, avl_tree<M, Reversible>> std::move(avl_tree).split(int i);
 ```
 
 It splits `a` into the two sequences `a[0], a[1], ..., a[i - 1]` and `a[i], a[i + 1], ..., a[a.size() - 1]`.
+`avl_tree` gets empty after call of this function.
 
 ### Constraints
 - `buffer` is in its lifetime.

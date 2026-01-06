@@ -1,73 +1,104 @@
 #ifndef TOOLS_DETAIL_AVL_TREE_IMPL_HPP
 #define TOOLS_DETAIL_AVL_TREE_IMPL_HPP
 
-#include <variant>
-#include <type_traits>
-#include <functional>
-#include <vector>
 #include <algorithm>
 #include <cassert>
-#include <utility>
 #include <cmath>
+#include <concepts>
+#include <functional>
+#include <iterator>
+#include <ranges>
+#include <type_traits>
+#include <utility>
+#include <vector>
 #include "tools/fix.hpp"
+#include "tools/monoid.hpp"
+#include "tools/nop_monoid.hpp"
 
 namespace tools {
   namespace detail {
     namespace avl_tree {
-      struct nop_monoid {
-        using T = std::monostate;
-        static constexpr T op(T, T) {
-          return T{};
-        }
-        static constexpr T e() {
-          return T{};
-        }
+      template <bool Reversible, tools::monoid SM, tools::monoid FM>
+      struct extended_node_members {
       };
-      template <typename SM>
-      typename SM::T nop(typename nop_monoid::T, const typename SM::T& x) {
-        return x;
-      }
+      template <tools::monoid SM, tools::monoid FM>
+      struct extended_node_members<false, SM, FM> {
+        typename FM::T lazy;
+      };
+      template <tools::monoid SM>
+      struct extended_node_members<false, SM, tools::nop_monoid> {
+      };
+      template <tools::monoid SM, tools::monoid FM>
+      struct extended_node_members<true, SM, FM> {
+        typename SM::T rprod;
+        bool rev;
+        typename FM::T lazy;
+      };
+      template <tools::monoid SM>
+      struct extended_node_members<true, SM, tools::nop_monoid> {
+        typename SM::T rprod;
+        bool rev;
+      };
 
-      template <bool Reversible, typename SM, typename FM = nop_monoid, auto mapping = nop<SM>>
+      template <bool Reversible, tools::monoid SM, tools::monoid FM, auto mapping>
+      requires std::invocable<decltype(mapping), typename FM::T, typename SM::T>
+            && std::same_as<std::invoke_result_t<decltype(mapping), typename FM::T, typename SM::T>, typename SM::T>
       class avl_tree_impl {
-      private:
         using S = typename SM::T;
         using F = typename FM::T;
-        static_assert(
-          std::is_convertible_v<decltype(mapping), std::function<S(F, S)>>,
-          "mapping must work as S(F, S)");
-        constexpr static bool is_lazy = !std::is_same_v<FM, nop_monoid>;
+        constexpr static bool is_lazy = !std::same_as<FM, tools::nop_monoid>;
 
-        struct node {
+        struct node : public tools::detail::avl_tree::extended_node_members<Reversible, SM, FM> {
           int id;
           int l_id;
           int r_id;
           int height;
           int size;
           S prod;
-          std::conditional_t<Reversible, S, std::monostate> rprod;
-          bool rev;
-          F lazy;
         };
 
       public:
         class buffer {
-        private:
           std::vector<node> m_nodes;
+          std::vector<int> m_free_ids;
+
+          decltype(auto) at(this auto&& self, const int id) {
+            assert(0 <= id && id < std::ssize(self.m_nodes));
+            return std::forward_like<decltype(self)>(self.m_nodes[id]);
+          }
+          int malloc() {
+            if (this->m_free_ids.empty()) {
+              const int id = this->m_nodes.size();
+              this->m_nodes.emplace_back();
+              return id;
+            } else {
+              const int id = this->m_free_ids.back();
+              this->m_free_ids.pop_back();
+              return id;
+            }
+          }
+          void free(const int id) {
+            assert(id > 0);
+            this->m_free_ids.push_back(id);
+          }
 
         public:
           buffer() {
+            auto& node = this->at(this->malloc());
+            node.id = 0;
+            node.l_id = 0;
+            node.r_id = 0;
+            node.height = 0;
+            node.size = 0;
+            node.prod = SM::e();
             if constexpr (Reversible) {
-              this->m_nodes.push_back(node{0, 0, 0, 0, 0, SM::e(), SM::e(), false, FM::e()});
-            } else {
-              this->m_nodes.push_back(node{0, 0, 0, 0, 0, SM::e(), std::monostate{}, false, FM::e()});
+              node.rprod = SM::e();
+              node.rev = false;
+            }
+            if constexpr (is_lazy) {
+              node.lazy = FM::e();
             }
           }
-          buffer(const buffer&) = default;
-          buffer(buffer&&) = default;
-          ~buffer() = default;
-          buffer& operator=(const buffer&) = default;
-          buffer& operator=(buffer&&) = default;
 
           friend tools::detail::avl_tree::avl_tree_impl<Reversible, SM, FM, mapping>;
         };
@@ -77,9 +108,9 @@ namespace tools {
         int m_root_id;
 
         void fetch(const int id) {
-          auto& node = this->m_buffer->m_nodes[id];
-          const auto& l_node = this->m_buffer->m_nodes[node.l_id];
-          const auto& r_node = this->m_buffer->m_nodes[node.r_id];
+          auto& node = this->m_buffer->at(id);
+          const auto& l_node = this->m_buffer->at(node.l_id);
+          const auto& r_node = this->m_buffer->at(node.r_id);
 
           node.height = 1 + std::max(l_node.height, r_node.height);
           node.size = l_node.size + r_node.size;
@@ -89,9 +120,9 @@ namespace tools {
           }
         }
         void propagate(const int id) {
-          auto& node = this->m_buffer->m_nodes[id];
-          auto& l_node = this->m_buffer->m_nodes[node.l_id];
-          auto& r_node = this->m_buffer->m_nodes[node.r_id];
+          auto& node = this->m_buffer->at(id);
+          auto& l_node = this->m_buffer->at(node.l_id);
+          auto& r_node = this->m_buffer->at(node.r_id);
 
           assert(!(node.size == 0) || (node.id == 0 && node.l_id == 0 && node.r_id == 0));
           assert(!(node.size == 1) || (node.id > 0 && node.l_id == 0 && node.r_id == 0));
@@ -114,9 +145,9 @@ namespace tools {
                 l_node.lazy = FM::op(node.lazy, l_node.lazy);
                 r_node.lazy = FM::op(node.lazy, r_node.lazy);
               }
-              node.prod = mapping(node.lazy, node.prod);
+              node.prod = std::invoke(mapping, node.lazy, node.prod);
               if constexpr (Reversible) {
-                 node.rprod = mapping(node.lazy, node.rprod);
+                 node.rprod = std::invoke(mapping, node.lazy, node.rprod);
               }
               node.lazy = FM::e();
             }
@@ -124,28 +155,55 @@ namespace tools {
         }
 
         int add_node(const S& x) {
-          const int id = this->m_buffer->m_nodes.size();
+          const auto id = this->m_buffer->malloc();
+          auto& node = this->m_buffer->at(id);
+          node.id = id;
+          node.l_id = 0;
+          node.r_id = 0;
+          node.height = 1;
+          node.size = 1;
+          node.prod = x;
           if constexpr (Reversible) {
-            this->m_buffer->m_nodes.push_back(node{id, 0, 0, 1, 1, x, x, false, FM::e()});
-          } else {
-            this->m_buffer->m_nodes.push_back(node{id, 0, 0, 1, 1, x, std::monostate{}, false, FM::e()});
+            node.rprod = x;
+            node.rev = false;
+          }
+          if constexpr (is_lazy) {
+            node.lazy = FM::e();
           }
           return id;
         }
         int add_node(const int l_id, const int r_id) {
-          const int id = this->m_buffer->m_nodes.size();
+          const auto id = this->m_buffer->malloc();
+          auto& node = this->m_buffer->at(id);
+          node.id = id;
+          node.l_id = l_id;
+          node.r_id = r_id;
           if constexpr (Reversible) {
-            this->m_buffer->m_nodes.push_back(node{id, l_id, r_id, 0, 0, SM::e(), SM::e(), false, FM::e()});
-          } else {
-            this->m_buffer->m_nodes.push_back(node{id, l_id, r_id, 0, 0, SM::e(), std::monostate{}, false, FM::e()});
+            node.rev = false;
+          }
+          if constexpr (is_lazy) {
+            node.lazy = FM::e();
           }
           this->fetch(id);
           return id;
         }
 
+        void wipe() {
+          if (this->m_root_id == 0) return;
+
+          tools::fix([&](auto&& dfs, const int id) -> void {
+            auto& node = this->m_buffer->at(id);
+            if (node.size > 1) {
+              dfs(node.l_id);
+              dfs(node.r_id);
+            }
+            this->m_buffer->free(id);
+          })(this->m_root_id);
+        }
+
         int rotate_l(const int id) {
-          auto& node = this->m_buffer->m_nodes[id];
-          auto& r_node = this->m_buffer->m_nodes[node.r_id];
+          auto& node = this->m_buffer->at(id);
+          auto& r_node = this->m_buffer->at(node.r_id);
 
           assert(node.size > 1);
           assert(node.id > 0);
@@ -173,8 +231,8 @@ namespace tools {
           return r_node.id;
         }
         int rotate_r(const int id) {
-          auto& node = this->m_buffer->m_nodes[id];
-          auto& l_node = this->m_buffer->m_nodes[node.l_id];
+          auto& node = this->m_buffer->at(id);
+          auto& l_node = this->m_buffer->at(node.l_id);
 
           assert(node.size > 1);
           assert(node.id > 0);
@@ -202,14 +260,14 @@ namespace tools {
           return l_node.id;
         }
         int height_diff(const int id) {
-          const auto& node = this->m_buffer->m_nodes[id];
-          const auto& l_node = this->m_buffer->m_nodes[node.l_id];
-          const auto& r_node = this->m_buffer->m_nodes[node.r_id];
+          const auto& node = this->m_buffer->at(id);
+          const auto& l_node = this->m_buffer->at(node.l_id);
+          const auto& r_node = this->m_buffer->at(node.r_id);
 
           return l_node.height - r_node.height;
         }
         int balance(const int id) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           const auto diff = this->height_diff(id);
           assert(std::abs(diff) <= 2);
@@ -226,7 +284,7 @@ namespace tools {
         }
 
         void set(const int id, const int p, const S& x) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= p && p < node.size);
 
@@ -236,7 +294,7 @@ namespace tools {
           if (node.size == 1) {
             node.prod = x;
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
 
             if (p < half) {
               this->set(node.l_id, p, x);
@@ -253,7 +311,7 @@ namespace tools {
           }
         }
         S prod(const int id, const int l, const int r) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= l && l <= r && r <= node.size);
 
@@ -265,7 +323,7 @@ namespace tools {
           if (l == 0 && r == node.size) {
             return node.prod;
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
 
             auto res = SM::e();
             if (l < half) res = SM::op(res, this->prod(node.l_id, l, std::min(r, half)));
@@ -273,9 +331,8 @@ namespace tools {
             return res;
           }
         }
-        template <bool SFINAE = is_lazy>
-        std::enable_if_t<SFINAE, void> apply(const int id, const int l, const int r, const F& f) {
-          auto& node = this->m_buffer->m_nodes[id];
+        void apply(const int id, const int l, const int r, const F& f) requires is_lazy {
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= l && l <= r && r <= node.size);
 
@@ -287,7 +344,7 @@ namespace tools {
           } else {
             this->propagate(id);
 
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
             if (l < half) {
               this->apply(node.l_id, l, std::min(r, half), f);
             } else {
@@ -302,7 +359,7 @@ namespace tools {
           }
         }
         int insert(const int id, const int p, const S& x) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= p && p <= node.size);
 
@@ -318,27 +375,27 @@ namespace tools {
               return this->add_node(id, this->add_node(x));
             }
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
 
             if (p < half) {
               if constexpr (Reversible || is_lazy) {
                 this->propagate(node.r_id);
               }
               const auto l_id = this->insert(node.l_id, p, x);
-              this->m_buffer->m_nodes[id].l_id = l_id;
+              this->m_buffer->at(id).l_id = l_id;
             } else {
               if constexpr (Reversible || is_lazy) {
                 this->propagate(node.l_id);
               }
               const auto r_id = this->insert(node.r_id, p - half, x);
-              this->m_buffer->m_nodes[id].r_id = r_id;
+              this->m_buffer->at(id).r_id = r_id;
             }
             this->fetch(id);
             return this->balance(id);
           }
         }
         int erase(const int id, const int p) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= p && p < node.size);
 
@@ -346,29 +403,36 @@ namespace tools {
             this->propagate(id);
           }
           if (node.size == 1) {
+            this->m_buffer->free(id);
             return 0;
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
 
             if (p < half) {
               if constexpr (Reversible || is_lazy) {
                 this->propagate(node.r_id);
               }
               node.l_id = this->erase(node.l_id, p);
-              if (node.l_id == 0) return node.r_id;
+              if (node.l_id == 0) {
+                this->m_buffer->free(id);
+                return node.r_id;
+              }
             } else {
               if constexpr (Reversible || is_lazy) {
                 this->propagate(node.l_id);
               }
               node.r_id = this->erase(node.r_id, p - half);
-              if (node.r_id == 0) return node.l_id;
+              if (node.r_id == 0) {
+                this->m_buffer->free(id);
+                return node.l_id;
+              }
             }
             this->fetch(id);
             return this->balance(id);
           }
         }
 
-        int merge(const int l_id, const int r_id, const int free_id) {
+        int merge(const int l_id, const int r_id) {
           if (l_id == 0) {
             if constexpr (Reversible || is_lazy) {
               this->propagate(r_id);
@@ -382,16 +446,16 @@ namespace tools {
             return l_id;
           }
 
-          auto& l_node = this->m_buffer->m_nodes[l_id];
-          auto& r_node = this->m_buffer->m_nodes[r_id];
+          auto& l_node = this->m_buffer->at(l_id);
+          auto& r_node = this->m_buffer->at(r_id);
           const auto diff = l_node.height - r_node.height;
           if (diff >= 2) {
             if constexpr (Reversible || is_lazy) {
               this->propagate(l_id);
               this->propagate(l_node.l_id);
             }
-            const auto merged_id = this->merge(l_node.r_id, r_id, free_id);
-            this->m_buffer->m_nodes[l_id].r_id = merged_id;
+            const auto merged_id = this->merge(l_node.r_id, r_id);
+            this->m_buffer->at(l_id).r_id = merged_id;
             this->fetch(l_id);
             return this->balance(l_id);
           } else if (diff <= -2) {
@@ -399,8 +463,8 @@ namespace tools {
               this->propagate(r_id);
               this->propagate(r_node.r_id);
             }
-            const auto merged_id = this->merge(l_id, r_node.l_id, free_id);
-            this->m_buffer->m_nodes[r_id].l_id = merged_id;
+            const auto merged_id = this->merge(l_id, r_node.l_id);
+            this->m_buffer->at(r_id).l_id = merged_id;
             this->fetch(r_id);
             return this->balance(r_id);
           } else {
@@ -408,25 +472,11 @@ namespace tools {
               this->propagate(l_id);
               this->propagate(r_id);
             }
-            if (free_id == 0) {
-              return this->add_node(l_id, r_id);
-            } else {
-              auto& node = this->m_buffer->m_nodes[free_id];
-              node.l_id = l_id;
-              node.r_id = r_id;
-              if constexpr (Reversible) {
-                node.rev = false;
-              }
-              if constexpr (is_lazy) {
-                node.lazy = FM::e();
-              }
-              this->fetch(free_id);
-              return free_id;
-            }
+            return this->add_node(l_id, r_id);
           }
         }
         std::pair<int, int> split(const int id, const int i) {
-          auto& node = this->m_buffer->m_nodes[id];
+          auto& node = this->m_buffer->at(id);
 
           assert(0 <= i && i <= node.size);
 
@@ -436,21 +486,26 @@ namespace tools {
           if constexpr (Reversible || is_lazy) {
             this->propagate(id);
           }
-          const auto half = this->m_buffer->m_nodes[node.l_id].size;
+
+          const auto l_id = node.l_id;
+          const auto r_id = node.r_id;
+          const auto half = this->m_buffer->at(l_id).size;
+          this->m_buffer->free(id);
+
           if (i < half) {
-            const auto [l_id, r_id] = this->split(node.l_id, i);
-            return std::make_pair(l_id, this->merge(r_id, this->m_buffer->m_nodes[id].r_id, this->m_buffer->m_nodes[id].l_id));
+            const auto [ll_id, lr_id] = this->split(l_id, i);
+            return std::make_pair(ll_id, this->merge(lr_id, r_id));
           } else if (i > half) {
-            const auto [l_id, r_id] = this->split(node.r_id, i - half);
-            return std::make_pair(this->merge(this->m_buffer->m_nodes[id].l_id, l_id, this->m_buffer->m_nodes[id].r_id), r_id);
+            const auto [rl_id, rr_id] = this->split(r_id, i - half);
+            return std::make_pair(this->merge(l_id, rl_id), rr_id);
           } else {
-            return std::make_pair(node.l_id, node.r_id);
+            return std::make_pair(l_id, r_id);
           }
         }
 
-        template <typename G>
+        template <std::predicate<S> G>
         std::pair<int, S> max_right(const int id, const int l, const G& g, S carry) {
-          const auto& node = this->m_buffer->m_nodes[id];
+          const auto& node = this->m_buffer->at(id);
 
           assert(0 <= l && l <= node.size);
 
@@ -462,18 +517,18 @@ namespace tools {
           } else if (node.size == 1) {
             if (l == 0) {
               const auto whole = SM::op(carry, node.prod);
-              if (g(whole)) return std::make_pair(1, whole);
+              if (std::invoke(g, whole)) return std::make_pair(1, whole);
               return std::make_pair(0, carry);
             } else {
               assert(carry == SM::e());
               return std::make_pair(1, carry);
             }
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
             int r;
             if (l == 0) {
               const auto whole = SM::op(carry, node.prod);
-              if (g(whole)) return std::make_pair(node.size, whole);
+              if (std::invoke(g, whole)) return std::make_pair(node.size, whole);
 
               std::tie(r, carry) = this->max_right(node.l_id, 0, g, carry);
               if (r < half) return std::make_pair(r, carry);
@@ -493,9 +548,9 @@ namespace tools {
             }
           }
         }
-        template <typename G>
+        template <std::predicate<S> G>
         std::pair<int, S> min_left(const int id, const int r, const G& g, S carry) {
-          const auto& node = this->m_buffer->m_nodes[id];
+          const auto& node = this->m_buffer->at(id);
 
           assert(0 <= r && r <= node.size);
 
@@ -507,18 +562,18 @@ namespace tools {
           } else if (node.size == 1) {
             if (r == node.size) {
               const auto whole = SM::op(node.prod, carry);
-              if (g(whole)) return std::make_pair(0, whole);
+              if (std::invoke(g, whole)) return std::make_pair(0, whole);
               return std::make_pair(1, carry);
             } else {
               assert(carry == SM::e());
               return std::make_pair(0, carry);
             }
           } else {
-            const auto half = this->m_buffer->m_nodes[node.l_id].size;
+            const auto half = this->m_buffer->at(node.l_id).size;
             int l;
             if (r == node.size) {
               const auto whole = SM::op(node.prod, carry);
-              if (g(whole)) return std::make_pair(0, whole);
+              if (std::invoke(g, whole)) return std::make_pair(0, whole);
 
               std::tie(l, carry) = this->min_left(node.r_id, node.size - half, g, carry);
               l += half;
@@ -544,7 +599,7 @@ namespace tools {
           std::vector<S> v;
           if (!this->empty()) {
             tools::fix([&](auto&& dfs, const int id) -> void {
-              auto& node = this->m_buffer->m_nodes[id];
+              auto& node = this->m_buffer->at(id);
               if constexpr (Reversible || is_lazy) {
                 this->propagate(id);
               }
@@ -562,33 +617,47 @@ namespace tools {
         avl_tree_impl() = default;
         explicit avl_tree_impl(buffer& buffer) : m_buffer(&buffer), m_root_id(0) {
         }
-        avl_tree_impl(buffer& buffer, const std::vector<S>& v) : m_buffer(&buffer) {
-          this->m_root_id = v.empty() ? 0 : tools::fix([&](auto&& dfs, const int l, const int r) -> int {
+        template <std::ranges::random_access_range R>
+        requires std::assignable_from<S&, std::ranges::range_reference_t<R>>
+        avl_tree_impl(buffer& buffer, R&& v) : m_buffer(&buffer) {
+          this->m_root_id = std::ranges::empty(v) ? 0 : tools::fix([&](auto&& dfs, const int l, const int r) -> int {
             if (r - l == 1) {
-              return this->add_node(v[l]);
+              return this->add_node(std::ranges::begin(v)[l]);
             } else {
               return this->add_node(dfs(l, (l + r) / 2), dfs((l + r) / 2, r));
             }
-          })(0, v.size());
+          })(0, std::ranges::distance(v));
+        }
+        template <std::ranges::input_range R>
+        requires (std::assignable_from<S&, std::ranges::range_reference_t<R>> && !std::ranges::random_access_range<R>)
+        avl_tree_impl(buffer& buffer, R&& v) : avl_tree_impl(buffer, std::forward<R>(v) | std::ranges::to<std::vector<S>>()) {
         }
         avl_tree_impl(buffer& buffer, const int n) : avl_tree_impl(buffer, std::vector<S>(n, SM::e())) {
         }
         avl_tree_impl(const avl_tree_impl<Reversible, SM, FM, mapping>& other) : avl_tree_impl(*other.m_buffer, static_cast<std::vector<S>>(other)) {
         }
-        avl_tree_impl(avl_tree_impl<Reversible, SM, FM, mapping>&& other) : m_buffer(other.m_buffer), m_root_id(other.m_root_id) {
+        avl_tree_impl(avl_tree_impl<Reversible, SM, FM, mapping>&& other) noexcept : m_buffer(other.m_buffer), m_root_id(other.m_root_id) {
+          other.m_root_id = 0;
         }
-        ~avl_tree_impl() = default;
+        ~avl_tree_impl() {
+          this->wipe();
+        }
         avl_tree_impl<Reversible, SM, FM, mapping>& operator=(const avl_tree_impl<Reversible, SM, FM, mapping>& other) {
+          this->wipe();
           this->m_buffer = other.m_buffer;
           this->m_root_id = avl_tree_impl<Reversible, SM, FM, mapping>(other).m_root_id;
+          return *this;
         }
-        avl_tree_impl<Reversible, SM, FM, mapping>& operator=(avl_tree_impl<Reversible, SM, FM, mapping>&& other) {
+        avl_tree_impl<Reversible, SM, FM, mapping>& operator=(avl_tree_impl<Reversible, SM, FM, mapping>&& other) noexcept {
+          this->wipe();
           this->m_buffer = other.m_buffer;
           this->m_root_id = other.m_root_id;
+          other.m_root_id = 0;
+          return *this;
         }
 
         int size() const {
-          return this->m_buffer->m_nodes[this->m_root_id].size;
+          return this->m_buffer->at(this->m_root_id).size;
         }
         bool empty() const {
           return this->m_root_id == 0;
@@ -606,12 +675,10 @@ namespace tools {
         S all_prod() {
           return this->prod(this->m_root_id, 0, this->size());
         }
-        template <bool SFINAE = is_lazy>
-        std::enable_if_t<SFINAE, void> apply(const int p, const F& f) {
+        void apply(const int p, const F& f) requires is_lazy {
           this->apply(this->m_root_id, p, p + 1, f);
         }
-        template <bool SFINAE = is_lazy>
-        std::enable_if_t<SFINAE, void> apply(const int l, const int r, const F& f) {
+        void apply(const int l, const int r, const F& f) requires is_lazy {
           this->apply(this->m_root_id, l, r, f);
         }
         void insert(const int p, const S& x) {
@@ -620,48 +687,48 @@ namespace tools {
         void erase(const int p) {
           this->m_root_id = this->erase(this->m_root_id, p);
         }
-        void merge(avl_tree_impl<Reversible, SM, FM, mapping>& other) {
+        void merge(avl_tree_impl<Reversible, SM, FM, mapping>&& other) {
           assert(this->m_buffer == other.m_buffer);
-          this->m_root_id = this->merge(this->m_root_id, other.m_root_id, 0);
+          this->m_root_id = this->merge(this->m_root_id, other.m_root_id);
           other.m_root_id = 0;
         }
-        std::pair<avl_tree_impl<Reversible, SM, FM, mapping>, avl_tree_impl<Reversible, SM, FM, mapping>> split(const int i) {
+        std::pair<avl_tree_impl<Reversible, SM, FM, mapping>, avl_tree_impl<Reversible, SM, FM, mapping>> split(const int i) && {
           avl_tree_impl<Reversible, SM, FM, mapping> l(*this->m_buffer), r(*this->m_buffer);
           std::tie(l.m_root_id, r.m_root_id) = this->split(this->m_root_id, i);
-          return std::make_pair(l, r);
+          this->m_root_id = 0;
+          return std::make_pair(std::move(l), std::move(r));
         }
-        template <bool SFINAE = Reversible>
-        std::enable_if_t<SFINAE, void> reverse(const int l, const int r) {
+        void reverse(const int l, const int r) requires Reversible {
           assert(0 <= l && l <= r && r <= this->size());
 
           if (l == r) return;
 
           if (l == 0) {
             if (r == this->size()) {
-              this->m_buffer->m_nodes[this->m_root_id].rev = !this->m_buffer->m_nodes[this->m_root_id].rev;
+              this->m_buffer->at(this->m_root_id).rev = !this->m_buffer->at(this->m_root_id).rev;
             } else {
               const auto [l_id, r_id] = this->split(this->m_root_id, r);
-              this->m_buffer->m_nodes[l_id].rev = !this->m_buffer->m_nodes[l_id].rev;
-              this->m_root_id = this->merge(l_id, r_id, this->m_root_id);
+              this->m_buffer->at(l_id).rev = !this->m_buffer->at(l_id).rev;
+              this->m_root_id = this->merge(l_id, r_id);
             }
           } else {
             if (r == this->size()) {
               const auto [l_id, r_id] = this->split(this->m_root_id, l);
-              this->m_buffer->m_nodes[r_id].rev = !this->m_buffer->m_nodes[r_id].rev;
-              this->m_root_id = this->merge(l_id, r_id, this->m_root_id);
+              this->m_buffer->at(r_id).rev = !this->m_buffer->at(r_id).rev;
+              this->m_root_id = this->merge(l_id, r_id);
             } else {
               const auto [lm_id, r_id] = this->split(this->m_root_id, r);
               const auto [l_id, m_id] = this->split(lm_id, l);
-              this->m_buffer->m_nodes[m_id].rev = !this->m_buffer->m_nodes[m_id].rev;
-              this->m_root_id = this->merge(this->merge(l_id, m_id, lm_id), r_id, this->m_root_id);
+              this->m_buffer->at(m_id).rev = !this->m_buffer->at(m_id).rev;
+              this->m_root_id = this->merge(this->merge(l_id, m_id), r_id);
             }
           }
         }
-        template <typename G>
+        template <std::predicate<S> G>
         int max_right(const int l, const G& g) {
           return this->max_right(this->m_root_id, l, g, SM::e()).first;
         }
-        template <typename G>
+        template <std::predicate<S> G>
         int min_left(const int r, const G& g) {
           return this->min_left(this->m_root_id, r, g, SM::e()).first;
         }
