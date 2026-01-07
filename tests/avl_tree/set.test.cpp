@@ -34,8 +34,7 @@ int main() {
     init.emplace_back(mint::raw(a), mint::raw(b));
   }
 
-  tools::avl_tree<SM>::buffer buffer;
-  tools::avl_tree<SM> avl_tree(buffer, init);
+  tools::avl_tree<SM> avl_tree(init);
   for (int q = 0; q < Q; ++q) {
     int t;
     std::cin >> t;

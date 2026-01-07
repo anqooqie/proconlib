@@ -46,8 +46,7 @@ int main() {
     a.emplace_back(1, mint::raw(a_i));
   }
 
-  tools::lazy_avl_tree<SM, FM, mapping, true>::buffer buffer;
-  tools::lazy_avl_tree<SM, FM, mapping, true> avl_tree(buffer, a);
+  tools::lazy_avl_tree<SM, FM, mapping, true> avl_tree(a);
   for (int q = 0; q < Q; ++q) {
     int t;
     std::cin >> t;

@@ -32,8 +32,7 @@ std::vector<ll> solve(const int N, const int M, const int K, const std::vector<l
   }
   std::ranges::sort(init, tools::less_by_get<0>{});
 
-  tools::avl_tree<SM>::buffer buffer;
-  tools::avl_tree<SM> avl_tree(buffer, init);
+  tools::avl_tree<SM> avl_tree(init);
   std::vector<ll> answers{std::get<2>(avl_tree.prod(0, K))};
   for (int i = 1; i + M <= N; ++i) {
     avl_tree.insert(avl_tree.max_right(0, [&](const S& x) { return std::get<0>(x) < A[i + M - 1]; }), S(A[i + M - 1], A[i + M - 1], A[i + M - 1]));
