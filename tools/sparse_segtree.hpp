@@ -3,11 +3,12 @@
 
 #include <variant>
 #include "tools/lazy_sparse_segtree.hpp"
+#include "tools/monoid.hpp"
 #include "tools/nop_mapping.hpp"
 #include "tools/nop_monoid.hpp"
 
 namespace tools {
-  template <typename SM>
+  template <tools::monoid SM>
   using sparse_segtree = tools::lazy_sparse_segtree<SM, tools::nop_monoid, tools::nop_mapping<std::monostate, typename SM::T>>;
 }
 

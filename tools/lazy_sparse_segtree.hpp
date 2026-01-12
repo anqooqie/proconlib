@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <concepts>
 #include <functional>
 #include <numeric>
 #include <type_traits>
@@ -12,21 +13,19 @@
 #include <vector>
 #include "tools/ceil_log2.hpp"
 #include "tools/fix.hpp"
+#include "tools/monoid.hpp"
 #include "tools/nop_monoid.hpp"
 
 namespace tools {
-  template <typename SM, typename FM, auto mapping>
+  template <tools::monoid SM, tools::monoid FM, auto mapping>
+  requires std::regular_invocable<decltype(mapping), typename FM::T, typename SM::T>
+        && std::same_as<std::invoke_result_t<decltype(mapping), typename FM::T, typename SM::T>, typename SM::T>
   class lazy_sparse_segtree {
     using S = typename SM::T;
     using F = typename FM::T;
-    static_assert(
-      std::is_convertible_v<decltype(mapping), std::function<S(F, S)>>,
-      "mapping must work as S(F, S)");
 
-    template <typename T>
-    static constexpr bool has_data = !std::is_same_v<T, tools::nop_monoid>;
-    template <typename T>
-    static constexpr bool has_lazy = !std::is_same_v<T, tools::nop_monoid>;
+    static constexpr bool has_data = !std::same_as<SM, tools::nop_monoid>;
+    static constexpr bool has_lazy = !std::same_as<FM, tools::nop_monoid>;
 
     struct regular_node {
       S data;
@@ -41,7 +40,7 @@ namespace tools {
       F lazy;
       std::array<int, 2> children;
     };
-    using node = std::conditional_t<has_data<SM>, std::conditional_t<has_lazy<FM>, lazy_node, regular_node>, dual_node>;
+    using node = std::conditional_t<has_data, std::conditional_t<has_lazy, lazy_node, regular_node>, dual_node>;
 
     std::vector<node> m_nodes;
     long long m_offset;
@@ -74,8 +73,7 @@ namespace tools {
       const auto& node = this->m_nodes[k];
       return node.children[0] < 0 && node.children[1] < 0;
     }
-    template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
-    void push(const int k) {
+    void push(const int k) requires has_lazy {
       assert(0 <= k && std::cmp_less(k, this->m_nodes.size()));
       assert(this->is_mutable(k));
       assert(!this->is_leaf(k));
@@ -84,18 +82,16 @@ namespace tools {
       this->all_apply(node.children[1], node.lazy);
       node.lazy = FM::e();
     }
-    template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
-    void all_apply(const int k, const F& f) {
+    void all_apply(const int k, const F& f) requires has_lazy {
       assert(0 <= k && std::cmp_less(k, this->m_nodes.size()));
       assert(this->is_mutable(k));
       auto& node = this->m_nodes[k];
-      if constexpr (has_data<SM>) {
-        node.data = mapping(f, node.data);
+      if constexpr (has_data) {
+        node.data = std::invoke(mapping, f, node.data);
       }
       node.lazy = FM::op(f, node.lazy);
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    void update(const int k) {
+    void update(const int k) requires has_data {
       assert(0 <= k && std::cmp_less(k, this->m_nodes.size()));
       assert(this->is_mutable(k));
       assert(!this->is_leaf(k));
@@ -105,14 +101,12 @@ namespace tools {
 
   public:
     lazy_sparse_segtree() = default;
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    lazy_sparse_segtree(const long long l_star, const long long r_star) : lazy_sparse_segtree(l_star, r_star, SM::e()) {
+    lazy_sparse_segtree(const long long l_star, const long long r_star) requires has_data : lazy_sparse_segtree(l_star, r_star, SM::e()) {
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    lazy_sparse_segtree(const long long l_star, const long long r_star, const S& x) :
+    lazy_sparse_segtree(const long long l_star, const long long r_star, const S& x) requires has_data :
         m_offset(l_star), m_size(r_star - l_star), m_height(tools::ceil_log2(std::max(1LL, r_star - l_star))) {
       assert(l_star <= r_star);
-      if constexpr (has_lazy<FM>) {
+      if constexpr (has_lazy) {
         this->m_nodes.push_back({x, FM::e(), {-1, -1}});
         for (int k = 1; k <= this->m_height; ++k) {
           this->m_nodes.push_back({SM::op(this->m_nodes.back().data, this->m_nodes.back().data), FM::e(), {k - 1, k - 1}});
@@ -125,8 +119,7 @@ namespace tools {
       }
       this->m_root = this->m_height;
     }
-    template <typename SFINAE = SM> requires (!has_data<SFINAE>)
-    lazy_sparse_segtree(const long long l_star, const long long r_star) :
+    lazy_sparse_segtree(const long long l_star, const long long r_star) requires (!has_data) :
         m_offset(l_star), m_size(r_star - l_star), m_height(tools::ceil_log2(std::max(1LL, r_star - l_star))) {
       assert(l_star <= r_star);
       this->m_nodes.push_back({FM::e(), {-1, -1}});
@@ -142,8 +135,7 @@ namespace tools {
     long long upper_bound() const {
       return this->m_offset + this->m_size;
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    void set(long long p, const S& x) {
+    void set(long long p, const S& x) requires has_data {
       assert(this->lower_bound() <= p && p < this->upper_bound());
       p -= this->m_offset;
 
@@ -152,7 +144,7 @@ namespace tools {
         assert(this->is_mutable(k));
         if (h > 0) {
           assert(!this->is_leaf(k));
-          if constexpr (has_lazy<FM>) {
+          if constexpr (has_lazy) {
             this->make_mutable(k, 0);
             this->make_mutable(k, 1);
             this->push(k);
@@ -167,12 +159,10 @@ namespace tools {
         }
       })(this->m_height, this->m_root);
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    S get(const long long p) {
+    S get(const long long p) requires has_data {
       return this->prod(p, p + 1);
     }
-    template <typename SFINAE = SM> requires (!has_data<SFINAE>)
-    F get(long long p) {
+    F get(long long p) requires (!has_data) {
       assert(this->lower_bound() <= p && p < this->upper_bound());
       p -= this->m_offset;
 
@@ -191,20 +181,19 @@ namespace tools {
         }
       })(this->m_height, this->m_root);
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    S prod(long long l, long long r) {
+    S prod(long long l, long long r) requires has_data {
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return SM::e();
       l -= this->m_offset;
       r -= this->m_offset;
 
-      if constexpr (has_lazy<FM>) {
+      if constexpr (has_lazy) {
         this->make_mutable();
       }
       return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr) -> S {
         assert(kl < kr);
         if (l <= kl && kr <= r) return this->m_nodes[k].data;
-        if constexpr (has_lazy<FM>) {
+        if constexpr (has_lazy) {
           this->make_mutable(k, 0);
           this->make_mutable(k, 1);
           this->push(k);
@@ -216,16 +205,13 @@ namespace tools {
         return res;
       })(this->m_root, 0, this->capacity());
     }
-    template <typename SFINAE = SM> requires (has_data<SFINAE>)
-    S all_prod() const {
+    S all_prod() const requires has_data {
       return this->m_nodes[this->m_root].data;
     }
-    template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
-    void apply(const long long p, const F& f) {
+    void apply(const long long p, const F& f) requires has_lazy {
       this->apply(p, p + 1, f);
     }
-    template <typename SFINAE = FM> requires (has_lazy<SFINAE>)
-    void apply(long long l, long long r, const F& f) {
+    void apply(long long l, long long r, const F& f) requires has_lazy {
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
       if (l == r) return;
       l -= this->m_offset;
@@ -244,26 +230,25 @@ namespace tools {
         const auto km = std::midpoint(kl, kr);
         if (l < km) dfs(this->m_nodes[k].children[0], kl, km);
         if (km < r) dfs(this->m_nodes[k].children[1], km, kr);
-        if constexpr (has_data<SM>) {
+        if constexpr (has_data) {
           this->update(k);
         }
       })(this->m_root, 0, this->capacity());
     }
-    template <typename G, typename SFINAE = SM> requires (has_data<SFINAE>)
-    long long max_right(long long l, const G& g) {
+    long long max_right(long long l, std::predicate<S> auto&& g) requires has_data {
       assert(this->lower_bound() <= l && l <= this->upper_bound());
-      assert(g(SM::e()));
+      assert(std::invoke(g, SM::e()));
       if (l == this->upper_bound()) return l;
       l -= this->m_offset;
 
-      if constexpr (has_lazy<FM>) {
+      if constexpr (has_lazy) {
         this->make_mutable();
       }
       return this->m_offset + std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
-          if constexpr (has_lazy<FM>) {
+          if constexpr (has_lazy) {
             this->make_mutable(k, 0);
             this->make_mutable(k, 1);
             this->push(k);
@@ -278,9 +263,9 @@ namespace tools {
             return dfs(c, this->m_nodes[k].children[1], km, kr);
           }
         } else {
-          if (const auto wc = SM::op(c, this->m_nodes[k].data); g(wc)) return {wc, kr};
+          if (const auto wc = SM::op(c, this->m_nodes[k].data); std::invoke(g, wc)) return {wc, kr};
           if (kr - kl == 1) return {c, kl};
-          if constexpr (has_lazy<FM>) {
+          if constexpr (has_lazy) {
             this->make_mutable(k, 0);
             this->make_mutable(k, 1);
             this->push(k);
@@ -293,21 +278,20 @@ namespace tools {
         }
       })(SM::e(), this->m_root, 0, this->capacity()).second, this->m_size);
     }
-    template <typename G, typename SFINAE = SM> requires (has_data<SFINAE>)
-    long long min_left(long long r, const G& g) {
+    long long min_left(long long r, std::predicate<S> auto&& g) requires has_data {
       assert(this->lower_bound() <= r && r <= this->upper_bound());
-      assert(g(SM::e()));
+      assert(std::invoke(g, SM::e()));
       if (r == this->lower_bound()) return r;
       r -= this->m_offset;
 
-      if constexpr (has_lazy<FM>) {
+      if constexpr (has_lazy) {
         this->make_mutable();
       }
       return this->m_offset + tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
-          if constexpr (has_lazy<FM>) {
+          if constexpr (has_lazy) {
             this->make_mutable(k, 0);
             this->make_mutable(k, 1);
             this->push(k);
@@ -322,9 +306,9 @@ namespace tools {
             return dfs(c, this->m_nodes[k].children[0], kl, km);
           }
         } else {
-          if (const auto wc = SM::op(this->m_nodes[k].data, c); g(wc)) return {wc, kl};
+          if (const auto wc = SM::op(this->m_nodes[k].data, c); std::invoke(g, wc)) return {wc, kl};
           if (kr - kl == 1) return {c, kr};
-          if constexpr (has_lazy<FM>) {
+          if constexpr (has_lazy) {
             this->make_mutable(k, 0);
             this->make_mutable(k, 1);
             this->push(k);

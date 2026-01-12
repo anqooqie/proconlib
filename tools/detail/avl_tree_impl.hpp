@@ -41,7 +41,7 @@ namespace tools {
       };
 
       template <bool Reversible, tools::monoid SM, tools::monoid FM, auto mapping>
-      requires std::invocable<decltype(mapping), typename FM::T, typename SM::T>
+      requires std::regular_invocable<decltype(mapping), typename FM::T, typename SM::T>
             && std::same_as<std::invoke_result_t<decltype(mapping), typename FM::T, typename SM::T>, typename SM::T>
       class avl_tree_impl {
         using S = typename SM::T;
