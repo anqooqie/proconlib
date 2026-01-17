@@ -7,6 +7,7 @@
 #include <concepts>
 #include <functional>
 #include <iterator>
+#include <memory>
 #include <ranges>
 #include <type_traits>
 #include <utility>
@@ -632,14 +633,18 @@ namespace tools {
           this->wipe();
         }
         avl_tree_impl<Reversible, SM, FM, mapping>& operator=(const avl_tree_impl<Reversible, SM, FM, mapping>& other) {
-          this->wipe();
-          this->m_root_id = avl_tree_impl<Reversible, SM, FM, mapping>(other).m_root_id;
+          if (this != std::addressof(other)) {
+            this->wipe();
+            this->m_root_id = avl_tree_impl<Reversible, SM, FM, mapping>(other).m_root_id;
+          }
           return *this;
         }
         avl_tree_impl<Reversible, SM, FM, mapping>& operator=(avl_tree_impl<Reversible, SM, FM, mapping>&& other) noexcept {
-          this->wipe();
-          this->m_root_id = other.m_root_id;
-          other.m_root_id = 0;
+          if (this != std::addressof(other)) {
+            this->wipe();
+            this->m_root_id = other.m_root_id;
+            other.m_root_id = 0;
+          }
           return *this;
         }
 
