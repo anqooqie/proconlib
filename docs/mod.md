@@ -4,7 +4,7 @@ documentation_of: //tools/mod.hpp
 ---
 
 ```cpp
-template <typename M, typename N>
+template <tools::non_bool_integral M, tools::non_bool_integral N>
 constexpr std::common_type_t<M, N> mod(M a, N b) noexcept;
 ```
 
@@ -21,8 +21,6 @@ q \in \mathbb{Z}\\
 It returns $r$.
 
 ### Constraints
-- `<M>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
-- `<N>` is a built-in integral type, `tools::int128_t` or `tools::uint128_t`.
 - $b \neq 0$
 
 ### Time Complexity
