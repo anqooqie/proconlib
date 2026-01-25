@@ -20,5 +20,8 @@ int main() {
   static_assert(!tools::modint<std::vector<atcoder::modint>>);
   static_assert(!tools::modint<std::vector<tools::modint_for_rolling_hash>>);
 
+  static_assert(tools::modint<const atcoder::modint998244353>);
+  static_assert(tools::modint<const atcoder::modint>);
+
   return 0;
 }

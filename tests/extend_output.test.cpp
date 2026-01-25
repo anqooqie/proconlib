@@ -136,5 +136,19 @@ int main() {
     assert_that(oss.str() == "123");
   }
 
+  {
+    std::array<mint, 3> v = {mint(123), mint(456), mint(789)};
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "[123, 456, 789]");
+  }
+
+  {
+    std::vector<mint> v = {mint(123), mint(456), mint(789)};
+    std::ostringstream oss;
+    oss << v;
+    assert_that(oss.str() == "[123, 456, 789]");
+  }
+
   return 0;
 }

@@ -80,7 +80,7 @@ namespace tools {
           const auto next = edge.to ^ (Directed ? 0 : edge.from ^ here);
           if (tools::chmin(dist[next], dist[here] + edge.cost)) {
             if constexpr (Restore) {
-              prev[next] = edge.id;
+              prev[next] = edge_id;
             }
             if (edge.cost == 0) {
               deque.emplace_front(next, dist[next]);

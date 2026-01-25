@@ -141,7 +141,8 @@ namespace std {
     return tools::detail::extend_output::debug_print(os, vector);
   }
   
-  std::ostream& operator<<(std::ostream& os, tools::modint_compatible auto&& x) {
+  template <tools::modint_compatible T>
+  std::ostream& operator<<(std::ostream& os, const T x) {
     return os << x.val();
   }
 }
