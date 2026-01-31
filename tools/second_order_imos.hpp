@@ -1,28 +1,23 @@
-#ifndef TOOLS_ONLINE_IMOS_HPP
-#define TOOLS_ONLINE_IMOS_HPP
+#ifndef TOOLS_SECOND_ORDER_IMOS_HPP
+#define TOOLS_SECOND_ORDER_IMOS_HPP
 
 #include <cassert>
 #include <compare>
 #include <cstddef>
 #include <iterator>
-#include <type_traits>
 #include <vector>
-#include "tools/commutative_group.hpp"
-#include "tools/commutative_monoid.hpp"
-#include "tools/groups.hpp"
+#include "tools/non_bool_integral.hpp"
 
 namespace tools {
-  template <typename X, bool Forward = true>
-  class online_imos {
-    using M = std::conditional_t<tools::commutative_monoid<X>, X, tools::groups::plus<X>>;
-    using T = typename M::T;
+  template <tools::non_bool_integral T>
+  class second_order_imos {
     std::vector<T> m_vector;
-    std::vector<T> m_diffs;
+    std::vector<T> m_diffs2;
     int m_processed;
 
   public:
     class iterator {
-      online_imos<X, Forward> *m_parent;
+      second_order_imos<T> *m_parent;
       std::size_t m_i;
 
     public:
@@ -33,7 +28,7 @@ namespace tools {
       using iterator_category = std::random_access_iterator_tag;
 
       iterator() = default;
-      iterator(online_imos<X, Forward> * const parent, const std::size_t i) : m_parent(parent), m_i(i) {
+      iterator(second_order_imos<T> * const parent, const std::size_t i) : m_parent(parent), m_i(i) {
       }
 
       reference operator*() const {
@@ -96,9 +91,9 @@ namespace tools {
       }
     };
 
-    online_imos() : online_imos(0) {
+    second_order_imos() : second_order_imos(0) {
     }
-    online_imos(const int n) : m_vector(n, M::e()), m_diffs(n + 1, M::e()), m_processed(Forward ? 0 : n) {
+    second_order_imos(const int n) : m_vector(n, 0), m_diffs2(n + 2, 0), m_processed(0) {
     }
 
     int size() const {
@@ -106,19 +101,24 @@ namespace tools {
     }
     const T& operator[](const int i) {
       assert(0 <= i && i < this->size());
-      if constexpr (Forward) {
-        for (; this->m_processed <= i; ++this->m_processed) {
-          this->m_vector[this->m_processed] = this->m_processed == 0
-            ? this->m_diffs[this->m_processed]
-            : M::op(this->m_vector[this->m_processed - 1], this->m_diffs[this->m_processed]);
+      auto& j = this->m_processed;
+      do {
+        if (i < j) break;
+        if (j == 0) {
+          this->m_vector[j] = this->m_diffs2[j];
+          ++j;
+          if (i < j) break;
         }
-      } else {
-        for (; this->m_processed > i; --this->m_processed) {
-          this->m_vector[this->m_processed - 1] = this->m_processed == this->size()
-            ? this->m_diffs[this->m_processed]
-            : M::op(this->m_diffs[this->m_processed], this->m_vector[this->m_processed]);
+        if (j == 1) {
+          this->m_vector[j] = this->m_diffs2[j] + 2 * this->m_vector[j - 1];
+          ++j;
+          if (i < j) break;
         }
-      }
+        do {
+          this->m_vector[j] = this->m_diffs2[j] + 2 * this->m_vector[j - 1] - this->m_vector[j - 2];
+          ++j;
+        } while (j <= i);
+      } while (false);
       return this->m_vector[i];
     }
 
@@ -127,29 +127,13 @@ namespace tools {
     std::reverse_iterator<iterator> rbegin() { return std::make_reverse_iterator(this->end()); }
     std::reverse_iterator<iterator> rend() { return std::make_reverse_iterator(this->begin()); }
 
-    void apply(const int l, const int r, const T& x) {
+    void add(const int l, const int r, const T a, const T d) {
       assert(0 <= l && l <= r && r <= this->size());
-      if constexpr (Forward) {
-        assert(this->m_processed <= l);
-        this->m_diffs[l] = M::op(x, this->m_diffs[l]);
-        if constexpr (tools::commutative_group<M>) {
-          this->m_diffs[r] = M::op(M::inv(x), this->m_diffs[r]);
-        } else {
-          assert(r == this->size());
-        }
-      } else {
-        assert(r <= this->m_processed);
-        this->m_diffs[r] = M::op(x, this->m_diffs[r]);
-        if constexpr (tools::commutative_group<M>) {
-          this->m_diffs[l] = M::op(M::inv(x), this->m_diffs[l]);
-        } else {
-          assert(l == 0);
-        }
-      }
-    }
-    template <typename Y = X> requires (!tools::commutative_monoid<Y>)
-    void add(const int l, const int r, const T& x) {
-      this->apply(l, r, x);
+      assert(this->m_processed <= l);
+      this->m_diffs2[l] += a;
+      this->m_diffs2[l + 1] += d - a;
+      this->m_diffs2[r] -= a + (r - l) * d;
+      this->m_diffs2[r + 1] += a + (r - l - 1) * d;
     }
   };
 }
