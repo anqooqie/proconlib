@@ -2,9 +2,6 @@
 
 #include <iostream>
 #include <vector>
-#include <functional>
-#include <limits>
-#include <cstddef>
 #include "tools/cartesian_tree.hpp"
 
 int main() {
@@ -16,11 +13,11 @@ int main() {
   std::vector<int> a(N);
   for (auto& a_i : a) std::cin >> a_i;
 
-  const tools::cartesian_tree<int> cartesian_tree(a);
+  const tools::cartesian_tree cartesian_tree(a);
   for (int i = 0; i < N; ++i) {
     if (i) std::cout << ' ';
     auto p = cartesian_tree.get_vertex(i).parent;
-    if (p == std::numeric_limits<std::size_t>::max()) p = i;
+    if (p == -1) p = i;
     std::cout << p;
   }
   std::cout << '\n';

@@ -16,40 +16,22 @@ Given a sequence $(a_0, a_1, \ldots, a_{N - 1})$, the Cartesian tree is the bina
 
 ## Constructor
 ```cpp
-(1)
-cartesian_tree<T> ct(std::vector<T> a);
-
-(2)
-cartesian_tree<T, Compare> ct(std::vector<T> a, Compare comp = Compare());
-
-(3)
-template <typename InputIterator>
-cartesian_tree<T> ct(InputIterator begin, InputIterator end);
-
-(4)
-template <typename InputIterator>
-cartesian_tree<T, Compare> ct(InputIterator begin, InputIterator end, Compare comp = Compare());
+template <std::ranges::input_range R, typename Compare = std::ranges::less>
+requires std::indirect_strict_weak_order<Compare, typename std::vector<std::ranges::range_value_t<R>>::iterator>
+cartesian_tree ct(R&& a, Compare comp = {});
 ```
 
-- (1)
-    - It is identical to `cartesian_tree<T, std::less<T>> ct(a, std::less<T>{});`
-- (2)
-    - It constructs the Cartesian tree derived from $a$.
-- (3)
-    - It is identical to `cartesian_tree<T, std::less<T>> ct(std::vector<T>(begin, end), std::less<T>{});`
-- (4)
-    - It is identical to `cartesian_tree<T, Compare> ct(std::vector<T>(begin, end), comp);`
+It constructs the Cartesian tree derived from $a$.
 
 ### Constraints
-- (3), (4)
-    - `begin` $\leq$ `end`
+- None
 
 ### Time Complexity
-- $O(n)$
+- $O(N)$
 
 ## size
 ```cpp
-std::size_t ct.size();
+int ct.size();
 ```
 
 It returns $N$.
@@ -63,19 +45,19 @@ It returns $N$.
 ## get_vertex
 ```cpp
 struct vertex {
-  std::size_t parent;
-  std::size_t left;
-  std::size_t right;
-  std::pair<std::size_t, std::size_t> interval;
+  int parent;
+  int left;
+  int right;
+  std::pair<int, int> interval;
 };
-const vertex& ct.get_vertex(std::size_t i);
+const vertex& ct.get_vertex(int i);
 ```
 
 It returns the information about $a_i$.
 
-- `parent`: the parent node of $a_i$ (or `std::numeric_limits<std::size_t>::max()` if it does not exist)
-- `left`: the left child node of $a_i$ (or `std::numeric_limits<std::size_t>::max()` if it does not exist)
-- `right`: the right child node of $a_i$ (or `std::numeric_limits<std::size_t>::max()` if it does not exist)
+- `parent`: the parent node of $a_i$ (or $-1$ if it does not exist)
+- `left`: the left child node of $a_i$ (or $-1$ if it does not exist)
+- `right`: the right child node of $a_i$ (or $-1$ if it does not exist)
 - `interval`: the longest interval $[l, r)$ such that $0 \leq l \leq i < r \leq N$ and $\forall j. l \leq j < r \Rightarrow a_j \geq a_i$
 
 ### Constraints

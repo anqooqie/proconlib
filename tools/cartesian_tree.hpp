@@ -1,46 +1,44 @@
 #ifndef TOOLS_CARTESIAN_TREE_HPP
 #define TOOLS_CARTESIAN_TREE_HPP
 
+#include <cassert>
 #include <functional>
-#include <cstddef>
+#include <iterator>
+#include <stack>
+#include <ranges>
 #include <utility>
 #include <vector>
-#include <limits>
-#include <stack>
-#include <cassert>
+#include "tools/getter_result.hpp"
 
 namespace tools {
-  template <typename T, typename Compare = std::less<T>>
   class cartesian_tree {
   public:
     struct vertex {
-      std::size_t parent;
-      std::size_t left;
-      std::size_t right;
-      std::pair<std::size_t, std::size_t> interval;
+      int parent;
+      int left;
+      int right;
+      std::pair<int, int> interval;
     };
 
   private:
-    Compare m_comp;
     std::vector<vertex> m_vertices;
 
   public:
     cartesian_tree() = default;
-    cartesian_tree(const tools::cartesian_tree<T, Compare>&) = default;
-    cartesian_tree(tools::cartesian_tree<T, Compare>&&) = default;
-    ~cartesian_tree() = default;
-    tools::cartesian_tree<T, Compare>& operator=(const tools::cartesian_tree<T, Compare>&) = default;
-    tools::cartesian_tree<T, Compare>& operator=(tools::cartesian_tree<T, Compare>&&) = default;
+    template <std::ranges::random_access_range R, typename Compare = std::ranges::less>
+    requires std::indirect_strict_weak_order<Compare, std::ranges::iterator_t<R>>
+    explicit cartesian_tree(R&& a, const Compare comp = {}) : m_vertices(std::ranges::distance(a)) {
+      if (this->size() == 0) return;
 
-    explicit cartesian_tree(const std::vector<T>& a, const Compare& comp = Compare()) : m_comp(comp), m_vertices(a.size()) {
-      const auto NONE = std::numeric_limits<std::size_t>::max();
+      static constexpr int NONE = -1;
+      const auto begin = std::ranges::begin(a);
 
-      for (std::size_t i = 0; i < a.size(); ++i) {
+      for (int i = 0; i < this->size(); ++i) {
         this->m_vertices[i].parent = i ? i - 1 : NONE;
         this->m_vertices[i].left = NONE;
         this->m_vertices[i].right = NONE;
         auto c = NONE;
-        while (this->m_vertices[i].parent != NONE && this->m_comp(a[i], a[this->m_vertices[i].parent])) {
+        while (this->m_vertices[i].parent != NONE && std::invoke(comp, begin[i], begin[this->m_vertices[i].parent])) {
           if (c != NONE) {
             this->m_vertices[c].parent = this->m_vertices[i].parent;
           }
@@ -53,23 +51,23 @@ namespace tools {
       }
 
       auto root = NONE;
-      for (std::size_t i = 0; i < a.size(); ++i) {
+      for (int i = 0; i < this->size(); ++i) {
         const auto p = this->m_vertices[i].parent;
         if (p == NONE) {
           root = i;
         } else {
           if (p < i) {
-            this->m_vertices[p].right= i;
+            this->m_vertices[p].right = i;
           } else {
             this->m_vertices[p].left = i;
           }
         }
       }
 
-      std::vector<std::size_t> strict_left(a.size());
+      std::vector<int> strict_left(this->size());
       strict_left[root] = 0;
-      this->m_vertices[root].interval = std::make_pair(0, a.size());
-      std::stack<std::size_t> stack;
+      this->m_vertices[root].interval = std::make_pair(0, this->size());
+      std::stack<int> stack;
       stack.push(root);
       while (!stack.empty()) {
         const auto here = stack.top();
@@ -78,7 +76,7 @@ namespace tools {
         if (v.right != NONE) {
           strict_left[v.right] = here + 1;
           this->m_vertices[v.right].interval = std::make_pair(
-            this->m_comp(a[here], a[v.right]) ? strict_left[v.right] : this->m_vertices[here].interval.first,
+            std::invoke(comp, begin[here], begin[v.right]) ? strict_left[v.right] : this->m_vertices[here].interval.first,
             this->m_vertices[here].interval.second
           );
           stack.push(v.right);
@@ -90,19 +88,20 @@ namespace tools {
         }
       }
     }
-    template <typename InputIterator>
-    cartesian_tree(const InputIterator begin, const InputIterator end, const Compare& comp = Compare()) : cartesian_tree(std::vector<T>(begin, end), comp) {
+    template <std::ranges::input_range R, typename Compare = std::ranges::less>
+    requires (std::indirect_strict_weak_order<Compare, typename std::vector<std::ranges::range_value_t<R>>::iterator> && !std::ranges::random_access_range<R>)
+    explicit cartesian_tree(R&& a, const Compare comp = {}) : cartesian_tree(std::forward<R>(a) | std::ranges::to<std::vector>(), comp) {
     }
 
-    std::size_t size() const {
+    int size() const {
       return this->m_vertices.size();
     }
-    const vertex& get_vertex(std::size_t i) const {
-      assert(i < this->size());
-      return this->m_vertices[i];
+    auto get_vertex(this auto&& self, const int i) -> tools::getter_result_t<decltype(self), vertex> {
+      assert(0 <= i && i < self.size());
+      return std::forward_like<decltype(self)>(self.m_vertices[i]);
     }
-    const std::vector<vertex>& vertices() const {
-      return this->m_vertices;
+    auto vertices(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<vertex>> {
+      return std::forward_like<decltype(self)>(self.m_vertices);
     }
   };
 }
