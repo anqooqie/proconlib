@@ -24,7 +24,7 @@ ll solve(const int N, const int M, const std::vector<std::vector<int>>& A) {
       }
       const tools::cartesian_tree cartesian_tree(row);
       for (int c = 0; c < M; ++c) {
-        const auto& [c1, c2] = cartesian_tree.get_vertex(c).interval;
+        const auto& [c1, c2] = cartesian_tree.get_vertex(c).value_based_interval;
         tools::chmax(answer, static_cast<ll>(row[c]) * sum.query(r1, r2, c1, c2));
       }
     }

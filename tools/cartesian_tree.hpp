@@ -17,7 +17,8 @@ namespace tools {
       int parent;
       int left;
       int right;
-      std::pair<int, int> interval;
+      std::pair<int, int> value_based_interval;
+      std::pair<int, int> tree_based_interval;
     };
 
   private:
@@ -66,7 +67,7 @@ namespace tools {
 
       std::vector<int> strict_left(this->size());
       strict_left[root] = 0;
-      this->m_vertices[root].interval = std::make_pair(0, this->size());
+      this->m_vertices[root].value_based_interval = this->m_vertices[root].tree_based_interval = std::make_pair(0, this->size());
       std::stack<int> stack;
       stack.push(root);
       while (!stack.empty()) {
@@ -75,15 +76,19 @@ namespace tools {
         const auto& v = this->m_vertices[here];
         if (v.right != NONE) {
           strict_left[v.right] = here + 1;
-          this->m_vertices[v.right].interval = std::make_pair(
-            std::invoke(comp, begin[here], begin[v.right]) ? strict_left[v.right] : this->m_vertices[here].interval.first,
-            this->m_vertices[here].interval.second
+          this->m_vertices[v.right].value_based_interval = std::make_pair(
+            std::invoke(comp, begin[here], begin[v.right]) ? strict_left[v.right] : this->m_vertices[here].value_based_interval.first,
+            this->m_vertices[here].value_based_interval.second
+          );
+          this->m_vertices[v.right].tree_based_interval = std::make_pair(
+            strict_left[v.right],
+            this->m_vertices[here].tree_based_interval.second
           );
           stack.push(v.right);
         }
         if (v.left != NONE) {
           strict_left[v.left] = strict_left[here];
-          this->m_vertices[v.left].interval = std::make_pair(strict_left[v.left], here);
+          this->m_vertices[v.left].value_based_interval = this->m_vertices[v.left].tree_based_interval = std::make_pair(strict_left[v.left], here);
           stack.push(v.left);
         }
       }

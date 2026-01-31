@@ -22,6 +22,7 @@ cartesian_tree ct(R&& a, Compare comp = {});
 ```
 
 It constructs the Cartesian tree derived from $a$.
+Note that $a_i < a_j$ is defined by `std::invoke(comp, a[i], a[j])`.
 
 ### Constraints
 - None
@@ -48,7 +49,8 @@ struct vertex {
   int parent;
   int left;
   int right;
-  std::pair<int, int> interval;
+  std::pair<int, int> value_based_interval;
+  std::pair<int, int> tree_based_interval;
 };
 const vertex& ct.get_vertex(int i);
 ```
@@ -58,7 +60,8 @@ It returns the information about $a_i$.
 - `parent`: the parent node of $a_i$ (or $-1$ if it does not exist)
 - `left`: the left child node of $a_i$ (or $-1$ if it does not exist)
 - `right`: the right child node of $a_i$ (or $-1$ if it does not exist)
-- `interval`: the longest interval $[l, r)$ such that $0 \leq l \leq i < r \leq N$ and $\forall j. l \leq j < r \Rightarrow a_j \geq a_i$
+- `value_based_interval`: the longest interval $[l, r)$ such that $0 \leq l \leq i < r \leq N$ and $\forall j. l \leq j < r \Rightarrow a_j \geq a_i$
+- `tree_based_interval`: the longest interval $[l, r)$ such that $p < l \leq i < r \leq N$ and $\forall j. l \leq j < r \Rightarrow a_j \geq a_i$ where $p$ is `parent`
 
 ### Constraints
 - $0 \leq i < N$
