@@ -137,9 +137,22 @@ Both of the orders of the connected components and the vertices are undefined.
 ### Time Complexity
 - $O(n)$
 
+## ncc
+```cpp
+int d.ncc();
+```
+
+It returns the number of connected components.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## group
 ```cpp
-std::vector<int> d.group(int a);
+const std::vector<int>& d.group(int a);
 ```
 
 It returns the vertices in the connected component that contains the vertex $a$.

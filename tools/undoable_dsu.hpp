@@ -15,10 +15,6 @@ namespace tools {
     int m_ncc;
     std::stack<std::tuple<int, int, int, int, int>> m_history;
 
-    int size() const {
-      return this->m_data.size();
-    }
-
   public:
     undoable_dsu() = default;
     explicit undoable_dsu(const int n) : m_data(n, -1), m_ncc(n) {
@@ -53,6 +49,10 @@ namespace tools {
       --this->m_ncc;
 
       return x;
+    }
+
+    int size() const {
+      return this->m_data.size();
     }
 
     int size(const int x) const {

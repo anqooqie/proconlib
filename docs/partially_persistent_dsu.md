@@ -88,7 +88,20 @@ It returns the representative of the connected component that contained the vert
 ### Time Complexity
 - $O(\log n)$
 
-## size
+## size (zero parameters)
+```cpp
+int d.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## size (two parameters)
 ```cpp
 int d.size(int t, int a);
 ```
@@ -117,6 +130,19 @@ Both of the orders of the connected components and the vertices are undefined.
 
 ### Time Complexity
 - $O(n)$
+
+## ncc
+```cpp
+int d.ncc(int t);
+```
+
+It returns the number of connected components at the time when `d.now() == t`.
+
+### Constraints
+- $0 \leq t \leq$ `d.now()`
+
+### Time Complexity
+- $O(\log n)$
 
 ## when_connected
 ```cpp

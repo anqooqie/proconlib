@@ -1,24 +1,21 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc334/tasks/abc334_e
-// competitive-verifier: IGNORE
+// competitive-verifier: STANDALONE
+// Source: https://atcoder.jp/contests/abc334/tasks/abc334_e
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <numeric>
 #include <algorithm>
+#include <functional>
+#include <iostream>
+#include <ranges>
+#include <string>
+#include <vector>
 #include "atcoder/modint.hpp"
+#include "tools/assert_that.hpp"
 #include "tools/undoable_dsu.hpp"
 
 using mint = atcoder::modint998244353;
 
-int main() {
-  std::cin.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-
-  int H, W;
-  std::cin >> H >> W;
-  std::vector<std::string> S(H);
-  for (auto&& S_i : S) std::cin >> S_i;
+mint solve(const std::vector<std::string>& S) {
+  const int H = S.size();
+  const int W = S[0].size();
 
   auto V = std::vector(H, std::vector<int>(W, -1));
   int k = 0;
@@ -72,8 +69,30 @@ int main() {
       }
     }
   }
-  answer /= mint::raw(std::accumulate(S.begin(), S.end(), 0, [](const auto sum, const auto& S_i) { return sum + std::count(S_i.begin(), S_i.end(), '.'); }));
+  answer /= mint::raw(std::ranges::fold_left(S | std::views::transform([](const auto& S_i) { return std::ranges::count(S_i, '.'); }), 0, std::plus{}));
+  return answer;
+}
 
-  std::cout << answer.val() << '\n';
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
+  assert_that(solve({
+    "##.",
+    "#.#",
+    "#..",
+  }) == mint::raw(499122178));
+  assert_that(solve({
+    "..#..",
+    ".###.",
+    "#####",
+    "..#..",
+  }) == mint::raw(598946613));
+  assert_that(solve({
+    "#...",
+    ".#.#",
+    "..##",
+  }) == mint::raw(285212675));
+
   return 0;
 }

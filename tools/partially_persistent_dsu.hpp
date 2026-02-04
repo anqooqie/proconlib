@@ -16,10 +16,7 @@ namespace tools {
     std::vector<std::pair<int, int>> m_parents;
     std::vector<int> m_ranks;
     std::vector<std::vector<std::pair<int, int>>> m_sizes;
-
-    int size() const {
-      return this->m_parents.size();
-    }
+    std::vector<int> m_merge_times;
 
   public:
     partially_persistent_dsu() = default;
@@ -65,7 +62,13 @@ namespace tools {
       if (this->m_ranks[x] == this->m_ranks[y]) ++this->m_ranks[x];
       this->m_sizes[x].emplace_back(this->m_now, this->m_sizes[x].back().second + this->m_sizes[y].back().second);
 
+      this->m_merge_times.push_back(this->m_now);
+
       return x;
+    }
+
+    int size() const {
+      return this->m_parents.size();
     }
 
     int size(const int t, int x) const {
@@ -103,6 +106,11 @@ namespace tools {
 
       res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
+    }
+
+    int ncc(const int t) const {
+      assert(0 <= t && t <= this->m_now);
+      return this->size() - std::distance(this->m_merge_times.begin(), std::ranges::upper_bound(this->m_merge_times, t));
     }
 
     int when_connected(const int x, const int y) const {

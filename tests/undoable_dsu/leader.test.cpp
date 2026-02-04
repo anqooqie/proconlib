@@ -1,32 +1,18 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/abc302/tasks/abc302_ex
-// competitive-verifier: IGNORE
+// competitive-verifier: STANDALONE
+// Source: https://atcoder.jp/contests/abc302/tasks/abc302_h
 
 #include <iostream>
 #include <ranges>
 #include <vector>
+#include "tools/assert_that.hpp"
+#include "tools/fix.hpp"
 #include "tools/hld.hpp"
 #include "tools/undoable_dsu.hpp"
-#include "tools/fix.hpp"
-#include "tools/join.hpp"
 
-int main() {
-  std::cin.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-
-  int N;
-  std::cin >> N;
-  std::vector<int> A(N), B(N);
-  for (int i = 0; i < N; ++i) {
-    std::cin >> A[i] >> B[i];
-    --A[i], --B[i];
-  }
-
+std::vector<int> solve(const int N, const std::vector<int>& A, const std::vector<int>& B, const std::vector<int>& U, const std::vector<int>& V) {
   tools::hld graph(N);
   for (int i = 0; i < N - 1; ++i) {
-    int U, V;
-    std::cin >> U >> V;
-    --U, --V;
-    graph.add_edge(U, V);
+    graph.add_edge(U[i], V[i]);
   }
   graph.build(0);
 
@@ -56,6 +42,33 @@ int main() {
     has_cycle[dsu.leader(B[v])] = has_cycle_B;
   })(0);
 
-  std::cout << tools::join(std::ranges::subrange(answers.begin() + 1, answers.end()), " ") << '\n';
+  return answers | std::views::drop(1) | std::ranges::to<std::vector>();
+}
+
+void sample01() {
+  const int N = 4;
+  const std::vector<int> A{0, 1, 2, 0};
+  const std::vector<int> B{1, 2, 0, 1};
+  const std::vector<int> U{0, 1, 2};
+  const std::vector<int> V{1, 2, 3};
+  assert_that(solve(N, A, B, U, V) == std::vector<int>{2, 3, 3});
+}
+
+void sample02() {
+  const int N = 10;
+  const std::vector<int> A{1, 1, 7, 3, 5, 7, 8, 0, 8, 4};
+  const std::vector<int> B{4, 1, 7, 2, 9, 0, 9, 6, 2, 9};
+  const std::vector<int> U{8, 0, 2, 3, 2, 9, 4, 6, 8};
+  const std::vector<int> V{2, 8, 5, 0, 7, 8, 3, 1, 6};
+  assert_that(solve(N, A, B, U, V) == std::vector<int>{4, 3, 2, 3, 4, 3, 4, 2, 3});
+}
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
+  sample01();
+  sample02();
+
   return 0;
 }

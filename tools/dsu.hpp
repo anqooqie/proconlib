@@ -15,14 +15,11 @@ namespace tools {
     //   x is an inner or leaf node.
     //   parent(x) is this->m_data[x].
     std::vector<int> m_data;
-
-    int size() const {
-      return this->m_data.size();
-    }
+    int m_ncc;
 
   public:
     dsu() = default;
-    explicit dsu(const int n) : m_data(n, -1) {
+    explicit dsu(const int n) : m_data(n, -1), m_ncc(n) {
     }
 
     int leader(const int x) {
@@ -49,8 +46,13 @@ namespace tools {
       if (this->m_data[x] > this->m_data[y]) std::swap(x, y);
       this->m_data[x] += this->m_data[y];
       this->m_data[y] = x;
+      --this->m_ncc;
 
       return x;
+    }
+
+    int size() const {
+      return this->m_data.size();
     }
 
     int size(const int x) {
@@ -66,6 +68,10 @@ namespace tools {
       }
       res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
       return res;
+    }
+
+    int ncc() const {
+      return this->m_ncc;
     }
   };
 }

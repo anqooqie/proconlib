@@ -76,7 +76,20 @@ It returns the representative of the connected component that contains the verte
 ### Time Complexity
 - $O(\log n)$
 
-## size
+## size (zero parameters)
+```cpp
+int d.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## size (one parameter)
 ```cpp
 int d.size(int a);
 ```

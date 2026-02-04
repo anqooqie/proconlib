@@ -95,7 +95,20 @@ It returns the reprensative vertex of the connected component which contains $x$
 ### Time Complexity
 - $O(\alpha(n))$ amortized
 
-## size
+## size (zero parameters)
+```cpp
+int d.size();
+```
+
+If returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## size (one parameter)
 ```cpp
 int d.size(int x);
 ```
@@ -122,3 +135,17 @@ It returns the list of the connected components.
 
 ### Time Complexity
 - $O(n)$
+
+## ncc
+```cpp
+int d.ncc();
+```
+
+If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
+It returns the number of connected components.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

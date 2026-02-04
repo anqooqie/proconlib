@@ -22,6 +22,7 @@ namespace tools {
     std::vector<int> m_sizes;
     std::vector<T> m_diffs;
     std::vector<bool> m_consistent;
+    int m_ncc;
 
   public:
     pdsu() = default;
@@ -29,13 +30,10 @@ namespace tools {
       m_parents(n),
       m_sizes(n, 1),
       m_diffs(n, G::e()),
-      m_consistent(n, true) {
+      m_consistent(n, true),
+      m_ncc(n) {
       assert(n >= 0);
       std::iota(this->m_parents.begin(), this->m_parents.end(), 0);
-    }
-
-    int size() const {
-      return this->m_parents.size();
     }
 
     int leader(const int x) {
@@ -95,7 +93,14 @@ namespace tools {
       if (this->m_consistent[x_r]) {
         this->m_diffs[y_r] = G::op(G::op(this->m_diffs[x], G::inv(w)), G::inv(this->m_diffs[y]));
       }
+
+      --this->m_ncc;
+
       return x_r;
+    }
+
+    int size() const {
+      return this->m_parents.size();
     }
 
     int size(const int x) {
@@ -119,6 +124,10 @@ namespace tools {
       }
 
       return groups;
+    }
+
+    int ncc() const {
+      return this->m_ncc;
     }
   };
 }

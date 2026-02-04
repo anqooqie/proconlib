@@ -75,7 +75,20 @@ It returns the representative of the connected component that contains the verte
 ### Time Complexity
 - $O(\alpha(n))$ amortized
 
-## size
+## size (zero parameters)
+```cpp
+int d.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
+## size (one parameter)
 ```cpp
 int d.size(int a);
 ```
@@ -103,3 +116,16 @@ Both of the orders of the connected components and the vertices are undefined.
 
 ### Time Complexity
 - $O(n)$
+
+## ncc
+```cpp
+int d.ncc();
+```
+
+It returns the number of connected components.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$

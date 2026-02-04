@@ -4,9 +4,11 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <ranges>
 #include <utility>
 #include <vector>
 #include "atcoder/segtree.hpp"
+#include "tools/getter_result.hpp"
 #include "tools/modint_for_rolling_hash.hpp"
 #include "tools/now.hpp"
 #include "tools/pow_mod_cache.hpp"
@@ -27,19 +29,14 @@ namespace tools {
 
     atcoder::segtree<typename monoid::T, monoid::op, monoid::e> m_seg;
     std::vector<std::vector<int>> m_groups;
+    int m_ncc;
 
   public:
     range_parallel_dsu() = default;
-    explicit range_parallel_dsu(const int n) : m_seg([&]() {
-      std::vector<typename monoid::T> v(n);
-      for (int i = 0; i < n; ++i) {
-        v[i] = {1, mint::raw(i + 1)};
-      }
-      return v;
-    }()), m_groups(n) {
-      for (int i = 0; i < n; ++i) {
-        this->m_groups[i].push_back(i);
-      }
+    explicit range_parallel_dsu(const int n) :
+      m_seg(std::views::iota(0, n) | std::views::transform([](const auto i) { return std::make_pair(1, mint::raw(i + 1)); }) | std::ranges::to<std::vector>()),
+      m_groups(std::views::iota(0, n) | std::views::transform([](const auto i) { return std::vector<int>{i}; }) | std::ranges::to<std::vector>()),
+      m_ncc(n) {
     }
 
     int leader(const int x) const {
@@ -70,6 +67,8 @@ namespace tools {
       }
       this->m_groups[y].clear();
 
+      --this->m_ncc;
+
       return x;
     }
 
@@ -99,6 +98,8 @@ namespace tools {
         }
       } while (ok < k);
 
+      this->m_ncc -= res.size();
+
       return res;
     }
 
@@ -121,15 +122,14 @@ namespace tools {
       return res;
     }
 
-    const std::vector<int>& group(const int x) const & {
-      assert(0 <= x && x < this->size());
-
-      return this->m_groups[this->leader(x)];
+    int ncc() const {
+      return this->m_ncc;
     }
-    std::vector<int> group(const int x) && {
-      assert(0 <= x && x < this->size());
 
-      return std::move(this->m_groups[this->leader(x)]);
+    auto group(this auto&& self, const int x) -> tools::getter_result_t<decltype(self), std::vector<int>> {
+      assert(0 <= x && x < self.size());
+
+      return std::forward_like<decltype(self)>(self.m_groups[self.leader(x)]);
     }
   };
 }
