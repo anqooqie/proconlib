@@ -61,9 +61,9 @@ int main() {
   assert_that(tools::groups::multiplies<mint>::op(mint::raw(2), mint::raw(3)) == mint::raw(6));
   assert_that(tools::groups::multiplies<mint>::e() == mint::raw(1));
   assert_that(tools::groups::multiplies<mint>::inv(mint::raw(2)) == mint::raw(499122177));
-  assert_that(tools::groups::multiplies<tools::rational<tools::bigint>>::op(tools::rational<tools::bigint>(2), tools::rational<tools::bigint>(3)) == tools::rational<tools::bigint>(6));
-  assert_that(tools::groups::multiplies<tools::rational<tools::bigint>>::e() == tools::rational<tools::bigint>(1));
-  assert_that(tools::groups::multiplies<tools::rational<tools::bigint>>::inv(tools::rational<tools::bigint>(2)) == tools::rational<tools::bigint>(1, 2));
+  assert_that(tools::groups::multiplies<tools::rational<>>::op(tools::rational(2), tools::rational(3)) == tools::rational(6));
+  assert_that(tools::groups::multiplies<tools::rational<>>::e() == tools::rational(1));
+  assert_that(tools::groups::multiplies<tools::rational<>>::inv(tools::rational(2)) == tools::rational(1, 2));
 
   assert_that(tools::groups::plus<int>::op(2, 3) == 5);
   assert_that(tools::groups::plus<int>::e() == 0);
@@ -83,9 +83,9 @@ int main() {
   assert_that(tools::groups::plus<tools::bigint>::op(tools::bigint(2), tools::bigint(3)) == tools::bigint(5));
   assert_that(tools::groups::plus<tools::bigint>::e() == tools::bigint(0));
   assert_that(tools::groups::plus<tools::bigint>::inv(tools::bigint(2)) == tools::bigint(-2));
-  assert_that(tools::groups::plus<tools::rational<tools::bigint>>::op(tools::rational<tools::bigint>(2), tools::rational<tools::bigint>(3)) == tools::rational<tools::bigint>(5));
-  assert_that(tools::groups::plus<tools::rational<tools::bigint>>::e() == tools::rational<tools::bigint>(0));
-  assert_that(tools::groups::plus<tools::rational<tools::bigint>>::inv(tools::rational<tools::bigint>(2)) == tools::rational<tools::bigint>(-2));
+  assert_that(tools::groups::plus<tools::rational<>>::op(tools::rational(2), tools::rational(3)) == tools::rational(5));
+  assert_that(tools::groups::plus<tools::rational<>>::e() == tools::rational(0));
+  assert_that(tools::groups::plus<tools::rational<>>::inv(tools::rational(2)) == tools::rational(-2));
 
   return 0;
 }

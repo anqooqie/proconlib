@@ -3,13 +3,12 @@
 #include <iostream>
 #include <vector>
 #include "tools/assert_that.hpp"
-#include "tools/bigint.hpp"
 #include "tools/directed_line_segment_2d.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 
 using ll = long long;
-using R = tools::rational<tools::bigint>;
+using R = tools::rational<>;
 
 int main() {
   std::cin.tie(nullptr);

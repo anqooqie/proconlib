@@ -23,7 +23,7 @@
 #include "tools/signum.hpp"
 
 namespace tools {
-  template <typename Z, bool AutoReduce = true>
+  template <typename Z = tools::bigint, bool AutoReduce = true>
   requires tools::signed_integral<Z> || std::same_as<Z, tools::bigint>
   class rational;
 

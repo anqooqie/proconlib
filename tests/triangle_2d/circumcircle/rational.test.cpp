@@ -4,20 +4,20 @@
 #include <array>
 #include <cmath>
 #include <iomanip>
-#include <ios>
 #include <iostream>
-#include "tools/bigint.hpp"
 #include "tools/triangle_2d.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
+
+using T = tools::rational<>;
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  std::array<tools::vector2<tools::rational<tools::bigint>>, 3> p;
+  std::array<tools::vector2<T>, 3> p;
   std::cin >> p[0] >> p[1] >> p[2];
-  const auto circumcircle = tools::triangle_2d<tools::rational<tools::bigint>, false>(p).circumcircle();
+  const auto circumcircle = tools::triangle_2d<T, false>(p).circumcircle();
   std::cout << std::fixed << std::setprecision(10) << static_cast<double>(circumcircle.center().x) << ' ' << static_cast<double>(circumcircle.center().y) << ' ' << std::sqrt(static_cast<double>(circumcircle.squared_radius())) << '\n';
 
   return 0;

@@ -2,13 +2,12 @@
 // competitive-verifier: ERROR 1e-9
 
 #include <iostream>
-#include "tools/bigint.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 #include "tools/line_2d.hpp"
 
 using ll = long long;
-using T = tools::rational<tools::bigint>;
+using T = tools::rational<>;
 
 int main() {
   std::cin.tie(nullptr);

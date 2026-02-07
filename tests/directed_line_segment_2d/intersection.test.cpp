@@ -1,13 +1,12 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_B
 
 #include <iostream>
-#include "tools/bigint.hpp"
 #include "tools/vector2.hpp"
 #include "tools/directed_line_segment_2d.hpp"
 #include "tools/rational.hpp"
 
 using ll = long long;
-using T = tools::rational<tools::bigint>;
+using T = tools::rational<>;
 
 int main() {
   std::cin.tie(nullptr);

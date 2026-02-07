@@ -1,16 +1,14 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/CGL_3_A
 
 #include <iomanip>
-#include <ios>
 #include <iostream>
 #include <vector>
-#include "tools/bigint.hpp"
 #include "tools/polygon_2d.hpp"
 #include "tools/rational.hpp"
 #include "tools/vector2.hpp"
 
 using ll = long long;
-using T = tools::rational<tools::bigint>;
+using T = tools::rational<>;
 
 int main() {
   std::cin.tie(nullptr);
