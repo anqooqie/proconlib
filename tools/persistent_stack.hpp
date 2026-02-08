@@ -1,55 +1,99 @@
 #ifndef TOOLS_PERSISTENT_STACK_HPP
 #define TOOLS_PERSISTENT_STACK_HPP
 
-#include <cstddef>
-#include <vector>
-#include <limits>
+#include <algorithm>
 #include <cassert>
-#include <type_traits>
+#include <cstddef>
+#include <functional>
+#include <iterator>
+#include <memory>
+#include <utility>
+#include <vector>
 
 namespace tools {
   template <typename T>
   class persistent_stack {
-  private:
     struct node {
-      std::size_t parent;
-      std::size_t depth;
+      int parent;
+      int depth;
       T value;
+      int refcnt;
     };
 
-  public:
-    class buffer {
-    private:
-      std::vector<tools::persistent_stack<T>::node> m_nodes;
+    static inline std::vector<node> s_nodes;
+    static inline std::vector<int> s_free_ids;
 
-    public:
-      buffer() = default;
-      buffer(const tools::persistent_stack<T>::buffer&) = default;
-      buffer(tools::persistent_stack<T>::buffer&&) = default;
-      ~buffer() = default;
-      tools::persistent_stack<T>::buffer& operator=(const tools::persistent_stack<T>::buffer&) = default;
-      tools::persistent_stack<T>::buffer& operator=(tools::persistent_stack<T>::buffer&&) = default;
+    static int malloc() {
+      if (s_free_ids.empty()) {
+        s_nodes.emplace_back();
+        return s_nodes.size() - 1;
+      } else {
+        const auto id = s_free_ids.back();
+        s_free_ids.pop_back();
+        return id;
+      }
+    }
+    static void free(const int id) {
+      assert(0 <= id && id < std::ssize(s_nodes));
+      assert(s_nodes[id].refcnt == 0);
+      s_free_ids.push_back(id);
+    }
 
-      friend tools::persistent_stack<T>;
-    };
+    static constexpr int EMPTY = -1;
+    int m_top;
 
-  private:
-    static const std::size_t EMPTY = std::numeric_limits<std::size_t>::max();
-    tools::persistent_stack<T>::buffer *m_buffer;
-    std::size_t m_top;
-
-    persistent_stack(tools::persistent_stack<T>::buffer& buffer, const std::size_t top) : m_buffer(&buffer), m_top(top) {
+    void wipe() const {
+      auto id = this->m_top;
+      while (id != EMPTY) {
+        --s_nodes[id].refcnt;
+        if (s_nodes[id].refcnt > 0) break;
+        const auto parent_id = s_nodes[id].parent;
+        free(id);
+        id = parent_id;
+      }
     }
 
   public:
-    persistent_stack() = default;
-    persistent_stack(const tools::persistent_stack<T>&) = default;
-    persistent_stack(tools::persistent_stack<T>&&) = default;
-    ~persistent_stack() = default;
-    tools::persistent_stack<T>& operator=(const tools::persistent_stack<T>&) = default;
-    tools::persistent_stack<T>& operator=(tools::persistent_stack<T>&&) = default;
+    // For testing purposes.
+    static bool fully_released() {
+      std::vector<bool> released(s_nodes.size(), false);
+      for (const auto id : s_free_ids) {
+        assert(!released[id]);
+        released[id] = true;
+      }
+      return std::ranges::all_of(released, std::identity{});
+    }
 
-    explicit persistent_stack(tools::persistent_stack<T>::buffer& buffer) : m_buffer(&buffer), m_top(EMPTY) {
+    persistent_stack() : m_top(EMPTY) {
+    }
+    persistent_stack(const tools::persistent_stack<T>& other) : m_top(other.m_top) {
+      if (!this->empty()) {
+        ++s_nodes[this->m_top].refcnt;
+      }
+    }
+    persistent_stack(tools::persistent_stack<T>&& other) noexcept : m_top(other.m_top) {
+      other.m_top = EMPTY;
+    }
+    ~persistent_stack() {
+      this->wipe();
+    }
+    tools::persistent_stack<T>& operator=(const tools::persistent_stack<T>& other) {
+      if (this != std::addressof(other)) {
+        this->wipe();
+        this->m_top = other.m_top;
+        if (!this->empty()) {
+          ++s_nodes[this->m_top].refcnt;
+        }
+      }
+      return *this;
+    }
+    tools::persistent_stack<T>& operator=(tools::persistent_stack<T>&& other) noexcept {
+      if (this != std::addressof(other)) {
+        this->wipe();
+        this->m_top = other.m_top;
+        other.m_top = EMPTY;
+      }
+      return *this;
     }
 
     bool empty() const {
@@ -57,25 +101,37 @@ namespace tools {
     }
 
     std::size_t size() const {
-      return this->empty() ? 0 : this->m_buffer->m_nodes[this->m_top].depth + 1;
+      return this->empty() ? 0 : s_nodes[this->m_top].depth + 1;
     }
 
-    T top() const {
+    const T& top() const {
       assert(!this->empty());
-      return this->m_buffer->m_nodes[this->m_top].value;
+      return s_nodes[this->m_top].value;
     }
 
     tools::persistent_stack<T> push(const T& x) const {
-      this->m_buffer->m_nodes.emplace_back();
-      this->m_buffer->m_nodes.back().parent = this->m_top;
-      this->m_buffer->m_nodes.back().depth = this->empty() ? 0 : this->m_buffer->m_nodes[this->m_top].depth + 1;
-      this->m_buffer->m_nodes.back().value = x;
-      return tools::persistent_stack<T>(*this->m_buffer, this->m_buffer->m_nodes.size() - 1);
+      tools::persistent_stack<T> res{};
+      res.m_top = malloc();
+      s_nodes[res.m_top].parent = this->m_top;
+      s_nodes[res.m_top].value = x;
+      s_nodes[res.m_top].refcnt = 1;
+      if (this->empty()) {
+        s_nodes[res.m_top].depth = 0;
+      } else {
+        s_nodes[res.m_top].depth = s_nodes[this->m_top].depth + 1;
+        ++s_nodes[this->m_top].refcnt;
+      }
+      return res;
     }
 
     tools::persistent_stack<T> pop() const {
       assert(!this->empty());
-      return tools::persistent_stack<T>(*this->m_buffer, this->m_buffer->m_nodes[this->m_top].parent);
+      tools::persistent_stack<T> res{};
+      res.m_top = s_nodes[this->m_top].parent;
+      if (!res.empty()) {
+        ++s_nodes[res.m_top].refcnt;
+      }
+      return res;
     }
 
     template <typename... Args>

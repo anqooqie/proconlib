@@ -11,25 +11,12 @@ It is a persistent stack.
 ### Author
 - anqooqie
 
-## Constructor of buffer
-```cpp
-persistent_stack<T>::buffer buffer();
-```
-
-It creates an empty buffer for `tools::persistent_stack<T>`.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
 ## Constructor
 ```cpp
-persistent_stack<T> stack(persistent_stack<T>::buffer& buffer);
+persistent_stack<T> stack();
 ```
 
-It creates an empty stack whose data stores on `buffer`.
+It creates an empty stack.
 
 ### Constraints
 - None
@@ -45,7 +32,7 @@ bool stack.empty();
 It returns whether the stack is empty or not.
 
 ### Constraints
-- `buffer` is in its lifetime.
+- None
 
 ### Time Complexity
 - $O(1)$
@@ -58,20 +45,19 @@ std::size_t stack.size();
 It returns the current number of elements of the stack.
 
 ### Constraints
-- `buffer` is in its lifetime.
+- None
 
 ### Time Complexity
 - $O(1)$
 
 ## top
 ```cpp
-T stack.top();
+const T& stack.top();
 ```
 
 It returns the newest element in the stack.
 
 ### Constraints
-- `buffer` is in its lifetime.
 - `stack` is not empty.
 
 ### Time Complexity
@@ -85,7 +71,7 @@ persistent_stack<T> stack.push(T x);
 It clones `stack`, adds `x` to the new stack and returns the new stack.
 
 ### Constraints
-- `buffer` is in its lifetime.
+- None
 
 ### Time Complexity
 - $O(1)$ amortized
@@ -98,7 +84,6 @@ persistent_stack<T> stack.pop();
 It clones `stack`, removes the newest element from the new stack and returns the new stack.
 
 ### Constraints
-- `buffer` is in its lifetime.
 - `stack` is not empty.
 
 ### Time Complexity
@@ -113,7 +98,7 @@ persistent_stack<T> emplace(Args&&... args);
 It clones `stack`, adds `T(args...)` to the new stack and returns the new stack.
 
 ### Constraints
-- `buffer` is in its lifetime.
+- None
 
 ### Time Complexity
 - $O(1)$ amortized

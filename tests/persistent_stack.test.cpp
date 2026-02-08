@@ -1,15 +1,16 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/shortest_path
 
+#include <algorithm>
 #include <iostream>
-#include <vector>
-#include <utility>
+#include <iterator>
 #include <limits>
 #include <queue>
-#include <algorithm>
-#include <iterator>
-#include "tools/persistent_stack.hpp"
-#include "tools/greater_by_second.hpp"
+#include <utility>
+#include <vector>
+#include "tools/assert_that.hpp"
 #include "tools/chmin.hpp"
+#include "tools/greater_by_second.hpp"
+#include "tools/persistent_stack.hpp"
 
 using ll = long long;
 
@@ -29,8 +30,7 @@ int main() {
   std::vector<ll> dist(N, std::numeric_limits<ll>::max());
   dist[s] = 0;
 
-  tools::persistent_stack<ll>::buffer buffer;
-  std::vector<tools::persistent_stack<ll>> path(N, tools::persistent_stack<ll>(buffer));
+  std::vector<tools::persistent_stack<ll>> path(N);
   path[s] = path[s].push(s);
 
   std::priority_queue<std::pair<ll, ll>, std::vector<std::pair<ll, ll>>, tools::greater_by_second> pq;
@@ -57,10 +57,13 @@ int main() {
   for (auto stack = path[t]; !stack.empty(); stack = stack.pop()) {
     answers.push_back(stack.top());
   }
-  std::reverse(answers.begin(), answers.end());
+  std::ranges::reverse(answers);
   for (ll i = 0; i + 1 < std::ssize(answers); ++i) {
     std::cout << answers[i] << ' ' << answers[i + 1] << '\n';
   }
+
+  std::vector<tools::persistent_stack<ll>>{}.swap(path);
+  assert_that(tools::persistent_stack<ll>::fully_released());
 
   return 0;
 }
