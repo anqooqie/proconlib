@@ -13,6 +13,7 @@ verify: .competitive-verifier/local
 .PHONY: resolve
 resolve: .competitive-verifier/local
 	CPLUS_INCLUDE_PATH= competitive-verifier oj-resolve --exclude archive atcoder lib template oj-resolve --config .verify-helper/config.toml >.competitive-verifier/local/verify_files.json
+	python3 scripts/uniquify_verify_paths.py .competitive-verifier/local/verify_files.json
 
 .PHONY: docs
 docs: .competitive-verifier/local
