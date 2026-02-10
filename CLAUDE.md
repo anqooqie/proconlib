@@ -9,20 +9,61 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build & Verification Commands
 
 ```sh
-make resolve                # Generate .competitive-verifier/local/verify_files.json (must run before verify)
-make verify                 # Run verification (single-process)
-make verify-multi-process   # Run verification (parallel, uses all cores)
+make resolve                # Resolve file dependencies and generate verify_files.json (run before first verify)
+make verify                 # Run verification (single-process, good for reading errors)
+make verify-multi-process   # Run verification (parallel, uses all cores, fast but output is interleaved)
 make docs                   # Generate and serve documentation locally via Jekyll
 ```
 
-**Compiling a single tool's test manually:**
+**Re-running all affected tests after a change:**
+
+competitive-verifier tracks file dependencies and previous results. It re-runs only the tests that depend on changed files and have not yet succeeded. The full sequence is:
+
 ```sh
-g++ --std=c++23 -O2 -Wall -g -I . tests/<name>.test.cpp -o test_binary
+git add . && make resolve && make verify-multi-process
+```
+
+Each step can be skipped depending on the nature of the change:
+
+| What changed | `git add .` | `make resolve` | `make verify-multi-process` |
+|---|---|---|---|
+| File added or deleted | Required | Required | Required |
+| `#include` dependencies changed | — | Required | Required |
+| Only file contents (no dependency/file-set change) | — | — | Required |
+
+- `git add .` — needed when files are added/deleted so that `make resolve` can discover them.
+- `make resolve` — rebuilds the dependency graph. Takes noticeable time, so skip it when only file contents changed.
+- `make verify-multi-process` — runs outstanding tests in parallel across all cores. Use `make verify` instead when you need to read error output clearly (single-process, sequential).
+
+When iterating on a fix, typically only `make verify-multi-process` (or `make verify`) is needed after each edit.
+
+**Running a single test manually:**
+
+Tests are either STANDALONE (assert-based, self-contained) or PROBLEM (verified against an online judge). The first line of each test file indicates its type (see Test File Conventions below). The compilation step is the same for both, but PROBLEM-type tests additionally require downloading judge test cases via `oj`.
+
+```sh
+# Compile
+g++ --std=c++23 -O2 -Wall -g -I . tests/<name>.test.cpp -o /tmp/test_binary
 # or
-clang++ --std=c++23 -O2 -Wall -g -fno-builtin-std-forward_like -I . tests/<name>.test.cpp -o test_binary
+clang++ --std=c++23 -O2 -Wall -g -fno-builtin-std-forward_like -I . tests/<name>.test.cpp -o /tmp/test_binary
 ```
 
 The include path root is the repository root (`.`), so `#include "tools/foo.hpp"` resolves from there.
+
+For STANDALONE tests, just run the compiled binary:
+```sh
+/tmp/test_binary
+```
+
+For PROBLEM tests, use `oj` to download test cases and judge the output:
+```sh
+# Download all test cases (--system fetches full system tests, not just samples)
+oj download --system <judge-url> -d /tmp/testcases
+# Run and judge
+oj test -c /tmp/test_binary -d /tmp/testcases
+```
+
+Note: AtCoder problems are currently unavailable for local testing because AtCoder no longer provides test cases.
 
 ## Architecture
 
@@ -65,9 +106,9 @@ namespace tools {
 
 ## Test File Conventions
 
-Line 1 must be exactly one of:
-- `// competitive-verifier: PROBLEM <judge-url>` — verified against online judge
-- `// competitive-verifier: STANDALONE` — self-contained (uses `assert_that` or `static_assert`)
+There are two types of tests. Line 1 must be exactly one of:
+- `// competitive-verifier: PROBLEM <judge-url>` — verified against an online judge problem. Requires `oj` to download test cases for local execution (see Build & Verification Commands above).
+- `// competitive-verifier: STANDALONE` — self-contained (uses `assert_that` or `static_assert`). Can be run directly after compilation.
 
 Tests always use `std::cin.tie(nullptr); std::ios_base::sync_with_stdio(false);` and `return 0;`.
 
