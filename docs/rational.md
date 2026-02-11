@@ -35,6 +35,7 @@ When automatic reduction is enabled, $\gcd(x_n, x_d) = 1$ is also simultaneously
 - `tools::signed_integral<Z>` holds or `Z` is `tools::bigint`.
 - (4)
     - $d \neq 0$
+    - `AutoReduce` is `true`: $\min(\|n\|, \|d\|) < 10^{2^{26}} = 10^{67108864}$
 
 ### Time Complexity
 - (1)
@@ -44,7 +45,7 @@ When automatic reduction is enabled, $\gcd(x_n, x_d) = 1$ is also simultaneously
 - (3)
     - $O(\log \|y_u\|)$ where $y_u$ is the unscaled value of $y$
 - (4)
-    - `AutoReduce` is `true`: $O((\log \|nd\|)^2 \log (\log \|nd\|))$
+    - `AutoReduce` is `true`: $O(\log \|nd\| (\log (\log \|nd\|))^2)$
     - `AutoReduce` is `false`: $O(\log \|nd\|)$
 
 ## abs_inplace
@@ -109,9 +110,10 @@ It reduces $x$.
 
 ### Constraints
 - `AutoReduce` is `false`.
+- $\min(\|x_n\|, \|x_d\|) < 10^{2^{26}} = 10^{67108864}$
 
 ### Time Complexity
-- $O((\log \|x_n x_d\|)^2 \log (\log \|x_n x_d\|))$
+- $O(\log \|x_n x_d\| (\log (\log \|x_n x_d\|))^2)$
 
 ## operator&lt;=&gt;
 ```cpp
@@ -180,12 +182,17 @@ It compares $x$ and $y$, and returns the result.
     - It returns $x + y$.
 
 ### Constraints
-- $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
-- $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
-- $\| y_n x_d \| < 10^{2^{27} + 4} = 10^{134217732}$
+- `AutoReduce` is `true`:
+    - $\| x_d y_d \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| x_n y_d \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| y_n x_d \| < 10^{2^{26}} = 10^{67108864}$
+- `AutoReduce` is `false`:
+    - $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
+    - $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
+    - $\| y_n x_d \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|))^2 \log(\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)))$
+- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)) (\log(\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)))^2)$
 - `AutoReduce` is `false`: $O(\log \|x_n y_d\| \log(\log \|x_n y_d\|) + \log \|y_n x_d\| \log(\log \|y_n x_d\|) + \log \|x_d y_d\| \log(\log \|x_d y_d\|))$
 
 ## Subtraction operators
@@ -200,12 +207,17 @@ It compares $x$ and $y$, and returns the result.
     - It returns $x - y$.
 
 ### Constraints
-- $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
-- $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
-- $\| y_n x_d \| < 10^{2^{27} + 4} = 10^{134217732}$
+- `AutoReduce` is `true`:
+    - $\| x_d y_d \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| x_n y_d \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| y_n x_d \| < 10^{2^{26}} = 10^{67108864}$
+- `AutoReduce` is `false`:
+    - $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
+    - $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
+    - $\| y_n x_d \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|))^2 \log(\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)))$
+- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)) (\log(\log \|x_d y_d\| + \log(\|x_n y_d\| + \|y_n x_d\|)))^2)$
 - `AutoReduce` is `false`: $O(\log \|x_n y_d\| \log(\log \|x_n y_d\|) + \log \|y_n x_d\| \log(\log \|y_n x_d\|) + \log \|x_d y_d\| \log(\log \|x_d y_d\|))$
 
 ## Multiplication operators
@@ -220,11 +232,15 @@ It compares $x$ and $y$, and returns the result.
     - It returns $xy$.
 
 ### Constraints
-- $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
-- $\| x_n y_n \| < 10^{2^{27} + 4} = 10^{134217732}$
+- `AutoReduce` is `true`:
+    - $\| x_d y_d \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| x_n y_n \| < 10^{2^{26}} = 10^{67108864}$
+- `AutoReduce` is `false`:
+    - $\| x_d y_d \| < 10^{2^{27}} = 10^{134217728}$
+    - $\| x_n y_n \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log \|x_n y_n\|)^2 \log(\log \|x_d y_d\| + \log \|x_n y_n\|))$
+- `AutoReduce` is `true`: $O((\log \|x_d y_d\| + \log \|x_n y_n\|) (\log(\log \|x_d y_d\| + \log \|x_n y_n\|))^2)$
 - `AutoReduce` is `false`: $O(\log \|x_n y_n\| \log(\log \|x_n y_n\|) + \log \|x_d y_d\| \log(\log \|x_d y_d\|))$
 
 ## Division operators
@@ -239,11 +255,15 @@ It compares $x$ and $y$, and returns the result.
     - It returns $\frac{x}{y}$.
 
 ### Constraints
-- $\| x_d y_n \| < 10^{2^{27}} = 10^{134217728}$
-- $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
+- `AutoReduce` is `true`:
+    - $\| x_d y_n \| < 10^{2^{26}} = 10^{67108864}$
+    - $\| x_n y_d \| < 10^{2^{26}} = 10^{67108864}$
+- `AutoReduce` is `false`:
+    - $\| x_d y_n \| < 10^{2^{27}} = 10^{134217728}$
+    - $\| x_n y_d \| < 10^{2^{27} + 4} = 10^{134217732}$
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O((\log \|x_d y_n\| + \log \|x_n y_d\|)^2 \log(\log \|x_d y_n\| + \log \|x_n y_d\|))$
+- `AutoReduce` is `true`: $O((\log \|x_d y_n\| + \log \|x_n y_d\|) (\log(\log \|x_d y_n\| + \log \|x_n y_d\|))^2)$
 - `AutoReduce` is `false`: $O(\log \|x_n y_d\| \log(\log \|x_n y_d\|) + \log \|x_d y_n\| \log(\log \|x_d y_n\|))$
 
 ## operator T
@@ -258,8 +278,7 @@ It casts $x$ to the type `T`.
 - `std::numeric_limits<T>::lowest()` $\leq x \leq$ `std::numeric_limits<T>::max()`
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O((\log \|x_d y_n\| + \log \|x_n y_d\|)^2 \log(\log \|x_d y_n\| + \log \|x_n y_d\|))$
-- `AutoReduce` is `false`: $O(\log \|x_n y_d\| \log(\log \|x_n y_d\|) + \log \|x_d y_n\| \log(\log \|x_d y_n\|))$
+- $O(\log \|x_n x_d\| \log(\log \|x_n x_d\|))$
 
 ## operator&gt;&gt;
 ```cpp
@@ -272,7 +291,7 @@ It parses the input as a signed number and creates a rational number which is nu
 - The input is expressed as `[+-]?[0-9]+(\.[0-9]+)?` in regular expressions
 
 ### Time Complexity
-- `AutoReduce` is `true`: $O(n^2 \log n)$ where $n$ is the length of the input
+- `AutoReduce` is `true`: $O(n (\log n)^2)$ where $n$ is the length of the input
 - `AutoReduce` is `false`: $O(n)$ where $n$ is the length of the input
 
 ## operator&lt;&lt;

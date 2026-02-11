@@ -48,6 +48,8 @@ namespace tools {
   };
   template <>
   struct detail::gcd::impl<tools::bigint, tools::bigint> {
+    struct mat22;
+    static mat22 half_gcd(tools::bigint& a, tools::bigint& b);
     tools::bigint operator()(tools::bigint, tools::bigint) const;
   };
   template <>
@@ -737,22 +739,135 @@ namespace tools {
       return os;
     }
 
+    friend tools::detail::gcd::impl<tools::bigint, tools::bigint>;
     friend tools::detail::signum::impl<tools::bigint>;
   };
 
   tools::bigint detail::abs::impl<tools::bigint>::operator()(auto&& x) const {
     return tools::bigint(std::forward<decltype(x)>(x)).abs_inplace();
   };
-  tools::bigint detail::gcd::impl<tools::bigint, tools::bigint>::operator()(tools::bigint m, tools::bigint n) const {
-    m.abs_inplace();
-    n.abs_inplace();
 
-    while (tools::signum(n) != 0) {
-      m %= n;
-      std::swap(m, n);
+  struct detail::gcd::impl<tools::bigint, tools::bigint>::mat22 {
+    tools::bigint a00, a01, a10, a11;
+  };
+  auto detail::gcd::impl<tools::bigint, tools::bigint>::half_gcd(tools::bigint& a, tools::bigint& b) -> mat22 {
+    const std::size_t n = a.m_digits.size();
+    const std::size_t m = n / 2;
+
+    if (b.m_digits.empty() || b.m_digits.size() <= m) {
+      return {tools::bigint(1), tools::bigint(0), tools::bigint(0), tools::bigint(1)};
     }
 
-    return m;
+    if (n <= 64) {
+      mat22 R = {tools::bigint(1), tools::bigint(0), tools::bigint(0), tools::bigint(1)};
+      while (!b.m_digits.empty() && b.m_digits.size() > m) {
+        auto [q, r] = a.divmod(b);
+        a = std::move(b);
+        b = std::move(r);
+        auto new_a10 = std::move(R.a00) - q * R.a10;
+        auto new_a11 = std::move(R.a01) - q * R.a11;
+        R.a00 = std::move(R.a10);
+        R.a01 = std::move(R.a11);
+        R.a10 = std::move(new_a10);
+        R.a11 = std::move(new_a11);
+      }
+      return R;
+    }
+
+    // First recursive call on top halves
+    auto a1 = a.rshift(m);
+    auto b1 = b.rshift(m);
+    auto R = half_gcd(a1, b1);
+
+    // Apply R to full (a, b)
+    {
+      auto na = R.a00 * a + R.a01 * b;
+      auto nb = R.a10 * a + R.a11 * b;
+      a = std::move(na);
+      b = std::move(nb);
+    }
+    if (!a.m_nonnegative) { a.negate(); R.a00.negate(); R.a01.negate(); }
+    if (!b.m_nonnegative) { b.negate(); R.a10.negate(); R.a11.negate(); }
+    if (tools::bigint::compare_3way_abs(a, b) < 0) {
+      std::swap(a, b);
+      std::swap(R.a00, R.a10);
+      std::swap(R.a01, R.a11);
+    }
+
+    if (b.m_digits.empty() || b.m_digits.size() <= m) {
+      return R;
+    }
+
+    // Euclidean step
+    {
+      auto [q, r] = a.divmod(b);
+      a = std::move(b);
+      b = std::move(r);
+      auto new_a10 = std::move(R.a00) - q * R.a10;
+      auto new_a11 = std::move(R.a01) - q * R.a11;
+      R.a00 = std::move(R.a10);
+      R.a01 = std::move(R.a11);
+      R.a10 = std::move(new_a10);
+      R.a11 = std::move(new_a11);
+    }
+
+    if (b.m_digits.empty() || b.m_digits.size() <= m) {
+      return R;
+    }
+
+    // Second recursive call on top halves (adjusted shift)
+    const std::size_t l = a.m_digits.size();
+    const std::size_t k = (2 * m >= l) ? (2 * m - l) : 0;
+    auto a2 = a.rshift(k);
+    auto b2 = b.rshift(k);
+    auto R2 = half_gcd(a2, b2);
+
+    // Apply R2 to (a, b)
+    {
+      auto na = R2.a00 * a + R2.a01 * b;
+      auto nb = R2.a10 * a + R2.a11 * b;
+      a = std::move(na);
+      b = std::move(nb);
+    }
+    if (!a.m_nonnegative) { a.negate(); R2.a00.negate(); R2.a01.negate(); }
+    if (!b.m_nonnegative) { b.negate(); R2.a10.negate(); R2.a11.negate(); }
+    if (tools::bigint::compare_3way_abs(a, b) < 0) {
+      std::swap(a, b);
+      std::swap(R2.a00, R2.a10);
+      std::swap(R2.a01, R2.a11);
+    }
+
+    // Combine R2 * R
+    return {
+      R2.a00 * R.a00 + R2.a01 * R.a10,
+      R2.a00 * R.a01 + R2.a01 * R.a11,
+      R2.a10 * R.a00 + R2.a11 * R.a10,
+      R2.a10 * R.a01 + R2.a11 * R.a11
+    };
+  }
+
+  tools::bigint detail::gcd::impl<tools::bigint, tools::bigint>::operator()(tools::bigint a, tools::bigint b) const {
+    a.abs_inplace();
+    b.abs_inplace();
+    if (tools::bigint::compare_3way_abs(a, b) < 0) std::swap(a, b);
+
+    while (!b.m_digits.empty()) {
+      if (a.m_digits.size() <= 64) {
+        while (!b.m_digits.empty()) {
+          a %= b;
+          std::swap(a, b);
+        }
+        break;
+      }
+      half_gcd(a, b);
+      if (b.m_digits.empty()) break;
+      if (tools::bigint::compare_3way_abs(a, b) < 0) std::swap(a, b);
+      auto [q, r] = a.divmod(b);
+      a = std::move(b);
+      b = std::move(r);
+    }
+
+    return a;
   };
   int detail::signum::impl<tools::bigint>::operator()(const tools::bigint& x) const {
     if (!x.m_nonnegative) return -1;

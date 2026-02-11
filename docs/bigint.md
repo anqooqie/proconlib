@@ -361,10 +361,10 @@ bigint tools::gcd(bigint x, bigint y);
 It returns $\gcd(x, y)$.
 
 ### Constraints
-- $\min\left(\|x\|, \|y\|\right) < 10^{2^{27}} = 10^{134217728}$
+- $\min\left(\|x\|, \|y\|\right) < 10^{2^{26}} = 10^{67108864}$
 
 ### Time Complexity
-- $O((\log \|x\| + \log \|y\|)^2 \log (\log \|x\| + \log \|y\|))$
+- $O((\log \|x\| + \log \|y\|) (\log (\log \|x\| + \log \|y\|))^2)$
 
 ## tools::signum
 ```cpp
