@@ -1,1 +1,1 @@
-exclude: ["archive", "atcoder", "lib", "template"]
+exclude: ["archive", "atcoder", "lib", "scripts", "template"]
