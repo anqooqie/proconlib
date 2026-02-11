@@ -1,25 +1,18 @@
-// competitive-verifier: PROBLEM https://atcoder.jp/contests/agc047/tasks/agc047_a
-// competitive-verifier: IGNORE
+// competitive-verifier: STANDALONE
+// Source: https://atcoder.jp/contests/agc047/tasks/agc047_a
 
-#include <iostream>
-#include <vector>
-#include <string>
 #include <array>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "tools/assert_that.hpp"
 #include "tools/bigdecimal.hpp"
 #include "tools/cumsum2d.hpp"
 
 using ll = long long;
 
-int main() {
-  std::cin.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-
-  ll N;
-  std::cin >> N;
-  std::vector<std::string> A(N);
-  for (auto& A_i : A) std::cin >> A_i;
-
-  std::array<std::array<ll, 19>, 19> matrix({{}});
+ll solve(const std::vector<std::string>& A) {
+  std::array<std::array<ll, 19>, 19> matrix{{}};
   for (const auto& A_i : A) {
     auto A_i_ll = static_cast<ll>(tools::bigdecimal(A_i).multiply_inplace_by_pow10(9));
     ll y;
@@ -39,7 +32,15 @@ int main() {
   }
   answer -= cumsum.query(9, 19, 9, 19);
   answer /= 2;
-  std::cout << answer << std::endl;
+  return answer;
+}
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+
+  assert_that(solve({"7.5", "2.4", "17.000000001", "17", "16.000000000"}) == 3);
+  assert_that(solve({"0.9", "1", "1", "1.25", "2.30000", "5", "70", "0.000000001", "9999.999999999", "0.999999999", "1.000000001"}) == 8);
 
   return 0;
 }
