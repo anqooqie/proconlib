@@ -2,14 +2,14 @@
 #define TOOLS_NEXT_COMBINATION_HPP
 
 #include <algorithm>
+#include <iterator>
 
 // Source: https://stackoverflow.com/questions/5095407/all-combinations-of-k-elements-out-of-n/5097100#5097100
 // License: CC BY-SA 3.0
 // Author: Thomas Draper
 
 namespace tools {
-
-  template <typename Iterator>
+  template <std::random_access_iterator Iterator>
   bool next_combination(const Iterator first, Iterator k, const Iterator last) {
     if ((first == last) || (first == k) || (last == k)) return false;
     Iterator itr1 = first;
