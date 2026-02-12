@@ -60,7 +60,7 @@ namespace tools {
     }
     tools::modint_for_rolling_hash inv() const {
       assert(this->m_val != 0);
-      return tools::modint_for_rolling_hash(std::get<0>(tools::extgcd<std::int64_t>(this->m_val, MOD)));
+      return tools::modint_for_rolling_hash(std::get<0>(tools::extgcd(static_cast<std::int64_t>(this->m_val), static_cast<std::int64_t>(MOD))));
     }
 
     tools::modint_for_rolling_hash operator+() const {
