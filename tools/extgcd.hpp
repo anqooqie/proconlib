@@ -12,10 +12,10 @@
 
 namespace tools {
   namespace detail::extgcd {
-    template <tools::signed_integral M, tools::signed_integral N>
+    template <typename M, typename N>
     struct impl {
       using T = std::common_type_t<M, N>;
-      constexpr std::tuple<T, T, T> operator()(const M a, const N b) const noexcept {
+      constexpr std::tuple<T, T, T> operator()(const M a, const N b) const noexcept requires (tools::signed_integral<M> && tools::signed_integral<N>) {
         T prev_r = static_cast<T>(a);
         T r = static_cast<T>(b);
 

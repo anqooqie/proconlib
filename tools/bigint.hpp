@@ -24,6 +24,7 @@
 #include "tools/block_ceil.hpp"
 #include "tools/ceil.hpp"
 #include "tools/chmin.hpp"
+#include "tools/extgcd.hpp"
 #include "tools/floor.hpp"
 #include "tools/floor_log2.hpp"
 #include "tools/garner2.hpp"
@@ -45,6 +46,10 @@ namespace tools {
   template <>
   struct detail::abs::impl<tools::bigint> {
     tools::bigint operator()(auto&&) const;
+  };
+  template <>
+  struct detail::extgcd::impl<tools::bigint, tools::bigint> {
+    std::tuple<tools::bigint, tools::bigint, tools::bigint> operator()(tools::bigint, tools::bigint) const;
   };
   template <>
   struct detail::gcd::impl<tools::bigint, tools::bigint> {
@@ -739,17 +744,105 @@ namespace tools {
       return os;
     }
 
+    friend tools::detail::extgcd::impl<tools::bigint, tools::bigint>;
     friend tools::detail::gcd::impl<tools::bigint, tools::bigint>;
     friend tools::detail::signum::impl<tools::bigint>;
+  };
+
+  struct detail::gcd::impl<tools::bigint, tools::bigint>::mat22 {
+    tools::bigint a00, a01, a10, a11;
   };
 
   tools::bigint detail::abs::impl<tools::bigint>::operator()(auto&& x) const {
     return tools::bigint(std::forward<decltype(x)>(x)).abs_inplace();
   };
 
-  struct detail::gcd::impl<tools::bigint, tools::bigint>::mat22 {
-    tools::bigint a00, a01, a10, a11;
+  std::tuple<tools::bigint, tools::bigint, tools::bigint> detail::extgcd::impl<tools::bigint, tools::bigint>::operator()(tools::bigint a, tools::bigint b) const {
+    const bool a_neg = !a.m_nonnegative;
+    const bool b_neg = !b.m_nonnegative;
+
+    a.abs_inplace();
+    b.abs_inplace();
+
+    // Track cumulative matrix M: [a, b]^T = M * [|a_orig|, |b_orig|]^T
+    tools::bigint m00(1), m01(0), m10(0), m11(1);
+
+    if (tools::bigint::compare_3way_abs(a, b) < 0) {
+      std::swap(a, b);
+      std::swap(m00, m10);
+      std::swap(m01, m11);
+    }
+
+    while (!b.m_digits.empty()) {
+      if (a.m_digits.size() <= 64) {
+        while (!b.m_digits.empty()) {
+          auto [q, r] = a.divmod(b);
+          a = std::move(b);
+          b = std::move(r);
+          auto new_m10 = std::move(m00) - q * m10;
+          auto new_m11 = std::move(m01) - q * m11;
+          m00 = std::move(m10);
+          m01 = std::move(m11);
+          m10 = std::move(new_m10);
+          m11 = std::move(new_m11);
+        }
+        break;
+      }
+      auto R = tools::detail::gcd::impl<tools::bigint, tools::bigint>::half_gcd(a, b);
+      {
+        auto new_m00 = R.a00 * m00 + R.a01 * m10;
+        auto new_m01 = R.a00 * m01 + R.a01 * m11;
+        auto new_m10 = R.a10 * m00 + R.a11 * m10;
+        auto new_m11 = R.a10 * m01 + R.a11 * m11;
+        m00 = std::move(new_m00);
+        m01 = std::move(new_m01);
+        m10 = std::move(new_m10);
+        m11 = std::move(new_m11);
+      }
+      if (b.m_digits.empty()) break;
+      if (tools::bigint::compare_3way_abs(a, b) < 0) {
+        std::swap(a, b);
+        std::swap(m00, m10);
+        std::swap(m01, m11);
+      }
+      {
+        auto [q, r] = a.divmod(b);
+        a = std::move(b);
+        b = std::move(r);
+        auto new_m10 = std::move(m00) - q * m10;
+        auto new_m11 = std::move(m01) - q * m11;
+        m00 = std::move(m10);
+        m01 = std::move(m11);
+        m10 = std::move(new_m10);
+        m11 = std::move(new_m11);
+      }
+    }
+
+    // m00 * |a_orig| + m01 * |b_orig| = gcd  (first row)
+    // m10 * |a_orig| + m11 * |b_orig| = 0    (second row)
+    // From second row: b' = |b_orig|/gcd = |m10|, a' = |a_orig|/gcd = |m11|
+    // Normalize m00 to [-b'/2, b'/2] for canonical (minimal) coefficients
+    if (!a.m_digits.empty()) {
+      auto b_prime = tools::abs(m10);
+      if (b_prime > tools::bigint(1)) {
+        auto a_prime = tools::abs(m11);
+        // Centered reduction: m00 mod b_prime in [-b_prime/2, b_prime/2]
+        auto r = m00 % b_prime;
+        if (!r.m_nonnegative) r += b_prime;
+        if (r * tools::bigint(2) > b_prime) r -= b_prime;
+        m00 = std::move(r);
+        // Recompute m01 from Bezout: m00*a' + m01*b' = 1
+        m01 = (tools::bigint(1) - m00 * a_prime) / b_prime;
+      }
+    }
+
+    // Adjust signs for original inputs
+    if (a_neg) m00.negate();
+    if (b_neg) m01.negate();
+
+    return std::make_tuple(std::move(m00), std::move(m01), std::move(a));
   };
+
   auto detail::gcd::impl<tools::bigint, tools::bigint>::half_gcd(tools::bigint& a, tools::bigint& b) -> mat22 {
     const std::size_t n = a.m_digits.size();
     const std::size_t m = n / 2;
@@ -845,7 +938,6 @@ namespace tools {
       R2.a10 * R.a01 + R2.a11 * R.a11
     };
   }
-
   tools::bigint detail::gcd::impl<tools::bigint, tools::bigint>::operator()(tools::bigint a, tools::bigint b) const {
     a.abs_inplace();
     b.abs_inplace();
@@ -869,6 +961,7 @@ namespace tools {
 
     return a;
   };
+
   int detail::signum::impl<tools::bigint>::operator()(const tools::bigint& x) const {
     if (!x.m_nonnegative) return -1;
     if (x.m_digits.empty()) return 0;

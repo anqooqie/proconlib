@@ -353,6 +353,29 @@ It returns $\|x\|$.
 ### Time Complexity
 - $O(\log \|x\|)$
 
+## tools::extgcd
+```cpp
+std::tuple<bigint, bigint, bigint> tools::extgcd(bigint a, bigint b);
+```
+
+It returns $(x_0, y_0, \gcd(a, b))$ which satisfies
+
+$$\begin{align*}
+\left\{\begin{array}{l}
+a x_0 + b y_0 = \gcd(a, b)\\
+|x_0| \leq \max\left(1, \left\lfloor\frac{|b|}{2 \gcd(a, b)}\right\rfloor\right)\\
+|y_0| \leq \max\left(1, \left\lfloor\frac{|a|}{2 \gcd(a, b)}\right\rfloor\right)
+\end{array}\right.&
+\end{align*}$$
+
+In this function, we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$.
+
+### Constraints
+- $\min\left(\|a\|, \|b\|\right) < 10^{2^{26}} = 10^{67108864}$
+
+### Time Complexity
+- $O((\log \|a\| + \log \|b\|) (\log (\log \|a\| + \log \|b\|))^2)$
+
 ## tools::gcd
 ```cpp
 bigint tools::gcd(bigint x, bigint y);
