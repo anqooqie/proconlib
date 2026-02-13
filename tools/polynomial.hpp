@@ -8,12 +8,16 @@
 #include <initializer_list>
 #include <iterator>
 #include <numeric>
+#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <vector>
 #include "tools/ceil_log2.hpp"
 #include "tools/convolution.hpp"
+#include "tools/extgcd.hpp"
 #include "tools/fact_mod_cache.hpp"
+#include "tools/field.hpp"
+#include "tools/gcd.hpp"
 #include "tools/groups.hpp"
 #include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
@@ -27,6 +31,29 @@
 #include "tools/rings.hpp"
 
 namespace tools {
+  template <typename X>
+  class polynomial;
+
+  template <typename X>
+  struct detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>> {
+    using R = std::conditional_t<tools::ring<X>, X, tools::rings::of<tools::groups::plus<X>, tools::multiplicative_structure<X>>>;
+    using Add = typename R::add;
+    using Mul = typename R::mul;
+    using T = typename Add::T;
+    using P = tools::polynomial<X>;
+    struct mat22;
+    static void euclid_step(P&, P&, P&, P&, P&, P&);
+    static void apply_mat(const mat22&, P&, P&);
+    static mat22 half_gcd(P&, P&);
+    std::tuple<P, P, P> operator()(P, P) const requires tools::field<R>;
+  };
+  template <typename X>
+  struct detail::gcd::impl<tools::polynomial<X>, tools::polynomial<X>> {
+    using R = std::conditional_t<tools::ring<X>, X, tools::rings::of<tools::groups::plus<X>, tools::multiplicative_structure<X>>>;
+    using P = tools::polynomial<X>;
+    P operator()(const P&, const P&) const requires tools::field<R>;
+  };
+
   template <typename X>
   class polynomial {
     using R = std::conditional_t<tools::ring<X>, X, tools::rings::of<tools::groups::plus<X>, tools::multiplicative_structure<X>>>;
@@ -674,6 +701,140 @@ namespace tools {
     friend P operator<<(const P& f, const int d) { return P(f) <<= d; }
     friend P operator>>(const P& f, const int d) { return P(f) >>= d; }
   };
+
+  template <typename X>
+  struct detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>>::mat22 {
+    P a00, a01, a10, a11;
+  };
+  template <typename X>
+  void detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>>::euclid_step(P& a, P& b, P& r0c0, P& r0c1, P& r1c0, P& r1c1) {
+    P q = a / b;
+    a -= q * b;
+    std::swap(a, b);
+    P new_r1c0 = std::move(r0c0) - q * r1c0;
+    P new_r1c1 = std::move(r0c1) - q * r1c1;
+    r0c0 = std::move(r1c0);
+    r0c1 = std::move(r1c1);
+    r1c0 = std::move(new_r1c0);
+    r1c1 = std::move(new_r1c1);
+  }
+  template <typename X>
+  void detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>>::apply_mat(const mat22& M, P& a, P& b) {
+    P na = M.a00 * a + M.a01 * b;
+    P nb = M.a10 * a + M.a11 * b;
+    a = std::move(na);
+    b = std::move(nb);
+  }
+  template <typename X>
+  auto detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>>::half_gcd(P& a, P& b) -> mat22 {
+    const int n = a.deg();
+    const int m = n / 2;
+
+    if (b.deg() < m) {
+      return {P{Mul::e()}, P{}, P{}, P{Mul::e()}};
+    }
+
+    if (n <= 64) {
+      mat22 R = {P{Mul::e()}, P{}, P{}, P{Mul::e()}};
+      while (b.deg() >= m) {
+        euclid_step(a, b, R.a00, R.a01, R.a10, R.a11);
+      }
+      return R;
+    }
+
+    P a1 = a >> m;
+    P b1 = b >> m;
+    mat22 R = half_gcd(a1, b1);
+
+    apply_mat(R, a, b);
+    if (a.deg() < b.deg()) {
+      std::swap(a, b);
+      std::swap(R.a00, R.a10);
+      std::swap(R.a01, R.a11);
+    }
+    if (b.deg() < m) return R;
+
+    euclid_step(a, b, R.a00, R.a01, R.a10, R.a11);
+    if (b.deg() < m) return R;
+
+    const int l = a.deg();
+    const int k = std::max(0, 2 * m - l);
+    P a2 = a >> k;
+    P b2 = b >> k;
+    mat22 R2 = half_gcd(a2, b2);
+
+    apply_mat(R2, a, b);
+    if (a.deg() < b.deg()) {
+      std::swap(a, b);
+      std::swap(R2.a00, R2.a10);
+      std::swap(R2.a01, R2.a11);
+    }
+
+    return {
+      R2.a00 * R.a00 + R2.a01 * R.a10,
+      R2.a00 * R.a01 + R2.a01 * R.a11,
+      R2.a10 * R.a00 + R2.a11 * R.a10,
+      R2.a10 * R.a01 + R2.a11 * R.a11
+    };
+  }
+  template <typename X>
+  auto detail::extgcd::impl<tools::polynomial<X>, tools::polynomial<X>>::operator()(P a, P b) const -> std::tuple<P, P, P> requires tools::field<R> {
+    a.regularize();
+    b.regularize();
+
+    P m00{Mul::e()}, m01, m10, m11{Mul::e()};
+
+    if (a.deg() < b.deg()) {
+      std::swap(a, b);
+      std::swap(m00, m10);
+      std::swap(m01, m11);
+    }
+
+    while (b.deg() >= 0) {
+      if (a.deg() <= 64) {
+        while (b.deg() >= 0) {
+          euclid_step(a, b, m00, m01, m10, m11);
+        }
+        break;
+      }
+
+      auto R = half_gcd(a, b);
+      {
+        P new_m00 = R.a00 * m00 + R.a01 * m10;
+        P new_m01 = R.a00 * m01 + R.a01 * m11;
+        P new_m10 = R.a10 * m00 + R.a11 * m10;
+        P new_m11 = R.a10 * m01 + R.a11 * m11;
+        m00 = std::move(new_m00);
+        m01 = std::move(new_m01);
+        m10 = std::move(new_m10);
+        m11 = std::move(new_m11);
+      }
+
+      if (b.deg() < 0) break;
+
+      if (a.deg() < b.deg()) {
+        std::swap(a, b);
+        std::swap(m00, m10);
+        std::swap(m01, m11);
+      }
+
+      euclid_step(a, b, m00, m01, m10, m11);
+    }
+
+    if (a.deg() >= 0) {
+      const T lc = a.back();
+      a /= lc;
+      m00 /= lc;
+      m01 /= lc;
+    }
+
+    return {std::move(m00), std::move(m01), std::move(a)};
+  }
+
+  template <typename X>
+  auto detail::gcd::impl<tools::polynomial<X>, tools::polynomial<X>>::operator()(const P& a, const P& b) const -> P requires tools::field<R> {
+    return std::get<2>(tools::extgcd(a, b));
+  }
 }
 
 #endif

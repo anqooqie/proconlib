@@ -410,3 +410,39 @@ $p_0, p_1, \ldots$に対して$f(p_0), f(p_1), \ldots$を求めて返します�
 ### Time Complexity
 - ($R$ is $\mathbb{Z}/M\mathbb{Z}$): $O\left( n + \mathrm{deg}(f) \log\left(\mathrm{deg}(f)\right) + m (\log m)^2 \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
 - (otherwise): $O\left( n + \mathrm{deg}(f) \cdot m \right)$ where $n$ = `f.size()` and $m$ = `end` $-$ `begin`
+
+## tools::extgcd
+```cpp
+std::tuple<polynomial<R>, polynomial<R>, polynomial<R>> tools::extgcd(polynomial<R> f, polynomial<R> g);
+```
+
+ベズーの等式$x_0 f + y_0 g = \gcd(f, g)$を満たす組$(x_0, y_0, \gcd(f, g))$を返します。
+ここで$\gcd(f, g)$はモニック（最高次の係数が$1$）であり、$\gcd(f, 0) = f / f_{\mathrm{deg}(f)}$, $\gcd(0, g) = g / g_{\mathrm{deg}(g)}$, $\gcd(0, 0) = 0$と定義します。
+
+$\gcd(f, g)$の次数を$d$とするとき、$x_0$と$y_0$の次数について以下が成り立ちます。
+
+$$\begin{align*}
+\mathrm{deg}(x_0) &< \mathrm{deg}(g) - d\\
+\mathrm{deg}(y_0) &< \mathrm{deg}(f) - d
+\end{align*}$$
+
+### Constraints
+- $R$ is a field.
+
+### Time Complexity
+- ($R$ is $\mathbb{Z}/p\mathbb{Z}$ where $p$ is a prime): $O(n + m + D \log^2 D)$ where $n$ is `f.size()`, $m$ is `g.size()` and $D = \max(\mathrm{deg}(f), \mathrm{deg}(g))$
+- (otherwise): $O(n + m + D^2)$ where $n$ is `f.size()`, $m$ is `g.size()` and $D = \max(\mathrm{deg}(f), \mathrm{deg}(g))$
+
+## tools::gcd
+```cpp
+polynomial<R> tools::gcd(polynomial<R> f, polynomial<R> g);
+```
+
+モニックな$\gcd(f, g)$を返します。$\gcd(0, 0) = 0$と定義します。
+
+### Constraints
+- $R$ is a field.
+
+### Time Complexity
+- ($R$ is $\mathbb{Z}/p\mathbb{Z}$ where $p$ is a prime): $O(n + m + D \log^2 D)$ where $n$ is `f.size()`, $m$ is `g.size()` and $D = \max(\mathrm{deg}(f), \mathrm{deg}(g))$
+- (otherwise): $O(n + m + D^2)$ where $n$ is `f.size()`, $m$ is `g.size()` and $D = \max(\mathrm{deg}(f), \mathrm{deg}(g))$
