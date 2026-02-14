@@ -1,7 +1,7 @@
 // competitive-verifier: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/DPL_2_A
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 #include <iterator>
 #include "tools/tsp.hpp"
 #include "tools/assert_that.hpp"
@@ -21,7 +21,7 @@ int main() {
     graph.add_edge(s, t, d);
   }
 
-  const auto res = graph.query();
+  const auto res = graph.query<true>();
   if (res) {
     const auto& [answer, vids, eids] = *res;
     assert_that(std::ssize(vids) == V);

@@ -13,7 +13,8 @@ It solves the traveling salesman problem.
 
 ## Constructor
 ```cpp
-tsp<Directed> graph(std::size_t n);
+template <bool Directed, tools::integral T>
+tsp<Directed, T> graph(int n);
 ```
 
 It creates a graph which is not necessarily simple with $n$ vertices and $0$ edges.
@@ -28,7 +29,7 @@ If `Directed` is `false`, the graph is undirected.
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -41,7 +42,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v, T w);
+int graph.add_edge(int u, int v, T w);
 ```
 
 If `Directed` is `true`, it adds a directed edge oriented from $u$ to $v$ with cost $w$.
@@ -58,12 +59,11 @@ It returns an integer $k$ such that this is the $k$-th edge that is added.
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
   T cost;
 };
-edge graph.get_edge(std::size_t k);
+const edge& graph.get_edge(int k);
 ```
 
 It returns the $k$-th edge.
@@ -90,12 +90,22 @@ The edges are ordered in the same order as added by `add_edge`.
 
 ## query
 ```cpp
-std::optional<std::tuple<T, std::vector<std::size_t>, std::vector<::std::size_t>>> graph.query();
+(1) std::optional<T> graph.query();
+(2) std::optional<T> graph.query<false>();
+(3) std::optional<std::tuple<T, std::vector<int>, std::vector<int>>> graph.query<true>();
 ```
 
 It finds the shortest Hamilton cycle.
 If such the cycle does not exist, it returns `std::nullopt`.
-If such the cycle exists, it returns the total cost of the cycle, the indices of the vertices which are contained in the cycle and the indices of the edges which are contained in the cycle.
+If such the cycle exists, let $v_0, v_1, \ldots, v_{n-1}$ be the vertices and $e_0, e_1, \ldots, e_{n-1}$ be the edges of the cycle such that $e_i$ connects $v_i$ and $v_{(i+1) \bmod n}$ (or is oriented from $v_i$ to $v_{(i+1) \bmod n}$ if the graph is directed).
+It returns:
+
+- (1), (2)
+    - the total cost of the cycle
+- (3)
+    - the total cost of the cycle
+    - $(v_0, v_1, \ldots, v_{n-1})$
+    - $(e_0, e_1, \ldots, e_{n-1})$
 
 ### Constraints
 - None
