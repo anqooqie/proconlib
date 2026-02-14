@@ -29,7 +29,7 @@ It creates an undirected graph with $n$ vertices and $0$ edges.
 - $n \geq 0$
 
 ### Time Complexity
-- $O(n)$
+- $O(n \log n)$
 
 ## merge (two parameters)
 ```cpp
@@ -46,8 +46,8 @@ Otherwise, the representative of the larger (or former when the two have the sam
 - $0 \leq b < n$
 
 ### Time Complexity
-- $O\left((\log n)^2\right)$ amortized
-- $O(n \log n)$ worst
+- $O(\alpha(n))$ amortized
+- $O(\log n)$ worst
 
 ## merge (three parameters)
 ```cpp
@@ -65,8 +65,8 @@ It returns $((s_0, t_0), (s_1, t_1), \ldots, (s_{m - 1}, t_{m - 1}))$.
 - $0 \leq b \leq b + k \leq n$
 
 ### Time Complexity
-- $O\left((\log n)^2\right)$ amortized
-- $O(n \log n)$ worst
+- $O(k \log n)$ worst per query
+- $O((n \log n + Q) \alpha(n))$ in total for $Q$ queries
 
 ## same
 ```cpp
@@ -80,7 +80,8 @@ It returns whether the vertices $a$ and $b$ are in the same connected component.
 - $0 \leq b < n$
 
 ### Time Complexity
-- $O(1)$
+- $O(\alpha(n))$ amortized
+- $O(\log n)$ worst
 
 ## leader
 ```cpp
@@ -93,7 +94,8 @@ It returns the representative of the connected component that contains the verte
 - $0 \leq a < n$
 
 ### Time Complexity
-- $O(1)$
+- $O(\alpha(n))$ amortized
+- $O(\log n)$ worst
 
 ## size (zero parameters)
 ```cpp
@@ -119,7 +121,8 @@ It returns the size of the connected component that contains the vertex $a$.
 - $0 \leq a < n$
 
 ### Time Complexity
-- $O(1)$
+- $O(\alpha(n))$ amortized
+- $O(\log n)$ worst
 
 ## groups
 ```cpp
@@ -143,20 +146,6 @@ int d.ncc();
 ```
 
 It returns the number of connected components.
-
-### Constraints
-- None
-
-### Time Complexity
-- $O(1)$
-
-## group
-```cpp
-const std::vector<int>& d.group(int a);
-```
-
-It returns the vertices in the connected component that contains the vertex $a$.
-The order of the vertices is undefined.
 
 ### Constraints
 - None

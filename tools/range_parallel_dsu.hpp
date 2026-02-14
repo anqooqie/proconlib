@@ -1,135 +1,100 @@
 #ifndef TOOLS_RANGE_PARALLEL_DSU_HPP
 #define TOOLS_RANGE_PARALLEL_DSU_HPP
 
-#include <algorithm>
 #include <cassert>
 #include <iterator>
-#include <ranges>
+#include <queue>
 #include <utility>
 #include <vector>
-#include "atcoder/segtree.hpp"
-#include "tools/getter_result.hpp"
-#include "tools/modint_for_rolling_hash.hpp"
-#include "tools/now.hpp"
-#include "tools/pow_mod_cache.hpp"
+#include "tools/bit_width.hpp"
+#include "tools/dsu.hpp"
+#include "tools/floor_log2.hpp"
+#include "tools/pow2.hpp"
 
 namespace tools {
   class range_parallel_dsu {
-    using mint = tools::modint_for_rolling_hash;
-    struct monoid {
-      inline static auto pow_b = tools::pow_mod_cache<mint>(tools::now());
-      using T = std::pair<int, mint>;
-      static T op(const T& x, const T& y) {
-        return {x.first + y.first, x.second * pow_b[y.first] + y.second};
-      }
-      static T e() {
-        return {0, mint::raw(0)};
-      }
-    };
-
-    atcoder::segtree<typename monoid::T, monoid::op, monoid::e> m_seg;
-    std::vector<std::vector<int>> m_groups;
-    int m_ncc;
+    std::vector<tools::dsu> m_dsus;
 
   public:
     range_parallel_dsu() = default;
-    explicit range_parallel_dsu(const int n) :
-      m_seg(std::views::iota(0, n) | std::views::transform([](const auto i) { return std::make_pair(1, mint::raw(i + 1)); }) | std::ranges::to<std::vector>()),
-      m_groups(std::views::iota(0, n) | std::views::transform([](const auto i) { return std::vector<int>{i}; }) | std::ranges::to<std::vector>()),
-      m_ncc(n) {
-    }
-
-    int leader(const int x) const {
-      assert(0 <= x && x < this->size());
-
-      return this->m_seg.get(x).second.val() - 1;
-    }
-
-    bool same(const int x, const int y) const {
-      assert(0 <= x && x < this->size());
-      assert(0 <= y && y < this->size());
-
-      return this->leader(x) == this->leader(y);
-    }
-
-    int merge(int x, int y) {
-      assert(0 <= x && x < this->size());
-      assert(0 <= y && y < this->size());
-
-      x = this->leader(x);
-      y = this->leader(y);
-      if (x == y) return x;
-
-      if (this->m_groups[x].size() < this->m_groups[y].size()) std::swap(x, y);
-      std::ranges::copy(this->m_groups[y], std::back_inserter(this->m_groups[x]));
-      for (const auto v : this->m_groups[y]) {
-        this->m_seg.set(v, {1, mint::raw(x + 1)});
+    explicit range_parallel_dsu(const int n) : m_dsus(tools::bit_width(n)) {
+      for (int h = 0; h < std::ssize(this->m_dsus); ++h) {
+        this->m_dsus[h] = tools::dsu(n + 1 - tools::pow2(h));
       }
-      this->m_groups[y].clear();
-
-      --this->m_ncc;
-
-      return x;
     }
 
-    std::vector<std::pair<int, int>> merge(int x, int y, const int k) {
+    int leader(const int a) {
+      assert(0 <= a && a < this->size());
+
+      return this->m_dsus[0].leader(a);
+    }
+
+    bool same(const int a, const int b) {
+      assert(0 <= a && a < this->size());
+      assert(0 <= b && b < this->size());
+
+      return this->m_dsus[0].same(a, b);
+    }
+
+    int merge(const int a, const int b) {
+      assert(0 <= a && a < this->size());
+      assert(0 <= b && b < this->size());
+
+      return this->m_dsus[0].merge(a, b);
+    }
+
+    std::vector<std::pair<int, int>> merge(const int a, const int b, const int k) {
       assert(k >= 0);
-      assert(0 <= x && x + k <= this->size());
-      assert(0 <= y && y + k <= this->size());
+      assert(0 <= a && a + k <= this->size());
+      assert(0 <= b && b + k <= this->size());
 
       std::vector<std::pair<int, int>> res;
-      int ok = 0;
-      int ng = k + 1;
-      do {
-        while (ng - ok > 1) {
-          const auto mid = (ok + ng) / 2;
-          if (this->m_seg.prod(x, x + mid).second == this->m_seg.prod(y, y + mid).second) {
-            ok = mid;
+      if (k == 0) return res;
+
+      const auto log2_k = tools::floor_log2(k);
+      std::queue<std::pair<int, int>> queue;
+      queue.emplace(a, log2_k);
+      if (tools::pow2(log2_k) < k) {
+        queue.emplace(a + k - tools::pow2(log2_k), log2_k);
+      }
+
+      while (!queue.empty()) {
+        const auto [x, h] = queue.front();
+        const auto y = b + (x - a);
+        queue.pop();
+        if (!this->m_dsus[h].same(x, y)) {
+          if (h > 0) {
+            queue.emplace(x, h - 1);
+            queue.emplace(x + tools::pow2(h - 1), h - 1);
+            this->m_dsus[h].merge(x, y);
           } else {
-            ng = mid;
+            const auto u = this->m_dsus[0].leader(x);
+            const auto v = this->m_dsus[0].leader(y);
+            const auto w = this->m_dsus[0].merge(u, v);
+            res.emplace_back(w, u ^ v ^ w);
           }
         }
-        if (ok < k) {
-          const auto leader_xor = this->leader(x + ok) ^ this->leader(y + ok);
-          const auto new_leader = this->merge(x + ok, y + ok);
-          res.emplace_back(new_leader, leader_xor ^ new_leader);
-          ++ok;
-          ng = k + 1;
-        }
-      } while (ok < k);
-
-      this->m_ncc -= res.size();
+      }
 
       return res;
     }
 
     int size() const {
-      return this->m_groups.size();
+      return this->m_dsus.empty() ? 0 : this->m_dsus[0].size();
     }
 
-    int size(const int x) const {
-      assert(0 <= x && x < this->size());
+    int size(const int a) {
+      assert(0 <= a && a < this->size());
 
-      return this->m_groups[this->leader(x)].size();
+      return this->m_dsus[0].size(a);
     }
 
-    std::vector<std::vector<int>> groups() const {
-      std::vector<std::vector<int>> res(this->size());
-      for (int i = 0; i < this->size(); ++i) {
-        res[this->leader(i)].push_back(i);
-      }
-      res.erase(std::remove_if(res.begin(), res.end(), [](const auto& group) { return group.empty(); }), res.end());
-      return res;
+    std::vector<std::vector<int>> groups() {
+      return this->m_dsus.empty() ? std::vector<std::vector<int>>{} : this->m_dsus[0].groups();
     }
 
     int ncc() const {
-      return this->m_ncc;
-    }
-
-    auto group(this auto&& self, const int x) -> tools::getter_result_t<decltype(self), std::vector<int>> {
-      assert(0 <= x && x < self.size());
-
-      return std::forward_like<decltype(self)>(self.m_groups[self.leader(x)]);
+      return this->m_dsus.empty() ? 0 : this->m_dsus[0].ncc();
     }
   };
 }
