@@ -1,23 +1,26 @@
 #ifndef TOOLS_XOR_BASIS_HPP
 #define TOOLS_XOR_BASIS_HPP
 
-#include <type_traits>
+#include <cassert>
+#include <ranges>
 #include <vector>
 #include "tools/chmin.hpp"
+#include "tools/integral.hpp"
 
 // Source: https://twitter.com/noshi91/status/1200702280128856064
 // License: unknown
 // Author: noshi91
 
 namespace tools {
-  template <typename InputIterator, typename OutputIterator>
-  void xor_basis(const InputIterator& begin, const InputIterator& end, OutputIterator result) {
-    using T = std::decay_t<decltype(*begin)>;
+  template <std::ranges::input_range R>
+  requires tools::integral<std::ranges::range_value_t<R>>
+  std::vector<std::ranges::range_value_t<R>> xor_basis(R&& a) {
+    using T = std::ranges::range_value_t<R>;
 
     std::vector<T> basis;
-    for (auto it = begin; it != end; ++it) {
-      T e = *it;
-      for (const T& b : basis) {
+    for (T e : a) {
+      assert(e >= 0);
+      for (const auto& b : basis) {
         tools::chmin(e, e ^ b);
       }
       if (e != 0) {
@@ -25,10 +28,7 @@ namespace tools {
       }
     }
 
-    for (const T& b : basis) {
-      *result = b;
-      ++result;
-    }
+    return basis;
   }
 }
 
