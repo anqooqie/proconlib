@@ -131,8 +131,8 @@ namespace tools {
 
     class prime_view : public std::ranges::view_interface<prime_view> {
       tools::linear_sieve<T> const *m_parent;
-      int m_l;
-      int m_r;
+      int m_begin;
+      int m_end;
 
     public:
       class iterator {
@@ -147,7 +147,7 @@ namespace tools {
         using iterator_category = std::input_iterator_tag;
 
         iterator() = default;
-        iterator(tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_i(std::distance(parent->m_primes.begin(), std::lower_bound(parent->m_primes.begin(), parent->m_primes.end(), n))) {
+        iterator(tools::linear_sieve<T> const * const parent, const int i) : m_parent(parent), m_i(i) {
         }
 
         reference operator*() const {
@@ -172,14 +172,17 @@ namespace tools {
       };
 
       prime_view() = default;
-      prime_view(tools::linear_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
+      prime_view(tools::linear_sieve<T> const * const parent, const int l, const int r) :
+        m_parent(parent),
+        m_begin(std::distance(parent->m_primes.begin(), std::ranges::lower_bound(parent->m_primes, l))),
+        m_end(std::distance(parent->m_primes.begin(), std::ranges::upper_bound(parent->m_primes, r))) {
       }
 
       iterator begin() const {
-        return iterator(this->m_parent, this->m_l);
+        return iterator(this->m_parent, this->m_begin);
       };
       iterator end() const {
-        return iterator(this->m_parent, this->m_r + 1);
+        return iterator(this->m_parent, this->m_end);
       }
     };
 
@@ -231,9 +234,10 @@ namespace tools {
       assert(1 <= n && n <= this->N());
 
       std::vector<T> D{1};
-      for (const auto& [p, q, unused] : this->distinct_prime_factor_range(n)) {
+      for ([[maybe_unused]] const auto& [p, q, pq] : this->distinct_prime_factor_range(n)) {
         const int end = D.size();
-        for (int e = 1, pe = p; e <= q; ++e, pe *= p) {
+        for (int e = 1, pe = 1; e <= q; ++e) {
+          pe *= p;
           for (int i = 0; i < end; ++i) {
             D.push_back(D[i] * pe);
           }
@@ -250,8 +254,6 @@ namespace tools {
     }
 
     std::vector<T> divisor_counts() const {
-      std::vector<T> divisor_counts(this->N() + 1);
-
       std::vector<std::pair<int, int>> dp(this->N() + 1);
       dp[0] = std::make_pair(0, 0);
       dp[1] = std::make_pair(1, 1);
@@ -264,6 +266,7 @@ namespace tools {
         }
       }
 
+      std::vector<T> divisor_counts(this->N() + 1);
       for (int i = 0; i <= this->N(); ++i) {
         divisor_counts[i] = dp[i].first * dp[i].second;
       }

@@ -2,27 +2,32 @@
 // Source: https://atcoder.jp/contests/abc227/tasks/abc227_g
 
 #include <iostream>
-#include <unordered_map>
 #include "atcoder/modint.hpp"
 #include "tools/assert_that.hpp"
+#include "tools/linear_sieve.hpp"
 #include "tools/segmented_sieve.hpp"
+#include "tools/unordered_map.hpp"
 
 using ll = long long;
 using mint = atcoder::modint998244353;
 
 mint solve(const ll N, const int K) {
-  std::unordered_map<ll, ll> nCk;
+  tools::unordered_map<ll, ll> nCk;
   if (K > 0) {
-    tools::segmented_sieve<ll> sieve(K, N - K + 1, N);
-    for (ll i = N - K + 1; i <= N; ++i) {
-      for (const auto p : sieve.prime_factor_range(i)) {
-        ++nCk[p];
+    {
+      tools::segmented_sieve sieve(N - K + 1, N);
+      for (ll i = N - K + 1; i <= N; ++i) {
+        for (const auto p : sieve.prime_factor_range(i)) {
+          ++nCk[p];
+        }
       }
     }
-
-    for (ll i = 1; i <= K; ++i) {
-      for (const auto p : sieve.prime_factor_range(i)) {
-        --nCk[p];
+    {
+      tools::linear_sieve<ll> sieve(K);
+      for (ll i = 1; i <= K; ++i) {
+        for (const auto p : sieve.prime_factor_range(i)) {
+          --nCk[p];
+        }
       }
     }
   }

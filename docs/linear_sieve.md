@@ -23,7 +23,7 @@ It calculates the least prime factor for each positive integer $n$ such that $1 
 - $N \geq 1$
 
 ### Time Complexity
-- $O(N \log\log N)$
+- $O(N)$
 
 ## is_prime
 ```cpp
@@ -111,7 +111,7 @@ It returns the primes $p$ such that $l \leq p \leq r$ in ascending order.
 - $1 \leq l \leq r \leq N$
 
 ### Time Complexity
-- If you just call `prime_range`, it takes only $O(1)$ time.
+- If you just call `prime_range`, it takes only $O(\log N)$ time.
 - If you enumerate all the primes $p$ such that $l \leq p \leq r$, it takes $O\left(\log N + \frac{r}{\log r} - \frac{l}{\log l}\right)$ time.
 
 ## divisors
@@ -126,7 +126,7 @@ Note that the order of divisors is undefined.
 - $1 \leq n \leq N$
 
 ### Time Complexity
-- $O\left(n^\frac{1}{\log\log n}\right)$
+- $O(d(n))$
 
 ## sorted_divisors
 ```cpp
@@ -139,15 +139,15 @@ It returns the positive divisors of $n$ in ascending order.
 - $1 \leq n \leq N$
 
 ### Time Complexity
-- $O\left(n^\frac{1}{\log\log n} \frac{\log n}{\log\log n}\right)$
+- $O(d(n) \log(d(n)))$
 
 ## divisor_counts
 ```cpp
 std::vector<T> sieve.divisor_counts();
 ```
 
-It returns $\sigma_0(i)$ for each $i = 0, 1, \ldots, n$.
-For convenience, we define $\sigma_0(0)$ as $0$. 
+It returns $(d(0), d(1), \ldots, d(n))$.
+For convenience, we define $d(0)$ as $0$.
 
 ### Constraints
 - None
