@@ -1,16 +1,16 @@
 #ifndef TOOLS_BELL_HPP
 #define TOOLS_BELL_HPP
 
-#include <cassert>
 #include <algorithm>
-#include <vector>
-#include <numeric>
+#include <cassert>
 #include <iterator>
-#include "tools/is_prime.hpp"
-#include "tools/stirling_2nd.hpp"
-#include "tools/virtual_vector.hpp"
+#include <numeric>
+#include <ranges>
+#include <vector>
 #include "tools/fact_mod_cache.hpp"
 #include "tools/fps.hpp"
+#include "tools/is_prime.hpp"
+#include "tools/stirling_2nd.hpp"
 
 namespace tools {
 
@@ -25,7 +25,7 @@ namespace tools {
       std::vector<M> B_N;
       std::partial_sum(S_N.begin(), std::next(S_N.begin(), std::min(N, K) + 1), std::back_inserter(B_N));
 
-      return tools::virtual_vector(K + 1, [N, B_N](const int k) -> const M& {
+      return std::views::iota(0, K + 1) | std::views::transform([N, B_N](const int k) -> const M& {
         return B_N[std::min(N, k)];
       });
     }

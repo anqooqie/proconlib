@@ -34,7 +34,7 @@ It calculates the Bell numbers $B(n, k) = \sum_{i = 0}^k S(n, i)$ where $S(n, i)
 ## fixed_n
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> bell::fixed_n(int N, int K);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> bell::fixed_n(int N, int K);
 ```
 
 It returns $B(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.

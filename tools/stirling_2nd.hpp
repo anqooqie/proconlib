@@ -1,14 +1,14 @@
 #ifndef TOOLS_STIRLING_2ND_HPP
 #define TOOLS_STIRLING_2ND_HPP
 
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <ranges>
 #include <vector>
-#include "tools/is_prime.hpp"
 #include "tools/fact_mod_cache.hpp"
-#include "tools/pow_mod_cache.hpp"
 #include "tools/fps.hpp"
-#include "tools/virtual_vector.hpp"
+#include "tools/is_prime.hpp"
+#include "tools/pow_mod_cache.hpp"
 
 namespace tools {
 
@@ -28,7 +28,7 @@ namespace tools {
       }
       a.multiply_inplace(b);
 
-      return tools::virtual_vector(K + 1, [N, a](const int k) -> const M& {
+      return std::views::iota(0, K + 1) | std::views::transform([N, a](const int k) -> const M& {
         static const auto zero = M::raw(0);
         return k <= N ? a[k] : zero;
       });
@@ -54,7 +54,7 @@ namespace tools {
         }
       }
 
-      return tools::virtual_vector(N + 1, [K, f](const int n) -> const M& {
+      return std::views::iota(0, N + 1) | std::views::transform([K, f](const int n) -> const M& {
         static const auto zero = M::raw(0);
         return n < K ? zero : f[n - K];
       });
@@ -64,7 +64,7 @@ namespace tools {
     auto diagonal(const int N) {
       assert(N >= 0);
 
-      return tools::virtual_vector(N + 1, [](const int n) -> const M& {
+      return std::views::iota(0, N + 1) | std::views::transform([](const int n) -> const M& {
         static const M one(1);
         return one;
       });

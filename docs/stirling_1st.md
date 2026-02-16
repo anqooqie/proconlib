@@ -34,7 +34,7 @@ It calculates the signed Stirling numbers of the first kind $s(n, k) = [x^k] (x)
 ## fixed_n
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_1st::fixed_n(int N, int K);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_1st::fixed_n(int N, int K);
 ```
 
 It returns $s(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
@@ -50,7 +50,7 @@ It returns $s(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$
 ## fixed_k
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_1st::fixed_k(int N, int K);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_1st::fixed_k(int N, int K);
 ```
 
 It returns $s(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
@@ -68,7 +68,7 @@ It returns $s(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$
 ## diagonal
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_1st::diagonal(int N);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_1st::diagonal(int N);
 ```
 
 It returns $s(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.

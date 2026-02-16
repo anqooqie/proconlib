@@ -34,7 +34,7 @@ It calculates the Stirling numbers of the second kind $S(n, k) = \frac{1}{k!} \s
 ## fixed_n
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_2nd::fixed_n(int N, int K);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_2nd::fixed_n(int N, int K);
 ```
 
 It returns $S(N, k) \pmod{P}$ for all $k$ such that $0 \leq k \leq K$, where $P$ is `M::mod()`.
@@ -65,7 +65,7 @@ Therefore, $S(n, k)$ can be calculated by convolution.
 ## fixed_k
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_2nd::fixed_k(int N, int K);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_2nd::fixed_k(int N, int K);
 ```
 
 It returns $S(n, K) \pmod{P}$ for all $n$ such that $0 \leq n \leq N$, where $P$ is `M::mod()`.
@@ -87,7 +87,7 @@ Therefore, $S(n, k)$ can be calculated by FPS.
 ## diagonal
 ```cpp
 template <typename M>
-tools::virtual_vector<(anonymous type)> stirling_2nd::diagonal(int N);
+std::ranges::transform_view<std::ranges::iota_view<int, int>, (anonymous type)> stirling_2nd::diagonal(int N);
 ```
 
 It returns $S(n, n) \pmod{M}$ for all $n$ such that $0 \leq n \leq N$, where $M$ is `M::mod()`.

@@ -2,16 +2,16 @@
 #define TOOLS_STIRLING_1ST_HPP
 
 #include <cassert>
-#include <vector>
 #include <iterator>
+#include <ranges>
+#include <vector>
+#include "tools/fact_mod_cache.hpp"
+#include "tools/fix.hpp"
+#include "tools/floor_log2.hpp"
+#include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/polynomial.hpp"
-#include "tools/floor_log2.hpp"
 #include "tools/pow2.hpp"
-#include "tools/fix.hpp"
-#include "tools/virtual_vector.hpp"
-#include "tools/fps.hpp"
-#include "tools/fact_mod_cache.hpp"
 #include "tools/pow_mod_cache.hpp"
 
 namespace tools {
@@ -38,7 +38,7 @@ namespace tools {
         return block == r - l ? bases[tools::floor_log2(r - l)](tools::polynomial<M>{M(-l), M(1)}) : dfs(l, l + block) * dfs(l + block, r);
       })(0, N);
 
-      return tools::virtual_vector(K + 1, [N, s](const int k) -> const M& {
+      return std::views::iota(0, K + 1) | std::views::transform([N, s](const int k) -> const M& {
         static const auto zero = M::raw(0);
         return k <= N ? s.pbegin()[k] : zero;
       });
@@ -64,7 +64,7 @@ namespace tools {
         }
       }
 
-      return tools::virtual_vector(N + 1, [K, f](const int n) -> const M& {
+      return std::views::iota(0, N + 1) | std::views::transform([K, f](const int n) -> const M& {
         static const auto zero = M::raw(0);
         return n < K ? zero : f[n - K];
       });
@@ -74,7 +74,7 @@ namespace tools {
     auto diagonal(const int N) {
       assert(N >= 0);
 
-      return tools::virtual_vector(N + 1, [](const int n) -> const M& {
+      return std::views::iota(0, N + 1) | std::views::transform([](const int n) -> const M& {
         static const M one(1);
         return one;
       });
