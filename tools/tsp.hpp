@@ -89,24 +89,22 @@ namespace tools {
       total_cost = dp[tools::pow2(this->size()) - 1][0];
       if (total_cost == std::numeric_limits<T>::max()) return std::nullopt;
 
-      int state = tools::pow2(this->size()) - 1;
-      int v = 0;
-      while (state > 0) {
-        const auto prev_state = state ^ (1 << v);
-        for (int u = 0; u < this->size(); ++u) {
-          if (this->m_graph[u][v] != NONE && dp[prev_state][u] < std::numeric_limits<T>::max() && dp[state][v] == dp[prev_state][u] + this->m_edges[this->m_graph[u][v]].cost) {
-            if constexpr (Restore) {
+      if constexpr (Restore) {
+        int state = tools::pow2(this->size()) - 1;
+        int v = 0;
+        while (state > 0) {
+          const auto prev_state = state ^ (1 << v);
+          for (int u = 0; u < this->size(); ++u) {
+            if (this->m_graph[u][v] != NONE && dp[prev_state][u] < std::numeric_limits<T>::max() && dp[state][v] == dp[prev_state][u] + this->m_edges[this->m_graph[u][v]].cost) {
               vids.push_back(u);
               eids.push_back(this->m_graph[u][v]);
+              state = prev_state;
+              v = u;
+              break;
             }
-            state = prev_state;
-            v = u;
-            break;
           }
         }
-      }
 
-      if constexpr (Restore) {
         std::ranges::reverse(vids);
         std::ranges::reverse(eids);
         return res;
