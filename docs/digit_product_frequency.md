@@ -4,7 +4,7 @@ documentation_of: //tools/digit_product_frequency.hpp
 ---
 
 ```cpp
-template <typename T>
+template <tools::non_bool_integral T>
 std::map<T, T> digit_product_frequency(T n);
 ```
 
