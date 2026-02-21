@@ -15,12 +15,9 @@
 namespace tools {
   namespace monoids {
     template <typename M>
-    class bit_and {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct bit_and {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x & y;
       }
       static T e() {
@@ -29,12 +26,9 @@ namespace tools {
     };
 
     template <typename M>
-    class bit_or {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct bit_or {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x | y;
       }
       static T e() {
@@ -42,13 +36,13 @@ namespace tools {
       }
     };
 
-    template <typename M> requires (!tools::arithmetic<M> || tools::non_bool_integral<M>)
-    class gcd {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    template <typename M>
+    requires requires (M x, M y) {
+      {tools::gcd(x, y)} -> std::convertible_to<M>;
+    }
+    struct gcd {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return tools::gcd(x, y);
       }
       static T e() {
@@ -57,15 +51,12 @@ namespace tools {
     };
 
     template <typename M, M ...dummy>
-    class max;
+    struct max;
 
     template <tools::arithmetic M>
-    class max<M> {
-      using VR = std::conditional_t<sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct max<M> {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return std::max(x, y);
       }
       static T e() {
@@ -78,12 +69,9 @@ namespace tools {
     };
 
     template <std::totally_ordered M, M E>
-    class max<M, E> {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct max<M, E> {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         assert(E <= x);
         assert(E <= y);
         return std::max(x, y);
@@ -94,15 +82,12 @@ namespace tools {
     };
 
     template <typename M, M ...dummy>
-    class min;
+    struct min;
 
     template <tools::arithmetic M>
-    class min<M> {
-      using VR = std::conditional_t<sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct min<M> {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return std::min(x, y);
       }
       static T e() {
@@ -115,12 +100,9 @@ namespace tools {
     };
 
     template <std::totally_ordered M, M E>
-    class min<M, E> {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct min<M, E> {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         assert(x <= E);
         assert(y <= E);
         return std::min(x, y);
@@ -131,12 +113,9 @@ namespace tools {
     };
 
     template <typename M>
-    class multiplies {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct multiplies {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x * y;
       }
       static T e() {
@@ -156,12 +135,9 @@ namespace tools {
     };
 
     template <typename M, M E>
-    class update {
-      using VR = std::conditional_t<tools::arithmetic<M> && sizeof(M) <= sizeof(std::size_t), const M, const M&>;
-
-    public:
+    struct update {
       using T = M;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x == E ? y : x;
       }
       static T e() {

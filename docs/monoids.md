@@ -117,14 +117,18 @@ It returns `M(0)`.
 
 ## monoids::gcd
 ```cpp
-template <typename M> struct monoids::gcd;
+template <typename M>
+requires requires (M x, M y) {
+  {tools::gcd(x, y)} -> std::convertible_to<M>;
+}
+struct monoids::gcd;
 ```
 
 It is a commutative monoid $(M, \gcd, 0)$.
 Note that we define $\gcd(a, 0) = a$, $\gcd(0, b) = b$ and $\gcd(0, 0) = 0$ in this monoid.
 
 ### Constraints
-- `tools::gcd(x, y)` is defined for `x` and `y` of type `<M>`. In particular, `<M>` is neither a built-in floating-point type nor `bool`.
+- None
 
 ### Time Complexity
 - Not applicable

@@ -8,52 +8,43 @@
 namespace tools {
   namespace groups {
     template <typename G>
-    class bit_xor {
-      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
-
-    public:
+    struct bit_xor {
       using T = G;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x ^ y;
       }
       static T e() {
         return T(0);
       }
-      static T inv(VR x) {
+      static T inv(const T& x) {
         return x;
       }
     };
 
     template <typename G>
-    class multiplies {
-      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
-
-    public:
+    struct multiplies {
       using T = G;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x * y;
       }
       static T e() {
         return T(1);
       }
-      static T inv(VR x) {
+      static T inv(const T& x) {
         return e() / x;
       }
     };
 
     template <typename G>
-    class plus {
-      using VR = std::conditional_t<tools::arithmetic<G> && sizeof(G) <= sizeof(std::size_t), const G, const G&>;
-
-    public:
+    struct plus {
       using T = G;
-      static T op(VR x, VR y) {
+      static T op(const T& x, const T& y) {
         return x + y;
       }
       static T e() {
         return T(0);
       }
-      static T inv(VR x) {
+      static T inv(const T& x) {
         return -x;
       }
     };
