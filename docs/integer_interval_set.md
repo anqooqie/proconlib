@@ -144,26 +144,36 @@ If such the interval does not exist, it returns `set.end()`.
 
 ## insert
 ```cpp
-void set.insert(T l, T r);
+(1) void set.insert(T x);
+(2) void set.insert(T l, T r);
 ```
 
-It inserts the integers $x$ such that $l \leq x \leq r$ to the set.
+- (1)
+    - It inserts the integer $x$ to the set.
+- (2)
+    - It inserts the integers $x$ such that $l \leq x \leq r$ to the set.
 
 ### Constraints
-- None
+- (2)
+    - $l \leq r$
 
 ### Time Complexity
 - $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
 
 ## erase
 ```cpp
-void set.erase(T l, T r);
+(1) void set.erase(T x);
+(2) void set.erase(T l, T r);
 ```
 
-It removes the integers $x$ such that $l \leq x \leq r$ from the set.
+- (1)
+    - It removes the integer $x$ from the set.
+- (2)
+    - It removes the integers $x$ such that $l \leq x \leq r$ from the set.
 
 ### Constraints
-- None
+- (2)
+    - $l \leq r$
 
 ### Time Complexity
 - $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.

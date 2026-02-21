@@ -1,28 +1,24 @@
 #ifndef TOOLS_DETAIL_INTERVAL_SET_HPP
 #define TOOLS_DETAIL_INTERVAL_SET_HPP
 
-#include <map>
-#include <iterator>
-#include <optional>
-#include <utility>
+#include <cassert>
 #include <iostream>
+#include <iterator>
+#include <map>
+#include <optional>
 #include <string>
+#include <utility>
+#include "tools/non_bool_integral.hpp"
 
 namespace tools {
   namespace detail {
-    template <typename T, bool Mergeable>
+    template <tools::non_bool_integral T, bool Mergeable>
     class interval_set {
-    private:
       // closed intervals
       std::map<T, T> m_intervals;
   
     public:
       interval_set() = default;
-      interval_set(const tools::detail::interval_set<T, Mergeable>&) = default;
-      interval_set(tools::detail::interval_set<T, Mergeable>&&) = default;
-      ~interval_set() = default;
-      tools::detail::interval_set<T, Mergeable>& operator=(const tools::detail::interval_set<T, Mergeable>&) = default;
-      tools::detail::interval_set<T, Mergeable>& operator=(tools::detail::interval_set<T, Mergeable>&&) = default;
   
       auto begin() const {
         return this->m_intervals.begin();
@@ -64,10 +60,12 @@ namespace tools {
         return this->m_intervals.upper_bound(x);
       }
   
+      void insert(const T& x) requires Mergeable {
+        this->insert(x, x);
+      }
+
       void insert(const T& l, const T& r) {
-        if (!(l <= r)) {
-          return;
-        }
+        assert(l <= r);
   
         const auto l_it = this->find(l - (Mergeable ? 1 : 0));
         const T min = l_it != this->m_intervals.end() ? l_it->first : l;
@@ -78,9 +76,14 @@ namespace tools {
         this->m_intervals.emplace(min, max);
       }
   
+      void erase(const T& x) requires Mergeable {
+        this->erase(x, x);
+      }
+
       void erase(const T& l, const T& r) {
-        if (!(l <= r + (Mergeable ? 0 : 1))) {
-          return;
+        assert(l <= r);
+        if constexpr (!Mergeable) {
+          if (l == r) return;
         }
   
         const auto l_it = this->find(l);

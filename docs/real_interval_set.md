@@ -150,7 +150,7 @@ void set.insert(T l, T r);
 It inserts the real numbers $x$ such that $l \leq x \leq r$ to the set.
 
 ### Constraints
-- None
+- $l \leq r$
 
 ### Time Complexity
 - $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
@@ -163,7 +163,7 @@ void set.erase(T l, T r);
 It removes the real numbers $x$ such that $l < x < r$ from the set.
 
 ### Constraints
-- None
+- $l \leq r$
 
 ### Time Complexity
 - $O(\log n)$ where $n$ is the number of mutually exclusive closed integer intervals.
