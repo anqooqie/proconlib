@@ -5,6 +5,7 @@
 #include <cassert>
 #include <iterator>
 #include <limits>
+#include <optional>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -44,7 +45,7 @@ namespace tools {
       return this->leader(t, x) == this->leader(t, y);
     }
 
-    int merge(int x, int y) {
+    std::optional<std::pair<int, int>> merge(int x, int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
 
@@ -52,7 +53,7 @@ namespace tools {
 
       x = this->leader(this->m_now, x);
       y = this->leader(this->m_now, y);
-      if (x == y) return x;
+      if (x == y) return std::nullopt;
 
       if (this->m_sizes[x].back().second < this->m_sizes[y].back().second) std::swap(x, y);
 
@@ -61,7 +62,7 @@ namespace tools {
 
       this->m_merge_times.push_back(this->m_now);
 
-      return x;
+      return std::make_pair(x, y);
     }
 
     int size() const {

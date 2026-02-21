@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <numeric>
+#include <optional>
 #include <utility>
 #include <vector>
 #include "tools/groups.hpp"
@@ -70,7 +71,7 @@ namespace tools {
       return this->leader(x) == this->leader(y);
     }
 
-    int merge(int x, int y, T w) {
+    std::optional<std::pair<int, int>> merge(int x, int y, T w) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
 
@@ -79,7 +80,7 @@ namespace tools {
 
       if (x_r == y_r) {
         this->m_consistent[x_r] = (this->m_consistent[x_r] && this->m_diffs[x] == G::op(this->m_diffs[y], w));
-        return x_r;
+        return std::nullopt;
       }
 
       if (this->m_sizes[x_r] < this->m_sizes[y_r]) {
@@ -96,7 +97,7 @@ namespace tools {
 
       --this->m_ncc;
 
-      return x_r;
+      return std::make_pair(x_r, y_r);
     }
 
     int size() const {

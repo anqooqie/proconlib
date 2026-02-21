@@ -1,12 +1,13 @@
 #ifndef TOOLS_UNDOABLE_DSU_HPP
 #define TOOLS_UNDOABLE_DSU_HPP
 
-#include <vector>
+#include <algorithm>
+#include <cassert>
+#include <optional>
 #include <stack>
 #include <tuple>
-#include <cassert>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
 namespace tools {
   class undoable_dsu {
@@ -33,7 +34,7 @@ namespace tools {
       return this->leader(x) == this->leader(y);
     }
 
-    int merge(int x, int y) {
+    std::optional<std::pair<int, int>> merge(int x, int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
 
@@ -42,13 +43,13 @@ namespace tools {
       if (this->m_data[x] > this->m_data[y]) std::swap(x, y);
       this->m_history.emplace(x, y, this->m_data[x], this->m_data[y], this->m_ncc);
 
-      if (x == y) return x;
+      if (x == y) return std::nullopt;
 
       this->m_data[x] += this->m_data[y];
       this->m_data[y] = x;
       --this->m_ncc;
 
-      return x;
+      return std::make_pair(x, y);
     }
 
     int size() const {

@@ -33,10 +33,16 @@ It creates an unknown sequence $(a_0, a_1, \ldots, a_{n - 1}) \in G^n$.
 
 ## merge
 ```cpp
-int d.merge(int x, int y, typename G::T w);
+std::optional<std::pair<int, int>> d.merge(int x, int y, typename G::T w);
 ```
 
 It accepts the information $a_x = a_y \cdot w$.
+
+If an undirected graph with $n$ vertices is given and we connect the vertices $u$ and $v$ if and only if `same(u, v)` holds, the graph can be divided into some connected components.
+If $x$ and $y$ are already in the same connected component, it returns `std::nullopt`.
+Otherwise, it returns $(r_1, r_2)$.
+Here, $r_1$ is the representative of the larger component (or $x$'s component if both are the same size), which becomes the new representative of the merged component.
+$r_2$ is the former representative of the other component.
 
 ### Constraints
 - $0 \leq x < n$
@@ -86,7 +92,7 @@ Otherwise, it returns `true`.
 int d.leader(int x);
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $u$ and $v$ if and only if `same(u, v)` holds, the graph can be divided into some connected components.
 It returns the reprensative vertex of the connected component which contains $x$.
 
 ### Constraints
@@ -113,7 +119,7 @@ If returns $n$.
 int d.size(int x);
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $u$ and $v$ if and only if `same(u, v)` holds, the graph can be divided into some connected components.
 It returns the size of the connected component which contains $x$.
 
 ### Constraints
@@ -127,7 +133,7 @@ It returns the size of the connected component which contains $x$.
 std::vector<std::vector<int>> d.groups();
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $u$ and $v$ if and only if `same(u, v)` holds, the graph can be divided into some connected components.
 It returns the list of the connected components.
 
 ### Constraints
@@ -141,7 +147,7 @@ It returns the list of the connected components.
 int d.ncc();
 ```
 
-If an undirected graph with $n$ vertices is given and we connect the vertices $y$ and $z$ if and only if `same(y, z)` holds, the graph can be divided into some connected components.
+If an undirected graph with $n$ vertices is given and we connect the vertices $u$ and $v$ if and only if `same(u, v)` holds, the graph can be divided into some connected components.
 It returns the number of connected components.
 
 ### Constraints

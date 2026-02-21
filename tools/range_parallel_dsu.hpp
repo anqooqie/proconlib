@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <iterator>
+#include <optional>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -36,7 +37,7 @@ namespace tools {
       return this->m_dsus[0].same(a, b);
     }
 
-    int merge(const int a, const int b) {
+    std::optional<std::pair<int, int>> merge(const int a, const int b) {
       assert(0 <= a && a < this->size());
       assert(0 <= b && b < this->size());
 
@@ -68,10 +69,7 @@ namespace tools {
             queue.emplace(x + tools::pow2(h - 1), h - 1);
             this->m_dsus[h].merge(x, y);
           } else {
-            const auto u = this->m_dsus[0].leader(x);
-            const auto v = this->m_dsus[0].leader(y);
-            const auto w = this->m_dsus[0].merge(u, v);
-            res.emplace_back(w, u ^ v ^ w);
+            res.push_back(*this->m_dsus[0].merge(x, y));
           }
         }
       }

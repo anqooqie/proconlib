@@ -44,13 +44,15 @@ It returns the number of times that `d.merge` has been called so far.
 
 ## merge
 ```cpp
-int d.merge(int a, int b);
+std::optional<std::pair<int, int>> d.merge(int a, int b);
 ```
 
 It adds an edge $(a, b)$.
 
-If the vertices $a$ and $b$ were in the same connected component, it returns the representative of this connected component.
-Otherwise, it returns the representative of the new connected component.
+If $a$ and $b$ are already in the same connected component, it returns `std::nullopt`.
+Otherwise, it merges the two connected components and returns $(r_1, r_2)$.
+Here, $r_1$ is the representative of the larger component (or $a$'s component if both are the same size), which becomes the new representative of the merged component.
+$r_2$ is the former representative of the other component.
 
 ### Constraints
 - $0 \leq a < n$

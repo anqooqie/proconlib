@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -35,20 +36,20 @@ namespace tools {
       return this->leader(x) == this->leader(y);
     }
 
-    int merge(int x, int y) {
+    std::optional<std::pair<int, int>> merge(int x, int y) {
       assert(0 <= x && x < this->size());
       assert(0 <= y && y < this->size());
 
       x = this->leader(x);
       y = this->leader(y);
-      if (x == y) return x;
+      if (x == y) return std::nullopt;
 
       if (this->m_data[x] > this->m_data[y]) std::swap(x, y);
       this->m_data[x] += this->m_data[y];
       this->m_data[y] = x;
       --this->m_ncc;
 
-      return x;
+      return std::make_pair(x, y);
     }
 
     int size() const {
