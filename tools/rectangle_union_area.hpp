@@ -73,7 +73,7 @@ namespace tools {
         y_list.push_back(d);
         y_list.push_back(u);
       }
-      tools::compressor<T> x_comp(x_list), y_comp(y_list);
+      tools::compressor x_comp(x_list), y_comp(y_list);
 
       std::vector<std::pair<std::vector<int>, std::vector<int>>> sorted_rectangles(x_comp.size() + 1);
       for (int i = 0; i < this->size(); ++i) {
@@ -83,14 +83,14 @@ namespace tools {
       }
 
       std::vector<S> v;
-      for (decltype(y_comp.size()) i = 0; i + 1 < y_comp.size(); ++i) {
+      for (int i = 0; i + 1 < y_comp.size(); ++i) {
         v.emplace_back(0, y_comp.decompress(i + 1) - y_comp.decompress(i));
       }
       atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> lazy_segtree(v);
       const T H = lazy_segtree.all_prod().second;
 
       T answer = 0;
-      for (decltype(x_comp.size()) i = 0; i + 1 < x_comp.size(); ++i) {
+      for (int i = 0; i + 1 < x_comp.size(); ++i) {
         for (const auto k : sorted_rectangles[i].first) {
           const auto& [l, r, d, u] = this->m_rectangles[k];
           lazy_segtree.apply(y_comp.compress(d), y_comp.compress(u), 1);

@@ -3,7 +3,7 @@ title: Compress values (for more complicated cases)
 documentation_of: //tools/compressor.hpp
 ---
 
-It provides the mapping which maps the $i$-th ($0$-indexed) least integer in a given integer set to $i$, and the inverse mapping of it.
+Given a set of integers, it assigns each element a zero-indexed rank according to sorted order, and supports the inverse mapping from ranks back to values.
 
 ### License
 - CC0
@@ -13,31 +13,29 @@ It provides the mapping which maps the $i$-th ($0$-indexed) least integer in a g
 
 ## Constructor
 ```cpp
-(1)
-template <typename InputIterator>
-compressor<T> cp(InputIterator begin, InputIterator end);
-
-(2)
-compressor<T> cp(std::ranges::range range);
+template <typename T>
+requires std::sortable<typename std::vector<T>::iterator>
+      && std::equality_comparable<T>
+template <std::ranges::input_range R>
+requires std::constructible_from<T, std::ranges::range_reference_t<R>>
+compressor<T> cp(R&& range);
 ```
 
-It creates an integer set initialized with a given integer range.
+It creates a compressor from the elements in `range`.
+If `T` is not specified explicitly, it is deduced as `std::ranges::range_value_t<R>`.
 
 ### Constraints
 - None
 
 ### Time Complexity
-- (1)
-    - $O(n \log n)$ where $n$ is `std::distance(begin, end)`
-- (2)
-    - $O(n \log n)$ where $n$ is `std::ranges::distance(range)`
+- $O(n \log n)$ where $n$ is `std::ranges::distance(range)`
 
 ## size
 ```cpp
-T cp.size();
+int cp.size();
 ```
 
-It returns the number of distinct integers in the set.
+It returns the number of distinct values.
 
 ### Constraints
 - None
@@ -47,23 +45,23 @@ It returns the number of distinct integers in the set.
 
 ## compress
 ```cpp
-T cp.compress(T x);
+int cp.compress(T x);
 ```
 
-It returns $i$ such that the $i$-th ($0$-indexed) least integer in the set is $x$.
+It returns the zero-indexed rank of $x$ in sorted order.
 
 ### Constraints
-- The set contains $x$.
+- $x$ is present in the set.
 
 ### Time Complexity
 - $O(\log n)$ where $n$ is `cp.size()`
 
 ## decompress
 ```cpp
-T cp.decompress(T i);
+T cp.decompress(int i);
 ```
 
-It returns the $i$-th ($0$-indexed) least integer in the set.
+It returns the value whose zero-indexed rank is $i$.
 
 ### Constraints
 - $0 \leq i < $ `cp.size()`
@@ -76,7 +74,7 @@ It returns the $i$-th ($0$-indexed) least integer in the set.
 bool cp.contains(T x);
 ```
 
-It returns whether the set contains $x$.
+It returns whether $x$ is present in the set.
 
 ### Constraints
 - None
@@ -89,7 +87,7 @@ It returns whether the set contains $x$.
 typename std::vector<T>::const_iterator cp.begin();
 ```
 
-It returns the iterator pointing to the least integer in the set.
+It returns an iterator to the smallest value in the set.
 
 ### Constraints
 - None
@@ -102,7 +100,7 @@ It returns the iterator pointing to the least integer in the set.
 typename std::vector<T>::const_iterator cp.end();
 ```
 
-It returns the iterator pointing to the integer which would follow the largest integer in the set.
+It returns a past-the-end iterator for the set.
 
 ### Constraints
 - None
