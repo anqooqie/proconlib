@@ -64,7 +64,7 @@ namespace tools {
         do {
           c = inbuf[in_left++];
         } while (c < '-');
-        [[maybe_unused]] bool minus = false;
+        bool minus = false;
         if constexpr (std::is_signed_v<T>) {
           if (c == '-') {
             minus = true;

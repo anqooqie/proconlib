@@ -30,7 +30,7 @@ namespace tools {
       assert(q > 0);
       assert(tools::gcd(p, q) == 1);
 
-      [[maybe_unused]] std::vector<std::pair<char, T>> path;
+      std::vector<std::pair<char, T>> path;
       char last = p < q ? 'R' : 'L'; // sentinel
       W a = 0;
       W b = 1;

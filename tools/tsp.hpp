@@ -84,7 +84,7 @@ namespace tools {
       }
 
       std::tuple<T, std::vector<int>, std::vector<int>> res;
-      [[maybe_unused]] auto& [total_cost, vids, eids] = res;
+      auto& [total_cost, vids, eids] = res;
 
       total_cost = dp[tools::pow2(this->size()) - 1][0];
       if (total_cost == std::numeric_limits<T>::max()) return std::nullopt;
