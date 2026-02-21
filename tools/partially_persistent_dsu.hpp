@@ -14,7 +14,6 @@ namespace tools {
   class partially_persistent_dsu {
     int m_now;
     std::vector<std::pair<int, int>> m_parents;
-    std::vector<int> m_ranks;
     std::vector<std::vector<std::pair<int, int>>> m_sizes;
     std::vector<int> m_merge_times;
 
@@ -23,7 +22,6 @@ namespace tools {
     explicit partially_persistent_dsu(const int n) :
       m_now(0),
       m_parents(n, std::make_pair(std::numeric_limits<int>::max(), -1)),
-      m_ranks(n, 0),
       m_sizes(n, std::vector<std::pair<int, int>>{std::make_pair(0, 1)}) {
     }
 
@@ -56,10 +54,9 @@ namespace tools {
       y = this->leader(this->m_now, y);
       if (x == y) return x;
 
-      if (this->m_ranks[x] < this->m_ranks[y]) std::swap(x, y);
+      if (this->m_sizes[x].back().second < this->m_sizes[y].back().second) std::swap(x, y);
 
       this->m_parents[y] = std::make_pair(this->m_now, x);
-      if (this->m_ranks[x] == this->m_ranks[y]) ++this->m_ranks[x];
       this->m_sizes[x].emplace_back(this->m_now, this->m_sizes[x].back().second + this->m_sizes[y].back().second);
 
       this->m_merge_times.push_back(this->m_now);
