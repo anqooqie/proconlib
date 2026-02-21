@@ -1,61 +1,60 @@
 #ifndef TOOLS_IS_BIPARTITE_HPP
 #define TOOLS_IS_BIPARTITE_HPP
 
-#include <cstddef>
-#include <vector>
-#include <cassert>
-#include <tuple>
 #include <algorithm>
-#include <string>
+#include <cassert>
 #include <queue>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+#include "tools/getter_result.hpp"
 
 namespace tools {
-
   class is_bipartite {
   public:
     struct edge {
-      std::size_t id;
-      std::size_t from;
-      std::size_t to;
+      int from;
+      int to;
     };
 
   private:
     std::vector<edge> m_edges;
-    std::vector<std::vector<std::size_t>> m_graph;
+    std::vector<std::vector<int>> m_graph;
 
   public:
     is_bipartite() = default;
-    explicit is_bipartite(const std::size_t n) : m_graph(n) {
+    explicit is_bipartite(const int n) : m_graph(n) {
     }
 
-    std::size_t size() const {
+    int size() const {
       return this->m_graph.size();
     }
 
-    std::size_t add_edge(std::size_t u, std::size_t v) {
-      assert(u < this->size());
-      assert(v < this->size());
+    int add_edge(int u, int v) {
+      assert(0 <= u && u < this->size());
+      assert(0 <= v && v < this->size());
       std::tie(u, v) = std::minmax({u, v});
-      this->m_edges.push_back(edge{this->m_edges.size(), u, v});
+      this->m_edges.push_back({u, v});
       this->m_graph[u].push_back(this->m_edges.size() - 1);
       this->m_graph[v].push_back(this->m_edges.size() - 1);
       return this->m_edges.size() - 1;
     }
 
-    const edge& get_edge(const std::size_t k) const {
-      assert(k < this->m_edges.size());
-      return this->m_edges[k];
+    auto get_edge(this auto&& self, const int k) -> tools::getter_result_t<decltype(self), edge> {
+      assert(0 <= k && k < std::ssize(self.m_edges));
+      return std::forward_like<decltype(self)>(self.m_edges[k]);
     }
 
-    const std::vector<edge>& edges() const {
-      return this->m_edges;
+    auto edges(this auto&& self) -> tools::getter_result_t<decltype(self), std::vector<edge>> {
+      return std::forward_like<decltype(self)>(self.m_edges);
     }
 
     bool query() const {
       std::string belongs(this->size(), '?');
-      for (std::size_t root = 0; root < this->size(); ++root) {
+      for (int root = 0; root < this->size(); ++root) {
         if (belongs[root] == '?') {
-          std::queue<std::size_t> queue({root});
+          std::queue<int> queue({root});
           belongs[root] = '0';
           while (!queue.empty()) {
             const auto here = queue.front();

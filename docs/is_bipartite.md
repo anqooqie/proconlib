@@ -13,20 +13,20 @@ It checks whether a given undirected graph is bipartite.
 
 ## Constructor
 ```cpp
-is_bipartite graph(std::size_t n);
+is_bipartite graph(int n);
 ```
 
 It creates an undirected graph with $n$ vertices and $0$ edges.
 
 ### Constraints
-- None
+- $n \geq 0$
 
 ### Time Complexity
 - $O(n)$
 
 ## size
 ```cpp
-std::size_t graph.size();
+int graph.size();
 ```
 
 It returns $n$.
@@ -39,7 +39,7 @@ It returns $n$.
 
 ## add_edge
 ```cpp
-std::size_t graph.add_edge(std::size_t u, std::size_t v);
+int graph.add_edge(int u, int v);
 ```
 
 It adds an undirected edge between $u$ and $v$.
@@ -55,11 +55,10 @@ It returns an integer $k$ such that this is the $k$-th ($0$ indexed) edge that i
 ## get_edge
 ```cpp
 struct edge {
-  std::size_t id;
-  std::size_t from;
-  std::size_t to;
+  int from;
+  int to;
 };
-const edge& graph.get_edge(std::size_t k);
+const edge& graph.get_edge(int k);
 ```
 
 It returns the $k$-th ($0$ indexed) edge.
