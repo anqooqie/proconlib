@@ -102,7 +102,14 @@ namespace tools {
 
 **Customization point pattern** — functions like `abs`, `gcd`, `signum` dispatch through `tools::detail::<func>::impl<T>` which types like `bigint` and `rational` specialize.
 
-**Include style**: quoted paths from repo root for library tools (`"tools/foo.hpp"`, `"atcoder/convolution.hpp"`), angle brackets for standard library.
+**Include style**: quoted paths from repo root for library tools (`"tools/foo.hpp"`, `"atcoder/convolution.hpp"`), angle brackets for standard library. Within each group (standard / library), sort alphabetically.
+
+**Ongoing modernization policies** (applied when touching existing code):
+- **`int` over `std::size_t`** for sizes, indices, and return values. Competitive programming inputs fit in `int`; mixing signed/unsigned is error-prone.
+- **Concept constraints on template parameters**: prefer `tools::non_bool_integral T` (or other appropriate concepts) over unconstrained `typename T`.
+- **Rule of Zero**: do not explicitly default special member functions (copy/move constructors, destructor, assignment operators) unless the class manages resources.
+- **`assert` for preconditions**: reject invalid inputs with `assert`, not silent early returns.
+- **PROBLEM → STANDALONE test migration**: AtCoder-based PROBLEM tests that can no longer fetch test cases are being rewritten as STANDALONE tests with `assert_that`.
 
 ## Test File Conventions
 
