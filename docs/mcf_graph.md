@@ -3,7 +3,8 @@ title: Solver of minimum-cost flow problem
 documentation_of: //tools/mcf_graph.hpp
 ---
 
-It solves Minimum-cost flow problem.
+It solves the minimum-cost $s$-$t$ flow problem using the successive shortest paths algorithm.
+Negative-cost edges are allowed, but the graph must not contain any negative-cost cycle.
 
 ### License
 - CC0
@@ -26,17 +27,31 @@ It creates a directed graph with $n$ vertices and $0$ edges.
 ### Time Complexity
 - $O(n)$
 
+## size
+```cpp
+int graph.size();
+```
+
+It returns $n$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## add_edge
 ```cpp
 int graph.add_edge(int from, int to, Cap cap, Cost cost);
 ```
 
 It adds an edge oriented from `from` to `to` with capacity `cap` and cost `cost`.
-It returns an integer $k$ such that this is the $k$-th edge that is added.
+It returns an integer $k$ such that this is the $k$-th ($0$-indexed) edge that is added.
 
 ### Constraints
 - $0 \leq \mathrm{from, to} < n$
 - $0 \leq \mathrm{cap}$
+- The graph has no negative-cost cycle.
 
 ### Time Complexity
 - $O(1)$ amortized
@@ -47,15 +62,16 @@ It returns an integer $k$ such that this is the $k$-th edge that is added.
 (2) std::pair<Cap, Cost> graph.flow(int s, int t, Cap flow_limit);
 ```
 
-- It augments the flow from $s$ to $t$ as much as possible. It returns the amount of the flow and the cost.
-- (1) It augments the $s-t$ flow as much as possible.
-- (2) It augments the $s-t$ flow as much as possible, until reaching the amount of `flow_limit`.
+It returns the amount and cost of the minimum-cost flow from $s$ to $t$.
+
+- (1) It sends as much flow as possible.
+- (2) It sends as much flow as possible, up to `flow_limit`.
 
 ### Constraints
-- same as `slope`.
+- Same as `slope`.
 
 ### Time Complexity
-- same as `slope`.
+- Same as `slope`.
 
 ## slope
 ```cpp
@@ -63,13 +79,13 @@ It returns an integer $k$ such that this is the $k$-th edge that is added.
 (2) std::vector<std::pair<Cap, Cost>> graph.slope(int s, int t, Cap flow_limit);
 ```
 
-Let $g$ be a function such that $g(x)$ is the cost of the minimum cost $s-t$ flow when the amount of the flow is exactly $x$.
+Let $g$ be a function such that $g(x)$ is the cost of the minimum-cost $s$-$t$ flow when the amount of the flow is exactly $x$.
 $g$ is known to be piecewise linear.
 It returns $g$ as the list of the changepoints, that satisfies the followings.
 
-- The first element of the list is $(0, g(0))$.
+- The first element of the list is $(0, 0)$.
 - No three changepoints are on the same line.
-- (1) The last element of the list is $(x, g(x))$, where $x$ is the maximum amount of the $s-t$ flow.
+- (1) The last element of the list is $(x, g(x))$, where $x$ is the maximum amount of the $s$-$t$ flow.
 - (2) The last element of the list is $(y, g(y))$, where $y = \min(x, \mathrm{flow\\_limit})$.
 
 ### Constraints
@@ -84,11 +100,11 @@ Let $x$ be the maximum absolute value of cost among all edges.
 
 ### Time Complexity
 - (No edges with negative cost or DAG): $O(F (n + m) \log n)$, where $F$ is the amount of the flow and $m$ is the number of added edges.
-- (Otherwise): $O(Nnm + nm + F (n + m) \log n)$, where $N$ is the number of negative cycles, $F$ is the amount of the flow and $m$ is the number of added edges.
+- (Otherwise): $O(nm + F (n + m) \log n)$, where $F$ is the amount of the flow and $m$ is the number of added edges.
 
 ## edges
 ```cpp
-struct edge<Cap, Cost> {
+struct edge {
   int from, to;
   Cap cap, flow;
   Cost cost;
@@ -98,12 +114,12 @@ struct edge<Cap, Cost> {
 (2) std::vector<mcf_graph<Cap, Cost>::edge> graph.edges();
 ```
 
-- It returns the current internal state of the edges.
-- The edges are ordered in the same order as added by `add_edge`.
+It returns the current internal state of the edges.
+The edges are ordered in the same order as added by `add_edge`.
 
 ### Constraints
-- $0 \leq i < m$
+- (1) $0 \leq i < m$
 
 ### Time Complexity
-- (1): $(O(1))$
-- (2): $(O(m))$, where $m$ is the number of added edges.
+- (1): $O(1)$
+- (2): $O(m)$, where $m$ is the number of added edges.
