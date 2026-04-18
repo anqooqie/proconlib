@@ -4,24 +4,19 @@ documentation_of: //tools/assert_that.hpp
 ---
 
 ```cpp
-#define assert_that(cond) do {\
-  if (!(cond)) {\
-    std::cerr << __FILE__ << ':' << __LINE__ << ": " << __func__ << ": Assertion `" << #cond << "' failed." << '\n';\
-    std::exit(EXIT_FAILURE);\
-  }\
-} while (false)
+#define assert_that(expr) implementation-defined
 ```
 
-It asserts that `cond` holds.
-If `cond` is `false`, it outputs the debug information to `std::cerr` and terminates the program with exit status `EXIT_FAILURE`.
+It asserts that `expr` is `true`.
+If `expr` is `false`, it outputs the debug information to `std::cerr` and terminates the program by calling `std::abort()`.
 
 The macro is always enabled regardless of `NDEBUG` unlike `assert`.
 
 ### Constraints
-- None
+- `expr` is the expression contextually convertible to `bool`.
 
 ### Time Complexity
-- Same as `cond`
+- $O(1)$
 
 ### License
 - CC0

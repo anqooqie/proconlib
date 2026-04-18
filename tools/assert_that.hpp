@@ -1,15 +1,24 @@
 #ifndef TOOLS_ASSERT_THAT_HPP
 #define TOOLS_ASSERT_THAT_HPP
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
+#include <source_location>
 
-#define assert_that_impl(cond, file, line, func) do {\
-  if (!cond) {\
-    std::cerr << file << ':' << line << ": " << func << ": Assertion `" << #cond << "' failed." << '\n';\
-    std::exit(EXIT_FAILURE);\
-  }\
-} while (false)
-#define assert_that(...) assert_that_impl((__VA_ARGS__), __FILE__, __LINE__, __func__)
+namespace tools {
+  namespace detail::assert_that {
+    constexpr void impl(const bool cond, const char* const expr, const std::source_location loc = std::source_location::current()) {
+      if (cond) return;
+      if consteval {
+        throw "assertion failed";
+      } else {
+        std::cerr << loc.file_name() << ':' << loc.line() << ": " << loc.function_name() << ": Assertion `" << expr << "' failed." << '\n';
+        std::abort();
+      }
+    }
+  }
+}
+
+#define assert_that(...) ::tools::detail::assert_that::impl((__VA_ARGS__), #__VA_ARGS__)
 
 #endif
