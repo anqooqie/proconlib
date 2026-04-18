@@ -10,9 +10,9 @@ Given a vector $d$, $\mathrm{class}_d(v)$ is defined as follows.
 
 $$\begin{align*}
 \mathrm{class}_d(v) &= \left\{\begin{array}{ll}
-0 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|d\| \leq \|v\|$)}\\
+0 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land |d| \leq |v|$)}\\
 1 & \text{(if $\mathrm{arg}(d) \neq \mathrm{arg}(v)$)}\\
-2 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land \|v\| < \|d\|$)}
+2 & \text{(if $\mathrm{arg}(d) = \mathrm{arg}(v) \land |v| < |d|$)}
 \end{array}\right.&
 \end{align*}$$
 
@@ -27,7 +27,7 @@ $\mathrm{arg}(v)$ is defined as follows.
 $$\begin{align*}
 \mathrm{arg}(v) &= \left\{\begin{array}{ll}
 0 & \text{(if $v = (0, 0)$)}\\
-\text{the unique real value $\theta$ which satisfies $0 \leq \theta < 2 \pi$, $\|v\| \cos(\theta) = v_x$ and $\|v\| \sin(\theta) = v_y$} & \text{(otherwise)}
+\text{the unique real value $\theta$ which satisfies $0 \leq \theta < 2 \pi$, $|v| \cos(\theta) = v_x$ and $|v| \sin(\theta) = v_y$} & \text{(otherwise)}
 \end{array}\right.&
 \end{align*}$$
 

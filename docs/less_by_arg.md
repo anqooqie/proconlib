@@ -12,14 +12,7 @@ $$\begin{align*}
 \mathrm{arg}_d(v) &= \mathrm{mod}(\mathrm{arg}(v) - \mathrm{arg}(d), 2 \pi)
 \end{align*}$$
 
-$\mathrm{arg}(v)$ is defined as follows.
-
-$$\begin{align*}
-\mathrm{arg}(v) &= \left\{\begin{array}{ll}
-0 & \text{(if $v = (0, 0)$)}\\
-\text{the unique real value $\theta$ which satisfies $0 \leq \theta < 2 \pi$, $\|v\| \cos(\theta) = v_x$ and $\|v\| \sin(\theta) = v_y$} & \text{(otherwise)}
-\end{array}\right.&
-\end{align*}$$
+$\mathrm{arg}(v)$ is defined as the unique real value $\theta$ which satisfies $0 \leq \theta < 2 \pi$, $\|v\| \cos(\theta) = v_x$ and $\|v\| \sin(\theta) = v_y$.
 
 ### References
 - [How do you polar sort? - Codeforces](https://codeforces.com/blog/entry/72815)

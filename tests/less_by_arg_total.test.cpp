@@ -1,8 +1,10 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/sort_points_by_argument
 
+#include <algorithm>
 #include <iostream>
-#include "tools/vector2.hpp"
+#include <vector>
 #include "tools/less_by_arg_total.hpp"
+#include "tools/vector2.hpp"
 
 using ll = long long;
 
@@ -10,12 +12,14 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
 
-  ll N;
+  constexpr ll max_abs_p_i = 1000000000;
+
+  int N;
   std::cin >> N;
   std::vector<tools::vector2<ll>> p(N);
   for (auto& p_i : p) std::cin >> p_i;
 
-  std::sort(p.begin(), p.end(), tools::less_by_arg_total(tools::vector2<ll>(0, 0), tools::vector2<ll>(-1000000001, -1)));
+  std::sort(p.begin(), p.end(), tools::less_by_arg_total(tools::vector2<ll>(0, 0), tools::vector2<ll>(-max_abs_p_i - 1, -1)));
 
   for (const auto& p_i : p) {
     std::cout << p_i.x << ' ' << p_i.y << '\n';
