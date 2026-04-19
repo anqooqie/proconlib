@@ -82,7 +82,7 @@ struct edge {
   int to;
   W weight;
 };
-edge graph.get_edge(int k);
+const edge& graph.get_edge(int k);
 ```
 
 It returns the $k$-th edge.
@@ -95,7 +95,7 @@ It returns the $k$-th edge.
 
 ## edges
 ```cpp
-std::vector<edge> graph.edges();
+const std::vector<edge>& graph.edges();
 ```
 
 It returns all the edges in the graph.

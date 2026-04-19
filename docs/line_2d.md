@@ -27,7 +27,7 @@ It creates a line $ax + by + c = 0$.
 
 ## a
 ```cpp
-T s.a();
+const T& s.a();
 ```
 
 It returns $a$.
@@ -40,7 +40,7 @@ It returns $a$.
 
 ## b
 ```cpp
-T s.b();
+const T& s.b();
 ```
 
 It returns $b$.
@@ -53,7 +53,7 @@ It returns $b$.
 
 ## c
 ```cpp
-T s.c();
+const T& s.c();
 ```
 
 It returns $c$.

@@ -81,7 +81,7 @@ If `Filled` is `false`, it returns whether $p$ is on the boundary of $c$.
 
 ## points
 ```cpp
-std::vector<tools::vector2<T>> c.points();
+const std::vector<tools::vector2<T>>& c.points();
 ```
 
 It returns $p$.

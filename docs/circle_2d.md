@@ -58,7 +58,7 @@ It returns the area of $c$.
 
 ## center
 ```cpp
-tools::vector2<T> c.center();
+const tools::vector2<T>& c.center();
 ```
 
 It returns $o$.
@@ -85,7 +85,7 @@ If `Filled` is `false`, it returns whether $p$ is on the boundary of $c$.
 
 ## radius
 ```cpp
-T c.radius();
+const T& c.radius();
 ```
 
 It returns $r$.
@@ -98,7 +98,7 @@ It returns $r$.
 
 ## squared_radius
 ```cpp
-T c.squared_radius();
+const T& c.squared_radius();
 ```
 
 It returns $r^2$.

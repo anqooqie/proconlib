@@ -89,7 +89,7 @@ It returns the minimum bounding circle of $s$.
 
 ## points
 ```cpp
-std::vector<tools::vector2<T>> s.points();
+const std::vector<tools::vector2<T>>& s.points();
 ```
 
 It returns $p$.

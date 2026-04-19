@@ -27,7 +27,7 @@ It creates a half line from a point $a$ in a direction $d$.
 
 ## a
 ```cpp
-tools::vector2<T> s.a();
+const tools::vector2<T>& s.a();
 ```
 
 It returns $a$.
@@ -69,7 +69,7 @@ Otherwise, it returns `std::nullopt`.
 
 ## d
 ```cpp
-tools::vector2<T> s.d();
+const tools::vector2<T>& s.d();
 ```
 
 It returns $d$.

@@ -95,7 +95,7 @@ It returns the midpoint of $s$.
 
 ## p1
 ```cpp
-tools::vector2<T> s.p1();
+const tools::vector2<T>& s.p1();
 ```
 
 It returns $p_1$.
@@ -108,7 +108,7 @@ It returns $p_1$.
 
 ## p2
 ```cpp
-tools::vector2<T> s.p2();
+const tools::vector2<T>& s.p2();
 ```
 
 It returns $p_2$.
