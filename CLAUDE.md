@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**proconlib** — a C++23 header-only competitive programming library. ~314 tools in `tools/`, verified against online judge problems (AtCoder, Yosupo, AOJ, Yukicoder). Targets GCC 14+ and Clang 20+.
+**proconlib** — a C++23 header-only competitive programming library with ~314 headers under `tools/`. See README.md for requirements, install, and policy.
 
 ## Build & Verification Commands
 
