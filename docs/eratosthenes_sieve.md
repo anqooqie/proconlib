@@ -39,7 +39,7 @@ It returns whether $i$ is a prime or not.
 
 ## prime_range
 ```cpp
-struct prime_iterable {
+struct prime_view : public std::ranges::view_interface<prime_view> {
   struct iterator {
     T operator*();
     iterator& operator++();
@@ -50,7 +50,7 @@ struct prime_iterable {
   iterator begin();
   iterator end();
 };
-prime_iterable sieve.prime_range(int l, int r);
+prime_view sieve.prime_range(int l, int r);
 ```
 
 It returns the primes $p$ such that $l \leq p \leq r$ in ascending order.

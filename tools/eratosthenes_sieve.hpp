@@ -1,13 +1,14 @@
 #ifndef TOOLS_ERATOSTHENES_SIEVE_HPP
 #define TOOLS_ERATOSTHENES_SIEVE_HPP
 
-#include <array>
-#include <cstdint>
-#include <vector>
-#include <cstddef>
-#include <iterator>
-#include <cassert>
 #include <algorithm>
+#include <array>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <ranges>
+#include <vector>
 
 namespace tools {
   template <typename T>
@@ -33,22 +34,20 @@ namespace tools {
     int m_n;
 
   public:
-    class prime_iterable {
-    private:
+    class prime_view : public std::ranges::view_interface<prime_view> {
       tools::eratosthenes_sieve<T> const *m_parent;
       int m_l;
       int m_r;
 
     public:
       class iterator {
-      private:
         tools::eratosthenes_sieve<T> const *m_parent;
         int m_p;
 
       public:
         using difference_type = std::ptrdiff_t;
         using value_type = T;
-        using reference = const T&;
+        using reference = T;
         using pointer = const T*;
         using iterator_category = std::input_iterator_tag;
 
@@ -57,7 +56,7 @@ namespace tools {
           for (; this->m_p <= parent->m_n && !parent->is_prime(this->m_p); ++this->m_p);
         }
 
-        value_type operator*() const {
+        reference operator*() const {
           return this->m_p;
         }
         iterator& operator++() {
@@ -78,8 +77,8 @@ namespace tools {
         }
       };
 
-      prime_iterable() = default;
-      prime_iterable(tools::eratosthenes_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
+      prime_view() = default;
+      prime_view(tools::eratosthenes_sieve<T> const * const parent, const int l, const int r) : m_parent(parent), m_l(l), m_r(r) {
       }
 
       iterator begin() const {
@@ -357,9 +356,9 @@ namespace tools {
       return (this->m_is_prime[i >> 6] >> (i & 0b111111)) & 1;
     }
 
-    prime_iterable prime_range(const int l, const int r) const {
+    prime_view prime_range(const int l, const int r) const {
       assert(1 <= l && l <= r && r <= this->m_n);
-      return prime_iterable(this, l, r);
+      return prime_view(this, l, r);
     }
   };
 }
