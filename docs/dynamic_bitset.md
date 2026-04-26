@@ -117,6 +117,19 @@ It depends on the implementation whether the request is fulfilled.
 ### Time Complexity
 - $O(n)$
 
+## count
+```cpp
+std::size_t s.count(std::size_t l, std::size_t r);
+```
+
+It returns the number of $i$s such that $l \leq i < r$ and `s.test(i)` hold.
+
+### Constraints
+- $0 \leq l \leq r \leq n$
+
+### Time Complexity
+- $O(r - l)$
+
 ## Find_first
 ```cpp
 std::size_t s.Find_first();

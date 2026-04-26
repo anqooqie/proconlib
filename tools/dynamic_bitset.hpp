@@ -273,6 +273,22 @@ namespace tools {
     void shrink_to_fit() {
       this->m_bits.shrink_to_fit();
     }
+    std::size_t count(const std::size_t l, const std::size_t r) const {
+      assert(0 <= l && l <= r && r <= this->m_size);
+      const auto l_block = l / W;
+      const auto r_block = tools::ceil(r, W);
+      std::size_t result = 0;
+      for (std::size_t b = l_block; b < r_block; ++b) {
+        result += std::popcount(this->m_bits[b]);
+      }
+      if (l % W > 0) {
+        result -= std::popcount(this->m_bits[l_block] & ((UINT64_C(1) << (l % W)) - 1));
+      }
+      if (r % W > 0) {
+        result -= std::popcount(this->m_bits[r_block - 1] & ~((UINT64_C(1) << (r % W)) - 1));
+      }
+      return result;
+    }
   private:
     std::size_t Find_first(const std::size_t offset) const {
       for (std::size_t i = offset; i < this->m_bits.size(); ++i) {
