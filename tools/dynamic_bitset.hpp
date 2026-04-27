@@ -274,7 +274,7 @@ namespace tools {
       this->m_bits.shrink_to_fit();
     }
     std::size_t count(const std::size_t l, const std::size_t r) const {
-      assert(0 <= l && l <= r && r <= this->m_size);
+      assert(l <= r && r <= this->m_size);
       const auto l_block = l / W;
       const auto r_block = tools::ceil(r, W);
       std::size_t result = 0;

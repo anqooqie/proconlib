@@ -1,11 +1,12 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/enumerate_primes
 
 #include <iostream>
-#include <iterator>
+#include <ranges>
+#include <tuple>
 #include <vector>
-#include <algorithm>
 #include "tools/eratosthenes_sieve.hpp"
 #include "tools/join.hpp"
+#include "tools/mod.hpp"
 
 int main() {
   std::cin.tie(nullptr);
@@ -16,18 +17,16 @@ int main() {
 
   tools::eratosthenes_sieve<int> sieve(N);
 
-  const auto begin = sieve.prime_range(1, N).begin();
-  const auto end = sieve.prime_range(1, N).end();
-  const int pi_N = std::distance(begin, end);
-
-  std::vector<int> answers;
-  int i = B;
-  for (auto it = std::next(begin, std::min(i, pi_N)); it != end; it = std::next(it, std::min(A, pi_N - i)), i = std::min(i + A, pi_N)) {
-    answers.push_back(*it);
-  }
+  const auto view = sieve.prime_range(1, N);
+  const auto pi_N = view.size();
+  const auto answers = view
+    | std::views::enumerate
+    | std::views::filter([&](const auto& tuple) { return tools::mod(std::get<0>(tuple) - B, A) == 0; })
+    | std::views::transform([](const auto& tuple) { return std::get<1>(tuple); })
+    | std::ranges::to<std::vector>();
 
   std::cout << pi_N << ' ' << answers.size() << '\n';
-  std::cout << tools::join(answers, " ") << '\n';
+  std::cout << tools::join(answers, ' ') << '\n';
 
   return 0;
 }

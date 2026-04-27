@@ -13,7 +13,8 @@ For all positive integers less than or equal to $n$, it determines if they are p
 
 ## Constructor
 ```cpp
-eratosthenes_sieve<T> sieve(int n);
+template <tools::integral T>
+eratosthenes_sieve<T> sieve(T n);
 ```
 
 For all positive integers less than or equal to $n$, it determines if they are prime.
@@ -26,7 +27,7 @@ For all positive integers less than or equal to $n$, it determines if they are p
 
 ## is_prime
 ```cpp
-bool sieve.is_prime(int i);
+bool sieve.is_prime(T i);
 ```
 
 It returns whether $i$ is a prime or not.
@@ -49,8 +50,9 @@ struct prime_view : public std::ranges::view_interface<prime_view> {
   };
   iterator begin();
   iterator end();
+  std::size_t size();
 };
-prime_view sieve.prime_range(int l, int r);
+prime_view sieve.prime_range(T l, T r);
 ```
 
 It returns the primes $p$ such that $l \leq p \leq r$ in ascending order.
