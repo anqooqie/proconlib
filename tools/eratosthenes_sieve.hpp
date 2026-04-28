@@ -2,11 +2,12 @@
 #define TOOLS_ERATOSTHENES_SIEVE_HPP
 
 #include <algorithm>
+#include <atomic>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <iterator>
-#include <optional>
+#include <limits>
 #include <ranges>
 #include "tools/block_floor.hpp"
 #include "tools/ceil.hpp"
@@ -161,10 +162,12 @@ namespace tools {
 
   public:
     class prime_view : public std::ranges::view_interface<prime_view> {
+      static constexpr std::size_t size_uncached = std::numeric_limits<std::size_t>::max();
+
       tools::eratosthenes_sieve<T> const *m_parent;
       T m_l;
       T m_r;
-      mutable std::optional<std::size_t> m_size;
+      mutable std::atomic<std::size_t> m_size{size_uncached};
 
     public:
       class iterator {
@@ -212,6 +215,25 @@ namespace tools {
       };
 
       prime_view() = default;
+      prime_view(const prime_view& other) noexcept : m_parent(other.m_parent), m_l(other.m_l), m_r(other.m_r), m_size(other.m_size.load(std::memory_order::relaxed)) {
+      }
+      prime_view(prime_view&& other) noexcept : m_parent(other.m_parent), m_l(other.m_l), m_r(other.m_r), m_size(other.m_size.load(std::memory_order::relaxed)) {
+      }
+      prime_view& operator=(const prime_view& other) noexcept {
+        this->m_parent = other.m_parent;
+        this->m_l = other.m_l;
+        this->m_r = other.m_r;
+        this->m_size.store(other.m_size.load(std::memory_order::relaxed), std::memory_order::relaxed);
+        return *this;
+      }
+      prime_view& operator=(prime_view&& other) noexcept {
+        this->m_parent = other.m_parent;
+        this->m_l = other.m_l;
+        this->m_r = other.m_r;
+        this->m_size.store(other.m_size.load(std::memory_order::relaxed), std::memory_order::relaxed);
+        return *this;
+      }
+
       prime_view(tools::eratosthenes_sieve<T> const * const parent, const T l, const T r) : m_parent(parent), m_l(l), m_r(r) {
       }
 
@@ -222,26 +244,26 @@ namespace tools {
         return iterator(this->m_parent, this->m_r + 1);
       }
       std::size_t size() const {
-        if (!this->m_size) {
-          std::size_t result = 0;
-          if (this->m_l <= 2 && 2 <= this->m_r) ++result;
-          if (this->m_l <= 3 && 3 <= this->m_r) ++result;
-          if (this->m_l <= 5 && 5 <= this->m_r) ++result;
-          if (this->m_r >= 7) {
-            auto l = std::max<T>(this->m_l, 7);
-            while (l <= this->m_r && !tools::eratosthenes_sieve<T>::coprime_to_30(l)) ++l;
-            if (l <= this->m_r) {
-              auto r = this->m_r;
-              while (!tools::eratosthenes_sieve<T>::coprime_to_30(r)) --r;
-              result += this->m_parent->m_is_prime.count(
-                l / 30 * 8 + tools::eratosthenes_sieve<T>::encode(l % 30),
-                r / 30 * 8 + tools::eratosthenes_sieve<T>::encode(r % 30) + 1
-              );
-            }
+        if (const auto cached = this->m_size.load(std::memory_order::relaxed); cached != size_uncached) return cached;
+
+        std::size_t result = 0;
+        if (this->m_l <= 2 && 2 <= this->m_r) ++result;
+        if (this->m_l <= 3 && 3 <= this->m_r) ++result;
+        if (this->m_l <= 5 && 5 <= this->m_r) ++result;
+        if (this->m_r >= 7) {
+          auto l = std::max<T>(this->m_l, 7);
+          while (l <= this->m_r && !tools::eratosthenes_sieve<T>::coprime_to_30(l)) ++l;
+          if (l <= this->m_r) {
+            auto r = this->m_r;
+            while (!tools::eratosthenes_sieve<T>::coprime_to_30(r)) --r;
+            result += this->m_parent->m_is_prime.count(
+              l / 30 * 8 + tools::eratosthenes_sieve<T>::encode(l % 30),
+              r / 30 * 8 + tools::eratosthenes_sieve<T>::encode(r % 30) + 1
+            );
           }
-          this->m_size = result;
         }
-        return *this->m_size;
+        this->m_size.store(result, std::memory_order::relaxed);
+        return result;
       }
     };
 
