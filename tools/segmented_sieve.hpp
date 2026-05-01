@@ -28,9 +28,9 @@ namespace tools {
 
     public:
       class iterator {
-        tools::segmented_sieve const *m_parent;
-        int m_i;
-        int m_j;
+        tools::segmented_sieve const *m_parent = nullptr;
+        int m_i{};
+        int m_j{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -38,6 +38,7 @@ namespace tools {
         using reference = long long;
         using pointer = const long long*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::segmented_sieve const * const parent, const int i, const int j) : m_parent(parent), m_i(i), m_j(j) {
@@ -98,8 +99,8 @@ namespace tools {
 
     public:
       class iterator {
-        tools::segmented_sieve const *m_parent;
-        int m_i;
+        tools::segmented_sieve const *m_parent = nullptr;
+        int m_i{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -107,6 +108,7 @@ namespace tools {
         using reference = std::tuple<long long, long long, long long>;
         using pointer = const std::tuple<long long, long long, long long>*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::segmented_sieve const * const parent, const int i) : m_parent(parent), m_i(i) {
@@ -161,8 +163,8 @@ namespace tools {
 
     public:
       class iterator {
-        tools::segmented_sieve const *m_parent;
-        int m_i;
+        tools::segmented_sieve const *m_parent = nullptr;
+        int m_i{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -170,6 +172,7 @@ namespace tools {
         using reference = long long;
         using pointer = const long long*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::segmented_sieve const * const parent, const int i) : m_parent(parent), m_i(i) {

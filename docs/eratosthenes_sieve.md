@@ -13,7 +13,7 @@ For all positive integers less than or equal to $n$, it determines if they are p
 
 ## Constructor
 ```cpp
-template <tools::integral T>
+template <tools::non_bool_integral T>
 eratosthenes_sieve<T> sieve(T n);
 ```
 
