@@ -15,7 +15,7 @@ int main() {
 
   tools::rolling_hash T_hash(T), P_hash(P);
   for (int i = 0; i + m <= n; ++i) {
-    if (T_hash.slice(i, i + m) == P_hash.slice(0, m)) {
+    if (T_hash.slice(i, i + m) == P_hash.full()) {
       std::cout << i << '\n';
     }
   }

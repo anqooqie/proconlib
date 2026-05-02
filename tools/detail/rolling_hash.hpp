@@ -157,17 +157,25 @@ namespace tools {
         assert(s_i != 0);
         this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val, base) + s_i);
       }
-      m_pow_base[this->m_hash.size()];
+      m_pow_base[this->size()];
     }
 
-    mint pow_base(const int i) const {
+    static mint pow_base(const int i) {
       assert(i >= 0);
       return m_pow_base[i];
     }
 
+    int size() const {
+      return this->m_hash.size() - 1;
+    }
+
     mint slice(const int l, const int r) const {
-      assert(0 <= l && l <= r && r <= this->m_hash.size());
+      assert(0 <= l && l <= r && r <= this->size());
       return mint(this->m_hash[r].m_val + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, m_pow_base[r - l].m_val));
+    }
+
+    mint full() const {
+      return this->slice(0, this->size());
     }
   };
 }

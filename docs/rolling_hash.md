@@ -28,7 +28,7 @@ It calculates hash values for any subsequences of a given sequence.
 
 ## pow_base
 ```cpp
-tools::modint_for_rolling_hash hash.pow_base(int i);
+tools::modint_for_rolling_hash rolling_hash::pow_base(int i);
 ```
 
 It returns $b^{i} \pmod{2^{61} - 1}$ where $b$ is the integer randomly determined immediately after startup of the program.
@@ -40,6 +40,19 @@ It returns $b^{i} \pmod{2^{61} - 1}$ where $b$ is the integer randomly determine
 - (first call): $O(i)$
 - (second call or later): $O(i - i^\ast)$ where $i^\ast$ is the largest $i$ in the `pow_base` calls so far
 
+## size
+```cpp
+int hash.size();
+```
+
+It returns the length of the original sequence $s$.
+
+### Constraints
+- None
+
+### Time Complexity
+- $O(1)$
+
 ## slice
 ```cpp
 tools::modint_for_rolling_hash hash.slice(int l, int r);
@@ -49,6 +62,20 @@ It returns $\sum_{i = l}^{r - 1} s_i b^{r - 1 - i} \pmod{2^{61} - 1}$ where $s_i
 
 ### Constraints
 - $0 \leq l \leq r \leq \|s\|$
+
+### Time Complexity
+- $O(1)$
+
+## full
+```cpp
+tools::modint_for_rolling_hash hash.full();
+```
+
+It returns the hash of the whole sequence $s$.
+It is equivalent to `hash.slice(0, hash.size())`.
+
+### Constraints
+- None
 
 ### Time Complexity
 - $O(1)$
