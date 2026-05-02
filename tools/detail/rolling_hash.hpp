@@ -5,9 +5,11 @@
 #include <concepts>
 #include <cstdint>
 #include <limits>
+#include <ranges>
 #include <tuple>
 #include <vector>
 #include "tools/extgcd.hpp"
+#include "tools/non_bool_integral.hpp"
 #include "tools/now.hpp"
 #include "tools/pow.hpp"
 #include "tools/pow_mod_cache.hpp"
@@ -46,12 +48,12 @@ namespace tools {
 
   public:
     modint_for_rolling_hash() = default;
-    template <typename T>
-    requires (std::signed_integral<T> && std::numeric_limits<T>::digits <= 63)
+    template <std::signed_integral T>
+    requires (std::numeric_limits<T>::digits <= 63)
     explicit modint_for_rolling_hash(const T x) : m_val(x >= 0 ? calc_mod(x) : calc_mod(POSITIVIZER - calc_mod(static_cast<std::uint64_t>(-(x + 1)) + 1))) {
     }
-    template <typename T>
-    requires (std::unsigned_integral<T> && std::numeric_limits<T>::digits <= 64)
+    template <std::unsigned_integral T>
+    requires (std::numeric_limits<T>::digits <= 64)
     explicit modint_for_rolling_hash(const T x) : m_val(calc_mod(x)) {
     }
 
@@ -141,27 +143,30 @@ namespace tools {
 
   class rolling_hash {
     using mint = tools::modint_for_rolling_hash;
-    inline static tools::pow_mod_cache<mint> m_pow_base = tools::pow_mod_cache<mint>(tools::now());
+    inline static auto m_pow_base = tools::pow_mod_cache<mint>(tools::now());
     std::vector<mint> m_hash;
 
   public:
     rolling_hash() = default;
-    template <typename InputIterator>
-    rolling_hash(InputIterator begin, InputIterator end) {
+    template <std::ranges::input_range R>
+    requires tools::non_bool_integral<std::ranges::range_value_t<R>>
+    rolling_hash(R&& s) {
       this->m_hash.push_back(mint::raw(0));
       const auto base = m_pow_base[1].m_val;
-      for (auto it = begin; it != end; ++it) {
-        this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val, base) + *it);
+      for (auto&& s_i : s) {
+        assert(s_i != 0);
+        this->m_hash.emplace_back(mint::mul(this->m_hash.back().m_val, base) + s_i);
       }
       m_pow_base[this->m_hash.size()];
     }
 
-    mint pow_base(const std::size_t i) const {
+    mint pow_base(const int i) const {
+      assert(i >= 0);
       return m_pow_base[i];
     }
 
-    mint slice(const std::size_t l, const std::size_t r) const {
-      assert(l <= r && r <= this->m_hash.size());
+    mint slice(const int l, const int r) const {
+      assert(0 <= l && l <= r && r <= this->m_hash.size());
       return mint(this->m_hash[r].m_val + mint::POSITIVIZER - mint::mul(this->m_hash[l].m_val, m_pow_base[r - l].m_val));
     }
   };

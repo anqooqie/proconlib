@@ -13,8 +13,9 @@ It calculates hash values for any subsequences of a given sequence.
 
 ## Constructor
 ```cpp
-template <typename InputIterator>
-rolling_hash hash(InputIterator begin, InputIterator end);
+template <std::ranges::input_range R>
+requires tools::non_bool_integral<std::ranges::range_value_t<R>>
+rolling_hash hash(R&& s);
 ```
 
 It calculates hash values for any subsequences of a given sequence.
@@ -23,17 +24,17 @@ It calculates hash values for any subsequences of a given sequence.
 - None of the elements in a given sequence are $0$.
 
 ### Time Complexity
-- $O(n)$ where $n$ is `end` $-$ `begin`
+- $O(\|s\|)$
 
 ## pow_base
 ```cpp
-tools::modint_for_rolling_hash hash.pow_base(std::size_t i);
+tools::modint_for_rolling_hash hash.pow_base(int i);
 ```
 
 It returns $b^{i} \pmod{2^{61} - 1}$ where $b$ is the integer randomly determined immediately after startup of the program.
 
 ### Constraints
-- None
+- $i \geq 0$
 
 ### Time Complexity
 - (first call): $O(i)$
@@ -41,13 +42,13 @@ It returns $b^{i} \pmod{2^{61} - 1}$ where $b$ is the integer randomly determine
 
 ## slice
 ```cpp
-tools::modint_for_rolling_hash hash.slice(std::size_t l, std::size_t r);
+tools::modint_for_rolling_hash hash.slice(int l, int r);
 ```
 
 It returns $\sum_{i = l}^{r - 1} s_i b^{r - 1 - i} \pmod{2^{61} - 1}$ where $s_i$ is the $i$-th element of the given sequence.
 
 ### Constraints
-- $0 \leq l \leq r \leq n$
+- $0 \leq l \leq r \leq \|s\|$
 
 ### Time Complexity
 - $O(1)$
