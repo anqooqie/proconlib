@@ -45,6 +45,7 @@ namespace tools {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             return std::get<0>(this->m_parent->m_small_factors[this->m_i]);
           } else {
@@ -52,6 +53,7 @@ namespace tools {
           }
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             ++this->m_j;
             if (this->m_j >= std::get<1>(this->m_parent->m_small_factors[this->m_i])) {
@@ -68,16 +70,14 @@ namespace tools {
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_i == rhs.m_i && lhs.m_j == rhs.m_j;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_i == rhs.m_i && lhs.m_j == rhs.m_j;
         }
       };
 
@@ -115,6 +115,7 @@ namespace tools {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             return this->m_parent->m_small_factors[this->m_i];
           } else {
@@ -123,6 +124,7 @@ namespace tools {
           }
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             this->m_i /= std::get<2>(this->m_parent->m_small_factors[this->m_i]);
           } else {
@@ -131,16 +133,14 @@ namespace tools {
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_i == rhs.m_i;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_i == rhs.m_i;
         }
       };
 
@@ -179,6 +179,7 @@ namespace tools {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             return this->m_parent->m_small_primes[this->m_i];
           } else {
@@ -186,6 +187,7 @@ namespace tools {
           }
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           if (this->m_i >= 0) {
             ++this->m_i;
             if (this->m_i >= std::ssize(this->m_parent->m_small_primes)) {
@@ -197,16 +199,14 @@ namespace tools {
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_i == rhs.m_i;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_i == rhs.m_i;
         }
       };
 

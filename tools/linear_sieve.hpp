@@ -29,8 +29,8 @@ namespace tools {
 
     public:
       class iterator {
-        tools::linear_sieve<T> const *m_parent;
-        int m_n;
+        tools::linear_sieve<T> const *m_parent = nullptr;
+        int m_n{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -38,29 +38,30 @@ namespace tools {
         using reference = T;
         using pointer = const T*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           return this->m_parent->m_lpf[this->m_n];
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           this->m_n /= **this;
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_n == rhs.m_n;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_n == rhs.m_n;
         }
       };
 
@@ -82,8 +83,8 @@ namespace tools {
 
     public:
       class iterator {
-        tools::linear_sieve<T> const *m_parent;
-        int m_n;
+        tools::linear_sieve<T> const *m_parent = nullptr;
+        int m_n{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -91,29 +92,30 @@ namespace tools {
         using reference = std::tuple<T, T, T>;
         using pointer = const std::tuple<T, T, T>*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::linear_sieve<T> const * const parent, const int n) : m_parent(parent), m_n(n) {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           return value_type(this->m_parent->m_lpf[this->m_n], this->m_parent->m_ord[this->m_n], this->m_parent->m_pow[this->m_n]);
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           this->m_n /= this->m_parent->m_pow[this->m_n];
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_n == rhs.m_n;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_n == rhs.m_n;
         }
       };
 
@@ -136,8 +138,8 @@ namespace tools {
 
     public:
       class iterator {
-        tools::linear_sieve<T> const *m_parent;
-        int m_i;
+        tools::linear_sieve<T> const *m_parent = nullptr;
+        int m_i{};
 
       public:
         using difference_type = std::ptrdiff_t;
@@ -145,29 +147,30 @@ namespace tools {
         using reference = T;
         using pointer = const T*;
         using iterator_category = std::input_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
 
         iterator() = default;
         iterator(tools::linear_sieve<T> const * const parent, const int i) : m_parent(parent), m_i(i) {
         }
 
         reference operator*() const {
+          assert(this->m_parent != nullptr);
           return this->m_parent->m_primes[this->m_i];
         }
         iterator& operator++() {
+          assert(this->m_parent != nullptr);
           ++this->m_i;
           return *this;
         }
         iterator operator++(int) {
+          assert(this->m_parent != nullptr);
           const auto self = *this;
           ++*this;
           return self;
         }
         friend bool operator==(const iterator lhs, const iterator rhs) {
-          assert(lhs.m_parent == rhs.m_parent);
-          return lhs.m_i == rhs.m_i;
-        }
-        friend bool operator!=(const iterator lhs, const iterator rhs) {
-          return !(lhs == rhs);
+          assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+          return lhs.m_parent == rhs.m_parent && lhs.m_i == rhs.m_i;
         }
       };
 

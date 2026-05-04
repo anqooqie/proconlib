@@ -49,9 +49,11 @@ namespace tools {
           }
 
           reference operator*() const {
+            assert(this->m_parent != nullptr);
             return this->m_p;
           }
           iterator& operator++() {
+            assert(this->m_parent != nullptr);
             if (this->m_p >= 7) [[likely]] {
               const T table_index = this->m_parent->sieve<Large>().Find_next((this->m_parent->adjust<Large>(this->m_p) / 30 * 8) | impl<T>::encode(this->m_p % 30));
               this->m_p = (Large ? tools::block_floor(this->m_parent->m_l, 30) : 0) + table_index / 8 * 30 + impl<T>::decode(table_index & 0b111);
@@ -63,16 +65,14 @@ namespace tools {
             return *this;
           }
           iterator operator++(int) {
+            assert(this->m_parent != nullptr);
             const auto self = *this;
             ++*this;
             return self;
           }
           friend bool operator==(const iterator lhs, const iterator rhs) {
-            assert(lhs.m_parent == rhs.m_parent);
-            return lhs.m_p == rhs.m_p;
-          }
-          friend bool operator!=(const iterator lhs, const iterator rhs) {
-            return !(lhs == rhs);
+            assert(lhs.m_parent == nullptr || rhs.m_parent == nullptr || lhs.m_parent == rhs.m_parent);
+            return lhs.m_parent == rhs.m_parent && lhs.m_p == rhs.m_p;
           }
         };
 
