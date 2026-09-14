@@ -9,61 +9,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build & Verification Commands
 
 ```sh
-make resolve                # Resolve file dependencies and generate verify_files.json (run before first verify)
-make verify                 # Run verification (single-process, good for reading errors)
-make verify-multi-process   # Run verification (parallel, uses all cores, fast but output is interleaved)
-make docs                   # Generate and serve documentation locally via Jekyll
+make test                                            # Regression: run every test affected by changes since its last success
+make test FILES="tools/foo.hpp tests/bar.test.cpp"   # Run only these tests and the tests that depend on these headers
+make test COMPILER=g++                               # Either form, restricted to one compiler (g++ or clang++)
+make docs                                            # Generate and serve documentation locally via Jekyll
 ```
 
-**Re-running all affected tests after a change:**
+`make test` wraps `scripts/test.py`, which drives competitive-verifier:
 
-competitive-verifier tracks file dependencies and previous results. It re-runs only the tests that depend on changed files and have not yet succeeded. The full sequence is:
+- **No manual preparation.** Untracked sources under `tools/` and `tests/` (and `docs/*.md` for `make docs`) are included automatically: competitive-verifier finds files through `git ls-files`, so the script registers them with `--intent-to-add` in a temporary copy of the index and runs git and competitive-verifier against that copy. Your own index is never modified. Dependencies are read from the `#include` lines on every run, so adding files or changing includes needs no extra step.
+- **Regression (no `FILES`)** re-runs a test for each compiler whose previous result failed or is older than one of the test's dependencies or `.verify-helper/config.toml`. Results are kept in `.competitive-verifier/local/result.json`.
+- **Focused (`FILES`)** always re-runs the selected tests. `FILES` accepts tests, headers (including deleted ones), and directories. The results are also recorded, so a later regression run does not repeat them.
+- **Output**: one line per failure and a final summary. The exit status is non-zero when anything fails. The failure lines look like this:
+  - `FAILED <test> [<compiler>]: <reason> (log: <path>)` for a test that ran, where the reason is a compile error, a failed test, the judge verdicts, missing test cases, or a timeout.
+  - `FAILED <test>: <reason>` for a test that could not run, such as one that includes a missing file.
 
-```sh
-git add . && make resolve && make verify-multi-process
-```
+  The logs in `.competitive-verifier/local/run/` are kept until the next run.
+- **Time limit**: each test gets 300 seconds for each compiler it runs, as one budget shared by those compilers and including compilation. Beyond that it fails as timed out. The limit also keeps CI quick, so split or shrink a test that approaches it.
+- **Duration**: a regression after touching a widely included header, or a run over all tests, can take around 10 minutes. From a shell tool with a short timeout, run it in the background. If the run is stopped (Ctrl-C, SIGTERM, or SIGHUP), the completed results are kept.
+- Tests with the `IGNORE` attribute (currently the AtCoder PROBLEM tests, whose test cases are unavailable) are never run.
 
-Each step can be skipped depending on the nature of the change:
+The `pre-commit` hook in `.githooks/` runs the regression when the commit touches `tools/`, `tests/`, or `.verify-helper/`. It finishes in seconds if `make test` has already passed. It tests the working tree, not only the staged changes, so an unrelated failing work-in-progress test also blocks the commit. The hook is active when `core.hooksPath` is set to `.githooks`; the dev container sets this up.
 
-| What changed | `git add .` | `make resolve` | `make verify-multi-process` |
-|---|---|---|---|
-| File added or deleted | Required | Required | Required |
-| `#include` dependencies changed | — | Required | Required |
-| Only file contents (no dependency/file-set change) | — | — | Required |
+**Debugging a single test by hand:**
 
-- `git add .` — needed when files are added/deleted so that `make resolve` can discover them.
-- `make resolve` — rebuilds the dependency graph. Takes noticeable time, so skip it when only file contents changed.
-- `make verify-multi-process` — runs outstanding tests in parallel across all cores. Use `make verify` instead when you need to read error output clearly (single-process, sequential).
-
-When iterating on a fix, typically only `make verify-multi-process` (or `make verify`) is needed after each edit.
-
-**Running a single test manually:**
-
-Tests are either STANDALONE (assert-based, self-contained) or PROBLEM (verified against an online judge). The first line of each test file indicates its type (see Test File Conventions below). The compilation step is the same for both, but PROBLEM-type tests additionally require downloading judge test cases via `oj`.
+Tests are either STANDALONE (assert-based, self-contained) or PROBLEM (verified against an online judge). The first line of each test file indicates its type (see Test File Conventions below). To get a binary for a debugger:
 
 ```sh
-# Compile
 g++ --std=c++23 -O2 -Wall -g -I . tests/<name>.test.cpp -o /tmp/test_binary
 # or
 clang++ --std=c++23 -O2 -Wall -g -fno-builtin-std-forward_like -I . tests/<name>.test.cpp -o /tmp/test_binary
 ```
 
-The include path root is the repository root (`.`), so `#include "tools/foo.hpp"` resolves from there.
-
-For STANDALONE tests, just run the compiled binary:
-```sh
-/tmp/test_binary
-```
-
-For PROBLEM tests, use `oj` to download test cases and judge the output:
-```sh
-# Download all test cases (--system fetches full system tests, not just samples)
-oj download --system <judge-url> -d /tmp/testcases
-# Run and judge
-oj test -c /tmp/test_binary -d /tmp/testcases
-```
-
-Note: AtCoder problems are currently unavailable for local testing because AtCoder no longer provides test cases.
+The include path root is the repository root (`.`), so `#include "tools/foo.hpp"` resolves from there. After `make test` has run a PROBLEM test, its test cases are cached under `.competitive-verifier/cache/`: in the problem's directory under `library-checker-problems/` for Library Checker, and under `problems/<hash of the problem URL>/test/` for the other judges.
 
 ## Architecture
 
@@ -114,8 +92,10 @@ namespace tools {
 ## Test File Conventions
 
 There are two types of tests. Line 1 must be exactly one of:
-- `// competitive-verifier: PROBLEM <judge-url>` — verified against an online judge problem. Requires `oj` to download test cases for local execution (see Build & Verification Commands above).
+- `// competitive-verifier: PROBLEM <judge-url>` — verified against an online judge problem. `make test` downloads the test cases (see Build & Verification Commands above).
 - `// competitive-verifier: STANDALONE` — self-contained (uses `assert_that` or `static_assert`). Can be run directly after compilation.
+
+A second line `// competitive-verifier: IGNORE` disables a test. `IGNORE_IF_GCC` and `IGNORE_IF_CLANG` are not supported by `make test`: it treats the skipped compiler as a failure.
 
 Tests always use `std::cin.tie(nullptr); std::ios_base::sync_with_stdio(false);` and `return 0;`.
 

@@ -72,16 +72,16 @@ git submodule update --recursive
 Tests live under `tests/` and are either verified against an online judge or run standalone with assertions. The following `make` targets drive the workflow:
 
 ```sh
-make resolve                # Rebuild the dependency graph (run after files are added/deleted or includes change)
-make verify                 # Run outstanding tests sequentially (clearer error output)
-make verify-multi-process   # Run outstanding tests in parallel
-make docs                   # Generate and serve documentation locally via Jekyll
+make test                                            # Run every test affected by changes since its last success
+make test FILES="tools/foo.hpp tests/bar.test.cpp"   # Run only these tests and the tests that depend on these headers
+make test COMPILER=g++                               # Either form, restricted to one compiler
+make docs                                            # Generate and serve documentation locally via Jekyll
 ```
 
 ## Acknowledgments
 
 - [AtCoder Library](https://github.com/atcoder/ac-library) — included as a git submodule and exposed via `atcoder/` headers. Installed automatically when cloning this repository with `--recursive`; no separate installation is required.
-- [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) — drives CI verification against online judges, and is also required locally for `make verify` and `make docs`. Not required to simply use the library.
+- [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) — drives CI verification against online judges, and is also required locally for `make test` and `make docs`. Not required to simply use the library.
 - [atcoder-cli](https://github.com/Tatamo/atcoder-cli), [online-judge-tools](https://github.com/online-judge-tools/oj), and [verification-helper](https://github.com/online-judge-tools/verification-helper) (`oj-bundle`) — assumed to be pre-installed when using the per-contest workspace template under `template/`. The library itself does not depend on these, and `template/` can be ignored.
 
 Verification uses problems from [AtCoder](https://atcoder.jp/), [Library Checker](https://judge.yosupo.jp/), [Aizu Online Judge](https://onlinejudge.u-aizu.ac.jp/), and [Yukicoder](https://yukicoder.me/).

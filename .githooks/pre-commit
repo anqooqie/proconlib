@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run the regression tests only when the commit touches files the tests depend on
+git diff --cached --quiet -- tools tests .verify-helper && exit 0
+exec python3 scripts/test.py
