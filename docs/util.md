@@ -10,7 +10,7 @@ This file contains code snippets convenient to competitive programming but not a
 Therefore, it makes the program ill-formed to include this file, and may cause undefined behavior.
 
 ### Constraints
-- It requires GCC.
+- It requires libstdc++, which provides `<bits/stdc++.h>`.
 
 ### Time Complexity
 - Not applicable
