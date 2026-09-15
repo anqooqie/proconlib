@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/multivariate_convolution"
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/multivariate_convolution
 
 #include <functional>
 #include <iostream>

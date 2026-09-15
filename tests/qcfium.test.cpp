@@ -1,7 +1,4 @@
 // competitive-verifier: STANDALONE
-#ifdef __clang__
-  #define IGNORE
-#endif
 
 #include <iostream>
 #include "tools/qcfium.hpp"
