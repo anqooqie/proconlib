@@ -1,8 +1,8 @@
 #ifndef TOOLS_PRESET_SEGTREE_BEATS_HPP
 #define TOOLS_PRESET_SEGTREE_BEATS_HPP
 
-#include <cassert>
 #include <algorithm>
+#include <cassert>
 #include <limits>
 #include <vector>
 #include "tools/segtree_beats.hpp"
@@ -181,36 +181,30 @@ namespace tools {
       }
 
       template <typename T>
-      using Base = tools::segtree_beats<S<T>, op<T>, e<T>, F<T>, mapping<T>, composition<T>, id<T>>;
+      using base = tools::segtree_beats<S<T>, op<T>, e<T>, F<T>, mapping<T>, composition<T>, id<T>>;
     }
   }
 
   template <typename T>
   class preset_segtree_beats {
-  private:
-    tools::detail::preset_segtree_beats::Base<T> m_base;
+  public:
     using S = tools::detail::preset_segtree_beats::S<T>;
     using F = tools::detail::preset_segtree_beats::F<T>;
 
-  public:
-    preset_segtree_beats(const tools::preset_segtree_beats<T>&) = default;
-    preset_segtree_beats(tools::preset_segtree_beats<T>&&) = default;
-    ~preset_segtree_beats() = default;
-    tools::preset_segtree_beats<T>& operator=(const tools::preset_segtree_beats<T>&) = default;
-    tools::preset_segtree_beats<T>& operator=(tools::preset_segtree_beats<T>&&) = default;
+  private:
+    tools::detail::preset_segtree_beats::base<T> m_base;
 
+  public:
     explicit preset_segtree_beats(const int n) : m_base(n) {
     }
-    template <typename InputIterator>
-    preset_segtree_beats(const InputIterator begin, const InputIterator end) : m_base([&]() {
-      std::vector<S> v;
-      for (auto it = begin; it != end; ++it) {
-        v.emplace_back(*it, 1);
+    explicit preset_segtree_beats(const std::vector<T>& v) : m_base([&]() {
+      std::vector<S> w;
+      w.reserve(v.size());
+      for (const T& x : v) {
+        w.emplace_back(x, 1);
       }
-      return v;
+      return w;
     }()) {
-    }
-    explicit preset_segtree_beats(const std::vector<T>& v) : preset_segtree_beats(v.begin(), v.end()) {
     }
 
     void set(const int p, const T x) {
