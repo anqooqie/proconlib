@@ -80,7 +80,7 @@ make docs                                            # Generate and serve docume
 
 ## Acknowledgments
 
-- [AtCoder Library](https://github.com/atcoder/ac-library) — included as a git submodule and exposed via `atcoder/` headers. Installed automatically when cloning this repository with `--recursive`; no separate installation is required.
+- [AtCoder Library](https://github.com/atcoder/ac-library) — a [patched fork](https://github.com/anqooqie/ac-library) is included as a git submodule and exposed via `atcoder/` headers. Installed automatically when cloning this repository with `--recursive`; no separate installation is required. Library headers assume the patches, so the upstream release cannot be used in its place.
 - [competitive-verifier](https://github.com/competitive-verifier/competitive-verifier) — drives CI verification against online judges, and is also required locally for `make test` and `make docs`. Not required to simply use the library.
 - [atcoder-cli](https://github.com/Tatamo/atcoder-cli), [online-judge-tools](https://github.com/online-judge-tools/oj), and [verification-helper](https://github.com/online-judge-tools/verification-helper) (`oj-bundle`) — assumed to be pre-installed when using the per-contest workspace template under `template/`. The library itself does not depend on these, and `template/` can be ignored.
 
