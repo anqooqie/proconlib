@@ -82,6 +82,8 @@ namespace tools {
 
 **Include style**: quoted paths from repo root for library tools (`"tools/foo.hpp"`, `"atcoder/convolution.hpp"`), angle brackets for standard library. Within each group (standard / library), sort alphabetically.
 
+**Interface conformance over house style** — when a class is clearly modeled on one from the standard library, AtCoder Library or Boost, match the model's interface, and apply the conventions here only where they do not change it. `tools::preset_segtree_beats` follows `atcoder::lazy_segtree`: its template parameter stays unconstrained, its constructors are not range-based, and it has no `size()`, because the model has none of these; Rule of Zero, include order and the naming of internals still apply.
+
 **Ongoing modernization policies** (applied when touching existing code):
 - **`int` over `std::size_t`** for sizes, indices, and return values. Competitive programming inputs fit in `int`; mixing signed/unsigned is error-prone.
 - **Concept constraints on template parameters**: prefer `tools::non_bool_integral T` (or other appropriate concepts) over unconstrained `typename T`.
