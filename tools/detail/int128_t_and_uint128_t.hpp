@@ -30,8 +30,8 @@
 #include "tools/popcount.hpp"
 
 namespace tools {
-  using uint128_t = unsigned __int128;
-  using int128_t = __int128;
+  __extension__ using uint128_t = unsigned __int128;
+  __extension__ using int128_t = __int128;
 
   template <>
   struct is_integral<tools::int128_t> : std::true_type {};
