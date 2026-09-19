@@ -15,7 +15,6 @@
 #include <vector>
 #include "tools/ceil_log2.hpp"
 #include "tools/countr_zero.hpp"
-#include "tools/fix.hpp"
 #include "tools/floor_log2.hpp"
 #include "tools/pow2.hpp"
 
@@ -86,7 +85,7 @@ namespace tools {
 
     void wipe() const {
       if (!this->empty()) {
-        tools::fix([&](auto&& dfs, int id) -> void {
+        [&](this const auto& dfs, int id) -> void {
           if (id >= 0) {
             assert(0 <= id && id < std::ssize(s_inner_nodes));
             assert(s_inner_nodes[id].refcnt > 0);
@@ -105,7 +104,7 @@ namespace tools {
               free_leaf(id);
             }
           }
-        })(this->m_root);
+        }(this->m_root);
       }
     }
 
@@ -177,8 +176,8 @@ namespace tools {
     persistent_array(R&& v) {
       this->m_size = std::ranges::distance(v);
       if (!this->empty()) {
-        this->m_root = tools::fix([&](auto&& dfs, const int l, const int r, const int h) -> int {
-          assert(0 <= l && l < r && r <= this->m_size);
+        this->m_root = [&, self = this](this const auto& dfs, const int l, const int r, const int h) -> int {
+          assert(0 <= l && l < r && r <= self->m_size);
           assert(h >= 0);
           assert(r - l <= tools::pow2(h));
 
@@ -190,7 +189,7 @@ namespace tools {
           }
 
           const auto m = l + tools::pow2(h - 1);
-          if (this->m_size <= m) {
+          if (self->m_size <= m) {
             return dfs(l, r, h - 1);
           }
 
@@ -201,7 +200,7 @@ namespace tools {
           increment_refcnt(s_inner_nodes[id].children);
           s_inner_nodes[id].refcnt = 0;
           return id;
-        })(0, this->m_size, tools::ceil_log2(this->m_size));
+        }(0, this->m_size, tools::ceil_log2(this->m_size));
         increment_refcnt(this->m_root);
       }
     }
@@ -282,8 +281,8 @@ namespace tools {
 
       tools::persistent_array<T> res;
       res.m_size = this->m_size;
-      res.m_root = tools::fix([&](auto&& dfs, const int id, const int l, const int r, const int h) -> int {
-        assert(0 <= l && l < r && r <= this->m_size);
+      res.m_root = [&, self = this](this const auto& dfs, const int id, const int l, const int r, const int h) -> int {
+        assert(0 <= l && l < r && r <= self->m_size);
         assert(h >= 0);
         assert(r - l <= tools::pow2(h));
 
@@ -298,7 +297,7 @@ namespace tools {
         assert(r - l >= 2);
         assert(h >= 1);
         const auto m = l + tools::pow2(h - 1);
-        if (this->m_size <= m) {
+        if (self->m_size <= m) {
           return dfs(id, l, r, h - 1);
         }
 
@@ -315,7 +314,7 @@ namespace tools {
         increment_refcnt(s_inner_nodes[new_id].children);
         s_inner_nodes[new_id].refcnt = 0;
         return new_id;
-      })(this->m_root, 0, this->m_size, tools::ceil_log2(this->m_size));
+      }(this->m_root, 0, this->m_size, tools::ceil_log2(this->m_size));
       increment_refcnt(res.m_root);
       return res;
     }
@@ -332,12 +331,12 @@ namespace tools {
         res.m_root = ~new_id;
         increment_refcnt(res.m_root);
       } else {
-        res.m_root = tools::fix([&](auto&& dfs, const int id, const int l, const int h) -> int {
-          assert(0 <= l && l < this->m_size);
+        res.m_root = [&, self = this](this const auto& dfs, const int id, const int l, const int h) -> int {
+          assert(0 <= l && l < self->m_size);
           assert(h >= 0);
-          assert(this->m_size - l <= tools::pow2(h));
+          assert(self->m_size - l <= tools::pow2(h));
 
-          if (this->m_size - l == tools::pow2(h)) {
+          if (self->m_size - l == tools::pow2(h)) {
             const auto new_leaf_id = malloc_leaf();
             s_leaf_nodes[new_leaf_id].data = std::forward<U>(x);
             s_leaf_nodes[new_leaf_id].refcnt = 0;
@@ -350,18 +349,18 @@ namespace tools {
 
           assert(h >= 1);
           const auto m = l + tools::pow2(h - 1);
-          if (this->m_size <= m) {
+          if (self->m_size <= m) {
             return dfs(id, l, h - 1);
           }
 
-          assert(this->m_size - l >= 2);
+          assert(self->m_size - l >= 2);
           const auto new_id = malloc_inner();
           const auto right_id = dfs(s_inner_nodes[id].children[1], m, h - 1);
           s_inner_nodes[new_id].children = {s_inner_nodes[id].children[0], right_id};
           increment_refcnt(s_inner_nodes[new_id].children);
           s_inner_nodes[new_id].refcnt = 0;
           return new_id;
-        })(this->m_root, 0, tools::ceil_log2(this->m_size));
+        }(this->m_root, 0, tools::ceil_log2(this->m_size));
         increment_refcnt(res.m_root);
       }
       return res;
@@ -372,29 +371,29 @@ namespace tools {
       tools::persistent_array<T> res;
       res.m_size = this->m_size - 1;
       if (!res.empty()) {
-        res.m_root = tools::fix([&](auto&& dfs, const int id, const int l, const int h) -> int {
-          assert(0 <= l && l + 2 <= this->m_size);
+        res.m_root = [&, self = this](this const auto& dfs, const int id, const int l, const int h) -> int {
+          assert(0 <= l && l + 2 <= self->m_size);
           assert(h >= 1);
-          assert(this->m_size - l <= tools::pow2(h));
+          assert(self->m_size - l <= tools::pow2(h));
 
-          if (this->m_size - l == tools::pow2(h - 1) + 1) {
+          if (self->m_size - l == tools::pow2(h - 1) + 1) {
             return s_inner_nodes[id].children[0];
           }
 
           assert(h >= 2);
           const auto m = l + tools::pow2(h - 1);
-          if (this->m_size <= m) {
+          if (self->m_size <= m) {
             return dfs(id, l, h - 1);
           }
 
-          assert(this->m_size - l >= 3);
+          assert(self->m_size - l >= 3);
           const auto new_id = malloc_inner();
           const auto right_id = dfs(s_inner_nodes[id].children[1], m, h - 1);
           s_inner_nodes[new_id].children = {s_inner_nodes[id].children[0], right_id};
           increment_refcnt(s_inner_nodes[new_id].children);
           s_inner_nodes[new_id].refcnt = 0;
           return new_id;
-        })(this->m_root, 0, tools::ceil_log2(this->m_size));
+        }(this->m_root, 0, tools::ceil_log2(this->m_size));
         increment_refcnt(res.m_root);
       }
       return res;
@@ -403,8 +402,8 @@ namespace tools {
     explicit operator std::vector<T>() const {
       std::vector<T> res(this->m_size);
       if (!this->empty()) {
-        tools::fix([&](auto&& dfs, const int id, const int l, const int r, const int h) -> void {
-          assert(0 <= l && l < r && r <= this->m_size);
+        [&, self = this](this const auto& dfs, const int id, const int l, const int r, const int h) -> void {
+          assert(0 <= l && l < r && r <= self->m_size);
           assert(h >= 0);
           assert(r - l <= tools::pow2(h));
 
@@ -417,14 +416,14 @@ namespace tools {
           assert(r - l >= 2);
           assert(h >= 1);
           const auto m = l + tools::pow2(h - 1);
-          if (this->m_size <= m) {
+          if (self->m_size <= m) {
             dfs(id, l, r, h - 1);
             return;
           }
 
           dfs(s_inner_nodes[id].children[0], l, m, h - 1);
           dfs(s_inner_nodes[id].children[1], m, r, h - 1);
-        })(this->m_root, 0, this->m_size, tools::ceil_log2(this->m_size));
+        }(this->m_root, 0, this->m_size, tools::ceil_log2(this->m_size));
       }
       return res;
     }

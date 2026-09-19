@@ -11,7 +11,6 @@
 #include <variant>
 #include <vector>
 #include "tools/ceil_log2.hpp"
-#include "tools/fix.hpp"
 #include "tools/nop_monoid.hpp"
 
 namespace tools {
@@ -87,17 +86,17 @@ namespace tools {
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     void set(const int p, const S& x) {
       assert(0 <= p && p < this->m_size);
-      tools::fix([&](auto&& dfs, const int h, const int k) -> void {
+      [&, self = this](this const auto& dfs, const int h, const int k) -> void {
         if (h > 0) {
           if constexpr (has_lazy<FM>) {
-            this->push(k);
+            self->push(k);
           }
-          dfs(h - 1, (this->capacity() + p) >> (h - 1));
-          this->update(k);
+          dfs(h - 1, (self->capacity() + p) >> (h - 1));
+          self->update(k);
         } else {
-          this->m_data[this->capacity() + p] = x;
+          self->m_data[self->capacity() + p] = x;
         }
-      })(this->m_height, 1);
+      }(this->m_height, 1);
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     S get(const int p) {
@@ -106,31 +105,31 @@ namespace tools {
     template <typename SFINAE = SM> requires (!has_data<SFINAE>)
     F get(const int p) {
       assert(0 <= p && p < this->m_size);
-      return tools::fix([&](auto&& dfs, const int h, const int k) -> F {
+      return [&, self = this](this const auto& dfs, const int h, const int k) -> F {
         if (h > 0) {
-          this->push(k);
-          return dfs(h - 1, (this->capacity() + p) >> (h - 1));
+          self->push(k);
+          return dfs(h - 1, (self->capacity() + p) >> (h - 1));
         } else {
-          return this->m_lazy[this->capacity() + p];
+          return self->m_lazy[self->capacity() + p];
         }
-      })(this->m_height, 1);
+      }(this->m_height, 1);
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     S prod(const int l, const int r) {
       assert(0 <= l && l <= r && r <= this->m_size);
       if (l == r) return SM::e();
-      return tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> S {
+      return [&, self = this](this const auto& dfs, const int k, const int kl, const int kr) -> S {
         assert(kl < kr);
-        if (l <= kl && kr <= r) return this->m_data[k];
+        if (l <= kl && kr <= r) return self->m_data[k];
         if constexpr (has_lazy<FM>) {
-          this->push(k);
+          self->push(k);
         }
         const auto km = std::midpoint(kl, kr);
         S res = SM::e();
         if (l < km) res = SM::op(res, dfs(k << 1, kl, km));
         if (km < r) res = SM::op(res, dfs((k << 1) + 1, km, kr));
         return res;
-      })(1, 0, this->capacity());
+      }(1, 0, this->capacity());
     }
     template <typename SFINAE = SM> requires (has_data<SFINAE>)
     S all_prod() const {
@@ -144,32 +143,32 @@ namespace tools {
     void apply(const int l, const int r, const F& f) {
       assert(0 <= l && l <= r && r <= this->m_size);
       if (l == r) return;
-      tools::fix([&](auto&& dfs, const int k, const int kl, const int kr) -> void {
+      [&, self = this](this const auto& dfs, const int k, const int kl, const int kr) -> void {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
-          this->all_apply(k, f);
+          self->all_apply(k, f);
           return;
         }
-        this->push(k);
+        self->push(k);
         const auto km = std::midpoint(kl, kr);
         if (l < km) dfs(k << 1, kl, km);
         if (km < r) dfs((k << 1) + 1, km, kr);
         if constexpr (has_data<SM>) {
-          this->update(k);
+          self->update(k);
         }
-      })(1, 0, this->capacity());
+      }(1, 0, this->capacity());
     }
     template <typename G, typename SFINAE = SM> requires (has_data<SFINAE>)
     int max_right(const int l, const G& g) {
       assert(0 <= l && l <= this->m_size);
       assert(g(SM::e()));
       if (l == this->m_size) return l;
-      return std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
+      return std::min([&, self = this](this const auto& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
           if constexpr (has_lazy<FM>) {
-            this->push(k);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           if (l < km) {
@@ -181,10 +180,10 @@ namespace tools {
             return dfs(c, (k << 1) + 1, km, kr);
           }
         } else {
-          if (const auto wc = SM::op(c, this->m_data[k]); g(wc)) return {wc, kr};
+          if (const auto wc = SM::op(c, self->m_data[k]); g(wc)) return {wc, kr};
           if (kr - kl == 1) return {c, kl};
           if constexpr (has_lazy<FM>) {
-            this->push(k);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           const auto [hc, hr] = dfs(c, k << 1, kl, km);
@@ -192,19 +191,19 @@ namespace tools {
           if (hr < km) return {hc, hr};
           return dfs(hc, (k << 1) + 1, km, kr);
         }
-      })(SM::e(), 1, 0, this->capacity()).second, this->m_size);
+      }(SM::e(), 1, 0, this->capacity()).second, this->m_size);
     }
     template <typename G, typename SFINAE = SM> requires (has_data<SFINAE>)
     int min_left(const int r, const G& g) {
       assert(0 <= r && r <= this->m_size);
       assert(g(SM::e()));
       if (r == 0) return r;
-      return tools::fix([&](auto&& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
+      return [&, self = this](this const auto& dfs, const S& c, const int k, const int kl, const int kr) -> std::pair<S, int> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
           if constexpr (has_lazy<FM>) {
-            this->push(k);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           if (km < r) {
@@ -216,10 +215,10 @@ namespace tools {
             return dfs(c, k << 1, kl, km);
           }
         } else {
-          if (const auto wc = SM::op(this->m_data[k], c); g(wc)) return {wc, kl};
+          if (const auto wc = SM::op(self->m_data[k], c); g(wc)) return {wc, kl};
           if (kr - kl == 1) return {c, kr};
           if constexpr (has_lazy<FM>) {
-            this->push(k);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           const auto [hc, hl] = dfs(c, (k << 1) + 1, km, kr);
@@ -227,7 +226,7 @@ namespace tools {
           if (km < hl) return {hc, hl};
           return dfs(hc, k << 1, kl, km);
         }
-      })(SM::e(), 1, 0, this->capacity()).second;
+      }(SM::e(), 1, 0, this->capacity()).second;
     }
   };
 }

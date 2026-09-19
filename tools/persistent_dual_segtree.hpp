@@ -11,7 +11,6 @@
 #include <utility>
 #include <vector>
 #include "tools/ceil_log2.hpp"
-#include "tools/fix.hpp"
 
 namespace tools {
   template <typename FM>
@@ -68,14 +67,14 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       p -= buffer.m_offset;
 
-      return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> F {
+      return [&](this const auto& dfs, const int k, const long long kl, const long long kr, const F& lz) -> F {
         assert(kl < kr);
         if (p <= kl && kr <= p + 1) return FM::op(lz, buffer.m_nodes[k].lazy);
         const auto km = std::midpoint(kl, kr);
         const F next_lz = FM::op(lz, buffer.m_nodes[k].lazy);
         if (p < km) return dfs(buffer.m_nodes[k].children[0], kl, km, next_lz);
         else return dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
-      })(this->m_root, 0, this->capacity(), FM::e());
+      }(this->m_root, 0, this->capacity(), FM::e());
     }
     tools::persistent_dual_segtree<FM> apply(const long long p, const F& f) const {
       return this->apply(p, p + 1, f);
@@ -88,7 +87,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
+      res.m_root = [&](this const auto& dfs, const int k, const long long kl, const long long kr, const F& lz) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           const F modified_lz = FM::op(f, lz);
@@ -106,7 +105,7 @@ namespace tools {
         const auto right_child = dfs(buffer.m_nodes[k].children[1], km, kr, next_lz);
         buffer.m_nodes.push_back({FM::e(), {left_child, right_child}});
         return buffer.m_nodes.size() - 1;
-      })(res.m_root, 0, res.capacity(), FM::e());
+      }(res.m_root, 0, res.capacity(), FM::e());
       return res;
     }
     tools::persistent_dual_segtree<FM> rollback(const tools::persistent_dual_segtree<FM>& s, long long l, long long r) const {
@@ -119,7 +118,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
+      res.m_root = [&](this const auto& dfs, const int k1, const int k2, const long long kl, const long long kr, const F& lz1, const F& lz2) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
           if (lz2 == FM::e()) return k2;
@@ -138,7 +137,7 @@ namespace tools {
         const auto right_child = dfs(buffer.m_nodes[k1].children[1], buffer.m_nodes[k2].children[1], km, kr, next_lz1, next_lz2);
         buffer.m_nodes.push_back({FM::e(), {left_child, right_child}});
         return buffer.m_nodes.size() - 1;
-      })(res.m_root, s.m_root, 0, res.capacity(), FM::e(), FM::e());
+      }(res.m_root, s.m_root, 0, res.capacity(), FM::e(), FM::e());
       return res;
     }
   };

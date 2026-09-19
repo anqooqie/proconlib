@@ -5,7 +5,6 @@
 #include <cassert>
 #include <concepts>
 #include <map>
-#include "tools/fix.hpp"
 #include "tools/is_prime.hpp"
 #include "tools/pow.hpp"
 #include "tools/pow_mod.hpp"
@@ -53,7 +52,7 @@ namespace tools {
       assert(1 <= x && x < this->m_P);
 
       T m = 1;
-      tools::fix([&](auto&& dfs, const int l, const int r, const T Xbar_l_r) -> void {
+      [&, self = this](this const auto& dfs, const int l, const int r, const T Xbar_l_r) -> void {
         switch (r - l) {
         case 0:
           break;
@@ -61,19 +60,19 @@ namespace tools {
           {
             int f_l;
             T v;
-            for (f_l = 0, v = Xbar_l_r; v != 1; ++f_l, v = tools::pow_mod(v, this->m_p[l], this->m_P));
-            m *= tools::pow(this->m_p[l], f_l);
+            for (f_l = 0, v = Xbar_l_r; v != 1; ++f_l, v = tools::pow_mod(v, self->m_p[l], self->m_P));
+            m *= tools::pow(self->m_p[l], f_l);
           }
           break;
         default:
           {
             const auto m = (l + r) / 2;
-            dfs(l, m, tools::pow_mod(Xbar_l_r, this->m_E[m][r], this->m_P));
-            dfs(m, r, tools::pow_mod(Xbar_l_r, this->m_E[l][m], this->m_P));
+            dfs(l, m, tools::pow_mod(Xbar_l_r, self->m_E[m][r], self->m_P));
+            dfs(m, r, tools::pow_mod(Xbar_l_r, self->m_E[l][m], self->m_P));
           }
           break;
         }
-      })(0, this->n(), x);
+      }(0, this->n(), x);
 
       return m;
     }

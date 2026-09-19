@@ -5,7 +5,6 @@
 #include <ranges>
 #include <vector>
 #include "tools/assert_that.hpp"
-#include "tools/fix.hpp"
 #include "tools/hld.hpp"
 #include "tools/undoable_dsu.hpp"
 
@@ -19,7 +18,7 @@ std::vector<int> solve(const int N, const std::vector<int>& A, const std::vector
   std::vector<int> answers(N);
   std::vector<bool> has_cycle(N, false);
   tools::undoable_dsu dsu(N);
-  tools::fix([&](auto&& dfs, const int v) -> void {
+  [&](this const auto& dfs, const int v) -> void {
     const auto same = dsu.same(A[v], B[v]);
     const bool has_cycle_A = has_cycle[dsu.leader(A[v])];
     const bool has_cycle_B = has_cycle[dsu.leader(B[v])];
@@ -40,7 +39,7 @@ std::vector<int> solve(const int N, const std::vector<int>& A, const std::vector
     dsu.undo();
     has_cycle[dsu.leader(A[v])] = has_cycle_A;
     has_cycle[dsu.leader(B[v])] = has_cycle_B;
-  })(0);
+  }(0);
 
   return answers | std::views::drop(1) | std::ranges::to<std::vector>();
 }

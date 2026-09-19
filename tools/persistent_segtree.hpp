@@ -11,7 +11,6 @@
 #include <utility>
 #include <vector>
 #include "tools/ceil_log2.hpp"
-#include "tools/fix.hpp"
 
 namespace tools {
   template <typename SM>
@@ -72,7 +71,7 @@ namespace tools {
       for (int h = 1; h <= buffer.m_height; ++h) {
         buffer.m_nodes.push_back({SM::e(), {static_cast<int>(buffer.m_nodes.size()) - 1, static_cast<int>(buffer.m_nodes.size()) - 1}});
       }
-      this->m_root = tools::fix([&](auto&& dfs, const int h, const long long kl, const long long kr) -> int {
+      this->m_root = [&](this const auto& dfs, const int h, const long long kl, const long long kr) -> int {
         assert(kl < kr);
         if (buffer.m_size <= kl) return buffer.m_size + h;
         if (h == 0) return kl;
@@ -81,7 +80,7 @@ namespace tools {
         const auto right_child = dfs(h - 1, km, kr);
         buffer.m_nodes.push_back({SM::op(buffer.m_nodes[left_child].data, buffer.m_nodes[right_child].data), {left_child, right_child}});
         return buffer.m_nodes.size() - 1;
-      })(buffer.m_height, 0, this->capacity());
+      }(buffer.m_height, 0, this->capacity());
     }
 
     long long lower_bound() const {
@@ -96,7 +95,7 @@ namespace tools {
       p -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr) -> int {
+      res.m_root = [&](this const auto& dfs, const int k, const long long kl, const long long kr) -> int {
         assert(kl < kr);
         if (p <= kl && kr <= p + 1) {
           buffer.m_nodes.push_back({x, buffer.m_nodes[k].children});
@@ -110,7 +109,7 @@ namespace tools {
         const auto right_child = dfs(buffer.m_nodes[k].children[1], km, kr);
         buffer.m_nodes.push_back({SM::op(buffer.m_nodes[left_child].data, buffer.m_nodes[right_child].data), {left_child, right_child}});
         return buffer.m_nodes.size() - 1;
-      })(res.m_root, 0, res.capacity());
+      }(res.m_root, 0, res.capacity());
       return res;
     }
     S get(const long long p) const {
@@ -123,7 +122,7 @@ namespace tools {
       l -= buffer.m_offset;
       r -= buffer.m_offset;
 
-      return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr) -> S {
+      return [&](this const auto& dfs, const int k, const long long kl, const long long kr) -> S {
         assert(kl < kr);
         if (l <= kl && kr <= r) return buffer.m_nodes[k].data;
         const auto km = std::midpoint(kl, kr);
@@ -131,7 +130,7 @@ namespace tools {
         if (l < km) res = SM::op(res, dfs(buffer.m_nodes[k].children[0], kl, km));
         if (km < r) res = SM::op(res, dfs(buffer.m_nodes[k].children[1], km, kr));
         return res;
-      })(this->m_root, 0, this->capacity());
+      }(this->m_root, 0, this->capacity());
     }
     S all_prod() const {
       return this->m_buffer->m_nodes[this->m_root].data;
@@ -146,7 +145,7 @@ namespace tools {
       r -= buffer.m_offset;
 
       auto res = *this;
-      res.m_root = tools::fix([&](auto&& dfs, const int k1, const int k2, const long long kl, const long long kr) -> int {
+      res.m_root = [&](this const auto& dfs, const int k1, const int k2, const long long kl, const long long kr) -> int {
         assert(kl < kr);
         if (l <= kl && kr <= r) return k2;
         if (kr <= l || r <= kl) return k1;
@@ -155,7 +154,7 @@ namespace tools {
         const auto right_child = dfs(buffer.m_nodes[k1].children[1], buffer.m_nodes[k2].children[1], km, kr);
         buffer.m_nodes.push_back({SM::op(buffer.m_nodes[left_child].data, buffer.m_nodes[right_child].data), {left_child, right_child}});
         return buffer.m_nodes.size() - 1;
-      })(res.m_root, s.m_root, 0, res.capacity());
+      }(res.m_root, s.m_root, 0, res.capacity());
       return res;
     }
     template <typename G>
@@ -166,7 +165,7 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       l -= buffer.m_offset;
 
-      return buffer.m_offset + std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
+      return buffer.m_offset + std::min([&](this const auto& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
@@ -188,7 +187,7 @@ namespace tools {
           if (hr < km) return {hc, hr};
           return dfs(hc, buffer.m_nodes[k].children[1], km, kr);
         }
-      })(SM::e(), this->m_root, 0, this->capacity()).second, buffer.m_size);
+      }(SM::e(), this->m_root, 0, this->capacity()).second, buffer.m_size);
     }
     template <typename G>
     long long min_left(long long r, const G& g) const {
@@ -198,7 +197,7 @@ namespace tools {
       auto& buffer = *this->m_buffer;
       r -= buffer.m_offset;
 
-      return buffer.m_offset + tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
+      return buffer.m_offset + [&](this const auto& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
@@ -220,7 +219,7 @@ namespace tools {
           if (km < hl) return {hc, hl};
           return dfs(hc, buffer.m_nodes[k].children[0], kl, km);
         }
-      })(SM::e(), this->m_root, 0, this->capacity()).second;
+      }(SM::e(), this->m_root, 0, this->capacity()).second;
     }
   };
 }

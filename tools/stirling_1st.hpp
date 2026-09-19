@@ -6,7 +6,6 @@
 #include <ranges>
 #include <vector>
 #include "tools/fact_mod_cache.hpp"
-#include "tools/fix.hpp"
 #include "tools/floor_log2.hpp"
 #include "tools/fps.hpp"
 #include "tools/is_prime.hpp"
@@ -32,11 +31,11 @@ namespace tools {
         }
       }
 
-      const auto s = tools::fix([&](auto&& dfs, const int l, const int r) -> tools::polynomial<M> {
+      const auto s = [&](this const auto& dfs, const int l, const int r) -> tools::polynomial<M> {
         if (l == r) return tools::polynomial<M>{M(1)};
         const auto block = tools::pow2(tools::floor_log2(r - l));
         return block == r - l ? bases[tools::floor_log2(r - l)](tools::polynomial<M>{M(-l), M(1)}) : dfs(l, l + block) * dfs(l + block, r);
-      })(0, N);
+      }(0, N);
 
       return std::views::iota(0, K + 1) | std::views::transform([N, s](const int k) -> const M& {
         static const auto zero = M::raw(0);

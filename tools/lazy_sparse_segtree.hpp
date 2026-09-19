@@ -12,7 +12,6 @@
 #include <variant>
 #include <vector>
 #include "tools/ceil_log2.hpp"
-#include "tools/fix.hpp"
 #include "tools/monoid.hpp"
 #include "tools/nop_monoid.hpp"
 
@@ -140,24 +139,24 @@ namespace tools {
       p -= this->m_offset;
 
       this->make_mutable();
-      tools::fix([&](auto&& dfs, const int h, const int k) -> void {
-        assert(this->is_mutable(k));
+      [&, self = this](this const auto& dfs, const int h, const int k) -> void {
+        assert(self->is_mutable(k));
         if (h > 0) {
-          assert(!this->is_leaf(k));
+          assert(!self->is_leaf(k));
           if constexpr (has_lazy) {
-            this->make_mutable(k, 0);
-            this->make_mutable(k, 1);
-            this->push(k);
+            self->make_mutable(k, 0);
+            self->make_mutable(k, 1);
+            self->push(k);
           } else {
-            this->make_mutable(k, ((this->capacity() + p) >> (h - 1)) & 1);
+            self->make_mutable(k, ((self->capacity() + p) >> (h - 1)) & 1);
           }
-          dfs(h - 1, this->m_nodes[k].children[((this->capacity() + p) >> (h - 1)) & 1]);
-          this->update(k);
+          dfs(h - 1, self->m_nodes[k].children[((self->capacity() + p) >> (h - 1)) & 1]);
+          self->update(k);
         } else {
-          assert(this->is_leaf(k));
-          this->m_nodes[k].data = x;
+          assert(self->is_leaf(k));
+          self->m_nodes[k].data = x;
         }
-      })(this->m_height, this->m_root);
+      }(this->m_height, this->m_root);
     }
     S get(const long long p) requires has_data {
       return this->prod(p, p + 1);
@@ -167,19 +166,19 @@ namespace tools {
       p -= this->m_offset;
 
       this->make_mutable();
-      return tools::fix([&](auto&& dfs, const int h, const int k) -> F {
-        assert(this->is_mutable(k));
+      return [&, self = this](this const auto& dfs, const int h, const int k) -> F {
+        assert(self->is_mutable(k));
         if (h > 0) {
-          assert(!this->is_leaf(k));
-          this->make_mutable(k, 0);
-          this->make_mutable(k, 1);
-          this->push(k);
-          return dfs(h - 1, this->m_nodes[k].children[((this->capacity() + p) >> (h - 1)) & 1]);
+          assert(!self->is_leaf(k));
+          self->make_mutable(k, 0);
+          self->make_mutable(k, 1);
+          self->push(k);
+          return dfs(h - 1, self->m_nodes[k].children[((self->capacity() + p) >> (h - 1)) & 1]);
         } else {
-          assert(this->is_leaf(k));
-          return this->m_nodes[k].lazy;
+          assert(self->is_leaf(k));
+          return self->m_nodes[k].lazy;
         }
-      })(this->m_height, this->m_root);
+      }(this->m_height, this->m_root);
     }
     S prod(long long l, long long r) requires has_data {
       assert(this->lower_bound() <= l && l <= r && r <= this->upper_bound());
@@ -190,20 +189,20 @@ namespace tools {
       if constexpr (has_lazy) {
         this->make_mutable();
       }
-      return tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr) -> S {
+      return [&, self = this](this const auto& dfs, const int k, const long long kl, const long long kr) -> S {
         assert(kl < kr);
-        if (l <= kl && kr <= r) return this->m_nodes[k].data;
+        if (l <= kl && kr <= r) return self->m_nodes[k].data;
         if constexpr (has_lazy) {
-          this->make_mutable(k, 0);
-          this->make_mutable(k, 1);
-          this->push(k);
+          self->make_mutable(k, 0);
+          self->make_mutable(k, 1);
+          self->push(k);
         }
         const auto km = std::midpoint(kl, kr);
         S res = SM::e();
-        if (l < km) res = SM::op(res, dfs(this->m_nodes[k].children[0], kl, km));
-        if (km < r) res = SM::op(res, dfs(this->m_nodes[k].children[1], km, kr));
+        if (l < km) res = SM::op(res, dfs(self->m_nodes[k].children[0], kl, km));
+        if (km < r) res = SM::op(res, dfs(self->m_nodes[k].children[1], km, kr));
         return res;
-      })(this->m_root, 0, this->capacity());
+      }(this->m_root, 0, this->capacity());
     }
     S all_prod() const requires has_data {
       return this->m_nodes[this->m_root].data;
@@ -218,22 +217,22 @@ namespace tools {
       r -= this->m_offset;
 
       this->make_mutable();
-      tools::fix([&](auto&& dfs, const int k, const long long kl, const long long kr) -> void {
+      [&, self = this](this const auto& dfs, const int k, const long long kl, const long long kr) -> void {
         assert(kl < kr);
         if (l <= kl && kr <= r) {
-          this->all_apply(k, f);
+          self->all_apply(k, f);
           return;
         }
-        this->make_mutable(k, 0);
-        this->make_mutable(k, 1);
-        this->push(k);
+        self->make_mutable(k, 0);
+        self->make_mutable(k, 1);
+        self->push(k);
         const auto km = std::midpoint(kl, kr);
-        if (l < km) dfs(this->m_nodes[k].children[0], kl, km);
-        if (km < r) dfs(this->m_nodes[k].children[1], km, kr);
+        if (l < km) dfs(self->m_nodes[k].children[0], kl, km);
+        if (km < r) dfs(self->m_nodes[k].children[1], km, kr);
         if constexpr (has_data) {
-          this->update(k);
+          self->update(k);
         }
-      })(this->m_root, 0, this->capacity());
+      }(this->m_root, 0, this->capacity());
     }
     long long max_right(long long l, std::predicate<S> auto&& g) requires has_data {
       assert(this->lower_bound() <= l && l <= this->upper_bound());
@@ -244,39 +243,39 @@ namespace tools {
       if constexpr (has_lazy) {
         this->make_mutable();
       }
-      return this->m_offset + std::min(tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
+      return this->m_offset + std::min([&, self = this](this const auto& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (kl < l) {
           assert(kl < l && l < kr);
           if constexpr (has_lazy) {
-            this->make_mutable(k, 0);
-            this->make_mutable(k, 1);
-            this->push(k);
+            self->make_mutable(k, 0);
+            self->make_mutable(k, 1);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           if (l < km) {
-            const auto [hc, hr] = dfs(c, this->m_nodes[k].children[0], kl, km);
+            const auto [hc, hr] = dfs(c, self->m_nodes[k].children[0], kl, km);
             assert(l <= hr && hr <= km);
             if (hr < km) return {hc, hr};
-            return dfs(hc, this->m_nodes[k].children[1], km, kr);
+            return dfs(hc, self->m_nodes[k].children[1], km, kr);
           } else {
-            return dfs(c, this->m_nodes[k].children[1], km, kr);
+            return dfs(c, self->m_nodes[k].children[1], km, kr);
           }
         } else {
-          if (const auto wc = SM::op(c, this->m_nodes[k].data); std::invoke(g, wc)) return {wc, kr};
+          if (const auto wc = SM::op(c, self->m_nodes[k].data); std::invoke(g, wc)) return {wc, kr};
           if (kr - kl == 1) return {c, kl};
           if constexpr (has_lazy) {
-            this->make_mutable(k, 0);
-            this->make_mutable(k, 1);
-            this->push(k);
+            self->make_mutable(k, 0);
+            self->make_mutable(k, 1);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
-          const auto [hc, hr] = dfs(c, this->m_nodes[k].children[0], kl, km);
+          const auto [hc, hr] = dfs(c, self->m_nodes[k].children[0], kl, km);
           assert(l <= hr && hr <= km);
           if (hr < km) return {hc, hr};
-          return dfs(hc, this->m_nodes[k].children[1], km, kr);
+          return dfs(hc, self->m_nodes[k].children[1], km, kr);
         }
-      })(SM::e(), this->m_root, 0, this->capacity()).second, this->m_size);
+      }(SM::e(), this->m_root, 0, this->capacity()).second, this->m_size);
     }
     long long min_left(long long r, std::predicate<S> auto&& g) requires has_data {
       assert(this->lower_bound() <= r && r <= this->upper_bound());
@@ -287,39 +286,39 @@ namespace tools {
       if constexpr (has_lazy) {
         this->make_mutable();
       }
-      return this->m_offset + tools::fix([&](auto&& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
+      return this->m_offset + [&, self = this](this const auto& dfs, const S& c, const int k, const long long kl, const long long kr) -> std::pair<S, long long> {
         assert(kl < kr);
         if (r < kr) {
           assert(kl < r && r < kr);
           if constexpr (has_lazy) {
-            this->make_mutable(k, 0);
-            this->make_mutable(k, 1);
-            this->push(k);
+            self->make_mutable(k, 0);
+            self->make_mutable(k, 1);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
           if (km < r) {
-            const auto [hc, hl] = dfs(c, this->m_nodes[k].children[1], km, kr);
+            const auto [hc, hl] = dfs(c, self->m_nodes[k].children[1], km, kr);
             assert(km <= hl && hl <= r);
             if (km < hl) return {hc, hl};
-            return dfs(hc, this->m_nodes[k].children[0], kl, km);
+            return dfs(hc, self->m_nodes[k].children[0], kl, km);
           } else {
-            return dfs(c, this->m_nodes[k].children[0], kl, km);
+            return dfs(c, self->m_nodes[k].children[0], kl, km);
           }
         } else {
-          if (const auto wc = SM::op(this->m_nodes[k].data, c); std::invoke(g, wc)) return {wc, kl};
+          if (const auto wc = SM::op(self->m_nodes[k].data, c); std::invoke(g, wc)) return {wc, kl};
           if (kr - kl == 1) return {c, kr};
           if constexpr (has_lazy) {
-            this->make_mutable(k, 0);
-            this->make_mutable(k, 1);
-            this->push(k);
+            self->make_mutable(k, 0);
+            self->make_mutable(k, 1);
+            self->push(k);
           }
           const auto km = std::midpoint(kl, kr);
-          const auto [hc, hl] = dfs(c, this->m_nodes[k].children[1], km, kr);
+          const auto [hc, hl] = dfs(c, self->m_nodes[k].children[1], km, kr);
           assert(km <= hl && hl <= r);
           if (km < hl) return {hc, hl};
-          return dfs(hc, this->m_nodes[k].children[0], kl, km);
+          return dfs(hc, self->m_nodes[k].children[0], kl, km);
         }
-      })(SM::e(), this->m_root, 0, this->capacity()).second;
+      }(SM::e(), this->m_root, 0, this->capacity()).second;
     }
   };
 }

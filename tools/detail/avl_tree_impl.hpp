@@ -12,7 +12,6 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-#include "tools/fix.hpp"
 #include "tools/monoid.hpp"
 #include "tools/nop_monoid.hpp"
 
@@ -575,14 +574,14 @@ namespace tools {
 
         void wipe() {
           if (!this->empty()) {
-            tools::fix([&](auto&& dfs, const int id) -> void {
+            [&](this const auto& dfs, const int id) -> void {
               auto& node = get_node(id);
               if (node.size > 1) {
                 dfs(node.l_id);
                 dfs(node.r_id);
               }
               free(id);
-            })(this->m_root_id);
+            }(this->m_root_id);
           }
         }
 
@@ -590,7 +589,7 @@ namespace tools {
         explicit operator std::vector<S>() const {
           std::vector<S> v;
           if (!this->empty()) {
-            tools::fix([&](auto&& dfs, const int id) -> void {
+            [&](this const auto& dfs, const int id) -> void {
               auto& node = get_node(id);
               if constexpr (Reversible || is_lazy) {
                 propagate(id);
@@ -601,7 +600,7 @@ namespace tools {
                 dfs(node.l_id);
                 dfs(node.r_id);
               }
-            })(this->m_root_id);
+            }(this->m_root_id);
           }
           return v;
         }
@@ -610,13 +609,13 @@ namespace tools {
         }
         template <std::ranges::random_access_range R>
         requires std::assignable_from<S&, std::ranges::range_reference_t<R>>
-        explicit avl_tree_impl(R&& v) : m_root_id(std::ranges::empty(v) ? 0 : tools::fix([&](auto&& dfs, const int l, const int r) -> int {
+        explicit avl_tree_impl(R&& v) : m_root_id(std::ranges::empty(v) ? 0 : [&](this const auto& dfs, const int l, const int r) -> int {
           if (r - l == 1) {
             return add_node(std::ranges::begin(v)[l]);
           } else {
             return add_node(dfs(l, (l + r) / 2), dfs((l + r) / 2, r));
           }
-        })(0, std::ranges::distance(v))) {
+        }(0, std::ranges::distance(v))) {
         }
         template <std::ranges::input_range R>
         requires (std::assignable_from<S&, std::ranges::range_reference_t<R>> && !std::ranges::random_access_range<R>)

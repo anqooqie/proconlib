@@ -12,7 +12,6 @@
 #include <utility>
 #include <vector>
 #include "tools/chmin.hpp"
-#include "tools/fix.hpp"
 #include "tools/less_by.hpp"
 
 namespace tools {
@@ -486,9 +485,9 @@ namespace tools {
           if (this->m_ncc_without_vertex[r] < this->m_ncc) {
             groups.emplace_back(std::initializer_list<int>{r});
           } else {
-            tools::fix([&](auto&& dfs, const auto g, const auto v) -> void {
-              for (const auto u : this->vchildren(v)) {
-                if (this->ord(v) <= this->low(u)) {
+            [&, self = this](this const auto& dfs, const auto g, const auto v) -> void {
+              for (const auto u : self->vchildren(v)) {
+                if (self->ord(v) <= self->low(u)) {
                   groups.emplace_back(std::initializer_list<int>{v, u});
                   dfs(groups.size() - 1, u);
                 } else {
@@ -496,7 +495,7 @@ namespace tools {
                   dfs(g, u);
                 }
               }
-            })(-1, r);
+            }(-1, r);
           }
         }
       }
