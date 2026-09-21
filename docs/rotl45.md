@@ -27,7 +27,7 @@ A =  1 2 3            tools::rotl45(A, 0) =  0 0 3 0
 ## (1)
 ```cpp
 template <typename T, std::size_t N, std::size_t M>
-std::array<std::array<T, N + M - 1>, N + M - 1> rotl45(const std::array<std::array<T, M>, N>& A, const T& default_value);
+std::array<std::array<T, N + M - 1>, N + M - 1> rotl45(const std::array<std::array<T, M>, N>& A, std::type_identity_t<T> default_value);
 ```
 
 ### Constraints
@@ -39,7 +39,7 @@ std::array<std::array<T, N + M - 1>, N + M - 1> rotl45(const std::array<std::arr
 ## (2)
 ```cpp
 template <typename T>
-std::vector<std::vector<T>> rotl45(const std::vector<std::vector<T>>& A, const T& default_value);
+std::vector<std::vector<T>> rotl45(const std::vector<std::vector<T>>& A, std::type_identity_t<T> default_value);
 ```
 
 ### Constraints

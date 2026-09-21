@@ -7,11 +7,12 @@
 #include <cstddef>
 #include <iterator>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace tools {
   template <typename T, std::size_t N, std::size_t M>
-  std::array<std::array<T, N + M - 1>, N + M - 1> rotl45(const std::array<std::array<T, M>, N>& matrix, const T& default_value) {
+  std::array<std::array<T, N + M - 1>, N + M - 1> rotl45(const std::array<std::array<T, M>, N>& matrix, const std::type_identity_t<T> default_value) {
     static_assert(N >= 1);
     static_assert(M >= 1);
 
@@ -28,7 +29,7 @@ namespace tools {
   }
 
   template <typename T>
-  std::vector<std::vector<T>> rotl45(const std::vector<std::vector<T>>& matrix, const T& default_value) {
+  std::vector<std::vector<T>> rotl45(const std::vector<std::vector<T>>& matrix, const std::type_identity_t<T> default_value) {
     const int N = matrix.size();
     assert(N >= 1);
     const int M = matrix.front().size();
